@@ -441,13 +441,35 @@ struct FlightDetail {
     var icc: Int = 0
     var originWeather: Weather?
     var destinationWeather: Weather?
-    var layoverTime: String = ""
+    var layoverTime: Double = 0.0
     var changeOfPlane: Int = 0
     var bookingClass: String = ""
     var fbn: String = ""
+    var amenities: [ATAmenity] = []
     
     var numberOfCell: Int {
-        return 2
+        var temp: Int = 2
+        
+        if !amenities.isEmpty {
+            temp += 1
+        }
+        
+        if layoverTime > 0 {
+            temp += 1
+        }
+        return temp
+    }
+    
+    let numberOfAmenitiesInRow: Double = 4.0
+    var totalRowsForAmenities: Int {
+        let cont: Double = Double(self.amenities.count)
+        let val = Double(cont/numberOfAmenitiesInRow)
+        let diff = val - floor(val)
+        var total = Int(floor(val))
+        if diff > 0.0 && diff < 1.0 {
+            total += 1
+        }
+        return total
     }
     
     init() {
@@ -573,7 +595,7 @@ struct FlightDetail {
         }
         
         if let obj = json["layover_time"] {
-            self.layoverTime = "\(obj)"
+            self.layoverTime = "\(obj)".toDouble ?? 0.0
         }
         
         if let obj = json["change_of_plane"] {
@@ -587,6 +609,9 @@ struct FlightDetail {
         if let obj = json["fbn"] {
             self.fbn = "\(obj)"
         }
+        
+        //TODO: parse the real data for amenities
+        self.amenities = [ATAmenity.Wifi, ATAmenity.Gym, ATAmenity.Internet, ATAmenity.Pool, ATAmenity.RoomService]
     }
     
     static func getModels(json: [JSONDictionary]) -> [FlightDetail] {
@@ -856,10 +881,69 @@ struct Pax {
     var amountPaid: Double = 0.0
     var cancellationCharge: String = ""
     var rescheduleCharge: String = ""
-    var addOns: [String] = [] // TODO: Need to confirm this with yash as always coming in array
     var ticket: String = ""
     var pnr: String = ""
     var inProcess: Bool = false
+    
+    var addOns: JSONDictionary = [:] // TODO: Need to confirm this with yash as always coming in array
+    var seat: String {
+        if let obj = addOns["seat"] as? String, !obj.isEmpty {
+            return obj
+        }
+        return LocalizedString.na.localized
+    }
+    
+    var meal: String {
+        if let obj = addOns["meal"] as? String, !obj.isEmpty {
+            return obj
+        }
+        return LocalizedString.na.localized
+    }
+    
+    var baggage: String {
+        if let obj = addOns["baggage"] as? String, !obj.isEmpty {
+            return obj
+        }
+        return LocalizedString.na.localized
+    }
+    
+    var others: String {
+        return LocalizedString.na.localized
+    }
+    
+    var fullName: String {
+        return "\(salutation) \(paxName)"
+    }
+    
+    var detailsToShow: JSONDictionary {
+        var temp = JSONDictionary()
+        
+        temp["0PNR"] = pnr
+        temp["1Ticket Number"] = ticket
+        temp["2Seat"] = seat
+        temp["3Meal"] = meal
+        temp["4Baggage"] = baggage
+        temp["5Others"] = others
+        
+        return temp
+    }
+    
+    var salutationImage: UIImage {
+        switch salutation {
+        case "Mrs":
+            return #imageLiteral(resourceName: "woman")
+        case "Mr":
+            return #imageLiteral(resourceName: "man")
+        case "Mast":
+            return #imageLiteral(resourceName: "man")
+        case "Miss":
+            return #imageLiteral(resourceName: "girl")
+        case "Ms":
+            return #imageLiteral(resourceName: "woman")
+        default:
+            return #imageLiteral(resourceName: "person")
+        }
+    }
     
     init() {
         self.init(json: [:])
@@ -902,12 +986,14 @@ struct Pax {
         }
         if let obj = json["ticket"] {
             self.ticket = "\(obj)"
+            self.ticket = self.ticket.isEmpty ? LocalizedString.na.localized : self.ticket
         }
         if let obj = json["pnr"] {
             self.pnr = "\(obj)"
+            self.pnr = self.pnr.isEmpty ? LocalizedString.na.localized : self.pnr
         }
-        if let obj = json["addons"] as? [String] {
-            self.addOns = obj
+        if let obj = json["addons"] as? JSONDictionary, let addon = obj["addon"] as? JSONDictionary {
+            self.addOns = addon
         }
         
         if let obj = json["in_process"] as? Bool {

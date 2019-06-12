@@ -61,7 +61,7 @@ extension BookingTravellerTableViewCell: UICollectionViewDataSource,UICollection
         guard let travellerCollectionCell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "BookingTravellerCollectionViewCell", for: indexPath) as? BookingTravellerCollectionViewCell else {
             fatalError("BookingTravellerCollectionViewCell not found")
         }
-        travellerCollectionCell.configureCell()
+        travellerCollectionCell.paxData = nil //TODO:- pass the original data
         return travellerCollectionCell
     }
     

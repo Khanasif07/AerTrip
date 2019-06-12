@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7UI-Ew-m59">
-                                <rect key="frame" x="16" y="8" width="359" height="21"/>
+                                <rect key="frame" x="16" y="8" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -40,7 +40,7 @@
                             <constraint firstItem="huw-DE-DQ2" firstAttribute="top" secondItem="7UI-Ew-m59" secondAttribute="bottom" id="7If-KE-G6m"/>
                             <constraint firstItem="7UI-Ew-m59" firstAttribute="leading" secondItem="fPD-Rh-2pf" secondAttribute="leading" constant="16" id="AqA-vT-bdB"/>
                             <constraint firstAttribute="bottom" secondItem="huw-DE-DQ2" secondAttribute="bottom" constant="9" id="F29-xb-wy2"/>
-                            <constraint firstAttribute="trailing" secondItem="7UI-Ew-m59" secondAttribute="trailing" id="K01-IS-NKs"/>
+                            <constraint firstAttribute="trailing" secondItem="7UI-Ew-m59" secondAttribute="trailing" constant="16" id="K01-IS-NKs"/>
                             <constraint firstItem="huw-DE-DQ2" firstAttribute="leading" secondItem="fPD-Rh-2pf" secondAttribute="leading" constant="16" id="NSO-GR-ZUf"/>
                             <constraint firstItem="7UI-Ew-m59" firstAttribute="top" secondItem="fPD-Rh-2pf" secondAttribute="top" constant="8" id="VPa-Zm-DVU"/>
                             <constraint firstAttribute="trailing" secondItem="huw-DE-DQ2" secondAttribute="trailing" constant="16" id="W3Q-hM-gVs"/>
@@ -56,6 +56,7 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>
+                <outlet property="mainView" destination="fPD-Rh-2pf" id="hv5-Xe-Fyf"/>
                 <outlet property="titleLabel" destination="7UI-Ew-m59" id="QTU-uD-OWZ"/>
                 <outlet property="titleValueLabel" destination="huw-DE-DQ2" id="XhE-3o-5zV"/>
             </connections>

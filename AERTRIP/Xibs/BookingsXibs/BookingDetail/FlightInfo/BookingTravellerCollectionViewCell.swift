@@ -12,18 +12,28 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
     
     // MARK: -  IBOutlet
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var travellerNameLabel:UILabel!
-     @IBOutlet weak var selectedView:UIView!
+    @IBOutlet weak var travellerNameLabel: UILabel!
+    @IBOutlet weak var bottomSlideView: UIView!
     
-
+    var paxData: Pax? {
+        didSet {
+            self.configureCell()
+        }
+    }
+    
+    var isPaxSelected: Bool = false {
+        didSet {
+            self.updateSelection()
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
       
         self.setUpTextColor()
         self.setUpFont()
         self.doInitialSetup()
-        
-        
+        self.profileImageView.cornerRadius = self.profileImageView.height / 2.0
     }
     
     private func doInitialSetup() {
@@ -33,16 +43,20 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
     
     private func setUpFont() {
         self.travellerNameLabel.font = AppFonts.Regular.withSize(14.0)
-        
     }
     
     private func setUpTextColor() {
         self.travellerNameLabel.textColor = AppColors.themeBlack
+        self.bottomSlideView.backgroundColor = AppColors.themeGreen
     }
     
-    func configureCell() {
-        self.travellerNameLabel.text = "Charles"
-        self.profileImageView.image = #imageLiteral(resourceName: "boy")
+    private func updateSelection() {
+        self.bottomSlideView.isHidden = !self.isPaxSelected
+    }
+    
+    private func configureCell() {
+        self.travellerNameLabel.text = self.paxData?.fullName ?? ""
+        self.profileImageView.image = self.paxData?.salutationImage ?? #imageLiteral(resourceName: "boy")
     }
 
 }

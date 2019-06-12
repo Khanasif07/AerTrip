@@ -14,7 +14,13 @@ class AmentityTableViewCell: UITableViewCell {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    
+    var flightDetail: FlightDetail? {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
+
+    private let numberOfItemInRow: Double = 4.0
     
     // MARK: - View Lifecycle
     
@@ -30,14 +36,14 @@ class AmentityTableViewCell: UITableViewCell {
     
     
     func doInitialSetup() {
+        self.collectionView.isScrollEnabled = false
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
     }
+    
     private func registerXib()  {
         self.collectionView.registerCell(nibName: BookingAmenityCollectionViewCell.reusableIdentifier)
-        
     }
-    
 }
 
 
@@ -45,7 +51,7 @@ class AmentityTableViewCell: UITableViewCell {
 
 extension AmentityTableViewCell : UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return self.flightDetail?.amenities.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -54,14 +60,18 @@ extension AmentityTableViewCell : UICollectionViewDataSource,UICollectionViewDel
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return  CGSize(width: collectionView.frame.width / 4, height: 58.0 )
+        let newW: CGFloat = collectionView.width / CGFloat(numberOfItemInRow) - 10.0
+        let newH: CGFloat = collectionView.height / CGFloat(self.flightDetail?.totalRowsForAmenities ?? 1)
+        return  CGSize(width: newW, height: newH)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "BookingAmenityCollectionViewCell", for: indexPath) as? BookingAmenityCollectionViewCell else {
             fatalError("BookingAmenityCollectionViewCell not found ")
         }
-        cell.configureCell()
+        
+        cell.amenity = self.flightDetail?.amenities[indexPath.item]
+        
         return cell
     }
     

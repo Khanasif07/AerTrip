@@ -11,29 +11,35 @@ import UIKit
 class NightStateTableViewCell: UITableViewCell {
     
     // MARK: - IBOutlet
- 
     @IBOutlet weak var imageview: UIImageView!
-    
     @IBOutlet weak var titleLabel: UILabel!
-    
     @IBOutlet weak var topBackgroundView: UIView!
+    
+    
+    var flightDetail: FlightDetail? {
+        didSet {
+            self.configureCell()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
        
         self.titleLabel.font = AppFonts.Regular.withSize(14.0)
         self.titleLabel.textColor = AppColors.themeBlack
+        self.titleLabel.backgroundColor = AppColors.clear
         self.topBackgroundView.layer.cornerRadius = 12.0
         self.topBackgroundView.layer.borderWidth = 0.2
          self.topBackgroundView.layer.borderColor = AppColors.themeGray20.cgColor
         self.topBackgroundView.backgroundColor = AppColors.themeGray04
     }
     
-    func configureCell(image:UIImage,status: String,time: String) {
-        self.imageview.image = image
-        self.titleLabel.attributedText = self.getAttributedBoldText(text: status, boldText: time)
+    private func configureCell() {
+        self.imageview.image = #imageLiteral(resourceName: "overnightIcon")
+        let timeStr = self.flightDetail?.layoverTime.asString(units: [.hour, .minute], style: .abbreviated) ?? LocalizedString.na.localized
+        let finalText = "Overnight Layover in \(flightDetail?.arrivalCity ?? "--") \(timeStr)"
+        self.titleLabel.attributedText = self.getAttributedBoldText(text: finalText, boldText: timeStr)
     }
-    
     
     // MARK: - Helper methods
     
@@ -48,6 +54,4 @@ class NightStateTableViewCell: UITableViewCell {
         return attString
     }
 
-    
-    
 }
