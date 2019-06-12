@@ -43,37 +43,37 @@ struct BookingDetailModel {
     
     init(json: JSONDictionary) {
         if let obj = json["id"] {
-            self.id = "\(obj)"
+            self.id = "\(obj)".removeNull
         }
         if let obj = json["booking_number"] {
-            self.bookingNumber = "\(obj)"
+            self.bookingNumber = "\(obj)".removeNull
         }
         if let obj = json["booking_date"] {
-            self.bookingDate = "\(obj)"
+            self.bookingDate = "\(obj)".removeNull
         }
         
         if let obj = json["communication_number"] {
-            self.communicationNumber = "\(obj)"
+            self.communicationNumber = "\(obj)".removeNull
         }
         
         if let obj = json["depart"] {
-            self.depart = "\(obj)"
+            self.depart = "\(obj)".removeNull
         }
         
         if let obj = json["product"] {
-            self.product = "\(obj)"
+            self.product = "\(obj)".removeNull
         }
         
         if let obj = json["category"] {
-            self.category = "\(obj)"
+            self.category = "\(obj)".removeNull
         }
         
         if let obj = json["trip_type"] {
-            self.tripType = "\(obj)"
+            self.tripType = "\(obj)".removeNull
         }
         
         if let obj = json["special_fares"] {
-            self.specialFare = "\(obj)"
+            self.specialFare = "\(obj)".removeNull
         }
         
         if let obj = json["bdetails"] as? JSONDictionary {
@@ -110,17 +110,17 @@ extension BookingDetailModel {
         }
         
         func getNormalString(forArr: [String]) -> String {
-            guard !forArr.isEmpty else { return "--" }
+            guard !forArr.isEmpty else { return LocalizedString.dash.localized }
             return forArr.joined(separator: " → ")
         }
         
         func getReturnString(forArr: [String]) -> String {
-            guard forArr.count >= 2 else { return "--" }
+            guard forArr.count >= 2 else { return LocalizedString.dash.localized }
             return "\(forArr[0]) ⇋ \(forArr[1])"
         }
         
         guard let tripCts = self.bookingDetail?.tripCities else {
-            return NSMutableAttributedString(string: "--")
+            return NSMutableAttributedString(string: LocalizedString.dash.localized)
         }
         
         if self.tripType.lowercased() == "single" {
@@ -176,7 +176,7 @@ extension BookingDetailModel {
                     return attributedStr1
                 }
             }
-            return NSMutableAttributedString(string: "--")
+            return NSMutableAttributedString(string: LocalizedString.dash.localized)
         }
     }
 }
@@ -248,15 +248,15 @@ struct BookingDetail {
         
         // Initialising  for hotel
         if let obj = json["booking_hotel_id"] {
-            self.bookingHotelId = "\(obj)"
+            self.bookingHotelId = "\(obj)".removeNull
         }
         
         if let obj = json["hotel_address"] {
-            self.hotelAddress = "\(obj)"
+            self.hotelAddress = "\(obj)".removeNull
         }
         
         if let obj = json["country"] {
-            self.country = "\(obj)"
+            self.country = "\(obj)".removeNull
         }
         
         if let obj = json["is_refundable"] {
@@ -272,63 +272,63 @@ struct BookingDetail {
         // TODO: For Cancellation
         
         if let obj = json["latitude"] {
-            self.latitude = "\(obj)"
+            self.latitude = "\(obj)".removeNull
         }
         
         if let obj = json["longitude"] {
-            self.longitude = "\(obj)"
+            self.longitude = "\(obj)".removeNull
         }
         
         if let obj = json["hotel_phone"] {
-            self.hotelPhone = "\(obj)"
+            self.hotelPhone = "\(obj)".removeNull
         }
         
         if let obj = json["hotel_emai"] {
-            self.hotelEmail = "\(obj)"
+            self.hotelEmail = "\(obj)".removeNull
         }
         
         if let obj = json["city"] {
-            self.city = "\(obj)"
+            self.city = "\(obj)".removeNull
         }
         if let obj = json["hotel_img"] {
-            self.hotelImage = "\(obj)"
+            self.hotelImage = "\(obj)".removeNull
         }
         if let obj = json["hotel_star_rating"] {
-            self.hotelStarRating = "\(obj)"
+            self.hotelStarRating = "\(obj)".removeNull
         }
         if let obj = json["ta_rating"] {
-            self.taRating = "\(obj)"
+            self.taRating = "\(obj)".removeNull
         }
         
         if let obj = json["ta_review_count"] {
-            self.taReviewCount = "\(obj)"
+            self.taReviewCount = "\(obj)".removeNull
         }
         if let obj = json["hotel_id"] {
-            self.hotelId = "\(obj)"
+            self.hotelId = "\(obj)".removeNull
         }
         if let obj = json["nights"] {
             self.nights = "\(obj)".toInt ?? 0
         }
         if let obj = json["check_in"] {
-            self.checkIn = "\(obj)"
+            self.checkIn = "\(obj)".removeNull
         }
         
         if let obj = json["check_out"] {
-            self.checkOut = "\(obj)"
+            self.checkOut = "\(obj)".removeNull
         }
         
         // Product key other
         
         if let obj = json["title"] {
-            self.title = "\(obj)"
+            self.title = "\(obj)".removeNull
         }
         
         if let obj = json["details"] {
-            self.details = "\(obj)"
+            self.details = "\(obj)".removeNull
         }
         
         if let obj = json["booking_date"] {
-            self.bookingDate = "\(obj)"
+            self.bookingDate = "\(obj)".removeNull
         }
         
         self.travellers = Traveller.retunsTravellerArray(jsonArr: json["travellers"] as? [JSONDictionary] ?? [])
@@ -362,29 +362,29 @@ struct Leg {
     
     init(json: JSONDictionary) {
         if let obj = json["leg_id"] {
-            self.legId = "\(obj)"
+            self.legId = "\(obj)".removeNull
         }
         
         if let obj = json["origin"] {
-            self.origin = "\(obj)"
+            self.origin = "\(obj)".removeNull
         }
         if let obj = json["destination"] {
-            self.destination = "\(obj)"
+            self.destination = "\(obj)".removeNull
         }
         if let obj = json["ttl"] {
-            self.title = "\(obj)"
+            self.title = "\(obj)".removeNull
         }
         if let obj = json["stops"] {
-            self.stops = "\(obj)"
+            self.stops = "\(obj)".removeNull
         }
         if let obj = json["refundable"] {
-            self.refundable = "\(obj)"
+            self.refundable = "\(obj)".removeNull
         }
         if let obj = json["reschedulable"] {
-            self.reschedulable = "\(obj)"
+            self.reschedulable = "\(obj)".removeNull
         }
         if let obj = json["fare_name"] {
-            self.fareName = "\(obj)"
+            self.fareName = "\(obj)".removeNull
         }
         
         // other parsing
@@ -442,11 +442,36 @@ struct FlightDetail {
     var fbn: String = ""
     var amenities: [ATAmenity] = []
     
-    var numberOfCell: Int {
+    var numberOfCellFlightInfo: Int {
         var temp: Int = 2
         
         if !amenities.isEmpty {
             temp += 1
+        }
+        
+        if layoverTime > 0 {
+            temp += 1
+        }
+        return temp
+    }
+    
+    var numberOfCellBaggage: Int {
+        var temp: Int = 1
+        
+        if let bg = self.baggage?.cabinBg {
+            temp += 1
+            
+            if let _ = bg.adult {
+                temp += 1
+            }
+            
+            if let _ = bg.child {
+                temp += 1
+            }
+            
+            if let _ = bg.infant {
+                temp += 1
+            }
         }
         
         if layoverTime > 0 {
@@ -473,59 +498,59 @@ struct FlightDetail {
     
     init(json: JSONDictionary) {
         if let obj = json["flight_id"] {
-            self.flightId = "\(obj)"
+            self.flightId = "\(obj)".removeNull
         }
         
         if let obj = json["departure"] {
-            self.departure = "\(obj)"
+            self.departure = "\(obj)".removeNull
         }
         
         if let obj = json["departure_airport"] {
-            self.departureAirport = "\(obj)"
+            self.departureAirport = "\(obj)".removeNull
         }
         
         if let obj = json["departure_terminal"] {
-            self.departureTerminal = "\(obj)"
+            self.departureTerminal = "\(obj)".removeNull
         }
         
         if let obj = json["departure_country"] {
-            self.departureCountry = "\(obj)"
+            self.departureCountry = "\(obj)".removeNull
         }
         
         if let obj = json["departure_country_code"] {
-            self.departureCountryCode = "\(obj)"
+            self.departureCountryCode = "\(obj)".removeNull
         }
         
         if let obj = json["depart_city"] {
-            self.departCity = "\(obj)"
+            self.departCity = "\(obj)".removeNull
         }
         
         if let obj = json["depart_date"] {
-            self.departDate = "\(obj)"
+            self.departDate = "\(obj)".removeNull
         }
         
         if let obj = json["departure_time"] {
-            self.departureTime = "\(obj)"
+            self.departureTime = "\(obj)".removeNull
         }
         
         if let obj = json["arrival"] {
-            self.arrival = "\(obj)"
+            self.arrival = "\(obj)".removeNull
         }
         
         if let obj = json["arrival_airport"] {
-            self.arrivalAirport = "\(obj)"
+            self.arrivalAirport = "\(obj)".removeNull
         }
         
         if let obj = json["arrival_terminal"] {
-            self.arrivalTerminal = "\(obj)"
+            self.arrivalTerminal = "\(obj)".removeNull
         }
         
         if let obj = json["arrival_country"] {
-            self.arrivalCountry = "\(obj)"
+            self.arrivalCountry = "\(obj)".removeNull
         }
         
         if let obj = json["arrival_city"] {
-            self.arrivalCity = "\(obj)"
+            self.arrivalCity = "\(obj)".removeNull
         }
         
         if let obj = json["arrival_country_code"] {
@@ -533,45 +558,45 @@ struct FlightDetail {
         }
         
         if let obj = json["arrival_date"] {
-            self.arrivalDate = "\(obj)"
+            self.arrivalDate = "\(obj)".removeNull
         }
         if let obj = json["arrival_time"] {
-            self.arrivalTime = "\(obj)"
+            self.arrivalTime = "\(obj)".removeNull
         }
         if let obj = json["flight_time"] {
             self.flightTime = "\(obj)".toDouble ?? 0.0
         }
         if let obj = json["carrier"] {
-            self.carrier = "\(obj)"
+            self.carrier = "\(obj)".removeNull
         }
         if let obj = json["carrier_code"] {
-            self.carrierCode = "\(obj)"
+            self.carrierCode = "\(obj)".removeNull
         }
         if let obj = json["flight_number"] {
-            self.flightNumber = "\(obj)"
+            self.flightNumber = "\(obj)".removeNull
         }
         if let obj = json["equipment"] {
-            self.equipment = "\(obj)"
+            self.equipment = "\(obj)".removeNull
         }
         if let obj = json["equipment_description"] {
-            self.equipmentDescription = "\(obj)"
+            self.equipmentDescription = "\(obj)".removeNull
         }
         
         if let obj = json["equipment_description_2"] {
-            self.equipmentDescription2 = "\(obj)"
+            self.equipmentDescription2 = "\(obj)".removeNull
         }
         
         if let obj = json["equipment_layout"] {
-            self.equipmentLayout = "\(obj)"
+            self.equipmentLayout = "\(obj)".removeNull
         }
         if let obj = json["qualiy"] {
-            self.quality = "\(obj)"
+            self.quality = "\(obj)".removeNull
         }
         if let obj = json["cabin_class"] {
-            self.cabinClass = "\(obj)"
+            self.cabinClass = "\(obj)".removeNull
         }
         if let obj = json["operated_by"] {
-            self.operatedBy = "\(obj)"
+            self.operatedBy = "\(obj)".removeNull
         }
         
         if let obj = json["icc"] {
@@ -598,11 +623,16 @@ struct FlightDetail {
         }
         
         if let obj = json["booking_class"] {
-            self.bookingClass = "\(obj)"
+            self.bookingClass = "\(obj)".removeNull
         }
         
         if let obj = json["fbn"] {
-            self.fbn = "\(obj)"
+            self.fbn = "\(obj)".removeNull
+        }
+        
+        //baggage
+        if let obj = json["baggage"] as? JSONDictionary {
+            self.baggage = Baggage(json: obj)
         }
         
         //TODO: parse the real data for amenities
@@ -634,8 +664,8 @@ struct FlightDetail {
 }
 
 struct Baggage {
-    var bg: Bg?
-    var cbg: Cbg?
+    var checkInBg: CheckInBg?
+    var cabinBg: CabinBg?
     
     init() {
         self.init(json: [:])
@@ -643,18 +673,20 @@ struct Baggage {
     
     init(json: JSONDictionary) {
         if let obj = json["bg"] as? JSONDictionary {
-            self.bg = Bg(json: obj)
+            self.checkInBg = CheckInBg(json: obj)
         }
         
         if let obj = json["cbg"] as? JSONDictionary {
-            self.cbg = Cbg(json: obj)
+            self.cabinBg = CabinBg(json: obj)
         }
     }
 }
 
 // Structure for baggage
-struct Bg {
-    var adt: String = ""
+struct CheckInBg {
+    var infant: String?
+    var child: String?
+    var adult: String?
     var notes: String = ""
     
     init() {
@@ -662,21 +694,30 @@ struct Bg {
     }
     
     init(json: JSONDictionary) {
-        if let obj = json["adt"] {
-            self.adt = "\(obj)"
+        if let obj = json["ADT"] {
+            self.adult = "\(obj)".removeNull
+        }
+        
+        if let obj = json["CHD"] {
+            self.child = "\(obj)".removeNull
+        }
+        
+        if let obj = json["INF"] {
+            self.infant = "\(obj)".removeNull
         }
         
         if let obj = json["notes"] {
-            self.notes = "\(obj)"
+            self.notes = "\(obj)".removeNull
         }
     }
 }
 
 // Structure for Cbg
 
-struct Cbg {
-    var adt: ADT?
-    var dimension: Dimension?
+struct CabinBg {
+    var infant: CabinBgInfo?
+    var child: CabinBgInfo?
+    var adult: CabinBgInfo?
     
     init() {
         self.init(json: [:])
@@ -684,16 +725,20 @@ struct Cbg {
     
     init(json: JSONDictionary) {
         if let obj = json["ADT"] as? JSONDictionary {
-            self.adt = ADT(json: obj)
+            self.adult = CabinBgInfo(json: obj)
         }
         
-        if let obj = json["dimension"] as? JSONDictionary {
-            self.dimension = Dimension(json: obj)
+        if let obj = json["CHD"] as? JSONDictionary {
+            self.child = CabinBgInfo(json: obj)
+        }
+        
+        if let obj = json["INF"] as? JSONDictionary {
+            self.infant = CabinBgInfo(json: obj)
         }
     }
 }
 
-struct ADT {
+struct CabinBgInfo {
     var weight: String = ""
     var piece: String = "" // Now its coming as null, what does this mean
     var dimension: Dimension?
@@ -704,11 +749,12 @@ struct ADT {
     
     init(json: JSONDictionary) {
         if let obj = json["weight"] {
-            self.weight = "\(obj)"
+            self.weight = "\(obj)".removeNull
         }
         
         if let obj = json["piece"] {
-            self.piece = "\(obj)"
+            self.piece = "\(obj)".removeNull
+            self.piece = self.piece.isEmpty ? "1" : self.piece
         }
         
         if let obj = json["dimension"] as? JSONDictionary {
@@ -718,7 +764,7 @@ struct ADT {
 }
 
 struct Dimension {
-    var cm: Cm?
+    var cm: CM?
     
     init() {
         self.init(json: [:])
@@ -726,15 +772,15 @@ struct Dimension {
     
     init(json: JSONDictionary) {
         if let obj = json["cm"] as? JSONDictionary {
-            self.cm = Cm(json: obj)
+            self.cm = CM(json: obj)
         }
     }
 }
 
-struct Cm {
-    var width: String = ""
-    var height: String = ""
-    var depth: String = ""
+struct CM {
+    var width: Int = 0
+    var height: Int = 0
+    var depth: Int = 0
     
     init() {
         self.init(json: [:])
@@ -742,14 +788,14 @@ struct Cm {
     
     init(json: JSONDictionary) {
         if let obj = json["width"] {
-            self.width = "\(obj)"
+            self.width = "\(obj)".toInt ?? 0
         }
         
         if let obj = json["height"] {
-            self.height = "\(obj)"
+            self.height = "\(obj)".toInt ?? 0
         }
         if let obj = json["depth"] {
-            self.depth = "\(obj)"
+            self.depth = "\(obj)".toInt ?? 0
         }
     }
 }

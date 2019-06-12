@@ -14,10 +14,8 @@ extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         switch self.bookingDetailType {
-        case .flightInfo:
+        case .flightInfo, .baggage:
             return self.viewModel.bookingDetail?.bookingDetail?.leg.count ?? 0
-        case .baggage:
-            return 2
         case .fareInfo:
             return 1
         }
@@ -38,7 +36,7 @@ extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         switch self.bookingDetailType {
-        case .flightInfo:
+        case .flightInfo, .baggage:
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.headerViewIdentifier) as? BookingInfoHeaderView else { return nil }
             
             var title = ""
@@ -47,10 +45,7 @@ extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
             }
             headerView.tripRougteLabel.text = title
             return headerView
-        case .baggage:
-            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.headerViewIdentifier) as? BookingInfoHeaderView else { return nil }
-            headerView.tripRougteLabel.text = "DEL" + LocalizedString.ForwardArrow.localized + "BEL"
-            return headerView
+            
         case .fareInfo:
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.fareInfoHeaderViewIdentifier) as? FareInfoHeaderView else { return nil }
             headerView.titleLabel.text = "Economy Saver (SS50322)"
@@ -78,17 +73,18 @@ extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
         case .flightInfo:
             
             if let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[section] {
-                let detailsC = leg.flight.reduce(into: 0) { $0 += $1.numberOfCell}
+                let detailsC = leg.flight.reduce(into: 0) { $0 += $1.numberOfCellFlightInfo}
                 return leg.pax.isEmpty ? detailsC : (detailsC + 1)
             }
             return 0
             
         case .baggage:
-            if section == 0 {
-                return 11
-            } else {
-                return 4
+            if let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[section] {
+                let detailsC = leg.flight.reduce(into: 0) { $0 += $1.numberOfCellBaggage}
+                return detailsC
             }
+            return 0
+            
         case .fareInfo:
             return 15
         }
@@ -99,11 +95,7 @@ extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
         case .flightInfo:
             return getHeightForFlightInfo(indexPath)
         case .baggage:
-            if indexPath.section == 0 {
-                return self.getHeightForBaggageInfoRowFirstSection(indexPath)
-            } else {
-                return self.getHeightForBaggageInfoRowSecondSection(indexPath)
-            }
+            return getHeightForBaggageInfo(indexPath)
         case .fareInfo:
             return UITableView.automaticDimension
         }
@@ -128,10 +120,24 @@ extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
 extension BookingFlightDetailVC : BaggageAirlineInfoTableViewCellDelegate {
     func dimensionButtonTapped(_ dimensionButton: UIButton) {
             printDebug("Dimension Button Tapped ")
-        AppFlowManager.default.presentBaggageInfoVC()
+        var detail: CabinBgInfo?
+        if let cell = self.tableView.cell(forItem: dimensionButton) as? BaggageAirlineInfoTableViewCell {
+            
+            if let obj = cell.flightDetail?.baggage?.cabinBg?.infant {
+                detail = obj
+            }
+            if let obj = cell.flightDetail?.baggage?.cabinBg?.child {
+                detail = obj
+            }
+            if let obj = cell.flightDetail?.baggage?.cabinBg?.adult {
+                detail = obj
+            }
+        }
         
+        if let obj = detail?.dimension {
+            AppFlowManager.default.presentBaggageInfoVC(dimension: obj)
+        }
     }
-
 }
 
 // Route Fare info table View cell Delegate methods

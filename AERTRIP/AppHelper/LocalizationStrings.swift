@@ -21,6 +21,7 @@ enum LocalizedString: String {
     case ParsingError = "ParsingError"
     case error = "error"
     case na = "na"
+    case dash
     case noData = "noData"
     case search = "search"
     case noResults = "No Results"
@@ -844,4 +845,12 @@ enum LocalizedString: String {
     case SpecialRequestHasBeenSent = "SpecialRequestHasBeenSent"
     case WriteAboutYourSpecialRequest = "WriteAboutYourSpecialRequest"
     case RequestType = "RequestType"
+    
+    case DownloadBlankDepositSlip
+    case ChequeShouldDepositedInAccount
+    case ACNumber
+    case ACName
+    case BankBranch
+    case IFSCCode
+    case AccountType
  }
