@@ -57,11 +57,9 @@ class OtherBookingsDetailsVC: BaseVC {
         self.viewModel.getDocumentDownloadingData()
         self.statusBarStyle = .default
         self.topNavBarHeightConstraint.constant = self.navBarHeight
-        self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isDivider: false)
+        self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
-        self.topNavBar.backgroundColor = .clear
-        // self.configureTableHeaderView()
         self.setupParallaxHeader()
         self.registerNibs()
     }

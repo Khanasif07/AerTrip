@@ -217,7 +217,13 @@ extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
     }
     
     func getBookingDetailSucces() {
-          AppGlobals.shared.stopLoading()
+        AppGlobals.shared.stopLoading()
+        self.configureTableHeaderView()
+        self.bookingDetailsTableView.delegate = self
+        self.bookingDetailsTableView.dataSource = self
+        self.viewModel.getSectionDataForFlightProductType()
+        self.bookingDetailsTableView.reloadData()
+      
     }
     
     func getBookingDetailFaiure() {

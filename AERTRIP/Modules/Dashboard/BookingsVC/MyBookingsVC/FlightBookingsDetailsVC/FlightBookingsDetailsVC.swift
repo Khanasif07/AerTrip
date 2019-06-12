@@ -46,19 +46,17 @@ class FlightBookingsDetailsVC: BaseVC {
     }
     
     override func initialSetup() {
-        //self.viewModel.getSectionData()
         self.statusBarStyle = .default
         self.topNavBarHeightConstraint.constant = self.navBarHeight
-        self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isDivider: false)
+        self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
-        self.configureTableHeaderView()
+        self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
         self.setupParallaxHeader()
         self.registerNibs()
-        self.bookingDetailsTableView.delegate = self
-        self.bookingDetailsTableView.dataSource = self
         
-        // Call to get booking detail
+        
+        // Api Call to get booking detail
         self.viewModel.getBookingDetail(id:self.viewModel.bookingId)
     }
     
@@ -83,8 +81,7 @@ class FlightBookingsDetailsVC: BaseVC {
     // MARK: -
     
     /// ConfigureCheckInOutView
-    private func configureTableHeaderView() {
-        self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
+     func configureTableHeaderView() {
         if let view = self.headerView {
             view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: "B/16-17/", bookingIdNumbers: "6859403", date: "4 Mar’17", isDividerView: false)
         }
