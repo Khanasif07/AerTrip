@@ -13,10 +13,17 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
     // MARK: -  IBOutlet
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var travellerNameLabel: UILabel!
+    @IBOutlet weak var bottomSlideView: UIView!
     
     var paxData: Pax? {
         didSet {
             self.configureCell()
+        }
+    }
+    
+    var isPaxSelected: Bool = false {
+        didSet {
+            self.updateSelection()
         }
     }
     
@@ -40,6 +47,11 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
     
     private func setUpTextColor() {
         self.travellerNameLabel.textColor = AppColors.themeBlack
+        self.bottomSlideView.backgroundColor = AppColors.themeGreen
+    }
+    
+    private func updateSelection() {
+        self.bottomSlideView.isHidden = !self.isPaxSelected
     }
     
     private func configureCell() {

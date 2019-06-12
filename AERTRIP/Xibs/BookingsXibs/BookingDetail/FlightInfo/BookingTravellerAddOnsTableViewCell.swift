@@ -119,12 +119,23 @@ extension BookingTravellerAddOnsTableViewCell: UICollectionViewDataSource, UICol
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView === travellerCollectionView {
+            //list
+            self.selectedIndex = indexPath.item
+        }
+        else {
+            //details
+        }
+    }
+    
     func getCellForList(indexPath: IndexPath) -> UICollectionViewCell{
         guard let cell = self.travellerCollectionView.dequeueReusableCell(withReuseIdentifier: BookingTravellerCollectionViewCell.reusableIdentifier, for: indexPath) as? BookingTravellerCollectionViewCell else {
             return UICollectionViewCell()
         }
         
         cell.paxData = self.paxDetails[indexPath.item]
+        cell.isPaxSelected = (self.selectedIndex == indexPath.item)
         
         return cell
     }
@@ -134,8 +145,10 @@ extension BookingTravellerAddOnsTableViewCell: UICollectionViewDataSource, UICol
             return UICollectionViewCell()
         }
         
-        let title = detailsTitle[indexPath.item]
-        cell.configure(title: title, detail: (self.detailsToShow[title] as? String) ?? LocalizedString.na.localized)
+        var title = detailsTitle[indexPath.item]
+        let detail = (self.detailsToShow[title] as? String) ?? LocalizedString.na.localized
+        title.removeFirst()
+        cell.configure(title: title, detail: detail)
         
         return cell
     }

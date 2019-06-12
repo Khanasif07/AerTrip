@@ -78,10 +78,10 @@ extension BookingFlightDetailVC {
             if indexPath.row < detailsC {
                 return getDetailsRelatedH()
             }
-            else {
+            else if let pax = leg.pax.first, !pax.detailsToShow.isEmpty {
                 //Travellers & Add-ons
                 //175.0 for list + <for details>
-                return 540.0
+                return 175.0 + (CGFloat(pax.detailsToShow.count) * 60.0)
             }
         }
         return 0.0

@@ -876,10 +876,35 @@ struct Pax {
     var amountPaid: Double = 0.0
     var cancellationCharge: String = ""
     var rescheduleCharge: String = ""
-    var addOns: [String] = [] // TODO: Need to confirm this with yash as always coming in array
     var ticket: String = ""
     var pnr: String = ""
     var inProcess: Bool = false
+    
+    var addOns: JSONDictionary = [:] // TODO: Need to confirm this with yash as always coming in array
+    var seat: String {
+        if let obj = addOns["seat"] as? String, !obj.isEmpty {
+            return obj
+        }
+        return LocalizedString.na.localized
+    }
+    
+    var meal: String {
+        if let obj = addOns["meal"] as? String, !obj.isEmpty {
+            return obj
+        }
+        return LocalizedString.na.localized
+    }
+    
+    var baggage: String {
+        if let obj = addOns["baggage"] as? String, !obj.isEmpty {
+            return obj
+        }
+        return LocalizedString.na.localized
+    }
+    
+    var others: String {
+        return LocalizedString.na.localized
+    }
     
     var fullName: String {
         return "\(salutation) \(paxName)"
@@ -888,12 +913,12 @@ struct Pax {
     var detailsToShow: JSONDictionary {
         var temp = JSONDictionary()
         
-        temp["0PNR"] = "PNR"
-        temp["1Ticket Number"] = "Ticket Number"
-        temp["2Seat"] = "Seat"
-        temp["3Meal"] = "Meal"
-        temp["4Baggage"] = "Baggage"
-        temp["5Others"] = "Others"
+        temp["0PNR"] = pnr
+        temp["1Ticket Number"] = ticket
+        temp["2Seat"] = seat
+        temp["3Meal"] = meal
+        temp["4Baggage"] = baggage
+        temp["5Others"] = others
         
         return temp
     }
@@ -956,12 +981,14 @@ struct Pax {
         }
         if let obj = json["ticket"] {
             self.ticket = "\(obj)"
+            self.ticket = self.ticket.isEmpty ? LocalizedString.na.localized : self.ticket
         }
         if let obj = json["pnr"] {
             self.pnr = "\(obj)"
+            self.pnr = self.pnr.isEmpty ? LocalizedString.na.localized : self.pnr
         }
-        if let obj = json["addons"] as? [String] {
-            self.addOns = obj
+        if let obj = json["addons"] as? JSONDictionary, let addon = obj["addon"] as? JSONDictionary {
+            self.addOns = addon
         }
         
         if let obj = json["in_process"] as? Bool {
@@ -970,16 +997,7 @@ struct Pax {
     }
     
     static func getModels(json: [JSONDictionary]) -> [Pax] {
-        var temp = json.map { Pax(json: $0) }
-        temp.append(contentsOf: json.map { Pax(json: $0) })
-        temp.append(contentsOf: json.map { Pax(json: $0) })
-        temp.append(contentsOf: json.map { Pax(json: $0) })
-        temp.append(contentsOf: json.map { Pax(json: $0) })
-        temp.append(contentsOf: json.map { Pax(json: $0) })
-        temp.append(contentsOf: json.map { Pax(json: $0) })
-        temp.append(contentsOf: json.map { Pax(json: $0) })
-        return temp
-//        return json.map { Pax(json: $0) }
+        return json.map { Pax(json: $0) }
     }
 }
 
