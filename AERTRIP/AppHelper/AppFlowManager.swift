@@ -788,8 +788,9 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func presentBaggageInfoVC() {
+    func presentBaggageInfoVC(dimension: Dimension) {
         let ob = BaggageInfoVC.instantiate(fromAppStoryboard: .Bookings)
+        ob.dimension = dimension
         self.mainNavigationController.present(ob, animated: true)
     }
     

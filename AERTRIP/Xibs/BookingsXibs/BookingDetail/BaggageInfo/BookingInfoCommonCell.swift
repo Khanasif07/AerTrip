@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BookingInfoCommonCell: UITableViewCell {
+class BookingInfoCommonCell: ATTableViewCell {
     
     // MARK: - IBOutlets
     

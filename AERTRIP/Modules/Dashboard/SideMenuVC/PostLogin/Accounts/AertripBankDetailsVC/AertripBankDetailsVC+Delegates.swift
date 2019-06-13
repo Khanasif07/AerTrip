@@ -50,23 +50,23 @@ extension AertripBankDetailsVC: UITableViewDataSource, UITableViewDelegate {
             
         case 2:
             //a/c number
-            return self.getDetailCell(title: "A/C Number", value: bankDetail.accountNumber)
+            return self.getDetailCell(title: LocalizedString.ACNumber.localized, value: bankDetail.accountNumber)
             
         case 3:
             //a/c name
-            return self.getDetailCell(title: "A/C Name", value: bankDetail.accountName)
+            return self.getDetailCell(title: LocalizedString.ACName.localized, value: bankDetail.accountName)
             
         case 4:
             //branch
-            return self.getDetailCell(title: "Bank Branch", value: bankDetail.branchName)
+            return self.getDetailCell(title: LocalizedString.BankBranch.localized, value: bankDetail.branchName)
             
         case 5:
             //ifsc
-            return self.getDetailCell(title: "IFSC Code", value: bankDetail.ifsc)
+            return self.getDetailCell(title: LocalizedString.IFSCCode.localized, value: bankDetail.ifsc)
             
         case 6:
             //a/c type
-            return self.getDetailCell(title: "Account Type", value: bankDetail.accType)
+            return self.getDetailCell(title: LocalizedString.AccountType.localized, value: bankDetail.accType)
             
         case 7:
             //download slip
@@ -112,7 +112,7 @@ extension AertripBankDetailsVC: UITableViewDataSource, UITableViewDelegate {
         cell.valueLabel.isHidden = true
         cell.titleLabel.font = AppFonts.SemiBold.withSize(16.0)
         cell.titleLabel.textColor = AppColors.themeBlack
-        cell.titleLabel.text = "The cheque should be deposited in the following account:"
+        cell.titleLabel.text = LocalizedString.ChequeShouldDepositedInAccount.localized
         cell.dividerView.isHidden = true
         cell.titleTopConstraint.constant = -4.0
         cell.titleBottomConstraint.constant = 0.0
@@ -134,7 +134,7 @@ extension AertripBankDetailsVC: UITableViewDataSource, UITableViewDelegate {
         cell.valueLabel.isHidden = false
         cell.valueLabel.font = AppFonts.SemiBold.withSize(16.0)
         cell.valueLabel.textColor = AppColors.themeTextColor
-        cell.valueLabel.text = value.isEmpty ? "--" : value
+        cell.valueLabel.text = value.isEmpty ? LocalizedString.dash.localized : value
         
         cell.dividerView.isHidden = true
         cell.titleTopConstraint.constant = 0.0
@@ -153,7 +153,7 @@ extension AertripBankDetailsVC: UITableViewDataSource, UITableViewDelegate {
         cell.valueLabel.isHidden = true
         cell.titleLabel.font = AppFonts.SemiBold.withSize(18.0)
         cell.titleLabel.textColor = AppColors.themeGreen
-        cell.titleLabel.text = "Download blank deposit slip"
+        cell.titleLabel.text = LocalizedString.DownloadBlankDepositSlip.localized
         cell.dividerView.isHidden = true
         cell.titleTopConstraint.constant = 0.0
         cell.titleBottomConstraint.constant = 0.0

@@ -14,10 +14,8 @@ extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         switch self.bookingDetailType {
-        case .flightInfo:
-            return self.viewModel.bookingDetail?.bookingDetail?.leg.count ?? 0
-        case .baggage:
-            return 2
+        case .flightInfo, .baggage:
+            return self.viewModel.legDetails.count
         case .fareInfo:
             return 1
         }
@@ -31,33 +29,59 @@ extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
         case .baggage:
             return 60.0
         case .fareInfo:
-            return 114.0
+            if let fbn = self.viewModel.legDetails.first?.flight.first?.fbn, !fbn.isEmpty {
+                return 114.0
+            }
+            return 74.0
         }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         switch self.bookingDetailType {
-        case .flightInfo:
+        case .flightInfo, .baggage:
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.headerViewIdentifier) as? BookingInfoHeaderView else { return nil }
             
-            var title = ""
-            if let allLeg = self.viewModel.bookingDetail?.bookingDetail?.leg {
-                title = allLeg[section].title
-            }
-            headerView.tripRougteLabel.text = title
+            headerView.tripRougteLabel.text = self.viewModel.legDetails[section].title
             return headerView
-        case .baggage:
-            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.headerViewIdentifier) as? BookingInfoHeaderView else { return nil }
-            headerView.tripRougteLabel.text = "DEL" + LocalizedString.ForwardArrow.localized + "BEL"
-            return headerView
+            
         case .fareInfo:
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.fareInfoHeaderViewIdentifier) as? FareInfoHeaderView else { return nil }
-            headerView.titleLabel.text = "Economy Saver (SS50322)"
+            
+            let titleTxt = self.viewModel.legDetails.first?.flight.first?.fbn ?? ""
+            headerView.titleLabel.text = titleTxt
+            headerView.dividerView.isHidden = titleTxt.isEmpty
+            
             headerView.refundPolicyLabel.text = "Refund Policy"
             headerView.delegate = self
             headerView.fareRulesButton.setTitle(LocalizedString.FareRules.localized, for: .normal)
-            headerView.infoLabel.text = "Non-refundable • Non-reschedulable"
+            
+            var infoText = "We do not have information regarding refundability/reschedulability"
+            if let leg = self.viewModel.legDetails.first {
+                if leg.refundable == 1 {
+                    infoText = "Refundable"
+                }
+                else if leg.refundable == -9 {
+                    infoText = LocalizedString.na.localized
+                }
+                else {
+                    infoText = "Non-refundable"
+                }
+                
+                
+                if leg.reschedulable == 1 {
+                    infoText += infoText.isEmpty ? "Reschedulable" : " • Reschedulable"
+                }
+                else if leg.refundable == -9 {
+                    infoText += infoText.isEmpty ? LocalizedString.na.localized : " • \(LocalizedString.na.localized)"
+                }
+                else {
+                    infoText += infoText.isEmpty ? "Non-reschedulable" : " • Non-reschedulable"
+                }
+            }
+            
+            headerView.infoLabel.text = infoText
+            
             return headerView
         }
     }
@@ -76,21 +100,15 @@ extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch self.bookingDetailType {
         case .flightInfo:
-            
-            if let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[section] {
-                let detailsC = leg.flight.reduce(into: 0) { $0 += $1.numberOfCell}
-                return leg.pax.isEmpty ? detailsC : (detailsC + 1)
-            }
-            return 0
+                let detailsC = self.viewModel.legDetails[section].flight.reduce(into: 0) { $0 += $1.numberOfCellFlightInfo}
+                return self.viewModel.legDetails[section].pax.isEmpty ? detailsC : (detailsC + 1)
             
         case .baggage:
-            if section == 0 {
-                return 11
-            } else {
-                return 4
-            }
+                let detailsC = self.viewModel.legDetails[section].flight.reduce(into: 0) { $0 += $1.numberOfCellBaggage}
+                return detailsC
+            
         case .fareInfo:
-            return 15
+            return self.getNumberOfCellsInFareInfo(forData: self.viewModel.bookingFee)
         }
     }
     
@@ -99,11 +117,7 @@ extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
         case .flightInfo:
             return getHeightForFlightInfo(indexPath)
         case .baggage:
-            if indexPath.section == 0 {
-                return self.getHeightForBaggageInfoRowFirstSection(indexPath)
-            } else {
-                return self.getHeightForBaggageInfoRowSecondSection(indexPath)
-            }
+            return getHeightForBaggageInfo(indexPath)
         case .fareInfo:
             return UITableView.automaticDimension
         }
@@ -128,32 +142,47 @@ extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
 extension BookingFlightDetailVC : BaggageAirlineInfoTableViewCellDelegate {
     func dimensionButtonTapped(_ dimensionButton: UIButton) {
             printDebug("Dimension Button Tapped ")
-        AppFlowManager.default.presentBaggageInfoVC()
+        var detail: CabinBgInfo?
+        if let cell = self.tableView.cell(forItem: dimensionButton) as? BaggageAirlineInfoTableViewCell {
+            
+            if let obj = cell.flightDetail?.baggage?.cabinBg?.infant {
+                detail = obj
+            }
+            if let obj = cell.flightDetail?.baggage?.cabinBg?.child {
+                detail = obj
+            }
+            if let obj = cell.flightDetail?.baggage?.cabinBg?.adult {
+                detail = obj
+            }
+        }
         
+        if let obj = detail?.dimension {
+            AppFlowManager.default.presentBaggageInfoVC(dimension: obj)
+        }
     }
-
 }
 
 // Route Fare info table View cell Delegate methods
-
 extension BookingFlightDetailVC: RouteFareInfoTableViewCellDelegate {
     func viewDetailsButtonTapped() {
         printDebug("View Details Button Tapped")
     }
-    
 }
 
 
-extension BookingFlightDetailVC: BookingProductDetailVMDelegate {
-    func willGetBookingDetail() {
-        
+extension BookingFlightDetailVC: BookingDetailVMDelegate {
+    func willGetBookingFees() {
     }
     
-    func getBookingDetailSucces() {
+    func getBookingFeesSuccess() {
         self.reloadDetails()
     }
     
-    func getBookingDetailFaiure() {
-        
+    func getBookingFeesFail() {
+    }
+    
+    func legDetailsSuccess() {
+        self.reloadDetails()
+        self.viewModel.getBookingFees()
     }
 }

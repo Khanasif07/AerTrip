@@ -387,7 +387,7 @@ struct AccountDetailEvent {
                 }
                 
                 //confirmation id
-                self.confirmationId = "--"
+                self.confirmationId = LocalizedString.dash.localized
                 
                 //guest names
                 for room in rows {

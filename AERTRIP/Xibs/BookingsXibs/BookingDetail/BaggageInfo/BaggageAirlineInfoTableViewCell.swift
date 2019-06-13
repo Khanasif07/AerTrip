@@ -24,6 +24,11 @@ class BaggageAirlineInfoTableViewCell: UITableViewCell {
     // MARK: - Variables
     weak var delegate: BaggageAirlineInfoTableViewCellDelegate?
     
+    var flightDetail: FlightDetail? {
+        didSet {
+            self.configureCell()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -52,6 +57,26 @@ class BaggageAirlineInfoTableViewCell: UITableViewCell {
        self.dimensionButton.setTitle(LocalizedString.Dimensions.localized, for: .normal)
     }
     
+    
+    private func configureCell() {
+        self.airlineNameLabel.text = self.flightDetail?.carrier ?? ""
+        
+        var finalDetails = ""
+        if let obj = self.flightDetail?.operatedBy, !obj.isEmpty {
+            finalDetails = obj
+        }
+        
+        let detail = "\(self.flightDetail?.carrierCode ?? LocalizedString.na.localized)-\(self.flightDetail?.flightNumber ?? LocalizedString.na.localized)・\(self.flightDetail?.cabinClass ?? LocalizedString.na.localized)"
+        
+        finalDetails += finalDetails.isEmpty ? detail : "\n\(detail)"
+        
+        self.airlineCodeLabel.text = finalDetails
+        
+        if let code = self.flightDetail?.carrierCode, !code.isEmpty {
+            let imageUrl = "https://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/\(code.uppercased()).png"
+            self.airlineImageView.setImageWithUrl(imageUrl, placeholder: AppPlaceholderImage.default, showIndicator: true)
+        }
+    }
     
     @IBAction func dimensionButtonTapped(_ sender: Any) {
         self.delegate?.dimensionButtonTapped(self.dimensionButton)

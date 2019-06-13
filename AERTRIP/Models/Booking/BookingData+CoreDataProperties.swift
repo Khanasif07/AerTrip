@@ -97,17 +97,17 @@ extension BookingData {
             }
             
             func getNormalString(forArr: [String]) -> String {
-                guard !forArr.isEmpty else {return "--"}
+                guard !forArr.isEmpty else {return LocalizedString.dash.localized}
                 return forArr.joined(separator: " → ")
             }
             
             func getReturnString(forArr: [String]) -> String {
-                guard forArr.count >= 2 else {return "--"}
+                guard forArr.count >= 2 else {return LocalizedString.dash.localized}
                 return "\(forArr[0]) ⇋ \(forArr[1])"
             }
             
             guard let tripCts = self.tripCities as? [String] else {
-                return NSMutableAttributedString(string: self.origin ?? "--")
+                return NSMutableAttributedString(string: self.origin ?? LocalizedString.dash.localized)
             }
             
             if ((self.tripType ?? "").lowercased() == "single") {
@@ -164,11 +164,11 @@ extension BookingData {
                         return attributedStr1
                     }
                 }
-                return NSMutableAttributedString(string: "--")
+                return NSMutableAttributedString(string: LocalizedString.dash.localized)
             }
         }
         else if self.productType == .hotel {
-            return NSMutableAttributedString(string: self.hotelName ?? "--")
+            return NSMutableAttributedString(string: self.hotelName ?? LocalizedString.dash.localized)
         }
         return nil
     }

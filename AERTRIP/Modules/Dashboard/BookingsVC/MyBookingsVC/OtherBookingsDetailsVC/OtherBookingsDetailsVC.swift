@@ -53,7 +53,7 @@ class OtherBookingsDetailsVC: BaseVC {
     
     override func initialSetup() {
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
-        self.viewModel.getBookingDetail(id: self.viewModel.bookingId)
+        self.viewModel.getBookingDetail()
         self.viewModel.getDocumentDownloadingData()
         self.statusBarStyle = .default
         self.topNavBarHeightConstraint.constant = self.navBarHeight

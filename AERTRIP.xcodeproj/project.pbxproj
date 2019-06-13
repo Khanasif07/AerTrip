@@ -679,6 +679,7 @@
 		84791EE22281BB8000472E54 /* AccountLadgerDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84791EE02281BB7F00472E54 /* AccountLadgerDetailHeader.swift */; };
 		84791EE32281BB8000472E54 /* AccountLadgerDetailHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84791EE12281BB7F00472E54 /* AccountLadgerDetailHeader.xib */; };
 		847F7EB82279DB75009BE02F /* PKTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F7EB72279DB75009BE02F /* PKTextField.swift */; };
+		847FBB9822B25B42001FC68D /* BookingFeeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FBB9722B25B42001FC68D /* BookingFeeDetail.swift */; };
 		84806833220990C600CBF362 /* BulkRoomSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84806832220990C600CBF362 /* BulkRoomSelectionVC.swift */; };
 		8480683522099CC800CBF362 /* BulkRoomSelectionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8480683422099CC800CBF362 /* BulkRoomSelectionVM.swift */; };
 		8480703922295A1B0061C642 /* HotelGroupCardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8480703722295A1B0061C642 /* HotelGroupCardCollectionViewCell.xib */; };
@@ -1660,6 +1661,7 @@
 		84791EE02281BB7F00472E54 /* AccountLadgerDetailHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountLadgerDetailHeader.swift; sourceTree = "<group>"; };
 		84791EE12281BB7F00472E54 /* AccountLadgerDetailHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountLadgerDetailHeader.xib; sourceTree = "<group>"; };
 		847F7EB72279DB75009BE02F /* PKTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKTextField.swift; sourceTree = "<group>"; };
+		847FBB9722B25B42001FC68D /* BookingFeeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingFeeDetail.swift; sourceTree = "<group>"; };
 		84806832220990C600CBF362 /* BulkRoomSelectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkRoomSelectionVC.swift; sourceTree = "<group>"; };
 		8480683422099CC800CBF362 /* BulkRoomSelectionVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkRoomSelectionVM.swift; sourceTree = "<group>"; };
 		8480703722295A1B0061C642 /* HotelGroupCardCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelGroupCardCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -2354,6 +2356,7 @@
 			children = (
 				1870540722A8E69600FEBC37 /* BookingDetailModel.swift */,
 				1870540922AA4EC200FEBC37 /* RoomDetailModel.swift */,
+				847FBB9722B25B42001FC68D /* BookingFeeDetail.swift */,
 			);
 			path = BookingDetail;
 			sourceTree = "<group>";
@@ -5800,6 +5803,7 @@
 				180F9BDC222D055100518D3B /* HotelResultVC+ DelegateMethods.swift in Sources */,
 				18EF753A228043C100FCBBE6 /* OneWayCardCollectionViewCell.swift in Sources */,
 				846FB592222541AD007F70F9 /* HotelsGroupExpendedVC.swift in Sources */,
+				847FBB9822B25B42001FC68D /* BookingFeeDetail.swift in Sources */,
 				84085CE721F59C0E00F1E844 /* CreateProfileSuccessVC.swift in Sources */,
 				84840A60224CA18500FE83A8 /* ATCategoryButton.swift in Sources */,
 				84085CF521F59C0E00F1E844 /* LinkedAccountsTableCell.swift in Sources */,

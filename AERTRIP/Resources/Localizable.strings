@@ -11,6 +11,7 @@
 "ParsingError" = "Error in parsing the JSON data.";
 "error" = "Error";
 "na" = "N/A";
+"dash" = "--";
 "noData" = "Sorry! You are lonely here.";
 "search" = "Search";
 "Undo" = "Undo";
@@ -803,3 +804,11 @@
 "SpecialRequestHasBeenSent" = "Special Request has been sent";
 "WriteAboutYourSpecialRequest" = "Write about your special request...";
 "RequestType" = "Request Type";
+
+"DownloadBlankDepositSlip" = "Download blank deposit slip";
+"ChequeShouldDepositedInAccount" = "The cheque should be deposited in the following account:";
+"ACNumber" = "A/C Number";
+"ACName" = "A/C Name";
+"BankBranch" = "Bank Branch";
+"IFSCCode" = "IFSC Code";
+"AccountType" = "Account Type";

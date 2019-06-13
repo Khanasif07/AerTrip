@@ -57,8 +57,9 @@ class FlightBookingsDetailsVC: BaseVC {
         self.setupParallaxHeader()
         self.registerNibs()
         
-        // Api Call to get booking detail
-        self.viewModel.getBookingDetail(id: self.viewModel.bookingId)
+
+        // Call to get booking detail
+        self.viewModel.getBookingDetail()
     }
     
     override func setupColors() {

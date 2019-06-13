@@ -59,7 +59,15 @@ class FlightsVC: BaseVC {
         //            }
         //        }
         
-        let obj = MyViewController.instantiate(fromAppStoryboard: .Bookings)
-        AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: true)
+        var dim = Dimension(json: [:])
+        var cm = CM(json: [:])
+        cm.width = 40
+        cm.height = 40
+        cm.depth = 40
+        
+        dim.cm = cm
+        
+        AppFlowManager.default.presentBaggageInfoVC(dimension: dim)
+        
     }
 }

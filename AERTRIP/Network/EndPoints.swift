@@ -91,6 +91,7 @@ enum APIEndPoint: String {
     
     // booking Detail
     case getBookingDetails = "dashboard/get-booking-details"
+    case getBookingFees = "dashboard/get-booking-fees"
     
     // Final Checkout
     

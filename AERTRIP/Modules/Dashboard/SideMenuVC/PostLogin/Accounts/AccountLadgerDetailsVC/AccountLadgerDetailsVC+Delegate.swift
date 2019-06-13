@@ -140,7 +140,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-            value = value.isEmpty ? "--" : value
+            value = value.isEmpty ? LocalizedString.dash.localized : value
             return self.getDetailCell(title: key, description: value, descriptionColor: descColor)
 
         }

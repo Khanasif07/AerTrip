@@ -15,6 +15,8 @@ class BaggageInfoVC: BaseVC {
     @IBOutlet weak var topNavigationView: TopNavigationView!
     @IBOutlet weak var tableView: ATTableView!
     
+    var dimension: Dimension?
+    
     override func initialSetup() {
         
         self.configureNavBar()
@@ -77,6 +79,9 @@ extension BaggageInfoVC : UITableViewDataSource, UITableViewDelegate {
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "BaggageInfoTableViewCell", for: indexPath) as? BaggageInfoTableViewCell else {
             fatalError("BaggageInfoTableViewCell not found")
         }
+        
+        cell.dimension = self.dimension
+        
         return cell
     }
 }
