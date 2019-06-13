@@ -62,7 +62,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="AGJ-T2-5cw" firstAttribute="leading" secondItem="Y8Z-ow-wPQ" secondAttribute="leading" id="0Sz-oU-Byl"/>
                                     <constraint firstItem="AGJ-T2-5cw" firstAttribute="centerY" secondItem="Y8Z-ow-wPQ" secondAttribute="centerY" id="Mxn-90-Xbo"/>
@@ -105,7 +105,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="BvC-ud-8aq" firstAttribute="centerX" secondItem="5Vm-yw-uX8" secondAttribute="centerX" id="1AW-Kj-uc3"/>
                                     <constraint firstAttribute="bottom" secondItem="BvC-ud-8aq" secondAttribute="bottom" id="1ON-Z4-8x3"/>
@@ -148,7 +148,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="45A-O4-bLC"/>
                                     <constraint firstItem="aLO-DL-Ecl" firstAttribute="top" secondItem="4S6-fd-6Sd" secondAttribute="top" id="4Ry-n6-Tvs"/>

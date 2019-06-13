@@ -32,12 +32,9 @@ class BookingFlightDetailVC: BaseVC {
     var calculatedIndexForShowingFlightDetails: Int = 0
     var calculatedTotalRows: Int = 0
     
-    let viewModel = BookingProductDetailVM()
+    let viewModel = BookingDetailVM()
     
     override func initialSetup() {
-        
-        self.viewModel.getBookingDetail(id: self.viewModel.bookingId)
-        
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.setUpSegmentControl()
@@ -53,7 +50,7 @@ class BookingFlightDetailVC: BaseVC {
     private func configureNavBar() {
         
         self.topNavigationView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
-        self.topNavigationView.navTitleLabel.attributedText = self.viewModel.bookingDetail?.tripCitiesStr
+        self.topNavigationView.navTitleLabel.attributedText = self.viewModel.tripCitiesStr
         self.topNavigationView.delegate = self
     }
     

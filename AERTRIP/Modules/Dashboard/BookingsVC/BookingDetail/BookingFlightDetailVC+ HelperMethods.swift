@@ -12,9 +12,10 @@ extension BookingFlightDetailVC {
     
     // get height for Baggage row for first sections
     func getHeightForBaggageInfo(_ indexPath: IndexPath) -> CGFloat {
-        if let allLeg = self.viewModel.bookingDetail?.bookingDetail?.leg, allLeg[indexPath.section].flight.count > self.calculatedIndexForShowingFlightDetails {
+        
+        if self.viewModel.legDetails[indexPath.section].flight.count > self.calculatedIndexForShowingFlightDetails {
             
-            let detailsC = allLeg[indexPath.section].flight.reduce(into: 0) { $0 += $1.numberOfCellBaggage}
+            let detailsC = self.viewModel.legDetails[indexPath.section].flight.reduce(into: 0) { $0 += $1.numberOfCellBaggage}
             
             if indexPath.row == 0 {
                 self.calculatedIndexForShowingFlightDetails = 0
@@ -22,7 +23,7 @@ extension BookingFlightDetailVC {
             else if indexPath.row < detailsC, indexPath.row == self.calculatedTotalRows {
                 self.calculatedIndexForShowingFlightDetails += 1
             }
-            let flight = allLeg[indexPath.section].flight[self.calculatedIndexForShowingFlightDetails]
+            let flight = self.viewModel.legDetails[indexPath.section].flight[self.calculatedIndexForShowingFlightDetails]
             self.calculatedTotalRows += (flight.numberOfCellBaggage)
         }
         switch indexPath.row {
@@ -49,17 +50,17 @@ extension BookingFlightDetailVC {
         
         func getDetailsRelatedH() -> CGFloat {
             var flight: FlightDetail?
-            if let allLeg = self.viewModel.bookingDetail?.bookingDetail?.leg, allLeg[indexPath.section].flight.count > self.calculatedIndexForShowingFlightDetails {
+            if self.viewModel.legDetails[indexPath.section].flight.count > self.calculatedIndexForShowingFlightDetails {
                 
-                let detailsC = allLeg[indexPath.section].flight.reduce(into: 0) { $0 += $1.numberOfCellFlightInfo}
-
+                let detailsC = self.viewModel.legDetails[indexPath.section].flight.reduce(into: 0) { $0 += $1.numberOfCellFlightInfo}
+                
                 if indexPath.row == 0 {
                     self.calculatedIndexForShowingFlightDetails = 0
                 }
                 else if indexPath.row < detailsC, indexPath.row == self.calculatedTotalRows {
                     self.calculatedIndexForShowingFlightDetails += 1
                 }
-                flight = allLeg[indexPath.section].flight[self.calculatedIndexForShowingFlightDetails]
+                flight = self.viewModel.legDetails[indexPath.section].flight[self.calculatedIndexForShowingFlightDetails]
                 self.calculatedTotalRows += (flight?.numberOfCellFlightInfo ?? 0)
             }
             
@@ -84,16 +85,14 @@ extension BookingFlightDetailVC {
             }
         }
         
-        if let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section] {
-            let detailsC = leg.flight.reduce(into: 0) { $0 += $1.numberOfCellFlightInfo}
-            if indexPath.row < detailsC {
-                return getDetailsRelatedH()
-            }
-            else if let pax = leg.pax.first, !pax.detailsToShow.isEmpty {
-                //Travellers & Add-ons
-                //175.0 for list + <for details>
-                return 175.0 + (CGFloat(pax.detailsToShow.count) * 60.0)
-            }
+        let detailsC = self.viewModel.legDetails[indexPath.section].flight.reduce(into: 0) { $0 += $1.numberOfCellFlightInfo}
+        if indexPath.row < detailsC {
+            return getDetailsRelatedH()
+        }
+        else if let pax = self.viewModel.legDetails[indexPath.section].pax.first, !pax.detailsToShow.isEmpty {
+            //Travellers & Add-ons
+            //175.0 for list + <for details>
+            return 175.0 + (CGFloat(pax.detailsToShow.count) * 60.0)
         }
         return 0.0
     }
@@ -151,22 +150,20 @@ extension BookingFlightDetailVC {
         }
         
         
-        if let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section] {
-            let detailsC = leg.flight.reduce(into: 0) { $0 += $1.numberOfCellFlightInfo}
-            let flight = leg.flight[self.calculatedIndexForShowingFlightDetails]
-            if indexPath.row < detailsC {
-                return getDetailsRelatedCell(flight: flight)
+        let detailsC = self.viewModel.legDetails[indexPath.section].flight.reduce(into: 0) { $0 += $1.numberOfCellFlightInfo}
+        let flight = self.viewModel.legDetails[indexPath.section].flight[self.calculatedIndexForShowingFlightDetails]
+        if indexPath.row < detailsC {
+            return getDetailsRelatedCell(flight: flight)
+        }
+        else {
+            //Travellers & Add-ons
+            guard let cell = self.tableView.dequeueReusableCell(withIdentifier: BookingTravellerAddOnsTableViewCell.reusableIdentifier) as? BookingTravellerAddOnsTableViewCell else {
+                fatalError("BookingTravellerAddOnsTableViewCell not found")
             }
-            else {
-                //Travellers & Add-ons
-                guard let cell = self.tableView.dequeueReusableCell(withIdentifier: BookingTravellerAddOnsTableViewCell.reusableIdentifier) as? BookingTravellerAddOnsTableViewCell else {
-                    fatalError("BookingTravellerAddOnsTableViewCell not found")
-                }
-                
-                cell.paxDetails = leg.pax
-                
-                return cell
-            }
+            
+            cell.paxDetails = self.viewModel.legDetails[indexPath.section].pax
+            
+            return cell
         }
         return UITableViewCell()
     }
@@ -174,10 +171,7 @@ extension BookingFlightDetailVC {
     
     func getCellForBaggageInfo(_ indexPath: IndexPath) -> UITableViewCell {
         
-        var flight: FlightDetail?
-        if let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section] {
-            flight = leg.flight[self.calculatedIndexForShowingFlightDetails]
-        }
+        let flight = self.viewModel.legDetails[indexPath.section].flight[self.calculatedIndexForShowingFlightDetails]
         switch indexPath.row {
         case 0:
             //aerline details
@@ -202,22 +196,22 @@ extension BookingFlightDetailVC {
             if indexPath.row == 2 {
                 //adult
                 leftLabelTxt = "Per Adult"
-                middleLabelTxt = flight?.baggage?.checkInBg?.adult ?? LocalizedString.na.localized
-                rightLabelTxt = ("\(flight?.baggage?.cabinBg?.adult?.piece ?? "1") x \(flight?.baggage?.cabinBg?.adult?.weight ?? "23 kgs")")
+                middleLabelTxt = flight.baggage?.checkInBg?.adult ?? LocalizedString.na.localized
+                rightLabelTxt = ("\(flight.baggage?.cabinBg?.adult?.piece ?? "1") x \(flight.baggage?.cabinBg?.adult?.weight ?? "23 kgs")")
                 font = AppFonts.Regular.withSize(18.0)
             }
             else if indexPath.row == 3 {
                 //child
                 leftLabelTxt = "Per Child"
-                middleLabelTxt = flight?.baggage?.checkInBg?.child ?? LocalizedString.na.localized
-                rightLabelTxt = ("\(flight?.baggage?.cabinBg?.child?.piece ?? "1") x \(flight?.baggage?.cabinBg?.child?.weight ?? "23 kgs")")
+                middleLabelTxt = flight.baggage?.checkInBg?.child ?? LocalizedString.na.localized
+                rightLabelTxt = ("\(flight.baggage?.cabinBg?.child?.piece ?? "1") x \(flight.baggage?.cabinBg?.child?.weight ?? "23 kgs")")
                 font = AppFonts.Regular.withSize(18.0)
             }
             else if indexPath.row == 4 {
                 //infant
                 leftLabelTxt = "Per Infant"
-                middleLabelTxt = flight?.baggage?.checkInBg?.infant ?? LocalizedString.na.localized
-                rightLabelTxt = ("\(flight?.baggage?.cabinBg?.infant?.piece ?? "1") x \(flight?.baggage?.cabinBg?.infant?.weight ?? "23 kgs")")
+                middleLabelTxt = flight.baggage?.checkInBg?.infant ?? LocalizedString.na.localized
+                rightLabelTxt = ("\(flight.baggage?.cabinBg?.infant?.piece ?? "1") x \(flight.baggage?.cabinBg?.infant?.weight ?? "23 kgs")")
                 font = AppFonts.Regular.withSize(18.0)
             }
             
@@ -245,22 +239,67 @@ extension BookingFlightDetailVC {
         }
     }
     
+    func getCancelChargesCount(charge: BookingFeeDetail.Charges?) -> Int {
+        var temp = 0
+        guard let can = charge else {
+            return temp
+        }
+        temp += 1 //headers
+        
+        if let _ = can.adult {
+            temp += 1
+        }
+        if let _ = can.child {
+            temp += 1
+        }
+        if let _ = can.infant {
+            temp += 1
+        }
+        
+        temp += 1 //blank space
+        
+        return temp
+    }
+    
+    func getResChargesCount(charge: BookingFeeDetail.Charges?) -> Int {
+        var temp = 0
+        guard let res = charge else {
+            return temp
+        }
+        temp += 1 //headers
+        
+        if let _ = res.adult {
+            temp += 1
+        }
+        if let _ = res.child {
+            temp += 1
+        }
+        if let _ = res.infant {
+            temp += 1
+        }
+        
+        return temp
+    }
+    
+    func getNumberOfCellsInFareInfo(forData infoData: BookingFeeDetail?) -> Int {
+        var temp = 2 //for notes
+        
+        if let info = infoData {
+            if let can = info.aerlineCanCharges {
+                temp += getCancelChargesCount(charge: can)
+            }
+            
+            if let res = info.aerlineResCharges {
+                temp += getResChargesCount(charge: res)
+            }
+        }
+        
+        return temp
+    }
+    
     func getCellForFareInfo(_ indexPath: IndexPath) -> UITableViewCell  {
-        switch indexPath.row {
-        case 0,1,2,3,4,6,7,8,12,13,14: // three type common cell
-            guard  let commonCell = self.tableView.dequeueReusableCell(withIdentifier: "BookingInfoCommonCell", for: indexPath) as? BookingInfoCommonCell else {
-                fatalError("BookingInfoCommonCell not found")
-            }
-            commonCell.leftLabel.text = "Type"
-            commonCell.middleLabel.text = "Check-in"
-            commonCell.rightLabel.text = "Cabin"
-            return commonCell
-        case 5,9:  // Empty Divider view Cell
-            guard let emptyDividerViewCell = self.tableView.dequeueReusableCell(withIdentifier: "EmptyDividerViewCellTableViewCell") as? EmptyDividerViewCellTableViewCell else {
-                fatalError("EmptyDividerViewCellTableViewCell not found")
-            }
-            return emptyDividerViewCell
-        case 10:  // Notes point cell
+        
+        func getNotesCell() -> UITableViewCell {
             guard let fareInfoNoteCell = self.tableView.dequeueReusableCell(withIdentifier: "FareInfoNoteTableViewCell") as? FareInfoNoteTableViewCell else {
                 fatalError("FareInfoNoteTableViewCell not found")
             }
@@ -268,20 +307,118 @@ extension BookingFlightDetailVC {
             fareInfoNoteCell.noteLabel.text = LocalizedString.Notes.localized
             fareInfoNoteCell.configCell(notes: ["Hello","Hello","Hello","Hello","Hello","Hello","Hello","Hello"])
             return fareInfoNoteCell
-            
-        case 11: // Route fare info cell
-            guard let routeFareInfoCell = self.tableView.dequeueReusableCell(withIdentifier: "RouteFareInfoTableViewCell") as? RouteFareInfoTableViewCell else {
-                fatalError("RouteFareInfoTableViewCell not found")
-            }
-            routeFareInfoCell.delegate = self
-            routeFareInfoCell.configureCell()
-            return routeFareInfoCell
-            
-            
-        default:
-            return UITableViewCell()
         }
+        
+        func getBlankSpaceCell() -> UITableViewCell {
+            guard let emptyDividerViewCell = self.tableView.dequeueReusableCell(withIdentifier: "EmptyDividerViewCellTableViewCell") as? EmptyDividerViewCellTableViewCell else {
+                fatalError("EmptyDividerViewCellTableViewCell not found")
+            }
+            return emptyDividerViewCell
+        }
+        
+        func getFeeDetailsCell(type: String, aerlineFee: Int, aertripFee: Int) -> UITableViewCell {
+            guard  let commonCell = self.tableView.dequeueReusableCell(withIdentifier: "BookingInfoCommonCell", for: indexPath) as? BookingInfoCommonCell else {
+                fatalError("BookingInfoCommonCell not found")
+            }
+            
+            commonCell.middleLabel.font = AppFonts.Regular.withSize(16.0)
+            commonCell.rightLabel.font = AppFonts.Regular.withSize(16.0)
+            
+            commonCell.leftLabel.text = type
+            commonCell.middleLabel.attributedText = aerlineFee.toDouble.amountInDoubleWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+            commonCell.rightLabel.attributedText = aertripFee.toDouble.amountInDoubleWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+            return commonCell
+        }
+        
+        func getFeeTitleCell(type: String, aerline: String, aertrip: String) -> UITableViewCell {
+            guard  let commonCell = self.tableView.dequeueReusableCell(withIdentifier: "BookingInfoCommonCell", for: indexPath) as? BookingInfoCommonCell else {
+                fatalError("BookingInfoCommonCell not found")
+            }
+            
+            commonCell.middleLabel.font = AppFonts.SemiBold.withSize(16.0)
+            commonCell.rightLabel.font = AppFonts.SemiBold.withSize(16.0)
+            
+            commonCell.leftLabel.text = type
+            commonCell.middleLabel.text = aerline
+            commonCell.rightLabel.text = aertrip
+            return commonCell
+        }
+        
+        var finalCell = UITableViewCell()
+        if let info = self.viewModel.bookingFee {
+            if let can = info.aerlineCanCharges, indexPath.row < getCancelChargesCount(charge: can)  {
+                
+                if indexPath.row == 0 {
+                    //headers
+                    finalCell = getFeeTitleCell(type: "Cancellation", aerline: "Aertrip Fee", aertrip: "Airline Fee")
+                }
+                else if indexPath.row == 1, let val = can.adult {
+                    //adult
+                    finalCell = getFeeDetailsCell(type: "Per Adult", aerlineFee: val, aertripFee: info.aertripCanCharges?.adult ?? 0)
+                }
+                else if indexPath.row <= 2, let val = can.child {
+                    //Child
+                    finalCell = getFeeDetailsCell(type: "Per Child", aerlineFee: val, aertripFee: info.aertripCanCharges?.child ?? 0)
+                }
+                else if indexPath.row <= 3, let val = can.infant {
+                    if indexPath.row == 3 {
+                        //blank
+                        finalCell = getBlankSpaceCell()
+                    }
+                    else {
+                        //infant
+                        finalCell = getFeeDetailsCell(type: "Per Infant", aerlineFee: val, aertripFee: info.aertripCanCharges?.infant ?? 0)
+                    }
+                }
+                else if indexPath.row == (getCancelChargesCount(charge: info.aerlineCanCharges) - 1) {
+                    //blank space
+                    finalCell = getBlankSpaceCell()
+                }
+            }
+            
+            if let res = info.aerlineResCharges {
+                let oldCount = getCancelChargesCount(charge: info.aerlineCanCharges)
+                let newIndex = indexPath.row - oldCount
+                if newIndex == 0 {
+                    //headers
+                    finalCell = getFeeTitleCell(type: "Re-scheduling", aerline: "Aertrip Fee", aertrip: "Airline Fee")
+                }
+                else if newIndex == 1, let val = res.adult {
+                    //adult
+                    finalCell = getFeeDetailsCell(type: "Per Adult", aerlineFee: val, aertripFee: info.aertripResCharges?.adult ?? 0)
+                }
+                else if newIndex <= 2, let val = res.child {
+                    //Child
+                    finalCell = getFeeDetailsCell(type: "Per Child", aerlineFee: val, aertripFee: info.aertripResCharges?.child ?? 0)
+                }
+                else if newIndex <= 3, let val = res.infant {
+                    if newIndex == 3 {
+                        //blank
+                        finalCell = getBlankSpaceCell()
+                    }
+                    else {
+                        //infant
+                        finalCell = getFeeDetailsCell(type: "Per Infant", aerlineFee: val, aertripFee: info.aertripResCharges?.infant ?? 0)
+                    }
+                }
+                else if newIndex > 0 {
+                    //blank space
+                    finalCell = getBlankSpaceCell()
+                }
+            }
+            if indexPath.row == getNumberOfCellsInFareInfo(forData: info) - 1 {
+                //blank space
+                finalCell = getNotesCell()
+            }
+        }
+        else {
+            if indexPath.row == 0{
+                finalCell = getBlankSpaceCell()
+            }
+            else {
+                finalCell = getNotesCell()
+            }
+        }
+        return finalCell
     }
-    
-    
 }

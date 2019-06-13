@@ -59,7 +59,7 @@ class FlightBookingsDetailsVC: BaseVC {
         self.bookingDetailsTableView.dataSource = self
         
         // Call to get booking detail
-        self.viewModel.getBookingDetail(id:self.viewModel.bookingId)
+        self.viewModel.getBookingDetail()
     }
     
     override func setupColors() {

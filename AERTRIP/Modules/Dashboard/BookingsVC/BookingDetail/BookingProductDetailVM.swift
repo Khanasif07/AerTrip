@@ -77,7 +77,7 @@ class BookingProductDetailVM {
     
 
     
-    func getBookingDetail(id: String) {
+    func getBookingDetail() {
         let params: JSONDictionary = ["booking_id": bookingId]
          delegate?.willGetBookingDetail()
         APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in

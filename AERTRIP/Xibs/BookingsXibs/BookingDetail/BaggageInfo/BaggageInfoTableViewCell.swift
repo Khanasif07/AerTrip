@@ -99,15 +99,41 @@ class BaggageInfoTableViewCell: UITableViewCell {
         self.depthDataContainer.backgroundColor = AppColors.themeGray40
         
         
-        let widthArrow = UIBezierPath.arrow(from: self.widthContainer.bounds.origin, to: CGPoint(x: self.widthContainer.bounds.size.width, y: self.widthContainer.bounds.size.height), tailWidth: 2.0, headWidth: 2.0, headLength: 2.0)
+        let fromH = CGPoint(x: self.heightContainer.bounds.size.width/2.0, y: 0.0)
+        let toH = CGPoint(x: self.heightContainer.bounds.size.width/2.0, y: self.heightContainer.bounds.size.height)
+        let heightArrowPath = PKBezierPathHelper.shared.arrow(from: fromH, to: toH, tailWidth: 1.0, headWidth: 4.0, headLength: 5.0, arrowType: .both)
         
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.path = widthArrow.cgPath
-        shapeLayer.fillColor = AppColors.themeGray40.cgColor
-        shapeLayer.strokeColor = AppColors.themeGray40.cgColor
-        shapeLayer.lineWidth = 0.0
-        self.widthContainer.layer.insertSublayer(shapeLayer, at: 0)
-        self.widthContainer.backgroundColor = AppColors.clear
+        let shapeLayerH = CAShapeLayer()
+        shapeLayerH.path = heightArrowPath.cgPath
+        shapeLayerH.fillColor = AppColors.themeGray40.cgColor
+        shapeLayerH.strokeColor = AppColors.themeGray40.cgColor
+        shapeLayerH.lineWidth = 0.0
+        self.heightContainer.layer.insertSublayer(shapeLayerH, at: 0)
+        
+        
+        let fromW = CGPoint(x: 0.0, y: 0.0)
+        let toW = CGPoint(x: self.widthContainer.bounds.size.width, y: self.widthContainer.bounds.size.height)
+        let widthArrowPath = PKBezierPathHelper.shared.arrow(from: fromW, to: toW, tailWidth: 1.0, headWidth: 4.0, headLength: 5.0, arrowType: .both)
+        
+        let shapeLayerW = CAShapeLayer()
+        shapeLayerW.path = widthArrowPath.cgPath
+        shapeLayerW.fillColor = AppColors.themeGray40.cgColor
+        shapeLayerW.strokeColor = AppColors.themeGray40.cgColor
+        shapeLayerW.lineWidth = 0.0
+        self.widthContainer.layer.insertSublayer(shapeLayerW, at: 0)
+        
+        
+        let fromD = CGPoint(x: 0.0, y: self.depthContainer.bounds.size.height)
+        let toD = CGPoint(x: self.depthContainer.bounds.size.width, y: 0.0)
+        let depthArrowPath = PKBezierPathHelper.shared.arrow(from: fromD, to: toD, tailWidth: 1.0, headWidth: 4.0, headLength: 5.0, arrowType: .both)
+        
+        let shapeLayerD = CAShapeLayer()
+        shapeLayerD.path = depthArrowPath.cgPath
+        shapeLayerD.fillColor = AppColors.themeGray40.cgColor
+        shapeLayerD.strokeColor = AppColors.themeGray40.cgColor
+        shapeLayerD.lineWidth = 0.0
+        self.depthContainer.layer.insertSublayer(shapeLayerD, at: 0)
+        
     }
  
     private func setData() {
@@ -140,22 +166,70 @@ class BaggageInfoTableViewCell: UITableViewCell {
 }
 
 
-extension UIBezierPath {
+class PKBezierPathHelper {
     
-    class func arrow(from start: CGPoint, to end: CGPoint, tailWidth: CGFloat, headWidth: CGFloat, headLength: CGFloat) -> Self {
+    enum PKArrowType {
+        case start
+        case end
+        case both
+    }
+    
+    static let shared: PKBezierPathHelper = PKBezierPathHelper()
+    private init() {}
+    
+    func arrow(from start: CGPoint, to end: CGPoint, tailWidth: CGFloat, headWidth: CGFloat, headLength: CGFloat, arrowType: PKArrowType = .both) -> UIBezierPath {
+        
         let length = hypot(end.x - start.x, end.y - start.y)
-        let tailLength = length - headLength
+        
+        let multiplier: CGFloat = arrowType == .both ? CGFloat(2) : CGFloat(1)
+        let tailLength = length - (headLength * multiplier)
+        
+        let headDiff = (headWidth - tailWidth) / 2.0
         
         func p(_ x: CGFloat, _ y: CGFloat) -> CGPoint { return CGPoint(x: x, y: y) }
-        let points: [CGPoint] = [
-            p(0, tailWidth / 2),
-            p(tailLength, tailWidth / 2),
-            p(tailLength, headWidth / 2),
-            p(length, 0),
-            p(tailLength, -headWidth / 2),
-            p(tailLength, -tailWidth / 2),
-            p(0, -tailWidth / 2)
-        ]
+        
+        var points: [CGPoint] = []
+        
+        if arrowType == .both {
+            ///both
+            points = [
+                p(0, 0),
+                p(headLength, headWidth / 2),
+                p(headLength, tailWidth / 2),
+                p((tailLength + headLength), tailWidth / 2),
+                p((tailLength + headLength), headWidth / 2),
+                p(length, 0),
+                p((tailLength + headLength), -headWidth / 2),
+                p((tailLength + headLength), -tailWidth / 2),
+                p(headLength, -tailWidth / 2),
+                p(headLength, -headWidth / 2)
+            ]
+        }
+        else if arrowType == .end {
+            ///end
+            points = [
+                p(0, 0),
+                p(0, tailWidth / 2),
+                p(tailLength, tailWidth / 2),
+                p(tailLength, headWidth / 2),
+                p(length, 0),
+                p(tailLength, -headWidth / 2),
+                p(tailLength, -tailWidth / 2),
+                p(0, -tailWidth / 2)
+            ]
+        }
+        else {
+            ///start
+            points = [
+                p(0, 0),
+                p(headLength, headWidth / 2),
+                p(headLength, tailWidth / 2),
+                p(length, tailWidth / 2),
+                p(length, -tailWidth / 2),
+                p(headLength, -tailWidth / 2),
+                p(headLength, -headWidth / 2)
+            ]
+        }
         
         let cosine = (end.x - start.x) / length
         let sine = (end.y - start.y) / length
@@ -165,7 +239,6 @@ extension UIBezierPath {
         path.addLines(between: points, transform: transform)
         path.closeSubpath()
         
-        return self.init(cgPath: path)
+        return UIBezierPath(cgPath: path)
     }
-    
 }

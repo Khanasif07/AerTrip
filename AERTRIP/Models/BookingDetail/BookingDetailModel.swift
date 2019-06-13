@@ -351,8 +351,8 @@ struct Leg {
     var destination: String = ""
     var title: String = ""
     var stops: String = ""
-    var refundable: String = ""
-    var reschedulable: String = ""
+    var refundable: Int = 0
+    var reschedulable: Int = 0
     var fareName: String = ""
     var flight: [FlightDetail] = []
     var halts: String = ""
@@ -378,10 +378,10 @@ struct Leg {
             self.stops = "\(obj)".removeNull
         }
         if let obj = json["refundable"] {
-            self.refundable = "\(obj)".removeNull
+            self.refundable = "\(obj)".toInt ?? 0
         }
         if let obj = json["reschedulable"] {
-            self.reschedulable = "\(obj)".removeNull
+            self.reschedulable = "\(obj)".toInt ?? 0
         }
         if let obj = json["fare_name"] {
             self.fareName = "\(obj)".removeNull
