@@ -9,40 +9,47 @@
 import UIKit
 
 class FlightBoardingAndDestinationTableViewCell: UITableViewCell {
-
-    //MARK:- Variables
-    //MARK:===========
+    // MARK: - Variables
+    
+    // MARK: ===========
+    
     internal var noOfStops: Int = 1
     
-    //MARK:- IBOutlets
-    //MARK:===========
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var boardAndDestStackView: UIStackView!
-    @IBOutlet weak var boardingLabel: UILabel!
-    @IBOutlet weak var destinationLabel: UILabel!
-    @IBOutlet weak var boardingCodeLabel: UILabel!
-    @IBOutlet weak var destinationCodeLabel: UILabel!
-    @IBOutlet weak var greencircleContainerView: UIView!
-    @IBOutlet weak var economyLabel: UILabel!
-    @IBOutlet weak var noOfStoppageCollectionView: UICollectionView!
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var boardingTimeLabel: UILabel!
-    @IBOutlet weak var destinationTimeLabel: UILabel!
-    @IBOutlet weak var boardingDateLabel: UILabel!
-    @IBOutlet weak var destinationDateLabel: UILabel!
-    @IBOutlet weak var dividerView: ATDividerView!
+    // MARK: - IBOutlets
     
-    //MARK:- LifeCycle
-    //MARK:===========
+    // MARK: ===========
+    
+    @IBOutlet var containerView: UIView!
+    @IBOutlet var boardAndDestStackView: UIStackView!
+    @IBOutlet var boardingLabel: UILabel!
+    @IBOutlet var destinationLabel: UILabel!
+    @IBOutlet var boardingCodeLabel: UILabel!
+    @IBOutlet var destinationCodeLabel: UILabel!
+    @IBOutlet var greencircleContainerView: UIView!
+    @IBOutlet var economyLabel: UILabel!
+    @IBOutlet var noOfStoppageCollectionView: UICollectionView!
+    @IBOutlet var timeLabel: UILabel!
+    @IBOutlet var boardingTimeLabel: UILabel!
+    @IBOutlet var destinationTimeLabel: UILabel!
+    @IBOutlet var boardingDateLabel: UILabel!
+    @IBOutlet var destinationDateLabel: UILabel!
+    @IBOutlet var dividerView: ATDividerView!
+    
+    // MARK: - LifeCycle
+    
+    // MARK: ===========
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
     }
     
-    //MARK:- Functions
-    //MARK:===========
+    // MARK: - Functions
+    
+    // MARK: ===========
+    
     private func configUI() {
-        //Font
+        // Font
         self.boardingLabel.font = AppFonts.Regular.withSize(14.0)
         self.destinationLabel.font = AppFonts.Regular.withSize(14.0)
         self.boardingCodeLabel.font = AppFonts.Regular.withSize(40.0)
@@ -54,7 +61,7 @@ class FlightBoardingAndDestinationTableViewCell: UITableViewCell {
         self.boardingDateLabel.font = AppFonts.Regular.withSize(14.0)
         self.destinationDateLabel.font = AppFonts.Regular.withSize(14.0)
         
-        //Color
+        // Color
         self.boardingLabel.textColor = AppColors.themeGray40
         self.destinationLabel.textColor = AppColors.themeGray40
         self.boardingCodeLabel.textColor = AppColors.themeBlack
@@ -66,38 +73,40 @@ class FlightBoardingAndDestinationTableViewCell: UITableViewCell {
         self.boardingDateLabel.textColor = AppColors.themeGray40
         self.destinationDateLabel.textColor = AppColors.themeGray40
         
-        //Text
+        // Text
         self.economyLabel.text = LocalizedString.Economy.localized
         self.noOfStoppageCollectionView.registerCell(nibName: FlightStopsCollectionViewCell.reusableIdentifier)
         self.noOfStoppageCollectionView.delegate = self
         self.noOfStoppageCollectionView.dataSource = self
         
-        //Shadow
+        // Shadow
 //        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize.zero, opacity: 0.7, shadowRadius: 1.5)
         self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
     }
     
-    internal func configCell(boarding: String , destination: String , boardingCode: String , destinationCode: String , totalTime: String , boardingTime: String , destinationTime: String , boardingDate: String , destinationDate: String) {
-        self.boardingLabel.text = boarding
-        self.destinationLabel.text = destination
+    internal func configCell(boardingCity: String, destinationCity: String, boardingCode: String, destinationCode: String, legDuration: String, boardingTime: String, destinationTime: String, boardingDate: String, destinationDate: String, economyClass: String) {
+        self.boardingLabel.text = boardingCity
+        self.destinationLabel.text = destinationCity
         self.boardingCodeLabel.text = boardingCode
         self.destinationCodeLabel.text = destinationCode
-        self.timeLabel.text = totalTime
+        self.timeLabel.text = legDuration
         self.boardingTimeLabel.text = boardingTime
         self.destinationTimeLabel.text = destinationTime
         self.boardingDateLabel.text = boardingDate
         self.destinationDateLabel.text = destinationDate
+        self.economyLabel.text = economyClass
     }
     
-    //MARK:- IBActions
-    //MARK:===========
+    // MARK: - IBActions
     
+    // MARK: ===========
 }
 
-//MARK:- Extensions
-//MARK:============
-extension FlightBoardingAndDestinationTableViewCell: UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
-    
+// MARK: - Extensions
+
+// MARK: ============
+
+extension FlightBoardingAndDestinationTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.noOfStops
     }

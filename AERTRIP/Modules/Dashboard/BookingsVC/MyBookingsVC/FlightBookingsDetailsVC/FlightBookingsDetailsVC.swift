@@ -33,8 +33,9 @@ class FlightBookingsDetailsVC: BaseVC {
         didSet {
             self.bookingDetailsTableView.estimatedRowHeight = 100.0
             self.bookingDetailsTableView.rowHeight = UITableView.automaticDimension
-            self.bookingDetailsTableView.separatorStyle = .none
-//            self.bookingDetailsTableView.contentInset = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
+            self.bookingDetailsTableView.contentInset = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
+            self.bookingDetailsTableView.estimatedSectionHeaderHeight = CGFloat.zero
+            self.bookingDetailsTableView.sectionHeaderHeight = CGFloat.zero
         }
     }
     
@@ -52,12 +53,12 @@ class FlightBookingsDetailsVC: BaseVC {
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
+        self.headerView?.dividerView.isHidden = true
         self.setupParallaxHeader()
         self.registerNibs()
         
-        
         // Api Call to get booking detail
-        self.viewModel.getBookingDetail(id:self.viewModel.bookingId)
+        self.viewModel.getBookingDetail(id: self.viewModel.bookingId)
     }
     
     override func setupColors() {
@@ -81,9 +82,9 @@ class FlightBookingsDetailsVC: BaseVC {
     // MARK: -
     
     /// ConfigureCheckInOutView
-     func configureTableHeaderView() {
+    func configureTableHeaderView() {
         if let view = self.headerView {
-            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: "B/16-17/", bookingIdNumbers: "6859403", date: "4 Mar’17", isDividerView: false)
+            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.toString(dateFormat: "d MMM ''yy") ?? "")
         }
     }
     
@@ -116,4 +117,3 @@ class FlightBookingsDetailsVC: BaseVC {
         self.bookingDetailsTableView.registerCell(nibName: WeatherInfoTableViewCell.reusableIdentifier)
     }
 }
-

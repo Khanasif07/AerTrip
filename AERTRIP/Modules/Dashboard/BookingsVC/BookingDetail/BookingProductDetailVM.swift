@@ -35,11 +35,19 @@ class BookingProductDetailVM {
     
     func getSectionDataForFlightProductType() {
         self.getDocumentDownloadingData()
-        // It will be for the notes cell type
-        //        self.sectionData.append([.notesCell,.requestCell])
-        //        self.sectionData.append([.cancellationsReqCell , .addOnRequestCell , .reschedulingRequestCell, .reschedulingRequestCell])
-        self.sectionDataForFlightProductType.append([.flightCarriersCell, .flightBoardingAndDestinationCell, .travellersPnrStatusTitleCell, .travellersPnrStatusCell, .travellersPnrStatusCell, .travellersPnrStatusCell, .travellersPnrStatusCell])
-        self.sectionDataForFlightProductType.append([.flightCarriersCell, .flightBoardingAndDestinationCell, .travellersPnrStatusTitleCell, .travellersPnrStatusCell, .travellersPnrStatusCell, .travellersPnrStatusCell, .travellersPnrStatusCell])
+        for leg in self.bookingDetail?.bookingDetail?.leg ?? [] {
+            var temp: [TableViewCellForFlightProductType] = [.flightCarriersCell, .flightBoardingAndDestinationCell]
+            for (index, _) in leg.pax.enumerated() {
+                if index == 0 {
+                    temp.append(.travellersPnrStatusTitleCell)
+                    temp.append(.travellersPnrStatusCell)
+                } else {
+                    temp.append(.travellersPnrStatusCell)
+                }
+            }
+            self.sectionDataForFlightProductType.append(temp)
+        }
+        
         self.sectionDataForFlightProductType.append([.documentCell])
         self.sectionDataForFlightProductType.append([.paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .paidCell, .refundCell, .paymentPendingCell])
         self.sectionDataForFlightProductType.append([.flightsOptionsCell])
@@ -60,12 +68,11 @@ class BookingProductDetailVM {
             tempTravellers.append(.travellersDetailCell)
         }
         self.sectionDataForOtherProductType.append(tempTravellers)
-        if !(self.bookingDetail?.documents.isEmpty ?? false)   {
-         self.sectionDataForOtherProductType.append([.documentCell])
-         }
+        if !(self.bookingDetail?.documents.isEmpty ?? false) {
+            self.sectionDataForOtherProductType.append([.documentCell])
+        }
         
-        
-        self.sectionDataForOtherProductType.append([.paymentInfoCell , .bookingCell , .paidCell])
+        self.sectionDataForOtherProductType.append([.paymentInfoCell, .bookingCell, .paidCell])
         self.sectionDataForOtherProductType.append([.nameCell, .emailCell, .mobileCell, .gstCell, .billingAddressCell])
     }
     
@@ -76,11 +83,9 @@ class BookingProductDetailVM {
         }
     }
     
-
-    
     func getBookingDetail(id: String) {
         let params: JSONDictionary = ["booking_id": bookingId]
-         delegate?.willGetBookingDetail()
+        delegate?.willGetBookingDetail()
         APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in
             guard let sSelf = self else { return }
             if success {

@@ -9,12 +9,11 @@
 import UIKit
 
 class FlightInfoTableViewCell: UITableViewCell {
-    
     // MARK: - IB Outlet
     
-    @IBOutlet weak var flightImageView: UIImageView!
-    @IBOutlet weak var flightNameLabel: UILabel!
-    @IBOutlet weak var flightDetailsLabel: UILabel!
+    @IBOutlet var flightImageView: UIImageView!
+    @IBOutlet var flightNameLabel: UILabel!
+    @IBOutlet var flightDetailsLabel: UILabel!
     
     var flightDetail: FlightDetail? {
         didSet {
@@ -31,20 +30,17 @@ class FlightInfoTableViewCell: UITableViewCell {
         self.setUpTextColor()
     }
     
-    
     // MARK: - Helper methods
     
     private func setUpFont() {
         self.flightNameLabel.font = AppFonts.SemiBold.withSize(14.0)
         self.flightDetailsLabel.font = AppFonts.Regular.withSize(14.0)
-        
     }
     
     private func setUpTextColor() {
         self.flightNameLabel.textColor = AppColors.themeBlack
         self.flightDetailsLabel.textColor = AppColors.themeGray40
     }
-    
     
     private func configureCell() {
         self.flightNameLabel.text = self.flightDetail?.carrier ?? ""
@@ -53,7 +49,7 @@ class FlightInfoTableViewCell: UITableViewCell {
         if let obj = self.flightDetail?.operatedBy, !obj.isEmpty {
             finalDetails = obj
         }
-
+        
         let detail = "\(self.flightDetail?.carrierCode ?? LocalizedString.na.localized)-\(self.flightDetail?.flightNumber ?? LocalizedString.na.localized)・\(self.flightDetail?.cabinClass ?? LocalizedString.na.localized)"
         
         finalDetails += finalDetails.isEmpty ? detail : "\n\(detail)"
@@ -61,7 +57,7 @@ class FlightInfoTableViewCell: UITableViewCell {
         self.flightDetailsLabel.text = finalDetails
         
         if let code = self.flightDetail?.carrierCode, !code.isEmpty {
-            let imageUrl = "https://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/\(code.uppercased()).png"
+            let imageUrl = AppGlobals.shared.getAirlineCodeImageUrl(code: code)
             self.flightImageView.setImageWithUrl(imageUrl, placeholder: AppPlaceholderImage.default, showIndicator: true)
         }
     }

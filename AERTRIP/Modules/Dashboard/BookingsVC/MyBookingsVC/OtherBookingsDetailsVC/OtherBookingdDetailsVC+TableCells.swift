@@ -11,7 +11,7 @@ import UIKit
 extension OtherBookingsDetailsVC {
     func getInsurenceCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
-        cell.configCell(title: self.viewModel.bookingDetail?.bookingDetail?.title ?? "", subTitle: self.viewModel.bookingDetail?.bookingDetail?.details ?? "")
+        cell.configCell(title: self.viewModel.bookingDetail?.bookingDetail?.title ?? "", subTitle: self.viewModel.bookingDetail?.bookingDetail?.isRefundableKeyPresent ?? false ? self.viewModel.bookingDetail?.bookingDetail?.paymentStatus ?? "-" : "  - ")
         cell.titleLabelTopConstraint.constant = 15.0
         cell.titleLabelBottomConstraint.constant = 0.0
         cell.dividerViewLeadingConstraint.constant = 16.0
@@ -53,7 +53,7 @@ extension OtherBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingDocumentsTableViewCell.reusableIdentifier, for: indexPath) as? BookingDocumentsTableViewCell else { return UITableViewCell() }
         cell.delegate = self
 //        cell.documentsData = self.viewModel.documentDownloadingData
-         cell.documentsData = self.viewModel.bookingDetail?.documents ?? []
+        cell.documentsData = self.viewModel.bookingDetail?.documents ?? []
         cell.currentDocumentType = .others
         return cell
     }
@@ -76,7 +76,7 @@ extension OtherBookingsDetailsVC {
     func getPaidCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         cell.containerViewBottomConstraint.constant = 26.0
-        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.totalAmountPaid ?? "" , isLastCell: true)
+        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.totalAmountPaid ?? "", isLastCell: true)
         cell.clipsToBounds = true
         return cell
     }

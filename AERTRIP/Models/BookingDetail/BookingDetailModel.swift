@@ -201,6 +201,7 @@ struct BookingDetail {
     var hotelAddress: String = ""
     var country: String = ""
     var isRefundable: Bool = false
+    var isRefundableKeyPresent: Bool = false
     var rooms: Int = 0
     var roomDetails: [RoomDetailModel] = []
     var pax: [String] = [] // Used for pax details array
@@ -266,6 +267,10 @@ struct BookingDetail {
         
         if let obj = json["is_refundable"] {
             self.isRefundable = "\(obj)".toBool
+            self.isRefundableKeyPresent = true
+        }
+        else {
+            self.isRefundableKeyPresent = false
         }
         
         if let obj = json["rooms"] {
@@ -338,13 +343,14 @@ struct BookingDetail {
         
         self.travellers = Traveller.retunsTravellerArray(jsonArr: json["travellers"] as? [JSONDictionary] ?? [])
         
-        var paymentStatus: String {
-            return self.isRefundable ? "Refundable" : " Non-Refundable"
-        }
         // leg parsing
         if let obj = json["leg"] as? [JSONDictionary] {
             self.leg = Leg.getModels(json: obj)
         }
+    }
+    
+    var paymentStatus: String {
+        return self.isRefundable ? "Refundable" : " Non-Refundable"
     }
 }
 
@@ -402,6 +408,36 @@ struct Leg {
         }
     }
     
+    var flightNumbers: [String] {
+        return self.flight.map({ $0.flightNumber })
+    }
+    
+    var carrierCodes: [String] {
+        return self.flight.map({ $0.carrierCode })
+    }
+    
+    var carriers: [String] {
+        return self.flight.map({ $0.carrier })
+    }
+    
+    var cabinClass: String {
+        return self.flight.map({ $0.cabinClass }).joined(separator: ",")
+    }
+    
+    var legDuration: Double {
+        var duration: Double = 0
+        for flight in self.flight {
+            let flightLayOverTime = flight.layoverTime + flight.flightTime
+            duration += flightLayOverTime
+        }
+        return duration
+    }
+    
+    // TODO: need to flight.halt key
+    var numberOfStop: Int {
+        return self.flight.count
+    }
+    
     static func getModels(json: [JSONDictionary]) -> [Leg] {
         return json.map { Leg(json: $0) }
     }
@@ -450,11 +486,11 @@ struct FlightDetail {
     var numberOfCell: Int {
         var temp: Int = 2
         
-        if !amenities.isEmpty {
+        if !self.amenities.isEmpty {
             temp += 1
         }
         
-        if layoverTime > 0 {
+        if self.layoverTime > 0 {
             temp += 1
         }
         return temp
@@ -463,10 +499,10 @@ struct FlightDetail {
     let numberOfAmenitiesInRow: Double = 4.0
     var totalRowsForAmenities: Int {
         let cont: Double = Double(self.amenities.count)
-        let val = Double(cont/numberOfAmenitiesInRow)
+        let val = Double(cont / numberOfAmenitiesInRow)
         let diff = val - floor(val)
         var total = Int(floor(val))
-        if diff > 0.0 && diff < 1.0 {
+        if diff > 0.0, diff < 1.0 {
             total += 1
         }
         return total
@@ -610,7 +646,7 @@ struct FlightDetail {
             self.fbn = "\(obj)"
         }
         
-        //TODO: parse the real data for amenities
+        // TODO: parse the real data for amenities
         self.amenities = [ATAmenity.Wifi, ATAmenity.Gym, ATAmenity.Internet, ATAmenity.Pool, ATAmenity.RoomService]
     }
     
@@ -912,7 +948,7 @@ struct Pax {
     }
     
     var fullName: String {
-        return "\(salutation) \(paxName)"
+        return "\(self.salutation) \(self.paxName)"
     }
     
     var detailsToShow: JSONDictionary {
@@ -929,7 +965,7 @@ struct Pax {
     }
     
     var salutationImage: UIImage {
-        switch salutation {
+        switch self.salutation {
         case "Mrs":
             return #imageLiteral(resourceName: "woman")
         case "Mr":

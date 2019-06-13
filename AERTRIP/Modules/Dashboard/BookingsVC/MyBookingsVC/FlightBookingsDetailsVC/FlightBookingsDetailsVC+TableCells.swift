@@ -9,7 +9,6 @@
 import UIKit
 
 extension FlightBookingsDetailsVC {
-    
     func getNotesCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelInfoAddressCell.reusableIdentifier, for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
         cell.configureNotesCell(notes: "A massive collection of core components and over 60 (x2) selected screens found in the public release of iOS 11 made over 60 (x2)")
@@ -36,7 +35,7 @@ extension FlightBookingsDetailsVC {
         cell.clipsToBounds = true
         return cell
     }
-
+    
     func getReschedulingRequestCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightBookingRequestsTableViewCell.reusableIdentifier, for: indexPath) as? FlightBookingRequestsTableViewCell else { return UITableViewCell() }
         cell.configureCell(requestName: "Rescheduling Request", actionStatus: "In Progress", actionStatusColor: AppColors.themeGreen, isFirstCell: false, isLastCell: (indexPath.row == 3), isStatusExpired: false)
@@ -46,14 +45,17 @@ extension FlightBookingsDetailsVC {
     
     func getFlightCarriersCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightCarriersTableViewCell.reusableIdentifier, for: indexPath) as? FlightCarriersTableViewCell else { return UITableViewCell() }
-        cell.configCell(totalNumberOfCarriers: 4, flightNo: "W888", flightName: "Jet Airways")
+        let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section]
+        cell.configCell(carriers: leg?.carriers ?? [], carrierCode: leg?.carrierCodes ?? [], flightNumbers: leg?.flightNumbers ?? [])
         cell.clipsToBounds = true
         return cell
     }
     
     func getFlightBoardingAndDestinationCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightBoardingAndDestinationTableViewCell.reusableIdentifier, for: indexPath) as? FlightBoardingAndDestinationTableViewCell else { return UITableViewCell() }
-        cell.configCell(boarding: "Mumbai", destination: "Bangkok", boardingCode: "BOM", destinationCode: "BKK", totalTime: "24h 20m", boardingTime: "06:05", destinationTime: "06:05", boardingDate: "Sat, 26 Jan 2018", destinationDate: "Sat, 26 Jan 2018")
+        let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section]
+        cell.configCell(boardingCity: leg?.flight.last?.departCity ?? "", destinationCity: leg?.flight.last?.departCity ?? "", boardingCode: leg?.flight.first?.departure ?? "", destinationCode: leg?.flight.last?.departure ?? "", legDuration: leg?.legDuration.asString(units: [.hour, .minute], style: .abbreviated) ?? LocalizedString.na.localized, boardingTime: leg?.flight.first?.departureTime ?? "", destinationTime: leg?.flight.last?.departureTime ?? "", boardingDate: leg?.flight.first?.departDate.toDate(dateFormat: "YYYY-MM-dd")?.toString(dateFormat: "E, d MMM yyyy") ?? "", destinationDate: leg?.flight.last?.departDate.toDate(dateFormat: "YYYY-MM-dd")?.toString(dateFormat: "E, d MMM yyyy") ?? "", economyClass: leg?.cabinClass ?? "-")
+        cell.noOfStops = leg?.numberOfStop ?? 0
         cell.clipsToBounds = true
         return cell
     }
@@ -69,7 +71,19 @@ extension FlightBookingsDetailsVC {
     
     func getTravellersPnrStatusCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TravellersPnrStatusTableViewCell.reusableIdentifier, for: indexPath) as? TravellersPnrStatusTableViewCell else { return UITableViewCell() }
-        cell.configCell(travellersImage: "https://lh6.googleusercontent.com/-oXpHDt3qMTY/AAAAAAAAAAI/AAAAAAAAAAA/ACevoQNgVkoVZ-CLi_hSD8oP8oA-6WnytA/s200/photo.jpg", travellerName: "Rajan Singh", travellerPnrStatus: "FW737K", isLastTraveller: (indexPath.row == 6))
+        
+        let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section]
+        let traveller = leg?.pax[indexPath.row - 3]
+        if traveller?.status.lowercased() == "booked".lowercased() {
+            cell.pnrStatus = .active
+        } else if traveller?.status.lowercased() == "cancelled".lowercased() {
+            cell.pnrStatus = .cancelled
+        } else if traveller?.status.lowercased() == "rescheduled".lowercased() {
+            cell.pnrStatus = .rescheduled
+        } else if traveller?.status.lowercased() == "Pending".lowercased() {
+            cell.pnrStatus = .pending
+        }
+        cell.configCell(travellersImage: "", travellerName: traveller?.paxName ?? "", travellerPnrStatus: traveller?.status == "booked" ? traveller?.pnr ?? "" : traveller?.status.capitalizedFirst() ?? "", firstName: traveller?.firstName ?? "", lastName: traveller?.lastName ?? "", isLastTraveller: (indexPath.row - 2 == leg?.pax.count))
         cell.clipsToBounds = true
         return cell
     }
@@ -95,7 +109,7 @@ extension FlightBookingsDetailsVC {
         cell.titleTopConstraint.constant = 11.0
         cell.titleBottomConstraint.constant = 5.0
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0) , titleColor: AppColors.themeBlack , isFirstCell: false, price: "₹ 10,000", isLastCell: false, cellHeight: 36.0)
+        cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "₹ 10,000", isLastCell: false, cellHeight: 36.0)
         cell.clipsToBounds = true
         return cell
     }
@@ -105,7 +119,7 @@ extension FlightBookingsDetailsVC {
         cell.titleTopConstraint.constant = 5.0
         cell.titleBottomConstraint.constant = 5.0
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.AddOns.localized, titleFont: AppFonts.Regular.withSize(16.0) , titleColor: AppColors.themeBlack , isFirstCell: false, price: "₹ 5,000", isLastCell: false, cellHeight: 30.0)
+        cell.configCell(title: LocalizedString.AddOns.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "₹ 5,000", isLastCell: false, cellHeight: 30.0)
         cell.clipsToBounds = true
         return cell
     }
@@ -115,7 +129,7 @@ extension FlightBookingsDetailsVC {
         cell.titleTopConstraint.constant = 5.0
         cell.titleBottomConstraint.constant = 12.0
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.Cancellation.localized, titleFont: AppFonts.Regular.withSize(16.0) , titleColor: AppColors.themeBlack , isFirstCell: false, price: "- ₹ 2,000", isLastCell: false, cellHeight: 37.0)
+        cell.configCell(title: LocalizedString.Cancellation.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "- ₹ 2,000", isLastCell: false, cellHeight: 37.0)
         cell.clipsToBounds = true
         return cell
     }
@@ -124,7 +138,7 @@ extension FlightBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         cell.titleTopConstraint.constant = 12.0
         cell.titleBottomConstraint.constant = 5.0
-        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0) , titleColor: AppColors.themeBlack , isFirstCell: false, price: "₹ 4,000", isLastCell: false, cellHeight: 37.0)
+        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "₹ 4,000", isLastCell: false, cellHeight: 37.0)
         cell.dividerView.isHidden = false
         cell.clipsToBounds = true
         return cell
@@ -135,7 +149,7 @@ extension FlightBookingsDetailsVC {
         cell.titleTopConstraint.constant = 5.0
         cell.titleBottomConstraint.constant = 13.0
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.Refund.localized, titleFont: AppFonts.Regular.withSize(16.0) , titleColor: AppColors.themeBlack , isFirstCell: false, price: "- ₹ 4,000", isLastCell: false, cellHeight: 38.0)
+        cell.configCell(title: LocalizedString.Refund.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "- ₹ 4,000", isLastCell: false, cellHeight: 38.0)
         cell.clipsToBounds = true
         return cell
     }
@@ -164,7 +178,7 @@ extension FlightBookingsDetailsVC {
     
     func getWeatherInfoCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherInfoTableViewCell.reusableIdentifier, for: indexPath) as? WeatherInfoTableViewCell else { return UITableViewCell() }
-        cell.configureCell(cityName: self.viewModel.cityName[indexPath.row], date: "23 Jun", temp: "15", upTemp: "8", downTemp: "10", isLastCell: indexPath.row == self.viewModel.cityName.count-1)
+        cell.configureCell(cityName: self.viewModel.cityName[indexPath.row], date: "23 Jun", temp: "15", upTemp: "8", downTemp: "10", isLastCell: indexPath.row == self.viewModel.cityName.count - 1)
         cell.clipsToBounds = true
         return cell
     }
@@ -220,5 +234,4 @@ extension FlightBookingsDetailsVC {
         cell.clipsToBounds = true
         return cell
     }
-
 }

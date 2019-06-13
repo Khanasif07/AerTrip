@@ -133,14 +133,10 @@ extension OtherBookingsDetailsVC: MXParallaxHeaderDelegate {
     func updateForParallexProgress() {
         let prallexProgress = self.dataTableView.parallaxHeader.progress
         printDebug("progress %f \(prallexProgress)")
-        //        if prallexProgress >= 0.6 {
-        //            self.dataTableView.parallaxHeader.height = 152.0
-        //        }
-
         if prallexProgress <= 0.65 {
             self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
                 guard let sSelf = self else { return }
-                sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeImage, endText: "BOM → DEL", font: AppFonts.SemiBold.withSize(18.0), isEndTextBold: true)
+                sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeImage, endText: self?.viewModel.bookingDetail?.bookingDetail?.title ?? "", font: AppFonts.SemiBold.withSize(18.0), isEndTextBold: true)
                 sSelf.topNavBar.dividerView.isHidden = false
             }
         } else {

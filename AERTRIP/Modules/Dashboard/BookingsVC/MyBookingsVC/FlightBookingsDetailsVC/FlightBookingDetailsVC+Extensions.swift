@@ -6,13 +6,14 @@
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
-import UIKit
 import MXParallaxHeader
+import UIKit
 
-//MARK:- Extensions
-//MARK:============
-extension FlightBookingsDetailsVC: UITableViewDelegate , UITableViewDataSource {
-    
+// MARK: - Extensions
+
+// MARK: ============
+
+extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.viewModel.sectionDataForFlightProductType.count
     }
@@ -22,7 +23,7 @@ extension FlightBookingsDetailsVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       let currentSection = self.viewModel.sectionDataForFlightProductType[indexPath.section]
+        let currentSection = self.viewModel.sectionDataForFlightProductType[indexPath.section]
         switch currentSection[indexPath.row] {
         case .notesCell:
             return self.getNotesCell(tableView, indexPath: indexPath)
@@ -76,6 +77,10 @@ extension FlightBookingsDetailsVC: UITableViewDelegate , UITableViewDataSource {
             return self.getWeatherInfoCell(tableView, indexPath: indexPath)
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        printDebug("\(indexPath.section)")
+    }
 }
 
 extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
@@ -84,7 +89,7 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.ProcessCancellation.localized,LocalizedString.SpecialRequest.localized,LocalizedString.Download.localized,LocalizedString.ResendConfirmationEmail.localized], colors: [AppColors.themeGreen,AppColors.themeGreen,AppColors.themeGreen,AppColors.themeGreen])
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.ProcessCancellation.localized, LocalizedString.SpecialRequest.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationEmail.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { _, index in
             switch index {
             case 0:
@@ -102,30 +107,28 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
     }
 }
 
-
 extension FlightBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
-    
     func downloadDocument(documentDirectory: String, tableIndex: IndexPath, collectionIndex: IndexPath) {
         self.viewModel.currentDocumentPath = documentDirectory
         printDebug(documentDirectory)
         let destinationUrl = URL(fileURLWithPath: documentDirectory)
         printDebug(destinationUrl)
-        AppNetworking.DOWNLOAD(sourceUrl: self.viewModel.documentDownloadingData[collectionIndex.item].sourceUrl, destinationUrl: destinationUrl, requestHandler: { [weak self] (request) in
+        AppNetworking.DOWNLOAD(sourceUrl: self.viewModel.documentDownloadingData[collectionIndex.item].sourceUrl, destinationUrl: destinationUrl, requestHandler: { [weak self] request in
             guard let sSelf = self else { return }
             printDebug(request)
             sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .downloading
             sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadRequest = request
-            }, progressUpdate: { [weak self] progress in
-                guard let sSelf = self else { return }
-                sSelf.viewModel.documentDownloadingData[collectionIndex.item].progressUpdate?(progress)
-            }, success: { [weak self] (success) in
-                guard let sSelf = self else { return }
-                sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .downloaded
-                UIView.performWithoutAnimation {
-                    sSelf.bookingDetailsTableView.reloadData()
-                }
-                printDebug(success)
-        }) { [weak self] (error) in
+        }, progressUpdate: { [weak self] progress in
+            guard let sSelf = self else { return }
+            sSelf.viewModel.documentDownloadingData[collectionIndex.item].progressUpdate?(progress)
+        }, success: { [weak self] success in
+            guard let sSelf = self else { return }
+            sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .downloaded
+            UIView.performWithoutAnimation {
+                sSelf.bookingDetailsTableView.reloadData()
+            }
+            printDebug(success)
+        }) { [weak self] error in
             guard let sSelf = self else { return }
             sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .notDownloaded
             UIView.performWithoutAnimation {
@@ -141,23 +144,18 @@ extension FlightBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
     }
 }
 
-//MARK:- ScrollView Delegate
+// MARK: - ScrollView Delegate
+
 //==========================
-extension FlightBookingsDetailsVC : MXParallaxHeaderDelegate {
+extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
     func updateForParallexProgress() {
-        
         let prallexProgress = self.bookingDetailsTableView.parallaxHeader.progress
         
         printDebug("progress %f \(prallexProgress)")
         
-        if prallexProgress >= 0.6 {
-            self.topNavBar.backgroundType = .clear
-            //            profileImageHeaderView.profileImageViewHeightConstraint.constant = 121 * prallexProgress
-        }
-        
-        if prallexProgress <= 0.5 {
+        if prallexProgress <= 0.65 {
             self.topNavBar.backgroundType = .blurMainView(isDark: false)
-            self.topNavBar.animateBackView(isHidden: false) { [weak self](isDone) in
+            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
                 guard let sSelf = self else { return }
                 sSelf.topNavBar.firstRightButton.isSelected = true
                 sSelf.topNavBar.leftButton.isSelected = true
@@ -167,7 +165,7 @@ extension FlightBookingsDetailsVC : MXParallaxHeaderDelegate {
             }
         } else {
             self.topNavBar.backgroundType = .blurMainView(isDark: false)
-            self.topNavBar.animateBackView(isHidden: true) { [weak self](isDone) in
+            self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
                 guard let sSelf = self else { return }
                 sSelf.topNavBar.firstRightButton.isSelected = false
                 sSelf.topNavBar.leftButton.isSelected = false
@@ -208,8 +206,7 @@ extension FlightBookingsDetailsVC: WeatherHeaderTableViewCellDelegate {
     }
 }
 
-
-// MARK:- BookingProductDetailVM methods
+// MARK: - BookingProductDetailVM methods
 
 extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
     func willGetBookingDetail() {
@@ -223,12 +220,9 @@ extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
         self.bookingDetailsTableView.dataSource = self
         self.viewModel.getSectionDataForFlightProductType()
         self.bookingDetailsTableView.reloadData()
-      
     }
     
     func getBookingDetailFaiure() {
-          AppGlobals.shared.stopLoading()
+        AppGlobals.shared.stopLoading()
     }
-    
-    
 }
