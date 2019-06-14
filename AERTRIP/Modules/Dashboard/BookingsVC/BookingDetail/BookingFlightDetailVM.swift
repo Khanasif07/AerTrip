@@ -24,6 +24,7 @@ class BookingDetailVM {
     
     var bookingId: String = ""
     var legDetails: [Leg] = []
+    var legId: String = ""
     var bookingFee: BookingFeeDetail?
     var tripCitiesStr: NSAttributedString?
     
@@ -37,7 +38,7 @@ class BookingDetailVM {
     
     func getBookingFees() {
 
-        let params: JSONDictionary = ["booking_id": bookingId, "ref_id": self.legDetails.first?.legId ?? ""]
+        let params: JSONDictionary = ["booking_id": bookingId, "ref_id": legId]
         delegate?.willGetBookingFees()
         APICaller.shared.getBookingFees(params: params) { [weak self] success, errors, bookingFee in
             guard let sSelf = self else { return }

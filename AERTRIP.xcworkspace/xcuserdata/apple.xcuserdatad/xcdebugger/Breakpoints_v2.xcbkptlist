@@ -26,13 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/FlightBookingsDetailsVC/FlightBookingDetailsVC+Extensions.swift"
-            timestampString = "582132340.619501"
+            timestampString = "582181031.869866"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "229"
-            endingLineNumber = "229"
-            landmarkName = "tableView(_:didSelectRowAt:)"
-            landmarkType = "7">
+            startingLineNumber = "232"
+            endingLineNumber = "232">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -42,7 +40,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/UpcomingBookingsVC/UpcomingBookingVC+UITableViewMethods.swift"
-            timestampString = "582132340.619588"
+            timestampString = "582181031.869943"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "79"

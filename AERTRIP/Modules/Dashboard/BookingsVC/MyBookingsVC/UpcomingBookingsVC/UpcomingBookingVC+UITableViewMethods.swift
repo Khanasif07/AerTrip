@@ -75,8 +75,8 @@ extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
         let bookingData = fetchedResultsController.object(at: indexPath)
         if let bookingId = bookingData.bookingId, !bookingId.isEmpty {
             if bookingData.productType == .flight {
-//                AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: bookingData.bookingId ?? "")
-                AppFlowManager.default.moveToBookingDetail(bookingId: bookingData.bookingId ?? "")
+               AppFlowManager.default.moveToFlightBookingsDetailsVC(bookingId: bookingData.bookingId ?? "")
+                
             }
             else if bookingData.productType == .other {
                 AppFlowManager.default.moveToOtherBookingsDetailsVC(bookingId: bookingData.bookingId ?? "")
