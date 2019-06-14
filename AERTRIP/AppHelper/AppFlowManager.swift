@@ -782,10 +782,11 @@ extension AppFlowManager {
         self.mainNavigationController.present(ob, animated: true)
     }
     
-    func moveToBookingDetail(bookingId: String,ledId: String) {
+    func moveToBookingDetail(tripCitiesStr: NSAttributedString?, bookingId: String, ledData: [Leg]) {
         let ob = BookingFlightDetailVC.instantiate(fromAppStoryboard: .Bookings)
+        ob.viewModel.tripCitiesStr = tripCitiesStr
         ob.viewModel.bookingId = bookingId
-        ob.viewModel.legId = ledId
+        ob.viewModel.legDetails = ledData
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     

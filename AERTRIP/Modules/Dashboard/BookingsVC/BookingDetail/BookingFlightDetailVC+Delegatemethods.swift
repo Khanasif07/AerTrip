@@ -25,7 +25,7 @@ extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
         
         switch self.bookingDetailType {
         case .flightInfo:
-            return 44.0
+            return 55.0
         case .baggage:
             return 60.0
         case .fareInfo:
@@ -179,10 +179,5 @@ extension BookingFlightDetailVC: BookingDetailVMDelegate {
     }
     
     func getBookingFeesFail() {
-    }
-    
-    func legDetailsSuccess() {
-        self.reloadDetails()
-        self.viewModel.getBookingFees()
     }
 }

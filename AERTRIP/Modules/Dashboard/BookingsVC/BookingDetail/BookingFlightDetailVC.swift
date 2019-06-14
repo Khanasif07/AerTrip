@@ -42,6 +42,11 @@ class BookingFlightDetailVC: BaseVC {
         self.reloadDetails()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.viewModel.getBookingFees()
+    }
+    
     override func bindViewModel() {
         self.viewModel.delegate = self
     }

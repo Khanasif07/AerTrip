@@ -67,7 +67,7 @@ extension BookingFlightDetailVC {
             switch (indexPath.row % self.calculatedTotalRows) {
             case 0:
                 //aerline details
-                return 80.0
+                return 82.0
             case 1:
                 //flight details
                 return 140
@@ -76,7 +76,7 @@ extension BookingFlightDetailVC {
                 let heightForOneRow: CGFloat = 55.0
                 let lineSpace = (CGFloat(flight?.totalRowsForAmenities ?? 1) * 5.0)
                 //10 id collection view top & bottom in xib
-                return (CGFloat(flight?.totalRowsForAmenities ?? 1) * heightForOneRow) + lineSpace + 20.0
+                return (CGFloat(flight?.totalRowsForAmenities ?? 1) * heightForOneRow) + lineSpace + 25.0
             case 3:
                 //layover time
                 return 40.0
@@ -305,7 +305,7 @@ extension BookingFlightDetailVC {
             }
             fareInfoNoteCell.isForBookingPolicyCell = false
             fareInfoNoteCell.noteLabel.text = LocalizedString.Notes.localized
-            fareInfoNoteCell.configCell(notes: ["Hello","Hello","Hello","Hello","Hello","Hello","Hello","Hello"])
+            fareInfoNoteCell.configCell(notes: self.viewModel.fareInfoNotes)
             return fareInfoNoteCell
         }
         
