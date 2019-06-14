@@ -68,7 +68,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>19</string>
+	<string>20</string>
 	<key>CLIENT_ID</key>
 	<string>175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm.apps.googleusercontent.com</string>
 	<key>Fabric</key>
@@ -89,6 +89,8 @@
 	<string>1080161318756977</string>
 	<key>FacebookDisplayName</key>
 	<string>AERTRIP</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LIAppId</key>
 	<string>12426494</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -103,10 +105,10 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-    <key>ITSAppUsesNonExemptEncryption</key>
-    <false/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>linkedin.com</key>
@@ -119,8 +121,6 @@
 				<true/>
 			</dict>
 		</dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>This app will need the access to your camera.</string>

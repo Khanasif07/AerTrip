@@ -102,11 +102,11 @@ extension UserDefaults {
             if let object = try? decoder.decode(type, from: data) {
                 return object
             }else {
-                print("Couldnt decode object")
+                printDebug("Couldnt decode object")
                 return nil
             }
         }else {
-            print("Couldnt find key")
+            printDebug("Couldnt find key")
             return nil
         }
     }

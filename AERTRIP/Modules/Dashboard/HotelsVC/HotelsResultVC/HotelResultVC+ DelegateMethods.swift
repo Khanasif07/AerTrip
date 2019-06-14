@@ -322,8 +322,10 @@ extension HotelResultVC: HotelFilteVCDelegate {
         self.loadSaveData()
         
         //manage switch button for the filttred data.
-        if let all = self.fetchedResultsController.fetchedObjects {
-            self.manageSwitchContainer(isHidden: all.isEmpty, shouldOff: false)
+        if let _ = self.fetchedResultsController.fetchedObjects {
+            if  let allFavs = CoreDataManager.shared.fetchData("HotelSearched", predicate: "fav == '1'")  as? [HotelSearched]  {
+                 self.manageSwitchContainer(isHidden: allFavs.isEmpty, shouldOff: false)
+            }
         }
         else {
             self.manageSwitchContainer(isHidden: true, shouldOff: false)
