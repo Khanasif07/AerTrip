@@ -16,7 +16,7 @@ class DocumentDownloadingModel {
     var sourceUrl: String = ""
     var downloadRequest: DownloadRequest? = nil
     var progressUpdate: ProgressUpdate? = nil
-    var destinationUrl: String = ""
+//    var destinationUrl: String = ""
     var downloadingStatus: DownloadingStatus = .notDownloaded
     
     var path: String = ""
@@ -28,15 +28,16 @@ class DocumentDownloadingModel {
     
     
 //    var previosProgress: Double = 0.0
-    
-    init() {
-        self.sourceUrl = "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4"
-        self.destinationUrl = ""
-
-    }
+//    
+//    init() {
+//        self.sourceUrl = "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4"
+//        self.destinationUrl = ""
+//
+//    }
     
     init(json: JSONDictionary) {
         if let obj = json["path"] {
+            self.sourceUrl = "\(obj)"
             self.path = "\(obj)"
         }
         

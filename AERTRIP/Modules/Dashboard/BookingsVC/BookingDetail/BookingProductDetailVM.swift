@@ -28,13 +28,11 @@ class BookingProductDetailVM {
     var cityName: [String] = ["", "Mumbai, IN", "Bangkok, TH", "Bangkok, TH", "Mumbai, IN", "Chennai, IN"]
     var sectionDataForFlightProductType: [[TableViewCellForFlightProductType]] = []
     var flightBookingData: FlightBookingsDataModel?
-    var documentDownloadingData = [DocumentDownloadingModel]()
     var currentDocumentPath: String = ""
     var urlOfDocuments: String = ""
     var urlLink: URL?
     
     func getSectionDataForFlightProductType() {
-        self.getDocumentDownloadingData()
         for leg in self.bookingDetail?.bookingDetail?.leg ?? [] {
             var temp: [TableViewCellForFlightProductType] = [.flightCarriersCell, .flightBoardingAndDestinationCell]
             for (index, _) in leg.pax.enumerated() {
@@ -48,8 +46,31 @@ class BookingProductDetailVM {
             self.sectionDataForFlightProductType.append(temp)
         }
         
-        self.sectionDataForFlightProductType.append([.documentCell])
-        self.sectionDataForFlightProductType.append([.paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .paidCell, .refundCell, .paymentPendingCell])
+        if !(self.bookingDetail?.documents.isEmpty ?? false) {
+            self.sectionDataForFlightProductType.append([.documentCell])
+        }
+        // self.sectionDataForFlightProductType.append([.paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .paidCell, .refundCell, .paymentPendingCell])
+        
+        self.sectionDataForFlightProductType.append([.paymentInfoCell, .bookingCell])
+        
+        if self.bookingDetail?.addOnAmount ?? 0.0 > 0.0 {
+            self.sectionDataForFlightProductType.append([.addOnsCell])
+        }
+        
+        if self.bookingDetail?.cancellationAmount ?? 0.0 > 0.0 {
+            self.sectionDataForFlightProductType.append([.cancellationCell])
+        }
+        
+        if self.bookingDetail?.paid ?? 0.0 > 0.0 {
+            self.sectionDataForFlightProductType.append([.paidCell])
+        }
+        
+        if self.bookingDetail?.refundAmount ?? 0.0 > 0.0 {
+            self.sectionDataForFlightProductType.append([.refundCell])
+        }
+        
+        self.sectionDataForFlightProductType.append([.paymentPendingCell])
+        
         self.sectionDataForFlightProductType.append([.flightsOptionsCell])
         self.sectionDataForFlightProductType.append([.weatherHeaderCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell])
         self.sectionDataForFlightProductType.append([.nameCell, .emailCell, .mobileCell, .gstCell, .billingAddressCell])
@@ -76,13 +97,7 @@ class BookingProductDetailVM {
         self.sectionDataForOtherProductType.append([.nameCell, .emailCell, .mobileCell, .gstCell, .billingAddressCell])
     }
     
-    // Created for testing purpose
-    func getDocumentDownloadingData() {
-        for _ in 0..<9 {
-            self.documentDownloadingData.append(DocumentDownloadingModel())
-        }
-    }
-
+    
     func getBookingDetail() {
         let params: JSONDictionary = ["booking_id": bookingId]
         delegate?.willGetBookingDetail()

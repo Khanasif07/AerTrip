@@ -34,9 +34,9 @@ class HotlelBookingsDetailsVM {
     }
     
     func getDocumentDownloadingData() {
-        for _ in 0..<9 {
-            self.documentDownloadingData.append(DocumentDownloadingModel())
-        }
+//        for _ in 0..<9 {
+//            self.documentDownloadingData.append(DocumentDownloadingModel())
+//        }
     }
     
 }

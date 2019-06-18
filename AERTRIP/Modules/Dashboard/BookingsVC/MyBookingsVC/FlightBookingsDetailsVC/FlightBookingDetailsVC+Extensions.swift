@@ -8,6 +8,7 @@
 
 import MXParallaxHeader
 import UIKit
+import SafariServices
 
 // MARK: - Extensions
 
@@ -80,8 +81,13 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("\(indexPath.section)")
-        let legId = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section].legId ?? ""
-        AppFlowManager.default.moveToBookingDetail(bookingId: self.viewModel.bookingId,ledId: legId ?? "" )
+        if indexPath.section < self.viewModel.bookingDetail?.bookingDetail?.leg.count ?? 0 {
+            let legId = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section].legId ?? ""
+            AppFlowManager.default.moveToBookingDetail(bookingId: self.viewModel.bookingId,ledId: legId ?? "" )
+        } else {
+            printDebug("index path section \(indexPath.section)")
+        }
+      
 
     }
 }
@@ -116,24 +122,25 @@ extension FlightBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
         printDebug(documentDirectory)
         let destinationUrl = URL(fileURLWithPath: documentDirectory)
         printDebug(destinationUrl)
-        AppNetworking.DOWNLOAD(sourceUrl: self.viewModel.documentDownloadingData[collectionIndex.item].sourceUrl, destinationUrl: destinationUrl, requestHandler: { [weak self] request in
+        let document = self.viewModel.bookingDetail?.documents[collectionIndex.item]
+        AppNetworking.DOWNLOAD(sourceUrl: document?.sourceUrl ?? "", destinationUrl: destinationUrl, requestHandler: { [weak self] request in
             guard let sSelf = self else { return }
             printDebug(request)
-            sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .downloading
-            sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadRequest = request
+            document?.downloadingStatus = .downloading
+            document?.downloadRequest = request
         }, progressUpdate: { [weak self] progress in
             guard let sSelf = self else { return }
-            sSelf.viewModel.documentDownloadingData[collectionIndex.item].progressUpdate?(progress)
+          document?.progressUpdate?(progress)
         }, success: { [weak self] success in
             guard let sSelf = self else { return }
-            sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .downloaded
+          document?.downloadingStatus = .downloaded
             UIView.performWithoutAnimation {
                 sSelf.bookingDetailsTableView.reloadData()
             }
             printDebug(success)
         }) { [weak self] error in
             guard let sSelf = self else { return }
-            sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .notDownloaded
+          document?.downloadingStatus = .notDownloaded
             UIView.performWithoutAnimation {
                 sSelf.bookingDetailsTableView.reloadData()
             }
@@ -143,7 +150,8 @@ extension FlightBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
     
     func cancelDownloadDocument(itemIndexPath: IndexPath) {
         printDebug("Downloading Stop")
-        self.viewModel.documentDownloadingData[itemIndexPath.item].downloadRequest?.cancel()
+        let document = self.viewModel.bookingDetail?.documents[itemIndexPath.item]
+        document?.downloadRequest?.cancel()
     }
 }
 
@@ -194,6 +202,22 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
 }
 
 extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
+    func openWebCheckin() {
+        //TODO:- Need to test with when web url is present
+        self.webCheckinServices()
+    }
+    
+    func openDirections() {
+        //
+        printDebug("open direction ")
+        
+    }
+    
+    func openCallDetail() {
+        printDebug("open call detail  ")
+
+    }
+    
     func addToCalender() {
         printDebug("Add To Calender")
     }
@@ -227,5 +251,13 @@ extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
     
     func getBookingDetailFaiure() {
         AppGlobals.shared.stopLoading()
+    }
+}
+
+// MARK: -
+
+extension FlightBookingsDetailsVC: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        AppFlowManager.default.mainNavigationController.dismiss(animated: true, completion: nil)
     }
 }

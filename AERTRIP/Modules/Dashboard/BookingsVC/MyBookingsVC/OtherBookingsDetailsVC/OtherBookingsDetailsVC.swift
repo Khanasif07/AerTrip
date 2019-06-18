@@ -54,7 +54,6 @@ class OtherBookingsDetailsVC: BaseVC {
     override func initialSetup() {
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
         self.viewModel.getBookingDetail()
-        self.viewModel.getDocumentDownloadingData()
         self.statusBarStyle = .default
         self.topNavBarHeightConstraint.constant = self.navBarHeight
         self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
@@ -65,7 +64,8 @@ class OtherBookingsDetailsVC: BaseVC {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        for documentData in self.viewModel.documentDownloadingData {
+        guard let documentDownloadingData = self.viewModel.bookingDetail?.documents else { return }
+        for documentData in documentDownloadingData {
             if documentData.downloadingStatus == .downloading {
                 documentData.downloadRequest?.cancel()
             }

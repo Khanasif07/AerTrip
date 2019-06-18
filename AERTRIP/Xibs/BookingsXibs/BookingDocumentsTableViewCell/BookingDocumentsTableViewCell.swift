@@ -25,8 +25,11 @@ class BookingDocumentsTableViewCell: UITableViewCell {
     //MARK:===========
     weak var delegate: BookingDocumentsTableViewCellDelegate?
     internal var currentDocumentType: DocumentType = .others
-//    private var documentsName: [String] = ["Govind.mp4" , "Julian.mp4" , "Delgado.mp4", "Govind1.mp4" , "Julian1.mp4" , "Delgado1.mp4", "Govind2.mp4" , "Julian2.mp4" , "Delgado2.mp4"]
-    var documentsData: [DocumentDownloadingModel] = []
+    var documentsData: [DocumentDownloadingModel] = [] {
+        didSet {
+            self.documentsCollectionView.reloadData()
+        }
+    }
     
     //MARK:- IBOutlets
     //MARK:===========
@@ -142,7 +145,7 @@ extension BookingDocumentsTableViewCell: UICollectionViewDelegate , UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookingDocumentsCollectionViewCell.reusableIdentifier, for: indexPath) as? BookingDocumentsCollectionViewCell else { return UICollectionViewCell() }
         cell.delegate = self
-        cell.configCell(name: self.documentsData[indexPath.item].fileName , documentsSize: "293.03 KB", request: documentsData[indexPath.item])
+        cell.configCell(name: self.documentsData[indexPath.item].fileName , documentsSize: self.documentsData[indexPath.item].size, request: documentsData[indexPath.item])
         switch self.documentsData[indexPath.item].downloadingStatus {
         case .notDownloaded:
             cell.notDownloadingStatusSetUp(name: self.documentsData[indexPath.item].fileName)
@@ -152,7 +155,8 @@ extension BookingDocumentsTableViewCell: UICollectionViewDelegate , UICollection
             cell.downloadedStatusSetUp(name: self.documentsData[indexPath.item].fileName)
         }
         let currentDocumentFolder = self.checkCreateAndReturnDocumentFolder()
-        if self.checkIsFileExist(nameOfFile: self.documentsData[indexPath.item].fileName, path: currentDocumentFolder) || self.documentsData[indexPath.item].downloadingStatus != .notDownloaded {
+        let url = URL(fileURLWithPath: self.documentsData[indexPath.item].sourceUrl)
+        if self.checkIsFileExist(nameOfFile: url.lastPathComponent, path: currentDocumentFolder) || self.documentsData[indexPath.item].downloadingStatus != .notDownloaded {
             cell.downloadingIcon.image = nil
         } else {
             cell.downloadingIcon.image = #imageLiteral(resourceName: "downloadingImage")
@@ -163,13 +167,21 @@ extension BookingDocumentsTableViewCell: UICollectionViewDelegate , UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let superVw = self.superview as? UITableView , let index = superVw.indexPath(for: self) , let safeDelegate = self.delegate , let cell = collectionView.cellForItem(at: indexPath) as? BookingDocumentsCollectionViewCell {
             let currentDirecotry = self.checkCreateAndReturnDocumentFolder()
-            if !self.checkIsFileExist(nameOfFile: self.documentsData[indexPath.item].fileName, path: currentDirecotry) && self.documentsData[indexPath.item].downloadingStatus == .notDownloaded {
+            let url = URL(fileURLWithPath: self.documentsData[indexPath.item].sourceUrl)
+            if !self.checkIsFileExist(nameOfFile: url.lastPathComponent, path: currentDirecotry) && self.documentsData[indexPath.item].downloadingStatus == .notDownloaded {
                 self.documentsData[indexPath.item].downloadingStatus = .downloading
                 cell.downloadingStartAnimation()
-                safeDelegate.downloadDocument(documentDirectory: currentDirecotry + "/\(self.documentsData[indexPath.item])", tableIndex: index, collectionIndex: indexPath)
+                safeDelegate.downloadDocument(documentDirectory: currentDirecotry + "/\(url.lastPathComponent)", tableIndex: index, collectionIndex: indexPath)
             } else {
-                printDebug("FILE AVAILABLE")
+                  let currentDirecotry = self.checkCreateAndReturnDocumentFolder()
+                let url = URL(fileURLWithPath: self.documentsData[indexPath.item].sourceUrl)
+                let completeUrlPath = currentDirecotry + "/\(url.lastPathComponent)"
+                printDebug("FILE AVAILABLE at \( currentDirecotry) /\(url.lastPathComponent)")
+                AppFlowManager.default.openDocument(atURL: URL(fileURLWithPath: completeUrlPath), screenTitle: "Detail")
+                
+                
             }
+            self.documentsCollectionView.reloadData()
         }
     }
     

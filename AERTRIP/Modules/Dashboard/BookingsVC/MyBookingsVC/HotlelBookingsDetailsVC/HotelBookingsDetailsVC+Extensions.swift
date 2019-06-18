@@ -187,6 +187,18 @@ extension HotlelBookingsDetailsVC : MXParallaxHeaderDelegate {
 }
 
 extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
+    func openWebCheckin() {
+        //
+    }
+    
+    func openDirections() {
+        //
+    }
+    
+    func openCallDetail() {
+        //
+    }
+    
     func addToCalender() {
         printDebug("Add To Calender")
     }

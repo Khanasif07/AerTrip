@@ -9,13 +9,205 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Xibs/BookingsXibs/TravellersPnrStatusTableViewCell/TravellersPnrStatusTableViewCell.swift"
-            timestampString = "582132340.619401"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelsResultVM.swift"
+            timestampString = "582198434.154716"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
-            landmarkName = "configCell(travellersImage:travellerName:travellerPnrStatus:firstName:lastName:isLastTraveller:)"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
+            landmarkName = "getShareText()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AERTRIP.HotelsResultVM.getShareText() -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/iOS/AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelsResultVM.swift"
+                  timestampString = "582534782.020031"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "254"
+                  endingLineNumber = "254"
+                  offsetFromSymbolStart = "6160">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Swift.Array&lt;Swift.Int&gt;, Swift.String, Swift.String) -&gt; () in AERTRIP.HotelsResultVM.getShareText() -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/iOS/AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelsResultVM.swift"
+                  timestampString = "582534782.02353"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "254"
+                  endingLineNumber = "254"
+                  offsetFromSymbolStart = "244">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelsResultVM.swift"
+            timestampString = "582198434.155426"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
+            landmarkName = "hotelListOnResultFallback()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AERTRIP.HotelsResultVM.hotelListOnResultFallback() -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/iOS/AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelsResultVM.swift"
+                  timestampString = "582534782.147465"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "197"
+                  endingLineNumber = "197"
+                  offsetFromSymbolStart = "964">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Swift.Array&lt;Swift.Int&gt;, Swift.Array&lt;AERTRIP.HotelsSearched&gt;, Swift.Bool) -&gt; () in AERTRIP.HotelsResultVM.hotelListOnResultFallback() -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/iOS/AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelsResultVM.swift"
+                  timestampString = "582534782.150516"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "197"
+                  endingLineNumber = "197"
+                  offsetFromSymbolStart = "284">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelsResultVM.swift"
+            timestampString = "582198434.155732"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "hotelListOnPreferenceResult()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AERTRIP.HotelsResultVM.hotelListOnPreferenceResult() -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/iOS/AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelsResultVM.swift"
+                  timestampString = "582534782.157346"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "964">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Swift.Array&lt;Swift.Int&gt;, Swift.Array&lt;AERTRIP.HotelsSearched&gt;, Swift.Bool) -&gt; () in AERTRIP.HotelsResultVM.hotelListOnPreferenceResult() -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/iOS/AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelsResultVM.swift"
+                  timestampString = "582534782.160602"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "284">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelsResultVM.swift"
+            timestampString = "582198434.156019"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
+            landmarkName = "hotelListOnPreferencesApi()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AERTRIP.HotelsResultVM.hotelListOnPreferencesApi() -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/iOS/AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelsResultVM.swift"
+                  timestampString = "582534782.168565"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "309"
+                  endingLineNumber = "309"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Swift.Array&lt;Swift.Int&gt;, Swift.String, Swift.Array&lt;Swift.String&gt;, Swift.Optional&lt;AERTRIP.HotelSearchRequestModel&gt;) -&gt; () in AERTRIP.HotelsResultVM.hotelListOnPreferencesApi() -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/iOS/AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelsResultVM.swift"
+                  timestampString = "582534782.171514"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "309"
+                  endingLineNumber = "309"
+                  offsetFromSymbolStart = "284">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelsResultVM.swift"
+            timestampString = "582198439.657571"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
+            landmarkName = "paramsForApi()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,12 +217,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/FlightBookingsDetailsVC/FlightBookingDetailsVC+Extensions.swift"
-            timestampString = "582181031.869866"
+            filePath = "AERTRIP/Models/BookingDetail/AdditionalInformationModel.swift"
+            timestampString = "582474066.619256"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232">
+            startingLineNumber = "148"
+            endingLineNumber = "148">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -39,13 +231,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/UpcomingBookingsVC/UpcomingBookingVC+UITableViewMethods.swift"
-            timestampString = "582183436.310617"
+            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/OtherBookingsDetailsVC/OtherBookingsDetailsVC+Extensions.swift"
+            timestampString = "582474066.619324"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "tableView(_:didSelectRowAt:)"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "downloadDocument(documentDirectory:tableIndex:collectionIndex:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -55,13 +247,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+HelperMethods.swift"
-            timestampString = "582186562.042788"
+            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/OtherBookingsDetailsVC/OtherBookingdDetailsVC+TableCells.swift"
+            timestampString = "582528290.378131"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "applyPreviousFilter()"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "getBookingDocumentsCell(_:indexPath:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -71,13 +263,109 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+ DelegateMethods.swift"
-            timestampString = "582186921.030393"
+            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/OtherBookingsDetailsVC/OtherBookingsDetailsVC+Extensions.swift"
+            timestampString = "582474066.619494"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "330"
-            endingLineNumber = "330"
-            landmarkName = "doneButtonTapped()"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "downloadDocument(documentDirectory:tableIndex:collectionIndex:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AERTRIP.OtherBookingsDetailsVC.downloadDocument(documentDirectory: Swift.String, tableIndex: Foundation.IndexPath, collectionIndex: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/iOS/AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/OtherBookingsDetailsVC/OtherBookingsDetailsVC+Extensions.swift"
+                  timestampString = "582534782.196364"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "600">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.DownloadRequest) -&gt; () in AERTRIP.OtherBookingsDetailsVC.downloadDocument(documentDirectory: Swift.String, tableIndex: Foundation.IndexPath, collectionIndex: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/iOS/AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/OtherBookingsDetailsVC/OtherBookingsDetailsVC+Extensions.swift"
+                  timestampString = "582534782.1994129"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "108">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/AppHelper/AppGlobals.swift"
+            timestampString = "582534562.818548"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "435"
+            endingLineNumber = "435"
+            landmarkName = "viewPdf(urlPath:screenTitle:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AERTRIP.AppGlobals.viewPdf(urlPath: Swift.String, screenTitle: Swift.String) -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/iOS/AERTRIP/AppHelper/AppGlobals.swift"
+                  timestampString = "582534782.206369"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "436"
+                  endingLineNumber = "436"
+                  offsetFromSymbolStart = "376">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.URL&gt;) -&gt; () in AERTRIP.AppGlobals.viewPdf(urlPath: Swift.String, screenTitle: Swift.String) -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/iOS/AERTRIP/AppHelper/AppGlobals.swift"
+                  timestampString = "582534782.2092659"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "437"
+                  endingLineNumber = "437"
+                  offsetFromSymbolStart = "192">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Xibs/BookingsXibs/BookingDocumentsTableViewCell/BookingDocumentsTableViewCell.swift"
+            timestampString = "582534781.184548"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -87,29 +375,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+ DelegateMethods.swift"
-            timestampString = "582186921.030916"
+            filePath = "AERTRIP/AppHelper/AppFlowManager.swift"
+            timestampString = "582534781.185001"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "325"
-            endingLineNumber = "325"
-            landmarkName = "doneButtonTapped()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+HelperMethods.swift"
-            timestampString = "582187146.988814"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
-            landmarkName = "getFavouriteHotels(shouldReloadData:)"
+            startingLineNumber = "958"
+            endingLineNumber = "958"
+            landmarkName = "openDocument(atURL:screenTitle:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

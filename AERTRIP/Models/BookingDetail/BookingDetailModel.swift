@@ -28,6 +28,7 @@ struct BookingDetailModel {
     var vCode: String = ""
     var bookingStatus: String = ""
     var documents: [DocumentDownloadingModel] = []
+    var additionalInformation: AdditionalInformation?
     var addOnRequestAllowed: Bool = false
     var cancellationRequestAllowed: Bool = false
     var rescheduleRequestAllowed: Bool = false
@@ -90,6 +91,13 @@ struct BookingDetailModel {
             self.documents = DocumentDownloadingModel.getModels(json: obj)
         }
         
+        
+        // Additional information data like web checkins,directions, and  Airports , Airlines and Aertrip
+        if let obj = json["additional_informations"] as? JSONDictionary {
+            self.additionalInformation = AdditionalInformation(json: obj)
+        }
+        
+        
         // other data parsing
         if let obj = json["billing_info"] as? JSONDictionary {
             self.billingInfo = BillingDetail(json: obj)
@@ -101,6 +109,8 @@ struct BookingDetailModel {
     }
 }
 
+//MARK:- extension for Calculation
+//MARK:-
 extension BookingDetailModel {
     var tripCitiesStr: NSMutableAttributedString? {
         func isReturnFlight(forArr: [String]) -> Bool {
@@ -184,6 +194,119 @@ extension BookingDetailModel {
             return NSMutableAttributedString(string: LocalizedString.dash.localized)
         }
     }
+   
+    /*
+    Loop through the vouchers array, consider the object that has
+    voucher.basic.voucher_type  = ‘sales’ (Must be only 1)
+    voucher.transactions.Total.amount  gives the Booking Price.
+    */
+
+    var bookingPrice: Double {
+        var price: Double = 0.0
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == "sales" {
+                price = voucher.transaction?.total?.amount.toDouble ?? 0.0
+            }
+        }
+        return price
+    }
+    /*
+ Loop through vouchers array, consider the objects that have
+ voucher.basic.voucher_type  = ‘sales_addon’ (Can be 0 or more)
+ 
+ Sum of sales_addon’s voucher.transactions.Total.amount
+ */
+
+    var addOnAmount: Double {
+        var price: Double = 0.0
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == "sales_addon" {
+                price += voucher.transaction?.total?.amount.toDouble ?? 0.0
+            }
+        }
+        return price
+    }
+    
+    /*
+    Cancellation :
+    Loop through vouchers array, consider the objects that have
+    voucher.basic.voucher_type  = ‘sales_return_jv’ (Can be 0 or more)
+ 
+    Sum of sales_return_jv’s voucher.transactions.Total.amount
+    */
+    
+    var cancellationAmount: Double {
+        var price: Double = 0.0
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == "sales_return_jv" {
+                price += voucher.transaction?.total?.amount.toDouble ?? 0.0
+            }
+        }
+        return price
+    }
+    
+    /*
+    Reschedule :
+    Loop through vouchers array, consider the objects that have
+    voucher.basic.voucher_type  = ‘reschedule_sales_return_jv’ (Can be 0 or more)
+    
+    Sum of  reschedule_sales_return_jv’s  voucher.transactions.Total.amount
+     */
+    var rescheduleAmount: Double {
+        var price:Double = 0.0
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == "reschedule_sales_return_jv" {
+                price += voucher.transaction?.total?.amount.toDouble ?? 0.0
+            }
+        }
+        return price
+    }
+    
+    // Paid :
+    //Total_amount_paid
+
+    var paid: Double {
+        return self.totalAmountPaid.toDouble ?? 0.0
+    }
+    
+    // Refund Amount: Total of cancellations + Total of Reschedules
+
+    
+    var refundAmount: Double {
+        return self.rescheduleAmount + self.cancellationAmount
+    }
+    
+   // Total cost of booking = Sale’s amount + sum(add-on)
+
+    var totalCostOfBooking: Double {
+        //TODO: need to disucss sale amount :
+        let saleAmount: Double = 0.0
+        return saleAmount + self.addOnAmount
+    }
+    
+    // Total amount received = Total_amount_paid
+   // Can be calculated by adding Total of all receipts
+
+    var totalAmountReceived: Double {
+        return self.totalAmountPaid.toDouble ?? 0.0
+    }
+    
+    
+//    Total outstanding = total_amount_due
+//    Total cost of booking - Total amount received
+ 
+    var totalOutStanding: Double {
+        return self.receipt?.totalAmountDue.toDouble ?? 0.0
+    }
+    
+    
+    
+
+ 
+
+ 
+
+    
 }
 
 struct BookingDetail {
@@ -481,8 +604,8 @@ struct FlightDetail {
     var changeOfPlane: Int = 0
     var bookingClass: String = ""
     var fbn: String = ""
+    var halt: [Halt] = []
     var amenities: [ATAmenity] = []
-    
     var numberOfCellFlightInfo: Int {
         var temp: Int = 2
         
@@ -515,7 +638,7 @@ struct FlightDetail {
             }
         }
         
-        if layoverTime > 0 {
+        if self.layoverTime > 0 {
             temp += 1
         }
         return temp
@@ -671,7 +794,12 @@ struct FlightDetail {
             self.fbn = "\(obj)".removeNull
         }
         
-        //baggage
+        // Parse the halt data
+        if let obj = json["halt"] as? [JSONDictionary] {
+            self.halt = Halt.getModels(json: obj)
+        }
+        
+        // baggage
         if let obj = json["baggage"] as? JSONDictionary {
             self.baggage = Baggage(json: obj)
         }
@@ -701,6 +829,44 @@ struct FlightDetail {
         }
         
         return finalStr
+    }
+}
+
+// This model will come only when we are booking the flight via some in-between station
+struct Halt {
+    var halt: String = ""
+    var haltTime: String = ""
+    var haltAirport: String = ""
+    var haltCity: String = ""
+    var haltCountry: String = ""
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["halt"] {
+            self.halt = "\(obj)".removeNull
+        }
+        
+        if let obj = json["halt_time"] {
+            self.haltTime = "\(obj)".removeNull
+        }
+        
+        if let obj = json["halt_airport"] {
+            self.haltAirport = "\(obj)".removeNull
+        }
+        
+        if let obj = json["halt_city"] {
+            self.haltCity = "\(obj)".removeNull
+        }
+        if let obj = json["halt_country"] {
+            self.haltCountry = "\(obj)".removeNull
+        }
+    }
+    
+    static func getModels(json: [JSONDictionary]) -> [Halt] {
+        return json.map { Halt(json: $0) }
     }
 }
 
@@ -897,7 +1063,7 @@ struct BillingDetail {
         }
         
         if let obj = json["gst"] {
-            self.gst = !"\(obj)".isEmpty ? "\(obj)" : "-"
+            self.gst = !"\(obj)".removeNull.isEmpty ? "\(obj)" : "-"
         }
         
         if let obj = json["address"] as? JSONDictionary {
@@ -920,27 +1086,27 @@ struct BillingAddress {
     
     init(json: JSONDictionary) {
         if let obj = json["address_line1"] {
-            self.addressLine1 = "\(obj)"
+            self.addressLine1 = "\(obj)".removeNull
         }
         
         if let obj = json["address_line2"] {
-            self.addressLine2 = "\(obj)"
+            self.addressLine2 = "\(obj)".removeNull
         }
         
         if let obj = json["city"] {
-            self.city = "\(obj)"
+            self.city = "\(obj)".removeNull
         }
         
         if let obj = json["state"] {
-            self.state = "\(obj)"
+            self.state = "\(obj)".removeNull
         }
         
         if let obj = json["postal_code"] {
-            self.postalCode = "\(obj)"
+            self.postalCode = "\(obj)".removeNull
         }
         
         if let obj = json["country"] {
-            self.country = "\(obj)"
+            self.country = "\(obj)".removeNull
         }
     }
     
@@ -1192,6 +1358,8 @@ struct Receipt {
             self.voucher = Voucher.getModels(json: obj)
         }
     }
+    
+    
 }
 
 struct Voucher {

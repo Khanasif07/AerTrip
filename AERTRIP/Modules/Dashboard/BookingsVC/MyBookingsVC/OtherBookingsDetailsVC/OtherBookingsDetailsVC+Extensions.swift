@@ -95,24 +95,25 @@ extension OtherBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
         printDebug(documentDirectory)
         let destinationUrl = URL(fileURLWithPath: documentDirectory)
         printDebug(destinationUrl)
-        AppNetworking.DOWNLOAD(sourceUrl: self.viewModel.documentDownloadingData[collectionIndex.item].sourceUrl, destinationUrl: destinationUrl, requestHandler: { [weak self] request in
+        guard let documentDownloadingData = self.viewModel.bookingDetail?.documents else { return }
+        AppNetworking.DOWNLOAD(sourceUrl: documentDownloadingData[collectionIndex.item].sourceUrl, destinationUrl: destinationUrl, requestHandler: { [weak self] request in
             guard let sSelf = self else { return }
             printDebug(request)
-            sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .downloading
-            sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadRequest = request
+            documentDownloadingData[collectionIndex.item].downloadingStatus = .downloading
+            documentDownloadingData[collectionIndex.item].downloadRequest = request
         }, progressUpdate: { [weak self] progress in
             guard let sSelf = self else { return }
-            sSelf.viewModel.documentDownloadingData[collectionIndex.item].progressUpdate?(progress)
+            documentDownloadingData[collectionIndex.item].progressUpdate?(progress)
         }, success: { [weak self] success in
             guard let sSelf = self else { return }
-            sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .downloaded
+            documentDownloadingData[collectionIndex.item].downloadingStatus = .downloaded
             UIView.performWithoutAnimation {
                 sSelf.dataTableView.reloadData()
             }
             printDebug(success)
         }) { [weak self] error in
             guard let sSelf = self else { return }
-            sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .notDownloaded
+            documentDownloadingData[collectionIndex.item].downloadingStatus = .notDownloaded
             UIView.performWithoutAnimation {
                 sSelf.dataTableView.reloadData()
             }
@@ -122,7 +123,8 @@ extension OtherBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
 
     func cancelDownloadDocument(itemIndexPath: IndexPath) {
         printDebug("Downloading Stop")
-        self.viewModel.documentDownloadingData[itemIndexPath.item].downloadRequest?.cancel()
+        guard let documentDownloadingData = self.viewModel.bookingDetail?.documents else { return }
+        documentDownloadingData[itemIndexPath.item].downloadRequest?.cancel()
     }
 }
 
@@ -179,6 +181,7 @@ extension OtherBookingsDetailsVC: BookingProductDetailVMDelegate {
     }
 
     func getBookingDetailFaiure() {
+        self.dataTableView.reloadData()
         AppGlobals.shared.stopLoading()
     }
 }

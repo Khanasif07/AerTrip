@@ -11,6 +11,10 @@ import UIKit
 protocol FlightsOptionsTableViewCellDelegate: class {
     func addToCalender()
     func addToAppleWallet()
+    func openWebCheckin()
+    func openDirections()
+    func openCallDetail()
+
 }
 
 class FlightsOptionsTableViewCell: UITableViewCell {
@@ -92,7 +96,16 @@ extension FlightsOptionsTableViewCell: UICollectionViewDelegate , UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        switch indexPath.item {
+        case 0:
+            delegate?.openWebCheckin()
+        case 1:
+            delegate?.openDirections()
+        case 2:
+            delegate?.openCallDetail()
+        default:
+            return
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

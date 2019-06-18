@@ -243,3 +243,47 @@ struct Traveller {
         return traveller
     }
 }
+
+struct Direction {
+    var iataCode: String = ""
+    var city: String = ""
+    var airportName: String = ""
+    var country_code: String = ""
+    var latitude: String = ""
+    var longitude: String = ""
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["iata_code"] as? String {
+            self.iataCode = "\(obj)".removeNull
+        }
+        
+        if let obj = json["city"] as? String {
+            self.city = "\(obj)".removeNull
+        }
+        
+        if let obj = json["airportName"] as? String {
+            self.airportName = "\(obj)".removeNull
+        }
+        
+        if let obj = json["country_code"] as? String {
+            self.country_code = "\(obj)".removeNull
+        }
+        if let obj = json["latitude"] as? String {
+            self.latitude = "\(obj)".removeNull
+        }
+        
+        if let obj = json["longitude"] as? String {
+            self.longitude = "\(obj)".removeNull
+        }
+    
+    }
+    
+    // get models
+    static func getModels(json: [JSONDictionary]) -> [Direction] {
+        return json.map { Direction(json: $0) }
+    }
+}

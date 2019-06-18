@@ -6,8 +6,10 @@
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
-import MXParallaxHeader
 import UIKit
+import MXParallaxHeader
+import SafariServices
+
 
 class FlightBookingsDetailsVC: BaseVC {
     // MARK: - Variables
@@ -116,5 +118,14 @@ class FlightBookingsDetailsVC: BaseVC {
         self.bookingDetailsTableView.registerCell(nibName: FlightsOptionsTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: WeatherHeaderTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: WeatherInfoTableViewCell.reusableIdentifier)
+    }
+    
+    
+     func webCheckinServices() {
+        // TODO:- Need to be synced with backend Api key
+        guard let url = URL(string: AppConstants.walletAmountUrl) else { return }
+        let safariVC = SFSafariViewController(url: url)
+        AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
+        safariVC.delegate = self
     }
 }

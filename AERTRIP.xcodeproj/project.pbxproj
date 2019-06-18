@@ -272,6 +272,7 @@
 		18999D9A21E4A8B600E66072 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18999D9821E4A8B600E66072 /* GroupTableViewCell.swift */; };
 		18999D9B21E4A8B600E66072 /* GroupTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18999D9921E4A8B600E66072 /* GroupTableViewCell.xib */; };
 		18999D9F21E4DA5000E66072 /* APICaller+TravellerPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18999D9E21E4DA5000E66072 /* APICaller+TravellerPreferences.swift */; };
+		189EF58822B7B7C600D5E055 /* AdditionalInformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189EF58722B7B7C600D5E055 /* AdditionalInformationModel.swift */; };
 		18A8814B21C7CF0A00864077 /* SlideMenuProfileImageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8814A21C7CF0A00864077 /* SlideMenuProfileImageHeaderView.swift */; };
 		18A8814D21C7CF3600864077 /* SlideMenuProfileImageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A8814C21C7CF3600864077 /* SlideMenuProfileImageHeaderView.xib */; };
 		18A90192229FB29D004EAEC3 /* BlurLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A90191229FB29D004EAEC3 /* BlurLoader.swift */; };
@@ -1209,6 +1210,7 @@
 		18999D9821E4A8B600E66072 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
 		18999D9921E4A8B600E66072 /* GroupTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupTableViewCell.xib; sourceTree = "<group>"; };
 		18999D9E21E4DA5000E66072 /* APICaller+TravellerPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+TravellerPreferences.swift"; sourceTree = "<group>"; };
+		189EF58722B7B7C600D5E055 /* AdditionalInformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInformationModel.swift; sourceTree = "<group>"; };
 		18A01E4521CA765D0071E772 /* AERTRIP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AERTRIP.entitlements; sourceTree = "<group>"; };
 		18A8814A21C7CF0A00864077 /* SlideMenuProfileImageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideMenuProfileImageHeaderView.swift; sourceTree = "<group>"; };
 		18A8814C21C7CF3600864077 /* SlideMenuProfileImageHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SlideMenuProfileImageHeaderView.xib; sourceTree = "<group>"; };
@@ -2357,6 +2359,7 @@
 				1870540722A8E69600FEBC37 /* BookingDetailModel.swift */,
 				1870540922AA4EC200FEBC37 /* RoomDetailModel.swift */,
 				847FBB9722B25B42001FC68D /* BookingFeeDetail.swift */,
+				189EF58722B7B7C600D5E055 /* AdditionalInformationModel.swift */,
 			);
 			path = BookingDetail;
 			sourceTree = "<group>";
@@ -5817,6 +5820,7 @@
 				84085CF721F59C0E00F1E844 /* PreferStarCategoryCell.swift in Sources */,
 				1879C49B2292BD2600897CED /* DownloadInvoiceTableViewCell.swift in Sources */,
 				84085CE321F59C0E00F1E844 /* SuccessPopupVC.swift in Sources */,
+				189EF58822B7B7C600D5E055 /* AdditionalInformationModel.swift in Sources */,
 				8445B51C22A50F3000DDBC7F /* RequestReschedulingVM.swift in Sources */,
 				84981CD821F74EC9002E68C7 /* AddRoomPictureCell.swift in Sources */,
 				18930A2D21D46E0D005442C8 /* TwoPartEditTableViewCell.swift in Sources */,
