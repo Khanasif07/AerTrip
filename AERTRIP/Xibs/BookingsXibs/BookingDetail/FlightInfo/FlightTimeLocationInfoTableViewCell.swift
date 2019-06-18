@@ -93,7 +93,7 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
         let sourceAttr = NSMutableAttributedString(string: sourceTimeStr)
         sourceAttr.addAttributes([NSAttributedString.Key.font : AppFonts.Regular.withSize(23.0)], range: (sourceTimeStr as NSString).range(of: details.departure))
         self.sourceFlightCodeLabel.attributedText = sourceAttr
-        self.sourceDateLabel.text = self.checkForDefault(string: details.departDate.toDate(dateFormat: "yyyy-MM-dd")?.toString(dateFormat: "EEE, dd MMM yyyy") ?? "")
+        self.sourceDateLabel.text = self.checkForDefault(string: details.departDate?.toString(dateFormat: "EEE, dd MMM yyyy") ?? "")
         self.sourceFlightNameLbel.text = self.checkForDefault(string: details.departureAirport)
         
         let sAdd = "\(details.departCity), \(details.departureCountryCode)"

@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import WebKit
 
 class FareRuleTableViewCell: UITableViewCell {
     
     // MARK: - IBOutlet
     @IBOutlet weak var routeLabel: UILabel!
     @IBOutlet weak var fareRulesLabel: UILabel!
-
+    @IBOutlet weak var webView: WKWebView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
        
@@ -32,34 +34,12 @@ class FareRuleTableViewCell: UITableViewCell {
     }
     
     
-    
-    func configureCell() {
-        self.routeLabel.text = "BOM → JFK"
-        self.fareRulesLabel.text = """
-        APPLICATION AND OTHER CONDITIONS RULE - 001/IN04
-        UNLESS OTHERWISE SPECIFIED
-        FARES FROM INDIA TO USA
-        APPLICATION
-        AREA
-        THESE FARES APPLY
-        FROM INDIA TO THE UNITED STATES.
-        CLASS OF SERVICE
-        THESE FARES APPLY FOR FIRST/BUSINESS/ECONOMY CLASS
-        SERVICE.
-        TYPES OF TRANSPORTATION
-        THIS RULE GOVERNS ONE-WAY AND ROUND-TRIP FARES.
-        FARES GOVERNED BY THIS RULE CAN BE USED TO CREATE
-        ONE-WAY/ROUND-TRIP/CIRCLE-TRIP/OPEN-JAW/SINGLE OPEN-
-        JAW/DOUBLE OPEN-JAW JOURNEYS.
-        CAPACITY LIMITATIONS
-        THE CARRIER SHALL LIMIT THE NUMBER OF PASSENGERS CARRIED
-        ON ANY ONE FLIGHT AT FARES GOVERNED BY THIS RULE AND SUCH
-        FARES WILL NOT NECESSARILY BE AVAILABLE ON ALL FLIGHTS.
-        THE NUMBER OF SEATS WHICH THE CARRIER SHALL MAKE
-        AVAILABLE ON A GIVEN FLIGHT WILL BE DETERMINED BY THE
-        CARRIERS BEST JUDGMENT
-        DAY/TIME
-        """
+    func configureCell(fareRules: String, ruteString: String) {
+        self.routeLabel.text = ruteString
+        
+        webView.loadHTMLString(fareRules, baseURL: nil)
+        
+//        let shortText = finalRules.substring(from: 0, to: 10000)
+//        self.fareRulesLabel.attributedText = shortText.htmlToAttributedString(withFontSize: 16.0, fontFamily: AppFonts.Regular.withSize(16.0).fontName, fontColor: AppColors.themeGray60)
     }
-   
 }

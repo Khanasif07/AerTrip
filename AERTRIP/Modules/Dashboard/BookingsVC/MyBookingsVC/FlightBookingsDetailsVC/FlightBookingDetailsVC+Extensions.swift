@@ -79,7 +79,7 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        AppFlowManager.default.moveToBookingDetail(tripCitiesStr: self.viewModel.bookingDetail?.tripCitiesStr, bookingId: self.viewModel.bookingId, ledData: self.viewModel.bookingDetail?.bookingDetail?.leg ?? [])
+        AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail)
     }
 }
 

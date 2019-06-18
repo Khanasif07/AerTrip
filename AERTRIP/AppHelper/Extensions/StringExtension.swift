@@ -405,12 +405,14 @@ extension String {
         }
     }
     
-    func htmlToAttributedString(withFontSize fontSize: CGFloat, fontFamily: String? = nil, fontColor: UIColor? = nil) -> NSAttributedString {
+    func htmlToAttributedString(withFontSize fontSize: CGFloat? = nil, fontFamily: String? = nil, fontColor: UIColor? = nil) -> NSAttributedString {
         var htmlCSSString = "<style>" +
             "html *" +
-            "{" +
-
-        "font-size: \(fontSize)px !important;"
+            "{"
+        
+        if let size = fontSize {
+            htmlCSSString += "font-size: \(size)px !important;"
+        }
         
         if let family = fontFamily {
             htmlCSSString += "font-family: \(family) !important;"

@@ -482,7 +482,7 @@ with us!</string>
         <!--Booking Flight DetailVC-->
         <scene sceneID="bbO-YR-jxU">
             <objects>
-                <viewController storyboardIdentifier="BookingFlightDetailVC" id="Pd0-Xj-sqO" customClass="BookingFlightDetailVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BookingFlightDetailVC" automaticallyAdjustsScrollViewInsets="NO" id="Pd0-Xj-sqO" customClass="BookingFlightDetailVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HJM-2t-QRR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -528,7 +528,7 @@ with us!</string>
                                     <constraint firstItem="W3y-oM-Auc" firstAttribute="top" secondItem="pTa-4M-ijb" secondAttribute="bottom" constant="12" id="voS-QL-1YO"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="DFu-Hf-uBE" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="DFu-Hf-uBE" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="117" width="375" height="550"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </tableView>

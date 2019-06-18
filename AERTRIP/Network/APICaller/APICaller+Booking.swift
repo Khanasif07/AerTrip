@@ -113,4 +113,44 @@ extension APICaller {
             }
         }
     }
+    
+    // MARK: - Get Fare detail
+    func getFareRulesAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes,_ rules: String, _ rute: String) -> Void) {
+        AppNetworking.GET(endPoint: APIEndPoint.getFareRules, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
+            printDebug(json)
+            sSelf.handleResponse(json, success: { sucess, jsonData in
+                if sucess {
+                    var finalRules = "", rutes = ""
+                    if let data = jsonData[APIKeys.data.rawValue].dictionaryObject {
+                        for key in Array(data.keys) {
+                            if let dict = data[key] as? JSONDictionary {
+                                for dataKey in Array(dict.keys) {
+                                    if let obj = dict[dataKey] as? String {
+                                        finalRules += obj
+                                        rutes = dataKey
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    finalRules = finalRules.isEmpty ? LocalizedString.na.localized : finalRules
+                    completionBlock(true, [], finalRules, rutes)
+                }
+                else {
+                    completionBlock(false, [], LocalizedString.na.localized, LocalizedString.na.localized)
+                }
+            }, failure: { error in
+                ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
+                completionBlock(false, error,LocalizedString.na.localized, LocalizedString.na.localized)
+            })
+        }) { error in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue],LocalizedString.na.localized, LocalizedString.na.localized)
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue],LocalizedString.na.localized, LocalizedString.na.localized)
+            }
+        }
+    }
 }

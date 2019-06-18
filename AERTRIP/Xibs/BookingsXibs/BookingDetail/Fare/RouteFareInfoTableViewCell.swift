@@ -9,12 +9,10 @@
 import UIKit
 
 protocol RouteFareInfoTableViewCellDelegate: class {
-    func viewDetailsButtonTapped()
+    func viewDetailsButtonTapped(_ sender: UIButton)
 }
 
 class RouteFareInfoTableViewCell: UITableViewCell {
-    
-    
     
     // MARK: - IBOutlets
     @IBOutlet weak var routeLabel: UILabel!
@@ -24,9 +22,12 @@ class RouteFareInfoTableViewCell: UITableViewCell {
     // MARK: - Variables
     weak var delegate: RouteFareInfoTableViewCellDelegate?
     
+    var flightDetails: FlightDetail? {
+        didSet {
+            self.configureCell()
+        }
+    }
     
-    
-
     override func awakeFromNib() {
         super.awakeFromNib()
        
@@ -34,8 +35,6 @@ class RouteFareInfoTableViewCell: UITableViewCell {
         self.setUpTextColor()
         
     }
-
-    
     
     private func setUpFont() {
         self.routeLabel.font = AppFonts.SemiBold.withSize(18.0)
@@ -50,15 +49,16 @@ class RouteFareInfoTableViewCell: UITableViewCell {
         self.viewDetailButton.setTitle(LocalizedString.ViewDetails.localized, for: .normal)
     }
     
-    func configureCell() {
-        self.routeLabel.text = "Amsterdam → Czechslovakia"
-        self.infoLabel.text = "18 Jul 2018 • Economy Super Saver (AGS024)"
+    private func configureCell() {
+        self.routeLabel.text = "\(flightDetails?.departCity ?? LocalizedString.na.localized) → \(flightDetails?.arrivalCity ?? LocalizedString.na.localized)"
+        
+        //18 Jul 2018
+        var dateStr = (flightDetails?.departDate?.toString(dateFormat: "dd MMM yyyy") ?? "")
+        dateStr = dateStr.isEmpty ? LocalizedString.na.localized : dateStr
+        self.infoLabel.text = "\(dateStr) • \(flightDetails?.fbn ?? LocalizedString.na.localized)"
     }
     
-    @IBAction func viewDetailButtonTapped(_ sender: Any) {
-        delegate?.viewDetailsButtonTapped()
+    @IBAction func viewDetailButtonTapped(_ sender: UIButton) {
+        delegate?.viewDetailsButtonTapped(sender)
     }
-    
-    
-    
 }

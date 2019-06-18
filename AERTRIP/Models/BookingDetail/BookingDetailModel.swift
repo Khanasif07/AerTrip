@@ -102,17 +102,24 @@ struct BookingDetailModel {
 }
 
 extension BookingDetailModel {
-    var tripCitiesStr: NSMutableAttributedString? {
-        func isReturnFlight(forArr: [String]) -> Bool {
-            guard !forArr.isEmpty else { return false }
-            
-            if forArr.count == 3, let first = forArr.first, let last = forArr.last {
-                return (first.lowercased() == last.lowercased())
-            }
-            else {
-                return (self.tripType.lowercased() == "return")
-            }
+    
+    func isReturnFlight(forArr: [String] = []) -> Bool {
+        
+        func checkByTripType() -> Bool {
+            return (self.tripType.lowercased() == "return") || (self.tripType.lowercased() == "multi")
         }
+        
+        guard !forArr.isEmpty else { return checkByTripType() }
+        
+        if forArr.count == 3, let first = forArr.first, let last = forArr.last {
+            return (first.lowercased() == last.lowercased())
+        }
+        else {
+            return checkByTripType()
+        }
+    }
+    
+    var tripCitiesStr: NSMutableAttributedString? {
         
         func getNormalString(forArr: [String]) -> String {
             guard !forArr.isEmpty else { return LocalizedString.dash.localized }
@@ -383,7 +390,7 @@ struct Leg {
             self.destination = "\(obj)".removeNull
         }
         if let obj = json["ttl"] {
-            self.title = "\(obj)".removeNull
+            self.title = "\(obj)".removeNull.replacingOccurrences(of: "-", with: "→")
         }
         if let obj = json["stops"] {
             self.stops = "\(obj)".removeNull
@@ -452,7 +459,7 @@ struct FlightDetail {
     var departureCountryCode: String = ""
     var departCity: String = ""
     
-    var departDate: String = ""
+    var departDate: Date?
     var departureTime: String = ""
     var arrival: String = ""
     var arrivalAirport: String = ""
@@ -567,7 +574,8 @@ struct FlightDetail {
         }
         
         if let obj = json["depart_date"] {
-            self.departDate = "\(obj)".removeNull
+            //"2019-02-01"
+            self.departDate = "\(obj)".toDate(dateFormat: "yyyy-MM-dd")
         }
         
         if let obj = json["departure_time"] {

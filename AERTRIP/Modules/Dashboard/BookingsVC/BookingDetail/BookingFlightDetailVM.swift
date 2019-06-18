@@ -19,10 +19,15 @@ class BookingDetailVM {
     
     weak var delegate: BookingDetailVMDelegate?
     
-    var bookingId: String = ""
-    var legDetails: [Leg] = []
+    var bookingDetail: BookingDetailModel?
+    var legDetails: [Leg] {
+        return self.bookingDetail?.bookingDetail?.leg ?? []
+    }
+    var bookingId: String {
+        return self.bookingDetail?.id ?? ""
+    }
+    
     var bookingFee: BookingFeeDetail?
-    var tripCitiesStr: NSAttributedString?
     
     let fareInfoNotes: [String] = ["Some fares may be non-refundable and non-amendable.",
         "Cancellation / Rescheduling Charges are indicative and can change without prior notice. Aertrip does not guarantee or warrant this information.",

@@ -55,7 +55,7 @@ class BookingFlightDetailVC: BaseVC {
     private func configureNavBar() {
         
         self.topNavigationView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
-        self.topNavigationView.navTitleLabel.attributedText = self.viewModel.tripCitiesStr
+        self.topNavigationView.navTitleLabel.attributedText = self.viewModel.bookingDetail?.tripCitiesStr
         self.topNavigationView.delegate = self
     }
     
@@ -118,15 +118,6 @@ class BookingFlightDetailVC: BaseVC {
 extension BookingFlightDetailVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         AppFlowManager.default.mainNavigationController.popViewController(animated: true)
-    }
-}
-
-// MARK: - Fare Info header view Delegate
-
-extension BookingFlightDetailVC: FareInfoHeaderViewDelegate {
-    func fareButtonTapped() {
-        printDebug("fare info butto n tapped")
-        AppFlowManager.default.presentBookingFareInfoDetailVC()
     }
 }
 
