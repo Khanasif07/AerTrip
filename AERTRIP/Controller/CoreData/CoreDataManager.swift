@@ -101,7 +101,7 @@ class CoreDataManager {
                     printDebug("Problem in saving the managedObjectContext is: \(error.localizedDescription)")
                 }
             }
-        }
+       }
     }
     
     /**

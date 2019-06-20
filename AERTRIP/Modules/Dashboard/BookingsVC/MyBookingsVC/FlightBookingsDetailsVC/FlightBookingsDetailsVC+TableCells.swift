@@ -24,8 +24,8 @@ extension FlightBookingsDetailsVC {
     
     func getCancellationsRequestCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightBookingRequestsTableViewCell.reusableIdentifier, for: indexPath) as? FlightBookingRequestsTableViewCell else { return UITableViewCell() }
-        let note = self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false ? 1 : 2
-        cell.configureCell(requestName: "Cancellations Request", actionStatus: "In Progress", actionStatusColor: AppColors.themeYellow, isFirstCell: indexPath.row == note, isLastCell: indexPath.row == self.viewModel.bookingDetail?.cases.count, isStatusExpired: false)
+        let noOfCellAboveRequest = 2
+        cell.configureCell(requestName: self.viewModel.bookingDetail?.cases[indexPath.row - (noOfCellAboveRequest - 1)].caseType ?? "", actionStatus: self.viewModel.bookingDetail?.cases[indexPath.row - (noOfCellAboveRequest - 1)].resolutionStatus ?? "", isFirstCell: noOfCellAboveRequest - 1 == indexPath.row, isLastCell: indexPath.row == self.viewModel.bookingDetail?.cases.count, isStatusExpired: false)
         cell.clipsToBounds = true
         return cell
     }

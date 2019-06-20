@@ -108,9 +108,10 @@ class HotelInfoAddressCell: UITableViewCell {
         self.addressInfoTextView.textColor = AppColors.themeBlack
         self.addressLabel.text = LocalizedString.capNotes.localized
         self.addressInfoTextView.textContainer.maximumNumberOfLines = self.isMoreButtonTapped ? 0 : 3
+        self.addressInfoTextView.isScrollEnabled = false
         let attrText = notes.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.withSize(18.0).familyName, fontColor: AppColors.themeBlack)
         self.addressInfoTextView.attributedText = attrText
-        self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) && !isMoreButtonTapped ? false : true
+        self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 2) && !isMoreButtonTapped ? false : true
     }
     
     // Mark:- IBActions
@@ -124,7 +125,6 @@ class HotelInfoAddressCell: UITableViewCell {
         if let parentVC = self.parentViewController as? HotelDetailsVC {
             AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: parentVC.viewModel.hotelData?.info ?? "")
         }
-        
         if let parentVC = self.parentViewController as? FlightBookingsDetailsVC {
             self.moreBtnContainerView.isHidden = true
             self.addressInfoTextView.textContainer.maximumNumberOfLines = 0

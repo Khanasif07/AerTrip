@@ -20,12 +20,12 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HotelInfoAddressCell" rowHeight="155" id="KGk-i7-Jjw" customClass="HotelInfoAddressCell" customModule="AERTRIP" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="137.5"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="375" height="137"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ehA-12-5xn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="136.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="137"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NmD-Tk-S8D">
                                 <rect key="frame" x="16" y="20.5" width="343" height="19.5"/>
@@ -36,14 +36,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" editable="NO" text="Ramada Powai, Powai Saki Vihar Road Mumbai 400 087, Mumbai, India, Pin-code: 400 087" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCf-ml-acK">
-                                <rect key="frame" x="17" y="47" width="342" height="67.5"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" editable="NO" text="Ramada Powai, Powai Saki Vihar Road Mumbai 400 087, Mumbai, India, Pin-code: 400 087" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCf-ml-acK">
+                                <rect key="frame" x="17" y="47" width="342" height="68"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cje-PF-AVP">
-                                <rect key="frame" x="299" y="95.5" width="60" height="22"/>
+                                <rect key="frame" x="299" y="96" width="60" height="22"/>
                                 <subviews>
                                     <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OwF-Et-57A">
                                         <rect key="frame" x="0.0" y="0.0" width="15" height="22"/>
@@ -74,7 +74,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwB-o5-ujX">
-                                <rect key="frame" x="16" y="136" width="343" height="0.5"/>
+                                <rect key="frame" x="16" y="136.5" width="343" height="0.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="74J-v7-mfz"/>
@@ -85,6 +85,7 @@
                         <constraints>
                             <constraint firstItem="NmD-Tk-S8D" firstAttribute="top" secondItem="ehA-12-5xn" secondAttribute="top" constant="20.5" id="1sx-m3-DpS"/>
                             <constraint firstAttribute="trailing" secondItem="iwB-o5-ujX" secondAttribute="trailing" constant="16" id="3gw-GD-PyD"/>
+                            <constraint firstItem="iwB-o5-ujX" firstAttribute="top" secondItem="cje-PF-AVP" secondAttribute="bottom" constant="18.5" id="Adu-4W-3Az"/>
                             <constraint firstItem="KCf-ml-acK" firstAttribute="top" secondItem="NmD-Tk-S8D" secondAttribute="bottom" constant="7" id="Cdm-Qj-mAD"/>
                             <constraint firstItem="iwB-o5-ujX" firstAttribute="leading" secondItem="ehA-12-5xn" secondAttribute="leading" constant="16" id="FZ8-qR-Cbl"/>
                             <constraint firstItem="KCf-ml-acK" firstAttribute="leading" secondItem="NmD-Tk-S8D" secondAttribute="leading" constant="1" id="HET-OI-lMM"/>
@@ -92,7 +93,6 @@
                             <constraint firstAttribute="trailing" secondItem="NmD-Tk-S8D" secondAttribute="trailing" constant="16" id="Mz5-Ow-31t"/>
                             <constraint firstItem="NmD-Tk-S8D" firstAttribute="leading" secondItem="ehA-12-5xn" secondAttribute="leading" constant="16" id="UKK-uM-fkx"/>
                             <constraint firstItem="cje-PF-AVP" firstAttribute="bottom" secondItem="KCf-ml-acK" secondAttribute="bottom" constant="3" id="VHr-Ha-IsQ"/>
-                            <constraint firstAttribute="height" constant="136.5" id="bMq-7T-4XF"/>
                             <constraint firstItem="KCf-ml-acK" firstAttribute="trailing" secondItem="NmD-Tk-S8D" secondAttribute="trailing" id="n8C-35-Br4"/>
                             <constraint firstAttribute="trailing" secondItem="cje-PF-AVP" secondAttribute="trailing" constant="16" id="rMN-rL-2SZ"/>
                             <constraint firstItem="iwB-o5-ujX" firstAttribute="top" secondItem="KCf-ml-acK" secondAttribute="bottom" constant="21.5" id="vCk-5P-wmf"/>

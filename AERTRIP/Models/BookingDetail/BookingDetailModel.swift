@@ -484,8 +484,8 @@ struct BookingDetail {
         // Event start and end date and notes
         
         if let obj = json["note"] {
-            // self.note = "\(obj)".removeNull
-            self.note = "fdsafjdsklf jasfj aslfjk;asjf as;jfla jsdf asd;lj f asdfl;j adfl;as jfl;j asdl;fj adkls; WElcome to aertrip ;j asdl;fj akls;j fl; jads;fk adsk;f ;kasdj fkl; jasdfl als; Hello Bhai sab thik h ? "
+             //self.note = "\(obj)".removeNull
+            self.note = " The following are the graphical (non-control) characters defined by fsdfThe following are the graphical (non-control) characters defined by fsdf sdf s f sf s f s f s f s af  fas f sa f sa f asf  sa fa sf a f as f asfsa f df a f sa f Hell0 Hello hello hello hello hello welcome bhai bhai bhai bhai welcome dsljfaljflasjf asjfasfk ajsflkasjfkj asfjas fk asfa sfjkfsaskf a f as"
         }
         
         if let obj = json["event_start_date"] {
