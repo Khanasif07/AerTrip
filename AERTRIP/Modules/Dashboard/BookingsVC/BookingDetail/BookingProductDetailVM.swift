@@ -17,6 +17,38 @@ protocol BookingProductDetailVMDelegate: class {
 class BookingProductDetailVM {
     // MARK: - Variables
     
+    //hotel details related
+    enum TableViewCellForHotel {
+        case notesCell, requestCell , cancellationsReqCell , addOnRequestCell , reschedulingRequestCell , hotelBookingInfoCell , roomNameAndTypeCell , travellersCell ,documentCell , paymentInfoCell , bookingCell , addOnsCell , cancellationCell , paidCell , refundCell , paymentPendingCell , nameCell , emailCell , mobileCell , gstCell , billingAddressCell , flightsOptionsCell , weatherHeaderCell , weatherInfoCell
+    }
+    var sectionDataForHotelDetail: [[TableViewCellForHotel]] = []
+    
+    func getSectionDataForHotelDetail() {
+        //hotel details
+        self.sectionDataForHotelDetail.append([.hotelBookingInfoCell])
+       
+        //room details
+        if let roomDetails = self.bookingDetail?.bookingDetail?.roomDetails {
+            var temp: [TableViewCellForHotel] = []
+            for room in roomDetails {
+                temp.append(.roomNameAndTypeCell)
+                for _ in room.guest {
+                    temp.append(.travellersCell)
+                }
+            }
+            self.sectionDataForHotelDetail.append(temp)
+            temp.removeAll()
+        }
+        
+        self.sectionDataForHotelDetail.append([.documentCell])
+        self.sectionDataForHotelDetail.append([.paymentInfoCell , .bookingCell , .addOnsCell , .cancellationCell , .paidCell , .refundCell , .paymentPendingCell])
+        self.sectionDataForHotelDetail.append([.flightsOptionsCell])
+        self.sectionDataForHotelDetail.append([.weatherHeaderCell,.weatherInfoCell,.weatherInfoCell,.weatherInfoCell,.weatherInfoCell,.weatherInfoCell])
+        self.sectionDataForHotelDetail.append([.nameCell , .emailCell , .mobileCell , .gstCell , .billingAddressCell])
+    }
+
+    //hotel details related
+    
     weak var delegate: BookingProductDetailVMDelegate?
     var bookingId: String = "9705"
     var bookingDetail: BookingDetailModel?

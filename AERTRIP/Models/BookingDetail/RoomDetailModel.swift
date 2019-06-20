@@ -43,6 +43,14 @@ struct RoomDetailModel {
         if let obj = json["roomImg"] {
             self.roomImg = "\(obj)"
         }
+        
+        if let obj = json["guests"] as? [JSONDictionary] {
+            self.guest = GuestDetail.getModels(json: obj)
+        }
+    }
+    
+    static func getModels(json: [JSONDictionary]) -> [RoomDetailModel] {
+        return json.map { RoomDetailModel(json: $0) }
     }
 }
 
@@ -74,6 +82,10 @@ struct GuestDetail {
     var dob: String = ""
     var age: String = ""
     
+    var fullName: String {
+        return "\(salutation) \(name)"
+    }
+    
     init() {
         self.init(json: [:])
     }
@@ -98,6 +110,10 @@ struct GuestDetail {
         if let obj = json["age"] {
             self.age = "\(obj)"
         }
+    }
+    
+    static func getModels(json: [JSONDictionary]) -> [GuestDetail] {
+        return json.map { GuestDetail(json: $0) }
     }
 }
 

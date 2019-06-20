@@ -66,6 +66,11 @@ class BookingFlightDetailVC: BaseVC {
     }
     
     private func registerXib() {
+        
+        var frame = CGRect.zero
+        frame.size.height = .leastNormalMagnitude
+        self.tableView.tableHeaderView = UIView(frame: frame)
+        
         self.tableView.register(UINib(nibName: self.headerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.headerViewIdentifier)
         self.tableView.register(UINib(nibName: self.fareInfoHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.fareInfoHeaderViewIdentifier)
         self.tableView.register(UINib(nibName: self.footerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.footerViewIdentifier)

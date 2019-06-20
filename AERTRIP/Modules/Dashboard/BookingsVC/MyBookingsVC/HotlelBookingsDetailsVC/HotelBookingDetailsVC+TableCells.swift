@@ -46,21 +46,37 @@ extension HotlelBookingsDetailsVC {
     
     func getHotelBookingAddressDetailsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelBookingAddressDetailsTableViewCell.reusableIdentifier, for: indexPath) as? HotelBookingAddressDetailsTableViewCell else { return UITableViewCell() }
-        cell.configCell(hotelName: "Ramada Plaza Palm Grove", hotelAddress: "Ramada Powai, Powai Saki Vihar Road Mumbai 400 087, Mumbai, India,\n Pin-code: 400 087", hotelStarRating: 3.5, tripAdvisorRating: 3.5, checkInDate: "2019-DEC-31", checkOutDate: "2019-DEC-31", totalNights: 10)
+        
+        let booking = self.viewModel.bookingDetail?.bookingDetail
+        cell.configCell(hotelName: booking?.hotelName ?? LocalizedString.na.localized, hotelAddress: booking?.hotelAddress ?? LocalizedString.na.localized, hotelStarRating: booking?.hotelStarRating ?? 0.0, tripAdvisorRating: booking?.taRating ?? 0.0, checkInDate: booking?.checkIn, checkOutDate: booking?.checkOut, totalNights: booking?.nights ?? 0)
         cell.clipsToBounds = true
         return cell
     }
     
     func getTitleWithSubTitleCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
-        cell.configHotelBookingDetailsCell(title: "Room 1 - WWWWWWWWWW", subTitle: "Premier King Bed Ocean View")
+        
+        let roomD = self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section-1]
+        
+        cell.configHotelBookingDetailsCell(title: roomD?.roomType ?? "", subTitle: "N/A")
         cell.clipsToBounds = true
         return cell
     }
     
     func getTravellersDetailsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TravellersDetailsTableViewCell.reusableIdentifier, for: indexPath) as? TravellersDetailsTableViewCell else { return UITableViewCell() }
-        cell.configCell(imageUrl: "sdsd", travellerName: "Mrs. Julian Delgado", isLastTravellerInRoom:  (indexPath.row == 3) || (indexPath.row == 6),isLastTraveller: indexPath.row == 6)
+        
+        let currentRoomSection = indexPath.section-1
+        let currentGuestIndex = indexPath.row-1
+        
+        let allRooms = self.viewModel.bookingDetail?.bookingDetail?.roomDetails ?? []
+        let allGuest = allRooms[currentRoomSection].guest
+        
+        
+        let isLastRoom = (allRooms.count - 1) == currentRoomSection
+        let isLastTarv = (allGuest.count - 1) == currentGuestIndex
+        
+        cell.configCell(imageUrl: "sdsd", travellerName: allGuest[currentGuestIndex].fullName, isLastTravellerInRoom: isLastTarv, isLastTraveller: (isLastRoom && isLastTarv))
         cell.clipsToBounds = true
         return cell
     }

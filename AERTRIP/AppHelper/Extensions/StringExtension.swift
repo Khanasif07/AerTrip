@@ -405,7 +405,70 @@ extension String {
         }
     }
     
-    func htmlToAttributedString(withFontSize fontSize: CGFloat? = nil, fontFamily: String? = nil, fontColor: UIColor? = nil) -> NSAttributedString {
+    func htmlCSSCodeString(withFont font: UIFont? = nil, isCustomFont: Bool = false, fontFileName: String? = nil, fontColor: UIColor? = nil) -> String {
+        
+        /**********************************************************************
+            ************* If isCustomFont 'true' ************
+         
+         Genrate the @font-face by using : https://www.web-font-generator.com/
+         Step 1: Open website.
+         Step 2: Upload you custom font file.
+         Step 3: Check "I'm uploading a font that is legal for web embedding. I checked with the author and/or EULA."
+         Step 4: "Generate Web Font"
+         Step 5: Download files.
+         Step 6: Copy .ttf, .eot,.svg, .woff in to your buldel with the same name.
+         
+         Note-1: If isCustomFont is true than must pass that name in 'fontFileName' param.
+         
+         Note-2:
+            When loding the string on WKWebView, then must pass the base url as bulel url.
+         
+         Ex:
+         var url = Bundle.main.url(forResource: "SourceSansPro-Regular", withExtension: "ttf")
+         url?.deleteLastPathComponent()
+         webView.loadHTMLString(<string returned by this method>, baseURL: url)
+        
+        **********************************************************************/
+        
+        let tempFont = font ?? UIFont.systemFont(ofSize: 15.0)
+
+        var stringTags = "<!DOCTYPE html>"
+        stringTags += "<html>"
+        stringTags += "<head>"
+        stringTags += "<style>"
+        stringTags += "@font-face {"
+        stringTags += "font-family: \(tempFont.fontName);"
+        if isCustomFont, let fimeName = fontFileName {
+            guard let eotPath = Bundle.main.path(forResource: fimeName, ofType: "eot"), let woffPath = Bundle.main.path(forResource: fimeName, ofType: "woff"), let ttfPath = Bundle.main.path(forResource: fimeName, ofType: "ttf"), let svgPath = Bundle.main.path(forResource: fimeName, ofType: "svg") else {
+                fatalError("Please check any of (.ttf, .eot,.svg, .woff) file is missing. Read hint above.")
+            }
+            stringTags += "src: url(\(eotPath)) format(embedded-opentype),"
+            stringTags += "url(\(woffPath)) format(woff),"
+            stringTags += "url(\(ttfPath))  format(truetype),"
+            stringTags += "url(\(svgPath)) format(svg);"
+        }
+        stringTags += "}"
+        
+        stringTags += "* {"
+        stringTags += "font-family: \(tempFont.fontName) !important;"
+        stringTags += "font-size: \(Int(tempFont.pointSize))pt !important;"
+        if let color = fontColor {
+            stringTags += "color: #\(color.hexString!) !important;"
+        }
+        stringTags += "}"
+        stringTags += "</style>"
+        stringTags += "</head>"
+        stringTags += "<body>"
+        
+        stringTags += "\(self)"
+        
+        stringTags += "</body>"
+        stringTags += "</html>"
+        
+        return stringTags
+    }
+    
+    func htmlToAttributedString(withFontSize fontSize: CGFloat? = nil, fontFamily: String? = nil, fontColor: UIColor? = nil, fontFilePath: String? = nil) -> NSAttributedString {
         var htmlCSSString = "<style>" +
             "html *" +
             "{"

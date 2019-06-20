@@ -21,6 +21,7 @@ class FareRuleTableViewCell: UITableViewCell {
        
         self.setUpFont()
         self.setUpTextColor()
+        self.webView.uiDelegate = self
     }
     
     func setUpFont() {
@@ -37,9 +38,14 @@ class FareRuleTableViewCell: UITableViewCell {
     func configureCell(fareRules: String, ruteString: String) {
         self.routeLabel.text = ruteString
         
-        webView.loadHTMLString(fareRules, baseURL: nil)
+        let cssStr = fareRules.htmlCSSCodeString(withFont: AppFonts.Regular.withSize(28.0), isCustomFont: true, fontFileName: "SourceSansPro-Regular", fontColor: AppColors.themeGray60)
         
-//        let shortText = finalRules.substring(from: 0, to: 10000)
-//        self.fareRulesLabel.attributedText = shortText.htmlToAttributedString(withFontSize: 16.0, fontFamily: AppFonts.Regular.withSize(16.0).fontName, fontColor: AppColors.themeGray60)
+        var url = Bundle.main.url(forResource: "SourceSansPro-Regular", withExtension: "ttf")
+        url?.deleteLastPathComponent()
+        webView.loadHTMLString(cssStr, baseURL: url)
     }
+}
+
+extension FareRuleTableViewCell: WKUIDelegate {
+    
 }

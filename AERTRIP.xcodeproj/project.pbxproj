@@ -397,6 +397,7 @@
 		84020F1C21B5486800248A6F /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84020F1B21B5486700248A6F /* SwiftyJSON.swift */; };
 		8402210C2202E23A00A95CAA /* UITapGestureRecogniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402210B2202E23A00A95CAA /* UITapGestureRecogniser.swift */; };
 		840404FE2215AF5500FCE19E /* APICaller+HotelInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840404FD2215AF5500FCE19E /* APICaller+HotelInfo.swift */; };
+		840415C722BB52AB001832DE /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 840415C622BB51CF001832DE /* SourceSansPro-Regular.ttf */; };
 		840494F82253203900983F5E /* HCRoomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840494F62253203900983F5E /* HCRoomTableViewCell.swift */; };
 		840494F92253203900983F5E /* HCRoomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840494F72253203900983F5E /* HCRoomTableViewCell.xib */; };
 		840494FC2253AA5200983F5E /* HotelCheckOutDetailsVIew+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840494FB2253AA5200983F5E /* HotelCheckOutDetailsVIew+Delegates.swift */; };
@@ -703,7 +704,6 @@
 		8491D1F0222D3FC2001D0313 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8491D1DB222D3FC1001D0313 /* Localizable.strings */; };
 		8491D1F1222D3FC2001D0313 /* SourceSansPro-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8491D1DE222D3FC1001D0313 /* SourceSansPro-BlackItalic.ttf */; };
 		8491D1F2222D3FC2001D0313 /* SourceSansPro-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8491D1DF222D3FC1001D0313 /* SourceSansPro-SemiBoldItalic.ttf */; };
-		8491D1F3222D3FC2001D0313 /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8491D1E0222D3FC1001D0313 /* SourceSansPro-Regular.ttf */; };
 		8491D1F4222D3FC2001D0313 /* SourceSansPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8491D1E1222D3FC1001D0313 /* SourceSansPro-Bold.ttf */; };
 		8491D1F5222D3FC2001D0313 /* SourceSansPro-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8491D1E2222D3FC1001D0313 /* SourceSansPro-LightItalic.ttf */; };
 		8491D1F6222D3FC2001D0313 /* SourceSansPro-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8491D1E3222D3FC1001D0313 /* SourceSansPro-Light.ttf */; };
@@ -715,6 +715,9 @@
 		8491D1FC222D3FC2001D0313 /* SourceSansPro-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8491D1E9222D3FC1001D0313 /* SourceSansPro-Italic.ttf */; };
 		8491D1FD222D3FC2001D0313 /* AERTRIP.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8491D1EA222D3FC1001D0313 /* AERTRIP.xcdatamodeld */; };
 		8493CD4D2240E0A30073A679 /* YouAreAllDoneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8493CD4C2240E0A30073A679 /* YouAreAllDoneVC.swift */; };
+		8495132622BA74B800938CB0 /* SourceSansPro-Regular.woff in Resources */ = {isa = PBXBuildFile; fileRef = 8495132322BA74B400938CB0 /* SourceSansPro-Regular.woff */; };
+		8495132722BA74B800938CB0 /* SourceSansPro-Regular.eot in Resources */ = {isa = PBXBuildFile; fileRef = 8495132422BA74B600938CB0 /* SourceSansPro-Regular.eot */; };
+		8495132822BA74B800938CB0 /* SourceSansPro-Regular.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8495132522BA74B700938CB0 /* SourceSansPro-Regular.svg */; };
 		84956FBD21B65DA600BF1183 /* AppExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84956FBC21B65DA600BF1183 /* AppExtension.swift */; };
 		84956FBF21B667D200BF1183 /* ATButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84956FBE21B667D200BF1183 /* ATButton.swift */; };
 		84981CD821F74EC9002E68C7 /* AddRoomPictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84981CD621F74EC9002E68C7 /* AddRoomPictureCell.swift */; };
@@ -1379,6 +1382,7 @@
 		84020F1B21B5486700248A6F /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		8402210B2202E23A00A95CAA /* UITapGestureRecogniser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITapGestureRecogniser.swift; sourceTree = "<group>"; };
 		840404FD2215AF5500FCE19E /* APICaller+HotelInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+HotelInfo.swift"; sourceTree = "<group>"; };
+		840415C622BB51CF001832DE /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
 		840494F62253203900983F5E /* HCRoomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRoomTableViewCell.swift; sourceTree = "<group>"; };
 		840494F72253203900983F5E /* HCRoomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HCRoomTableViewCell.xib; sourceTree = "<group>"; };
 		840494FB2253AA5200983F5E /* HotelCheckOutDetailsVIew+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HotelCheckOutDetailsVIew+Delegates.swift"; sourceTree = "<group>"; };
@@ -1688,7 +1692,6 @@
 		8491D1DC222D3FC1001D0313 /* AERTRIP-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AERTRIP-Bridging-Header.h"; sourceTree = "<group>"; };
 		8491D1DE222D3FC1001D0313 /* SourceSansPro-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-BlackItalic.ttf"; sourceTree = "<group>"; };
 		8491D1DF222D3FC1001D0313 /* SourceSansPro-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
-		8491D1E0222D3FC1001D0313 /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
 		8491D1E1222D3FC1001D0313 /* SourceSansPro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Bold.ttf"; sourceTree = "<group>"; };
 		8491D1E2222D3FC1001D0313 /* SourceSansPro-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-LightItalic.ttf"; sourceTree = "<group>"; };
 		8491D1E3222D3FC1001D0313 /* SourceSansPro-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Light.ttf"; sourceTree = "<group>"; };
@@ -1700,6 +1703,9 @@
 		8491D1E9222D3FC1001D0313 /* SourceSansPro-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Italic.ttf"; sourceTree = "<group>"; };
 		8491D1EB222D3FC1001D0313 /* AERTRIP.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AERTRIP.xcdatamodel; sourceTree = "<group>"; };
 		8493CD4C2240E0A30073A679 /* YouAreAllDoneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouAreAllDoneVC.swift; sourceTree = "<group>"; };
+		8495132322BA74B400938CB0 /* SourceSansPro-Regular.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.woff"; sourceTree = "<group>"; };
+		8495132422BA74B600938CB0 /* SourceSansPro-Regular.eot */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.eot"; sourceTree = "<group>"; };
+		8495132522BA74B700938CB0 /* SourceSansPro-Regular.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "SourceSansPro-Regular.svg"; sourceTree = "<group>"; };
 		84956FBC21B65DA600BF1183 /* AppExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppExtension.swift; sourceTree = "<group>"; };
 		84956FBE21B667D200BF1183 /* ATButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATButton.swift; sourceTree = "<group>"; };
 		84981CD621F74EC9002E68C7 /* AddRoomPictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoomPictureCell.swift; sourceTree = "<group>"; };
@@ -4174,9 +4180,12 @@
 			children = (
 				8491D1DE222D3FC1001D0313 /* SourceSansPro-BlackItalic.ttf */,
 				8491D1DF222D3FC1001D0313 /* SourceSansPro-SemiBoldItalic.ttf */,
-				8491D1E0222D3FC1001D0313 /* SourceSansPro-Regular.ttf */,
+				840415C622BB51CF001832DE /* SourceSansPro-Regular.ttf */,
 				8491D1E1222D3FC1001D0313 /* SourceSansPro-Bold.ttf */,
 				8491D1E2222D3FC1001D0313 /* SourceSansPro-LightItalic.ttf */,
+				8495132422BA74B600938CB0 /* SourceSansPro-Regular.eot */,
+				8495132522BA74B700938CB0 /* SourceSansPro-Regular.svg */,
+				8495132322BA74B400938CB0 /* SourceSansPro-Regular.woff */,
 				8491D1E3222D3FC1001D0313 /* SourceSansPro-Light.ttf */,
 				8491D1E4222D3FC1001D0313 /* SourceSansPro-Black.ttf */,
 				8491D1E5222D3FC1001D0313 /* SourceSansPro-ExtraLight.ttf */,
@@ -5214,6 +5223,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				840415C722BB52AB001832DE /* SourceSansPro-Regular.ttf in Resources */,
 				84DD248F22671A4A0013F77E /* BookingDocumentsTableViewCell.xib in Resources */,
 				8491D1F8222D3FC2001D0313 /* SourceSansPro-ExtraLight.ttf in Resources */,
 				84534EBC2248F4E0009FF536 /* HCGuestsDetailsCollectionViewCell.xib in Resources */,
@@ -5267,7 +5277,6 @@
 				84534EAE2248E099009FF536 /* HCBedDetailsTableViewCell.xib in Resources */,
 				18038D1E226DE73B00A4D1DD /* AerinCurrentStateTableViewCell.xib in Resources */,
 				84DD24852267042A0013F77E /* TitleWithSubTitleTableViewCell.xib in Resources */,
-				8491D1F3222D3FC2001D0313 /* SourceSansPro-Regular.ttf in Resources */,
 				84981CD921F74EC9002E68C7 /* AddRoomPictureCell.xib in Resources */,
 				840DDE86220D72AD00F8BA92 /* HotelResults.storyboard in Resources */,
 				842EDEA6223A624400E99409 /* HCEmailItinerariesTableViewCell.xib in Resources */,
@@ -5394,6 +5403,7 @@
 				18C31F092227CBAA0052162C /* HotelMailComposerCardViewTableViewCell.xib in Resources */,
 				18FD9174229689C900D005E9 /* BookingSchedulingPassengerDetailTableViewCell.xib in Resources */,
 				180A3D8021C108C0001A1E6A /* ToastView.xib in Resources */,
+				8495132622BA74B800938CB0 /* SourceSansPro-Regular.woff in Resources */,
 				84D1580022660B3900393528 /* AccountDetailEventDescriptionCell.xib in Resources */,
 				84100A9122391B60006A05EC /* ContactTableCell.xib in Resources */,
 				8446C90322A7D55E0077556B /* HotleCancellationChargesCollectionViewCell.xib in Resources */,
@@ -5430,6 +5440,7 @@
 				188785A721DF7D990061869E /* TravellerListTableViewCell.xib in Resources */,
 				84D2FB8521BE351E00011000 /* countryData.json in Resources */,
 				84BE79F6221D714400AFC5B7 /* TransluentNavBar.xib in Resources */,
+				8495132722BA74B800938CB0 /* SourceSansPro-Regular.eot in Resources */,
 				849F31EF21FF1AC60076BB3D /* profile.csv in Resources */,
 				8445B52B22A5352F00DDBC7F /* ParallelLabelsTableViewCell.xib in Resources */,
 				8417772C223F6DF700DAC087 /* hotelsSearch.csv in Resources */,
@@ -5445,6 +5456,7 @@
 				18F181D9223BC8C900323775 /* ApplyCouponTableViewCell.xib in Resources */,
 				84E4BC7C22A1414100B72306 /* WeatherHeaderTableViewCell.xib in Resources */,
 				84DD249422671EDB0013F77E /* BookingDocumentsCollectionViewCell.xib in Resources */,
+				8495132822BA74B800938CB0 /* SourceSansPro-Regular.svg in Resources */,
 				18E7970C2248F98900A7AC8B /* DiscountCell.xib in Resources */,
 				182EB21522856E46001BFB20 /* FareInfoHeaderView.xib in Resources */,
 				180A3D7321C0DA53001A1E6A /* SideMenuOptionsLabelCell.xib in Resources */,

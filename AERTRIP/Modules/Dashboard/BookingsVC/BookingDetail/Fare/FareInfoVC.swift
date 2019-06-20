@@ -28,6 +28,10 @@ class FareInfoVC: BaseVC {
     
     private func registerXib() {
         
+        var frame = CGRect.zero
+        frame.size.height = .leastNormalMagnitude
+        self.fareInfoTableView.tableHeaderView = UIView(frame: frame)
+        
         self.fareInfoTableView.register(UINib(nibName: self.fareInfoHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.fareInfoHeaderViewIdentifier)
         self.fareInfoTableView.register(UINib(nibName: self.footerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.footerViewIdentifier)
 

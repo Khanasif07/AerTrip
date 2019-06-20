@@ -74,7 +74,7 @@ class HotelBookingAddressDetailsTableViewCell: UITableViewCell {
         self.totalNightsLabel.textColor = AppColors.themeBlack
     }
     
-    internal func configCell(hotelName: String, hotelAddress: String, hotelStarRating: Double, tripAdvisorRating: Double, checkInDate: String , checkOutDate: String , totalNights: Int) {
+    internal func configCell(hotelName: String, hotelAddress: String, hotelStarRating: Double, tripAdvisorRating: Double, checkInDate: Date? , checkOutDate: Date? , totalNights: Int) {
         self.hotelNameLabel.text = hotelName
         self.hotelAddressLabel.text = hotelAddress
         self.hotelRatingView.rating = hotelStarRating
@@ -82,19 +82,21 @@ class HotelBookingAddressDetailsTableViewCell: UITableViewCell {
         self.ratingStackView.isHidden = (hotelStarRating.isZero && tripAdvisorRating .isZero) ? true : false
         self.hotelRatingView.isHidden = hotelStarRating.isZero ? true : false
         self.hotelDotsView.isHidden = tripAdvisorRating .isZero ? true : false
-        self.checkInDateLabel.text = Date.getDateFromString(stringDate: checkInDate , currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM")
-        self.checkOutDateLabel.text = Date.getDateFromString(stringDate: checkOutDate , currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM")
-        if totalNights == 0 {
-            var numberOfNights = 0
-            if !checkOutDate.isEmpty && !checkInDate.isEmpty{
-                numberOfNights = checkOutDate.toDate(dateFormat: "yyyy-MM-dd")!.daysFrom(checkInDate.toDate(dateFormat: "yyyy-MM-dd")!)
-            }
-            self.totalNightsLabel.text = (numberOfNights == 1) ? "\(numberOfNights) \(LocalizedString.Night.localized)" : "\(numberOfNights) \(LocalizedString.Nights.localized)"
-        } else {
-            self.totalNightsLabel.text = (totalNights == 1) ? "\(totalNights) \(LocalizedString.Night.localized)" : "\(totalNights) \(LocalizedString.Nights.localized)"
+        
+        let checkInStr = checkInDate?.toString(dateFormat: "dd MMM") ?? ""
+        let checkOutStr = checkOutDate?.toString(dateFormat: "dd MMM") ?? ""
+        self.checkInDateLabel.text = checkInStr.isEmpty ? LocalizedString.na.localized : checkInStr
+        self.checkOutDateLabel.text = checkOutStr.isEmpty ? LocalizedString.na.localized : checkOutStr
+        
+        var finalNight = totalNights
+        if totalNights == 0, let inDate = checkInDate, let outDate = checkOutDate {
+            finalNight = outDate.daysFrom(inDate)
         }
-        self.checkInDayLabel.text = Date.getDateFromString(stringDate: checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "EEEE")
-        self.checkOutDayLabel.text = Date.getDateFromString(stringDate: checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "EEEE")
+        self.totalNightsLabel.text = (finalNight == 1) ? "\(finalNight) \(LocalizedString.Night.localized)" : "\(finalNight) \(LocalizedString.Nights.localized)"
+
+        
+        self.checkInDayLabel.text = checkInDate?.toString(dateFormat: "EEEE") ?? LocalizedString.na.localized
+        self.checkOutDayLabel.text = checkOutDate?.toString(dateFormat: "EEEE") ?? LocalizedString.na.localized
     }
 }
 

@@ -11,7 +11,7 @@ import Foundation
 struct BookingDetailModel {
     var id: String = ""
     var bookingNumber: String = ""
-    var bookingDate: String = ""
+    var bookingDate: Date?
     var communicationNumber: String = ""
     var depart: String = ""
     var billingInfo: BillingDetail?
@@ -50,7 +50,7 @@ struct BookingDetailModel {
             self.bookingNumber = "\(obj)".removeNull
         }
         if let obj = json["booking_date"] {
-            self.bookingDate = "\(obj)".removeNull
+            self.bookingDate = "\(obj)".removeNull.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
         if let obj = json["communication_number"] {
@@ -219,14 +219,15 @@ struct BookingDetail {
     var hotelEmail: String = ""
     
     var city: String = ""
+    var hotelName: String = ""
     var hotelImage: String = ""
-    var hotelStarRating: String = ""
-    var taRating: String = ""
+    var hotelStarRating: Double = 0.0
+    var taRating: Double = 0.0
     var taReviewCount: String = ""
     var hotelId: String = ""
     var nights: Int = 0
-    var checkIn: String = ""
-    var checkOut: String = ""
+    var checkIn: Date?
+    var checkOut: Date?
     
     // Product key  = other
     
@@ -307,14 +308,17 @@ struct BookingDetail {
         if let obj = json["city"] {
             self.city = "\(obj)".removeNull
         }
+        if let obj = json["hotel_name"] {
+            self.hotelName = "\(obj)".removeNull
+        }
         if let obj = json["hotel_img"] {
             self.hotelImage = "\(obj)".removeNull
         }
         if let obj = json["hotel_star_rating"] {
-            self.hotelStarRating = "\(obj)".removeNull
+            self.hotelStarRating = "\(obj)".toDouble ?? 0.0
         }
         if let obj = json["ta_rating"] {
-            self.taRating = "\(obj)".removeNull
+            self.taRating = "\(obj)".toDouble ?? 0.0
         }
         
         if let obj = json["ta_review_count"] {
@@ -327,11 +331,13 @@ struct BookingDetail {
             self.nights = "\(obj)".toInt ?? 0
         }
         if let obj = json["check_in"] {
-            self.checkIn = "\(obj)".removeNull
+            //"2019-08-07 00:00:00"
+            self.checkIn = "\(obj)".removeNull.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
         if let obj = json["check_out"] {
-            self.checkOut = "\(obj)".removeNull
+            //"2019-08-07 00:00:00"
+            self.checkOut = "\(obj)".removeNull.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
         // Product key other
@@ -349,6 +355,11 @@ struct BookingDetail {
         }
         
         self.travellers = Traveller.retunsTravellerArray(jsonArr: json["travellers"] as? [JSONDictionary] ?? [])
+        
+        // room details
+        if let obj = json["room_details"] as? [JSONDictionary] {
+            self.roomDetails = RoomDetailModel.getModels(json: obj)
+        }
         
         // leg parsing
         if let obj = json["leg"] as? [JSONDictionary] {
