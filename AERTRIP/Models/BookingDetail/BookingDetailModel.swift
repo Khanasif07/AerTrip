@@ -91,12 +91,10 @@ struct BookingDetailModel {
             self.documents = DocumentDownloadingModel.getModels(json: obj)
         }
         
-        
         // Additional information data like web checkins,directions, and  Airports , Airlines and Aertrip
         if let obj = json["additional_informations"] as? JSONDictionary {
             self.additionalInformation = AdditionalInformation(json: obj)
         }
-        
         
         // other data parsing
         if let obj = json["billing_info"] as? JSONDictionary {
@@ -109,8 +107,10 @@ struct BookingDetailModel {
     }
 }
 
-//MARK:- extension for Calculation
-//MARK:-
+//MARK: - extension for Calculation
+
+//MARK: -
+
 extension BookingDetailModel {
     var tripCitiesStr: NSMutableAttributedString? {
         func isReturnFlight(forArr: [String]) -> Bool {
@@ -194,13 +194,13 @@ extension BookingDetailModel {
             return NSMutableAttributedString(string: LocalizedString.dash.localized)
         }
     }
-   
+    
     /*
     Loop through the vouchers array, consider the object that has
     voucher.basic.voucher_type  = ‘sales’ (Must be only 1)
     voucher.transactions.Total.amount  gives the Booking Price.
     */
-
+    
     var bookingPrice: Double {
         var price: Double = 0.0
         for voucher in self.receipt?.voucher ?? [] {
@@ -210,13 +210,14 @@ extension BookingDetailModel {
         }
         return price
     }
+    
     /*
  Loop through vouchers array, consider the objects that have
  voucher.basic.voucher_type  = ‘sales_addon’ (Can be 0 or more)
- 
+     
  Sum of sales_addon’s voucher.transactions.Total.amount
  */
-
+    
     var addOnAmount: Double {
         var price: Double = 0.0
         for voucher in self.receipt?.voucher ?? [] {
@@ -231,7 +232,7 @@ extension BookingDetailModel {
     Cancellation :
     Loop through vouchers array, consider the objects that have
     voucher.basic.voucher_type  = ‘sales_return_jv’ (Can be 0 or more)
- 
+     
     Sum of sales_return_jv’s voucher.transactions.Total.amount
     */
     
@@ -249,11 +250,11 @@ extension BookingDetailModel {
     Reschedule :
     Loop through vouchers array, consider the objects that have
     voucher.basic.voucher_type  = ‘reschedule_sales_return_jv’ (Can be 0 or more)
-    
+     
     Sum of  reschedule_sales_return_jv’s  voucher.transactions.Total.amount
      */
     var rescheduleAmount: Double {
-        var price:Double = 0.0
+        var price: Double = 0.0
         for voucher in self.receipt?.voucher ?? [] {
             if voucher.basic?.voucherType.lowercased() == "reschedule_sales_return_jv" {
                 price += voucher.transaction?.total?.amount.toDouble ?? 0.0
@@ -264,20 +265,19 @@ extension BookingDetailModel {
     
     // Paid :
     //Total_amount_paid
-
+    
     var paid: Double {
         return self.totalAmountPaid.toDouble ?? 0.0
     }
     
     // Refund Amount: Total of cancellations + Total of Reschedules
-
     
     var refundAmount: Double {
         return self.rescheduleAmount + self.cancellationAmount
     }
     
-   // Total cost of booking = Sale’s amount + sum(add-on)
-
+    // Total cost of booking = Sale’s amount + sum(add-on)
+    
     var totalCostOfBooking: Double {
         //TODO: need to disucss sale amount :
         let saleAmount: Double = 0.0
@@ -285,28 +285,34 @@ extension BookingDetailModel {
     }
     
     // Total amount received = Total_amount_paid
-   // Can be calculated by adding Total of all receipts
-
+    // Can be calculated by adding Total of all receipts
+    
     var totalAmountReceived: Double {
         return self.totalAmountPaid.toDouble ?? 0.0
     }
     
-    
 //    Total outstanding = total_amount_due
 //    Total cost of booking - Total amount received
- 
+    
     var totalOutStanding: Double {
         return self.receipt?.totalAmountDue.toDouble ?? 0.0
     }
     
+    // Web checking url
     
-    
-
- 
-
- 
-
-    
+    var webCheckinUrl: String {
+        if let index = self.bookingDetail?.leg.firstIndex(where: { (result) -> Bool in
+            (result.completed == 0)
+        }) {
+            if index < self.bookingDetail?.leg.count ?? 0 {
+                return self.additionalInformation?.webCheckins[index] ?? ""
+            }
+            else {
+                return ""
+            }
+        }
+        return ""
+    }
 }
 
 struct BookingDetail {
@@ -315,7 +321,7 @@ struct BookingDetail {
     var disconnected: Bool = false
     var routes: [[String]] = [[]]
     var leg: [Leg] = []
-    var journeyCompleted: Int16 = 0
+    var journeyCompleted: Int = 0
     var travellers: [Traveller] = []
     
     // Keys for Product = Hotel
@@ -470,10 +476,41 @@ struct BookingDetail {
         if let obj = json["leg"] as? [JSONDictionary] {
             self.leg = Leg.getModels(json: obj)
         }
+        
+        if let obj = json["journey_completed"] {
+            self.journeyCompleted = "\(obj)".toInt ?? 0
+        }
+        
+        // Event start and end date and notes
+        
+        if let obj = json["note"] {
+            // self.note = "\(obj)".removeNull
+            self.note = "fdsafjdsklf jasfj aslfjk;asjf as;jfla jsdf asd;lj f asdfl;j adfl;as jfl;j asdl;fj adkls; WElcome to aertrip ;j asdl;fj akls;j fl; jads;fk adsk;f ;kasdj fkl; jasdfl als; Hello Bhai sab thik h ? "
+        }
+        
+        if let obj = json["event_start_date"] {
+            self.eventStartDate = "\(obj)".removeNull
+        }
+        
+        if let obj = json["event_end_date"] {
+            self.eventEndDate = "\(obj)".removeNull
+        }
     }
     
     var paymentStatus: String {
         return self.isRefundable ? "Refundable" : " Non-Refundable"
+    }
+    
+    // convert event start date into Date format
+    
+    var eventStartingDate: Date {
+        return self.eventStartDate.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss") ?? Date()
+    }
+    
+    // convert event end date into date format
+    
+    var evenEndingDate: Date {
+        return self.eventEndDate.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss") ?? Date()
     }
 }
 
@@ -491,6 +528,9 @@ struct Leg {
     var flight: [FlightDetail] = []
     var halts: String = ""
     var pax: [Pax] = []
+    var completed: Int = 0
+    var legStatus: String = ""
+    var apc: String = ""
     
     init() {}
     
@@ -529,6 +569,18 @@ struct Leg {
         if let obj = json["pax"] as? [JSONDictionary] {
             self.pax = Pax.getModels(json: obj)
         }
+        
+        if let obj = json["completed"] {
+            self.completed = "\(obj)".removeNull.toInt ?? 0
+        }
+        
+        if let obj = json["leg_status"] {
+            self.legStatus = "\(obj)".removeNull
+        }
+        
+        if let obj = json["apc"] {
+            self.apc = "\(obj)".removeNull
+        }
     }
     
     var flightNumbers: [String] {
@@ -556,9 +608,16 @@ struct Leg {
         return duration
     }
     
-    // TODO: need to flight.halt key
+    var haltCount: Int {
+        var count = 0
+        for flight in self.flight {
+            count += flight.halt.count
+        }
+        return count
+    }
+    
     var numberOfStop: Int {
-        return self.flight.count
+        return self.flight.count - 1 + self.haltCount
     }
     
     static func getModels(json: [JSONDictionary]) -> [Leg] {
@@ -829,6 +888,10 @@ struct FlightDetail {
         }
         
         return finalStr
+    }
+    
+    var isFlightTravelled: Bool {
+        return self.departDate.toDate(dateFormat: "yyyy-MM-dd")?.isGreaterThan(Date()) ?? false ? false : true
     }
 }
 
@@ -1278,52 +1341,56 @@ struct Case {
     
     init(json: JSONDictionary) {
         if let obj = json["id"] {
-            self.id = "\(obj)"
+            self.id = "\(obj)".removeNull
         }
         
         if let obj = json["case_id"] {
-            self.casedId = "\(obj)"
+            self.casedId = "\(obj)".removeNull
         }
         
         if let obj = json["case_type"] {
-            self.caseType = "\(obj)"
+            self.caseType = "\(obj)".removeNull
         }
         
         if let obj = json["type_slug"] {
-            self.typeSlug = "\(obj)"
-        }
-        
-        if let obj = json["case_status"] {
-            self.caseName = "\(obj)"
-        }
-        
-        if let obj = json["resolution_status_id"] {
-            self.resolutionStatusId = "\(obj)"
-        }
-        
-        if let obj = json["resolution_status"] {
-            self.resolutionStatus = "\(obj)"
-        }
-        if let obj = json["request_date"] {
-            self.requestDate = "\(obj)"
+            self.typeSlug = "\(obj)".removeNull
         }
         
         if let obj = json["csr_name"] {
-            self.csrName = "\(obj)"
+            self.caseName = "\(obj)".removeNull
+        }
+        
+        if let obj = json["case_status"] {
+            self.caseStatus = "\(obj)".removeNull
+        }
+        
+        if let obj = json["resolution_status_id"] {
+            self.resolutionStatusId = "\(obj)".removeNull
+        }
+        
+        if let obj = json["resolution_status"] {
+            self.resolutionStatus = "\(obj)".removeNull
+        }
+        if let obj = json["request_date"] {
+            self.requestDate = "\(obj)".removeNull
+        }
+        
+        if let obj = json["csr_name"] {
+            self.csrName = "\(obj)".removeNull
         }
         if let obj = json["resolution_date"] {
-            self.resolutionDate = "\(obj)"
+            self.resolutionDate = "\(obj)".removeNull
         }
         
         if let obj = json["closed_date"] {
-            self.closedDate = "\(obj)"
+            self.closedDate = "\(obj)".removeNull
         }
         
         if let obj = json["flag"] {
-            self.flag = "\(obj)"
+            self.flag = "\(obj)".removeNull
         }
         if let obj = json["note"] {
-            self.note = "\(obj)"
+            self.note = "\(obj)".removeNull
         }
     }
     
@@ -1358,8 +1425,6 @@ struct Receipt {
             self.voucher = Voucher.getModels(json: obj)
         }
     }
-    
-    
 }
 
 struct Voucher {
@@ -1410,40 +1475,40 @@ struct Basic {
     
     init(json: JSONDictionary) {
         if let obj = json["id"] {
-            self.id = "\(obj)"
+            self.id = "\(obj)".removeNull
         }
         if let obj = json["voucher_type"] {
-            self.voucherType = "\(obj)"
+            self.voucherType = "\(obj)".removeNull
         }
         if let obj = json["name"] {
-            self.name = "\(obj)"
+            self.name = "\(obj)".removeNull
         }
         if let obj = json["event"] {
-            self.event = "\(obj)"
+            self.event = "\(obj)".removeNull
         }
         if let obj = json["type"] {
-            self.type = "\(obj)"
+            self.type = "\(obj)".removeNull
         }
         if let obj = json["type_slug"] {
-            self.typeSlug = "\(obj)"
+            self.typeSlug = "\(obj)".removeNull
         }
         if let obj = json["pattern"] {
-            self.pattern = "\(obj)"
+            self.pattern = "\(obj)".removeNull
         }
         if let obj = json["last_number"] {
-            self.lastNumber = "\(obj)"
+            self.lastNumber = "\(obj)".removeNull
         }
         if let obj = json["is_active"] {
-            self.isActive = "\(obj)"
+            self.isActive = "\(obj)".removeNull
         }
         if let obj = json["voucher_no"] {
-            self.voucherNo = "\(obj)"
+            self.voucherNo = "\(obj)".removeNull
         }
         if let obj = json["transaction_datetime"] {
-            self.voucherType = "\(obj)"
+            self.voucherType = "\(obj)".removeNull
         }
         if let obj = json["transaction_id"] {
-            self.transactionId = "\(obj)"
+            self.transactionId = "\(obj)".removeNull
         }
     }
 }
@@ -1515,28 +1580,28 @@ struct BookingPaymentInfo {
     
     init(json: JSONDictionary) {
         if let obj = json["order_id"] {
-            self.orderId = "\(obj)"
+            self.orderId = "\(obj)".removeNull
         }
         
         if let obj = json["pg_fee"] {
-            self.pgFee = "\(obj)"
+            self.pgFee = "\(obj)".removeNull
         }
         
         if let obj = json["pg_tax"] {
-            self.pgTax = "\(obj)"
+            self.pgTax = "\(obj)".removeNull
         }
         
         if let obj = json["trans_date"] {
-            self.transDate = "\(obj)"
+            self.transDate = "\(obj)".removeNull
         }
         if let obj = json["payment_id"] {
-            self.paymentId = "\(obj)"
+            self.paymentId = "\(obj)".removeNull
         }
         if let obj = json["method"] {
-            self.method = "\(obj)"
+            self.method = "\(obj)".removeNull
         }
         if let obj = json["bank_name"] {
-            self.bankName = "\(obj)"
+            self.bankName = "\(obj)".removeNull
         }
     }
 }
@@ -1554,7 +1619,7 @@ struct TaxesAndFees {
             self.codes = Codes.models(json: obj)
         }
         if let obj = json[total] {
-            self.total = "\(obj)"
+            self.total = "\(obj)".removeNull
         }
     }
 }
@@ -1568,7 +1633,7 @@ struct Amount {
     
     init(json: JSONDictionary) {
         if let obj = json["amount"] {
-            self.amount = "\(obj)"
+            self.amount = "\(obj)".removeNull
         }
     }
 }
@@ -1584,15 +1649,15 @@ struct Codes {
     
     init(json: JSONDictionary) {
         if let obj = json["id"] {
-            self.code = "\(obj)"
+            self.code = "\(obj)".removeNull
         }
         
         if let obj = json["ledger_name"] {
-            self.ledgerName = "\(obj)"
+            self.ledgerName = "\(obj)".removeNull
         }
         
         if let obj = json["amount"] {
-            self.amount = "\(obj)"
+            self.amount = "\(obj)".removeNull
         }
     }
     

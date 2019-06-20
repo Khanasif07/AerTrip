@@ -6,10 +6,9 @@
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
-import UIKit
 import MXParallaxHeader
 import SafariServices
-
+import UIKit
 
 class FlightBookingsDetailsVC: BaseVC {
     // MARK: - Variables
@@ -59,7 +58,6 @@ class FlightBookingsDetailsVC: BaseVC {
         self.setupParallaxHeader()
         self.registerNibs()
         
-
         // Call to get booking detail
         self.viewModel.getBookingDetail()
     }
@@ -120,10 +118,9 @@ class FlightBookingsDetailsVC: BaseVC {
         self.bookingDetailsTableView.registerCell(nibName: WeatherInfoTableViewCell.reusableIdentifier)
     }
     
-    
-     func webCheckinServices() {
-        // TODO:- Need to be synced with backend Api key
-        guard let url = URL(string: AppConstants.walletAmountUrl) else { return }
+    func webCheckinServices(url: String) {
+        // TODO: - Need to be synced with backend Api key
+        guard let url = URL(string: url) else { return }
         let safariVC = SFSafariViewController(url: url)
         AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
         safariVC.delegate = self

@@ -11,7 +11,7 @@ import UIKit
 extension FlightBookingsDetailsVC {
     func getNotesCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelInfoAddressCell.reusableIdentifier, for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
-        cell.configureNotesCell(notes: "A massive collection of core components and over 60 (x2) selected screens found in the public release of iOS 11 made over 60 (x2)")
+        cell.configureNotesCell(notes: self.viewModel.bookingDetail?.bookingDetail?.note ?? "")
         cell.clipsToBounds = true
         return cell
     }
@@ -24,7 +24,8 @@ extension FlightBookingsDetailsVC {
     
     func getCancellationsRequestCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightBookingRequestsTableViewCell.reusableIdentifier, for: indexPath) as? FlightBookingRequestsTableViewCell else { return UITableViewCell() }
-        cell.configureCell(requestName: "Cancellations Request", actionStatus: "In Progress", actionStatusColor: AppColors.themeYellow, isFirstCell: true, isLastCell: false, isStatusExpired: false)
+        let note = self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false ? 1 : 2
+        cell.configureCell(requestName: "Cancellations Request", actionStatus: "In Progress", actionStatusColor: AppColors.themeYellow, isFirstCell: indexPath.row == note, isLastCell: indexPath.row == self.viewModel.bookingDetail?.cases.count, isStatusExpired: false)
         cell.clipsToBounds = true
         return cell
     }
@@ -45,15 +46,46 @@ extension FlightBookingsDetailsVC {
     
     func getFlightCarriersCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightCarriersTableViewCell.reusableIdentifier, for: indexPath) as? FlightCarriersTableViewCell else { return UITableViewCell() }
-        let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section]
+//        let count = (self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false) ? 0 : 1
+        let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section - self.viewModel.noOfLegCellAboveLeg]
+//        var tempCarrier : [String] = []
+//        if let carrier = leg?.carriers {
+//            tempCarrier.append(contentsOf: carrier)
+//            tempCarrier.append(contentsOf: carrier)
+//             tempCarrier.append(contentsOf: carrier)
+//              tempCarrier.append(contentsOf: carrier)
+//        }
+//
+//          var carrierCodes : [String] = []
+//        if let carrierCode = leg?.carrierCodes {
+//            carrierCodes.append(contentsOf: carrierCode)
+//            carrierCodes.append(contentsOf: carrierCode)
+//            carrierCodes.append(contentsOf: carrierCode)
+//            carrierCodes.append(contentsOf: carrierCode)
+//        }
+//        var flightNumbers: [String] = []
+//
+//
+//
+//        if let flightnumber = leg?.flightNumbers {
+//            flightNumbers.append(contentsOf: flightnumber)
+//            flightNumbers.append(contentsOf: flightnumber)
+//            flightNumbers.append(contentsOf: flightnumber)
+//           flightNumbers.append(contentsOf: flightnumber)
+//        }
+//
         cell.configCell(carriers: leg?.carriers ?? [], carrierCode: leg?.carrierCodes ?? [], flightNumbers: leg?.flightNumbers ?? [])
+        // cell.configCell(carriers: tempCarrier, carrierCode: carrierCodes, flightNumbers: flightNumbers)
+        
         cell.clipsToBounds = true
         return cell
     }
     
     func getFlightBoardingAndDestinationCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightBoardingAndDestinationTableViewCell.reusableIdentifier, for: indexPath) as? FlightBoardingAndDestinationTableViewCell else { return UITableViewCell() }
-        let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section]
+//        let count = (self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false) ? 0 : 1
+        
+        let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section - self.viewModel.noOfLegCellAboveLeg]
         cell.configCell(boardingCity: leg?.flight.last?.departCity ?? "", destinationCity: leg?.flight.last?.departCity ?? "", boardingCode: leg?.flight.first?.departure ?? "", destinationCode: leg?.flight.last?.departure ?? "", legDuration: leg?.legDuration.asString(units: [.hour, .minute], style: .abbreviated) ?? LocalizedString.na.localized, boardingTime: leg?.flight.first?.departureTime ?? "", destinationTime: leg?.flight.last?.departureTime ?? "", boardingDate: leg?.flight.first?.departDate.toDate(dateFormat: "YYYY-MM-dd")?.toString(dateFormat: "E, d MMM yyyy") ?? "", destinationDate: leg?.flight.last?.departDate.toDate(dateFormat: "YYYY-MM-dd")?.toString(dateFormat: "E, d MMM yyyy") ?? "", economyClass: leg?.cabinClass ?? "-")
         cell.noOfStops = leg?.numberOfStop ?? 0
         cell.clipsToBounds = true
@@ -71,16 +103,16 @@ extension FlightBookingsDetailsVC {
     
     func getTravellersPnrStatusCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TravellersPnrStatusTableViewCell.reusableIdentifier, for: indexPath) as? TravellersPnrStatusTableViewCell else { return UITableViewCell() }
-        
-        let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section]
+        //   let count = (self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false) ? 0 : 1
+        let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section - self.viewModel.noOfLegCellAboveLeg]
         let traveller = leg?.pax[indexPath.row - 3]
-        if traveller?.status.lowercased() == "booked".lowercased() {
+        if traveller?.status.lowercased() == "booked" {
             cell.pnrStatus = .active
-        } else if traveller?.status.lowercased() == "cancelled".lowercased() {
+        } else if traveller?.status.lowercased() == "cancelled" {
             cell.pnrStatus = .cancelled
-        } else if traveller?.status.lowercased() == "rescheduled".lowercased() {
+        } else if traveller?.status.lowercased() == "rescheduled" {
             cell.pnrStatus = .rescheduled
-        } else if traveller?.status.lowercased() == "Pending".lowercased() {
+        } else if traveller?.status.lowercased() == "pending" {
             cell.pnrStatus = .pending
         }
         cell.configCell(travellersImage: "", travellerName: traveller?.paxName ?? "", travellerPnrStatus: traveller?.status == "booked" ? traveller?.pnr ?? "" : traveller?.status.capitalizedFirst() ?? "", firstName: traveller?.firstName ?? "", lastName: traveller?.lastName ?? "", isLastTraveller: (indexPath.row - 2 == leg?.pax.count))
@@ -119,7 +151,7 @@ extension FlightBookingsDetailsVC {
         cell.titleTopConstraint.constant = 5.0
         cell.titleBottomConstraint.constant = 5.0
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.AddOns.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price:self.viewModel.bookingDetail?.addOnAmount.toString ?? "", isLastCell: false, cellHeight: 30.0)
+        cell.configCell(title: LocalizedString.AddOns.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.addOnAmount.toString ?? "", isLastCell: false, cellHeight: 30.0)
         cell.clipsToBounds = true
         return cell
     }
@@ -165,6 +197,8 @@ extension FlightBookingsDetailsVC {
     func getFlightsOptionsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightsOptionsTableViewCell.reusableIdentifier, for: indexPath) as? FlightsOptionsTableViewCell else { return UITableViewCell() }
         cell.delegate = self
+        cell.webCheckinUrl = self.viewModel.bookingDetail?.webCheckinUrl ?? ""
+        cell.additionalInformation = self.viewModel.bookingDetail?.additionalInformation
         cell.configureCell()
         cell.clipsToBounds = true
         return cell
@@ -218,7 +252,7 @@ extension FlightBookingsDetailsVC {
     
     func getGstCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
-        cell.configCell(title: LocalizedString.GSTIN.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.gst.isEmpty ?? false ? LocalizedString.dash.localized: self.viewModel.bookingDetail?.billingInfo?.gst ?? "" , subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
+        cell.configCell(title: LocalizedString.GSTIN.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.gst.isEmpty ?? false ? LocalizedString.dash.localized : self.viewModel.bookingDetail?.billingInfo?.gst ?? "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
         cell.titleLabelBottomConstraint.constant = 2.0
         cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.containerView.backgroundColor = AppColors.screensBackground.color

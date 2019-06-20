@@ -32,7 +32,40 @@ class BookingProductDetailVM {
     var urlOfDocuments: String = ""
     var urlLink: URL?
     
+    var noOfLegCellAboveLeg: Int {
+        var count = 0
+        if !(self.bookingDetail?.bookingDetail?.note.isEmpty ?? false) {
+            count += 1
+        }
+        if !(self.bookingDetail?.cases.isEmpty ?? false) {
+            count += 1
+        }
+        return count
+    }
+    
     func getSectionDataForFlightProductType() {
+        // logic for add note cell
+        if !(self.bookingDetail?.bookingDetail?.note.isEmpty ?? false) {
+            self.sectionDataForFlightProductType.append([.notesCell])
+        }
+        
+        // logic for add case cell
+        
+        if !(self.bookingDetail?.cases.isEmpty ?? false) {
+            var temp: [TableViewCellForFlightProductType] = []
+            for (index, _) in (self.bookingDetail?.cases ?? []).enumerated() {
+                if index == 0 {
+                    temp.append(.requestCell)
+                    temp.append(.cancellationsReqCell)
+                } else {
+                    temp.append(.cancellationsReqCell)
+                }
+            }
+            self.sectionDataForFlightProductType.append(temp)
+        }
+        
+        // logic for add leg Cell
+        
         for leg in self.bookingDetail?.bookingDetail?.leg ?? [] {
             var temp: [TableViewCellForFlightProductType] = [.flightCarriersCell, .flightBoardingAndDestinationCell]
             for (index, _) in leg.pax.enumerated() {
@@ -96,7 +129,6 @@ class BookingProductDetailVM {
         self.sectionDataForOtherProductType.append([.paymentInfoCell, .bookingCell, .paidCell])
         self.sectionDataForOtherProductType.append([.nameCell, .emailCell, .mobileCell, .gstCell, .billingAddressCell])
     }
-    
     
     func getBookingDetail() {
         let params: JSONDictionary = ["booking_id": bookingId]

@@ -80,23 +80,23 @@ struct GuestDetail {
     
     init(json: JSONDictionary) {
         if let obj = json["gender"] {
-            self.gender = "\(obj)"
+            self.gender = "\(obj)".removeNull
         }
         
         if let obj = json["name"] {
-            self.name = "\(obj)"
+            self.name = "\(obj)".removeNull
         }
         
         if let obj = json["salutation"] {
-            self.salutation = "\(obj)"
+            self.salutation = "\(obj)".removeNull
         }
         
         if let obj = json["dob"] {
-            self.dob = "\(obj)"
+            self.dob = "\(obj)".removeNull
         }
         
         if let obj = json["age"] {
-            self.age = "\(obj)"
+            self.age = "\(obj)".removeNull
         }
     }
 }
@@ -135,103 +135,103 @@ struct Traveller {
     
     init(json: JSONDictionary) {
         if let obj = json["id"] {
-            self.id = "\(obj)"
+            self.id = "\(obj)".removeNull
         }
         
         if let obj = json["booking_id"] {
-            self.bookingId = "\(obj)"
+            self.bookingId = "\(obj)".removeNull
         }
         
         if let obj = json["ref_table"] {
-            self.refTable = "\(obj)"
+            self.refTable = "\(obj)".removeNull
         }
         
         if let obj = json["ref_table_id"] {
-            self.refTableId = "\(obj)"
+            self.refTableId = "\(obj)".removeNull
         }
         
         if let obj = json["pax_type"] {
-            self.paxType = "\(obj)"
+            self.paxType = "\(obj)".removeNull
         }
         
         if let obj = json["pax_id"] {
-            self.paxId = "\(obj)"
+            self.paxId = "\(obj)".removeNull
         }
         
         if let obj = json["salutation"] {
-            self.salutation = "\(obj)"
+            self.salutation = "\(obj)".removeNull
         }
         
         if let obj = json["first_name"] {
-            self.firstName = "\(obj)"
+            self.firstName = "\(obj)".removeNull
         }
         
         if let obj = json["middle_name"] {
-            self.middleName = "\(obj)"
+            self.middleName = "\(obj)".removeNull
         }
         
         if let obj = json["last_name"] {
-            self.lastName = "\(obj)"
+            self.lastName = "\(obj)".removeNull
         }
         
         if let obj = json["age"] {
-            self.age = "\(obj)"
+            self.age = "\(obj)".removeNull
         }
         
         if let obj = json["dob"] {
-            self.dob = "\(obj)"
+            self.dob = "\(obj)".removeNull
         }
         
         if let obj = json["gender"] {
-            self.gender = "\(obj)"
+            self.gender = "\(obj)".removeNull
         }
         
         if let obj = json["pax_status"] {
-            self.paxStatus = "\(obj)"
+            self.paxStatus = "\(obj)".removeNull
         }
         
         if let obj = json["status_id"] {
-            self.statusId = "\(obj)"
+            self.statusId = "\(obj)".removeNull
         }
         
         if let obj = json["lead_pax"] {
-            self.leadPax = "\(obj)"
+            self.leadPax = "\(obj)".removeNull
         }
         
         if let obj = json["pnr"] {
-            self.pnr = "\(obj)"
+            self.pnr = "\(obj)".removeNull
         }
         
         if let obj = json["pnr_sector"] {
-            self.pnrSector = "\(obj)"
+            self.pnrSector = "\(obj)".removeNull
         }
         
         if let obj = json["ticket_no"] {
-            self.ticketNo = "\(obj)"
+            self.ticketNo = "\(obj)".removeNull
         }
         
         if let obj = json["crs_pnr"] {
-            self.crsPnr = "\(obj)"
+            self.crsPnr = "\(obj)".removeNull
         }
         
         if let obj = json["added_while_booking"] {
-            self.addedWhileBooking = "\(obj)"
+            self.addedWhileBooking = "\(obj)".removeNull
         }
         
         if let obj = json["pax_group"] {
-            self.paxGroup = "\(obj)"
+            self.paxGroup = "\(obj)".removeNull
         }
         
         if let obj = json["added_on"] {
-            self.addedOn = "\(obj)"
+            self.addedOn = "\(obj)".removeNull
         }
         
         if let obj = json["updated_on"] {
-            self.updatedOn = "\(obj)"
+            self.updatedOn = "\(obj)".removeNull
         }
         
         if let obj = json["pax_name"] {
-            self.paxName = "\(obj)"
+            self.paxName = "\(obj)".removeNull
         }
     }
     
@@ -279,7 +279,6 @@ struct Direction {
         if let obj = json["longitude"] as? String {
             self.longitude = "\(obj)".removeNull
         }
-    
     }
     
     // get models

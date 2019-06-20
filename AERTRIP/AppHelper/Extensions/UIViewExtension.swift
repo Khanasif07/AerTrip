@@ -282,7 +282,7 @@ extension UIView {
         return subviewClass as? UICollectionViewCell
     }
     
-    func showBlurLoader(frame:CGRect) {
+    func showBlurLoader(frame: CGRect) {
         let blurLoader = BlurLoader(frame: frame)
         self.addSubview(blurLoader)
     }
@@ -316,9 +316,8 @@ extension UIView {
                                  right: Bool,
                                  opacity: Float,
                                  shadowRadius: CGFloat = 2.0,
-                                 offset:CGSize = CGSize.zero,
+                                 offset: CGSize = CGSize.zero,
                                  color: UIColor = AppColors.screensBackground.color) {
-        
         self.layer.masksToBounds = false
         self.layer.shadowOffset = offset
         self.layer.shadowRadius = shadowRadius
@@ -333,17 +332,17 @@ extension UIView {
         
         // here x, y, viewWidth, and viewHeight can be changed }}
         // order to play around with the shadow paths.
-        if (!top) {
-            y+=(shadowRadius+1)
+        if !top {
+            y += (shadowRadius + 1)
         }
-        if (!bottom) {
-            viewHeight-=(shadowRadius+1)
+        if !bottom {
+            viewHeight -= (shadowRadius + 1)
         }
-        if (!left) {
-            x+=(shadowRadius+1)
+        if !left {
+            x += (shadowRadius + 1)
         }
-        if (!right) {
-            viewWidth-=(shadowRadius+1)
+        if !right {
+            viewWidth -= (shadowRadius + 1)
         }
         // selecting top most point
         path.move(to: CGPoint(x: x, y: y))
@@ -373,17 +372,17 @@ extension UIView {
     }
 }
 
-
 extension UIView {
-    func makeDottedLine(dashLength: Int = 3, gapLength: Int = 2, dashColor: UIColor = .lightGray) {
+    func makeDottedLine(dashLength: Int = 3, gapLength: Int = 2, dashColor: UIColor = .lightGray, isInCenter: Bool = false) {
         let shapeLayer = CAShapeLayer()
         shapeLayer.strokeColor = dashColor.cgColor
         shapeLayer.lineWidth = 1
         shapeLayer.lineDashPattern = [dashLength, gapLength] as [NSNumber] // 3 is the length of dash, 2 is length of the gap.
         
         let path = CGMutablePath()
-        let start = CGPoint(x: self.bounds.minX, y: self.bounds.minY)
-        let end = CGPoint(x: self.bounds.maxX, y: self.bounds.minY)
+        
+        let start = isInCenter ? CGPoint(x: self.bounds.minX, y: self.frame.size.height / 2) : CGPoint(x: self.bounds.minX, y: self.bounds.minY)
+        let end = isInCenter ? CGPoint(x: self.bounds.maxX, y: self.frame.size.height / 2) : CGPoint(x: self.bounds.maxX, y: self.bounds.minY)
         path.addLines(between: [start, end])
         shapeLayer.path = path
         self.layer.addSublayer(shapeLayer)

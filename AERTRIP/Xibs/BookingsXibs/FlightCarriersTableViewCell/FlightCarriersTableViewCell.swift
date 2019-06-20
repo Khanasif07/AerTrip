@@ -25,6 +25,8 @@ class FlightCarriersTableViewCell: UITableViewCell {
     @IBOutlet var moreFlightCarriersContView: UIView!
     @IBOutlet var moreFlightCarriersImgVw: UIImageView!
     @IBOutlet var moreFlightCarriersLabel: UILabel!
+    
+    @IBOutlet var moreFlightBlurOverlayView: UIView!
     @IBOutlet var totalCarriersOrFlNameLabel: UILabel!
     @IBOutlet var flightCode: UILabel!
     @IBOutlet var remainingCodesLabel: UILabel!
@@ -69,24 +71,48 @@ class FlightCarriersTableViewCell: UITableViewCell {
         let firstFlightNumber = flightNumbers.first ?? ""
         self.flightCode.text = (firstCarrierCode + firstFlightNumber)
         self.remainingCodesLabel.isHidden = false
+        
+        // logic for carrier image and name label :
+        /*
+         if one carrier show carrier image and name
+         if two carrier then show only two carrier image
+         if three carrier then show only three carrier image
+         else more than 3 carrier then show two carrier and third carrier(blurred) and count above it
+         
+         */
         switch carriers.count {
         case 1:
-            self.secondFlightCarriersContView.isHidden = true
             if !carrierCode[0].isEmpty {
                 let imageUrl = AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[0])
-                self.secondFlightCarriersImgVw.setImageWithUrl(imageUrl, placeholder: AppPlaceholderImage.default, showIndicator: true)
+                self.firstFlightCarriersImgVw.setImageWithUrl(imageUrl, placeholder: AppPlaceholderImage.default, showIndicator: true)
             }
-            
+            self.secondFlightCarriersContView.isHidden = true
             self.moreFlightCarriersContView.isHidden = true
             self.totalCarriersOrFlNameLabel.text = carriers[0]
             self.remainingCodesLabel.isHidden = true
         case 2:
+            self.secondFlightCarriersContView.isHidden = false
+            self.moreFlightCarriersLabel.isHidden = true
             self.moreFlightCarriersContView.isHidden = true
-            self.totalCarriersOrFlNameLabel.text = carriers[1]
+            self.totalCarriersOrFlNameLabel.isHidden = true
+            self.firstFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[0]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            self.secondFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[1]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            
+        case 3:
+            self.secondFlightCarriersContView.isHidden = false
+            self.moreFlightCarriersLabel.isHidden = true
+            self.moreFlightCarriersContView.isHidden = false
+            self.moreFlightBlurOverlayView.isHidden = true
+            self.totalCarriersOrFlNameLabel.isHidden = true
+            self.firstFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[0]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            self.secondFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[1]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            self.moreFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[2]), placeholder: AppPlaceholderImage.default, showIndicator: true)
+            
         default:
             self.secondFlightCarriersContView.isHidden = false
+            self.moreFlightCarriersImgVw.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: carrierCode[2]), placeholder: AppPlaceholderImage.default, showIndicator: true)
             self.moreFlightCarriersContView.isHidden = false
-            self.moreFlightCarriersLabel.text = "\(carriers.count - 2)"
+            self.moreFlightCarriersLabel.text = "+ \(carriers.count - 3)"
             self.totalCarriersOrFlNameLabel.text = "\(carriers.count) \(LocalizedString.Carriers.localized)"
         }
     }

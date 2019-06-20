@@ -67,10 +67,14 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="crz-af-ceA">
                                         <rect key="frame" x="76" y="0.0" width="30" height="21"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlusFlightCarriers" translatesAutoresizingMaskIntoConstraints="NO" id="CKl-uM-TFS">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FlightCarriers" translatesAutoresizingMaskIntoConstraints="NO" id="CKl-uM-TFS">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="21"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DSv-kn-R6O">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tET-pa-JnO">
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="21"/>
+                                                <color key="backgroundColor" red="0.24313725490196078" green="0.24313725490196078" blue="0.24313725490196078" alpha="0.67000000000000004" colorSpace="calibratedRGB"/>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DSv-kn-R6O">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="21"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="11"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -86,8 +90,12 @@
                                             <constraint firstItem="DSv-kn-R6O" firstAttribute="top" secondItem="crz-af-ceA" secondAttribute="top" id="GTR-0f-BQw"/>
                                             <constraint firstAttribute="height" constant="21" id="Lg9-lQ-sG5"/>
                                             <constraint firstItem="DSv-kn-R6O" firstAttribute="leading" secondItem="crz-af-ceA" secondAttribute="leading" id="M4A-mO-3Qs"/>
+                                            <constraint firstItem="tET-pa-JnO" firstAttribute="trailing" secondItem="CKl-uM-TFS" secondAttribute="trailing" id="O2J-VU-NLT"/>
+                                            <constraint firstItem="tET-pa-JnO" firstAttribute="bottom" secondItem="CKl-uM-TFS" secondAttribute="bottom" id="bm1-0n-CR3"/>
                                             <constraint firstAttribute="width" constant="30" id="i33-5g-1U3"/>
+                                            <constraint firstItem="tET-pa-JnO" firstAttribute="top" secondItem="CKl-uM-TFS" secondAttribute="top" id="i3K-72-Rx9"/>
                                             <constraint firstItem="CKl-uM-TFS" firstAttribute="leading" secondItem="crz-af-ceA" secondAttribute="leading" id="mDp-hS-76P"/>
+                                            <constraint firstItem="tET-pa-JnO" firstAttribute="leading" secondItem="CKl-uM-TFS" secondAttribute="leading" id="rFj-wT-Xcy"/>
                                             <constraint firstItem="CKl-uM-TFS" firstAttribute="top" secondItem="crz-af-ceA" secondAttribute="top" id="tXo-Pd-l3z"/>
                                         </constraints>
                                     </view>
@@ -155,6 +163,7 @@
                 <outlet property="firstFlightCarriersContView" destination="9ml-sW-i9O" id="LMv-2W-Ow7"/>
                 <outlet property="firstFlightCarriersImgVw" destination="t8h-9G-8Zz" id="gp0-DC-Gmc"/>
                 <outlet property="flightCode" destination="Hka-eF-vx7" id="xvQ-BZ-bfk"/>
+                <outlet property="moreFlightBlurOverlayView" destination="tET-pa-JnO" id="WOS-xq-gdR"/>
                 <outlet property="moreFlightCarriersContView" destination="crz-af-ceA" id="pcN-6I-FrC"/>
                 <outlet property="moreFlightCarriersImgVw" destination="CKl-uM-TFS" id="vSg-QR-blN"/>
                 <outlet property="moreFlightCarriersLabel" destination="DSv-kn-R6O" id="kdl-N8-Eqm"/>
@@ -169,7 +178,6 @@
     </objects>
     <resources>
         <image name="FlightCarriers" width="30" height="21"/>
-        <image name="PlusFlightCarriers" width="30" height="21"/>
         <image name="hotelCheckoutForwardArrow" width="8" height="14"/>
     </resources>
 </document>

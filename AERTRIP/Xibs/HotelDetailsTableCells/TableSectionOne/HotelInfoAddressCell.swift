@@ -9,37 +9,38 @@
 import UIKit
 
 class HotelInfoAddressCell: UITableViewCell {
-    
-    //Mark:- Variables
+    // Mark:- Variables
     //================
     
-    //Mark:- IBOutlets
+    // Mark:- IBOutlets
     //================
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var addressInfoTextView: UITextView! {
+    @IBOutlet var containerView: UIView!
+    @IBOutlet var addressLabel: UILabel!
+    @IBOutlet var addressInfoTextView: UITextView! {
         didSet {
             self.addressInfoTextView.isUserInteractionEnabled = false
         }
     }
-    @IBOutlet weak var deviderView: UIView!
-    @IBOutlet weak var moreBtnOutlet: UIButton!
-    @IBOutlet weak var moreBtnContainerView: UIView!
-    @IBOutlet weak var gradientView: UIView!
-    @IBOutlet weak var infoTextViewTrailingConstraint: NSLayoutConstraint! {
+    
+    @IBOutlet var deviderView: UIView!
+    @IBOutlet var moreBtnOutlet: UIButton!
+    @IBOutlet var moreBtnContainerView: UIView!
+    @IBOutlet var gradientView: UIView!
+    @IBOutlet var infoTextViewTrailingConstraint: NSLayoutConstraint! {
         didSet {
             self.infoTextViewTrailingConstraint.constant = 0.0
         }
     }
     
-    //Mark:- LifeCycle
+    var isMoreButtonTapped: Bool = false
+    // Mark:- LifeCycle
     //================
     override func awakeFromNib() {
         super.awakeFromNib()
         self.initialSetUp()
     }
     
-    //Mark:- Methods
+    // Mark:- Methods
     //==============
     private func initialSetUp() {
         self.addressInfoTextView.isEditable = false
@@ -48,27 +49,27 @@ class HotelInfoAddressCell: UITableViewCell {
         self.configureUI()
     }
     
-    ///COnfigure UI
+    /// COnfigure UI
     private func configureUI() {
-        //SetUps
+        // SetUps
         self.moreBtnContainerView.addGradientWithColor(color: AppColors.themeWhite)
         self.moreBtnContainerView.isHidden = true
         
-        //Color
+        // Color
         self.addressLabel.textColor = AppColors.themeBlack
         self.deviderView.backgroundColor = AppColors.divider.color
         self.moreBtnOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
         
-        //Size
+        // Size
         self.addressLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.addressInfoTextView.font = AppFonts.Regular.withSize(18.0)
         self.moreBtnOutlet.titleLabel?.font = AppFonts.Regular.withSize(16.0)
         
-        //Text
+        // Text
         self.moreBtnOutlet.setTitle(LocalizedString.More.localized, for: .normal)
     }
     
-    ///AttributeLabelSetup
+    /// AttributeLabelSetup
     private func attributeLabelSetUp(overview: String) {
 //        let attributedString = NSMutableAttributedString()
 //        let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
@@ -77,9 +78,8 @@ class HotelInfoAddressCell: UITableViewCell {
 //
         let attrText = overview.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.withSize(18.0).familyName, fontColor: AppColors.themeBlack)
         self.addressInfoTextView.attributedText = attrText
-        self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3 ) ? false : true
+        self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) ? false : true
     }
-
     
     internal func configureAddressCell(hotelData: HotelDetails) {
         self.moreBtnOutlet.isHidden = true
@@ -101,16 +101,19 @@ class HotelInfoAddressCell: UITableViewCell {
     }
     
     internal func configureNotesCell(notes: String) {
-        self.moreBtnOutlet.isHidden = false
+        self.moreBtnOutlet.isHidden = isMoreButtonTapped
         self.addressLabel.font = AppFonts.Regular.withSize(14.0)
         self.addressInfoTextView.font = AppFonts.Regular.withSize(18.0)
         self.addressLabel.textColor = AppColors.themeGray40
         self.addressInfoTextView.textColor = AppColors.themeBlack
         self.addressLabel.text = LocalizedString.capNotes.localized
-        self.addressInfoTextView.text = notes
+        self.addressInfoTextView.textContainer.maximumNumberOfLines = self.isMoreButtonTapped ? 0 : 3
+        let attrText = notes.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.withSize(18.0).familyName, fontColor: AppColors.themeBlack)
+        self.addressInfoTextView.attributedText = attrText
+        self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) && !isMoreButtonTapped ? false : true
     }
     
-    //Mark:- IBActions
+    // Mark:- IBActions
     //================
 //    @IBAction func mapButtonAction(_ sender: UIButton) {
 //        printDebug("Go To Maps")
@@ -121,6 +124,12 @@ class HotelInfoAddressCell: UITableViewCell {
         if let parentVC = self.parentViewController as? HotelDetailsVC {
             AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: parentVC.viewModel.hotelData?.info ?? "")
         }
+        
+        if let parentVC = self.parentViewController as? FlightBookingsDetailsVC {
+            self.moreBtnContainerView.isHidden = true
+            self.addressInfoTextView.textContainer.maximumNumberOfLines = 0
+            self.isMoreButtonTapped = true
+            parentVC.bookingDetailsTableView.reloadData()
+        }
     }
-    
 }

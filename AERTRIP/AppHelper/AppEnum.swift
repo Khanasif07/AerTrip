@@ -569,3 +569,42 @@ extension URL {
         return self.lastPathComponent.fileIcon
     }
 }
+
+// App Enum for Weather type icon
+
+
+
+enum WeatherType: String {
+    case none = "ic_none"
+    case clearSky = "ic_clearsky"
+    case fewClouds = "ic_fewclouds"
+    case scatteredClouds = "ic_scatteredclouds"
+    case brokenClouds = "ic_brokenclouds"
+    case showerRain = "ic_showerrain"
+    case rain = "ic_rain"
+    case thunderStorm = "ic_thunderstorm"
+    case snow = "ic_snow"
+    case mist = "ic_mist"
+    
+    init?(rawValue: String) {
+        
+        let final = "ic_\(rawValue.removeAllWhitespaces.lowercased())"
+        switch final {
+        case "ic_clearsky": self = .clearSky
+        case "ic_fewclouds": self = .fewClouds
+        case "ic_scatteredclouds": self = .scatteredClouds
+        case "ic_brokenclouds": self = .brokenClouds
+        case "ic_showerrain": self = .showerRain
+        case "ic_rain": self = .rain
+        case "ic_thunderstorm": self = .thunderStorm
+        case "ic_snow": self = .snow
+        case "ic_mist": self = .mist
+        default: self = .none
+        }
+    }
+    
+    var iconImage: UIImage {
+        return #imageLiteral(resourceName: self.rawValue)
+    }
+}
+

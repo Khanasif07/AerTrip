@@ -6,9 +6,10 @@
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
+import EventKit
 import MXParallaxHeader
-import UIKit
 import SafariServices
+import UIKit
 
 // MARK: - Extensions
 
@@ -21,6 +22,10 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.sectionDataForFlightProductType[section].count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -83,12 +88,10 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         printDebug("\(indexPath.section)")
         if indexPath.section < self.viewModel.bookingDetail?.bookingDetail?.leg.count ?? 0 {
             let legId = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section].legId ?? ""
-            AppFlowManager.default.moveToBookingDetail(bookingId: self.viewModel.bookingId,ledId: legId ?? "" )
+            AppFlowManager.default.moveToBookingDetail(bookingId: self.viewModel.bookingId, ledId: legId ?? "")
         } else {
             printDebug("index path section \(indexPath.section)")
         }
-      
-
     }
 }
 
@@ -130,17 +133,17 @@ extension FlightBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
             document?.downloadRequest = request
         }, progressUpdate: { [weak self] progress in
             guard let sSelf = self else { return }
-          document?.progressUpdate?(progress)
+            document?.progressUpdate?(progress)
         }, success: { [weak self] success in
             guard let sSelf = self else { return }
-          document?.downloadingStatus = .downloaded
+            document?.downloadingStatus = .downloaded
             UIView.performWithoutAnimation {
                 sSelf.bookingDetailsTableView.reloadData()
             }
             printDebug(success)
         }) { [weak self] error in
             guard let sSelf = self else { return }
-          document?.downloadingStatus = .notDownloaded
+            document?.downloadingStatus = .notDownloaded
             UIView.performWithoutAnimation {
                 sSelf.bookingDetailsTableView.reloadData()
             }
@@ -203,23 +206,49 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
 
 extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     func openWebCheckin() {
-        //TODO:- Need to test with when web url is present
-        self.webCheckinServices()
+        // TODO: - Need to test with when web url is present
+        self.webCheckinServices(url: self.viewModel.bookingDetail?.webCheckinUrl ?? "")
     }
     
     func openDirections() {
         //
         printDebug("open direction ")
-        
     }
     
     func openCallDetail() {
         printDebug("open call detail  ")
-
     }
     
     func addToCalender() {
         printDebug("Add To Calender")
+        
+        let eventStore = EKEventStore()
+        
+        eventStore.requestAccess(to: EKEntityType.event, completion: { granted, error in
+            
+            if granted, (error == nil) {
+                let event = EKEvent(eventStore: eventStore)
+                
+                event.title = "Event Detail"
+                event.startDate = self.viewModel.bookingDetail?.bookingDetail?.eventStartingDate
+                event.endDate = self.viewModel.bookingDetail?.bookingDetail?.evenEndingDate
+                event.notes = "Booking flight Event"
+                event.calendar = eventStore.defaultCalendarForNewEvents
+                
+                var event_id = ""
+                do {
+                    try eventStore.save(event, span: .thisEvent)
+                    event_id = self.viewModel.bookingDetail?.id ?? ""
+                } catch let error as NSError {
+                    print("json error: \(error.localizedDescription)")
+                }
+                
+                if event_id != "" {
+                    print("event added !")
+                    AppToast.default.showToastMessage(message: "event added successfully")
+                }
+            }
+        })
     }
     
     func addToAppleWallet() {
