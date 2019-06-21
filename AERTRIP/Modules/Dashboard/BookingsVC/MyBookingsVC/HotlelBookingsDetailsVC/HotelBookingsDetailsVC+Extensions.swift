@@ -14,15 +14,69 @@ import MXParallaxHeader
 extension HotlelBookingsDetailsVC: UITableViewDelegate , UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.sectionData.count
+        return self.viewModel.sectionDataForHotelDetail.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.sectionData[section].count
+        return self.viewModel.sectionDataForHotelDetail[section].count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let currentSection = self.viewModel.sectionDataForHotelDetail[indexPath.section]
+        switch currentSection[indexPath.row] {
+        case .hotelBookingInfoCell:
+            return 230.0
+        case .roomNameAndTypeCell:
+            return UITableView.automaticDimension
+        case .travellersCell:
+            return UITableView.automaticDimension
+        case .notesCell:
+            return UITableView.automaticDimension
+        case .requestCell:
+            return UITableView.automaticDimension
+        case .cancellationsReqCell:
+            return UITableView.automaticDimension
+        case .addOnRequestCell:
+            return UITableView.automaticDimension
+        case .reschedulingRequestCell:
+            return UITableView.automaticDimension
+        case .documentCell:
+            return UITableView.automaticDimension
+        case .paymentInfoCell:
+            return UITableView.automaticDimension
+        case .bookingCell:
+            return UITableView.automaticDimension
+        case .addOnsCell:
+            return UITableView.automaticDimension
+        case .cancellationCell:
+            return UITableView.automaticDimension
+        case .refundCell:
+            return UITableView.automaticDimension
+        case .paymentPendingCell:
+            return UITableView.automaticDimension
+        case .paidCell:
+            return UITableView.automaticDimension
+        case .nameCell:
+            return UITableView.automaticDimension
+        case .emailCell:
+            return UITableView.automaticDimension
+        case .mobileCell:
+            return UITableView.automaticDimension
+        case .gstCell:
+            return UITableView.automaticDimension
+        case .billingAddressCell:
+            return UITableView.automaticDimension
+        case .flightsOptionsCell:
+            return UITableView.automaticDimension
+        case .weatherHeaderCell:
+            return UITableView.automaticDimension
+        case .weatherInfoCell:
+            return UITableView.automaticDimension
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currentSection = self.viewModel.sectionData[indexPath.section]
+        let currentSection = self.viewModel.sectionDataForHotelDetail[indexPath.section]
         switch currentSection[indexPath.row] {
         case .hotelBookingInfoCell:
             return getHotelBookingAddressDetailsCell(tableView, indexPath: indexPath)

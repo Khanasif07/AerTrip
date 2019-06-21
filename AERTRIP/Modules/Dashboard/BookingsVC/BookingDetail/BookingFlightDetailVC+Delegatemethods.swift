@@ -13,26 +13,21 @@ import UIKit
 extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        switch self.bookingDetailType {
-        case .flightInfo, .baggage:
-            return self.viewModel.legDetails.count
-        case .fareInfo:
-            return 1
-        }
+        return self.viewModel.legDetails.count
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         switch self.bookingDetailType {
         case .flightInfo:
-            return 44.0
+            return 55.0
         case .baggage:
             return 60.0
         case .fareInfo:
-            if let fbn = self.viewModel.legDetails.first?.flight.first?.fbn, !fbn.isEmpty {
-                return 114.0
+            if let booking = self.viewModel.bookingDetail, !booking.isReturnFlight(), let fbn = self.viewModel.legDetails[section].flight.first?.fbn {
+                return !fbn.isEmpty ? 114.0 : 74.0
             }
-            return 74.0
+            return 0.0
         }
     }
     
@@ -46,43 +41,47 @@ extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
             return headerView
             
         case .fareInfo:
-            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.fareInfoHeaderViewIdentifier) as? FareInfoHeaderView else { return nil }
-            
-            let titleTxt = self.viewModel.legDetails.first?.flight.first?.fbn ?? ""
-            headerView.titleLabel.text = titleTxt
-            headerView.dividerView.isHidden = titleTxt.isEmpty
-            
-            headerView.refundPolicyLabel.text = "Refund Policy"
-            headerView.delegate = self
-            headerView.fareRulesButton.setTitle(LocalizedString.FareRules.localized, for: .normal)
-            
-            var infoText = "We do not have information regarding refundability/reschedulability"
-            if let leg = self.viewModel.legDetails.first {
-                if leg.refundable == 1 {
-                    infoText = "Refundable"
-                }
-                else if leg.refundable == -9 {
-                    infoText = LocalizedString.na.localized
-                }
-                else {
-                    infoText = "Non-refundable"
+            if let booking = self.viewModel.bookingDetail, !booking.isReturnFlight(), let fbn = self.viewModel.legDetails[section].flight.first?.fbn {
+                
+                guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.fareInfoHeaderViewIdentifier) as? FareInfoHeaderView else { return nil }
+                
+                let titleTxt = fbn
+                headerView.titleLabel.text = titleTxt
+                headerView.dividerView.isHidden = titleTxt.isEmpty
+                
+                headerView.refundPolicyLabel.text = "Refund Policy"
+                headerView.delegate = self
+                headerView.fareRulesButton.setTitle(LocalizedString.FareRules.localized, for: .normal)
+                
+                var infoText = "We do not have information regarding refundability/reschedulability"
+                if let leg = self.viewModel.legDetails.first {
+                    if leg.refundable == 1 {
+                        infoText = "Refundable"
+                    }
+                    else if leg.refundable == -9 {
+                        infoText = LocalizedString.na.localized
+                    }
+                    else {
+                        infoText = "Non-refundable"
+                    }
+                    
+                    
+                    if leg.reschedulable == 1 {
+                        infoText += infoText.isEmpty ? "Reschedulable" : " • Reschedulable"
+                    }
+                    else if leg.refundable == -9 {
+                        infoText += infoText.isEmpty ? LocalizedString.na.localized : " • \(LocalizedString.na.localized)"
+                    }
+                    else {
+                        infoText += infoText.isEmpty ? "Non-reschedulable" : " • Non-reschedulable"
+                    }
                 }
                 
+                headerView.infoLabel.text = infoText
                 
-                if leg.reschedulable == 1 {
-                    infoText += infoText.isEmpty ? "Reschedulable" : " • Reschedulable"
-                }
-                else if leg.refundable == -9 {
-                    infoText += infoText.isEmpty ? LocalizedString.na.localized : " • \(LocalizedString.na.localized)"
-                }
-                else {
-                    infoText += infoText.isEmpty ? "Non-reschedulable" : " • Non-reschedulable"
-                }
+                return headerView
             }
-            
-            headerView.infoLabel.text = infoText
-            
-            return headerView
+            return nil
         }
     }
     
@@ -100,15 +99,20 @@ extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch self.bookingDetailType {
         case .flightInfo:
-                let detailsC = self.viewModel.legDetails[section].flight.reduce(into: 0) { $0 += $1.numberOfCellFlightInfo}
-                return self.viewModel.legDetails[section].pax.isEmpty ? detailsC : (detailsC + 1)
+            let detailsC = self.viewModel.legDetails[section].flight.reduce(into: 0) { $0 += $1.numberOfCellFlightInfo}
+            return self.viewModel.legDetails[section].pax.isEmpty ? detailsC : (detailsC + 1)
             
         case .baggage:
-                let detailsC = self.viewModel.legDetails[section].flight.reduce(into: 0) { $0 += $1.numberOfCellBaggage}
-                return detailsC
+            let detailsC = self.viewModel.legDetails[section].flight.reduce(into: 0) { $0 += $1.numberOfCellBaggage}
+            return detailsC
             
         case .fareInfo:
-            return self.getNumberOfCellsInFareInfo(forData: self.viewModel.bookingFee)
+            if let booking = self.viewModel.bookingDetail, booking.isReturnFlight() {
+                return self.getNumberOfCellsInFareInfoForMultiFlight()
+            }
+            else {
+                return self.getNumberOfCellsInFareInfoForNormalFlight(forData: self.viewModel.bookingFee)
+            }
         }
     }
     
@@ -119,19 +123,24 @@ extension BookingFlightDetailVC : UITableViewDataSource,UITableViewDelegate {
         case .baggage:
             return getHeightForBaggageInfo(indexPath)
         case .fareInfo:
-            return UITableView.automaticDimension
+            return getHeightForFareInfo(indexPath)
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      
+        
         switch self.bookingDetailType {
         case .flightInfo:
             return getCellForFlightInfo(indexPath)
         case .baggage:
             return getCellForBaggageInfo(indexPath)
         case .fareInfo:
-            return getCellForFareInfo(indexPath)
+            if let booking = self.viewModel.bookingDetail, booking.isReturnFlight() {
+                return getCellForFareInfoForMultiFlight(indexPath)
+            }
+            else {
+                return getCellForFareInfoForNormalFlight(indexPath)
+            }
         }
     }
 }
@@ -164,8 +173,19 @@ extension BookingFlightDetailVC : BaggageAirlineInfoTableViewCellDelegate {
 
 // Route Fare info table View cell Delegate methods
 extension BookingFlightDetailVC: RouteFareInfoTableViewCellDelegate {
-    func viewDetailsButtonTapped() {
+    func viewDetailsButtonTapped(_ sender: UIButton) {
         printDebug("View Details Button Tapped")
+        if let indexPath = self.tableView.indexPath(forItem: sender) {
+            AppFlowManager.default.presentBookingFareInfoDetailVC(usingFor: .both, forBookingId: self.viewModel.bookingDetail?.id ?? "", legDetails: self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section], bookingFee: self.viewModel.bookingFee)
+        }
+    }
+}
+
+// MARK: - Fare Info header view Delegate
+extension BookingFlightDetailVC: FareInfoHeaderViewDelegate {
+    func fareButtonTapped(_ sender: UIButton) {
+        printDebug("fare info butto n tapped")
+        AppFlowManager.default.presentBookingFareInfoDetailVC(usingFor: .fareRules, forBookingId: self.viewModel.bookingDetail?.id ?? "", legDetails: self.viewModel.bookingDetail?.bookingDetail?.leg.first, bookingFee: self.viewModel.bookingFee)
     }
 }
 
@@ -179,10 +199,5 @@ extension BookingFlightDetailVC: BookingDetailVMDelegate {
     }
     
     func getBookingFeesFail() {
-    }
-    
-    func legDetailsSuccess() {
-        self.reloadDetails()
-        self.viewModel.getBookingFees()
     }
 }

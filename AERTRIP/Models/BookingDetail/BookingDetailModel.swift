@@ -11,7 +11,7 @@ import Foundation
 struct BookingDetailModel {
     var id: String = ""
     var bookingNumber: String = ""
-    var bookingDate: String = ""
+    var bookingDate: Date?
     var communicationNumber: String = ""
     var depart: String = ""
     var billingInfo: BillingDetail?
@@ -51,7 +51,7 @@ struct BookingDetailModel {
             self.bookingNumber = "\(obj)".removeNull
         }
         if let obj = json["booking_date"] {
-            self.bookingDate = "\(obj)".removeNull
+            self.bookingDate = "\(obj)".removeNull.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
         if let obj = json["communication_number"] {
@@ -112,17 +112,24 @@ struct BookingDetailModel {
 //MARK: -
 
 extension BookingDetailModel {
-    var tripCitiesStr: NSMutableAttributedString? {
-        func isReturnFlight(forArr: [String]) -> Bool {
-            guard !forArr.isEmpty else { return false }
-            
-            if forArr.count == 3, let first = forArr.first, let last = forArr.last {
-                return (first.lowercased() == last.lowercased())
-            }
-            else {
-                return (self.tripType.lowercased() == "return")
-            }
+    
+    func isReturnFlight(forArr: [String] = []) -> Bool {
+        
+        func checkByTripType() -> Bool {
+            return (self.tripType.lowercased() == "return") || (self.tripType.lowercased() == "multi")
         }
+        
+        guard !forArr.isEmpty else { return checkByTripType() }
+        
+        if forArr.count == 3, let first = forArr.first, let last = forArr.last {
+            return (first.lowercased() == last.lowercased())
+        }
+        else {
+            return checkByTripType()
+        }
+    }
+    
+    var tripCitiesStr: NSMutableAttributedString? {
         
         func getNormalString(forArr: [String]) -> String {
             guard !forArr.isEmpty else { return LocalizedString.dash.localized }
@@ -341,14 +348,15 @@ struct BookingDetail {
     var hotelEmail: String = ""
     
     var city: String = ""
+    var hotelName: String = ""
     var hotelImage: String = ""
-    var hotelStarRating: String = ""
-    var taRating: String = ""
+    var hotelStarRating: Double = 0.0
+    var taRating: Double = 0.0
     var taReviewCount: String = ""
     var hotelId: String = ""
     var nights: Int = 0
-    var checkIn: String = ""
-    var checkOut: String = ""
+    var checkIn: Date?
+    var checkOut: Date?
     
     // Product key  = other
     
@@ -429,14 +437,17 @@ struct BookingDetail {
         if let obj = json["city"] {
             self.city = "\(obj)".removeNull
         }
+        if let obj = json["hotel_name"] {
+            self.hotelName = "\(obj)".removeNull
+        }
         if let obj = json["hotel_img"] {
             self.hotelImage = "\(obj)".removeNull
         }
         if let obj = json["hotel_star_rating"] {
-            self.hotelStarRating = "\(obj)".removeNull
+            self.hotelStarRating = "\(obj)".toDouble ?? 0.0
         }
         if let obj = json["ta_rating"] {
-            self.taRating = "\(obj)".removeNull
+            self.taRating = "\(obj)".toDouble ?? 0.0
         }
         
         if let obj = json["ta_review_count"] {
@@ -449,11 +460,13 @@ struct BookingDetail {
             self.nights = "\(obj)".toInt ?? 0
         }
         if let obj = json["check_in"] {
-            self.checkIn = "\(obj)".removeNull
+            //"2019-08-07 00:00:00"
+            self.checkIn = "\(obj)".removeNull.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
         if let obj = json["check_out"] {
-            self.checkOut = "\(obj)".removeNull
+            //"2019-08-07 00:00:00"
+            self.checkOut = "\(obj)".removeNull.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
         // Product key other
@@ -471,6 +484,11 @@ struct BookingDetail {
         }
         
         self.travellers = Traveller.retunsTravellerArray(jsonArr: json["travellers"] as? [JSONDictionary] ?? [])
+        
+        // room details
+        if let obj = json["room_details"] as? [JSONDictionary] {
+            self.roomDetails = RoomDetailModel.getModels(json: obj)
+        }
         
         // leg parsing
         if let obj = json["leg"] as? [JSONDictionary] {
@@ -546,7 +564,7 @@ struct Leg {
             self.destination = "\(obj)".removeNull
         }
         if let obj = json["ttl"] {
-            self.title = "\(obj)".removeNull
+            self.title = "\(obj)".removeNull.replacingOccurrences(of: "-", with: "→")
         }
         if let obj = json["stops"] {
             self.stops = "\(obj)".removeNull
@@ -634,7 +652,7 @@ struct FlightDetail {
     var departureCountryCode: String = ""
     var departCity: String = ""
     
-    var departDate: String = ""
+    var departDate: Date?
     var departureTime: String = ""
     var arrival: String = ""
     var arrivalAirport: String = ""
@@ -749,7 +767,8 @@ struct FlightDetail {
         }
         
         if let obj = json["depart_date"] {
-            self.departDate = "\(obj)".removeNull
+            //"2019-02-01"
+            self.departDate = "\(obj)".toDate(dateFormat: "yyyy-MM-dd")
         }
         
         if let obj = json["departure_time"] {
@@ -890,9 +909,7 @@ struct FlightDetail {
         return finalStr
     }
     
-    var isFlightTravelled: Bool {
-        return self.departDate.toDate(dateFormat: "yyyy-MM-dd")?.isGreaterThan(Date()) ?? false ? false : true
-    }
+    
 }
 
 // This model will come only when we are booking the flight via some in-between station

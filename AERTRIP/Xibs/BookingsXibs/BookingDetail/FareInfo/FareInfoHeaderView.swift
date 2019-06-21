@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FareInfoHeaderViewDelegate: class {
-    func fareButtonTapped()
+    func fareButtonTapped(_ sender: UIButton)
 }
 
 class FareInfoHeaderView: UITableViewHeaderFooterView {
@@ -53,8 +53,7 @@ class FareInfoHeaderView: UITableViewHeaderFooterView {
     
     // MARK: - IBAction
     
-    @IBAction func fareRulesButtonTapped(_ sender: Any) {
-        delegate?.fareButtonTapped()
+    @IBAction func fareRulesButtonTapped(_ sender: UIButton) {
+        delegate?.fareButtonTapped(sender)
     }
-    
 }

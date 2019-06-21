@@ -23,8 +23,6 @@ class HotlelBookingsDetailsVM {
     
     func getSectionData() {
         self.getDocumentDownloadingData()
-        //        self.sectionData.append([.notesCell,.requestCell])
-        //        self.sectionData.append([.cancellationsReqCell , .addOnRequestCell , .reschedulingRequestCell, .reschedulingRequestCell])
         self.sectionData.append([.hotelBookingInfoCell,.roomNameAndTypeCell,.travellersCell,.travellersCell,.roomNameAndTypeCell,.travellersCell,.travellersCell])
         self.sectionData.append([.documentCell])
         self.sectionData.append([.paymentInfoCell , .bookingCell , .addOnsCell , .cancellationCell , .paidCell , .refundCell , .paymentPendingCell])
@@ -38,5 +36,4 @@ class HotlelBookingsDetailsVM {
 //            self.documentDownloadingData.append(DocumentDownloadingModel())
 //        }
     }
-    
 }

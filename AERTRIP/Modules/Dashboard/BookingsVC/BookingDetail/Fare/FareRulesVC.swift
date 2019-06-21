@@ -13,8 +13,9 @@ class FareRulesVC: BaseVC {
     // MARK: - IBOutlet
     @IBOutlet weak var fareRuleTableView: ATTableView!
 
-    
     // MARK: - Override methods
+    private var fareRules: String = LocalizedString.na.localized
+    private var ruteString: String = LocalizedString.na.localized
     
     override func initialSetup() {
         registerXib()
@@ -25,6 +26,12 @@ class FareRulesVC: BaseVC {
 
     
     // MARK: - Helper methods
+    
+    func set(fareRules: String, ruteString: String) {
+        self.fareRules = fareRules
+        self.ruteString = ruteString
+        self.fareRuleTableView?.reloadData()
+    }
     
     private func registerXib() {
         self.fareRuleTableView.registerCell(nibName: FareRuleTableViewCell.reusableIdentifier)
@@ -38,16 +45,18 @@ extension FareRulesVC: UITableViewDataSource, UITableViewDelegate {
         return 1
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.fareRules.sizeCount(withFont: AppFonts.Regular.withSize(16.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0)).height + 60.0
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.fareRuleTableView.dequeueReusableCell(withIdentifier: "FareRuleTableViewCell", for: indexPath) as? FareRuleTableViewCell else {
             fatalError("FareRuleTableViewCell not found")
         }
         
-        cell.configureCell()
+        cell.configureCell(fareRules: self.fareRules, ruteString: self.ruteString)
         return cell
     }
-    
-    
 }
 
 

@@ -69,6 +69,11 @@
             value = "/usr/lib/libgmalloc.dylib"
             isEnabled = "YES">
          </AdditionalOption>
+         <AdditionalOption
+            key = "NSZombieEnabled"
+            value = "YES"
+            isEnabled = "YES">
+         </AdditionalOption>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction

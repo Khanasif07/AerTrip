@@ -44,11 +44,9 @@ class FlightBookingsDetailsVC: BaseVC {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.statusBarStyle = .lightContent
     }
     
     override func initialSetup() {
-        self.statusBarStyle = .default
         self.topNavBarHeightConstraint.constant = self.navBarHeight
         self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
@@ -85,7 +83,7 @@ class FlightBookingsDetailsVC: BaseVC {
     /// ConfigureCheckInOutView
     func configureTableHeaderView() {
         if let view = self.headerView {
-            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.toString(dateFormat: "d MMM ''yy") ?? "")
+            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM ''yy") ?? "")
         }
     }
     

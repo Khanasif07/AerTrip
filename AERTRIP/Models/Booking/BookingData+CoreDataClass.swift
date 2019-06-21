@@ -208,11 +208,13 @@ public class BookingData: NSManagedObject {
                 }
                 
                 // only save once per batch insert
-                do {
-                    try managedObjectContext.save()
-                }
-                catch {
-                    printDebug("Problem in saving the managedObjectContext while in bulk is: \(error.localizedDescription)")
+                if managedObjectContext.hasChanges {
+                    do {
+                        try managedObjectContext.save()
+                    }
+                    catch let error {
+                        printDebug("Problem in saving the managedObjectContext while in bulk is: \(error.localizedDescription)")
+                    }
                 }
                 
                 CoreDataManager.shared.managedObjectContext.perform({

@@ -9,7 +9,6 @@
 import Foundation
 
 protocol BookingDetailVMDelegate: class {
-    func legDetailsSuccess() //temp methods
     
     func willGetBookingFees()
     func getBookingFeesSuccess()
@@ -18,27 +17,29 @@ protocol BookingDetailVMDelegate: class {
 
 class BookingDetailVM {
     
-    let tempModel = BookingProductDetailVM()
-    
     weak var delegate: BookingDetailVMDelegate?
     
-    var bookingId: String = ""
-    var legDetails: [Leg] = []
-    var legId: String = ""
-    var bookingFee: BookingFeeDetail?
-    var tripCitiesStr: NSAttributedString?
-    
-    init() {
-        tempModel.delegate = self
-        delay(seconds: 0.3) {
-            self.tempModel.bookingId = self.bookingId
-            self.tempModel.getBookingDetail()
-        }
+    var bookingDetail: BookingDetailModel?
+    var legDetails: [Leg] {
+        return self.bookingDetail?.bookingDetail?.leg ?? []
     }
+    var bookingId: String {
+        return self.bookingDetail?.id ?? ""
+    }
+    
+    var bookingFee: BookingFeeDetail?
+    
+    let fareInfoNotes: [String] = ["Some fares may be non-refundable and non-amendable.",
+        "Cancellation / Rescheduling Charges are indicative and can change without prior notice. Aertrip does not guarantee or warrant this information.",
+        "They may be subject to currency fluctuations.",
+        "They need to be reconfirmed prior to any amendments or cancellation.",
+        "Total Rescheduling Charges also include Fare Difference (if applicable).",
+        "Airlines stop accepting cancellation/rescheduling requests 3 - 75 hours before departure of the flight, depending on the airline.",
+        "For confirming cancellation/change fee, please call us at our customer care."]
     
     func getBookingFees() {
 
-        let params: JSONDictionary = ["booking_id": bookingId, "ref_id": legId]
+        let params: JSONDictionary = ["booking_id": bookingId, "ref_id": legDetails.first?.legId ?? ""]
         delegate?.willGetBookingFees()
         APICaller.shared.getBookingFees(params: params) { [weak self] success, errors, bookingFee in
             guard let sSelf = self else { return }
@@ -50,21 +51,5 @@ class BookingDetailVM {
                 printDebug(errors)
             }
         }
-    }
-}
-
-extension BookingDetailVM: BookingProductDetailVMDelegate {
-    func willGetBookingDetail() {
-        
-    }
-    
-    func getBookingDetailSucces() {
-        self.legDetails = self.tempModel.bookingDetail?.bookingDetail?.leg ?? []
-        self.tripCitiesStr = self.tempModel.bookingDetail?.tripCitiesStr
-        self.delegate?.legDetailsSuccess()
-    }
-    
-    func getBookingDetailFaiure() {
-        
     }
 }

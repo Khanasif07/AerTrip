@@ -7,18 +7,21 @@
 //
 
 import UIKit
+import WebKit
 
 class FareRuleTableViewCell: UITableViewCell {
     
     // MARK: - IBOutlet
     @IBOutlet weak var routeLabel: UILabel!
     @IBOutlet weak var fareRulesLabel: UILabel!
-
+    @IBOutlet weak var webView: WKWebView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
        
         self.setUpFont()
         self.setUpTextColor()
+        self.webView.uiDelegate = self
     }
     
     func setUpFont() {
@@ -32,34 +35,17 @@ class FareRuleTableViewCell: UITableViewCell {
     }
     
     
-    
-    func configureCell() {
-        self.routeLabel.text = "BOM → JFK"
-        self.fareRulesLabel.text = """
-        APPLICATION AND OTHER CONDITIONS RULE - 001/IN04
-        UNLESS OTHERWISE SPECIFIED
-        FARES FROM INDIA TO USA
-        APPLICATION
-        AREA
-        THESE FARES APPLY
-        FROM INDIA TO THE UNITED STATES.
-        CLASS OF SERVICE
-        THESE FARES APPLY FOR FIRST/BUSINESS/ECONOMY CLASS
-        SERVICE.
-        TYPES OF TRANSPORTATION
-        THIS RULE GOVERNS ONE-WAY AND ROUND-TRIP FARES.
-        FARES GOVERNED BY THIS RULE CAN BE USED TO CREATE
-        ONE-WAY/ROUND-TRIP/CIRCLE-TRIP/OPEN-JAW/SINGLE OPEN-
-        JAW/DOUBLE OPEN-JAW JOURNEYS.
-        CAPACITY LIMITATIONS
-        THE CARRIER SHALL LIMIT THE NUMBER OF PASSENGERS CARRIED
-        ON ANY ONE FLIGHT AT FARES GOVERNED BY THIS RULE AND SUCH
-        FARES WILL NOT NECESSARILY BE AVAILABLE ON ALL FLIGHTS.
-        THE NUMBER OF SEATS WHICH THE CARRIER SHALL MAKE
-        AVAILABLE ON A GIVEN FLIGHT WILL BE DETERMINED BY THE
-        CARRIERS BEST JUDGMENT
-        DAY/TIME
-        """
+    func configureCell(fareRules: String, ruteString: String) {
+        self.routeLabel.text = ruteString
+        
+        let cssStr = fareRules.htmlCSSCodeString(withFont: AppFonts.Regular.withSize(28.0), isCustomFont: true, fontFileName: "SourceSansPro-Regular", fontColor: AppColors.themeGray60)
+        
+        var url = Bundle.main.url(forResource: "SourceSansPro-Regular", withExtension: "ttf")
+        url?.deleteLastPathComponent()
+        webView.loadHTMLString(cssStr, baseURL: url)
     }
-   
+}
+
+extension FareRuleTableViewCell: WKUIDelegate {
+    
 }

@@ -9,28 +9,32 @@
 import UIKit
 
 class FlightTimeLocationInfoTableViewCell: UITableViewCell {
+    
     // MARK: - IBOutlets
     
     // source
-    @IBOutlet var sourceFlightCodeLabel: UILabel!
-    @IBOutlet var sourceDateLabel: UILabel!
-    @IBOutlet var sourceFlightNameLbel: UILabel!
-    @IBOutlet var sourceFlightAddressLabel: UILabel!
-    @IBOutlet var sourceTerminalLabel: UILabel!
+    @IBOutlet weak var sourceFlightCodeLabel: UILabel!
+    @IBOutlet weak var sourceDateLabel: UILabel!
+    @IBOutlet weak var sourceFlightNameLbel: UILabel!
+    @IBOutlet weak var sourceFlightAddressLabel: UILabel!
+    @IBOutlet weak var sourceTerminalLabel: UILabel!
     
     // Destination
-    @IBOutlet var destinationFlightCodeLabel: UILabel!
-    @IBOutlet var destinationDateLabel: UILabel!
-    @IBOutlet var destinationFlightNameLbel: UILabel!
-    @IBOutlet var destinationFlightAddressLabel: UILabel!
-    @IBOutlet var destinationTerminalLabel: UILabel!
+    @IBOutlet weak var destinationFlightCodeLabel: UILabel!
+    @IBOutlet weak var destinationDateLabel: UILabel!
+    @IBOutlet weak var destinationFlightNameLbel: UILabel!
+    @IBOutlet weak var destinationFlightAddressLabel: UILabel!
+    @IBOutlet weak var destinationTerminalLabel: UILabel!
+    @IBOutlet weak var sourceNameHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var desNameHeightConstraint: NSLayoutConstraint!
+    
     
     // Travel Time Label
     
-    @IBOutlet var dayNightImageView: UIImageView!
-    @IBOutlet var travelTimeLabel: UILabel!
-    @IBOutlet var dottedView: UIView!
-    @IBOutlet var wingNameLabel: UILabel!
+    @IBOutlet weak var dayNightImageView: UIImageView!
+    @IBOutlet weak var travelTimeLabel: UILabel!
+    @IBOutlet weak var dottedView: UIView!
+    @IBOutlet weak var wingNameLabel: UILabel!
     
     var flightDetail: FlightDetail? {
         didSet {
@@ -47,7 +51,15 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
         self.setUpTextColor()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.dottedView.makeDottedLine()
+        self.manageNameHeight()
+    }
+    
     private func setToDefault() {
+        self.manageNameHeight()
         // source
         self.sourceFlightCodeLabel.text = defaultStr
         self.sourceDateLabel.text = defaultStr
@@ -62,13 +74,15 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
         self.destinationFlightAddressLabel.text = defaultStr
         self.destinationTerminalLabel.text = defaultStr
         
+        
         // Travel
         
         self.travelTimeLabel.text = defaultStr
-        self.wingNameLabel.text = self.defaultStr
+        self.wingNameLabel.text = defaultStr
     }
     
     private func configureCell() {
+        
         guard let details = self.flightDetail else {
             self.setToDefault()
             return
@@ -77,26 +91,55 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
         // source
         let sourceTimeStr = "\(details.departure) \(details.departureTime)"
         let sourceAttr = NSMutableAttributedString(string: sourceTimeStr)
-        sourceAttr.addAttributes([NSAttributedString.Key.font: AppFonts.Regular.withSize(23.0)], range: (sourceTimeStr as NSString).range(of: details.departure))
+        sourceAttr.addAttributes([NSAttributedString.Key.font : AppFonts.Regular.withSize(23.0)], range: (sourceTimeStr as NSString).range(of: details.departure))
         self.sourceFlightCodeLabel.attributedText = sourceAttr
-        self.sourceDateLabel.text = details.departDate.toDate(dateFormat: "yyyy-MM-dd")?.toString(dateFormat: "EEE, dd MMM yyyy") ?? defaultStr
-        self.sourceFlightNameLbel.text = details.departureAirport
-        self.sourceFlightAddressLabel.text = "\(details.departCity), \(details.departureCountryCode)"
-        self.sourceTerminalLabel.text = details.departureTerminal
+        self.sourceDateLabel.text = self.checkForDefault(string: details.departDate?.toString(dateFormat: "EEE, dd MMM yyyy") ?? "")
+        self.sourceFlightNameLbel.text = self.checkForDefault(string: details.departureAirport)
+        
+        let sAdd = "\(details.departCity), \(details.departureCountryCode)"
+        self.sourceFlightAddressLabel.text = (sAdd.count > 1) ? sAdd : defaultStr
+        self.sourceTerminalLabel.text = self.checkForDefault(string: details.departureTerminal)
         
         // Destination
         let desTimeStr = "\(details.arrivalTime) \(details.arrival)"
-        let destAttr = NSMutableAttributedString(string: sourceTimeStr)
-        destAttr.addAttributes([NSAttributedString.Key.font: AppFonts.Regular.withSize(23.0)], range: (desTimeStr as NSString).range(of: details.arrival))
+        let destAttr = NSMutableAttributedString(string: desTimeStr)
+        destAttr.addAttributes([NSAttributedString.Key.font : AppFonts.Regular.withSize(23.0)], range: (desTimeStr as NSString).range(of: details.arrival))
         self.destinationFlightCodeLabel.attributedText = destAttr
-        self.destinationDateLabel.text = details.arrivalDate.toDate(dateFormat: "yyyy-MM-dd")?.toString(dateFormat: "EEE, dd MMM yyyy") ?? defaultStr
-        self.destinationFlightNameLbel.text = details.arrivalAirport
-        self.destinationFlightAddressLabel.text = "\(details.arrivalCity), \(details.arrivalCountryCode)"
-        self.destinationTerminalLabel.text = details.arrivalTerminal
+        self.destinationDateLabel.text = self.checkForDefault(string: details.arrivalDate.toDate(dateFormat: "yyyy-MM-dd")?.toString(dateFormat: "EEE, dd MMM yyyy") ?? "")
+        self.destinationFlightNameLbel.text = self.checkForDefault(string: details.arrivalAirport)
+        
+        let dAdd = "\(details.arrivalCity), \(details.arrivalCountryCode)"
+        self.destinationFlightAddressLabel.text = (dAdd.count > 1) ? dAdd : defaultStr
+        self.destinationTerminalLabel.text = self.checkForDefault(string: details.arrivalTerminal)
+        
         
         // Travel
         self.travelTimeLabel.text = details.flightTime.asString(units: [.hour, .minute], style: .abbreviated)
         self.wingNameLabel.text = details.equipmentDetails
+        
+        self.manageNameHeight()
+    }
+    
+    private func checkForDefault(string: String) -> String {
+        return string.isEmpty ? defaultStr : string
+    }
+    
+    private func manageNameHeight() {
+        let sourceName = self.sourceFlightNameLbel.text ?? ""
+        let desName = self.destinationFlightNameLbel.text ?? ""
+        let textToCount = (sourceName.count > desName.count) ? sourceName : desName
+        
+        var height = textToCount.sizeCount(withFont: AppFonts.Regular.withSize(14.0), bundingSize: CGSize(width: self.sourceFlightNameLbel.width, height: 10000.0)).height
+        
+        if height <= 20.0 {
+            height = 20.0
+        }
+        else if height > 20.0 {
+            height = 40.0
+        }
+        
+        self.sourceNameHeightConstraint.constant = height
+        self.desNameHeightConstraint.constant = height
     }
     
     // MARK: - Helper methods
@@ -108,7 +151,7 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
         self.sourceFlightAddressLabel.font = AppFonts.Regular.withSize(14.0)
         self.sourceTerminalLabel.font = AppFonts.Regular.withSize(14.0)
         
-        // Destination
+        //Destination
         self.destinationFlightCodeLabel.font = AppFonts.SemiBold.withSize(24.0)
         self.destinationDateLabel.font = AppFonts.Regular.withSize(14.0)
         self.destinationFlightNameLbel.font = AppFonts.Regular.withSize(14.0)
@@ -118,6 +161,7 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
         // Travel Time
         self.travelTimeLabel.font = AppFonts.SemiBold.withSize(14.0)
         self.wingNameLabel.font = AppFonts.Regular.withSize(12.0)
+        
     }
     
     private func setUpTextColor() {
@@ -137,4 +181,5 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
         self.travelTimeLabel.textColor = AppColors.themeGray60
         self.wingNameLabel.textColor = AppColors.themeGray40
     }
+    
 }

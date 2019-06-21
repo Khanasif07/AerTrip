@@ -42,6 +42,11 @@ class BookingFlightDetailVC: BaseVC {
         self.reloadDetails()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.viewModel.getBookingFees()
+    }
+    
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
@@ -50,7 +55,7 @@ class BookingFlightDetailVC: BaseVC {
     private func configureNavBar() {
         
         self.topNavigationView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
-        self.topNavigationView.navTitleLabel.attributedText = self.viewModel.tripCitiesStr
+        self.topNavigationView.navTitleLabel.attributedText = self.viewModel.bookingDetail?.tripCitiesStr
         self.topNavigationView.delegate = self
     }
     
@@ -61,6 +66,11 @@ class BookingFlightDetailVC: BaseVC {
     }
     
     private func registerXib() {
+        
+        var frame = CGRect.zero
+        frame.size.height = .leastNormalMagnitude
+        self.tableView.tableHeaderView = UIView(frame: frame)
+        
         self.tableView.register(UINib(nibName: self.headerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.headerViewIdentifier)
         self.tableView.register(UINib(nibName: self.fareInfoHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.fareInfoHeaderViewIdentifier)
         self.tableView.register(UINib(nibName: self.footerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.footerViewIdentifier)
@@ -113,15 +123,6 @@ class BookingFlightDetailVC: BaseVC {
 extension BookingFlightDetailVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         AppFlowManager.default.mainNavigationController.popViewController(animated: true)
-    }
-}
-
-// MARK: - Fare Info header view Delegate
-
-extension BookingFlightDetailVC: FareInfoHeaderViewDelegate {
-    func fareButtonTapped() {
-        printDebug("fare info butto n tapped")
-        AppFlowManager.default.presentBookingFareInfoDetailVC()
     }
 }
 

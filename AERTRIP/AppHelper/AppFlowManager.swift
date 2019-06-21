@@ -618,8 +618,9 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
 
-    func moveToHotlelBookingsDetailsVC() {
+    func moveToHotlelBookingsDetailsVC(bookingId: String) {
         let obj = HotlelBookingsDetailsVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.viewModel.bookingId = bookingId
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -633,8 +634,12 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func presentBookingFareInfoDetailVC() {
+    func presentBookingFareInfoDetailVC(usingFor: BookingFareInfoDetailVC.UsingFor, forBookingId: String, legDetails: Leg?, bookingFee: BookingFeeDetail?) {
         let obj = BookingFareInfoDetailVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.currentlyUsingAs = usingFor
+        obj.viewModel.bookingId = forBookingId
+        obj.viewModel.legDetails = legDetails
+        obj.viewModel.bookingFee = bookingFee
         self.mainNavigationController.present(obj, animated: true)
     }
     
@@ -782,10 +787,9 @@ extension AppFlowManager {
         self.mainNavigationController.present(ob, animated: true)
     }
     
-    func moveToBookingDetail(bookingId: String,ledId: String) {
+    func moveToBookingDetail(bookingDetail: BookingDetailModel?) {
         let ob = BookingFlightDetailVC.instantiate(fromAppStoryboard: .Bookings)
-        ob.viewModel.bookingId = bookingId
-        ob.viewModel.legId = ledId
+        ob.viewModel.bookingDetail = bookingDetail
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     

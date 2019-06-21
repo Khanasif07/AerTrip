@@ -83,7 +83,7 @@ extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
             }
             else {
                 //open hotel details
-                 AppFlowManager.default.moveToOtherBookingsDetailsVC(bookingId: bookingData.bookingId ?? "")
+                 AppFlowManager.default.moveToHotlelBookingsDetailsVC(bookingId: bookingData.bookingId ?? "")
             }
             
         }

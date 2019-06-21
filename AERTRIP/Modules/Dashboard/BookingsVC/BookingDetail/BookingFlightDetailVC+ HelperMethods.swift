@@ -13,9 +13,10 @@ extension BookingFlightDetailVC {
     // get height for Baggage row for first sections
     func getHeightForBaggageInfo(_ indexPath: IndexPath) -> CGFloat {
         
+        var detailsC: Int = 0
         if self.viewModel.legDetails[indexPath.section].flight.count > self.calculatedIndexForShowingFlightDetails {
             
-            let detailsC = self.viewModel.legDetails[indexPath.section].flight.reduce(into: 0) { $0 += $1.numberOfCellBaggage}
+            detailsC = self.viewModel.legDetails[indexPath.section].flight.reduce(into: 0) { $0 += $1.numberOfCellBaggage}
             
             if indexPath.row == 0 {
                 self.calculatedIndexForShowingFlightDetails = 0
@@ -26,13 +27,17 @@ extension BookingFlightDetailVC {
             let flight = self.viewModel.legDetails[indexPath.section].flight[self.calculatedIndexForShowingFlightDetails]
             self.calculatedTotalRows += (flight.numberOfCellBaggage)
         }
+        
         switch indexPath.row {
         case 0:
             //aerline details
-            return 80.0
+            return 60.0
             
         case 1,2,3,4:
             //baggage info
+            if ((1...3 ~= indexPath.row) && (indexPath.row == (detailsC-1))) || (indexPath.row == 4) {
+                return 43.0
+            }
             return 28.0
             
         case 5:
@@ -67,7 +72,7 @@ extension BookingFlightDetailVC {
             switch (indexPath.row % self.calculatedTotalRows) {
             case 0:
                 //aerline details
-                return 80.0
+                return 82.0
             case 1:
                 //flight details
                 return 140
@@ -76,7 +81,7 @@ extension BookingFlightDetailVC {
                 let heightForOneRow: CGFloat = 55.0
                 let lineSpace = (CGFloat(flight?.totalRowsForAmenities ?? 1) * 5.0)
                 //10 id collection view top & bottom in xib
-                return (CGFloat(flight?.totalRowsForAmenities ?? 1) * heightForOneRow) + lineSpace + 20.0
+                return (CGFloat(flight?.totalRowsForAmenities ?? 1) * heightForOneRow) + lineSpace + 25.0
             case 3:
                 //layover time
                 return 40.0
@@ -165,7 +170,6 @@ extension BookingFlightDetailVC {
             
             return cell
         }
-        return UITableViewCell()
     }
     
     
@@ -281,7 +285,7 @@ extension BookingFlightDetailVC {
         return temp
     }
     
-    func getNumberOfCellsInFareInfo(forData infoData: BookingFeeDetail?) -> Int {
+    func getNumberOfCellsInFareInfoForNormalFlight(forData infoData: BookingFeeDetail?) -> Int {
         var temp = 2 //for notes
         
         if let info = infoData {
@@ -297,7 +301,72 @@ extension BookingFlightDetailVC {
         return temp
     }
     
-    func getCellForFareInfo(_ indexPath: IndexPath) -> UITableViewCell  {
+    func getNumberOfCellsInFareInfoForMultiFlight() -> Int {
+        return 4
+    }
+    
+    func getFeeDetailsCell(indexPath: IndexPath, type: String, aerlineFee: Int, aertripFee: Int) -> UITableViewCell {
+        guard  let commonCell = self.tableView.dequeueReusableCell(withIdentifier: "BookingInfoCommonCell", for: indexPath) as? BookingInfoCommonCell else {
+            fatalError("BookingInfoCommonCell not found")
+        }
+        
+        commonCell.middleLabel.font = AppFonts.Regular.withSize(16.0)
+        commonCell.rightLabel.font = AppFonts.Regular.withSize(16.0)
+        
+        commonCell.leftLabel.text = type
+        commonCell.middleLabel.attributedText = aerlineFee.toDouble.amountInDoubleWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        commonCell.rightLabel.attributedText = aertripFee.toDouble.amountInDoubleWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        return commonCell
+    }
+    
+    func getFeeTitleCell(indexPath: IndexPath, type: String, aerline: String, aertrip: String) -> UITableViewCell {
+        guard  let commonCell = self.tableView.dequeueReusableCell(withIdentifier: "BookingInfoCommonCell", for: indexPath) as? BookingInfoCommonCell else {
+            fatalError("BookingInfoCommonCell not found")
+        }
+        
+        commonCell.middleLabel.font = AppFonts.SemiBold.withSize(16.0)
+        commonCell.rightLabel.font = AppFonts.SemiBold.withSize(16.0)
+        
+        commonCell.leftLabel.text = type
+        commonCell.middleLabel.text = aerline
+        commonCell.rightLabel.text = aertrip
+        return commonCell
+    }
+    
+    func getHeightForFareInfo(_ indexPath: IndexPath) -> CGFloat {
+        if let booking = self.viewModel.bookingDetail, booking.isReturnFlight() {
+            if indexPath.row == 0 {
+                return UITableView.automaticDimension
+            }
+            else {
+                return indexPath.row == 3 ? 45.0 : 27.0
+            }
+        }
+        else
+        {
+            if indexPath.row == (self.getNumberOfCellsInFareInfoForNormalFlight(forData: self.viewModel.bookingFee)-1) {
+                return UITableView.automaticDimension
+            }
+            else if let info = self.viewModel.bookingFee {
+                if let can = info.aerlineCanCharges {
+                    if indexPath.row == (getCancelChargesCount(charge: can)-1) {
+                        return 45.0
+                    }
+                    return 27.0
+                }
+                
+                if let res = info.aerlineResCharges {
+                    if indexPath.row == (getResChargesCount(charge: res)-1) {
+                        return 45.0
+                    }
+                    return 27.0
+                }
+            }
+            return UITableView.automaticDimension
+        }
+    }
+    
+    func getCellForFareInfoForNormalFlight(_ indexPath: IndexPath) -> UITableViewCell  {
         
         func getNotesCell() -> UITableViewCell {
             guard let fareInfoNoteCell = self.tableView.dequeueReusableCell(withIdentifier: "FareInfoNoteTableViewCell") as? FareInfoNoteTableViewCell else {
@@ -305,7 +374,7 @@ extension BookingFlightDetailVC {
             }
             fareInfoNoteCell.isForBookingPolicyCell = false
             fareInfoNoteCell.noteLabel.text = LocalizedString.Notes.localized
-            fareInfoNoteCell.configCell(notes: ["Hello","Hello","Hello","Hello","Hello","Hello","Hello","Hello"])
+            fareInfoNoteCell.configCell(notes: self.viewModel.fareInfoNotes)
             return fareInfoNoteCell
         }
         
@@ -316,49 +385,21 @@ extension BookingFlightDetailVC {
             return emptyDividerViewCell
         }
         
-        func getFeeDetailsCell(type: String, aerlineFee: Int, aertripFee: Int) -> UITableViewCell {
-            guard  let commonCell = self.tableView.dequeueReusableCell(withIdentifier: "BookingInfoCommonCell", for: indexPath) as? BookingInfoCommonCell else {
-                fatalError("BookingInfoCommonCell not found")
-            }
-            
-            commonCell.middleLabel.font = AppFonts.Regular.withSize(16.0)
-            commonCell.rightLabel.font = AppFonts.Regular.withSize(16.0)
-            
-            commonCell.leftLabel.text = type
-            commonCell.middleLabel.attributedText = aerlineFee.toDouble.amountInDoubleWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-            commonCell.rightLabel.attributedText = aertripFee.toDouble.amountInDoubleWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-            return commonCell
-        }
-        
-        func getFeeTitleCell(type: String, aerline: String, aertrip: String) -> UITableViewCell {
-            guard  let commonCell = self.tableView.dequeueReusableCell(withIdentifier: "BookingInfoCommonCell", for: indexPath) as? BookingInfoCommonCell else {
-                fatalError("BookingInfoCommonCell not found")
-            }
-            
-            commonCell.middleLabel.font = AppFonts.SemiBold.withSize(16.0)
-            commonCell.rightLabel.font = AppFonts.SemiBold.withSize(16.0)
-            
-            commonCell.leftLabel.text = type
-            commonCell.middleLabel.text = aerline
-            commonCell.rightLabel.text = aertrip
-            return commonCell
-        }
-        
         var finalCell = UITableViewCell()
         if let info = self.viewModel.bookingFee {
             if let can = info.aerlineCanCharges, indexPath.row < getCancelChargesCount(charge: can)  {
                 
                 if indexPath.row == 0 {
                     //headers
-                    finalCell = getFeeTitleCell(type: "Cancellation", aerline: "Aertrip Fee", aertrip: "Airline Fee")
+                    finalCell = getFeeTitleCell(indexPath: indexPath, type: "Cancellation", aerline: "Airline Fee", aertrip: "Aertrip Fee")
                 }
                 else if indexPath.row == 1, let val = can.adult {
                     //adult
-                    finalCell = getFeeDetailsCell(type: "Per Adult", aerlineFee: val, aertripFee: info.aertripCanCharges?.adult ?? 0)
+                    finalCell = getFeeDetailsCell(indexPath: indexPath, type: "Per Adult", aerlineFee: val, aertripFee: info.aertripCanCharges?.adult ?? 0)
                 }
                 else if indexPath.row <= 2, let val = can.child {
                     //Child
-                    finalCell = getFeeDetailsCell(type: "Per Child", aerlineFee: val, aertripFee: info.aertripCanCharges?.child ?? 0)
+                    finalCell = getFeeDetailsCell(indexPath: indexPath, type: "Per Child", aerlineFee: val, aertripFee: info.aertripCanCharges?.child ?? 0)
                 }
                 else if indexPath.row <= 3, let val = can.infant {
                     if indexPath.row == 3 {
@@ -367,7 +408,7 @@ extension BookingFlightDetailVC {
                     }
                     else {
                         //infant
-                        finalCell = getFeeDetailsCell(type: "Per Infant", aerlineFee: val, aertripFee: info.aertripCanCharges?.infant ?? 0)
+                        finalCell = getFeeDetailsCell(indexPath: indexPath, type: "Per Infant", aerlineFee: val, aertripFee: info.aertripCanCharges?.infant ?? 0)
                     }
                 }
                 else if indexPath.row == (getCancelChargesCount(charge: info.aerlineCanCharges) - 1) {
@@ -381,15 +422,15 @@ extension BookingFlightDetailVC {
                 let newIndex = indexPath.row - oldCount
                 if newIndex == 0 {
                     //headers
-                    finalCell = getFeeTitleCell(type: "Re-scheduling", aerline: "Aertrip Fee", aertrip: "Airline Fee")
+                    finalCell = getFeeTitleCell(indexPath: indexPath, type: "Re-scheduling", aerline: "Airline Fee", aertrip: "Aertrip Fee")
                 }
                 else if newIndex == 1, let val = res.adult {
                     //adult
-                    finalCell = getFeeDetailsCell(type: "Per Adult", aerlineFee: val, aertripFee: info.aertripResCharges?.adult ?? 0)
+                    finalCell = getFeeDetailsCell(indexPath: indexPath, type: "Per Adult", aerlineFee: val, aertripFee: info.aertripResCharges?.adult ?? 0)
                 }
                 else if newIndex <= 2, let val = res.child {
                     //Child
-                    finalCell = getFeeDetailsCell(type: "Per Child", aerlineFee: val, aertripFee: info.aertripResCharges?.child ?? 0)
+                    finalCell = getFeeDetailsCell(indexPath: indexPath, type: "Per Child", aerlineFee: val, aertripFee: info.aertripResCharges?.child ?? 0)
                 }
                 else if newIndex <= 3, let val = res.infant {
                     if newIndex == 3 {
@@ -398,7 +439,7 @@ extension BookingFlightDetailVC {
                     }
                     else {
                         //infant
-                        finalCell = getFeeDetailsCell(type: "Per Infant", aerlineFee: val, aertripFee: info.aertripResCharges?.infant ?? 0)
+                        finalCell = getFeeDetailsCell(indexPath: indexPath, type: "Per Infant", aerlineFee: val, aertripFee: info.aertripResCharges?.infant ?? 0)
                     }
                 }
                 else if newIndex > 0 {
@@ -406,7 +447,7 @@ extension BookingFlightDetailVC {
                     finalCell = getBlankSpaceCell()
                 }
             }
-            if indexPath.row == getNumberOfCellsInFareInfo(forData: info) - 1 {
+            if indexPath.row == getNumberOfCellsInFareInfoForNormalFlight(forData: info) - 1 {
                 //blank space
                 finalCell = getNotesCell()
             }
@@ -419,6 +460,41 @@ extension BookingFlightDetailVC {
                 finalCell = getNotesCell()
             }
         }
+        return finalCell
+    }
+    
+    func getCellForFareInfoForMultiFlight(_ indexPath: IndexPath) -> UITableViewCell  {
+        
+        let index = indexPath.row
+        var finalCell = UITableViewCell()
+        switch index {
+        case 0:
+            //flight details
+            guard let cell = self.tableView.dequeueReusableCell(withIdentifier: RouteFareInfoTableViewCell.reusableIdentifier) as? RouteFareInfoTableViewCell else {
+                fatalError("RouteFareInfoTableViewCell not found")
+            }
+            
+            cell.flightDetails = self.viewModel.legDetails[indexPath.section].flight[index]
+            cell.delegate = self
+            
+            finalCell = cell
+            
+        case 1:
+            //title
+            finalCell = getFeeTitleCell(indexPath: indexPath, type: "Per Pax", aerline: "Airline Fee", aertrip: "Aertrip Fee")
+            
+        case 2:
+            //cancelation
+            finalCell = getFeeDetailsCell(indexPath: indexPath, type: "Cancellation", aerlineFee: self.viewModel.bookingFee?.aerlineCanCharges?.adult ?? 0, aertripFee: self.viewModel.bookingFee?.aertripCanCharges?.adult ?? 0)
+            
+        case 3:
+            //reschdule
+            finalCell = getFeeDetailsCell(indexPath: indexPath, type: "Rescheduling", aerlineFee: self.viewModel.bookingFee?.aerlineResCharges?.adult ?? 0, aertripFee: self.viewModel.bookingFee?.aertripResCharges?.adult ?? 0)
+            
+        default:
+            return finalCell
+        }
+        
         return finalCell
     }
 }
