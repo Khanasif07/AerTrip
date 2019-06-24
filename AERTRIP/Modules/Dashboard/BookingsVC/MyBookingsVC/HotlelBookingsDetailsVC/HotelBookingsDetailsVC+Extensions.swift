@@ -41,7 +41,7 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate , UITableViewDataSource {
         case .reschedulingRequestCell:
             return UITableView.automaticDimension
         case .documentCell:
-            return UITableView.automaticDimension
+            return 241.0
         case .paymentInfoCell:
             return UITableView.automaticDimension
         case .bookingCell:
@@ -158,28 +158,32 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
 extension HotlelBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
     
     func downloadDocument(documentDirectory: String, tableIndex: IndexPath, collectionIndex: IndexPath) {
+        
+        guard let url = self.viewModel.bookingDetail?.documents[collectionIndex.item].sourceUrl else {
+            return
+        }
         self.viewModel.currentDocumentPath = documentDirectory
         printDebug(documentDirectory)
         let destinationUrl = URL(fileURLWithPath: documentDirectory)
         printDebug(destinationUrl)
-        AppNetworking.DOWNLOAD(sourceUrl: self.viewModel.documentDownloadingData[collectionIndex.item].sourceUrl, destinationUrl: destinationUrl, requestHandler: { [weak self] (request) in
+        AppNetworking.DOWNLOAD(sourceUrl: url, destinationUrl: destinationUrl, requestHandler: { [weak self] (request) in
             guard let sSelf = self else { return }
             printDebug(request)
-            sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .downloading
-            sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadRequest = request
+            sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].downloadingStatus = .downloading
+            sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].downloadRequest = request
             }, progressUpdate: { [weak self] progress in
                 guard let sSelf = self else { return }
-                sSelf.viewModel.documentDownloadingData[collectionIndex.item].progressUpdate?(progress)
+                sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].progressUpdate?(progress)
             }, success: { [weak self] (success) in
                 guard let sSelf = self else { return }
-                sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .downloaded
+                sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].downloadingStatus = .downloaded
                 UIView.performWithoutAnimation {
                     sSelf.bookingDetailsTableView.reloadData()
                 }
                 printDebug(success)
         }) { [weak self] (error) in
             guard let sSelf = self else { return }
-            sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .notDownloaded
+            sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].downloadingStatus = .notDownloaded
             UIView.performWithoutAnimation {
                 sSelf.bookingDetailsTableView.reloadData()
             }
@@ -189,7 +193,7 @@ extension HotlelBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
     
     func cancelDownloadDocument(itemIndexPath: IndexPath) {
         printDebug("Downloading Stop")
-        self.viewModel.documentDownloadingData[itemIndexPath.item].downloadRequest?.cancel()
+        self.viewModel.bookingDetail?.documents[itemIndexPath.item].downloadRequest?.cancel()
     }
 }
 
@@ -201,10 +205,7 @@ extension HotlelBookingsDetailsVC : MXParallaxHeaderDelegate {
         let prallexProgress = self.bookingDetailsTableView.parallaxHeader.progress
         
         printDebug("progress %f \(prallexProgress)")
-        
-        if prallexProgress >= 0.6 {
-        }
-        
+
         if prallexProgress <= 0.5 {
             self.topNavBar.animateBackView(isHidden: false) { [weak self](isDone) in
                 guard let sSelf = self else { return }
@@ -242,7 +243,8 @@ extension HotlelBookingsDetailsVC : MXParallaxHeaderDelegate {
 
 extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     func openWebCheckin() {
-        //
+        // TODO: - Need to test with when web url is present
+        self.webCheckinServices(url: self.viewModel.bookingDetail?.webCheckinUrl ?? "")
     }
     
     func openDirections() {
@@ -254,11 +256,17 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     }
     
     func addToCalender() {
-        printDebug("Add To Calender")
+        AppGlobals.shared.addEventToCalender(title: "Event Detail", notes: "Booking flight Event", startDate: self.viewModel.bookingDetail?.bookingDetail?.eventStartingDate, endDate: self.viewModel.bookingDetail?.bookingDetail?.evenEndingDate)
     }
     
     func addToAppleWallet() {
         printDebug("Add To Apple Wallet")
+    }
+    
+    func webCheckinServices(url: String) {
+        // TODO: - Need to be synced with backend Api key
+        guard let url = url.toUrl else { return }
+        AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Web Checkin")
     }
 }
 

@@ -9,29 +9,36 @@
 import Foundation
 
 extension HotelResultVC {
+    
     func addMapView() {
         self.locManager.requestWhenInUseAuthorization()
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == .authorizedAlways {}
         
-        let camera = GMSCameraPosition.camera(withLatitude: viewModel.hotelSearchRequest?.requestParameters.latitude.toDouble ?? 0.0, longitude: viewModel.hotelSearchRequest?.requestParameters.longitude.toDouble ?? 0.0, zoom: 10.0)
+        let mapRact = mapContainerView.bounds
         
-        let mapRact = CGRect(x: 0.0, y: 0.0, width: mapContainerView.width, height: visibleMapHeightInVerticalMode)
-        let mapV = GMSMapView.map(withFrame: mapRact, camera: camera)
-        mapView = mapV
+        if mapView == nil {
+            //this code will call only once or when mapview in nill
+            let camera = GMSCameraPosition.camera(withLatitude: viewModel.hotelSearchRequest?.requestParameters.latitude.toDouble ?? 0.0, longitude: viewModel.hotelSearchRequest?.requestParameters.longitude.toDouble ?? 0.0, zoom: 10.0)
+
+            let mapV = GMSMapView.map(withFrame: mapRact, camera: camera)
+            mapView = mapV
+            mapContainerView.addSubview(mapV)
+            
+            mapView?.delegate = self
+            mapView?.isMyLocationEnabled = true
+            mapView?.settings.myLocationButton = true
+            mapView?.setMinZoom(self.minZoomLabel, maxZoom: self.maxZoomLabel)
+            mapView?.animate(toZoom: self.defaultZoomLabel - 4.0)
+            
+            if self.useGoogleCluster {
+                self.setUpClusterManager()
+            }
+        }
         
-        mapV.setMinZoom(self.minZoomLabel, maxZoom: self.maxZoomLabel)
-        mapV.animate(toZoom: self.defaultZoomLabel - 4.0)
-        mapV.isMyLocationEnabled = false
-        mapV.delegate = self
-        
-        mapContainerView.addSubview(mapV)
+        mapView?.frame = mapRact
         
         self.prevZoomLabel = self.minZoomLabel
-        
-        if self.useGoogleCluster {
-            self.setUpClusterManager()
-        }
         self.updateMarkers()
     }
     

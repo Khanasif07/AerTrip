@@ -11,6 +11,7 @@ import IQKeyboardManager
 import MapKit
 import PKLoader
 import UIKit
+import EventKit
 
 func printDebug<T>(_ obj: T) {
     print(obj)
@@ -345,6 +346,32 @@ struct AppGlobals {
                 self.openGoogleMaps(originLat: originLat, originLong: originLong, destLat: destLat, destLong: destLong)
             }
         }
+    }
+    
+    func addEventToCalender(title: String, notes: String = "", startDate: Date? = nil, endDate: Date? = nil) {
+        
+        let eventStore = EKEventStore()
+        eventStore.requestAccess(to: EKEntityType.event, completion: { granted, error in
+            
+            if granted, (error == nil) {
+                let event = EKEvent(eventStore: eventStore)
+                
+                event.title = title
+                event.startDate = startDate
+                event.endDate = startDate
+                event.notes = notes
+                event.calendar = eventStore.defaultCalendarForNewEvents
+                DispatchQueue.mainAsync {
+                    do {
+                        try eventStore.save(event, span: .thisEvent)
+                        AppToast.default.showToastMessage(message: "Event added successfully")
+                    } catch let error as NSError {
+                        AppToast.default.showToastMessage(message: "Unable to add event, please try again!")
+                        print("json error: \(error.localizedDescription)")
+                    }
+                }
+            }
+        })
     }
 }
 

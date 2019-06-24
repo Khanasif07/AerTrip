@@ -22,9 +22,38 @@ class BookingProductDetailVM {
         case notesCell, requestCell , cancellationsReqCell , addOnRequestCell , reschedulingRequestCell , hotelBookingInfoCell , roomNameAndTypeCell , travellersCell ,documentCell , paymentInfoCell , bookingCell , addOnsCell , cancellationCell , paidCell , refundCell , paymentPendingCell , nameCell , emailCell , mobileCell , gstCell , billingAddressCell , flightsOptionsCell , weatherHeaderCell , weatherInfoCell
     }
     var sectionDataForHotelDetail: [[TableViewCellForHotel]] = []
-    var documentDownloadingData = [DocumentDownloadingModel]()
+    var noOfCellAboveHotelDetail: Int {
+        var count = 1
+        if !(self.bookingDetail?.bookingDetail?.note.isEmpty ?? false) {
+            count += 1
+        }
+        if !(self.bookingDetail?.cases.isEmpty ?? false) {
+            count += 1
+        }
+        return count
+    }
 
     func getSectionDataForHotelDetail() {
+        
+        //note details
+        if let note = self.bookingDetail?.bookingDetail?.note, !note.isEmpty {
+            self.sectionDataForHotelDetail.append([.notesCell])
+        }
+        
+        // logic for add case cell
+        if !(self.bookingDetail?.cases.isEmpty ?? false) {
+            var temp: [TableViewCellForHotel] = []
+            for (index, _) in (self.bookingDetail?.cases ?? []).enumerated() {
+                if index == 0 {
+                    temp.append(.requestCell)
+                    temp.append(.cancellationsReqCell)
+                } else {
+                    temp.append(.cancellationsReqCell)
+                }
+            }
+            self.sectionDataForHotelDetail.append(temp)
+        }
+        
         //hotel details
         self.sectionDataForHotelDetail.append([.hotelBookingInfoCell])
        
@@ -41,10 +70,19 @@ class BookingProductDetailVM {
             temp.removeAll()
         }
         
-        self.sectionDataForHotelDetail.append([.documentCell])
+        //documents details
+        if let docs = self.bookingDetail?.documents, !docs.isEmpty {
+            self.sectionDataForHotelDetail.append([.documentCell])
+        }
+        
+        
         self.sectionDataForHotelDetail.append([.paymentInfoCell , .bookingCell , .addOnsCell , .cancellationCell , .paidCell , .refundCell , .paymentPendingCell])
+        
+        //additional info details
         self.sectionDataForHotelDetail.append([.flightsOptionsCell])
-        self.sectionDataForHotelDetail.append([.weatherHeaderCell,.weatherInfoCell,.weatherInfoCell,.weatherInfoCell,.weatherInfoCell,.weatherInfoCell])
+        
+       //weather is coming then add
+        self.sectionDataForHotelDetail.append([.weatherHeaderCell,.weatherInfoCell,.weatherInfoCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell])
         self.sectionDataForHotelDetail.append([.nameCell , .emailCell , .mobileCell , .gstCell , .billingAddressCell])
     }
 
@@ -83,7 +121,6 @@ class BookingProductDetailVM {
         }
         
         // logic for add case cell
-        
         if !(self.bookingDetail?.cases.isEmpty ?? false) {
             var temp: [TableViewCellForFlightProductType] = []
             for (index, _) in (self.bookingDetail?.cases ?? []).enumerated() {

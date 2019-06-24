@@ -82,10 +82,67 @@ struct BookingDetailModel {
             self.bookingDetail = BookingDetail(json: obj)
         }
         
-        self.cases = Case.retunsCaseArray(jsonArr: json["cases"] as? [JSONDictionary] ?? [])
+        if let data = json["cases"] as? [JSONDictionary], !data.isEmpty {
+            self.cases = Case.retunsCaseArray(jsonArr: data)
+        }
+        else {
+            let arr = [
+                [
+                "id": "7412",
+                "case_id": "CS/19-20/653",
+                "case_type": "Add-on Request",
+                "type_slug": "addon_request",
+                "case_name": "DEL 2192 BOM",
+                "case_status": "Closed",
+                "resolution_status_id": "3",
+                "resolution_status": "Successful",
+                "request_date": "2019-06-07 18:36:38",
+                "csr_name": "Mr Rahul Dhande",
+                "resolution_date": "2019-06-07 18:37:22",
+                "closed_date": "2019-06-07 18:37:22",
+                "flag": "0",
+                "note": ""
+                ],
+            [
+                "id": "7413",
+                "case_id": "CS/19-20/654",
+                "case_type": "Flight Cancellation Request",
+                "type_slug": "flight_domestic_cancellation_request",
+                "case_name": "DEL 2192 BOM",
+                "case_status": "Closed",
+                "resolution_status_id": "3",
+                "resolution_status": "Successful",
+                "request_date": "2019-06-07 18:37:32",
+                "csr_name": "Mr Rahul Dhande",
+                "resolution_date": "2019-06-07 18:38:23",
+                "closed_date": "2019-06-07 18:38:23",
+                "flag": "0",
+                "note": ""
+                ],
+            [
+                "id": "7414",
+                "case_id": "CS/19-20/655",
+                "case_type": "Refund",
+                "type_slug": "refund_request",
+                "case_name": "Refund for case: CS/19-20/654",
+                "case_status": "Closed",
+                "resolution_status_id": "3",
+                "resolution_status": "Successful",
+                "request_date": "2019-06-07 18:38:22",
+                "csr_name": "Mr Rahul Dhande",
+                "resolution_date": "2019-06-07 18:38:36",
+                "closed_date": "2019-06-07 18:38:36",
+                "flag": "0",
+                "note": ""
+                ]
+            ]
+//            self.cases = Case.retunsCaseArray(jsonArr: arr)
+        }
+        
         if let obj = json["user"] as? UserInfo {
             self.user = obj
         }
+
         
         if let obj = json["documents"] as? [JSONDictionary] {
             self.documents = DocumentDownloadingModel.getModels(json: obj)
@@ -308,17 +365,13 @@ extension BookingDetailModel {
     // Web checking url
     
     var webCheckinUrl: String {
-        if let index = self.bookingDetail?.leg.firstIndex(where: { (result) -> Bool in
-            (result.completed == 0)
-        }) {
-            if index < self.bookingDetail?.leg.count ?? 0 {
-                return self.additionalInformation?.webCheckins[index] ?? ""
-            }
-            else {
-                return ""
-            }
+        if let legs = self.bookingDetail?.leg, let index = legs.firstIndex(where: { $0.completed == 0 }) {
+            return (index < legs.count) ? (self.additionalInformation?.webCheckins[index] ?? "") : ""
         }
-        return ""
+        else {
+            //TODO:- handeling for hotels
+            return self.additionalInformation?.webCheckins.first ?? ""
+        }
     }
 }
 
@@ -1134,16 +1187,20 @@ struct BillingDetail {
     init(json: JSONDictionary) {
         if let obj = json["email"] {
             self.email = !"\(obj)".isEmpty ? "\(obj)" : "-"
+            self.email = self.email.isEmpty ? LocalizedString.dash.localized : self.email
         }
         if let obj = json["communication_number"] {
             self.communicationNumber = !"\(obj)".isEmpty ? "\(obj)" : "-"
+            self.communicationNumber = self.communicationNumber.isEmpty ? LocalizedString.dash.localized : self.communicationNumber
         }
         if let obj = json["billing_name"] {
             self.billingName = !"\(obj)".isEmpty ? "\(obj)" : "-"
+            self.billingName = self.billingName.isEmpty ? LocalizedString.dash.localized : self.billingName
         }
         
         if let obj = json["gst"] {
             self.gst = !"\(obj)".removeNull.isEmpty ? "\(obj)" : "-"
+            self.gst = self.gst.isEmpty ? LocalizedString.dash.localized : self.gst
         }
         
         if let obj = json["address"] as? JSONDictionary {
@@ -1191,7 +1248,29 @@ struct BillingAddress {
     }
     
     var completeAddress: String {
-        return self.addressLine1 + "," + self.addressLine2 + "," + self.city + "," + self.state + "," + self.postalCode + "," + self.country
+        var temp = self.addressLine1
+        
+        if !self.addressLine2.isEmpty {
+            temp += "\(temp.isEmpty ? "" : ", ")\(self.addressLine2)"
+        }
+        
+        if !self.city.isEmpty {
+            temp += "\(temp.isEmpty ? "" : ", ")\(self.city)"
+        }
+        
+        if !self.state.isEmpty {
+            temp += "\(temp.isEmpty ? "" : ", ")\(self.state)"
+        }
+        
+        if !self.postalCode.isEmpty {
+            temp += "\(temp.isEmpty ? "" : " - ")\(self.postalCode)"
+        }
+        
+        if !self.country.isEmpty {
+            temp += "\(temp.isEmpty ? "" : ", ")\(self.country)"
+        }
+        
+        return temp.isEmpty ? LocalizedString.dash.localized : temp
     }
 }
 

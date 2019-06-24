@@ -29,7 +29,7 @@ struct RoomDetailModel {
             self.rid = "\(obj)"
         }
         
-        if let obj = json["roomType"] {
+        if let obj = json["room_type"] {
             self.roomType = "\(obj)"
         }
         
@@ -40,7 +40,7 @@ struct RoomDetailModel {
             self.status = "\(obj)"
         }
         
-        if let obj = json["roomImg"] {
+        if let obj = json["room_img"] {
             self.roomImg = "\(obj)"
         }
         

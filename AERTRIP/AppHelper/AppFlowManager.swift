@@ -180,13 +180,6 @@ class AppFlowManager: NSObject {
 extension AppFlowManager {
     func moveToLogoutNavigation() {}
     
-    func openURLOnATWebView(_ url: URL, screenTitle: String) {
-        let obj = ATWebViewVC.instantiate(fromAppStoryboard: .Common)
-        obj.urlToLoad = url
-        obj.navTitle = screenTitle
-        self.mainNavigationController.present(obj, animated: true, completion: nil)
-    }
-    
     func showURLOnATWebView(_ url: URL, screenTitle: String) {
         let obj = ATWebViewVC.instantiate(fromAppStoryboard: .Common)
         obj.urlToLoad = url
