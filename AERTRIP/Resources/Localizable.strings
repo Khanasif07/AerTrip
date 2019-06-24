@@ -718,6 +718,10 @@
 "Dimensions" = "Dimensions";
 "HandBaggageDimensions" = "Hand Baggage Dimensions";
 
+
+//MARK: - Flight Module
+"AmountToBeRefunded" = "Amount to be Refunded ";
+
 //MARK:- Account Ladger
 "DownloadAsPdf" = "Download as PDF";
 "NoTransactions" = "No transactions";
@@ -778,7 +782,7 @@
 "Carriers" = "Carriers";
 "Cancellation" = "Cancellation";
 "Refund" = "Refund";
-"PaymentPending" = "Payment pending";
+"PaymentPending" = "Payment pending ";
 "WebCheckin" = "Web Checkin";
 "SeeAll" = "See All";
 "Downloading" = "Downloading…";

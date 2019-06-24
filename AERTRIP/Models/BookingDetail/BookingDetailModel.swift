@@ -24,7 +24,7 @@ struct BookingDetailModel {
     var cases: [Case] = []
     var receipt: Receipt?
     
-    var totalAmountPaid: String = ""
+    var totalAmountPaid: Double = 0.0
     var vCode: String = ""
     var bookingStatus: String = ""
     var documents: [DocumentDownloadingModel] = []
@@ -85,6 +85,15 @@ struct BookingDetailModel {
         self.cases = Case.retunsCaseArray(jsonArr: json["cases"] as? [JSONDictionary] ?? [])
         if let obj = json["user"] as? UserInfo {
             self.user = obj
+        }
+        
+        // M
+        if let obj = json["receipt"] as? JSONDictionary {
+            self.receipt = Receipt(json: obj)
+        }
+        
+        if let obj = json["total_amount_paid"]  {
+            self.totalAmountPaid = "\(obj)".toDouble ?? 0.0
         }
         
         if let obj = json["documents"] as? [JSONDictionary] {
@@ -211,7 +220,7 @@ extension BookingDetailModel {
     var bookingPrice: Double {
         var price: Double = 0.0
         for voucher in self.receipt?.voucher ?? [] {
-            if voucher.basic?.voucherType.lowercased() == "sales" {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.sales.value {
                 price = voucher.transaction?.total?.amount.toDouble ?? 0.0
             }
         }
@@ -228,7 +237,7 @@ extension BookingDetailModel {
     var addOnAmount: Double {
         var price: Double = 0.0
         for voucher in self.receipt?.voucher ?? [] {
-            if voucher.basic?.voucherType.lowercased() == "sales_addon" {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.salesAddon.value {
                 price += voucher.transaction?.total?.amount.toDouble ?? 0.0
             }
         }
@@ -246,7 +255,7 @@ extension BookingDetailModel {
     var cancellationAmount: Double {
         var price: Double = 0.0
         for voucher in self.receipt?.voucher ?? [] {
-            if voucher.basic?.voucherType.lowercased() == "sales_return_jv" {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.saleReturn.value {
                 price += voucher.transaction?.total?.amount.toDouble ?? 0.0
             }
         }
@@ -263,7 +272,7 @@ extension BookingDetailModel {
     var rescheduleAmount: Double {
         var price: Double = 0.0
         for voucher in self.receipt?.voucher ?? [] {
-            if voucher.basic?.voucherType.lowercased() == "reschedule_sales_return_jv" {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.saleReschedule.value {
                 price += voucher.transaction?.total?.amount.toDouble ?? 0.0
             }
         }
@@ -274,7 +283,7 @@ extension BookingDetailModel {
     //Total_amount_paid
     
     var paid: Double {
-        return self.totalAmountPaid.toDouble ?? 0.0
+        return self.totalAmountPaid
     }
     
     // Refund Amount: Total of cancellations + Total of Reschedules
@@ -287,7 +296,7 @@ extension BookingDetailModel {
     
     var totalCostOfBooking: Double {
         //TODO: need to disucss sale amount :
-        let saleAmount: Double = 0.0
+        let saleAmount: Double = self.bookingPrice
         return saleAmount + self.addOnAmount
     }
     
@@ -295,7 +304,7 @@ extension BookingDetailModel {
     // Can be calculated by adding Total of all receipts
     
     var totalAmountReceived: Double {
-        return self.totalAmountPaid.toDouble ?? 0.0
+        return self.totalAmountPaid
     }
     
 //    Total outstanding = total_amount_due
@@ -308,17 +317,23 @@ extension BookingDetailModel {
     // Web checking url
     
     var webCheckinUrl: String {
-        if let index = self.bookingDetail?.leg.firstIndex(where: { (result) -> Bool in
-            (result.completed == 0)
-        }) {
-            if index < self.additionalInformation?.webCheckins.count ?? 0 {
-                return self.additionalInformation?.webCheckins[index] ?? ""
+        
+        if self.bookingDetail?.journeyCompleted == 1 {
+            return ""
+        } else {
+            if let index = self.bookingDetail?.leg.firstIndex(where: { (result) -> Bool in
+                (result.completed == 0)
+            }) {
+                if index < self.additionalInformation?.webCheckins.count ?? 0 {
+                    return self.additionalInformation?.webCheckins[index] ?? ""
+                }
+                else {
+                    return ""
+                }
             }
-            else {
-                return ""
-            }
+            return ""
         }
-        return ""
+       
     }
 }
 
@@ -675,6 +690,7 @@ struct FlightDetail {
     var operatedBy: String = ""
     var baggage: Baggage?
     var icc: Int = 0
+    // Weather data only will come if we are booking for less that 16 days from the travel data.
     var originWeather: Weather?
     var destinationWeather: Weather?
     var layoverTime: Double = 0.0
@@ -1438,7 +1454,7 @@ struct Receipt {
             self.totalAmountPaid = "\(obj)"
         }
         
-        if let obj = json["voucher"] as? [JSONDictionary] {
+        if let obj = json["vouchers"] as? [JSONDictionary] {
             self.voucher = Voucher.getModels(json: obj)
         }
     }
@@ -1458,7 +1474,7 @@ struct Voucher {
             self.basic = Basic(json: obj)
         }
         
-        if let obj = json["transaction"] as? JSONDictionary {
+        if let obj = json["transactions"] as? JSONDictionary {
             self.transaction = Transactions(json: obj)
         }
         
@@ -1522,7 +1538,7 @@ struct Basic {
             self.voucherNo = "\(obj)".removeNull
         }
         if let obj = json["transaction_datetime"] {
-            self.voucherType = "\(obj)".removeNull
+            self.transactionDateTime = "\(obj)".removeNull
         }
         if let obj = json["transaction_id"] {
             self.transactionId = "\(obj)".removeNull
@@ -1568,11 +1584,11 @@ struct Transactions {
             self.totalPayableNow = Amount(json: obj)
         }
         
-        if let obj = json["total"] as? JSONDictionary {
+        if let obj = json["Total"] as? JSONDictionary {
             self.total = Amount(json: obj)
         }
         
-        if let obj = json["grossFare"] as? JSONDictionary {
+        if let obj = json["Gross Fare"] as? JSONDictionary {
             self.grossFare = Amount(json: obj)
         }
         

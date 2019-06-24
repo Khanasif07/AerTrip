@@ -149,7 +149,7 @@ extension HotlelBookingsDetailsVC {
     
     func getPaymentPendingCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PaymentPendingTableViewCell.reusableIdentifier, for: indexPath) as? PaymentPendingTableViewCell else { return UITableViewCell() }
-        cell.configCell(price: " ₹ 5,000")
+        cell.configCell(price: 5000)
         cell.clipsToBounds = true
         return cell
     }

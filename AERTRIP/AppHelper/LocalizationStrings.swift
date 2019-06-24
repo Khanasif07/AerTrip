@@ -854,4 +854,9 @@ enum LocalizedString: String {
     case IFSCCode
     case AccountType
     
+    //MARK: - Amount Double
+    case AmountToBeRefunded
+    
+
+    
  }

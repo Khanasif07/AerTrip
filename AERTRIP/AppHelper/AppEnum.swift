@@ -25,7 +25,7 @@ extension Notification.Name {
     static let dataChanged = Notification.Name("dataChanged")
     static let sessionExpired = Notification.Name("sessionExpired")
     static let bulkEnquirySent = Notification.Name("bulkEnquirySent")
-    static let bookingFilterApplied =  Notification.Name("bookingFilterApplied")
+    static let bookingFilterApplied = Notification.Name("bookingFilterApplied")
 }
 
 // MARK: - Applicaion Response Code From Server
@@ -401,7 +401,6 @@ enum ATMeal: Int, CaseIterable {
     }
 }
 
-
 enum ATCancellationPolicy: Int, CaseIterable {
     case Refundable = 1
     case PartRefundable = 2
@@ -436,11 +435,10 @@ enum ATOthers: Int, CaseIterable {
     }
 }
 
-enum PassengersType : String {
+enum PassengersType: String {
     case Adult = "ADT"
     case child = "CHD"
 }
-
 
 enum UserCreditType: String {
     case regular = "R"
@@ -465,7 +463,6 @@ enum ProductType: Int, CaseIterable {
             
         case .other:
             return LocalizedString.Others.localized
-            
         }
     }
     
@@ -480,8 +477,33 @@ enum ProductType: Int, CaseIterable {
         case .other:
             return #imageLiteral(resourceName: "others")
         }
-   }
+    }
 }
+
+enum ATVoucherType: String {
+    case sales = "sales"
+    case salesAddon = "sales_addon"
+    case saleReturn = "sales_return_jv"
+    case saleReschedule = "reschedule_sales_return_jv"
+    case none = "none"
+    
+    init?(rawValue: String) {
+        switch rawValue {
+        case "sales": self = .sales
+        case "sales_addon": self = .salesAddon
+        case "sales_return_jv": self = .saleReturn
+        case "reschedule_sales_return_jv": self = .saleReschedule
+        default:
+            self = .none
+        }
+    }
+    
+    var value: String {
+        return self.rawValue
+    }
+    
+}
+
 enum ATFileType: RawRepresentable {
     case pdf(extension: String)
     case text(extension: String)
@@ -492,40 +514,40 @@ enum ATFileType: RawRepresentable {
     case image(extension: String)
     case code(extension: String)
     case other(extension: String)
-
+    
     init?(rawValue: String) {
-        switch (rawValue.lowercased()){
-
+        switch rawValue.lowercased() {
         case "pdf", "epub":
             self = .pdf(extension: rawValue)
-
+            
         case "txt", "rtf":
             self = .text(extension: rawValue)
-
+            
         case "doc", "docx", "dot", "dotx", "pages", "odt", "ott", "wps", "wpd", "sxw", "hwp":
             self = .word(extension: rawValue)
-
+            
         case "ppt", "pptx", "pps", "ppsx", "pot", "key", "odp", "otp", "sti", "sxi":
             self = .powerPoint(extension: rawValue)
-
+            
         case "xls", "xlsx", "xlsm", "xlt", "xlr", "csv", "xlsb", "numbers", "ods", "ots", "wks", "sxc":
             self = .excel(extension: rawValue)
-
+            
         case "rar", "zip", "zipx", "7z":
             self = .zip(extension: rawValue)
-
+            
         case "jpg", "jpeg", "png", "bmp", "gif", "tif", "tiff", "webp":
             self = .image(extension: rawValue)
-
+            
         case "html", "xml", "xps", "chm":
             self = .code(extension: rawValue)
-
+            
         default:
             self = .other(extension: rawValue)
         }
     }
-    var rawValue: String{
-        switch (self){
+    
+    var rawValue: String {
+        switch self {
         case .pdf(let ext): return ext
         case .text(let ext): return ext
         case .word(let ext): return ext
@@ -537,7 +559,7 @@ enum ATFileType: RawRepresentable {
         case .other(let ext): return ext
         }
     }
-
+    
     var icon: UIImage {
         switch self {
         case .pdf: return #imageLiteral(resourceName: "ic_file_pdf")
@@ -572,8 +594,6 @@ extension URL {
 
 // App Enum for Weather type icon
 
-
-
 enum WeatherType: String {
     case none = "ic_none"
     case clearSky = "ic_clearsky"
@@ -587,7 +607,6 @@ enum WeatherType: String {
     case mist = "ic_mist"
     
     init?(rawValue: String) {
-        
         let final = "ic_\(rawValue.removeAllWhitespaces.lowercased())"
         switch final {
         case "ic_clearsky": self = .clearSky
@@ -607,4 +626,3 @@ enum WeatherType: String {
         return #imageLiteral(resourceName: self.rawValue)
     }
 }
-

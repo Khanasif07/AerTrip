@@ -124,20 +124,26 @@ class BookingProductDetailVM {
             self.sectionDataForFlightProductType.append([.addOnsCell])
         }
         
-        if self.bookingDetail?.cancellationAmount ?? 0.0 > 0.0 {
+        if self.bookingDetail?.cancellationAmount ?? 0.0 < 0.0 {
             self.sectionDataForFlightProductType.append([.cancellationCell])
+        }
+        
+        
+        if self.bookingDetail?.rescheduleAmount ?? 0.0 > 0.0 {
+             self.sectionDataForFlightProductType.append([.reschedulingRequestCell])
         }
         
         if self.bookingDetail?.paid ?? 0.0 > 0.0 {
             self.sectionDataForFlightProductType.append([.paidCell])
         }
         
-        if self.bookingDetail?.refundAmount ?? 0.0 > 0.0 {
+        if self.bookingDetail?.refundAmount ?? 0.0 != 0.0 {
             self.sectionDataForFlightProductType.append([.refundCell])
         }
         
-        self.sectionDataForFlightProductType.append([.paymentPendingCell])
-        
+        if self.bookingDetail?.totalOutStanding != 0.0 {
+                self.sectionDataForFlightProductType.append([.paymentPendingCell])
+        }
         self.sectionDataForFlightProductType.append([.flightsOptionsCell])
         self.sectionDataForFlightProductType.append([.weatherHeaderCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell])
         self.sectionDataForFlightProductType.append([.nameCell, .emailCell, .mobileCell, .gstCell, .billingAddressCell])
