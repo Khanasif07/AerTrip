@@ -214,6 +214,28 @@ struct AppGlobals {
         return fullString
     }
     
+    // Use  it for creating an image with text(attributed string )  .It will return NSMutableattributed string.
+    func getTextWithImage(startText: String, image: UIImage, endText: NSMutableAttributedString, font: UIFont) -> NSMutableAttributedString {
+        // create an NSMutableAttributedString that we'll append everything to
+        let fullString = NSMutableAttributedString(string: startText)
+        // create our NSTextAttachment
+        let image1Attachment = NSTextAttachment()
+        
+        //        image1Attachment.bounds.origin = CGPoint(x: 0.0, y: 5.0)
+        image1Attachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height).rounded() / 2, width: image.size.width, height: image.size.height)
+        image1Attachment.image = image
+        
+        // wrap the attachment in its own attributed string so we can append it
+        
+        let image1String = NSAttributedString(attachment: image1Attachment)
+        
+        // add the NSTextAttachment wrapper to our full string, then add some more text.
+        fullString.append(image1String)
+        fullString.append(NSMutableAttributedString(string:  "  "))
+        fullString.append(endText)
+        return fullString
+    }
+    
     func getTextWithImageWithLink(startText: String, startTextColor: UIColor, middleText: String, image: UIImage, endText: String, endTextColor: UIColor, middleTextColor: UIColor, font: UIFont) -> NSMutableAttributedString {
         let fullString = NSMutableAttributedString()
         

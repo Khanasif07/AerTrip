@@ -58,7 +58,8 @@ class BookingHotelDetailVC: BaseVC {
     
     // configure nav bar
     private func configureNavBar() {
-        self.topNavigationView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
+        self.topNavigationView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
+
         self.topNavigationView.configureLeftButton(normalImage: UIImage(named: "whiteBackIcon"), selectedImage: UIImage(named: "whiteBackIcon"))
         self.topNavigationView.delegate = self
         self.topNavigationView.backgroundColor = .clear

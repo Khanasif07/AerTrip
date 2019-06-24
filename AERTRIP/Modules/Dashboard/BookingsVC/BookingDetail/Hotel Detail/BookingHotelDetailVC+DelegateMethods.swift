@@ -91,6 +91,7 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("BookingTravellerTableViewCell not found")
                 }
                 guestCell.titleLabel.text = LocalizedString.Guests.localized
+                guestCell.isToShowBottomView = false
                 return guestCell
             case 5:
                 // Address Cell

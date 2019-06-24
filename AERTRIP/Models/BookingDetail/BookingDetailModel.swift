@@ -311,7 +311,7 @@ extension BookingDetailModel {
         if let index = self.bookingDetail?.leg.firstIndex(where: { (result) -> Bool in
             (result.completed == 0)
         }) {
-            if index < self.bookingDetail?.leg.count ?? 0 {
+            if index < self.additionalInformation?.webCheckins.count ?? 0 {
                 return self.additionalInformation?.webCheckins[index] ?? ""
             }
             else {

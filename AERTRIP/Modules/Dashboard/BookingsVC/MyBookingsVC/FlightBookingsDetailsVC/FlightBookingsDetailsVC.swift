@@ -34,7 +34,6 @@ class FlightBookingsDetailsVC: BaseVC {
         didSet {
             self.bookingDetailsTableView.estimatedRowHeight = 100.0
             self.bookingDetailsTableView.rowHeight = UITableView.automaticDimension
-            self.bookingDetailsTableView.contentInset = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.bookingDetailsTableView.estimatedSectionHeaderHeight = CGFloat.zero
             self.bookingDetailsTableView.sectionHeaderHeight = CGFloat.zero
         }
@@ -48,11 +47,14 @@ class FlightBookingsDetailsVC: BaseVC {
     
     override func initialSetup() {
         self.topNavBarHeightConstraint.constant = self.navBarHeight
-        self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
+        self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
-        self.headerView?.dividerView.isHidden = true
+        if let view = self.headerView {
+            view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM ''yy") ?? "")
+            view.dividerView.isHidden = true
+        }
         self.setupParallaxHeader()
         self.registerNibs()
         
@@ -84,6 +86,7 @@ class FlightBookingsDetailsVC: BaseVC {
     func configureTableHeaderView() {
         if let view = self.headerView {
             view.configureUI(bookingEventTypeImage: self.eventTypeImage, bookingIdStr: self.viewModel.bookingDetail?.id ?? "", bookingIdNumbers: self.viewModel.bookingDetail?.bookingNumber ?? "", date: self.viewModel.bookingDetail?.bookingDate?.toString(dateFormat: "d MMM ''yy") ?? "")
+            view.dividerView.isHidden = false
         }
     }
     
