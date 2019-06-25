@@ -128,6 +128,13 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate , UITableViewDataSource {
             return self.getWeatherInfoCell(tableView, indexPath: indexPath)
         }
     }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        printDebug("\(indexPath.section)")
+        AppFlowManager.default.moveToBookingHotelDetailVC()
+    
+    }
 }
 
 extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {

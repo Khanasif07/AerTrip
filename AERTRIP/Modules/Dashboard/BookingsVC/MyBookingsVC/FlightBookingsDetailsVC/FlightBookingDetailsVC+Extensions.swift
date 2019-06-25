@@ -164,9 +164,8 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
         
         printDebug("progress %f \(prallexProgress)")
         
-        if prallexProgress <= 0.65 {
-            self.topNavBar.backgroundType = .blurMainView(isDark: false)
-            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
+        if prallexProgress <= 0.5 {
+            self.topNavBar.animateBackView(isHidden: false) { [weak self](isDone) in
                 guard let sSelf = self else { return }
                 sSelf.topNavBar.firstRightButton.isSelected = true
                 sSelf.topNavBar.leftButton.isSelected = true
@@ -175,8 +174,7 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
                 sSelf.topNavBar.dividerView.isHidden = false
             }
         } else {
-            self.topNavBar.backgroundType = .blurMainView(isDark: false)
-            self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
+            self.topNavBar.animateBackView(isHidden: true) { [weak self](isDone) in
                 guard let sSelf = self else { return }
                 sSelf.topNavBar.firstRightButton.isSelected = false
                 sSelf.topNavBar.leftButton.isSelected = false
@@ -185,6 +183,33 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
                 sSelf.topNavBar.dividerView.isHidden = true
             }
         }
+        
+        
+//
+//        if prallexProgress <= 0.65 {
+//            self.topNavBar.backgroundType = .blurMainView(isDark: false)
+//            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
+//                guard let sSelf = self else { return }
+//                sSelf.topNavBar.firstRightButton.isSelected = true
+//                sSelf.topNavBar.leftButton.isSelected = true
+//                sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
+//                if let tripCities = self?.viewModel.tripCitiesStr {
+//                     sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image:  sSelf.eventTypeImage, endText: tripCities, font: AppFonts.SemiBold.withSize(18.0))
+//                }
+//
+//                sSelf.topNavBar.dividerView.isHidden = false
+//            }
+//        } else {
+//            self.topNavBar.backgroundType = .blurMainView(isDark: false)
+//            self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
+//                guard let sSelf = self else { return }
+//                sSelf.topNavBar.firstRightButton.isSelected = false
+//                sSelf.topNavBar.leftButton.isSelected = false
+//                sSelf.topNavBar.leftButton.tintColor = AppColors.themeWhite
+//                sSelf.topNavBar.navTitleLabel.text = ""
+//                sSelf.topNavBar.dividerView.isHidden = true
+//            }
+//        }
         self.headerView?.layoutIfNeeded()
     }
     

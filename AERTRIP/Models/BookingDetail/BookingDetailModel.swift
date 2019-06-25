@@ -366,7 +366,7 @@ extension BookingDetailModel {
     
     var webCheckinUrl: String {
         if let legs = self.bookingDetail?.leg, let index = legs.firstIndex(where: { $0.completed == 0 }) {
-            return (index < legs.count) ? (self.additionalInformation?.webCheckins[index] ?? "") : ""
+            return (index < (self.additionalInformation?.webCheckins.count ?? 0)) ? (self.additionalInformation?.webCheckins[index] ?? "") : ""
         }
         else {
             //TODO:- handeling for hotels
@@ -469,7 +469,9 @@ struct BookingDetail {
         
         // TODO: For Room detail
         
-        // TODO: For Cancellation
+        if let obj = json["rooms"] as? JSONDictionary {
+            self.cancellation = Cancellation(json: obj)
+        }
         
         if let obj = json["latitude"] {
             self.latitude = "\(obj)".removeNull

@@ -159,7 +159,7 @@ extension BookingData {
                         
                         let attributedStr1 = NSMutableAttributedString(string: routeStr)
                         if travLastIndex > 0 {
-                            attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex+2))
+                            attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex+3))
                         }
                         return attributedStr1
                     }

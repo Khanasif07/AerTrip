@@ -14,6 +14,8 @@ class BookingTravellerTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var isToShowBottomView: Bool = true
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -62,6 +64,7 @@ extension BookingTravellerTableViewCell: UICollectionViewDataSource,UICollection
             fatalError("BookingTravellerCollectionViewCell not found")
         }
         travellerCollectionCell.paxData = nil //TODO:- pass the original data
+        travellerCollectionCell.bottomSlideView.isHidden = !isToShowBottomView
         return travellerCollectionCell
     }
     

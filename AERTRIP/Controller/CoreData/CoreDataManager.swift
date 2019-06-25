@@ -84,7 +84,7 @@ class CoreDataManager {
      * @managedContext: If passed as nil or nothing saves the current working context, otherwise the specified one.
      */
     func saveContext(managedContext: NSManagedObjectContext? = nil) {
-        DispatchQueue.main.async {
+      //  DispatchQueue.main.async {
             var contextToSave: NSManagedObjectContext?
             if let context = managedContext {
                 contextToSave = context
@@ -101,7 +101,7 @@ class CoreDataManager {
                     printDebug("Problem in saving the managedObjectContext is: \(error.localizedDescription)")
                 }
             }
-       }
+      // }
     }
     
     /**
