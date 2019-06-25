@@ -816,3 +816,10 @@
 "BankBranch" = "Bank Branch";
 "IFSCCode" = "IFSC Code";
 "AccountType" = "Account Type";
+
+// MARK: - Booking CallVC
+
+"Aertip" = "AERTRIP";
+"Airports" = "AIRPORTS";
+"Airlines" = "AIRLINES";
+

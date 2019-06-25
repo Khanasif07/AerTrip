@@ -19,21 +19,21 @@ struct AdditionalInformation {
     
     init(json: JSONDictionary) {
         if let obj = json["web_checkin"] as? [String] {
-            self.webCheckins = obj
+            webCheckins = obj
         }
         
         if let obj = json["directions"] as? [JSONDictionary] {
-            self.directions = Direction.getModels(json: obj)
+            directions = Direction.getModels(json: obj)
         }
         
         if let obj = json["contact_info"] as? JSONDictionary {
-            self.contactInfo = ContactInfo(json: obj)
+            contactInfo = ContactInfo(json: obj)
         }
     }
 }
 
 struct ContactInfo {
-    var aertrip: Aertrip?
+    var aertrip: [Aertrip] = []
     var airlines: [Airline] = []
     var airport: [Airport] = []
     
@@ -42,8 +42,8 @@ struct ContactInfo {
     }
     
     init(json: JSONDictionary) {
-        if let obj = json["aertrip"] as? JSONDictionary {
-            aertrip = Aertrip(json: obj)
+        if let obj = json["aertrip"] as? [JSONDictionary] {
+            aertrip = Aertrip.getModels(json: obj)
         }
         
         if let obj = json["airlines"] as? [JSONDictionary] {
@@ -59,6 +59,8 @@ struct ContactInfo {
 struct Aertrip {
     var key: String = ""
     var value: String = ""
+    var role: String = ""
+    var email: String = ""
     
     init() {
         self.init(json: [:])
@@ -71,6 +73,16 @@ struct Aertrip {
         if let obj = json["value"] {
             value = "\(obj)".removeNull
         }
+        if let obj = json["role"] {
+            role = "\(obj)".removeNull
+        }
+        if let obj = json["email"] {
+            email = "\(obj)".removeNull
+        }
+    }
+    
+    static func getModels(json: [JSONDictionary]) -> [Aertrip] {
+        return json.map { Aertrip(json: $0) }
     }
 }
 
@@ -120,7 +132,7 @@ struct Airport {
     }
     
     init(json: JSONDictionary) {
-        if let obj = json["ata_code"] {
+        if let obj = json["iata_code"] {
             ataCode = "\(obj)".removeNull
         }
         

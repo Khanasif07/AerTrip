@@ -87,11 +87,10 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("\(indexPath.section)")
         if indexPath.section < self.viewModel.bookingDetail?.bookingDetail?.leg.count ?? 0 {
-             AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail)
+            AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail)
         } else {
             printDebug("index path section \(indexPath.section)")
         }
-
     }
 }
 
@@ -168,7 +167,7 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
         printDebug("progress %f \(prallexProgress)")
         
         if prallexProgress <= 0.5 {
-            self.topNavBar.animateBackView(isHidden: false) { [weak self](isDone) in
+            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
                 guard let sSelf = self else { return }
                 sSelf.topNavBar.firstRightButton.isSelected = true
                 sSelf.topNavBar.leftButton.isSelected = true
@@ -177,7 +176,7 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
                 sSelf.topNavBar.dividerView.isHidden = false
             }
         } else {
-            self.topNavBar.animateBackView(isHidden: true) { [weak self](isDone) in
+            self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
                 guard let sSelf = self else { return }
                 sSelf.topNavBar.firstRightButton.isSelected = false
                 sSelf.topNavBar.leftButton.isSelected = false
@@ -186,7 +185,6 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
                 sSelf.topNavBar.dividerView.isHidden = true
             }
         }
-        
         
 //
 //        if prallexProgress <= 0.65 {
@@ -238,10 +236,12 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     func openDirections() {
         //
         printDebug("open direction ")
+        AppFlowManager.default.moveToBookingDirectionVC(directions: self.viewModel.bookingDetail?.additionalInformation?.directions ?? [])
     }
     
     func openCallDetail() {
         printDebug("open call detail  ")
+        AppFlowManager.default.moveToBookingCallVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo)
     }
     
     func addToCalender() {

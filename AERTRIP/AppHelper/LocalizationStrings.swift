@@ -1,6 +1,6 @@
 //
 //  Strings.swift
-//  
+//
 //
 //  Created by Pramod Kumar on 04/08/17.
 //  Copyright © 2017 Pramod Kumar. All rights reserved.
@@ -15,223 +15,246 @@ extension LocalizedString {
 }
 
 enum LocalizedString: String {
+    // MARK: - Strings For Profile Screen
     
-    //MARK:- Strings For Profile Screen
-    case NoInternet = "NoInternet"
-    case ParsingError = "ParsingError"
-    case error = "error"
-    case na = "na"
+    case NoInternet
+    case ParsingError
+    case error
+    case na
     case dash
-    case noData = "noData"
-    case search = "search"
+    case noData
+    case search
     case noResults = "No Results"
-    case Undo = "Undo"
+    case Undo
     case apply = "Apply"
-    case For = "For"
-    case Already = "Already"
+    case For
+    case Already
     
-    // MARK:- TextField validation
-    //MARK:-
-    case Enter_email_address       = "Enter_email_address"
-    case Enter_valid_email_address = "Enter_valid_email_address"
-    case Enter_password            = "Enter_password"
-    case Enter_valid_Password      = "Enter_valid_Password"
-   
+    // MARK: - TextField validation
     
-    // MARK:- SocialLoginVC
-    //MARK:-
-    case I_am_new_register  = "I_am_new_register"
-    case SkipSignIn = "SkipSignIn"
-    case ContinueAsGuest = "ContinueAsGuest"
-    case Existing_User_Sign = "Existing_User_Sign"
-    case Continue_with_Facebook  = "Continue_with_Facebook"
-    case Continue_with_Google    = "Continue_with_Google"
-    case Continue_with_Linkedin  = "Continue_with_Linkedin"
-    case AllowEmailInFacebook = "AllowEmailInFacebook"
-    case AllowEmailInLinkedIn = "AllowEmailInLinkedIn"
-    case PleaseLoginByEmailId = "PleaseLoginByEmailId"
+    // MARK: -
     
+    case Enter_email_address
+    case Enter_valid_email_address
+    case Enter_password
+    case Enter_valid_Password
     
-    // MARK:- LoginVC
-    //MARK:-
-    case Forgot_Password  = "Forgot_Password"
-    case Welcome_Back     = "Welcome_Back"
-    case Email_ID         = "Email_ID"
-    case Password         = "Password"
-    case Not_ye_registered  = "Not_ye_registered"
-    case Login = "Login"
-    case Register_here = "Register_here"
+    // MARK: - SocialLoginVC
     
-    // MARK:- CreateYourAccountVC
-    //MARK:-
-    case Create_your_account  = "Create_your_account"
-    case Register             = "Register"
-    case By_registering_you_agree_to_Aertrip_privacy_policy_terms_of_use = "By_registering_you_agree_to_Aertrip_privacy_policy_terms_of_use"
-    case Already_Registered = "Already_Registered"
-    case  Login_here    = "Login_here"
-    case privacy_policy = "privacy_policy"
-    case terms_of_use   = "terms_of_use"
+    // MARK: -
     
-    // MARK:- ThankYouRegistrationVC
-    //MARK:-
-    case Thank_you_for_registering  = "Thank_you_for_registering"
-    case We_have_sent_you_an_account_activation_link_on = "We_have_sent_you_an_account_activation_link_on"
-    case Check_your_email_to_activate_your_account = "Check_your_email_to_activate_your_account"
-    case Open_Email_App = "Open_Email_App"
-    case No_Reply_Email_Text = "No_Reply_Email_Text"
-    case noreply_aertrip_com = "noreply_aertrip_com"
-    case password_redset_link_message = "password_redset_link_message"
-    case Cancel = "Cancel"
-    case Add = "Add"
-    case CancelWithSpace = "CancelWithSpace"
-    case CancelWithRightSpace = "CancelWithRightSpace"
-    case Mail_Default = "Mail_Default"
-    case Gmail = "Gmail"
-
-    // MARK:- ResetPasswordVC
-    //MARK:-
-    case CheckYourEmail  = "CheckYourEmail"
-    case PasswordResetInstruction = "PasswordResetInstruction"
-    case CheckEmailToResetPassword = "CheckEmailToResetPassword"
- 
-    // MARK:- SecureYourAccountVC
-    //MARK:-
-    case Secure_your_account  = "Secure_your_account"
-    case Set_password = "Set_password"
-    case Password_Conditions = "Password_Conditions"
-    case one = "one"
-    case a   = "a"
-    case A   = "A"
-    case at  = "at"
-    case eight_Plus = "eight_Plus"
-    case Number     = "Number"
-    case Lowercase  = "Lowercase"
-    case Uppercase  = "Uppercase"
-    case Special    = "Special"
-    case Characters = "Characters"
-    case Next       = "Next"
-    case Reset_Password  = "Reset_Password"
-    case Please_enter_new_Password = "Please_enter_new_Password"
-    case New_Password = "New_Password"
-
-    // MARK:- CreateProfileVC
-    //MARK:-
-    case Create_Your_Profile  = "Create_Your_Profile"
-    case and_you_are_done = "and_you_are_done"
-    case Title = "Title"
-    case First_Name = "First_Name"
-    case Last_Name   = "Last_Name"
-    case Country   = "Country"
-    case Mobile_Number  = "Mobile_Number"
-    case Lets_Get_Started = "Lets_Get_Started"
-    case Done    = "Done"
-    case DoneWithSpace = "DoneWithSpace"
+    case I_am_new_register
+    case SkipSignIn
+    case ContinueAsGuest
+    case Existing_User_Sign
+    case Continue_with_Facebook
+    case Continue_with_Google
+    case Continue_with_Linkedin
+    case AllowEmailInFacebook
+    case AllowEmailInLinkedIn
+    case PleaseLoginByEmailId
     
-    // MARK:- ForgotPasswordVC
-    //MARK:-
-    case ForgotYourPassword  = "ForgotYourPassword"
-    case EmailIntruction = "EmailIntruction"
-    case Continue = "Continue"
+    // MARK: - LoginVC
     
-    // MARK:- SuccessPopupVC
-    //MARK:-
-    case Successful  = "Successful"
-    case Your_password_has_been_reset_successfully = "Your_password_has_been_reset_successfully"
+    // MARK: -
     
-    //MARK:- DashboardVC
-    //MARK:-
-    case aerin = "aerin"
-    case flights = "flights"
-    case hotels = "hotels"
-    case trips = "trips"
-    case hiImAerin = "hiImAerin"
-    case yourPersonalTravelAssistant = "yourPersonalTravelAssistant"
-    case tryAskingForFlightsFromMumbai = "tryAskingForFlightsFromMumbai"
-    case EnjoyAMorePersonalisedTravelExperience = "EnjoyAMorePersonalisedTravelExperience"
-    case LoginOrRegister = "LoginOrRegister"
-    case WhyAertrip      = "WhyAertrip"
-    case SmartSort       = "SmartSort"
-    case Offers          = "Offers"
-    case ContactUs       = "ContactUs"
-    case Settings        = "Settings"
-    case weekendGetaway  = "weekendGetaway"
-    case ViewProfile     = "ViewProfile"
-    case Bookings        = "Bookings"
-    case Notification    = "Notification"
-    case ReferAndEarn    = "ReferAndEarn"
-    case ViewAccounts    = "ViewAccounts"
+    case Forgot_Password
+    case Welcome_Back
+    case Email_ID
+    case Password
+    case Not_ye_registered
+    case Login
+    case Register_here
     
+    // MARK: - CreateYourAccountVC
     
+    // MARK: -
     
-    //MARK:- CreateProfileVCDelegate
-    //MARK:-
-    case Mr  = "Mr"
-    case Mis = "Mis"
-    case PleaseSelectSalutation = "PleaseSelectSalutation"
-    case PleaseEnterFirstName   = "PleaseEnterFirstName"
-    case PleaseEnterLastName    = "PleaseEnterLastName"
-    case PleaseSelectCountry    = "PleaseSelectCountry"
-    case PleaseEnterMobileNumber = "PleaseEnterMobileNumber"
-    case selectedCountryCode    = "selectedCountryCode"
-    case selectedCountry        = "selectedCountry"
+    case Create_your_account
+    case Register
+    case By_registering_you_agree_to_Aertrip_privacy_policy_terms_of_use
+    case Already_Registered
+    case Login_here
+    case privacy_policy
+    case terms_of_use
+    
+    // MARK: - ThankYouRegistrationVC
+    
+    // MARK: -
+    
+    case Thank_you_for_registering
+    case We_have_sent_you_an_account_activation_link_on
+    case Check_your_email_to_activate_your_account
+    case Open_Email_App
+    case No_Reply_Email_Text
+    case noreply_aertrip_com
+    case password_redset_link_message
+    case Cancel
+    case Add
+    case CancelWithSpace
+    case CancelWithRightSpace
+    case Mail_Default
+    case Gmail
+    
+    // MARK: - ResetPasswordVC
+    
+    // MARK: -
+    
+    case CheckYourEmail
+    case PasswordResetInstruction
+    case CheckEmailToResetPassword
+    
+    // MARK: - SecureYourAccountVC
+    
+    // MARK: -
+    
+    case Secure_your_account
+    case Set_password
+    case Password_Conditions
+    case one
+    case a
+    case A
+    case at
+    case eight_Plus
+    case Number
+    case Lowercase
+    case Uppercase
+    case Special
+    case Characters
+    case Next
+    case Reset_Password
+    case Please_enter_new_Password
+    case New_Password
+    
+    // MARK: - CreateProfileVC
+    
+    // MARK: -
+    
+    case Create_Your_Profile
+    case and_you_are_done
+    case Title
+    case First_Name
+    case Last_Name
+    case Country
+    case Mobile_Number
+    case Lets_Get_Started
+    case Done
+    case DoneWithSpace
+    
+    // MARK: - ForgotPasswordVC
+    
+    // MARK: -
+    
+    case ForgotYourPassword
+    case EmailIntruction
+    case Continue
+    
+    // MARK: - SuccessPopupVC
+    
+    // MARK: -
+    
+    case Successful
+    case Your_password_has_been_reset_successfully
+    
+    // MARK: - DashboardVC
+    
+    // MARK: -
+    
+    case aerin
+    case flights
+    case hotels
+    case trips
+    case hiImAerin
+    case yourPersonalTravelAssistant
+    case tryAskingForFlightsFromMumbai
+    case EnjoyAMorePersonalisedTravelExperience
+    case LoginOrRegister
+    case WhyAertrip
+    case SmartSort
+    case Offers
+    case ContactUs
+    case Settings
+    case weekendGetaway
+    case ViewProfile
+    case Bookings
+    case Notification
+    case ReferAndEarn
+    case ViewAccounts
+    
+    // MARK: - CreateProfileVCDelegate
+    
+    // MARK: -
+    
+    case Mr
+    case Mis
+    case PleaseSelectSalutation
+    case PleaseEnterFirstName
+    case PleaseEnterLastName
+    case PleaseSelectCountry
+    case PleaseEnterMobileNumber
+    case selectedCountryCode
+    case selectedCountry
     case SelectedCountrySymbol = "SelectedCountySymbol"
-
-    //MARK:- ViewProfileVC
-    //MARK:-
-    case ALERT  = "ALERT"
-    case DoYouWantToLogout = "DoYouWantToLogout"
-    case Logout = "Logout"
     
-    //MARK: - View Profile
-    case Edit = "Edit"
-    case Create = "Create"
-    case Travellers = "Travellers"
-    case TravellerList = "TravellerList"
-    case HotelPreferences = "HotelPreferences"
-    case QuickPay = "QuickPay"
-    case LinkedAccounts = "LinkedAccounts"
+    // MARK: - ViewProfileVC
+    
+    // MARK: -
+    
+    case ALERT
+    case DoYouWantToLogout
+    case Logout
+    
+    // MARK: - View Profile
+    
+    case Edit
+    case Create
+    case Travellers
+    case TravellerList
+    case HotelPreferences
+    case QuickPay
+    case LinkedAccounts
     case NewsLetters = "Newsletters"
-    case Notifications  = "Notifications"
+    case Notifications
     case LogOut = "Log Out"
     
     // MARK: - ViewProfileDetailVC
     
-    case EmailAddress = "EmailAddress"
-    case ContactNumber = "ContactNumber"
-    case SocialAccounts = "SocialAccounts"
-    case Address = "Address"
-    case MoreInformation = "MoreInformation"
-    case PassportDetails = "PassportDetails"
-    case FlightPreferences = "FlightPreferences"
-    case Birthday = "Birthday"
-    case Anniversary = "Anniversary"
-    case Notes = "Notes"
-    case Mobile = "Mobile"
+    case EmailAddress
+    case ContactNumber
+    case SocialAccounts
+    case Address
+    case MoreInformation
+    case PassportDetails
+    case FlightPreferences
+    case Birthday
+    case Anniversary
+    case Notes
+    case Mobile
     case passportNo = "Passport No."
     case issueCountry = "Issue Country"
-    case IssueDate = "IssueDate"
-    case ExpiryDate = "ExpiryDate"
+    case IssueDate
+    case ExpiryDate
     case seatPreference = "Seat Preference"
     case mealPreference = "Meal Preference"
     
     // MARK: - Edit Profile VC
     
-    case Save = "Save"
-    case SaveWithSpace = "SaveWithSpace"
-    case Move = "Move"
-    case FirstName = "FirstName"
-    case LastName = "LastName"
+    case Save
+    case SaveWithSpace
+    case Move
+    case FirstName
+    case LastName
     case TakePhoto = "Take Photo"
     case ChoosePhoto = "Choose Photo"
     case ImportFromFacebook = "Import from Facebook"
-    case ImportFromGoogle  = "Import from Google"
+    case ImportFromGoogle = "Import from Google"
     case RemovePhoto = "Remove Photo"
     case AddEmail = "Add Email"
     case AddSocialAccountId = "Add Social Account ID"
     case AddContactNumber = "Add Contact Number"
     case WouldYouLikeToDelete = "Would you like to delete this?"
-    case Delete = "Delete"
-    case Deleted = "Deleted"
+    case Delete
+    case Deleted
     case FrequentFlyer = "Frequent Flyer"
     case AddFrequentFlyer = "Add Frequent Flyer"
     case AddAddress = "Add Address"
@@ -239,51 +262,54 @@ enum LocalizedString: String {
     case PassportExpiryDateIsIncorrect = "Passport expiry date is incorrect"
     case DateOfBirthIsIncorrect = "Date of birth is incorrect"
     case DateOfAnniversaryIsIncorrect = "Date of Anniversary is incorrect"
-    case Group = "Group"
-    case SelectMealPreference = "SelectMealPreference"
-    case SelectSeatPreference = "SelectSeatPreference"
-    case Email = "Email"
-    case SocialProfile = "SocialProfile"
-    case Home = "Home"
+    case Group
+    case SelectMealPreference
+    case SelectSeatPreference
+    case Email
+    case SocialProfile
+    case Home
     case IndiaIsdCode = "IndianIsdCode"
-    case Facebook = "Facebook"
-    case Phone = "Phone"
-    case SelectAirline = "SelectAirline"
-    case SelectDate = "SelectDate"
-    case AddNotes = "AddNotes"
-    case DeleteFromTraveller = "DeleteFromTraveller"
-    case Default = "Default"
-    case Share = "Share"
-    case FloatingButtonsTitle = "FloatingButtonsTitle"
+    case Facebook
+    case Phone
+    case SelectAirline
+    case SelectDate
+    case AddNotes
+    case DeleteFromTraveller
+    case Default
+    case Share
+    case FloatingButtonsTitle
     // Mark: - Salutation
-    case Mrs = "Mrs"
-    case Ms = "Ms"
-    case Miss = "Miss"
-    case Mast = "Mast"
-    case EnterValidMobileNumber = "EnterValidMobileNumber"
-    case AllMobileNumberShouldUnique = "AllMobileNumberShouldUnique"
-    case EnterAllValidMobileNumber = "EnterAllValidMobileNumber"
-    case EnterAirlineNumberForAllFrequentFlyer = "EnterAirlineNumberForAllFrequentFlyer"
-    case SelectAirlineForAllFrequentFlyer = "SelectAirlineForAllFrequentFlyer"
+    case Mrs
+    case Ms
+    case Miss
+    case Mast
+    case EnterValidMobileNumber
+    case AllMobileNumberShouldUnique
+    case EnterAllValidMobileNumber
+    case EnterAirlineNumberForAllFrequentFlyer
+    case SelectAirlineForAllFrequentFlyer
     
+    // MARK: - Hotel Search
     
-    //MARK:- Hotel Search
-    //MARK:-
-    case PreferredStarCategory = "PreferredStarCategory"
-    case FavouriteHotels = "FavouriteHotels"
-    case stars = "stars"
-    case star = "star"
-    case searchForHotelsToAdd = "searchForHotelsToAdd"
-    case searchHotelName = "searchHotelName"
+    // MARK: -
+    
+    case PreferredStarCategory
+    case FavouriteHotels
+    case stars
+    case star
+    case searchForHotelsToAdd
+    case searchHotelName
     
     // MARK: - Traveller List VC
-   case Select = "Select"
-   case Preferences = "Preferences"
-   case Import = "Import"
-   case AssignGroup = "AssignGroup"
-   case TheseContactsWillBeDeletedFromTravellersList = "TheseContactsWillBeDeletedFromTravellersList"
+    
+    case Select
+    case Preferences
+    case Import
+    case AssignGroup
+    case TheseContactsWillBeDeletedFromTravellersList
     
     // MARK: - PreferencesVC
+    
     case SortOrder = "SORT ORDER"
     case DisplayOrder = "DISPLAY ORDER"
     case Groups = "GROUPS"
@@ -293,369 +319,381 @@ enum LocalizedString: String {
     case EnterAGroupName = "Enter a Group Name"
     case EnterGroupName = "Enter Group Name"
     case PreferencesSavedSuccessfully
-    case GroupAlreadyExist = "GroupAlreadyExist"
-    case GroupNameCanNotEmpty = "GroupNameCanNotEmpty"
+    case GroupAlreadyExist
+    case GroupNameCanNotEmpty
     
+    // MARK: - Import Contacts
     
+    // MARK: -
     
-    //MARK:- Import Contacts
-    //MARK:-
-    case Contacts = "Contacts"
-    case Google = "Google"
-    case LinkedIn = "LinkedIn"
-    case ImportContactMessage = "ImportContactMessage"
-    case ImportFacebookMessage = "ImportFacebookMessage"
-    case ImportGoogleMessage = "ImportGoogleMessage"
-    case SelectAll = "SelectAll"
-    case DeselectAll = "DeselectAll"
-    case AllowContacts = "AllowContacts"
-    case ConnectWithGoogle = "ConnectWithGoogle"
-    case ConnectWithFB = "ConnectWithFB"
-    case ConnectWithLinkedIn = "ConnectWithLinkedIn"
-    case ContactsSelected = "ContactsSelected"
-    case NoContactsFetched = "NoContactsFetched"
-    case SelectContactsToImport = "SelectContactsToImport"
+    case Contacts
+    case Google
+    case LinkedIn
+    case ImportContactMessage
+    case ImportFacebookMessage
+    case ImportGoogleMessage
+    case SelectAll
+    case DeselectAll
+    case AllowContacts
+    case ConnectWithGoogle
+    case ConnectWithFB
+    case ConnectWithLinkedIn
+    case ContactsSelected
+    case NoContactsFetched
+    case SelectContactsToImport
     
-    //MARK:- Linked Accounts
-    //MARK:-
-    case Disconnect = "Disconnect"
-    case LinkedAccountsMessage = "LinkedAccountsMessage"
+    // MARK: - Linked Accounts
     
-    //MARK:- Favourite Hotels
-    //MARK:-
-    case Remove = "Remove"
-    case DoYouWishToRemoveAllHotelsFrom  = "DoYouWishToRemoveAllHotelsFrom"
+    // MARK: -
     
-    //Mark:- Hotels Search
-    //Mark:-
-    case WhereButton = "WhereButton"
-    case CheckIn = "CheckIn"
-    case CheckOut = "CheckOut"
-    case Nights = "Nights"
-    case Night = "Night"
-    case AddRoom = "AddRoom"
-    case StarRating = "StarRating"
-    case AllStars = "AllStars"
-    case WantMoreRooms = "WantMoreRooms"
-    case RequestBulkBooking = "RequestBulkBooking"
+    case Disconnect
+    case LinkedAccountsMessage
+    
+    // MARK: - Favourite Hotels
+    
+    // MARK: -
+    
+    case Remove
+    case DoYouWishToRemoveAllHotelsFrom
+    
+    // Mark:- Hotels Search
+    // Mark:-
+    case WhereButton
+    case CheckIn
+    case CheckOut
+    case Nights
+    case Night
+    case AddRoom
+    case StarRating
+    case AllStars
+    case WantMoreRooms
+    case RequestBulkBooking
     case LoginAndSubmit = "Login & Submit"
     
-    //MARK:- Room Guest Selection
-    case Room = "Room"
-    case Adults = "Adults"
-    case Children = "Children"
-    case Adult = "Adult"
-    case Child = "Child"
-    case and = "and"
-    case Age = "Age"
-    case Ages = "Ages"
-    case AdultsAges = "AdultsAges"
-    case ChildAges = "ChildAges"
-    case MostHotelsTypicallyAllow = "MostHotelsTypicallyAllow"
-    case ageInYrs = "ageInYrs"
+    // MARK: - Room Guest Selection
     
-    //MARK:- Destination Selection
-    case CityAreaOrHotels = "CityAreaOrHotels"
-    case HotelsNearMe = "HotelsNearMe"
-    case RecentlySearchedDestinations = "RecentlySearchedDestinations"
-    case PopularDestinations = "PopularDestinations"
+    case Room
+    case Adults
+    case Children
+    case Adult
+    case Child
+    case and
+    case Age
+    case Ages
+    case AdultsAges
+    case ChildAges
+    case MostHotelsTypicallyAllow
+    case ageInYrs
     
-    //MARK:- Bulk Booking
-    case BulkBooking = "BulkBooking"
-    case PreferredHotels = "PreferredHotels"
-    case SpecialRequest = "SpecialRequest"
-    case IfAny = "IfAny"
-    case Rooms = "Rooms"
-    case BulkEnquirySent = "BulkEnquirySent"
-    case CustomerServicesShallConnect = "CustomerServicesShallConnect"
-    case Submit = "Submit"
+    // MARK: - Destination Selection
     
-    //MARK:- FF Search
-    case SearchAirlines = "SearchAirlines"
+    case CityAreaOrHotels
+    case HotelsNearMe
+    case RecentlySearchedDestinations
+    case PopularDestinations
     
-    //MARK:- Search Result
-    case SearchHotelsOrLandmark = "SearchHotelsOrLandmark"
-    //MARK: - Hotel Filters
-    case ClearAll = "ClearAll"
-    case Sort = "Sort"
-    case Range = "Range"
-    case Price = "Price"
-    case Ratings = "Ratings"
-    case Amenities = "Amenities"
-    case Reviews = "Reviews"
+    // MARK: - Bulk Booking
     
-    case Excellent  =  "Excellent"
-    case VeryGood =   "VeryGood"
-    case Average =  "Average"
-    case Poor =  "Poor"
-    case Terrible =   "Terrible"
-    case TravellerRating = "TravellerRating"
-    case RatingSummary = "RatingSummary"
+    case BulkBooking
+    case PreferredHotels
+    case SpecialRequest
+    case IfAny
+    case Rooms
+    case BulkEnquirySent
+    case CustomerServicesShallConnect
+    case Submit
     
-    case BestSellers = "BestSellers"
+    // MARK: - FF Search
+    
+    case SearchAirlines
+    
+    // MARK: - Search Result
+    
+    case SearchHotelsOrLandmark
+    
+    // MARK: - Hotel Filters
+    
+    case ClearAll
+    case Sort
+    case Range
+    case Price
+    case Ratings
+    case Amenities
+    case Reviews
+    
+    case Excellent
+    case VeryGood
+    case Average
+    case Poor
+    case Terrible
+    case TravellerRating
+    case RatingSummary
+    
+    case BestSellers
     case TripAdvisor = "TripAdvisorRating"
-    case Distance = "Distance"
-    case Recommended = "Recommended"
-    case LowToHigh = "LowToHigh"
-    case FiveToOne = "FiveToOne"
-    case NearestFirst = "NearestFirst"
+    case Distance
+    case Recommended
+    case LowToHigh
+    case FiveToOne
+    case NearestFirst
     
-    case WriteYourOwnReview = "WriteYourOwnReview"
-    case ViewAll = "ViewAll"
-    case ReadAll = "ReadAll"
-    case Within = "Within"
-    case Kms = "Kms"
+    case WriteYourOwnReview
+    case ViewAll
+    case ReadAll
+    case Within
+    case Kms
     
+    // MARK: - RangeVC
     
-    //MARK: - RangeVC
-    case SearchResultsRange = "SearchResultsRange"
+    case SearchResultsRange
     
+    // MARK: - PriceVC
     
-    //MARK: - PriceVC
-    case PricePerNight = "PricePerNight"
-    case Total = "Total"
-    case PerNight = "PerNight"
+    case PricePerNight
+    case Total
+    case PerNight
     
     // MARK: - RatingVC
     
-    
     // MARK: - AmentitiesVC
-    case Wifi = "Wifi"
-    case RoomService = "RoomService"
-    case Internet = "Internet"
-    case AirConditioner = "AirConditioner"
-    case RestaurantBar = "RestaurantBar"
-    case Gym = "Gym";
+    
+    case Wifi
+    case RoomService
+    case Internet
+    case AirConditioner
+    case RestaurantBar
+    case Gym
     case BusinessCenter = "Business Center"
-    case Pool = "Pool"
-    case Spa = "Spa"
+    case Pool
+    case Spa
     case Wi_Fi = "Wi-Fi"
     case Coffee_Shop = "Coffee Shop"
     
     // MARK: - RoomVC
     
     // Meal
-    case NoMeal = "NoMeal"
-    case Breakfast = "Breakfast"
-    case HalfBoard = "HalfBoard"
-    case FullBoard = "FullBoard"
-    case Others = "Others"
+    case NoMeal
+    case Breakfast
+    case HalfBoard
+    case FullBoard
+    case Others
     
     // Cancellation policy
-    case Refundable = "Refundable"
-    case PartRefundable = "PartRefundable"
-    case NonRefundable = "NonRefundable"
-    case NonRefundableExplanation = "NonRefundableExplanation"
-    case FullPaymentExplanation = "FullPaymentExplanation"
-    case FreeCancellation = "FreeCancellation"
-    case FullPaymentNow = "FullPaymentNow"
-    case NoRoomsAvailable = "NoRoomsAvailable"
+    case Refundable
+    case PartRefundable
+    case NonRefundable
+    case NonRefundableExplanation
+    case FullPaymentExplanation
+    case FreeCancellation
+    case FullPaymentNow
+    case NoRoomsAvailable
     
     // Others
-    case FreeWifi = "FreeWifi"
-    case TransferInclusive = "TransferInclusive"
+    case FreeWifi
+    case TransferInclusive
     
-    //MARK:- HotelFilterResultsVC
-    case From = "From"
-    case SelectRoom = "SelectRoom"
-    case Maps = "Maps"
-    case AddressSmallLaters = "AddressSmallLaters"
-    case Overview = "Overview"
-    case More = "More"
-    case CheckTripAdvisor = "CheckTripAdvisor"
-    case hotelFilterSearchBar = "hotelFilterSearchBar"
+    // MARK: - HotelFilterResultsVC
+    
+    case From
+    case SelectRoom
+    case Maps
+    case AddressSmallLaters
+    case Overview
+    case More
+    case CheckTripAdvisor
+    case hotelFilterSearchBar
     case InformationUnavailable = "Information unavailable"
-    case ApplyPreviousFilter = "ApplyPreviousFilter"
+    case ApplyPreviousFilter
     case ReloadResults = "Reload results"
-    case ShowHotelsBeyond = "ShowHotelsBeyond"
+    case ShowHotelsBeyond
     case HideHotelBeyond = "HideHotelsBeyond"
-    case Choose_App = "Choose_App"
-    case GMap = "GMap"
-
-    //MARK: - Hotel Result VC
-    case RemoveFromFavourites = "RemoveFromFavourites"
+    case Choose_App
+    case GMap
+    
+    // MARK: - Hotel Result VC
+    
+    case RemoveFromFavourites
     case EmailFavouriteHotelInfo = "EmailFavoriteHotelsInfo"
-    case Send = "Send"
-    case To = "To"
-    case Message = "Message"
-    case SeeRates = "SeeRates"
-    case SharedMessage = "SharedMessage"
-    case CheckOutMessage = "CheckOutMessage"
-    case HotelResultFor = "HotelResultFor"
-    case NoHotelFound = "NoHotelFound"
-    case NoHotelFoundMessage = "NoHotelFoundMessage"
-    case NoHotelFoundMessageOnFilter = "NoHotelFoundMessageOnFilter"
-    case NoHotelFoundFilter = "NoHotelFoundFilter"
-    case Inclusion = "Inclusion"
-    case OtherInclusions = "OtherInclusions"
-    case CancellationPolicy = "CancellationPolicy"
-    case PaymentPolicy = "PaymentPolicy"
-    case Info = "Info"
-    case Book = "Book"
-    case rupeesText = "rupeesText"
-    case Whoops = "Whoops"
-    case HotelDetailsEmptyState = "HotelDetailsEmptyState"
-    case ResetFilter = "ResetFilter"
-    case ConfirmationEmail 
+    case Send
+    case To
+    case Message
+    case SeeRates
+    case SharedMessage
+    case CheckOutMessage
+    case HotelResultFor
+    case NoHotelFound
+    case NoHotelFoundMessage
+    case NoHotelFoundMessageOnFilter
+    case NoHotelFoundFilter
+    case Inclusion
+    case OtherInclusions
+    case CancellationPolicy
+    case PaymentPolicy
+    case Info
+    case Book
+    case rupeesText
+    case Whoops
+    case HotelDetailsEmptyState
+    case ResetFilter
+    case ConfirmationEmail
     
     // Mail Composer View
-    case ContactUsAertrip = "ContactUsAertrip"
-    case CopyrightAertrip = "CopyrightAertrip"
-    case CheckoutMyFavouriteHotels = "CheckoutMyFavouriteHotels"
-    case SendWithSpace = "SendWithSpace"
-    case PleaseEnterEmail = "PleaseEnterEmail"
+    case ContactUsAertrip
+    case CopyrightAertrip
+    case CheckoutMyFavouriteHotels
+    case SendWithSpace
+    case PleaseEnterEmail
     
+    // Select Trip Screen
+    case SelectTrip
+    case CreateNewTrip
+    case NameYourTrip
     
-    //Select Trip Screen
-    case SelectTrip = "SelectTrip"
-    case CreateNewTrip = "CreateNewTrip"
-    case NameYourTrip = "NameYourTrip"
+    // Hotel Checkout Deatail Selection screen
+    case Guests
     
-    //Hotel Checkout Deatail Selection screen
-    case Guests = "Guests"
+    // Hotel Checkout Guest Details screen
+    case GuestDetails
     
-    //Hotel Checkout Guest Details screen
-    case GuestDetails = "GuestDetails"
-   
-    case Details = "Details"
+    case Details
     case PreferencesSpecialRequests = "Preferences, Special Requests"
-    case Optional = "Optional"
-    case EmailMobileCommunicationMessageForBooking = "EmailMobileCommunicationMessageForBooking"
-    case FareIncreasedBy = "FareIncreasedBy"
-    case TotalUpdatedPrice = "TotalUpdatedPrice"
-    case ContinueBooking = "ContinueBooking"
-    case GoBackToResults = "GoBackToResults"
-    case FareDippedBy = "FareDippedBy"
-    case FareBreakup = "FareBreakup"
-    case TotalPayableNow = "TotalPayableNow"
-    case Confirm = "Confirm"
-
-    //Hotel Checkout Coupons VC
-    case Coupons = "Coupons"
-    case EnterCouponCode = "EnterCouponCode"
-    case OfferTerms = "OfferTerms"
-    case Code = "Code"
-    case NoCouponRequired = "NoCouponRequired"
-    case YouAlreadyHaveBestPrice = "YouAlreadyHaveBestPrice"
+    case Optional
+    case EmailMobileCommunicationMessageForBooking
+    case FareIncreasedBy
+    case TotalUpdatedPrice
+    case ContinueBooking
+    case GoBackToResults
+    case FareDippedBy
+    case FareBreakup
+    case TotalPayableNow
+    case Confirm
     
-    //Hotel Checkout Special Request VC
-    case AirlineNameFlightNumberArrivalTime = "AirlineNameFlightNumberArrivalTime"
-    case SpecialRequestIfAny = "SpecialRequestIfAny"
+    // Hotel Checkout Coupons VC
+    case Coupons
+    case EnterCouponCode
+    case OfferTerms
+    case Code
+    case NoCouponRequired
+    case YouAlreadyHaveBestPrice
     
-    //Final Checkout Screen
-    case CheckoutTitle = "CheckoutTitle"
-    case ApplyCoupon = "ApplyCoupon"
-    case PayByAertripWallet = "PayByAertripWallet"
-    case Balance = "Balance"
-    case FareDetails = "FareDetails"
-    case Pay = "Pay"
-    case FareRules = "FareRules"
-    case CheckOutPrivacyAndPolicyTerms = "CheckOutPrivacyAndPolicyTerms"
+    // Hotel Checkout Special Request VC
+    case AirlineNameFlightNumberArrivalTime
+    case SpecialRequestIfAny
+    
+    // Final Checkout Screen
+    case CheckoutTitle
+    case ApplyCoupon
+    case PayByAertripWallet
+    case Balance
+    case FareDetails
+    case Pay
+    case FareRules
+    case CheckOutPrivacyAndPolicyTerms
     case CheckOutFareRulesPrivacyAndPolicyTerms
-    case PayableWalletMessage = "PayableWalletMessage"
-    case NetEffectiveFare = "NetEffectiveFare"
-    case GrossFare = "GrossFare"
-    case Discounts  = "Discounts"
-    case CouponDiscount = "CouponDiscount"
-    case AertripWallet = "AertripWallet"
-    case CurrencyOptions = "CurrencyOptions"
-    case CheckOutCurrencyOptionInfoMessage = "CheckOutCurrencyOptionInfoMessage"
-    case Rating = "Rating"
-   
+    case PayableWalletMessage
+    case NetEffectiveFare
+    case GrossFare
+    case Discounts
+    case CouponDiscount
+    case AertripWallet
+    case CurrencyOptions
+    case CheckOutCurrencyOptionInfoMessage
+    case Rating
     
-    //Select Guests
-    case SelectGuests = "SelectGuests"
+    // Select Guests
+    case SelectGuests
     
-    case EmailItineraries = "EmailItineraries"
-    case SendToAll = "SendToAll"
+    case EmailItineraries
+    case SendToAll
     
-    //Booking Incomplete Screen
-    case BookingIncomplete = "BookingIncomplete"
-    case YourWalletMoneyOf = "YourWalletMoneyOf"
-    case WasUsedForAnotherTransaction = "WasUsedForAnotherTransaction"
-    case BookingAmount = "BookingAmount"
-    case PaidAmount = "PaidAmount"
-    case BalanceAmount = "BalanceAmount"
-    case RequestRefund = "RequestRefund"
-    case BookingIncompleteBottomMessage = "BookingIncompleteBottomMessage"
+    // Booking Incomplete Screen
+    case BookingIncomplete
+    case YourWalletMoneyOf
+    case WasUsedForAnotherTransaction
+    case BookingAmount
+    case PaidAmount
+    case BalanceAmount
+    case RequestRefund
+    case BookingIncompleteBottomMessage
     
-    //Refund Requested
-    case Requested = "Requested"
-    case WeNotedYourRequestToRefund = "WeNotedYourRequestToRefund"
-    case ToYour = "ToYour"
-    case ReturnHome = "ReturnHome"
-    case ThisWillCancelThisBookingAndAmountRefundToPayment = "ThisWillCancelThisBookingAndAmountRefundToPayment"
-
-    case Change = "Change"
-    case YourBookingIDIs = "YourBookingIDIs"
-    case YourCaseIDIs = "YourCaseIDIs"
-    case AndAllDetailsWillBeSentToYourEmail = "AndAllDetailsWillBeSentToYourEmail"
-    case YouAreAllDoneLabel = "YouAreAllDoneLabel"
-    case AddToAppleWallet = "AddToAppleWallet"
-    case BookingDetails = "BookingDetails"
-    case Website = "Website"
-    case Beds = "Beds"
-    case EmailItinerary = "EmailItinerary"
-    case TotalCharge = "TotalCharge"
-    case ConfirmationVoucher = "ConfirmationVoucher"
-    case View = "View"
-    case TellYourFriendsAboutYourPlan = "TellYourFriendsAboutYourPlan"
-    case WhatNext = "WhatNext"
-    case InstantCashBackAppliedText = "InstantCashBackAppliedText"
-    case WalletCashBackAppliedText = "WalletCashBackAppliedText"
+    // Refund Requested
+    case Requested
+    case WeNotedYourRequestToRefund
+    case ToYour
+    case ReturnHome
+    case ThisWillCancelThisBookingAndAmountRefundToPayment
+    
+    case Change
+    case YourBookingIDIs
+    case YourCaseIDIs
+    case AndAllDetailsWillBeSentToYourEmail
+    case YouAreAllDoneLabel
+    case AddToAppleWallet
+    case BookingDetails
+    case Website
+    case Beds
+    case EmailItinerary
+    case TotalCharge
+    case ConfirmationVoucher
+    case View
+    case TellYourFriendsAboutYourPlan
+    case WhatNext
+    case InstantCashBackAppliedText
+    case WalletCashBackAppliedText
     case CouponApplied = "Coupon Applied:"
-    case convenienceFee1 = "convenienceFee1"
-    case convenienceFee2 = "convenienceFee2"
-    case ConfirmBooking = "ConfirmBooking"
-    case ConvenienceFee = "ConvenienceFee"
-    case InvalidCouponCodeText = "InvalidCouponCodeText"
-    case PleaseEnterCouponCode = "PleaseEnterCouponCode"
+    case convenienceFee1
+    case convenienceFee2
+    case ConfirmBooking
+    case ConvenienceFee
+    case InvalidCouponCodeText
+    case PleaseEnterCouponCode
     
-    case EnterIsdMessage = "EnterIsdMessage"
-    case GuestDetailsMessage = "GuestDetailsMessage"
-    case EnterMobileNumberMessage = "EnterMobileNumberMessage"
-    case EnterEmailAddressMessage = "EnterEmailAddressMessage"
-    case UnableToGetMail = "UnableToGetMail"
-    case ImportantNote = "ImportantNote"
-    case YourBookingIdStmt = "YourBookingIdStmt"
-    case AertripEmailId = "AertripEmailId"
-    case ThankYouStmtForBookingId = "ThankYouStmtForBookingId"
-    case ThankYouStmtForCId = "ThankYouStmtForCId"
-    case WriteReviews = "WriteReviews"
-    case Photos = "Photos"
-    case ReadReviews = "ReadReviews"
+    case EnterIsdMessage
+    case GuestDetailsMessage
+    case EnterMobileNumberMessage
+    case EnterEmailAddressMessage
+    case UnableToGetMail
+    case ImportantNote
+    case YourBookingIdStmt
+    case AertripEmailId
+    case ThankYouStmtForBookingId
+    case ThankYouStmtForCId
+    case WriteReviews
+    case Photos
+    case ReadReviews
     
-    //AccountDetails Screen
-    case Accounts = "Accounts"
-    case AccountsLegder = "AccountsLegder"
+    // AccountDetails Screen
+    case Accounts
+    case AccountsLegder
     case AccountLegder
-    case Amount = "Amount"
+    case Amount
     case Pending
-    case Voucher = "Voucher"
+    case Voucher
     
-    //MARK:- BookingVC
-    case MyBookings = "MyBookings"
-    case NoBookingsYet = "NoBookingsYet"
-    case StartYourWanderlustJourneyWithUs = "StartYourWanderlustJourneyWithUs"
-    case TravelDate = "TravelDate"
-    case EventType  = "Event Type"
-    case BookingDate = "BookingDate"
-    case FromDate = "FromDate"
-    case ToDate = "ToDate"
-    case Upcoming = "Upcoming"
-    case Completed = "Completed"
-    case Cancelled = "Cancelled"
+    // MARK: - BookingVC
+    
+    case MyBookings
+    case NoBookingsYet
+    case StartYourWanderlustJourneyWithUs
+    case TravelDate
+    case EventType = "Event Type"
+    case BookingDate
+    case FromDate
+    case ToDate
+    case Upcoming
+    case Completed
+    case Cancelled
     case YouHaveNoUpcomingBookings
     case YouHaveNoComletedBookings
     case YouHaveNoCancelledBookings
     case YouHaveNoPendingAction
-    case NewDestinationsAreAwaiting = "NewDestinationsAreAwaiting"
-    case BookingIDAndDate = "BookingIDAndDate"
-    case Documents = "Documents"
-    case PaymentInfo = "PaymentInfo"
-    case Booking = "Booking"
-    case Paid = "Paid"
-    case FareInfo = "FareInfo"
+    case NewDestinationsAreAwaiting
+    case BookingIDAndDate
+    case Documents
+    case PaymentInfo
+    case Booking
+    case Paid
+    case FareInfo
     case ViewDetails
     case TravellersAddOns
     case BookingPolicy
@@ -719,46 +757,44 @@ enum LocalizedString: String {
     // Booking Cancellation VC
     case Cancellation
     
+    // MARK: - AerinVC
     
-    //MARK: - AerinVC
-    case Hi = "Hi"
-    case HelpMessage = "HelpMessage"
-    case ShowPendingActionsOnly = "ShowPendingActionsOnly"
-    case DateSpan = "DateSpan"
-    case VoucherType = "VoucherType"
+    case Hi
+    case HelpMessage
+    case ShowPendingActionsOnly
+    case DateSpan
+    case VoucherType
     
-    //MARK: - Import Contact Screen
+    // MARK: - Import Contact Screen
+    
     case NoContactFoundInDevice
     case NoContactFoundInFB
     case NoContactFoundInGoogle
     case NotAbleToSaveContactTryAgain
     case SelectMaxNContacts
     
+    // MARK: - Aerin Text Speech VC
     
-    //MARK: - Aerin Text Speech VC
     case TryAskingFor
     case FilterText
     case Listening
     
-    //MARK: - Aerin Text Speech Detail VC
+    // MARK: - Aerin Text Speech Detail VC
     
-    case Departure = "Departure"
-    case Return = "Return"
-    case Class = "Class"
-    case TapToEdit = "TapToEdit"
+    case Departure
+    case Return
+    case Class
+    case TapToEdit
     case ThingsYouCanAskMe
     case FilterApplied
     
-    
     // Booking Details VC
-    case ForwardArrow 
+    case ForwardArrow
     case Dimensions
     case HandBaggageDimensions
     
+    // MARK: - Account Ladger
     
-   
-    
-    //MARK:- Account Ladger
     case DownloadAsPdf
     case NoTransactions
     case NoResultsFound
@@ -767,7 +803,8 @@ enum LocalizedString: String {
     case BookingID
     case OpeningBalance
     
-    //MARK:- OutStanding Ladger
+    // MARK: - OutStanding Ladger
+    
     case Summary
     case OutstandingLedger
     case GrossOutstanding
@@ -778,7 +815,8 @@ enum LocalizedString: String {
     case SelectBookingsPay
     case MakePayment
     
-    //MARK:- On Account Screen
+    // MARK: - On Account Screen
+    
     case ason
     case PeriodicStatement
     case NoStatementGenerated
@@ -813,38 +851,38 @@ enum LocalizedString: String {
     case PhotoLibrary
     case Document
     case ChooseOptionToSelect
-    //MARK: - OTHER BOOKING PRODUCT DETAIL
+    
+    // MARK: - OTHER BOOKING PRODUCT DETAIL
     
     case BillingName
     case GSTIN
     case BillingAddress
     
+    case Economy
+    case Carriers
     
-    case Economy = "Economy"
-    case Carriers = "Carriers"
-    
-    case Refund = "Refund"
-    case PaymentPending = "PaymentPending"
-    case WebCheckin = "WebCheckin"
+    case Refund
+    case PaymentPending
+    case WebCheckin
     case Weather
-    case SeeAll = "SeeAll"
-    case Downloading = "Downloading"
-    case Requests = "Requests"
+    case SeeAll
+    case Downloading
+    case Requests
     case capNotes = "NOTES"
-    case newDate = "newDate"
-    case selectNewDepartingDate = "selectNewDepartingDate"
-    case newDepartingDate = "newDepartingDate"
-    case customerExecutiveWillContact = "customerExecutiveWillContact"
-    case preferredFlightNo = "preferredFlightNo"
-    case ReschedulingRequestHasBeenSent = "ReschedulingRequestHasBeenSent"
-    case OurCustomerServiceRepresenstativeWillContact = "OurCustomerServiceRepresenstativeWillContact"
-    case ProcessCancellation = "ProcessCancellation"
-    case CancellationHasBeenProcessed = "CancellationHasBeenProcessed"
-    case ResendConfirmationEmail = "ResendConfirmationEmail"
-    case SelectHotelOrRoomsForCancellation = "SelectHotelOrRoomsForCancellation"
-    case SpecialRequestHasBeenSent = "SpecialRequestHasBeenSent"
-    case WriteAboutYourSpecialRequest = "WriteAboutYourSpecialRequest"
-    case RequestType = "RequestType"
+    case newDate
+    case selectNewDepartingDate
+    case newDepartingDate
+    case customerExecutiveWillContact
+    case preferredFlightNo
+    case ReschedulingRequestHasBeenSent
+    case OurCustomerServiceRepresenstativeWillContact
+    case ProcessCancellation
+    case CancellationHasBeenProcessed
+    case ResendConfirmationEmail
+    case SelectHotelOrRoomsForCancellation
+    case SpecialRequestHasBeenSent
+    case WriteAboutYourSpecialRequest
+    case RequestType
     
     case DownloadBlankDepositSlip
     case ChequeShouldDepositedInAccount
@@ -854,9 +892,13 @@ enum LocalizedString: String {
     case IFSCCode
     case AccountType
     
-    //MARK: - Amount Double
+    // MARK: - Amount Double
+    
     case AmountToBeRefunded
     
-
+    // MARK: - Booking CallVC
     
- }
+    case Aertip
+    case Airlines
+    case Airports
+}

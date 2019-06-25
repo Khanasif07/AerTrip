@@ -27,13 +27,17 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xfj-KQ-4It">
                         <rect key="frame" x="16" y="0.0" width="343" height="38"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ul1-s9-rti">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boy" translatesAutoresizingMaskIntoConstraints="NO" id="ul1-s9-rti">
                                 <rect key="frame" x="16" y="4" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="514-l1-r8k"/>
                                     <constraint firstAttribute="width" secondItem="ul1-s9-rti" secondAttribute="height" multiplier="1:1" id="RV1-c3-LhW"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I9W-we-Zgr">
+                                <rect key="frame" x="16" y="4" width="30" height="30"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mast. Kevin Gilbert (Child)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJr-6M-hya">
                                 <rect key="frame" x="56" y="8.5" width="174" height="21"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
@@ -61,7 +65,11 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ydu-ud-8A6" secondAttribute="trailing" constant="16" id="4bb-Fu-PCO"/>
                             <constraint firstItem="dJr-6M-hya" firstAttribute="leading" secondItem="ul1-s9-rti" secondAttribute="trailing" constant="10" id="7VN-Lr-J0Z"/>
+                            <constraint firstItem="I9W-we-Zgr" firstAttribute="bottom" secondItem="ul1-s9-rti" secondAttribute="bottom" id="Bud-kK-CTC"/>
+                            <constraint firstItem="I9W-we-Zgr" firstAttribute="top" secondItem="ul1-s9-rti" secondAttribute="top" id="CPP-qI-h39"/>
                             <constraint firstItem="dJr-6M-hya" firstAttribute="centerY" secondItem="ul1-s9-rti" secondAttribute="centerY" id="Dhf-vr-Gkr"/>
+                            <constraint firstItem="I9W-we-Zgr" firstAttribute="trailing" secondItem="ul1-s9-rti" secondAttribute="trailing" id="EIf-kC-6Fz"/>
+                            <constraint firstItem="I9W-we-Zgr" firstAttribute="leading" secondItem="ul1-s9-rti" secondAttribute="leading" id="W3Y-n2-TgQ"/>
                             <constraint firstItem="ydu-ud-8A6" firstAttribute="leading" secondItem="dJr-6M-hya" secondAttribute="trailing" constant="10" id="aO6-nV-aei"/>
                             <constraint firstItem="ul1-s9-rti" firstAttribute="top" secondItem="xfj-KQ-4It" secondAttribute="top" constant="4" id="bxI-Zh-GTb"/>
                             <constraint firstItem="HeF-tH-83A" firstAttribute="trailing" secondItem="dJr-6M-hya" secondAttribute="trailing" id="fi4-A4-eca"/>
@@ -86,6 +94,7 @@
                 <outlet property="containerView" destination="xfj-KQ-4It" id="UtL-SQ-Lgu"/>
                 <outlet property="containerViewBottomConstraint" destination="T48-yP-Pdf" id="vVx-OD-ANp"/>
                 <outlet property="nameDividerView" destination="HeF-tH-83A" id="TGx-iO-1Mm"/>
+                <outlet property="tavellerImageBlurView" destination="I9W-we-Zgr" id="Iv1-yr-Jd8"/>
                 <outlet property="travellerImageView" destination="ul1-s9-rti" id="pLo-6s-vln"/>
                 <outlet property="travellerImgViewBottomConstraint" destination="xfd-yz-eDg" id="KkN-y3-rY0"/>
                 <outlet property="travellerNameLabel" destination="dJr-6M-hya" id="QBb-TI-tj3"/>
@@ -93,4 +102,7 @@
             </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="boy" width="20" height="20"/>
+    </resources>
 </document>

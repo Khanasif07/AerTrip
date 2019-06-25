@@ -77,8 +77,7 @@ class AppFlowManager: NSObject {
     func getNavigationController(forPresentVC: UIViewController) -> SwipeNavigationController {
         let nav = SwipeNavigationController(rootViewController: forPresentVC)
         let textAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(17.0),
-                              NSAttributedString.Key.foregroundColor: AppColors.themeWhite
-        ]
+                              NSAttributedString.Key.foregroundColor: AppColors.themeWhite]
         
         nav.navigationBar.titleTextAttributes = textAttributes
         nav.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
@@ -400,7 +399,6 @@ extension AppFlowManager {
         }
     }
     
-    
     func showCancellationRequest(buttonTitle: String) {
         if let mVC = UIApplication.topViewController() {
             let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
@@ -408,7 +406,6 @@ extension AppFlowManager {
             mVC.add(childViewController: ob)
         }
     }
-    
     
     func presentHotelDetailsVC(_ vc: HotelResultVC, hotelInfo: HotelSearched, sourceView: UIView, sid: String, hotelSearchRequest: HotelSearchRequestModel?) {
         if let topVC = UIApplication.topViewController() {
@@ -581,9 +578,10 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
+    // MARK: - Booking Module
     
-    //MARK:- Booking Module
-    //MARK:----
+    // MARK: ----
+    
     func moveToMyBookingsVC() {
         let obj = MyBookingsVC.instantiate(fromAppStoryboard: .Bookings)
         self.mainNavigationController.pushViewController(obj, animated: true)
@@ -604,21 +602,23 @@ extension AppFlowManager {
         }
     }
     
-    //MARK:- Booking Detail VC
-    //MARK:-
+    // MARK: - Booking Detail VC
+    
+    // MARK: -
+    
     func moveToOtherBookingsDetailsVC(bookingId: String) {
         let obj = OtherBookingsDetailsVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.bookingId = bookingId
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToFlightBookingsDetailsVC(bookingId: String,tripCitiesStr: NSMutableAttributedString?) {
+    func moveToFlightBookingsDetailsVC(bookingId: String, tripCitiesStr: NSMutableAttributedString?) {
         let obj = FlightBookingsDetailsVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.bookingId = bookingId
         obj.viewModel.tripCitiesStr = tripCitiesStr
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
-
+    
     func moveToHotlelBookingsDetailsVC(bookingId: String) {
         let obj = HotlelBookingsDetailsVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.bookingId = bookingId
@@ -838,8 +838,9 @@ extension AppFlowManager {
     
     // Move To Booking Call VC
     
-    func moveToBookingCallVC() {
+    func moveToBookingCallVC(contactInfo: ContactInfo?) {
         let obj = BookingCallVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.viewModel.contactInfo = contactInfo
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -851,9 +852,10 @@ extension AppFlowManager {
     }
     
     // Move To Booking Direction VC
-
-    func moveToBookingDirectionVC() {
+    
+    func moveToBookingDirectionVC(directions: [Direction]) {
         let obj = BookingDirectionVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.viewModel.directionData = directions
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -879,14 +881,12 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    
     // Move to Booking confirm email
     
     func presentConfirmationMailVC() {
         let obj = BookingConfimationMailVC.instantiate(fromAppStoryboard: .Bookings)
         self.mainNavigationController.present(obj, animated: true)
     }
-    
 }
 
 // MARK: - Select Trip Flow Methods
@@ -951,7 +951,6 @@ extension AppFlowManager {
 
 extension AppFlowManager: UIDocumentInteractionControllerDelegate {
     func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
-        
         guard let navVC = UIApplication.topViewController() else {
             return AppFlowManager.default.mainNavigationController
         }

@@ -88,7 +88,7 @@ extension FlightBookingsDetailsVC {
         
         let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section - self.viewModel.noOfLegCellAboveLeg]
         cell.configCell(boardingCity: leg?.flight.last?.departCity ?? "", destinationCity: leg?.flight.last?.departCity ?? "", boardingCode: leg?.flight.first?.departure ?? "", destinationCode: leg?.flight.last?.departure ?? "", legDuration: leg?.legDuration.asString(units: [.hour, .minute], style: .abbreviated) ?? LocalizedString.na.localized, boardingTime: leg?.flight.first?.departureTime ?? "", destinationTime: leg?.flight.last?.departureTime ?? "", boardingDate: leg?.flight.first?.departDate?.toString(dateFormat: "E, d MMM yyyy") ?? "", destinationDate: leg?.flight.last?.departDate?.toString(dateFormat: "E, d MMM yyyy") ?? "", economyClass: leg?.cabinClass ?? "-")
-
+        
         cell.noOfStops = leg?.numberOfStop ?? 0
         cell.clipsToBounds = true
         return cell
@@ -172,7 +172,7 @@ extension FlightBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         cell.titleTopConstraint.constant = 12.0
         cell.titleBottomConstraint.constant = 5.0
-        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.paid.delimiterWithSymbol, isLastCell: false, cellHeight: 37.0)
+        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.paid.delimiterWithSymbol, isLastCell: self.viewModel.bookingDetail?.totalOutStanding == 0.0 ? true : false, cellHeight: 37.0)
         cell.dividerView.isHidden = false
         cell.clipsToBounds = true
         return cell

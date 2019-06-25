@@ -64,6 +64,7 @@
                         </connections>
                     </button>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="fyV-k1-zGx" firstAttribute="top" secondItem="fWL-b3-VSY" secondAttribute="bottom" constant="26.899999999999999" id="5DG-4D-zFm"/>
                     <constraint firstItem="fWL-b3-VSY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="C9e-3s-gf4"/>
@@ -78,6 +79,7 @@
                     <constraint firstAttribute="bottom" secondItem="P7o-Cm-3vm" secondAttribute="bottom" constant="13" id="xbb-gE-8hG"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="addToAppleWallet" destination="P7o-Cm-3vm" id="6Sf-97-vZD"/>
