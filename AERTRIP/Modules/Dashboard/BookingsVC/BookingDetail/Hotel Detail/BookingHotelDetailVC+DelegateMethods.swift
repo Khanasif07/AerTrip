@@ -187,7 +187,7 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
             if indexPath.row == 1 {
                 AppFlowManager.default.moveToVoucherVC()
             } else if indexPath.row == 3 {
-                AppFlowManager.default.moveToAddOnRequestVC(self.viewModel.hotelData)
+//                AppFlowManager.default.moveToAddOnRequestVC(caseData: nil)
             }
         }
     }
@@ -229,11 +229,11 @@ extension BookingHotelDetailVC: HotelDetailAmenitiesCellDelegate {
 
 extension BookingHotelDetailVC: BookingCancellationPolicyTableViewCellDelegate {
     func bookingPolicyButtonTapped() {
-        AppFlowManager.default.presentPolicyVC(.bookingPolicy)
+        AppFlowManager.default.presentPolicyVC(.bookingPolicy, bookingDetail: self.viewModel.bookingDetail)
     }
     
     func cancellationPolicyButonTapped() {
-        AppFlowManager.default.presentPolicyVC(.cancellationPolicy)
+        AppFlowManager.default.presentPolicyVC(.cancellationPolicy, bookingDetail: self.viewModel.bookingDetail)
     }
 }
 
@@ -245,6 +245,4 @@ extension BookingHotelDetailVC: SelectTripVCDelegate {
     func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel, tripDetails: TripDetails?) {
         //
     }
-    
-    
 }

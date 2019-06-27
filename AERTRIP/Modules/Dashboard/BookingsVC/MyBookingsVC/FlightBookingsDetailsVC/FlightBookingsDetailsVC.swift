@@ -78,6 +78,12 @@ class FlightBookingsDetailsVC: BaseVC {
         }
     }
     
+    override func dataChanged(_ note: Notification) {
+        if let noti = note.object as? ATNotification, noti == .myBookingCasesRequestStatusChanged {
+            self.viewModel.getBookingDetail()
+        }
+    }
+    
     // MARK: - Functions
     
     // MARK: -

@@ -69,7 +69,7 @@ class MyBookingsVC: BaseVC {
         
         self.allTabsStr.removeAll()
     }
-    
+
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
             if noti == .myBookingFilterApplied {
@@ -78,6 +78,9 @@ class MyBookingsVC: BaseVC {
             else if noti == .myBookingFilterCleared {
                 self.topNavBar.firstRightButton.isSelected = false
                 MyBookingFilterVM.shared.setToDefault()
+            }
+            else if noti == .myBookingCasesRequestStatusChanged {
+                MyBookingsVM.shared.getBookings()
             }
         }
     }

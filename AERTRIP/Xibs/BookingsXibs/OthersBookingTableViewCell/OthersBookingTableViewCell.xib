@@ -38,17 +38,17 @@
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ER8-yh-LDO">
-                                        <rect key="frame" x="70" y="9.5" width="273" height="63.5"/>
+                                        <rect key="frame" x="70" y="9.5" width="268" height="63.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KKx-eO-RBL">
-                                                <rect key="frame" x="0.0" y="0.0" width="273" height="45.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="268" height="45.5"/>
                                                 <string key="text"> ajsdv jasgd jasgd jags djhgasj dgvasjd ajhsg djkashgd hjasgd jsahg djasg djags djkgas jkd gasj dgasd hjkfg kjshgf jkashgd asgd jaghdj gasjdk gaskj dkjashgd jkasg djkasgh djashg djhasg dhjksag djghasjd gjsahg djkagsd</string>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label sdg asdg jasgdkj asgdjkas gdjhgas jdghas gdjas ghdjgakjsdg jashgd jkashgd jahsg djasg djgask d" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DtD-ig-vT8">
-                                                <rect key="frame" x="0.0" y="45.5" width="273" height="18"/>
+                                                <rect key="frame" x="0.0" y="45.5" width="268" height="18"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -60,7 +60,7 @@
                                 <constraints>
                                     <constraint firstItem="Vnh-M9-I15" firstAttribute="leading" secondItem="fP2-dV-8J0" secondAttribute="leading" constant="20" id="74h-BC-tGV"/>
                                     <constraint firstItem="Vnh-M9-I15" firstAttribute="centerY" secondItem="fP2-dV-8J0" secondAttribute="centerY" id="Hqj-Jk-gvt"/>
-                                    <constraint firstAttribute="trailing" secondItem="ER8-yh-LDO" secondAttribute="trailing" id="LzY-lB-Dqz"/>
+                                    <constraint firstAttribute="trailing" secondItem="ER8-yh-LDO" secondAttribute="trailing" constant="5" id="LzY-lB-Dqz"/>
                                     <constraint firstItem="ER8-yh-LDO" firstAttribute="leading" secondItem="Vnh-M9-I15" secondAttribute="trailing" constant="20" id="QFb-9W-I5B"/>
                                     <constraint firstAttribute="height" constant="82" id="sw2-Qn-rGF"/>
                                     <constraint firstItem="ER8-yh-LDO" firstAttribute="centerY" secondItem="Vnh-M9-I15" secondAttribute="centerY" id="wHz-FC-QDX"/>

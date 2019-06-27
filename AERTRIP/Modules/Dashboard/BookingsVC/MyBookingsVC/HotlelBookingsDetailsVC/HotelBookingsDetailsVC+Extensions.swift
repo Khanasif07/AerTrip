@@ -132,8 +132,7 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("\(indexPath.section)")
-        AppFlowManager.default.moveToBookingHotelDetailVC()
-    
+        AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: self.viewModel.bookingDetail)
     }
 }
 

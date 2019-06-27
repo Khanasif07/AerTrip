@@ -637,8 +637,9 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated: true)
     }
     
-    func moveToAbortRequestVC() {
+    func moveToAbortRequestVC(forCase: Case) {
         let obj = AbortRequestVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.viewModel.caseToAbort = forCase
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -793,14 +794,16 @@ extension AppFlowManager {
         self.mainNavigationController.present(ob, animated: true)
     }
     
-    func moveToBookingHotelDetailVC() {
+    func moveToBookingHotelDetailVC(bookingDetail: BookingDetailModel?) {
         let ob = BookingHotelDetailVC.instantiate(fromAppStoryboard: .Bookings)
+        ob.viewModel.bookingDetail = bookingDetail
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
-    func presentPolicyVC(_ usingForVC: VCUsingFor) {
+    func presentPolicyVC(_ usingForVC: VCUsingFor, bookingDetail: BookingDetailModel?) {
         let ob = BookingCancellationPolicyVC.instantiate(fromAppStoryboard: .Bookings)
         ob.viewModel.vcUsingType = usingForVC
+        ob.viewModel.bookingDetail = bookingDetail
         self.mainNavigationController.present(ob, animated: true)
     }
     
@@ -816,9 +819,9 @@ extension AppFlowManager {
     
     // Move to Add on Request Clel
     
-    func moveToAddOnRequestVC(_ hotelData: HotelDetails = HotelDetails()) {
+    func moveToAddOnRequestVC(caseData: Case) {
         let obj = BookingAddOnRequestVC.instantiate(fromAppStoryboard: .Bookings)
-        obj.hotelData = hotelData
+        obj.viewModel.caseData = caseData
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     

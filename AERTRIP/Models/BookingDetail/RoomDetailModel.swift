@@ -54,7 +54,85 @@ struct RoomDetailModel {
     }
 }
 
-struct Cancellation {}
+
+struct CancellationCharges {
+    
+    var from: Date?
+    var to: Date?
+    var isRefundable: Bool = false
+    var cancellationFee: Double = 0.0
+    
+    
+    var fromStr: String {
+        let str = self.from?.toString(dateFormat: "EEE, dd MMM yyyy HH:mm") ?? ""
+        return str.isEmpty ? LocalizedString.dash.localized : str
+    }
+    
+    var toStr: String {
+        let str = self.to?.toString(dateFormat: "EEE, dd MMM yyyy HH:mm") ?? ""
+        return str.isEmpty ? LocalizedString.dash.localized : str
+    }
+    
+    var isFree: Bool {
+        return cancellationFee == 0.0
+    }
+    
+    init(json: JSONDictionary) {
+        
+        if let obj = json["from"] {
+            //"2019-04-04 12:36:34"
+            self.from = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
+        }
+        
+        if let obj = json["to"] {
+            //"2019-04-04 12:36:34"
+            self.to = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
+        }
+        
+        if let obj = json["is_refundable"] {
+            self.isRefundable = "\(obj)".toBool
+        }
+        
+        if let obj = json["cancellation_fee"] {
+            self.cancellationFee = "\(obj)".toDouble ?? 0.0
+        }
+    }
+    
+    static func getModels(jsonArr: [JSONDictionary]) -> [CancellationCharges] {
+        return jsonArr.map({ CancellationCharges(json: $0) })
+    }
+}
+
+struct CancellationPenalty {
+    
+    var isRefundable: Bool = false
+    var penaltyDescription: [String] = []
+    
+    init(json: JSONDictionary) {
+        if let obj = json["is_refundable"] {
+            self.isRefundable = "\(obj)".toBool
+        }
+        
+        if let obj = json["cancellation_penalty"] as? [String] {
+            self.penaltyDescription = obj
+        }
+    }
+}
+
+struct Cancellation {
+    var charges: [CancellationCharges] = []
+    var penalty: CancellationPenalty?
+    
+    init(json: JSONDictionary) {
+        if let obj = json["cancellation_charges"] as? [JSONDictionary] {
+            self.charges = CancellationCharges.getModels(jsonArr: obj)
+        }
+        
+        if let obj = json["cancellation_penalty"] as? JSONDictionary {
+            self.penalty = CancellationPenalty(json: obj)
+        }
+    }
+}
 
 struct Includes {
     var inclusions: [String] = []

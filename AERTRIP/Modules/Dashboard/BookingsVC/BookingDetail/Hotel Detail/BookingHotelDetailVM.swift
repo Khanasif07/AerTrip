@@ -16,7 +16,8 @@ protocol BookingHotelDetailVMDelgate: class {
 
 class BookingHotelDetailVM {
     
-     var hotelData: HotelDetails = HotelDetails()
+    var bookingDetail: BookingDetailModel?
+    var hotelData: HotelDetails = HotelDetails()
     
     weak var delegate : BookingHotelDetailVMDelgate?
     
@@ -38,7 +39,4 @@ class BookingHotelDetailVM {
             }
         }
     }
-
-
-
 }

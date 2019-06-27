@@ -20,15 +20,13 @@ class BookingRequestRouteTableViewCell: ATTableViewCell {
         self.routeIdLabel.font = AppFonts.Regular.withSize(16.0)
     }
     
-    override func setupTexts() {
-        self.routeLabel.text = "BOM → DEL"
-        self.routeIdLabel.text = "CS/16-17/453640"
-    }
-    
     override func setupColors() {
         self.routeLabel.textColor = AppColors.themeBlack
         self.routeIdLabel.textColor = AppColors.themeGray40
     }
 
-   
+    func configure(title: String, detail: String) {
+        self.routeLabel.text = title
+        self.routeIdLabel.text = detail
+    }
 }

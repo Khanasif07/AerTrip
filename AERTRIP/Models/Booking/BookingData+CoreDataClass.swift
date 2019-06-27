@@ -13,7 +13,7 @@ import CoreData
 @objc(BookingData)
 public class BookingData: NSManagedObject {
     
-    class func insert(dataDict: JSONDictionary, into context: NSManagedObjectContext = CoreDataManager.shared.managedObjectContext) -> BookingData {
+    class func insert(dataDict: JSONDictionary, into context: NSManagedObjectContext = CoreDataManager.shared.managedObjectContext, isBulkInsertion: Bool = false) -> BookingData {
         
         var booking: BookingData?
         
@@ -179,7 +179,9 @@ public class BookingData: NSManagedObject {
             }
         }
         
-        CoreDataManager.shared.saveContext(managedContext: context)
+        if !isBulkInsertion {
+            CoreDataManager.shared.saveContext(managedContext: context)
+        }
         
         return booking!
     }
@@ -193,16 +195,16 @@ public class BookingData: NSManagedObject {
         var tempDataArr = [BookingData]()
         // set up a managed object context just for the insert. This is in addition to the managed object context you may have in your App Delegate.
         let managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType)
-//        managedObjectContext.persistentStoreCoordinator = CoreDataManager.shared.persistentStoreCoordinator
+        managedObjectContext.persistentStoreCoordinator = CoreDataManager.shared.persistentStoreCoordinator
         managedObjectContext.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType)
-        managedObjectContext.parent = CoreDataManager.shared.managedObjectContext
+//        managedObjectContext.parent = CoreDataManager.shared.managedObjectContext
         
         managedObjectContext.perform { // runs asynchronously
-            while true { // loop through each batch of inserts. Your implementation may vary.
+//            while true { // loop through each batch of inserts. Your implementation may vary.
                 autoreleasepool { // auto release objects after the batch save
                     // insert new entity object
                     for dataDict in dataDictArray {
-                        let dataTemp = BookingData.insert(dataDict: dataDict, into: managedObjectContext)
+                        let dataTemp = BookingData.insert(dataDict: dataDict, into: managedObjectContext, isBulkInsertion: true)
                         dataArr.append(dataTemp)
                     }
                 }
@@ -231,9 +233,11 @@ public class BookingData: NSManagedObject {
                         tempDataArr.append(data)
                     }
                     completionBlock(tempDataArr)
+                    
+//                    completionBlock(dataArr)
                 })
-                return
-            }
+//                return
+//            }
         }
     }
     

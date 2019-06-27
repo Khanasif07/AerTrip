@@ -83,7 +83,7 @@ struct BookingDetailModel {
         }
         
         if let data = json["cases"] as? [JSONDictionary], !data.isEmpty {
-            self.cases = Case.retunsCaseArray(jsonArr: data)
+            self.cases = Case.retunsCaseArray(jsonArr: data, bookindId: self.id)
         }
         else {
             let arr = [
@@ -136,7 +136,7 @@ struct BookingDetailModel {
                 "note": ""
                 ]
             ]
-//            self.cases = Case.retunsCaseArray(jsonArr: arr)
+//            self.cases = Case.retunsCaseArray(jsonArr: arr, bookindId: self.id)
         }
         
         if let obj = json["user"] as? UserInfo {
@@ -469,7 +469,7 @@ struct BookingDetail {
         
         // TODO: For Room detail
         
-        if let obj = json["rooms"] as? JSONDictionary {
+        if let obj = json["cancellation"] as? JSONDictionary {
             self.cancellation = Cancellation(json: obj)
         }
         
@@ -1418,6 +1418,8 @@ struct Pax {
 // Struct Case
 
 struct Case {
+    
+    var bookingId = ""
     var id: String = ""
     var casedId: String = ""
     var caseType: String = ""
@@ -1425,25 +1427,41 @@ struct Case {
     var caseName: String = ""
     var caseStatus: String = ""
     var resolutionStatusId: String = ""
-    var resolutionStatus: String = ""
-    var requestDate: String = ""
+    var resolutionStatusStr: String = ""
+    var requestDate: Date?
     var csrName: String = ""
     var resolutionDate: String = ""
     var closedDate: String = ""
     var flag: String = ""
     var note: String = ""
+    var amount: Double = 0.0
     
-    init() {
-        self.init(json: [:])
+    var resolutionStatus: ResolutionStatus {
+        return ResolutionStatus(rawValue: resolutionStatusStr) ?? ResolutionStatus.closed
     }
     
-    init(json: JSONDictionary) {
+    init() {
+        self.init(json: [:], bookindId: "")
+    }
+    
+    init(json: JSONDictionary, bookindId: String) {
+        
+        self.bookingId = bookindId
+        
         if let obj = json["id"] {
             self.id = "\(obj)".removeNull
         }
         
         if let obj = json["case_id"] {
             self.casedId = "\(obj)".removeNull
+        }
+        
+        if let obj = json["resolution_status_id"] {
+            self.resolutionStatusId = "\(obj)".removeNull
+        }
+        
+        if let obj = json["resolution_status"] {
+            self.resolutionStatusStr = "\(obj)".removeNull
         }
         
         if let obj = json["case_type"] {
@@ -1454,7 +1472,7 @@ struct Case {
             self.typeSlug = "\(obj)".removeNull
         }
         
-        if let obj = json["csr_name"] {
+        if let obj = json["case_name"] {
             self.caseName = "\(obj)".removeNull
         }
         
@@ -1462,15 +1480,9 @@ struct Case {
             self.caseStatus = "\(obj)".removeNull
         }
         
-        if let obj = json["resolution_status_id"] {
-            self.resolutionStatusId = "\(obj)".removeNull
-        }
-        
-        if let obj = json["resolution_status"] {
-            self.resolutionStatus = "\(obj)".removeNull
-        }
         if let obj = json["request_date"] {
-            self.requestDate = "\(obj)".removeNull
+            //"2019-06-07 18:36:38"
+            self.requestDate = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
         if let obj = json["csr_name"] {
@@ -1490,12 +1502,17 @@ struct Case {
         if let obj = json["note"] {
             self.note = "\(obj)".removeNull
         }
+        
+        //TODO:- currently it is not comming.
+        if let obj = json["amount"] {
+            self.amount = "\(obj)".toDouble ?? 0.0
+        }
     }
     
-    static func retunsCaseArray(jsonArr: [JSONDictionary]) -> [Case] {
+    static func retunsCaseArray(jsonArr: [JSONDictionary], bookindId: String) -> [Case] {
         var cases = [Case]()
         for element in jsonArr {
-            cases.append(Case(json: element))
+            cases.append(Case(json: element, bookindId: bookindId))
         }
         return cases
     }

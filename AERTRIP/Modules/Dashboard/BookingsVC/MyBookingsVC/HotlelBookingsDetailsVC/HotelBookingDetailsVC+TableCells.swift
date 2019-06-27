@@ -26,7 +26,7 @@ extension HotlelBookingsDetailsVC {
     func getCancellationsRequestCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightBookingRequestsTableViewCell.reusableIdentifier, for: indexPath) as? FlightBookingRequestsTableViewCell else { return UITableViewCell() }
         let noOfCellAboveRequest = 2
-        cell.configureCell(requestName: self.viewModel.bookingDetail?.cases[indexPath.row - (noOfCellAboveRequest - 1)].caseType ?? "", actionStatus: self.viewModel.bookingDetail?.cases[indexPath.row - (noOfCellAboveRequest - 1)].resolutionStatus ?? "", isFirstCell: noOfCellAboveRequest - 1 == indexPath.row, isLastCell: indexPath.row == self.viewModel.bookingDetail?.cases.count, isStatusExpired: false)
+        cell.configureCell(requestName: self.viewModel.bookingDetail?.cases[indexPath.row - (noOfCellAboveRequest - 1)].caseType ?? "", actionStatus: self.viewModel.bookingDetail?.cases[indexPath.row - (noOfCellAboveRequest - 1)].resolutionStatus ?? ResolutionStatus.aborted, isFirstCell: noOfCellAboveRequest - 1 == indexPath.row, isLastCell: indexPath.row == self.viewModel.bookingDetail?.cases.count, isStatusExpired: false)
         cell.clipsToBounds = true
         return cell
     }
@@ -34,14 +34,14 @@ extension HotlelBookingsDetailsVC {
     
     func getAddOnRequestCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightBookingRequestsTableViewCell.reusableIdentifier, for: indexPath) as? FlightBookingRequestsTableViewCell else { return UITableViewCell() }
-        cell.configureCell(requestName: "Add-On Request", actionStatus: "In Progress", actionStatusColor: AppColors.themeRed, isFirstCell: false, isLastCell: false, isStatusExpired: false)
+        cell.configureCell(requestName: "Add-On Request", actionStatus: ResolutionStatus.inProgress, actionStatusColor: AppColors.themeRed, isFirstCell: false, isLastCell: false, isStatusExpired: false)
         cell.clipsToBounds = true
         return cell
     }
     
     func getReschedulingRequestCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightBookingRequestsTableViewCell.reusableIdentifier, for: indexPath) as? FlightBookingRequestsTableViewCell else { return UITableViewCell() }
-        cell.configureCell(requestName: "Rescheduling Request", actionStatus: "In Progress", actionStatusColor: AppColors.themeGreen, isFirstCell: false, isLastCell: (indexPath.row == 3), isStatusExpired: false)
+        cell.configureCell(requestName: "Rescheduling Request", actionStatus: ResolutionStatus.inProgress, actionStatusColor: AppColors.themeGreen, isFirstCell: false, isLastCell: (indexPath.row == 3), isStatusExpired: false)
         cell.clipsToBounds = true
         return cell
     }

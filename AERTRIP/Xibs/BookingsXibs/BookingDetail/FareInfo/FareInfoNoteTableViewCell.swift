@@ -9,10 +9,10 @@
 import UIKit
 
 class FareInfoNoteTableViewCell: UITableViewCell {
-
+    
     
     // MARK: - IBOutlets
-   
+    
     @IBOutlet weak var noteLabel: UILabel!
     @IBOutlet weak var noteTextView: UITextView!  {
         didSet {
@@ -37,13 +37,13 @@ class FareInfoNoteTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-      
+        
     }
     
     
     private func doInitialSetup() {
-    self.noteTextViewTopConstraint.constant = self.isForBookingPolicyCell ? 10 : 0
-    self.noteTextViewBottomConstraint.constant = self.isForBookingPolicyCell ? 12 : 0
+        self.noteTextViewTopConstraint.constant = self.isForBookingPolicyCell ? 10 : 0
+        self.noteTextViewBottomConstraint.constant = self.isForBookingPolicyCell ? 12 : 0
     }
     
     
@@ -78,11 +78,11 @@ class FareInfoNoteTableViewCell: UITableViewCell {
         return fullAttributedString
     }
     
+    func configCell(note: String) {
+        self.noteTextView.text = note
+    }
     
-    
-     func configCell(notes: [String]) {
+    func configCell(notes: [String]) {
         self.noteTextView.attributedText = self.bulletedNotesDetails(notes: notes)
     }
-
-    
 }

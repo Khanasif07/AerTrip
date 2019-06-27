@@ -49,11 +49,16 @@ struct BookingCaseHistory {
     var caseType: String = ""
     var caseId: String = ""
     var resolutionStatusId: String = ""
+    var csrName: String = ""
     var associatedBid: String = ""
-    var associatedVouchers: String = ""
+    var associatedVouchersStr: String = ""
     var referenceCaseId: String = ""
     var note: String = ""
     var communications: [Communication] = []
+    
+    var associatedVouchersArr: [String] {
+        return associatedVouchersStr.components(separatedBy: ",")
+    }
     
     init(json: JSONDictionary) {
         if let obj = json["case_type"] { self.caseType = "\(obj)" }
@@ -64,11 +69,17 @@ struct BookingCaseHistory {
         
         if let obj = json["associated_bid"] { self.associatedBid = "\(obj)" }
         
-        if let obj = json["associated_vouchers"] { self.associatedVouchers = "\(obj)" }
+        if let obj = json["associated_vouchers"] { self.associatedVouchersStr = "\(obj)" }
         
         if let obj = json["reference_case_id"] { self.referenceCaseId = "\(obj)" }
         
         if let obj = json["note"] { self.note = "\(obj)" }
+        
+        //TODO:-
+        self.csrName = LocalizedString.dash.localized
+        if let obj = json["csr_name"] {
+            self.csrName = "\(obj)"
+        }
         
         if let obj = json["communications"] as? [JSONDictionary] {
             self.communications = Communication.models(jsonArr: obj)
