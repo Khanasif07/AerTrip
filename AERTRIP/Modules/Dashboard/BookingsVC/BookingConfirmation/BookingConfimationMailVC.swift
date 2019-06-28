@@ -25,12 +25,19 @@ class BookingConfimationMailVC: BaseVC {
     
     @IBOutlet var bottomView: UIView!
     
+    // MARK: - Properties
+    let viewModel  = BookingConfirmationMailVM()
+    
+    
+    
     // MARK: - Override methods
     
     override func initialSetup() {
         self.topNavigationView.delegate = self
         self.toMailTextView.delegate = self
         self.toMailTextView.textContainerInset = .zero
+        self.viewModel.getTravellerMail()
+        
     }
     
     override func setupFonts() {
@@ -56,6 +63,10 @@ class BookingConfimationMailVC: BaseVC {
         self.topNavigationView.configureNavBar(title: LocalizedString.ConfirmationEmail.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
         self.topNavigationView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.CancelWithSpace.localized, selectedTitle: LocalizedString.CancelWithSpace.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         self.topNavigationView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.SendWithSpace.localized, selectedTitle: LocalizedString.SendWithSpace.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
+    }
+    
+    override func bindViewModel() {
+        self.viewModel.delegate = self
     }
     
     // MARK: - IB Action
@@ -97,6 +108,7 @@ extension BookingConfimationMailVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         printDebug("send button Tapped")
+        self.viewModel.sendConfirmationMail()
     }
 }
 

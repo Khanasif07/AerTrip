@@ -145,7 +145,20 @@ class BookingProductDetailVM {
                 self.sectionDataForFlightProductType.append([.paymentPendingCell])
         }
         self.sectionDataForFlightProductType.append([.flightsOptionsCell])
-        self.sectionDataForFlightProductType.append([.weatherHeaderCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell])
+        
+        // logic for add weather Data
+        var temp: [TableViewCellForFlightProductType] = []
+        for (index, _) in (self.bookingDetail?.weatherInfo.enumerated())! {
+                if index == 0 {
+                    temp.append(.weatherHeaderCell)
+                    temp.append(.weatherInfoCell)
+                } else {
+                    temp.append(.weatherInfoCell)
+                }
+            }
+        self.sectionDataForFlightProductType.append(temp)
+        
+       // self.sectionDataForFlightProductType.append([.weatherHeaderCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell])
         self.sectionDataForFlightProductType.append([.nameCell, .emailCell, .mobileCell, .gstCell, .billingAddressCell])
     }
     
@@ -184,4 +197,6 @@ class BookingProductDetailVM {
             }
         }
     }
+    
+   
 }

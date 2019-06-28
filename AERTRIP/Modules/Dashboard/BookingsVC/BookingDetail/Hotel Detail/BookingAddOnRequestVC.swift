@@ -21,6 +21,7 @@ class BookingAddOnRequestVC: BaseVC {
     // MARK: - Variables
     
     var hotelData: HotelDetails = HotelDetails()
+    let viewModel =  BookingAddOnRequestVM()
     
     // MARK: - View Life Cyle
     
@@ -31,6 +32,7 @@ class BookingAddOnRequestVC: BaseVC {
         self.setUpNavBar()
         self.requestTableView.reloadData()
         self.addFooterView()
+        self.viewModel.getPreferenceMaster()
     }
     
     private func setUpNavBar() {
@@ -64,6 +66,11 @@ class BookingAddOnRequestVC: BaseVC {
     override func setupColors() {
         self.priceLabel.textColor = AppColors.themeWhite
         self.makePaymentLabel.textColor = AppColors.themeWhite
+    }
+    
+    
+    override func bindViewModel() {
+        self.viewModel.delegate = self
     }
     
     @IBAction func makePaymentAction(_ sender: Any) {

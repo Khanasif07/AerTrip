@@ -901,4 +901,20 @@ enum LocalizedString: String {
     case Aertip
     case Airlines
     case Airports
+    
+    // MARK: - Booking Add on Request
+    case SeatBookingPlaceholder
+    case ExtraBaggagePlacheholder
+    case OtherBookingPlaceholder
+    case MealBookingPlaceholder
+    
+    case SeatPreferenceTitle
+    case MealPreferenceTitle
+    case ExtraBaggageTitle
+    case OtherBookingTitle
+    case MealBookingTitle
+    case SeatBookingTitle
+    
+    
+    
 }

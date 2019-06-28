@@ -19,7 +19,6 @@ class FrequentFlyerVC: BaseVC {
     // MARK: - Variables
      let footerViewIdentifier = "BookingInfoEmptyFooterView"
      let headerViewIdentifier = "BookingFrequentFlyerHeaderView"
-     let viewModel = BookingRequestAddOnsFFVM()
     let pickerView: UIPickerView = UIPickerView()
     let pickerSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: 261.0)
     // GenericPickerView
@@ -61,7 +60,7 @@ class FrequentFlyerVC: BaseVC {
             guard let arilineCell = self.frequentFlyerTableView.dequeueReusableCell(withIdentifier: "BookingFFAirlineTableViewCell") as? BookingFFAirlineTableViewCell else {
                 fatalError("BookingFFAirlineTableViewCell not found")
             }
-            arilineCell.cofigureCell(airlineImage: self.viewModel.ffAirlineData[indexPath.row].airlineImage, airlineName: self.viewModel.ffAirlineData[indexPath.row].airlineName)
+//            arilineCell.cofigureCell(airlineImage: self.viewModel.ffAirlineData[indexPath.row].airlineImage, airlineName: self.viewModel.ffAirlineData[indexPath.row].airlineName)
             return arilineCell
         case 2:
             
@@ -108,8 +107,8 @@ class FrequentFlyerVC: BaseVC {
         pickerView.selectRow(0, inComponent: 0, animated: true)
         genericPickerView.addSubview(pickerView)
         
-        pickerView.delegate = self
-        pickerView.dataSource = self
+//        pickerView.delegate = self
+//        pickerView.dataSource = self
         
         pickerView.setValue(#colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1), forKey: "textColor")
     }
@@ -156,7 +155,8 @@ class FrequentFlyerVC: BaseVC {
 extension FrequentFlyerVC: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.sectionData.count
+      //  return self.viewModel.sectionData.count
+        return 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -193,9 +193,9 @@ extension FrequentFlyerVC: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = frequentFlyerTableView.dequeueReusableHeaderFooterView(withIdentifier: self.headerViewIdentifier) as? BookingFrequentFlyerHeaderView else {
             fatalError(" BookingFrequentFlyerHeaderView not  found")
         }
-        
-        headerView.profileImageView.image = self.viewModel.sectionData[section].profileImage
-          headerView.passengerNameLabel.text = self.viewModel.sectionData[section].userName
+//
+//        headerView.profileImageView.image = self.viewModel.sectionData[section].profileImage
+//          headerView.passengerNameLabel.text = self.viewModel.sectionData[section].userName
         return headerView
         
     }
@@ -214,21 +214,21 @@ extension FrequentFlyerVC: UITableViewDataSource, UITableViewDelegate {
 
 
 // MARK: - UIPickerViewDelegate and UIPickerViewDataSource methods
-
-extension FrequentFlyerVC: UIPickerViewDataSource, UIPickerViewDelegate {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.viewModel.pickerData.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return self.viewModel.pickerData[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        printDebug("selected data \(self.viewModel.pickerData[row])")
-    }
-}
+//
+//extension FrequentFlyerVC: UIPickerViewDataSource, UIPickerViewDelegate {
+//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+//        return 1
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        return self.viewModel.pickerData.count
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        return self.viewModel.pickerData[row]
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        printDebug("selected data \(self.viewModel.pickerData[row])")
+//    }
+//}

@@ -126,4 +126,13 @@ class FlightBookingsDetailsVC: BaseVC {
         AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
         safariVC.delegate = self
     }
+    
+    // Present Request Add on Frequent Flyer VC
+     func presentRequestAddOnFrequentFlyer() {
+        AppFlowManager.default.presentBookingReuqestAddOnVC(bookingdata: self.viewModel.bookingDetail)
+    }
+    // Present Booking Rescheduling VC 
+    func presentBookingReschedulingVC() {
+        AppFlowManager.default.presentBookingReschedulingVC()
+    }
 }

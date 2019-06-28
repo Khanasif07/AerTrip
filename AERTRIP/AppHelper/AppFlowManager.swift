@@ -861,8 +861,9 @@ extension AppFlowManager {
     
     // Present BookingRequestAddOnsAndFFC
     
-    func presentBookingReuqestAddOnVC() {
+    func presentBookingReuqestAddOnVC(bookingdata: BookingDetailModel?) {
         let obj = BookingRequestAddOnsFFVC.instantiate(fromAppStoryboard: .Bookings)
+       BookingRequestAddOnsFFVM.shared.bookingDetails = bookingdata
         self.mainNavigationController.present(obj, animated: true)
     }
     
@@ -883,8 +884,9 @@ extension AppFlowManager {
     
     // Move to Booking confirm email
     
-    func presentConfirmationMailVC() {
+    func presentConfirmationMailVC(bookindId: String) {
         let obj = BookingConfimationMailVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.viewModel.bookingId = bookindId
         self.mainNavigationController.present(obj, animated: true)
     }
 }

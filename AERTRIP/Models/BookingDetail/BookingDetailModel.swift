@@ -33,6 +33,8 @@ struct BookingDetailModel {
     var cancellationRequestAllowed: Bool = false
     var rescheduleRequestAllowed: Bool = false
     var specialRequestAllowed: Bool = false
+    var weatherInfo: [WeatherInfo] = []
+    var tempDateTripCityArray: [WeatherInfo] = []
     var user: UserInfo?
     
     var jsonDict: JSONDictionary {
@@ -92,7 +94,7 @@ struct BookingDetailModel {
             self.receipt = Receipt(json: obj)
         }
         
-        if let obj = json["total_amount_paid"]  {
+        if let obj = json["total_amount_paid"] {
             self.totalAmountPaid = "\(obj)".toDouble ?? 0.0
         }
         
@@ -113,6 +115,69 @@ struct BookingDetailModel {
         if let obj = json["bdetails"] as? JSONDictionary {
             self.bookingDetail = BookingDetail(json: obj)
         }
+        
+        if let obj = json["addon_request_allowed"] {
+            self.addOnRequestAllowed = "\(obj)".toBool
+        }
+        
+        if let obj = json["cancellation_request_allowed"] {
+            self.cancellationRequestAllowed = "\(obj)".toBool
+        }
+        
+        if let obj = json["reschedule_request_allowed"] {
+            self.rescheduleRequestAllowed = "\(obj)".toBool
+        }
+        
+        if let obj = json["special_request_allowed"] {
+            self.specialRequestAllowed = "\(obj)".toBool
+        }
+        
+       
+            let testData = [
+                [
+                    "max_temperature": 27,
+                    "min_temperature": 17,
+                    "weather": "Moderate rain",
+                    "weather_icon": "501-moderate-rain",
+                    "temperature": 0,
+                    "date": "2019-07-01 22:35:00",
+                    "country_code": "DE",
+                    "city": "Munich"
+                ],
+                [
+                    "max_temperature": 34,
+                    "min_temperature": 33,
+                    "weather": "Clear sky",
+                    "weather_icon": "800-clear-sky",
+                    "temperature": 0,
+                    "date": "2019-07-02 06:35:00",
+                    "country_code": "AE",
+                    "city": "Abu Dhabi"
+                ],
+                [
+                    "max_temperature": 34,
+                    "min_temperature": 33,
+                    "weather": "Clear sky",
+                    "weather_icon": "800-clear-sky",
+                    "temperature": 0,
+                    "date": "2019-07-02 14:20:00",
+                    "country_code": "AE",
+                    "city": "Abu Dhabi"
+                ],
+                [
+                    "max_temperature": 29,
+                    "min_temperature": 29,
+                    "weather": "Heavy intensity rain",
+                    "weather_icon": "502-heavy-intensity-rain",
+                    "temperature": 0,
+                    "date": "2019-07-02 19:15:00",
+                    "country_code": "IN",
+                    "city": "Mumbai"
+                ]
+            ]
+            
+            self.weatherInfo = WeatherInfo.getModels(json: testData)
+        
     }
 }
 
@@ -121,9 +186,7 @@ struct BookingDetailModel {
 //MARK: -
 
 extension BookingDetailModel {
-    
     func isReturnFlight(forArr: [String] = []) -> Bool {
-        
         func checkByTripType() -> Bool {
             return (self.tripType.lowercased() == "return") || (self.tripType.lowercased() == "multi")
         }
@@ -139,7 +202,6 @@ extension BookingDetailModel {
     }
     
     var tripCitiesStr: NSMutableAttributedString? {
-        
         func getNormalString(forArr: [String]) -> String {
             guard !forArr.isEmpty else { return LocalizedString.dash.localized }
             return forArr.joined(separator: " → ")
@@ -159,7 +221,7 @@ extension BookingDetailModel {
             let temp = getNormalString(forArr: tripCts)
             return NSMutableAttributedString(string: temp)
         }
-        else if isReturnFlight(forArr: tripCts) {
+        else if self.isReturnFlight(forArr: tripCts) {
             // return flight case
             let temp = getReturnString(forArr: tripCts)
             return NSMutableAttributedString(string: temp)
@@ -262,6 +324,8 @@ extension BookingDetailModel {
         return price
     }
     
+    //TODO: Reschedule Amount Not coming in the Api , Already inform the same to Yash
+    
     /*
     Reschedule :
     Loop through vouchers array, consider the objects that have
@@ -317,10 +381,10 @@ extension BookingDetailModel {
     // Web checking url
     
     var webCheckinUrl: String {
-        
         if self.bookingDetail?.journeyCompleted == 1 {
             return ""
-        } else {
+        }
+        else {
             if let index = self.bookingDetail?.leg.firstIndex(where: { (result) -> Bool in
                 (result.completed == 0)
             }) {
@@ -333,7 +397,6 @@ extension BookingDetailModel {
             }
             return ""
         }
-       
     }
 }
 
@@ -517,7 +580,7 @@ struct BookingDetail {
         // Event start and end date and notes
         
         if let obj = json["note"] {
-             //self.note = "\(obj)".removeNull
+            //self.note = "\(obj)".removeNull
             self.note = " The following are the graphical (non-control) characters defined by fsdfThe following are the graphical (non-control) characters defined by fsdf sdf s f sf s f s f s f s af  fas f sa f sa f asf  sa fa sf a f as f asfsa f df a f sa f Hell0 Hello hello hello hello hello welcome bhai bhai bhai bhai welcome dsljfaljflasjf asjfasfk ajsflkasjfkj asfjas fk asfa sfjkfsaskf a f as"
         }
         
@@ -689,7 +752,7 @@ struct FlightDetail {
     var cabinClass: String = ""
     var operatedBy: String = ""
     var baggage: Baggage?
-    var icc: Int = 0
+    var lcc: Int = 0
     // Weather data only will come if we are booking for less that 16 days from the travel data.
     var originWeather: Weather?
     var destinationWeather: Weather?
@@ -857,8 +920,8 @@ struct FlightDetail {
             self.operatedBy = "\(obj)".removeNull
         }
         
-        if let obj = json["icc"] {
-            self.icc = "\(obj)".toInt ?? 0
+        if let obj = json["lcc"] {
+            self.lcc = "\(obj)".toInt ?? 0
         }
         
         // origin weather
@@ -924,8 +987,6 @@ struct FlightDetail {
         
         return finalStr
     }
-    
-    
 }
 
 // This model will come only when we are booking the flight via some in-between station
@@ -1228,6 +1289,11 @@ struct Pax {
     var ticket: String = ""
     var pnr: String = ""
     var inProcess: Bool = false
+    var profileImage: String = ""
+    var _seat: String = ""
+    var _meal: String = ""
+    var _baggage: String = ""
+    var other: String = ""
     
     var addOns: JSONDictionary = [:] // TODO: Need to confirm this with yash as always coming in array
     var seat: String {
@@ -1342,6 +1408,10 @@ struct Pax {
         
         if let obj = json["in_process"] as? Bool {
             self.paxId = "\(obj)"
+        }
+        
+        if let obj = json["profile_image"] {
+            self.profileImage = "\(obj)"
         }
     }
     
@@ -1705,5 +1775,52 @@ struct Codes {
             }
         }
         return codes
+    }
+}
+
+struct WeatherInfo {
+    var maxTemperature: Int = 0
+    var minTemperature: Int = 0
+    var weather: String = ""
+    var weatherIcon: String = ""
+    var temperature: Int = 0
+    var date: Date?
+    var countryCode: String = ""
+    var city: String = ""
+  
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["min_temperature"] {
+            self.minTemperature = "\(obj)".toInt ?? 0
+        }
+        
+        if let obj = json["max_temperature"] {
+            self.maxTemperature = "\(obj)".toInt ?? 0
+        }
+        if let obj = json["weather"] {
+            self.weather = "\(obj)"
+        }
+        if let obj = json["weather_icon"] {
+            self.weatherIcon = "\(obj)"
+        }
+        if let obj = json["date"] {
+            self.date = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
+        }
+        
+        if let obj = json["country_code"] {
+            self.countryCode = "\(obj)"
+        }
+        
+        if let obj = json["city"] {
+            self.city = "\(obj)"
+        }
+    }
+    
+    static func getModels(json: [JSONDictionary]) -> [WeatherInfo] {
+        return json.map { WeatherInfo(json: $0) }
     }
 }

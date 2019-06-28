@@ -88,11 +88,14 @@ enum APIEndPoint: String {
     case bookingReceipt = "booking/receipt"
     case setRecentSearch = "recent-search/set"
     case bookingList = "dashboard/list-booking"
+    case preferenceMaster = "addon/preference-master"
     
     // booking Detail
     case getBookingDetails = "dashboard/get-booking-details"
     case getBookingFees = "dashboard/get-booking-fees"
     case getFareRules = "dashboard/get-fare-rules"
+    case getTravellerEmails = "dashboard/get-traveller-emails"
+ 
     
     
     // Final Checkout
@@ -106,6 +109,11 @@ enum APIEndPoint: String {
     case hotelItinerary = "hotels/itinerary?action=traveller"
     case getPaymentMethod = "itinerary/get-payment-methods"
     case shareText = "su/create"
+    
+    
+    
+    
+    
 }
 
 // MARK: - endpoint extension for url -

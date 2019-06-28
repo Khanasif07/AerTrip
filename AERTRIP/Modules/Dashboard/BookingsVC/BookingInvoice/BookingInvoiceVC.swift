@@ -189,36 +189,10 @@ class BookingInvoiceVC: BaseVC {
     }
     
     func openActionSheet() {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.RequestAddOnAndFrequentFlyer.localized, LocalizedString.RequestRescheduling.localized, LocalizedString.RequestCancellation.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationMail.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
-        
-        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
-            
-            if index == 0 {
-                printDebug("Present Request Add-ons & Freq. Flyer")
-                self?.presentRequestAddOnFrequentFlyer()
-            } else if index == 1 {
-                self?.presentBookingReschedulingVC()
-                printDebug("Present Request Reschedulling")
-            } else if index == 2 {
-                AppFlowManager.default.presentBookingReschedulingVC(usingFor: .cancellation)
-                printDebug("Present Request Cancellation")
-            } else if index == 3 {
-                printDebug("Present Download")
-                AppGlobals.shared.viewPdf(urlPath: AppConstants.dummyTextPdfLink, screenTitle: LocalizedString.ETicket.localized)
-            } else if index == 4 {
-                AppFlowManager.default.presentConfirmationMailVC()
-                printDebug("Present Resend Confirmation Email")
-            }
-        }
+       
     }
     
-    private func presentRequestAddOnFrequentFlyer() {
-        AppFlowManager.default.presentBookingReuqestAddOnVC()
-    }
-    
-    private func presentBookingReschedulingVC() {
-        AppFlowManager.default.presentBookingReschedulingVC()
-    }
+   
 }
 
 // MARK: - UITableViewDataSource and  UITableViewDelegate methods

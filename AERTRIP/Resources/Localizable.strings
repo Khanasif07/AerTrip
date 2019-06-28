@@ -823,3 +823,18 @@
 "Airports" = "AIRPORTS";
 "Airlines" = "AIRLINES";
 
+
+// MARK: - Booking Add on Request VC
+"SeatBookingPlaceholder" = "e.g. Aisle, 3C, Front row, etc.";
+"ExtraBaggagePlacheholder" = "e.g. Extra 5kg";
+"OtherBookingPlaceholder" = "e.g. Golf Kit, Wheelchair";
+"MealBookingPlaceholder" = "e.g. Asian meal, Baby food,etc";
+
+"SeatPreferenceTitle" = "Seat Preference";
+"MealPreferenceTitle" = "Meal Preference";
+"ExtraBaggageTitle" = "Extra Baggage";
+"OtherBookingTitle" = "Others";
+"MealBookingTitle" = "Meal Booking";
+"SeatBookingTitle" = "Seat Booking";
+
+
