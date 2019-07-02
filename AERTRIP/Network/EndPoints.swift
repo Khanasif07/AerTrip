@@ -105,6 +105,9 @@ enum APIEndPoint: String {
     case outstandingPayment = "user-accounts/outstanding-payment"
     case registerPayment = "payment/register-payment"
     
+    //my booking
+    case addonPayment = "quotation/addon-payment"
+    
     case hotelItinerary = "hotels/itinerary?action=traveller"
     case getPaymentMethod = "itinerary/get-payment-methods"
     case shareText = "su/create"

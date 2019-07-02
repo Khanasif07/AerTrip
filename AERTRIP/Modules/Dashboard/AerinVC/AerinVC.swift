@@ -197,7 +197,6 @@ class AerinVC: BaseVC {
             
             // for showing bookig invoice VC
             
-           AppFlowManager.default.moveToBookingInvoiceVC()
             
           //****  Booking DirectionVC ******
  

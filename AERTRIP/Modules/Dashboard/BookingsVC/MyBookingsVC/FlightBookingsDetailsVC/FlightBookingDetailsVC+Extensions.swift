@@ -85,14 +85,10 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("\(indexPath.section)")
-        if let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty {
+        if let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
             //cases
-            var extra = 0
-            if !(self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false) {
-                extra += 1
-            }
             
-            AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row-extra])
+            AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row-1], receipt: rcpt)
         }
         else if indexPath.section < self.viewModel.bookingDetail?.bookingDetail?.leg.count ?? 0 {
             AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail)

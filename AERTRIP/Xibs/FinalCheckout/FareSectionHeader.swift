@@ -18,16 +18,11 @@ class FareSectionHeader: UITableViewHeaderFooterView {
     @IBOutlet var grossPriceLabel: UILabel!
     @IBOutlet var discountPriceLabel: UILabel!
     @IBOutlet var topBackgroundView: UIView!
+    @IBOutlet weak var arrowTapAreaView: UIView!
+    @IBOutlet weak var discountContainer: UIView!
     
-    @IBOutlet var cellTopViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var grossFareTopConstraint: NSLayoutConstraint!
     @IBOutlet var arrowButton: UIButton!
-    @IBOutlet var discountViewHeightConstraint: NSLayoutConstraint!
-    
-    @IBOutlet var bottomViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet var bottomViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet var arrowButtonLeadingConstraint: NSLayoutConstraint!
-    
+        
     // MARK: - Properties
     
     weak var delegate: FareSectionHeaderDelegate?
@@ -68,7 +63,7 @@ class FareSectionHeader: UITableViewHeaderFooterView {
     private func addGesture() {
         // Add tap gesture to your view
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleGesture))
-        self.topBackgroundView.addGestureRecognizer(tap)
+        self.arrowTapAreaView.addGestureRecognizer(tap)
     }
     
     // GestureRecognizer

@@ -654,6 +654,7 @@ enum LocalizedString: String {
     case Documents = "Documents"
     case PaymentInfo = "PaymentInfo"
     case Booking = "Booking"
+    case Receipt
     case Paid = "Paid"
     case FareInfo = "FareInfo"
     case ViewDetails
@@ -680,6 +681,7 @@ enum LocalizedString: String {
     case Date
     case VoucherNo
     case DownloadInvoice
+    case DownloadReceipt
     case Directions
     case RequestAddOnsAndFF
     case AddOns

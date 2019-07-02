@@ -25,7 +25,7 @@ class AccountOfflineDepositVM: NSObject {
     weak var delegate: AccountOfflineDepositVMDelegate?
     
     
-    func registerPayment(currentUsingAs: AccountOfflineDepositVC.UsingFor) {
+    func registerPayment(currentUsingAs: AccountOfflineDepositVC.UsingForPayBy) {
         
         var param = JSONDictionary()
         

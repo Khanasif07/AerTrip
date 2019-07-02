@@ -14,9 +14,9 @@ struct OnAccountLedgerEvent {
     var amount: Double = 0.0
     
     private var _voucher : String = ""
-    var voucher: AccountDetailEvent.Voucher {
+    var voucher: VoucherType {
         get {
-            return AccountDetailEvent.Voucher(rawValue: self._voucher) ?? AccountDetailEvent.Voucher.none
+            return VoucherType(rawValue: self._voucher) ?? VoucherType.none
         }
         
         set {

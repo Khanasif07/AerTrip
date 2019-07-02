@@ -10,6 +10,12 @@ import Razorpay
 import UIKit
 
 class AccountOnlineDepositVC: BaseVC {
+    
+    enum UsingToPaymentFor {
+        case accountDeposit
+        case addOns
+    }
+    
     // MARK: - IB Outlet
     
     @IBOutlet var topNavView: TopNavigationView!
@@ -19,6 +25,7 @@ class AccountOnlineDepositVC: BaseVC {
     @IBOutlet var indicatorView: UIActivityIndicatorView!
     
     // MARK: - Properties
+    var currentUsingFor: UsingToPaymentFor = UsingToPaymentFor.accountDeposit
     
     let viewModel = AccountOnlineDepositVM()
     let cellIdentifier = "FareSectionHeader"
@@ -106,15 +113,20 @@ class AccountOnlineDepositVC: BaseVC {
     }
     
     func showPaymentSuccessMessage() {
-        var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
-        config.text = self.payButton.titleLabel?.text ?? ""
-        config.image = #imageLiteral(resourceName: "whiteBlackLockIcon")
-        config.cornerRadius = 0.0
-        config.textFont = AppFonts.SemiBold.withSize(20.0)
-        config.width = self.payButton.width
-        config.spaceFromBottom = AppFlowManager.default.safeAreaInsets.bottom
-        
-        AppFlowManager.default.showAccountDepositSuccessVC(buttonConfig: config, delegate: self)
+        if self.currentUsingFor == .addOns {
+            AppFlowManager.default.showAddonRequestSent(buttonTitle:LocalizedString.Done.localized, delegate: self)
+        }
+        else {
+            var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
+            config.text = self.payButton.titleLabel?.text ?? ""
+            config.image = #imageLiteral(resourceName: "whiteBlackLockIcon")
+            config.cornerRadius = 0.0
+            config.textFont = AppFonts.SemiBold.withSize(20.0)
+            config.width = self.payButton.width
+            config.spaceFromBottom = AppFlowManager.default.safeAreaInsets.bottom
+            
+            AppFlowManager.default.showAccountDepositSuccessVC(buttonConfig: config, delegate: self)
+        }
     }
 
     //MARK: - Action
@@ -125,9 +137,19 @@ class AccountOnlineDepositVC: BaseVC {
 
 extension AccountOnlineDepositVC: BulkEnquirySuccessfulVCDelegate {
     func doneButtonAction() {
-        self.sendDataChangedNotification(data: ATNotification.accountPaymentRegister)
-        if let vc = AppFlowManager.default.mainNavigationController.viewController(atIndex: 1) {
-            AppFlowManager.default.popToViewController(vc, animated: true)
+        if self.currentUsingFor == .addOns {
+            for vc in AppFlowManager.default.mainNavigationController.viewControllers {
+                if vc.isKind(of: FlightBookingsDetailsVC.self) {
+                    AppFlowManager.default.popToViewController(vc, animated: true)
+                    break
+                }
+            }
+        }
+        else {
+            self.sendDataChangedNotification(data: ATNotification.accountPaymentRegister)
+            if let vc = AppFlowManager.default.mainNavigationController.viewController(atIndex: 1) {
+                AppFlowManager.default.popToViewController(vc, animated: true)
+            }
         }
     }
 }

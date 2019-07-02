@@ -18,7 +18,8 @@ protocol BookingAddOnRequestVMDelegate: class {
 
 class BookingAddOnRequestVM {
     
-    var caseData: Case? //to pe bassed when the vc is created
+    var receipt: Receipt? // to be used on the vouchers screen
+    var caseData: Case? //to be bassed when the vc is created
     var caseHistory: BookingCaseHistory? {
         didSet {
             caseData?.resolutionStatusId = caseHistory?.resolutionStatusId ?? ""

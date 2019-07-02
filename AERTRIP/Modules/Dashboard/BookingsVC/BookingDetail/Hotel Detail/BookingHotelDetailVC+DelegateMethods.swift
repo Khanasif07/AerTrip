@@ -183,12 +183,6 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
                 AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel.hotelData.hid)
                 printDebug(locid + "location id is empty")
             }
-        } else {
-            if indexPath.row == 1 {
-                AppFlowManager.default.moveToVoucherVC()
-            } else if indexPath.row == 3 {
-//                AppFlowManager.default.moveToAddOnRequestVC(caseData: nil)
-            }
         }
     }
 }

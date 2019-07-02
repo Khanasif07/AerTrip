@@ -165,7 +165,13 @@ class BookingAddOnRequestVC: BaseVC {
     @IBAction func makePaymentAction(_ sender: Any) {
         if let caseData = self.viewModel.caseData {
             if caseData.resolutionStatus == .paymentPending {
-                //setup for payment
+                if let rcpt = self.viewModel.receipt, let cId = self.viewModel.caseData?.id, !cId.isEmpty {
+                    //setup for payment
+                    AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: cId)
+                }
+                else {
+                    assertionFailure("receipt data no passed in file \(#file) at line \(#line)")
+                }
             }
             else if caseData.resolutionStatus == .confirmationPending {
                 //setup for confirm

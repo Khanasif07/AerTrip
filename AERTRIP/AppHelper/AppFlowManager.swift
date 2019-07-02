@@ -385,9 +385,10 @@ extension AppFlowManager {
         }
     }
     
-    func showAddonRequestSent(buttonTitle: String) {
+    func showAddonRequestSent(buttonTitle: String, delegate: BulkEnquirySuccessfulVCDelegate) {
         if let mVC = UIApplication.topViewController() {
             let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.delegate = delegate
             ob.currentUsingAs = .addOnRequest
             mVC.add(childViewController: ob)
         }
@@ -713,15 +714,17 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToAccountOnlineDepositVC(depositItinerary: DepositItinerary?) {
+    func moveToAccountOnlineDepositVC(depositItinerary: DepositItinerary?, usingToPaymentFor: AccountOnlineDepositVC.UsingToPaymentFor) {
         let obj = AccountOnlineDepositVC.instantiate(fromAppStoryboard: .Account)
         obj.viewModel.depositItinerary = depositItinerary
+        obj.currentUsingFor = usingToPaymentFor
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToAccountOfflineDepositVC(usingFor: AccountOfflineDepositVC.UsingFor, paymentModeDetail: PaymentModeDetails?, netAmount: Double, bankMaster: [String]) {
+    func moveToAccountOfflineDepositVC(usingFor: AccountOfflineDepositVC.UsingForPayBy, usingToPaymentFor: AccountOfflineDepositVC.UsingToPaymentFor, paymentModeDetail: PaymentModeDetails?, netAmount: Double, bankMaster: [String]) {
         let obj = AccountOfflineDepositVC.instantiate(fromAppStoryboard: .Account)
         obj.currentUsingAs = usingFor
+        obj.currentUsingFor = usingToPaymentFor
         obj.viewModel.paymentModeDetails = paymentModeDetail
         obj.viewModel.bankMaster = bankMaster
         obj.viewModel.userEnteredDetails.depositAmount = netAmount
@@ -819,16 +822,18 @@ extension AppFlowManager {
     
     // Move to Add on Request Clel
     
-    func moveToAddOnRequestVC(caseData: Case) {
+    func moveToAddOnRequestVC(caseData: Case, receipt: Receipt) {
         let obj = BookingAddOnRequestVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.caseData = caseData
+        obj.viewModel.receipt = receipt
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    // Move to Voucher VC
-    
-    func moveToVoucherVC() {
+    // Move to Booking Voucher VC
+    func moveToBookingVoucherVC(receipt: Receipt, caseId: String) {
         let obj = BookingVoucherVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.viewModel.receipt = receipt
+        obj.viewModel.caseId = caseId
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -841,8 +846,9 @@ extension AppFlowManager {
     
     // Move To Booking Invoice VC
     
-    func moveToBookingInvoiceVC() {
+    func moveToBookingInvoiceVC(forVoucher: Voucher) {
         let obj = BookingInvoiceVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.viewModel.voucher = forVoucher
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     

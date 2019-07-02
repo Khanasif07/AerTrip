@@ -29,14 +29,14 @@
                                     <constraint firstAttribute="height" constant="1" id="GIK-5O-Oaq"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQe-iD-4Fj">
-                                <rect key="frame" x="16" y="10" width="42" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQe-iD-4Fj">
+                                <rect key="frame" x="16" y="10" width="244" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGl-8c-SSq">
-                                <rect key="frame" x="262" y="9.5" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGl-8c-SSq">
+                                <rect key="frame" x="262" y="10" width="42" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -60,6 +60,7 @@
                             <constraint firstItem="KQe-iD-4Fj" firstAttribute="leading" secondItem="X5k-bb-JD2" secondAttribute="leading" constant="16" id="VQb-tO-G1G"/>
                             <constraint firstItem="gkg-CX-A0d" firstAttribute="top" secondItem="X5k-bb-JD2" secondAttribute="top" id="deK-yH-wQO"/>
                             <constraint firstAttribute="bottom" secondItem="hxE-39-BCL" secondAttribute="bottom" id="joi-l9-I93"/>
+                            <constraint firstItem="DGl-8c-SSq" firstAttribute="leading" secondItem="KQe-iD-4Fj" secondAttribute="trailing" constant="2" id="kYI-fC-WLT"/>
                             <constraint firstAttribute="trailing" secondItem="hxE-39-BCL" secondAttribute="trailing" constant="16" id="lLq-aw-518"/>
                             <constraint firstItem="KQe-iD-4Fj" firstAttribute="top" secondItem="gkg-CX-A0d" secondAttribute="bottom" constant="9" id="tX5-Fd-0ND"/>
                         </constraints>

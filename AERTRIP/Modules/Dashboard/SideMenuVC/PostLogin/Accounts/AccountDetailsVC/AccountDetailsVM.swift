@@ -96,7 +96,7 @@ class AccountDetailsVM: NSObject {
     
     private func filterForVoucher(voucher: String, onData: JSONDictionary) -> JSONDictionary? {
         
-        guard !voucher.isEmpty, voucher.lowercased() != "all", let vchr = AccountDetailEvent.Voucher(rawValue: voucher) else {
+        guard !voucher.isEmpty, voucher.lowercased() != "all", let vchr = VoucherType(rawValue: voucher) else {
             return onData
         }
         

@@ -117,7 +117,7 @@ class BookingProductDetailVM {
     
     func getSectionDataForFlightProductType() {
         // logic for add note cell
-        if !(self.bookingDetail?.bookingDetail?.note.isEmpty ?? false) {
+        if let note = self.bookingDetail?.bookingDetail?.note, !note.isEmpty {
             self.sectionDataForFlightProductType.append([.notesCell])
         }
         

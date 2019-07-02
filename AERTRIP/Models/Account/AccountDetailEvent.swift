@@ -8,36 +8,36 @@
 
 import UIKit
 
-struct AccountDetailEvent {
+enum VoucherType: String {
+    case none
     
-    enum Voucher: String {
-        case none
-        
-        //with-out subtypes
-        case receipt = "Receipt"
-        case lockAmount = "Lock Amount"
-        case debitNote = "Debit Note"
-        case creditNote = "Credit Note"
-        
-        //these have sub types
-        case sales = "Sales"
-        case journal = "Journal"
+    //with-out subtypes
+    case receipt = "Receipt"
+    case lockAmount = "Lock Amount"
+    case debitNote = "Debit Note"
+    case creditNote = "Credit Note"
+    
+    //these have sub types
+    case sales = "Sales"
+    case journal = "Journal"
+    
+}
 
-    }
-    
-    enum ReceiptMethod: String {
-        case none
-        case netbanking = "netbanking"
-        case card = "card"
-        case upi = "upi"
-    }
-    
-    enum ProductType: String {
-        case none
-        case hotel = "hotel"
-        case flight = "flight"
-        case addOns = "addOns"
-    }
+enum VoucherReceiptMethod: String {
+    case none
+    case netbanking = "netbanking"
+    case card = "card"
+    case upi = "upi"
+}
+
+enum VoucherProductType: String {
+    case none
+    case hotel = "hotel"
+    case flight = "flight"
+    case addOns = "addOns"
+}
+
+struct AccountDetailEvent {
 
     var id : String = ""
     var title : String = ""
@@ -48,9 +48,9 @@ struct AccountDetailEvent {
     }
     
     private var _voucher : String = ""
-    var voucher: Voucher {
+    var voucher: VoucherType {
         get {
-            return Voucher(rawValue: self._voucher) ?? Voucher.none
+            return VoucherType(rawValue: self._voucher) ?? VoucherType.none
         }
         
         set {
@@ -64,9 +64,9 @@ struct AccountDetailEvent {
     }
     
     private var _receiptMethod : String = ""
-    var receiptMethod: ReceiptMethod {
+    var receiptMethod: VoucherReceiptMethod {
         get {
-            return ReceiptMethod(rawValue: self._receiptMethod) ?? ReceiptMethod.none
+            return VoucherReceiptMethod(rawValue: self._receiptMethod) ?? VoucherReceiptMethod.none
         }
         
         set {
@@ -75,9 +75,9 @@ struct AccountDetailEvent {
     }
     
     private var _productType : String = ""
-    var productType: ProductType {
+    var productType: VoucherProductType {
         get {
-            return ProductType(rawValue: self._productType) ?? ProductType.none
+            return VoucherProductType(rawValue: self._productType) ?? VoucherProductType.none
         }
         
         set {

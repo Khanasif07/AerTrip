@@ -8,69 +8,28 @@
 
 import Foundation
 
+protocol BookingVoucherVMDelegate: class {
+    func getAddonPaymentItinerarySuccess()
+    func getAddonPaymentItineraryFail()
+}
 
 class BookingVoucherVM {
+    var receipt: Receipt?
+    var caseId: String = ""
     
+    weak var delegate: BookingVoucherVMDelegate? = nil
+    private(set) var itineraryData: DepositItinerary?
     
-    var vouchers: [VoucherEvent] = []
-    
-    func getVouherData() {
-        let jsonData: [JSONDictionary] = [
-            [
-                "id"   : "1",
-                "title":  "Booking",
-                "date" : "Fri, 12 Oct 2014",
-                "price": "₹ 12,545",
-                "type" : "data"
-               
-            ],
-            [
-                 "id"   : "2",
-                "title":  "Add-ons",
-                "date" : "Fri, 12 Oct 2014",
-                "price": "₹ 5,800",
-                "type" : "data"
-            ],
-            [
-                 "id"   : "3",
-                "title":  "xxxx  xxxx  xxxx  3424s",
-                "date" : "Fri, 12 Oct 2014",
-                "price": "₹ 5,800",
-                "type" : "card"
-               
-            ],
-            [
-                "id" : "4",
-                "title":  "xxxx  xxxx  xxxx  3424s",
-                "date" : "Fri, 12 Oct 2014",
-                "price": "₹ 5,800",
-                "type" : "card"
-            ],
-            [
-                "id"   : "1",
-                "title":  "xxxx  xxxx  xxxx  3424",
-                "date" : "Fri, 12 Oct 2014",
-                "price": "₹ 12,545",
-                "type" : "card"
-                
-                ],
-            [
-                "id"   : "2",
-                "title":  "Add-ons",
-                "date" : "Fri, 12 Oct 2014",
-                "price": "₹ 5,800",
-            ],
-            [
-                "id"   : "3",
-                "title":  "Amount to be paid",
-                "date" : "",
-                "price": "₹ 5,800",
-                "type" : "payment"
-            ]
-            
-        ]
-        
-                self.vouchers = VoucherEvent.getVoucherData(jsonDictArray: jsonData)
-        
+    func getAddonPaymentItinerary() {
+        APICaller.shared.addonPaymentAPI(params: ["case_id": caseId]) { [weak self](success, errors, itiner) in
+            if success {
+                self?.itineraryData = itiner
+                self?.delegate?.getAddonPaymentItinerarySuccess()
+            }
+            else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+                self?.delegate?.getAddonPaymentItineraryFail()
+            }
+        }
     }
 }

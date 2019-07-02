@@ -540,12 +540,12 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
                 headerView.discountPriceLabel.text = "-" + "\(Double(discountbreak.CPD).amountInDelimeterWithSymbol)"
             }
             
-            if self.isCouponApplied {
-                headerView.discountViewHeightConstraint.constant = 27
-            } else {
-                headerView.discountViewHeightConstraint.constant = 0
-                headerView.clipsToBounds = true
-            }
+//            if self.isCouponApplied {
+//                headerView.discountViewHeightConstraint.constant = 27
+//            } else {
+//                headerView.discountViewHeightConstraint.constant = 0
+//                headerView.clipsToBounds = true
+//            }
             headerView.grossPriceLabel.text = "\(self.getGrossAmount().amountInDelimeterWithSymbol)"
             return headerView
         }
