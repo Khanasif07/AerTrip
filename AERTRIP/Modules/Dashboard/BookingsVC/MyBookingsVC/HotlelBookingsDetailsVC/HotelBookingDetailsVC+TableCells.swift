@@ -9,7 +9,6 @@
 import UIKit
 
 extension HotlelBookingsDetailsVC {
-    
     func getNotesCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelInfoAddressCell.reusableIdentifier, for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
         cell.configureNotesCell(notes: "A massive collection of core components and over 60 (x2) selected screens found in the public release of iOS 11 made over 60 (x2)")
@@ -56,7 +55,7 @@ extension HotlelBookingsDetailsVC {
     func getTitleWithSubTitleCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
         
-        let roomD = self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section-1]
+        let roomD = self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1]
         
         cell.configHotelBookingDetailsCell(title: roomD?.roomType ?? "", subTitle: "N/A")
         cell.clipsToBounds = true
@@ -66,12 +65,11 @@ extension HotlelBookingsDetailsVC {
     func getTravellersDetailsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TravellersDetailsTableViewCell.reusableIdentifier, for: indexPath) as? TravellersDetailsTableViewCell else { return UITableViewCell() }
         
-        let currentRoomSection = indexPath.section-1
-        let currentGuestIndex = indexPath.row-1
+        let currentRoomSection = indexPath.section - 1
+        let currentGuestIndex = indexPath.row - 1
         
         let allRooms = self.viewModel.bookingDetail?.bookingDetail?.roomDetails ?? []
         let allGuest = allRooms[currentRoomSection].guest
-        
         
         let isLastRoom = (allRooms.count - 1) == currentRoomSection
         let isLastTarv = (allGuest.count - 1) == currentGuestIndex
@@ -102,7 +100,7 @@ extension HotlelBookingsDetailsVC {
         cell.titleTopConstraint.constant = 11.0
         cell.titleBottomConstraint.constant = 5.0
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0) , titleColor: AppColors.themeBlack , isFirstCell: false, price: "₹ 10,000", isLastCell: false, cellHeight: 36.0)
+        cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "₹ 10,000", isLastCell: false, cellHeight: 36.0)
         cell.clipsToBounds = true
         return cell
     }
@@ -112,7 +110,7 @@ extension HotlelBookingsDetailsVC {
         cell.titleTopConstraint.constant = 5.0
         cell.titleBottomConstraint.constant = 5.0
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.AddOns.localized, titleFont: AppFonts.Regular.withSize(16.0) , titleColor: AppColors.themeBlack , isFirstCell: false, price: "₹ 5,000", isLastCell: false, cellHeight: 30.0)
+        cell.configCell(title: LocalizedString.AddOns.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "₹ 5,000", isLastCell: false, cellHeight: 30.0)
         cell.clipsToBounds = true
         return cell
     }
@@ -122,7 +120,7 @@ extension HotlelBookingsDetailsVC {
         cell.titleTopConstraint.constant = 5.0
         cell.titleBottomConstraint.constant = 12.0
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.Cancellation.localized, titleFont: AppFonts.Regular.withSize(16.0) , titleColor: AppColors.themeBlack , isFirstCell: false, price: "- ₹ 2,000", isLastCell: false, cellHeight: 37.0)
+        cell.configCell(title: LocalizedString.Cancellation.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "- ₹ 2,000", isLastCell: false, cellHeight: 37.0)
         cell.clipsToBounds = true
         return cell
     }
@@ -131,7 +129,7 @@ extension HotlelBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         cell.titleTopConstraint.constant = 12.0
         cell.titleBottomConstraint.constant = 5.0
-        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0) , titleColor: AppColors.themeBlack , isFirstCell: false, price: "₹ 4,000", isLastCell: false, cellHeight: 37.0)
+        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "₹ 4,000", isLastCell: false, cellHeight: 37.0)
         cell.dividerView.isHidden = false
         cell.clipsToBounds = true
         return cell
@@ -142,7 +140,7 @@ extension HotlelBookingsDetailsVC {
         cell.titleTopConstraint.constant = 5.0
         cell.titleBottomConstraint.constant = 13.0
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.Refund.localized, titleFont: AppFonts.Regular.withSize(16.0) , titleColor: AppColors.themeBlack , isFirstCell: false, price: "- ₹ 4,000", isLastCell: false, cellHeight: 38.0)
+        cell.configCell(title: LocalizedString.Refund.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "- ₹ 4,000", isLastCell: false, cellHeight: 38.0)
         cell.clipsToBounds = true
         return cell
     }
@@ -171,7 +169,13 @@ extension HotlelBookingsDetailsVC {
     
     func getWeatherInfoCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherInfoTableViewCell.reusableIdentifier, for: indexPath) as? WeatherInfoTableViewCell else { return UITableViewCell() }
-        cell.configureCell(cityName: self.viewModel.cityName[indexPath.row], date: "23 Jun", temp: "15", upTemp: "8", downTemp: "10", isLastCell: indexPath.row == self.viewModel.cityName.count-1)
+        cell.configureCell(cityName: "", date: self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1].date?.toString(dateFormat: "E, d MMM") ?? "", temp: self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1].temperature ?? 0, upTemp: self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1].maxTemperature ?? 0, downTemp: self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1].minTemperature ?? 0, isLastCell: indexPath.row == (self.viewModel.bookingDetail?.tripWeatherData.count ?? 0))
+        cell.clipsToBounds = true
+        return cell
+    }
+    
+    func getWeatherFooterCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherFooterTableViewCell.reusableIdentifier, for: indexPath) as? WeatherFooterTableViewCell else { return UITableViewCell() }
         cell.clipsToBounds = true
         return cell
     }
@@ -227,5 +231,4 @@ extension HotlelBookingsDetailsVC {
         cell.clipsToBounds = true
         return cell
     }
-    
 }

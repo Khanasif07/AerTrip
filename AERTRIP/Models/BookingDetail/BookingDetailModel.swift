@@ -36,6 +36,8 @@ struct BookingDetailModel {
     var weatherInfo: [WeatherInfo] = []
     var tempDateTripCityArray: [WeatherInfo] = []
     var user: UserInfo?
+    var tripWeatherData: [WeatherInfo] = []
+    var weatherDisplayedWithin16Info: Bool = false
     
     var jsonDict: JSONDictionary {
         return [:]
@@ -132,52 +134,112 @@ struct BookingDetailModel {
             self.specialRequestAllowed = "\(obj)".toBool
         }
         
-       
-            let testData = [
-                [
-                    "max_temperature": 27,
-                    "min_temperature": 17,
-                    "weather": "Moderate rain",
-                    "weather_icon": "501-moderate-rain",
-                    "temperature": 0,
-                    "date": "2019-07-01 22:35:00",
-                    "country_code": "DE",
-                    "city": "Munich"
-                ],
-                [
-                    "max_temperature": 34,
-                    "min_temperature": 33,
-                    "weather": "Clear sky",
-                    "weather_icon": "800-clear-sky",
-                    "temperature": 0,
-                    "date": "2019-07-02 06:35:00",
-                    "country_code": "AE",
-                    "city": "Abu Dhabi"
-                ],
-                [
-                    "max_temperature": 34,
-                    "min_temperature": 33,
-                    "weather": "Clear sky",
-                    "weather_icon": "800-clear-sky",
-                    "temperature": 0,
-                    "date": "2019-07-02 14:20:00",
-                    "country_code": "AE",
-                    "city": "Abu Dhabi"
-                ],
-                [
-                    "max_temperature": 29,
-                    "min_temperature": 29,
-                    "weather": "Heavy intensity rain",
-                    "weather_icon": "502-heavy-intensity-rain",
-                    "temperature": 0,
-                    "date": "2019-07-02 19:15:00",
-                    "country_code": "IN",
-                    "city": "Mumbai"
-                ]
+        let testData = [
+            [
+                "max_temperature": 27,
+                "min_temperature": 17,
+                "weather": "Moderate rain",
+                "weather_icon": "501-moderate-rain",
+                "temperature": 0,
+                "date": "2019-07-01 22:35:00",
+                "country_code": "DE",
+                "city": "Munich"
+            ],
+            [
+                "max_temperature": 34,
+                "min_temperature": 33,
+                "weather": "Clear sky",
+                "weather_icon": "800-clear-sky",
+                "temperature": 0,
+                "date": "2019-07-02 06:35:00",
+                "country_code": "AE",
+                "city": "Abu Dhabi"
+            ],
+            [
+                "max_temperature": 34,
+                "min_temperature": 33,
+                "weather": "Clear sky",
+                "weather_icon": "800-clear-sky",
+                "temperature": 0,
+                "date": "2019-07-02 14:20:00",
+                "country_code": "AE",
+                "city": "Abu Dhabi"
+            ],
+            [
+                "max_temperature": 29,
+                "min_temperature": 29,
+                "weather": "Heavy intensity rain",
+                "weather_icon": "502-heavy-intensity-rain",
+                "temperature": 0,
+                "date": "2019-07-02 19:15:00",
+                "country_code": "IN",
+                "city": "Mumbai"
             ]
-            
-            self.weatherInfo = WeatherInfo.getModels(json: testData)
+        ]
         
+        self.weatherInfo = WeatherInfo.getModels(json: testData)
+        
+        if self.product == "flight" {
+            for leg in self.bookingDetail?.leg ?? [] {
+                for flight in leg.flight {
+                    var weather = WeatherInfo()
+                    weather.date = flight.departDate
+                    weather.city = flight.departCity
+                    weather.countryCode = flight.departureCountryCode
+                    self.tripWeatherData.append(weather)
+                }
+            }
+            
+            if !self.weatherInfo.isEmpty {
+                for (i, weatherInfoData) in self.weatherInfo.enumerated() {
+                    for (_, weatherTripInfoData) in self.tripWeatherData.enumerated() {
+                        if weatherInfoData.date == weatherTripInfoData.date, weatherInfoData.countryCode == weatherTripInfoData.countryCode, weatherInfoData.city == weatherTripInfoData.city {
+                            self.tripWeatherData[i] = weatherInfoData
+                        }
+                    }
+                }
+            }
+            
+            for tripWeatherData in self.tripWeatherData {
+                if tripWeatherData.temperature == 0 {
+                    self.weatherDisplayedWithin16Info = true
+                    break
+                }
+            }
+        }
+        else {
+            let datesBetweenArray = Date.dates(from: self.bookingDetail?.checkIn ?? Date(), to: self.bookingDetail?.checkOut ?? Date())
+            for date in datesBetweenArray {
+                var weatherInfo = WeatherInfo()
+                weatherInfo.date = date
+                self.tripWeatherData.append(weatherInfo)
+            }
+            
+            if !self.weatherInfo.isEmpty {
+                for (i, weatherInfoData) in self.weatherInfo.enumerated() {
+                    for (_, weatherTripInfoData) in self.tripWeatherData.enumerated() {
+                        if weatherInfoData.date == weatherTripInfoData.date {
+                            self.tripWeatherData[i] = weatherInfoData
+                        }
+                    }
+                }
+            }
+            
+            for tripWeatherData in self.tripWeatherData {
+                if tripWeatherData.temperature == 0 {
+                    self.weatherDisplayedWithin16Info = true
+                    break
+                }
+            }
+        }
+    }
+    
+    var numberOfPassenger: Int {
+        var count = 0
+        for leg in self.bookingDetail?.leg ?? [] {
+            count += leg.pax.count
+        }
+        return count
     }
 }
 
@@ -1787,7 +1849,6 @@ struct WeatherInfo {
     var date: Date?
     var countryCode: String = ""
     var city: String = ""
-  
     
     init() {
         self.init(json: [:])

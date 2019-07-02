@@ -883,6 +883,7 @@ enum LocalizedString: String {
     case SpecialRequestHasBeenSent
     case WriteAboutYourSpecialRequest
     case RequestType
+    case WeatherFooterInfo
     
     case DownloadBlankDepositSlip
     case ChequeShouldDepositedInAccount
@@ -903,6 +904,7 @@ enum LocalizedString: String {
     case Airports
     
     // MARK: - Booking Add on Request
+    
     case SeatBookingPlaceholder
     case ExtraBaggagePlacheholder
     case OtherBookingPlaceholder
@@ -914,7 +916,4 @@ enum LocalizedString: String {
     case OtherBookingTitle
     case MealBookingTitle
     case SeatBookingTitle
-    
-    
-    
 }

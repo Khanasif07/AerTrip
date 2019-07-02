@@ -116,6 +116,7 @@ class FlightBookingsDetailsVC: BaseVC {
         self.bookingDetailsTableView.registerCell(nibName: PaymentPendingTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: FlightsOptionsTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: WeatherHeaderTableViewCell.reusableIdentifier)
+        self.bookingDetailsTableView.registerCell(nibName: WeatherFooterTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: WeatherInfoTableViewCell.reusableIdentifier)
     }
     
@@ -128,10 +129,11 @@ class FlightBookingsDetailsVC: BaseVC {
     }
     
     // Present Request Add on Frequent Flyer VC
-     func presentRequestAddOnFrequentFlyer() {
+    func presentRequestAddOnFrequentFlyer() {
         AppFlowManager.default.presentBookingReuqestAddOnVC(bookingdata: self.viewModel.bookingDetail)
     }
-    // Present Booking Rescheduling VC 
+    
+    // Present Booking Rescheduling VC
     func presentBookingReschedulingVC() {
         AppFlowManager.default.presentBookingReschedulingVC()
     }

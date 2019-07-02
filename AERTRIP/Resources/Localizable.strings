@@ -712,6 +712,7 @@
 "ThingsYouCanAskMe" = "Things you can ask me…";
 "Listening" = "Listening...";
 "FilterApplied" = "Filters have been applied";
+"WeatherFooterInfo" = "Weather info is displayed within 16 days of travel";
 
 //MARK: - Booking Details Info
 "ForwardArrow" = "→";

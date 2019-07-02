@@ -6,13 +6,14 @@
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
-import UIKit
 import MXParallaxHeader
+import UIKit
 
-//MARK:- Extensions
-//MARK:============
-extension HotlelBookingsDetailsVC: UITableViewDelegate , UITableViewDataSource {
-    
+// MARK: - Extensions
+
+// MARK: ============
+
+extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.viewModel.sectionDataForHotelDetail.count
     }
@@ -72,6 +73,8 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate , UITableViewDataSource {
             return UITableView.automaticDimension
         case .weatherInfoCell:
             return UITableView.automaticDimension
+        case .weatherFooterCell:
+            return UITableView.automaticDimension
         }
     }
     
@@ -126,14 +129,14 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate , UITableViewDataSource {
             return self.getWeatherHeaderCell(tableView, indexPath: indexPath)
         case .weatherInfoCell:
             return self.getWeatherInfoCell(tableView, indexPath: indexPath)
+        case .weatherFooterCell:
+            return self.getWeatherFooterCell(tableView, indexPath: indexPath)
         }
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("\(indexPath.section)")
         AppFlowManager.default.moveToBookingHotelDetailVC()
-    
     }
 }
 
@@ -143,7 +146,7 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.ProcessCancellation.localized,LocalizedString.SpecialRequest.localized,LocalizedString.Download.localized,LocalizedString.ResendConfirmationEmail.localized], colors: [self.viewModel.bookingDetail?.cancellationRequestAllowed ?? false ? AppColors.themeGreen : AppColors.themeGray40,self.viewModel.bookingDetail?.specialRequestAllowed ?? false  ? AppColors.themeGreen : AppColors.themeGray40 ,AppColors.themeGreen,AppColors.themeGreen])
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.ProcessCancellation.localized, LocalizedString.SpecialRequest.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationEmail.localized], colors: [self.viewModel.bookingDetail?.cancellationRequestAllowed ?? false ? AppColors.themeGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.specialRequestAllowed ?? false ? AppColors.themeGreen : AppColors.themeGray40, AppColors.themeGreen, AppColors.themeGreen])
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { _, index in
             switch index {
             case 0:
@@ -163,30 +166,28 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
     }
 }
 
-
 extension HotlelBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
-    
     func downloadDocument(documentDirectory: String, tableIndex: IndexPath, collectionIndex: IndexPath) {
         self.viewModel.currentDocumentPath = documentDirectory
         printDebug(documentDirectory)
         let destinationUrl = URL(fileURLWithPath: documentDirectory)
         printDebug(destinationUrl)
-        AppNetworking.DOWNLOAD(sourceUrl: self.viewModel.documentDownloadingData[collectionIndex.item].sourceUrl, destinationUrl: destinationUrl, requestHandler: { [weak self] (request) in
+        AppNetworking.DOWNLOAD(sourceUrl: self.viewModel.documentDownloadingData[collectionIndex.item].sourceUrl, destinationUrl: destinationUrl, requestHandler: { [weak self] request in
             guard let sSelf = self else { return }
             printDebug(request)
             sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .downloading
             sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadRequest = request
-            }, progressUpdate: { [weak self] progress in
-                guard let sSelf = self else { return }
-                sSelf.viewModel.documentDownloadingData[collectionIndex.item].progressUpdate?(progress)
-            }, success: { [weak self] (success) in
-                guard let sSelf = self else { return }
-                sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .downloaded
-                UIView.performWithoutAnimation {
-                    sSelf.bookingDetailsTableView.reloadData()
-                }
-                printDebug(success)
-        }) { [weak self] (error) in
+        }, progressUpdate: { [weak self] progress in
+            guard let sSelf = self else { return }
+            sSelf.viewModel.documentDownloadingData[collectionIndex.item].progressUpdate?(progress)
+        }, success: { [weak self] success in
+            guard let sSelf = self else { return }
+            sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .downloaded
+            UIView.performWithoutAnimation {
+                sSelf.bookingDetailsTableView.reloadData()
+            }
+            printDebug(success)
+        }) { [weak self] error in
             guard let sSelf = self else { return }
             sSelf.viewModel.documentDownloadingData[collectionIndex.item].downloadingStatus = .notDownloaded
             UIView.performWithoutAnimation {
@@ -202,20 +203,19 @@ extension HotlelBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
     }
 }
 
-//MARK:- ScrollView Delegate
+// MARK: - ScrollView Delegate
+
 //==========================
-extension HotlelBookingsDetailsVC : MXParallaxHeaderDelegate {
+extension HotlelBookingsDetailsVC: MXParallaxHeaderDelegate {
     func updateForParallexProgress() {
-        
         let prallexProgress = self.bookingDetailsTableView.parallaxHeader.progress
         
         printDebug("progress %f \(prallexProgress)")
         
-        if prallexProgress >= 0.6 {
-        }
+        if prallexProgress >= 0.6 {}
         
         if prallexProgress <= 0.5 {
-            self.topNavBar.animateBackView(isHidden: false) { [weak self](isDone) in
+            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
                 guard let sSelf = self else { return }
                 sSelf.topNavBar.firstRightButton.isSelected = true
                 sSelf.topNavBar.leftButton.isSelected = true
@@ -224,7 +224,7 @@ extension HotlelBookingsDetailsVC : MXParallaxHeaderDelegate {
                 sSelf.topNavBar.dividerView.isHidden = false
             }
         } else {
-            self.topNavBar.animateBackView(isHidden: true) { [weak self](isDone) in
+            self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
                 guard let sSelf = self else { return }
                 sSelf.topNavBar.firstRightButton.isSelected = false
                 sSelf.topNavBar.leftButton.isSelected = false

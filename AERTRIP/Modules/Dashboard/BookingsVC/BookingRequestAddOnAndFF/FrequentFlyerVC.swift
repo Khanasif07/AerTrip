@@ -9,72 +9,58 @@
 import UIKit
 
 class FrequentFlyerVC: BaseVC {
+    // MARK: - IBOutlet
     
-    
-     // MARK:- IBOutlet
-    
-    @IBOutlet weak var frequentFlyerTableView: ATTableView!
-   
+    @IBOutlet var frequentFlyerTableView: ATTableView!
     
     // MARK: - Variables
-     let footerViewIdentifier = "BookingInfoEmptyFooterView"
-     let headerViewIdentifier = "BookingFrequentFlyerHeaderView"
+    
+    let footerViewIdentifier = "BookingInfoEmptyFooterView"
+    let headerViewIdentifier = "BookingFrequentFlyerHeaderView"
     let pickerView: UIPickerView = UIPickerView()
     let pickerSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: 261.0)
     // GenericPickerView
     let genericPickerView: UIView = UIView()
     
-
-   
-    
     override func initialSetup() {
-        self.registerXib()
-        self.frequentFlyerTableView.dataSource = self
-        self.frequentFlyerTableView.delegate = self
-        self.frequentFlyerTableView.reloadData()
+        registerXib()
+        frequentFlyerTableView.dataSource = self
+        frequentFlyerTableView.delegate = self
+        frequentFlyerTableView.reloadData()
         
-        self.setUpGenericPicker()
-        self.setUpToolBarForGenericPickerView()
-      
-        
+        setUpGenericPicker()
+        setUpToolBarForGenericPickerView()
     }
-    
-   
-
     
     // MARK: Helper methods
     
-    
     func registerXib() {
-          self.frequentFlyerTableView.register(UINib(nibName: self.footerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.footerViewIdentifier)
-        self.frequentFlyerTableView.register(UINib(nibName: self.headerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.headerViewIdentifier)
-        self.frequentFlyerTableView.registerCell(nibName: BookingFFMealTableViewCell.reusableIdentifier)
-         self.frequentFlyerTableView.registerCell(nibName: BookingFFAirlineTableViewCell.reusableIdentifier)
-        
+        frequentFlyerTableView.register(UINib(nibName: footerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: footerViewIdentifier)
+        frequentFlyerTableView.register(UINib(nibName: headerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: headerViewIdentifier)
+        frequentFlyerTableView.registerCell(nibName: BookingFFMealTableViewCell.reusableIdentifier)
+        frequentFlyerTableView.registerCell(nibName: BookingFFAirlineTableViewCell.reusableIdentifier)
     }
-    
     
     func getCellForSection(_ indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
-        case 0,1:
+        case 0, 1:
             guard let arilineCell = self.frequentFlyerTableView.dequeueReusableCell(withIdentifier: "BookingFFAirlineTableViewCell") as? BookingFFAirlineTableViewCell else {
                 fatalError("BookingFFAirlineTableViewCell not found")
             }
 //            arilineCell.cofigureCell(airlineImage: self.viewModel.ffAirlineData[indexPath.row].airlineImage, airlineName: self.viewModel.ffAirlineData[indexPath.row].airlineName)
             return arilineCell
-        case 2:
-            
-            guard let cell = self.frequentFlyerTableView.dequeueReusableCell(withIdentifier: "BookingFFMealTableViewCell") as? BookingFFMealTableViewCell else {
-                fatalError("BookingFFMealTableViewCell not found")
-            }
-            cell.dividerView.isHidden = true
-            
-            return cell
-        default :
-        return UITableViewCell()
+        //        case 2:
+        ////
+        ////            guard let cell = self.frequentFlyerTableView.dequeueReusableCell(withIdentifier: "BookingFFMealTableViewCell") as? BookingFFMealTableViewCell else {
+        ////                fatalError("BookingFFMealTableViewCell not found")
+        ////            }
+        ////            cell.dividerView.isHidden = true
+        ////
+        ////            return cell
+        default:
+            return UITableViewCell()
         }
     }
-
     
     private func setUpToolBarForGenericPickerView() {
         let toolbar = UIToolbar()
@@ -97,7 +83,6 @@ class FrequentFlyerVC: BaseVC {
         genericPickerView.addSubview(toolbar)
     }
     
-    
     private func setUpGenericPicker() {
         // Generic Picker View
         genericPickerView.frame = CGRect(x: (UIScreen.main.bounds.size.width - PKCountryPickerSettings.pickerSize.width) / 2.0, y: UIScreen.main.bounds.size.height, width: PKCountryPickerSettings.pickerSize.width, height: (261 + PKCountryPickerSettings.toolbarHeight))
@@ -112,8 +97,6 @@ class FrequentFlyerVC: BaseVC {
         
         pickerView.setValue(#colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1), forKey: "textColor")
     }
-    
-   
     
     @objc func cancelGenericPicker() {
         closePicker(completion: nil)
@@ -130,10 +113,8 @@ class FrequentFlyerVC: BaseVC {
             self.genericPickerView.frame = visibleFrame
             self.view.addSubview(self.genericPickerView)
         }) { _ in
-            
         }
     }
-    
     
     func closePicker(completion: ((Bool) -> Void)?) {
         let hiddenFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
@@ -145,32 +126,28 @@ class FrequentFlyerVC: BaseVC {
             completion?(isDone)
         }
     }
-    
-    
-    
-   
 }
 
-
 extension FrequentFlyerVC: UITableViewDataSource, UITableViewDelegate {
-    
     func numberOfSections(in tableView: UITableView) -> Int {
-      //  return self.viewModel.sectionData.count
-        return 0
+        //  return self.viewModel.sectionData.count
+        return BookingRequestAddOnsFFVM.shared.bookingDetails?.numberOfPassenger ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return [3,3,3,3][section]
+//        return BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[section].pax.count ?? 0
+        return 2
+        //  return [3,3,3,3][section]
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section  {
+        switch indexPath.section {
         case 0:
             return getCellForSection(indexPath)
         case 1:
-               return getCellForSection(indexPath)
+            return getCellForSection(indexPath)
         case 2:
-               return getCellForSection(indexPath)
+            return getCellForSection(indexPath)
         case 3:
             return getCellForSection(indexPath)
         default:
@@ -178,11 +155,8 @@ extension FrequentFlyerVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-  
-    
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-       return 76.0
+        return 76.0
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -193,29 +167,34 @@ extension FrequentFlyerVC: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = frequentFlyerTableView.dequeueReusableHeaderFooterView(withIdentifier: self.headerViewIdentifier) as? BookingFrequentFlyerHeaderView else {
             fatalError(" BookingFrequentFlyerHeaderView not  found")
         }
+        
+        let leg = BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[section] ?? Leg()
+        
+        let passenger = leg.pax[section]
+        let name = "\(passenger.salutation) \(passenger.paxName)"
+        headerView.configureCell(profileImage: passenger.profileImage, salutationImage: passenger.salutationImage, passengerName: name)
 //
 //        headerView.profileImageView.image = self.viewModel.sectionData[section].profileImage
 //          headerView.passengerNameLabel.text = self.viewModel.sectionData[section].userName
         return headerView
-        
     }
     
-        func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-                guard let footerView = self.frequentFlyerTableView.dequeueReusableHeaderFooterView(withIdentifier: self.footerViewIdentifier) as? BookingInfoEmptyFooterView else {
-                    fatalError("BookingInfoFooterView not found")
-                }
-                return footerView
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard let footerView = self.frequentFlyerTableView.dequeueReusableHeaderFooterView(withIdentifier: self.footerViewIdentifier) as? BookingInfoEmptyFooterView else {
+            fatalError("BookingInfoFooterView not found")
         }
+        return footerView
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.openPicker(withSelection: "")
+        openPicker(withSelection: "")
     }
 }
 
-
 // MARK: - UIPickerViewDelegate and UIPickerViewDataSource methods
+
 //
-//extension FrequentFlyerVC: UIPickerViewDataSource, UIPickerViewDelegate {
+// extension FrequentFlyerVC: UIPickerViewDataSource, UIPickerViewDelegate {
 //    func numberOfComponents(in pickerView: UIPickerView) -> Int {
 //        return 1
 //    }
@@ -231,4 +210,4 @@ extension FrequentFlyerVC: UITableViewDataSource, UITableViewDelegate {
 //    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 //        printDebug("selected data \(self.viewModel.pickerData[row])")
 //    }
-//}
+// }

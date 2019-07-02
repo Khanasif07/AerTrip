@@ -205,6 +205,8 @@
 		1871B67822084B580066636E /* PriceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871B67722084B580066636E /* PriceVC.swift */; };
 		18727EB322291CF400DB1786 /* MailComposerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18727EB222291CF400DB1786 /* MailComposerVM.swift */; };
 		18727EB5222949DD00DB1786 /* APICaller+MailComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18727EB4222949DD00DB1786 /* APICaller+MailComposer.swift */; };
+		1873DD8622C9F3FC00DC8206 /* WeatherFooterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1873DD8422C9F3FB00DC8206 /* WeatherFooterTableViewCell.xib */; };
+		1873DD8722C9F3FC00DC8206 /* WeatherFooterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1873DD8522C9F3FB00DC8206 /* WeatherFooterTableViewCell.swift */; };
 		1876849F2284493A009637D6 /* BookingInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1876849E2284493A009637D6 /* BookingInfoHeaderView.swift */; };
 		187684A122844951009637D6 /* BookingInfoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187684A022844951009637D6 /* BookingInfoHeaderView.xib */; };
 		187684A322844C1B009637D6 /* BookingInfoEmptyFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187684A222844C1B009637D6 /* BookingInfoEmptyFooterView.swift */; };
@@ -1155,6 +1157,8 @@
 		1871B67722084B580066636E /* PriceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceVC.swift; sourceTree = "<group>"; };
 		18727EB222291CF400DB1786 /* MailComposerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposerVM.swift; sourceTree = "<group>"; };
 		18727EB4222949DD00DB1786 /* APICaller+MailComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+MailComposer.swift"; sourceTree = "<group>"; };
+		1873DD8422C9F3FB00DC8206 /* WeatherFooterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherFooterTableViewCell.xib; sourceTree = "<group>"; };
+		1873DD8522C9F3FB00DC8206 /* WeatherFooterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherFooterTableViewCell.swift; sourceTree = "<group>"; };
 		1876849E2284493A009637D6 /* BookingInfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingInfoHeaderView.swift; sourceTree = "<group>"; };
 		187684A022844951009637D6 /* BookingInfoHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingInfoHeaderView.xib; sourceTree = "<group>"; };
 		187684A222844C1B009637D6 /* BookingInfoEmptyFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingInfoEmptyFooterView.swift; sourceTree = "<group>"; };
@@ -2425,6 +2429,15 @@
 				84DB3CCD22A27DF000216159 /* FlightBookingsDataModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		1873DD8322C9F3D800DC8206 /* WeatherFooterTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				1873DD8522C9F3FB00DC8206 /* WeatherFooterTableViewCell.swift */,
+				1873DD8422C9F3FB00DC8206 /* WeatherFooterTableViewCell.xib */,
+			);
+			path = WeatherFooterTableViewCell;
 			sourceTree = "<group>";
 		};
 		1876849D22844903009637D6 /* BookingDetail */ = {
@@ -4558,6 +4571,7 @@
 		84DD245C2265A9630013F77E /* BookingsXibs */ = {
 			isa = PBXGroup;
 			children = (
+				1873DD8322C9F3D800DC8206 /* WeatherFooterTableViewCell */,
 				84741B7722A680E5009E304B /* QueryStatusCollectionCell */,
 				18FD91682296781E00D005E9 /* Reschedulling */,
 				180692B622951FF500177487 /* RequestAddOns&FF */,
@@ -5362,6 +5376,7 @@
 				84BF46BF2211E5EF000AA6E3 /* AmenitiesDetailsCollectionCell.xib in Resources */,
 				187684A122844951009637D6 /* BookingInfoHeaderView.xib in Resources */,
 				18930A2E21D46E0D005442C8 /* TwoPartEditTableViewCell.xib in Resources */,
+				1873DD8622C9F3FC00DC8206 /* WeatherFooterTableViewCell.xib in Resources */,
 				84DD249B226734D80013F77E /* BookingPaymentDetailsTableViewCell.xib in Resources */,
 				18D4C41E220ACD06005E1E37 /* RoomTableViewCell.xib in Resources */,
 				18020B0A2282A74500DE5FE0 /* InternationalOneWayCardTableViewCell.xib in Resources */,
@@ -6090,6 +6105,7 @@
 				842BA835223BBB4300EED7B0 /* HCGuestListVC.swift in Sources */,
 				847775632265EB2800EAB8B0 /* AccountDetailsVC+Delegates.swift in Sources */,
 				84B6DE9E228018D10042D902 /* SpecialAccountDetailsVC.swift in Sources */,
+				1873DD8722C9F3FC00DC8206 /* WeatherFooterTableViewCell.swift in Sources */,
 				1879C48B2292680C00897CED /* BookingCallVM.swift in Sources */,
 				1870AD18220C769400FB32C8 /* HotelModel.swift in Sources */,
 				849D37932289397200763AD8 /* AccountOnlineDepositVC.swift in Sources */,

@@ -81,6 +81,8 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return self.getWeatherHeaderCell(tableView, indexPath: indexPath)
         case .weatherInfoCell:
             return self.getWeatherInfoCell(tableView, indexPath: indexPath)
+        case .weatherFooterCell:
+            return self.getWeatherFooterCell(tableView, indexPath: indexPath)
         }
     }
     
@@ -100,8 +102,7 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.RequestAddOnAndFrequentFlyer.localized, LocalizedString.RequestRescheduling.localized, LocalizedString.RequestCancellation.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationMail.localized], colors: [self.viewModel.bookingDetail?.addOnRequestAllowed ?? false ?  AppColors.themeGreen : AppColors.themeGray40,self.viewModel.bookingDetail?.rescheduleRequestAllowed ?? false ? AppColors.themeGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.cancellationRequestAllowed ?? false ? AppColors.themeGreen : AppColors.themeGray40, AppColors.themeGreen, AppColors.themeGreen])
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.RequestAddOnAndFrequentFlyer.localized, LocalizedString.RequestRescheduling.localized, LocalizedString.RequestCancellation.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationMail.localized], colors: [self.viewModel.bookingDetail?.addOnRequestAllowed ?? false ? AppColors.themeGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.rescheduleRequestAllowed ?? false ? AppColors.themeGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.cancellationRequestAllowed ?? false ? AppColors.themeGreen : AppColors.themeGray40, AppColors.themeGreen, AppColors.themeGreen])
         
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
             
@@ -111,14 +112,13 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
                     self?.presentRequestAddOnFrequentFlyer()
                 }
             } else if index == 1 {
-               
                 if self?.viewModel.bookingDetail?.rescheduleRequestAllowed ?? false {
                     self?.presentBookingReschedulingVC()
                 }
                 printDebug("Present Request Reschedulling")
             } else if index == 2 {
                 if self?.viewModel.bookingDetail?.cancellationRequestAllowed ?? false {
-                   AppFlowManager.default.presentBookingReschedulingVC(usingFor: .cancellation)
+                    AppFlowManager.default.presentBookingReschedulingVC(usingFor: .cancellation)
                 }
                 printDebug("Present Request Cancellation")
             } else if index == 3 {
@@ -130,8 +130,6 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
                 printDebug("Present Resend Confirmation Email")
             }
         }
-        
-      
     }
 }
 

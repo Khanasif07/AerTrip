@@ -6,38 +6,42 @@
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
-import UIKit
 import MXParallaxHeader
+import UIKit
 
 class HotlelBookingsDetailsVC: BaseVC {
+    // MARK: - Variables
     
-    //MARK:- Variables
-    //MARK:-
+    // MARK: -
+    
     let viewModel = BookingProductDetailVM()
     var headerView: OtherBookingDetailsHeaderView?
     var eventTypeImage: UIImage {
         return #imageLiteral(resourceName: "hotelAerinIcon")
     }
+    
     private var navBarHeight: CGFloat {
         return UIDevice.isIPhoneX ? 84.0 : 64.0
     }
     
+    // MARK: - IBOutlets
     
-    //MARK:- IBOutlets
-    //MARK:-
-    @IBOutlet weak var topNavBar: TopNavigationView!
-    @IBOutlet weak var bookingDetailsTableView: ATTableView! {
+    // MARK: -
+    
+    @IBOutlet var topNavBar: TopNavigationView!
+    @IBOutlet var bookingDetailsTableView: ATTableView! {
         didSet {
             self.bookingDetailsTableView.estimatedRowHeight = 100.0
             self.bookingDetailsTableView.rowHeight = UITableView.automaticDimension
         }
     }
-    @IBOutlet weak var topNavBarHeightConstraint: NSLayoutConstraint!
-
+    
+    @IBOutlet var topNavBarHeightConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.statusBarStyle = .lightContent
@@ -47,7 +51,7 @@ class HotlelBookingsDetailsVC: BaseVC {
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
         self.statusBarStyle = .default
         self.topNavBarHeightConstraint.constant = self.navBarHeight
-        self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true , isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
+        self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
         self.configureTableHeaderView()
@@ -76,10 +80,11 @@ class HotlelBookingsDetailsVC: BaseVC {
         }
     }
     
-    //MARK:- Functions
-    //MARK:-
+    // MARK: - Functions
     
-    ///ConfigureCheckInOutView
+    // MARK: -
+    
+    /// ConfigureCheckInOutView
     
     private func configureTableHeaderView() {
         if let view = self.headerView {
@@ -115,6 +120,7 @@ class HotlelBookingsDetailsVC: BaseVC {
         self.bookingDetailsTableView.registerCell(nibName: FlightsOptionsTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: WeatherHeaderTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: WeatherInfoTableViewCell.reusableIdentifier)
+        self.bookingDetailsTableView.registerCell(nibName: WeatherFooterTableViewCell.reusableIdentifier)
     }
 }
 
@@ -132,7 +138,5 @@ extension HotlelBookingsDetailsVC: BookingProductDetailVMDelegate {
         self.bookingDetailsTableView.reloadData()
     }
     
-    func getBookingDetailFaiure() {
-        
-    }
+    func getBookingDetailFaiure() {}
 }
