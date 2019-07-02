@@ -9,14 +9,14 @@
 import UIKit
 
 class BookingDirectionVC: BaseVC {
-    
     // MARK: - IBOutlet
-    @IBOutlet weak var topNavigationView: TopNavigationView!
-    @IBOutlet weak var directionTableView: ATTableView!
+    
+    @IBOutlet var topNavigationView: TopNavigationView!
+    @IBOutlet var directionTableView: ATTableView!
     
     // MARK: - Variables
-    let viewModel = BookingDirectionVM()
     
+    let viewModel = BookingDirectionVM()
     
     override func initialSetup() {
         self.setupNavBar()
@@ -38,18 +38,15 @@ class BookingDirectionVC: BaseVC {
         self.directionTableView.registerCell(nibName: BookingDirectionTableViewCell.reusableIdentifier)
         self.directionTableView.register(UINib(nibName: AppConstants.ktableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: AppConstants.ktableViewHeaderViewIdentifier)
     }
-
-
 }
 
+// MARK: - UITableViewDataSource and UITableViewDelegate methods
 
-//MARK: - UITableViewDataSource and UITableViewDelegate methods
-
-extension BookingDirectionVC: UITableViewDataSource,UITableViewDelegate {
-    
+extension BookingDirectionVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.viewModel.sectionData.count
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.directionData.count
     }
@@ -59,21 +56,20 @@ extension BookingDirectionVC: UITableViewDataSource,UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let directionCell = self.directionTableView.dequeueReusableCell(withIdentifier: "BookingDirectionTableViewCell") as? BookingDirectionTableViewCell else  {
+        guard let directionCell = self.directionTableView.dequeueReusableCell(withIdentifier: "BookingDirectionTableViewCell") as? BookingDirectionTableViewCell else {
             fatalError("BookingDirectionTableViewCell not found")
         }
         
-        directionCell.configureCell(airportCode: self.viewModel.directionData[indexPath.row].airportCode, airportName: self.viewModel.directionData[indexPath.row].airportName, airportAddress: self.viewModel.directionData[indexPath.row].airportAddress)
+        let airportName: String = self.viewModel.directionData[indexPath.row].city + "," + self.viewModel.directionData[indexPath.row].country_code
+        directionCell.configureCell(airportCode: self.viewModel.directionData[indexPath.row].iataCode, airportName: airportName, airportAddress: self.viewModel.directionData[indexPath.row].airportName)
         directionCell.bottomDividerView.isHidden = self.viewModel.directionData.count - 1 == indexPath.row
         directionCell.edgeToedgeBottomDividerView.isHidden = self.viewModel.directionData.count - 1 != indexPath.row
         return directionCell
     }
     
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60.0
     }
-    
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ViewProfileDetailTableViewSectionView") as? ViewProfileDetailTableViewSectionView else {
@@ -83,13 +79,13 @@ extension BookingDirectionVC: UITableViewDataSource,UITableViewDelegate {
         headerView.headerLabel.text = self.viewModel.sectionData[section]
         return headerView
     }
-
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        AppGlobals.shared.redirectToMap(sourceView: self.view, originLat: "", originLong: "", destLat: self.viewModel.directionData[indexPath.row].latitude, destLong: self.viewModel.directionData[indexPath.row].longitude)
+    }
 }
 
-
-//MARK: - TopNavigation View Delegate methods
+// MARK: - TopNavigation View Delegate methods
 
 extension BookingDirectionVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {

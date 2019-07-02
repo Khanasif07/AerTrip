@@ -30,6 +30,7 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
     @IBOutlet var nameDividerView: UIView!
     @IBOutlet var travellerImgViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet var containerViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var tavellerImageBlurView: UIView!
     
     // MARK: - LifeCycle
     
@@ -53,6 +54,7 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
         self.travellerNameLabel.textColor = AppColors.themeBlack
         self.travellerPnrStatusLabel.textColor = AppColors.themeBlack
         self.travellerImageView.makeCircular()
+        self.tavellerImageBlurView.makeCircular()
         self.nameDividerView.isHidden = true
         self.nameDividerView.backgroundColor = AppColors.themeGray40
         
@@ -61,6 +63,7 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
     }
     
     internal func configCell(travellersImage: String, travellerName: String, travellerPnrStatus: String, firstName: String, lastName: String, isLastTraveller: Bool) {
+        self.tavellerImageBlurView.isHidden = true
         if !travellersImage.isEmpty {
             self.travellerImageView.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
         } else {
@@ -76,10 +79,10 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
         case .active:
             self.travellerPnrStatusLabel.textColor = AppColors.themeBlack
         case .cancelled, .rescheduled:
-            self.travellerImageView.applyGaussianBlurEffect(image: self.travellerImageView.image ?? #imageLiteral(resourceName: "profilePlaceholder"))
-            self.travellerImageView.makeCircular()
+            self.tavellerImageBlurView.isHidden = false
             self.travellerNameLabel.textColor = AppColors.themeGray40
-            self.nameDividerView.isHidden = false
+            self.travellerNameLabel.attributedText = AppGlobals.shared.getStrikeThroughText(str: travellerName)
+            
             self.travellerPnrStatusLabel.textColor = AppColors.themeRed
         case .pending:
             self.travellerPnrStatusLabel.textColor = AppColors.themeGray40

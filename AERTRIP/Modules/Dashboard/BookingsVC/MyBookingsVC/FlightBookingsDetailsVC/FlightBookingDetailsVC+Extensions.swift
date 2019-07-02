@@ -80,6 +80,8 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return self.getWeatherHeaderCell(tableView, indexPath: indexPath)
         case .weatherInfoCell:
             return self.getWeatherInfoCell(tableView, indexPath: indexPath)
+        case .weatherFooterCell:
+            return self.getWeatherFooterCell(tableView, indexPath: indexPath)
         }
     }
     
@@ -102,21 +104,34 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.ProcessCancellation.localized, LocalizedString.SpecialRequest.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationEmail.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
-        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { _, index in
-            switch index {
-            case 0:
-                printDebug("0")
-            case 1:
-                printDebug("1")
-            case 2:
-                printDebug("2")
-            case 3:
-                printDebug("3")
-            default:
-                printDebug("default")
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.RequestAddOnAndFrequentFlyer.localized, LocalizedString.RequestRescheduling.localized, LocalizedString.RequestCancellation.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationMail.localized], colors: [self.viewModel.bookingDetail?.addOnRequestAllowed ?? false ? AppColors.themeGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.rescheduleRequestAllowed ?? false ? AppColors.themeGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.cancellationRequestAllowed ?? false ? AppColors.themeGreen : AppColors.themeGray40, AppColors.themeGreen, AppColors.themeGreen])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
+            
+            if index == 0 {
+                printDebug("Present Request Add-ons & Freq. Flyer")
+                if self?.viewModel.bookingDetail?.addOnRequestAllowed ?? false {
+                    self?.presentRequestAddOnFrequentFlyer()
+                }
+            } else if index == 1 {
+                if self?.viewModel.bookingDetail?.rescheduleRequestAllowed ?? false {
+                    self?.presentBookingReschedulingVC()
+                }
+                printDebug("Present Request Reschedulling")
+            } else if index == 2 {
+                if self?.viewModel.bookingDetail?.cancellationRequestAllowed ?? false {
+                    AppFlowManager.default.presentBookingReschedulingVC(usingFor: .cancellation)
+                }
+                printDebug("Present Request Cancellation")
+            } else if index == 3 {
+                printDebug("Present Download")
+                let endPoints = "https://beta.aertrip.com/api/v1/dashboard/booking-action?type=pdf&booking_id=\(self?.viewModel.bookingDetail?.id ?? "")"
+                AppGlobals.shared.viewPdf(urlPath: endPoints, screenTitle: LocalizedString.ETicket.localized)
+            } else if index == 4 {
+                AppFlowManager.default.presentConfirmationMailVC(bookindId: self?.viewModel.bookingDetail?.id ?? "")
+                printDebug("Present Resend Confirmation Email")
             }
-        })
+        }
     }
 }
 
@@ -167,7 +182,7 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
         printDebug("progress %f \(prallexProgress)")
         
         if prallexProgress <= 0.5 {
-            self.topNavBar.animateBackView(isHidden: false) { [weak self](isDone) in
+            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
                 guard let sSelf = self else { return }
                 sSelf.topNavBar.firstRightButton.isSelected = true
                 sSelf.topNavBar.leftButton.isSelected = true
@@ -176,7 +191,7 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
                 sSelf.topNavBar.dividerView.isHidden = false
             }
         } else {
-            self.topNavBar.animateBackView(isHidden: true) { [weak self](isDone) in
+            self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
                 guard let sSelf = self else { return }
                 sSelf.topNavBar.firstRightButton.isSelected = false
                 sSelf.topNavBar.leftButton.isSelected = false
@@ -185,7 +200,6 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
                 sSelf.topNavBar.dividerView.isHidden = true
             }
         }
-        
         
 //
 //        if prallexProgress <= 0.65 {
@@ -237,10 +251,12 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     func openDirections() {
         //
         printDebug("open direction ")
+        AppFlowManager.default.moveToBookingDirectionVC(directions: self.viewModel.bookingDetail?.additionalInformation?.directions ?? [])
     }
     
     func openCallDetail() {
         printDebug("open call detail  ")
+        AppFlowManager.default.moveToBookingCallVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo)
     }
     
     func addToCalender() {

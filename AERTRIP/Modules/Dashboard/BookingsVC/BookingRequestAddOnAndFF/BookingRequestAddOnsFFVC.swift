@@ -21,7 +21,7 @@ class BookingRequestAddOnsFFVC: BaseVC {
     private var currentIndex: Int = 0
     private let selectedIndex:Int = 0
     private var allChildVCs : [UIViewController]  = [UIViewController]()
-    private let allTabsStr: [String] = [LocalizedString.AddOns.localized, LocalizedString.FrequentFlyer.localized]
+    private var allTabsStr: [String] = [LocalizedString.AddOns.localized]
     
     fileprivate weak var categoryView: ATCategoryView!
     private var allTabs: [ATCategoryItem] {
@@ -37,9 +37,13 @@ class BookingRequestAddOnsFFVC: BaseVC {
     }
     
     
+    
     override func initialSetup() {
         self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
         self.currentIndex = 0
+        if !BookingRequestAddOnsFFVM.shared.isLCC {
+            self.allTabsStr.append(LocalizedString.FrequentFlyer.localized)
+        }
         
         for i in 0..<self.allTabsStr.count {
             if i == 0 {
@@ -54,7 +58,8 @@ class BookingRequestAddOnsFFVC: BaseVC {
          self.requestButton.addGredient(isVertical: false)
         self.setupNavBar()
         
-        
+       
+        BookingRequestAddOnsFFVM.shared.getPreferenceMaster()
         
     }
     
@@ -94,6 +99,7 @@ class BookingRequestAddOnsFFVC: BaseVC {
     
     
     
+    
     private func setupPagerView() {
         var style = ATCategoryNavBarStyle()
         style.height = 49.0 // category bar Height
@@ -127,6 +133,7 @@ class BookingRequestAddOnsFFVC: BaseVC {
     
     
     @IBAction func requstButtonTapped(_ sender: Any) {
+   // AppFlowManager.default.showAddonRequestSent(buttonTitle:LocalizedString.Done.localized)
     }
 }
 
@@ -149,8 +156,12 @@ extension BookingRequestAddOnsFFVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        printDebug("Updated Booking details:\(BookingRequestAddOnsFFVM.shared.bookingDetails)")
         dismiss(animated: true)
     }
     
     
 }
+
+
+// MARK: - Booking

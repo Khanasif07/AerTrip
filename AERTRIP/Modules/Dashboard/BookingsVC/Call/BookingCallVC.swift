@@ -16,7 +16,7 @@ class BookingCallVC: BaseVC {
     
     // MARK: - Varibles
     
-    let ViewModel = BookingCallVM()
+    let viewModel = BookingCallVM()
     
     // MARK: - Override methods
     
@@ -24,6 +24,8 @@ class BookingCallVC: BaseVC {
         self.callTableView.dataSource = self
         self.callTableView.delegate = self
         self.callTableView.reloadData()
+        
+        self.viewModel.getIntialData()
         
         self.setupNavBar()
         self.registerXib()
@@ -47,17 +49,17 @@ class BookingCallVC: BaseVC {
             fatalError("BookingCallTableViewCell not found")
         }
         
-        if indexPath.row == 1 {
-            bookingCell.configureCell(image: self.ViewModel.aertripData[indexPath.row].image, title: self.ViewModel.aertripData[indexPath.row].title, phoneLabel: self.ViewModel.aertripData[indexPath.row].number, cellType: .email, email: "alex.gomes@aertrip.com")
+        if !self.viewModel.aertripData[indexPath.row].email.isEmpty {
+            bookingCell.configureCell(title: self.viewModel.aertripData[indexPath.row].key, phoneLabel: self.viewModel.aertripData[indexPath.row].value, cellType: .email, email: self.viewModel.aertripData[indexPath.row].email)
             bookingCell.imageViewBottomConstraint.constant = 5
             bookingCell.imageViewCenterConstraint.constant = -4
         } else {
-            bookingCell.configureCell(image: self.ViewModel.aertripData[indexPath.row].image
-                                      , title: self.ViewModel.aertripData[indexPath.row].title, phoneLabel: self.ViewModel.aertripData[indexPath.row].number)
+            bookingCell.configureCell(title: self.viewModel.aertripData[indexPath.row].key, phoneLabel: self.viewModel.aertripData[indexPath.row].value)
             bookingCell.imageViewBottomConstraint.constant = 7.5
             bookingCell.imageViewCenterConstraint.constant = 0
         }
-        bookingCell.dividerView.isHidden = self.ViewModel.aertripData.count - 1 == indexPath.row
+        
+        bookingCell.dividerView.isHidden = self.viewModel.aertripData.count - 1 == indexPath.row
         return bookingCell
     }
     
@@ -65,14 +67,13 @@ class BookingCallVC: BaseVC {
         guard let bookingCell = self.callTableView.dequeueReusableCell(withIdentifier: "BookingCallTableViewCell") as? BookingCallTableViewCell else {
             fatalError("BookingCallTableViewCell not found")
         }
-        bookingCell.configureCell(image: self.ViewModel.airlineData[indexPath.row].image
-                                  , title: self.ViewModel.airlineData[indexPath.row].title, phoneLabel: self.ViewModel.airlineData[indexPath.row].number)
-        bookingCell.dividerView.isHidden = self.ViewModel.airlineData.count - 1 == indexPath.row
+        bookingCell.configureCell(code: self.viewModel.airlineData[indexPath.row].airlineCode, title: self.viewModel.airlineData[indexPath.row].airlineName, phoneLabel: self.viewModel.airlineData[indexPath.row].phone, cellType: .airlines)
+        bookingCell.dividerView.isHidden = self.viewModel.airlineData.count - 1 == indexPath.row
         return bookingCell
     }
     
     func getCellForThirdSection(_ indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == self.ViewModel.airportData.count {
+        if indexPath.row == self.viewModel.airportData.count {
             guard let emptyCell = self.callTableView.dequeueReusableCell(withIdentifier: "EmptyTableViewCell") as? EmptyTableViewCell else {
                 fatalError("EmptyTableViewCell not found")
             }
@@ -81,24 +82,28 @@ class BookingCallVC: BaseVC {
             guard let bookingCell = self.callTableView.dequeueReusableCell(withIdentifier: "BookingCallTableViewCell") as? BookingCallTableViewCell else {
                 fatalError("BookingCallTableViewCell not found")
             }
-            bookingCell.configureCell(image: UIImage(named: "aertripGreenLogo") ?? UIImage(named: "aertripGreenLogo")!
-                                      , title: self.ViewModel.airportData[indexPath.row].title, phoneLabel: self.ViewModel.airportData[indexPath.row].number)
-            bookingCell.dividerView.isHidden = self.ViewModel.airportData.count - 1 == indexPath.row
+            let title = self.viewModel.airportData[indexPath.row].city + "," + self.viewModel.airportData[indexPath.row].countryCode
+            bookingCell.configureCell(code: self.viewModel.airportData[indexPath.row].ataCode, title: title, phoneLabel: self.viewModel.airportData[indexPath.row].phone, cellType: .airports)
+            bookingCell.dividerView.isHidden = self.viewModel.airportData.count - 1 == indexPath.row
             return bookingCell
         }
     }
     
     func makePhoneCall(phoneNumber: String) {
-        if let phoneURL = NSURL(string: ("tel://" + phoneNumber)) {
-            let alert = UIAlertController(title: phoneNumber, message: nil, preferredStyle: .alert)
-            alert.view.tintColor = AppColors.themeGreen
-            alert.addAction(UIAlertAction(title: "Call", style: .default, handler: { _ in
-                UIApplication.shared.openURL(phoneURL as URL)
-            }))
+        var uc = URLComponents()
+        uc.scheme = "tel"
+        uc.path = phoneNumber
+        
+        if let phoneURL = uc.url {
+//            let alert = UIAlertController(title: phoneNumber, message: nil, preferredStyle: .alert)
+//            alert.view.tintColor = AppColors.themeGreen
+//            alert.addAction(UIAlertAction(title: "Call", style: .default, handler: { _ in
+//
+//            }))
+            UIApplication.shared.openURL(phoneURL as URL)
+            //   alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            
-            self.present(alert, animated: true, completion: nil)
+            // self.present(alert, animated: true, completion: nil)
         }
     }
 }
@@ -107,11 +112,11 @@ class BookingCallVC: BaseVC {
 
 extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.ViewModel.section.count
+        return self.viewModel.section.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return [self.ViewModel.aertripData.count, self.ViewModel.airlineData.count, self.ViewModel.airportData.count + 1][section]
+        return [self.viewModel.contactInfo?.aertrip.count, self.viewModel.contactInfo?.airlines.count, self.viewModel.airportData.count + 1][section] ?? 0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -119,7 +124,7 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
         
-        callHeader.headerLabel.text = self.ViewModel.section[section]
+        callHeader.headerLabel.text = self.viewModel.section[section]
         return callHeader
     }
     
@@ -144,13 +149,13 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
         switch indexPath.section {
         case 0:
             
-            self.makePhoneCall(phoneNumber: self.ViewModel.aertripData[indexPath.row].number)
+            self.makePhoneCall(phoneNumber: self.viewModel.aertripData[indexPath.row].value)
             
         case 1:
-            self.makePhoneCall(phoneNumber: self.ViewModel.airlineData[indexPath.row].number)
+            self.makePhoneCall(phoneNumber: self.viewModel.airlineData[indexPath.row].phone)
             
         case 2:
-            self.makePhoneCall(phoneNumber: self.ViewModel.airportData[indexPath.row].number)
+            self.makePhoneCall(phoneNumber: self.viewModel.airportData[indexPath.row].phone)
             
         default:
             printDebug("nothing tapped")
@@ -168,7 +173,7 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
         case 1:
             return 44.0
         case 2:
-            if indexPath.row == self.ViewModel.airportData.count {
+            if indexPath.row == self.viewModel.airportData.count {
                 return 27.0
             } else {
                 return 44.0

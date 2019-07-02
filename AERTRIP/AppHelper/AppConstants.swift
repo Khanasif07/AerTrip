@@ -55,6 +55,7 @@ enum AppConstants {
     static let kMaxTextLimit = 256 // max limit for special request and preferred hotels
     
     static var isStatusBarBlured = true
+    static let AddOnRequestTextLimit = 60
     
     static let kGoogleAPIKey = "AIzaSyD_W5hNOfKdR3xbEEkbX1rI2sJ3nDv1E64" // "AIzaSyBR5AMB7FJUqlRBZv93B4aVhY-Xt13weaU"
     static let kRuppeeSymbol = "\u{20B9} "

@@ -101,13 +101,15 @@ extension FlightsOptionsTableViewCell: UICollectionViewDelegate, UICollectionVie
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FlightsOptionCollectionViewCell.reusableIdentifier, for: indexPath) as? FlightsOptionCollectionViewCell else { return UICollectionViewCell() }
         cell.configureCell(optionImage: self.optionImages[indexPath.item], optionName: self.optionNames[indexPath.item], isLastCell: (indexPath.row == 2))
         if indexPath.item == 0, self.webCheckinUrl.isEmpty {
-            cell.optionImageView.image = #imageLiteral(resourceName: "webCheckinGrey")
+            cell.optionImageView.image = #imageLiteral(resourceName: "webCheckinGray")
             cell.optionNameLabel.textColor = AppColors.themeGray40
         } else if indexPath.item == 1, self.additionalInformation?.directions.isEmpty ?? false {
+            cell.optionImageView.image = #imageLiteral(resourceName: "dircetionGray")
             cell.optionNameLabel.textColor = AppColors.themeGray40
             
         } else if indexPath.item == 2, self.additionalInformation?.contactInfo == nil {
             printDebug("inside contact cell")
+            cell.optionImageView.image = #imageLiteral(resourceName: "callGray")
             cell.optionNameLabel.textColor = AppColors.themeGray40
         }
         return cell

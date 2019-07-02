@@ -208,14 +208,6 @@ class BookingInvoiceVC: BaseVC {
     func getHeightForRowAtFourthSection(_ indexPath: IndexPath) -> CGFloat {
         return [46, 28, 44][indexPath.row]
     }
-    
-    private func presentRequestAddOnFrequentFlyer() {
-        AppFlowManager.default.presentBookingReuqestAddOnVC()
-    }
-    
-    private func presentBookingReschedulingVC() {
-        AppFlowManager.default.presentBookingReschedulingVC()
-    }
 }
 
 // MARK: - UITableViewDataSource and  UITableViewDelegate methods

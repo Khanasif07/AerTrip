@@ -49,7 +49,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="VHS-On-RlR" secondAttribute="bottom" id="0ST-Sm-f2V"/>
                             <constraint firstItem="kt5-VD-iA8" firstAttribute="top" secondItem="tF5-re-DTE" secondAttribute="bottom" constant="8" id="4xg-6p-O28"/>

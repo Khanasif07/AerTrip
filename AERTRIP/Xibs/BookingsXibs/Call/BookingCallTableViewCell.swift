@@ -25,30 +25,50 @@ class BookingCallTableViewCell: ATTableViewCell {
     @IBOutlet var dividerView: ATDividerView!
     @IBOutlet var imageViewBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet var airportCodeLabel: UILabel!
     @IBOutlet var imageViewCenterConstraint: NSLayoutConstraint!
     
     // MARK: - Override methods
     
     override func setupFonts() {
+        self.airportCodeLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.titleLabel.font = AppFonts.Regular.withSize(18.0)
         self.phoneLabel.font = AppFonts.Regular.withSize(18.0)
     }
     
     override func setupColors() {
+        self.airportCodeLabel.textColor = AppColors.themeGreen
         self.titleLabel.textColor = AppColors.themeBlack
         self.phoneLabel.textColor = AppColors.themeGray40
     }
     
-    func configureCell(image: UIImage, title: String, phoneLabel: String, cellType: CallCellType = .none, email: String = "") {
-        if cellType == .none {
-            self.cellImageView.image = image
+    func configureCell(code: String = "", title: String, phoneLabel: String, cellType: CallCellType = .none, email: String = "") {
+        self.airportCodeLabel.isHidden = true
+        switch cellType {
+        case .none:
+            self.cellImageView.image = #imageLiteral(resourceName: "aertripGreenLogo")
             self.titleLabel.text = title
             self.phoneLabel.text = phoneLabel
-        } else {
-            self.cellImageView.image = image
+        case .email:
+            self.cellImageView.image = #imageLiteral(resourceName: "aertripGreenLogo")
             let fullText: String = title + "\n" + email
             self.titleLabel.attributedText = self.getAttributedBoldText(text: fullText, boldText: email)
             self.phoneLabel.text = phoneLabel
+        case .airlines:
+            if !code.isEmpty {
+                let imageUrl = AppGlobals.shared.getAirlineCodeImageUrl(code: code)
+                self.cellImageView.setImageWithUrl(imageUrl, placeholder: AppPlaceholderImage.default, showIndicator: true)
+            }
+            self.titleLabel.text = title
+            self.phoneLabel.text = phoneLabel
+        case .airports:
+            self.airportCodeLabel.isHidden = false
+            self.cellImageView.isHidden = true
+            self.airportCodeLabel.text = code
+            self.titleLabel.text = title
+            self.phoneLabel.text = phoneLabel
+        default:
+            break
         }
     }
     

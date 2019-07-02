@@ -161,7 +161,7 @@ struct GuestDetail {
     var age: String = ""
     
     var fullName: String {
-        return "\(salutation) \(name)"
+        return "\(self.salutation) \(self.name)"
     }
     
     init() {
@@ -359,7 +359,7 @@ struct Direction {
             self.city = "\(obj)".removeNull
         }
         
-        if let obj = json["airportName"] as? String {
+        if let obj = json["airport_name"] as? String {
             self.airportName = "\(obj)".removeNull
         }
         

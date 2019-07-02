@@ -32,8 +32,15 @@ class BookingFFMealTableViewCell: ATTableViewCell {
     
     override func setupColors() {
         self.mealPreferenceLabel.textColor = AppColors.themeGray40
-    self.selectedMealPreferenceLabel.textColor = AppColors.textFieldTextColor51
+        self.selectedMealPreferenceLabel.textColor = AppColors.textFieldTextColor51
     }
+    
+    
+    func configureCell(title: String) {
+        self.mealPreferenceLabel.text = title
+    }
+    
+    
     
     
     

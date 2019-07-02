@@ -17,11 +17,13 @@ protocol BookingProductDetailVMDelegate: class {
 class BookingProductDetailVM {
     // MARK: - Variables
     
-    //hotel details related
+    // hotel details related
     enum TableViewCellForHotel {
-        case notesCell, requestCell , cancellationsReqCell , addOnRequestCell , reschedulingRequestCell , hotelBookingInfoCell , roomNameAndTypeCell , travellersCell ,documentCell , paymentInfoCell , bookingCell , addOnsCell , cancellationCell , paidCell , refundCell , paymentPendingCell , nameCell , emailCell , mobileCell , gstCell , billingAddressCell , flightsOptionsCell , weatherHeaderCell , weatherInfoCell
+        case notesCell, requestCell, cancellationsReqCell, addOnRequestCell, reschedulingRequestCell, hotelBookingInfoCell, roomNameAndTypeCell, travellersCell, documentCell, paymentInfoCell, bookingCell, addOnsCell, cancellationCell, paidCell, refundCell, paymentPendingCell, nameCell, emailCell, mobileCell, gstCell, billingAddressCell, flightsOptionsCell, weatherHeaderCell, weatherInfoCell, weatherFooterCell
     }
+    
     var sectionDataForHotelDetail: [[TableViewCellForHotel]] = []
+    
     var noOfCellAboveHotelDetail: Int {
         var count = 1
         if !(self.bookingDetail?.bookingDetail?.note.isEmpty ?? false) {
@@ -32,9 +34,11 @@ class BookingProductDetailVM {
         }
         return count
     }
-
+    
+        //hotel details
+    var documentDownloadingData = [DocumentDownloadingModel]()
+    
     func getSectionDataForHotelDetail() {
-        
         //note details
         if let note = self.bookingDetail?.bookingDetail?.note, !note.isEmpty {
             self.sectionDataForHotelDetail.append([.notesCell])
@@ -54,10 +58,10 @@ class BookingProductDetailVM {
             self.sectionDataForHotelDetail.append(temp)
         }
         
-        //hotel details
+        // hotel details
         self.sectionDataForHotelDetail.append([.hotelBookingInfoCell])
-       
-        //room details
+        
+        // room details
         if let roomDetails = self.bookingDetail?.bookingDetail?.roomDetails {
             var temp: [TableViewCellForHotel] = []
             for room in roomDetails {
@@ -69,7 +73,6 @@ class BookingProductDetailVM {
             self.sectionDataForHotelDetail.append(temp)
             temp.removeAll()
         }
-        
         //documents details
         if let docs = self.bookingDetail?.documents, !docs.isEmpty {
             self.sectionDataForHotelDetail.append([.documentCell])
@@ -81,12 +84,35 @@ class BookingProductDetailVM {
         //additional info details
         self.sectionDataForHotelDetail.append([.flightsOptionsCell])
         
-       //weather is coming then add
+        //weather is coming then add
         self.sectionDataForHotelDetail.append([.weatherHeaderCell,.weatherInfoCell,.weatherInfoCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell])
         self.sectionDataForHotelDetail.append([.nameCell , .emailCell , .mobileCell , .gstCell , .billingAddressCell])
+        
+        self.sectionDataForHotelDetail.append([.documentCell])
+        self.sectionDataForHotelDetail.append([.paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .paidCell, .refundCell, .paymentPendingCell])
+        self.sectionDataForHotelDetail.append([.flightsOptionsCell])
+        
+        // logic for add weather Data
+        var temp: [TableViewCellForHotel] = []
+        for (index, _) in (self.bookingDetail?.tripWeatherData.enumerated())! {
+            if index == 0 {
+                temp.append(.weatherHeaderCell)
+                temp.append(.weatherInfoCell)
+            } else {
+                temp.append(.weatherInfoCell)
+            }
+        }
+        
+        if self.bookingDetail?.weatherDisplayedWithin16Info ?? false {
+            temp.append(.weatherFooterCell)
+        }
+        
+        self.sectionDataForHotelDetail.append(temp)
+        // self.sectionDataForHotelDetail.append([.weatherHeaderCell,.weatherInfoCell,.weatherInfoCell,.weatherInfoCell,.weatherInfoCell,.weatherInfoCell])
+        self.sectionDataForHotelDetail.append([.nameCell, .emailCell, .mobileCell, .gstCell, .billingAddressCell])
     }
-
-    //hotel details related
+    
+    // hotel details related
     
     weak var delegate: BookingProductDetailVMDelegate?
     var bookingId: String = "9705"
@@ -94,7 +120,7 @@ class BookingProductDetailVM {
     var tripCitiesStr: NSMutableAttributedString?
     
     enum TableViewCellForFlightProductType {
-        case notesCell, requestCell, cancellationsReqCell, addOnRequestCell, reschedulingRequestCell, flightCarriersCell, flightBoardingAndDestinationCell, travellersPnrStatusTitleCell, travellersPnrStatusCell, documentCell, paymentInfoCell, bookingCell, addOnsCell, cancellationCell, paidCell, refundCell, paymentPendingCell, nameCell, emailCell, mobileCell, gstCell, billingAddressCell, flightsOptionsCell, weatherHeaderCell, weatherInfoCell
+        case notesCell, requestCell, cancellationsReqCell, addOnRequestCell, reschedulingRequestCell, flightCarriersCell, flightBoardingAndDestinationCell, travellersPnrStatusTitleCell, travellersPnrStatusCell, documentCell, paymentInfoCell, bookingCell, addOnsCell, cancellationCell, paidCell, refundCell, paymentPendingCell, nameCell, emailCell, mobileCell, gstCell, billingAddressCell, flightsOptionsCell, weatherHeaderCell, weatherInfoCell, weatherFooterCell
     }
     
     var cityName: [String] = ["", "Mumbai, IN", "Bangkok, TH", "Bangkok, TH", "Mumbai, IN", "Chennai, IN"]
@@ -161,22 +187,45 @@ class BookingProductDetailVM {
             self.sectionDataForFlightProductType.append([.addOnsCell])
         }
         
-        if self.bookingDetail?.cancellationAmount ?? 0.0 > 0.0 {
+        if self.bookingDetail?.cancellationAmount ?? 0.0 < 0.0 {
             self.sectionDataForFlightProductType.append([.cancellationCell])
+        }
+        
+        if self.bookingDetail?.rescheduleAmount ?? 0.0 > 0.0 {
+            self.sectionDataForFlightProductType.append([.reschedulingRequestCell])
         }
         
         if self.bookingDetail?.paid ?? 0.0 > 0.0 {
             self.sectionDataForFlightProductType.append([.paidCell])
         }
         
-        if self.bookingDetail?.refundAmount ?? 0.0 > 0.0 {
+        if self.bookingDetail?.refundAmount ?? 0.0 != 0.0 {
             self.sectionDataForFlightProductType.append([.refundCell])
         }
         
-        self.sectionDataForFlightProductType.append([.paymentPendingCell])
-        
+        if self.bookingDetail?.totalOutStanding != 0.0 {
+            self.sectionDataForFlightProductType.append([.paymentPendingCell])
+        }
         self.sectionDataForFlightProductType.append([.flightsOptionsCell])
-        self.sectionDataForFlightProductType.append([.weatherHeaderCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell])
+        
+        // logic for add weather Data
+        var temp: [TableViewCellForFlightProductType] = []
+        for (index, _) in (self.bookingDetail?.tripWeatherData.enumerated())! {
+            if index == 0 {
+                temp.append(.weatherHeaderCell)
+                temp.append(.weatherInfoCell)
+            } else {
+                temp.append(.weatherInfoCell)
+            }
+        }
+        
+        if self.bookingDetail?.weatherDisplayedWithin16Info ?? false {
+            temp.append(.weatherFooterCell)
+        }
+        
+        self.sectionDataForFlightProductType.append(temp)
+        
+        // self.sectionDataForFlightProductType.append([.weatherHeaderCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell])
         self.sectionDataForFlightProductType.append([.nameCell, .emailCell, .mobileCell, .gstCell, .billingAddressCell])
     }
     

@@ -232,7 +232,7 @@ struct AppGlobals {
         
         // add the NSTextAttachment wrapper to our full string, then add some more text.
         fullString.append(image1String)
-        fullString.append(NSMutableAttributedString(string:  "  "))
+        fullString.append(NSMutableAttributedString(string: "  "))
         fullString.append(endText)
         return fullString
     }
@@ -370,6 +370,7 @@ struct AppGlobals {
         }
     }
     
+
     func addEventToCalender(title: String, notes: String = "", startDate: Date? = nil, endDate: Date? = nil) {
         
         let eventStore = EKEventStore()
@@ -394,6 +395,14 @@ struct AppGlobals {
                 }
             }
         })
+    }
+        
+    //MARK: - Get Strike Through text from a Strig
+    
+    func getStrikeThroughText(str: String) -> NSMutableAttributedString {
+        let attributeString: NSMutableAttributedString = NSMutableAttributedString(string: str)
+        attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0, attributeString.length))
+        return attributeString
     }
 }
 

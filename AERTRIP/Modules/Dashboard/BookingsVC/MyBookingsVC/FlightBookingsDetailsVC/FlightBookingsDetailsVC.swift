@@ -122,6 +122,7 @@ class FlightBookingsDetailsVC: BaseVC {
         self.bookingDetailsTableView.registerCell(nibName: PaymentPendingTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: FlightsOptionsTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: WeatherHeaderTableViewCell.reusableIdentifier)
+        self.bookingDetailsTableView.registerCell(nibName: WeatherFooterTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: WeatherInfoTableViewCell.reusableIdentifier)
     }
     
@@ -129,5 +130,15 @@ class FlightBookingsDetailsVC: BaseVC {
         // TODO: - Need to be synced with backend Api key
         guard let url = url.toUrl else { return }
         AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Web Checkin")
+    }
+    
+    // Present Request Add on Frequent Flyer VC
+    func presentRequestAddOnFrequentFlyer() {
+        AppFlowManager.default.presentBookingReuqestAddOnVC(bookingdata: self.viewModel.bookingDetail)
+    }
+    
+    // Present Booking Rescheduling VC
+    func presentBookingReschedulingVC() {
+        AppFlowManager.default.presentBookingReschedulingVC()
     }
 }

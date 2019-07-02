@@ -714,11 +714,16 @@
 "ThingsYouCanAskMe" = "Things you can ask me…";
 "Listening" = "Listening...";
 "FilterApplied" = "Filters have been applied";
+"WeatherFooterInfo" = "Weather info is displayed within 16 days of travel";
 
 //MARK: - Booking Details Info
 "ForwardArrow" = "→";
 "Dimensions" = "Dimensions";
 "HandBaggageDimensions" = "Hand Baggage Dimensions";
+
+
+//MARK: - Flight Module
+"AmountToBeRefunded" = "Amount to be Refunded ";
 
 //MARK:- Account Ladger
 "DownloadAsPdf" = "Download as PDF";
@@ -780,7 +785,7 @@
 "Carriers" = "Carriers";
 "Cancellation" = "Cancellation";
 "Refund" = "Refund";
-"PaymentPending" = "Payment pending";
+"PaymentPending" = "Payment pending ";
 "WebCheckin" = "Web Checkin";
 "SeeAll" = "See All";
 "Downloading" = "Downloading…";
@@ -814,3 +819,25 @@
 "BankBranch" = "Bank Branch";
 "IFSCCode" = "IFSC Code";
 "AccountType" = "Account Type";
+
+// MARK: - Booking CallVC
+
+"Aertip" = "AERTRIP";
+"Airports" = "AIRPORTS";
+"Airlines" = "AIRLINES";
+
+
+// MARK: - Booking Add on Request VC
+"SeatBookingPlaceholder" = "e.g. Aisle, 3C, Front row, etc.";
+"ExtraBaggagePlacheholder" = "e.g. Extra 5kg";
+"OtherBookingPlaceholder" = "e.g. Golf Kit, Wheelchair";
+"MealBookingPlaceholder" = "e.g. Asian meal, Baby food,etc";
+
+"SeatPreferenceTitle" = "Seat Preference";
+"MealPreferenceTitle" = "Meal Preference";
+"ExtraBaggageTitle" = "Extra Baggage";
+"OtherBookingTitle" = "Others";
+"MealBookingTitle" = "Meal Booking";
+"SeatBookingTitle" = "Seat Booking";
+
+

@@ -25,7 +25,6 @@ class BookingFrequentFlyerHeaderView: UITableViewHeaderFooterView {
     }
     
     // MARK: - Helper methods
-
     
     func setUpFont() {
         self.passengerNameLabel.font = AppFonts.SemiBold.withSize(18.0)
@@ -38,5 +37,16 @@ class BookingFrequentFlyerHeaderView: UITableViewHeaderFooterView {
     
     func setUpTextColor() {
         self.frequentFlyerLabel.textColor = AppColors.themeGray40
+    }
+    
+    func configureCell(profileImage: String, salutationImage: UIImage, passengerName: String) {
+        if profileImage.isEmpty {
+            self.profileImageView.image = salutationImage
+            
+        } else {
+            self.profileImageView.setImageWithUrl(profileImage, placeholder: AppPlaceholderImage.user, showIndicator: true)
+        }
+        
+        self.passengerNameLabel.text = passengerName
     }
 }

@@ -13,21 +13,17 @@ protocol BookingFFAirlineTableViewCellDelegate: class {
 }
 
 class BookingFFAirlineTableViewCell: ATTableViewCell {
-
     // MARK: - IBOutlet
     
-    @IBOutlet weak var airlineImageView: UIImageView!
-    @IBOutlet weak var airlineNameLabel: UILabel!
-    @IBOutlet weak var airlineNumberTextField: UITextField!
-    
+    @IBOutlet var airlineImageView: UIImageView!
+    @IBOutlet var airlineNameLabel: UILabel!
+    @IBOutlet var airlineNumberTextField: UITextField!
     
     // MARK: - Variables
     
     weak var delegate: BookingFFAirlineTableViewCellDelegate?
-
     
     override func doInitialSetup() {
-       
         self.airlineNumberTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
     }
     
@@ -37,33 +33,27 @@ class BookingFFAirlineTableViewCell: ATTableViewCell {
         self.airlineNumberTextField.font = AppFonts.Regular.withSize(18.0)
     }
     
-   
     override func setupColors() {
         self.airlineNameLabel.textColor = AppColors.themeBlack
         self.airlineNumberTextField.textColor = AppColors.themeBlack
     }
     
-    
-    func cofigureCell(airlineImage: UIImage,airlineName: String) {
+    func cofigureCell(airlineImage: UIImage, airlineName: String) {
         self.airlineNameLabel.text = airlineName
         self.airlineImageView.image = airlineImage
     }
-    
 }
 
-
-
 extension BookingFFAirlineTableViewCell: UITextFieldDelegate {
-    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if textView.text == " " {
+        if textView.text.count == 60 {
             return false
         }
         
         return true
     }
     
-    @objc   func textFieldDidChanged(_ textField:UITextField) {
+    @objc func textFieldDidChanged(_ textField: UITextField) {
         self.delegate?.textFieldText(textField)
     }
     
@@ -71,6 +61,4 @@ extension BookingFFAirlineTableViewCell: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
 }
-

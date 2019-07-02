@@ -81,7 +81,7 @@ extension OtherBookingsDetailsVC {
     func getPaidCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         cell.containerViewBottomConstraint.constant = 26.0
-        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.totalAmountPaid ?? "", isLastCell: true)
+        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.totalAmountPaid.delimiterWithSymbol, isLastCell: true)
         cell.clipsToBounds = true
         return cell
     }
