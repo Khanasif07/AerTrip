@@ -38,7 +38,7 @@ struct BookingDetailModel {
     var user: UserInfo?
     var tripWeatherData: [WeatherInfo] = []
     var weatherDisplayedWithin16Info: Bool = false
-    
+    var frequentFlyerData: [FrequentFlyerData] = []
     var jsonDict: JSONDictionary {
         return [:]
     }
@@ -234,6 +234,7 @@ struct BookingDetailModel {
         }
     }
     
+   
     var numberOfPassenger: Int {
         var count = 0
         for leg in self.bookingDetail?.leg ?? [] {
@@ -459,6 +460,20 @@ extension BookingDetailModel {
             }
             return ""
         }
+    }
+    
+    
+    var frequentFlyerDatas: [FrequentFlyerData] {
+        
+            var temp: [FrequentFlyerData] = []
+            
+            for leg in self.bookingDetail?.leg ?? [] {
+                for pax in leg.pax {
+                    temp.append(FrequentFlyerData(passenger: pax, flights: leg.flight))
+                }
+            }
+            
+            return temp
     }
 }
 
@@ -813,6 +828,7 @@ struct FlightDetail {
     var quality: String = ""
     var cabinClass: String = ""
     var operatedBy: String = ""
+    var frequentFlyerNumber: String = ""
     var baggage: Baggage?
     var lcc: Int = 0
     // Weather data only will come if we are booking for less that 16 days from the travel data.
@@ -1350,6 +1366,7 @@ struct Pax {
     var rescheduleCharge: String = ""
     var ticket: String = ""
     var pnr: String = ""
+    var flight : [FlightDetail] = []
     var inProcess: Bool = false
     var profileImage: String = ""
     var _seat: String = ""

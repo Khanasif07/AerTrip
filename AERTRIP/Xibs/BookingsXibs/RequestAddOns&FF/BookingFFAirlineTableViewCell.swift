@@ -18,6 +18,15 @@ class BookingFFAirlineTableViewCell: ATTableViewCell {
     @IBOutlet var airlineImageView: UIImageView!
     @IBOutlet var airlineNameLabel: UILabel!
     @IBOutlet var airlineNumberTextField: UITextField!
+    @IBOutlet weak var leftDividerView: ATDividerView!
+    
+    @IBOutlet weak var rightDividerView: ATDividerView!
+    
+    var flightData: FlightDetail? {
+        didSet {
+            self.cofigureCell()
+        }
+    }
     
     // MARK: - Variables
     
@@ -38,9 +47,13 @@ class BookingFFAirlineTableViewCell: ATTableViewCell {
         self.airlineNumberTextField.textColor = AppColors.themeBlack
     }
     
-    func cofigureCell(airlineImage: UIImage, airlineName: String) {
-        self.airlineNameLabel.text = airlineName
-        self.airlineImageView.image = airlineImage
+    func cofigureCell() {
+        self.airlineNameLabel.text = flightData?.carrier
+        if !(flightData?.carrierCode.isEmpty ?? false) {
+            let imageUrl = AppGlobals.shared.getAirlineCodeImageUrl(code: flightData?.carrierCode ?? "")
+            self.airlineImageView.setImageWithUrl(imageUrl, placeholder: AppPlaceholderImage.default, showIndicator: true)
+        }
+        
     }
 }
 

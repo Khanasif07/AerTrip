@@ -130,29 +130,42 @@ class FrequentFlyerVC: BaseVC {
 
 extension FrequentFlyerVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        //  return self.viewModel.sectionData.count
-        return BookingRequestAddOnsFFVM.shared.bookingDetails?.numberOfPassenger ?? 0
+        return BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[section].pax.count ?? 0
-        return 2
+      
+        return BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData[section].flights.count ?? 0
         //  return [3,3,3,3][section]
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
-            return getCellForSection(indexPath)
-        case 1:
-            return getCellForSection(indexPath)
-        case 2:
-            return getCellForSection(indexPath)
-        case 3:
-            return getCellForSection(indexPath)
-        default:
-            return UITableViewCell()
+        
+        guard let arilineCell = self.frequentFlyerTableView.dequeueReusableCell(withIdentifier: "BookingFFAirlineTableViewCell") as? BookingFFAirlineTableViewCell else {
+            fatalError("BookingFFAirlineTableViewCell not found")
         }
+       
+        arilineCell.flightData = BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData[indexPath.section].flights[indexPath.row]
+        arilineCell.leftDividerView.isHidden = indexPath.row == (BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData[indexPath.section].flights.count ?? 0) - 1
+          arilineCell.rightDividerView.isHidden = indexPath.row == (BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData[indexPath.section].flights.count ?? 0) - 1
+        
+        arilineCell.delegate = self
+        return arilineCell
+      
+       // return UITableViewCell()
+//        switch indexPath.section {
+//        case 0:
+//            return getCellForSection(indexPath)
+//        case 1:
+//            return getCellForSection(indexPath)
+//        case 2:
+//            return getCellForSection(indexPath)
+//        case 3:
+//            return getCellForSection(indexPath)
+//        default:
+//            return UITableViewCell()
+//        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -168,14 +181,14 @@ extension FrequentFlyerVC: UITableViewDataSource, UITableViewDelegate {
             fatalError(" BookingFrequentFlyerHeaderView not  found")
         }
         
-        let leg = BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[section] ?? Leg()
+        guard let passenger = BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData[section].passenger else {
+            printDebug("passenger not found")
+            return UIView()
+        }
         
-        let passenger = leg.pax[section]
         let name = "\(passenger.salutation) \(passenger.paxName)"
         headerView.configureCell(profileImage: passenger.profileImage, salutationImage: passenger.salutationImage, passengerName: name)
-//
-//        headerView.profileImageView.image = self.viewModel.sectionData[section].profileImage
-//          headerView.passengerNameLabel.text = self.viewModel.sectionData[section].userName
+
         return headerView
     }
     
@@ -186,9 +199,7 @@ extension FrequentFlyerVC: UITableViewDataSource, UITableViewDelegate {
         return footerView
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        openPicker(withSelection: "")
-    }
+    
 }
 
 // MARK: - UIPickerViewDelegate and UIPickerViewDataSource methods
@@ -211,3 +222,22 @@ extension FrequentFlyerVC: UITableViewDataSource, UITableViewDelegate {
 //        printDebug("selected data \(self.viewModel.pickerData[row])")
 //    }
 // }
+
+
+// MARK: -  BookingAirlineTableViewCell Delgate methods
+
+extension FrequentFlyerVC: BookingFFAirlineTableViewCellDelegate {
+    func textFieldText(_ textField: UITextField) {
+        guard let indexPath = self.frequentFlyerTableView.indexPath(forItem: textField) else {
+            printDebug("indexPath not found")
+            return
+        }
+        BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData[indexPath.section].flights[indexPath.row].frequentFlyerNumber = textField.text ?? ""
+        
+        
+        
+        
+    }
+    
+    
+}

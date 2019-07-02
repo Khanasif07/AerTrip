@@ -80,4 +80,52 @@ class BookingRequestAddOnsFFVM {
         
     }
     
+    func createParams() -> JSONDictionary {
+        
+//        for leg in self.bookingDetails?.bookingDetail?.leg ?? [] {
+//            for pax in leg.pax {
+//                for frequentflyerData in self.bookingDetails?.frequentFlyerData ?? [] {
+//                    if pax.paxId == frequentflyerData.passenger?.paxId ?? "" {
+//                        pax.flight = frequentflyerData.flights ?? []
+//                    }
+//                }
+//            }
+//        }
+        
+         var params = JSONDictionary()
+        
+    
+        return params
+    }
+    
+    func postAddOnRequest() {
+        
+        
+        
+     
+//        addon[15841][seat]: window
+//        addon[15841][meal]: sandwich
+//        addon[15841][baggage]: none
+//        addon[15841][other]: none
+//        preference[18682][seat]: A
+//        preference[18682][meal]: FPML
+//        ff[18682][AI]: 123456
+//        booking_id: 8926
+
+//        params["addon[15841][seat]"] = "window"
+//        params["addon[15841][meal]"] = "sandwich"
+//        params["booking_id"] = 8926
+        
+        APICaller.shared.addOnRequest(params: createParams()) { (success, errorCodes) in
+            if success {
+                
+            } else {
+                
+            }
+        }
+      
+    
+        
+    }
+    
 }

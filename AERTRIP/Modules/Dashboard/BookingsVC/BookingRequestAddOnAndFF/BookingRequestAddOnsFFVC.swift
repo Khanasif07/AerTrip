@@ -57,8 +57,8 @@ class BookingRequestAddOnsFFVC: BaseVC {
         self.setupPagerView()
          self.requestButton.addGredient(isVertical: false)
         self.setupNavBar()
-        
-       
+        let frequentFlyerData = BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerDatas ?? []
+        BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData = frequentFlyerData
         BookingRequestAddOnsFFVM.shared.getPreferenceMaster()
         
     }
@@ -134,6 +134,7 @@ class BookingRequestAddOnsFFVC: BaseVC {
     
     @IBAction func requstButtonTapped(_ sender: Any) {
    // AppFlowManager.default.showAddonRequestSent(buttonTitle:LocalizedString.Done.localized)
+        BookingRequestAddOnsFFVM.shared.postAddOnRequest()
     }
     
     
