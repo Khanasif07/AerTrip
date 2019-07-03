@@ -10,15 +10,16 @@ protocol BookingRequestAddOnsFFVMDelegate: class {
     func willGetPreferenceMaster()
     func getPreferenceMasterSuccess()
     func getPreferenceMasterFail()
+    func willSendAddOnFFRequest()
+    func sendAddOnFFRequestSuccess()
+    func failAddOnFFRequestFail(errorCode: ErrorCodes)
 }
 
 import Foundation
 
 class BookingRequestAddOnsFFVM {
-    
-    
-    
     // MARK: - Variables
+    
     weak var delegate: BookingRequestAddOnsFFVMDelegate?
     var bookingDetails: BookingDetailModel?
     
@@ -36,19 +37,16 @@ class BookingRequestAddOnsFFVM {
                 } else {
                     temp = false
                     break outerLoop
-                     
                 }
             }
         }
         
-         return temp
+        return temp
     }
-
     
     // preferences
     var seatPreferences = [String: String]()
     var mealPreferences = [String: String]()
-    
     
     // FrequentFlyer Data
     var sectionData: [(profileImage: UIImage, userName: String)] = [(profileImage: UIImage(named: "boy")!, userName: "Mr. Alan McCarthy"), (profileImage: UIImage(named: "boy")!, userName: "Mrs. Jane McCarthy"), (profileImage: UIImage(named: "boy")!, userName: "Mr. Steve McCarthy"), (profileImage: UIImage(named: "boy")!, userName: "Miss. June McCarthy")]
@@ -64,9 +62,9 @@ class BookingRequestAddOnsFFVM {
     var pickerData: [String] = ["Child Meal (CHML)", "Bland Meal (BLML)", "Baby / Infant meal (BBML) ", "Diabetic Meal (DML)", "Asian Vegetarian Meal (AVML)"]
     
     func getPreferenceMaster() {
-        delegate?.willGetPreferenceMaster()
+        self.delegate?.willGetPreferenceMaster()
         
-        APICaller.shared.getPreferenceMaster { [weak self] (success, seatPreferences, mealPreferences, errors) in
+        APICaller.shared.getPreferenceMaster { [weak self] success, seatPreferences, mealPreferences, _ in
             guard let sSelf = self else { return }
             if success {
                 sSelf.seatPreferences = seatPreferences
@@ -76,56 +74,73 @@ class BookingRequestAddOnsFFVM {
                 sSelf.delegate?.getPreferenceMasterFail()
             }
         }
-        
-        
     }
     
     func createParams() -> JSONDictionary {
+        // create for Finat Params for Add on VC and RequestVC.
+        var params = JSONDictionary()
+        if !self.isLCC {
+            for frequentFlyerData in self.bookingDetails?.frequentFlyerData ?? [] {
+                for flight in frequentFlyerData.flights {
+                    if !flight.frequentFlyerNumber.isEmpty {
+                        params["ff[\(frequentFlyerData.passenger?.paxId ?? "")][\(flight.carrierCode)]"] = flight.frequentFlyerNumber
+                    }
+                }
+            }
+            
+            for leg in self.bookingDetails?.bookingDetail?.leg ?? [] {
+                for pax in leg.pax {
+                    if !pax.seatPreferences.isEmpty {
+                        params["preference[\(pax.paxId)][seat]"] = self.seatPreferences.someKey(forValue: pax.seatPreferences)
+                    }
+                    
+                    if !pax.mealPreferenes.isEmpty {
+                        params["preference[\(pax.paxId)][meal]"] = self.mealPreferences.someKey(forValue: pax.mealPreferenes)
+                    }
+                    if !pax.baggage.isEmpty {
+                        params["addon[\(pax.paxId)][baggage]"] = pax.baggage
+                    }
+                    if !pax.other.isEmpty {
+                        params["addon[\(pax.paxId)][other]"] = pax.other
+                    }
+                }
+            }
+            
+        } else {
+            for leg in self.bookingDetails?.bookingDetail?.leg ?? [] {
+                for pax in leg.pax {
+                    if !pax.seat.isEmpty {
+                        params["addon[\(pax.paxId)][seat]"] = pax.seat
+                    }
+                    if !pax.meal.isEmpty {
+                        params["addon[\(pax.paxId)][meal]"] = pax.meal
+                    }
+                    
+                    if !pax.baggage.isEmpty {
+                        params["addon[\(pax.paxId)][baggage]"] = pax.baggage
+                    }
+                    if !pax.other.isEmpty {
+                        params["addon[\(pax.paxId)][other]"] = pax.other
+                    }
+                }
+            }
+        }
+        params["booking_id"] = self.bookingDetails?.id
         
-//        for leg in self.bookingDetails?.bookingDetail?.leg ?? [] {
-//            for pax in leg.pax {
-//                for frequentflyerData in self.bookingDetails?.frequentFlyerData ?? [] {
-//                    if pax.paxId == frequentflyerData.passenger?.paxId ?? "" {
-//                        pax.flight = frequentflyerData.flights ?? []
-//                    }
-//                }
-//            }
-//        }
-        
-         var params = JSONDictionary()
-        
-    
         return params
     }
     
     func postAddOnRequest() {
-        
-        
-        
-     
-//        addon[15841][seat]: window
-//        addon[15841][meal]: sandwich
-//        addon[15841][baggage]: none
-//        addon[15841][other]: none
-//        preference[18682][seat]: A
-//        preference[18682][meal]: FPML
-//        ff[18682][AI]: 123456
-//        booking_id: 8926
-
-//        params["addon[15841][seat]"] = "window"
-//        params["addon[15841][meal]"] = "sandwich"
-//        params["booking_id"] = 8926
-        
-        APICaller.shared.addOnRequest(params: createParams()) { (success, errorCodes) in
+        self.delegate?.willSendAddOnFFRequest()
+        APICaller.shared.addOnRequest(params: self.createParams()) { [weak self] success, errorCodes in
+            guard let sSelf = self else {
+                fatalError("self not found")
+            }
             if success {
-                
+                sSelf.delegate?.sendAddOnFFRequestSuccess()
             } else {
-                
+                sSelf.delegate?.failAddOnFFRequestFail(errorCode: errorCodes)
             }
         }
-      
-    
-        
     }
-    
 }

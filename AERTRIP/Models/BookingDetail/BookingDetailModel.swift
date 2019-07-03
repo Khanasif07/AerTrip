@@ -234,7 +234,6 @@ struct BookingDetailModel {
         }
     }
     
-   
     var numberOfPassenger: Int {
         var count = 0
         for leg in self.bookingDetail?.leg ?? [] {
@@ -244,9 +243,9 @@ struct BookingDetailModel {
     }
 }
 
-//MARK: - extension for Calculation
+// MARK: - extension for Calculation
 
-//MARK: -
+// MARK: -
 
 extension BookingDetailModel {
     func isReturnFlight(forArr: [String] = []) -> Bool {
@@ -337,10 +336,10 @@ extension BookingDetailModel {
     }
     
     /*
-    Loop through the vouchers array, consider the object that has
-    voucher.basic.voucher_type  = ‘sales’ (Must be only 1)
-    voucher.transactions.Total.amount  gives the Booking Price.
-    */
+     Loop through the vouchers array, consider the object that has
+     voucher.basic.voucher_type  = ‘sales’ (Must be only 1)
+     voucher.transactions.Total.amount  gives the Booking Price.
+     */
     
     var bookingPrice: Double {
         var price: Double = 0.0
@@ -353,11 +352,11 @@ extension BookingDetailModel {
     }
     
     /*
- Loop through vouchers array, consider the objects that have
- voucher.basic.voucher_type  = ‘sales_addon’ (Can be 0 or more)
+     Loop through vouchers array, consider the objects that have
+     voucher.basic.voucher_type  = ‘sales_addon’ (Can be 0 or more)
      
- Sum of sales_addon’s voucher.transactions.Total.amount
- */
+     Sum of sales_addon’s voucher.transactions.Total.amount
+     */
     
     var addOnAmount: Double {
         var price: Double = 0.0
@@ -370,12 +369,12 @@ extension BookingDetailModel {
     }
     
     /*
-    Cancellation :
-    Loop through vouchers array, consider the objects that have
-    voucher.basic.voucher_type  = ‘sales_return_jv’ (Can be 0 or more)
+     Cancellation :
+     Loop through vouchers array, consider the objects that have
+     voucher.basic.voucher_type  = ‘sales_return_jv’ (Can be 0 or more)
      
-    Sum of sales_return_jv’s voucher.transactions.Total.amount
-    */
+     Sum of sales_return_jv’s voucher.transactions.Total.amount
+     */
     
     var cancellationAmount: Double {
         var price: Double = 0.0
@@ -387,14 +386,14 @@ extension BookingDetailModel {
         return price
     }
     
-    //TODO: Reschedule Amount Not coming in the Api , Already inform the same to Yash
+    // TODO: Reschedule Amount Not coming in the Api , Already inform the same to Yash
     
     /*
-    Reschedule :
-    Loop through vouchers array, consider the objects that have
-    voucher.basic.voucher_type  = ‘reschedule_sales_return_jv’ (Can be 0 or more)
+     Reschedule :
+     Loop through vouchers array, consider the objects that have
+     voucher.basic.voucher_type  = ‘reschedule_sales_return_jv’ (Can be 0 or more)
      
-    Sum of  reschedule_sales_return_jv’s  voucher.transactions.Total.amount
+     Sum of  reschedule_sales_return_jv’s  voucher.transactions.Total.amount
      */
     var rescheduleAmount: Double {
         var price: Double = 0.0
@@ -407,7 +406,7 @@ extension BookingDetailModel {
     }
     
     // Paid :
-    //Total_amount_paid
+    // Total_amount_paid
     
     var paid: Double {
         return self.totalAmountPaid
@@ -422,7 +421,7 @@ extension BookingDetailModel {
     // Total cost of booking = Sale’s amount + sum(add-on)
     
     var totalCostOfBooking: Double {
-        //TODO: need to disucss sale amount :
+        // TODO: need to disucss sale amount :
         let saleAmount: Double = self.bookingPrice
         return saleAmount + self.addOnAmount
     }
@@ -449,7 +448,7 @@ extension BookingDetailModel {
         }
         else {
             if let index = self.bookingDetail?.leg.firstIndex(where: { (result) -> Bool in
-                (result.completed == 0)
+                result.completed == 0
             }) {
                 if index < self.additionalInformation?.webCheckins.count ?? 0 {
                     return self.additionalInformation?.webCheckins[index] ?? ""
@@ -462,18 +461,16 @@ extension BookingDetailModel {
         }
     }
     
-    
     var frequentFlyerDatas: [FrequentFlyerData] {
+        var temp: [FrequentFlyerData] = []
         
-            var temp: [FrequentFlyerData] = []
-            
-            for leg in self.bookingDetail?.leg ?? [] {
-                for pax in leg.pax {
-                    temp.append(FrequentFlyerData(passenger: pax, flights: leg.flight))
-                }
+        for leg in self.bookingDetail?.leg ?? [] {
+            for pax in leg.pax {
+                temp.append(FrequentFlyerData(passenger: pax, flights: leg.flight))
             }
-            
-            return temp
+        }
+        
+        return temp
     }
 }
 
@@ -615,12 +612,12 @@ struct BookingDetail {
             self.nights = "\(obj)".toInt ?? 0
         }
         if let obj = json["check_in"] {
-            //"2019-08-07 00:00:00"
+            // "2019-08-07 00:00:00"
             self.checkIn = "\(obj)".removeNull.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
         if let obj = json["check_out"] {
-            //"2019-08-07 00:00:00"
+            // "2019-08-07 00:00:00"
             self.checkOut = "\(obj)".removeNull.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
@@ -657,7 +654,7 @@ struct BookingDetail {
         // Event start and end date and notes
         
         if let obj = json["note"] {
-            //self.note = "\(obj)".removeNull
+            // self.note = "\(obj)".removeNull
             self.note = " The following are the graphical (non-control) characters defined by fsdfThe following are the graphical (non-control) characters defined by fsdf sdf s f sf s f s f s f s af  fas f sa f sa f asf  sa fa sf a f as f asfsa f df a f sa f Hell0 Hello hello hello hello hello welcome bhai bhai bhai bhai welcome dsljfaljflasjf asjfasfk ajsflkasjfkj asfjas fk asfa sfjkfsaskf a f as"
         }
         
@@ -757,19 +754,19 @@ struct Leg {
     }
     
     var flightNumbers: [String] {
-        return self.flight.map({ $0.flightNumber })
+        return self.flight.map { $0.flightNumber }
     }
     
     var carrierCodes: [String] {
-        return self.flight.map({ $0.carrierCode })
+        return self.flight.map { $0.carrierCode }
     }
     
     var carriers: [String] {
-        return self.flight.map({ $0.carrier })
+        return self.flight.map { $0.carrier }
     }
     
     var cabinClass: String {
-        return self.flight.map({ $0.cabinClass }).joined(separator: ",")
+        return self.flight.map { $0.cabinClass }.joined(separator: ",")
     }
     
     var legDuration: Double {
@@ -881,7 +878,7 @@ struct FlightDetail {
     let numberOfAmenitiesInRow: Double = 4.0
     var totalRowsForAmenities: Int {
         let cont: Double = Double(self.amenities.count)
-        let val = Double(cont / numberOfAmenitiesInRow)
+        let val = Double(cont / self.numberOfAmenitiesInRow)
         let diff = val - floor(val)
         var total = Int(floor(val))
         if diff > 0.0, diff < 1.0 {
@@ -924,7 +921,7 @@ struct FlightDetail {
         }
         
         if let obj = json["depart_date"] {
-            //"2019-02-01"
+            // "2019-02-01"
             self.departDate = "\(obj)".toDate(dateFormat: "yyyy-MM-dd")
         }
         
@@ -1366,37 +1363,39 @@ struct Pax {
     var rescheduleCharge: String = ""
     var ticket: String = ""
     var pnr: String = ""
-    var flight : [FlightDetail] = []
+    var flight: [FlightDetail] = []
     var inProcess: Bool = false
     var profileImage: String = ""
-    var _seat: String = ""
-    var _meal: String = ""
-    var _baggage: String = ""
+    var seat: String = ""
+    var meal: String = ""
+    var baggage: String = ""
     var other: String = ""
+    var seatPreferences: String = ""
+    var mealPreferenes: String = ""
     
     var addOns: JSONDictionary = [:] // TODO: Need to confirm this with yash as always coming in array
-    var seat: String {
+    var _seat: String {
         if let obj = addOns["seat"] as? String, !obj.isEmpty {
             return obj
         }
         return LocalizedString.na.localized
     }
     
-    var meal: String {
+    var _meal: String {
         if let obj = addOns["meal"] as? String, !obj.isEmpty {
             return obj
         }
         return LocalizedString.na.localized
     }
     
-    var baggage: String {
+    var _baggage: String {
         if let obj = addOns["baggage"] as? String, !obj.isEmpty {
             return obj
         }
         return LocalizedString.na.localized
     }
     
-    var others: String {
+    var _others: String {
         return LocalizedString.na.localized
     }
     
@@ -1407,12 +1406,12 @@ struct Pax {
     var detailsToShow: JSONDictionary {
         var temp = JSONDictionary()
         
-        temp["0PNR"] = pnr
-        temp["1Ticket Number"] = ticket
-        temp["2Seat"] = seat
-        temp["3Meal"] = meal
-        temp["4Baggage"] = baggage
-        temp["5Others"] = others
+        temp["0PNR"] = self.pnr
+        temp["1Ticket Number"] = self.ticket
+        temp["2Seat"] = self._seat
+        temp["3Meal"] = self._meal
+        temp["4Baggage"] = self._baggage
+        temp["5Others"] = self._others
         
         return temp
     }
@@ -1486,7 +1485,7 @@ struct Pax {
         }
         
         if let obj = json["in_process"] as? Bool {
-            self.paxId = "\(obj)"
+            self.inProcess = "\(obj)".toBool
         }
         
         if let obj = json["profile_image"] {

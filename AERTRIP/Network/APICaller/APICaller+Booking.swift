@@ -19,7 +19,7 @@ extension APICaller {
             if let jsonObjects = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? JSONDictionary {
                 if let hotelDetail = jsonObjects["data"] as? JSONDictionary {
                     let hotel = hotelDetail["results"] as? JSONDictionary
-                    let hotelInfo = HotelDetails.hotelInfo(response: hotel!) as? HotelDetails
+                    let hotelInfo = HotelDetails.hotelInfo(response: hotel!)
                     
                     completionBlock(true, [], hotelInfo)
                 }
