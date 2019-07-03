@@ -100,7 +100,7 @@ class HotelInfoAddressCell: UITableViewCell {
         self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: address, startTextColor: AppColors.themeBlack, middleText: "  " + LocalizedString.Maps.localized + " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
     }
     
-    internal func configureNotesCell(notes: String) {
+    internal func configureNotesCell(notes: String, isHiddenDivider: Bool = false) {
         self.moreBtnOutlet.isHidden = isMoreButtonTapped
         self.addressLabel.font = AppFonts.Regular.withSize(14.0)
         self.addressInfoTextView.font = AppFonts.Regular.withSize(18.0)
@@ -112,6 +112,7 @@ class HotelInfoAddressCell: UITableViewCell {
         let attrText = notes.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.withSize(18.0).familyName, fontColor: AppColors.themeBlack)
         self.addressInfoTextView.attributedText = attrText
         self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 2) && !isMoreButtonTapped ? false : true
+        self.deviderView.isHidden = isHiddenDivider
     }
     
     // Mark:- IBActions
@@ -125,7 +126,13 @@ class HotelInfoAddressCell: UITableViewCell {
         if let parentVC = self.parentViewController as? HotelDetailsVC {
             AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: parentVC.viewModel.hotelData?.info ?? "")
         }
-        if let parentVC = self.parentViewController as? FlightBookingsDetailsVC {
+        else if let parentVC = self.parentViewController as? FlightBookingsDetailsVC {
+            self.moreBtnContainerView.isHidden = true
+            self.addressInfoTextView.textContainer.maximumNumberOfLines = 0
+            self.isMoreButtonTapped = true
+            parentVC.bookingDetailsTableView.reloadData()
+        }
+        else if let parentVC = self.parentViewController as? HotlelBookingsDetailsVC {
             self.moreBtnContainerView.isHidden = true
             self.addressInfoTextView.textContainer.maximumNumberOfLines = 0
             self.isMoreButtonTapped = true

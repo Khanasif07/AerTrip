@@ -7,13 +7,6 @@
 //
 
 import UIKit
-enum ResolutionStatus: String {
-    case paymentPending = "Payment Pending"
-    case actionRequired = "Action Required"
-    case successfull = "Successful"
-    case inProgress = "In Progress"
-    case aborted = "Aborted"
-}
 
 class FlightBookingRequestsTableViewCell: UITableViewCell {
     // MARK: - Variables
@@ -52,25 +45,11 @@ class FlightBookingRequestsTableViewCell: UITableViewCell {
         self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
     }
     
-    internal func configureCell(requestName: String, actionStatus: String, actionStatusColor: UIColor = AppColors.themeYellow, isFirstCell: Bool, isLastCell: Bool, isStatusExpired: Bool) {
+    internal func configureCell(requestName: String, actionStatus: ResolutionStatus, actionStatusColor: UIColor = AppColors.themeYellow, isFirstCell: Bool, isLastCell: Bool, isStatusExpired: Bool) {
         self.requestNameLabel.text = requestName
-        self.actionStatusLabel.text = actionStatus
-        switch actionStatus {
-        case ResolutionStatus.paymentPending.rawValue, ResolutionStatus.actionRequired.rawValue:
-            self.actionStatusLabel.textColor = AppColors.themeRed
-            
-        case ResolutionStatus.successfull.rawValue:
-            self.actionStatusLabel.textColor = AppColors.themeGreen
-        case ResolutionStatus.inProgress.rawValue:
-            self.actionStatusLabel.textColor = AppColors.themeYellow
-            
-        case ResolutionStatus.aborted.rawValue:
-            self.requestNameLabel.textColor =
-                self.actionStatusLabel.textColor
-        default:
-            break
-        }
-        
+        self.actionStatusLabel.text = actionStatus.rawValue
+        self.actionStatusLabel.textColor = actionStatus.textColor
+
         self.containerViewTopConstraint.constant = isFirstCell ? 10.0 : 0.0
         
         // Commented as not required here ,manaed  using enum

@@ -27,6 +27,10 @@ class BookingCancellationPolicyVC: BaseVC {
         self.bookingPolicyTableView.delegate = self
         self.registerXib()
         self.bookingPolicyTableView.reloadData()
+        
+        if self.viewModel.vcUsingType == .bookingPolicy {
+            self.viewModel.getBookingPolicy()
+        }
     }
     
     override func setupFonts() {
@@ -39,6 +43,10 @@ class BookingCancellationPolicyVC: BaseVC {
     
     override func setupColors() {
         self.navTitleLabel.textColor = AppColors.themeBlack
+    }
+    
+    override func bindViewModel() {
+        self.viewModel.delegate = self
     }
     
     private func registerXib() {
@@ -59,25 +67,41 @@ class BookingCancellationPolicyVC: BaseVC {
         guard let noteCell = self.bookingPolicyTableView.dequeueReusableCell(withIdentifier: "FareInfoNoteTableViewCell") as? FareInfoNoteTableViewCell else {
             fatalError("FareInfoNoteTableViewCell not found")
         }
-        switch indexPath.row {
-        case 0:
-            noteCell.isForBookingPolicyCell = true
-            noteCell.noteLabel.text = LocalizedString.SpecialCheckInInstructions.localized
-            noteCell.configCell(notes: self.viewModel.speicalCheckinInstructiion)
-            return noteCell
-        case 1:
-            noteCell.isForBookingPolicyCell = true
-            noteCell.noteLabel.text = LocalizedString.CheckInInstructions.localized
-            noteCell.configCell(notes: self.viewModel.checinInstruction)
-            return noteCell
-        case 2:
-            noteCell.isForBookingPolicyCell = true
-            noteCell.noteLabel.text = LocalizedString.BookingNote.localized
-            noteCell.configCell(notes: self.viewModel.bookingNote)
-            return noteCell
-        default:
-            return UITableViewCell()
+        
+        noteCell.isForBookingPolicyCell = true
+        noteCell.noteLabel.text = ""
+        noteCell.configCell(note: self.viewModel.bookingPolicies)
+
+        
+//        switch indexPath.row {
+//        case 0:
+//            noteCell.isForBookingPolicyCell = true
+//            noteCell.noteLabel.text = LocalizedString.SpecialCheckInInstructions.localized
+//            noteCell.configCell(notes: self.viewModel.speicalCheckinInstructiion)
+//            return noteCell
+//        case 1:
+//            noteCell.isForBookingPolicyCell = true
+//            noteCell.noteLabel.text = LocalizedString.CheckInInstructions.localized
+//            noteCell.configCell(notes: self.viewModel.checinInstruction)
+//            return noteCell
+//        case 2:
+//            noteCell.isForBookingPolicyCell = true
+//            noteCell.noteLabel.text = LocalizedString.BookingNote.localized
+//            noteCell.configCell(notes: self.viewModel.bookingNote)
+//            return noteCell
+//        default:
+//            return UITableViewCell()
+//        }
+        
+        return noteCell
+    }
+    
+    private func getNumberOfCellForCancellationPolicy() -> Int {
+        guard let canc = self.viewModel.bookingDetail?.bookingDetail?.cancellation, !canc.charges.isEmpty else {
+            return 1
         }
+        
+        return canc.charges.count
     }
     
     private func getCellForCancellationPolicy(_ indexPath: IndexPath) -> UITableViewCell {
@@ -86,23 +110,24 @@ class BookingCancellationPolicyVC: BaseVC {
             fatalError("CancellationPolicyTableViewCell not found")
         }
         
-        switch indexPath.row {
-        case 0:
-            cancellationPolicy.configureCell(cancellationTimePeriod: "Before Tue, 06 Nov 2018 22:59", cancellationAmount: "", cancellationType: .freeCancellation)
+        guard let canc = self.viewModel.bookingDetail?.bookingDetail?.cancellation, !canc.charges.isEmpty else {
+            cancellationPolicy.configureCell(cancellationTimePeriod: "cancellation not allowed.", cancellationAmount: "", cancellationType: .nonRefundable)
             return cancellationPolicy
-        case 1:
-            cancellationPolicy.configureCell(cancellationTimePeriod: "Tue, 06 Nov 2018 23:00 to Tue, 06 Dec 2018 22:59", cancellationAmount: "₹ 10,000", cancellationType: .cancellationFree)
-            return cancellationPolicy
-        case 2:
-            cancellationPolicy.configureCell(cancellationTimePeriod: "Tue, 06 Nov 2018 23:00 to Tue, 06 Dec 2018 22:59", cancellationAmount: "₹ 22,000", cancellationType: .cancellationFree)
-            return cancellationPolicy
-        case 3:
-            cancellationPolicy.configureCell(cancellationTimePeriod: "Wed, 16 Dec 2018 23:00 or later", cancellationAmount: "", cancellationType: .nonRefundable)
-            return cancellationPolicy
-        default:
-            return UITableViewCell()
         }
         
+        let chargeData = canc.charges[indexPath.row]
+        
+        if chargeData.isFree {
+            cancellationPolicy.configureCell(cancellationTimePeriod: "Before \(chargeData.toStr)", cancellationAmount: "", cancellationType: .freeCancellation)
+        }
+        else if !chargeData.isRefundable {
+            cancellationPolicy.configureCell(cancellationTimePeriod: "\(chargeData.fromStr) or later", cancellationAmount: "", cancellationType: .nonRefundable)
+        }
+        else {
+            cancellationPolicy.configureCell(cancellationTimePeriod: "\(chargeData.fromStr) to \(chargeData.toStr)", cancellationAmount: chargeData.cancellationFee.delimiterWithSymbolTill2Places, cancellationType: .cancellationFee)
+        }
+        
+        return cancellationPolicy
     }
 }
 
@@ -113,9 +138,9 @@ class BookingCancellationPolicyVC: BaseVC {
 extension BookingCancellationPolicyVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.viewModel.vcUsingType == .bookingPolicy {
-            return 3
+            return 1
         } else {
-            return 4
+            return self.getNumberOfCellForCancellationPolicy()
         }
     }
     
@@ -130,9 +155,9 @@ extension BookingCancellationPolicyVC: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         // Opening Select New Trip VC
-        if self.viewModel.vcUsingType == .cancellationPolicy {
-            AppFlowManager.default.presentSelectTripVC(delegate: self)
-        }
+//        if self.viewModel.vcUsingType == .cancellationPolicy {
+//            AppFlowManager.default.presentSelectTripVC(delegate: self)
+//        }
     }
     
 }
@@ -143,5 +168,18 @@ extension BookingCancellationPolicyVC: UITableViewDataSource, UITableViewDelegat
 extension BookingCancellationPolicyVC: SelectTripVCDelegate {
     func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel, tripDetails: TripDetails?) {
         // 
+    }
+}
+
+
+extension BookingCancellationPolicyVC: BookingCancellationPolicyVMDelegate {
+    func willGetBookingPolicy(){
+    }
+    
+    func getBookingPolicySuccess() {
+        self.bookingPolicyTableView.reloadData()
+    }
+    
+    func getBookingPolicyFail() {
     }
 }

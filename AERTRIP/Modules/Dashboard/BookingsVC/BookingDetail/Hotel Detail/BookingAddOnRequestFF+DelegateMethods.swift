@@ -8,18 +8,5 @@
 
 import Foundation
 
-extension BookingRequestAddOnsFFVC: BookingAddOnRequestVMDelegate {
-    func willGetPreferenceMaster() {
-        AppGlobals.shared.startLoading()
-    }
-    
-    func getPreferenceMasterSuccess() {
-          AppGlobals.shared.stopLoading()
-    }
-    
-    func getPreferenceMasterFail() {
-         AppGlobals.shared.startLoading()
-    }
-    
-    
+extension BookingRequestAddOnsFFVC {
 }

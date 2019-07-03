@@ -13,12 +13,41 @@ enum VCUsingFor {
     case cancellationPolicy
 }
 
+protocol BookingCancellationPolicyVMDelegate: class {
+    func willGetBookingPolicy()
+    func getBookingPolicySuccess()
+    func getBookingPolicyFail()
+}
+
 class BookingCancellationPolicyVM {
 
   
     var vcUsingType: VCUsingFor = .bookingPolicy
+    var bookingDetail: BookingDetailModel?
+    var bookingPolicies: String = ""
     
+    weak var delegate: BookingCancellationPolicyVMDelegate?
     
+    func getBookingPolicy() {
+        guard let booking = bookingDetail else {
+            return
+        }
+        
+        self.delegate?.willGetBookingPolicy()
+        let param: JSONDictionary = ["booking_id": booking.id, "hotel_id" : booking.bookingDetail?.hotelId ?? ""]
+        APICaller.shared.getFareRulesAPI(params: param, loader: false) { [weak self](success, errors, rules, rute) in
+            
+            guard let sSelf = self else {return}
+            
+            if success {
+                sSelf.bookingPolicies = rules.isEmpty ? "Information not available" : rules
+                sSelf.delegate?.getBookingPolicySuccess()
+            }
+            else {
+                sSelf.delegate?.getBookingPolicyFail()
+            }
+        }
+    }
     
     /***    Booking Policy Data         **/
     // Special Checking instruction - will Come from API

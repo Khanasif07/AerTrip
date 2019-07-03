@@ -18,6 +18,7 @@ enum ATNotification {
     case myBookingFilterApplied
     case myBookingFilterCleared
     case myBookingSearching
+    case myBookingCasesRequestStatusChanged
 }
 
 extension Notification.Name {
@@ -624,5 +625,60 @@ enum WeatherType: String {
     
     var iconImage: UIImage {
         return #imageLiteral(resourceName: self.rawValue)
+    }
+}
+
+enum ResolutionStatus: RawRepresentable {
+    case paymentPending
+    case actionRequired
+    case successfull
+    case inProgress
+    case aborted
+    case closed
+    case confirmationPending
+    case open
+    case canceled
+    
+    init?(rawValue: String) {
+        switch rawValue {
+        case "Payment Pending": self = .paymentPending
+        case "Action Required": self = .actionRequired
+        case "In Progress": self = .inProgress
+        case "Successful": self = .successfull
+        case "Aborted": self = .aborted
+        case "Closed": self = .closed
+        case "Confirmation Pending": self = .confirmationPending
+        case "Open": self = .open
+        case "Canceled": self = .canceled
+        default: fatalError("case not handled for '\(rawValue)' in \(#file) at line \(#line)")
+        }
+    }
+    
+    var rawValue: String {
+        switch self {
+        case .paymentPending: return "Payment Pending"
+        case .actionRequired: return "Action Required"
+        case .inProgress: return "In Progress"
+        case .successfull: return "Successful"
+        case .aborted: return "Aborted"
+        case .closed: return "Closed"
+        case .confirmationPending: return "Confirmation Pending"
+        case .open: return "Open"
+        case .canceled: return "Canceled"
+        }
+    }
+    
+    var textColor: UIColor {
+        switch self {
+        case .paymentPending: return AppColors.themeRed
+        case .actionRequired: return AppColors.themeRed
+        case .inProgress: return AppColors.themeYellow
+        case .successfull: return AppColors.themeGreen
+        case .aborted: return AppColors.themeGray20
+        case .closed: return AppColors.themeGreen
+        case .open: return AppColors.themeGreen
+        case .confirmationPending: return AppColors.themeRed
+        case .canceled: return AppColors.themeGreen
+        }
     }
 }

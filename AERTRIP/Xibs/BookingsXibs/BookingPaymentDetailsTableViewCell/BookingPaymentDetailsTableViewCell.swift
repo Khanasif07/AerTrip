@@ -49,7 +49,11 @@ class BookingPaymentDetailsTableViewCell: UITableViewCell {
         self.titleLabel.font = titleFont
         self.costLabel.font = titleFont
         self.titleLabel.text = title
+        
         self.costLabel.text = price
+        if let prc = price, let prcD = prc.toDouble {
+            self.costLabel.text = prcD.delimiterWithSymbol
+        }
     }
     
     private func lastCellShadowSetUp(isLastCell: Bool, cellHeight: CGFloat) {

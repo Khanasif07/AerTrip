@@ -692,6 +692,7 @@ enum LocalizedString: String {
     case Documents
     case PaymentInfo
     case Booking
+    case Receipt
     case Paid
     case FareInfo
     case ViewDetails
@@ -718,6 +719,7 @@ enum LocalizedString: String {
     case Date
     case VoucherNo
     case DownloadInvoice
+    case DownloadReceipt
     case Directions
     case RequestAddOnsAndFF
     case AddOns

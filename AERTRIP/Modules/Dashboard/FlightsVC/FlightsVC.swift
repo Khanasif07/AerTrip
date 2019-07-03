@@ -42,32 +42,6 @@ class FlightsVC: BaseVC {
     // MARK: - Action
     
     @IBAction func myButtonAction(_ sender: UIButton) {
-        //        AppFlowManager.default.presentHCEmailItinerariesVC()
-//                AppFlowManager.default.moveToOtherBookingsDetailsVC()
-        //                AppFlowManager.default.moveToRequestReschedulingVC()
-//        AppFlowManager.default.moveToFlightBookingsDetailsVC()
-//        AppFlowManager.default.moveToHotlelBookingsDetailsVC()
-        //        AppFlowManager.default.presentYouAreAllDoneVC(forItId: "", bookingIds: [], cid: [], originLat: "", originLong: "")
-        
-        //
-        //        let params: JSONDictionary = [APIKeys.loginid.rawValue : "abc@gmail.com", APIKeys.password.rawValue : "" , APIKeys.isGuestUser.rawValue : "true"]
-        //        printDebug(params)
-        //        APICaller.shared.loginForPaymentAPI(params: params) { [weak self] (success, logInId, isGuestUser, errors) in
-        //            if success {
-        //                printDebug("\(logInId) , \(isGuestUser)")
-        //            } else {
-        //            }
-        //        }
-        
-        var dim = Dimension(json: [:])
-        var cm = CM(json: [:])
-        cm.width = 40
-        cm.height = 40
-        cm.depth = 40
-        
-        dim.cm = cm
-        
-        AppFlowManager.default.presentBaggageInfoVC(dimension: dim)
-        
+        AppFlowManager.default.moveToAbortRequestVC(forCase: Case(json: [:], bookindId: ""))
     }
 }

@@ -620,6 +620,7 @@
 "Documents" = "DOCUMENTS";
 "PaymentInfo" = "Payment Info";
 "Booking" = "Booking";
+"Receipt" = "Receipt";
 "Paid" = "Paid";
 "FareInfo" = "Fare Info";
 "ViewDetails" = "View  Details";
@@ -647,6 +648,7 @@
 "Date" = "Date";
 "VoucherNo"  = "Voucher No.";
 "DownloadInvoice" = "Download Invoice";
+"DownloadReceipt" = "Download Receipt";
 "Directions" = "Directions";
 "RequestAddOnsAndFF" = "Request Add-ons & FF";
 "AddOns" = "Add-ons";

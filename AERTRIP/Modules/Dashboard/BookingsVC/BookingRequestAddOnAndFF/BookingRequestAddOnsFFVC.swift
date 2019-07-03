@@ -149,6 +149,18 @@ extension BookingRequestAddOnsFFVC: TopNavigationViewDelegate {
 // MARK: - BookingRequestAddOnsFFVMDelegate methods called
 
 extension BookingRequestAddOnsFFVC: BookingRequestAddOnsFFVMDelegate {
+    func willGetPreferenceMaster() {
+        //
+    }
+    
+    func getPreferenceMasterSuccess() {
+        //
+    }
+    
+    func getPreferenceMasterFail() {
+        //
+    }
+    
     func willSendAddOnFFRequest() {
         AppGlobals.shared.startLoading()
     }

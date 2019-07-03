@@ -41,12 +41,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEU-yg-4kz">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEU-yg-4kz" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="215" y="23.5" width="89" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="89" id="Bko-1C-Wzc"/>
                                     <constraint firstAttribute="height" constant="28" id="Jzn-CH-lcZ"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="payNowButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="FlP-9v-Zc7"/>
+                                </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="voucherArrow" translatesAutoresizingMaskIntoConstraints="NO" id="Kyp-ke-hOp">
                                 <rect key="frame" x="280" y="15.5" width="40" height="44"/>

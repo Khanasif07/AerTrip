@@ -24,8 +24,6 @@ class FrequentFlyerVC: BaseVC {
         frequentFlyerTableView.delegate = self
         frequentFlyerTableView.reloadData()
         
-        setUpGenericPicker()
-        setUpToolBarForGenericPickerView()
     }
     
     // MARK: Helper methods

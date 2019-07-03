@@ -94,11 +94,11 @@ enum APIEndPoint: String {
     case getBookingDetails = "dashboard/get-booking-details"
     case getBookingFees = "dashboard/get-booking-fees"
     case getFareRules = "dashboard/get-fare-rules"
+    case getCaseHistory = "dashboard/case-history"
+    case abortRequest = "dashboard/abort-request"
+    case requestConfirmation = "dashboard/request-confirmation"
     case getTravellerEmails = "dashboard/get-traveller-emails"
     case addOnRequest = "addon/request"
- 
-    
-    
     // Final Checkout
     
     // ACCOUNT
@@ -106,6 +106,9 @@ enum APIEndPoint: String {
     case accountReportAction = "user-accounts/report-action"
     case outstandingPayment = "user-accounts/outstanding-payment"
     case registerPayment = "payment/register-payment"
+    
+    //my booking
+    case addonPayment = "quotation/addon-payment"
     
     case hotelItinerary = "hotels/itinerary?action=traveller"
     case getPaymentMethod = "itinerary/get-payment-methods"

@@ -77,16 +77,16 @@ class SpecialAccountDetailsVC: BaseVC {
             switch index {
             case 0:
                 //PayOnline
-                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData)
+                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .accountDeposit)
                 
             case 2:
                 //ChequeDemandDraft
-                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .chequeOrDD, paymentModeDetail: self.viewModel.itineraryData?.chequeOrDD, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .chequeOrDD, usingToPaymentFor: .accountDeposit, paymentModeDetail: self.viewModel.itineraryData?.chequeOrDD, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
                 printDebug("ChequeDemandDraft")
                 
             case 3:
                 //FundTransfer
-                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .accountDeposit, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
                 printDebug("FundTransfer")
                 
             default:

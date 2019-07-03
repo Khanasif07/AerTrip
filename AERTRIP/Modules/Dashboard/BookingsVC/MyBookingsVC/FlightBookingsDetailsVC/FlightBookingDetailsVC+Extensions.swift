@@ -6,7 +6,6 @@
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
-import EventKit
 import MXParallaxHeader
 import SafariServices
 import UIKit
@@ -88,10 +87,13 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("\(indexPath.section)")
-        if indexPath.section < self.viewModel.bookingDetail?.bookingDetail?.leg.count ?? 0 {
+        if let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
+            //cases
+            
+            AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row-1], receipt: rcpt)
+        }
+        else if indexPath.section < self.viewModel.bookingDetail?.bookingDetail?.leg.count ?? 0 {
             AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail)
-        } else {
-            printDebug("index path section \(indexPath.section)")
         }
     }
 }
@@ -140,13 +142,11 @@ extension FlightBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
         let destinationUrl = URL(fileURLWithPath: documentDirectory)
         printDebug(destinationUrl)
         let document = self.viewModel.bookingDetail?.documents[collectionIndex.item]
-        AppNetworking.DOWNLOAD(sourceUrl: document?.sourceUrl ?? "", destinationUrl: destinationUrl, requestHandler: { [weak self] request in
-            guard let sSelf = self else { return }
+        AppNetworking.DOWNLOAD(sourceUrl: document?.sourceUrl ?? "", destinationUrl: destinationUrl, requestHandler: { request in
             printDebug(request)
             document?.downloadingStatus = .downloading
             document?.downloadRequest = request
-        }, progressUpdate: { [weak self] progress in
-            guard let sSelf = self else { return }
+        }, progressUpdate: { progress in
             document?.progressUpdate?(progress)
         }, success: { [weak self] success in
             guard let sSelf = self else { return }
@@ -260,35 +260,7 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     }
     
     func addToCalender() {
-        printDebug("Add To Calender")
-        
-        let eventStore = EKEventStore()
-        
-        eventStore.requestAccess(to: EKEntityType.event, completion: { granted, error in
-            
-            if granted, (error == nil) {
-                let event = EKEvent(eventStore: eventStore)
-                
-                event.title = "Event Detail"
-                event.startDate = self.viewModel.bookingDetail?.bookingDetail?.eventStartingDate
-                event.endDate = self.viewModel.bookingDetail?.bookingDetail?.evenEndingDate
-                event.notes = "Booking flight Event"
-                event.calendar = eventStore.defaultCalendarForNewEvents
-                
-                var event_id = ""
-                do {
-                    try eventStore.save(event, span: .thisEvent)
-                    event_id = self.viewModel.bookingDetail?.id ?? ""
-                } catch let error as NSError {
-                    print("json error: \(error.localizedDescription)")
-                }
-                
-                if event_id != "" {
-                    print("event added !")
-                    AppToast.default.showToastMessage(message: "event added successfully")
-                }
-            }
-        })
+        AppGlobals.shared.addEventToCalender(title: "Event Detail", notes: "Booking flight Event", startDate: self.viewModel.bookingDetail?.bookingDetail?.eventStartingDate, endDate: self.viewModel.bookingDetail?.bookingDetail?.evenEndingDate)
     }
     
     func addToAppleWallet() {

@@ -556,7 +556,7 @@ extension AccountOutstandingLadgerVC: AccountOutstandingLadgerVMDelegate {
     
     func getOutstandingPaymentSuccess() {
         self.manageLoader(shouldStart: false)
-        AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData)
+        AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .accountDeposit)
     }
     
     func getOutstandingPaymentFail() {

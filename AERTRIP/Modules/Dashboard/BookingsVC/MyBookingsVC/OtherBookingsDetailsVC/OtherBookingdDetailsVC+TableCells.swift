@@ -68,7 +68,12 @@ extension OtherBookingsDetailsVC {
     func getBookingCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         cell.containerViewBottomConstraint.constant = 0.0
-        cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.receipt?.voucher.first?.transaction?.total?.amount ?? "", isLastCell: false)
+        
+        var amount = 0.0
+        if let totalTran = self.viewModel.bookingDetail?.receipt?.voucher.first?.transactions.filter({ $0.ledgerName.lowercased() == "total" }).first {
+            amount = totalTran.amount
+        }
+        cell.configCell(title: LocalizedString.Booking.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: "\(amount)", isLastCell: false)
         cell.clipsToBounds = true
         return cell
     }

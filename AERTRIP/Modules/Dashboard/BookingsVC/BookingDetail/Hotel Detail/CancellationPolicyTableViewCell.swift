@@ -10,14 +10,14 @@ import UIKit
 
 enum CancellationType {
     case freeCancellation
-    case cancellationFree
+    case cancellationFee
     case nonRefundable
     
     var title: String {
         switch self {
         case .freeCancellation:
             return LocalizedString.FreeCancellation.localized
-        case .cancellationFree:
+        case .cancellationFee:
             return LocalizedString.CancellationFee.localized
         case .nonRefundable:
             return LocalizedString.NonRefundable.localized
@@ -52,7 +52,7 @@ class CancellationPolicyTableViewCell: ATTableViewCell {
             self.titleLabelLeadingConstraint.constant = 12
             self.titleLabel.textColor = AppColors.themeGreen
             self.titleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: (UIImage(named: "greenBgIcon"))!, endText: cancellationType.title, font: AppFonts.SemiBold.withSize(18.0))
-        case .cancellationFree:
+        case .cancellationFee:
             self.titleLabel.attributedText = self.getAttributedText(text: "\(cancellationAmount) " + cancellationType.title, amountText: cancellationAmount)
         case .nonRefundable:
             self.titleLabel.textColor = AppColors.themeRed

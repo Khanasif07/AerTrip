@@ -78,6 +78,12 @@ class FlightBookingsDetailsVC: BaseVC {
         }
     }
     
+    override func dataChanged(_ note: Notification) {
+        if let noti = note.object as? ATNotification, noti == .myBookingCasesRequestStatusChanged {
+            self.viewModel.getBookingDetail()
+        }
+    }
+    
     // MARK: - Functions
     
     // MARK: -
@@ -122,10 +128,8 @@ class FlightBookingsDetailsVC: BaseVC {
     
     func webCheckinServices(url: String) {
         // TODO: - Need to be synced with backend Api key
-        guard let url = URL(string: url) else { return }
-        let safariVC = SFSafariViewController(url: url)
-        AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
-        safariVC.delegate = self
+        guard let url = url.toUrl else { return }
+        AppFlowManager.default.showURLOnATWebView(url, screenTitle: "Web Checkin")
     }
     
     // Present Request Add on Frequent Flyer VC
