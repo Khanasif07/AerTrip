@@ -28,6 +28,7 @@
                                         <constraint firstAttribute="width" secondItem="sWE-ub-doU" secondAttribute="height" multiplier="1:1" id="VQw-Zl-ObN"/>
                                     </constraints>
                                     <state key="normal" image="untick"/>
+                                    <state key="selected" image="tick"/>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CAK-PP-wXS">
                                     <rect key="frame" x="60" y="0.0" width="354" height="60"/>
@@ -90,6 +91,7 @@
         </view>
     </objects>
     <resources>
+        <image name="tick" width="22" height="22"/>
         <image name="untick" width="22" height="22"/>
     </resources>
 </document>

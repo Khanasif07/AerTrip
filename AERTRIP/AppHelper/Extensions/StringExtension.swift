@@ -318,7 +318,7 @@ extension String {
     /// EZSE: Converts String to Bool
     var toBool: Bool {
         switch self.lowercased() {
-        case "true", "1":
+        case "true", "1", "yes", "ok":
             return true
         default:
             return false

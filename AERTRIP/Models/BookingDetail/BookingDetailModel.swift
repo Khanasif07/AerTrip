@@ -723,6 +723,8 @@ struct Leg {
     
     var eventStartDate: Date? //will be passed from the booking details
     
+    var selectedPaxIds: Set<String> = [] //used while selecting paxes for rescheduling/cancelltaion request
+    
     init() {}
     
     init(json: JSONDictionary, eventStartDate: Date?) {
@@ -1536,8 +1538,8 @@ struct Pax {
             self.addOns = addon
         }
         
-        if let obj = json["in_process"] as? Bool {
-            self.paxId = "\(obj)"
+        if let obj = json["in_process"] {
+            self.inProcess = "\(obj)".toBool
         }
         
         if let obj = json["profile_image"] {

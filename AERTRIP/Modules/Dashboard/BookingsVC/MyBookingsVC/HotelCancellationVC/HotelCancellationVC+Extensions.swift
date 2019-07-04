@@ -69,8 +69,7 @@ extension HotelCancellationVC: BookingTopNavBarWithSubtitleDelegate {
 }
 
 extension HotelCancellationVC: BookingReschedulingHeaderViewDelegate {
-    
-    func headerViewTapped(_ view: UITableViewHeaderFooterView) {
+    func selectAllButtonAction(_ sender: UIButton) {
         if !self.viewModel.isAllRoomSelected {
             for index in 0...(self.viewModel.bookedHotelData.count - 1) {
                 self.viewModel.bookedHotelData[index].isChecked = true

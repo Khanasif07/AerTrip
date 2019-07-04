@@ -45,7 +45,7 @@ class BookingReschedulingVC: BaseVC {
         self.setupNavBar()
         self.reschedulingTableView.dataSource = self
         self.reschedulingTableView.delegate = self
-        self.reschedulingTableView.reloadData()
+        self.reloadList()
         self.continueButton.addGredient(isVertical: false)
     }
     
@@ -85,8 +85,6 @@ class BookingReschedulingVC: BaseVC {
         self.totalNetRefundLabel.text = LocalizedString.TotalNetRefund.localized
         self.continueButton.setTitle(LocalizedString.Continue.localized, for: .normal)
         self.continueButton.setTitle(LocalizedString.Continue.localized, for: .selected)
-        
-        self.passengerLabel.text = LocalizedString.SelectPassengerFlightRescheduled.localized
     }
     
     // MARK: - Helper methods
@@ -117,7 +115,7 @@ class BookingReschedulingVC: BaseVC {
             if !animated {
                 self.addToExpandedIndexPaths(indexPath)
                 cell.setExpanded(true, animated: false)
-                self.reschedulingTableView.reloadData()
+                self.reloadList()
                 self.scrollIfNeededAfterExpandingCell(at: indexPath)
                 self.expandCompletionHandler()
             } else {
@@ -141,7 +139,7 @@ class BookingReschedulingVC: BaseVC {
     }
     
     @IBAction func continueButtonTapped(_ sender: Any) {
-         AppFlowManager.default.showCancellationRequest(buttonTitle: LocalizedString.Done.localized)
+         AppFlowManager.default.showReschedulingRequest(buttonTitle: LocalizedString.Continue.localized)
     }
     
     private func collapseCell(_ cell: BookingReschedulingPassengerAccordionTableViewCell, animated: Bool) {
@@ -149,7 +147,7 @@ class BookingReschedulingVC: BaseVC {
             if !animated {
                 cell.setExpanded(false, animated: false)
                 self.removeFromExpandedIndexPaths(indexPath)
-                self.reschedulingTableView.reloadData()
+                self.reloadList()
                 self.collapseCompletionHandler()
             } else {
                 CATransaction.begin()
@@ -222,14 +220,32 @@ class BookingReschedulingVC: BaseVC {
             
             bookingAccordionCell.cancellationChargeLabel.text = self.viewModel.usingFor == .rescheduling ? LocalizedString.ReschedulingCharges.localized : LocalizedString.CancellationCharges.localized
 
-//            if self.viewModel.selectedPassenger.contains(passenger.id) {
-//                bookingAccordionCell.selectedTravellerButton.isSelected = true
-//            } else {
-//                bookingAccordionCell.selectedTravellerButton.isSelected = false
-//            }
+            bookingAccordionCell.selectedTravellerButton.isSelected = legD.selectedPaxIds.contains(paxD.paxId)
             
             return bookingAccordionCell
         }
+    }
+    
+    private func manageSelectionTitle() {
+        var selectedCounts: [Int] = []
+        
+        for leg in self.viewModel.legsData {
+            if !leg.selectedPaxIds.isEmpty {
+                selectedCounts.append(leg.selectedPaxIds.count)
+            }
+        }
+        
+        if selectedCounts.isEmpty {
+            self.passengerLabel.text = LocalizedString.SelectPassengerFlightRescheduled.localized
+        }
+        else {
+            self.passengerLabel.text = "\(selectedCounts.joined(separator: ", ")) \(LocalizedString.PassengersSelected.localized)"
+        }
+    }
+    
+    func reloadList() {
+        self.manageSelectionTitle()
+        self.reschedulingTableView.reloadData()
     }
 }
 
@@ -294,8 +310,10 @@ extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
         infoData += infoData.isEmpty ? refundOrResch : " | \(refundOrResch)"
 
         headerView.delegate = self
+        headerView.selectedButton.isSelected = (legD.pax.count == legD.selectedPaxIds.count)
         headerView.routeLabel.text = legD.title
         headerView.infoLabel.text = infoData
+        headerView.selectedButton.tag = section
         return headerView
     }
     
@@ -326,8 +344,20 @@ extension BookingReschedulingVC: TopNavigationViewDelegate {
 // MARK: - BookingRescheduling header tapped
 
 extension BookingReschedulingVC: BookingReschedulingHeaderViewDelegate {
-    func headerViewTapped(_ view: UITableViewHeaderFooterView) {
-        printDebug("header view Tapped")
+    func selectAllButtonAction(_ sender: UIButton) {
+        var legD = self.viewModel.legsData.remove(at: sender.tag)
+        
+        if legD.pax.count == legD.selectedPaxIds.count {
+            //remove all
+            legD.selectedPaxIds.removeAll()
+        }
+        else {
+            //select all
+            legD.selectedPaxIds = Set(legD.pax.map { $0.paxId })
+        }
+        
+        self.viewModel.legsData.insert(legD, at: sender.tag)
+        self.reloadList()
     }
 }
 
@@ -336,14 +366,18 @@ extension BookingReschedulingVC: BookingReschedulingHeaderViewDelegate {
 extension BookingReschedulingVC: BookingReschedulingPassengerAccordionTableViewCellDelegate {
     func arrowButtonAccordionTapped(arrowButton: UIButton) {
         if let indexPath = self.reschedulingTableView.indexPath(forItem: arrowButton) {
-            let legD = self.viewModel.legsData[indexPath.section]
+            var legD = self.viewModel.legsData.remove(at: indexPath.section)
             let passenger = legD.pax[indexPath.row - legD.flight.count]
-//            if self.viewModel.selectedPassenger.contains(passenger.id) {
-//                self.viewModel.selectedPassenger.remove(object: passenger.id)
-//            } else {
-//                self.viewModel.selectedPassenger.append(passenger.id)
-//            }
+            
+            if legD.selectedPaxIds.contains(passenger.paxId) {
+                legD.selectedPaxIds.remove(passenger.paxId)
+            }
+            else {
+                legD.selectedPaxIds.insert(passenger.paxId)
+            }
+            
+            self.viewModel.legsData.insert(legD, at: indexPath.section)
+            self.reloadList()
         }
-        self.reschedulingTableView.reloadData()
     }
 }

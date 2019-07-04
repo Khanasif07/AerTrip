@@ -656,6 +656,7 @@
 "AddOns" = "Add-ons";
 "Request" = "Request";
 "SelectPassengerFlightRescheduled" = "Select Passengers or flights to be rescheduled";
+"PassengersSelected" = "Passengers selected";
 "Rescheduling" = "Rescheduling";
 "AddOnRequestSent" = "Add-on Request has been sent";
 "AddOnRequestMesage" = "Our Customer Service Represenstative will contact you soon regarding this enquiry.";
