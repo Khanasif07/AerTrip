@@ -16,6 +16,8 @@ class BookingReschedulingVC: BaseVC {
     @IBOutlet var reschedulingTableView: ATTableView!
     
     @IBOutlet var priceView: UIView!
+    @IBOutlet weak var priceViewAndButtonContainerView: UIView!
+    @IBOutlet weak var priceViewAndButtonContainerHeight: NSLayoutConstraint!
     
     @IBOutlet var totalNetRefundLabel: UILabel!
     @IBOutlet var totalPriceLabel: UILabel!
@@ -38,9 +40,9 @@ class BookingReschedulingVC: BaseVC {
     
     override func initialSetup() {
         self.continueButton.addGredient(isVertical: false)
+        self.setupTotalRefundAndCont()
         self.registerXib()
         self.setupNavBar()
-        self.setUpBookingPassengers()
         self.reschedulingTableView.dataSource = self
         self.reschedulingTableView.delegate = self
         self.reschedulingTableView.reloadData()
@@ -52,7 +54,6 @@ class BookingReschedulingVC: BaseVC {
         self.reschedulingTableView.register(UINib(nibName: self.headerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.headerViewIdentifier)
         self.reschedulingTableView.registerCell(nibName: AirlineTableViewCell.reusableIdentifier)
         self.reschedulingTableView.registerCell(nibName: BookingSchedulingPassengerDetailTableViewCell.reusableIdentifier)
-        self.reschedulingTableView.registerCell(nibName: BookingPassengerTableViewCell.reusableIdentifier)
         self.reschedulingTableView.registerCell(nibName: BookingSchedulingPassengerDetailTableViewCell.reusableIdentifier)
         self.reschedulingTableView.registerCell(nibName: BookingReschedulingPassengerAccordionTableViewCell.reusableIdentifier)
     }
@@ -82,26 +83,26 @@ class BookingReschedulingVC: BaseVC {
     
     override func setupTexts() {
         self.totalNetRefundLabel.text = LocalizedString.TotalNetRefund.localized
-        self.totalPriceLabel.text = "₹ 1,47,000"
         self.continueButton.setTitle(LocalizedString.Continue.localized, for: .normal)
         self.continueButton.setTitle(LocalizedString.Continue.localized, for: .selected)
         
         self.passengerLabel.text = LocalizedString.SelectPassengerFlightRescheduled.localized
     }
     
-    func setUpBookingPassengers() {
-        for i in 0...2 {
-            var passenger = BookingPassenger()
-            passenger.id = "\(i)"
-            passenger.name = "Mr. Alan McCarthy"
-            passenger.isChecked = false
-            passenger.isExpanded = false
-            passenger.passengerDetails = ["SPF6LG", "₹ 27,000", "₹ 27,000", "₹ 27,000"]
-            self.viewModel.passengers.append(passenger)
+    // MARK: - Helper methods
+    private func setupTotalRefundAndCont() {
+        if self.viewModel.usingFor == .rescheduling {
+            //hide price
+            self.priceView.isHidden = true
+            self.priceViewAndButtonContainerHeight.constant = 50.0
+        }
+        else {
+            //show price
+            self.totalPriceLabel.text = "₹ 1,47,000"
+            self.priceView.isHidden = false
+            self.priceViewAndButtonContainerHeight.constant = 94.0
         }
     }
-    
-    // MARK: - Helper methods
     
     func toggleCell(_ cell: BookingReschedulingPassengerAccordionTableViewCell, animated: Bool) {
         if cell.expanded {
@@ -142,8 +143,6 @@ class BookingReschedulingVC: BaseVC {
     @IBAction func continueButtonTapped(_ sender: Any) {
          AppFlowManager.default.showCancellationRequest(buttonTitle: LocalizedString.Done.localized)
     }
-    
-    
     
     private func collapseCell(_ cell: BookingReschedulingPassengerAccordionTableViewCell, animated: Bool) {
         if let indexPath = reschedulingTableView.indexPath(for: cell) {
@@ -194,55 +193,40 @@ class BookingReschedulingVC: BaseVC {
     }
     
     private func getCellForSection(_ indexPath: IndexPath) -> UITableViewCell {
-        //        guard let passengerCell = self.reschedulingTableView.dequeueReusableCell(withIdentifier: "BookingPassengerTableViewCell") as? BookingPassengerTableViewCell else {
-        //            fatalError("BookingPassengerTableViewCell not found")
-        //        }
-        //
-        //        guard let passengerDetailCell = self.reschedulingTableView.dequeueReusableCell(withIdentifier: "BookingSchedulingPassengerDetailTableViewCell") as? BookingSchedulingPassengerDetailTableViewCell else {
-        //            fatalError("BookingSchedulingPassengerDetailTableViewCell not found")
-        //        }
+        let legD = self.viewModel.legsData[indexPath.section]
         
-        //        passengerCell.delegate = self
-        
-        if indexPath.row < self.viewModel.airlinesDetail.count {
+        if indexPath.row < legD.flight.count {
             guard let airlineCell = self.reschedulingTableView.dequeueReusableCell(withIdentifier: "AirlineTableViewCell") as? AirlineTableViewCell else {
                 fatalError("AirlineTableViewCell not found")
             }
             
-            airlineCell.configureCell(airlineName: "Air India", info: "AI - 348・Economy Saver")
-            return airlineCell
-        } else {
-            //            if self.indexesForExpanded.count > 0  {
-            //                for idxPath in self.indexesForExpanded {
-            //                    if indexPath.row  < idxPath.row + self.indexesForExpanded.count * 4  {
-            //                        passengerDetailCell.configureCell()
-            //                        return passengerDetailCell
-            //                    } else {
-            //                        passengerCell.passenger = self.viewModel.passengers[(indexPath.row - self.viewModel.airlinesDetail.count - self.indexesForExpanded.count * 4)]
-            //                        return passengerCell
-            //                    }
-            //                }
-            //            }
-            //            else {
-            //                passengerCell.passenger = self.viewModel.passengers[indexPath.row - self.viewModel.airlinesDetail.count]
-            //                return passengerCell
-            //            }
+            airlineCell.flightDetail = legD.flight[indexPath.row]
             
-            //
+            return airlineCell
+        }
+        else {
             guard let bookingAccordionCell = self.reschedulingTableView.dequeueReusableCell(withIdentifier: "BookingReschedulingPassengerAccordionTableViewCell") as? BookingReschedulingPassengerAccordionTableViewCell else {
                 fatalError("BookingReschedulingPassengerAccordionTableViewCell not found")
             }
             
-            let passenger = self.viewModel.passengers[indexPath.row - self.viewModel.airlinesDetail.count]
-            bookingAccordionCell.configureCell(passengerName: self.viewModel.passengers[indexPath.row - self.viewModel.airlinesDetail.count].name, pnrNo: "SPF6LG", saleValue: "₹ 27,000", cancellationCharge: "₹ 27,000", refundValue: "₹ 27,000")
-            bookingAccordionCell.delegate = self
-            bookingAccordionCell.headerDividerView.isHidden = self.viewModel.passengers.count - 1 == indexPath.row - self.viewModel.airlinesDetail.count
+            let index = indexPath.row -  legD.flight.count
+            let paxD = legD.pax[index]
             
-            if self.viewModel.selectedPassenger.contains(passenger.id) {
-                bookingAccordionCell.selectedTravellerButton.isSelected = true
-            } else {
-                bookingAccordionCell.selectedTravellerButton.isSelected = false
-            }
+            let pnrNoStr = paxD.pnr.isEmpty ? paxD.status : paxD.pnr
+            let refundAmount: Double = paxD.amountPaid - paxD.rescheduleCharge
+            
+            
+            bookingAccordionCell.configureCell(passengerName: paxD.fullNameWithSalutation, pnrNo: pnrNoStr, saleValue: paxD.amountPaid.delimiterWithSymbol, cancellationCharge: paxD.rescheduleCharge.delimiterWithSymbol, refundValue: refundAmount.delimiterWithSymbol)
+            bookingAccordionCell.delegate = self
+            bookingAccordionCell.headerDividerView.isHidden = (legD.pax.count - 1) == (indexPath.row - (legD.flight.count))
+            
+            bookingAccordionCell.cancellationChargeLabel.text = self.viewModel.usingFor == .rescheduling ? LocalizedString.ReschedulingCharges.localized : LocalizedString.CancellationCharges.localized
+
+//            if self.viewModel.selectedPassenger.contains(passenger.id) {
+//                bookingAccordionCell.selectedTravellerButton.isSelected = true
+//            } else {
+//                bookingAccordionCell.selectedTravellerButton.isSelected = false
+//            }
             
             return bookingAccordionCell
         }
@@ -253,23 +237,24 @@ class BookingReschedulingVC: BaseVC {
 
 extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return self.viewModel.legsData.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.viewModel.airlinesDetail.count + self.viewModel.passengers.count + (self.indexesForExpanded.count * 4)
-        return self.viewModel.airlinesDetail.count + self.viewModel.passengers.count
+        return self.viewModel.legsData[section].flight.count + self.viewModel.legsData[section].pax.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return self.getCellForSection(indexPath)
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { if indexPath.row < 2 {
-        return 60
-    } else {
-        return self.expandedIndexPaths.contains(indexPath) ? 144.5 : 44.0
-    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row < self.viewModel.legsData[indexPath.section].flight.count {
+            return 60
+        }
+        else {
+            return self.expandedIndexPaths.contains(indexPath) ? 144.5 : 44.0
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -277,7 +262,7 @@ extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 60.0
+        return 35.0
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -292,9 +277,25 @@ extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
             fatalError(" BookingReschedulingHeaderView not  found")
         }
         
+        let legD = self.viewModel.legsData[section]
+        
+        var infoData = ""
+        if let dateStr = legD.eventStartDate?.toString(dateFormat: "dd MMM yyyy"), !dateStr.isEmpty {
+            infoData += dateStr
+        }
+        
+        var refundOrResch = ""
+        if self.viewModel.usingFor == .rescheduling {
+            refundOrResch = legD.reschedulable.toBool ? LocalizedString.Reschedulable.localized : LocalizedString.NonReschedulable.localized
+        }
+        else {
+            refundOrResch = legD.refundable.toBool ? LocalizedString.Refundable.localized : LocalizedString.NonRefundable.localized
+        }
+        infoData += infoData.isEmpty ? refundOrResch : " | \(refundOrResch)"
+
         headerView.delegate = self
-        headerView.routeLabel.text = self.viewModel.sectionData[section].title
-        headerView.infoLabel.text = self.viewModel.sectionData[section].info
+        headerView.routeLabel.text = legD.title
+        headerView.infoLabel.text = infoData
         return headerView
     }
     
@@ -309,18 +310,6 @@ extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
         if let cell = tableView.cellForRow(at: indexPath) as? BookingReschedulingPassengerAccordionTableViewCell {
             self.toggleCell(cell, animated: self.isToggleAnimated)
         }
-//        if let cell  = self.reschedulingTableView.cellForRow(at: indexPath) , cell is BookingPassengerTableViewCell {
-//            printDebug("Passengers cell is tapped")
-//            if self.indexesForExpanded.contains(indexPath) {
-//                self.indexesForExpanded.remove(object: indexPath)
-//            } else {
-//                self.indexesForExpanded.append(indexPath)
-//            }
-//
-//            self.reschedulingTableView.reloadData()
-//        }
-        
-        self.passengerLabel.text = self.viewModel.selectedPassenger.count == 1 ? "\(self.viewModel.selectedPassenger.count) " + LocalizedString.Passengers.localized + LocalizedString.Selected.localized : "\(self.viewModel.selectedPassenger.count) " + LocalizedString.Passenger.localized + LocalizedString.Selected.localized
     }
 }
 
@@ -342,25 +331,18 @@ extension BookingReschedulingVC: BookingReschedulingHeaderViewDelegate {
     }
 }
 
-// MARK: - PassengersCell delgate methods
-
-extension BookingReschedulingVC: BookingPassengerTableViewCellDelegate {
-    func arrowButtonTapped(arrowButton: UIButton) {
-        printDebug("arrow Button tapped")
-    }
-}
-
 // MARK: - Booking arrowButton Accordion Tapped
 
 extension BookingReschedulingVC: BookingReschedulingPassengerAccordionTableViewCellDelegate {
     func arrowButtonAccordionTapped(arrowButton: UIButton) {
         if let indexPath = self.reschedulingTableView.indexPath(forItem: arrowButton) {
-            let passenger = self.viewModel.passengers[indexPath.row - self.viewModel.airlinesDetail.count]
-            if self.viewModel.selectedPassenger.contains(passenger.id) {
-                self.viewModel.selectedPassenger.remove(object: passenger.id)
-            } else {
-                self.viewModel.selectedPassenger.append(passenger.id)
-            }
+            let legD = self.viewModel.legsData[indexPath.section]
+            let passenger = legD.pax[indexPath.row - legD.flight.count]
+//            if self.viewModel.selectedPassenger.contains(passenger.id) {
+//                self.viewModel.selectedPassenger.remove(object: passenger.id)
+//            } else {
+//                self.viewModel.selectedPassenger.append(passenger.id)
+//            }
         }
         self.reschedulingTableView.reloadData()
     }

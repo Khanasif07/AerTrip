@@ -55,7 +55,7 @@
                                             <constraint firstItem="FqT-MO-gqr" firstAttribute="leading" secondItem="xSw-Rc-yk0" secondAttribute="leading" constant="4" id="sC7-bf-CPJ"/>
                                         </constraints>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i4Z-5J-xaG">
+                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i4Z-5J-xaG">
                                         <rect key="frame" x="274" y="0.0" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="8fa-sg-R84"/>

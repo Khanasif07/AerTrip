@@ -126,9 +126,6 @@ public class BookingData: NSManagedObject {
             booking?.actionRequired = Int16(obj)
         }
         
-    
-        
-        
         // function to get Set Booking Type
         func bookingType(forDate date: String, bstatus: String) -> Int16 {
             if date.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isGreaterThan((Date())) ?? false {

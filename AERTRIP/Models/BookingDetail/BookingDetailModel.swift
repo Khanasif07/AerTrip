@@ -531,8 +531,8 @@ struct BookingDetail {
     var details: String = ""
     
     var note: String = ""
-    var eventStartDate: String = ""
-    var eventEndDate: String = ""
+    var eventStartDate: Date?
+    var eventEndDate: Date?
     
     init() {
         self.init(json: [:])
@@ -637,6 +637,24 @@ struct BookingDetail {
             self.checkOut = "\(obj)".removeNull.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
+        
+        // Event start and end date and notes
+        
+        if let obj = json["note"] {
+            self.note = "\(obj)".removeNull
+        }
+        
+        if let obj = json["event_start_date"] {
+            //"2019-07-27 23:55:00"
+            self.eventStartDate = "\(obj)".removeNull.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
+        }
+        
+        if let obj = json["event_end_date"] {
+            //"2019-07-27 23:55:00"
+            self.eventEndDate = "\(obj)".removeNull.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
+        }
+        
+        
         // Product key other
         
         if let obj = json["title"] {
@@ -660,25 +678,11 @@ struct BookingDetail {
         
         // leg parsing
         if let obj = json["leg"] as? [JSONDictionary] {
-            self.leg = Leg.getModels(json: obj)
+            self.leg = Leg.getModels(json: obj, eventStartDate: self.eventStartDate)
         }
         
         if let obj = json["journey_completed"] {
             self.journeyCompleted = "\(obj)".toInt ?? 0
-        }
-        
-        // Event start and end date and notes
-        
-        if let obj = json["note"] {
-             self.note = "\(obj)".removeNull
-        }
-        
-        if let obj = json["event_start_date"] {
-            self.eventStartDate = "\(obj)".removeNull
-        }
-        
-        if let obj = json["event_end_date"] {
-            self.eventEndDate = "\(obj)".removeNull
         }
     }
     
@@ -689,13 +693,13 @@ struct BookingDetail {
     // convert event start date into Date format
     
     var eventStartingDate: Date {
-        return self.eventStartDate.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss") ?? Date()
+        return self.eventStartDate ?? Date()
     }
     
     // convert event end date into date format
     
     var evenEndingDate: Date {
-        return self.eventEndDate.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss") ?? Date()
+        return self.eventEndDate ?? Date()
     }
 }
 
@@ -717,9 +721,14 @@ struct Leg {
     var legStatus: String = ""
     var apc: String = ""
     
+    var eventStartDate: Date? //will be passed from the booking details
+    
     init() {}
     
-    init(json: JSONDictionary) {
+    init(json: JSONDictionary, eventStartDate: Date?) {
+        
+        self.eventStartDate = eventStartDate
+        
         if let obj = json["leg_id"] {
             self.legId = "\(obj)".removeNull
         }
@@ -805,8 +814,8 @@ struct Leg {
         return self.flight.count - 1 + self.haltCount
     }
     
-    static func getModels(json: [JSONDictionary]) -> [Leg] {
-        return json.map { Leg(json: $0) }
+    static func getModels(json: [JSONDictionary], eventStartDate: Date?) -> [Leg] {
+        return json.map { Leg(json: $0, eventStartDate: eventStartDate) }
     }
 }
 
@@ -1399,8 +1408,8 @@ struct Pax {
     var paxType: String = ""
     var status: String = ""
     var amountPaid: Double = 0.0
-    var cancellationCharge: String = ""
-    var rescheduleCharge: String = ""
+    var cancellationCharge: Double = 0.0
+    var rescheduleCharge: Double = 0.0
     var ticket: String = ""
     var pnr: String = ""
     var inProcess: Bool = false
@@ -1409,6 +1418,13 @@ struct Pax {
     var _meal: String = ""
     var _baggage: String = ""
     var other: String = ""
+    
+    var fullNameWithSalutation: String {
+        if salutation.isEmpty {
+            return paxName
+        }
+        return "\(salutation) \(paxName)"
+    }
     
     var addOns: JSONDictionary = [:] // TODO: Need to confirm this with yash as always coming in array
     var seat: String {
@@ -1443,7 +1459,7 @@ struct Pax {
     var detailsToShow: JSONDictionary {
         var temp = JSONDictionary()
         
-        temp["0PNR"] = pnr
+        temp["0PNR"] = self.pnr.isEmpty ? LocalizedString.na.localized : self.pnr
         temp["1Ticket Number"] = ticket
         temp["2Seat"] = seat
         temp["3Meal"] = meal
@@ -1503,11 +1519,11 @@ struct Pax {
             self.amountPaid = "\(obj)".toDouble ?? 0.0
         }
         if let obj = json["cancellation_charge"] {
-            self.cancellationCharge = "\(obj)"
+            self.cancellationCharge = "\(obj)".toDouble ?? 0.0
         }
         
         if let obj = json["reschedule_charge"] {
-            self.rescheduleCharge = "\(obj)"
+            self.rescheduleCharge = "\(obj)".toDouble ?? 0.0
         }
         if let obj = json["ticket"] {
             self.ticket = "\(obj)"
@@ -1515,7 +1531,6 @@ struct Pax {
         }
         if let obj = json["pnr"] {
             self.pnr = "\(obj)"
-            self.pnr = self.pnr.isEmpty ? LocalizedString.na.localized : self.pnr
         }
         if let obj = json["addons"] as? JSONDictionary, let addon = obj["addon"] as? JSONDictionary {
             self.addOns = addon
