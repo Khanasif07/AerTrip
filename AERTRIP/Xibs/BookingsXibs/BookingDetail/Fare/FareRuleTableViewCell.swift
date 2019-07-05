@@ -15,7 +15,10 @@ class FareRuleTableViewCell: UITableViewCell {
     @IBOutlet weak var routeLabel: UILabel!
     @IBOutlet weak var fareRulesLabel: UILabel!
     @IBOutlet weak var webView: WKWebView!
+    @IBOutlet weak var routeLabelTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var routeLabelBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var routeLabelHeightConstraint: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
        
@@ -35,15 +38,21 @@ class FareRuleTableViewCell: UITableViewCell {
     }
     
     
-    func configureCell(fareRules: String, ruteString: String) {
+    func configureCell(isForBookingPolicy: Bool = false,fareRules: String, ruteString: String) {
         self.routeLabel.text = ruteString
-        
-        let cssStr = fareRules.htmlCSSCodeString(withFont: AppFonts.Regular.withSize(28.0), isCustomFont: true, fontFileName: "SourceSansPro-Regular", fontColor: AppColors.themeGray60)
+        if isForBookingPolicy {
+            self.routeLabelHeightConstraint.constant = 0
+            self.routeLabelTopConstraint.constant = 0
+            self.routeLabelBottomConstraint.constant = 0
+        }
+        let cssStr = fareRules.htmlCSSCodeString(withFont: AppFonts.Regular.withSize(28.0), isCustomFont: true, fontFileName: "SourceSansPro-Regular", fontColor: isForBookingPolicy ? AppColors.themeBlack : AppColors.themeGray60)
         
         var url = Bundle.main.url(forResource: "SourceSansPro-Regular", withExtension: "ttf")
         url?.deleteLastPathComponent()
         webView.loadHTMLString(cssStr, baseURL: url)
     }
+    
+    
 }
 
 extension FareRuleTableViewCell: WKUIDelegate {

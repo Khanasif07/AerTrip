@@ -216,6 +216,8 @@ struct BookingDetailModel {
             }
         }
         else {
+            
+            // set trip Weather Data for Hotel 
             let datesBetweenArray = Date.dates(from: self.bookingDetail?.checkIn ?? Date(), to: self.bookingDetail?.checkOut ?? Date())
             for date in datesBetweenArray {
                 var weatherInfo = WeatherInfo()
@@ -496,8 +498,10 @@ struct BookingDetail {
     var disconnected: Bool = false
     var routes: [[String]] = [[]]
     var leg: [Leg] = []
+    
     var journeyCompleted: Int = 0
     var travellers: [Traveller] = []
+    var refundable: Int = 0
     
     // Keys for Product = Hotel
     
@@ -515,6 +519,11 @@ struct BookingDetail {
     var hotelPhone: String = ""
     var hotelEmail: String = ""
     
+    var photos: [String] = []
+    var amentiesGroup: String = ""
+    var info: String = ""
+    var taLocationID: String = ""
+    var website: String = ""
     var city: String = ""
     var hotelName: String = ""
     var hotelImage: String = ""
@@ -582,6 +591,11 @@ struct BookingDetail {
             self.rooms = "\(obj)".toInt ?? 0
         }
         
+        //final Hotel details
+        
+        
+       
+        
         // TODO: For Room detail
         
         if let obj = json["cancellation"] as? JSONDictionary {
@@ -602,6 +616,22 @@ struct BookingDetail {
         
         if let obj = json["hotel_emai"] {
             self.hotelEmail = "\(obj)".removeNull
+        }
+        
+        if let obj = json["photos"] as? [String] {
+            self.photos = obj
+        }
+        
+        if let obj = json["info"]  {
+            self.info = "\(obj)".removeNull
+        }
+        
+        if let obj = json["ta_location_id"] {
+            self.taLocationID = "\(obj)".removeNull
+        }
+        
+        if let obj = json["website"] {
+            self.website = "\(obj)".removeNull
         }
         
         if let obj = json["city"] {
@@ -671,7 +701,13 @@ struct BookingDetail {
             self.bookingDate = "\(obj)".removeNull
         }
         
-        self.travellers = Traveller.retunsTravellerArray(jsonArr: json["travellers"] as? [JSONDictionary] ?? [])
+        if let obj = json["travellers"] as? [JSONDictionary] {
+             self.travellers = Traveller.retunsTravellerArray(jsonArr: obj)
+        }
+        
+        if let obj = json["refundable"] {
+            self.refundable = "\(obj)".toInt ?? 0
+        }
         
         // room details
         if let obj = json["room_details"] as? [JSONDictionary] {
@@ -706,6 +742,46 @@ struct BookingDetail {
     var paymentStatus: String {
         return self.isRefundable ? "Refundable" : " Non-Refundable"
     }
+    
+    var otherPrductDetailStatus : String {
+        return self.refundable == 0 ? "Non-Refundable" : "Refundable"
+    }
+    
+    // completePhotos
+    var completePhotos: [String] {
+        return self.photos + [self.hotelImage]
+    }
+    
+    
+    // Website Details
+    
+    var websiteDetail: String {
+        return self.website.isEmpty ? "-" : self.website
+    }
+    
+    
+    // Phone Details
+    var phoneDetail: String {
+        return self.hotelPhone.isEmpty ? "-" : self.hotelPhone
+    }
+    
+    
+    // Over view Details
+    
+    var overViewData: String {
+        return self.info.isEmpty ? "-" : self.info
+    }
+    
+    // hotel Address
+    
+    var hotelAddressDetail: String {
+        return self.hotelAddress.isEmpty ? "-" : self.hotelAddress
+    }
+    
+    
+    
+    
+    
     
     // convert event start date into Date format
     

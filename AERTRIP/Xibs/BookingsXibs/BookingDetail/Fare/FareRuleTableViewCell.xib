@@ -62,6 +62,9 @@
             <connections>
                 <outlet property="fareRulesLabel" destination="P9P-EZ-0Jo" id="rJa-rG-X9W"/>
                 <outlet property="routeLabel" destination="kLF-5h-cJt" id="Rfk-Xg-ozj"/>
+                <outlet property="routeLabelBottomConstraint" destination="Crb-Rz-AQA" id="LHr-pr-wak"/>
+                <outlet property="routeLabelHeightConstraint" destination="KWA-qE-Qwa" id="hKN-Fm-laE"/>
+                <outlet property="routeLabelTopConstraint" destination="R3u-XC-gfb" id="cbL-7n-T9b"/>
                 <outlet property="webView" destination="fij-Xd-QpA" id="aih-wC-HEf"/>
             </connections>
             <point key="canvasLocation" x="44.927536231884062" y="144.64285714285714"/>

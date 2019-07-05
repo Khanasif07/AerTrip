@@ -11,16 +11,18 @@ import Foundation
 struct RoomDetailModel {
     var rid: String = ""
     var roomType: String = ""
-    // TODO:- Description key is not coming,need to manage later on
-    var description: String = ""
+   
     var includes: Includes?
     var status: String = ""
     var roomImg: String = ""
     var guest: [GuestDetail] = []
     var amountPaid: String = ""
     var cancellationCharges: Double = 0
+    
     var netRefund: String = ""
     var voucher: String = ""
+    var bedType: String = ""
+    var description: String = ""
     
     init() {
         self.init(json: [:])
@@ -50,9 +52,19 @@ struct RoomDetailModel {
             self.guest = GuestDetail.getModels(json: obj)
         }
         
-        if let obj = json["description"]  {
+        if let obj = json["desc"]  {
             self.description = "\(obj)".removeNull
         }
+        
+        if let obj = json["bed_types"] {
+            self.bedType = "\(obj)".removeNull
+        }
+        
+        if let obj = json["voucher"] {
+            self.voucher = "\(obj)".removeNull
+        }
+        
+        
     }
     
     static func getModels(json: [JSONDictionary]) -> [RoomDetailModel] {

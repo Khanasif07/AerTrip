@@ -35,16 +35,17 @@ class BookingProductDetailVM {
         return count
     }
     
-        //hotel details
+    // hotel details
     var documentDownloadingData = [DocumentDownloadingModel]()
     
     func getSectionDataForHotelDetail() {
-        //note details
+        // note details
         if let note = self.bookingDetail?.bookingDetail?.note, !note.isEmpty {
             self.sectionDataForHotelDetail.append([.notesCell])
         }
         
-        // logic for add case cell
+        // logic for add case cell i.e add on request,special and cancellation request.
+        
         if !(self.bookingDetail?.cases.isEmpty ?? false) {
             var temp: [TableViewCellForHotel] = []
             for (index, _) in (self.bookingDetail?.cases ?? []).enumerated() {
@@ -58,7 +59,7 @@ class BookingProductDetailVM {
             self.sectionDataForHotelDetail.append(temp)
         }
         
-        // hotel details
+        // hotel Booking Address Detail Cell Card i.e Hotel name, Rating , Address and Checkout Card.
         self.sectionDataForHotelDetail.append([.hotelBookingInfoCell])
         
         // room details
@@ -73,23 +74,14 @@ class BookingProductDetailVM {
             self.sectionDataForHotelDetail.append(temp)
             temp.removeAll()
         }
-        //documents details
+        // documents details
         if let docs = self.bookingDetail?.documents, !docs.isEmpty {
             self.sectionDataForHotelDetail.append([.documentCell])
         }
+    
         
+        // additional info details i.e direction ,call and Add to trips
         
-        self.sectionDataForHotelDetail.append([.paymentInfoCell , .bookingCell , .addOnsCell , .cancellationCell , .paidCell , .refundCell , .paymentPendingCell])
-        
-        //additional info details
-        self.sectionDataForHotelDetail.append([.flightsOptionsCell])
-        
-        //weather is coming then add
-        self.sectionDataForHotelDetail.append([.weatherHeaderCell,.weatherInfoCell,.weatherInfoCell, .weatherInfoCell, .weatherInfoCell, .weatherInfoCell])
-        self.sectionDataForHotelDetail.append([.nameCell , .emailCell , .mobileCell , .gstCell , .billingAddressCell])
-        
-        self.sectionDataForHotelDetail.append([.documentCell])
-        self.sectionDataForHotelDetail.append([.paymentInfoCell, .bookingCell, .addOnsCell, .cancellationCell, .paidCell, .refundCell, .paymentPendingCell])
         self.sectionDataForHotelDetail.append([.flightsOptionsCell])
         
         // logic for add weather Data
@@ -107,8 +99,10 @@ class BookingProductDetailVM {
             temp.append(.weatherFooterCell)
         }
         
+        // Weather Cell  finally
         self.sectionDataForHotelDetail.append(temp)
-        // self.sectionDataForHotelDetail.append([.weatherHeaderCell,.weatherInfoCell,.weatherInfoCell,.weatherInfoCell,.weatherInfoCell,.weatherInfoCell])
+        
+        // Name ,Email , Mobile , Gst and Billing Address Cell
         self.sectionDataForHotelDetail.append([.nameCell, .emailCell, .mobileCell, .gstCell, .billingAddressCell])
     }
     
@@ -140,6 +134,8 @@ class BookingProductDetailVM {
         }
         return count
     }
+    
+    // MARK: - Get Section For Flight Product Type.
     
     func getSectionDataForFlightProductType() {
         // logic for add note cell
@@ -234,6 +230,8 @@ class BookingProductDetailVM {
     }
     
     var sectionDataForOtherProductType: [[TableViewCellForOtherProductType]] = []
+    
+    // MARK: - Get Section for other product type
     
     func getSectionDataForOtherProductType() {
         self.sectionDataForOtherProductType.append([.insurenceCell, .policyDetailCell])

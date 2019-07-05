@@ -133,6 +133,10 @@ extension APICaller {
                                     }
                                 }
                             }
+                            
+                            if let str = data[key] as? String {
+                               finalRules = str
+                            }
                         }
                     }
                     finalRules = finalRules.isEmpty ? LocalizedString.na.localized : finalRules

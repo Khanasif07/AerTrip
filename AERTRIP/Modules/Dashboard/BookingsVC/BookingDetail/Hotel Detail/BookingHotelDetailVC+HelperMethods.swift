@@ -34,9 +34,10 @@ extension BookingHotelDetailVC {
                 fatalError("HotelDetailsImgSlideCell not found")
             }
             // TODO: - Currently coming as single image url. will come in array of images need to manage.
-            hotelImageSlideCell.imageUrls = [self.viewModel.bookingDetail?.bookingDetail?.hotelImage] as? [String] ?? []
+            
+            hotelImageSlideCell.imageUrls = self.viewModel.bookingDetail?.bookingDetail?.completePhotos ?? []
             hotelImageSlideCell.delegate = self
-            hotelImageSlideCell.configCell(imageUrls: [self.viewModel.bookingDetail?.bookingDetail?.hotelImage] as? [String] ?? [])
+            hotelImageSlideCell.configCell(imageUrls: self.viewModel.bookingDetail?.bookingDetail?.completePhotos ?? [])
             return hotelImageSlideCell
             
         case 1: // Hotel Name Rating Cell
@@ -116,16 +117,16 @@ extension BookingHotelDetailVC {
             // Address Cell
             guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
             cell.deviderView.isHidden = true
-            cell.configureAddressCell(isForBooking: true,address: self.viewModel.bookingDetail?.bookingDetail?.hotelAddress ?? "")
+            cell.configureAddressCell(isForBooking: true,address: self.viewModel.bookingDetail?.bookingDetail?.hotelAddressDetail ?? "")
             return cell
             
         case 1: // Phone Detail Cell
-            phoneWebCommonCell.configureCell(title: "Phone", text: "+91 1234567890")
+            phoneWebCommonCell.configureCell(title: "Phone", text: self.viewModel.bookingDetail?.bookingDetail?.phoneDetail ?? "")
             return phoneWebCommonCell
             
             // Website Detail Cell
         case 2:
-            phoneWebCommonCell.configureCell(title: "Website", text: "www.ramadapowai.com")
+            phoneWebCommonCell.configureCell(title: "Website", text: self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? "")
             return phoneWebCommonCell
         case 3: // Overview Cell
             guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
