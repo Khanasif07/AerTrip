@@ -127,11 +127,6 @@ class BulkEnquirySuccessfulVC: BaseVC {
             self.mainContainerViewHeightConstraint.constant = self.view.height
             self.containerView.roundTopCorners(cornerRadius: 0.0)
         case .reschedulingRequest:
-//            self.mainTitleLabel.text = LocalizedString.ReschedulingRequestHasBeenSent.localized
-//            self.subTitleLabel.text = LocalizedString.OurCustomerServiceRepresenstativeWillContact.localized
-//            self.searchButtonWidthConstraint.constant = 150.0
-//            self.mainContainerViewHeightConstraint.constant = self.view.height - (AppFlowManager.default.safeAreaInsets.top)
-//            self.containerView.roundTopCorners(cornerRadius: 0.0)
             
             self.searchBtnOutlet.setTitle("", for: .normal)
             self.mainTitleLabel.text = LocalizedString.ReschedulingRequestHasBeenSent.localized

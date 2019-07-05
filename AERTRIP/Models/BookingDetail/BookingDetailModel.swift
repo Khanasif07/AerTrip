@@ -83,7 +83,7 @@ struct BookingDetailModel {
         }
         
         if let obj = json["bdetails"] as? JSONDictionary {
-            self.bookingDetail = BookingDetail(json: obj)
+            self.bookingDetail = BookingDetail(json: obj, bookingId: self.id)
         }
         
         if let data = json["cases"] as? [JSONDictionary], !data.isEmpty {
@@ -117,11 +117,6 @@ struct BookingDetailModel {
         if let obj = json["billing_info"] as? JSONDictionary {
             self.billingInfo = BillingDetail(json: obj)
         }
-        
-        if let obj = json["bdetails"] as? JSONDictionary {
-            self.bookingDetail = BookingDetail(json: obj)
-        }
-        
 
         //receipt
         if let obj = json["receipt"] as? JSONDictionary {
@@ -534,11 +529,17 @@ struct BookingDetail {
     var eventStartDate: Date?
     var eventEndDate: Date?
     
+    
+    var bookingId: String = ""
+    
     init() {
-        self.init(json: [:])
+        self.init(json: [:], bookingId: "")
     }
     
-    init(json: JSONDictionary) {
+    init(json: JSONDictionary, bookingId: String) {
+        
+        self.bookingId = bookingId
+        
         if let obj = json["trip_cities"] as? [String] {
             self.tripCities = obj
         }
@@ -678,7 +679,7 @@ struct BookingDetail {
         
         // leg parsing
         if let obj = json["leg"] as? [JSONDictionary] {
-            self.leg = Leg.getModels(json: obj, eventStartDate: self.eventStartDate)
+            self.leg = Leg.getModels(json: obj, eventStartDate: self.eventStartDate, bookingId: bookingId)
         }
         
         if let obj = json["journey_completed"] {
@@ -723,13 +724,18 @@ struct Leg {
     
     var eventStartDate: Date? //will be passed from the booking details
     
-    var selectedPaxIds: Set<String> = [] //used while selecting paxes for rescheduling/cancelltaion request
+    var rescheduledDate: Date? //will be set from new dates screen to refrenceing
+    var prefredFlightNo: String = "" //will be set from new dates screen to refrenceing
+    var selectedPaxs: [Pax] = [] //used while selecting paxes for rescheduling/cancelltaion request
+    
+    var bookingId: String = ""
     
     init() {}
     
-    init(json: JSONDictionary, eventStartDate: Date?) {
+    init(json: JSONDictionary, eventStartDate: Date?, bookingId: String) {
         
         self.eventStartDate = eventStartDate
+        self.bookingId = bookingId
         
         if let obj = json["leg_id"] {
             self.legId = "\(obj)".removeNull
@@ -816,8 +822,8 @@ struct Leg {
         return self.flight.count - 1 + self.haltCount
     }
     
-    static func getModels(json: [JSONDictionary], eventStartDate: Date?) -> [Leg] {
-        return json.map { Leg(json: $0, eventStartDate: eventStartDate) }
+    static func getModels(json: [JSONDictionary], eventStartDate: Date?, bookingId: String) -> [Leg] {
+        return json.map { Leg(json: $0, eventStartDate: eventStartDate, bookingId: bookingId) }
     }
 }
 
@@ -1421,6 +1427,10 @@ struct Pax {
     var _baggage: String = ""
     var other: String = ""
     
+    var netRefundForReschedule: Double {
+        return self.amountPaid - self.rescheduleCharge
+    }
+    
     var fullNameWithSalutation: String {
         if salutation.isEmpty {
             return paxName
@@ -1518,14 +1528,14 @@ struct Pax {
             self.status = "\(obj)"
         }
         if let obj = json["amount_paid"] {
-            self.amountPaid = "\(obj)".toDouble ?? 0.0
+            self.amountPaid = 270.0//"\(obj)".toDouble ?? 0.0
         }
         if let obj = json["cancellation_charge"] {
-            self.cancellationCharge = "\(obj)".toDouble ?? 0.0
+            self.cancellationCharge = 50.0//"\(obj)".toDouble ?? 0.0
         }
         
         if let obj = json["reschedule_charge"] {
-            self.rescheduleCharge = "\(obj)".toDouble ?? 0.0
+            self.rescheduleCharge = 50.0//"\(obj)".toDouble ?? 0.0
         }
         if let obj = json["ticket"] {
             self.ticket = "\(obj)"

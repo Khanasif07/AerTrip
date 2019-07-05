@@ -77,8 +77,7 @@ class AbortRequestVC: BaseVC {
     // MARK: - IBAction
     
     @IBAction func confirmAbortButtonTapped(_ sender: Any) {
-//        self.viewModel.makeRequestAbort()
-        self.makeRequestAbortSuccess()
+        self.viewModel.makeRequestAbort()
     }
 }
 

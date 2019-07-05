@@ -139,7 +139,7 @@ class BookingReschedulingVC: BaseVC {
     }
     
     @IBAction func continueButtonTapped(_ sender: Any) {
-         AppFlowManager.default.showReschedulingRequest(buttonTitle: LocalizedString.Continue.localized)
+        AppFlowManager.default.moveToRequestReschedulingVC(onNavController: self.navigationController, legs: self.viewModel.legsData)
     }
     
     private func collapseCell(_ cell: BookingReschedulingPassengerAccordionTableViewCell, animated: Bool) {
@@ -211,16 +211,17 @@ class BookingReschedulingVC: BaseVC {
             let paxD = legD.pax[index]
             
             let pnrNoStr = paxD.pnr.isEmpty ? paxD.status : paxD.pnr
-            let refundAmount: Double = paxD.amountPaid - paxD.rescheduleCharge
             
-            
-            bookingAccordionCell.configureCell(passengerName: paxD.fullNameWithSalutation, pnrNo: pnrNoStr, saleValue: paxD.amountPaid.delimiterWithSymbol, cancellationCharge: paxD.rescheduleCharge.delimiterWithSymbol, refundValue: refundAmount.delimiterWithSymbol)
+            bookingAccordionCell.configureCell(passengerName: paxD.fullNameWithSalutation, pnrNo: pnrNoStr, saleValue: paxD.amountPaid.delimiterWithSymbol, cancellationCharge: paxD.rescheduleCharge.delimiterWithSymbol, refundValue: paxD.netRefundForReschedule.delimiterWithSymbol)
             bookingAccordionCell.delegate = self
             bookingAccordionCell.headerDividerView.isHidden = (legD.pax.count - 1) == (indexPath.row - (legD.flight.count))
             
             bookingAccordionCell.cancellationChargeLabel.text = self.viewModel.usingFor == .rescheduling ? LocalizedString.ReschedulingCharges.localized : LocalizedString.CancellationCharges.localized
 
-            bookingAccordionCell.selectedTravellerButton.isSelected = legD.selectedPaxIds.contains(paxD.paxId)
+            bookingAccordionCell.selectedTravellerButton.isSelected = false
+            if legD.selectedPaxs.contains(where: { $0.paxId == paxD.paxId }) {
+                bookingAccordionCell.selectedTravellerButton.isSelected = true
+            }
             
             return bookingAccordionCell
         }
@@ -230,8 +231,8 @@ class BookingReschedulingVC: BaseVC {
         var selectedCounts: [Int] = []
         
         for leg in self.viewModel.legsData {
-            if !leg.selectedPaxIds.isEmpty {
-                selectedCounts.append(leg.selectedPaxIds.count)
+            if !leg.selectedPaxs.isEmpty {
+                selectedCounts.append(leg.selectedPaxs.count)
             }
         }
         
@@ -310,7 +311,7 @@ extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
         infoData += infoData.isEmpty ? refundOrResch : " | \(refundOrResch)"
 
         headerView.delegate = self
-        headerView.selectedButton.isSelected = (legD.pax.count == legD.selectedPaxIds.count)
+        headerView.selectedButton.isSelected = (legD.pax.count == legD.selectedPaxs.count)
         headerView.routeLabel.text = legD.title
         headerView.infoLabel.text = infoData
         headerView.selectedButton.tag = section
@@ -347,13 +348,13 @@ extension BookingReschedulingVC: BookingReschedulingHeaderViewDelegate {
     func selectAllButtonAction(_ sender: UIButton) {
         var legD = self.viewModel.legsData.remove(at: sender.tag)
         
-        if legD.pax.count == legD.selectedPaxIds.count {
+        if legD.pax.count == legD.selectedPaxs.count {
             //remove all
-            legD.selectedPaxIds.removeAll()
+            legD.selectedPaxs.removeAll()
         }
         else {
             //select all
-            legD.selectedPaxIds = Set(legD.pax.map { $0.paxId })
+            legD.selectedPaxs = legD.pax
         }
         
         self.viewModel.legsData.insert(legD, at: sender.tag)
@@ -369,11 +370,11 @@ extension BookingReschedulingVC: BookingReschedulingPassengerAccordionTableViewC
             var legD = self.viewModel.legsData.remove(at: indexPath.section)
             let passenger = legD.pax[indexPath.row - legD.flight.count]
             
-            if legD.selectedPaxIds.contains(passenger.paxId) {
-                legD.selectedPaxIds.remove(passenger.paxId)
+            if let index = legD.selectedPaxs.firstIndex(where: { $0.paxId == passenger.paxId }) {
+                legD.selectedPaxs.remove(at: index)
             }
             else {
-                legD.selectedPaxIds.insert(passenger.paxId)
+                legD.selectedPaxs.append(passenger)
             }
             
             self.viewModel.legsData.insert(legD, at: indexPath.section)

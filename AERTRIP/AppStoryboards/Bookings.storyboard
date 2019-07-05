@@ -315,13 +315,13 @@ with us!</string>
                                                 <rect key="frame" x="16" y="11" width="343" height="23"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l2J-s8-DYl">
-                                                        <rect key="frame" x="0.0" y="0.0" width="151.5" height="23"/>
+                                                        <rect key="frame" x="0.0" y="1" width="151.5" height="21"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed,  5 Dec 2017" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C06-gv-Yhw">
-                                                        <rect key="frame" x="191.5" y="0.0" width="151.5" height="23"/>
+                                                        <rect key="frame" x="191.5" y="1" width="151.5" height="21"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -371,13 +371,13 @@ with us!</string>
                                                         <rect key="frame" x="16" y="10" width="343" height="23"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OKF-rZ-v4v">
-                                                                <rect key="frame" x="0.0" y="0.0" width="151.5" height="23"/>
+                                                                <rect key="frame" x="0.0" y="1" width="151.5" height="21"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed,  1 Jan 2017" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rxI-9A-vzD">
-                                                                <rect key="frame" x="191.5" y="0.0" width="151.5" height="23"/>
+                                                                <rect key="frame" x="191.5" y="1" width="151.5" height="21"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -731,13 +731,13 @@ with us!</string>
                                                         <rect key="frame" x="16" y="0.0" width="343" height="44"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NY9-oa-1Gu">
-                                                                <rect key="frame" x="0.0" y="10.5" width="151.5" height="23"/>
+                                                                <rect key="frame" x="0.0" y="11.5" width="151.5" height="21"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed,  5 Dec 2017" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QYa-dX-ybx">
-                                                                <rect key="frame" x="191.5" y="10.5" width="151.5" height="23"/>
+                                                                <rect key="frame" x="191.5" y="11.5" width="151.5" height="21"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -793,13 +793,13 @@ with us!</string>
                                                         <rect key="frame" x="16" y="0.0" width="343" height="44"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGt-Jf-dUh">
-                                                                <rect key="frame" x="0.0" y="10.5" width="151.5" height="23"/>
+                                                                <rect key="frame" x="0.0" y="11.5" width="151.5" height="21"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed,  5 Dec 2017" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNr-hZ-Xwg">
-                                                                <rect key="frame" x="191.5" y="10.5" width="151.5" height="23"/>
+                                                                <rect key="frame" x="191.5" y="11.5" width="151.5" height="21"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -1823,7 +1823,7 @@ with us!</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="pU3-7x-KCv" customClass="ATEmailSelectorTextView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="39.5" y="11.5" width="285.5" height="20"/>
+                                        <rect key="frame" x="39.5" y="11.5" width="291.5" height="20"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="ohd-jy-fRZ"/>
@@ -1832,7 +1832,7 @@ with us!</string>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6TH-GX-8GW">
-                                        <rect key="frame" x="337" y="11" width="22" height="22"/>
+                                        <rect key="frame" x="343" y="11" width="16" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="nav-Zj-DJN"/>
                                         </constraints>
@@ -2269,7 +2269,7 @@ with us!</string>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="heH-9b-SUq" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="108" width="375" height="510"/>
+                                <rect key="frame" x="0.0" y="108" width="375" height="466"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B5k-SN-QxH">
@@ -2286,13 +2286,46 @@ with us!</string>
                                     <action selector="requestReschedulingBtnAction:" destination="RBm-Aa-EWd" eventType="touchUpInside" id="p8E-0Y-1nZ"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xng-Lg-79B">
+                                <rect key="frame" x="0.0" y="574" width="375" height="44"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="70" translatesAutoresizingMaskIntoConstraints="NO" id="Tq6-UL-Wgz">
+                                        <rect key="frame" x="16" y="0.0" width="343" height="44"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hic-wn-bEB">
+                                                <rect key="frame" x="0.0" y="0.0" width="136.5" height="44"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Qr-GD-ZW8">
+                                                <rect key="frame" x="206.5" y="0.0" width="136.5" height="44"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="7gY-SV-w4X"/>
+                                    <constraint firstItem="Tq6-UL-Wgz" firstAttribute="top" secondItem="Xng-Lg-79B" secondAttribute="top" id="Haj-aN-p8w"/>
+                                    <constraint firstItem="Tq6-UL-Wgz" firstAttribute="leading" secondItem="Xng-Lg-79B" secondAttribute="leading" constant="16" id="S1r-WF-gpv"/>
+                                    <constraint firstAttribute="trailing" secondItem="Tq6-UL-Wgz" secondAttribute="trailing" constant="16" id="nZY-t0-tyD"/>
+                                    <constraint firstAttribute="bottom" secondItem="Tq6-UL-Wgz" secondAttribute="bottom" id="z3F-dR-o0W"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="B5k-SN-QxH" firstAttribute="top" secondItem="heH-9b-SUq" secondAttribute="bottom" id="05q-iw-5Cw"/>
                             <constraint firstItem="EQ2-en-J8z" firstAttribute="leading" secondItem="LlE-o1-db6" secondAttribute="leading" id="2JE-Ie-905"/>
                             <constraint firstItem="LlE-o1-db6" firstAttribute="trailing" secondItem="B5k-SN-QxH" secondAttribute="trailing" id="3mD-Qj-3Jv"/>
+                            <constraint firstItem="Xng-Lg-79B" firstAttribute="top" secondItem="heH-9b-SUq" secondAttribute="bottom" id="9n8-w9-udw"/>
+                            <constraint firstItem="Xng-Lg-79B" firstAttribute="leading" secondItem="LlE-o1-db6" secondAttribute="leading" id="FKN-wI-cha"/>
+                            <constraint firstItem="B5k-SN-QxH" firstAttribute="top" secondItem="Xng-Lg-79B" secondAttribute="bottom" id="N4o-AB-hvq"/>
                             <constraint firstItem="LlE-o1-db6" firstAttribute="trailing" secondItem="heH-9b-SUq" secondAttribute="trailing" id="ROi-Zq-gOs"/>
+                            <constraint firstItem="LlE-o1-db6" firstAttribute="trailing" secondItem="Xng-Lg-79B" secondAttribute="trailing" id="TIV-gW-oDz"/>
                             <constraint firstItem="heH-9b-SUq" firstAttribute="top" secondItem="EQ2-en-J8z" secondAttribute="bottom" id="cXb-rJ-LHh"/>
                             <constraint firstItem="EQ2-en-J8z" firstAttribute="top" secondItem="LlE-o1-db6" secondAttribute="top" id="eya-0o-CvS"/>
                             <constraint firstItem="LlE-o1-db6" firstAttribute="bottom" secondItem="B5k-SN-QxH" secondAttribute="bottom" id="iZL-ZA-S0a"/>
@@ -2306,11 +2339,13 @@ with us!</string>
                         <outlet property="requestReschedulingBtnOutlet" destination="B5k-SN-QxH" id="roi-Jm-J4t"/>
                         <outlet property="reschedulingTableView" destination="heH-9b-SUq" id="B7q-75-YvF"/>
                         <outlet property="topNavBar" destination="EQ2-en-J8z" id="AHa-Ql-UcE"/>
+                        <outlet property="totalRefundAmountLabel" destination="9Qr-GD-ZW8" id="ci9-0m-9os"/>
+                        <outlet property="totalRefundTitleLabel" destination="hic-wn-bEB" id="La1-yr-9AO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jkn-0e-XnF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3682" y="2552"/>
+            <point key="canvasLocation" x="3680.8000000000002" y="2551.5742128935535"/>
         </scene>
         <!--Hotlel Bookings DetailsVC-->
         <scene sceneID="PLA-86-P05">

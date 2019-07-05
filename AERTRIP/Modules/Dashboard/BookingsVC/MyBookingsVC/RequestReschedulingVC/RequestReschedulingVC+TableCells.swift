@@ -14,12 +14,17 @@ extension RequestReschedulingVC {
     
     func getFlightDetailsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ParallelLabelsTableViewCell.reusableIdentifier, for: indexPath) as? ParallelLabelsTableViewCell else { return UITableViewCell() }
-        cell.configureCell(leftTitle: "Mumbai → Delhi", rightTitle: "3 Passengers", topConstraint: 10.0, bottomConstraint: 11.0, leftTitleFont: AppFonts.SemiBold.withSize(22.0), rightTitleFont: AppFonts.Regular.withSize(16.0), rightTitleTextColor: AppColors.themeGray40)
+        
+        let legD = self.viewModel.legsWithSelection[indexPath.section]
+        cell.configureCell(leftTitle: legD.title, rightTitle: "\(legD.selectedPaxs.count) \(LocalizedString.Passenger.localized)\((legD.selectedPaxs.count > 1) ? "s" : "")", topConstraint: 10.0, bottomConstraint: 11.0, leftTitleFont: AppFonts.SemiBold.withSize(22.0), rightTitleFont: AppFonts.Regular.withSize(16.0), rightTitleTextColor: AppColors.themeGray40)
         return cell
     }
     
     func getSelectDateTableViewCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SelectDateTableViewCell.reusableIdentifier, for: indexPath) as? SelectDateTableViewCell else { return UITableViewCell() }
+        
+        cell.delegate = self
+        
         return cell
     }
     
@@ -34,8 +39,8 @@ extension RequestReschedulingVC {
         return cell
     }
     
-    func getEmptyTableCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.reusableIdentifier, for: indexPath) as? EmptyTableViewCell else { return UITableViewCell() }
+    func getEmptyTableCell(_ tableView: UITableView) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.reusableIdentifier) as? EmptyTableViewCell else { return UITableViewCell() }
         cell.backgroundColor = AppColors.themeGray20
         cell.topDividerView.isHidden = true
         return cell
@@ -49,7 +54,7 @@ extension RequestReschedulingVC {
     
     func getTotalRefundCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ParallelLabelsTableViewCell.reusableIdentifier, for: indexPath) as? ParallelLabelsTableViewCell else { return UITableViewCell() }
-        cell.configureCell(leftTitle: "Total Net Refund", rightTitle: "₹ 1,47,000")
+        cell.configureCell(leftTitle: "Total Net Refund", rightTitle: self.viewModel.totRefund.delimiterWithSymbol)
         return cell
     }
     

@@ -17,6 +17,8 @@ class RequestReschedulingVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:===========
     @IBOutlet weak var topNavBar: BookingTopNavBarWithSubtitle!
+    @IBOutlet weak var totalRefundTitleLabel: UILabel!
+    @IBOutlet weak var totalRefundAmountLabel: UILabel!
     @IBOutlet weak var reschedulingTableView: UITableView! {
         didSet {
             self.reschedulingTableView.contentInset = UIEdgeInsets(top: 2.0, left: 0.0, bottom: 0.0, right: 0.0)
@@ -34,11 +36,12 @@ class RequestReschedulingVC: BaseVC {
     
     override func initialSetup() {
         self.topNavBar.configureView(title: LocalizedString.newDate.localized, subTitle: LocalizedString.selectNewDepartingDate.localized, isleftButton: true, isRightButton: false)
-        self.viewModel.getSectionData()
         self.registerXibs()
         self.reschedulingTableView.delegate = self
         self.reschedulingTableView.dataSource = self
         self.topNavBar.delegate = self
+        
+        self.setTotalRefundAmount()
     }
     
     override func setupColors() {
@@ -46,15 +49,25 @@ class RequestReschedulingVC: BaseVC {
     }
     
     override func setupTexts() {
+       self.totalRefundTitleLabel.text = LocalizedString.TotalNetRefund.localized
         self.requestReschedulingBtnOutlet.setTitle(LocalizedString.RequestRescheduling.localized, for: .normal)
     }
     
     override func setupFonts() {
+        self.totalRefundTitleLabel.font = AppFonts.Regular.withSize(18.0)
+        self.totalRefundAmountLabel.font = AppFonts.Regular.withSize(18.0)
         self.requestReschedulingBtnOutlet.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
+    }
+    
+    override func bindViewModel() {
+        self.viewModel.delegate = self
     }
     
     //MARK:- Functions
     //MARK:===========
+    private func setTotalRefundAmount() {
+        self.totalRefundAmountLabel.text = self.viewModel.totRefund.delimiterWithSymbol
+    }
     private func registerXibs() {
         self.reschedulingTableView.registerCell(nibName: ParallelLabelsTableViewCell.reusableIdentifier)
         self.reschedulingTableView.registerCell(nibName: SelectDateTableViewCell.reusableIdentifier)
@@ -64,15 +77,12 @@ class RequestReschedulingVC: BaseVC {
     }
     
     internal func heightForRow(_ tableView: UITableView, indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 1 {
-            return 35.0
-        }
         return UITableView.automaticDimension
     }
     
     //MARK:- IBActions
     //MARK:===========
     @IBAction func requestReschedulingBtnAction(_ sender: UIButton) {
-        printDebug(requestReschedulingBtnOutlet.constraints)
+        self.viewModel.makeRequestForRescheduling()
     }
 }

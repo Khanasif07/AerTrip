@@ -8,10 +8,15 @@
 
 import UIKit
 
+protocol SelectDateTableViewCellDelegate: class {
+    func didSelect(_ sender: SelectDateTableViewCell, date: Date?)
+}
+
 class SelectDateTableViewCell: UITableViewCell {
     
     //MARK:- Variables
     //MARK:===========
+    weak var delegate: SelectDateTableViewCellDelegate?
     private var datePicker = UIDatePicker()
     private var pickerViewHeight: CGFloat {
         return 217.0
@@ -81,20 +86,15 @@ class SelectDateTableViewCell: UITableViewCell {
         self.selectDateTextField.inputAccessoryView = toolbar
         self.selectDateTextField.inputView = self.datePicker
         //self.datePicker.addTarget(self, action: #selector(self.datePickerValueChanged), for: .valueChanged)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMM YYYY"
-        let dateValue = dateFormatter.string(from: Date())
-        self.selectDateTextField.text = dateValue
+        self.selectDateTextField.text = LocalizedString.Select.localized//Date().toString(dateFormat: "dd MMM YYYY")
     }
     
     
     //MARK:- IBActions
     //MARK:===========
     @objc func doneDatePicker(){
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMM YYYY"
-        let dateValue = dateFormatter.string(from: datePicker.date)
-        self.selectDateTextField.text = dateValue
+        self.selectDateTextField.text = datePicker.date.toString(dateFormat: "dd MMM YYYY")
+        self.delegate?.didSelect(self, date: datePicker.date)
         self.endEditing(true)
     }
     

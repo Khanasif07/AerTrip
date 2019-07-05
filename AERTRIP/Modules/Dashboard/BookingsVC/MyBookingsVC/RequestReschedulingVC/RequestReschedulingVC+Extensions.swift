@@ -11,27 +11,58 @@ import UIKit
 extension RequestReschedulingVC: UITableViewDelegate , UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.sectionData.count
+        return self.viewModel.legsWithSelection.count + 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.sectionData[section].count
+        if section < self.viewModel.legsWithSelection.count {
+            return 3
+        }
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section < (self.viewModel.legsWithSelection.count - 1) {
+            return 35.0
+        }
+        return 0.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section < (self.viewModel.legsWithSelection.count - 1) {
+            return getEmptyTableCell(tableView).contentView
+        }
+        return nil
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch self.viewModel.sectionData[indexPath.section][indexPath.row] {
-        case .flightDetailsCell:
-            return getFlightDetailsCell(tableView, indexPath: indexPath)
-        case .selectDateCell:
-            return getSelectDateTableViewCell(tableView, indexPath: indexPath)
-        case .preferredFlightNoCell:
-            return getPreferredFlightNoCell(tableView, indexPath: indexPath)
-        case .emptyCell:
-            return getEmptyTableCell(tableView, indexPath: indexPath)
-        case .customerExecutiveCell:
-            return getCustomerContactCellTableViewCell(tableView, indexPath: indexPath)
-        case .totalNetRefundCell:
-            return getTotalRefundCell(tableView, indexPath: indexPath)
+        
+        if indexPath.section < self.viewModel.legsWithSelection.count {
+            switch indexPath.row {
+            case 0:
+                //flightDetailsCell
+                return getFlightDetailsCell(tableView, indexPath: indexPath)
+            case 1:
+                //selectDateCell
+                return getSelectDateTableViewCell(tableView, indexPath: indexPath)
+            case 2:
+                //preferredFlightNoCell
+                return getPreferredFlightNoCell(tableView, indexPath: indexPath)
+            default: return UITableViewCell()
+            }
+        }
+        else {
+            //other details
+            switch indexPath.row {
+            case 0:
+                //customerExecutiveCell
+                return getCustomerContactCellTableViewCell(tableView, indexPath: indexPath)
+            case 1:
+                //totalNetRefundCell
+                return getTotalRefundCell(tableView, indexPath: indexPath)
+                
+            default: return UITableViewCell()
+            }
         }
     }
     
@@ -50,7 +81,35 @@ extension RequestReschedulingVC: BookingTopNavBarWithSubtitleDelegate {
 
 extension RequestReschedulingVC: HCSpecialRequestTextfieldCellDelegate {
     func didPassSpecialRequestAndAirLineText(infoText: String, indexPath: IndexPath) {
-        printDebug(infoText)
-        printDebug(indexPath)
+        self.viewModel.legsWithSelection[indexPath.section].prefredFlightNo = infoText
+    }
+}
+
+extension RequestReschedulingVC: SelectDateTableViewCellDelegate {
+    func didSelect(_ sender: SelectDateTableViewCell, date: Date?) {
+        if let indexPath = self.reschedulingTableView.indexPath(for: sender) {
+            self.viewModel.legsWithSelection[indexPath.section].rescheduledDate = date
+        }
+    }
+}
+
+
+extension RequestReschedulingVC: RequestReschedulingVMDelegate {
+    func willMakeRequestForRescheduling() {
+    }
+    
+    func makeRequestForReschedulingSuccess() {
+        AppFlowManager.default.showReschedulingRequest(buttonTitle: LocalizedString.RequestRescheduling.localized, delegate: self)
+    }
+    
+    func makeRequestForReschedulingFail() {
+    }
+}
+
+extension RequestReschedulingVC: BulkEnquirySuccessfulVCDelegate{
+    func doneButtonAction() {
+        self.navigationController?.dismiss(animated: true, completion: {
+            self.sendDataChangedNotification(data: ATNotification.myBookingCasesRequestStatusChanged)
+        })
     }
 }

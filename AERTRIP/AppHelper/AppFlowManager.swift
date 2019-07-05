@@ -401,10 +401,11 @@ extension AppFlowManager {
         }
     }
     
-    func showReschedulingRequest(buttonTitle: String) {
+    func showReschedulingRequest(buttonTitle: String, delegate: BulkEnquirySuccessfulVCDelegate) {
         if let mVC = UIApplication.topViewController() {
             let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
             ob.currentUsingAs = .reschedulingRequest
+            ob.delegate = delegate
             mVC.add(childViewController: ob)
         }
     }
@@ -627,9 +628,10 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToRequestReschedulingVC() {
+    func moveToRequestReschedulingVC(onNavController: UINavigationController?, legs: [Leg]) {
         let obj = RequestReschedulingVC.instantiate(fromAppStoryboard: .Bookings)
-        self.mainNavigationController.pushViewController(obj, animated: true)
+        obj.viewModel.legsWithSelection = legs
+        (onNavController ?? self.mainNavigationController).pushViewController(obj, animated: true)
     }
     
     func moveToHotelCancellationVC() {
@@ -883,7 +885,10 @@ extension AppFlowManager {
         let obj = BookingReschedulingVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.usingFor = data
         obj.viewModel.legsData = legs
-        self.mainNavigationController.present(obj, animated: true)
+        
+        let nav = UINavigationController(rootViewController: obj)
+        nav.isNavigationBarHidden = true
+        self.mainNavigationController.present(nav, animated: true)
     }
     
     // Move to Booking Review Cancellation

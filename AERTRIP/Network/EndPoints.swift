@@ -98,6 +98,7 @@ enum APIEndPoint: String {
     case abortRequest = "dashboard/abort-request"
     case requestConfirmation = "dashboard/request-confirmation"
     case getTravellerEmails = "dashboard/get-traveller-emails"
+    case rescheduleRequest = "reschedule/request"
     
     // Final Checkout
     

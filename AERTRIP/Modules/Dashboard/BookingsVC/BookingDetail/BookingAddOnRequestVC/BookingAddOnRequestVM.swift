@@ -68,6 +68,7 @@ class BookingAddOnRequestVM {
             
             if success {
                 sSelf.caseHistory = history
+                sSelf.fetchCaseDetailData()
                 sSelf.delegate?.getCaseHistorySuccess()
             }
             else {
