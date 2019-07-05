@@ -17,7 +17,11 @@ class AirlineTableViewCell: ATTableViewCell {
     @IBOutlet weak var airlineImageView: UIImageView!
     
    
-    
+    var flightDetail: FlightDetail? {
+        didSet {
+            self.configureCell()
+        }
+    }
     
     // MARK: - Override methods
     
@@ -36,10 +40,28 @@ class AirlineTableViewCell: ATTableViewCell {
     
     // MARK: - Helper methods
     
-    func configureCell(airlineName: String,info:String) {
-        self.airlineNameLabel.text = airlineName
-        self.infoLabel.text = info
+    private func configureCell() {
+        
+        var infoText = LocalizedString.dash.localized
+        if let obj = flightDetail?.carrierCode, !obj.isEmpty {
+            infoText = obj
+        }
+        
+        if let obj = flightDetail?.flightNumber, !obj.isEmpty {
+            infoText += infoText.isEmpty ? obj : " - \(obj)"
+        }
+        
+        if let obj = flightDetail?.cabinClass, !obj.isEmpty {
+            infoText += infoText.isEmpty ? obj : " ・ \(obj)"
+        }
+        
+        if let obj = flightDetail?.bookingClass, !obj.isEmpty {
+            infoText += infoText.isEmpty ? obj : " (\(obj))"
+        }
+        
+        self.airlineNameLabel.text = flightDetail?.carrier ?? LocalizedString.dash.localized
+        self.infoLabel.text = infoText
+        
+        self.airlineImageView.setImageWithUrl(AppGlobals.shared.getAirlineCodeImageUrl(code: flightDetail?.carrierCode ?? ""), placeholder: AppPlaceholderImage.default, showIndicator: false)
     }
-
-   
 }

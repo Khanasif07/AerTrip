@@ -377,6 +377,8 @@
 
 // Cancellation policy
 "Refundable" = "Refundable";
+"Reschedulable" = "Reschedulable";
+"NonReschedulable" = "Non-Reschedulable";
 "PartRefundable" = "Part Refundable";
 "NonRefundable" = "Non-refundable";
 "NonRefundableExplanation" = "This booking is non-refundable. If this booking is cancelled, or modified, or in the case of no-show, the total price of the reservation will be charged.";
@@ -654,12 +656,14 @@
 "AddOns" = "Add-ons";
 "Request" = "Request";
 "SelectPassengerFlightRescheduled" = "Select Passengers or flights to be rescheduled";
+"PassengersSelected" = "Passengers selected";
 "Rescheduling" = "Rescheduling";
 "AddOnRequestSent" = "Add-on Request has been sent";
 "AddOnRequestMesage" = "Our Customer Service Represenstative will contact you soon regarding this enquiry.";
 "PNRNo" = "PNR No.";
 "SaleAmount" = "Sale Amount";
 "CancellationCharges" = "Cancellation Charges";
+"ReschedulingCharges" = "Rescheduling Charges";
 "NetRefund" = "Net Refund";
 "CancellationRequestSent" = "Cancellation Request has been sent";
 "CancellationRequestMessage" = "Our Customer Service Represenstative will contact you soon regarding this enquiry.";

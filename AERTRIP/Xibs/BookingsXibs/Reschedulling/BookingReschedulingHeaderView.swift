@@ -9,7 +9,7 @@
 import UIKit
 
 protocol BookingReschedulingHeaderViewDelegate: class {
-    func headerViewTapped(_ view: UITableViewHeaderFooterView)
+    func selectAllButtonAction(_ sender: UIButton)
 }
 
 class BookingReschedulingHeaderView: UITableViewHeaderFooterView {
@@ -30,6 +30,8 @@ class BookingReschedulingHeaderView: UITableViewHeaderFooterView {
         self.setUpFont()
         self.setUpColor()
         self.addGesture()
+        
+        self.selectedButton.isSelected = false
     }
     
     // MARK: - Helper methods
@@ -46,12 +48,10 @@ class BookingReschedulingHeaderView: UITableViewHeaderFooterView {
     
     private func addGesture() {
         // Add tap gesture to your view
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleGesture))
-        self.topBackgroundView.addGestureRecognizer(tap)
+        self.selectedButton.addTarget(self, action: #selector(selectAllButtonAction(_:)), for: .touchUpInside)
     }
     
-    // GestureRecognizer
-    @objc func handleGesture(gesture: UITapGestureRecognizer) {
-        self.delegate?.headerViewTapped(self)
+    @objc private func selectAllButtonAction(_ sender: UIButton) {
+        self.delegate?.selectAllButtonAction(sender)
     }
 }

@@ -9,10 +9,7 @@
 import UIKit
 
 class BookingInfoEmptyFooterView: UITableViewHeaderFooterView {
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
 }

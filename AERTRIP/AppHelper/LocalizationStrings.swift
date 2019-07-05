@@ -480,6 +480,8 @@ enum LocalizedString: String {
     
     // Cancellation policy
     case Refundable
+    case Reschedulable
+    case NonReschedulable
     case PartRefundable
     case NonRefundable
     case NonRefundableExplanation
@@ -725,12 +727,14 @@ enum LocalizedString: String {
     case AddOns
     case Request
     case SelectPassengerFlightRescheduled
+    case PassengersSelected
     case Rescheduling
     case AddOnRequestSent
     case AddOnRequestMesage
     case PNRNo
     case SaleAmount
     case CancellationCharges
+    case ReschedulingCharges
     case NetRefund
     case CancellationRequestSent
     case CancellationRequestMessage

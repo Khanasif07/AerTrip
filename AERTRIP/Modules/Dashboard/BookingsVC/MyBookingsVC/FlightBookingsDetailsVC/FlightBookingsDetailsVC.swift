@@ -139,6 +139,8 @@ class FlightBookingsDetailsVC: BaseVC {
     
     // Present Booking Rescheduling VC
     func presentBookingReschedulingVC() {
-        AppFlowManager.default.presentBookingReschedulingVC()
+        if let leg = self.viewModel.bookingDetail?.bookingDetail?.leg {
+            AppFlowManager.default.presentBookingReschedulingVC(legs: leg)
+        }
     }
 }

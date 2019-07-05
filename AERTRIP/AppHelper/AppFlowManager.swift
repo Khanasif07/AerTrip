@@ -401,6 +401,14 @@ extension AppFlowManager {
         }
     }
     
+    func showReschedulingRequest(buttonTitle: String) {
+        if let mVC = UIApplication.topViewController() {
+            let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.currentUsingAs = .reschedulingRequest
+            mVC.add(childViewController: ob)
+        }
+    }
+    
     func presentHotelDetailsVC(_ vc: HotelResultVC, hotelInfo: HotelSearched, sourceView: UIView, sid: String, hotelSearchRequest: HotelSearchRequestModel?) {
         if let topVC = UIApplication.topViewController() {
             let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
@@ -872,9 +880,10 @@ extension AppFlowManager {
     
     // Present BookingReschedulingVC
     
-    func presentBookingReschedulingVC(usingFor data: BookingReschedulingVCUsingFor = .rescheduling) {
+    func presentBookingReschedulingVC(usingFor data: BookingReschedulingVCUsingFor = .rescheduling, legs: [Leg]) {
         let obj = BookingReschedulingVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.usingFor = data
+        obj.viewModel.legsData = legs
         self.mainNavigationController.present(obj, animated: true)
     }
     
