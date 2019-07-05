@@ -111,6 +111,8 @@
                 <outlet property="airlineImageView" destination="kiY-kW-dDo" id="Vns-uV-R7y"/>
                 <outlet property="airlineNameLabel" destination="9mG-2s-nSv" id="y0B-PS-oX3"/>
                 <outlet property="airlineNumberTextField" destination="sKi-zh-bqI" id="yyh-a1-ST4"/>
+                <outlet property="leftDividerView" destination="DMR-Rg-HhZ" id="hMA-wN-v2X"/>
+                <outlet property="rightDividerView" destination="ZOJ-Lx-CBH" id="AOD-J3-UoB"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="140.625"/>
         </tableViewCell>

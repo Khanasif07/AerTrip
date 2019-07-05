@@ -60,27 +60,30 @@ class BookingCheckinCheckOutTableViewCell: ATTableViewCell {
     
     
     
-    func configureCell() {
+    func configureCell(checkInDate: Date?,checkOutDate: Date?, totalNights: Int) {
         // get all value in a format
-        let checkInDate = Date.getDateFromString(stringDate:         HotelsSearchVM.hotelFormData.checkInDate, currentFormat: "yyyy-mm-dd", requiredFormat: "dd MMM")
-        let checkOutDate = Date.getDateFromString(stringDate:   HotelsSearchVM.hotelFormData.checkOutDate, currentFormat: "yyyy-mm-dd", requiredFormat: "dd MMM")
         
-        let totalNights = (        HotelsSearchVM.hotelFormData.checkOutDate
-            .toDate(dateFormat: "yyyy-mm-dd")! ).daysFrom(        HotelsSearchVM.hotelFormData.checkInDate
-                .toDate(dateFormat: "yyyy-mm-dd")! )
+        let checkInStr = checkInDate?.toString(dateFormat: "dd MMM") ?? ""
+        let checkOutStr = checkOutDate?.toString(dateFormat: "dd MMM") ?? ""
+        self.checkInDateLabel.text = checkInStr.isEmpty ? LocalizedString.na.localized : checkInStr
+        self.checkOutDateLabel.text = checkOutStr.isEmpty ? LocalizedString.na.localized : checkOutStr
         
-        let checkInDay = Date.getDateFromString(stringDate: HotelsSearchVM.hotelFormData.checkInDate , currentFormat: "yyyy-mm-dd", requiredFormat: "EEEE")
-        let checkOutDay = Date.getDateFromString(stringDate: HotelsSearchVM.hotelFormData.checkOutDate, currentFormat: "yyyy-mm-dd", requiredFormat: "EEEE")
+        var finalNight = totalNights
+        if totalNights == 0, let inDate = checkInDate, let outDate = checkOutDate {
+            finalNight = outDate.daysFrom(inDate)
+        }
+        self.numberOfNightsLabel.text = (finalNight == 1) ? "\(finalNight) \(LocalizedString.Night.localized)" : "\(finalNight) \(LocalizedString.Nights.localized)"
         
-        self.checkInDateLabel.text  = checkInDate
-        self.checkOutDateLabel.text = checkOutDate
+        
+        self.checkInDayLabel.text = checkInDate?.toString(dateFormat: "EEEE") ?? LocalizedString.na.localized
+        self.checkOutDayLabel.text = checkOutDate?.toString(dateFormat: "EEEE") ?? LocalizedString.na.localized
         
         if let image = UIImage(named: "darkNights") {
              self.numberOfNightsLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: image, endText: (totalNights == 1) ? "  \(totalNights) Night" : "  \(totalNights) Nights", font: AppFonts.SemiBold.withSize(14.0))
         }
         
-        self.checkInDayLabel.text = checkInDay
-        self.checkOutDayLabel.text = checkOutDay
+        self.checkInDayLabel.text = checkInDate?.toString(dateFormat: "EEEE") ?? LocalizedString.na.localized
+        self.checkOutDayLabel.text = checkOutDate?.toString(dateFormat: "EEEE") ?? LocalizedString.na.localized
 
         
     }

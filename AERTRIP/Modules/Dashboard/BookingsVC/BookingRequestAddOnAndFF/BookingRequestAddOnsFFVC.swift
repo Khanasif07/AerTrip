@@ -9,18 +9,17 @@
 import UIKit
 
 class BookingRequestAddOnsFFVC: BaseVC {
-    
-    
     // MARK: - IBOutlet
     
-    @IBOutlet weak var topNavigationView: TopNavigationView!
-    @IBOutlet weak var dataContainerView : UIView!
-    @IBOutlet weak var requestButton: UIButton!
+    @IBOutlet var topNavigationView: TopNavigationView!
+    @IBOutlet var dataContainerView: UIView!
+    @IBOutlet var requestButton: UIButton!
     
     // MARK: - Properties
+    
     private var currentIndex: Int = 0
-    private let selectedIndex:Int = 0
-    private var allChildVCs : [UIViewController]  = [UIViewController]()
+    private let selectedIndex: Int = 0
+    private var allChildVCs: [UIViewController] = [UIViewController]()
     private var allTabsStr: [String] = [LocalizedString.AddOns.localized]
     
     fileprivate weak var categoryView: ATCategoryView!
@@ -36,10 +35,8 @@ class BookingRequestAddOnsFFVC: BaseVC {
         return temp
     }
     
-    
-    
     override func initialSetup() {
-        self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
+        self.edgesForExtendedLayout = UIRectEdge(rawValue: 0)
         self.currentIndex = 0
         if !BookingRequestAddOnsFFVM.shared.isLCC {
             self.allTabsStr.append(LocalizedString.FrequentFlyer.localized)
@@ -55,12 +52,11 @@ class BookingRequestAddOnsFFVC: BaseVC {
             }
         }
         self.setupPagerView()
-         self.requestButton.addGredient(isVertical: false)
+        self.requestButton.addGredient(isVertical: false)
         self.setupNavBar()
-        
-       
+        let frequentFlyerData = BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerDatas ?? []
+        BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData = frequentFlyerData
         BookingRequestAddOnsFFVM.shared.getPreferenceMaster()
-        
     }
     
     override func setupNavBar() {
@@ -69,9 +65,7 @@ class BookingRequestAddOnsFFVC: BaseVC {
         self.topNavigationView.navTitleLabel.textColor = AppColors.themeBlack
         self.topNavigationView.configureNavBar(title: LocalizedString.RequestAddOnsAndFF.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         self.topNavigationView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.CancelWithRightSpace.localized, selectedTitle: LocalizedString.CancelWithRightSpace.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
-        
     }
-    
     
     override func setupFonts() {
         self.requestButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
@@ -87,8 +81,9 @@ class BookingRequestAddOnsFFVC: BaseVC {
         self.requestButton.setTitleColor(AppColors.themeWhite, for: .normal)
     }
     
-   
-
+    override func bindViewModel() {
+        BookingRequestAddOnsFFVM.shared.delegate = self
+    }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -96,9 +91,6 @@ class BookingRequestAddOnsFFVC: BaseVC {
         self.categoryView?.frame = self.dataContainerView.bounds
         self.categoryView?.layoutIfNeeded()
     }
-    
-    
-    
     
     private func setupPagerView() {
         var style = ATCategoryNavBarStyle()
@@ -121,32 +113,26 @@ class BookingRequestAddOnsFFVC: BaseVC {
         style.badgeBorderColor = AppColors.clear
         style.badgeBorderWidth = 0.0
         
-        
         let categoryView = ATCategoryView(frame: self.dataContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
         categoryView.interControllerSpacing = 0.0
         categoryView.navBar.internalDelegate = self
         self.dataContainerView.addSubview(categoryView)
         self.categoryView = categoryView
-        
-        
     }
-    
     
     @IBAction func requstButtonTapped(_ sender: Any) {
-   // AppFlowManager.default.showAddonRequestSent(buttonTitle:LocalizedString.Done.localized)
+        // AppFlowManager.default.showAddonRequestSent(buttonTitle:LocalizedString.Done.localized)
+        BookingRequestAddOnsFFVM.shared.postAddOnRequest()
     }
 }
-
 
 // MARK: - ATCategoryNavBarDelegate
 
 extension BookingRequestAddOnsFFVC: ATCategoryNavBarDelegate {
     func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
         self.currentIndex = toIndex
-        
     }
 }
-
 
 // MARK: - TopNavgiation View Delegate
 
@@ -156,12 +142,35 @@ extension BookingRequestAddOnsFFVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        printDebug("Updated Booking details:\(BookingRequestAddOnsFFVM.shared.bookingDetails)")
+        dismiss(animated: true)
+    }
+}
+
+// MARK: - BookingRequestAddOnsFFVMDelegate methods called
+
+extension BookingRequestAddOnsFFVC: BookingRequestAddOnsFFVMDelegate {
+    func willGetPreferenceMaster() {
+        //
+    }
+    
+    func getPreferenceMasterSuccess() {
+        //
+    }
+    
+    func getPreferenceMasterFail() {
+        //
+    }
+    
+    func willSendAddOnFFRequest() {
+        AppGlobals.shared.startLoading()
+    }
+    
+    func sendAddOnFFRequestSuccess() {
+        AppGlobals.shared.stopLoading()
         dismiss(animated: true)
     }
     
-    
+    func failAddOnFFRequestFail(errorCode: ErrorCodes) {
+        AppGlobals.shared.stopLoading()
+    }
 }
-
-
-// MARK: - Booking

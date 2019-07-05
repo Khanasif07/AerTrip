@@ -11,7 +11,7 @@ import UIKit
 extension OtherBookingsDetailsVC {
     func getInsurenceCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
-        cell.configCell(title: self.viewModel.bookingDetail?.bookingDetail?.title ?? "", subTitle: self.viewModel.bookingDetail?.bookingDetail?.isRefundableKeyPresent ?? false ? self.viewModel.bookingDetail?.bookingDetail?.paymentStatus ?? "-" : "  - ")
+        cell.configCell(title: self.viewModel.bookingDetail?.bookingDetail?.title ?? "", subTitle: self.viewModel.bookingDetail?.bookingDetail?.otherPrductDetailStatus ?? "")
         cell.titleLabelTopConstraint.constant = 15.0
         cell.titleLabelBottomConstraint.constant = 0.0
         cell.dividerViewLeadingConstraint.constant = 16.0

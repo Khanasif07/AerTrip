@@ -9,15 +9,21 @@
 import UIKit
 
 class BookingTravellerCollectionViewCell: UICollectionViewCell {
-    
     // MARK: -  IBOutlet
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var travellerNameLabel: UILabel!
-    @IBOutlet weak var bottomSlideView: UIView!
+    
+    @IBOutlet var profileImageView: UIImageView!
+    @IBOutlet var travellerNameLabel: UILabel!
+    @IBOutlet var bottomSlideView: UIView!
     
     var paxData: Pax? {
         didSet {
             self.configureCell()
+        }
+    }
+    
+    var guestData: GuestDetail? {
+        didSet {
+            self.configureCellForGuest()
         }
     }
     
@@ -29,7 +35,7 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-      
+        
         self.setUpTextColor()
         self.setUpFont()
         self.doInitialSetup()
@@ -38,7 +44,7 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
     
     private func doInitialSetup() {
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2
-            self.profileImageView.layer.masksToBounds = true
+        self.profileImageView.layer.masksToBounds = true
     }
     
     private func setUpFont() {
@@ -58,5 +64,14 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
         self.travellerNameLabel.text = self.paxData?.fullName ?? ""
         self.profileImageView.image = self.paxData?.salutationImage ?? #imageLiteral(resourceName: "boy")
     }
-
+    
+    private func configureCellForGuest() {
+        self.travellerNameLabel.text = self.guestData?.fullName ?? ""
+        let placeImage = AppGlobals.shared.getImageFor(firstName: self.guestData?.firstName, lastName: self.guestData?.lastname, font: AppFonts.Regular.withSize(35.0),backGroundColor: AppColors.blueGray)
+        if self.guestData?.profileImage.isEmpty ?? false {
+            self.profileImageView.image = placeImage
+        } else {
+            self.profileImageView.setImageWithUrl(self.guestData?.profileImage ?? "", placeholder: placeImage, showIndicator: false)
+        }
+    }
 }

@@ -27,9 +27,6 @@ class BookingHotelDetailVC: BaseVC {
         self.hotelDetailTableView.dataSource = self
         self.hotelDetailTableView.delegate = self
         self.hotelDetailTableView.reloadData()
-        
-        self.hotelDetailTableView.sectionHeaderHeight = UITableView.automaticDimension
-        self.viewModel.getHotelDetail()
         self.configureNavBar()
     }
     

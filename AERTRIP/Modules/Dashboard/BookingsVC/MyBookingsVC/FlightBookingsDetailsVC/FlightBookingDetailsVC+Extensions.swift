@@ -87,12 +87,25 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("\(indexPath.section)")
-        if let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
-            //cases
-            
-            AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row-1], receipt: rcpt)
+        
+        if (self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false ) && indexPath.section == 0 {
+            if let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
+                //cases
+                
+                AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row-1], receipt: rcpt)
+            }
         }
-        else if indexPath.section < self.viewModel.bookingDetail?.bookingDetail?.leg.count ?? 0 {
+            
+        if !(self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false ) && indexPath.section == 1 {
+            if let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
+                //cases
+                
+                AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row-1], receipt: rcpt)
+            }
+
+        }
+       
+        if indexPath.section >=  self.viewModel.noOfLegCellAboveLeg  {
             AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail)
         }
     }
@@ -128,8 +141,8 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
                 let endPoints = "https://beta.aertrip.com/api/v1/dashboard/booking-action?type=pdf&booking_id=\(self?.viewModel.bookingDetail?.id ?? "")"
                 AppGlobals.shared.viewPdf(urlPath: endPoints, screenTitle: LocalizedString.ETicket.localized)
             } else if index == 4 {
-                AppFlowManager.default.presentConfirmationMailVC(bookindId: self?.viewModel.bookingDetail?.id ?? "")
-                printDebug("Present Resend Confirmation Email")
+//                AppFlowManager.default.presentConfirmationMailVC(bookindId: self?.viewModel.bookingDetail?.id ?? "")
+//                printDebug("Present Resend Confirmation Email")
             }
         }
     }

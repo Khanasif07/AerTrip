@@ -39,11 +39,12 @@ class AddOnsVC: BaseVC {
         guard let mealOrPreferencesCell = self.addOnTableView.dequeueReusableCell(withIdentifier: "BookingFFMealTableViewCell") as? BookingFFMealTableViewCell else {
             fatalError("BookingFFMealTableViewCell not found")
         }
+        mealOrPreferencesCell.delegate = self
         
         guard let commontInputTableViewCell = self.addOnTableView.dequeueReusableCell(withIdentifier: "BookingAddCommonInputTableViewCell") as? BookingAddCommonInputTableViewCell else {
             fatalError("BookingAddCommonInputTableViewCell not found")
         }
-        
+        commontInputTableViewCell.delegate = self
         switch indexPath.row % 5 {
         case 0:
             guard let cell = self.addOnTableView.dequeueReusableCell(withIdentifier: "BookingAddOnPassengerTableViewCell") as? BookingAddOnPassengerTableViewCell else {
@@ -54,46 +55,39 @@ class AddOnsVC: BaseVC {
             } else {
                 cell.topConstraint.constant = 16
             }
-            let leg = BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section] ?? Leg()
-            let passenger = leg.pax[indexPath.row / 5]
-            let name = "\(passenger.salutation) \(passenger.paxName)"
-            
-            cell.configureCell(profileImage: passenger.profileImage, salutationImage: passenger.salutationImage, passengerName: name)
+            cell.configureCell(profileImage: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].profileImage ?? "", salutationImage: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].salutationImage ?? UIImage(named: "person")!, passengerName: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].paxName ?? "")
             return cell
         // Seat Preference or Seat Booking Based on Flight type LCC or GDS
         case 1:
             
             if BookingRequestAddOnsFFVM.shared.isLCC {
-                commontInputTableViewCell.configureCell(title: LocalizedString.SeatBookingTitle.localized, placeholderText: LocalizedString.SeatBookingPlaceholder.localized)
-                 commontInputTableViewCell.delegate = self
+                commontInputTableViewCell.configureCell(title: LocalizedString.SeatBookingTitle.localized, placeholderText: LocalizedString.SeatBookingPlaceholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].seat ?? "")
+                
                 return commontInputTableViewCell
             } else {
-                mealOrPreferencesCell.configureCell(title: LocalizedString.SeatPreferenceTitle.localized)
+                mealOrPreferencesCell.configureCell(title: LocalizedString.SeatPreferenceTitle.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].seatPreferences ?? "")
                 return mealOrPreferencesCell
             }
             
         // Meal Preference or Meal Booking Cell Based on Flight type LCC or GDS
         case 2:
             if BookingRequestAddOnsFFVM.shared.isLCC {
-                commontInputTableViewCell.configureCell(title: LocalizedString.MealBookingTitle.localized, placeholderText: LocalizedString.MealBookingPlaceholder.localized)
-               
-                 commontInputTableViewCell.delegate = self
+                commontInputTableViewCell.configureCell(title: LocalizedString.MealBookingTitle.localized, placeholderText: LocalizedString.MealBookingPlaceholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].meal ?? "")
+                
                 return commontInputTableViewCell
             } else {
-                mealOrPreferencesCell.configureCell(title: LocalizedString.MealPreferenceTitle.localized)
+                mealOrPreferencesCell.configureCell(title: LocalizedString.MealPreferenceTitle.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].mealPreferenes ?? "")
                 return mealOrPreferencesCell
             }
             
         // Extra baggage Cell
         case 3:
-            commontInputTableViewCell.configureCell(title: LocalizedString.ExtraBaggageTitle.localized, placeholderText: LocalizedString.ExtraBaggagePlacheholder.localized)
-               commontInputTableViewCell.delegate = self
+            commontInputTableViewCell.configureCell(title: LocalizedString.ExtraBaggageTitle.localized, placeholderText: LocalizedString.ExtraBaggagePlacheholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].baggage ?? "")
             return commontInputTableViewCell
             
         // Other Cell
         case 4:
-            commontInputTableViewCell.configureCell(title: LocalizedString.OtherBookingTitle.localized, placeholderText: LocalizedString.OtherBookingPlaceholder.localized)
-            commontInputTableViewCell.delegate = self
+            commontInputTableViewCell.configureCell(title: LocalizedString.OtherBookingTitle.localized, placeholderText: LocalizedString.OtherBookingPlaceholder.localized, text: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].other ?? "")
             return commontInputTableViewCell
         default:
             return UITableViewCell()
@@ -150,67 +144,63 @@ extension AddOnsVC: UITableViewDataSource, UITableViewDelegate {
         }
         return footerView
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+}
+
+extension AddOnsVC: BookingAddCommonInputTableViewCellDelegate {
+    func textFieldText(textField: UITextField) {
+        guard let indexPath = self.addOnTableView.indexPath(forItem: textField) else {
+            fatalError("indexPath not found")
+        }
+        let cell = self.addOnTableView.cellForRow(at: indexPath) as? BookingAddCommonInputTableViewCell
         
         switch indexPath.row % 5 {
+        // Seat Booking
         case 1:
-            if !BookingRequestAddOnsFFVM.shared.isLCC {
-                printDebug("Open seat preferences")
-               
-            }
+            BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].seat = textField.text ?? ""
+            cell?.inputTextField.text = textField.text ?? ""
+        // meal Booking
         case 2:
-            if !BookingRequestAddOnsFFVM.shared.isLCC {
-                printDebug("Open meal  preferences")
-            }
-            
-            //Extra Baggage
+            BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].meal = textField.text ?? ""
+            cell?.inputTextField.text = textField.text ?? ""
+        // Extra Baggage
         case 3:
-            let cell = tableView.cellForRow(at: indexPath) as? BookingAddCommonInputTableViewCell
-            PKMultiPicker.noOfComponent = 1
-            PKMultiPicker.openMultiPickerIn(cell?.inputTextField, firstComponentArray:  Array(BookingRequestAddOnsFFVM.shared.mealPreferences.values), secondComponentArray: [], firstComponent: "", secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
-                printDebug(firstSelect)
-            }
-            
-            // Other
+            BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].baggage = textField.text ?? ""
+            cell?.inputTextField.text = textField.text ?? ""
+        // Others
         case 4:
-            let cell = tableView.cellForRow(at: indexPath) as? BookingAddCommonInputTableViewCell
-            PKMultiPicker.noOfComponent = 1
-            PKMultiPicker.openMultiPickerIn(cell?.inputTextField, firstComponentArray:  Array(BookingRequestAddOnsFFVM.shared.seatPreferences.values), secondComponentArray: [], firstComponent: "", secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
-                printDebug(firstSelect)
-            }
+            BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].other = textField.text ?? ""
+            cell?.inputTextField.text = textField.text ?? ""
         default:
-            return
+            break
         }
     }
 }
 
-
-extension AddOnsVC: BookingAddCommonInputTableViewCellDelegate {
-    func textFieldText(textField: UITextField) {
-        if let indexPath = self.addOnTableView.indexPath(forItem: textField) {
-            let leg = BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section] ?? Leg()
-            var passenger = leg.pax[indexPath.row / 5]
-            switch indexPath.row % 5 {
-                // Seat Booking
-            case 1:
-                passenger._seat = textField.text ?? ""
-               // meal Booking
-            case 2:
-                   passenger._meal = textField.text ?? ""
-                // Extra Baggage
-            case 3:
-               passenger._baggage = textField.text ?? ""
-                
-                // Others
-            case 4:
-                passenger.other = textField.text  ?? ""
-                
-            default:
-                break
-            
+extension AddOnsVC: BookingFFMealTableViewCellDelegate {
+    func textFieldEditing(textfield: UITextField) {
+        guard let indexPath = self.addOnTableView.indexPath(forItem: textfield) else {
+            fatalError("indexPath not found")
+        }
+        let cell = self.addOnTableView.cellForRow(at: indexPath) as? BookingFFMealTableViewCell
+        switch indexPath.row % 5 {
+        // Seat Booking
+        case 1:
+            PKMultiPicker.noOfComponent = 1
+            PKMultiPicker.openMultiPickerIn(cell?.selectedMealPreferenceTextField, firstComponentArray: Array(BookingRequestAddOnsFFVM.shared.seatPreferences.values), secondComponentArray: [], firstComponent: "", secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [weak cell] firstSelect, _ in
+                BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].seatPreferences = firstSelect
+                cell?.selectedMealPreferenceTextField.text = firstSelect
+                BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].seatPreferences = firstSelect
             }
-            printDebug("passenger detail is \(passenger)")
+            
+        // meal Booking
+        case 2:
+            PKMultiPicker.noOfComponent = 1
+            PKMultiPicker.openMultiPickerIn(cell?.selectedMealPreferenceTextField, firstComponentArray: Array(BookingRequestAddOnsFFVM.shared.mealPreferences.values), secondComponentArray: [], firstComponent: "", secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { [weak cell] firstSelect, _ in
+                cell?.selectedMealPreferenceTextField.text = firstSelect
+                BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].mealPreferenes = firstSelect
+            }
+        default:
+            break
         }
     }
 }

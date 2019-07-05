@@ -52,6 +52,7 @@ class BookingCancellationPolicyVC: BaseVC {
     private func registerXib() {
         self.bookingPolicyTableView.registerCell(nibName: CancellationPolicyTableViewCell.reusableIdentifier)
          self.bookingPolicyTableView.registerCell(nibName: FareInfoNoteTableViewCell.reusableIdentifier)
+           self.bookingPolicyTableView.registerCell(nibName: FareRuleTableViewCell.reusableIdentifier)
     }
     
     // MARK: - IBAction
@@ -64,13 +65,11 @@ class BookingCancellationPolicyVC: BaseVC {
     // MARK: - Helper Methods
     
     private func getCellForBookingPolicy(_ indexPath: IndexPath) -> UITableViewCell {
-        guard let noteCell = self.bookingPolicyTableView.dequeueReusableCell(withIdentifier: "FareInfoNoteTableViewCell") as? FareInfoNoteTableViewCell else {
-            fatalError("FareInfoNoteTableViewCell not found")
+        guard let cell = self.bookingPolicyTableView.dequeueReusableCell(withIdentifier: "FareRuleTableViewCell", for: indexPath) as? FareRuleTableViewCell else {
+            fatalError("FareRuleTableViewCell not found")
         }
         
-        noteCell.isForBookingPolicyCell = true
-        noteCell.noteLabel.text = ""
-        noteCell.configCell(note: self.viewModel.bookingPolicies)
+        cell.configureCell(isForBookingPolicy: true,fareRules: self.viewModel.bookingPolicies, ruteString: "")
 
         
 //        switch indexPath.row {
@@ -93,7 +92,7 @@ class BookingCancellationPolicyVC: BaseVC {
 //            return UITableViewCell()
 //        }
         
-        return noteCell
+        return cell
     }
     
     private func getNumberOfCellForCancellationPolicy() -> Int {
@@ -152,13 +151,7 @@ extension BookingCancellationPolicyVC: UITableViewDataSource, UITableViewDelegat
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        // Opening Select New Trip VC
-//        if self.viewModel.vcUsingType == .cancellationPolicy {
-//            AppFlowManager.default.presentSelectTripVC(delegate: self)
-//        }
-    }
+  
     
 }
 

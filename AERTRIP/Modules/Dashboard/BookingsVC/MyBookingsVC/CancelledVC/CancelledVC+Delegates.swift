@@ -83,6 +83,7 @@ extension CancelledVC: UITableViewDelegate , UITableViewDataSource {
             }
             else {
                 //open hotel details
+                  AppFlowManager.default.moveToHotelBookingsDetailsVC(bookingId: bookingData.bookingId ?? "")
             }
             
         }

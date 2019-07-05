@@ -19,7 +19,7 @@ extension APICaller {
             if let jsonObjects = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? JSONDictionary {
                 if let hotelDetail = jsonObjects["data"] as? JSONDictionary {
                     let hotel = hotelDetail["results"] as? JSONDictionary
-                    let hotelInfo = HotelDetails.hotelInfo(response: hotel!) as? HotelDetails
+                    let hotelInfo = HotelDetails.hotelInfo(response: hotel!)
                     
                     completionBlock(true, [], hotelInfo)
                 }
@@ -133,6 +133,10 @@ extension APICaller {
                                     }
                                 }
                             }
+                            
+                            if let str = data[key] as? String {
+                               finalRules = str
+                            }
                         }
                     }
                     finalRules = finalRules.isEmpty ? LocalizedString.na.localized : finalRules
@@ -155,10 +159,9 @@ extension APICaller {
         }
     }
     
-    
     // MARK: - Get Preference master list
     
-    func getPreferenceMaster(completionBlock: @escaping (_ success: Bool,_ seatPreferences: [String: String], _ mealPreferences: [String: String], _ errorCodes: ErrorCodes) -> Void) {
+    func getPreferenceMaster(completionBlock: @escaping (_ success: Bool, _ seatPreferences: [String: String], _ mealPreferences: [String: String], _ errorCodes: ErrorCodes) -> Void) {
         AppNetworking.GET(endPoint: .preferenceMaster, success: { [weak self] data in
             var seatPreferencesDict = [String: String]()
             var mealPreferencesDict = [String: String]()
@@ -175,65 +178,62 @@ extension APICaller {
                 
             }, failure: { errors in
                 ATErrorManager.default.logError(forCodes: errors, fromModule: .profile)
-                completionBlock(false, [:], [:],errors)
+                completionBlock(false, [:], [:], errors)
             })
             
-        }) { (error) in
+        }) { error in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [:],[:], [ATErrorManager.LocalError.noInternet.rawValue])
+                completionBlock(false, [:], [:], [ATErrorManager.LocalError.noInternet.rawValue])
             }
             else {
-                completionBlock(false, [:],[:], [ATErrorManager.LocalError.requestTimeOut.rawValue])
+                completionBlock(false, [:], [:], [ATErrorManager.LocalError.requestTimeOut.rawValue])
             }
         }
     }
     
     // Get  Traveller Email
-    func getTravellerEmail(completionBlock: @escaping (_ success: Bool,_ emails: [String],_ token: String, _ errorCodes: ErrorCodes) -> Void) {
+    func getTravellerEmail(completionBlock: @escaping (_ success: Bool, _ emails: [String], _ token: String, _ errorCodes: ErrorCodes) -> Void) {
         AppNetworking.GET(endPoint: .getTravellerEmails, success: { [weak self] data in
-         
+            
             guard let sSelf = self else { return }
             
             sSelf.handleResponse(data, success: { _, jsonData in
                 
                 if let data = jsonData["data"].dictionaryObject {
-                    if let emails = data["emails"] as? [String],let token = data["tk"] as? String {
-                       completionBlock(true, emails, token, [])
+                    if let emails = data["emails"] as? [String], let token = data["tk"] as? String {
+                        completionBlock(true, emails, token, [])
                     }
                 }
                 
-               
-                
             }, failure: { errors in
                 ATErrorManager.default.logError(forCodes: errors, fromModule: .profile)
-                completionBlock(false,[],"",errors)
+                completionBlock(false, [], "", errors)
             })
             
-        }) { (error) in
+        }) { error in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false,[],"", [ATErrorManager.LocalError.noInternet.rawValue])
+                completionBlock(false, [], "", [ATErrorManager.LocalError.noInternet.rawValue])
             }
             else {
-                completionBlock(false,[],"", [ATErrorManager.LocalError.requestTimeOut.rawValue])
+                completionBlock(false, [], "", [ATErrorManager.LocalError.requestTimeOut.rawValue])
             }
         }
     }
     
-    
     // Get Email Api
     
-    func sendConfirmationEmailApi(bookingID: String ,params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ successMessage: String)->Void ) {
+    func sendConfirmationEmailApi(bookingID: String, params: JSONDictionary, loader: Bool = false, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ successMessage: String) -> Void) {
         let endPoint = "https://beta.aertrip.com/api/v1/dashboard/booking-action?type=email&booking_id=\(bookingID)"
-        AppNetworking.POST(endPointPath: endPoint, parameters: params, success: { [weak self] (json) in
-            guard let sSelf = self else {return}
+        AppNetworking.POST(endPointPath: endPoint, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
             
-            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+            sSelf.handleResponse(json, success: { sucess, jsonData in
                 completionBlock(sucess, [], jsonData[APIKeys.data.rawValue][APIKeys.msg.rawValue].stringValue)
                 
-            }, failure: { (errors) in
+            }, failure: { errors in
                 completionBlock(false, errors, "")
             })
-        }) { (error) in
+        }) { error in
             if error.code == AppNetworking.noInternetError.code {
                 completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], "")
             }
@@ -242,46 +242,24 @@ extension APICaller {
             }
         }
     }
-        
-    func getCaseHistory(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes,_ history: BookingCaseHistory?) -> Void) {
-        AppNetworking.GET(endPoint: APIEndPoint.getCaseHistory, parameters: params, success: { [weak self] json in
-            guard let sSelf = self else { return }
-            printDebug(json)
-            sSelf.handleResponse(json, success: { sucess, jsonData in
-                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject{
-                    let data = BookingCaseHistory(json: response)
-                    completionBlock(true, [], data)
-                }
-                else {
-                    completionBlock(false, [],nil)
-                }
-            }, failure: { error in
-                ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
-                completionBlock(false, error,nil)
-            })
-        }) { error in
-            if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue],nil)
-            }
-            else {
-                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue],nil)
-            }
-        }
-    }
     
-    func abortRequestAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
-        
-        AppNetworking.POST(endPoint: APIEndPoint.abortRequest, parameters: params, success: { [weak self] (json) in
-            guard let sSelf = self else {return}
+    // MARK: - API Call for Add on Request
+    
+    // MARK: -
+    
+    func addOnRequest(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes) -> Void) {
+        AppNetworking.POST(endPoint: APIEndPoint.addOnRequest, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
             
-            sSelf.handleResponse(json, success: { (sucess, jsonData) in
-                completionBlock(sucess, [])
+            sSelf.handleResponse(json, success: { _, _ in
+                completionBlock(true, [])
                 
-            }, failure: { (errors) in
-                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+            }, failure: { errors in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .profile)
                 completionBlock(false, errors)
             })
-        }) { (error) in
+            
+        }) { error in
             if error.code == AppNetworking.noInternetError.code {
                 completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
             }
@@ -291,19 +269,65 @@ extension APICaller {
         }
     }
     
-    func requestConfirmationAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
-        
-        AppNetworking.POST(endPoint: APIEndPoint.requestConfirmation, parameters: params, success: { [weak self] (json) in
-            guard let sSelf = self else {return}
+    func getCaseHistory(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ history: BookingCaseHistory?) -> Void) {
+        AppNetworking.GET(endPoint: APIEndPoint.getCaseHistory, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
+            printDebug(json)
+            sSelf.handleResponse(json, success: { sucess, jsonData in
+                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject {
+                    let data = BookingCaseHistory(json: response)
+                    completionBlock(true, [], data)
+                }
+                else {
+                    completionBlock(false, [], nil)
+                }
+            }, failure: { error in
+                ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
+                completionBlock(false, error, nil)
+            })
+        }) { error in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], nil)
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
+            }
+        }
+    }
+    
+    func abortRequestAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes) -> Void) {
+        AppNetworking.POST(endPoint: APIEndPoint.abortRequest, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
             
-            sSelf.handleResponse(json, success: { (sucess, jsonData) in
+            sSelf.handleResponse(json, success: { sucess, _ in
                 completionBlock(sucess, [])
                 
-            }, failure: { (errors) in
+            }, failure: { errors in
                 ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
                 completionBlock(false, errors)
             })
-        }) { (error) in
+        }) { error in
+            if error.code == AppNetworking.noInternetError.code {
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
+        }
+    }
+    
+    func requestConfirmationAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes) -> Void) {
+        AppNetworking.POST(endPoint: APIEndPoint.requestConfirmation, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
+            
+            sSelf.handleResponse(json, success: { sucess, _ in
+                completionBlock(sucess, [])
+                
+            }, failure: { errors in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
+                completionBlock(false, errors)
+            })
+        }) { error in
             if error.code == AppNetworking.noInternetError.code {
                 completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
             }
@@ -319,7 +343,6 @@ extension APICaller {
             printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
                 if sucess {
-                    
                     var itin: DepositItinerary?
                     if let dict = jsonData[APIKeys.data.rawValue][APIKeys.itinerary.rawValue].dictionaryObject {
                         itin = DepositItinerary(json: dict)

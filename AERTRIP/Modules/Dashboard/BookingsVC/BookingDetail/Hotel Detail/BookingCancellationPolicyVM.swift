@@ -34,7 +34,7 @@ class BookingCancellationPolicyVM {
         }
         
         self.delegate?.willGetBookingPolicy()
-        let param: JSONDictionary = ["booking_id": booking.id, "hotel_id" : booking.bookingDetail?.hotelId ?? ""]
+        let param: JSONDictionary = ["booking_id": booking.id, "hotel_id" : booking.bookingDetail?.bookingHotelId ?? ""]
         APICaller.shared.getFareRulesAPI(params: param, loader: false) { [weak self](success, errors, rules, rute) in
             
             guard let sSelf = self else {return}

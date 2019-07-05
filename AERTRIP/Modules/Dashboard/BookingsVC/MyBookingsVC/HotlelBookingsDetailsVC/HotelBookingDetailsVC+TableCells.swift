@@ -68,8 +68,8 @@ extension HotlelBookingsDetailsVC {
     func getTravellersDetailsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TravellersDetailsTableViewCell.reusableIdentifier, for: indexPath) as? TravellersDetailsTableViewCell else { return UITableViewCell() }
         
-        let currentRoomSection = indexPath.section-self.viewModel.noOfCellAboveHotelDetail
-        let currentGuestIndex = indexPath.row-1
+        let currentRoomSection = indexPath.section - self.viewModel.noOfCellAboveHotelDetail
+        let currentGuestIndex = indexPath.row - 1
         
         let allRooms = self.viewModel.bookingDetail?.bookingDetail?.roomDetails ?? []
         let allGuest = allRooms[currentRoomSection].guest

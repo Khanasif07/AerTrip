@@ -99,7 +99,7 @@ enum APIEndPoint: String {
     case requestConfirmation = "dashboard/request-confirmation"
     case getTravellerEmails = "dashboard/get-traveller-emails"
     case rescheduleRequest = "reschedule/request"
-    
+    case addOnRequest = "addon/request"
     // Final Checkout
     
     // ACCOUNT

@@ -18,6 +18,13 @@ class BookingAddCommonInputTableViewCell: ATTableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var inputTextField: UITextField!
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.inputTextField.text = ""
+        self.titleLabel.text = ""
+    }
+    
     override func doInitialSetup() {
       inputTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
     }
@@ -37,13 +44,12 @@ class BookingAddCommonInputTableViewCell: ATTableViewCell {
        
     }
     
-    
-    func configureCell(title: String,placeholderText: String) {
+
+    func configureCell(title: String,placeholderText: String,text: String = "") {
         self.inputTextField.placeholder(text: placeholderText, withColor: AppColors.themeGray20)
         self.inputTextField.delegate = self
             self.titleLabel.text = title
-        
-        
+        self.inputTextField.text = text
         
         }
 

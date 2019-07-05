@@ -83,6 +83,6 @@ class FareInfoNoteTableViewCell: UITableViewCell {
     }
     
     func configCell(notes: [String]) {
-        self.noteTextView.attributedText = self.bulletedNotesDetails(notes: notes)
+        self.noteTextView.attributedText = notes.isEmpty ? NSAttributedString(string: "-\n") : self.bulletedNotesDetails(notes: notes)
     }
 }

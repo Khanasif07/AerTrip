@@ -310,6 +310,7 @@
 		18D88BF822C3894A0089755D /* BookingAddOnRequestFF+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D88BF722C3894A0089755D /* BookingAddOnRequestFF+DelegateMethods.swift */; };
 		18D88BFA22C39A700089755D /* BookingConfirmationMailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D88BF922C39A700089755D /* BookingConfirmationMailVM.swift */; };
 		18D88BFC22C39EF30089755D /* BookingConfirmationMailVC+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D88BFB22C39EF30089755D /* BookingConfirmationMailVC+DelegateMethods.swift */; };
+		18DE97D322CB689C0006C5E0 /* FrequentFlyerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DE97D222CB689C0006C5E0 /* FrequentFlyerData.swift */; };
 		18E796FF2248E53B00A7AC8B /* FinalAmountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E796FD2248E53B00A7AC8B /* FinalAmountTableViewCell.swift */; };
 		18E797002248E53B00A7AC8B /* FinalAmountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E796FE2248E53B00A7AC8B /* FinalAmountTableViewCell.xib */; };
 		18E797022248ED6500A7AC8B /* FareSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E797012248ED6500A7AC8B /* FareSectionHeader.swift */; };
@@ -1263,6 +1264,7 @@
 		18D88BF722C3894A0089755D /* BookingAddOnRequestFF+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookingAddOnRequestFF+DelegateMethods.swift"; sourceTree = "<group>"; };
 		18D88BF922C39A700089755D /* BookingConfirmationMailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingConfirmationMailVM.swift; sourceTree = "<group>"; };
 		18D88BFB22C39EF30089755D /* BookingConfirmationMailVC+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookingConfirmationMailVC+DelegateMethods.swift"; sourceTree = "<group>"; };
+		18DE97D222CB689C0006C5E0 /* FrequentFlyerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequentFlyerData.swift; sourceTree = "<group>"; };
 		18E796FD2248E53B00A7AC8B /* FinalAmountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalAmountTableViewCell.swift; sourceTree = "<group>"; };
 		18E796FE2248E53B00A7AC8B /* FinalAmountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FinalAmountTableViewCell.xib; sourceTree = "<group>"; };
 		18E797012248ED6500A7AC8B /* FareSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FareSectionHeader.swift; sourceTree = "<group>"; };
@@ -2382,6 +2384,7 @@
 				1870540922AA4EC200FEBC37 /* RoomDetailModel.swift */,
 				847FBB9722B25B42001FC68D /* BookingFeeDetail.swift */,
 				189EF58722B7B7C600D5E055 /* AdditionalInformationModel.swift */,
+				18DE97D222CB689C0006C5E0 /* FrequentFlyerData.swift */,
 				8402009522C1EF64002E5977 /* BookingCaseHistory.swift */,
 			);
 			path = BookingDetail;
@@ -5761,6 +5764,7 @@
 				843C48052248E9CB00E71887 /* HCBookingIncompleteVC.swift in Sources */,
 				84247F9322A53D6D00A0FEB7 /* CancelledVC+Delegates.swift in Sources */,
 				18EF5E82221D261B00EFFA6E /* GQTPointQuadTree.m in Sources */,
+				18DE97D322CB689C0006C5E0 /* FrequentFlyerData.swift in Sources */,
 				84E4BC51229E6F2000B72306 /* FlightBoardingAndDestinationTableViewCell.swift in Sources */,
 				84085CDA21F59C0E00F1E844 /* MainHomeVC.swift in Sources */,
 				18F181DC223BC8EE00323775 /* WalletTableViewCell.swift in Sources */,
