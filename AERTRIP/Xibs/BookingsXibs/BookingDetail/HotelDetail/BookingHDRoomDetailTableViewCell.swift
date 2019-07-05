@@ -28,9 +28,9 @@ class BookingHDRoomDetailTableViewCell: ATTableViewCell {
     }
     
     
-    func configureCell() {
-        self.titleLabel.text = "Beds"
-        self.titleValueLabel.text = "2 Single Beds"
+    func configureCell(title: String, text: String) {
+        self.titleLabel.text = title
+        self.titleValueLabel.text = text
     }
     
    

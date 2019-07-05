@@ -15,7 +15,13 @@ class BookingTravellerTableViewCell: UITableViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var isToShowBottomView: Bool = true
+    var guestDetails: [GuestDetail] = []
     
+    var isForBooking: Bool = false {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,7 +51,7 @@ class BookingTravellerTableViewCell: UITableViewCell {
 
 extension BookingTravellerTableViewCell: UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return isForBooking ? self.guestDetails.count : 4
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -54,18 +60,28 @@ extension BookingTravellerTableViewCell: UICollectionViewDataSource,UICollection
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return  CGSize(width: collectionView.frame.width / 4, height: 100.0 )
+        return  CGSize(width: collectionView.frame.width / 4, height: 140 )
     }
 
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let travellerCollectionCell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "BookingTravellerCollectionViewCell", for: indexPath) as? BookingTravellerCollectionViewCell else {
-            fatalError("BookingTravellerCollectionViewCell not found")
+        if isForBooking {
+            guard let travellerCollectionCell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "BookingTravellerCollectionViewCell", for: indexPath) as? BookingTravellerCollectionViewCell else {
+                fatalError("BookingTravellerCollectionViewCell not found")
+            }
+            travellerCollectionCell.guestData = self.guestDetails[indexPath.item] //TODO:- pass the original data
+            travellerCollectionCell.bottomSlideView.isHidden = !isToShowBottomView
+            return travellerCollectionCell
+        } else {
+            guard let travellerCollectionCell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "BookingTravellerCollectionViewCell", for: indexPath) as? BookingTravellerCollectionViewCell else {
+                fatalError("BookingTravellerCollectionViewCell not found")
+            }
+            travellerCollectionCell.paxData = nil //TODO:- pass the original data
+            travellerCollectionCell.bottomSlideView.isHidden = !isToShowBottomView
+            return travellerCollectionCell
         }
-        travellerCollectionCell.paxData = nil //TODO:- pass the original data
-        travellerCollectionCell.bottomSlideView.isHidden = !isToShowBottomView
-        return travellerCollectionCell
+   
     }
     
     

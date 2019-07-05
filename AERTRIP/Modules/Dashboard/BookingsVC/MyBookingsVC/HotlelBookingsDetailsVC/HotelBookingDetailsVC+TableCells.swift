@@ -68,8 +68,8 @@ extension HotlelBookingsDetailsVC {
     func getTravellersDetailsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TravellersDetailsTableViewCell.reusableIdentifier, for: indexPath) as? TravellersDetailsTableViewCell else { return UITableViewCell() }
         
-        let currentRoomSection = indexPath.section-self.viewModel.noOfCellAboveHotelDetail
-        let currentGuestIndex = indexPath.row-1
+        let currentRoomSection = indexPath.section - self.viewModel.noOfCellAboveHotelDetail
+        let currentGuestIndex = indexPath.row - 1
         
         let allRooms = self.viewModel.bookingDetail?.bookingDetail?.roomDetails ?? []
         let allGuest = allRooms[currentRoomSection].guest
@@ -77,7 +77,7 @@ extension HotlelBookingsDetailsVC {
         let isLastRoom = (allRooms.count - 1) == currentRoomSection
         let isLastTarv = (allGuest.count - 1) == currentGuestIndex
         
-        cell.configCell(imageUrl: "sdsd", travellerName: allGuest[currentGuestIndex].fullName, isLastTravellerInRoom: isLastTarv, isLastTraveller: (isLastRoom && isLastTarv))
+        //cell.configCell(imageUrl: "sdsd", travellerName: allGuest[currentGuestIndex].fullName, isLastTravellerInRoom: isLastTarv, isLastTraveller: (isLastRoom && isLastTarv))
         cell.clipsToBounds = true
         return cell
     }

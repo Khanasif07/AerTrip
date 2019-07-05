@@ -12,176 +12,119 @@ import UIKit
 
 extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        // 2 is added here: one for hotelimages cell,checkInCheckOut,rating and other for Adress,phone,website,overview and amenities
+        return 2 + (self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        // hotelImages cell,checkInCeckOut,ratings etc
         if section == 0 {
             return 4
-        } else if section == 1 {
-            return 11
+            
+        // Room data details
+        } else if section >= 1, section <= self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0 {
+            return 5
+           // Adress,phone,website,overview and amenities
+        } else if section == ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) + 1) {
+            return 5
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 1 {
-            return getHeightForRowSecondSection(indexPath)
-        } else {
+        // height for hotelImages cell,checkInCeckOut,ratings etc
+        if indexPath.section == 0 {
             return getHeightForRowFirstSection(indexPath)
+            // height for room details cell
+        } else if indexPath.section >= 1, indexPath.section <= self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0 {
+            return getHeightForRoomSection(indexPath)
+            // Adress,phone,website,overview and amenities
+        } else if indexPath.section == ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) + 1) {
+            return UITableView.automaticDimension
         }
         
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+         // height for hotelImages cell,checkInCeckOut,ratings etc
         if indexPath.section == 0 {
-            switch indexPath.row {
-            case 0: // Hotel  Image Slide Cell
-                guard let hotelImageSlideCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelDetailsImgSlideCell", for: indexPath) as? HotelDetailsImgSlideCell else {
-                    fatalError("HotelDetailsImgSlideCell not found")
-                }
-                hotelImageSlideCell.imageUrls = self.viewModel.hotelData.photos
-                hotelImageSlideCell.delegate = self
-                hotelImageSlideCell.configCell(imageUrls: self.viewModel.hotelData.photos)
-                return hotelImageSlideCell
-                
-            case 1: // Hotel Name Rating Cell
-                guard let hotelNameCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelNameRatingTableViewCell", for: indexPath) as? HotelNameRatingTableViewCell else {
-                    fatalError("HotelNameRatingTableViewCell not found ")
-                }
-                hotelNameCell.configureCell(hoteName: self.viewModel.hotelData.hname, starRating: self.viewModel.hotelData.star, tripRating: self.viewModel.hotelData.rating)
-                
-                return hotelNameCell
-                
-            case 2: //  booking cancellation policy cell
-                guard let bookingCancellationPolicy = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "BookingCancellationPolicyTableViewCell", for: indexPath) as? BookingCancellationPolicyTableViewCell else {
-                    fatalError("BookingCancellationPolicyTableViewCell not found")
-                }
-                bookingCancellationPolicy.delegate = self
-                return bookingCancellationPolicy
-                
-            case 3: // Hotel checkin chekcout cell
-                guard let checkInCheckOutCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "BookingCheckinCheckOutTableViewCell") as? BookingCheckinCheckOutTableViewCell else {
-                     fatalError("BookingCheckinCheckOutTableViewCell not found")
-                }
-                checkInCheckOutCell.configureCell()
-                return checkInCheckOutCell
-             default:
-                return UITableViewCell()
-            }
-        } else if indexPath.section == 1 {
-            switch indexPath.row {
-            case 0, 1, 2: // Room Cell
-                guard let roomDetailCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "BookingHDRoomDetailTableViewCell") as? BookingHDRoomDetailTableViewCell else {
-                    fatalError("BookingHDRoomDetailTableViewCell not found")
-                }                
-                roomDetailCell.configureCell()
-                return roomDetailCell
-            case 3: // Note Cell
-                guard let fareInfoNoteCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "FareInfoNoteTableViewCell") as? FareInfoNoteTableViewCell else {
-                    fatalError("FareInfoNoteTableViewCell not found")
-                }
-                fareInfoNoteCell.isForBookingPolicyCell = false
-                fareInfoNoteCell.noteLabel.text = LocalizedString.Notes.localized
-                fareInfoNoteCell.configCell(notes: ["Hello", "Hello", "Hello", "Hello", "Hello", "Hello", "Hello", "Hello"])
-                return fareInfoNoteCell
-                
-            case 4: // Guest Cell
-                guard let guestCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "BookingTravellerTableViewCell") as? BookingTravellerTableViewCell else {
-                    fatalError("BookingTravellerTableViewCell not found")
-                }
-                guestCell.titleLabel.text = LocalizedString.Guests.localized
-                guestCell.isToShowBottomView = false
-                return guestCell
-            case 5:
-                // Address Cell
-                guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
-                cell.deviderView.isHidden = true
-                cell.configureAddressCell(hotelData: self.viewModel.hotelData)
-                return cell
-                
-            case 6, 7: // Phone web Cell
-                guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "BookingHDWebPhoneTableViewCell", for: indexPath) as? BookingHDWebPhoneTableViewCell else { return UITableViewCell() }
-                cell.configureCell()
-                return cell
-                
-            case 8: // Overview Cell
-                guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
-                cell.configureOverviewCell(hotelData: self.viewModel.hotelData)
-                return cell
-            case 9: // Amentities Cell
-                guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelDetailAmenitiesCell", for: indexPath) as? HotelDetailAmenitiesCell else { return UITableViewCell() }
-                cell.delegate = self
-                cell.amenitiesDetails = self.viewModel.hotelData.amenities
-                
-                return cell
-                
-            case 10: // Trip Advisor Cell
-                guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "TripAdvisorTableViewCell", for: indexPath) as? TripAdvisorTableViewCell else { return UITableViewCell() }
-                
-                return cell
-            default:
-                return UITableViewCell()
-            }
+          return getCellForFirstSection(indexPath)
+             // height for room details cell
+        } else if indexPath.section >= 1, indexPath.section <= self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0 {
+            return getCellForRoomSection(indexPath)
+            // Adress,phone,website,overview and amenities
+        } else if indexPath.section == ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) + 1) {
+            return getCellForLastSection(indexPath)
         }
+        
         return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 0
-        } else {
+        if section >= 1 && section <= self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0   {
             return UITableView.automaticDimension
+        } else {
+           return 0
         }
     }
     
-    
+    // header for footer
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 0
+        if  section == ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) + 1) {
+            return 35.0
         } else {
-             return 35.0
+            return 0
         }
     }
     
     
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        return 120
+        return 93.0
     }
     
+    
+    
+   
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 1 {
+        // Room Data Header section
+        if section >= 1 && section <= self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0  {
             guard let headerView = self.hotelDetailTableView.dequeueReusableHeaderFooterView(withIdentifier: "BookingHDRoomDetailHeaderView") as? BookingHDRoomDetailHeaderView else {
                 fatalError("BookingHDRoomDetailHeaderView not found ")
             }
-            headerView.configureCell()
+            let roomTitle: String = "\(LocalizedString.Room.localized) \(section) \(((self.viewModel.bookingDetail?.bookingDetail?.roomDetails[section - 1].voucher) ?? "").isEmpty ? "" : "-")  \(self.viewModel.bookingDetail?.bookingDetail?.roomDetails[section - 1].voucher ?? "") "
+            headerView.configureHeader(roomTitle: roomTitle, roomType: self.viewModel.bookingDetail?.bookingDetail?.roomDetails[section - 1].roomType ?? "", roomDescription: self.viewModel.bookingDetail?.bookingDetail?.roomDetails[section - 1].description ?? "")
             return headerView
         }
         
         return nil
     }
+    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == 1 {
+        if section == ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) + 1) {
             guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.footerViewIdentifier) as? BookingInfoEmptyFooterView else {
                 fatalError("BookingInfoFooterView not found")
             }
             return footerView
+           
         }
+      
         
         return nil
     }
-
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             if indexPath.row == 5 { // Address Cell {
                 self.openMaps()
             } else if indexPath.row == 8 { // Overview cell {
-                AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel.hotelData.info)
+                // AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel.hotelData.info)
             } else if indexPath.row == 10 {
-                let locid = self.viewModel.hotelData.locid
-                AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel.hotelData.hid)
-                printDebug(locid + "location id is empty")
+                //   let locid = self.viewModel.hotelData.locid
+                //  AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel.hotelData.hid)
+                // printDebug(locid + "location id is empty")
             }
         }
     }
@@ -193,9 +136,8 @@ extension BookingHotelDetailVC: HotelDetailsImgSlideCellDelegate {
     func hotelImageTapAction(at index: Int) {
         //
         printDebug("implement hotel Image tap action ")
-       
-            AppFlowManager.default.presentSelectTripVC(delegate: self)
-    
+        
+        AppFlowManager.default.presentSelectTripVC(delegate: self)
     }
     
     func willShowImage(at index: Int, image: UIImage?) {
@@ -214,8 +156,9 @@ extension BookingHotelDetailVC: TopNavigationViewDelegate {
 // HotelDetailAmenitiesCellDelegate methods
 
 extension BookingHotelDetailVC: HotelDetailAmenitiesCellDelegate {
+    // TODO: - Amentities data not coming
     func viewAllButtonAction() {
-        AppFlowManager.default.showHotelDetailAmenitiesVC(hotelDetails: self.viewModel.hotelData)
+        // AppFlowManager.default.showHotelDetailAmenitiesVC(hotelDetails: self.viewModel.hotelData)
     }
 }
 
@@ -230,8 +173,6 @@ extension BookingHotelDetailVC: BookingCancellationPolicyTableViewCellDelegate {
         AppFlowManager.default.presentPolicyVC(.cancellationPolicy, bookingDetail: self.viewModel.bookingDetail)
     }
 }
-
-
 
 // Booking Select trip Trip
 

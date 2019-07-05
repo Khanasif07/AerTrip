@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+// Here HD stands for Hotel Detail
 class BookingHDRoomDetailHeaderView: UITableViewHeaderFooterView {
     
     // MARK: - IBOutlet
@@ -42,10 +42,10 @@ class BookingHDRoomDetailHeaderView: UITableViewHeaderFooterView {
     }
     
     
-    func configureCell() {
-        self.roomLabel.text = "Room 1 - WWWWWWWWWW"
-        self.roomTypeLabel.text = "Premier King Bed Ocean View"
-        self.roomDetailLabel.text = "2 Twin Beds, Business Lounge Access, City View Business Lounge Access, City View"
+    func configureHeader(roomTitle: String,roomType: String,roomDescription: String) {
+        self.roomLabel.text = roomTitle
+        self.roomTypeLabel.text =  roomType
+        self.roomDetailLabel.text = roomDescription
     }
     
 

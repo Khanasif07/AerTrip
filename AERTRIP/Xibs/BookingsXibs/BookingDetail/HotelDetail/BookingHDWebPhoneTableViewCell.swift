@@ -27,9 +27,9 @@ class BookingHDWebPhoneTableViewCell: ATTableViewCell {
         self.titleValueLabel.textColor = AppColors.themeBlack
     }
     
-    func configureCell() {
-        self.titleLabel.text = "Website"
-        self.titleValueLabel.text = "www.ramadapowai.com"
+    func configureCell(title: String, text: String) {
+        self.titleLabel.text = title
+        self.titleValueLabel.text = text
     }
     
 

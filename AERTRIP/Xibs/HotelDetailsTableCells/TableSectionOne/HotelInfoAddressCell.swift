@@ -81,17 +81,33 @@ class HotelInfoAddressCell: UITableViewCell {
         self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) ? false : true
     }
     
-    internal func configureAddressCell(hotelData: HotelDetails) {
+ 
+    
+    internal func configureAddressCell(hotelData: HotelDetails = HotelDetails(),isForBooking: Bool = false,address: String = "") {
         self.moreBtnOutlet.isHidden = true
         self.addressLabel.text = LocalizedString.AddressSmallLaters.localized
-        self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: hotelData.address, startTextColor: AppColors.themeBlack, middleText: " " + LocalizedString.Maps.localized + " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+        if isForBooking {
+            self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: hotelData.address, startTextColor: AppColors.themeBlack, middleText: " " + LocalizedString.Maps.localized + " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+        } else {
+            if address.isEmpty {
+                self.addressInfoTextView.text = "-"
+            } else {
+                self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText: address, startTextColor: AppColors.themeBlack, middleText: " " + LocalizedString.Maps.localized + " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+            }
+        }
+        
     }
     
-    internal func configureOverviewCell(hotelData: HotelDetails) {
+    internal func configureOverviewCell(hotelData: HotelDetails = HotelDetails(), isForBooking: Bool = false, overview: String = "") {
         self.moreBtnOutlet.isHidden = false
         self.addressInfoTextView.textContainer.maximumNumberOfLines = 3
         self.addressLabel.text = LocalizedString.Overview.localized
-        self.attributeLabelSetUp(overview: hotelData.info)
+        if isForBooking {
+            self.attributeLabelSetUp(overview: overview)
+        }
+        else {
+            self.attributeLabelSetUp(overview: hotelData.info)
+        }
     }
     
     internal func hcConfigureAddressCell(address: String) {
@@ -101,7 +117,7 @@ class HotelInfoAddressCell: UITableViewCell {
     }
     
     internal func configureNotesCell(notes: String, isHiddenDivider: Bool = false) {
-        self.moreBtnOutlet.isHidden = isMoreButtonTapped
+        self.moreBtnOutlet.isHidden = self.isMoreButtonTapped
         self.addressLabel.font = AppFonts.Regular.withSize(14.0)
         self.addressInfoTextView.font = AppFonts.Regular.withSize(18.0)
         self.addressLabel.textColor = AppColors.themeGray40
@@ -111,7 +127,7 @@ class HotelInfoAddressCell: UITableViewCell {
         self.addressInfoTextView.isScrollEnabled = false
         let attrText = notes.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.withSize(18.0).familyName, fontColor: AppColors.themeBlack)
         self.addressInfoTextView.attributedText = attrText
-        self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 2) && !isMoreButtonTapped ? false : true
+        self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 2) && !self.isMoreButtonTapped ? false : true
         self.deviderView.isHidden = isHiddenDivider
     }
     

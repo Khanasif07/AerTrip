@@ -11,6 +11,8 @@ import Foundation
 struct RoomDetailModel {
     var rid: String = ""
     var roomType: String = ""
+    // TODO:- Description key is not coming,need to manage later on
+    var description: String = ""
     var includes: Includes?
     var status: String = ""
     var roomImg: String = ""
@@ -26,32 +28,37 @@ struct RoomDetailModel {
     
     init(json: JSONDictionary) {
         if let obj = json["rid"] {
-            self.rid = "\(obj)"
+            self.rid = "\(obj)".removeNull
         }
         
         if let obj = json["room_type"] {
-            self.roomType = "\(obj)"
+            self.roomType = "\(obj)".removeNull
         }
         
         if let obj = json["includes"] as? JSONDictionary {
             self.includes = Includes(json: obj)
         }
         if let obj = json["status"] {
-            self.status = "\(obj)"
+            self.status = "\(obj)".removeNull
         }
         
         if let obj = json["room_img"] {
-            self.roomImg = "\(obj)"
+            self.roomImg = "\(obj)".removeNull
         }
         
         if let obj = json["guests"] as? [JSONDictionary] {
             self.guest = GuestDetail.getModels(json: obj)
+        }
+        
+        if let obj = json["description"]  {
+            self.description = "\(obj)".removeNull
         }
     }
     
     static func getModels(json: [JSONDictionary]) -> [RoomDetailModel] {
         return json.map { RoomDetailModel(json: $0) }
     }
+    
 }
 
 
@@ -137,6 +144,7 @@ struct Cancellation {
 struct Includes {
     var inclusions: [String] = []
     var notes: [String] = []
+    var otherInclusion: [String] = []
     
     init() {
         self.init(json: [:])
@@ -147,9 +155,21 @@ struct Includes {
             self.inclusions = obj
         }
         
-        if let obj = json["notes"] as? [String] {
+        if let obj = json["Notes"] as? [String] {
             self.notes = obj
         }
+        
+        if let obj = json["Other Inclusions"] as? [String] {
+            self.otherInclusion = obj
+        }
+    }
+    
+    var inclusionString: String {
+        return self.inclusions.isEmpty ? "-" : self.inclusions.joined(separator: ",")
+    }
+    
+    var otherInclsionString: String {
+        return self.otherInclusion.isEmpty ? "-" : self.otherInclusion.joined(separator: ",")
     }
 }
 
@@ -159,6 +179,7 @@ struct GuestDetail {
     var salutation: String = ""
     var dob: String = ""
     var age: String = ""
+    var profileImage: String = ""
     
     var fullName: String {
         return "\(self.salutation) \(self.name)"
@@ -188,10 +209,30 @@ struct GuestDetail {
         if let obj = json["age"] {
             self.age = "\(obj)".removeNull
         }
+        
+        if let obj = json["profile_image"] {
+            self.profileImage = "\(obj)".removeNull
+        }
     }
     
     static func getModels(json: [JSONDictionary]) -> [GuestDetail] {
         return json.map { GuestDetail(json: $0) }
+    }
+    
+    var firstName: String {
+        let name = self.name.split(separator: " ")
+        if !name.isEmpty {
+            return String(name[0])
+        }
+        return ""
+    }
+    
+    var lastname: String {
+        let name = self.name.split(separator: " ")
+        if !name.isEmpty && name.count > 1 {
+            return String(name[1])
+        }
+        return ""
     }
 }
 
