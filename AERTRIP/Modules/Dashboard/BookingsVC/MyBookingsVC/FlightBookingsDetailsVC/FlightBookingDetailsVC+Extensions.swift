@@ -120,7 +120,7 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
                 printDebug("Present Request Reschedulling")
             } else if index == 2 {
                 if self?.viewModel.bookingDetail?.cancellationRequestAllowed ?? false {
-                    AppFlowManager.default.presentBookingReschedulingVC(usingFor: .cancellation, legs: self?.viewModel.bookingDetail?.bookingDetail?.leg ?? [])
+                    //open screen for cancellation request
                 }
                 printDebug("Present Request Cancellation")
             } else if index == 3 {
