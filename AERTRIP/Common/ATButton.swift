@@ -52,6 +52,8 @@ class ATButton: UIButton {
         }
     }
     
+    var shouldShowPressAnimation: Bool = true
+    
     override var isEnabled: Bool {
         didSet {
             self.layoutSubviews()
@@ -250,6 +252,7 @@ class ATButton: UIButton {
     }
     
     private func animateToPressedSatate() {
+        guard self.shouldShowPressAnimation else {return}
         UIView.animate(withDuration: AppConstants.kAnimationDuration / 2.0, animations: { [weak self] in
             self?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             self?.shadowLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(scaleX: 0.9, y: 0.8))
@@ -265,7 +268,7 @@ class ATButton: UIButton {
     }
     
     @objc private func animateToReleasedSatate() {
-        guard (self.currentActionState == .pressed) || self.isFingerUp else {return}
+        guard self.shouldShowPressAnimation, (self.currentActionState == .pressed) || self.isFingerUp else {return}
         UIView.animate(withDuration: AppConstants.kAnimationDuration / 2.0, animations: { [weak self] in
             self?.transform = CGAffineTransform.identity
             self?.shadowLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform.identity)

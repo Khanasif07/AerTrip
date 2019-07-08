@@ -892,11 +892,23 @@ extension AppFlowManager {
         self.mainNavigationController.present(nav, animated: true)
     }
     
+    // Present RequestCancellation
+    
+    func presentRequestCancellationVC(usingFor data: BookingReschedulingVCUsingFor = .cancellation, legs: [Leg]) {
+        let obj = BookingReschedulingVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.viewModel.usingFor = data
+        obj.viewModel.legsData = legs
+        
+        let nav = UINavigationController(rootViewController: obj)
+        nav.isNavigationBarHidden = true
+        self.mainNavigationController.present(nav, animated: true)
+    }
+    
     // Move to Booking Review Cancellation
     
-    func moveToReviewCancellationVC() {
+    func moveToReviewCancellationVC(onNavController: UINavigationController?, legs: [Leg]) {
         let obj = BookingReviewCancellationVC.instantiate(fromAppStoryboard: .Bookings)
-        self.mainNavigationController.pushViewController(obj, animated: true)
+        (onNavController ?? self.mainNavigationController).pushViewController(obj, animated: true)
     }
     
     // Move to Booking confirm email

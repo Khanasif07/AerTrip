@@ -89,6 +89,7 @@ enum APIEndPoint: String {
     case setRecentSearch = "recent-search/set"
     case bookingList = "dashboard/list-booking"
     case preferenceMaster = "addon/preference-master"
+    case cancellationRefundModeReasons = "cancellation/refund-mode-reasons"
     
     // booking Detail
     case getBookingDetails = "dashboard/get-booking-details"

@@ -21,7 +21,7 @@ class BookingReschedulingVC: BaseVC {
     
     @IBOutlet var totalNetRefundLabel: UILabel!
     @IBOutlet var totalPriceLabel: UILabel!
-    @IBOutlet var continueButton: UIButton!
+    @IBOutlet var continueButton: ATButton!
     
     // MARK: - Variables
     
@@ -47,6 +47,7 @@ class BookingReschedulingVC: BaseVC {
         self.reschedulingTableView.delegate = self
         self.reloadList()
         self.continueButton.addGredient(isVertical: false)
+        self.continueButton.shouldShowPressAnimation = false
     }
     
     func registerXib() {
@@ -96,10 +97,16 @@ class BookingReschedulingVC: BaseVC {
         }
         else {
             //show price
-            self.totalPriceLabel.text = "₹ 1,47,000"
+            self.updateTotalRefund()
             self.priceView.isHidden = false
             self.priceViewAndButtonContainerHeight.constant = 94.0
         }
+    }
+    
+    private func updateTotalRefund() {
+        let totalRef = self.viewModel.totRefund
+        self.continueButton.isEnabled = totalRef > 0.0
+        self.totalPriceLabel.text = totalRef.delimiterWithSymbol
     }
     
     func toggleCell(_ cell: BookingReschedulingPassengerAccordionTableViewCell, animated: Bool) {
@@ -139,7 +146,14 @@ class BookingReschedulingVC: BaseVC {
     }
     
     @IBAction func continueButtonTapped(_ sender: Any) {
-        AppFlowManager.default.moveToRequestReschedulingVC(onNavController: self.navigationController, legs: self.viewModel.legsData)
+        if self.viewModel.usingFor == .rescheduling {
+            //rescheduling
+            AppFlowManager.default.moveToRequestReschedulingVC(onNavController: self.navigationController, legs: self.viewModel.legsData)
+        }
+        else {
+            //cancellation
+            AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, legs: self.viewModel.legsData)
+        }
     }
     
     private func collapseCell(_ cell: BookingReschedulingPassengerAccordionTableViewCell, animated: Bool) {
@@ -245,6 +259,7 @@ class BookingReschedulingVC: BaseVC {
     }
     
     func reloadList() {
+        self.updateTotalRefund()
         self.manageSelectionTitle()
         self.reschedulingTableView.reloadData()
     }
