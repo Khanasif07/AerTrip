@@ -8,8 +8,24 @@
 
 import UIKit
 
+enum WeatherCellUsingFor {
+    case hotel
+    case flight
+}
+
 class WeatherInfoTableViewCell: UITableViewCell {
     // MARK: - Variables
+    
+    var usingFor: WeatherCellUsingFor = .flight
+    var weatherData: WeatherInfo? {
+        didSet {
+            configureCell()
+        }
+    }
+    
+    // MARK: - Public
+    
+    var isLastCell: Bool = false
     
     // MARK: ===========
     
@@ -29,7 +45,7 @@ class WeatherInfoTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.configureUI()
+        configureUI()
     }
     
     // MARK: - Functions
@@ -37,19 +53,23 @@ class WeatherInfoTableViewCell: UITableViewCell {
     // MARK: ===========
     
     private func configureUI() {
-        self.cityAndDateLabel.font = AppFonts.Regular.withSize(18.0)
-        self.tempLabel.font = AppFonts.Regular.withSize(18.0)
-        self.whetherLabel.font = AppFonts.Regular.withSize(18.0)
+        cityAndDateLabel.font = AppFonts.Regular.withSize(18.0)
+        tempLabel.font = AppFonts.Regular.withSize(18.0)
+        whetherLabel.font = AppFonts.Regular.withSize(18.0)
     }
     
-    internal func configureCell(cityName: String, date: String, temp: Int, upTemp: Int, downTemp: Int, isLastCell: Bool) {
-        self.getCityNameWithDateLabel(cityName: cityName, date: date)
-        self.tempLabel.text = temp == 0 ? "_" : "\(temp)\u{00B0}C"
-        // \u{00B0}
-        self.whetherLabel.text = upTemp == 0 || downTemp == 0 ? "_" : "☀️  \(upTemp)\u{00B0}/ \(downTemp)\u{00B0}"
-        self.containerViewBottomConstraint.constant = isLastCell ? 17.0 : 0.0
+    private func configureCell() {
+        let cityNameCode: String = "\(weatherData?.city ?? ""), \(weatherData?.countryCode ?? "")"
+        getCityNameWithDateLabel(cityName: usingFor == .hotel ? "" : cityNameCode, date: weatherData?.date?.toString(dateFormat: usingFor == .hotel ? "E, d MMM" : "d MMM") ?? "")
+        tempLabel.text = weatherData?.maxTemperature == 0 || weatherData?.minTemperature == 0 ? "-           " : "\(weatherData?.temperature ?? 0)\u{00B0}C"
+        let code: String = String(weatherData?.weatherIcon.split(separator: "-").first ?? "")
+        
+        let iconWithText = AppGlobals.shared.getTextWithImage(startText: "", image: ATWeatherType(rawValue: code)!.icon, endText: "  \(weatherData?.maxTemperature ?? 0) \u{00B0}/ \(weatherData?.minTemperature ?? 0)\u{00B0}", font: AppFonts.Regular.withSize(18.0), isEndTextBold: false)
+        whetherLabel.attributedText = weatherData?.maxTemperature == 0 ||
+            weatherData?.minTemperature == 0 ? NSAttributedString(string: "              -") : iconWithText
     }
     
+    // get city name with date attributes
     private func getCityNameWithDateLabel(cityName: String, date: String) {
         let attributedString = NSMutableAttributedString()
         let nameAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key: Any]
@@ -58,10 +78,6 @@ class WeatherInfoTableViewCell: UITableViewCell {
         let dateAttributedString = NSAttributedString(string: " " + date, attributes: dateAtrribute)
         attributedString.append(nameAttributedString)
         attributedString.append(dateAttributedString)
-        self.cityAndDateLabel.attributedText = attributedString
+        cityAndDateLabel.attributedText = attributedString
     }
-    
-    // MARK: - IBActions
-    
-    // MARK: ===========
 }

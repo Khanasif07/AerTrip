@@ -28,7 +28,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="125" height="79"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="webCheckin" translatesAutoresizingMaskIntoConstraints="NO" id="tF5-re-DTE">
-                                <rect key="frame" x="37" y="0.0" width="50" height="50"/>
+                                <rect key="frame" x="37.5" y="0.0" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="CxQ-0v-xHg"/>
                                     <constraint firstAttribute="width" secondItem="tF5-re-DTE" secondAttribute="height" multiplier="1:1" id="wxX-Bu-bSj"/>
@@ -56,11 +56,11 @@
                             <constraint firstAttribute="trailing" secondItem="VHS-On-RlR" secondAttribute="trailing" id="AhN-lX-Cdw"/>
                             <constraint firstAttribute="height" constant="79" id="BDH-1y-jmb"/>
                             <constraint firstItem="VHS-On-RlR" firstAttribute="top" secondItem="gdw-iz-RBT" secondAttribute="top" id="ECF-pw-Ny1"/>
+                            <constraint firstItem="tF5-re-DTE" firstAttribute="centerX" secondItem="gdw-iz-RBT" secondAttribute="centerX" id="Jvb-PC-H7a"/>
                             <constraint firstItem="VHS-On-RlR" firstAttribute="leading" secondItem="kt5-VD-iA8" secondAttribute="trailing" constant="9.5" id="Ozp-Ns-DL7"/>
                             <constraint firstItem="kt5-VD-iA8" firstAttribute="leading" secondItem="gdw-iz-RBT" secondAttribute="leading" constant="10" id="Qxt-7R-m5w"/>
                             <constraint firstItem="tF5-re-DTE" firstAttribute="top" secondItem="gdw-iz-RBT" secondAttribute="top" id="WdR-Zx-74h"/>
                             <constraint firstAttribute="bottom" secondItem="kt5-VD-iA8" secondAttribute="bottom" constant="3" id="oLq-an-ub0"/>
-                            <constraint firstItem="tF5-re-DTE" firstAttribute="leading" secondItem="gdw-iz-RBT" secondAttribute="leading" constant="37" id="zoc-D4-95Q"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -76,13 +76,12 @@
                 <outlet property="containerView" destination="gdw-iz-RBT" id="zxt-xx-AZG"/>
                 <outlet property="dividerView" destination="VHS-On-RlR" id="fr6-zr-hld"/>
                 <outlet property="imageViewHeightConstraint" destination="CxQ-0v-xHg" id="9hd-hg-jGJ"/>
-                <outlet property="imageViewLeadingConstraint" destination="zoc-D4-95Q" id="Mcw-KG-77G"/>
                 <outlet property="imageViewTopConstraint" destination="WdR-Zx-74h" id="jlw-bT-s8g"/>
                 <outlet property="optionImageView" destination="tF5-re-DTE" id="qAC-Sr-STm"/>
                 <outlet property="optionNameLabel" destination="kt5-VD-iA8" id="nNn-aT-a1k"/>
                 <outlet property="titleTopConstraint" destination="4xg-6p-O28" id="IkN-IS-YlZ"/>
             </connections>
-            <point key="canvasLocation" x="138.40579710144928" y="86.71875"/>
+            <point key="canvasLocation" x="105" y="27"/>
         </collectionViewCell>
     </objects>
     <resources>

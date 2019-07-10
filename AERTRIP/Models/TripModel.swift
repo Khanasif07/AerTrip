@@ -25,7 +25,7 @@ struct TripModel {
             return is_default == "1"
         }
         
-        set{
+        set {
             is_default = isDefault ? "1" : "0"
         }
     }

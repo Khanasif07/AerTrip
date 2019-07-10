@@ -18,32 +18,38 @@ protocol SelectTripVMDelegate: class {
     func moveAndUpdateTripAPIFail()
 }
 
+enum TripUsingFor {
+    case bookingTripChange
+    case hotel
+    case bookingAddToTrip
+}
+
 class SelectTripVM {
+    // MARK: - Properties
     
-    //MARK:- Properties
-    //MARK:- Public
+    // MARK: - Public
+    
     var selectedIndexPath: IndexPath?
     var delegate: SelectTripVMDelegate?
     var tripDetails: TripDetails?
     
-    var allTrips: [TripModel] = []
+    var usingFor: TripUsingFor = .hotel
     
+    var allTrips: [TripModel] = []
     var eventId: String = ""
     
-    var isFromBooking: Bool = false
+    // MARK: - Private
     
-    //MARK:- Private
+    // MARK: - Methods
     
+    // MARK: - Private
     
-    //MARK:- Methods
-    //MARK:- Private
-
+    // MARK: - Public
     
-    //MARK:- Public
     func fetchAllTrips() {
-        self.delegate?.willFetchAllTrips()
+        delegate?.willFetchAllTrips()
         
-        APICaller.shared.getAllTripsAPI { (success, errors, trips, defaultTrip) in
+        APICaller.shared.getAllTripsAPI { _, _, trips, _ in
             self.allTrips = trips
             self.delegate?.fetchAllTripsSuccess()
         }
@@ -55,9 +61,9 @@ class SelectTripVM {
         param["event_id[]"] = tripDetails?.event_id ?? ""
         param["move_id[]"] = selectedTrip.id
         
-        self.delegate?.willMoveAndUpdateTripAPI()
-        APICaller.shared.tripsEventMoveAPI(params: param) { [weak self](success, errors, eventId) in
-            guard let sSelf = self else {return}
+        delegate?.willMoveAndUpdateTripAPI()
+        APICaller.shared.tripsEventMoveAPI(params: param) { [weak self] success, _, eventId in
+            guard let sSelf = self else { return }
             if success, let id = eventId {
                 sSelf.eventId = id
                 sSelf.tripDetails?.trip_id = selectedTrip.id
@@ -70,13 +76,12 @@ class SelectTripVM {
     }
     
     private func saveMovedTrip() {
-        
         var param: JSONDictionary = ["event_id": self.eventId]
         param["trip_id"] = tripDetails?.trip_id ?? ""
         param["booking_id"] = tripDetails?.booking_id ?? ""
         
-        APICaller.shared.tripsUpdateBookingAPI(params: param) { [weak self](success, errors) in
-            guard let sSelf = self else {return}
+        APICaller.shared.tripsUpdateBookingAPI(params: param) { [weak self] success, _ in
+            guard let sSelf = self else { return }
             if success {
                 sSelf.tripDetails?.event_id = sSelf.eventId
                 sSelf.delegate?.moveAndUpdateTripAPISuccess()

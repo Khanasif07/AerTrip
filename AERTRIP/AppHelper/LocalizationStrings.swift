@@ -740,6 +740,10 @@ enum LocalizedString: String {
     case CancellationRequestMessage
     case BookingConfirmationInfo
     case ETicket
+    case TripName
+    case AddToCalender
+    case AddToTrips
+    case BookSameFlight
     
     // Booking Action sheet text
     case RequestAddOnAndFrequentFlyer
@@ -922,4 +926,5 @@ enum LocalizedString: String {
     case OtherBookingTitle
     case MealBookingTitle
     case SeatBookingTitle
+    case SpaceWithHiphen
 }

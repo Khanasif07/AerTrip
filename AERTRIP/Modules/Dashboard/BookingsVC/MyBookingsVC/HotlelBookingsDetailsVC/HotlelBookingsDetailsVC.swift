@@ -24,6 +24,9 @@ class HotlelBookingsDetailsVC: BaseVC {
         return UIDevice.isIPhoneX ? 84.0 : 64.0
     }
     
+    var tripChangeIndexPath: IndexPath?
+    var updatedTripDetail: TripModel?
+    
     // MARK: - IBOutlets
     
     // MARK: -
@@ -119,6 +122,8 @@ class HotlelBookingsDetailsVC: BaseVC {
         self.bookingDetailsTableView.registerCell(nibName: WeatherHeaderTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: WeatherInfoTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: WeatherFooterTableViewCell.reusableIdentifier)
+        self.bookingDetailsTableView.registerCell(nibName: TripChangeTableViewCell.reusableIdentifier)
+        self.bookingDetailsTableView.registerCell(nibName: BookingCommonActionTableViewCell.reusableIdentifier)
     }
 }
 
@@ -134,7 +139,10 @@ extension HotlelBookingsDetailsVC: BookingProductDetailVMDelegate {
         self.bookingDetailsTableView.dataSource = self
         self.viewModel.getSectionDataForHotelDetail()
         self.bookingDetailsTableView.reloadData()
+        self.viewModel.getTripOwnerApi()
     }
     
-    func getBookingDetailFaiure() {}
+    func getBookingDetailFaiure(error: ErrorCodes) {
+        AppGlobals.shared.startLoading()
+    }
 }

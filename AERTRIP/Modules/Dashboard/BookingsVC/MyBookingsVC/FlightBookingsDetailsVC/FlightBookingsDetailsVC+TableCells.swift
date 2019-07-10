@@ -26,7 +26,7 @@ extension FlightBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightBookingRequestsTableViewCell.reusableIdentifier, for: indexPath) as? FlightBookingRequestsTableViewCell else { return UITableViewCell() }
         let noOfCellAboveRequest = 2
         let noOfCases = self.viewModel.bookingDetail?.cases.count ?? 1
-        cell.configureCell(requestName: self.viewModel.bookingDetail?.cases[indexPath.row - (noOfCellAboveRequest - 1)].caseType ?? "", actionStatus: self.viewModel.bookingDetail?.cases[indexPath.row - (noOfCellAboveRequest - 1)].resolutionStatus ?? ResolutionStatus.aborted, isFirstCell: noOfCellAboveRequest - 1 == indexPath.row, isLastCell: (indexPath.row) == noOfCases, isStatusExpired: false)
+        cell.configureCell(requestName: self.viewModel.bookingDetail?.cases[indexPath.row - (noOfCellAboveRequest - 1)].caseType ?? "", actionStatus: self.viewModel.bookingDetail?.cases[indexPath.row - (noOfCellAboveRequest - 1)].resolutionStatus ?? ResolutionStatus.aborted, isFirstCell: noOfCellAboveRequest - 1 == indexPath.row, isLastCell: indexPath.row == noOfCases, isStatusExpired: false)
         cell.clipsToBounds = true
         return cell
     }
@@ -40,7 +40,7 @@ extension FlightBookingsDetailsVC {
     
     func getReschedulingRequestCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightBookingRequestsTableViewCell.reusableIdentifier, for: indexPath) as? FlightBookingRequestsTableViewCell else { return UITableViewCell() }
-        cell.configureCell(requestName: "Rescheduling Request", actionStatus: ResolutionStatus.inProgress, actionStatusColor: AppColors.themeGreen, isFirstCell: false, isLastCell: (indexPath.row == 3), isStatusExpired: false)
+        cell.configureCell(requestName: "Rescheduling Request", actionStatus: ResolutionStatus.inProgress, actionStatusColor: AppColors.themeGreen, isFirstCell: false, isLastCell: indexPath.row == 3, isStatusExpired: false)
         cell.clipsToBounds = true
         return cell
     }
@@ -117,7 +117,7 @@ extension FlightBookingsDetailsVC {
         } else if traveller?.status.lowercased() == "pending" {
             cell.pnrStatus = .pending
         }
-        cell.configCell(travellersImage: "", travellerName: traveller?.paxName ?? "", travellerPnrStatus: traveller?.status == "booked" ? traveller?.pnr ?? "" : traveller?.status.capitalizedFirst() ?? "", firstName: traveller?.firstName ?? "", lastName: traveller?.lastName ?? "", isLastTraveller: (indexPath.row - 2 == leg?.pax.count))
+        cell.configCell(travellersImage: "", travellerName: traveller?.paxName ?? "", travellerPnrStatus: traveller?.status == "booked" ? traveller?.pnr ?? "" : traveller?.status.capitalizedFirst() ?? "", firstName: traveller?.firstName ?? "", lastName: traveller?.lastName ?? "", isLastTraveller: indexPath.row - 2 == leg?.pax.count)
         cell.clipsToBounds = true
         return cell
     }
@@ -206,6 +206,47 @@ extension FlightBookingsDetailsVC {
         return cell
     }
     
+    func getAddToCalenderCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingCommonActionTableViewCell.reusableIdentifier, for: indexPath) as? BookingCommonActionTableViewCell else { return UITableViewCell() }
+        cell.usingFor = .addToCalender
+        cell.configureCell(buttonImage: #imageLiteral(resourceName: "greenCalenderIcon"), buttonTitle: LocalizedString.AddToCalender.localized)
+        return cell
+    }
+    
+    func getAddToTripsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingCommonActionTableViewCell.reusableIdentifier, for: indexPath) as? BookingCommonActionTableViewCell else { return UITableViewCell() }
+        cell.usingFor = .addToTrips
+        cell.configureCell(buttonImage: #imageLiteral(resourceName: "greenAddToTripIcon"), buttonTitle: LocalizedString.AddToTrips.localized)
+        return cell
+    }
+    
+    func getBookSameFlightCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingCommonActionTableViewCell.reusableIdentifier, for: indexPath) as? BookingCommonActionTableViewCell else { return UITableViewCell() }
+        cell.usingFor = .bookSameFlight
+        cell.configureCell(buttonImage: #imageLiteral(resourceName: "greenFlightIcon"), buttonTitle: LocalizedString.BookSameFlight.localized)
+        return cell
+    }
+    
+    func getAddToWalletCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingCommonActionTableViewCell.reusableIdentifier, for: indexPath) as? BookingCommonActionTableViewCell else { return UITableViewCell() }
+        cell.usingFor = .addToAppleWallet
+        cell.configureCell(buttonImage: #imageLiteral(resourceName: "AddToAppleWallet"), buttonTitle: LocalizedString.AddToAppleWallet.localized)
+        return cell
+    }
+    
+    func getTripChangeCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        guard let tripChangeCell = tableView.dequeueReusableCell(withIdentifier: TripChangeTableViewCell.reusableIdentifier, for: indexPath) as? TripChangeTableViewCell else {
+            return UITableViewCell()
+        }
+        if let _ = self.tripChangeIndexPath, updatedTripDetail != nil {
+            tripChangeCell.configureCell(tripName: self.updatedTripDetail?.name ?? "")
+        } else {
+            tripChangeCell.configureCell(tripName: self.viewModel.bookingDetail?.tripInfo?.name ?? "")
+        }
+        
+        return tripChangeCell
+    }
+    
     func getWeatherHeaderCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherHeaderTableViewCell.reusableIdentifier, for: indexPath) as? WeatherHeaderTableViewCell else { return UITableViewCell() }
         cell.seeAllBtnOutlet.isHidden = self.viewModel.bookingDetail?.tripWeatherData.count ?? 0 < 6
@@ -216,7 +257,10 @@ extension FlightBookingsDetailsVC {
     
     func getWeatherInfoCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherInfoTableViewCell.reusableIdentifier, for: indexPath) as? WeatherInfoTableViewCell else { return UITableViewCell() }
-        cell.configureCell(cityName: " \(self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1].city ?? "") , \(self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1].countryCode ?? "")", date: self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1].date?.toString(dateFormat: "dd MMM") ?? "", temp: self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1].temperature ?? 0, upTemp: self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1].maxTemperature ?? 0, downTemp: self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1].minTemperature ?? 0, isLastCell: indexPath.row == (self.viewModel.bookingDetail?.tripWeatherData.count ?? 0))
+        cell.usingFor = .flight
+        cell.weatherData = self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1]
+        
+        cell.isLastCell = indexPath.row == (self.viewModel.bookingDetail?.tripWeatherData.count ?? 0)
         cell.clipsToBounds = true
         return cell
     }

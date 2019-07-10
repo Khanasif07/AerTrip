@@ -482,11 +482,11 @@ enum ProductType: Int, CaseIterable {
 }
 
 enum ATVoucherType: String {
-    case sales = "sales"
+    case sales
     case salesAddon = "sales_addon"
     case saleReturn = "sales_return_jv"
     case saleReschedule = "reschedule_sales_return_jv"
-    case none = "none"
+    case none
     
     init?(rawValue: String) {
         switch rawValue {
@@ -502,7 +502,6 @@ enum ATVoucherType: String {
     var value: String {
         return self.rawValue
     }
-    
 }
 
 enum ATFileType: RawRepresentable {
@@ -595,38 +594,38 @@ extension URL {
 
 // App Enum for Weather type icon
 
-enum WeatherType: String {
-    case none = "ic_none"
-    case clearSky = "ic_clearsky"
-    case fewClouds = "ic_fewclouds"
-    case scatteredClouds = "ic_scatteredclouds"
-    case brokenClouds = "ic_brokenclouds"
-    case showerRain = "ic_showerrain"
-    case rain = "ic_rain"
-    case thunderStorm = "ic_thunderstorm"
-    case snow = "ic_snow"
-    case mist = "ic_mist"
-    
-    init?(rawValue: String) {
-        let final = "ic_\(rawValue.removeAllWhitespaces.lowercased())"
-        switch final {
-        case "ic_clearsky": self = .clearSky
-        case "ic_fewclouds": self = .fewClouds
-        case "ic_scatteredclouds": self = .scatteredClouds
-        case "ic_brokenclouds": self = .brokenClouds
-        case "ic_showerrain": self = .showerRain
-        case "ic_rain": self = .rain
-        case "ic_thunderstorm": self = .thunderStorm
-        case "ic_snow": self = .snow
-        case "ic_mist": self = .mist
-        default: self = .none
-        }
-    }
-    
-    var iconImage: UIImage {
-        return #imageLiteral(resourceName: self.rawValue)
-    }
-}
+// enum WeatherType: String {
+//    case none = "ic_none"
+//    case clearSky = "ic_clearsky"
+//    case fewClouds = "ic_fewclouds"
+//    case scatteredClouds = "ic_scatteredclouds"
+//    case brokenClouds = "ic_brokenclouds"
+//    case showerRain = "ic_showerrain"
+//    case rain = "ic_rain"
+//    case thunderStorm = "ic_thunderstorm"
+//    case snow = "ic_snow"
+//    case mist = "ic_mist"
+//
+//    init?(rawValue: String) {
+//        let final = "ic_\(rawValue.removeAllWhitespaces.lowercased())"
+//        switch final {
+//        case "ic_clearsky": self = .clearSky
+//        case "ic_fewclouds": self = .fewClouds
+//        case "ic_scatteredclouds": self = .scatteredClouds
+//        case "ic_brokenclouds": self = .brokenClouds
+//        case "ic_showerrain": self = .showerRain
+//        case "ic_rain": self = .rain
+//        case "ic_thunderstorm": self = .thunderStorm
+//        case "ic_snow": self = .snow
+//        case "ic_mist": self = .mist
+//        default: self = .none
+//        }
+//    }
+//
+//    var iconImage: UIImage {
+//        return #imageLiteral(resourceName: self.rawValue)
+//    }
+// }
 
 enum ResolutionStatus: RawRepresentable {
     case paymentPending
@@ -679,6 +678,80 @@ enum ResolutionStatus: RawRepresentable {
         case .open: return AppColors.themeGreen
         case .confirmationPending: return AppColors.themeRed
         case .canceled: return AppColors.themeGreen
+        }
+    }
+}
+
+// MARK: - ATWeatherType icon
+
+enum ATWeatherType: RawRepresentable {
+    case clearSky(code: String)
+    case fewClouds(code: String)
+    case scatteredClouds(code: String)
+    case brokenClouds(code: String)
+    case showerRain(code: String)
+    case rain(code: String)
+    case thunderStorm(code: String)
+    case snow(code: String)
+    case mist(code: String)
+    
+    init?(rawValue: String) {
+        switch rawValue.lowercased() {
+        case "800":
+            self = .clearSky(code: rawValue)
+            
+        case "801":
+            self = .fewClouds(code: rawValue)
+            
+        case "802":
+            self = .scatteredClouds(code: rawValue)
+            
+        case "803", "804":
+            self = .brokenClouds(code: rawValue)
+            
+        case "300", "301", "302", "310", "311", "312", "313", "314", "321", "520", "521", "522", "531":
+            self = .showerRain(code: rawValue)
+            
+        case "500", "501", "502", "503", "504":
+            self = .rain(code: rawValue)
+            
+        case "200", "201", "202", "210", "211", "212", "221", "230", "231", "232":
+            self = .thunderStorm(code: rawValue)
+            
+        case "511", "600", "601", "602", "611", "612", "613", "614", "615", "620", "621", "622":
+            self = .snow(code: rawValue)
+        case "701", "711", "721", "731", "741", "751", "761", "771", "781":
+            self = .mist(code: rawValue)
+        default:
+            self = .clearSky(code: rawValue)
+        }
+    }
+    
+    var rawValue: String {
+        switch self {
+        case .clearSky(let ext): return ext
+        case .fewClouds(let ext): return ext
+        case .scatteredClouds(let ext): return ext
+        case .brokenClouds(let ext): return ext
+        case .showerRain(let ext): return ext
+        case .rain(let ext): return ext
+        case .thunderStorm(let ext): return ext
+        case .snow(let ext): return ext
+        case .mist(let ext): return ext
+        }
+    }
+    
+    var icon: UIImage {
+        switch self {
+        case .clearSky: return #imageLiteral(resourceName: "ic_clearsky")
+        case .fewClouds: return #imageLiteral(resourceName: "ic_fewclouds")
+        case .scatteredClouds: return #imageLiteral(resourceName: "ic_scatterclouds")
+        case .brokenClouds: return #imageLiteral(resourceName: "ic_brokenclouds")
+        case .showerRain: return #imageLiteral(resourceName: "ic_showrain")
+        case .thunderStorm: return #imageLiteral(resourceName: "ic_thunderstorm")
+        case .rain:  return #imageLiteral(resourceName: "ic_rain")
+        case .snow:  return #imageLiteral(resourceName: "ic_snow")
+        case .mist:  return #imageLiteral(resourceName: "ic_mist")
         }
     }
 }

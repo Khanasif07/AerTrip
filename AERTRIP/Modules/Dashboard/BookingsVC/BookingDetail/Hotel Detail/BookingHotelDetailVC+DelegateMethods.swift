@@ -17,17 +17,16 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         // hotelImages cell,checkInCeckOut,ratings etc
         if section == 0 {
             return 4
             
-        // Room data details
+            // Room data details
         } else if section >= 1, section <= self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0 {
             return 5
-           // Adress,phone,website,overview and amenities
+            // Adress,phone,website,overview and amenities
         } else if section == ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) + 1) {
-            return 5
+            return 6
         }
         return 0
     }
@@ -41,17 +40,17 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
             return getHeightForRoomSection(indexPath)
             // Adress,phone,website,overview and amenities
         } else if indexPath.section == ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) + 1) {
-            return UITableView.automaticDimension
+            return getHeightForLastSection(indexPath)
         }
         
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         // height for hotelImages cell,checkInCeckOut,ratings etc
+        // height for hotelImages cell,checkInCeckOut,ratings etc
         if indexPath.section == 0 {
-          return getCellForFirstSection(indexPath)
-             // height for room details cell
+            return getCellForFirstSection(indexPath)
+            // height for room details cell
         } else if indexPath.section >= 1, indexPath.section <= self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0 {
             return getCellForRoomSection(indexPath)
             // Adress,phone,website,overview and amenities
@@ -63,34 +62,29 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section >= 1 && section <= self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0   {
+        if section >= 1, section <= self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0 {
             return UITableView.automaticDimension
         } else {
-           return 0
+            return 0
         }
     }
     
     // header for footer
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if  section == ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) + 1) {
+        if section == ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) + 1) {
             return 35.0
         } else {
             return 0
         }
     }
     
-    
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return 93.0
     }
     
-    
-    
-   
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         // Room Data Header section
-        if section >= 1 && section <= self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0  {
+        if section >= 1, section <= self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0 {
             guard let headerView = self.hotelDetailTableView.dequeueReusableHeaderFooterView(withIdentifier: "BookingHDRoomDetailHeaderView") as? BookingHDRoomDetailHeaderView else {
                 fatalError("BookingHDRoomDetailHeaderView not found ")
             }
@@ -108,23 +102,19 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
                 fatalError("BookingInfoFooterView not found")
             }
             return footerView
-           
         }
-      
         
         return nil
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
-            if indexPath.row == 5 { // Address Cell {
+        if indexPath.section == ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) + 1) {
+            if indexPath.row == 0 { // Address Cell {
                 self.openMaps()
-            } else if indexPath.row == 8 { // Overview cell {
-                // AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel.hotelData.info)
-            } else if indexPath.row == 10 {
-                //   let locid = self.viewModel.hotelData.locid
-                //  AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel.hotelData.hid)
-                // printDebug(locid + "location id is empty")
+            } else if indexPath.row == 3, (self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "") != LocalizedString.SpaceWithHiphen.localized { // Overview cell {
+                AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel.bookingDetail?.bookingDetail?.info ?? "")
+            } else if indexPath.row == 5 {
+                AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel.bookingDetail?.bookingDetail?.hotelId ?? "")
             }
         }
     }
@@ -158,7 +148,7 @@ extension BookingHotelDetailVC: TopNavigationViewDelegate {
 extension BookingHotelDetailVC: HotelDetailAmenitiesCellDelegate {
     // TODO: - Amentities data not coming
     func viewAllButtonAction() {
-        // AppFlowManager.default.showHotelDetailAmenitiesVC(hotelDetails: self.viewModel.hotelData)
+        AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: self.viewModel.bookingDetail?.bookingDetail?.amenitiesGroups ?? [:], amentites: self.viewModel.bookingDetail?.bookingDetail?.amenities)
     }
 }
 

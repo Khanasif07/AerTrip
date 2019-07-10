@@ -8,10 +8,9 @@
 
 import UIKit
 
-//Mark:- UITableView Delegate DataSource
+// Mark:- UITableView Delegate DataSource
 //======================================
 extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.sectionData.count
     }
@@ -21,10 +20,9 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let hotelDetails = self.viewModel , let rates = hotelDetails.rates?.first else { return UITableViewCell() }
+        guard let hotelDetails = self.viewModel, let rates = hotelDetails.rates?.first else { return UITableViewCell() }
         let sectionData = self.sectionData[indexPath.section]
         switch sectionData[indexPath.row] {
-            
         case .imageSlideCell:
             let cell = self.getImageSlideCell(indexPath: indexPath, hotelDetails: hotelDetails)
             return cell
@@ -52,7 +50,7 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
         case .roomBedsTypeCell:
-            if let cell = self.getBedDeailsCell(indexPath: indexPath, ratesData: rates, roomData: self.roomRates[indexPath.section - 2]){
+            if let cell = self.getBedDeailsCell(indexPath: indexPath, ratesData: rates, roomData: self.roomRates[indexPath.section - 2]) {
                 return cell
             }
         case .inclusionCell:
@@ -81,17 +79,16 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
     
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             if (tableView.cellForRow(at: indexPath) as? HotelInfoAddressCell) != nil {
                 if indexPath.row == 2 {
-                    guard let parentVC = self.parentViewController as? HCDataSelectionVC , let reqParams = parentVC.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel else { return }
+                    guard let parentVC = self.parentViewController as? HCDataSelectionVC, let reqParams = parentVC.viewModel.hotelSearchRequest?.requestParameters, let destParams = self.viewModel else { return }
                     AppGlobals.shared.redirectToMap(sourceView: self, originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
                 } else if indexPath.row == 3 {
                     AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel?.info ?? "")
                 }
-            } else if (tableView.cellForRow(at: indexPath) as? TripAdvisorTableViewCell) != nil , let locid = self.viewModel?.locid {
+            } else if (tableView.cellForRow(at: indexPath) as? TripAdvisorTableViewCell) != nil, let locid = self.viewModel?.locid {
                 !locid.isEmpty ? AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel?.hid ?? "") : printDebug(locid + "location id is empty")
             }
         }
@@ -102,12 +99,12 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 , indexPath.row == 2 {
+        if indexPath.section == 0, indexPath.row == 2 {
             if let hotelData = self.viewModel {
                 let text = hotelData.address + "Maps   "
                 let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
                 return size.height + 46.5
-                    + 21.0  + 2.0//y of textview 46.5 + bottom space 14.0 + 7.0
+                    + 21.0 + 2.0 // y of textview 46.5 + bottom space 14.0 + 7.0
             }
         }
         return UITableView.automaticDimension
@@ -115,7 +112,6 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension HotelCheckOutDetailsVIew: GetFullInfoDelegate {
-    
     func expandCell(expandHeight: CGFloat, indexPath: IndexPath) {
         if !allIndexPath.contains(indexPath) {
             self.allIndexPath.append(indexPath)
@@ -126,7 +122,6 @@ extension HotelCheckOutDetailsVIew: GetFullInfoDelegate {
 }
 
 extension HotelCheckOutDetailsVIew: TopNavigationViewDelegate {
-    
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         delegate?.addHotelInFevList()
     }
@@ -136,31 +131,30 @@ extension HotelCheckOutDetailsVIew: TopNavigationViewDelegate {
     }
 }
 
-//Mark:- HotelDetailAmenitiesCellDelegate
+// Mark:- HotelDetailAmenitiesCellDelegate
 //=======================================
 extension HotelCheckOutDetailsVIew: HotelDetailAmenitiesCellDelegate {
     func viewAllButtonAction() {
         if let hotelData = self.viewModel {
-            AppFlowManager.default.showHotelDetailAmenitiesVC(hotelDetails: hotelData)
+            AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: hotelData.amenitiesGroups ?? [:], amentites: hotelData.amenities)
         }
     }
 }
 
-//Mark:- ScrollView Delegate
+// Mark:- ScrollView Delegate
 //==========================
 extension HotelCheckOutDetailsVIew: UIScrollViewDelegate {
     private func manageHeaderView(_ scrollView: UIScrollView) {
         let yOffset = scrollView.contentOffset.y
         if (hotelImageHeight - headerView.height) < yOffset {
-            //show
+            // show
             self.headerView.navTitleLabel.text = self.hotelInfo?.hotelName
             self.headerView.animateBackView(isHidden: false, completion: nil)
             let selectedFevImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
             self.headerView.leftButton.setImage(selectedFevImage, for: .normal)
             self.headerView.firstRightButton.setImage(#imageLiteral(resourceName: "black_cross"), for: .normal)
-        }
-        else {
-            //hide
+        } else {
+            // hide
             self.headerView.navTitleLabel.text = ""
             self.headerView.animateBackView(isHidden: true, completion: nil)
             let buttonImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
@@ -178,7 +172,7 @@ extension HotelCheckOutDetailsVIew: UIScrollViewDelegate {
     }
 }
 
-//Mark:- HotelDetailsImgSlideCellDelegate
+// Mark:- HotelDetailsImgSlideCellDelegate
 //=======================================
 extension HotelCheckOutDetailsVIew: HotelDetailsImgSlideCellDelegate {
     func hotelImageTapAction(at index: Int) {
@@ -198,7 +192,6 @@ extension HotelCheckOutDetailsVIew: HotelDetailsImgSlideCellDelegate {
 // Mark:- ATGallery Delegate And Datasource
 //========================================
 extension HotelCheckOutDetailsVIew: ATGalleryViewDelegate, ATGalleryViewDatasource {
-    
     func numberOfImages(in galleryView: ATGalleryViewController) -> Int {
         return self.viewModel?.photos.count ?? 0
     }
@@ -216,11 +209,10 @@ extension HotelCheckOutDetailsVIew: ATGalleryViewDelegate, ATGalleryViewDatasour
     }
 }
 
-
 extension HotelCheckOutDetailsVIew: HotelRatingInfoCellDelegate {
     func shareButtonAction(_ sender: UIButton) {
         if let parentVC = self.parentViewController {
-            AppGlobals.shared.shareWithActivityViewController(VC: parentVC , shareData: "https://beta.aertrip.com")
+            AppGlobals.shared.shareWithActivityViewController(VC: parentVC, shareData: "https://beta.aertrip.com")
         }
     }
 }

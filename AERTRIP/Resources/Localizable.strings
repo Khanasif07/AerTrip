@@ -667,6 +667,10 @@
 "NetRefund" = "Net Refund";
 "CancellationRequestSent" = "Cancellation Request has been sent";
 "CancellationRequestMessage" = "Our Customer Service Represenstative will contact you soon regarding this enquiry.";
+"TripName" = "Trip Name";
+"AddToCalender" = "Add to Calender";
+"AddToTrips" = "Add to Trips";
+"BookSameFlight" = "Book same flight";
 
 
 // Booking Action sheet option
@@ -843,5 +847,6 @@
 "OtherBookingTitle" = "Others";
 "MealBookingTitle" = "Meal Booking";
 "SeatBookingTitle" = "Seat Booking";
+"SpaceWithHiphen" = " -";
 
 

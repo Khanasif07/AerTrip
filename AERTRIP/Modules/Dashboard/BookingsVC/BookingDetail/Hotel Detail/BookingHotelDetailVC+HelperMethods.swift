@@ -8,21 +8,18 @@
 
 import Foundation
 
-
 extension BookingHotelDetailVC {
-    
-    
     func openMaps() {
         // setting source and destination latitute logitude same for now
         
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.OpenInMaps.localized,LocalizedString.OpenInGoogleMaps.localized], colors: [AppColors.themeGreen,AppColors.themeGreen])
- 
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.OpenInMaps.localized, LocalizedString.OpenInGoogleMaps.localized], colors: [AppColors.themeGreen, AppColors.themeGreen])
         
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             if index == 0 {
-               // AppGlobals.shared.openAppleMap(originLat: self.viewModel.hotelData.lat, originLong: self.viewModel.hotelData.long, destLat: self.viewModel.hotelData.lat, destLong: self.viewModel.hotelData.long)
+                // TODO: Need to manage the  and test marker on Map
+                AppGlobals.shared.openAppleMap(originLat: "", originLong: "", destLat: self.viewModel.bookingDetail?.bookingDetail?.latitude ?? "", destLong: self.viewModel.bookingDetail?.bookingDetail?.longitude ?? "")
             } else {
-               // AppGlobals.shared.openGoogleMaps(originLat: self.viewModel.hotelData.lat, originLong: self.viewModel.hotelData.long, destLat: self.viewModel.hotelData.long, destLong: self.viewModel.hotelData.long)
+                AppGlobals.shared.openGoogleMaps(originLat: "", originLong: "", destLat: self.viewModel.bookingDetail?.bookingDetail?.latitude ?? "", destLong: self.viewModel.bookingDetail?.bookingDetail?.longitude ?? "")
             }
         }
     }
@@ -66,14 +63,13 @@ extension BookingHotelDetailVC {
         }
     }
     
-    
     func getCellForRoomSection(_ indexPath: IndexPath) -> UITableViewCell {
         guard let roomDetailCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "BookingHDRoomDetailTableViewCell") as? BookingHDRoomDetailTableViewCell else {
             fatalError("BookingHDRoomDetailTableViewCell not found")
         }
         switch indexPath.row {
         case 0: // Beds Cell
-            //TODO:- This key is not coming in the api ,need to manage this.
+            // TODO: - This key is not coming in the api ,need to manage this.
             roomDetailCell.configureCell(title: "Beds", text: "2 Single Beds")
             return roomDetailCell
             
@@ -81,7 +77,7 @@ extension BookingHotelDetailVC {
             roomDetailCell.configureCell(title: "Inclusions", text: self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.inclusionString ?? "")
             return roomDetailCell
             
-        case 2:  // Other inclusion cell
+        case 2: // Other inclusion cell
             roomDetailCell.configureCell(title: "Other Inclusions", text: self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.otherInclsionString ?? "")
             return roomDetailCell
         case 3: // Note Cell
@@ -103,67 +99,64 @@ extension BookingHotelDetailVC {
             guestCell.isToShowBottomView = false
             return guestCell
             
-            
         default: return UITableViewCell()
-            
         }
     }
     
     func getCellForLastSection(_ indexPath: IndexPath) -> UITableViewCell {
-         guard let phoneWebCommonCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "BookingHDWebPhoneTableViewCell") as? BookingHDWebPhoneTableViewCell else { return UITableViewCell() }
+        guard let phoneWebCommonCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "BookingHDWebPhoneTableViewCell") as? BookingHDWebPhoneTableViewCell else { return UITableViewCell() }
         
         switch indexPath.row {
         case 0:
             // Address Cell
             guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
             cell.deviderView.isHidden = true
-            cell.configureAddressCell(isForBooking: true,address: self.viewModel.bookingDetail?.bookingDetail?.hotelAddressDetail ?? "")
+            cell.configureAddressCell(isForBooking: true, address: self.viewModel.bookingDetail?.bookingDetail?.hotelAddressDetail ?? "")
             return cell
             
         case 1: // Phone Detail Cell
             phoneWebCommonCell.configureCell(title: "Phone", text: self.viewModel.bookingDetail?.bookingDetail?.phoneDetail ?? "")
             return phoneWebCommonCell
             
-            // Website Detail Cell
+        // Website Detail Cell
         case 2:
             phoneWebCommonCell.configureCell(title: "Website", text: self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? "")
             return phoneWebCommonCell
         case 3: // Overview Cell
             guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
-            let info = "This hotel is located in Juhu, Mumbai. It lies close to the happening Juhu beach and is just 1.5 km from the main train station. The domestic airport is just 3 km from the accommodation.  This hotel caters to the needs of both business and leisure travellers and features an on-site bar and restaurant.  A room at the hotel begins with a liberating sense of space. Designed to inspire, its beauty connects with the surrounding environment, while ensuring comfort and convenience. Guests can enjoy a restful sleep in these rooms, as each sensory detail has been carefully refined to be just right.  The hotel's multi-cuisine restaurant and bar offer a tempting range of sizzlers, Chinese cuisine, tandoori delights and continental dishes. Cocktails are also available."
-             cell.configureOverviewCell(isForBooking: true, overview: info)
+            cell.configureOverviewCell(isForBooking: true, overview: self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "")
             return cell
         case 4: // Amentities Cell
             guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelDetailAmenitiesCell", for: indexPath) as? HotelDetailAmenitiesCell else { return UITableViewCell() }
             cell.delegate = self
-            // cell.amenitiesDetails = self.viewModel.hotelData.amenities
+            cell.amenitiesDetails = self.viewModel.bookingDetail?.bookingDetail?.amenities
             return cell
             
         case 5: // Trip Advisor Cell
             guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "TripAdvisorTableViewCell", for: indexPath) as? TripAdvisorTableViewCell else { return UITableViewCell() }
             
             return cell
-        default: return  UITableViewCell()
+        default: return UITableViewCell()
         }
     }
     
-    
     func getHeightForRowSecondSection(_ indexPath: IndexPath) -> CGFloat {
-       
-        return [60,60,60,UITableView.automaticDimension,180,UITableView.automaticDimension,UITableView.automaticDimension,UITableView.automaticDimension,UITableView.automaticDimension,UITableView.automaticDimension,UITableView.automaticDimension][indexPath.row]
+        return [60, 60, 60, UITableView.automaticDimension, 180, UITableView.automaticDimension, UITableView.automaticDimension, UITableView.automaticDimension, UITableView.automaticDimension, UITableView.automaticDimension, UITableView.automaticDimension][indexPath.row]
     }
     
     func getHeightForRowFirstSection(_ indexPath: IndexPath) -> CGFloat {
-         return [220.5,101,UITableView.automaticDimension,138][indexPath.row]
+        return [220.5, 101, UITableView.automaticDimension, 138][indexPath.row]
     }
     
-    
     func getHeightForRoomSection(_ indexPath: IndexPath) -> CGFloat {
-        return [60,60,60,UITableView.automaticDimension,200][indexPath.row]
+        return [60, 60, 60, UITableView.automaticDimension, 200][indexPath.row]
     }
     
     func getHeightForLastSection(_ indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        if indexPath.row == 5 {
+            return (self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? false) ? 0 : UITableView.automaticDimension
+        } else {
+            return UITableView.automaticDimension
+        }
     }
-    
 }
