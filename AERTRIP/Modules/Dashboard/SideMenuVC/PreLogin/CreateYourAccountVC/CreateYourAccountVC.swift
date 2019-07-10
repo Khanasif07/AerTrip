@@ -44,7 +44,7 @@ class CreateYourAccountVC: BaseVC {
         self.setupInitialAnimation()
         self.setupViewDidLoadAnimation()
         
-        self.topNavBar.configureNavBar(title: "", isDivider: false)
+        self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         topNavBar.leftButton.isHidden = true
         topNavBar.delegate = self
         

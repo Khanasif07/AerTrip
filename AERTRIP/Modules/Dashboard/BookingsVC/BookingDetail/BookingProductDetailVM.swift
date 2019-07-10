@@ -29,7 +29,7 @@ class BookingProductDetailVM {
         if !(self.bookingDetail?.bookingDetail?.note.isEmpty ?? false) {
             count += 1
         }
-        if !(self.bookingDetail?.cases.isEmpty ?? false) {
+        if let cases = self.bookingDetail?.cases, !cases.isEmpty {
             count += 1
         }
         return count
@@ -39,6 +39,9 @@ class BookingProductDetailVM {
     var documentDownloadingData = [DocumentDownloadingModel]()
     
     func getSectionDataForHotelDetail() {
+        
+        self.sectionDataForHotelDetail.removeAll()
+        
         // note details
         if let note = self.bookingDetail?.bookingDetail?.note, !note.isEmpty {
             self.sectionDataForHotelDetail.append([.notesCell])
@@ -46,9 +49,9 @@ class BookingProductDetailVM {
         
         // logic for add case cell i.e add on request,special and cancellation request.
         
-        if !(self.bookingDetail?.cases.isEmpty ?? false) {
+        if let cases = self.bookingDetail?.cases, !cases.isEmpty {
             var temp: [TableViewCellForHotel] = []
-            for (index, _) in (self.bookingDetail?.cases ?? []).enumerated() {
+            for (index, _) in cases.enumerated() {
                 if index == 0 {
                     temp.append(.requestCell)
                     temp.append(.cancellationsReqCell)
@@ -70,9 +73,9 @@ class BookingProductDetailVM {
                 for _ in room.guest {
                     temp.append(.travellersCell)
                 }
+                self.sectionDataForHotelDetail.append(temp)
+                temp.removeAll()
             }
-            self.sectionDataForHotelDetail.append(temp)
-            temp.removeAll()
         }
         // documents details
         if let docs = self.bookingDetail?.documents, !docs.isEmpty {
@@ -138,6 +141,8 @@ class BookingProductDetailVM {
     // MARK: - Get Section For Flight Product Type.
     
     func getSectionDataForFlightProductType() {
+        self.sectionDataForFlightProductType.removeAll()
+        
         // logic for add note cell
         if let note = self.bookingDetail?.bookingDetail?.note, !note.isEmpty {
             self.sectionDataForFlightProductType.append([.notesCell])
@@ -234,6 +239,9 @@ class BookingProductDetailVM {
     // MARK: - Get Section for other product type
     
     func getSectionDataForOtherProductType() {
+        
+        self.sectionDataForOtherProductType.removeAll()
+        
         self.sectionDataForOtherProductType.append([.insurenceCell, .policyDetailCell])
         var tempTravellers: [TableViewCellForOtherProductType] = []
         for _ in self.bookingDetail?.bookingDetail?.travellers ?? [] {

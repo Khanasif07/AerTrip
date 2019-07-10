@@ -93,10 +93,14 @@ class TopNavigationView: UIView {
         
         switch self.backgroundType {
         case .clear:
+            self.removeBlur(fromView: self)
+            self.removeBlur(fromView: self.backView)
             self.backgroundColor = UIColor.clear
             self.backView.backgroundColor = UIColor.clear
             
         case .color(let color):
+            self.removeBlur(fromView: self)
+            self.removeBlur(fromView: self.backView)
             self.backgroundColor = color
             self.backView.backgroundColor = color
             

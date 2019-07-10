@@ -90,6 +90,7 @@ enum APIEndPoint: String {
     case bookingList = "dashboard/list-booking"
     case preferenceMaster = "addon/preference-master"
     case cancellationRefundModeReasons = "cancellation/refund-mode-reasons"
+    case cancellationRequest = "cancellation/request"
     
     // booking Detail
     case getBookingDetails = "dashboard/get-booking-details"

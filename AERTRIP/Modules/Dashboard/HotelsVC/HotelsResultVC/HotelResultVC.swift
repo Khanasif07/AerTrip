@@ -149,11 +149,11 @@ class HotelResultVC: BaseVC {
       
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
 
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            printDebug("Error in performFetch: \(error) at line \(#line) in file \(#file)")
-        }
+//        do {
+//            try fetchedResultsController.performFetch()
+//        } catch {
+//            printDebug("Error in performFetch: \(error) at line \(#line) in file \(#file)")
+//        }
         return fetchedResultsController
     }()
     

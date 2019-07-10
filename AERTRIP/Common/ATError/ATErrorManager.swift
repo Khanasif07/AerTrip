@@ -33,7 +33,7 @@ class ATErrorManager {
                 return "Request time out. Please try again."
                 
             case .userNotLoggedIn:
-                return "You are using as guest."
+                return "You are using as guest. Please logout and login again."
                 
             default:
                 return "Something went wrong"

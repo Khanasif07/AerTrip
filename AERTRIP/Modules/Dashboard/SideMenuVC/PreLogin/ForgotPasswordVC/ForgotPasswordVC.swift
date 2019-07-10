@@ -102,7 +102,7 @@ private extension ForgotPasswordVC {
         self.emailTextField.hintYPadding = 12.0
         self.view.backgroundColor = AppColors.screensBackground.color
         
-        self.topNavBar.configureNavBar(title: "", isDivider: false)
+        self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         self.topNavBar.delegate = self
         
         self.continueButton.isEnabled = false

@@ -147,12 +147,25 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.ProcessCancellation.localized, LocalizedString.SpecialRequest.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationEmail.localized], colors: [self.viewModel.bookingDetail?.cancellationRequestAllowed ?? false ? AppColors.themeGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.specialRequestAllowed ?? false ? AppColors.themeGreen : AppColors.themeGray40, AppColors.themeGreen, AppColors.themeGreen])
+        
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { _, index in
             switch index {
             case 0:
-                printDebug("Process Cancellation")
+                if let bdtl = self.viewModel.bookingDetail, bdtl.cancellationRequestAllowed {
+                    printDebug("Process Cancellation")
+                }
+                else {
+                    printDebug("Process Cancellation not allowed")
+                }
+                
             case 1:
-                printDebug("Special Request")
+                if let bdtl = self.viewModel.bookingDetail, bdtl.specialRequestAllowed {
+                    printDebug("Special Request")
+                }
+                else {
+                    printDebug("Special Request not allowed")
+                }
+                
             case 2:
                 printDebug("Download ")
                 let endPoint = "https://beta.aertrip.com/api/v1/dashboard/booking-action?type=pdf&booking_id=\(self.viewModel.bookingDetail?.id ?? "")"

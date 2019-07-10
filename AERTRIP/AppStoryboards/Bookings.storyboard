@@ -1911,30 +1911,20 @@ with us!</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3iP-ys-0uo" userLabel="refundMode">
                                 <rect key="frame" x="0.0" y="64" width="375" height="60"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JPs-VC-kQp" userLabel="refundModeButton">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
-                                        <connections>
-                                            <action selector="refundModeButtonTapped:" destination="hh7-7k-Ukb" eventType="touchUpInside" id="KZb-7M-C9Q"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="On7-Ud-WEJ">
                                         <rect key="frame" x="16" y="8" width="349" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bw9-TR-0GB">
-                                        <rect key="frame" x="16" y="29" width="42" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ihc-C8-Mut">
+                                        <rect key="frame" x="16" y="29" width="349" height="30"/>
                                         <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackDownArrow" translatesAutoresizingMaskIntoConstraints="NO" id="9DX-T5-2nB">
-                                        <rect key="frame" x="350" y="36.5" width="9" height="6"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="6" id="JWo-kE-6js"/>
-                                            <constraint firstAttribute="width" constant="9" id="W6t-oS-McB"/>
-                                        </constraints>
+                                        <rect key="frame" x="356" y="41" width="9" height="6"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pcn-yO-9z0" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="16" y="59" width="359" height="1"/>
@@ -1946,50 +1936,38 @@ with us!</string>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="JPs-VC-kQp" firstAttribute="top" secondItem="3iP-ys-0uo" secondAttribute="top" id="0nJ-Ux-Rtj"/>
-                                    <constraint firstItem="JPs-VC-kQp" firstAttribute="leading" secondItem="3iP-ys-0uo" secondAttribute="leading" id="70s-gp-Bni"/>
+                                    <constraint firstItem="9DX-T5-2nB" firstAttribute="trailing" secondItem="ihc-C8-Mut" secondAttribute="trailing" id="3dx-3z-QuR"/>
                                     <constraint firstItem="On7-Ud-WEJ" firstAttribute="leading" secondItem="3iP-ys-0uo" secondAttribute="leading" constant="16" id="8vU-h8-Zsd"/>
-                                    <constraint firstItem="Bw9-TR-0GB" firstAttribute="leading" secondItem="On7-Ud-WEJ" secondAttribute="leading" id="FH9-rq-pI4"/>
-                                    <constraint firstItem="9DX-T5-2nB" firstAttribute="centerY" secondItem="Bw9-TR-0GB" secondAttribute="centerY" id="LL7-g5-7CN"/>
-                                    <constraint firstAttribute="trailing" secondItem="JPs-VC-kQp" secondAttribute="trailing" id="LhP-GM-QFf"/>
-                                    <constraint firstAttribute="trailing" secondItem="9DX-T5-2nB" secondAttribute="trailing" constant="16" id="TJw-DA-9ro"/>
+                                    <constraint firstItem="ihc-C8-Mut" firstAttribute="leading" secondItem="On7-Ud-WEJ" secondAttribute="leading" id="Bd2-7H-EXy"/>
+                                    <constraint firstItem="pcn-yO-9z0" firstAttribute="top" secondItem="ihc-C8-Mut" secondAttribute="bottom" id="EIG-Sh-mMS"/>
                                     <constraint firstAttribute="height" constant="60" id="Vo7-hX-DMy"/>
                                     <constraint firstItem="pcn-yO-9z0" firstAttribute="leading" secondItem="3iP-ys-0uo" secondAttribute="leading" constant="16" id="WyA-eX-TTp"/>
+                                    <constraint firstItem="ihc-C8-Mut" firstAttribute="trailing" secondItem="On7-Ud-WEJ" secondAttribute="trailing" id="bt4-LT-q2x"/>
+                                    <constraint firstItem="9DX-T5-2nB" firstAttribute="centerY" secondItem="ihc-C8-Mut" secondAttribute="centerY" id="esj-kr-ngW"/>
                                     <constraint firstAttribute="bottom" secondItem="pcn-yO-9z0" secondAttribute="bottom" id="hMD-3K-PVJ"/>
                                     <constraint firstAttribute="trailing" secondItem="pcn-yO-9z0" secondAttribute="trailing" id="iGJ-9o-4cz"/>
                                     <constraint firstItem="On7-Ud-WEJ" firstAttribute="top" secondItem="3iP-ys-0uo" secondAttribute="top" constant="8" id="k9o-tG-A2o"/>
-                                    <constraint firstAttribute="bottom" secondItem="JPs-VC-kQp" secondAttribute="bottom" id="qNM-2P-9Ay"/>
-                                    <constraint firstItem="pcn-yO-9z0" firstAttribute="top" secondItem="Bw9-TR-0GB" secondAttribute="bottom" constant="9" id="rts-oZ-0dR"/>
+                                    <constraint firstItem="ihc-C8-Mut" firstAttribute="top" secondItem="On7-Ud-WEJ" secondAttribute="bottom" id="yAC-UL-SSx"/>
                                     <constraint firstAttribute="trailing" secondItem="On7-Ud-WEJ" secondAttribute="trailing" constant="10" id="z35-Ef-9B6"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKu-WU-hnC" userLabel="reasonForCancellationView">
                                 <rect key="frame" x="0.0" y="124" width="375" height="60"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F6c-WA-E07" userLabel="reasonForCanellationButton">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
-                                        <connections>
-                                            <action selector="refundCancellationButtonTapped:" destination="hh7-7k-Ukb" eventType="touchUpInside" id="hkI-Sk-UCF"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6u6-Rn-7sZ">
                                         <rect key="frame" x="16" y="8" width="349" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5XE-To-sgJ">
-                                        <rect key="frame" x="16" y="29" width="42" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TCe-ij-9Ty">
+                                        <rect key="frame" x="16" y="29" width="349" height="30"/>
                                         <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackDownArrow" translatesAutoresizingMaskIntoConstraints="NO" id="QyA-tf-R8F">
-                                        <rect key="frame" x="350" y="36.5" width="9" height="6"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="6" id="IJN-mA-bga"/>
-                                            <constraint firstAttribute="width" constant="9" id="THh-Bf-E1D"/>
-                                        </constraints>
+                                        <rect key="frame" x="356" y="41" width="9" height="6"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XbG-cv-fK0" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="16" y="59" width="359" height="1"/>
@@ -2001,21 +1979,19 @@ with us!</string>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="F6c-WA-E07" firstAttribute="leading" secondItem="DKu-WU-hnC" secondAttribute="leading" id="2WD-Ek-xwV"/>
-                                    <constraint firstItem="XbG-cv-fK0" firstAttribute="top" secondItem="5XE-To-sgJ" secondAttribute="bottom" constant="9" id="2ZR-DD-wx6"/>
                                     <constraint firstAttribute="trailing" secondItem="6u6-Rn-7sZ" secondAttribute="trailing" constant="10" id="2sz-hn-g90"/>
                                     <constraint firstAttribute="height" constant="60" id="3sm-vx-I0h"/>
-                                    <constraint firstAttribute="bottom" secondItem="F6c-WA-E07" secondAttribute="bottom" id="4it-Gv-eQh"/>
                                     <constraint firstItem="6u6-Rn-7sZ" firstAttribute="leading" secondItem="DKu-WU-hnC" secondAttribute="leading" constant="16" id="5jJ-9a-nfO"/>
+                                    <constraint firstItem="TCe-ij-9Ty" firstAttribute="trailing" secondItem="6u6-Rn-7sZ" secondAttribute="trailing" id="APu-NA-OoE"/>
                                     <constraint firstAttribute="trailing" secondItem="XbG-cv-fK0" secondAttribute="trailing" id="B56-7C-QZR"/>
-                                    <constraint firstItem="5XE-To-sgJ" firstAttribute="leading" secondItem="6u6-Rn-7sZ" secondAttribute="leading" id="DOe-tZ-hgV"/>
+                                    <constraint firstItem="QyA-tf-R8F" firstAttribute="centerY" secondItem="TCe-ij-9Ty" secondAttribute="centerY" id="Fvc-bL-AyA"/>
                                     <constraint firstItem="6u6-Rn-7sZ" firstAttribute="top" secondItem="DKu-WU-hnC" secondAttribute="top" constant="8" id="Jbp-7p-Cft"/>
+                                    <constraint firstItem="TCe-ij-9Ty" firstAttribute="top" secondItem="6u6-Rn-7sZ" secondAttribute="bottom" id="MPM-9u-tiq"/>
+                                    <constraint firstItem="TCe-ij-9Ty" firstAttribute="leading" secondItem="6u6-Rn-7sZ" secondAttribute="leading" id="Q90-45-s1e"/>
                                     <constraint firstAttribute="bottom" secondItem="XbG-cv-fK0" secondAttribute="bottom" id="SOh-u5-Xff"/>
                                     <constraint firstItem="XbG-cv-fK0" firstAttribute="leading" secondItem="DKu-WU-hnC" secondAttribute="leading" constant="16" id="SiQ-g3-vjx"/>
-                                    <constraint firstItem="F6c-WA-E07" firstAttribute="top" secondItem="DKu-WU-hnC" secondAttribute="top" id="foJ-QA-cyI"/>
-                                    <constraint firstAttribute="trailing" secondItem="F6c-WA-E07" secondAttribute="trailing" id="q7b-HR-aeR"/>
-                                    <constraint firstAttribute="trailing" secondItem="QyA-tf-R8F" secondAttribute="trailing" constant="16" id="vbl-ZL-jFZ"/>
-                                    <constraint firstItem="QyA-tf-R8F" firstAttribute="centerY" secondItem="5XE-To-sgJ" secondAttribute="centerY" id="zKQ-7e-G9e"/>
+                                    <constraint firstItem="QyA-tf-R8F" firstAttribute="trailing" secondItem="TCe-ij-9Ty" secondAttribute="trailing" id="gRW-Hc-gPe"/>
+                                    <constraint firstItem="XbG-cv-fK0" firstAttribute="top" secondItem="TCe-ij-9Ty" secondAttribute="bottom" id="sJN-9L-t2M"/>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="980-Yb-HBG" customClass="PKTextView" customModule="AERTRIP" customModuleProvider="target">
@@ -2090,13 +2066,13 @@ with us!</string>
                                     <constraint firstAttribute="trailing" secondItem="YaB-tc-gqJ" secondAttribute="trailing" id="wV1-Re-rIJ"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQY-E1-Dg9">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQY-E1-Dg9" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Aok-Gl-Vi9"/>
                                 </constraints>
                                 <connections>
-                                    <action selector="requestContinueButtonTapped:" destination="hh7-7k-Ukb" eventType="touchUpOutside" id="3y0-2k-G7i"/>
+                                    <action selector="requestContinueButtonTapped:" destination="hh7-7k-Ukb" eventType="touchUpInside" id="HGl-AP-MhX"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2129,14 +2105,14 @@ with us!</string>
                     </view>
                     <connections>
                         <outlet property="cancellationReasonView" destination="DKu-WU-hnC" id="Nfo-aX-ynT"/>
+                        <outlet property="cancellationTextField" destination="TCe-ij-9Ty" id="MeG-Lx-Nub"/>
                         <outlet property="cancellationTitleLabel" destination="6u6-Rn-7sZ" id="ZQz-lF-5ZK"/>
-                        <outlet property="cancellationValueLabel" destination="5XE-To-sgJ" id="Q1w-M1-EJT"/>
                         <outlet property="cancellationViewHeightConstraint" destination="3sm-vx-I0h" id="UoR-mu-n7v"/>
                         <outlet property="commentTextView" destination="980-Yb-HBG" id="ynz-0q-RiF"/>
                         <outlet property="infoLabel" destination="f6N-Sh-hdL" id="kF0-ym-aDO"/>
                         <outlet property="refundAmountLabel" destination="STk-Up-0s8" id="QA7-K5-MTK"/>
+                        <outlet property="refundModeTextField" destination="ihc-C8-Mut" id="k6e-XC-nQ8"/>
                         <outlet property="refundModeTitleLabel" destination="On7-Ud-WEJ" id="7xO-Zk-GYj"/>
-                        <outlet property="refundModeValueLabel" destination="Bw9-TR-0GB" id="jWa-1v-OyR"/>
                         <outlet property="refundView" destination="3iP-ys-0uo" id="da0-z0-tIi"/>
                         <outlet property="refundViewHeightConstraint" destination="Vo7-hX-DMy" id="LvV-4I-8gD"/>
                         <outlet property="requestCancellationButton" destination="EQY-E1-Dg9" id="PQn-mT-BXo"/>

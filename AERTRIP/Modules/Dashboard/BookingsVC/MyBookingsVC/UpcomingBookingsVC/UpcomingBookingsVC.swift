@@ -49,15 +49,15 @@ class UpcomingBookingsVC: BaseVC {
     // fetch result controller
     lazy var fetchedResultsController: NSFetchedResultsController<BookingData> = {
         
-        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bookingProductType", ascending: true)]
+        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "eventStartDate", ascending: true)]
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "dateHeader", cacheName: nil)
         
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            printDebug("Error in performFetch: \(error) at line \(#line) in file \(#file)")
-        }
+//        do {
+//            try fetchedResultsController.performFetch()
+//        } catch {
+//            printDebug("Error in performFetch: \(error) at line \(#line) in file \(#file)")
+//        }
         return fetchedResultsController
     }()
     

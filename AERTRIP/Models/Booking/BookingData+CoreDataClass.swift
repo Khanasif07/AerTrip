@@ -167,14 +167,24 @@ public class BookingData: NSManagedObject {
             if let date = obj["event_start_date"] as? String, let status = booking?.bookingStatus {
                 booking?.bookingTabType = bookingType(forDate: date, bstatus: status)
             }
-            
-            if let type = booking?.productType, type == .flight {
-                booking?.dateHeader = booking?.depart
-            }
-            else {
-                booking?.dateHeader = booking?.eventStartDate
-            }
         }
+        
+        //manage the header date
+        func getDateStr(dateNTime: String) -> String {
+            //"2019-07-08 16:09:08"
+            if let str = dateNTime.components(separatedBy: " ").first {
+                return "\(str) 00:00:00"
+            }
+            return ""
+        }
+        
+        if let type = booking?.productType, type == .flight {
+            booking?.dateHeader = getDateStr(dateNTime: booking?.depart ?? "")
+        }
+        else {
+            booking?.dateHeader = getDateStr(dateNTime: booking?.eventStartDate ?? "")
+        }
+        //manage the header date
         
         if !isBulkInsertion {
             CoreDataManager.shared.saveContext(managedContext: context)

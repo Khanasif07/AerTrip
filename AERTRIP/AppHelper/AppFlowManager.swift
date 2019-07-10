@@ -393,10 +393,11 @@ extension AppFlowManager {
         }
     }
     
-    func showCancellationRequest(buttonTitle: String) {
+    func showCancellationRequest(buttonTitle: String, delegate: BulkEnquirySuccessfulVCDelegate) {
         if let mVC = UIApplication.topViewController() {
             let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
             ob.currentUsingAs = .cancellationRequest
+            ob.delegate = delegate
             mVC.add(childViewController: ob)
         }
     }
@@ -908,6 +909,7 @@ extension AppFlowManager {
     
     func moveToReviewCancellationVC(onNavController: UINavigationController?, legs: [Leg]) {
         let obj = BookingReviewCancellationVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.viewModel.legsWithSelection = legs
         (onNavController ?? self.mainNavigationController).pushViewController(obj, animated: true)
     }
     

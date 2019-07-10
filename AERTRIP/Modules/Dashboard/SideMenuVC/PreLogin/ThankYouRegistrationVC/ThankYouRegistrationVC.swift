@@ -145,7 +145,7 @@ extension ThankYouRegistrationVC: SFSafariViewControllerDelegate {
         
         self.emailLabel.text = self.viewModel.email
         
-        self.topNavBar.configureNavBar(title: "", isDivider: false)
+        self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         topNavBar.delegate = self
     }
     

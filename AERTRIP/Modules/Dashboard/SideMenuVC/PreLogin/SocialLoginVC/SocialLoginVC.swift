@@ -173,7 +173,7 @@ private extension SocialLoginVC {
         self.addAppLogoView()
         self.kickContentOutToScreen()
         
-        self.topNavView.configureNavBar(title: "", isDivider: false)
+        self.topNavView.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         self.topNavView.delegate = self
     }
     

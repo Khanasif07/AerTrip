@@ -77,7 +77,7 @@ extension HotlelBookingsDetailsVC {
         let isLastRoom = (allRooms.count - 1) == currentRoomSection
         let isLastTarv = (allGuest.count - 1) == currentGuestIndex
         
-        cell.configCell(imageUrl: "sdsd", travellerName: allGuest[currentGuestIndex].fullName, isLastTravellerInRoom: isLastTarv, isLastTraveller: (isLastRoom && isLastTarv))
+        cell.configCell(imageUrl: allGuest[currentGuestIndex].profileImage, travellerName: allGuest[currentGuestIndex].fullName, isLastTravellerInRoom: isLastTarv, isLastTraveller: (isLastRoom && isLastTarv))
         cell.clipsToBounds = true
         return cell
     }
