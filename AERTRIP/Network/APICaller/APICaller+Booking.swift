@@ -430,24 +430,29 @@ extension APICaller {
         }
     }
     
-    func cancellationRequestAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
+    func cancellationRequestAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ caseData: Case?)->Void ) {
         
         AppNetworking.POST(endPoint: APIEndPoint.cancellationRequest, parameters: params, success: { [weak self] (json) in
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
-                completionBlock(sucess, [])
+                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject {
+                    completionBlock(sucess, [], Case(json: response, bookindId: ""))
+                }
+                else {
+                    completionBlock(false, [], nil)
+                }
                 
             }, failure: { (errors) in
                 ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
-                completionBlock(false, errors)
+                completionBlock(false, errors, nil)
             })
         }) { (error) in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], nil)
             }
             else {
-                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
             }
         }
     }

@@ -52,12 +52,7 @@ class UpcomingBookingsVC: BaseVC {
         self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "eventStartDate", ascending: true)]
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "dateHeader", cacheName: nil)
-        
-//        do {
-//            try fetchedResultsController.performFetch()
-//        } catch {
-//            printDebug("Error in performFetch: \(error) at line \(#line) in file \(#file)")
-//        }
+
         return fetchedResultsController
     }()
     
@@ -106,7 +101,6 @@ class UpcomingBookingsVC: BaseVC {
     
     private func registerXibs() {
         self.upcomingBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
-//        self.upcomingBookingsTableView.registerCell(nibName: QueryStatusTableViewCell.reusableIdentifier)
         self.upcomingBookingsTableView.registerCell(nibName: SpaceTableViewCell.reusableIdentifier)
         self.upcomingBookingsTableView.registerCell(nibName: HotelTableViewCell.reusableIdentifier)
         self.upcomingBookingsTableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")

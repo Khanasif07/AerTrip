@@ -215,12 +215,22 @@ extension BookingReviewCancellationVC: BookingReviewCancellationVMDelegate {
     func willMakeCancellationRequest() {
     }
     
-    func makeCancellationRequestSuccess() {
+    func makeCancellationRequestSuccess(caseData: Case?) {
+        
+        func sendAccordingToResolutionStatus(title: String, caseData: Case?) {
+            if let caseD = caseData, ((caseD.resolutionStatus == .successfull) || (caseD.resolutionStatus == .resolved)) {
+                AppFlowManager.default.showCancellationProcessed(buttonTitle: LocalizedString.RequestCancellation.localized, delegate: self)
+            }
+            else {
+                AppFlowManager.default.showCancellationRequest(buttonTitle: LocalizedString.RequestCancellation.localized, delegate: self)
+            }
+        }
+        
         if self.viewModel.currentUsingAs == .flightCancellationReview {
-            AppFlowManager.default.showCancellationRequest(buttonTitle: LocalizedString.RequestCancellation.localized, delegate: self)
+            sendAccordingToResolutionStatus(title: LocalizedString.RequestCancellation.localized, caseData: caseData)
         }
         else if self.viewModel.currentUsingAs == .hotelCancellationReview {
-            AppFlowManager.default.showCancellationProcessed(buttonTitle: LocalizedString.ProcessCancellation.localized, delegate: self)
+            sendAccordingToResolutionStatus(title: LocalizedString.RequestCancellation.localized, caseData: caseData)
         }
         else if self.viewModel.currentUsingAs == .specialRequest {
             AppFlowManager.default.showSpecialRequest(buttonTitle: LocalizedString.Request.localized, delegate: self)

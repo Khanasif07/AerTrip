@@ -14,7 +14,7 @@ protocol BookingReviewCancellationVMDelegate: class {
     func getCancellationRefundModeReasonsFail()
     
     func willMakeCancellationRequest()
-    func makeCancellationRequestSuccess()
+    func makeCancellationRequestSuccess(caseData: Case?)
     func makeCancellationRequestFail()
 }
 
@@ -141,7 +141,7 @@ class BookingReviewCancellationVM {
         self.delegate?.willMakeCancellationRequest()
         APICaller.shared.makeHotelSpecialRequestAPI(params: param) { (success, error) in
             if success {
-                self.delegate?.makeCancellationRequestSuccess()
+                self.delegate?.makeCancellationRequestSuccess(caseData: nil)
             }
             else {
                 self.delegate?.makeCancellationRequestFail()
@@ -179,10 +179,10 @@ class BookingReviewCancellationVM {
         }
         
         self.delegate?.willMakeCancellationRequest()
-        APICaller.shared.cancellationRequestAPI(params: param) { [weak self](success, error) in
+        APICaller.shared.cancellationRequestAPI(params: param) { [weak self](success, error, caseData) in
 
             if success {
-                self?.delegate?.makeCancellationRequestSuccess()
+                self?.delegate?.makeCancellationRequestSuccess(caseData: caseData)
             }
             else {
                 self?.delegate?.makeCancellationRequestFail()
