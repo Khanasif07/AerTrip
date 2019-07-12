@@ -1689,7 +1689,7 @@ struct Pax {
             self.rescheduleCharge = 50.0//"\(obj)".toDouble ?? 0.0
         }
         if let obj = json["ticket"] {
-            self.ticket = "\(obj)"
+            self.ticket = "\(obj)".removeNull
             self.ticket = self.ticket.isEmpty ? LocalizedString.dash.localized : self.ticket
         }
         if let obj = json["pnr"] {

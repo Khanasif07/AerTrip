@@ -41,12 +41,10 @@ public class BookingData: NSManagedObject {
             } else if productType == "hotel" {
                 booking?.eventType = 2
                 return 2
-            } else if productType == "other" {
+            } else  {
               booking?.eventType = 3
                return 3
             }
-            
-            return -1
         }
         
         if let obj = dataDict[APIKeys.booking_number.rawValue] {
@@ -73,7 +71,7 @@ public class BookingData: NSManagedObject {
             if let addOnSteps = forData["addon"] as? [String] {
                 let title = "Add-ons"
                 for step in addOnSteps {
-                    if step.lowercased() == "action required / payment pending" {
+                    if step.lowercased().contains(AppConstants.kPending) {
                         steps.append("\(title) payment pending")
                         booking?.isContainsPending = 1
                     }
@@ -86,7 +84,7 @@ public class BookingData: NSManagedObject {
             if let cancellationSteps = forData["cancellation"] as? [String] {
                 let title = "Cancellation"
                 for step in cancellationSteps {
-                    if step.lowercased() == "action required / payment pending" {
+                    if step.lowercased().contains(AppConstants.kPending) {
                         steps.append("\(title) action required")
                         booking?.isContainsPending = 1
                     }
@@ -99,7 +97,7 @@ public class BookingData: NSManagedObject {
             if let reschedulingSteps = forData["rescheduling"] as? [String] {
                 let title = "Rescheduling"
                 for step in reschedulingSteps {
-                    if step.lowercased() == "action required / payment pending" {
+                    if step.lowercased().contains(AppConstants.kPending) {
                         steps.append("\(title) payment required")
                         booking?.isContainsPending = 1
                     }
@@ -127,17 +125,25 @@ public class BookingData: NSManagedObject {
         }
         
         // function to get Set Booking Type
-        func bookingType(forDate date: String, bstatus: String) -> Int16 {
-            if date.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isGreaterThan((Date())) ?? false {
-                return 1
+        func bookingType(forDate startDate: String,date endDate: String, bstatus: String) -> Int16 {
+            let todayDate = Date()
+            if ((bstatus.lowercased() == "cancelled") || (bstatus.lowercased() == "rescheduled") ) {
+                return 3 // cancelled booking
+            } else if endDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isSmallerThan((todayDate)) ?? false {
+                return 2 // Completed booking
             }
-            else if date.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isSmallerThan((Date())) ?? false, ((bstatus.lowercased() == "pending") || (bstatus.lowercased() == "successful")) {
-                return 2
+            else if startDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isGreaterThan((todayDate)) ?? false ||
+               startDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isToday ?? false ||
+                 endDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isToday ?? false ||
+               (startDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isSmallerThan((todayDate)) ?? false && endDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isGreaterThan((todayDate)) ?? false ) {
+                return 1 // Upcoming
+            } else {
+                return 3 // Cancelled
             }
-            else if ((bstatus.lowercased() == "cancelled") || (bstatus.lowercased() == "rescheduled") || (bstatus.lowercased() == "booked")) {
-                return 3
-            }
-            return -1
+//            else if enDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isSmallerThan((Date())) ?? false, ((bstatus.lowercased() == "pending")) || (bstatus.lowercased() == "successful") || (bstatus.lowercased() == "booked") || (bstatus.lowercased() == "successful") || (bstatus.lowercased() == "booked") {
+//                return 2 // Complete
+//            }
+            
         }
         
         if let obj = dataDict[APIKeys.bdetails.rawValue] as? JSONDictionary {
@@ -157,15 +163,15 @@ public class BookingData: NSManagedObject {
             booking?.travelledCitiesArrStr = (booking?.travelledCities ?? [String]()).joined(separator: ",")
 
             booking?.disconnected = obj["disconnected"] as? Bool ?? false
-            
+            booking?.serviceType = obj["service_type"] as? String
             booking?.routes = obj["routes"] as? [[String]] ?? [[]]
             booking?.routesArrStr = (booking?.routes ?? [[String]]()).joined(separator: ",")
             
             booking?.eventStartDate = obj["event_start_date"] as? String
             booking?.eventEndDate = obj["event_end_date"] as? String
             booking?.guestCount =  obj["guest_count"] as? Int16 ?? 0
-            if let date = obj["event_start_date"] as? String, let status = booking?.bookingStatus {
-                booking?.bookingTabType = bookingType(forDate: date, bstatus: status)
+            if let date = obj["event_start_date"] as? String, let endDate = obj["event_end_date"] as? String ,let status = booking?.bookingStatus {
+                booking?.bookingTabType = bookingType(forDate: date, date: endDate, bstatus: status)
             }
         }
         

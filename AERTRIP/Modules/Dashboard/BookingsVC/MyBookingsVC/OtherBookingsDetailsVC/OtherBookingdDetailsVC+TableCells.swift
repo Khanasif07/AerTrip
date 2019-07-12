@@ -33,13 +33,15 @@ extension OtherBookingsDetailsVC {
     func getTravellersDetailsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingTravellersDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingTravellersDetailsTableViewCell else { return UITableViewCell() }
-            cell.configCell(name: self.viewModel.bookingDetail?.bookingDetail?.travellers[indexPath.row].paxName ?? "", imageUrl: "")
+            let traveller = self.viewModel.bookingDetail?.bookingDetail?.travellers[indexPath.row]
+            cell.configCell(travellersImage: traveller?.profileImage ?? "" , travellerName: traveller?.paxName ?? "", firstName: traveller?.firstName ?? "", lastName: traveller?.lastName ?? "")
             cell.dividerView.isHidden = true
             return cell
         }
         else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TravellersDetailsTableViewCell.reusableIdentifier, for: indexPath) as? TravellersDetailsTableViewCell else { return UITableViewCell() }
-            cell.configCell(imageUrl: "", travellerName: self.viewModel.bookingDetail?.bookingDetail?.travellers[indexPath.row].paxName ?? "", isLastTravellerInRoom: false, isLastTraveller: true, isOtherBookingData: true)
+             let traveller = self.viewModel.bookingDetail?.bookingDetail?.travellers[indexPath.row]
+            cell.configCell(imageUrl: traveller?.profileImage ?? "", travellerName: traveller?.paxName ?? "", isLastTravellerInRoom: false, isLastTraveller: true, isOtherBookingData: true)
             cell.dividerView.backgroundColor = .red
             cell.dividerView.isHidden = true
             cell.containerViewLeadingConstraint.constant = 0
