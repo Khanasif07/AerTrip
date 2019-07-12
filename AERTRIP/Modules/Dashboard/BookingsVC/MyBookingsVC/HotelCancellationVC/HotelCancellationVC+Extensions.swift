@@ -54,12 +54,11 @@ extension HotelCancellationVC: UITableViewDelegate , UITableViewDataSource {
         cell.delegate = self
 
         let roomD = rooms[indexPath.row]
-        let allGuest = roomD.guest.map { $0.fullName }
         
         let isRoomSelected = self.viewModel.selectedRooms.contains(where: { $0.rid == roomD.rid })
         let isExpanded = self.expandedIndexPaths.contains(indexPath)
         
-        cell.configureCell(roomNumber: "\(LocalizedString.Room.localized) \(indexPath.row+1)", roomName: roomD.roomType , guestNames: allGuest, isRoomSelected: isRoomSelected, isExpanded: isExpanded)
+        cell.configureCell(roomNumber: "\(LocalizedString.Room.localized) \(indexPath.row+1)", roomDetails: roomD, isRoomSelected: isRoomSelected, isExpanded: isExpanded)
         
         cell.topDividerViewLeadingConstraint.constant = (indexPath.row == (rooms.count - 1)) ? 0.0 : 63.0
         cell.bottomDividerViewLeadingConstraint.constant = (indexPath.row == (rooms.count - 1)) ? 0.0 : 63.0

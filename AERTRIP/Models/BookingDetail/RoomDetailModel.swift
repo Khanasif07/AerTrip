@@ -19,10 +19,11 @@ struct RoomDetailModel {
     var status: String = ""
     var roomImg: String = ""
     var guest: [GuestDetail] = []
-    var amountPaid: String = ""
-    var cancellationCharges: Double = 0
     
-    var netRefund: String = ""
+    var amountPaid: Double = 0
+    var cancellationCharges: Double = 0
+    var netRefund: Double = 0
+
     var voucher: String = ""
     var bedType: String = ""
     var description: String = ""
@@ -68,9 +69,23 @@ struct RoomDetailModel {
         
         if let obj = json["voucher"] {
             self.voucher = "\(obj)".removeNull
+            self.voucher = self.voucher.isEmpty ? LocalizedString.dash.localized : self.voucher
         }
         
+        if let obj = json["amount_paid"] {
+            self.amountPaid = "\(obj)".toDouble ?? 0.0
+        }
         
+        if let obj = json["cancellation_charges"] {
+            self.cancellationCharges = "\(obj)".toDouble ?? 0.0
+        }
+        
+        if let obj = json["net_refund"], let inDouble = "\(obj)".toDouble, inDouble != 0 {
+            self.netRefund = inDouble
+        }
+        else {
+            self.netRefund = self.amountPaid - self.cancellationCharges
+        }
     }
     
     static func getModels(json: [JSONDictionary], bookingId: String) -> [RoomDetailModel] {

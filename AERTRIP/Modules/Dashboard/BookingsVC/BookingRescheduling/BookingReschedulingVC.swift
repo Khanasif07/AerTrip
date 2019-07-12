@@ -105,7 +105,7 @@ class BookingReschedulingVC: BaseVC {
     
     private func updateTotalRefund() {
         let totalRef = self.viewModel.totRefund
-        self.continueButton.isEnabled = totalRef > 0.0
+        self.continueButton.isEnabled = totalRef != 0.0
         self.totalPriceLabel.text = totalRef.delimiterWithSymbol
     }
     

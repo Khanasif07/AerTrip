@@ -662,6 +662,7 @@
 "AddOnRequestMesage" = "Our Customer Service Represenstative will contact you soon regarding this enquiry.";
 "PNRNo" = "PNR No.";
 "SaleAmount" = "Sale Amount";
+"ConfirmationNo" = "Confirmation No.";
 "CancellationCharges" = "Cancellation Charges";
 "ReschedulingCharges" = "Rescheduling Charges";
 "NetRefund" = "Net Refund";

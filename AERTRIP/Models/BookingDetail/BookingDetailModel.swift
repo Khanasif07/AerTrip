@@ -1679,14 +1679,14 @@ struct Pax {
             self.status = "\(obj)".removeNull
         }
         if let obj = json["amount_paid"] {
-            self.amountPaid = 270.0//"\(obj)".toDouble ?? 0.0
+            self.amountPaid = "\(obj)".toDouble ?? 0.0
         }
         if let obj = json["cancellation_charge"] {
-            self.cancellationCharge = 50.0//"\(obj)".toDouble ?? 0.0
+            self.cancellationCharge = "\(obj)".toDouble ?? 0.0
         }
         
         if let obj = json["reschedule_charge"] {
-            self.rescheduleCharge = 50.0//"\(obj)".toDouble ?? 0.0
+            self.rescheduleCharge = "\(obj)".toDouble ?? 0.0
         }
         if let obj = json["ticket"] {
             self.ticket = "\(obj)"
