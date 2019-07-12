@@ -713,7 +713,7 @@ struct BookingDetail {
         
         // room details
         if let obj = json["room_details"] as? [JSONDictionary] {
-            self.roomDetails = RoomDetailModel.getModels(json: obj)
+            self.roomDetails = RoomDetailModel.getModels(json: obj, bookingId: bookingId)
         }
         
         // leg parsing

@@ -9,6 +9,9 @@
 import Foundation
 
 struct RoomDetailModel {
+    
+    var bookingId: String = "" //will be used when requesting a cancellation for hotel
+    
     var rid: String = ""
     var roomType: String = ""
    
@@ -25,10 +28,13 @@ struct RoomDetailModel {
     var description: String = ""
     
     init() {
-        self.init(json: [:])
+        self.init(json: [:], bookingId: "")
     }
     
-    init(json: JSONDictionary) {
+    init(json: JSONDictionary, bookingId: String) {
+        
+        self.bookingId = bookingId
+        
         if let obj = json["rid"] {
             self.rid = "\(obj)".removeNull
         }
@@ -67,8 +73,8 @@ struct RoomDetailModel {
         
     }
     
-    static func getModels(json: [JSONDictionary]) -> [RoomDetailModel] {
-        return json.map { RoomDetailModel(json: $0) }
+    static func getModels(json: [JSONDictionary], bookingId: String) -> [RoomDetailModel] {
+        return json.map { RoomDetailModel(json: $0, bookingId: bookingId) }
     }
     
 }

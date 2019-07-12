@@ -203,10 +203,7 @@ class AerinVC: BaseVC {
             //AppFlowManager.default.moveToBookingDirectionVC()
             
 //             let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
-//            AppFlowManager.default.mainNavigationController.present(obj, animated: true)
-            
-            // Move To Review Cancellation
-          //  AppFlowManager.default.moveToReviewCancellationVC()
+//            AppFlowManager.default.mainNavigationController.present(obj, animated: true)            
         }
     }
 }

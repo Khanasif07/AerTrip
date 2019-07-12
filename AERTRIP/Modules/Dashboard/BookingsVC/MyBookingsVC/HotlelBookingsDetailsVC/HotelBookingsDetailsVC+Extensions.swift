@@ -153,13 +153,16 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
             case 0:
                 if let bdtl = self.viewModel.bookingDetail, bdtl.cancellationRequestAllowed {
                     printDebug("Process Cancellation")
+                    AppFlowManager.default.presentToHotelCancellationVC(bookingDetail: bdtl)
                 }
                 else {
                     printDebug("Process Cancellation not allowed")
                 }
                 
             case 1:
-                if let bdtl = self.viewModel.bookingDetail, bdtl.specialRequestAllowed {
+//                if let bdtl = self.viewModel.bookingDetail, bdtl.specialRequestAllowed {
+                if let bdtl = self.viewModel.bookingDetail {
+                    AppFlowManager.default.moveToSpecialRequestVC(forBookingId: bdtl.bookingDetail?.bookingId ?? "")
                     printDebug("Special Request")
                 }
                 else {

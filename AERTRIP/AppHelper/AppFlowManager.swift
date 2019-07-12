@@ -411,6 +411,24 @@ extension AppFlowManager {
         }
     }
     
+    func showCancellationProcessed(buttonTitle: String, delegate: BulkEnquirySuccessfulVCDelegate) {
+        if let mVC = UIApplication.topViewController() {
+            let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.currentUsingAs = .cancellationProcessed
+            ob.delegate = delegate
+            mVC.add(childViewController: ob)
+        }
+    }
+    
+    func showSpecialRequest(buttonTitle: String, delegate: BulkEnquirySuccessfulVCDelegate) {
+        if let mVC = UIApplication.topViewController() {
+            let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            ob.currentUsingAs = .specialRequest
+            ob.delegate = delegate
+            mVC.add(childViewController: ob)
+        }
+    }
+    
     func presentHotelDetailsVC(_ vc: HotelResultVC, hotelInfo: HotelSearched, sourceView: UIView, sid: String, hotelSearchRequest: HotelSearchRequestModel?) {
         if let topVC = UIApplication.topViewController() {
             let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
@@ -635,9 +653,13 @@ extension AppFlowManager {
         (onNavController ?? self.mainNavigationController).pushViewController(obj, animated: true)
     }
     
-    func moveToHotelCancellationVC() {
+    func presentToHotelCancellationVC(bookingDetail: BookingDetailModel) {
         let obj = HotelCancellationVC.instantiate(fromAppStoryboard: .Bookings)
-        self.mainNavigationController.pushViewController(obj, animated: true)
+        obj.viewModel.bookingDetail = bookingDetail
+        
+        let nav = UINavigationController(rootViewController: obj)
+        nav.isNavigationBarHidden = true
+        self.mainNavigationController.present(nav, animated: true, completion: nil)
     }
     
     func presentBookingFareInfoDetailVC(usingFor: BookingFareInfoDetailVC.UsingFor, forBookingId: String, legDetails: Leg?, bookingFee: BookingFeeDetail?) {
@@ -907,10 +929,21 @@ extension AppFlowManager {
     
     // Move to Booking Review Cancellation
     
-    func moveToReviewCancellationVC(onNavController: UINavigationController?, legs: [Leg]) {
+    func moveToReviewCancellationVC(onNavController: UINavigationController?, usingAs: BookingReviewCancellationVM.UsingFor, legs: [Leg]?, selectedRooms: [RoomDetailModel]?) {
         let obj = BookingReviewCancellationVC.instantiate(fromAppStoryboard: .Bookings)
-        obj.viewModel.legsWithSelection = legs
+        obj.viewModel.legsWithSelection = legs ?? []
+        obj.viewModel.currentUsingAs = usingAs
+        obj.viewModel.selectedRooms = selectedRooms ?? []
         (onNavController ?? self.mainNavigationController).pushViewController(obj, animated: true)
+    }
+    
+    func moveToSpecialRequestVC(forBookingId: String) {
+        let obj = BookingReviewCancellationVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.viewModel.legsWithSelection = []
+        obj.viewModel.currentUsingAs = .specialRequest
+        obj.viewModel.selectedRooms = []
+        obj.viewModel.bookingId = forBookingId
+        self.mainNavigationController.present(obj, animated: true, completion: nil)
     }
     
     // Move to Booking confirm email

@@ -62,6 +62,8 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
         self.topDividerView.isHidden = true
         self.bottomDividerView.isHidden = false
         self.rightArrowImageView.image = #imageLiteral(resourceName: "rightArrow")
+        
+        self.rightArrowImageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi/2) //make the arrow to down
     }
     
     internal func configureCell(roomNumber: String , roomName: String, guestNames: [String], isRoomSelected: Bool, isExpanded: Bool) {
@@ -70,13 +72,13 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
         self.guestNamesLabel.text = guestNames.joined(separator: ", ")
         if isRoomSelected {
             self.selectRoomButtonOutlet.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-//            self.rightArrowImageView.transform = CGAffineTransform(rotationAngle: .pi)
         } else {
             self.selectRoomButtonOutlet.setImage(#imageLiteral(resourceName: "untick"), for: .normal)
-//            self.rightArrowImageView.transform = CGAffineTransform(rotationAngle: -.pi)
         }
         self.topDividerView.isHidden = isExpanded
         self.bottomDividerView.isHidden = !isExpanded
+        
+        self.rightArrowImageView.transform = isExpanded ? CGAffineTransform(rotationAngle: -(CGFloat.pi/2)) : CGAffineTransform(rotationAngle: CGFloat.pi/2)
     }
     
     //MARK:- IBActions

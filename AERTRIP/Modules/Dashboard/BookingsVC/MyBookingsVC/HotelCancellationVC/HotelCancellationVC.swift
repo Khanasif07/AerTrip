@@ -13,6 +13,7 @@ class HotelCancellationVC: BaseVC {
     //MARK:- Variables
     //MARK:===========
     let viewModel = HotelCancellationVM()
+    var expandedIndexPaths = [IndexPath]() // Array for storing indexPath
     
     //MARK:- IBOutlets
     //MARK:===========
@@ -35,7 +36,6 @@ class HotelCancellationVC: BaseVC {
     
     override func initialSetup() {
         self.topNavBar.configureView(title: LocalizedString.Cancellation.localized, subTitle: LocalizedString.SelectHotelOrRoomsForCancellation.localized, isleftButton: false, isRightButton: true)
-        self.viewModel.getHotelData()
         self.registerXibs()
         self.hotelCancellationTableView.delegate = self
         self.hotelCancellationTableView.dataSource = self
@@ -71,39 +71,9 @@ class HotelCancellationVC: BaseVC {
         self.hotelCancellationTableView.registerCell(nibName: HotelCancellationRoomInfoTableViewCell.reusableIdentifier)
     }
     
-    internal func allRoomIsSelectedOrNot() -> Bool {
-        var isRoomSelected: Bool = false
-        for room in self.viewModel.bookedHotelData {
-            isRoomSelected = room.isChecked
-            if !isRoomSelected {
-                return false
-            }
-        }
-        return isRoomSelected
-    }
-    
-    internal func isAnyRoomSelected() {
-        var isRoomSelected: Bool = false
-        for room in self.viewModel.bookedHotelData {
-            if room.isChecked {
-                isRoomSelected = true
-                break
-            }
-        }
-        if isRoomSelected {
-            self.cancellationButtonOutlet.setTitleColor(AppColors.themeWhite.withAlphaComponent(1.0), for: .normal)
-            self.cancellationButtonOutlet.isUserInteractionEnabled = true
-            self.totalNetRefundContainerView.isHidden = false
-        } else {
-            self.cancellationButtonOutlet.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
-            self.cancellationButtonOutlet.isUserInteractionEnabled = false
-            self.totalNetRefundContainerView.isHidden = true
-        }
-    }
-    
     //MARK:- IBActions
     //MARK:===========
     @IBAction func cancellationButtonAction(_ sender: UIButton) {
-        printDebug(cancellationButtonOutlet.constraints)
+        AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, usingAs: .hotelCancellationReview, legs: nil, selectedRooms: self.viewModel.selectedRooms)
     }
 }

@@ -10,11 +10,7 @@ import UIKit
 
 class BookingReviewCancellationVC: BaseVC {
     
-    //MARK:- Enum
-    enum UsingFor {
-        case reviewCancellation
-        case specialRequest
-    }
+
     
     // MARK: - IB Outlet
     
@@ -41,23 +37,20 @@ class BookingReviewCancellationVC: BaseVC {
     @IBOutlet weak var infoLabel: UILabel!
     
     //MARK: - Variables
-    var currentUsingAs = UsingFor.reviewCancellation
     let viewModel = BookingReviewCancellationVM()
     
     // MARK: - Override methods
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.refundAmountLabel.text = self.viewModel.totRefund.delimiterWithSymbol
+        self.refundAmountLabel.text = self.viewModel.totRefundForFlight.delimiterWithSymbol
     }
     
     override func initialSetup() {
-//        self.requestCancellationButton.addGredient(isVertical: false)
         self.requestCancellationButton.shouldShowPressAnimation = false
         self.commentTextView.delegate = self
-        //        self.currentUsingAs = .specialRequest
-        switch currentUsingAs {
-        case .reviewCancellation:
+        switch self.viewModel.currentUsingAs {
+        case .flightCancellationReview, .hotelCancellationReview:
             self.commentTextView.placeholder = LocalizedString.EnterYourCommentOptional.localized
         case .specialRequest:
             self.cancellationReasonView.isHidden = true
@@ -69,19 +62,32 @@ class BookingReviewCancellationVC: BaseVC {
         self.refundModeTextField.delegate = self
         self.cancellationTextField.delegate = self
         
-        self.viewModel.getCancellationRefundModeReasons()
+        if self.viewModel.currentUsingAs == .specialRequest {
+            //get the data for special request
+            self.viewModel.getAllHotelSpecialRequest()
+        }
+        else {
+            //get the data for cancellation request
+            self.viewModel.getCancellationRefundModeReasons()
+        }
     }
     
     override func setupTexts() {
         
-        switch currentUsingAs {
-        case .reviewCancellation:
-            self.requestCancellationButton.setTitle(LocalizedString.RequestCancellation.localized, for: .normal)
-            self.requestCancellationButton.setTitle(LocalizedString.RequestCancellation.localized, for: .selected)
+        switch self.viewModel.currentUsingAs {
+        case .flightCancellationReview, .hotelCancellationReview:
+            if self.viewModel.currentUsingAs == .flightCancellationReview {
+                self.requestCancellationButton.setTitle(LocalizedString.RequestCancellation.localized, for: .normal)
+                self.requestCancellationButton.setTitle(LocalizedString.RequestCancellation.localized, for: .selected)
+            }
+            else {
+                self.requestCancellationButton.setTitle(LocalizedString.ProcessCancellation.localized, for: .normal)
+                self.requestCancellationButton.setTitle(LocalizedString.ProcessCancellation.localized, for: .selected)
+            }
             self.refundModeTitleLabel.text = LocalizedString.RefundMode.localized
             self.refundModeTextField.text = LocalizedString.Select.localized
             self.totalNetRefundLabel.text = LocalizedString.TotalNetRefund.localized
-            self.refundAmountLabel.text = self.viewModel.totRefund.delimiterWithSymbol
+            self.refundAmountLabel.text = self.viewModel.totRefundForFlight.delimiterWithSymbol
             self.infoLabel.text = LocalizedString.ReviewCancellationInfoLabel.localized
             self.cancellationTitleLabel.text = LocalizedString.ReasonForCancellation.localized
             self.cancellationTextField.text = LocalizedString.Select.localized
@@ -104,7 +110,6 @@ class BookingReviewCancellationVC: BaseVC {
         self.infoLabel.font = AppFonts.Regular.withSize(14.0)
         self.cancellationTitleLabel.font = AppFonts.Regular.withSize(14.0)
         self.cancellationTextField.font = AppFonts.Regular.withSize(18.0)
-        //        self.commentTextView.font = AppFonts.Regular.withSize(18.0)
     }
     
     override func setupColors() {
@@ -120,8 +125,8 @@ class BookingReviewCancellationVC: BaseVC {
     }
     
     override func setupNavBar() {
-        switch self.currentUsingAs {
-        case .reviewCancellation:
+        switch self.viewModel.currentUsingAs {
+        case .flightCancellationReview, .hotelCancellationReview:
             self.topNavBar.configureNavBar(title: LocalizedString.ReviewCancellation.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: true)
         case .specialRequest:
             self.topNavBar.configureNavBar(title: LocalizedString.SpecialRequest.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
@@ -138,7 +143,12 @@ class BookingReviewCancellationVC: BaseVC {
     // MARK: - IBAction
     @IBAction func requestContinueButtonTapped(_ sender: UIButton) {
         if self.viewModel.isUserDataVerified {
-            self.viewModel.makeCancellationRequest()
+            if self.viewModel.currentUsingAs == .specialRequest {
+                self.viewModel.makeHotelSpecialRequest()
+            }
+            else {
+                self.viewModel.makeCancellationRequest()
+            }
         }
     }
 }
@@ -146,12 +156,22 @@ class BookingReviewCancellationVC: BaseVC {
 // MARK: - Top Navigation view Delegate methods
 
 extension BookingReviewCancellationVC: TopNavigationViewDelegate {
+    
+    func removeMe() {
+        if self.viewModel.currentUsingAs == .specialRequest {
+            self.dismiss(animated: true, completion: nil)
+        }
+        else {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        self.removeMe()
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        self.removeMe()
     }
 }
 
@@ -162,18 +182,28 @@ extension BookingReviewCancellationVC {
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if textField === refundModeTextField {
+        
+        if self.viewModel.currentUsingAs == .specialRequest {
             PKMultiPicker.noOfComponent = 1
-            PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.refundModes, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+            PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.specialRequests, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
                 textField.text = firstSelect
-                self.viewModel.selectedMode = firstSelect
+                self.viewModel.selectedSpecialRequest = firstSelect
             }
         }
         else {
-            PKMultiPicker.noOfComponent = 1
-            PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.cancellationReasons, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
-                textField.text = firstSelect
-                self.viewModel.selectedReason = firstSelect
+            if textField === refundModeTextField {
+                PKMultiPicker.noOfComponent = 1
+                PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.refundModes, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                    textField.text = firstSelect
+                    self.viewModel.selectedMode = firstSelect
+                }
+            }
+            else {
+                PKMultiPicker.noOfComponent = 1
+                PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.cancellationReasons, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                    textField.text = firstSelect
+                    self.viewModel.selectedReason = firstSelect
+                }
             }
         }
         return true
@@ -186,7 +216,15 @@ extension BookingReviewCancellationVC: BookingReviewCancellationVMDelegate {
     }
     
     func makeCancellationRequestSuccess() {
-        AppFlowManager.default.showCancellationRequest(buttonTitle: LocalizedString.RequestCancellation.localized, delegate: self)
+        if self.viewModel.currentUsingAs == .flightCancellationReview {
+            AppFlowManager.default.showCancellationRequest(buttonTitle: LocalizedString.RequestCancellation.localized, delegate: self)
+        }
+        else if self.viewModel.currentUsingAs == .hotelCancellationReview {
+            AppFlowManager.default.showCancellationProcessed(buttonTitle: LocalizedString.ProcessCancellation.localized, delegate: self)
+        }
+        else if self.viewModel.currentUsingAs == .specialRequest {
+            AppFlowManager.default.showSpecialRequest(buttonTitle: LocalizedString.Request.localized, delegate: self)
+        }
     }
     
     func makeCancellationRequestFail() {
@@ -207,8 +245,15 @@ extension BookingReviewCancellationVC: BookingReviewCancellationVMDelegate {
 
 extension BookingReviewCancellationVC: BulkEnquirySuccessfulVCDelegate{
     func doneButtonAction() {
-        self.navigationController?.dismiss(animated: true, completion: {
-            self.sendDataChangedNotification(data: ATNotification.myBookingCasesRequestStatusChanged)
-        })
+        if self.viewModel.currentUsingAs == .specialRequest {
+            self.dismiss(animated: true, completion: {
+                self.sendDataChangedNotification(data: ATNotification.myBookingCasesRequestStatusChanged)
+            })
+        }
+        else {
+            self.navigationController?.dismiss(animated: true, completion: {
+                self.sendDataChangedNotification(data: ATNotification.myBookingCasesRequestStatusChanged)
+            })
+        }
     }
 }

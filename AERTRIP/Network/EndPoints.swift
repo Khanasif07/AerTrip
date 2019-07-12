@@ -91,6 +91,8 @@ enum APIEndPoint: String {
     case preferenceMaster = "addon/preference-master"
     case cancellationRefundModeReasons = "cancellation/refund-mode-reasons"
     case cancellationRequest = "cancellation/request"
+    case hotelSpecialRequestList = "default/special-request-dd"
+    case makeHotelSpecialRequest = "dashboard/hotel-special-request"
     
     // booking Detail
     case getBookingDetails = "dashboard/get-booking-details"
@@ -116,10 +118,6 @@ enum APIEndPoint: String {
     case hotelItinerary = "hotels/itinerary?action=traveller"
     case getPaymentMethod = "itinerary/get-payment-methods"
     case shareText = "su/create"
-    
-    
-    
-    
     
 }
 

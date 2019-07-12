@@ -19,9 +19,30 @@ protocol BookingReviewCancellationVMDelegate: class {
 }
 
 class BookingReviewCancellationVM {
+    
+    //MARK:- Enum
+    enum UsingFor {
+        case flightCancellationReview
+        case hotelCancellationReview
+        case specialRequest
+    }
+    
+    var currentUsingAs = UsingFor.flightCancellationReview
+    
+    //special request
+    var bookingId: String  = ""
+    
+    //hotel
+    var totRefundForHotel: Double {
+        return 50.0
+    }
+    
+    var selectedRooms: [RoomDetailModel] = []
+    
+    //flight
     var legsWithSelection: [Leg] = []
     
-    var totRefund: Double {
+    var totRefundForFlight: Double {
         return legsWithSelection.reduce(0) { $0 + ($1.selectedPaxs.reduce(0, { $0 + $1.netRefundForReschedule })) }
     }
     
@@ -33,22 +54,38 @@ class BookingReviewCancellationVM {
         }
     }
     
+    private(set) var specialRequests: [String] = []
+    
     var selectedMode: String = ""
     var selectedReason: String = ""
     var comment: String = ""
+    
+    var selectedSpecialRequest: String = ""
     
     weak var delegate: BookingReviewCancellationVMDelegate?
     
     var isUserDataVerified: Bool {
         var flag = true
         
-        if selectedMode.isEmpty || selectedMode.lowercased() == LocalizedString.Select.localized.lowercased() {
-            flag = false
-            AppToast.default.showToastMessage(message: "Please select refund mode.")
+        if self.currentUsingAs == .specialRequest {
+            if selectedSpecialRequest.isEmpty || selectedMode.lowercased() == LocalizedString.Select.localized.lowercased() {
+                flag = false
+                AppToast.default.showToastMessage(message: "Please select request type.")
+            }
+            else if comment.isEmpty || comment.lowercased() == LocalizedString.Select.localized.lowercased() {
+                flag = false
+                AppToast.default.showToastMessage(message: "Please write something about your special request.")
+            }
         }
-        else if selectedReason.isEmpty || selectedReason.lowercased() == LocalizedString.Select.localized.lowercased() {
-            flag = false
-            AppToast.default.showToastMessage(message: "Please select a reason for cancellation.")
+        else {
+            if selectedMode.isEmpty || selectedMode.lowercased() == LocalizedString.Select.localized.lowercased() {
+                flag = false
+                AppToast.default.showToastMessage(message: "Please select refund mode.")
+            }
+            else if selectedReason.isEmpty || selectedReason.lowercased() == LocalizedString.Select.localized.lowercased() {
+                flag = false
+                AppToast.default.showToastMessage(message: "Please select a reason for cancellation.")
+            }
         }
         
         return flag
@@ -56,7 +93,14 @@ class BookingReviewCancellationVM {
     
     func getCancellationRefundModeReasons() {
 
-        let param: JSONDictionary = ["product": "flight", "booking_id": self.legsWithSelection.first?.bookingId ?? ""]
+        var param: JSONDictionary = ["product": "flight", "booking_id": self.legsWithSelection.first?.bookingId ?? ""]
+        
+        if currentUsingAs == .flightCancellationReview {
+            param["product"] = "flight"
+        }
+        else if currentUsingAs == .hotelCancellationReview {
+            param["product"] = "hotel"
+        }
         
         self.delegate?.willGetCancellationRefundModeReasons()
         APICaller.shared.getCancellationRefundModeReasonsAPI(params: param) { [weak self](success, error, modes, reasons, userMode) in
@@ -75,14 +119,64 @@ class BookingReviewCancellationVM {
         }
     }
     
+    
+    func getAllHotelSpecialRequest() {
+        
+        self.delegate?.willGetCancellationRefundModeReasons()
+        APICaller.shared.getHotelSpecialRequestAPI() { [weak self](success, error, rquests) in
+            
+            if success {
+                self?.specialRequests = rquests
+                self?.specialRequests.insert(LocalizedString.Select.localized, at: 0)
+                self?.delegate?.getCancellationRefundModeReasonsSuccess()
+            }
+            else {
+                self?.delegate?.getCancellationRefundModeReasonsFail()
+            }
+        }
+    }
+    
+    func makeHotelSpecialRequest() {
+        let param: JSONDictionary = ["booking_id": self.bookingId, "category": self.selectedSpecialRequest.lowercased(), "other": self.comment]
+        self.delegate?.willMakeCancellationRequest()
+        APICaller.shared.makeHotelSpecialRequestAPI(params: param) { (success, error) in
+            if success {
+                self.delegate?.makeCancellationRequestSuccess()
+            }
+            else {
+                self.delegate?.makeCancellationRequestFail()
+            }
+        }
+    }
+    
     func makeCancellationRequest() {
         
-        var allSelected: [String] = []
-        for leg in self.legsWithSelection {
-            allSelected.append(contentsOf: leg.selectedPaxs.map { $0.paxId })
-        }
+        var param: JSONDictionary = JSONDictionary()
         
-        let param: JSONDictionary = ["booking_id": self.legsWithSelection.first?.bookingId ?? "", "refund_mode": self.selectedMode, "reason": self.selectedReason, "cancel[]": allSelected, "comments": self.comment]
+        if self.currentUsingAs == .flightCancellationReview {
+            
+            var allSelected: [String] = []
+            for leg in self.legsWithSelection {
+                allSelected.append(contentsOf: leg.selectedPaxs.map { $0.paxId })
+            }
+            
+            param["booking_id"] = self.legsWithSelection.first?.bookingId ?? ""
+            param["refund_mode"] = self.selectedMode
+            param["reason"] = self.selectedReason
+            param["cancel"] = allSelected
+            param["comments"] = self.comment
+        }
+        else if self.currentUsingAs == .hotelCancellationReview {
+
+            let allSelected: [String] = self.selectedRooms.map { $0.rid }
+            
+            param["booking_id"] = self.selectedRooms.first?.bookingId ?? ""
+            param["refund_mode"] = self.selectedMode
+            param["reason"] = self.selectedReason
+            param["cancel"] = allSelected
+            param["comments"] = self.comment
+            param["totalNetRef"] = self.totRefundForHotel
+        }
         
         self.delegate?.willMakeCancellationRequest()
         APICaller.shared.cancellationRequestAPI(params: param) { [weak self](success, error) in

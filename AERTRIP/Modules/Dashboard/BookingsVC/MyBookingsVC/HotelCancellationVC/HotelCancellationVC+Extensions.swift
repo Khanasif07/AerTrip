@@ -10,15 +10,38 @@ import UIKit
 
 extension HotelCancellationVC: UITableViewDelegate , UITableViewDataSource {
     
+    private func updateViewOnSelection() {
+        
+        //manage title
+        if self.viewModel.selectedRooms.isEmpty {
+            self.topNavBar.subTitleLabel.text = LocalizedString.SelectHotelOrRoomsForCancellation.localized
+        }
+        else {
+            self.topNavBar.subTitleLabel.text = "\(self.viewModel.selectedRooms.count) \(LocalizedString.Room.localized.lowercased())\((self.viewModel.selectedRooms.count == 1) ? "" : "s") \(LocalizedString.Selected.localized.lowercased())"
+        }
+        
+        //manage continue button
+        if self.viewModel.selectedRooms.isEmpty {
+            self.cancellationButtonOutlet.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
+            self.cancellationButtonOutlet.isUserInteractionEnabled = false
+            self.totalNetRefundContainerView.isHidden = true
+        }
+        else {
+            self.cancellationButtonOutlet.setTitleColor(AppColors.themeWhite.withAlphaComponent(1.0), for: .normal)
+            self.cancellationButtonOutlet.isUserInteractionEnabled = true
+            self.totalNetRefundContainerView.isHidden = false
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.bookedHotelData.count
+        self.updateViewOnSelection()
+        return self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "BookingReschedulingHeaderView") as? BookingReschedulingHeaderView else { return nil }
+        guard let rooms = self.viewModel.bookingDetail?.bookingDetail?.roomDetails, let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "BookingReschedulingHeaderView") as? BookingReschedulingHeaderView else { return nil }
         headerView.delegate = self
-        headerView.selectedButton.isUserInteractionEnabled = false
-        let image = self.viewModel.isAllRoomSelected ? #imageLiteral(resourceName: "tick") : #imageLiteral(resourceName: "untick")
+        let image = (rooms.count == self.viewModel.selectedRooms.count) ? #imageLiteral(resourceName: "tick") : #imageLiteral(resourceName: "untick")
         headerView.selectedButton.setImage(image, for: .normal)
         headerView.routeLabel.text = self.viewModel.hotelName
         headerView.infoLabel.text = self.viewModel.bookingDateAndRefundableStatus
@@ -27,12 +50,19 @@ extension HotelCancellationVC: UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelCancellationRoomInfoTableViewCell.reusableIdentifier, for: indexPath) as? HotelCancellationRoomInfoTableViewCell else { return UITableViewCell() }
+        guard let rooms = self.viewModel.bookingDetail?.bookingDetail?.roomDetails, let cell = tableView.dequeueReusableCell(withIdentifier: HotelCancellationRoomInfoTableViewCell.reusableIdentifier, for: indexPath) as? HotelCancellationRoomInfoTableViewCell else { return UITableViewCell() }
         cell.delegate = self
-        let hotelData = self.viewModel.bookedHotelData[indexPath.row]
-        cell.configureCell(roomNumber: "\(LocalizedString.Room.localized) \(hotelData.roomNumber)", roomName: hotelData.roomName , guestNames: hotelData.roomGuest, isRoomSelected: hotelData.isChecked, isExpanded: hotelData.isExpanded)
-        cell.topDividerViewLeadingConstraint.constant = (indexPath.row == self.viewModel.bookedHotelData.count - 1) ? 0.0 : 63.0
-        cell.bottomDividerViewLeadingConstraint.constant = (indexPath.row == self.viewModel.bookedHotelData.count - 1) ? 0.0 : 63.0
+
+        let roomD = rooms[indexPath.row]
+        let allGuest = roomD.guest.map { $0.fullName }
+        
+        let isRoomSelected = self.viewModel.selectedRooms.contains(where: { $0.rid == roomD.rid })
+        let isExpanded = self.expandedIndexPaths.contains(indexPath)
+        
+        cell.configureCell(roomNumber: "\(LocalizedString.Room.localized) \(indexPath.row+1)", roomName: roomD.roomType , guestNames: allGuest, isRoomSelected: isRoomSelected, isExpanded: isExpanded)
+        
+        cell.topDividerViewLeadingConstraint.constant = (indexPath.row == (rooms.count - 1)) ? 0.0 : 63.0
+        cell.bottomDividerViewLeadingConstraint.constant = (indexPath.row == (rooms.count - 1)) ? 0.0 : 63.0
         cell.clipsToBounds = true
         return cell
     }
@@ -54,35 +84,33 @@ extension HotelCancellationVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == self.viewModel.bookedHotelData.count {
-            return 0
-        } else {
-            return self.viewModel.bookedHotelData[indexPath.row].isExpanded ? 214.0 : 61
+        if self.expandedIndexPaths.contains(indexPath), let rooms = self.viewModel.bookingDetail?.bookingDetail?.roomDetails {
+            //calculate
+            let roomD = rooms[indexPath.row]
+            return roomD.guest.map { $0.fullName }.joined(separator: ", ").sizeCount(withFont: AppFonts.Regular.withSize(16.0), bundingSize: CGSize(width: UIDevice.screenWidth - 68.0, height: 10000.0)).height + 173.0
         }
+        return 61.0
     }
 }
 
 extension HotelCancellationVC: BookingTopNavBarWithSubtitleDelegate {
     func rightButtonAction() {
-        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
 }
 
 extension HotelCancellationVC: BookingReschedulingHeaderViewDelegate {
     func selectAllButtonAction(_ sender: UIButton) {
-        if !self.viewModel.isAllRoomSelected {
-            for index in 0...(self.viewModel.bookedHotelData.count - 1) {
-                self.viewModel.bookedHotelData[index].isChecked = true
-                printDebug(self.viewModel.bookedHotelData[index].isChecked)
-            }
-        } else {
-            for index in 0...(self.viewModel.bookedHotelData.count - 1) {
-                self.viewModel.bookedHotelData[index].isChecked = false
-                printDebug(self.viewModel.bookedHotelData[index].isChecked)
-            }
+        guard let rooms = self.viewModel.bookingDetail?.bookingDetail?.roomDetails else { return}
+        
+        if rooms.count == self.viewModel.selectedRooms.count {
+            //deselect all
+            self.viewModel.selectedRooms.removeAll()
         }
-        self.viewModel.isAllRoomSelected = !self.viewModel.isAllRoomSelected
-        self.isAnyRoomSelected()
+        else {
+            //select all
+            self.viewModel.selectedRooms = rooms
+        }
         self.hotelCancellationTableView.reloadData()
     }
 }
@@ -90,17 +118,28 @@ extension HotelCancellationVC: BookingReschedulingHeaderViewDelegate {
 extension HotelCancellationVC: HotelCancellationRoomInfoTableViewCellDelegate {
     
     func selectRoomForCancellation(for indexPath: IndexPath) {
-        self.viewModel.bookedHotelData[indexPath.row].isChecked = !self.viewModel.bookedHotelData[indexPath.row].isChecked
-        printDebug("\(indexPath)\(self.viewModel.bookedHotelData[indexPath.row].isChecked)")
-        self.viewModel.isAllRoomSelected = self.allRoomIsSelectedOrNot()
-        self.isAnyRoomSelected()
+        
+        guard let rooms = self.viewModel.bookingDetail?.bookingDetail?.roomDetails else { return}
+
+        let roomD = rooms[indexPath.row]
+        
+        if let idx = self.viewModel.selectedRooms.firstIndex(where: { $0.rid == roomD.rid }) {
+            self.viewModel.selectedRooms.remove(at: idx)
+        }
+        else {
+            self.viewModel.selectedRooms.append(roomD)
+        }
         self.hotelCancellationTableView.reloadData()
     }
     
     func cellExpand(for indexPath: IndexPath) {
-        self.viewModel.bookedHotelData[indexPath.row].isExpanded = !self.viewModel.bookedHotelData[indexPath.row].isExpanded
-        printDebug("\(indexPath)\(self.viewModel.bookedHotelData[indexPath.row].isExpanded)")
-        self.isAnyRoomSelected()
+
+        if let idx = self.expandedIndexPaths.index(of: indexPath) {
+            self.expandedIndexPaths.remove(at: idx)
+        }
+        else {
+            self.expandedIndexPaths.append(indexPath)
+        }
         self.hotelCancellationTableView.reloadData()
     }
 }
