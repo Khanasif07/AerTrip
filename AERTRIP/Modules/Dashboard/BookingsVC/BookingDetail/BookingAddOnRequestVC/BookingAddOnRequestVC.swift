@@ -351,6 +351,11 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("BookingRequestAddOnTableViewCell not found")
         }
         bookingAddOnCell.communicationData = self.viewModel.caseHistory?.communications[indexPath.row]
+        
+        if let caseD = self.viewModel.caseHistory {
+            bookingAddOnCell.dividerView.isHidden = (indexPath.row == (caseD.communications.count-1))
+        }
+        
         return bookingAddOnCell
     }
     

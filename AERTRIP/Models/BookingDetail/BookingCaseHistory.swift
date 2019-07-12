@@ -49,6 +49,7 @@ struct BookingCaseHistory {
     var caseType: String = ""
     var caseId: String = ""
     var resolutionStatusId: String = ""
+    private var _resolutionStatusStr: String = ""
     var csrName: String = ""
     var associatedBid: String = ""
     var associatedVouchersStr: String = ""
@@ -60,12 +61,24 @@ struct BookingCaseHistory {
         return associatedVouchersStr.components(separatedBy: ",")
     }
     
+    var resolutionStatus: ResolutionStatus {
+        get {
+            return ResolutionStatus(rawValue: self._resolutionStatusStr) ?? ResolutionStatus.closed
+        }
+        
+        set {
+            self._resolutionStatusStr = newValue.rawValue
+        }
+    }
+    
     init(json: JSONDictionary) {
         if let obj = json["case_type"] { self.caseType = "\(obj)" }
         
         if let obj = json["case_id"] { self.caseId = "\(obj)" }
         
         if let obj = json["resolution_status_id"] { self.resolutionStatusId = "\(obj)" }
+        
+        if let obj = json["resolution_status"] { self._resolutionStatusStr = "\(obj)" }
         
         if let obj = json["associated_bid"] { self.associatedBid = "\(obj)" }
         

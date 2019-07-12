@@ -640,17 +640,17 @@ enum ResolutionStatus: RawRepresentable {
     case resolved
     
     init?(rawValue: String) {
-        switch rawValue {
-        case "Payment Pending": self = .paymentPending
-        case "Action Required": self = .actionRequired
-        case "In Progress": self = .inProgress
-        case "Successful": self = .successfull
-        case "Aborted": self = .aborted
-        case "Closed": self = .closed
-        case "Confirmation Pending": self = .confirmationPending
-        case "Open": self = .open
-        case "Canceled": self = .canceled
-        case "Resolved": self = .resolved
+        switch rawValue.lowercased() {
+        case "payment pending", "action required / payment pending": self = .paymentPending
+        case "action required": self = .actionRequired
+        case "in progress": self = .inProgress
+        case "successful": self = .successfull
+        case "aborted": self = .aborted
+        case "closed": self = .closed
+        case "confirmation pending": self = .confirmationPending
+        case "open": self = .open
+        case "canceled": self = .canceled
+        case "resolved": self = .resolved
         default: fatalError("case not handled for '\(rawValue)' in \(#file) at line \(#line)")
         }
     }

@@ -1724,7 +1724,7 @@ struct Case {
     var caseName: String = ""
     var caseStatus: String = ""
     var resolutionStatusId: String = ""
-    var resolutionStatusStr: String = ""
+    private var _resolutionStatusStr: String = ""
     var requestDate: Date?
     var csrName: String = ""
     var resolutionDate: String = ""
@@ -1732,9 +1732,15 @@ struct Case {
     var flag: String = ""
     var note: String = ""
     var amount: Double = 0.0
-    
+        
     var resolutionStatus: ResolutionStatus {
-        return ResolutionStatus(rawValue: self.resolutionStatusStr) ?? ResolutionStatus.closed
+        get {
+            return ResolutionStatus(rawValue: self._resolutionStatusStr) ?? ResolutionStatus.closed
+        }
+        
+        set {
+            self._resolutionStatusStr = newValue.rawValue
+        }
     }
     
     init() {
@@ -1757,7 +1763,7 @@ struct Case {
         }
         
         if let obj = json["resolution_status"] {
-            self.resolutionStatusStr = "\(obj)".removeNull
+            self._resolutionStatusStr = "\(obj)".removeNull
         }
         
         if let obj = json["case_type"] {

@@ -19,10 +19,14 @@ protocol BookingAddOnRequestVMDelegate: class {
 class BookingAddOnRequestVM {
     
     var receipt: Receipt? // to be used on the vouchers screen
-    var caseData: Case? //to be bassed when the vc is created
+    var caseData: Case? //to be passed when the vc is created
     var caseHistory: BookingCaseHistory? {
         didSet {
-            caseData?.resolutionStatusId = caseHistory?.resolutionStatusId ?? ""
+            if let obj = caseHistory {
+                //update old case data with new case history data
+                caseData?.resolutionStatusId = obj.resolutionStatusId
+                caseData?.resolutionStatus = obj.resolutionStatus
+            }
             self.fetchCaseDetailData()
         }
     }
@@ -46,12 +50,12 @@ class BookingAddOnRequestVM {
         
         let dateStr = caseD.requestDate?.toString(dateFormat: "d MMM yyyy | HH:mm") ?? ""
         temp["02Requested on"] = dateStr.isEmpty ? LocalizedString.dash.localized : dateStr
-        temp["03Associate Booking ID"] = caseD.bookingId.isEmpty ? LocalizedString.dash.localized : caseD.bookingId
+        temp["03Associate Booking ID"] = history.associatedBid.isEmpty ? LocalizedString.dash.localized : history.associatedBid
         temp["04Reference Case ID"] = history.referenceCaseId.isEmpty ? LocalizedString.dash.localized : history.referenceCaseId
         
         for (idx,val) in history.associatedVouchersArr.enumerated() {
             if idx == 0 {
-                temp["1\(idx)Associate Voucher No."] = val
+                temp["1\(idx)Associate Voucher No."] = val.isEmpty ? LocalizedString.dash.localized : val
             }
             else {
                 temp["1\(idx)"] = val
@@ -68,7 +72,6 @@ class BookingAddOnRequestVM {
             
             if success {
                 sSelf.caseHistory = history
-                sSelf.fetchCaseDetailData()
                 sSelf.delegate?.getCaseHistorySuccess()
             }
             else {
