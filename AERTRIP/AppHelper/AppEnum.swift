@@ -638,6 +638,7 @@ enum ResolutionStatus: RawRepresentable {
     case open
     case canceled
     case none
+    case resolved
     
     init?(rawValue: String) {
         switch rawValue {
@@ -650,6 +651,7 @@ enum ResolutionStatus: RawRepresentable {
         case "Confirmation Pending": self = .confirmationPending
         case "Open": self = .open
         case "Canceled": self = .canceled
+        case "resolved": self = .resolved
         default:
             fatalError("case not handled for '\(rawValue)' in \(#file) at line \(#line)")
         }
@@ -666,6 +668,7 @@ enum ResolutionStatus: RawRepresentable {
         case .confirmationPending: return "Confirmation Pending"
         case .open: return "Open"
         case .canceled: return "Canceled"
+        case .resolved: return "Resolved"
         default:
             return "none"
         }
@@ -682,6 +685,8 @@ enum ResolutionStatus: RawRepresentable {
         case .open: return AppColors.themeBlack
         case .confirmationPending: return AppColors.themeRed
         case .canceled: return AppColors.themeBlack
+        case .resolved: return AppColors.themeGreen
+
         default:
            return  AppColors.themeBlack
         }

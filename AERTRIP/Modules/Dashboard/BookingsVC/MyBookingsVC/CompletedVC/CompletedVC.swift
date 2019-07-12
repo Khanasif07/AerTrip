@@ -46,12 +46,10 @@ class CompletedVC: BaseVC {
     //================
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.loadSaveData()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.loadSaveData()
     }
 
     override func viewDidLoad() {
@@ -92,12 +90,6 @@ class CompletedVC: BaseVC {
         self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateHeader", ascending: false)]
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "dateHeader", cacheName: nil)
-        
-//        do {
-//            try fetchedResultsController.performFetch()
-//        } catch {
-//            printDebug("Error in performFetch: \(error) at line \(#line) in file \(#file)")
-//        }
         return fetchedResultsController
     }()
     
@@ -118,7 +110,6 @@ class CompletedVC: BaseVC {
     
     private func registerXibs() {
         self.completedBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
-//        self.completedBookingsTableView.registerCell(nibName: QueryStatusTableViewCell.reusableIdentifier)
         self.completedBookingsTableView.registerCell(nibName: SpaceTableViewCell.reusableIdentifier)
         self.completedBookingsTableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
     }

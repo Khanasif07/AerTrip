@@ -226,7 +226,7 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
         }
         else {
             let transC = self.isBaseFareSectionExpanded ? self.viewModel.transectionCodes.count : 0
-            let disC = self.isBaseFareSectionExpanded ? self.viewModel.transectionCodes.count : 0
+            let disC = self.isGrossFareSectionExpanded ? self.viewModel.discountCodes.count : 0
             return [2,transC,disC,3][section]
         }
     }

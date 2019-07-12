@@ -734,6 +734,7 @@ enum LocalizedString: String {
     case AddOnRequestMesage
     case PNRNo
     case SaleAmount
+    case ConfirmationNo
     case CancellationCharges
     case ReschedulingCharges
     case NetRefund

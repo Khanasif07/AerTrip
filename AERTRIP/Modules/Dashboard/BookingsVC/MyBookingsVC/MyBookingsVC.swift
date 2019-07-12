@@ -27,7 +27,7 @@ class MyBookingsVC: BaseVC {
     
     
     
-     var allChildVCs: [UIViewController] = [UIViewController]()
+    var allChildVCs: [UIViewController] = [UIViewController]()
     
     // Mark:- IBOutlets
     //================
@@ -56,7 +56,7 @@ class MyBookingsVC: BaseVC {
     override func initialSetup() {
         self.topNavBar.configureNavBar(title: LocalizedString.MyBookings.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIconSelected"))
-//        self.topNavBar.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "swipeArrow"), selectedImage: #imageLiteral(resourceName: "swipeArrow"))
+        //        self.topNavBar.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "swipeArrow"), selectedImage: #imageLiteral(resourceName: "swipeArrow"))
         self.searchBar.cornerRadius = 10.0
         self.searchBar.clipsToBounds = true
         self.hideAllData()
@@ -69,7 +69,7 @@ class MyBookingsVC: BaseVC {
         
         self.allTabsStr.removeAll()
     }
-
+    
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
             if noti == .myBookingFilterApplied {
@@ -106,7 +106,7 @@ class MyBookingsVC: BaseVC {
     }
     
     override func bindViewModel() {
-       
+        
         MyBookingsVM.shared.delgate = self
     }
     
@@ -136,7 +136,7 @@ class MyBookingsVC: BaseVC {
         }
     }
     
-     func emptyStateSetUp() {
+    func emptyStateSetUp() {
         self.allChildVCs.removeAll()
         if MyBookingsVM.shared.allTabTypes.isEmpty {
             self.emptyStateImageView.isHidden = false
@@ -209,10 +209,10 @@ class MyBookingsVC: BaseVC {
         style.indicatorColor = AppColors.themeGreen
         style.normalColor = AppColors.textFieldTextColor51
         style.selectedColor = AppColors.themeBlack
-//        style.badgeDotSize = CGSize(width: 0.0, height: 0.0)
-//        style.badgeBackgroundColor = AppColors.themeGreen
-//        style.badgeBorderColor = AppColors.clear
-//        style.badgeBorderWidth = 0.0
+        //        style.badgeDotSize = CGSize(width: 0.0, height: 0.0)
+        //        style.badgeBackgroundColor = AppColors.themeGreen
+        //        style.badgeBorderColor = AppColors.clear
+        //        style.badgeBorderWidth = 0.0
         
         if let _ = self.categoryView {
             self.categoryView?.removeFromSuperview()
@@ -236,7 +236,7 @@ class MyBookingsVC: BaseVC {
         self.childContainerView.isHidden = true
         self.searchBarContainerView.isHidden = true
     }
-   
+    
     
     // Mark:- IBActions
     //================
@@ -265,10 +265,8 @@ extension MyBookingsVC: TopNavigationViewDelegate {
 
 extension MyBookingsVC: ATCategoryNavBarDelegate {
     func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
-        if toIndex == 1, MyBookingsVM.shared.allTabTypes.contains(Int16(BookingTabCategory.completed.rawValue)) {
-        }
         self.currentIndex = toIndex
-//        HotelFilterVM.shared.lastSelectedIndex = toIndex
+        //        HotelFilterVM.shared.lastSelectedIndex = toIndex
     }
 }
 

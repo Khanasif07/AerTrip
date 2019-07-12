@@ -17,7 +17,7 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
     
     //MARK:- Variables
     //MARK:===========
-    internal var chargesData:  [(chargeName: String, chargeAmount: String)] = [(chargeName: "Confirmation No.", chargeAmount: "201806-030787"), (chargeName: "Sale Amount", chargeAmount: "₹ 27,000"), (chargeName: "Cancellation Charges", chargeAmount: "₹ 27,000"), (chargeName: "Net Refund", chargeAmount: "₹ 27,000")]
+    internal var chargesData:  [(chargeName: String, chargeAmount: String)] = []
     internal weak var delegate: HotelCancellationRoomInfoTableViewCellDelegate?
     
     //MARK:- IBOutlets
@@ -34,7 +34,7 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var bottomDividerView: ATDividerView!
     @IBOutlet weak var topDividerViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomDividerViewLeadingConstraint: NSLayoutConstraint!
-    
+
     //MARK:- LifeCycle
     //MARK:===========
     override func awakeFromNib() {
@@ -66,10 +66,11 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
         self.rightArrowImageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi/2) //make the arrow to down
     }
     
-    internal func configureCell(roomNumber: String , roomName: String, guestNames: [String], isRoomSelected: Bool, isExpanded: Bool) {
+    internal func configureCell(roomNumber: String, roomDetails: RoomDetailModel, isRoomSelected: Bool, isExpanded: Bool) {
+
         self.roomNumberLabel.text = roomNumber
-        self.roomNameLabel.text = roomName
-        self.guestNamesLabel.text = guestNames.joined(separator: ", ")
+        self.roomNameLabel.text = roomDetails.roomType
+        self.guestNamesLabel.text = roomDetails.guest.map { $0.fullName }.joined(separator: ", ")
         if isRoomSelected {
             self.selectRoomButtonOutlet.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
         } else {
@@ -79,6 +80,15 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
         self.bottomDividerView.isHidden = !isExpanded
         
         self.rightArrowImageView.transform = isExpanded ? CGAffineTransform(rotationAngle: -(CGFloat.pi/2)) : CGAffineTransform(rotationAngle: CGFloat.pi/2)
+        
+        self.setChargeData(roomDetails: roomDetails)
+    }
+    
+    private func setChargeData(roomDetails: RoomDetailModel) {
+        
+        self.chargesData = [(chargeName: LocalizedString.ConfirmationNo.localized, chargeAmount: roomDetails.voucher), (chargeName: LocalizedString.SaleAmount.localized, chargeAmount: roomDetails.amountPaid.delimiterWithSymbol), (chargeName: LocalizedString.CancellationCharges.localized, chargeAmount: roomDetails.cancellationCharges.delimiterWithSymbol), (chargeName: LocalizedString.NetRefund.localized, chargeAmount: roomDetails.netRefund.delimiterWithSymbol)]
+                
+        self.chargesCollectionView.reloadData()
     }
     
     //MARK:- IBActions

@@ -34,7 +34,7 @@ class BookingInvoiceVM {
         }
         
         if let trans = vchr.transactions.filter({ $0.ledgerName.lowercased().contains("discounts")}).first {
-            self.transectionCodes = trans.codes
+            self.discountCodes = trans.codes
         }
     }
 }

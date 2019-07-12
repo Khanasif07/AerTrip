@@ -67,6 +67,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zAP-Rc-8KB" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="37" y="106.5" width="283" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="KKh-05-PKP"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -74,10 +81,13 @@
                             <constraint firstAttribute="bottom" secondItem="w2U-aR-aCU" secondAttribute="bottom" constant="33" id="CZu-Y1-eHv"/>
                             <constraint firstAttribute="bottom" secondItem="qAf-ss-LoZ" secondAttribute="bottom" id="CoC-JR-41A"/>
                             <constraint firstAttribute="trailing" secondItem="qAf-ss-LoZ" secondAttribute="trailing" constant="16" id="HDv-Jz-Nwn"/>
+                            <constraint firstItem="zAP-Rc-8KB" firstAttribute="leading" secondItem="GAT-7Q-Rkt" secondAttribute="leading" constant="37" id="KMq-2f-Mve"/>
                             <constraint firstItem="qAf-ss-LoZ" firstAttribute="leading" secondItem="YXP-a5-3y4" secondAttribute="leading" id="TSa-ml-VHq"/>
                             <constraint firstItem="w2U-aR-aCU" firstAttribute="top" secondItem="GAT-7Q-Rkt" secondAttribute="top" constant="10" id="aKD-1Q-MaT"/>
                             <constraint firstAttribute="trailing" secondItem="YXP-a5-3y4" secondAttribute="trailing" constant="104" id="bmC-Vc-dPv"/>
                             <constraint firstItem="w2U-aR-aCU" firstAttribute="leading" secondItem="GAT-7Q-Rkt" secondAttribute="leading" constant="9" id="glB-pW-6hl"/>
+                            <constraint firstAttribute="trailing" secondItem="zAP-Rc-8KB" secondAttribute="trailing" id="iB1-HO-jWS"/>
+                            <constraint firstAttribute="bottom" secondItem="zAP-Rc-8KB" secondAttribute="bottom" id="juB-5w-xT8"/>
                             <constraint firstItem="YXP-a5-3y4" firstAttribute="top" secondItem="w2U-aR-aCU" secondAttribute="top" id="nrr-aS-LqM"/>
                             <constraint firstItem="qAf-ss-LoZ" firstAttribute="top" secondItem="YXP-a5-3y4" secondAttribute="bottom" constant="-10" id="qqh-JS-F4z"/>
                             <constraint firstItem="ezP-3P-9VP" firstAttribute="top" secondItem="YXP-a5-3y4" secondAttribute="top" constant="4" id="rr7-az-da7"/>
@@ -95,6 +105,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="dividerView" destination="zAP-Rc-8KB" id="DHv-CR-QnG"/>
                 <outlet property="dotImageView" destination="2AJ-0U-Cbg" id="dHa-Ya-ebP"/>
                 <outlet property="messageImageView" destination="08G-qm-Wxa" id="msX-PK-XU3"/>
                 <outlet property="messageLabel" destination="qAf-ss-LoZ" id="9bT-md-v7b"/>
