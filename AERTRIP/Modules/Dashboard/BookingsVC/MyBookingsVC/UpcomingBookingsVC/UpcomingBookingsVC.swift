@@ -49,7 +49,7 @@ class UpcomingBookingsVC: BaseVC {
     // fetch result controller
     lazy var fetchedResultsController: NSFetchedResultsController<BookingData> = {
         
-        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "eventStartDate", ascending: true)]
+        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateHeader", ascending: true)]
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "dateHeader", cacheName: nil)
         

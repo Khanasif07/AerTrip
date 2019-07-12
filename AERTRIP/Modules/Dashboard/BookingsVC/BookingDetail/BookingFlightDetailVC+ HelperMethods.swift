@@ -164,6 +164,7 @@ extension BookingFlightDetailVC {
     }
     
     func getCellForBaggageInfo(_ indexPath: IndexPath) -> UITableViewCell {
+        
         let flight = self.viewModel.legDetails[indexPath.section].flight[self.calculatedIndexForShowingFlightDetails]
         switch indexPath.row {
         case 0:
@@ -303,8 +304,8 @@ extension BookingFlightDetailVC {
         commonCell.rightLabel.font = AppFonts.Regular.withSize(16.0)
         
         commonCell.leftLabel.text = type
-        commonCell.middleLabel.attributedText = aerlineFee.toDouble.amountInDoubleWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-        commonCell.rightLabel.attributedText = aertripFee.toDouble.amountInDoubleWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        commonCell.middleLabel.attributedText = aerlineFee.toDouble.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        commonCell.rightLabel.attributedText = aertripFee.toDouble.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
         return commonCell
     }
     

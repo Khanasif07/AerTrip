@@ -20,4 +20,9 @@ class FareInfoVM {
                                    "Total Rescheduling Charges also include Fare Difference (if applicable).",
                                    "Airlines stop accepting cancellation/rescheduling requests 3 - 75 hours before departure of the flight, depending on the airline.",
                                    "For confirming cancellation/change fee, please call us at our customer care."]
+
+    let fareInfoDisclamer: [String] = ["Airlines stop accepting cancellation/rescheduling requests 3 - 75 hours before departure of the flight, depending on the airline, fare basis and booking fare policy.",
+        "In case of restricted fares, no amendments/cancellation may be allowed.",
+        "In case of combo fares or round-trip special fares, cancellation or change of only onward journey is not allowed. Cancellation or change of future sectors is allowed only if previous sectors are flown.",
+        "Airline Cancellation/Rescheduling Charges needs to be reconfirmed prior to any amendments or cancellation.","Cancellation/Rescheduling Charges are indicative, subject to currency fluctuations and can change without prior notice. Aertrip does not guarantee or warrant this information."]
 }

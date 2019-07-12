@@ -1001,21 +1001,21 @@ struct FlightDetail {
     }
     
     var numberOfCellBaggage: Int {
-        var temp: Int = 1
+        var temp: Int = 1 //flight detail cell
         
         if let bg = self.baggage?.cabinBg {
-            temp += 1
+            temp += 1 //info title cell
             
             if let _ = bg.adult {
-                temp += 1
+                temp += 1 //adult details cell
             }
-            
+
             if let _ = bg.child {
-                temp += 1
+                temp += 1 //child details cell
             }
-            
+
             if let _ = bg.infant {
-                temp += 1
+                temp += 1 //adult details cell
             }
         }
         
@@ -1204,13 +1204,13 @@ struct FlightDetail {
             finalStr += "\n\(self.equipmentDescription)"
         }
         if !self.equipmentDescription2.isEmpty {
-            finalStr += "\n\(self.equipmentDescription2)"
+            finalStr += "\n(\(self.equipmentDescription2))"
         }
         if !self.equipmentLayout.isEmpty {
             finalStr += "\n\(self.equipmentLayout)"
         }
         
-        return finalStr
+        return finalStr + " >"
     }
 }
 
@@ -1506,13 +1506,13 @@ struct BillingAddress {
         if !self.city.isEmpty {
             temp += "\(temp.isEmpty ? "" : ", ")\(self.city)"
         }
+       
+        if !self.postalCode.isEmpty {
+            temp += "\(temp.isEmpty ? "" : " - ")\(self.postalCode)"
+        }
         
         if !self.state.isEmpty {
             temp += "\(temp.isEmpty ? "" : ", ")\(self.state)"
-        }
-        
-        if !self.postalCode.isEmpty {
-            temp += "\(temp.isEmpty ? "" : " - ")\(self.postalCode)"
         }
         
         if !self.country.isEmpty {

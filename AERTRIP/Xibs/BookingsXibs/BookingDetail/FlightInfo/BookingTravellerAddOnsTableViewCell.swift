@@ -99,7 +99,7 @@ extension BookingTravellerAddOnsTableViewCell: UICollectionViewDataSource, UICol
         
         if collectionView === travellerCollectionView {
             //list
-            let newW: CGFloat = ((collectionView.width - 32.0) / 4.5)
+            let newW: CGFloat = ((collectionView.width - 32.0) / 4)
             return  CGSize(width: newW, height: collectionView.height)
         }
         else {

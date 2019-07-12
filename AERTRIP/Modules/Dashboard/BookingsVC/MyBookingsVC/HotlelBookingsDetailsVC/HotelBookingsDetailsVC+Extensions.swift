@@ -149,7 +149,7 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("\(indexPath.section)")
         
-        if indexPath.section < self.viewModel.noOfLegCellAboveLeg {
+        if indexPath.section <= self.viewModel.noOfLegCellAboveLeg {
             AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: self.viewModel.bookingDetail)
         }
         

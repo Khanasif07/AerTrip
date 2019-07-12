@@ -14,6 +14,8 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
     @IBOutlet var profileImageView: UIImageView!
     @IBOutlet var travellerNameLabel: UILabel!
     @IBOutlet var bottomSlideView: UIView!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
     
     var paxData: Pax? {
         didSet {
@@ -62,11 +64,18 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
     
     private func configureCell() {
         self.travellerNameLabel.text = self.paxData?.fullName ?? ""
-        self.profileImageView.image = self.paxData?.salutationImage ?? #imageLiteral(resourceName: "boy")
+        let placeImage = AppGlobals.shared.getImageFor(firstName: self.paxData?.firstName, lastName: self.paxData?.lastName, font: AppFonts.Regular.withSize(35.0),backGroundColor: AppColors.blueGray)
+        if self.paxData?.profileImage.isEmpty ?? false {
+            self.profileImageView.image = placeImage
+        } else {
+            self.profileImageView.setImageWithUrl(self.paxData?.profileImage ?? "", placeholder: placeImage, showIndicator: false)
+        }
     }
     
     private func configureCellForGuest() {
         self.travellerNameLabel.text = self.guestData?.fullName ?? ""
+        self.bottomConstraint.constant = 0
+        self.topConstraint.constant = 10
         let placeImage = AppGlobals.shared.getImageFor(firstName: self.guestData?.firstName, lastName: self.guestData?.lastname, font: AppFonts.Regular.withSize(35.0),backGroundColor: AppColors.blueGray)
         if self.guestData?.profileImage.isEmpty ?? false {
             self.profileImageView.image = placeImage

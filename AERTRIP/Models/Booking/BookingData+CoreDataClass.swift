@@ -181,7 +181,8 @@ public class BookingData: NSManagedObject {
             if let str = dateNTime.components(separatedBy: " ").first {
                 return "\(str) 00:00:00"
             }
-            return ""
+            
+            return dateNTime
         }
         
         if let type = booking?.productType, type == .flight {

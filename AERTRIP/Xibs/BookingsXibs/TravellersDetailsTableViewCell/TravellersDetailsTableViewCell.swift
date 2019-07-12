@@ -45,14 +45,21 @@ class TravellersDetailsTableViewCell: UITableViewCell {
         self.travellerName.textColor = AppColors.themeBlack
     }
     
-    internal func configCell(imageUrl: String, travellerName: String, isLastTravellerInRoom: Bool, isLastTraveller: Bool, isOtherBookingData: Bool = false) {
-        self.travellerProfileImage.setImageWithUrl(imageUrl, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
+    internal func configCell(travellersImage: String, travellerName: String,firstName: String,lastName: String, isLastTravellerInRoom: Bool, isLastTraveller: Bool, isOtherBookingData: Bool = false) {
         self.travellerName.text = travellerName
         self.travellerImgViewBottomConstraint.constant = (isLastTraveller || isLastTravellerInRoom) ? 16.0 : 4.0
         self.containerViewBottomConstraint.constant = isLastTraveller ? 26.0 : 0.0
         if !isOtherBookingData {
             self.lastCellShadowSetUp(isLastCell: isLastTraveller)
         }
+        if !travellersImage.isEmpty {
+            self.travellerProfileImage.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
+        } else {
+            self.travellerProfileImage.makeCircular(borderWidth: 1.0, borderColor: AppColors.themeGray04)
+            self.travellerProfileImage.image = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName, font: AppFonts.Regular.withSize(35.0))
+        }
+
+        
     }
     
     private func lastCellShadowSetUp(isLastCell: Bool) {

@@ -400,6 +400,10 @@ struct Traveller {
         }
         return traveller
     }
+    
+    var fullName: String {
+        return "\(self.salutation) \(self.paxName)"
+    }
 }
 
 struct Direction {
