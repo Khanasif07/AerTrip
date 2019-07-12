@@ -88,28 +88,31 @@ extension APICaller {
         }
     }
     
-    func getBookingFees(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ bookingFeeDetail: BookingFeeDetail?) -> Void) {
+    func getBookingFees(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ bookingFeeDetail: [BookingFeeDetail]) -> Void) {
         AppNetworking.GET(endPoint: APIEndPoint.getBookingFees, parameters: params, success: { [weak self] json in
             guard let sSelf = self else { return }
             printDebug(json)
+           
             sSelf.handleResponse(json, success: { sucess, jsonData in
-                if sucess, let response = jsonData[APIKeys.data.rawValue].dictionaryObject {
-                    let data = BookingFeeDetail(json: response)
-                    completionBlock(true, [], data)
+                if sucess, let allData = jsonData[APIKeys.data.rawValue].arrayObject as? [JSONDictionary] {
+                
+                    let final = allData.map({ BookingFeeDetail(json: $0) })
+                
+                    completionBlock(true, [], final)
                 }
                 else {
-                    completionBlock(false, [], nil)
+                    completionBlock(false, [], [])
                 }
             }, failure: { error in
                 ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
-                completionBlock(false, error, nil)
+                completionBlock(false, error, [])
             })
         }) { error in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], nil)
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], [])
             }
             else {
-                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], [])
             }
         }
     }

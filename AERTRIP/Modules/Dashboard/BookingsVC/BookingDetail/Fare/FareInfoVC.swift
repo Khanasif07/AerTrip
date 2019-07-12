@@ -207,7 +207,7 @@ extension FareInfoVC {
     }
     
     func getFeeDetailsCell(indexPath: IndexPath, type: String, aerlineFee: Int, aertripFee: Int) -> UITableViewCell {
-        guard  let commonCell = self.fareInfoTableView.dequeueReusableCell(withIdentifier: "BookingInfoCommonCell", for: indexPath) as? BookingInfoCommonCell else {
+        guard  let commonCell = self.fareInfoTableView.dequeueReusableCell(withIdentifier: "BookingInfoCommonCell") as? BookingInfoCommonCell else {
             fatalError("BookingInfoCommonCell not found")
         }
         
@@ -221,7 +221,7 @@ extension FareInfoVC {
     }
     
     func getFeeTitleCell(indexPath: IndexPath, type: String, aerline: String, aertrip: String) -> UITableViewCell {
-        guard  let commonCell = self.fareInfoTableView.dequeueReusableCell(withIdentifier: "BookingInfoCommonCell", for: indexPath) as? BookingInfoCommonCell else {
+        guard  let commonCell = self.fareInfoTableView.dequeueReusableCell(withIdentifier: "BookingInfoCommonCell") as? BookingInfoCommonCell else {
             fatalError("BookingInfoCommonCell not found")
         }
         

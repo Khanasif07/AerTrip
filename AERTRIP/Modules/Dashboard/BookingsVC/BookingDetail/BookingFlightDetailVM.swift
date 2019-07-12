@@ -27,7 +27,7 @@ class BookingDetailVM {
         return self.bookingDetail?.id ?? ""
     }
     
-    var bookingFee: BookingFeeDetail?
+    var bookingFee: [BookingFeeDetail] = []
     
     let fareInfoNotes: [String] = ["Some fares may be non-refundable and non-amendable.",
         "Cancellation / Rescheduling Charges are indicative and can change without prior notice. Aertrip does not guarantee or warrant this information.",
@@ -39,7 +39,7 @@ class BookingDetailVM {
     
     func getBookingFees() {
 
-        let params: JSONDictionary = ["booking_id": bookingId, "ref_id": legDetails.first?.legId ?? ""]
+        let params: JSONDictionary = ["booking_id": bookingId]
         delegate?.willGetBookingFees()
         APICaller.shared.getBookingFees(params: params) { [weak self] success, errors, bookingFee in
             guard let sSelf = self else { return }

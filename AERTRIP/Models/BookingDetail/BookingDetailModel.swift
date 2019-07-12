@@ -257,9 +257,9 @@ extension BookingDetailModel {
         func checkByTripType() -> Bool {
             return (self.tripType.lowercased() == "return") || (self.tripType.lowercased() == "multi")
         }
-        
+
         guard !forArr.isEmpty else { return checkByTripType() }
-        
+
         if forArr.count == 3, let first = forArr.first, let last = forArr.last {
             return (first.lowercased() == last.lowercased())
         }
@@ -267,6 +267,15 @@ extension BookingDetailModel {
             return checkByTripType()
         }
     }
+    
+    
+    func isMultipleFlight() -> Bool  {
+        // MUltiple leg Detail
+        return (self.bookingDetail?.leg ?? []).count > 1 && self.specialFare == "0"
+    }
+    
+    
+    
     
     var tripCitiesStr: NSMutableAttributedString? {
         func getNormalString(forArr: [String]) -> String {
@@ -1522,6 +1531,7 @@ struct Pax {
     var rescheduleCharge: Double = 0.0
     var ticket: String = ""
     var pnr: String = ""
+    var addOns: AddOns?
     var flight: [FlightDetail] = []
     var inProcess: Bool = false
     var profileImage: String = ""
@@ -1539,30 +1549,56 @@ struct Pax {
         return "\(self.salutation) \(self.paxName)"
     }
     
-    var addOns: JSONDictionary = [:] // TODO: Need to confirm this with yash as always coming in array
+//    var addOns: JSONDictionary = [:] // TODO: Need to confirm this with yash as always coming in array
+    
+    var _pnr: String {
+        return self.pnr.isEmpty ? LocalizedString.dash.localized : self.pnr
+    }
+    
     var _seat: String {
-        if let obj = addOns["seat"] as? String, !obj.isEmpty {
+        if let obj = self.addOns?.addOn?.seat, !obj.isEmpty {
             return obj
         }
-        return LocalizedString.na.localized
+        return LocalizedString.dash.localized
+    }
+    
+    var _seatPreferences: String {
+        if let obj = self.addOns?.preferences?.seat, !obj.isEmpty {
+            return obj
+        }
+        
+        return LocalizedString.dash.localized
     }
     
     var _meal: String {
-        if let obj = addOns["meal"] as? String, !obj.isEmpty {
+        if let obj = self.addOns?.addOn?.meal, !obj.isEmpty {
             return obj
         }
-        return LocalizedString.na.localized
+        return LocalizedString.dash.localized
     }
     
-    var _baggage: String {
-        if let obj = addOns["baggage"] as? String, !obj.isEmpty {
+    var _mealPreferences: String {
+        if let obj = self.addOns?.preferences?.meal, !obj.isEmpty {
             return obj
         }
-        return LocalizedString.na.localized
+        return LocalizedString.dash.localized
+    }
+    
+    
+
+    
+    var _baggage: String {
+        if let obj = self.addOns?.addOn?.baggage, !obj.isEmpty {
+            return obj
+        }
+        return LocalizedString.dash.localized
     }
     
     var _others: String {
-        return LocalizedString.na.localized
+        if let obj = self.addOns?.addOn?.others, !obj.isEmpty {
+            return obj
+        }
+        return LocalizedString.dash.localized
     }
     
     var fullName: String {
@@ -1572,12 +1608,14 @@ struct Pax {
     var detailsToShow: JSONDictionary {
         var temp = JSONDictionary()
         
-        temp["0PNR"] = self.pnr
+        temp["0PNR"] = self._pnr
         temp["1Ticket Number"] = self.ticket
         temp["2Seat"] = self._seat
-        temp["3Meal"] = self._meal
-        temp["4Baggage"] = self._baggage
-        temp["5Others"] = self._others
+        temp["3Seat Preference"] = self._seatPreferences
+        temp["4Meal"] = self._meal
+        temp["5Meal Preferences"] = self._mealPreferences
+        temp["6Baggage"] = self._baggage
+        temp["7Others"] = self._others
         
         return temp
     }
@@ -1605,28 +1643,28 @@ struct Pax {
     
     init(json: JSONDictionary) {
         if let obj = json["pax_id"] {
-            self.paxId = "\(obj)"
+            self.paxId = "\(obj)".removeNull
         }
         if let obj = json["upid"] {
-            self.uPid = "\(obj)"
+            self.uPid = "\(obj)".removeNull
         }
         if let obj = json["salutation"] {
-            self.salutation = "\(obj)"
+            self.salutation = "\(obj)".removeNull
         }
         if let obj = json["first_name"] {
-            self.firstName = "\(obj)"
+            self.firstName = "\(obj)".removeNull
         }
         if let obj = json["last_name"] {
-            self.lastName = "\(obj)"
+            self.lastName = "\(obj)".removeNull
         }
         if let obj = json["pax_name"] {
-            self.paxName = "\(obj)"
+            self.paxName = "\(obj)".removeNull
         }
         if let obj = json["pax_type"] {
-            self.paxType = "\(obj)"
+            self.paxType = "\(obj)".removeNull
         }
         if let obj = json["status"] {
-            self.status = "\(obj)"
+            self.status = "\(obj)".removeNull
         }
         if let obj = json["amount_paid"] {
             self.amountPaid = "\(obj)".toDouble ?? 0.0
@@ -1640,13 +1678,13 @@ struct Pax {
         }
         if let obj = json["ticket"] {
             self.ticket = "\(obj)"
-            self.ticket = self.ticket.isEmpty ? LocalizedString.na.localized : self.ticket
+            self.ticket = self.ticket.isEmpty ? LocalizedString.dash.localized : self.ticket
         }
         if let obj = json["pnr"] {
-            self.pnr = "\(obj)"
+            self.pnr = "\(obj)".removeNull
         }
-        if let obj = json["addons"] as? JSONDictionary, let addon = obj["addon"] as? JSONDictionary {
-            self.addOns = addon
+        if let obj = json["addons"] as? JSONDictionary {
+            self.addOns = AddOns(json: obj)
         }
         
         if let obj = json["in_process"] {
@@ -1654,7 +1692,7 @@ struct Pax {
         }
         
         if let obj = json["profile_image"] {
-            self.profileImage = "\(obj)"
+            self.profileImage = "\(obj)".removeNull
         }
     }
     
@@ -2163,6 +2201,110 @@ struct TripInfo {
         
         if let obj = json["name"] {
             self.name = "\(obj)".removeNull
+        }
+    }
+}
+
+
+
+
+struct AddOns {
+    var addOn: AddOn?
+    var preferences: Preference?
+    var ff: FF?
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    
+    init(json: JSONDictionary) {
+        if let obj = json["addon"] as? JSONDictionary {
+            self.addOn = AddOn(json: obj)
+        }
+        
+        if let obj = json["preferences"] as? JSONDictionary {
+            self.preferences = Preference(json: obj)
+        }
+        
+        if let obj = json["ff"] as? JSONDictionary {
+            self.ff = FF(json: obj)
+        }
+    }
+}
+
+
+
+
+
+struct AddOn {
+    var seat: String = ""
+    var meal: String = ""
+    var baggage: String = ""
+    var others: String = ""
+    var amount: String = ""
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["seat"] {
+            self.seat = "\(obj)".removeNull
+        }
+        
+        if let obj = json["meal"] {
+            self.meal = "\(obj)".removeNull
+        }
+        
+        if let obj = json["baggage"] {
+            self.baggage = "\(obj)".removeNull
+        }
+        
+        if let obj = json["others"] {
+            self.others = "\(obj)".removeNull
+        }
+        
+        if let obj = json["amount"] {
+            self.amount = "\(obj)".removeNull
+        }
+    }
+}
+
+
+struct Preference {
+    var seat: String = ""
+    var meal: String = ""
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["seat"] {
+            self.seat = "\(obj)".removeNull
+        }
+        
+        if let obj = json["meal"] {
+            self.meal = "\(obj)".removeNull
+        }
+    }
+    
+    
+    
+}
+
+
+struct FF {
+    var az: String = ""
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["AZ"] {
+            self.az = "\(obj)".removeNull
         }
     }
 }
