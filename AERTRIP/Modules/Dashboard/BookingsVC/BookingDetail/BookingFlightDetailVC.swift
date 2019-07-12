@@ -39,13 +39,10 @@ class BookingFlightDetailVC: BaseVC {
         self.tableView.delegate = self
         self.setUpSegmentControl()
         self.registerXib()
-        self.reloadDetails()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         self.viewModel.getBookingFees()
     }
+    
+   
     
     override func bindViewModel() {
         self.viewModel.delegate = self

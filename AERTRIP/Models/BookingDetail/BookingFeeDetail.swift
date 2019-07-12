@@ -35,6 +35,7 @@ struct BookingFeeDetail {
     
     var aerlineResCharges: Charges?
     var aertripResCharges: Charges?
+    var legId: [String] = []
     
     init(json: JSONDictionary) {
 
@@ -54,6 +55,10 @@ struct BookingFeeDetail {
             if let obj = res["SURFEE"] as? JSONDictionary {
                 self.aertripResCharges = Charges(json: obj)
             }
+        }
+        
+        if let legId = json["leg_id"] as? [String] {
+            self.legId = legId
         }
     }
 }

@@ -34,7 +34,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="noF-h3-kKn" secondAttribute="bottom" id="U08-Ue-OtQ"/>
                         <constraint firstAttribute="trailing" secondItem="Q0Z-Vq-RiM" secondAttribute="trailing" id="UFd-fU-mh2"/>
@@ -54,6 +54,9 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="footerBackgroundView" destination="i5s-Ae-v2L" id="ieI-rM-gH5"/>
+            </connections>
         </view>
     </objects>
 </document>

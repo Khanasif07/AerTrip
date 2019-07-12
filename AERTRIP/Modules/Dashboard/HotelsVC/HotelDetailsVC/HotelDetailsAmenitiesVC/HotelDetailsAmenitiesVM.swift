@@ -15,19 +15,19 @@ enum AmenitiesPriorities: Int{
 
 class HotelDetailsAmenitiesVM: NSObject {
     
-    internal var hotelDetails: HotelDetails?
+//    internal var hotelDetails: HotelDetails?
+    var amenitiesGroups : [String : Any] = [:]
+    var amenities: Amenities? = nil
     var sections: [String] = []
     var rowsData = [[String]]()
     
     internal func getAmenitiesSections() {
-        if let amenitiesGroupDetails = self.hotelDetails?.amenitiesGroups {
-            for amenities in amenitiesGroupDetails{
+            for amenities in amenitiesGroups {
                 self.sections.append(amenities.key)
                 if let value = amenities.value as? [String] {
                     self.rowsData.append(value)
                 }
             }
-        }
     }
     
 }

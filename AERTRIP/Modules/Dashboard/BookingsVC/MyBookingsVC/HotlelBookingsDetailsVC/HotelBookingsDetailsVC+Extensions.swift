@@ -75,6 +75,12 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return UITableView.automaticDimension
         case .weatherFooterCell:
             return UITableView.automaticDimension
+        case .addToCalenderCell:
+            return UITableView.automaticDimension
+        case .addToAppleWallet:
+            return UITableView.automaticDimension
+        case .tripChangeCell:
+            return UITableView.automaticDimension
         }
     }
     
@@ -131,12 +137,35 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return self.getWeatherInfoCell(tableView, indexPath: indexPath)
         case .weatherFooterCell:
             return self.getWeatherFooterCell(tableView, indexPath: indexPath)
+        case .addToCalenderCell:
+            return self.getAddToCalenderCell(tableView, indexPath: indexPath)
+        case .addToAppleWallet:
+            return self.getAddToWalletCell(tableView, indexPath: indexPath)
+        case .tripChangeCell:
+            return self.getTripChangeCell(tableView, indexPath: indexPath)
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("\(indexPath.section)")
-        AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: self.viewModel.bookingDetail)
+        
+        if indexPath.section < self.viewModel.noOfLegCellAboveLeg {
+            AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: self.viewModel.bookingDetail)
+        }
+        
+        if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? TripChangeTableViewCell {
+            printDebug("Trip change table view Cell tapped")
+            self.tripChangeIndexPath = indexPath
+            AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips)
+        }
+        
+        if let cell = self.bookingDetailsTableView.cellForRow(at: indexPath) as? BookingCommonActionTableViewCell {
+            if cell.usingFor == .addToCalender {
+                self.addToCalender()
+            } else {
+                self.addToAppleWallet()
+            }
+        }
     }
 }
 
@@ -184,7 +213,6 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
 
 extension HotlelBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
     func downloadDocument(documentDirectory: String, tableIndex: IndexPath, collectionIndex: IndexPath) {
-        
         guard let url = self.viewModel.bookingDetail?.documents[collectionIndex.item].sourceUrl else {
             return
         }
@@ -192,23 +220,23 @@ extension HotlelBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
         printDebug(documentDirectory)
         let destinationUrl = URL(fileURLWithPath: documentDirectory)
         printDebug(destinationUrl)
-
-        AppNetworking.DOWNLOAD(sourceUrl: url, destinationUrl: destinationUrl, requestHandler: { [weak self] (request) in
+        
+        AppNetworking.DOWNLOAD(sourceUrl: url, destinationUrl: destinationUrl, requestHandler: { [weak self] request in
             guard let sSelf = self else { return }
             printDebug(request)
             sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].downloadingStatus = .downloading
             sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].downloadRequest = request
-            }, progressUpdate: { [weak self] progress in
-                guard let sSelf = self else { return }
-                sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].progressUpdate?(progress)
-            }, success: { [weak self] (success) in
-                guard let sSelf = self else { return }
-                sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].downloadingStatus = .downloaded
-                UIView.performWithoutAnimation {
-                    sSelf.bookingDetailsTableView.reloadData()
-                }
-                printDebug(success)
-        }) { [weak self] (error) in
+        }, progressUpdate: { [weak self] progress in
+            guard let sSelf = self else { return }
+            sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].progressUpdate?(progress)
+        }, success: { [weak self] success in
+            guard let sSelf = self else { return }
+            sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].downloadingStatus = .downloaded
+            UIView.performWithoutAnimation {
+                sSelf.bookingDetailsTableView.reloadData()
+            }
+            printDebug(success)
+        }) { [weak self] error in
             guard let sSelf = self else { return }
             sSelf.viewModel.bookingDetail?.documents[collectionIndex.item].downloadingStatus = .notDownloaded
             UIView.performWithoutAnimation {
@@ -268,17 +296,20 @@ extension HotlelBookingsDetailsVC: MXParallaxHeaderDelegate {
 }
 
 extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
+    func addToTrips() {
+        printDebug("Manage add to trip flow here")
+    }
+    
     func openWebCheckin() {
-        // TODO: - Need to test with when web url is present
-        self.webCheckinServices(url: self.viewModel.bookingDetail?.webCheckinUrl ?? "")
+        // No web checking in case of hotel
     }
     
     func openDirections() {
-        //
+        AppFlowManager.default.moveToBookingDirectionVC(directions: self.viewModel.bookingDetail?.additionalInformation?.directions ?? [])
     }
     
     func openCallDetail() {
-        //
+        AppFlowManager.default.moveToBookingCallVC(contactInfo: self.viewModel.bookingDetail?.additionalInformation?.contactInfo)
     }
     
     func addToCalender() {
@@ -297,7 +328,25 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
 }
 
 extension HotlelBookingsDetailsVC: WeatherHeaderTableViewCellDelegate {
-    func seeAllWeathers() {
-        printDebug("See All Weathers")
+    func seeAllWeathers(seeAllButton: UIButton) {
+        self.viewModel.isSeeAllWeatherButtonTapped = true
+        if let _ = self.bookingDetailsTableView.indexPath(forItem: seeAllButton) {
+            self.viewModel.getSectionDataForHotelDetail()
+            delay(seconds: 0.5) { [weak self] in
+                self?.bookingDetailsTableView.reloadData()
+            }
+        }
+    }
+}
+
+// MARK: - Select Trip VC delegate Api
+
+extension HotlelBookingsDetailsVC: SelectTripVCDelegate {
+    func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel, tripDetails: TripDetails?) {
+        printDebug("\(trip)")
+        self.updatedTripDetail = trip
+        if let indexPath = self.tripChangeIndexPath {
+            self.bookingDetailsTableView.reloadRow(at: indexPath, with: .none)
+        }
     }
 }

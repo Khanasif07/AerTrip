@@ -5,7 +5,6 @@
 //  Created by apple on 06/06/19.
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
-
 import Foundation
 
 struct BookingDetailModel {
@@ -28,6 +27,7 @@ struct BookingDetailModel {
     var vCode: String = ""
     var bookingStatus: String = ""
     var documents: [DocumentDownloadingModel] = []
+    var tripInfo: TripInfo?
     var additionalInformation: AdditionalInformation?
     var addOnRequestAllowed: Bool = false
     var cancellationRequestAllowed: Bool = false
@@ -107,6 +107,10 @@ struct BookingDetailModel {
             self.documents = DocumentDownloadingModel.getModels(json: obj)
         }
         
+        if let obj = json["trip_info"] as? JSONDictionary {
+            self.tripInfo = TripInfo(json: obj)
+        }
+        
         // Additional information data like web checkins,directions, and  Airports , Airlines and Aertrip
         if let obj = json["additional_informations"] as? JSONDictionary {
             self.additionalInformation = AdditionalInformation(json: obj)
@@ -138,50 +142,42 @@ struct BookingDetailModel {
             self.specialRequestAllowed = "\(obj)".toBool
         }
         
-        let testData = [
-            [
-                "max_temperature": 27,
-                "min_temperature": 17,
-                "weather": "Moderate rain",
-                "weather_icon": "501-moderate-rain",
-                "temperature": 0,
-                "date": "2019-07-01 22:35:00",
-                "country_code": "DE",
-                "city": "Munich"
-            ],
-            [
-                "max_temperature": 34,
-                "min_temperature": 33,
-                "weather": "Clear sky",
-                "weather_icon": "800-clear-sky",
-                "temperature": 0,
-                "date": "2019-07-02 06:35:00",
-                "country_code": "AE",
-                "city": "Abu Dhabi"
-            ],
-            [
-                "max_temperature": 34,
-                "min_temperature": 33,
-                "weather": "Clear sky",
-                "weather_icon": "800-clear-sky",
-                "temperature": 0,
-                "date": "2019-07-02 14:20:00",
-                "country_code": "AE",
-                "city": "Abu Dhabi"
-            ],
-            [
-                "max_temperature": 29,
-                "min_temperature": 29,
-                "weather": "Heavy intensity rain",
-                "weather_icon": "502-heavy-intensity-rain",
-                "temperature": 0,
-                "date": "2019-07-02 19:15:00",
-                "country_code": "IN",
-                "city": "Mumbai"
-            ]
-        ]
-        
-        self.weatherInfo = WeatherInfo.getModels(json: testData)
+        if let obj = json["weather_info"] as? [JSONDictionary] {
+//            let testData =   [
+//                [
+//                    "max_temperature": 28,
+//                    "min_temperature": 28,
+//                    "weather": "Light rain",
+//                    "weather_icon": "500-light-rain",
+//                    "temperature": 0,
+//                    "date": "2019-07-12",
+//                    "country_code": "IN",
+//                    "city": "Goa"
+//                ],
+//                [
+//                    "max_temperature": 28,
+//                    "min_temperature": 28,
+//                    "weather": "Light rain",
+//                    "weather_icon": "500-light-rain",
+//                    "temperature": 0,
+//                    "date": "2019-07-12",
+//                    "country_code": "IN",
+//                    "city": "Mumbai"
+//                ],
+//                [
+//                    "max_temperature": 28,
+//                    "min_temperature": 28,
+//                    "weather": "Light rain",
+//                    "weather_icon": "500-light-rain",
+//                    "temperature": 0,
+//                    "date": "2019-07-12",
+//                    "country_code": "IN",
+//                    "city": "Goa"
+//                ]
+//
+//            ]
+            self.weatherInfo = WeatherInfo.getModels(json: obj)
+        }
         
         if self.product == "flight" {
             for leg in self.bookingDetail?.leg ?? [] {
@@ -195,25 +191,24 @@ struct BookingDetailModel {
             }
             
             if !self.weatherInfo.isEmpty {
-                for (i, weatherInfoData) in self.weatherInfo.enumerated() {
-                    for (_, weatherTripInfoData) in self.tripWeatherData.enumerated() {
-                        if weatherInfoData.date == weatherTripInfoData.date, weatherInfoData.countryCode == weatherTripInfoData.countryCode, weatherInfoData.city == weatherTripInfoData.city {
-                            self.tripWeatherData[i] = weatherInfoData
+                for (_, weatherInfoData) in self.weatherInfo.enumerated() {
+                    for (j, weatherTripInfoData) in self.tripWeatherData.enumerated() {
+                        if weatherInfoData.date?.isEqualTo(weatherTripInfoData.date ?? Date()) ?? false, weatherInfoData.countryCode == weatherTripInfoData.countryCode, weatherInfoData.city == weatherTripInfoData.city {
+                            self.tripWeatherData[j] = weatherInfoData
                         }
                     }
                 }
             }
             
             for tripWeatherData in self.tripWeatherData {
-                if tripWeatherData.temperature == 0 {
+                if tripWeatherData.minTemperature == 0 || tripWeatherData.maxTemperature == 0 {
                     self.weatherDisplayedWithin16Info = true
                     break
                 }
             }
         }
         else {
-            
-            // set trip Weather Data for Hotel 
+            // set trip Weather Data for Hotel
             let datesBetweenArray = Date.dates(from: self.bookingDetail?.checkIn ?? Date(), to: self.bookingDetail?.checkOut ?? Date())
             for date in datesBetweenArray {
                 var weatherInfo = WeatherInfo()
@@ -222,10 +217,10 @@ struct BookingDetailModel {
             }
             
             if !self.weatherInfo.isEmpty {
-                for (i, weatherInfoData) in self.weatherInfo.enumerated() {
-                    for (_, weatherTripInfoData) in self.tripWeatherData.enumerated() {
+                for (_, weatherInfoData) in self.weatherInfo.enumerated() {
+                    for (j, weatherTripInfoData) in self.tripWeatherData.enumerated() {
                         if weatherInfoData.date == weatherTripInfoData.date {
-                            self.tripWeatherData[i] = weatherInfoData
+                            self.tripWeatherData[j] = weatherInfoData
                         }
                     }
                 }
@@ -258,9 +253,9 @@ extension BookingDetailModel {
         func checkByTripType() -> Bool {
             return (self.tripType.lowercased() == "return") || (self.tripType.lowercased() == "multi")
         }
-        
+
         guard !forArr.isEmpty else { return checkByTripType() }
-        
+
         if forArr.count == 3, let first = forArr.first, let last = forArr.last {
             return (first.lowercased() == last.lowercased())
         }
@@ -268,6 +263,15 @@ extension BookingDetailModel {
             return checkByTripType()
         }
     }
+    
+    
+    func isMultipleFlight() -> Bool  {
+        // MUltiple leg Detail
+        return (self.bookingDetail?.leg ?? []).count > 1 && self.specialFare == "0"
+    }
+    
+    
+    
     
     var tripCitiesStr: NSMutableAttributedString? {
         func getNormalString(forArr: [String]) -> String {
@@ -516,7 +520,8 @@ struct BookingDetail {
     var hotelEmail: String = ""
     
     var photos: [String] = []
-    var amentiesGroup: String = ""
+    var amenitiesGroups: [String: Any] = [:]
+    var amenities: Amenities?
     var info: String = ""
     var taLocationID: String = ""
     var website: String = ""
@@ -593,10 +598,7 @@ struct BookingDetail {
             self.rooms = "\(obj)".toInt ?? 0
         }
         
-        //final Hotel details
-        
-        
-       
+        // final Hotel details
         
         // TODO: For Room detail
         
@@ -624,7 +626,40 @@ struct BookingDetail {
             self.photos = obj
         }
         
-        if let obj = json["info"]  {
+        let amenitiesGroupData = [
+            [
+                "About the Property": [
+                    "Total Number Of Rooms"
+                ],
+                "Internet & Business Services": [
+                    "Wired Internet",
+                    "Wi-fi"
+                ],
+                "Things to do": [
+                    "Outdoor Freshwater Pool",
+                    "Gym"
+                ],
+                "Services": [
+                    "Air Conditioning In Restaurant",
+                    "Currency Exchange Facilities",
+                    "Air Conditioning In Public Areas",
+                    "Lift Access"
+                ]
+            ]
+        ]
+        
+        // TODO: Need to manage with actual data,when It Will come
+//        if let arrObj = json[APIKeys.amenities_group.rawValue] as? [JSONDictionary], let firstObj = arrObj.first {
+//            self.amenitiesGroups = firstObj
+//        }
+        
+        self.amenitiesGroups = amenitiesGroupData.first ?? [:]
+        
+        if let obj = json[APIKeys.amenities.rawValue] as? JSONDictionary {
+            self.amenities = Amenities.getAmenitiesData(response: obj)
+        }
+        
+        if let obj = json["info"] {
             self.info = "\(obj)".removeNull
         }
         
@@ -671,7 +706,6 @@ struct BookingDetail {
             self.checkOut = "\(obj)".removeNull.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
-        
         // Event start and end date and notes
         
         if let obj = json["note"] {
@@ -679,15 +713,14 @@ struct BookingDetail {
         }
         
         if let obj = json["event_start_date"] {
-            //"2019-07-27 23:55:00"
+            // "2019-07-27 23:55:00"
             self.eventStartDate = "\(obj)".removeNull.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
         
         if let obj = json["event_end_date"] {
-            //"2019-07-27 23:55:00"
+            // "2019-07-27 23:55:00"
             self.eventEndDate = "\(obj)".removeNull.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
-        
         
         // Product key other
         
@@ -704,7 +737,7 @@ struct BookingDetail {
         }
         
         if let obj = json["travellers"] as? [JSONDictionary] {
-             self.travellers = Traveller.retunsTravellerArray(jsonArr: obj)
+            self.travellers = Traveller.retunsTravellerArray(jsonArr: obj)
         }
         
         if let obj = json["refundable"] {
@@ -738,14 +771,13 @@ struct BookingDetail {
         if let obj = json["event_end_date"] {
             self.eventEndDate = "\(obj)".removeNull.toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
-
     }
     
     var paymentStatus: String {
         return self.isRefundable ? "Refundable" : " Non-Refundable"
     }
     
-    var otherPrductDetailStatus : String {
+    var otherPrductDetailStatus: String {
         return self.refundable == 0 ? "Non-Refundable" : "Refundable"
     }
     
@@ -754,36 +786,28 @@ struct BookingDetail {
         return self.photos + [self.hotelImage]
     }
     
-    
     // Website Details
     
     var websiteDetail: String {
-        return self.website.isEmpty ? "-" : self.website
+        return self.website.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.website
     }
-    
     
     // Phone Details
     var phoneDetail: String {
-        return self.hotelPhone.isEmpty ? "-" : self.hotelPhone
+        return self.hotelPhone.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.hotelPhone
     }
-    
     
     // Over view Details
     
     var overViewData: String {
-        return self.info.isEmpty ? "-" : self.info
+        return self.info.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.info
     }
     
     // hotel Address
     
     var hotelAddressDetail: String {
-        return self.hotelAddress.isEmpty ? "-" : self.hotelAddress
+        return self.hotelAddress.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.hotelAddress
     }
-    
-    
-    
-    
-    
     
     // convert event start date into Date format
     
@@ -816,7 +840,7 @@ struct Leg {
     var legStatus: String = ""
     var apc: String = ""
     
-    var eventStartDate: Date? //will be passed from the booking details
+    var eventStartDate: Date? // will be passed from the booking details
     
     var rescheduledDate: Date? //will be set from new dates screen to refrenceing
     var prefredFlightNo: String = "" //will be set from new dates screen to refrenceing
@@ -827,7 +851,7 @@ struct Leg {
     init() {}
     
     init(json: JSONDictionary, eventStartDate: Date?, bookingId: String) {
-        
+
         self.eventStartDate = eventStartDate
         self.bookingId = bookingId
         
@@ -1515,6 +1539,7 @@ struct Pax {
     var rescheduleCharge: Double = 0.0
     var ticket: String = ""
     var pnr: String = ""
+    var addOns: AddOns?
     var flight: [FlightDetail] = []
     var inProcess: Bool = false
     var profileImage: String = ""
@@ -1530,36 +1555,62 @@ struct Pax {
     }
     
     var fullNameWithSalutation: String {
-        if salutation.isEmpty {
-            return paxName
+        if self.salutation.isEmpty {
+            return self.paxName
         }
-        return "\(salutation) \(paxName)"
+        return "\(self.salutation) \(self.paxName)"
     }
     
-    var addOns: JSONDictionary = [:] // TODO: Need to confirm this with yash as always coming in array
+//    var addOns: JSONDictionary = [:] // TODO: Need to confirm this with yash as always coming in array
+    
+    var _pnr: String {
+        return self.pnr.isEmpty ? LocalizedString.dash.localized : self.pnr
+    }
+    
     var _seat: String {
-        if let obj = addOns["seat"] as? String, !obj.isEmpty {
+        if let obj = self.addOns?.addOn?.seat, !obj.isEmpty {
             return obj
         }
-        return LocalizedString.na.localized
+        return LocalizedString.dash.localized
+    }
+    
+    var _seatPreferences: String {
+        if let obj = self.addOns?.preferences?.seat, !obj.isEmpty {
+            return obj
+        }
+        
+        return LocalizedString.dash.localized
     }
     
     var _meal: String {
-        if let obj = addOns["meal"] as? String, !obj.isEmpty {
+        if let obj = self.addOns?.addOn?.meal, !obj.isEmpty {
             return obj
         }
-        return LocalizedString.na.localized
+        return LocalizedString.dash.localized
     }
     
-    var _baggage: String {
-        if let obj = addOns["baggage"] as? String, !obj.isEmpty {
+    var _mealPreferences: String {
+        if let obj = self.addOns?.preferences?.meal, !obj.isEmpty {
             return obj
         }
-        return LocalizedString.na.localized
+        return LocalizedString.dash.localized
+    }
+    
+    
+
+    
+    var _baggage: String {
+        if let obj = self.addOns?.addOn?.baggage, !obj.isEmpty {
+            return obj
+        }
+        return LocalizedString.dash.localized
     }
     
     var _others: String {
-        return LocalizedString.na.localized
+        if let obj = self.addOns?.addOn?.others, !obj.isEmpty {
+            return obj
+        }
+        return LocalizedString.dash.localized
     }
     
     var fullName: String {
@@ -1569,13 +1620,14 @@ struct Pax {
     var detailsToShow: JSONDictionary {
         var temp = JSONDictionary()
         
-        temp["0PNR"] = self.pnr
+        temp["0PNR"] = self._pnr
         temp["1Ticket Number"] = self.ticket
         temp["2Seat"] = self._seat
-        temp["3Meal"] = self._meal
-        temp["4Baggage"] = self._baggage
-        temp["5Others"] = self._others
-
+        temp["3Seat Preference"] = self._seatPreferences
+        temp["4Meal"] = self._meal
+        temp["5Meal Preferences"] = self._mealPreferences
+        temp["6Baggage"] = self._baggage
+        temp["7Others"] = self._others
         
         return temp
     }
@@ -1603,28 +1655,28 @@ struct Pax {
     
     init(json: JSONDictionary) {
         if let obj = json["pax_id"] {
-            self.paxId = "\(obj)"
+            self.paxId = "\(obj)".removeNull
         }
         if let obj = json["upid"] {
-            self.uPid = "\(obj)"
+            self.uPid = "\(obj)".removeNull
         }
         if let obj = json["salutation"] {
-            self.salutation = "\(obj)"
+            self.salutation = "\(obj)".removeNull
         }
         if let obj = json["first_name"] {
-            self.firstName = "\(obj)"
+            self.firstName = "\(obj)".removeNull
         }
         if let obj = json["last_name"] {
-            self.lastName = "\(obj)"
+            self.lastName = "\(obj)".removeNull
         }
         if let obj = json["pax_name"] {
-            self.paxName = "\(obj)"
+            self.paxName = "\(obj)".removeNull
         }
         if let obj = json["pax_type"] {
-            self.paxType = "\(obj)"
+            self.paxType = "\(obj)".removeNull
         }
         if let obj = json["status"] {
-            self.status = "\(obj)"
+            self.status = "\(obj)".removeNull
         }
         if let obj = json["amount_paid"] {
             self.amountPaid = 270.0//"\(obj)".toDouble ?? 0.0
@@ -1638,22 +1690,21 @@ struct Pax {
         }
         if let obj = json["ticket"] {
             self.ticket = "\(obj)"
-            self.ticket = self.ticket.isEmpty ? LocalizedString.na.localized : self.ticket
+            self.ticket = self.ticket.isEmpty ? LocalizedString.dash.localized : self.ticket
         }
         if let obj = json["pnr"] {
-            self.pnr = "\(obj)"
+            self.pnr = "\(obj)".removeNull
         }
-        if let obj = json["addons"] as? JSONDictionary, let addon = obj["addon"] as? JSONDictionary {
-            self.addOns = addon
+        if let obj = json["addons"] as? JSONDictionary {
+            self.addOns = AddOns(json: obj)
         }
         
-
         if let obj = json["in_process"] {
             self.inProcess = "\(obj)".toBool
         }
         
         if let obj = json["profile_image"] {
-            self.profileImage = "\(obj)"
+            self.profileImage = "\(obj)".removeNull
         }
     }
     
@@ -2114,7 +2165,8 @@ struct WeatherInfo {
             self.weatherIcon = "\(obj)"
         }
         if let obj = json["date"] {
-            self.date = "\(obj)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
+            let date = String("\(obj)".split(separator: " ").first ?? "")
+            self.date = date.toDate(dateFormat: "yyyy-MM-dd")
         }
         
         if let obj = json["country_code"] {
@@ -2128,5 +2180,143 @@ struct WeatherInfo {
     
     static func getModels(json: [JSONDictionary]) -> [WeatherInfo] {
         return json.map { WeatherInfo(json: $0) }
+    }
+}
+
+struct TripInfo {
+    var bookingId: String = ""
+    var tripId: String = ""
+    var eventId: String = ""
+    var isUpdated: String = ""
+    var name: String = ""
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["booking_id"] {
+            self.bookingId = "\(obj)".removeNull
+        }
+        
+        if let obj = json["trip_id"] {
+            self.tripId = "\(obj)".removeNull
+        }
+        
+        if let obj = json["event_id"] {
+            self.eventId = "\(obj)".removeNull
+        }
+        
+        if let obj = json["is_updated"] {
+            self.isUpdated = "\(obj)".removeNull
+        }
+        
+        if let obj = json["name"] {
+            self.name = "\(obj)".removeNull
+        }
+    }
+}
+
+
+
+
+struct AddOns {
+    var addOn: AddOn?
+    var preferences: Preference?
+    var ff: FF?
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    
+    init(json: JSONDictionary) {
+        if let obj = json["addon"] as? JSONDictionary {
+            self.addOn = AddOn(json: obj)
+        }
+        
+        if let obj = json["preferences"] as? JSONDictionary {
+            self.preferences = Preference(json: obj)
+        }
+        
+        if let obj = json["ff"] as? JSONDictionary {
+            self.ff = FF(json: obj)
+        }
+    }
+}
+
+
+
+
+
+struct AddOn {
+    var seat: String = ""
+    var meal: String = ""
+    var baggage: String = ""
+    var others: String = ""
+    var amount: String = ""
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["seat"] {
+            self.seat = "\(obj)".removeNull
+        }
+        
+        if let obj = json["meal"] {
+            self.meal = "\(obj)".removeNull
+        }
+        
+        if let obj = json["baggage"] {
+            self.baggage = "\(obj)".removeNull
+        }
+        
+        if let obj = json["others"] {
+            self.others = "\(obj)".removeNull
+        }
+        
+        if let obj = json["amount"] {
+            self.amount = "\(obj)".removeNull
+        }
+    }
+}
+
+
+struct Preference {
+    var seat: String = ""
+    var meal: String = ""
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["seat"] {
+            self.seat = "\(obj)".removeNull
+        }
+        
+        if let obj = json["meal"] {
+            self.meal = "\(obj)".removeNull
+        }
+    }
+    
+    
+    
+}
+
+
+struct FF {
+    var az: String = ""
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        if let obj = json["AZ"] {
+            self.az = "\(obj)".removeNull
+        }
     }
 }

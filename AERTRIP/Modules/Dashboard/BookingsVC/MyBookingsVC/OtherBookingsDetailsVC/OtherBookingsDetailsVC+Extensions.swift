@@ -180,8 +180,7 @@ extension OtherBookingsDetailsVC: BookingProductDetailVMDelegate {
         AppGlobals.shared.stopLoading()
     }
 
-    func getBookingDetailFaiure() {
-        self.dataTableView.reloadData()
+    func getBookingDetailFaiure(error: ErrorCodes) {
         AppGlobals.shared.stopLoading()
     }
 }

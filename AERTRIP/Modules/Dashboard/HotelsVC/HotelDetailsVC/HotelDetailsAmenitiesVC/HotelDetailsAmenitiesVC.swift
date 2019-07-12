@@ -9,22 +9,21 @@
 import UIKit
 
 class HotelDetailsAmenitiesVC: BaseVC {
-    
-    //Mark:- Variables
+    // Mark:- Variables
     //================
     private(set) var viewModel = HotelDetailsAmenitiesVM()
     private let maxHeaderHeight: CGFloat = 58.0
-
-    //Mark:- IBOutlets
+    
+    // Mark:- IBOutlets
     //================
-    @IBOutlet weak var headerContainerView: UIView!
-    @IBOutlet weak var dividerView: ATDividerView!
-    @IBOutlet weak var containerViewHeigthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var amenitiesLabel: UILabel!
-    @IBOutlet weak var stickyTitleLabel: UILabel!
-    @IBOutlet weak var cancelButtonOutlet: UIButton!
-    @IBOutlet weak var amenitiesLabelTopConstraints: NSLayoutConstraint!
-    @IBOutlet weak var amenitiesTblView: UITableView! {
+    @IBOutlet var headerContainerView: UIView!
+    @IBOutlet var dividerView: ATDividerView!
+    @IBOutlet var containerViewHeigthConstraint: NSLayoutConstraint!
+    @IBOutlet var amenitiesLabel: UILabel!
+    @IBOutlet var stickyTitleLabel: UILabel!
+    @IBOutlet var cancelButtonOutlet: UIButton!
+    @IBOutlet var amenitiesLabelTopConstraints: NSLayoutConstraint!
+    @IBOutlet var amenitiesTblView: UITableView! {
         didSet {
             self.amenitiesTblView.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.amenitiesTblView.delegate = self
@@ -36,8 +35,7 @@ class HotelDetailsAmenitiesVC: BaseVC {
         }
     }
     
-    
-    //Mark:- LifeCycle
+    // Mark:- LifeCycle
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +63,7 @@ class HotelDetailsAmenitiesVC: BaseVC {
         self.viewModel.getAmenitiesSections()
     }
     
-    //Mark:- Functions
+    // Mark:- Functions
     //================
     private func registerNibs() {
         self.amenitiesTblView.registerCell(nibName: AmenitiesDetailsTableViewCell.reusableIdentifier)
@@ -94,11 +92,10 @@ class HotelDetailsAmenitiesVC: BaseVC {
     }
 }
 
-//Mark:- UITableView Delegate And DataSource
+// Mark:- UITableView Delegate And DataSource
 //==========================================
 
-extension HotelDetailsAmenitiesVC: UITableViewDelegate , UITableViewDataSource {
-    
+extension HotelDetailsAmenitiesVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         if !self.viewModel.sections.isEmpty {
             return self.viewModel.sections.count + 1
@@ -120,8 +117,7 @@ extension HotelDetailsAmenitiesVC: UITableViewDelegate , UITableViewDataSource {
             if let cell = self.getAmenitiesDetailsTableViewCell(tableView, indexPath: indexPath) {
                 return cell
             }
-        }
-        else {
+        } else {
             if let cell = self.getAmenitiesDetailsRows(tableView, indexPath: indexPath, amenitiesName: self.viewModel.rowsData[indexPath.section - 1]) {
                 return cell
             }
@@ -149,10 +145,9 @@ extension HotelDetailsAmenitiesVC: UITableViewDelegate , UITableViewDataSource {
 }
 
 extension HotelDetailsAmenitiesVC {
-    
     internal func getAmenitiesDetailsTableViewCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "AmenitiesDetailsTableViewCell", for: indexPath) as? AmenitiesDetailsTableViewCell else { return UITableViewCell() }
-        if let safeAmenitiesData = self.viewModel.hotelDetails?.amenities {
+        if let safeAmenitiesData = self.viewModel.amenities {
             cell.amenitiesDetails = safeAmenitiesData
         }
         return cell
@@ -160,52 +155,51 @@ extension HotelDetailsAmenitiesVC {
     
     internal func getAmenitiesDetailsRows(_ tableView: UITableView, indexPath: IndexPath, amenitiesName: [String]) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AmenitiesNameTableViewCell.reusableIdentifier, for: indexPath) as? AmenitiesNameTableViewCell else {
-            return UITableViewCell() }
+            return UITableViewCell()
+        }
         cell.facilitiesNameLabel.text = amenitiesName[indexPath.row]
         return cell
     }
 }
 
 extension HotelDetailsAmenitiesVC {
-    
     func manageHeaderView(_ scrollView: UIScrollView) {
-        
-        let yOffset = (scrollView.contentOffset.y > headerContainerView.height) ? headerContainerView.height : scrollView.contentOffset.y
+        let yOffset = (scrollView.contentOffset.y > self.headerContainerView.height) ? self.headerContainerView.height : scrollView.contentOffset.y
         printDebug(yOffset)
         
-        dividerView.isHidden = yOffset < (headerContainerView.height - 5.0)
+        self.dividerView.isHidden = yOffset < (self.headerContainerView.height - 5.0)
         
-        //header container view height
+        // header container view height
         let heightToDecrease: CGFloat = 8.0
-        let height = (maxHeaderHeight) - (yOffset * (heightToDecrease / headerContainerView.height))
+        let height = self.maxHeaderHeight - (yOffset * (heightToDecrease / self.headerContainerView.height))
         self.containerViewHeigthConstraint.constant = height
         
-        //sticky label alpha
-        let alpha = (yOffset * (1.0 / headerContainerView.height))
+        // sticky label alpha
+        let alpha = (yOffset * (1.0 / self.headerContainerView.height))
         self.stickyTitleLabel.alpha = alpha
         
-        //reviews label
+        // reviews label
         self.amenitiesLabel.alpha = 1.0 - alpha
-        self.amenitiesLabelTopConstraints.constant = 23.0 - (yOffset * (23.0 / headerContainerView.height))
+        self.amenitiesLabelTopConstraints.constant = 23.0 - (yOffset * (23.0 / self.headerContainerView.height))
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        manageHeaderView(scrollView)
+        self.manageHeaderView(scrollView)
         printDebug("scrollViewDidScroll")
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        manageHeaderView(scrollView)
+        self.manageHeaderView(scrollView)
         printDebug("scrollViewDidEndDecelerating")
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        manageHeaderView(scrollView)
+        self.manageHeaderView(scrollView)
         printDebug("scrollViewDidEndDragging")
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        manageHeaderView(scrollView)
+        self.manageHeaderView(scrollView)
         printDebug("scrollViewDidEndScrollingAnimation")
     }
 }

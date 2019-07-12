@@ -30,7 +30,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" sffsaf fasf asf " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="urf-yA-Njd">
-                                <rect key="frame" x="6" y="88" width="91" height="75"/>
+                                <rect key="frame" x="6" y="88" width="91" height="55"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -46,9 +46,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="urf-yA-Njd" firstAttribute="top" secondItem="1Cd-hZ-YUu" secondAttribute="bottom" constant="5" id="0zD-gI-orY"/>
-                            <constraint firstItem="ac9-oi-Ky7" firstAttribute="top" secondItem="urf-yA-Njd" secondAttribute="bottom" id="Iwv-aI-bze"/>
                             <constraint firstItem="urf-yA-Njd" firstAttribute="leading" secondItem="dqw-io-Env" secondAttribute="leading" constant="6" id="JQQ-Jb-4Mh"/>
                             <constraint firstItem="1Cd-hZ-YUu" firstAttribute="centerX" secondItem="dqw-io-Env" secondAttribute="centerX" id="LJf-8T-NcM"/>
+                            <constraint firstItem="ac9-oi-Ky7" firstAttribute="top" relation="lessThanOrEqual" secondItem="urf-yA-Njd" secondAttribute="bottom" constant="20" id="MPB-kr-2Oa"/>
                             <constraint firstItem="1Cd-hZ-YUu" firstAttribute="top" secondItem="dqw-io-Env" secondAttribute="top" constant="16" id="Qc2-V6-fyU"/>
                             <constraint firstAttribute="trailing" secondItem="urf-yA-Njd" secondAttribute="trailing" constant="6" id="Rli-Pi-zn6"/>
                             <constraint firstAttribute="bottom" secondItem="ac9-oi-Ky7" secondAttribute="bottom" id="YTb-ao-EBP"/>

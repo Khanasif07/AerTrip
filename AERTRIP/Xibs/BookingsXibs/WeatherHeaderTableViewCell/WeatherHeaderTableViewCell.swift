@@ -9,46 +9,55 @@
 import UIKit
 
 protocol WeatherHeaderTableViewCellDelegate: class {
-    func seeAllWeathers()
+    func seeAllWeathers(seeAllButton: UIButton)
 }
 
 class WeatherHeaderTableViewCell: UITableViewCell {
-
-    //MARK:- Variables
-    //MARK:===========
+    // MARK: - Variables
+    
+    // MARK: ===========
+    
     weak var delegate: WeatherHeaderTableViewCellDelegate?
     
-    //MARK:- IBOutlets
-    //MARK:===========
-    @IBOutlet weak var weatherLabel: UILabel!
-    @IBOutlet weak var seeAllBtnOutlet: UIButton!
+    // MARK: - IBOutlets
     
-    //MARK:- LifeCycle
-    //MARK:===========
+    // MARK: ===========
+    
+    @IBOutlet var weatherLabel: UILabel!
+    @IBOutlet var seeAllBtnOutlet: UIButton!
+    
+    // MARK: - LifeCycle
+    
+    // MARK: ===========
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configureUI()
     }
     
-    //MARK:- Functions
-    //MARK:===========
+    // MARK: - Functions
+    
+    // MARK: ===========
+    
     private func configureUI() {
-        //Font
+        // Font
         self.weatherLabel.font = AppFonts.Regular.withSize(14.0)
         self.seeAllBtnOutlet.titleLabel?.font = AppFonts.Regular.withSize(14.0)
         
-        //Color
+        // Color
         self.weatherLabel.textColor = AppColors.themeGray40
         self.seeAllBtnOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
         
-        //Text
+        // Text
         self.weatherLabel.text = LocalizedString.Weather.localized
         self.seeAllBtnOutlet.setTitle(LocalizedString.SeeAll.localized, for: .normal)
     }
     
-    //MARK:- IBActions
-    //MARK:===========
+    // MARK: - IBActions
+    
+    // MARK: ===========
+    
     @IBAction func seeAllBtnAction(_ sender: UIButton) {
-        self.delegate?.seeAllWeathers()
+        self.delegate?.seeAllWeathers(seeAllButton: sender)
     }
 }

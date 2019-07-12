@@ -402,7 +402,7 @@ extension HotelDetailsVC: GetFullInfoDelegate {
 extension HotelDetailsVC: HotelDetailAmenitiesCellDelegate {
     func viewAllButtonAction() {
         if let hotelData = self.viewModel.hotelData {
-            AppFlowManager.default.showHotelDetailAmenitiesVC(hotelDetails: hotelData)
+            AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: hotelData.amenitiesGroups)
         }
     }
 }

@@ -333,8 +333,17 @@ struct AppGlobals {
     func openAppleMap(originLat: String, originLong: String, destLat: String, destLong: String) {
         //        let directionsURL = "http://maps.apple.com/?\(destLat),\(destLong)"
         //to show the route between source and destination uncomment the next line
-        let directionsURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"
-        if let url = URL(string: directionsURL), !url.absoluteString.isEmpty {
+        
+        var directionURL = ""
+        if originLat.isEmpty && originLong.isEmpty {
+            directionURL = "http://maps.apple.com/?daddr=\(destLat),\(destLong)"
+        } else {
+            directionURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"
+        }
+        
+        
+        
+        if let url = URL(string: directionURL), !url.absoluteString.isEmpty {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         } else {
             printDebug("Can't use apple map://")

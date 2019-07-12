@@ -25,6 +25,9 @@ class FlightBookingsDetailsVC: BaseVC {
         return UIDevice.isIPhoneX ? 84.0 : 64.0
     }
     
+    var tripChangeIndexPath: IndexPath?
+    var updatedTripDetail: TripModel?
+    
     // MARK: - IBOutlets
     
     // MARK: -
@@ -124,6 +127,8 @@ class FlightBookingsDetailsVC: BaseVC {
         self.bookingDetailsTableView.registerCell(nibName: WeatherHeaderTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: WeatherFooterTableViewCell.reusableIdentifier)
         self.bookingDetailsTableView.registerCell(nibName: WeatherInfoTableViewCell.reusableIdentifier)
+        self.bookingDetailsTableView.registerCell(nibName: TripChangeTableViewCell.reusableIdentifier)
+        self.bookingDetailsTableView.registerCell(nibName: BookingCommonActionTableViewCell.reusableIdentifier)
     }
     
     func webCheckinServices(url: String) {

@@ -82,31 +82,60 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return self.getWeatherInfoCell(tableView, indexPath: indexPath)
         case .weatherFooterCell:
             return self.getWeatherFooterCell(tableView, indexPath: indexPath)
+        case .tripChangeCell:
+            return self.getTripChangeCell(tableView, indexPath: indexPath)
+        case .addToAppleWallet:
+            return self.getAddToWalletCell(tableView, indexPath: indexPath)
+        case .addToCalenderCell:
+            return self.getAddToCalenderCell(tableView, indexPath: indexPath)
+        case .bookSameFlightCell:
+            return self.getBookSameFlightCell(tableView, indexPath: indexPath)
+        case .addToTripCell:
+            return self.getAddToTripsCell(tableView, indexPath: indexPath)
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("\(indexPath.section)")
         
-        if (self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false ) && indexPath.section == 0 {
+        if self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false, indexPath.section == 0 {
             if let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
-                //cases
+                // cases
                 
-                AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row-1], receipt: rcpt)
+                AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row - 1], receipt: rcpt)
             }
         }
-            
-        if !(self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false ) && indexPath.section == 1 {
+        
+        if !(self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false), indexPath.section == 1 {
             if let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
-                //cases
+                // cases
                 
-                AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row-1], receipt: rcpt)
+                AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row - 1], receipt: rcpt)
             }
-
         }
-       
-        if indexPath.section >=  self.viewModel.noOfLegCellAboveLeg  {
+        
+        if indexPath.section >= self.viewModel.noOfLegCellAboveLeg, indexPath.section < (self.viewModel.noOfLegCellAboveLeg + (self.viewModel.bookingDetail?.bookingDetail?.leg.count ?? 0)) {
             AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail)
+        }
+        
+        if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? TripChangeTableViewCell {
+            printDebug("Trip change table view Cell tapped")
+            AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips)
+            self.tripChangeIndexPath = indexPath
+        }
+        
+        // Manage Button action here.
+        if let cell = self.bookingDetailsTableView.cellForRow(at: indexPath) as? BookingCommonActionTableViewCell {
+            switch cell.usingFor {
+            case .addToCalender:
+                self.addToCalender()
+            case .addToTrips:
+                printDebug("Manage Add to Trips here")
+            case .bookSameFlight:
+                printDebug("Manage book same flight")
+            case .addToAppleWallet:
+                printDebug("Manage add toa Apple wallet")
+            }
         }
     }
 }
@@ -142,8 +171,7 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
                 let endPoints = "https://beta.aertrip.com/api/v1/dashboard/booking-action?type=pdf&booking_id=\(self?.viewModel.bookingDetail?.id ?? "")"
                 AppGlobals.shared.viewPdf(urlPath: endPoints, screenTitle: LocalizedString.ETicket.localized)
             } else if index == 4 {
-//                AppFlowManager.default.presentConfirmationMailVC(bookindId: self?.viewModel.bookingDetail?.id ?? "")
-//                printDebug("Present Resend Confirmation Email")
+                // Present Resend Confirmation Email
             }
         }
     }
@@ -257,6 +285,10 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
 }
 
 extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
+    func addToTrips() {
+        // not needed here
+    }
+    
     func openWebCheckin() {
         // TODO: - Need to test with when web url is present
         self.webCheckinServices(url: self.viewModel.bookingDetail?.webCheckinUrl ?? "")
@@ -283,8 +315,14 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
 }
 
 extension FlightBookingsDetailsVC: WeatherHeaderTableViewCellDelegate {
-    func seeAllWeathers() {
-        printDebug("See All Weathers")
+    func seeAllWeathers(seeAllButton: UIButton) {
+        self.viewModel.isSeeAllWeatherButtonTapped = true
+        if let _ = self.bookingDetailsTableView.indexPath(forItem: seeAllButton) {
+            self.viewModel.getSectionDataForFlightProductType()
+            delay(seconds: 0.5) { [weak self] in
+                self?.bookingDetailsTableView.reloadData()
+            }
+        }
     }
 }
 
@@ -302,10 +340,12 @@ extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
         self.bookingDetailsTableView.dataSource = self
         self.viewModel.getSectionDataForFlightProductType()
         self.bookingDetailsTableView.reloadData()
+        // get All trip owned API
+        self.viewModel.getTripOwnerApi()
     }
     
-    func getBookingDetailFaiure() {
-        AppGlobals.shared.stopLoading()
+    func getBookingDetailFaiure(error: ErrorCodes) {
+        AppGlobals.shared.startLoading()
     }
 }
 
@@ -314,5 +354,17 @@ extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
 extension FlightBookingsDetailsVC: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         AppFlowManager.default.mainNavigationController.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: -
+
+extension FlightBookingsDetailsVC: SelectTripVCDelegate {
+    func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel, tripDetails: TripDetails?) {
+        printDebug("\(trip)")
+        self.updatedTripDetail = trip
+        if let indexPath = self.tripChangeIndexPath {
+            self.bookingDetailsTableView.reloadRow(at: indexPath, with: .none)
+        }
     }
 }

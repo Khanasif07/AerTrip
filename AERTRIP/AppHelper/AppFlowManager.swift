@@ -454,9 +454,10 @@ extension AppFlowManager {
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
-    func showHotelDetailAmenitiesVC(hotelDetails: HotelDetails) {
+    func showHotelDetailAmenitiesVC(amenitiesGroups : [String : Any] = [:],amentites: Amenities? = nil ) {
         let ob = HotelDetailsAmenitiesVC.instantiate(fromAppStoryboard: .HotelResults)
-        ob.viewModel.hotelDetails = hotelDetails
+        ob.viewModel.amenitiesGroups = amenitiesGroups
+        ob.viewModel.amenities = amentites
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
@@ -551,12 +552,13 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated: true)
     }
     
-    func presentSelectTripVC(delegate: SelectTripVCDelegate, isFromBooking: Bool = false) {
+    func presentSelectTripVC(delegate: SelectTripVCDelegate, usingFor: TripUsingFor = .hotel,allTrips: [TripModel] = []) {
         /* Don't call this method directly if you want to get the default trip or select the trip if there is no default trip.
          In that case use `AppFlowManager.default.selectTrip()` method.
          */
         let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
-        obj.viewModel.isFromBooking = isFromBooking
+        obj.viewModel.usingFor = usingFor
+        obj.viewModel.allTrips = allTrips
         obj.delegate = delegate
         self.mainNavigationController.present(obj, animated: true)
     }
