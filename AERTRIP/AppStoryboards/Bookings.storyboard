@@ -698,13 +698,12 @@ with us!</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xzg-Rm-kCl">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="262"/>
                                         <subviews>
-                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="15T-xw-ZOl">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jpb-Ck-MO9">
                                                 <rect key="frame" x="0.0" y="46" width="375" height="216"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <date key="date" timeIntervalSinceReferenceDate="577007528.78065801">
-                                                    <!--2019-04-15 07:52:08 +0000-->
-                                                </date>
-                                            </datePicker>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="216" id="Afo-uG-TKA"/>
+                                                </constraints>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7gK-WX-KPY" userLabel="FromView">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                 <subviews>
@@ -746,11 +745,11 @@ with us!</string>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="7gK-WX-KPY" secondAttribute="trailing" id="0se-rn-0ra"/>
-                                            <constraint firstItem="15T-xw-ZOl" firstAttribute="leading" secondItem="7gK-WX-KPY" secondAttribute="leading" id="5dt-od-vlg"/>
+                                            <constraint firstAttribute="bottom" secondItem="jpb-Ck-MO9" secondAttribute="bottom" id="1Sq-JF-scy"/>
                                             <constraint firstItem="CQg-Sl-V9N" firstAttribute="top" secondItem="7gK-WX-KPY" secondAttribute="bottom" id="ND8-Vc-njc"/>
-                                            <constraint firstItem="15T-xw-ZOl" firstAttribute="trailing" secondItem="7gK-WX-KPY" secondAttribute="trailing" id="TnM-ev-o71"/>
+                                            <constraint firstItem="jpb-Ck-MO9" firstAttribute="trailing" secondItem="7gK-WX-KPY" secondAttribute="trailing" id="Oej-qc-5uW"/>
+                                            <constraint firstItem="jpb-Ck-MO9" firstAttribute="leading" secondItem="7gK-WX-KPY" secondAttribute="leading" id="QJ2-7D-t1O"/>
                                             <constraint firstItem="CQg-Sl-V9N" firstAttribute="leading" secondItem="7gK-WX-KPY" secondAttribute="leading" constant="16" id="YmR-2I-plN"/>
-                                            <constraint firstAttribute="bottom" secondItem="15T-xw-ZOl" secondAttribute="bottom" id="bmK-go-054"/>
                                             <constraint firstItem="7gK-WX-KPY" firstAttribute="top" secondItem="xzg-Rm-kCl" secondAttribute="top" id="ea1-Oz-pkD"/>
                                             <constraint firstItem="CQg-Sl-V9N" firstAttribute="trailing" secondItem="7gK-WX-KPY" secondAttribute="trailing" id="jmv-R9-7v5"/>
                                             <constraint firstItem="7gK-WX-KPY" firstAttribute="leading" secondItem="xzg-Rm-kCl" secondAttribute="leading" id="rwS-nj-sbS"/>
@@ -760,13 +759,12 @@ with us!</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xtl-t8-XgQ">
                                         <rect key="frame" x="0.0" y="262" width="375" height="44"/>
                                         <subviews>
-                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="DdA-PH-qvp">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8MY-08-GKK">
                                                 <rect key="frame" x="0.0" y="-172" width="375" height="216"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <date key="date" timeIntervalSinceReferenceDate="577007528.78065801">
-                                                    <!--2019-04-15 07:52:08 +0000-->
-                                                </date>
-                                            </datePicker>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="216" id="OtV-O8-cku"/>
+                                                </constraints>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bma-Tm-RNe" userLabel="toView">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                 <subviews>
@@ -814,17 +812,17 @@ with us!</string>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="DdA-PH-qvp" secondAttribute="bottom" id="05x-2j-P9z"/>
                                             <constraint firstItem="qkq-mO-C2J" firstAttribute="leading" secondItem="Bma-Tm-RNe" secondAttribute="leading" constant="16" id="5m8-if-L8g"/>
                                             <constraint firstAttribute="height" constant="44" id="Jpe-mf-90W"/>
                                             <constraint firstItem="uas-GW-mqc" firstAttribute="leading" secondItem="Bma-Tm-RNe" secondAttribute="leading" constant="16" id="KpZ-tV-x0J"/>
+                                            <constraint firstItem="8MY-08-GKK" firstAttribute="leading" secondItem="Bma-Tm-RNe" secondAttribute="leading" id="Mlw-Dt-8cG"/>
+                                            <constraint firstItem="8MY-08-GKK" firstAttribute="trailing" secondItem="Bma-Tm-RNe" secondAttribute="trailing" id="NFd-wi-suw"/>
                                             <constraint firstItem="uas-GW-mqc" firstAttribute="trailing" secondItem="Bma-Tm-RNe" secondAttribute="trailing" id="ZcN-34-wB4"/>
+                                            <constraint firstAttribute="bottom" secondItem="8MY-08-GKK" secondAttribute="bottom" id="aCm-BN-ZXa"/>
                                             <constraint firstItem="uas-GW-mqc" firstAttribute="top" secondItem="Bma-Tm-RNe" secondAttribute="top" id="dNt-AS-5CJ"/>
                                             <constraint firstItem="qkq-mO-C2J" firstAttribute="top" secondItem="Bma-Tm-RNe" secondAttribute="bottom" id="ew3-GF-qTx"/>
-                                            <constraint firstItem="DdA-PH-qvp" firstAttribute="trailing" secondItem="Bma-Tm-RNe" secondAttribute="trailing" id="hy8-fz-yow"/>
                                             <constraint firstAttribute="trailing" secondItem="Bma-Tm-RNe" secondAttribute="trailing" id="kfn-eb-Mdo"/>
                                             <constraint firstItem="Bma-Tm-RNe" firstAttribute="top" secondItem="Xtl-t8-XgQ" secondAttribute="top" id="lCM-ZV-G2i"/>
-                                            <constraint firstItem="DdA-PH-qvp" firstAttribute="leading" secondItem="Bma-Tm-RNe" secondAttribute="leading" id="qDj-dN-Lsl"/>
                                             <constraint firstItem="qkq-mO-C2J" firstAttribute="trailing" secondItem="Bma-Tm-RNe" secondAttribute="trailing" id="t84-Uv-4Za"/>
                                             <constraint firstItem="Bma-Tm-RNe" firstAttribute="leading" secondItem="Xtl-t8-XgQ" secondAttribute="leading" id="trE-df-iLC"/>
                                         </constraints>
@@ -853,7 +851,7 @@ with us!</string>
                     <connections>
                         <outlet property="firstDividerView" destination="CQg-Sl-V9N" id="DtJ-zf-1k2"/>
                         <outlet property="fromDateLabel" destination="QYa-dX-ybx" id="fl2-Ri-qh7"/>
-                        <outlet property="fromDatePicker" destination="15T-xw-ZOl" id="pS6-5V-CcD"/>
+                        <outlet property="fromDatePickerContainer" destination="jpb-Ck-MO9" id="fM8-Wx-Sq1"/>
                         <outlet property="fromDateTitleLabel" destination="NY9-oa-1Gu" id="JFK-Ca-gwz"/>
                         <outlet property="fromView" destination="7gK-WX-KPY" id="jHe-eV-nd8"/>
                         <outlet property="fromViewHeightConstraint" destination="w7a-4B-B8Q" id="4Xa-4A-vgX"/>
@@ -861,7 +859,7 @@ with us!</string>
                         <outlet property="secondDividerView" destination="uas-GW-mqc" id="Huc-it-Twj"/>
                         <outlet property="thirdDividerView" destination="qkq-mO-C2J" id="kQN-2B-tWt"/>
                         <outlet property="toDateLabel" destination="hNr-hZ-Xwg" id="ocn-4r-M5u"/>
-                        <outlet property="toDatePicker" destination="DdA-PH-qvp" id="U5Q-Zu-BP7"/>
+                        <outlet property="toDatePickerContainer" destination="8MY-08-GKK" id="fOc-sf-jEC"/>
                         <outlet property="toDateTitleLabel" destination="eGt-Jf-dUh" id="nbI-8J-eoe"/>
                         <outlet property="toView" destination="Bma-Tm-RNe" id="zzd-uh-lmz"/>
                         <outlet property="toViewHeightConstraint" destination="Jpe-mf-90W" id="3VT-33-9Lo"/>

@@ -47,9 +47,11 @@ class MyBookingFilterVC: BaseVC {
     }
     
     override func initialSetup() {
-        
+                
         self.fetchMinDateFromCoreData()
         self.setCounts()
+        
+        self.topNavBar.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .clear)
         
         self.topNavBar.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, selectedTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         self.topNavBar.configureFirstRightButton(normalTitle: LocalizedString.Done.localized, selectedTitle: LocalizedString.Done.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
@@ -66,11 +68,16 @@ class MyBookingFilterVC: BaseVC {
                 vc.oldToDate = MyBookingFilterVM.shared.travelToDate
                 vc.currentlyUsingAs = .travelDate
                 self.allChildVCs.append(vc)
+
             } else if i == 1 {
                 let vc = EventTypeVC.instantiate(fromAppStoryboard: .Bookings)
                 vc.delegate = self
-                vc.oldSelection = MyBookingFilterVM.shared.eventType
+                
+                vc.oldSelection = [] //if all event types wan to show as deselected by-default
+                //vc.oldSelection = MyBookingFilterVM.shared.eventType //if all event types wan to show as selected by-default
+                
                 self.allChildVCs.append(vc)
+
             } else {
                 let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
                 vc.delegate = self
@@ -112,7 +119,7 @@ class MyBookingFilterVC: BaseVC {
     //MARK:- Functions
     private func setCounts() {
         
-        self.topNavBar.configureNavBar(title: "\(MyBookingFilterVM.shared.filteredResultCount) of \(MyBookingFilterVM.shared.totalResultCount) Results", isLeftButton: true, isFirstRightButton: true, isDivider: false)
+        self.topNavBar.navTitleLabel.text = "\(MyBookingFilterVM.shared.filteredResultCount) of \(MyBookingFilterVM.shared.totalResultCount) Results"
     }
     private func notifyToFilterApplied() {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
@@ -139,6 +146,14 @@ class MyBookingFilterVC: BaseVC {
             self.mainContainerViewTopConstraint.constant = 0.0
             self.view.layoutIfNeeded()
         })
+    }
+    
+    private func cancelAllOperation() {
+        //cancel all the operation if user trying to close the filter screen
+        for obj in self.allChildVCs {
+            NSObject.cancelPreviousPerformRequests(withTarget: obj)
+        }
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
     
     private func hide(animated: Bool, shouldRemove: Bool = false) {
@@ -199,6 +214,7 @@ class MyBookingFilterVC: BaseVC {
     
     //MARK:- IBActions
     @objc func  outsideAreaTapped() {
+        self.cancelAllOperation()
         self.hide(animated: true, shouldRemove: true)
     }
 }

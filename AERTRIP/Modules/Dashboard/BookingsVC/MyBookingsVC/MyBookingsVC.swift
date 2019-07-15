@@ -27,7 +27,7 @@ class MyBookingsVC: BaseVC {
     
     
     
-    var allChildVCs: [UIViewController] = [UIViewController]()
+    var allChildVCs: [UIViewController] = []
     
     // Mark:- IBOutlets
     //================
