@@ -15,7 +15,7 @@ extension BookingFlightDetailVC: UITableViewDataSource, UITableViewDelegate {
         case .flightInfo:
             return self.viewModel.legDetails.count
         case .baggage:
-            return self.viewModel.legDetails.count
+            return self.viewModel.allBaggageCells.count
         case .fareInfo:
             if self.viewModel.bookingDetail?.isMultipleFlight() ?? false {
                 return self.viewModel.legDetails.count
@@ -113,8 +113,7 @@ extension BookingFlightDetailVC: UITableViewDataSource, UITableViewDelegate {
             return self.viewModel.legDetails[section].pax.isEmpty ? detailsC : (detailsC + 1)
             
         case .baggage:
-            let detailsC = self.viewModel.legDetails[section].flight.reduce(into: 0) { $0 += $1.numberOfCellBaggage }
-            return detailsC
+            return self.viewModel.allBaggageCells[section].count
             
         case .fareInfo:
             if let booking = self.viewModel.bookingDetail, booking.isMultipleFlight() {

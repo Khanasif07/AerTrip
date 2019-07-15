@@ -1025,6 +1025,11 @@ struct FlightDetail {
         if self.layoverTime > 0 {
             temp += 1
         }
+        
+        if let nt = self.baggage?.checkInBg?.notes, !nt.isEmpty {
+            temp += 1
+        }
+        
         return temp
     }
     

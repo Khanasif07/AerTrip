@@ -31,6 +31,8 @@ class BookingFlightDetailVC: BaseVC {
     var bookingDetailType: BookingDetailType = .flightInfo
     var calculatedIndexForShowingFlightDetails: Int = 0
     var calculatedTotalRows: Int = 0
+    var calculatedIndexForShowingBaggageDetails: Int = 0
+    var calculatingBaggageForLeg: Int = 0
     
     let viewModel = BookingDetailVM()
     
@@ -85,6 +87,8 @@ class BookingFlightDetailVC: BaseVC {
         self.tableView.registerCell(nibName: BookingTravellerDetailTableViewCell.reusableIdentifier)
         self.tableView.registerCell(nibName: RouteFareInfoTableViewCell.reusableIdentifier)
         
+        self.tableView.registerCell(nibName: BookingRequestStatusTableViewCell.reusableIdentifier)
+        
         // Traveller Addon TableViewCell
         self.tableView.registerCell(nibName: BookingTravellerAddOnsTableViewCell.reusableIdentifier)
     }
@@ -109,6 +113,8 @@ class BookingFlightDetailVC: BaseVC {
     }
     
     func reloadDetails() {
+        self.calculatedIndexForShowingBaggageDetails = 0
+        self.calculatedIndexForShowingFlightDetails = 0
         self.configureNavBar()
         self.tableView.reloadData()
     }

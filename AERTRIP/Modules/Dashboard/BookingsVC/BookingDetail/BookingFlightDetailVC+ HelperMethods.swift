@@ -9,40 +9,30 @@
 import Foundation
 
 extension BookingFlightDetailVC {
-    // get height for Baggage row for first sections
-    func getHeightForBaggageInfo(_ indexPath: IndexPath) -> CGFloat {
-        var detailsC: Int = 0
-        if self.viewModel.legDetails[indexPath.section].flight.count > self.calculatedIndexForShowingFlightDetails {
-            detailsC = self.viewModel.legDetails[indexPath.section].flight.reduce(into: 0) { $0 += $1.numberOfCellBaggage }
-            
-            if indexPath.row == 0 {
-                self.calculatedIndexForShowingFlightDetails = 0
+    
+    func getAllCountForBaggageInfo(forLegNo legNo: Int, flightNo: Int) -> Int {
+        
+        var total: Int = 0
+        for (idx, flight) in self.viewModel.legDetails[legNo].flight.enumerated() {
+            if idx == flightNo {
+                total += flight.numberOfCellBaggage
+                break
             }
-            else if indexPath.row < detailsC, indexPath.row == self.calculatedTotalRows {
-                self.calculatedIndexForShowingFlightDetails += 1
-            }
-            let flight = self.viewModel.legDetails[indexPath.section].flight[self.calculatedIndexForShowingFlightDetails]
-            self.calculatedTotalRows += flight.numberOfCellBaggage
         }
         
-        switch indexPath.row {
-        case 0:
-            // aerline details
-            return 60.0
-            
-        case 1, 2, 3, 4:
-            // baggage info
-            if ((1...3 ~= indexPath.row) && (indexPath.row == (detailsC - 1))) || (indexPath.row == 4) {
-                return 43.0
-            }
-            return 28.0
-            
-        case 5:
-            // layover time
-            return 40.0
-            
-        default:
-            return 0.0
+        return total
+    }
+    
+    // get height for Baggage row for first sections
+    func getHeightForBaggageInfo(_ indexPath: IndexPath) -> CGFloat {
+        switch self.viewModel.allBaggageCells[indexPath.section][indexPath.row] {
+        case .aerlineDetail: return 60.0
+        case .title: return 28.0
+        case .adult(let isLast): return isLast ? 43.0 : 28.0
+        case .child(let isLast): return isLast ? 43.0 : 28.0
+        case .infant(let isLast): return isLast ? 43.0 : 28.0
+        case .layover(let isLast): return isLast ? 43.0 : 40.0
+        case .note: return 43.0
         }
     }
     
@@ -165,9 +155,14 @@ extension BookingFlightDetailVC {
     
     func getCellForBaggageInfo(_ indexPath: IndexPath) -> UITableViewCell {
         
-        let flight = self.viewModel.legDetails[indexPath.section].flight[self.calculatedIndexForShowingFlightDetails]
-        switch indexPath.row {
-        case 0:
+        if (calculatingBaggageForLeg != indexPath.section) || ((indexPath.section == 0) && (indexPath.row == 0)) {
+            calculatingBaggageForLeg = indexPath.section
+            self.calculatedIndexForShowingBaggageDetails = 0
+        }
+        let totalCreated = getAllCountForBaggageInfo(forLegNo: indexPath.section, flightNo: self.calculatedIndexForShowingBaggageDetails)
+        let flight = self.viewModel.legDetails[indexPath.section].flight[self.calculatedIndexForShowingBaggageDetails]
+        
+        func getAerlineCell() -> UITableViewCell {
             // aerline details
             guard let airlineCell = self.tableView.dequeueReusableCell(withIdentifier: "BaggageAirlineInfoTableViewCell") as? BaggageAirlineInfoTableViewCell else {
                 fatalError("BaggageAirlineInfoTableViewCell not found")
@@ -175,50 +170,20 @@ extension BookingFlightDetailVC {
             airlineCell.flightDetail = flight
             airlineCell.delegate = self
             return airlineCell
-            
-        case 1, 2, 3, 4:
+        }
+        
+        func getBaggageInfoCell(usingFor: BookingInfoCommonCell.UsingFor) -> UITableViewCell {
             // baggage info
             guard let commonCell = self.tableView.dequeueReusableCell(withIdentifier: "BookingInfoCommonCell") as? BookingInfoCommonCell else {
                 fatalError("BookingInfoCommonCell not found")
             }
             
-            var leftLabelTxt = "Type"
-            var middleLabelTxt = "Check-in"
-            var rightLabelTxt = "Cabin"
-            var font: UIFont? = AppFonts.SemiBold.withSize(18.0)
-            
-            if indexPath.row == 2 {
-                // adult
-                leftLabelTxt = "Per Adult"
-                middleLabelTxt = flight.baggage?.checkInBg?.adult ?? LocalizedString.na.localized
-                rightLabelTxt = "\(flight.baggage?.cabinBg?.adult?.piece ?? "1") x \(flight.baggage?.cabinBg?.adult?.weight ?? "23 kgs")"
-                font = AppFonts.Regular.withSize(18.0)
-            }
-            else if indexPath.row == 3 {
-                // child
-                leftLabelTxt = "Per Child"
-                middleLabelTxt = flight.baggage?.checkInBg?.child ?? LocalizedString.na.localized
-                rightLabelTxt = "\(flight.baggage?.cabinBg?.child?.piece ?? "1") x \(flight.baggage?.cabinBg?.child?.weight ?? "23 kgs")"
-                font = AppFonts.Regular.withSize(18.0)
-            }
-            else if indexPath.row == 4 {
-                // infant
-                leftLabelTxt = "Per Infant"
-                middleLabelTxt = flight.baggage?.checkInBg?.infant ?? LocalizedString.na.localized
-                rightLabelTxt = "\(flight.baggage?.cabinBg?.infant?.piece ?? "1") x \(flight.baggage?.cabinBg?.infant?.weight ?? "23 kgs")"
-                font = AppFonts.Regular.withSize(18.0)
-            }
-            
-            commonCell.middleLabel.font = font
-            commonCell.rightLabel.font = font
-            
-            commonCell.leftLabel.text = leftLabelTxt
-            commonCell.middleLabel.text = middleLabelTxt
-            commonCell.rightLabel.text = rightLabelTxt
+            commonCell.setData(forFlight: flight, usingFor: usingFor)
             
             return commonCell
-            
-        case 5:
+        }
+        
+        func getLayoverCell() -> UITableViewCell {
             // layover time
             guard let nightStateCell = self.tableView.dequeueReusableCell(withIdentifier: NightStateTableViewCell.reusableIdentifier) as? NightStateTableViewCell else {
                 fatalError("NightStateTableViewCell not found")
@@ -227,9 +192,35 @@ extension BookingFlightDetailVC {
             nightStateCell.flightDetail = flight
             
             return nightStateCell
+        }
+        
+        func getNoteCell() -> UITableViewCell {
+            // layover time
+            guard let nightStateCell = self.tableView.dequeueReusableCell(withIdentifier: BookingRequestStatusTableViewCell.reusableIdentifier) as? BookingRequestStatusTableViewCell else {
+                fatalError("NightStateTableViewCell not found")
+            }
             
-        default:
-            return UITableViewCell()
+            nightStateCell.containerView.backgroundColor = AppColors.clear
+            nightStateCell.titleLabel.font = AppFonts.Regular.withSize(16.0)
+            nightStateCell.titleLabel.textColor = AppColors.themeGray40
+            nightStateCell.titleLabel.text = flight.baggage?.checkInBg?.notes ?? LocalizedString.dash.localized
+            
+            return nightStateCell
+        }
+        
+        
+        if indexPath.row == (totalCreated - 1) {
+            self.calculatedIndexForShowingBaggageDetails += 1
+        }
+        
+        switch self.viewModel.allBaggageCells[indexPath.section][indexPath.row] {
+        case .aerlineDetail: return getAerlineCell()
+        case .title: return getBaggageInfoCell(usingFor: .title)
+        case .adult: return getBaggageInfoCell(usingFor: .adult)
+        case .child: return getBaggageInfoCell(usingFor: .child)
+        case .infant: return getBaggageInfoCell(usingFor: .infant)
+        case .layover: return getLayoverCell()
+        case .note: return getNoteCell()
         }
     }
     
