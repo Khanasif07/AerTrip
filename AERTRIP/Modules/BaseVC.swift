@@ -11,6 +11,9 @@ import IQKeyboardManager
 
 class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UITextViewDelegate {
 
+    private let indicator = UIActivityIndicatorView(style: .gray)
+    private let indicatorContainer = UIView()
+    
     var statusBarColor: UIColor = AppColors.themeWhite {
         didSet{
             UIApplication.shared.statusBarView?.backgroundColor = statusBarColor
@@ -28,6 +31,13 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+        
+        indicatorContainer.frame = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
+        indicatorContainer.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.2)
+        indicator.center = indicatorContainer.center
+        indicator.color = AppColors.themeGreen
+        indicator.startAnimating()
+        indicatorContainer.addSubview(indicator)
 
         self.bindViewModel()
 
@@ -153,15 +163,13 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     }
     
     final func showLoaderOnView(view:UIView, show:Bool) {
-        let indicator = UIActivityIndicatorView(style: .gray)
         if show {
-            view.addSubview(indicator)
-            indicator.startAnimating()
-            indicator.isHidden = !show
-            
+            indicatorContainer.frame = view.bounds
+            indicatorContainer.layoutIfNeeded()
+            indicator.center = indicatorContainer.center
+            view.addSubview(indicatorContainer)
         } else {
-            indicator.stopAnimating()
-            indicator.isHidden = !show
+            indicatorContainer.removeFromSuperview()
         }
     }
     

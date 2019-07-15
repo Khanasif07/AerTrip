@@ -61,31 +61,54 @@ class MyBookingFilterVC: BaseVC {
     
         for i in 0..<self.allTabsStr.count {
             if i == 0 {
-                let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
-                vc.delegate = self
-                vc.minFromDate = minDate
-                vc.oldFromDate = MyBookingFilterVM.shared.travelFromDate
-                vc.oldToDate = MyBookingFilterVM.shared.travelToDate
-                vc.currentlyUsingAs = .travelDate
-                self.allChildVCs.append(vc)
-
+                if let vc = AppGlobals.shared.travelDateVC {
+                    self.allChildVCs.append(vc)
+                }
+                else {
+                    let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
+                    vc.delegate = self
+                    vc.minFromDate = minDate
+                    vc.oldFromDate = MyBookingFilterVM.shared.travelFromDate
+                    vc.oldToDate = MyBookingFilterVM.shared.travelToDate
+                    vc.currentlyUsingAs = .travelDate
+                    
+//                    AppGlobals.shared.travelDateVC = vc
+                    
+                    self.allChildVCs.append(vc)
+                }
+                
             } else if i == 1 {
-                let vc = EventTypeVC.instantiate(fromAppStoryboard: .Bookings)
-                vc.delegate = self
+                if let vc = AppGlobals.shared.eventTypeVC {
+                    self.allChildVCs.append(vc)
+                }
+                else {
+                    let vc = EventTypeVC.instantiate(fromAppStoryboard: .Bookings)
+                    vc.delegate = self
+                    
+                    vc.oldSelection = [] //if all event types wan to show as deselected by-default
+                    //vc.oldSelection = MyBookingFilterVM.shared.eventType //if all event types wan to show as selected by-default
+                    
+//                    AppGlobals.shared.eventTypeVC = vc
+                    
+                    self.allChildVCs.append(vc)
+                }
                 
-                vc.oldSelection = [] //if all event types wan to show as deselected by-default
-                //vc.oldSelection = MyBookingFilterVM.shared.eventType //if all event types wan to show as selected by-default
-                
-                self.allChildVCs.append(vc)
-
             } else {
-                let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
-                vc.delegate = self
-                vc.minFromDate = minDate
-                vc.oldFromDate = MyBookingFilterVM.shared.bookingFromDate
-                vc.oldToDate = MyBookingFilterVM.shared.bookingToDate
-                vc.currentlyUsingAs = .bookingDate
-                self.allChildVCs.append(vc)
+                if let vc = AppGlobals.shared.bookingDateVC {
+                    self.allChildVCs.append(vc)
+                }
+                else {
+                    let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
+                    vc.delegate = self
+                    vc.minFromDate = minDate
+                    vc.oldFromDate = MyBookingFilterVM.shared.bookingFromDate
+                    vc.oldToDate = MyBookingFilterVM.shared.bookingToDate
+                    vc.currentlyUsingAs = .bookingDate
+                    
+//                    AppGlobals.shared.bookingDateVC = vc
+                    
+                    self.allChildVCs.append(vc)
+                }
             }
         }
         

@@ -88,6 +88,8 @@ class TravelDateVC: BaseVC {
     //================
     private func setupDatePickers() {
         
+        self.showLoaderOnView(view: self.mainContainerView, show: true)
+        
         self.setDateOnLabels(fromDate: nil, toDate: nil)
         
         if self.currentlyUsingAs == .travelDate {
@@ -172,6 +174,8 @@ class TravelDateVC: BaseVC {
         self.toDatePicker.addTarget(self, action: #selector(self.toDatePickerValueChanged), for: .valueChanged)
         
         self.setupDateSpan()
+        
+        self.showLoaderOnView(view: self.mainContainerView, show: false)
     }
     
     private func setDateOnLabels(fromDate: Date?, toDate: Date?) {
