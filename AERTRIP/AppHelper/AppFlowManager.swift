@@ -51,10 +51,6 @@ class AppFlowManager: NSObject {
             mainNavigationController.navigationBar.backgroundColor = AppColors.themeWhite
             mainNavigationController.navigationBar.tintColor = AppColors.themeGreen
             mainNavigationController.navigationBar.isTranslucent = false
-            
-            //        let yourBackImage = #imageLiteral(resourceName: "backGreen")
-            //        navVC.navigationBar.backIndicatorImage = yourBackImage
-            //        navVC.navigationBar.backIndicatorTransitionMaskImage = yourBackImage
         }
     }
     

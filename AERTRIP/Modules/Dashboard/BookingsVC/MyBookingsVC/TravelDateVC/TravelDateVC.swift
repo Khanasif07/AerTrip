@@ -32,18 +32,21 @@ class TravelDateVC: BaseVC {
     @IBOutlet weak var fromDateTitleLabel: UILabel!
     @IBOutlet weak var fromDateLabel: UILabel!
     @IBOutlet weak var firstDividerView: ATDividerView!
-    @IBOutlet weak var fromDatePicker: UIDatePicker!
+    @IBOutlet weak var fromDatePickerContainer: UIView!
     
     @IBOutlet weak var toView: UIView!
     @IBOutlet weak var toDateTitleLabel: UILabel!
     @IBOutlet weak var toDateLabel: UILabel!
     @IBOutlet weak var secondDividerView: ATDividerView!
     @IBOutlet weak var thirdDividerView: ATDividerView!
-    @IBOutlet weak var toDatePicker: UIDatePicker!
+    @IBOutlet weak var toDatePickerContainer: UIView!
     @IBOutlet weak var fromViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var toViewHeightConstraint: NSLayoutConstraint!
     
     
+    var fromDatePicker: UIDatePicker!
+    var toDatePicker: UIDatePicker!
+
     
     var currentlyUsingAs = UsingFor.account
     weak var delegate: TravelDateVCDelegate?
@@ -57,24 +60,9 @@ class TravelDateVC: BaseVC {
     
     //Mark:- LifeCycle
     //================
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
+
     override func initialSetup() {
-        self.fromDatePicker.datePickerMode = .date
-        
-        self.fromDatePicker.locale = UserInfo.loggedInUser?.currentLocale
-        self.toDatePicker.locale = UserInfo.loggedInUser?.currentLocale
-        
-        let fromTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.fromTapGestureAction))
-        self.fromView.addGestureRecognizer(fromTapGesture)
-        let toTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.toTapGestureAction))
-        self.toView.addGestureRecognizer(toTapGesture)
-        self.toDatePicker.addTarget(self, action: #selector(self.toDatePickerValueChanged), for: .valueChanged)
-        self.fromDatePicker.addTarget(self, action: #selector(self.fromDatePickerValueChanged), for: .valueChanged)
-        
-        self.setupDateSpan()
+        self.setupDatePickers()
     }
     
     override func setupTexts() {
@@ -98,6 +86,94 @@ class TravelDateVC: BaseVC {
     
     //Mark:- Functions
     //================
+    private func setupDatePickers() {
+        
+        self.setDateOnLabels(fromDate: nil, toDate: nil)
+        
+        if self.currentlyUsingAs == .travelDate {
+            if let _ = self.oldFromDate {
+                self.fromTapGestureAction(UITapGestureRecognizer())
+            }
+            else if let _ = self.oldToDate {
+                self.toTapGestureAction(UITapGestureRecognizer())
+            }
+            else {
+                self.closeBothPicker(animated: false)
+            }
+        }
+        else if self.currentlyUsingAs == .bookingDate {
+            
+            if let _ = self.oldFromDate {
+                self.fromTapGestureAction(UITapGestureRecognizer())
+            }
+            else if let _ = self.oldToDate {
+                self.toTapGestureAction(UITapGestureRecognizer())
+            }
+            else {
+                self.closeBothPicker(animated: false)
+            }
+        }
+        else {
+            //account
+            self.fromTapGestureAction(UITapGestureRecognizer())
+        }
+        
+        let fromTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.fromTapGestureAction))
+        self.fromView.addGestureRecognizer(fromTapGesture)
+
+        let toTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.toTapGestureAction))
+        self.toView.addGestureRecognizer(toTapGesture)
+        
+        func setup() {
+            //from date picker
+            self.fromDatePicker = UIDatePicker(frame: self.fromDatePickerContainer.bounds)
+            self.fromDatePickerContainer.addSubview(self.fromDatePicker)
+            self.fromDatePicker.datePickerMode = .date
+            
+            self.fromDatePicker.locale = UserInfo.loggedInUser?.currentLocale
+            
+            self.fromDatePicker.addTarget(self, action: #selector(self.fromDatePickerValueChanged), for: .valueChanged)
+            
+            
+            //to date picker
+            self.toDatePicker = UIDatePicker(frame: self.toDatePickerContainer.bounds)
+            self.toDatePickerContainer.addSubview(self.toDatePicker)
+            self.toDatePicker.datePickerMode = .date
+            
+            self.toDatePicker.locale = UserInfo.loggedInUser?.currentLocale
+            
+            self.toDatePicker.addTarget(self, action: #selector(self.toDatePickerValueChanged), for: .valueChanged)
+            
+            self.setupDateSpan()
+        }
+        
+        
+        perform(#selector(createDatePickers), with: nil, afterDelay: 0.1)
+    }
+    
+    @objc func createDatePickers() {
+        //from date picker
+        self.fromDatePicker = UIDatePicker(frame: self.fromDatePickerContainer.bounds)
+        self.fromDatePickerContainer.addSubview(self.fromDatePicker)
+        self.fromDatePicker.datePickerMode = .date
+        
+        self.fromDatePicker.locale = UserInfo.loggedInUser?.currentLocale
+        
+        self.fromDatePicker.addTarget(self, action: #selector(self.fromDatePickerValueChanged), for: .valueChanged)
+        
+        
+        //to date picker
+        self.toDatePicker = UIDatePicker(frame: self.toDatePickerContainer.bounds)
+        self.toDatePickerContainer.addSubview(self.toDatePicker)
+        self.toDatePicker.datePickerMode = .date
+        
+        self.toDatePicker.locale = UserInfo.loggedInUser?.currentLocale
+        
+        self.toDatePicker.addTarget(self, action: #selector(self.toDatePickerValueChanged), for: .valueChanged)
+        
+        self.setupDateSpan()
+    }
+    
     private func setDateOnLabels(fromDate: Date?, toDate: Date?) {
         self.toDateLabel.text = "-"
         if let date = toDate {
@@ -112,15 +188,15 @@ class TravelDateVC: BaseVC {
     
     private func setupDateSpan() {
         if self.currentlyUsingAs == .travelDate {
-            if let _ = self.oldFromDate {
-                self.fromTapGestureAction(UITapGestureRecognizer())
-            }
-            else if let _ = self.oldToDate {
-                self.toTapGestureAction(UITapGestureRecognizer())
-            }
-            else {
-                self.closeBothPicker(animated: false)
-            }
+//            if let _ = self.oldFromDate {
+//                self.fromTapGestureAction(UITapGestureRecognizer())
+//            }
+//            else if let _ = self.oldToDate {
+//                self.toTapGestureAction(UITapGestureRecognizer())
+//            }
+//            else {
+//                self.closeBothPicker(animated: false)
+//            }
 
             self.fromDatePicker.minimumDate = self.minFromDate
             self.fromDatePicker.maximumDate = Date().add(years: 2)
@@ -135,15 +211,15 @@ class TravelDateVC: BaseVC {
         }
         else if self.currentlyUsingAs == .bookingDate {
             
-            if let _ = self.oldFromDate {
-                self.fromTapGestureAction(UITapGestureRecognizer())
-            }
-            else if let _ = self.oldToDate {
-                self.toTapGestureAction(UITapGestureRecognizer())
-            }
-            else {
-                self.closeBothPicker(animated: false)
-            }
+//            if let _ = self.oldFromDate {
+//                self.fromTapGestureAction(UITapGestureRecognizer())
+//            }
+//            else if let _ = self.oldToDate {
+//                self.toTapGestureAction(UITapGestureRecognizer())
+//            }
+//            else {
+//                self.closeBothPicker(animated: false)
+//            }
             
             self.fromDatePicker.minimumDate = self.minFromDate
             self.fromDatePicker.maximumDate = Date()
@@ -158,7 +234,7 @@ class TravelDateVC: BaseVC {
         }
         else {
             //account
-            self.fromTapGestureAction(UITapGestureRecognizer())
+//            self.fromTapGestureAction(UITapGestureRecognizer())
 
             let fromDt = self.oldFromDate ?? self.minFromDate
             self.fromDatePicker.setDate(fromDt ?? Date(), animated: false)
@@ -179,8 +255,8 @@ class TravelDateVC: BaseVC {
             //close from and to both
             self.fromViewHeightConstraint.constant = self.closedHeight - 1
             self.toViewHeightConstraint.constant = self.closedHeight
-            self.fromDatePicker.alpha = 0.0
-            self.toDatePicker.alpha = 0.0
+            self.fromDatePickerContainer.alpha = 0.0
+            self.toDatePickerContainer.alpha = 0.0
             self.view.layoutIfNeeded()
         }) { (isDone) in
         }
@@ -194,8 +270,8 @@ class TravelDateVC: BaseVC {
             //open to close from
             self.fromViewHeightConstraint.constant = self.closedHeight - 1
             self.toViewHeightConstraint.constant = self.openedHeight
-            self.fromDatePicker.alpha = 0.0
-            self.toDatePicker.alpha = 1.0
+            self.fromDatePickerContainer.alpha = 0.0
+            self.toDatePickerContainer.alpha = 1.0
             self.view.layoutIfNeeded()
         }) { (isDone) in
         }
@@ -206,8 +282,8 @@ class TravelDateVC: BaseVC {
             //open from close to
             self.fromViewHeightConstraint.constant = self.openedHeight
             self.toViewHeightConstraint.constant = self.closedHeight
-            self.fromDatePicker.alpha = 1.0
-            self.toDatePicker.alpha = 0.0
+            self.fromDatePickerContainer.alpha = 1.0
+            self.toDatePickerContainer.alpha = 0.0
             self.view.layoutIfNeeded()
         }) { (isDone) in
         }
@@ -231,10 +307,4 @@ class TravelDateVC: BaseVC {
     private func setLabelsDate() {
         self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
     }
-}
-
-//Mark:- Extensions
-//=================
-extension TravelDateVC {
-    
 }

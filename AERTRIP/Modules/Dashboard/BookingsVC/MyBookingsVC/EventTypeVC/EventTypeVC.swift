@@ -33,7 +33,7 @@ class EventTypeVC: BaseVC {
             self.eventTypeTableView.rowHeight = UITableView.automaticDimension
         }
     }
-    
+
     //Mark:- LifeCycle
     //================
     override func viewDidLoad() {
