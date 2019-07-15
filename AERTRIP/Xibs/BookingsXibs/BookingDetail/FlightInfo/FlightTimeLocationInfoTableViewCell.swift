@@ -94,7 +94,7 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
         sourceAttr.addAttributes([NSAttributedString.Key.font : AppFonts.Regular.withSize(23.0)], range: (sourceTimeStr as NSString).range(of: details.departure))
         self.sourceFlightCodeLabel.attributedText = sourceAttr
         self.sourceDateLabel.text = self.checkForDefault(string: details.departDate?.toString(dateFormat: "EEE, dd MMM yyyy") ?? "")
-        self.sourceFlightNameLbel.text = self.checkForDefault(string: details.departureAirport)
+        self.sourceFlightNameLbel.text = self.checkForDefault(string: details.departureAirport) == LocalizedString.na.localized ? LocalizedString.na.localized : self.checkForDefault(string: details.departureAirport) + ","
         
         let sAdd = "\(details.departCity), \(details.departureCountryCode)"
         self.sourceFlightAddressLabel.text = (sAdd.count > 1) ? sAdd : defaultStr
@@ -106,7 +106,7 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
         destAttr.addAttributes([NSAttributedString.Key.font : AppFonts.Regular.withSize(23.0)], range: (desTimeStr as NSString).range(of: details.arrival))
         self.destinationFlightCodeLabel.attributedText = destAttr
         self.destinationDateLabel.text = self.checkForDefault(string: details.arrivalDate.toDate(dateFormat: "yyyy-MM-dd")?.toString(dateFormat: "EEE, dd MMM yyyy") ?? "")
-        self.destinationFlightNameLbel.text = self.checkForDefault(string: details.arrivalAirport)
+        self.destinationFlightNameLbel.text = self.checkForDefault(string: details.arrivalAirport) == LocalizedString.na.localized ? LocalizedString.na.localized : self.checkForDefault(string: details.arrivalAirport) + ","
         
         let dAdd = "\(details.arrivalCity), \(details.arrivalCountryCode)"
         self.destinationFlightAddressLabel.text = (dAdd.count > 1) ? dAdd : defaultStr

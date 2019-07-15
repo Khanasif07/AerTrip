@@ -38,6 +38,7 @@ class BookingTravellersDetailsTableViewCell: UITableViewCell {
     }
     
     func configCell(travellersImage: String, travellerName: String, firstName: String, lastName: String) {
+          self.travellerNameLabel.text = travellerName
         if !travellersImage.isEmpty {
             self.travellerImageView.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
         } else {

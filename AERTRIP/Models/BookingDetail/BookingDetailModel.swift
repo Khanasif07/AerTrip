@@ -353,12 +353,13 @@ extension BookingDetailModel {
     
     var bookingPrice: Double {
         var price: Double = 0.0
-        for voucher in self.receipt?.voucher ?? [] {
-            if voucher.basic?.voucherType.lowercased() == ATVoucherType.sales.value, let totalTran = voucher.transactions.filter({ $0.ledgerName.lowercased() == "total" }).first {
-                price = totalTran.amount
-                break
-            }
-        }
+        // TODO: Recheck all price logic as transaction key not coming
+//        for voucher in self.receipt?.voucher ?? [] {
+//            if voucher.basic?.voucherType.lowercased() == ATVoucherType.sales.value, let totalTran = voucher.transactions.filter({ $0.ledgerName.lowercased() == "total" }).first {
+//                price = totalTran.amount
+//                break
+//            }
+//        }
         return price
     }
     
@@ -420,7 +421,8 @@ extension BookingDetailModel {
     // Total_amount_paid
     
     var paid: Double {
-        return self.totalAmountPaid
+      //  return self.totalAmountPaid
+        return 0.0
     }
     
     // Refund Amount: Total of cancellations + Total of Reschedules
@@ -448,7 +450,8 @@ extension BookingDetailModel {
 //    Total cost of booking - Total amount received
     
     var totalOutStanding: Double {
-        return self.receipt?.totalAmountDue ?? 0.0
+//        return self.receipt?.totalAmountDue ?? 0.0
+        return 0.0
     }
     
     // Web checking url
@@ -1564,7 +1567,7 @@ struct Pax {
 //    var addOns: JSONDictionary = [:] // TODO: Need to confirm this with yash as always coming in array
     
     var _pnr: String {
-        return self.pnr.isEmpty ? LocalizedString.dash.localized : self.pnr
+        return self.pnr.isEmpty ? LocalizedString.dash.localized : self.pnr + "-" + self.status
     }
     
     var _seat: String {
@@ -2195,7 +2198,7 @@ struct TripInfo {
     var eventId: String = ""
     var isUpdated: String = ""
     var name: String = ""
-    
+
     init() {
         self.init(json: [:])
     }

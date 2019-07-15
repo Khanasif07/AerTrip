@@ -156,7 +156,7 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? TripChangeTableViewCell {
             printDebug("Trip change table view Cell tapped")
             self.tripChangeIndexPath = indexPath
-            AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips)
+            AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo())
         }
         
         if let cell = self.bookingDetailsTableView.cellForRow(at: indexPath) as? BookingCommonActionTableViewCell {
@@ -266,7 +266,7 @@ extension HotlelBookingsDetailsVC: MXParallaxHeaderDelegate {
                 sSelf.topNavBar.firstRightButton.isSelected = true
                 sSelf.topNavBar.leftButton.isSelected = true
                 sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
-                sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeImage, endText: "BOM → DEL", font: AppFonts.SemiBold.withSize(18.0), isEndTextBold: true)
+                sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeImage, endText: self?.viewModel.bookingDetail?.bookingDetail?.hotelName ?? "", font: AppFonts.SemiBold.withSize(18.0), isEndTextBold: true)
                 sSelf.topNavBar.dividerView.isHidden = false
             }
         } else {
@@ -344,6 +344,7 @@ extension HotlelBookingsDetailsVC: WeatherHeaderTableViewCellDelegate {
 extension HotlelBookingsDetailsVC: SelectTripVCDelegate {
     func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel, tripDetails: TripDetails?) {
         printDebug("\(trip)")
+        AppToast.default.showToastMessage(message: LocalizedString.HotelTripChangeMessage.localized + "\(trip.name)")
         self.updatedTripDetail = trip
         if let indexPath = self.tripChangeIndexPath {
             self.bookingDetailsTableView.reloadRow(at: indexPath, with: .none)

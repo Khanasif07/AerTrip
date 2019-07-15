@@ -37,12 +37,12 @@ class BookingPaymentDetailsTableViewCell: UITableViewCell {
         self.costLabel.textColor = AppColors.textFieldTextColor51
         self.clipsToBounds = true
         self.dividerView.isHidden = true
-        self.cellHeight.constant = 43.0
+        self.cellHeight.constant = 41.5
         self.containerViewBottomConstraint.constant = 0.0
         self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
     }
     
-    internal func configCell(title: String, titleFont: UIFont = AppFonts.Regular.withSize(16.0), titleColor: UIColor = AppColors.themeBlack, isFirstCell: Bool, price: String? = nil, isLastCell: Bool, cellHeight: CGFloat = 43.0) {
+    internal func configCell(title: String, titleFont: UIFont = AppFonts.Regular.withSize(16.0), titleColor: UIColor = AppColors.themeBlack, isFirstCell: Bool, price: String? = nil, isLastCell: Bool, cellHeight: CGFloat = 41.0) {
         self.lastCellShadowSetUp(isLastCell: isLastCell, cellHeight: cellHeight)
         self.titleLabel.textColor = titleColor
         self.costLabel.textColor = titleColor
@@ -58,9 +58,9 @@ class BookingPaymentDetailsTableViewCell: UITableViewCell {
     
     private func lastCellShadowSetUp(isLastCell: Bool, cellHeight: CGFloat) {
         if isLastCell {
-            self.cellHeight.constant = 48.0
+            self.cellHeight.constant = 41.5
             self.dividerView.isHidden = false
-            self.containerView.addShadow(cornerRadius: 15.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.themeRed.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 15.0)
+            self.containerView.addShadow(cornerRadius: 15.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 15.0)
             
         } else {
             self.cellHeight.constant = cellHeight // 43.0

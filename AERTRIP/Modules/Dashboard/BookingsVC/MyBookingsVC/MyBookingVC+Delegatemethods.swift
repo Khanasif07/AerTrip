@@ -11,7 +11,8 @@ import Foundation
 extension MyBookingsVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        perform(#selector(search(_:)), with: searchText, afterDelay: 0.5)
+        // 800 milliseconds for searching the text same as Android 
+        perform(#selector(search(_:)), with: searchText, afterDelay: 0.8)
     }
     
     @objc private func search(_ forText: String) {

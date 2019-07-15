@@ -56,7 +56,7 @@ class FlightBoardingAndDestinationTableViewCell: UITableViewCell {
         self.boardingCodeLabel.font = AppFonts.Regular.withSize(40.0)
         self.destinationCodeLabel.font = AppFonts.Regular.withSize(40.0)
         self.economyLabel.font = AppFonts.Regular.withSize(14.0)
-        self.timeLabel.font = AppFonts.Regular.withSize(14.0)
+        self.timeLabel.font = AppFonts.SemiBold.withSize(14.0)
         self.boardingTimeLabel.font = AppFonts.Regular.withSize(22.0)
         self.destinationTimeLabel.font = AppFonts.Regular.withSize(22.0)
         self.boardingDateLabel.font = AppFonts.Regular.withSize(14.0)

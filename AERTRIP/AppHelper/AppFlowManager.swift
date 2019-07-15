@@ -552,13 +552,14 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated: true)
     }
     
-    func presentSelectTripVC(delegate: SelectTripVCDelegate, usingFor: TripUsingFor = .hotel,allTrips: [TripModel] = []) {
+    func presentSelectTripVC(delegate: SelectTripVCDelegate, usingFor: TripUsingFor = .hotel,allTrips: [TripModel] = [],tripInfo: TripInfo = TripInfo()) {
         /* Don't call this method directly if you want to get the default trip or select the trip if there is no default trip.
          In that case use `AppFlowManager.default.selectTrip()` method.
          */
         let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
         obj.viewModel.usingFor = usingFor
         obj.viewModel.allTrips = allTrips
+        obj.viewModel.tripInfo = tripInfo
         obj.delegate = delegate
         self.mainNavigationController.present(obj, animated: true)
     }

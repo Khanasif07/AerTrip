@@ -32,6 +32,32 @@ class BookingTravellerAddOnsCollectionViewCell: UICollectionViewCell {
     
     func configure(title: String, detail: String) {
         self.titleLabel.text = title
-        self.titleValueLabel.text = detail
+        if title == AppConstants.PNR && detail.count > 1 {
+            let pnrData = detail.split(separator: "-")
+            var pnrNumber = ""
+            var status = ""
+            if pnrData.count > 1 {
+                pnrNumber = "\(pnrData[0])"
+                status = "(\(pnrData[1].capitalized))"
+            } else {
+                pnrNumber = "\(pnrData[0])"
+            }
+            self.titleValueLabel.attributedText = getAttributedBoldText(text: pnrNumber + status, boldText: "\(status)")
+        } else {
+            self.titleValueLabel.text = detail
+         }
+    }
+    
+    
+    //MARK: - Helper methods
+    // Pass complete string in text and bold text
+    private func getAttributedBoldText(text: String, boldText: String) -> NSMutableAttributedString {
+        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), .foregroundColor: AppColors.themeBlack])
+        
+        attString.addAttributes([
+            .font: AppFonts.Regular.withSize(18.0),
+            .foregroundColor: boldText == AppConstants.kBooked ?  AppColors.themeGreen : AppColors.themeBlack
+            ], range:(text as NSString).range(of: boldText))
+        return attString
     }
 }

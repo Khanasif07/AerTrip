@@ -32,7 +32,8 @@ class SelectTripVM {
     var selectedIndexPath: IndexPath?
     var delegate: SelectTripVMDelegate?
     var tripDetails: TripDetails?
-    
+    // user for hotel Change
+    var tripInfo: TripInfo?
     var usingFor: TripUsingFor = .hotel
     
     var allTrips: [TripModel] = []
@@ -57,9 +58,16 @@ class SelectTripVM {
     
     func moveAndUpdateTripAPI(selectedTrip: TripModel) {
         var param: JSONDictionary = ["is_delete": 1]
-        param["trip_id"] = tripDetails?.trip_id ?? ""
-        param["event_id[]"] = tripDetails?.event_id ?? ""
-        param["move_id[]"] = selectedTrip.id
+        if let tripInfo = tripInfo, !tripInfo.bookingId.isEmpty {
+            param["trip_id"] = tripInfo.tripId
+            param["event_id[]"] = tripInfo.eventId
+            param["move_id[]"] = selectedTrip.id
+        } else {
+            param["trip_id"] = tripDetails?.trip_id ?? ""
+            param["event_id[]"] = tripDetails?.event_id ?? ""
+            param["move_id[]"] = selectedTrip.id
+        }
+       
         
         delegate?.willMoveAndUpdateTripAPI()
         APICaller.shared.tripsEventMoveAPI(params: param) { [weak self] success, _, eventId in
@@ -77,8 +85,13 @@ class SelectTripVM {
     
     private func saveMovedTrip() {
         var param: JSONDictionary = ["event_id": self.eventId]
-        param["trip_id"] = tripDetails?.trip_id ?? ""
-        param["booking_id"] = tripDetails?.booking_id ?? ""
+        if let tripInfo = tripInfo, !tripInfo.bookingId.isEmpty {
+            param["trip_id"] = tripInfo.tripId
+            param["booking_id"] = tripInfo.bookingId
+        } else {
+            param["trip_id"] = tripDetails?.trip_id ?? ""
+            param["booking_id"] = tripDetails?.booking_id ?? ""
+        }
         
         APICaller.shared.tripsUpdateBookingAPI(params: param) { [weak self] success, _ in
             guard let sSelf = self else { return }

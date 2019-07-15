@@ -929,4 +929,6 @@ enum LocalizedString: String {
     case MealBookingTitle
     case SeatBookingTitle
     case SpaceWithHiphen
+    case FlightTripChangeMessage
+    case HotelTripChangeMessage
 }

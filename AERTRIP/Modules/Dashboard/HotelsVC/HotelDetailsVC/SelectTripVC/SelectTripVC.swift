@@ -149,7 +149,7 @@ extension SelectTripVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        if let _ = viewModel.tripDetails, let indexPath = viewModel.selectedIndexPath {
+        if  let indexPath = viewModel.selectedIndexPath {
             // move and update trip
             viewModel.moveAndUpdateTripAPI(selectedTrip: viewModel.allTrips[indexPath.row])
         } else {
