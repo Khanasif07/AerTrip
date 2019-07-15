@@ -353,12 +353,13 @@ extension BookingDetailModel {
     
     var bookingPrice: Double {
         var price: Double = 0.0
-        for voucher in self.receipt?.voucher ?? [] {
-            if voucher.basic?.voucherType.lowercased() == ATVoucherType.sales.value, let totalTran = voucher.transactions.filter({ $0.ledgerName.lowercased() == "total" }).first {
-                price = totalTran.amount
-                break
-            }
-        }
+        // TODO: Recheck all price logic as transaction key not coming
+//        for voucher in self.receipt?.voucher ?? [] {
+//            if voucher.basic?.voucherType.lowercased() == ATVoucherType.sales.value, let totalTran = voucher.transactions.filter({ $0.ledgerName.lowercased() == "total" }).first {
+//                price = totalTran.amount
+//                break
+//            }
+//        }
         return price
     }
     
@@ -420,7 +421,8 @@ extension BookingDetailModel {
     // Total_amount_paid
     
     var paid: Double {
-        return self.totalAmountPaid
+      //  return self.totalAmountPaid
+        return 0.0
     }
     
     // Refund Amount: Total of cancellations + Total of Reschedules
@@ -448,7 +450,8 @@ extension BookingDetailModel {
 //    Total cost of booking - Total amount received
     
     var totalOutStanding: Double {
-        return self.receipt?.totalAmountDue ?? 0.0
+//        return self.receipt?.totalAmountDue ?? 0.0
+        return 0.0
     }
     
     // Web checking url
@@ -1001,21 +1004,21 @@ struct FlightDetail {
     }
     
     var numberOfCellBaggage: Int {
-        var temp: Int = 1
+        var temp: Int = 1 //flight detail cell
         
         if let bg = self.baggage?.cabinBg {
-            temp += 1
+            temp += 1 //info title cell
             
             if let _ = bg.adult {
-                temp += 1
+                temp += 1 //adult details cell
             }
-            
+
             if let _ = bg.child {
-                temp += 1
+                temp += 1 //child details cell
             }
-            
+
             if let _ = bg.infant {
-                temp += 1
+                temp += 1 //adult details cell
             }
         }
         
@@ -1204,13 +1207,13 @@ struct FlightDetail {
             finalStr += "\n\(self.equipmentDescription)"
         }
         if !self.equipmentDescription2.isEmpty {
-            finalStr += "\n\(self.equipmentDescription2)"
+            finalStr += "\n(\(self.equipmentDescription2))"
         }
         if !self.equipmentLayout.isEmpty {
             finalStr += "\n\(self.equipmentLayout)"
         }
         
-        return finalStr
+        return finalStr + " >"
     }
 }
 
@@ -1506,13 +1509,13 @@ struct BillingAddress {
         if !self.city.isEmpty {
             temp += "\(temp.isEmpty ? "" : ", ")\(self.city)"
         }
+       
+        if !self.postalCode.isEmpty {
+            temp += "\(temp.isEmpty ? "" : " - ")\(self.postalCode)"
+        }
         
         if !self.state.isEmpty {
             temp += "\(temp.isEmpty ? "" : ", ")\(self.state)"
-        }
-        
-        if !self.postalCode.isEmpty {
-            temp += "\(temp.isEmpty ? "" : " - ")\(self.postalCode)"
         }
         
         if !self.country.isEmpty {
@@ -1564,7 +1567,7 @@ struct Pax {
 //    var addOns: JSONDictionary = [:] // TODO: Need to confirm this with yash as always coming in array
     
     var _pnr: String {
-        return self.pnr.isEmpty ? LocalizedString.dash.localized : self.pnr
+        return self.pnr.isEmpty ? LocalizedString.dash.localized : self.pnr + "-" + self.status
     }
     
     var _seat: String {
@@ -1689,7 +1692,7 @@ struct Pax {
             self.rescheduleCharge = "\(obj)".toDouble ?? 0.0
         }
         if let obj = json["ticket"] {
-            self.ticket = "\(obj)"
+            self.ticket = "\(obj)".removeNull
             self.ticket = self.ticket.isEmpty ? LocalizedString.dash.localized : self.ticket
         }
         if let obj = json["pnr"] {
@@ -2195,7 +2198,7 @@ struct TripInfo {
     var eventId: String = ""
     var isUpdated: String = ""
     var name: String = ""
-    
+
     init() {
         self.init(json: [:])
     }

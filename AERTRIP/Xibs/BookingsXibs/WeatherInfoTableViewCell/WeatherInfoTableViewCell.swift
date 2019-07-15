@@ -67,6 +67,8 @@ class WeatherInfoTableViewCell: UITableViewCell {
         let iconWithText = AppGlobals.shared.getTextWithImage(startText: "", image: ATWeatherType(rawValue: code)!.icon, endText: "  \(weatherData?.maxTemperature ?? 0) \u{00B0}/ \(weatherData?.minTemperature ?? 0)\u{00B0}", font: AppFonts.Regular.withSize(18.0), isEndTextBold: false)
         whetherLabel.attributedText = weatherData?.maxTemperature == 0 ||
             weatherData?.minTemperature == 0 ? NSAttributedString(string: "              -") : iconWithText
+        
+        self.containerViewBottomConstraint.constant = self.isLastCell ? 28.0 : 0.0
     }
     
     // get city name with date attributes

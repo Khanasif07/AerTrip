@@ -25,7 +25,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8cC-tC-t7L">
-                        <rect key="frame" x="16" y="0.0" width="288" height="43.5"/>
+                        <rect key="frame" x="16" y="0.0" width="288" height="41.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VR6-oh-NG8" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="16" y="0.0" width="256" height="0.5"/>
@@ -35,13 +35,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nKe-WE-HjL">
-                                <rect key="frame" x="16" y="11.5" width="155" height="20"/>
+                                <rect key="frame" x="16" y="11.5" width="155" height="18"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5JS-h4-6wS">
-                                <rect key="frame" x="181" y="11.5" width="91" height="20"/>
+                                <rect key="frame" x="181" y="10.5" width="91" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="91" id="qVo-wQ-hUy"/>
                                 </constraints>
@@ -53,8 +53,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="VR6-oh-NG8" firstAttribute="top" secondItem="8cC-tC-t7L" secondAttribute="top" id="4Yq-mC-Sfy"/>
-                            <constraint firstAttribute="height" constant="43.5" id="7NZ-by-jxp"/>
                             <constraint firstAttribute="trailing" secondItem="5JS-h4-6wS" secondAttribute="trailing" constant="16" id="Iei-7R-W1m"/>
+                            <constraint firstAttribute="height" constant="41.5" id="K73-qP-lIi"/>
                             <constraint firstItem="5JS-h4-6wS" firstAttribute="centerY" secondItem="nKe-WE-HjL" secondAttribute="centerY" id="NSl-nh-nJR"/>
                             <constraint firstItem="nKe-WE-HjL" firstAttribute="top" secondItem="VR6-oh-NG8" secondAttribute="bottom" constant="11" id="OXe-NW-IyY"/>
                             <constraint firstItem="VR6-oh-NG8" firstAttribute="leading" secondItem="8cC-tC-t7L" secondAttribute="leading" constant="16" id="W7A-1Z-86j"/>
@@ -66,7 +66,7 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="8cC-tC-t7L" secondAttribute="bottom" id="73Z-dq-E3g"/>
+                    <constraint firstAttribute="bottom" secondItem="8cC-tC-t7L" secondAttribute="bottom" constant="2" id="73Z-dq-E3g"/>
                     <constraint firstAttribute="trailing" secondItem="8cC-tC-t7L" secondAttribute="trailing" constant="16" id="Jkw-2k-n6M"/>
                     <constraint firstItem="8cC-tC-t7L" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Smv-Xo-FDj"/>
                     <constraint firstItem="8cC-tC-t7L" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Vo9-YB-pv2"/>
@@ -74,7 +74,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="cellHeight" destination="7NZ-by-jxp" id="2wJ-9E-3Pf"/>
+                <outlet property="cellHeight" destination="K73-qP-lIi" id="X5G-jD-vw1"/>
                 <outlet property="containerView" destination="8cC-tC-t7L" id="d2I-Yn-Mth"/>
                 <outlet property="containerViewBottomConstraint" destination="73Z-dq-E3g" id="7Pl-g6-r7h"/>
                 <outlet property="containerViewTopConstraint" destination="Vo9-YB-pv2" id="0EJ-5S-H9D"/>

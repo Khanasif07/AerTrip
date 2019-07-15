@@ -120,7 +120,7 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         
         if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? TripChangeTableViewCell {
             printDebug("Trip change table view Cell tapped")
-            AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips)
+            AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo())
             self.tripChangeIndexPath = indexPath
         }
         
@@ -229,7 +229,7 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
                 sSelf.topNavBar.firstRightButton.isSelected = true
                 sSelf.topNavBar.leftButton.isSelected = true
                 sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
-                sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeImage, endText: "BOM → DEL", font: AppFonts.SemiBold.withSize(18.0), isEndTextBold: true)
+                sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeImage, endText: self?.viewModel.tripCitiesStr ?? NSMutableAttributedString(string: ""), font: AppFonts.SemiBold.withSize(18.0))
                 sSelf.topNavBar.dividerView.isHidden = false
             }
         } else {
@@ -363,6 +363,7 @@ extension FlightBookingsDetailsVC: SelectTripVCDelegate {
     func selectTripVC(sender: SelectTripVC, didSelect trip: TripModel, tripDetails: TripDetails?) {
         printDebug("\(trip)")
         self.updatedTripDetail = trip
+        AppToast.default.showToastMessage(message: LocalizedString.FlightTripChangeMessage.localized + "\(trip.name)")
         if let indexPath = self.tripChangeIndexPath {
             self.bookingDetailsTableView.reloadRow(at: indexPath, with: .none)
         }

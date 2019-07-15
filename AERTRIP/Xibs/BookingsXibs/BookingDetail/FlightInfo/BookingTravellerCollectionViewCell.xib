@@ -23,14 +23,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="103" height="165"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1Cd-hZ-YUu">
-                                <rect key="frame" x="18" y="16" width="67" height="67"/>
+                                <rect key="frame" x="18" y="0.0" width="67" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="Dr1-Fm-3si"/>
                                     <constraint firstAttribute="width" secondItem="1Cd-hZ-YUu" secondAttribute="height" multiplier="1:1" id="Wro-HX-Pjj"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" sffsaf fasf asf " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="urf-yA-Njd">
-                                <rect key="frame" x="6" y="88" width="91" height="55"/>
+                                <rect key="frame" x="6" y="72" width="91" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -48,8 +48,8 @@
                             <constraint firstItem="urf-yA-Njd" firstAttribute="top" secondItem="1Cd-hZ-YUu" secondAttribute="bottom" constant="5" id="0zD-gI-orY"/>
                             <constraint firstItem="urf-yA-Njd" firstAttribute="leading" secondItem="dqw-io-Env" secondAttribute="leading" constant="6" id="JQQ-Jb-4Mh"/>
                             <constraint firstItem="1Cd-hZ-YUu" firstAttribute="centerX" secondItem="dqw-io-Env" secondAttribute="centerX" id="LJf-8T-NcM"/>
-                            <constraint firstItem="ac9-oi-Ky7" firstAttribute="top" relation="lessThanOrEqual" secondItem="urf-yA-Njd" secondAttribute="bottom" constant="20" id="MPB-kr-2Oa"/>
-                            <constraint firstItem="1Cd-hZ-YUu" firstAttribute="top" secondItem="dqw-io-Env" secondAttribute="top" constant="16" id="Qc2-V6-fyU"/>
+                            <constraint firstItem="ac9-oi-Ky7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="urf-yA-Njd" secondAttribute="bottom" constant="10" id="MPB-kr-2Oa"/>
+                            <constraint firstItem="1Cd-hZ-YUu" firstAttribute="top" secondItem="dqw-io-Env" secondAttribute="top" id="Qc2-V6-fyU"/>
                             <constraint firstAttribute="trailing" secondItem="urf-yA-Njd" secondAttribute="trailing" constant="6" id="Rli-Pi-zn6"/>
                             <constraint firstAttribute="bottom" secondItem="ac9-oi-Ky7" secondAttribute="bottom" id="YTb-ao-EBP"/>
                             <constraint firstItem="ac9-oi-Ky7" firstAttribute="trailing" secondItem="urf-yA-Njd" secondAttribute="trailing" id="YkK-wq-ics"/>
@@ -68,8 +68,10 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="103" height="165"/>
             <connections>
+                <outlet property="bottomConstraint" destination="MPB-kr-2Oa" id="SlM-Bw-2GK"/>
                 <outlet property="bottomSlideView" destination="ac9-oi-Ky7" id="90H-F9-gub"/>
                 <outlet property="profileImageView" destination="1Cd-hZ-YUu" id="mu6-UB-e9G"/>
+                <outlet property="topConstraint" destination="Qc2-V6-fyU" id="wgI-jp-arM"/>
                 <outlet property="travellerNameLabel" destination="urf-yA-Njd" id="Alj-Hl-BYc"/>
             </connections>
             <point key="canvasLocation" x="105.07246376811595" y="49.21875"/>

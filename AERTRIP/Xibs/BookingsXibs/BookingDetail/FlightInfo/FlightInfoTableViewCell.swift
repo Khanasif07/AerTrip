@@ -50,7 +50,7 @@ class FlightInfoTableViewCell: UITableViewCell {
             finalDetails = obj
         }
         
-        let detail = "\(self.flightDetail?.carrierCode ?? LocalizedString.na.localized)-\(self.flightDetail?.flightNumber ?? LocalizedString.na.localized)・\(self.flightDetail?.cabinClass ?? LocalizedString.na.localized)"
+        let detail = "\(self.flightDetail?.carrierCode ?? LocalizedString.na.localized)-\(self.flightDetail?.flightNumber ?? LocalizedString.na.localized)・\(self.flightDetail?.cabinClass ?? LocalizedString.na.localized) \((self.flightDetail?.bookingClass.isEmpty ?? false) ? "" : ("(\(self.flightDetail?.bookingClass ?? ""))"))"
         
         finalDetails += finalDetails.isEmpty ? detail : "\n\(detail)"
         

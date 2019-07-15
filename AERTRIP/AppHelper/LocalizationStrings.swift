@@ -229,6 +229,7 @@ enum LocalizedString: String {
     case Birthday
     case Anniversary
     case Notes
+    case Disclaimer
     case Mobile
     case passportNo = "Passport No."
     case issueCountry = "Issue Country"
@@ -928,4 +929,6 @@ enum LocalizedString: String {
     case MealBookingTitle
     case SeatBookingTitle
     case SpaceWithHiphen
+    case FlightTripChangeMessage
+    case HotelTripChangeMessage
 }

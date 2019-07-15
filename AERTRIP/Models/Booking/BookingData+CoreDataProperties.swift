@@ -61,6 +61,7 @@ extension BookingData {
     @NSManaged public var bookingTabType: Int16
     @NSManaged public var bookingProductType: Int16
     @NSManaged public var eventType: Int16
+    @NSManaged public var serviceType: String?
     
     //Requests
     @NSManaged public var stepsArray: Array<String>?
@@ -169,6 +170,8 @@ extension BookingData {
         }
         else if self.productType == .hotel {
             return NSMutableAttributedString(string: self.hotelName ?? LocalizedString.dash.localized)
+        } else {
+            return NSMutableAttributedString(string: self.serviceType ?? LocalizedString.dash.localized)
         }
         return nil
     }

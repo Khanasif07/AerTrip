@@ -87,7 +87,7 @@ extension FlightBookingsDetailsVC {
 //        let count = (self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false) ? 0 : 1
         
         let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section - self.viewModel.noOfLegCellAboveLeg]
-        cell.configCell(boardingCity: leg?.flight.last?.departCity ?? "", destinationCity: leg?.flight.last?.departCity ?? "", boardingCode: leg?.flight.first?.departure ?? "", destinationCode: leg?.flight.last?.departure ?? "", legDuration: leg?.legDuration.asString(units: [.hour, .minute], style: .abbreviated) ?? LocalizedString.na.localized, boardingTime: leg?.flight.first?.departureTime ?? "", destinationTime: leg?.flight.last?.departureTime ?? "", boardingDate: leg?.flight.first?.departDate?.toString(dateFormat: "E, d MMM yyyy") ?? "", destinationDate: leg?.flight.last?.departDate?.toString(dateFormat: "E, d MMM yyyy") ?? "", economyClass: leg?.cabinClass ?? "-")
+        cell.configCell(boardingCity: leg?.flight.first?.departCity ?? "", destinationCity: leg?.flight.last?.arrivalCity ?? "", boardingCode: leg?.origin ?? "", destinationCode: leg?.destination ?? "", legDuration: leg?.legDuration.asString(units: [.hour, .minute], style: .abbreviated) ?? LocalizedString.na.localized, boardingTime: leg?.flight.first?.departureTime ?? "", destinationTime: leg?.flight.last?.departureTime ?? "", boardingDate: leg?.flight.first?.departDate?.toString(dateFormat: "E, d MMM yyyy") ?? "", destinationDate: leg?.flight.last?.departDate?.toString(dateFormat: "E, d MMM yyyy") ?? "", economyClass: leg?.cabinClass ?? "-")
         
         cell.noOfStops = leg?.numberOfStop ?? 0
         cell.clipsToBounds = true
@@ -117,7 +117,7 @@ extension FlightBookingsDetailsVC {
         } else if traveller?.status.lowercased() == "pending" {
             cell.pnrStatus = .pending
         }
-        cell.configCell(travellersImage: "", travellerName: traveller?.paxName ?? "", travellerPnrStatus: traveller?.status == "booked" ? traveller?.pnr ?? "" : traveller?.status.capitalizedFirst() ?? "", firstName: traveller?.firstName ?? "", lastName: traveller?.lastName ?? "", isLastTraveller: indexPath.row - 2 == leg?.pax.count)
+        cell.configCell(travellersImage: "", travellerName: traveller?.fullNameWithSalutation ?? "", travellerPnrStatus: traveller?.status == "booked" ? traveller?.pnr ?? "" : traveller?.status.capitalizedFirst() ?? "", firstName: traveller?.firstName ?? "", lastName: traveller?.lastName ?? "", isLastTraveller: indexPath.row - 2 == leg?.pax.count)
         cell.clipsToBounds = true
         return cell
     }
@@ -172,6 +172,7 @@ extension FlightBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         cell.titleTopConstraint.constant = 12.0
         cell.titleBottomConstraint.constant = 5.0
+        cell.containerViewBottomConstraint.constant = 26
         cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.paid.delimiterWithSymbol, isLastCell: self.viewModel.bookingDetail?.totalOutStanding == 0.0 ? true : false, cellHeight: 37.0)
         cell.dividerView.isHidden = false
         cell.clipsToBounds = true
@@ -258,9 +259,8 @@ extension FlightBookingsDetailsVC {
     func getWeatherInfoCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherInfoTableViewCell.reusableIdentifier, for: indexPath) as? WeatherInfoTableViewCell else { return UITableViewCell() }
         cell.usingFor = .flight
-        cell.weatherData = self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1]
-        
         cell.isLastCell = indexPath.row == (self.viewModel.bookingDetail?.tripWeatherData.count ?? 0)
+        cell.weatherData = self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1]
         cell.clipsToBounds = true
         return cell
     }

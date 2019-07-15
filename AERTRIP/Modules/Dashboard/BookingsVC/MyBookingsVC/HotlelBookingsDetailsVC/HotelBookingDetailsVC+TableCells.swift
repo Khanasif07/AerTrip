@@ -58,7 +58,7 @@ extension HotlelBookingsDetailsVC {
         
         let roomD = self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - self.viewModel.noOfCellAboveHotelDetail]
         
-        cell.configHotelBookingDetailsCell(title: "\(LocalizedString.Room.localized) \(indexPath.section)", subTitle: roomD?.roomType ?? LocalizedString.na.localized)
+        cell.configHotelBookingDetailsCell(title: "\(LocalizedString.Room.localized) \(indexPath.section - 1)", subTitle: roomD?.roomType ?? LocalizedString.na.localized)
         
         cell.clipsToBounds = true
         return cell
@@ -76,7 +76,7 @@ extension HotlelBookingsDetailsVC {
         let isLastRoom = (allRooms.count - 1) == currentRoomSection
         let isLastTarv = (allGuest.count - 1) == currentGuestIndex
         
-        cell.configCell(imageUrl: allGuest[currentGuestIndex].profileImage, travellerName: allGuest[currentGuestIndex].fullName, isLastTravellerInRoom: isLastTarv, isLastTraveller: (isLastRoom && isLastTarv))
+        cell.configCell(travellersImage: allGuest[currentGuestIndex].profileImage, travellerName: allGuest[currentGuestIndex].fullName,firstName: allGuest[currentGuestIndex].firstName,lastName: allGuest[currentGuestIndex].lastname, isLastTravellerInRoom: isLastTarv, isLastTraveller: (isLastRoom && isLastTarv))
 
         cell.clipsToBounds = true
         return cell
@@ -132,7 +132,8 @@ extension HotlelBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         cell.titleTopConstraint.constant = 12.0
         cell.titleBottomConstraint.constant = 5.0
-        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.paid.delimiterWithSymbol, isLastCell: false, cellHeight: 37.0)
+        cell.containerViewBottomConstraint.constant = 26
+        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.paid.delimiterWithSymbol, isLastCell: true, cellHeight: 37.0)
         cell.dividerView.isHidden = false
         cell.clipsToBounds = true
         return cell
@@ -161,7 +162,7 @@ extension HotlelBookingsDetailsVC {
         cell.additionalInformation = self.viewModel.bookingDetail?.additionalInformation
         var optionImages: [UIImage] = [#imageLiteral(resourceName: "directions"), #imageLiteral(resourceName: "call")]
         var optionNames: [String] = [LocalizedString.Directions.localized, LocalizedString.Call.localized]
-        if self.viewModel.bookingDetail?.tripInfo != nil {
+        if self.viewModel.bookingDetail?.tripInfo == nil {
             optionImages.append(#imageLiteral(resourceName: "addToTrips"))
             optionNames.append(LocalizedString.AddToTrips.localized)
         }

@@ -296,6 +296,7 @@ struct Traveller {
     var addedOn: String = ""
     var updatedOn: String = ""
     var paxName: String = ""
+    var profileImage: String = ""
     
     init() {
         self.init(json: [:])
@@ -401,6 +402,10 @@ struct Traveller {
         if let obj = json["pax_name"] {
             self.paxName = "\(obj)".removeNull
         }
+        
+        if let obj = json["profile_image"] {
+            self.profileImage = "\(obj)".removeNull
+        }
     }
     
     static func retunsTravellerArray(jsonArr: [JSONDictionary]) -> [Traveller] {
@@ -409,6 +414,10 @@ struct Traveller {
             traveller.append(Traveller(json: element))
         }
         return traveller
+    }
+    
+    var fullName: String {
+        return "\(self.salutation) \(self.paxName)"
     }
 }
 

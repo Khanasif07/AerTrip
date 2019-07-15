@@ -28,6 +28,11 @@ class ATGuestButton: UIButton {
         self.configButton()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.placeholderImage.frame = self.bounds
+    }
+    
     private func configButton() {
         //self.setImage(#imageLiteral(resourceName: "adult_deSelected"), for: .normal)
         placeholderImage.frame = self.bounds

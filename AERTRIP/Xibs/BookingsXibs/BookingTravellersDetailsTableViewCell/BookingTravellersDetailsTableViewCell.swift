@@ -9,26 +9,24 @@
 import UIKit
 
 class BookingTravellersDetailsTableViewCell: UITableViewCell {
-
-    //Mark:- Variables
+    // Mark:- Variables
     //================
     
-    
-    //Mark:- IBOutlets
+    // Mark:- IBOutlets
     //================
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var travellersLabel: UILabel!
-    @IBOutlet weak var travellerNameLabel: UILabel!
-    @IBOutlet weak var travellerImageView: UIImageView!
-    @IBOutlet weak var dividerView: ATDividerView!
-    //Mark:- LifeCycle
+    @IBOutlet var containerView: UIView!
+    @IBOutlet var travellersLabel: UILabel!
+    @IBOutlet var travellerNameLabel: UILabel!
+    @IBOutlet var travellerImageView: UIImageView!
+    @IBOutlet var dividerView: ATDividerView!
+    // Mark:- LifeCycle
     //================
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
     }
     
-    //Mark:- Functions
+    // Mark:- Functions
     //================
     private func configUI() {
         self.travellersLabel.font = AppFonts.Regular.withSize(14.0)
@@ -39,12 +37,16 @@ class BookingTravellersDetailsTableViewCell: UITableViewCell {
         self.travellerImageView.makeCircular()
     }
     
-    internal func configCell(name: String , imageUrl: String) {
-        self.travellerNameLabel.text = name
-        self.travellerImageView.setImageWithUrl(imageUrl, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
+    func configCell(travellersImage: String, travellerName: String, firstName: String, lastName: String) {
+          self.travellerNameLabel.text = travellerName
+        if !travellersImage.isEmpty {
+            self.travellerImageView.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
+        } else {
+            self.travellerImageView.makeCircular(borderWidth: 1.0, borderColor: AppColors.themeGray04)
+            self.travellerImageView.image = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName, font: AppFonts.Regular.withSize(35.0))
+        }
     }
-    
-    //Mark:- IBActions
-    //================
-    
 }
+
+// Mark:- IBActions
+//================

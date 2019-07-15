@@ -32,7 +32,7 @@
                                             <constraint firstAttribute="height" constant="1" id="NjI-BT-rAU"/>
                                         </constraints>
                                     </view>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_trip_change" translatesAutoresizingMaskIntoConstraints="NO" id="N8s-Et-pBb">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripChangeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="N8s-Et-pBb">
                                         <rect key="frame" x="16" y="10" width="19.5" height="15"/>
                                         <color key="tintColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -114,6 +114,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_trip_change" width="21" height="21"/>
+        <image name="tripChangeIcon" width="21" height="21"/>
     </resources>
 </document>

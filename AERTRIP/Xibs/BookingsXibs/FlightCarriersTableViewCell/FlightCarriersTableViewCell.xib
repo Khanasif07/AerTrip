@@ -33,8 +33,13 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ml-sW-i9O">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="21"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FlightCarriers" translatesAutoresizingMaskIntoConstraints="NO" id="t8h-9G-8Zz">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FlightCarriers" translatesAutoresizingMaskIntoConstraints="NO" id="t8h-9G-8Zz">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="ATU-E4-Jav"/>
+                                                    <constraint firstAttribute="width" secondItem="t8h-9G-8Zz" secondAttribute="height" multiplier="10:7" id="Utx-Yj-Qt3"/>
+                                                    <constraint firstAttribute="height" constant="21" id="bFz-tb-IpK"/>
+                                                </constraints>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -52,6 +57,11 @@
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FlightCarriers" translatesAutoresizingMaskIntoConstraints="NO" id="YNu-DA-UdO">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="Egw-RZ-1N9"/>
+                                                    <constraint firstAttribute="width" secondItem="YNu-DA-UdO" secondAttribute="height" multiplier="10:7" id="FTx-NQ-6h6"/>
+                                                    <constraint firstAttribute="height" constant="21" id="aLG-AI-dp7"/>
+                                                </constraints>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -69,6 +79,9 @@
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FlightCarriers" translatesAutoresizingMaskIntoConstraints="NO" id="CKl-uM-TFS">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="CKl-uM-TFS" secondAttribute="height" multiplier="10:7" id="taq-qY-cTH"/>
+                                                </constraints>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tET-pa-JnO">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="21"/>
@@ -76,6 +89,10 @@
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DSv-kn-R6O">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="KVx-HS-hH8"/>
+                                                    <constraint firstAttribute="width" constant="30" id="SXp-6I-RLH"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="11"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>

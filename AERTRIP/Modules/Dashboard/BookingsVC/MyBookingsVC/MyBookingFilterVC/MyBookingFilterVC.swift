@@ -146,11 +146,13 @@ class MyBookingFilterVC: BaseVC {
     }
     private func notifyToFilterApplied() {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        perform(#selector(sendNotification), with: nil, afterDelay: 0.5)
+         // dalay for 1 seconds for the filter applied same as Android 
+        perform(#selector(sendNotification), with: nil, afterDelay: 1.0)
     }
     
     @objc private func sendNotification() {
         self.sendDataChangedNotification(data: ATNotification.myBookingFilterApplied)
+       
         delay(seconds: 0.5) { [weak self] in
             self?.setCounts()
         }

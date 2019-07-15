@@ -422,6 +422,7 @@
 "CancellationPolicy" = "Cancellation Policy";
 "PaymentPolicy" = "Payment Policy";
 "Notes" = "Notes";
+"Disclaimer" = "Disclaimer";
 "Info" = "Info";
 "ApplyPreviousFilter" = "Apply prevoius filters \n ";
 "Within" = "within";
@@ -849,5 +850,7 @@
 "MealBookingTitle" = "Meal Booking";
 "SeatBookingTitle" = "Seat Booking";
 "SpaceWithHiphen" = " -";
+"FlightTripChangeMessage" = "Flight booking moved to";
+"HotelTripChangeMessage" = "Hotel booking moved to";
 
 

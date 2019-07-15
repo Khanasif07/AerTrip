@@ -121,6 +121,10 @@ extension FareInfoVC : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
+        if indexPath.row == (self.getNumberOfCellsInFareInfoForNormalFlight(forData: self.viewModel.bookingFee)-2) {
+            return UITableView.automaticDimension
+        }
+        
         if indexPath.row == (self.getNumberOfCellsInFareInfoForNormalFlight(forData: self.viewModel.bookingFee)-1) {
             return UITableView.automaticDimension
         }
@@ -138,7 +142,11 @@ extension FareInfoVC : UITableViewDataSource, UITableViewDelegate {
                 }
                 return 28.0
             }
+        } else {
+            return UITableView.automaticDimension
         }
+        
+        
         return UITableView.automaticDimension
     }
     
@@ -191,7 +199,7 @@ extension FareInfoVC {
     }
     
     func getNumberOfCellsInFareInfoForNormalFlight(forData infoData: BookingFeeDetail?) -> Int {
-        var temp = 2 //for notes
+        var temp = 3 //for notes
         
         if let info = infoData {
             if let can = info.aerlineCanCharges {
@@ -215,8 +223,8 @@ extension FareInfoVC {
         commonCell.rightLabel.font = AppFonts.Regular.withSize(16.0)
         
         commonCell.leftLabel.text = type
-        commonCell.middleLabel.attributedText = aerlineFee.toDouble.amountInDoubleWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-        commonCell.rightLabel.attributedText = aertripFee.toDouble.amountInDoubleWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        commonCell.middleLabel.attributedText = aerlineFee.toDouble.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        commonCell.rightLabel.attributedText = aertripFee.toDouble.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
         return commonCell
     }
     
@@ -245,6 +253,18 @@ extension FareInfoVC {
             fareInfoNoteCell.configCell(notes: self.viewModel.fareInfoNotes)
             return fareInfoNoteCell
         }
+        
+        func getDisclamerCell() -> UITableViewCell {
+            guard let fareInfoDisclaimer = self.fareInfoTableView.dequeueReusableCell(withIdentifier: "FareInfoNoteTableViewCell") as? FareInfoNoteTableViewCell else {
+                fatalError("FareInfoNoteTableViewCell not found")
+            }
+            fareInfoDisclaimer.isForBookingPolicyCell = false
+            fareInfoDisclaimer.noteLabel.text = LocalizedString.Disclaimer.localized
+            fareInfoDisclaimer.configCell(notes: self.viewModel.fareInfoDisclamer)
+            return fareInfoDisclaimer
+        }
+        
+        
         
         func getBlankSpaceCell() -> UITableViewCell {
             guard let emptyDividerViewCell = self.fareInfoTableView.dequeueReusableCell(withIdentifier: "EmptyDividerViewCellTableViewCell") as? EmptyDividerViewCellTableViewCell else {
@@ -315,17 +335,24 @@ extension FareInfoVC {
                     finalCell = getBlankSpaceCell()
                 }
             }
-            if indexPath.row == getNumberOfCellsInFareInfoForNormalFlight(forData: info) - 1 {
-                //blank space
+            if indexPath.row == getNumberOfCellsInFareInfoForNormalFlight(forData: info) - 2 {
+                //Notes Cell
+                printDebug("notes cell")
                 finalCell = getNotesCell()
+            }
+            
+            if indexPath.row == getNumberOfCellsInFareInfoForNormalFlight(forData: info) - 1 {
+                finalCell = getDisclamerCell()
             }
         }
         else {
             if indexPath.row == 0{
                 finalCell = getBlankSpaceCell()
             }
-            else {
+            else if indexPath.row == 1 {
                 finalCell = getNotesCell()
+            } else if  indexPath.row == 2 {
+                 finalCell = getDisclamerCell()
             }
         }
         return finalCell

@@ -637,21 +637,23 @@ enum ResolutionStatus: RawRepresentable {
     case confirmationPending
     case open
     case canceled
+    case none
     case resolved
     
     init?(rawValue: String) {
-        switch rawValue.lowercased() {
-        case "payment pending", "action required / payment pending": self = .paymentPending
-        case "action required": self = .actionRequired
-        case "in progress": self = .inProgress
-        case "successful": self = .successfull
-        case "aborted": self = .aborted
-        case "closed": self = .closed
-        case "confirmation pending": self = .confirmationPending
-        case "open": self = .open
-        case "canceled": self = .canceled
+        switch rawValue {
+        case "Payment Pending": self = .paymentPending
+        case "Action Required": self = .actionRequired
+        case "In Progress": self = .inProgress
+        case "Successful": self = .successfull
+        case "Aborted": self = .aborted
+        case "Closed": self = .closed
+        case "Confirmation Pending": self = .confirmationPending
+        case "Open": self = .open
+        case "Canceled": self = .canceled
         case "resolved": self = .resolved
-        default: fatalError("case not handled for '\(rawValue)' in \(#file) at line \(#line)")
+        default:
+            fatalError("case not handled for '\(rawValue)' in \(#file) at line \(#line)")
         }
     }
     
@@ -667,6 +669,8 @@ enum ResolutionStatus: RawRepresentable {
         case .open: return "Open"
         case .canceled: return "Canceled"
         case .resolved: return "Resolved"
+        default:
+            return "none"
         }
     }
     
@@ -677,11 +681,14 @@ enum ResolutionStatus: RawRepresentable {
         case .inProgress: return AppColors.themeYellow
         case .successfull: return AppColors.themeGreen
         case .aborted: return AppColors.themeGray20
-        case .closed: return AppColors.themeGreen
-        case .open: return AppColors.themeGreen
+        case .closed: return AppColors.themeBlack
+        case .open: return AppColors.themeBlack
         case .confirmationPending: return AppColors.themeRed
-        case .canceled: return AppColors.themeGreen
+        case .canceled: return AppColors.themeBlack
         case .resolved: return AppColors.themeGreen
+
+        default:
+           return  AppColors.themeBlack
         }
     }
 }

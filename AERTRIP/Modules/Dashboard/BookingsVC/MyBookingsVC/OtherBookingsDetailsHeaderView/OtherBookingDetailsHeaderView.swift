@@ -71,7 +71,7 @@ class OtherBookingDetailsHeaderView: UIView {
     private func attributeLabelSetUp(bookingIdStr: String , bookingIdNumbers: String , date: String) {
         let attributedString = NSMutableAttributedString()
         let stringAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(16.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
-        let prefixAttributedString = NSAttributedString(string: bookingIdStr, attributes: stringAttribute)
+        let prefixAttributedString = NSAttributedString(string: "", attributes: stringAttribute)
         let numbersAttribute = [NSAttributedString.Key.font: AppFonts.SemiBold.withSize(16.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
         let postfixAttributedString = NSAttributedString(string: bookingIdNumbers, attributes: numbersAttribute)
         let dateAttributedString = NSAttributedString(string: " | " + date, attributes: stringAttribute)

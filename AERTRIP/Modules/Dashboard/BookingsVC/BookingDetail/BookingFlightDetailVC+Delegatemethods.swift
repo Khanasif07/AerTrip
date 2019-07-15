@@ -11,12 +11,22 @@ import UIKit
 
 extension BookingFlightDetailVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        if self.viewModel.bookingDetail?.isMultipleFlight() ?? false {
+        switch self.bookingDetailType {
+        case .flightInfo:
             return self.viewModel.legDetails.count
+        case .baggage:
+            return self.viewModel.legDetails.count
+        case .fareInfo:
+            if self.viewModel.bookingDetail?.isMultipleFlight() ?? false {
+                return self.viewModel.legDetails.count
+            }
+            else {
+                return 1
+            }
+        
         }
-        else {
-            return 1
-        }
+        
+       
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
