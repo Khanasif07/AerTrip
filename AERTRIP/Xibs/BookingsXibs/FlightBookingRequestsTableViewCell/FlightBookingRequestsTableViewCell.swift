@@ -61,19 +61,25 @@ class FlightBookingRequestsTableViewCell: UITableViewCell {
 //            self.requestNameLabel.textColor = AppColors.textFieldTextColor51
 //        }
         
-        if isLastCell {
+        if isLastCell, isFirstCell {
+            //both
+            self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner, .layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
+            self.containerViewBottomConstraint.constant = 26.0
+            self.dividerView.isHidden = true
+        }
+        else if isLastCell {
             self.containerViewBottomConstraint.constant = 26.0
             self.dividerView.isHidden = true
             self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
-        } else {
+        }
+        else if isFirstCell {
+            self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
+        }
+        else {
             self.containerViewBottomConstraint.constant = 0.0
             self.dividerView.isHidden = false
             
             self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
-        }
-        
-        if isFirstCell {
-            self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
         }
     }
 }
