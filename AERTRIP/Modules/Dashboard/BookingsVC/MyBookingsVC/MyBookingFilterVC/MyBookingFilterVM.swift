@@ -34,6 +34,8 @@ class MyBookingFilterVM {
     // let event Type filter
     var eventType: [Int] = [1,2,3]
     
+    var isFirstTime: Bool = true
+    
     var totalResultCount: Int {
         return CoreDataManager.shared.fetchData(fromEntity: "BookingData", forAttribute: "bookingId", usingFunction: "count").count
     }

@@ -50,12 +50,6 @@ class EventTypeVC: BaseVC {
         self.eventTypeTableView.registerCell(nibName: AmenitiesTableViewCell.reusableIdentifier)
     }
     
-    //Mark:- IBActions
-    //================
-    
-    
-    @IBAction func openBookingFlow(_ sender: Any) {
-    }
 }
 
 //Mark:- Extensions

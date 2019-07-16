@@ -189,8 +189,7 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
                 }
                 
             case 1:
-//                if let bdtl = self.viewModel.bookingDetail, bdtl.specialRequestAllowed {
-                if let bdtl = self.viewModel.bookingDetail {
+                if let bdtl = self.viewModel.bookingDetail, bdtl.specialRequestAllowed {
                     AppFlowManager.default.moveToSpecialRequestVC(forBookingId: bdtl.bookingDetail?.bookingId ?? "")
                     printDebug("Special Request")
                 }

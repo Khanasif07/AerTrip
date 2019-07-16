@@ -505,10 +505,12 @@ extension AppGlobals {
             printDebug("Please pass valid url")
             return
         }
-        
+        AppGlobals.shared.startLoading()
         self.downloadPdf(fileURL: url, screenTitle: screenTitle) { localPdf in
             if let url = localPdf {
+               
                 DispatchQueue.mainSync {
+                    AppGlobals.shared.stopLoading()
                     AppFlowManager.default.openDocument(atURL: url, screenTitle: screenTitle)
                 }
             }

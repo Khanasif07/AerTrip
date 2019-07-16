@@ -81,6 +81,11 @@ class HotlelBookingsDetailsVC: BaseVC {
         }
     }
     
+    
+    override func dataChanged(_ note: Notification) {
+        self.viewModel.getBookingDetail()
+    }
+    
     // MARK: - Functions
     
     // MARK: -
@@ -143,6 +148,7 @@ extension HotlelBookingsDetailsVC: BookingProductDetailVMDelegate {
     }
     
     func getBookingDetailFaiure(error: ErrorCodes) {
-        AppGlobals.shared.startLoading()
+        AppGlobals.shared.stopLoading()
+        AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
     }
 }

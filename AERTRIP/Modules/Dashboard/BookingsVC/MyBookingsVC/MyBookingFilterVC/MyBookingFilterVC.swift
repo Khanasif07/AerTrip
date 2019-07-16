@@ -84,11 +84,17 @@ class MyBookingFilterVC: BaseVC {
                 else {
                     let vc = EventTypeVC.instantiate(fromAppStoryboard: .Bookings)
                     vc.delegate = self
-                    
-                    vc.oldSelection = [] //if all event types wan to show as deselected by-default
+                    if MyBookingFilterVM.shared.isFirstTime {
+                      vc.oldSelection = []
+                    } else {
+                        vc.oldSelection = MyBookingFilterVM.shared.eventType
+                    }
+                    //if all event types wan to show as deselected by-default
                     //vc.oldSelection = MyBookingFilterVM.shared.eventType //if all event types wan to show as selected by-default
                     
 //                    AppGlobals.shared.eventTypeVC = vc
+                    
+                    
                     
                     self.allChildVCs.append(vc)
                 }
@@ -268,6 +274,7 @@ extension MyBookingFilterVC: ATCategoryNavBarDelegate {
 
 extension MyBookingFilterVC: EventTypeVCDelegate {
     func didSelectEventTypes(selection: [Int]) {
+        MyBookingFilterVM.shared.isFirstTime = false
         MyBookingFilterVM.shared.eventType = selection
         self.notifyToFilterApplied()
     }

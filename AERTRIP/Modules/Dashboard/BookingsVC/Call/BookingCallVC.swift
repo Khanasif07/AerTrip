@@ -106,7 +106,7 @@ class BookingCallVC: BaseVC {
             bookingCell.imageViewTrailingConstraing.constant = 0
             bookingCell.airportCodeLabelLeadingConstraint.constant = 0
             bookingCell.configureCell(code: "", title: self.viewModel.hotelName, phoneLabel: self.viewModel.hotelData[indexPath.row].phone, cellType: .none)
-            bookingCell.dividerView.isHidden = self.viewModel.airportData.count - 1 == indexPath.row
+            bookingCell.dividerView.isHidden = self.viewModel.hotelData.count - 1 == indexPath.row
             return bookingCell
         }
     }

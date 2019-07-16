@@ -128,7 +128,9 @@ extension SelectTripVC: SelectTripVMDelegate {
         selectionCompleted()
     }
     
-    func moveAndUpdateTripAPIFail() {}
+    func moveAndUpdateTripAPIFail() {
+        AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
+    }
     
     func willFetchAllTrips() {}
     
