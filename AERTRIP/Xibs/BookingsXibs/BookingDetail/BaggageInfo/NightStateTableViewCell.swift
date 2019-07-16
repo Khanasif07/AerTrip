@@ -30,7 +30,7 @@ class NightStateTableViewCell: UITableViewCell {
         self.titleLabel.backgroundColor = AppColors.clear
         self.topBackgroundView.layer.cornerRadius = 12.0
         self.topBackgroundView.layer.borderWidth = 0.2
-         self.topBackgroundView.layer.borderColor = AppColors.themeGray20.cgColor
+        self.topBackgroundView.layer.borderColor = AppColors.themeGray20.cgColor
         self.topBackgroundView.backgroundColor = AppColors.themeGray04
     }
     
