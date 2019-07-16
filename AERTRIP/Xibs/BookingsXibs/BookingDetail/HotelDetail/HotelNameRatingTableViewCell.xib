@@ -23,7 +23,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="100.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99f-j0-0Fn">
-                                <rect key="frame" x="16" y="24" width="288" height="13.5"/>
+                                <rect key="frame" x="16" y="24" width="288" height="24.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -96,7 +97,7 @@
                         <constraints>
                             <constraint firstItem="3ZI-p4-ZuL" firstAttribute="leading" secondItem="KPy-Mw-88Y" secondAttribute="leading" constant="16" id="9kz-6n-m7a"/>
                             <constraint firstItem="99f-j0-0Fn" firstAttribute="top" secondItem="KPy-Mw-88Y" secondAttribute="top" constant="24" id="IMT-BU-0MP"/>
-                            <constraint firstItem="3ZI-p4-ZuL" firstAttribute="top" secondItem="99f-j0-0Fn" secondAttribute="bottom" constant="21" id="O7H-I5-3lF"/>
+                            <constraint firstItem="3ZI-p4-ZuL" firstAttribute="top" secondItem="99f-j0-0Fn" secondAttribute="bottom" constant="10" id="O7H-I5-3lF"/>
                             <constraint firstAttribute="bottom" secondItem="3ZI-p4-ZuL" secondAttribute="bottom" constant="20" id="b03-nD-awS"/>
                             <constraint firstAttribute="trailing" secondItem="99f-j0-0Fn" secondAttribute="trailing" constant="16" id="mdC-0S-qtw"/>
                             <constraint firstItem="99f-j0-0Fn" firstAttribute="leading" secondItem="KPy-Mw-88Y" secondAttribute="leading" constant="16" id="v5U-HI-siD"/>

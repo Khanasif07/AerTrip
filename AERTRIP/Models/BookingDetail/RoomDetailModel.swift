@@ -69,7 +69,6 @@ struct RoomDetailModel {
         
         if let obj = json["voucher"] {
             self.voucher = "\(obj)".removeNull
-            self.voucher = self.voucher.isEmpty ? LocalizedString.dash.localized : self.voucher
         }
         
         if let obj = json["amount_paid"] {

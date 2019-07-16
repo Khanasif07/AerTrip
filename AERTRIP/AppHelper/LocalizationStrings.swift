@@ -914,6 +914,7 @@ enum LocalizedString: String {
     case Aertip
     case Airlines
     case Airports
+    case Hotel
     
     // MARK: - Booking Add on Request
     
@@ -931,4 +932,5 @@ enum LocalizedString: String {
     case SpaceWithHiphen
     case FlightTripChangeMessage
     case HotelTripChangeMessage
+    case SomethingWentWrong
 }

@@ -792,24 +792,31 @@ struct BookingDetail {
     // Website Details
     
     var websiteDetail: String {
-        return self.website.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.website
+//        return self.website.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.website
+        return self.website
+
     }
     
     // Phone Details
     var phoneDetail: String {
-        return self.hotelPhone.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.hotelPhone
+       // return self.hotelPhone.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.hotelPhone
+        return self.hotelPhone
+
     }
     
     // Over view Details
     
     var overViewData: String {
-        return self.info.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.info
+//        return self.info.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.info
+         return self.info
     }
     
     // hotel Address
     
     var hotelAddressDetail: String {
-        return self.hotelAddress.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.hotelAddress
+       // return self.hotelAddress.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.hotelAddress
+        return self.hotelAddress
+
     }
     
     // convert event start date into Date format

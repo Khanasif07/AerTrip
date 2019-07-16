@@ -139,7 +139,7 @@ class FlightBookingsDetailsVC: BaseVC {
     
     // Present Request Add on Frequent Flyer VC
     func presentRequestAddOnFrequentFlyer() {
-        AppFlowManager.default.presentBookingReuqestAddOnVC(bookingdata: self.viewModel.bookingDetail)
+        AppFlowManager.default.presentBookingReuqestAddOnVC(bookingdata: self.viewModel.bookingDetail,delegate: self)
     }
     
     // Present Booking Rescheduling VC

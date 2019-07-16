@@ -94,13 +94,17 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="airportCodeLabel" destination="OPc-yT-nwj" id="rc3-Hb-clL"/>
+                <outlet property="airportCodeLabelLeadingConstraint" destination="K5p-4X-SDf" id="gnx-VQ-xVg"/>
                 <outlet property="cellImageView" destination="NWX-9P-rvo" id="PCo-hS-nIW"/>
                 <outlet property="dividerView" destination="jhq-qH-khY" id="CPu-kJ-BQI"/>
                 <outlet property="imageViewBottomConstraint" destination="TFe-8m-chz" id="6sh-Rc-IoP"/>
                 <outlet property="imageViewCenterConstraint" destination="Mhc-uY-RlO" id="NKC-Nv-azj"/>
+                <outlet property="imageViewTrailingConstraing" destination="HSP-RR-ZZk" id="e6R-W0-Fue"/>
+                <outlet property="imageViewWidthConstraint" destination="IuF-IW-GJ9" id="IsX-vQ-Yn5"/>
                 <outlet property="phoneLabel" destination="0dO-Rk-d4s" id="xna-ux-XrK"/>
                 <outlet property="titleLabel" destination="nnO-jj-ewc" id="EtN-TG-Vbe"/>
             </connections>
+            <point key="canvasLocation" x="34.782608695652179" y="34.821428571428569"/>
         </tableViewCell>
     </objects>
 </document>

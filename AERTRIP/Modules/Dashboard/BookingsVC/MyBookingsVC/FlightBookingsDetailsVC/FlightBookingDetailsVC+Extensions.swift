@@ -369,3 +369,13 @@ extension FlightBookingsDetailsVC: SelectTripVCDelegate {
         }
     }
 }
+
+// MARK: - AddonRequestVC Delegate methods
+
+extension FlightBookingsDetailsVC: BookingRequestAddOnsFFVCDelegate {
+    func addOnAndFFUpdated() {
+        self.viewModel.getBookingDetail()
+    }
+    
+    
+}

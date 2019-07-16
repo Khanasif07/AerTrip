@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol BookingRequestAddOnsFFVCDelegate: class  {
+    func addOnAndFFUpdated()
+}
+
 class BookingRequestAddOnsFFVC: BaseVC {
     // MARK: - IBOutlet
     
@@ -21,6 +25,7 @@ class BookingRequestAddOnsFFVC: BaseVC {
     private let selectedIndex: Int = 0
     private var allChildVCs: [UIViewController] = [UIViewController]()
     private var allTabsStr: [String] = [LocalizedString.AddOns.localized]
+    weak var delegate: BookingRequestAddOnsFFVCDelegate?
     
     fileprivate weak var categoryView: ATCategoryView!
     private var allTabs: [ATCategoryItem] {
@@ -166,11 +171,13 @@ extension BookingRequestAddOnsFFVC: BookingRequestAddOnsFFVMDelegate {
     }
     
     func sendAddOnFFRequestSuccess() {
+        self.delegate?.addOnAndFFUpdated()
         AppGlobals.shared.stopLoading()
         dismiss(animated: true)
     }
     
     func failAddOnFFRequestFail(errorCode: ErrorCodes) {
+        AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
         AppGlobals.shared.stopLoading()
     }
 }

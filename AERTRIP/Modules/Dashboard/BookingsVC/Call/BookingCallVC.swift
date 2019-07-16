@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class BookingCallVC: BaseVC {
     // MARK: - IB Outlet
     
@@ -17,6 +18,7 @@ class BookingCallVC: BaseVC {
     // MARK: - Varibles
     
     let viewModel = BookingCallVM()
+  
     
     // MARK: - Override methods
     
@@ -89,6 +91,26 @@ class BookingCallVC: BaseVC {
         }
     }
     
+    
+    func getCellForHotelSection(_ indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == self.viewModel.hotelData.count {
+            guard let emptyCell = self.callTableView.dequeueReusableCell(withIdentifier: "EmptyTableViewCell") as? EmptyTableViewCell else {
+                fatalError("EmptyTableViewCell not found")
+            }
+            return emptyCell
+        } else {
+            guard let bookingCell = self.callTableView.dequeueReusableCell(withIdentifier: "BookingCallTableViewCell") as? BookingCallTableViewCell else {
+                fatalError("BookingCallTableViewCell not found")
+            }
+            bookingCell.imageViewWidthConstraint.constant = 0
+            bookingCell.imageViewTrailingConstraing.constant = 0
+            bookingCell.airportCodeLabelLeadingConstraint.constant = 0
+            bookingCell.configureCell(code: "", title: self.viewModel.hotelName, phoneLabel: self.viewModel.hotelData[indexPath.row].phone, cellType: .none)
+            bookingCell.dividerView.isHidden = self.viewModel.airportData.count - 1 == indexPath.row
+            return bookingCell
+        }
+    }
+    
     func makePhoneCall(phoneNumber: String) {
         var uc = URLComponents()
         uc.scheme = "tel"
@@ -116,7 +138,12 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return [self.viewModel.contactInfo?.aertrip.count, self.viewModel.contactInfo?.airlines.count, self.viewModel.airportData.count + 1][section] ?? 0
+        if self.viewModel.usingFor == .flight {
+            return [self.viewModel.contactInfo?.aertrip.count, self.viewModel.contactInfo?.airlines.count, self.viewModel.airportData.count + 1][section] ?? 0
+        } else {
+           return[self.viewModel.aertripData.count,self.viewModel.hotelData.count + 1][section]
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -129,16 +156,29 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
-            return self.getCellforFirstSection(indexPath)
-        case 1:
-            return self.getCellForSecondSection(indexPath)
-        case 2:
-            return self.getCellForThirdSection(indexPath)
-        default:
-            return UITableViewCell()
+       
+        if self.viewModel.usingFor == .flight {
+            switch indexPath.section {
+            case 0:
+                return self.getCellforFirstSection(indexPath)
+            case 1:
+                return self.getCellForSecondSection(indexPath)
+            case 2:
+                return self.getCellForThirdSection(indexPath)
+            default:
+                return UITableViewCell()
+            }
+        } else {
+            switch indexPath.section {
+            case 0:
+                return self.getCellforFirstSection(indexPath)
+            case 1:
+                return self.getCellForHotelSection(indexPath)
+            default:
+                return UITableViewCell()
+            }
         }
+       
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -146,42 +186,79 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case 0:
-            
-            self.makePhoneCall(phoneNumber: self.viewModel.aertripData[indexPath.row].value)
-            
-        case 1:
-            self.makePhoneCall(phoneNumber: self.viewModel.airlineData[indexPath.row].phone)
-            
-        case 2:
-            self.makePhoneCall(phoneNumber: self.viewModel.airportData[indexPath.row].phone)
-            
-        default:
-            printDebug("nothing tapped")
+        if self.viewModel.usingFor == .flight {
+            switch indexPath.section {
+            case 0:
+                
+                self.makePhoneCall(phoneNumber: self.viewModel.aertripData[indexPath.row].value)
+                
+            case 1:
+                self.makePhoneCall(phoneNumber: self.viewModel.airlineData[indexPath.row].phone)
+                
+            case 2:
+                self.makePhoneCall(phoneNumber: self.viewModel.airportData[indexPath.row].phone)
+                
+            default:
+                printDebug("nothing tapped")
+            }
+
+        } else {
+            switch indexPath.section {
+            case 0:
+                
+                self.makePhoneCall(phoneNumber: self.viewModel.aertripData[indexPath.row].value)
+                
+            case 1:
+                self.makePhoneCall(phoneNumber: self.viewModel.hotelData[indexPath.row].phone)
+                
+            default:
+                printDebug("nothing tapped")
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            if indexPath.row == 0 {
+        
+        if self.viewModel.usingFor == .flight {
+            switch indexPath.section {
+            case 0:
+                if indexPath.row == 0 {
+                    return 44.0
+                } else {
+                    return 60.0
+                }
+            case 1:
                 return 44.0
-            } else {
-                return 60.0
+            case 2:
+                if indexPath.row == self.viewModel.airportData.count {
+                    return 27.0
+                } else {
+                    return 44.0
+                }
+                
+            default:
+                return 0
             }
-        case 1:
-            return 44.0
-        case 2:
-            if indexPath.row == self.viewModel.airportData.count {
-                return 27.0
-            } else {
-                return 44.0
+        } else {
+            switch indexPath.section {
+            case 0:
+                if indexPath.row == 0 {
+                    return 44.0
+                } else {
+                    return 60.0
+                }
+            case 1:
+                if indexPath.row == self.viewModel.hotelData.count {
+                    return 27.0
+                } else {
+                    return 44.0
+                }
+                
+            default:
+                return 0
             }
-            
-        default:
-            return 0
         }
+        
     }
 }
 

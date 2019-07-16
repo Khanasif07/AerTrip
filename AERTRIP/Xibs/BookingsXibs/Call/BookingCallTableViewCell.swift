@@ -28,7 +28,11 @@ class BookingCallTableViewCell: ATTableViewCell {
     @IBOutlet var airportCodeLabel: UILabel!
     @IBOutlet var imageViewCenterConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var imageViewWidthConstraint: NSLayoutConstraint!
     // MARK: - Override methods
+    @IBOutlet weak var imageViewTrailingConstraing: NSLayoutConstraint!
+    @IBOutlet weak var airportCodeLabelLeadingConstraint: NSLayoutConstraint!
+    
     
     override func setupFonts() {
         self.airportCodeLabel.font = AppFonts.SemiBold.withSize(18.0)
@@ -50,7 +54,7 @@ class BookingCallTableViewCell: ATTableViewCell {
             self.titleLabel.text = title
             self.phoneLabel.text = phoneLabel
         case .email:
-            self.cellImageView.image = #imageLiteral(resourceName: "aertripGreenLogo")
+            self.cellImageView.image = #imageLiteral(resourceName: "headPhoneIcon")
             let fullText: String = title + "\n" + email
             self.titleLabel.attributedText = self.getAttributedBoldText(text: fullText, boldText: email)
             self.phoneLabel.text = phoneLabel

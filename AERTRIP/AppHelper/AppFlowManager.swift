@@ -872,9 +872,11 @@ extension AppFlowManager {
     
     // Move To Booking Call VC
     
-    func moveToBookingCallVC(contactInfo: ContactInfo?) {
+    func moveToBookingCallVC(contactInfo: ContactInfo?,usingFor: BookingCallVCUsingFor = .flight,hotel: String = "" ) {
         let obj = BookingCallVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.contactInfo = contactInfo
+        obj.viewModel.usingFor = usingFor
+        obj.viewModel.hotelName = hotel
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
@@ -896,8 +898,9 @@ extension AppFlowManager {
     
     // Present BookingRequestAddOnsAndFFC
     
-    func presentBookingReuqestAddOnVC(bookingdata: BookingDetailModel?) {
+    func presentBookingReuqestAddOnVC(bookingdata: BookingDetailModel?,delegate:BookingRequestAddOnsFFVCDelegate) {
         let obj = BookingRequestAddOnsFFVC.instantiate(fromAppStoryboard: .Bookings)
+        obj.delegate = delegate
        BookingRequestAddOnsFFVM.shared.bookingDetails = bookingdata
         self.mainNavigationController.present(obj, animated: true)
     }

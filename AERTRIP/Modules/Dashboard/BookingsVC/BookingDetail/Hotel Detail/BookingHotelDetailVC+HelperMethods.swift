@@ -149,13 +149,27 @@ extension BookingHotelDetailVC {
     }
     
     func getHeightForRoomSection(_ indexPath: IndexPath) -> CGFloat {
-        return [60, 60, 60, UITableView.automaticDimension, 200][indexPath.row]
+        return [60, 60, 60, (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.notes ?? []).isEmpty ? 0 : UITableView.automaticDimension, 200][indexPath.row]
     }
     
     func getHeightForLastSection(_ indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 5 {
-            return (self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? false) ? 0 : UITableView.automaticDimension
-        } else {
+        switch indexPath.row {
+        case 0:
+            // Address Cell
+            return (self.viewModel.bookingDetail?.bookingDetail?.hotelAddressDetail ?? "").isEmpty ? 0 : UITableView.automaticDimension
+        case 1:
+            // Phone detail cell
+             return (self.viewModel.bookingDetail?.bookingDetail?.phoneDetail ?? "").isEmpty ? 0 : UITableView.automaticDimension
+            
+        case 2: // Website
+             return (self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? "").isEmpty ? 0 : UITableView.automaticDimension
+        case 3:// overview
+            return (self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "").isEmpty ? 0 : UITableView.automaticDimension
+        case 4: // amentities
+             return (self.viewModel.bookingDetail?.bookingDetail?.amenities == nil) ? 0 : UITableView.automaticDimension
+        case 5:
+             return (self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? false) ? 0 : UITableView.automaticDimension
+        default:
             return UITableView.automaticDimension
         }
     }

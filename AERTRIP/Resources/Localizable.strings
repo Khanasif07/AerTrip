@@ -835,6 +835,7 @@
 "Aertip" = "AERTRIP";
 "Airports" = "AIRPORTS";
 "Airlines" = "AIRLINES";
+"Hotel" = "HOTEL";
 
 
 // MARK: - Booking Add on Request VC
@@ -852,5 +853,6 @@
 "SpaceWithHiphen" = " -";
 "FlightTripChangeMessage" = "Flight booking moved to";
 "HotelTripChangeMessage" = "Hotel booking moved to";
+"SomethingWentWrong"  = "Something went wrong";
 
 

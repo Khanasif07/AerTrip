@@ -36,6 +36,7 @@ struct ContactInfo {
     var aertrip: [Aertrip] = []
     var airlines: [Airline] = []
     var airport: [Airport] = []
+    var hotel : [Hotel] = []
     
     init() {
         self.init(json: [:])
@@ -52,6 +53,10 @@ struct ContactInfo {
         
         if let obj = json["airports"] as? [JSONDictionary] {
             airport = Airport.getModel(json: obj)
+        }
+        
+        if let obj = json["hotel"] as? [JSONDictionary] {
+            hotel = Hotel.getModel(json: obj)
         }
     }
 }
@@ -153,7 +158,45 @@ struct Airport {
         }
     }
     
+
+    
     static func getModel(json: [JSONDictionary]) -> [Airport] {
         return json.map { Airport(json: $0) }
     }
 }
+
+// Model for Using hotel
+
+struct Hotel  {
+    
+    var email: String = ""
+    var web: String = ""
+    var phone: String = ""
+    var countryCode: String = ""
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    
+    init(json: JSONDictionary) {
+        if let obj = json["emai"] {
+            self.email = "\(obj)".removeNull
+        }
+        if let obj = json["web"] {
+            self.web = "\(obj)".removeNull
+        }
+        
+        if let obj = json["phone"] {
+            self.phone = "\(obj)".removeNull
+        }
+        if let obj = json["country_code"] {
+            self.countryCode = "\(obj)".removeNull
+        }
+    }
+    
+    static func getModel(json: [JSONDictionary]) -> [Hotel] {
+        return json.map { Hotel(json: $0) }
+    }
+}
+
