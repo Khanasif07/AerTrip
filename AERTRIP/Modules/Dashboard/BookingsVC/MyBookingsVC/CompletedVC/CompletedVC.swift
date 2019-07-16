@@ -51,17 +51,12 @@ class CompletedVC: BaseVC {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
     override func initialSetup() {
+        
         self.registerXibs()
-
-        self.emptyStateSetUp()
-        self.loadSaveData()
-        self.reloadList(isFirstTimeLoading: true)
+        self.loadSaveData(isForFirstTime: true)
+//        self.reloadList(isFirstTimeLoading: true)
     }
     
     override func setupTexts() {
@@ -105,7 +100,7 @@ class CompletedVC: BaseVC {
             self.manageFooter(isHidden: count <= 0)
         }
         self.emptyStateSetUp()
-        self.completedBookingsTableView?.reloadData()
+//        self.completedBookingsTableView?.reloadData()
     }
     
     private func registerXibs() {

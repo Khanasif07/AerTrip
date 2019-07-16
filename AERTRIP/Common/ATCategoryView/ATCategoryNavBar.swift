@@ -415,22 +415,26 @@ private extension ATCategoryNavBar {
         delegate?.categoryNavBar(self, willSwitchIndexFrom: currentButtonTag, to: btn.tag)
         internalDelegate?.categoryNavBar(self, willSwitchIndexFrom: currentButtonTag, to: btn.tag)
         
-        handleBtnSwitching(currentBtn: btn)
+        handleBtnSwitching(currentBtn: btn, shouldCallDelegate: false)
         handleIndicator(currentBtn: btn)
         handleBgMaskView(currentBtn: btn)
+        
         delegate?.categoryNavBar(self, didSwitchIndexTo: btn.tag)
         internalDelegate?.categoryNavBar(self, didSwitchIndexTo: btn.tag)
     }
     
-    func handleBtnSwitching(currentBtn: ATCategoryButton) {
+    func handleBtnSwitching(currentBtn: ATCategoryButton, shouldCallDelegate: Bool = true) {
         
         let previousBtn = buttons[currentButtonTag]
         
         previousBtn.setTitleColor(barStyle.normalColor, for: .normal)
         currentBtn.setTitleColor(barStyle.selectedColor, for: .normal)
         currentButtonTag = currentBtn.tag
-        delegate?.categoryNavBar(self, didSwitchIndexTo: currentButtonTag)
-        internalDelegate?.categoryNavBar(self, didSwitchIndexTo: currentButtonTag)
+        
+        if shouldCallDelegate {
+            delegate?.categoryNavBar(self, didSwitchIndexTo: currentButtonTag)
+            internalDelegate?.categoryNavBar(self, didSwitchIndexTo: currentButtonTag)
+        }
         
         if barStyle.isScrollable, self.scrollView.contentSize.width > self.scrollView.frame.width {
             scrollToCenter(currentBtn: currentBtn)
@@ -444,9 +448,9 @@ private extension ATCategoryNavBar {
         
         let width = currentBtn.intrinsicContentSize.width
         if barStyle.showBarSelectionAnimation {
-            UIView.animate(withDuration: 0.1) {
-                self.indicator.frame.size.width = width
-                self.indicator.center.x = currentBtn.center.x
+            UIView.animate(withDuration: 0.1) { [weak self] in
+                self?.indicator.frame.size.width = width
+                self?.indicator.center.x = currentBtn.center.x
             }
         }else{
             self.indicator.frame.size.width = width
@@ -461,9 +465,10 @@ private extension ATCategoryNavBar {
         }
         let width = currentBtn.intrinsicContentSize.width
         if barStyle.showBarSelectionAnimation {
-            UIView.animate(withDuration: 0.25) {
-                self.bgMaskView.frame.size.width = width + 2 * edgeMargin
-                self.bgMaskView.center.x = currentBtn.center.x
+            UIView.animate(withDuration: 0.1) { [weak self] in
+                guard let sSelf = self else {return}
+                sSelf.bgMaskView.frame.size.width = width + 2 * edgeMargin
+                sSelf.bgMaskView.center.x = currentBtn.center.x
             }
         }else{
             self.bgMaskView.frame.size.width = width + 2 * edgeMargin
@@ -572,14 +577,16 @@ extension ATCategoryNavBar: ATCategoryContainerDelegate {
         let greenDiff = colorDifferences.1 * progress
         let blueDiff = colorDifferences.2 * progress
         
-        let fromRed = barStyle.selectedColor.getRGBComponents().0 - redDiff
-        let fromGreen = barStyle.selectedColor.getRGBComponents().1 - greenDiff
-        let fromBlue = barStyle.selectedColor.getRGBComponents().2 - blueDiff
+        let fromColorComp = barStyle.selectedColor.getRGBComponents()
+        let fromRed = fromColorComp.0 - redDiff
+        let fromGreen = fromColorComp.1 - greenDiff
+        let fromBlue = fromColorComp.2 - blueDiff
         let fromColor = UIColor(red: fromRed, green: fromGreen, blue: fromBlue, alpha: 1.0)
         
-        let toRed = barStyle.normalColor.getRGBComponents().0 + redDiff
-        let toGreen = barStyle.normalColor.getRGBComponents().1 + greenDiff
-        let toBlue = barStyle.normalColor.getRGBComponents().2 + blueDiff
+        let toColorComp = barStyle.normalColor.getRGBComponents()
+        let toRed = toColorComp.0 + redDiff
+        let toGreen = toColorComp.1 + greenDiff
+        let toBlue = toColorComp.2 + blueDiff
         let toColor = UIColor(red: toRed, green: toGreen, blue: toBlue, alpha: 1.0)
         
         fromBtn.setTitleColor(fromColor, for: .normal)

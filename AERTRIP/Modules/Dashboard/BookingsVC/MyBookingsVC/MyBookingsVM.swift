@@ -40,13 +40,11 @@ class MyBookingsVM {
         printDebug(params)
         delgate?.willGetBookings()
         APICaller.shared.getBookingList(params: params) { [weak self] success, error in
-            guard let sSelf = self else { return }
-            if success {
-                DispatchQueue.mainAsync {
+            DispatchQueue.mainAsync { [weak self] in
+                guard let sSelf = self else { return }
+                if success {
                     sSelf.delgate?.getBookingsDetailSuccess()
-                }
-            } else {
-                DispatchQueue.mainAsync {
+                } else {
                     sSelf.delgate?.getBookingDetailFail(error: error)
                 }
             }

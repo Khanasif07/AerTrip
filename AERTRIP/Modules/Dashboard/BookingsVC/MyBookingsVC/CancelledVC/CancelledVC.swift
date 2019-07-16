@@ -70,8 +70,8 @@ class CancelledVC: BaseVC {
     
     override func initialSetup() {
         self.registerXibs()
-        self.loadSaveData()
-        self.reloadList(isFirstTimeLoading: true)
+        self.loadSaveData(isForFirstTime: true)
+//        self.reloadList(isFirstTimeLoading: true)
     }
     
     override func setupTexts() {
@@ -104,7 +104,7 @@ class CancelledVC: BaseVC {
             self.manageFooter(isHidden: count <= 0)
         }
         self.emptyStateSetUp()
-        self.cancelledBookingsTableView?.reloadData()
+//        self.cancelledBookingsTableView?.reloadData()
     }
     
     private func registerXibs() {
