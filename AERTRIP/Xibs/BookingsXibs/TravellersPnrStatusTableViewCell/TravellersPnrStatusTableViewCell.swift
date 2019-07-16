@@ -62,8 +62,9 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
         self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
     }
     
-    internal func configCell(travellersImage: String, travellerName: String, travellerPnrStatus: String, firstName: String, lastName: String, isLastTraveller: Bool) {
+    internal func configCell(travellersImage: String, travellerName: String, travellerPnrStatus: String, firstName: String, lastName: String, isLastTraveller: Bool,paxType: String) {
         self.tavellerImageBlurView.isHidden = true
+        var travelName = travellerName
         if !travellersImage.isEmpty {
             self.travellerImageView.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
         } else {
@@ -71,7 +72,12 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
             self.travellerImageView.image = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName, font: AppFonts.Regular.withSize(35.0))
         }
         
-        self.travellerNameLabel.text = travellerName
+        if paxType == AppConstants.kChildPax {
+            travelName += " ( \(LocalizedString.Child.localized))"
+        } else if  paxType == AppConstants.kInfantPax {
+            travelName += " (\(LocalizedString.Infant.localized))"
+        }
+        self.travellerNameLabel.text = travelName
         self.travellerPnrStatusLabel.text = travellerPnrStatus
         self.nameDividerView.isHidden = true
         self.travellerPnrStatusLabel.text = travellerPnrStatus
@@ -81,7 +87,7 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
         case .cancelled, .rescheduled:
             self.tavellerImageBlurView.isHidden = false
             self.travellerNameLabel.textColor = AppColors.themeGray40
-            self.travellerNameLabel.attributedText = AppGlobals.shared.getStrikeThroughText(str: travellerName)
+            self.travellerNameLabel.attributedText = AppGlobals.shared.getStrikeThroughText(str: travelName)
             
             self.travellerPnrStatusLabel.textColor = AppColors.themeRed
         case .pending:

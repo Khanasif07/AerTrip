@@ -122,6 +122,30 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
             }
         }
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        printDebug("scroll inset \(scrollView.contentOffset.y)")
+        if scrollView.contentOffset.y <= 54 {
+            self.topNavigationView.animateBackView(isHidden: true) { [weak self] _ in
+                guard let sSelf = self else { return }
+                sSelf.topNavigationView.backView.backgroundColor = AppColors.clear
+                sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "whiteBackIcon"), for: .normal)
+                sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "whiteBackIcon"), for: .selected)
+                sSelf.topNavigationView.navTitleLabel.text = " "
+                sSelf.topNavigationView.dividerView.isHidden = true
+            }
+        } else {
+            self.topNavigationView.animateBackView(isHidden: false) { [weak self] _ in
+                guard let sSelf = self else { return }
+                sSelf.topNavigationView.backView.backgroundColor = AppColors.themeWhite
+                sSelf.topNavigationView.navTitleLabel.text =
+                    self?.viewModel.bookingDetail?.bookingDetail?.hotelName ?? ""
+                sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "backGreen"), for: .normal)
+                  sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "backGreen"), for: .selected)
+                sSelf.topNavigationView.dividerView.isHidden = false
+            }
+        }
+    }
 }
 
 // MARK:

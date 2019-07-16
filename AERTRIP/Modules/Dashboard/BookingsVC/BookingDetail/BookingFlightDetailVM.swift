@@ -44,15 +44,10 @@ class BookingDetailVM {
         return self.bookingDetail?.id ?? ""
     }
     
-    var bookingFee: [BookingFeeDetail] = []
+    var tripStr: NSMutableAttributedString = NSMutableAttributedString(string: "")
     
-    let fareInfoNotes: [String] = ["Some fares may be non-refundable and non-amendable.",
-        "Cancellation / Rescheduling Charges are indicative and can change without prior notice. Aertrip does not guarantee or warrant this information.",
-        "They may be subject to currency fluctuations.",
-        "They need to be reconfirmed prior to any amendments or cancellation.",
-        "Total Rescheduling Charges also include Fare Difference (if applicable).",
-        "Airlines stop accepting cancellation/rescheduling requests 3 - 75 hours before departure of the flight, depending on the airline.",
-        "For confirming cancellation/change fee, please call us at our customer care."]
+    var bookingFee: [BookingFeeDetail] = []
+
     
     func getBookingFees() {
 

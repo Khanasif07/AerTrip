@@ -199,7 +199,7 @@ extension FareInfoVC {
     }
     
     func getNumberOfCellsInFareInfoForNormalFlight(forData infoData: BookingFeeDetail?) -> Int {
-        var temp = 3 //for notes
+        var temp = 3 //for notes and Disclaremer
         
         if let info = infoData {
             if let can = info.aerlineCanCharges {
@@ -250,7 +250,7 @@ extension FareInfoVC {
             }
             fareInfoNoteCell.isForBookingPolicyCell = false
             fareInfoNoteCell.noteLabel.text = LocalizedString.Notes.localized
-            fareInfoNoteCell.configCell(notes: self.viewModel.fareInfoNotes)
+            fareInfoNoteCell.configCell(notes: AppConstants.kfareInfoNotes)
             return fareInfoNoteCell
         }
         
@@ -260,7 +260,7 @@ extension FareInfoVC {
             }
             fareInfoDisclaimer.isForBookingPolicyCell = false
             fareInfoDisclaimer.noteLabel.text = LocalizedString.Disclaimer.localized
-            fareInfoDisclaimer.configCell(notes: self.viewModel.fareInfoDisclamer)
+            fareInfoDisclaimer.configCell(notes: AppConstants.kfareInfoDisclamer)
             return fareInfoDisclaimer
         }
         

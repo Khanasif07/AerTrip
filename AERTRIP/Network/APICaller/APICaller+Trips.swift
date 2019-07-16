@@ -85,29 +85,29 @@ extension APICaller {
         }
     }
     
-    func tripsEventMoveAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ eventId: String?)->Void ) {
+    func tripsEventMoveAPI(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ eventId: String?, _ tripId: String?)->Void ) {
         
         AppNetworking.POST(endPoint: APIEndPoint.tripsEventMove, parameters: params, success: { [weak self] (json) in
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
-                if let ids = jsonData[APIKeys.data.rawValue]["event_id"].arrayObject, let id = ids.first {
-                    completionBlock(true, [], "\(id)")
+                if let ids = jsonData[APIKeys.data.rawValue]["event_id"].arrayObject, let id = ids.first,let tripIds =  jsonData[APIKeys.data.rawValue]["trip_id"].arrayObject, let tripId = tripIds.first {
+                    completionBlock(true, [], "\(id)", "\(tripId)")
                 }
                 else {
-                    completionBlock(sucess, [], "")
+                    completionBlock(sucess, [], "","")
                 }
                 
             }, failure: { (errors) in
                 ATErrorManager.default.logError(forCodes: errors, fromModule: .hotelsSearch)
-                completionBlock(false, errors, nil)
+                completionBlock(false, errors, nil,nil)
             })
         }) { (error) in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], nil)
+                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], nil,nil)
             }
             else {
-                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil,nil)
             }
         }
     }

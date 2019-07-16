@@ -27,7 +27,7 @@ extension MyBookingsVC: MyBookingsVMDelegate {
    
     func getBookingDetailFail(error: ErrorCodes) {
         AppGlobals.shared.stopLoading()
-        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
+        AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
     }
     
     func willGetBookings() {

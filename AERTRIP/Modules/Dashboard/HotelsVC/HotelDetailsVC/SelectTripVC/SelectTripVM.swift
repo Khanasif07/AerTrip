@@ -38,6 +38,7 @@ class SelectTripVM {
     
     var allTrips: [TripModel] = []
     var eventId: String = ""
+    var newTripId: String = ""
     
     // MARK: - Private
     
@@ -70,11 +71,12 @@ class SelectTripVM {
        
         
         delegate?.willMoveAndUpdateTripAPI()
-        APICaller.shared.tripsEventMoveAPI(params: param) { [weak self] success, _, eventId in
+        APICaller.shared.tripsEventMoveAPI(params: param) { [weak self] success, _, eventId,tripId in
             guard let sSelf = self else { return }
             if success, let id = eventId {
                 sSelf.eventId = id
                 sSelf.tripDetails?.trip_id = selectedTrip.id
+                sSelf.newTripId = tripId ?? ""
                 sSelf.saveMovedTrip()
             }
             else {
@@ -86,7 +88,7 @@ class SelectTripVM {
     private func saveMovedTrip() {
         var param: JSONDictionary = ["event_id": self.eventId]
         if let tripInfo = tripInfo, !tripInfo.bookingId.isEmpty {
-            param["trip_id"] = tripInfo.tripId
+            param["trip_id"] = newTripId
             param["booking_id"] = tripInfo.bookingId
         } else {
             param["trip_id"] = tripDetails?.trip_id ?? ""

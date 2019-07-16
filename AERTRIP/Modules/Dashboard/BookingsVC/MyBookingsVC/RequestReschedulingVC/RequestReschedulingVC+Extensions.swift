@@ -103,6 +103,7 @@ extension RequestReschedulingVC: RequestReschedulingVMDelegate {
     }
     
     func makeRequestForReschedulingFail() {
+        AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
     }
 }
 

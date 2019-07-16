@@ -181,6 +181,7 @@ extension OtherBookingsDetailsVC: BookingProductDetailVMDelegate {
     }
 
     func getBookingDetailFaiure(error: ErrorCodes) {
+        AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
         AppGlobals.shared.stopLoading()
     }
 }

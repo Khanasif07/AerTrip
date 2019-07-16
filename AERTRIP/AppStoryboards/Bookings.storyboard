@@ -586,10 +586,10 @@ with us!</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EB2-S1-rV5" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <color key="backgroundColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="uWk-gc-pyV"/>
+                                    <constraint firstAttribute="height" constant="64" id="uWk-gc-pyV"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="690-M3-wZS" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
@@ -601,7 +601,7 @@ with us!</string>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="690-M3-wZS" secondAttribute="bottom" id="5bl-No-Jck"/>
                             <constraint firstAttribute="trailing" secondItem="EB2-S1-rV5" secondAttribute="trailing" id="8Ju-an-zwc"/>
-                            <constraint firstItem="EB2-S1-rV5" firstAttribute="top" secondItem="DXk-Of-kSW" secondAttribute="top" constant="20" id="JTD-EU-Owc"/>
+                            <constraint firstItem="EB2-S1-rV5" firstAttribute="top" secondItem="DXk-Of-kSW" secondAttribute="top" id="JTD-EU-Owc"/>
                             <constraint firstItem="EB2-S1-rV5" firstAttribute="leading" secondItem="DXk-Of-kSW" secondAttribute="leading" id="Z0r-lu-Gso"/>
                             <constraint firstAttribute="trailing" secondItem="690-M3-wZS" secondAttribute="trailing" id="d1L-8C-QXE"/>
                             <constraint firstItem="690-M3-wZS" firstAttribute="top" secondItem="DXk-Of-kSW" secondAttribute="top" constant="-64" id="gjB-j5-Cee"/>
@@ -611,6 +611,7 @@ with us!</string>
                     </view>
                     <connections>
                         <outlet property="hotelDetailTableView" destination="690-M3-wZS" id="KqU-ET-D4X"/>
+                        <outlet property="topNavBarHeightConstraint" destination="uWk-gc-pyV" id="2q0-eH-tbE"/>
                         <outlet property="topNavigationView" destination="EB2-S1-rV5" id="PHK-3V-mPl"/>
                     </connections>
                 </viewController>

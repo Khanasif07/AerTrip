@@ -115,7 +115,7 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         if indexPath.section >= self.viewModel.noOfLegCellAboveLeg, indexPath.section < (self.viewModel.noOfLegCellAboveLeg + (self.viewModel.bookingDetail?.bookingDetail?.leg.count ?? 0)) {
-            AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail)
+            AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail,tripCities: self.viewModel.tripCitiesStr ?? NSMutableAttributedString(string: ""))
         }
         
         if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? TripChangeTableViewCell {
@@ -345,6 +345,7 @@ extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
     }
     
     func getBookingDetailFaiure(error: ErrorCodes) {
+        AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
         AppGlobals.shared.startLoading()
     }
 }

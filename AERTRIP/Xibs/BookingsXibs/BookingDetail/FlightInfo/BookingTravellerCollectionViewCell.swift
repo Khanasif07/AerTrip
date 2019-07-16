@@ -63,7 +63,13 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
     }
     
     private func configureCell() {
-        self.travellerNameLabel.text = self.paxData?.fullName ?? ""
+        var travellerName = self.paxData?.fullName ?? ""
+        if self.paxData?.paxType == AppConstants.kChildPax {
+            travellerName += " ( \(LocalizedString.Child.localized))"
+        } else if  self.paxData?.paxType == AppConstants.kInfantPax {
+            travellerName += " (\(LocalizedString.Infant.localized))"
+        }
+        self.travellerNameLabel.text = travellerName
         let placeImage = AppGlobals.shared.getImageFor(firstName: self.paxData?.firstName, lastName: self.paxData?.lastName, font: AppFonts.Regular.withSize(35.0),backGroundColor: AppColors.blueGray)
         if self.paxData?.profileImage.isEmpty ?? false {
             self.profileImageView.image = placeImage

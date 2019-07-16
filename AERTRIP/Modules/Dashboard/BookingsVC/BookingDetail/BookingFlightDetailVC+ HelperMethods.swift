@@ -267,7 +267,7 @@ extension BookingFlightDetailVC {
     }
     
     func getNumberOfCellsInFareInfoForNormalFlight(forData infoData: BookingFeeDetail?) -> Int {
-        var temp = 2 // for notes
+        var temp = 3 // for notes and Discalmer
         
         if let info = infoData {
             if let can = info.aerlineCanCharges {
@@ -324,6 +324,11 @@ extension BookingFlightDetailVC {
             }
         }
         else {
+            // Height for Disclamare Cell
+            if indexPath.row == (self.getNumberOfCellsInFareInfoForNormalFlight(forData: self.viewModel.bookingFee.first)-2) {
+                return UITableView.automaticDimension
+            }
+            // Height for notes cell
             if indexPath.row == (self.getNumberOfCellsInFareInfoForNormalFlight(forData: self.viewModel.bookingFee.first) - 1) {
                 return UITableView.automaticDimension
             }
@@ -353,8 +358,18 @@ extension BookingFlightDetailVC {
             }
             fareInfoNoteCell.isForBookingPolicyCell = false
             fareInfoNoteCell.noteLabel.text = LocalizedString.Notes.localized
-            fareInfoNoteCell.configCell(notes: self.viewModel.fareInfoNotes)
+            fareInfoNoteCell.configCell(notes: AppConstants.kfareInfoNotes)
             return fareInfoNoteCell
+        }
+        
+        func getDisclamerCell() -> UITableViewCell {
+            guard let fareInfoDisclaimer = self.tableView.dequeueReusableCell(withIdentifier: "FareInfoNoteTableViewCell") as? FareInfoNoteTableViewCell else {
+                fatalError("FareInfoNoteTableViewCell not found")
+            }
+            fareInfoDisclaimer.isForBookingPolicyCell = false
+            fareInfoDisclaimer.noteLabel.text = LocalizedString.Disclaimer.localized
+            fareInfoDisclaimer.configCell(notes: AppConstants.kfareInfoDisclamer)
+            return fareInfoDisclaimer
         }
         
         func getBlankSpaceCell() -> UITableViewCell {
@@ -425,9 +440,13 @@ extension BookingFlightDetailVC {
                     finalCell = getBlankSpaceCell()
                 }
             }
-            if indexPath.row == self.getNumberOfCellsInFareInfoForNormalFlight(forData: info) - 1 {
-                // blank space
+            if indexPath.row == self.getNumberOfCellsInFareInfoForNormalFlight(forData: info) - 2 {
+                // Notes cell
                 finalCell = getNotesCell()
+            }
+            
+            if indexPath.row == getNumberOfCellsInFareInfoForNormalFlight(forData: info) - 1 {
+                finalCell = getDisclamerCell()
             }
         }
         else {

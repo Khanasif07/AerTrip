@@ -15,10 +15,14 @@ class BookingHotelDetailVC: BaseVC {
     @IBOutlet var topNavigationView: TopNavigationView!
     
     // MARK: - Variables
+    @IBOutlet weak var topNavBarHeightConstraint: NSLayoutConstraint!
     
     let viewModel = BookingHotelDetailVM()
     let headerIdentifier = "BookingHDRoomDetailHeaderView"
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
+    private var navBarHeight: CGFloat {
+        return UIDevice.isIPhoneX ? 84.0 : 64.0
+    }
     
     // MARK: - Override methods
     
@@ -55,6 +59,7 @@ class BookingHotelDetailVC: BaseVC {
     
     // configure nav bar
     private func configureNavBar() {
+        self.topNavBarHeightConstraint.constant = navBarHeight
         self.topNavigationView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
 
         self.topNavigationView.configureLeftButton(normalImage: UIImage(named: "whiteBackIcon"), selectedImage: UIImage(named: "whiteBackIcon"))

@@ -54,7 +54,7 @@ class BookingFlightDetailVC: BaseVC {
     private func configureNavBar() {
         
         self.topNavigationView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
-        self.topNavigationView.navTitleLabel.attributedText = self.viewModel.bookingDetail?.tripCitiesStr
+        self.topNavigationView.navTitleLabel.attributedText = self.viewModel.tripStr
         self.topNavigationView.delegate = self
     }
     

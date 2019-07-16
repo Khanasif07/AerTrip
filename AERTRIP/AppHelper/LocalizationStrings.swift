@@ -933,4 +933,5 @@ enum LocalizedString: String {
     case FlightTripChangeMessage
     case HotelTripChangeMessage
     case SomethingWentWrong
+    case Infant
 }
