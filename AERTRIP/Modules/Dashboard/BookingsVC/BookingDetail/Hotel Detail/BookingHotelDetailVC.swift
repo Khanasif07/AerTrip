@@ -16,6 +16,7 @@ class BookingHotelDetailVC: BaseVC {
     
     // MARK: - Variables
     @IBOutlet weak var topNavBarHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
     
     let viewModel = BookingHotelDetailVM()
     let headerIdentifier = "BookingHDRoomDetailHeaderView"
@@ -27,6 +28,7 @@ class BookingHotelDetailVC: BaseVC {
     // MARK: - Override methods
     
     override func initialSetup() {
+        self.tableViewTopConstraint.constant = -navBarHeight
         self.registerXib()
         self.hotelDetailTableView.dataSource = self
         self.hotelDetailTableView.delegate = self

@@ -611,6 +611,7 @@ with us!</string>
                     </view>
                     <connections>
                         <outlet property="hotelDetailTableView" destination="690-M3-wZS" id="KqU-ET-D4X"/>
+                        <outlet property="tableViewTopConstraint" destination="gjB-j5-Cee" id="9pQ-m1-98J"/>
                         <outlet property="topNavBarHeightConstraint" destination="uWk-gc-pyV" id="2q0-eH-tbE"/>
                         <outlet property="topNavigationView" destination="EB2-S1-rV5" id="PHK-3V-mPl"/>
                     </connections>

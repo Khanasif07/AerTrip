@@ -77,7 +77,7 @@ class WeatherInfoTableViewCell: UITableViewCell {
         let nameAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key: Any]
         let dateAtrribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: cityName.isEmpty ? AppColors.themeBlack : AppColors.themeGray40]
         let nameAttributedString = NSAttributedString(string: cityName, attributes: nameAttribute)
-        let dateAttributedString = NSAttributedString(string: " " + date, attributes: dateAtrribute)
+        let dateAttributedString = NSAttributedString(string: usingFor == .hotel ? ""  + date : " " + date, attributes: dateAtrribute)
         attributedString.append(nameAttributedString)
         attributedString.append(dateAttributedString)
         cityAndDateLabel.attributedText = attributedString
