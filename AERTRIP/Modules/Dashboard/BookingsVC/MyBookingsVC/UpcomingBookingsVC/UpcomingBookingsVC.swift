@@ -63,8 +63,8 @@ class UpcomingBookingsVC: BaseVC {
     override func initialSetup() {
         
         self.registerXibs()
-        self.loadSaveData()
-        self.reloadList(isFirstTimeLoading: true)
+        self.loadSaveData(isForFirstTime: true)
+//        self.reloadList(isFirstTimeLoading: true)
     }
     
     override func setupTexts() {
@@ -96,7 +96,7 @@ class UpcomingBookingsVC: BaseVC {
             self.manageFooter(isHidden: count <= 0)
         }
         self.emptyStateSetUp()
-        self.upcomingBookingsTableView?.reloadData()
+//        self.upcomingBookingsTableView?.reloadData()
     }
     
     private func registerXibs() {

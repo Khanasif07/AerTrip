@@ -126,16 +126,11 @@ extension ATPageContainerView: UIScrollViewDelegate {
 //        print("width:\(controllerWidth) offset:\(scrollView.contentOffset)")
         
         
-        var fromIndex: Int = 0
-        var toIndex: Int = 0
-        let progress: CGFloat = fabs(scrollView.contentOffset.x - self.controllerWidth) /  self.controllerWidth
 
-        
         if scrollView.contentOffset.x == self.controllerWidth {
             // this condition will be satisfied once, for both failed transition cases when scrolling left or scrolling right. And it will result to contentOffset.x == self.controllerWidth. Do nothing, instead of figuring out which case it is for this current call.
             return
         }
-        
         
         let willScrollDrection: ATCurrentScrollDirection = (scrollView.contentOffset.x > self.controllerWidth) ? .scrollLeft : .scrollright
         
@@ -144,6 +139,11 @@ extension ATPageContainerView: UIScrollViewDelegate {
         }
         
         currentDirection = willScrollDrection
+        
+        var fromIndex: Int = 0
+        var toIndex: Int = 0
+        let progress: CGFloat = abs(scrollView.contentOffset.x - self.controllerWidth) /  self.controllerWidth
+        
         
         // willTransitionToIndex will always be [0, childVCs.count]
         if willScrollDrection == .scrollLeft {

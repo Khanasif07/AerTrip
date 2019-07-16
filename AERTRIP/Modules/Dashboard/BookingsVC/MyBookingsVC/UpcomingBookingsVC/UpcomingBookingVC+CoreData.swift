@@ -11,7 +11,7 @@ import Foundation
 extension UpcomingBookingsVC {
     
     // fetch data from Core Data
-    func loadSaveData() {
+    func loadSaveData(isForFirstTime: Bool = false) {
         do {
             self.fetchedResultsController.fetchRequest.predicate = createFinalPredicate()
             try self.fetchedResultsController.performFetch()
@@ -21,7 +21,9 @@ extension UpcomingBookingsVC {
             printDebug("Fetch failed")
         }
         
-        self.reloadList()
+        if !isForFirstTime {
+            self.reloadList(isFirstTimeLoading: isForFirstTime)
+        }
     }
     
     // upcoming Tab Type Predicate
