@@ -158,7 +158,7 @@ class BookingProductDetailVM {
     weak var delegate: BookingProductDetailVMDelegate?
     var bookingId: String = "9705"
     var bookingDetail: BookingDetailModel?
-    var tripCitiesStr: NSMutableAttributedString?
+    var tripCitiesStr: NSMutableAttributedString = NSMutableAttributedString(string: "")
     
     enum TableViewCellForFlightProductType {
         case notesCell, requestCell, cancellationsReqCell, addOnRequestCell, reschedulingRequestCell, flightCarriersCell, flightBoardingAndDestinationCell, travellersPnrStatusTitleCell, travellersPnrStatusCell, documentCell, paymentInfoCell, bookingCell, addOnsCell, cancellationCell, paidCell, refundCell, paymentPendingCell, nameCell, emailCell, mobileCell, gstCell, billingAddressCell, flightsOptionsCell, weatherHeaderCell, weatherInfoCell, weatherFooterCell, tripChangeCell, addToCalenderCell, addToTripCell, bookSameFlightCell, addToAppleWallet
