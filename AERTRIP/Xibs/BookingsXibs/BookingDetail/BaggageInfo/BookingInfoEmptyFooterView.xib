@@ -56,6 +56,7 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="footerBackgroundView" destination="i5s-Ae-v2L" id="ieI-rM-gH5"/>
+                <outlet property="topDividerView" destination="Q0Z-Vq-RiM" id="MIp-G9-y9E"/>
             </connections>
         </view>
     </objects>
