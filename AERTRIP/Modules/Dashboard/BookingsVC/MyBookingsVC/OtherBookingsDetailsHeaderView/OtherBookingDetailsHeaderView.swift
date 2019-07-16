@@ -56,11 +56,9 @@ class OtherBookingDetailsHeaderView: UIView {
         
         //Fonts
         self.bookingIdAndDateTitleLabel.font = AppFonts.Regular.withSize(14.0)
-        self.bookingIdAndDateLabel.font = AppFonts.Regular.withSize(16.0)
         
         //Colors
         self.bookingIdAndDateTitleLabel.textColor = AppColors.themeGray40
-        self.bookingIdAndDateLabel.textColor = AppColors.themeBlack
         
         self.dividerView.isHidden = !isDividerView
 
@@ -69,15 +67,16 @@ class OtherBookingDetailsHeaderView: UIView {
     
     ///AttributeLabelSetup
     private func attributeLabelSetUp(bookingIdStr: String , bookingIdNumbers: String , date: String) {
-        let attributedString = NSMutableAttributedString()
-        let stringAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(16.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
-        let prefixAttributedString = NSAttributedString(string: "", attributes: stringAttribute)
-        let numbersAttribute = [NSAttributedString.Key.font: AppFonts.SemiBold.withSize(16.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
-        let postfixAttributedString = NSAttributedString(string: bookingIdNumbers, attributes: numbersAttribute)
-        let dateAttributedString = NSAttributedString(string: " | " + date, attributes: stringAttribute)
-        attributedString.append(prefixAttributedString)
-        attributedString.append(postfixAttributedString)
-        attributedString.append(dateAttributedString)
+        
+        let finalString = "\(bookingIdNumbers) | \(date)"
+        
+        let attributedString = NSMutableAttributedString(string: finalString)
+
+        attributedString.addAttributes([NSAttributedString.Key.font: AppFonts.Regular.withSize(16.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack], range: NSRange(location: 0, length: finalString.count))
+        
+        if let num = bookingIdNumbers.components(separatedBy: "/").last, !num.isEmpty {
+            attributedString.addAttributes([NSAttributedString.Key.font: AppFonts.SemiBold.withSize(16.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack], range: (finalString as NSString).range(of: num))
+        }
         self.bookingIdAndDateLabel.attributedText = attributedString
     }
 

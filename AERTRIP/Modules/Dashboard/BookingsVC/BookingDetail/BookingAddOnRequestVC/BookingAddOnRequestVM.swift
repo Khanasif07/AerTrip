@@ -14,6 +14,9 @@ protocol BookingAddOnRequestVMDelegate: class {
     
     func makeRequestConfirmSuccess()
     func makeRequestConfirmFail()
+    
+    func getAddonPaymentItinerarySuccess()
+    func getAddonPaymentItineraryFail()
 }
 
 class BookingAddOnRequestVM {
@@ -96,6 +99,21 @@ class BookingAddOnRequestVM {
             }
             else {
                 sSelf.delegate?.makeRequestConfirmFail()
+            }
+        }
+    }
+    
+    private(set) var itineraryData: DepositItinerary?
+    
+    func getAddonPaymentItinerary() {
+        APICaller.shared.addonPaymentAPI(params: ["case_id": caseData?.id ?? ""]) { [weak self](success, errors, itiner) in
+            if success {
+                self?.itineraryData = itiner
+                self?.delegate?.getAddonPaymentItinerarySuccess()
+            }
+            else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+                self?.delegate?.getAddonPaymentItineraryFail()
             }
         }
     }

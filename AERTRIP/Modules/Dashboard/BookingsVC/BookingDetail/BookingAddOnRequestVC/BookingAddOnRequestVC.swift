@@ -165,13 +165,8 @@ class BookingAddOnRequestVC: BaseVC {
     @IBAction func makePaymentAction(_ sender: Any) {
         if let caseData = self.viewModel.caseData {
             if caseData.resolutionStatus == .paymentPending {
-                if let rcpt = self.viewModel.receipt, let cId = self.viewModel.caseData?.id, !cId.isEmpty {
-                    //setup for payment
-                    AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: cId)
-                }
-                else {
-                    assertionFailure("receipt data no passed in file \(#file) at line \(#line)")
-                }
+                self.showLoaderOnView(view: self.priceView, show: true)
+                self.viewModel.getAddonPaymentItinerary()
             }
             else if caseData.resolutionStatus == .confirmationPending {
                 //setup for confirm
@@ -394,5 +389,43 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         return UITableViewCell()
+    }
+}
+
+extension BookingAddOnRequestVC: BookingVoucherVMDelegate {
+    
+    private func showDepositOptions() {
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.PayOnline.localized, LocalizedString.PayOfflineNRegister.localized, LocalizedString.ChequeDemandDraft.localized, LocalizedString.FundTransfer.localized], colors: [AppColors.themeGreen, AppColors.themeGray40, AppColors.themeGreen, AppColors.themeGreen])
+        
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+            
+            switch index {
+            case 0:
+                //PayOnline
+                AppFlowManager.default.moveToAccountOnlineDepositVC(depositItinerary: self.viewModel.itineraryData, usingToPaymentFor: .addOns)
+                
+            case 2:
+                //ChequeDemandDraft
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .chequeOrDD, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.chequeOrDD, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
+                printDebug("ChequeDemandDraft")
+                
+            case 3:
+                //FundTransfer
+                AppFlowManager.default.moveToAccountOfflineDepositVC(usingFor: .fundTransfer, usingToPaymentFor: .addOns, paymentModeDetail: self.viewModel.itineraryData?.fundTransfer, netAmount: self.viewModel.itineraryData?.netAmount ?? 0.0, bankMaster: self.viewModel.itineraryData?.bankMaster ?? [])
+                printDebug("FundTransfer")
+                
+            default:
+                printDebug("no need to implement")
+            }
+        }
+    }
+    
+    func getAddonPaymentItinerarySuccess() {
+        self.showLoaderOnView(view: self.priceView, show: false)
+        self.showDepositOptions()
+    }
+    
+    func getAddonPaymentItineraryFail() {
+        self.showLoaderOnView(view: self.priceView, show: false)
     }
 }

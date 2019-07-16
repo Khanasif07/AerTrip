@@ -104,5 +104,6 @@ extension CompletedVC: MyBookingFooterViewDelegate {
     func myBookingFooterView(_ sender: MyBookingFooterView, didChangedPendingActionSwitch isOn: Bool) {
         self.isOnlyPendingAction = isOn
         self.loadSaveData()
+        self.reloadTable()
     }
 }
