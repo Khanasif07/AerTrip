@@ -59,13 +59,9 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-<<<<<<< HEAD
                                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OL2-zt-3b9">
                                         <rect key="frame" x="258" y="30.5" width="46" height="20.5"/>
-=======
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OL2-zt-3b9">
-                                        <rect key="frame" x="258" y="30.5" width="46" height="25.5"/>
->>>>>>> 8e19895a6ab1aec7e7ba4cca77e0e3cfcfb01fe0
+
                                         <state key="normal" title="Button"/>
                                     </button>
                                 </subviews>
