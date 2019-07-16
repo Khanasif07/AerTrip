@@ -33,6 +33,7 @@ class BookingFlightDetailVC: BaseVC {
     var calculatedTotalRows: Int = 0
     var calculatedIndexForShowingBaggageDetails: Int = 0
     var calculatingBaggageForLeg: Int = 0
+    var previousRowForBaggage: Int = 0
     
     let viewModel = BookingDetailVM()
     

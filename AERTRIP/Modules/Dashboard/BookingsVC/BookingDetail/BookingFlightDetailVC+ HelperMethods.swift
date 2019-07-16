@@ -27,10 +27,10 @@ extension BookingFlightDetailVC {
     func getHeightForBaggageInfo(_ indexPath: IndexPath) -> CGFloat {
         switch self.viewModel.allBaggageCells[indexPath.section][indexPath.row] {
         case .aerlineDetail: return 60.0
-        case .title: return 28.0
-        case .adult(let isLast): return isLast ? 43.0 : 28.0
-        case .child(let isLast): return isLast ? 43.0 : 28.0
-        case .infant(let isLast): return isLast ? 43.0 : 28.0
+        case .title: return 29.0
+        case .adult(let isLast): return isLast ? 43.0 : 29.0
+        case .child(let isLast): return isLast ? 43.0 : 29.0
+        case .infant(let isLast): return isLast ? 43.0 : 29.0
         case .layover(let isLast): return isLast ? 43.0 : 40.0
         case .note: return 43.0
         }
@@ -160,7 +160,20 @@ extension BookingFlightDetailVC {
             self.calculatedIndexForShowingBaggageDetails = 0
         }
         let totalCreated = getAllCountForBaggageInfo(forLegNo: indexPath.section, flightNo: self.calculatedIndexForShowingBaggageDetails)
+        
+        if indexPath.row == (totalCreated - 1), previousRowForBaggage < indexPath.row {
+            self.calculatedIndexForShowingBaggageDetails += 1
+            self.calculatedIndexForShowingBaggageDetails = min(self.viewModel.legDetails[indexPath.section].flight.count - 1, self.calculatedIndexForShowingBaggageDetails)
+        }
+        
         let flight = self.viewModel.legDetails[indexPath.section].flight[self.calculatedIndexForShowingBaggageDetails]
+        
+        if indexPath.row == (totalCreated - 1), previousRowForBaggage > indexPath.row {
+            self.calculatedIndexForShowingBaggageDetails -= 1
+            self.calculatedIndexForShowingBaggageDetails = max(0, self.calculatedIndexForShowingBaggageDetails)
+        }
+        
+        previousRowForBaggage = indexPath.row
         
         func getAerlineCell() -> UITableViewCell {
             // aerline details
@@ -206,11 +219,6 @@ extension BookingFlightDetailVC {
             nightStateCell.titleLabel.text = flight.baggage?.checkInBg?.notes ?? LocalizedString.dash.localized
             
             return nightStateCell
-        }
-        
-        
-        if indexPath.row == (totalCreated - 1) {
-            self.calculatedIndexForShowingBaggageDetails += 1
         }
         
         switch self.viewModel.allBaggageCells[indexPath.section][indexPath.row] {

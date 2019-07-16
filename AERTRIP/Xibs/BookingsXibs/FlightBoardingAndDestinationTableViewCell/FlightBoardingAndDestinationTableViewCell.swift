@@ -45,6 +45,13 @@ class FlightBoardingAndDestinationTableViewCell: UITableViewCell {
         self.configUI()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // Dotted View
+        self.dottedView.makeDottedLine(isInCenter: true)
+    }
+    
     // MARK: - Functions
     
     // MARK: ===========
@@ -83,9 +90,6 @@ class FlightBoardingAndDestinationTableViewCell: UITableViewCell {
         // Shadow
 //        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize.zero, opacity: 0.7, shadowRadius: 1.5)
         self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
-        
-        // Dotted View
-        self.dottedView.makeDottedLine(isInCenter: true)
     }
     
     internal func configCell(boardingCity: String, destinationCity: String, boardingCode: String, destinationCode: String, legDuration: String, boardingTime: String, destinationTime: String, boardingDate: String, destinationDate: String, economyClass: String) {
