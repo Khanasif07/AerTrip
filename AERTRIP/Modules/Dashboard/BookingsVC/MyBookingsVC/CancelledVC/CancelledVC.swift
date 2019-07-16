@@ -104,7 +104,10 @@ class CancelledVC: BaseVC {
             self.manageFooter(isHidden: count <= 0)
         }
         self.emptyStateSetUp()
-//        self.cancelledBookingsTableView?.reloadData()
+    }
+    
+    func reloadTable() {
+        self.cancelledBookingsTableView?.reloadData()
     }
     
     private func registerXibs() {

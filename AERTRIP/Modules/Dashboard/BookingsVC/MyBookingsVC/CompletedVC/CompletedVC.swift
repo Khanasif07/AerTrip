@@ -100,7 +100,10 @@ class CompletedVC: BaseVC {
             self.manageFooter(isHidden: count <= 0)
         }
         self.emptyStateSetUp()
-//        self.completedBookingsTableView?.reloadData()
+    }
+    
+    func reloadTable() {
+        self.completedBookingsTableView?.reloadData()
     }
     
     private func registerXibs() {

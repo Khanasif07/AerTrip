@@ -32,8 +32,6 @@ class BookingCommonActionTableViewCell: ATTableViewCell {
         self.actionButton.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: -20.0, bottom: 0.0, right: 0.0)
         self.actionButton.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 16, bottom: 0.0, right: 0.0)
         self.topBackgroundView.layer.cornerRadius = 10
-        self.topBackgroundView.layer.borderWidth = 1.0
-        self.topBackgroundView.layer.borderColor = AppColors.themeGreen.cgColor
     }
     
     override func setupFonts() {
@@ -51,10 +49,16 @@ class BookingCommonActionTableViewCell: ATTableViewCell {
             self.actionButton.setTitleColor(AppColors.themeWhite, for: .normal)
             self.actionButton.setTitleColor(AppColors.themeWhite, for: .selected)
             
+            self.topBackgroundView.layer.borderWidth = 0.0
+            self.topBackgroundView.layer.borderColor = AppColors.clear.cgColor
+            
         } else {
             self.topBackgroundView.backgroundColor = AppColors.themeWhite
             self.actionButton.setTitleColor(AppColors.themeGreen, for: .normal)
             self.actionButton.setTitleColor(AppColors.themeGreen, for: .selected)
+            
+            self.topBackgroundView.layer.borderWidth = 1.0
+            self.topBackgroundView.layer.borderColor = AppColors.themeGreen.cgColor
         }
         self.actionButton.setImage(buttonImage, for: .normal)
         self.actionButton.setImage(buttonImage, for: .selected)

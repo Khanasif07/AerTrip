@@ -106,7 +106,7 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
-        if !(self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false), indexPath.section == 1 {
+        else if !(self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false), indexPath.section == 1 {
             if let allCases = self.viewModel.bookingDetail?.cases, !allCases.isEmpty, let rcpt = self.viewModel.bookingDetail?.receipt {
                 // cases
                 
@@ -114,18 +114,23 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
+<<<<<<< HEAD
         if indexPath.section >= self.viewModel.noOfLegCellAboveLeg, indexPath.section < (self.viewModel.noOfLegCellAboveLeg + (self.viewModel.bookingDetail?.bookingDetail?.leg.count ?? 0)) {
             AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail,tripCities: self.viewModel.tripCitiesStr ?? NSMutableAttributedString(string: ""))
+=======
+        else if indexPath.section >= self.viewModel.noOfLegCellAboveLeg, indexPath.section < (self.viewModel.noOfLegCellAboveLeg + (self.viewModel.bookingDetail?.bookingDetail?.leg.count ?? 0)) {
+            AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail)
+>>>>>>> 8e19895a6ab1aec7e7ba4cca77e0e3cfcfb01fe0
         }
         
-        if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? TripChangeTableViewCell {
+        else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? TripChangeTableViewCell {
             printDebug("Trip change table view Cell tapped")
             AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo())
             self.tripChangeIndexPath = indexPath
         }
         
         // Manage Button action here.
-        if let cell = self.bookingDetailsTableView.cellForRow(at: indexPath) as? BookingCommonActionTableViewCell {
+        else if let cell = self.bookingDetailsTableView.cellForRow(at: indexPath) as? BookingCommonActionTableViewCell {
             switch cell.usingFor {
             case .addToCalender:
                 self.addToCalender()
@@ -136,6 +141,10 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             case .addToAppleWallet:
                 printDebug("Manage add toa Apple wallet")
             }
+        }
+        else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? PaymentInfoTableViewCell, let rcpt = self.viewModel.bookingDetail?.receipt {
+            //move to voucher vc
+            AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: "")
         }
     }
 }

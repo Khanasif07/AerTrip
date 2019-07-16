@@ -1850,7 +1850,6 @@ struct Receipt {
     init(json: JSONDictionary, bookingId: String) {
         if let obj = json["total_amount_due"] {
             self.totalAmountDue = "\(obj)".toDouble ?? 0.0
-            self.totalAmountDue = 7631.0
         }
         
         if let obj = json["total_amount_paid"] {

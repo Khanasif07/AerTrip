@@ -158,13 +158,16 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             self.tripChangeIndexPath = indexPath
             AppFlowManager.default.presentSelectTripVC(delegate: self, usingFor: .bookingTripChange, allTrips: self.viewModel.allTrips,tripInfo: self.viewModel.bookingDetail?.tripInfo ?? TripInfo())
         }
-        
-        if let cell = self.bookingDetailsTableView.cellForRow(at: indexPath) as? BookingCommonActionTableViewCell {
+        else if let cell = self.bookingDetailsTableView.cellForRow(at: indexPath) as? BookingCommonActionTableViewCell {
             if cell.usingFor == .addToCalender {
                 self.addToCalender()
             } else {
                 self.addToAppleWallet()
             }
+        }
+        else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? PaymentInfoTableViewCell, let rcpt = self.viewModel.bookingDetail?.receipt {
+            //move to voucher vc
+            AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: "")
         }
     }
 }

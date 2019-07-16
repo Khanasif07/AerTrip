@@ -96,7 +96,10 @@ class UpcomingBookingsVC: BaseVC {
             self.manageFooter(isHidden: count <= 0)
         }
         self.emptyStateSetUp()
-//        self.upcomingBookingsTableView?.reloadData()
+    }
+    
+    func reloadTable() {
+        self.upcomingBookingsTableView?.reloadData()
     }
     
     private func registerXibs() {

@@ -19,17 +19,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="53.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCY-ZX-o0V">
-                        <rect key="frame" x="16" y="10" width="42" height="15.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCY-ZX-o0V">
+                        <rect key="frame" x="16" y="6" width="343" height="21.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="dCY-ZX-o0V" secondAttribute="bottom" constant="28" id="WkS-OF-B3M"/>
-                    <constraint firstItem="dCY-ZX-o0V" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Wy4-E3-zVO"/>
+                    <constraint firstAttribute="bottom" secondItem="dCY-ZX-o0V" secondAttribute="bottom" constant="26" id="WkS-OF-B3M"/>
+                    <constraint firstItem="dCY-ZX-o0V" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="Wy4-E3-zVO"/>
                     <constraint firstItem="dCY-ZX-o0V" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="fSj-1B-Ahi"/>
+                    <constraint firstAttribute="trailing" secondItem="dCY-ZX-o0V" secondAttribute="trailing" constant="16" id="lxG-gf-tqK"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
