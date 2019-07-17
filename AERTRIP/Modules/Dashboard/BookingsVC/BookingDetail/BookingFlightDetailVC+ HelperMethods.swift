@@ -328,7 +328,7 @@ extension BookingFlightDetailVC {
                 return UITableView.automaticDimension
             }
             else {
-                return indexPath.row == 3 ? 45.0 : 27.0
+                return indexPath.row == 3 ? 45.0 : 29.0
             }
         }
         else {
@@ -343,16 +343,18 @@ extension BookingFlightDetailVC {
             else if let info = self.viewModel.bookingFee.first {
                 if let can = info.aerlineCanCharges {
                     if indexPath.row == (self.getCancelChargesCount(charge: can) - 1) {
-                        return 45.0
+                        //blank
+                        return 40.0
                     }
-                    return 27.0
+                    return 29.0
                 }
                 
                 if let res = info.aerlineResCharges {
                     if indexPath.row == (self.getResChargesCount(charge: res) - 1) {
-                        return 45.0
+                        //blank
+                        return 43.0
                     }
-                    return 27.0
+                    return 29.0
                 }
             }
             return UITableView.automaticDimension
