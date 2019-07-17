@@ -16,7 +16,7 @@ class BookingAddCommonInputTableViewCell: ATTableViewCell {
     
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var inputTextField: UITextField!
+    @IBOutlet weak var inputTextField: ATTextField!
     @IBOutlet weak var dividerView: ATDividerView!
     
     
@@ -54,9 +54,7 @@ class BookingAddCommonInputTableViewCell: ATTableViewCell {
         self.inputTextField.text = text
         
         }
-
 }
-
 
 extension BookingAddCommonInputTableViewCell: UITextFieldDelegate {
     @objc func textFieldDidChanged(_ textField: UITextField) {
