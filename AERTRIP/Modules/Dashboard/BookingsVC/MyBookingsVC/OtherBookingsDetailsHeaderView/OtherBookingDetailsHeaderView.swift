@@ -68,6 +68,10 @@ class OtherBookingDetailsHeaderView: UIView {
     ///AttributeLabelSetup
     private func attributeLabelSetUp(bookingIdStr: String , bookingIdNumbers: String , date: String) {
         
+        guard !bookingIdNumbers.isEmpty, !date.isEmpty else {
+            self.bookingIdAndDateLabel.text = ""
+            return
+        }
         let finalString = "\(bookingIdNumbers) | \(date)"
         
         let attributedString = NSMutableAttributedString(string: finalString)

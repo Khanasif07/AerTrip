@@ -732,7 +732,7 @@
 //MARK: - Booking Details Info
 "ForwardArrow" = "→";
 "Dimensions" = "Dimensions";
-"HandBaggageDimensions" = "Hand Baggage Dimensions";
+"HandBaggageDimensions" = "Baggage Dimensions";
 
 
 //MARK: - Flight Module

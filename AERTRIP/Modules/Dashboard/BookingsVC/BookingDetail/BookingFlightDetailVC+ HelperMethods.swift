@@ -328,7 +328,7 @@ extension BookingFlightDetailVC {
                 return UITableView.automaticDimension
             }
             else {
-                return indexPath.row == 3 ? 45.0 : 27.0
+                return indexPath.row == 3 ? 45.0 : 29.0
             }
         }
         else {
@@ -343,16 +343,18 @@ extension BookingFlightDetailVC {
             else if let info = self.viewModel.bookingFee.first {
                 if let can = info.aerlineCanCharges {
                     if indexPath.row == (self.getCancelChargesCount(charge: can) - 1) {
-                        return 45.0
+                        //blank
+                        return 40.0
                     }
-                    return 27.0
+                    return 29.0
                 }
                 
                 if let res = info.aerlineResCharges {
                     if indexPath.row == (self.getResChargesCount(charge: res) - 1) {
-                        return 45.0
+                        //blank
+                        return 43.0
                     }
-                    return 27.0
+                    return 29.0
                 }
             }
             return UITableView.automaticDimension
@@ -421,33 +423,36 @@ extension BookingFlightDetailVC {
             if let res = info.aerlineResCharges {
                 let oldCount = self.getCancelChargesCount(charge: info.aerlineCanCharges)
                 let newIndex = indexPath.row - oldCount
-                if newIndex == 0 {
-                    // headers
-                    finalCell = self.getFeeTitleCell(indexPath: indexPath, type: "Re-scheduling", aerline: "Airline Fee", aertrip: "Aertrip Fee")
-                }
-                else if newIndex == 1, let val = res.adult {
-                    // adult
-                    finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Adult", aerlineFee: val, aertripFee: info.aertripResCharges?.adult ?? 0)
-                }
-                else if newIndex <= 2, let val = res.child {
-                    // Child
-                    finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Child", aerlineFee: val, aertripFee: info.aertripResCharges?.child ?? 0)
-                }
-                else if newIndex <= 3, let val = res.infant {
-                    if newIndex == 3 {
-                        // blank
+                if newIndex >= 0 {
+                    if newIndex == 0 {
+                        // headers
+                        finalCell = self.getFeeTitleCell(indexPath: indexPath, type: "Re-scheduling", aerline: "Airline Fee", aertrip: "Aertrip Fee")
+                    }
+                    else if newIndex == 1, let val = res.adult {
+                        // adult
+                        finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Adult", aerlineFee: val, aertripFee: info.aertripResCharges?.adult ?? 0)
+                    }
+                    else if newIndex <= 2, let val = res.child {
+                        // Child
+                        finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Child", aerlineFee: val, aertripFee: info.aertripResCharges?.child ?? 0)
+                    }
+                    else if newIndex <= 3, let val = res.infant {
+                        if newIndex == 3 {
+                            // blank
+                            finalCell = getBlankSpaceCell()
+                        }
+                        else {
+                            // infant
+                            finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Infant", aerlineFee: val, aertripFee: info.aertripResCharges?.infant ?? 0)
+                        }
+                    }
+                    else if newIndex > 0 {
+                        // blank space
                         finalCell = getBlankSpaceCell()
                     }
-                    else {
-                        // infant
-                        finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Infant", aerlineFee: val, aertripFee: info.aertripResCharges?.infant ?? 0)
-                    }
-                }
-                else if newIndex > 0 {
-                    // blank space
-                    finalCell = getBlankSpaceCell()
                 }
             }
+            
             if indexPath.row == self.getNumberOfCellsInFareInfoForNormalFlight(forData: info) - 2 {
                 // Notes cell
                 finalCell = getNotesCell()

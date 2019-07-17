@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/CancelledVC/CancelledVC.swift"
-            timestampString = "585036320.396636"
+            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/BookingRequestAddOnAndFF/AddOnsVC.swift"
+            timestampString = "585042100.006034"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
-            landmarkName = "initialSetup()"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "getCellForSection(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

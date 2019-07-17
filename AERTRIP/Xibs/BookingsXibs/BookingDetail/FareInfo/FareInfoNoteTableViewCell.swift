@@ -60,10 +60,10 @@ class FareInfoNoteTableViewCell: UITableViewCell {
     
     ///Bulleted Notes Details
     private func bulletedNotesDetails(notes: [String]) -> NSMutableAttributedString {
-        let attributesDictionary = [NSAttributedString.Key.font : isForBookingPolicyCell ? AppFonts.Regular.withSize(18.0) : AppFonts.Regular.withSize(14.0) , NSAttributedString.Key.foregroundColor : isForBookingPolicyCell ? AppColors.themeBlack : AppColors.textFieldTextColor51]
+        let attributesDictionary = [NSAttributedString.Key.font : isForBookingPolicyCell ? AppFonts.Regular.withSize(18.0) : AppFonts.Regular.withSize(14.0) , NSAttributedString.Key.foregroundColor : isForBookingPolicyCell ? AppColors.themeBlack : AppColors.themeGray60]
         let fullAttributedString = NSMutableAttributedString()
         let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore:  0.0)
-        for (_,text) in notes.enumerated() {
+        for text in notes {
             let bulletedString = NSMutableAttributedString()
             let bulletedAttributedString: NSMutableAttributedString = NSMutableAttributedString(string: "●  ", attributes: attributesDictionary)
             
@@ -74,7 +74,6 @@ class FareInfoNoteTableViewCell: UITableViewCell {
             bulletedString.append(attributedString)
             fullAttributedString.append(bulletedString)
         }
-        self.noteTextView.textColor = isForBookingPolicyCell ? AppColors.themeBlack : AppColors.textFieldTextColor51
         return fullAttributedString
     }
     

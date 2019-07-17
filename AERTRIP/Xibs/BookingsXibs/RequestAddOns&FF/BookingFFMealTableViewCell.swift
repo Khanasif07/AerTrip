@@ -16,7 +16,7 @@ class BookingFFMealTableViewCell: ATTableViewCell {
     // MARK: - IBOutlet
     
     @IBOutlet var mealPreferenceLabel: UILabel!
-    @IBOutlet var selectedMealPreferenceTextField: UITextField!
+    @IBOutlet var selectedMealPreferenceTextField: ATTextField!
     
     @IBOutlet var downImageView: UIImageView!
     @IBOutlet var dividerView: ATDividerView!
