@@ -171,13 +171,19 @@ extension BookingRequestAddOnsFFVC: BookingRequestAddOnsFFVMDelegate {
     }
     
     func sendAddOnFFRequestSuccess() {
-        self.delegate?.addOnAndFFUpdated()
+        AppFlowManager.default.showAddonRequestSent(buttonTitle: "", delegate: self)
         AppGlobals.shared.stopLoading()
-        dismiss(animated: true)
     }
     
     func failAddOnFFRequestFail(errorCode: ErrorCodes) {
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
         AppGlobals.shared.stopLoading()
+    }
+}
+
+extension BookingRequestAddOnsFFVC: BulkEnquirySuccessfulVCDelegate {
+    func doneButtonAction() {
+          self.delegate?.addOnAndFFUpdated()
+          self.dismiss(animated: true)
     }
 }
