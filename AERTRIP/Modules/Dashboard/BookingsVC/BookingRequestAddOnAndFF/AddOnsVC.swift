@@ -55,7 +55,7 @@ class AddOnsVC: BaseVC {
             } else {
                 cell.topConstraint.constant = 16
             }
-            cell.configureCell(profileImage: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].profileImage ?? "", salutationImage: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].salutationImage ?? UIImage(named: "person")!, passengerName: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].paxName ?? "")
+            cell.configureCell(profileImage: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].profileImage ?? "", salutationImage: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].salutationImage ?? UIImage(named: "person")!, passengerName: BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg[indexPath.section].pax[indexPath.row / 5].fullNameWithSalutation ?? "")
             return cell
         // Seat Preference or Seat Booking Based on Flight type LCC or GDS
         case 1:
