@@ -972,7 +972,7 @@ struct FlightDetail {
     var arrivalCountry: String = ""
     var arrivalCity: String = ""
     var arrivalCountryCode: String = ""
-    var arrivalDate: String = ""
+    var arrivalDate: Date?
     var arrivalTime: String = ""
     var flightTime: Double = 0.0
     var carrier: String = ""
@@ -1119,7 +1119,7 @@ struct FlightDetail {
         }
         
         if let obj = json["arrival_date"] {
-            self.arrivalDate = "\(obj)".removeNull
+            self.arrivalDate = "\(obj)".toDate(dateFormat: "yyyy-MM-dd")
         }
         if let obj = json["arrival_time"] {
             self.arrivalTime = "\(obj)".removeNull

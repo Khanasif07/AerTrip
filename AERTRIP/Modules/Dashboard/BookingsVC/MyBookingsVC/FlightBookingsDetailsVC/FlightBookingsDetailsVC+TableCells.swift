@@ -87,7 +87,7 @@ extension FlightBookingsDetailsVC {
 //        let count = (self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false) ? 0 : 1
         
         let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section - self.viewModel.noOfLegCellAboveLeg]
-        cell.configCell(boardingCity: leg?.flight.first?.departCity ?? "", destinationCity: leg?.flight.last?.arrivalCity ?? "", boardingCode: leg?.origin ?? "", destinationCode: leg?.destination ?? "", legDuration: leg?.legDuration.asString(units: [.hour, .minute], style: .abbreviated) ?? LocalizedString.na.localized, boardingTime: leg?.flight.first?.departureTime ?? "", destinationTime: leg?.flight.last?.departureTime ?? "", boardingDate: leg?.flight.first?.departDate?.toString(dateFormat: "E, d MMM yyyy") ?? "", destinationDate: leg?.flight.last?.departDate?.toString(dateFormat: "E, d MMM yyyy") ?? "", economyClass: leg?.cabinClass ?? "-")
+        cell.configCell(boardingCity: leg?.flight.first?.departCity ?? "", destinationCity: leg?.flight.last?.arrivalCity ?? "", boardingCode: leg?.origin ?? "", destinationCode: leg?.destination ?? "", legDuration: leg?.legDuration.asString(units: [.hour, .minute], style: .abbreviated) ?? LocalizedString.na.localized, boardingTime: leg?.flight.first?.departureTime ?? "", destinationTime: leg?.flight.last?.arrivalTime ?? "", boardingDate: leg?.flight.first?.departDate?.toString(dateFormat: "E, d MMM yyyy") ?? "", destinationDate: leg?.flight.last?.arrivalDate?.toString(dateFormat: "E, d MMM yyyy") ?? "", economyClass: leg?.cabinClass ?? "-")
         
         cell.noOfStops = leg?.numberOfStop ?? 0
         cell.clipsToBounds = true
