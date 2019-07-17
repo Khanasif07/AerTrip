@@ -81,7 +81,8 @@ class HotelBookingAddressDetailsTableViewCell: UITableViewCell {
         self.hotelDotsView.rating = tripAdvisorRating
         self.ratingStackView.isHidden = (hotelStarRating.isZero && tripAdvisorRating .isZero) ? true : false
         self.hotelRatingView.isHidden = hotelStarRating.isZero ? true : false
-        self.hotelDotsView.isHidden = tripAdvisorRating .isZero ? true : false
+        self.hotelDotsView.isHidden = tripAdvisorRating.isZero ? true : false
+        self.tripadviserImageView.isHidden = tripAdvisorRating.isZero ? true : false
         
         let checkInStr = checkInDate?.toString(dateFormat: "dd MMM") ?? ""
         let checkOutStr = checkOutDate?.toString(dateFormat: "dd MMM") ?? ""

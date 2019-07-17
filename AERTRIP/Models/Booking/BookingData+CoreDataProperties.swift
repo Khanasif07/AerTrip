@@ -173,7 +173,6 @@ extension BookingData {
         } else {
             return NSMutableAttributedString(string: self.serviceType ?? LocalizedString.dash.localized)
         }
-        return nil
     }
     
     var paxStr: String {

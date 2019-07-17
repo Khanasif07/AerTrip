@@ -69,8 +69,13 @@ class CancelledVC: BaseVC {
     }
     
     override func initialSetup() {
+        
+        self.emptyStateImageView.isUserInteractionEnabled = false
+        self.emptyStateTitleLabel.isUserInteractionEnabled = false
+        self.emptyStateSubTitleLabel.isUserInteractionEnabled = false
+        
         self.registerXibs()
-        self.loadSaveData(isForFirstTime: true)
+        self.loadSaveData(isForFirstTime: MyBookingFilterVM.shared.searchText.isEmpty)
 //        self.reloadList(isFirstTimeLoading: true)
     }
     
@@ -91,6 +96,11 @@ class CancelledVC: BaseVC {
         self.cancelledBookingsTableView.backgroundColor = AppColors.themeWhite
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        self.dismissKeyboard()
+    }
     
     //Mark:- Functions
     //================
@@ -138,9 +148,11 @@ class CancelledVC: BaseVC {
             
             if (noti == .myBookingFilterApplied || noti == .myBookingFilterCleared) {
                 self.loadSaveData()
+                self.reloadTable()
             }
             else if noti == .myBookingSearching {
                 self.loadSaveData()
+                self.reloadTable()
             }
         }
     }
