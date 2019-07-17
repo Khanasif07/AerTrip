@@ -72,6 +72,7 @@ extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.dismissKeyboard()
         let bookingData = fetchedResultsController.object(at: indexPath)
         if let bookingId = bookingData.bookingId, !bookingId.isEmpty {
             if bookingData.productType == .flight {

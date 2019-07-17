@@ -91,6 +91,7 @@ class EmptyScreenView: UIView {
         self.setupView()
     }
     
+    
     private func commonInit(){
         Bundle.main.loadNibNamed("\(EmptyScreenView.self)", owner: self, options: nil)
         addSubview(contentView)
@@ -98,6 +99,19 @@ class EmptyScreenView: UIView {
         contentView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
         
         bottomButton.isHidden = true
+        
+        self.addTapGesture()
+    }
+    
+    func addTapGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapHandler(_:)))
+        containerView.isUserInteractionEnabled = true
+        containerView.addGestureRecognizer(tap)
+    }
+    
+    @objc func tapHandler(_ sender: UIGestureRecognizer) {
+        AppDelegate.shared.window?.endEditing(true)
+        UIApplication.topViewController()?.view.endEditing(true)
     }
     
     //MARK:- Private Function -

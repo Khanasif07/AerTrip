@@ -159,7 +159,8 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     }
     
     func dismissKeyboard() {
-        self.view.endEditing(true)
+        AppDelegate.shared.window?.endEditing(true)
+        UIApplication.topViewController()?.view.endEditing(true)
     }
     
     final func showLoaderOnView(view:UIView, show:Bool) {

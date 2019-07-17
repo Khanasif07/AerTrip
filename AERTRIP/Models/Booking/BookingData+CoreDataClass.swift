@@ -211,7 +211,6 @@ public class BookingData: NSManagedObject {
         let managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = CoreDataManager.shared.persistentStoreCoordinator
         managedObjectContext.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType)
-//        managedObjectContext.parent = CoreDataManager.shared.managedObjectContext
         
         managedObjectContext.perform { // runs asynchronously
 //            while true { // loop through each batch of inserts. Your implementation may vary.
@@ -247,7 +246,6 @@ public class BookingData: NSManagedObject {
                         tempDataArr.append(data)
                     }
                     completionBlock(tempDataArr)
-                    
 //                    completionBlock(dataArr)
                 })
 //                return
