@@ -171,6 +171,7 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
                 AppGlobals.shared.viewPdf(urlPath: endPoints, screenTitle: LocalizedString.ETicket.localized)
             } else if index == 4 {
                 // Present Resend Confirmation Email
+                AppToast.default.showToastMessage(message: LocalizedString.UnderDevelopment.localized)
             }
         }
     }

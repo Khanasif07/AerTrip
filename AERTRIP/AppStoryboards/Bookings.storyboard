@@ -136,7 +136,7 @@ with us!</string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="RQQ-OT-0Mc" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="RQQ-OT-0Mc" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="603"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </tableView>
@@ -985,7 +985,7 @@ with us!</string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="wk4-Oa-osq" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="wk4-Oa-osq" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
@@ -1056,7 +1056,7 @@ with us!</string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="5Hn-Yh-dpb" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="5Hn-Yh-dpb" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
@@ -1523,7 +1523,7 @@ with us!</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7hY-87-fYM">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="553"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Jz-d5-jao">
@@ -1544,9 +1544,9 @@ with us!</string>
                             <constraint firstItem="liV-xw-Oym" firstAttribute="bottom" secondItem="3Jz-d5-jao" secondAttribute="bottom" id="SOE-oK-3Ca"/>
                             <constraint firstItem="3Jz-d5-jao" firstAttribute="trailing" secondItem="liV-xw-Oym" secondAttribute="trailing" id="THP-WA-yOk"/>
                             <constraint firstItem="Slw-2P-6Su" firstAttribute="top" secondItem="liV-xw-Oym" secondAttribute="top" id="Tyz-oN-rCs"/>
+                            <constraint firstItem="3Jz-d5-jao" firstAttribute="top" secondItem="7hY-87-fYM" secondAttribute="bottom" id="VwW-ug-dUb"/>
                             <constraint firstItem="liV-xw-Oym" firstAttribute="trailing" secondItem="Slw-2P-6Su" secondAttribute="trailing" id="XXk-LK-Qtq"/>
                             <constraint firstItem="Slw-2P-6Su" firstAttribute="leading" secondItem="liV-xw-Oym" secondAttribute="leading" id="YMe-bD-sCr"/>
-                            <constraint firstItem="liV-xw-Oym" firstAttribute="bottom" secondItem="7hY-87-fYM" secondAttribute="bottom" id="aZl-31-WpR"/>
                             <constraint firstItem="7hY-87-fYM" firstAttribute="top" secondItem="Slw-2P-6Su" secondAttribute="bottom" id="ddp-Ci-5bM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="liV-xw-Oym"/>
@@ -1559,7 +1559,7 @@ with us!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d3P-5B-AQq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3937" y="762"/>
+            <point key="canvasLocation" x="3936.8000000000002" y="761.46926536731644"/>
         </scene>
         <!--Add OnsVC-->
         <scene sceneID="oNi-Np-TLP">

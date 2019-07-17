@@ -20,6 +20,7 @@
 "apply" = "Apply";
 "For" = "For";
 "Already" = "Already";
+"UnderDevelopment" = "Under Development";
 
 // MARK:- TextField validation
 //MARK:-
@@ -683,6 +684,7 @@
 "Download" = "Download";
 "ResendConfirmationMail" = "Resend Confirmation Email";
 
+
 // Booking Review Cancellation VC
 "ReviewCancellation" = "Review Cancellation";
 "RefundMode" = "Refund Mode";
@@ -855,5 +857,7 @@
 "FlightTripChangeMessage" = "Flight booking moved to";
 "HotelTripChangeMessage" = "Hotel booking moved to";
 "SomethingWentWrong"  = "Something went wrong";
+
+
 
 

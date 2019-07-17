@@ -66,6 +66,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="dividerView" destination="LcJ-cB-Y6l" id="ceu-gG-Ha8"/>
                 <outlet property="inputTextField" destination="LDq-ZJ-MoE" id="lK0-IO-BMt"/>
                 <outlet property="titleLabel" destination="3T4-Lq-hM2" id="sMD-G4-Y2R"/>
             </connections>

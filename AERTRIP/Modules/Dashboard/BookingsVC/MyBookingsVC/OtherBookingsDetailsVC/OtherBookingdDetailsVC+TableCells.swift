@@ -35,7 +35,7 @@ extension OtherBookingsDetailsVC {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingTravellersDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingTravellersDetailsTableViewCell else { return UITableViewCell() }
             let traveller = self.viewModel.bookingDetail?.bookingDetail?.travellers[indexPath.row]
             cell.configCell(travellersImage: traveller?.profileImage ?? "" , travellerName: traveller?.fullName ?? "", firstName: traveller?.firstName ?? "", lastName: traveller?.lastName ?? "")
-            cell.dividerView.isHidden = true
+            // cell divider will not be use here as divider is in document Cell.
             return cell
         }
         else {
@@ -43,7 +43,7 @@ extension OtherBookingsDetailsVC {
              let traveller = self.viewModel.bookingDetail?.bookingDetail?.travellers[indexPath.row]
             cell.configCell(travellersImage: traveller?.profileImage ?? "", travellerName: traveller?.fullName ?? "", firstName: traveller?.firstName ?? "", lastName: traveller?.lastName ?? "", isLastTravellerInRoom: false, isLastTraveller: indexPath.row == self.viewModel.bookingDetail?.bookingDetail?.travellers.count ?? 0,isOtherBookingData: true)
             cell.dividerView.backgroundColor = .red
-            cell.dividerView.isHidden = true
+          // cell divider will not be use here as divider is in document Cell.
             cell.containerViewLeadingConstraint.constant = 0
             cell.containerViewBottomConstraint.constant = 0
             cell.containerViewTrailingConstraint.constant = 0

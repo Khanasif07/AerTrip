@@ -17,6 +17,8 @@ class BookingAddCommonInputTableViewCell: ATTableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var inputTextField: UITextField!
+    @IBOutlet weak var dividerView: ATDividerView!
+    
     
     override func prepareForReuse() {
         super.prepareForReuse()
