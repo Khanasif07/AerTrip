@@ -75,7 +75,19 @@ extension CancelledVC {
     private func getSearchPredicates() -> NSPredicate?{
         if !MyBookingFilterVM.shared.searchText.isEmpty {
             let hotelName = NSPredicate(format: "hotelName CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
-            return hotelName
+            let tripType = NSPredicate(format: "tripType CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let destination = NSPredicate(format: "destination CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let origin = NSPredicate(format: "origin CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let product = NSPredicate(format: "product CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let serviceType = NSPredicate(format: "serviceType CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+
+            let tripCitiesArrStr = NSPredicate(format: "tripCitiesArrStr CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let routesArrStr = NSPredicate(format: "routesArrStr CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let travelledCitiesArrStr = NSPredicate(format: "travelledCitiesArrStr CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let paxArrStr = NSPredicate(format: "paxArrStr CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            let stepsArrayStr = NSPredicate(format: "stepsArrayStr CONTAINS[c] '\(MyBookingFilterVM.shared.searchText)'")
+            
+            return NSCompoundPredicate(orPredicateWithSubpredicates: [hotelName, tripType, destination, origin, product, serviceType, tripCitiesArrStr, routesArrStr, travelledCitiesArrStr, paxArrStr, stepsArrayStr])
         }
         return nil
     }
