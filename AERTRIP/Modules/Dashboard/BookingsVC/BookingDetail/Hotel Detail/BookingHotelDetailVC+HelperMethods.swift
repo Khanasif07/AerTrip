@@ -84,7 +84,9 @@ extension BookingHotelDetailVC {
             guard let fareInfoNoteCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "FareInfoNoteTableViewCell") as? FareInfoNoteTableViewCell else {
                 fatalError("FareInfoNoteTableViewCell not found")
             }
+          
             fareInfoNoteCell.isForBookingPolicyCell = false
+            fareInfoNoteCell.noteTextViewTopConstraint.constant = 10
             fareInfoNoteCell.noteLabel.text = LocalizedString.Notes.localized
             fareInfoNoteCell.configCell(notes: self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.notes ?? [])
             return fareInfoNoteCell
