@@ -13,17 +13,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="BookingReschedulingHeaderView" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxA-Eg-DnU">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qzg-YS-9QU">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sWE-ub-doU">
-                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="sWE-ub-doU" secondAttribute="height" multiplier="1:1" id="VQw-Zl-ObN"/>
                                     </constraints>
@@ -31,16 +31,16 @@
                                     <state key="selected" image="tick"/>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CAK-PP-wXS">
-                                    <rect key="frame" x="60" y="0.0" width="354" height="60"/>
+                                    <rect key="frame" x="64" y="0.0" width="350" height="64"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySg-3s-C6E">
-                                            <rect key="frame" x="0.0" y="13" width="354" height="13.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="13.000000000000002" width="350" height="19.666666666666671"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vIE-uq-1aZ">
-                                            <rect key="frame" x="0.0" y="28.666666666666671" width="354" height="20.333333333333329"/>
+                                            <rect key="frame" x="0.0" y="32.666666666666664" width="350" height="20.333333333333336"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -48,7 +48,7 @@
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="vIE-uq-1aZ" firstAttribute="top" secondItem="ySg-3s-C6E" secondAttribute="bottom" constant="2" id="0xq-IF-yz8"/>
+                                        <constraint firstItem="vIE-uq-1aZ" firstAttribute="top" secondItem="ySg-3s-C6E" secondAttribute="bottom" id="0xq-IF-yz8"/>
                                         <constraint firstAttribute="bottom" secondItem="vIE-uq-1aZ" secondAttribute="bottom" constant="11" id="9I2-UR-hEg"/>
                                         <constraint firstItem="ySg-3s-C6E" firstAttribute="leading" secondItem="CAK-PP-wXS" secondAttribute="leading" id="Jy9-Se-fLi"/>
                                         <constraint firstAttribute="trailing" secondItem="vIE-uq-1aZ" secondAttribute="trailing" id="ctD-st-a2F"/>

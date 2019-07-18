@@ -89,6 +89,10 @@ extension BookingFlightDetailVC {
     
     // return cell for Flight Info
     func getCellForFlightInfo(_ indexPath: IndexPath) -> UITableViewCell {
+        
+       
+
+        
         func getDetailsRelatedCell(flight: FlightDetail?) -> UITableViewCell {
             switch indexPath.row {
             case 0:
@@ -367,6 +371,7 @@ extension BookingFlightDetailVC {
                 fatalError("FareInfoNoteTableViewCell not found")
             }
             fareInfoNoteCell.isForBookingPolicyCell = false
+            fareInfoNoteCell.noteTextViewTopConstraint.constant = 10
             fareInfoNoteCell.noteLabel.text = LocalizedString.Notes.localized
             fareInfoNoteCell.configCell(notes: AppConstants.kfareInfoNotes)
             return fareInfoNoteCell
@@ -377,6 +382,7 @@ extension BookingFlightDetailVC {
                 fatalError("FareInfoNoteTableViewCell not found")
             }
             fareInfoDisclaimer.isForBookingPolicyCell = false
+            fareInfoDisclaimer.noteTextViewTopConstraint.constant = 10
             fareInfoDisclaimer.noteLabel.text = LocalizedString.Disclaimer.localized
             fareInfoDisclaimer.configCell(notes: AppConstants.kfareInfoDisclamer)
             return fareInfoDisclaimer

@@ -132,7 +132,7 @@ extension APICaller {
                                 for dataKey in Array(dict.keys) {
                                     if let obj = dict[dataKey] as? String {
                                         finalRules += obj
-                                        rutes = dataKey
+                                        rutes = dataKey.replacingOccurrences(of: "-", with: "→")
                                     }
                                 }
                             }

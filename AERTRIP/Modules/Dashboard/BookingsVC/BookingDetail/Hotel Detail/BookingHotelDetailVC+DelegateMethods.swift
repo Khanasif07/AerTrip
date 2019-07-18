@@ -152,15 +152,36 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
 
 extension BookingHotelDetailVC: HotelDetailsImgSlideCellDelegate {
     func hotelImageTapAction(at index: Int) {
-        //
-        printDebug("implement hotel Image tap action ")
-        
-        AppFlowManager.default.presentSelectTripVC(delegate: self)
+        // open gallery with show image at index
+        let indexPath = IndexPath(row: 0, section: 0)
+        guard let cell = self.hotelDetailTableView.cellForRow(at: indexPath) as? HotelDetailsImgSlideCell else { return }
+        if let topVC = UIApplication.topViewController() {
+            ATGalleryViewController.show(onViewController: topVC, sourceView: cell.imageCollectionView, startShowingFrom: index, datasource: self, delegate: self)
+        }
     }
     
     func willShowImage(at index: Int, image: UIImage?) {
-        //
-        printDebug("implement show image")
+        //        self.imageView.image = image
+    }
+}
+
+// Mark:- ATGallery Delegate And Datasource
+//========================================
+extension BookingHotelDetailVC: ATGalleryViewDelegate, ATGalleryViewDatasource {
+    func numberOfImages(in galleryView: ATGalleryViewController) -> Int {
+        return self.viewModel.bookingDetail?.bookingDetail?.completePhotos.count ?? 0
+    }
+    
+    func galleryView(galleryView: ATGalleryViewController, galleryImageAt index: Int) -> ATGalleryImage {
+        var image = ATGalleryImage()
+        image.imagePath = self.viewModel.bookingDetail?.bookingDetail?.completePhotos[index]
+        return image
+    }
+    
+    func galleryView(galleryView: ATGalleryViewController, willShow image: ATGalleryImage, for index: Int) {
+        let indexPath = IndexPath(row: 0, section: 0)
+        guard let cell = self.hotelDetailTableView.cellForRow(at: indexPath) as? HotelDetailsImgSlideCell else { return }
+        cell.imageCollectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
     }
 }
 

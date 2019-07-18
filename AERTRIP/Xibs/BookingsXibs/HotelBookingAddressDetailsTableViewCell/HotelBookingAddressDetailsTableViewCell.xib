@@ -225,7 +225,6 @@ Pin-code: 400 087</string>
                             <constraint firstAttribute="bottom" secondItem="6RK-KQ-f1u" secondAttribute="bottom" id="JzI-2L-CbM"/>
                             <constraint firstAttribute="trailing" secondItem="kzj-Pq-Y5l" secondAttribute="trailing" id="SH5-Z8-lar"/>
                             <constraint firstItem="S6C-rA-2SE" firstAttribute="top" secondItem="p2r-ji-8oO" secondAttribute="bottom" constant="15" id="STg-NO-7hA"/>
-                            <constraint firstAttribute="height" constant="239.5" id="be5-Po-a8r"/>
                             <constraint firstItem="6RK-KQ-f1u" firstAttribute="leading" secondItem="ob9-I2-SeW" secondAttribute="leading" id="dZO-Gy-fSf"/>
                             <constraint firstItem="kzj-Pq-Y5l" firstAttribute="leading" secondItem="p2r-ji-8oO" secondAttribute="trailing" id="ds4-qh-DyJ"/>
                             <constraint firstAttribute="trailing" secondItem="6RK-KQ-f1u" secondAttribute="trailing" id="ggX-vq-URA"/>

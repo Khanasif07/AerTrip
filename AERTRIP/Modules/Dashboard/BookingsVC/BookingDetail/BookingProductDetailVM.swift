@@ -185,7 +185,6 @@ class BookingProductDetailVM {
     // MARK: - Get Section For Flight Product Type.
     
     func getSectionDataForFlightProductType() {
-        self.sectionDataForFlightProductType.removeAll()
 
         // logic for add note cell
         self.sectionDataForFlightProductType.removeAll()

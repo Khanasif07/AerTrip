@@ -346,7 +346,7 @@ extension FlightBookingsDetailsVC: BookingProductDetailVMDelegate {
     
     func getBookingDetailFaiure(error: ErrorCodes) {
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
-        AppGlobals.shared.startLoading()
+        AppGlobals.shared.stopLoading()
     }
 }
 

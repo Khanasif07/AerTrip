@@ -23,10 +23,9 @@ extension OtherBookingsDetailsVC {
     
     func getPolicyDetailCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
-        cell.titleLabelBottomConstraint.constant = 6.0
+        cell.titleLabelBottomConstraint.constant = 0.0
         cell.configCell(title: self.viewModel.bookingDetail?.bookingDetail?.details ?? "", titleFont: AppFonts.SemiBold.withSize(16.0), titleColor: AppColors.themeBlack, subTitle: "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.themeBlack)
         cell.dividerView.isHidden = true
-        cell.containerView.backgroundColor = AppColors.themeWhite
         return cell
     }
     

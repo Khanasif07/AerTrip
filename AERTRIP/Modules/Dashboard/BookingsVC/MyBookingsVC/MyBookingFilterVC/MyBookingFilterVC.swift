@@ -51,7 +51,7 @@ class MyBookingFilterVC: BaseVC {
         self.fetchMinDateFromCoreData()
         self.setCounts()
         
-        self.topNavBar.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .clear)
+        self.topNavBar.configureNavBar(title: "\(MyBookingFilterVM.shared.filteredResultCount) of \(MyBookingFilterVM.shared.totalResultCount) Results", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .clear)
         
         self.topNavBar.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, selectedTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         self.topNavBar.configureFirstRightButton(normalTitle: LocalizedString.Done.localized, selectedTitle: LocalizedString.Done.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))

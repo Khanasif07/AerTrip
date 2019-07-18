@@ -21,6 +21,16 @@ extension OtherBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.sectionDataForOtherProductType[section].count
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+         let currentSection = self.viewModel.sectionDataForOtherProductType[indexPath.section]
+        switch currentSection[indexPath.row] {
+        case .policyDetailCell:
+            return 28.0
+        default:
+            return UITableView.automaticDimension
+        }
+    }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentSection = self.viewModel.sectionDataForOtherProductType[indexPath.section]

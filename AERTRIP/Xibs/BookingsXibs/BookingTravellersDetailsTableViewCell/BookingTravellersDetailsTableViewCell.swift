@@ -34,6 +34,7 @@ class BookingTravellersDetailsTableViewCell: UITableViewCell {
         self.travellerNameLabel.font = AppFonts.Regular.withSize(16.0)
         self.travellerNameLabel.textColor = AppColors.themeBlack
         self.travellersLabel.text = LocalizedString.Travellers.localized
+        self.dividerView.isHidden = true
         self.travellerImageView.makeCircular()
     }
     

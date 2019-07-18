@@ -84,7 +84,6 @@ extension FlightBookingsDetailsVC {
     
     func getFlightBoardingAndDestinationCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightBoardingAndDestinationTableViewCell.reusableIdentifier, for: indexPath) as? FlightBoardingAndDestinationTableViewCell else { return UITableViewCell() }
-//        let count = (self.viewModel.bookingDetail?.bookingDetail?.note.isEmpty ?? false) ? 0 : 1
         
         let leg = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section - self.viewModel.noOfLegCellAboveLeg]
         cell.configCell(boardingCity: leg?.flight.first?.departCity ?? "", destinationCity: leg?.flight.last?.arrivalCity ?? "", boardingCode: leg?.origin ?? "", destinationCode: leg?.destination ?? "", legDuration: leg?.legDuration.asString(units: [.hour, .minute], style: .abbreviated) ?? LocalizedString.na.localized, boardingTime: leg?.flight.first?.departureTime ?? "", destinationTime: leg?.flight.last?.departureTime ?? "", boardingDate: leg?.flight.first?.departDate?.toString(dateFormat: "E, d MMM yyyy") ?? "", destinationDate: leg?.flight.last?.departDate?.toString(dateFormat: "E, d MMM yyyy") ?? "", economyClass: leg?.cabinClass ?? "-")
@@ -170,11 +169,8 @@ extension FlightBookingsDetailsVC {
     
     func getPaidCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
-        cell.titleTopConstraint.constant = 12.0
-        cell.titleBottomConstraint.constant = 5.0
-        cell.containerViewBottomConstraint.constant = 26
-        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.paid.delimiterWithSymbol, isLastCell: self.viewModel.bookingDetail?.totalOutStanding == 0.0 ? true : false, cellHeight: 37.0)
-        cell.dividerView.isHidden = false
+        cell.containerViewBottomConstraint.constant = 26.0
+        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.paid.delimiterWithSymbol, isLastCell: true)
         cell.clipsToBounds = true
         return cell
     }
