@@ -26,8 +26,9 @@ extension BookingFlightDetailVC {
         
         var total: Int = 0
         for (idx, flight) in self.viewModel.legDetails[legNo].flight.enumerated() {
-            if idx <= flightNo {
+            if idx == flightNo {
                 total += flight.numberOfCellFlightInfo
+                break
             }
         }
         
@@ -97,7 +98,7 @@ extension BookingFlightDetailVC {
         previousIndexForFlightInfo = indexPath
         
         let flight = self.viewModel.legDetails[indexPath.section].flight[self.calculatedIndexForShowingFlightInfoDetails]
-        
+
         func getAerlineInfoCell() -> UITableViewCell {
             // aerline details
             guard let flightInfoCell = self.tableView.dequeueReusableCell(withIdentifier: FlightInfoTableViewCell.reusableIdentifier) as? FlightInfoTableViewCell else {
@@ -164,6 +165,8 @@ extension BookingFlightDetailVC {
     }
     
     func getCellForBaggageInfo(_ indexPath: IndexPath) -> UITableViewCell {
+        
+        print("before \(indexPath.section),\(indexPath.row) = \(self.calculatedIndexForShowingBaggageDetails)")
         if previousIndexForBaggage.section != indexPath.section {
             self.calculatedIndexForShowingBaggageDetails = (previousIndexForBaggage.section < indexPath.section) ? 0 : (self.viewModel.legDetails[indexPath.section].flight.count - 1)
             previousIndexForBaggage = indexPath
@@ -171,6 +174,7 @@ extension BookingFlightDetailVC {
         
         if previousIndexForBaggage.row < indexPath.row {
             let totalCreated = getAllCountForBaggageInfo(forLegNo: indexPath.section, flightNo: self.calculatedIndexForShowingBaggageDetails)
+            print("total \(totalCreated)")
             if indexPath.row == totalCreated {
                 self.calculatedIndexForShowingBaggageDetails += 1
                 self.calculatedIndexForShowingBaggageDetails = min(self.viewModel.legDetails[indexPath.section].flight.count - 1, self.calculatedIndexForShowingBaggageDetails)
@@ -178,6 +182,7 @@ extension BookingFlightDetailVC {
         }
         else if previousIndexForBaggage.row > indexPath.row {
             let totalCreated = getAllCountForBaggageInfo(forLegNo: indexPath.section, flightNo: self.calculatedIndexForShowingBaggageDetails-1)
+            print("total \(totalCreated)")
             if indexPath.row == (totalCreated - 1) {
                 self.calculatedIndexForShowingBaggageDetails -= 1
                 self.calculatedIndexForShowingBaggageDetails = max(0, self.calculatedIndexForShowingBaggageDetails)
@@ -185,6 +190,8 @@ extension BookingFlightDetailVC {
         }
         
         previousIndexForBaggage = indexPath
+        
+        print("after \(indexPath.section),\(indexPath.row) = \(self.calculatedIndexForShowingBaggageDetails)")
                 
         let flight = self.viewModel.legDetails[indexPath.section].flight[self.calculatedIndexForShowingBaggageDetails]
         
