@@ -104,7 +104,7 @@ class BookingReschedulingVC: BaseVC {
     }
     
     private func updateTotalRefund() {
-        let totalRef = self.viewModel.totRefund
+        let totalRef = self.viewModel.usingFor == .rescheduling ?  self.viewModel.totRefundForRescheduling : self.viewModel.totalRefundForCancellation
         self.continueButton.isEnabled = totalRef != 0.0
         self.totalPriceLabel.text = totalRef.delimiterWithSymbol
     }
@@ -226,7 +226,7 @@ class BookingReschedulingVC: BaseVC {
             
             let pnrNoStr = paxD.pnr.isEmpty ? paxD.status : paxD.pnr
             
-            bookingAccordionCell.configureCell(passengerName: paxD.fullNameWithSalutation, pnrNo: pnrNoStr, saleValue: paxD.amountPaid.delimiterWithSymbol, cancellationCharge: paxD.rescheduleCharge.delimiterWithSymbol, refundValue: paxD.netRefundForReschedule.delimiterWithSymbol)
+            bookingAccordionCell.configureCell(passengerName: paxD.fullNameWithSalutation, pnrNo: pnrNoStr, saleValue: paxD.amountPaid.delimiterWithSymbol, cancellationCharge:self.viewModel.usingFor == .rescheduling ? paxD.rescheduleCharge.delimiterWithSymbol : paxD.cancellationCharge.delimiterWithSymbol, refundValue: self.viewModel.usingFor == .rescheduling ? paxD.netRefundForReschedule.delimiterWithSymbol : paxD.netRefundForCancellation.delimiterWithSymbol)
             bookingAccordionCell.delegate = self
             bookingAccordionCell.headerDividerView.isHidden = (legD.pax.count - 1) == (indexPath.row - (legD.flight.count))
             

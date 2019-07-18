@@ -18,8 +18,12 @@ class BookingReschedulingVM {
     // MARK: - Variables
     var legsData: [Leg] = []
     
-    var totRefund: Double {
+    var totRefundForRescheduling: Double {
         return legsData.reduce(0) { $0 + ($1.selectedPaxs.reduce(0, { $0 + $1.netRefundForReschedule })) }
+    }
+    
+    var totalRefundForCancellation: Double {
+         return legsData.reduce(0) { $0 + ($1.selectedPaxs.reduce(0, { $0 + $1.netRefundForCancellation })) }
     }
     
     var usingFor: BookingReschedulingVCUsingFor = .rescheduling

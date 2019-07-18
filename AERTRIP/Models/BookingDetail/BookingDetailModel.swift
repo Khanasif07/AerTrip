@@ -1569,6 +1569,10 @@ struct Pax {
         return self.amountPaid - self.rescheduleCharge
     }
     
+    var netRefundForCancellation: Double {
+        return self.amountPaid - self.cancellationCharge
+    }
+    
     var fullNameWithSalutation: String {
         if self.salutation.isEmpty {
             return self.paxName
