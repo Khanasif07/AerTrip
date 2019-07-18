@@ -27,12 +27,22 @@ class BookingDetailVM {
         case note
     }
     
+    enum FlightInfoCell {
+        case aerlineDetail
+        case flightInfo
+        case amenities(totalRows: Int)
+        case layover
+        case paxData
+    }
+    
     private(set) var allBaggageCells: [[BaggageInfoCell]] = []
+    private(set) var allFlightInfoCells: [[FlightInfoCell]] = []
     
     weak var delegate: BookingDetailVMDelegate?
     
     var bookingDetail: BookingDetailModel? {
         didSet {
+            self.fecthTableCellsForFlightInfo()
             self.fecthTableCellsForBaggageInfo()
         }
     }
@@ -65,6 +75,31 @@ class BookingDetailVM {
         }
     }
     
+    
+    func fecthTableCellsForFlightInfo() {
+        var temp: [FlightInfoCell] = []
+        if let legs = self.bookingDetail?.bookingDetail?.leg {
+            for leg in legs {
+                for flight in leg.flight {
+                    temp.append(.aerlineDetail)
+                    temp.append(.flightInfo)
+                    
+                    if !flight.amenities.isEmpty {
+                        temp.append(.amenities(totalRows: flight.totalRowsForAmenities))
+                    }
+                    
+                    if flight.layoverTime > 0 {
+                        temp.append(.layover)
+                    }
+                }
+                temp.append(.paxData)
+                
+                self.allFlightInfoCells.append(temp)
+                temp.removeAll()
+            }
+        }
+    }
+        
     func fecthTableCellsForBaggageInfo() {
         
         var temp: [BaggageInfoCell] = []

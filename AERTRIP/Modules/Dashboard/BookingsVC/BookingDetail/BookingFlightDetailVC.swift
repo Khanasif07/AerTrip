@@ -29,11 +29,12 @@ class BookingFlightDetailVC: BaseVC {
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
     let fareInfoHeaderViewIdentifier = "FareInfoHeaderView"
     var bookingDetailType: BookingDetailType = .flightInfo
-    var calculatedIndexForShowingFlightDetails: Int = 0
-    var calculatedTotalRows: Int = 0
+    
+    var calculatedIndexForShowingFlightInfoDetails: Int = 0
+    var previousIndexForFlightInfo: IndexPath = IndexPath(row: 0, section: 0)
+    
     var calculatedIndexForShowingBaggageDetails: Int = 0
-    var calculatingBaggageForLeg: Int = 0
-    var previousRowForBaggage: Int = 0
+    var previousIndexForBaggage: IndexPath = IndexPath(row: 0, section: 0)
     
     let viewModel = BookingDetailVM()
     
@@ -115,7 +116,7 @@ class BookingFlightDetailVC: BaseVC {
     
     func reloadDetails() {
         self.calculatedIndexForShowingBaggageDetails = 0
-        self.calculatedIndexForShowingFlightDetails = 0
+        self.calculatedIndexForShowingFlightInfoDetails = 0
         self.configureNavBar()
         self.tableView.reloadData()
     }
