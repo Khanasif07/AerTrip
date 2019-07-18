@@ -62,8 +62,6 @@ extension BookingFlightDetailVC {
                 }
             }
         }
-        print("total \(allTotal)")
-        print("for \(indexPath.section), \(indexPath.row) = \(currentIdx)")
         if (allTotal - 1) == indexPath.row {
             //pax data
             currentIdx -= 1
