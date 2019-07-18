@@ -74,27 +74,32 @@ extension BookingFlightDetailVC {
     // return cell for Flight Info
     func getCellForFlightInfo(_ indexPath: IndexPath) -> UITableViewCell {
         
-        if previousIndexForFlightInfo.section != indexPath.section {
-            self.calculatedIndexForShowingFlightInfoDetails = (previousIndexForFlightInfo.section < indexPath.section) ? 0 : (self.viewModel.legDetails[indexPath.section].flight.count - 1)
-            previousIndexForFlightInfo = indexPath
+        print("before \(indexPath.section),\(indexPath.row) = \(self.calculatedIndexForShowingBaggageDetails)")
+        if previousIndexForBaggage.section != indexPath.section {
+            self.calculatedIndexForShowingBaggageDetails = (previousIndexForBaggage.section < indexPath.section) ? 0 : (self.viewModel.legDetails[indexPath.section].flight.count - 1)
+            previousIndexForBaggage = indexPath
         }
         
-        if previousIndexForFlightInfo.row < indexPath.row {
-            let totalCreated = getAllCountForFlightInfo(forLegNo: indexPath.section, flightNo: self.calculatedIndexForShowingFlightInfoDetails)
+        if previousIndexForBaggage.row < indexPath.row {
+            let totalCreated = getAllCountForBaggageInfo(forLegNo: indexPath.section, flightNo: self.calculatedIndexForShowingBaggageDetails)
+            print("total \(totalCreated)")
             if indexPath.row == totalCreated {
-                self.calculatedIndexForShowingFlightInfoDetails += 1
-                self.calculatedIndexForShowingFlightInfoDetails = min(self.viewModel.legDetails[indexPath.section].flight.count - 1, self.calculatedIndexForShowingFlightInfoDetails)
+                self.calculatedIndexForShowingBaggageDetails += 1
+                self.calculatedIndexForShowingBaggageDetails = min(self.viewModel.legDetails[indexPath.section].flight.count - 1, self.calculatedIndexForShowingBaggageDetails)
             }
         }
-        else if previousIndexForFlightInfo.row > indexPath.row {
-            let totalCreated = getAllCountForFlightInfo(forLegNo: indexPath.section, flightNo: self.calculatedIndexForShowingFlightInfoDetails-1)
+        else if previousIndexForBaggage.row > indexPath.row {
+            let totalCreated = getAllCountForBaggageInfo(forLegNo: indexPath.section, flightNo: self.calculatedIndexForShowingBaggageDetails-1)
+            print("total \(totalCreated)")
             if indexPath.row == (totalCreated - 1) {
-                self.calculatedIndexForShowingFlightInfoDetails -= 1
-                self.calculatedIndexForShowingFlightInfoDetails = max(0, self.calculatedIndexForShowingFlightInfoDetails)
+                self.calculatedIndexForShowingBaggageDetails -= 1
+                self.calculatedIndexForShowingBaggageDetails = max(0, self.calculatedIndexForShowingBaggageDetails)
             }
         }
         
-        previousIndexForFlightInfo = indexPath
+        previousIndexForBaggage = indexPath
+        
+        print("after \(indexPath.section),\(indexPath.row) = \(self.calculatedIndexForShowingBaggageDetails)")
         
         let flight = self.viewModel.legDetails[indexPath.section].flight[self.calculatedIndexForShowingFlightInfoDetails]
         
