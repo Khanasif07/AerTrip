@@ -160,7 +160,7 @@ extension LinkedAccountsVM {
                     self.webserviceForSocialLogin()
                     linkedinHelper.logout()
                 }
-            }) { [unowned self] (error) -> Void in
+            }) { (error) -> Void in
                 completionBlock?(false)
                 //Encounter error
             }

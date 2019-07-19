@@ -17,14 +17,16 @@ public class HotelSearched: NSManagedObject {
     // MARK: -
     
     class func insert(dataDict: JSONDictionary) -> HotelSearched {
-        var hotelSearched: HotelSearched?
         
+        let managedContext = CoreDataManager.shared.managedObjectContext
+
+        var hotelSearched: HotelSearched?
         if let id = dataDict[APIKeys.hid.rawValue], !"\(id)".isEmpty {
             hotelSearched = HotelSearched.fetch(id: "\(id)")
         }
         
         if hotelSearched == nil {
-            hotelSearched = NSEntityDescription.insertNewObject(forEntityName: "HotelSearched", into: CoreDataManager.shared.managedObjectContext) as? HotelSearched
+            hotelSearched = NSEntityDescription.insertNewObject(forEntityName: "HotelSearched", into: managedContext) as? HotelSearched
         }
         
         if let obj = dataDict[APIKeys.acc_type.rawValue] {

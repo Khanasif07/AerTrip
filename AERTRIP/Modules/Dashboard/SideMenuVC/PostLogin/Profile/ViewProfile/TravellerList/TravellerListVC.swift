@@ -192,9 +192,7 @@ class TravellerListVC: BaseVC {
     }
     
     func getSelectedPaxIds() -> [String] {
-        return selectedTravller.map { (result) -> String in
-            (result as? TravellerData)?.id ?? ""
-        }
+        return selectedTravller.compactMap({ $0.id })
     }
     
     @IBAction func assignGroupTapped(_ sender: Any) {
@@ -509,16 +507,14 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isSelectMode {
-            let current = fetchedResultsController.object(at: indexPath) as? TravellerData
+            let current = fetchedResultsController.object(at: indexPath)
           
-            if !selectedTravller.contains(where: { (result) -> Bool in
-                ((result as? TravellerData)?.id ?? "") == (current?.id ?? "")
-            }) {
+            if !selectedTravller.contains(where: { ($0.id ?? "") == (current.id ?? "") }) {
                 selectedTravller.append(fetchedResultsController.object(at: indexPath))
             }
             updateNavView()
-        } else if let tData = fetchedResultsController.object(at: indexPath) as? TravellerData {
-            AppFlowManager.default.moveToViewProfileDetailVC(tData.travellerDetailModel, usingFor: .travellerList)
+        } else {
+            AppFlowManager.default.moveToViewProfileDetailVC(fetchedResultsController.object(at: indexPath).travellerDetailModel, usingFor: .travellerList)
         }
         
 //        let cell = tableView.cellForRow(at: indexPath)
@@ -527,10 +523,8 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         if isSelectMode {
-            let current = fetchedResultsController.object(at: indexPath) as? TravellerData
-            if let index = selectedTravller.firstIndex(where: { (result) -> Bool in
-                ((result as? TravellerData)?.id ?? "") == (current?.id ?? "")
-            }) {
+            let current = fetchedResultsController.object(at: indexPath)
+            if let index = selectedTravller.firstIndex(where: { ($0.id ?? "") == (current.id ?? "") }) {
                 selectedTravller.remove(at: index)
             }
             

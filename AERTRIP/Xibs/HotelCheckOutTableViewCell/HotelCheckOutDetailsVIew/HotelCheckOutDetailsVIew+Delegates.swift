@@ -136,7 +136,7 @@ extension HotelCheckOutDetailsVIew: TopNavigationViewDelegate {
 extension HotelCheckOutDetailsVIew: HotelDetailAmenitiesCellDelegate {
     func viewAllButtonAction() {
         if let hotelData = self.viewModel {
-            AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: hotelData.amenitiesGroups ?? [:], amentites: hotelData.amenities)
+            AppFlowManager.default.showHotelDetailAmenitiesVC(amenitiesGroups: hotelData.amenitiesGroups , amentites: hotelData.amenities)
         }
     }
 }

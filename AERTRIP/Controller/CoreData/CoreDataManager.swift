@@ -29,44 +29,43 @@ class CoreDataManager {
         return url
     }()
 
-    lazy var managedObjectModel: NSManagedObjectModel = {
+    lazy var persistentContainer: NSPersistentContainer = {
+        
+        let container = NSPersistentContainer(name: "AERTRIP")
+        
+        
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
+    
+    var managedObjectModel: NSManagedObjectModel {
         /**
          * The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
          */
-        let modelURL = Bundle.main.url(forResource: "AERTRIP", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOf: modelURL)!
-    }()
+        
+        return persistentContainer.managedObjectModel
+    }
     
-    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
+    var persistentStoreCoordinator: NSPersistentStoreCoordinator {
         /**
          * The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
          * Create the coordinator and store
          */
-        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.appendingPathComponent("AERTRIP.sqlite")
-        var failureReason = "There was an error creating or loading the Chat saved data."
-        do {
-            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
-            printDebug("Aertrip Core Data at: \(url)")
-        }
-        catch {
-            /// Report any error we got.
-            printDebug("Failed to initialize the Aertrip saved data")
-        }
-        return coordinator
-    }()
+        
+        return persistentContainer.persistentStoreCoordinator
+    }
     
-    lazy var managedObjectContext: NSManagedObjectContext = {
+    var managedObjectContext: NSManagedObjectContext {
         /**
          * Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
          */
-        let coordinator = self.persistentStoreCoordinator
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        managedObjectContext.persistentStoreCoordinator = coordinator
-        managedObjectContext.mergePolicy = NSMergePolicyType.mergeByPropertyStoreTrumpMergePolicyType
-
-        return managedObjectContext
-    }()
+        return persistentContainer.viewContext
+    }
 
     /**
      * Making init private so that other object cann't be created.
