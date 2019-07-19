@@ -75,8 +75,8 @@ class BookingReschedulingVC: BaseVC {
     }
     
     override func setupColors() {
-        self.continueButton.setTitleColor(AppColors.themeWhite, for: .normal)
-        self.continueButton.setTitleColor(AppColors.themeWhite, for: .selected)
+        self.continueButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
+        self.continueButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .selected)
         self.passengerLabel.textColor = AppColors.textFieldTextColor51
         self.totalNetRefundLabel.textColor = AppColors.themeBlack
         self.totalPriceLabel.textColor = AppColors.themeBlack

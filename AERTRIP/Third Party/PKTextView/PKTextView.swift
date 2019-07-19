@@ -44,7 +44,6 @@ class PKTextView: UITextView {
         self.layer.cornerRadius = cornerRad
         self.clipsToBounds = true
         self.currentFont = self.font
-        
         //Add Notification for Text View Delegates
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange(_:)), name: UITextView.textDidChangeNotification, object: nil)
         //Add Observer text key
@@ -102,14 +101,4 @@ class PKTextView: UITextView {
 }
 
 // Prevent entering multiple spaces
-extension PKTextView: UITextViewDelegate {
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        guard range.location == 0 else {
-            return true
-        }
-        
-        let newString = (textView.text as NSString).replacingCharacters(in: range, with: text) as NSString
-        return newString.rangeOfCharacter(from: .whitespacesAndNewlines).location != 0
-    }
-}
+

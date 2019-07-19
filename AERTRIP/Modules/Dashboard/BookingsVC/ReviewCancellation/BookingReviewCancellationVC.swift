@@ -42,10 +42,13 @@ class BookingReviewCancellationVC: BaseVC {
     // MARK: - Override methods
     
     override func viewWillAppear(_ animated: Bool) {
+        self.commentTextView.delegate = self
+
         super.viewWillAppear(animated)
         
         self.statusBarStyle = .default
         self.statusBarColor = AppColors.themeBlack.withAlphaComponent(0.4)
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -68,7 +71,6 @@ class BookingReviewCancellationVC: BaseVC {
     
     override func initialSetup() {
         self.requestCancellationButton.shouldShowPressAnimation = false
-        self.commentTextView.delegate = self
         switch self.viewModel.currentUsingAs {
         case .flightCancellationReview, .hotelCancellationReview:
             self.commentTextView.placeholder = LocalizedString.EnterYourCommentOptional.localized
@@ -135,8 +137,9 @@ class BookingReviewCancellationVC: BaseVC {
     override func setupColors() {
         self.refundModeTitleLabel.textColor = AppColors.themeGray40
         self.refundModeTextField.textColor = AppColors.textFieldTextColor51
-        self.requestCancellationButton.setTitleColor(AppColors.themeWhite, for: .normal)
-        self.requestCancellationButton.setTitleColor(AppColors.themeWhite, for: .selected)
+        self.requestCancellationButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
+        self.requestCancellationButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .selected)
+
         self.totalNetRefundLabel.textColor = AppColors.themeBlack
         self.refundAmountLabel.textColor = AppColors.themeBlack
         self.infoLabel.textColor = AppColors.themeGray40
@@ -171,6 +174,20 @@ class BookingReviewCancellationVC: BaseVC {
             }
         }
     }
+    
+    
+    // MARK: - Helpe methods
+    private func manageContinueButton() {
+        if self.viewModel.isUserDataVerified {
+            self.requestCancellationButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(1.0), for: .normal)
+            self.requestCancellationButton.isUserInteractionEnabled = true
+        } else {
+            self.requestCancellationButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
+            self.requestCancellationButton.isUserInteractionEnabled = false
+        }
+    }
+  
+    
 }
 
 // MARK: - Top Navigation view Delegate methods
@@ -225,6 +242,8 @@ extension BookingReviewCancellationVC {
                     self.viewModel.selectedReason = firstSelect
                 }
             }
+            
+           
         }
         return true
     }
@@ -285,5 +304,18 @@ extension BookingReviewCancellationVC: BulkEnquirySuccessfulVCDelegate{
                 self.sendDataChangedNotification(data: ATNotification.myBookingCasesRequestStatusChanged)
             })
         }
+    }
+}
+
+
+extension BookingReviewCancellationVC {
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard range.location == 0 else {
+            return true
+        }
+        self.manageContinueButton()
+        let newString = (textView.text as NSString).replacingCharacters(in: range, with: text) as NSString
+        return newString.rangeOfCharacter(from: .whitespacesAndNewlines).location != 0
     }
 }

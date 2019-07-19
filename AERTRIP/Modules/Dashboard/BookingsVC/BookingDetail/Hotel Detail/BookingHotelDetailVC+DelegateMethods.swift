@@ -115,7 +115,25 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
         if indexPath.section == ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) + 1) {
             if indexPath.row == 0 { // Address Cell {
                 self.openMaps()
-            } else if indexPath.row == 3, (self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "") != LocalizedString.SpaceWithHiphen.localized { // Overview cell {
+            } else if indexPath.row == 1 { // Phone cell
+                var uc = URLComponents()
+                uc.scheme = "tel"
+                uc.path =  self.viewModel.bookingDetail?.bookingDetail?.phoneDetail ?? ""
+                
+                if let phoneURL = uc.url {
+                    //            let alert = UIAlertController(title: phoneNumber, message: nil, preferredStyle: .alert)
+                    //            alert.view.tintColor = AppColors.themeGreen
+                    //            alert.addAction(UIAlertAction(title: "Call", style: .default, handler: { _ in
+                    //
+                    //            }))
+                    UIApplication.shared.openURL(phoneURL as URL)
+                    //   alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                    
+                    // self.present(alert, animated: true, completion: nil)
+                }
+            }
+            
+            else if indexPath.row == 3, (self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "") != LocalizedString.SpaceWithHiphen.localized { // Overview cell {
                 AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel.bookingDetail?.bookingDetail?.info ?? "")
             } else if indexPath.row == 5 {
                 AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel.bookingDetail?.bookingDetail?.hotelId ?? "")
