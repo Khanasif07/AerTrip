@@ -96,6 +96,7 @@ class ATButton: UIButton {
         super.init(coder: aDecoder)
         
         self.addRequiredAction()
+      
     }
     
     override func layoutSubviews() {
@@ -197,7 +198,7 @@ class ATButton: UIButton {
     
     private func addRequiredAction() {
         self.adjustsImageWhenHighlighted = false
-        
+        self.isMultipleTouchEnabled = false
         self.addTarget(self, action: #selector(buttonPressed(_:)), for: UIControl.Event.touchDown)
         self.addTarget(self, action: #selector(buttonReleased(_:)), for: UIControl.Event.touchUpInside)
         self.addTarget(self, action: #selector(buttonReleased(_:)), for: UIControl.Event.touchUpOutside)
@@ -252,6 +253,7 @@ class ATButton: UIButton {
     }
     
     private func animateToPressedSatate() {
+        disable(forSeconds: 1)
         guard self.shouldShowPressAnimation else {return}
         UIView.animate(withDuration: AppConstants.kAnimationDuration / 2.0, animations: { [weak self] in
             self?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)

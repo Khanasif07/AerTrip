@@ -83,6 +83,7 @@
                 <outlet property="containerView" destination="f2C-4L-r9v" id="P2j-Pw-0wR"/>
                 <outlet property="dividerView" destination="qcn-7O-9h5" id="QWv-Ft-oxR"/>
                 <outlet property="travellerImageView" destination="ayg-Y1-nWW" id="IBR-n4-0B6"/>
+                <outlet property="travellerImageViewBottomConstraint" destination="d5P-wR-S9r" id="Tbf-T9-b11"/>
                 <outlet property="travellerNameLabel" destination="qTY-8k-8zj" id="Qz4-Oa-qeE"/>
                 <outlet property="travellersLabel" destination="ySf-5Y-gDM" id="UFT-pu-qJy"/>
             </connections>

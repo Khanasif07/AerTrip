@@ -40,10 +40,30 @@ class BookingReviewCancellationVC: BaseVC {
     let viewModel = BookingReviewCancellationVM()
     
     // MARK: - Override methods
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.statusBarStyle = .default
+        self.statusBarColor = AppColors.themeBlack.withAlphaComponent(0.4)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.statusBarColor = AppColors.clear
+        
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.refundAmountLabel.text = self.viewModel.totRefundForFlight.delimiterWithSymbol
+        if self.viewModel.currentUsingAs == .flightCancellationReview {
+             self.refundAmountLabel.text = self.viewModel.totRefundForFlight.delimiterWithSymbol
+        } else if self.viewModel.currentUsingAs == .hotelCancellationReview {
+           self.refundAmountLabel.text = self.viewModel.totalRefundForHotel.delimiterWithSymbol
+        }
+       
     }
     
     override func initialSetup() {

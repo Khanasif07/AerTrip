@@ -617,7 +617,7 @@
 "Completed" = "Completed";
 "Cancelled" = "Cancelled";
 "YouHaveNoUpcomingBookings" = "You have no upcoming bookings";
-"YouHaveNoComletedBookings" = "You have no comleted bookings";
+"YouHaveNoCompletedBookings" = "You have no completed bookings";
 "YouHaveNoCancelledBookings" = "You have no cancelled bookings";
 "YouHaveNoPendingAction" = "You have no pending actions";
 "NewDestinationsAreAwaiting"  = "New destinations are awaiting";
@@ -675,6 +675,7 @@
 "AddToCalender" = "Add to Calender";
 "AddToTrips" = "Add to Trips";
 "BookSameFlight" = "Book same flight";
+"Traveller" = "Traveller";
 
 
 // Booking Action sheet option

@@ -30,4 +30,9 @@ class HotelCancellationVM {
     }
     
     var selectedRooms: [RoomDetailModel] = [] //used when the select the guest for cancellation
+    
+    
+    var netRefundAmount: Double {
+        return selectedRooms.reduce(0) { $0 + ($1.netRefund) }
+    }
 }

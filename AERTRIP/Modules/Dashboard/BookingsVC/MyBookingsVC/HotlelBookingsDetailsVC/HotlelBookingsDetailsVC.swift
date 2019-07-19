@@ -26,6 +26,7 @@ class HotlelBookingsDetailsVC: BaseVC {
     
     var tripChangeIndexPath: IndexPath?
     var updatedTripDetail: TripModel?
+    var navigationTitleText: String = ""
     
     // MARK: - IBOutlets
     
@@ -41,9 +42,7 @@ class HotlelBookingsDetailsVC: BaseVC {
     
     @IBOutlet var topNavBarHeightConstraint: NSLayoutConstraint!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -60,7 +59,7 @@ class HotlelBookingsDetailsVC: BaseVC {
         self.registerNibs()
         self.bookingDetailsTableView.delegate = self
         self.bookingDetailsTableView.dataSource = self
-        
+     
         // Call to get booking detail
         self.viewModel.getBookingDetail()
     }
@@ -84,6 +83,14 @@ class HotlelBookingsDetailsVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         self.viewModel.getBookingDetail()
+    }
+    
+    func getUpdatedTitle() -> String {
+        var updatedTitle = self.viewModel.bookingDetail?.bookingDetail?.hotelName ?? ""
+        if updatedTitle.count > 24 {
+            updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
+        }
+        return updatedTitle
     }
     
     // MARK: - Functions
@@ -143,6 +150,7 @@ extension HotlelBookingsDetailsVC: BookingProductDetailVMDelegate {
         self.bookingDetailsTableView.delegate = self
         self.bookingDetailsTableView.dataSource = self
         self.viewModel.getSectionDataForHotelDetail()
+        self.navigationTitleText = getUpdatedTitle()
         self.bookingDetailsTableView.reloadData()
         self.viewModel.getTripOwnerApi()
     }

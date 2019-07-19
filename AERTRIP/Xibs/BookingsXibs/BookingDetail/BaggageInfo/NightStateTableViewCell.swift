@@ -32,6 +32,7 @@ class NightStateTableViewCell: UITableViewCell {
         self.topBackgroundView.layer.borderWidth = 0.2
         self.topBackgroundView.layer.borderColor = AppColors.themeGray20.cgColor
         self.topBackgroundView.backgroundColor = AppColors.themeGray04
+        self.selectionStyle = .none
     }
     
     private func configureCell() {

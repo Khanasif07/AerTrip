@@ -18,6 +18,7 @@ class BookingTravellersDetailsTableViewCell: UITableViewCell {
     @IBOutlet var travellersLabel: UILabel!
     @IBOutlet var travellerNameLabel: UILabel!
     @IBOutlet var travellerImageView: UIImageView!
+    @IBOutlet weak var travellerImageViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet var dividerView: ATDividerView!
     // Mark:- LifeCycle
     //================

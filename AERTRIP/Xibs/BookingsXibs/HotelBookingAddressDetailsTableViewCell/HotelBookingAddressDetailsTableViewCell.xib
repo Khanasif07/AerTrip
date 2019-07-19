@@ -47,7 +47,7 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="S6C-rA-2SE">
-                                <rect key="frame" x="16" y="56" width="311" height="91.5"/>
+                                <rect key="frame" x="16" y="56" width="311" height="83"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ipV-ly-DuP">
                                         <rect key="frame" x="0.0" y="0.0" width="165" height="12"/>
@@ -106,7 +106,7 @@
                                         </constraints>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eem-Pf-Nlo">
-                                        <rect key="frame" x="0.0" y="22" width="294" height="69.5"/>
+                                        <rect key="frame" x="0.0" y="22" width="294" height="61"/>
                                         <string key="text">Ramada Powai, Powai Saki Vihar Road Mumbai 400 087, Mumbai, India,
 Pin-code: 400 087</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -116,28 +116,28 @@ Pin-code: 400 087</string>
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6RK-KQ-f1u">
-                                <rect key="frame" x="0.0" y="157.5" width="343" height="82"/>
+                                <rect key="frame" x="0.0" y="149" width="343" height="90.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="46" translatesAutoresizingMaskIntoConstraints="NO" id="2u2-JD-kou">
-                                        <rect key="frame" x="16" y="0.0" width="311" height="64"/>
+                                        <rect key="frame" x="16" y="0.0" width="311" height="86.5"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="lbh-ab-y7R">
-                                                <rect key="frame" x="0.0" y="0.0" width="65.5" height="64"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="lbh-ab-y7R">
+                                                <rect key="frame" x="0.0" y="0.0" width="65.5" height="86.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check-in" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YC7-p7-ibD">
-                                                        <rect key="frame" x="0.0" y="0.0" width="51" height="18"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="51" height="29"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="30 Dec" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FSC-kq-DyQ">
-                                                        <rect key="frame" x="0.0" y="18" width="61" height="28"/>
+                                                        <rect key="frame" x="0.0" y="29" width="61" height="28.5"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Sunday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zYR-wj-wSG">
-                                                        <rect key="frame" x="0.0" y="46" width="48.5" height="18"/>
+                                                        <rect key="frame" x="0.0" y="57.5" width="48.5" height="29"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -145,17 +145,17 @@ Pin-code: 400 087</string>
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3lP-uk-Rc7">
-                                                <rect key="frame" x="111.5" y="0.0" width="78" height="64"/>
+                                                <rect key="frame" x="111.5" y="0.0" width="78" height="86.5"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="moon" translatesAutoresizingMaskIntoConstraints="NO" id="Jip-BI-TM9">
-                                                        <rect key="frame" x="-2" y="24" width="16" height="16"/>
+                                                        <rect key="frame" x="-2" y="35.5" width="16" height="16"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="16" id="RMA-LA-jHr"/>
                                                             <constraint firstAttribute="width" secondItem="Jip-BI-TM9" secondAttribute="height" multiplier="1:1" id="nFT-MG-wUM"/>
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 Nights" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pAX-SG-cpN">
-                                                        <rect key="frame" x="19" y="23" width="56.5" height="18"/>
+                                                        <rect key="frame" x="19" y="34.5" width="56.5" height="18"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -168,23 +168,23 @@ Pin-code: 400 087</string>
                                                     <constraint firstItem="pAX-SG-cpN" firstAttribute="leading" secondItem="Jip-BI-TM9" secondAttribute="trailing" constant="5" id="nMm-Pd-LII"/>
                                                 </constraints>
                                             </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="odx-oy-2xF">
-                                                <rect key="frame" x="235.5" y="0.0" width="75.5" height="64"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="odx-oy-2xF">
+                                                <rect key="frame" x="235.5" y="0.0" width="75.5" height="86.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Check-out" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6i-qk-RwQ">
-                                                        <rect key="frame" x="15.5" y="0.0" width="60" height="18"/>
+                                                        <rect key="frame" x="15.5" y="0.0" width="60" height="29"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="31 Dec" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LkT-Lh-jcj">
-                                                        <rect key="frame" x="14.5" y="18" width="61" height="28"/>
+                                                        <rect key="frame" x="14.5" y="29" width="61" height="28.5"/>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Wednesday" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ER5-eC-4ar">
-                                                        <rect key="frame" x="0.0" y="46" width="75.5" height="18"/>
+                                                        <rect key="frame" x="0.0" y="57.5" width="75.5" height="29"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -192,12 +192,9 @@ Pin-code: 400 087</string>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="64" id="Abb-id-iMU"/>
-                                        </constraints>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZAg-ox-ekF" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="81.5" width="311" height="0.5"/>
+                                        <rect key="frame" x="16" y="90" width="311" height="0.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="rMe-OX-2Ow"/>
@@ -207,7 +204,7 @@ Pin-code: 400 087</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="ZAg-ox-ekF" secondAttribute="bottom" id="HUu-GG-F3Y"/>
-                                    <constraint firstAttribute="bottom" secondItem="2u2-JD-kou" secondAttribute="bottom" constant="18" id="SJw-xl-zhl"/>
+                                    <constraint firstAttribute="bottom" secondItem="2u2-JD-kou" secondAttribute="bottom" constant="4" id="SJw-xl-zhl"/>
                                     <constraint firstAttribute="trailing" secondItem="ZAg-ox-ekF" secondAttribute="trailing" constant="16" id="b3K-Bh-Qhn"/>
                                     <constraint firstItem="2u2-JD-kou" firstAttribute="leading" secondItem="6RK-KQ-f1u" secondAttribute="leading" constant="16" id="gCZ-qb-zRr"/>
                                     <constraint firstAttribute="trailing" secondItem="2u2-JD-kou" secondAttribute="trailing" constant="16" id="ivP-sW-5uv"/>

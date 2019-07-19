@@ -12,9 +12,9 @@ import UIKit
 extension UIButton {
     
     func disable(forSeconds: TimeInterval) {
-        self.isEnabled = false
+        self.isUserInteractionEnabled = false
         delay(seconds: forSeconds) { [weak self] in
-            self?.isEnabled = true
+            self?.isUserInteractionEnabled = true
         }
     }
     

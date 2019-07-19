@@ -37,14 +37,22 @@ class MyBookingFilterVM {
     var isFirstTime: Bool = true
     
     var totalResultCount: Int {
-        return CoreDataManager.shared.fetchData(fromEntity: "BookingData", forAttribute: "bookingId", usingFunction: "count").count
+             return CoreDataManager.shared.fetchData(fromEntity: "BookingData", forAttribute: "bookingId", usingFunction: "count").count
     }
     var filteredUpcomingResultCount: Int = 0
     var filteredCompletedResultCount: Int = 0
     var filteredCanceledResultCount: Int = 0
     
     var filteredResultCount: Int {
-        return filteredUpcomingResultCount + filteredCompletedResultCount + filteredCanceledResultCount
+        get {
+             return filteredUpcomingResultCount + filteredCompletedResultCount + filteredCanceledResultCount
+        }
+        set (initialValue) {
+          self.filteredUpcomingResultCount = initialValue
+          self.filteredCompletedResultCount = initialValue
+          self.filteredCanceledResultCount = initialValue
+        }
+       
     }
 
     var searchText: String = ""
@@ -60,7 +68,7 @@ class MyBookingFilterVM {
         
         self.bookingFromDate = nil
         self.bookingToDate = nil
-        
+        self.isFirstTime = true
         self.eventType = [1,2,3]
     }
 }

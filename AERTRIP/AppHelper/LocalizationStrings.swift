@@ -687,7 +687,7 @@ enum LocalizedString: String {
     case Completed
     case Cancelled
     case YouHaveNoUpcomingBookings
-    case YouHaveNoComletedBookings
+    case YouHaveNoCompletedBookings
     case YouHaveNoCancelledBookings
     case YouHaveNoPendingAction
     case NewDestinationsAreAwaiting
@@ -746,6 +746,7 @@ enum LocalizedString: String {
     case AddToCalender
     case AddToTrips
     case BookSameFlight
+    case Traveller
     
     // Booking Action sheet text
     case RequestAddOnAndFrequentFlyer

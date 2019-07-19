@@ -100,3 +100,16 @@ class PKTextView: UITextView {
         }
     }
 }
+
+// Prevent entering multiple spaces
+extension PKTextView: UITextViewDelegate {
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard range.location == 0 else {
+            return true
+        }
+        
+        let newString = (textView.text as NSString).replacingCharacters(in: range, with: text) as NSString
+        return newString.rangeOfCharacter(from: .whitespacesAndNewlines).location != 0
+    }
+}

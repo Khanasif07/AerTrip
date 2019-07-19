@@ -178,7 +178,7 @@ class TopNavigationView: UIView {
     }
     
     func configureNavBar(title: String?, isLeftButton: Bool = true, isFirstRightButton: Bool = false, isSecondRightButton: Bool = false, isDivider: Bool = true, backgroundType: BackgroundType = BackgroundType.blurMainView(isDark: false)) {
-        
+       
         self.navTitleLabel.text = title
         
         self.leftButton.isHidden = !isLeftButton
