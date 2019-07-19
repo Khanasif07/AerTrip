@@ -163,8 +163,7 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
             return
         }
         
-        let allCount = 2
-        
+//        let allCount = 2
 //        let idx = Int(indexPath.row/allCount)
         let idx = indexPath.row
 

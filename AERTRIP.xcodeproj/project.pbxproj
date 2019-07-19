@@ -11,6 +11,7 @@
 		0C6666AF22D472F1009DFACD /* TripChangeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6666AD22D472F0009DFACD /* TripChangeTableViewCell.xib */; };
 		0C6666B722D486A2009DFACD /* BookingCommonActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6666B522D486A2009DFACD /* BookingCommonActionTableViewCell.swift */; };
 		0C6666B822D486A2009DFACD /* BookingCommonActionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6666B622D486A2009DFACD /* BookingCommonActionTableViewCell.xib */; };
+		0CAC8C8222E1E0620039D612 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F983A221B51A070018DFED /* UIImageExtension.swift */; };
 		1800FC6521EF1FA20006D6D1 /* AddNotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */; };
 		1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */; };
 		180162ED2295706C007E5D43 /* BookingAddOnHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180162EC2295706C007E5D43 /* BookingAddOnHeaderView.swift */; };
@@ -933,7 +934,6 @@
 		84F983DD21B51A070018DFED /* UICollectionViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9839F21B51A070018DFED /* UICollectionViewExtension.swift */; };
 		84F983DE21B51A070018DFED /* DispatchQueueExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F983A021B51A070018DFED /* DispatchQueueExtension.swift */; };
 		84F983DF21B51A070018DFED /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F983A121B51A070018DFED /* StringExtension.swift */; };
-		84F983E021B51A070018DFED /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F983A221B51A070018DFED /* UIImageExtension.swift */; };
 		84F983E121B51A070018DFED /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F983A321B51A070018DFED /* UserDefaultsExtension.swift */; };
 		84F983E221B51A070018DFED /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F983A421B51A070018DFED /* DateExtension.swift */; };
 		84F983E421B51A070018DFED /* AppFlowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F983A621B51A070018DFED /* AppFlowManager.swift */; };
@@ -5247,7 +5247,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Pramod Kumar";
 				TargetAttributes = {
 					8469FE8E21B513FD0027BB2E = {
@@ -5993,9 +5993,8 @@
 				18E797022248ED6500A7AC8B /* FareSectionHeader.swift in Sources */,
 				8460C0C621F34D56007768CC /* ATCollectionView.swift in Sources */,
 				849EC9E6223A56F300B217D4 /* ItineraryData.swift in Sources */,
-				84F983E021B51A070018DFED /* UIImageExtension.swift in Sources */,
+				0CAC8C8222E1E0620039D612 /* UIImageExtension.swift in Sources */,
 				84DD24642265AFBA0013F77E /* FlightTableViewCell.swift in Sources */,
-				84F983E021B51A070018DFED /* UIImageExtension.swift in Sources */,
 				842EDE7F2238E7D600E99409 /* HotelDetailsVM.swift in Sources */,
 				18EF5E88221D2E1F00EFFA6E /* HotelSearchRequestModel.swift in Sources */,
 				183B71AE2289968400A75B7F /* BookingTravellerDetailTableViewCell.swift in Sources */,

@@ -120,13 +120,9 @@ class HCBookingIncompleteVC: BaseVC {
     
     //MARK:- Action
     @IBAction func payButtonAction(_ sender: ATButton) {
-        FareUpdatedPopUpVC.showRefundAmountPopUp(refundAmount: 8000.0, paymentMode: self.paymentMethod, confirmButtonAction: { [weak self] in
-            guard let sSelf = self else {return}
-            
+        FareUpdatedPopUpVC.showRefundAmountPopUp(refundAmount: 8000.0, paymentMode: self.paymentMethod, confirmButtonAction: {
             printDebug("confirmButtonAction")
-
-            }, cancelButtonAction: { [weak self] in
-                guard let sSelf = self else {return}
+            }, cancelButtonAction: {
             printDebug("cancelButtonAction")
         })
     }

@@ -13,7 +13,9 @@ import CoreData
 @objc(BookingData)
 public class BookingData: NSManagedObject {
     
-    class func insert(dataDict: JSONDictionary, into context: NSManagedObjectContext = CoreDataManager.shared.managedObjectContext, isBulkInsertion: Bool = false) -> BookingData {
+    class func insert(dataDict: JSONDictionary) -> BookingData? {
+
+        let managedContext = CoreDataManager.shared.managedObjectContext
         
         var booking: BookingData?
         
@@ -22,11 +24,11 @@ public class BookingData: NSManagedObject {
         }
         
         if booking == nil {
-            booking = NSEntityDescription.insertNewObject(forEntityName: "BookingData", into: context) as? BookingData
+            booking = NSEntityDescription.insertNewObject(forEntityName: "BookingData", into: managedContext) as? BookingData
         }
         
         if let obj = dataDict[APIKeys.bid.rawValue] {
-          booking?.bookingId = "\(obj)".removeNull
+            booking?.bookingId = "\(obj)".removeNull
         }
         
         if let obj = dataDict[APIKeys.booking_date.rawValue] {
@@ -36,14 +38,14 @@ public class BookingData: NSManagedObject {
         // Function set product Type
         func setProductType(productType: String) -> Int {
             if productType == "flight" {
-               booking?.eventType = 1
-               return 1
+                booking?.eventType = 1
+                return 1
             } else if productType == "hotel" {
                 booking?.eventType = 2
                 return 2
             } else  {
-              booking?.eventType = 3
-               return 3
+                booking?.eventType = 3
+                return 3
             }
         }
         
@@ -51,11 +53,11 @@ public class BookingData: NSManagedObject {
             booking?.bookingNumber = "\(obj)".removeNull
         }
         
-       
+        
         if let obj = dataDict[APIKeys.product.rawValue] {
             booking?.product = "\(obj)".removeNull
             booking?.bookingProductType = Int16(setProductType(productType: obj as? String ?? ""))
-        
+            
         }
         
         if let obj = dataDict[APIKeys.bstatus.rawValue] {
@@ -65,7 +67,7 @@ public class BookingData: NSManagedObject {
         
         //for seting the steps array anf pending status
         func setStepsArrayAndPendingStatus(forData: JSONDictionary) {
-
+            
             var steps: [String] = []
             
             if let addOnSteps = forData["addon"] as? [String] {
@@ -133,16 +135,16 @@ public class BookingData: NSManagedObject {
                 return 2 // Completed booking
             }
             else if startDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isGreaterThan((todayDate)) ?? false ||
-               startDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isToday ?? false ||
-                 endDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isToday ?? false ||
-               (startDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isSmallerThan((todayDate)) ?? false && endDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isGreaterThan((todayDate)) ?? false ) {
+                startDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isToday ?? false ||
+                endDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isToday ?? false ||
+                (startDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isSmallerThan((todayDate)) ?? false && endDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isGreaterThan((todayDate)) ?? false ) {
                 return 1 // Upcoming
             } else {
                 return 3 // Cancelled
             }
-//            else if enDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isSmallerThan((Date())) ?? false, ((bstatus.lowercased() == "pending")) || (bstatus.lowercased() == "successful") || (bstatus.lowercased() == "booked") || (bstatus.lowercased() == "successful") || (bstatus.lowercased() == "booked") {
-//                return 2 // Complete
-//            }
+            //            else if enDate.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isSmallerThan((Date())) ?? false, ((bstatus.lowercased() == "pending")) || (bstatus.lowercased() == "successful") || (bstatus.lowercased() == "booked") || (bstatus.lowercased() == "successful") || (bstatus.lowercased() == "booked") {
+            //                return 2 // Complete
+            //            }
             
         }
         
@@ -155,13 +157,13 @@ public class BookingData: NSManagedObject {
             
             booking?.pax = obj["pax"] as?  [String]
             booking?.paxArrStr = (booking?.pax ?? [String]()).joined(separator: ",")
-
+            
             booking?.tripCities = obj["trip_cities"] as? [String]
             booking?.tripCitiesArrStr = (booking?.tripCities ?? [String]()).joined(separator: ",")
-
+            
             booking?.travelledCities = obj["travelled_cities"] as? [String]
             booking?.travelledCitiesArrStr = (booking?.travelledCities ?? [String]()).joined(separator: ",")
-
+            
             booking?.disconnected = obj["disconnected"] as? Bool ?? false
             booking?.serviceType = obj["service_type"] as? String
             booking?.routes = obj["routes"] as? [[String]] ?? [[]]
@@ -193,9 +195,8 @@ public class BookingData: NSManagedObject {
         }
         //manage the header date
         
-        if !isBulkInsertion {
-            CoreDataManager.shared.saveContext(managedContext: context)
-        }
+        
+        CoreDataManager.shared.saveContext()
         
         return booking!
     }
@@ -205,52 +206,11 @@ public class BookingData: NSManagedObject {
     // MARK: -
     
     class func insert(dataDictArray: [JSONDictionary], completionBlock: @escaping ([BookingData]) -> Void) {
-        var dataArr = [BookingData]()
-        var tempDataArr = [BookingData]()
-        // set up a managed object context just for the insert. This is in addition to the managed object context you may have in your App Delegate.
-        let managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType)
-        managedObjectContext.persistentStoreCoordinator = CoreDataManager.shared.persistentStoreCoordinator
-        managedObjectContext.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType)
         
-        managedObjectContext.perform { // runs asynchronously
-//            while true { // loop through each batch of inserts. Your implementation may vary.
-                autoreleasepool { // auto release objects after the batch save
-                    // insert new entity object
-                    for dataDict in dataDictArray {
-                        let dataTemp = BookingData.insert(dataDict: dataDict, into: managedObjectContext, isBulkInsertion: true)
-                        dataArr.append(dataTemp)
-                    }
-                }
-                
-                // only save once per batch insert
-                if managedObjectContext.hasChanges {
-                    do {
-                        try managedObjectContext.save()
-                    }
-                    catch let error {
-                        printDebug("Problem in saving the managedObjectContext while in bulk is: \(error.localizedDescription)")
-                    }
-                }
-                
-                CoreDataManager.shared.managedObjectContext.perform({
-                    if CoreDataManager.shared.managedObjectContext.hasChanges {
-                        do {
-                            try CoreDataManager.shared.managedObjectContext.save()
-                        }
-                        catch {
-                            printDebug("Problem in saving the managedObjectContext while in bulk is: \(error.localizedDescription)")
-                        }
-                    }
-                    for dataTemp in dataArr {
-                        let data = CoreDataManager.shared.managedObjectContext.object(with: dataTemp.objectID) as! BookingData
-                        tempDataArr.append(data)
-                    }
-                    completionBlock(tempDataArr)
-//                    completionBlock(dataArr)
-                })
-//                return
-//            }
+        for dataDict in dataDictArray {
+            let _ = BookingData.insert(dataDict: dataDict)
         }
+        completionBlock([])
     }
     
     

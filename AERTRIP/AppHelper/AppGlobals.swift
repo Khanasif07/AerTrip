@@ -14,7 +14,7 @@ import UIKit
 import EventKit
 
 func printDebug<T>(_ obj: T) {
-   // print(obj)
+    print(obj)
 }
 
 func printFonts() {
@@ -490,7 +490,7 @@ extension AppGlobals {
                     }
                     
                 } else {
-                    printDebug("Error took place while downloading a file. Error description: \(error?.localizedDescription)")
+                    printDebug("Error took place while downloading a file. Error description: \(error?.localizedDescription ?? "N/A")")
                 }
             }
             task.resume()
