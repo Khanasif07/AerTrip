@@ -267,6 +267,8 @@ extension HotlelBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
 
 //==========================
 extension HotlelBookingsDetailsVC: MXParallaxHeaderDelegate {
+    
+  
     func updateForParallexProgress() {
         let prallexProgress = self.bookingDetailsTableView.parallaxHeader.progress
         
@@ -277,7 +279,8 @@ extension HotlelBookingsDetailsVC: MXParallaxHeaderDelegate {
                 sSelf.topNavBar.firstRightButton.isSelected = true
                 sSelf.topNavBar.leftButton.isSelected = true
                 sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
-                sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeImage, endText: self?.viewModel.bookingDetail?.bookingDetail?.hotelName ?? "", font: AppFonts.SemiBold.withSize(18.0), isEndTextBold: true)
+                
+                sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeImage, endText: self?.navigationTitleText ?? "", font: AppFonts.SemiBold.withSize(18.0), isEndTextBold: true)
                 sSelf.topNavBar.dividerView.isHidden = false
             }
         } else {

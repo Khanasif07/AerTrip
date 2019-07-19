@@ -26,5 +26,10 @@ class BookingReschedulingVM {
          return legsData.reduce(0) { $0 + ($1.selectedPaxs.reduce(0, { $0 + $1.netRefundForCancellation })) }
     }
     
+   
+    var selectedLegs: [Leg] {
+        return legsData.filter( { $0.selectedPaxs.count > 0 })
+    }
+    
     var usingFor: BookingReschedulingVCUsingFor = .rescheduling
 }

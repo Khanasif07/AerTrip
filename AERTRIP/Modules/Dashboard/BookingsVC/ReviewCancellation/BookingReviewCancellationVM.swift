@@ -47,10 +47,10 @@ class BookingReviewCancellationVM {
         return legsWithSelection.reduce(0) { $0 + ($1.selectedPaxs.reduce(0, { $0 + $1.netRefundForCancellation })) }
     }
     
-//    var totalRefundForCancellation: Double {
-//          return legsWithSelection.reduce(0) { $0 + ($1.selectedPaxs.reduce(0, { $0 + $1.netRefundForCancellation})) }
-//    }
-//
+    var totalRefundForHotel: Double {
+          return selectedRooms.reduce(0) { $0 + ($1.netRefund) }
+    }
+
     private(set) var refundModes: [String] = []
     private(set) var cancellationReasons: [String] = []
     private(set) var userRefundMode: String = "" {

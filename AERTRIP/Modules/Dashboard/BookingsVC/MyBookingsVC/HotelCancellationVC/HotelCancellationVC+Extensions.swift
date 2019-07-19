@@ -30,6 +30,7 @@ extension HotelCancellationVC: UITableViewDelegate , UITableViewDataSource {
             self.cancellationButtonOutlet.setTitleColor(AppColors.themeWhite.withAlphaComponent(1.0), for: .normal)
             self.cancellationButtonOutlet.isUserInteractionEnabled = true
             self.totalNetRefundContainerView.isHidden = false
+            self.totalNetRefundLabelAmountLabel.text = self.viewModel.netRefundAmount.delimiterWithSymbol
         }
     }
     
@@ -67,7 +68,7 @@ extension HotelCancellationVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        return 60.0
+        return 90
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
@@ -75,7 +76,7 @@ extension HotelCancellationVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60.0
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

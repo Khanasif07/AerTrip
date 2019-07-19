@@ -97,7 +97,8 @@ extension FlightBookingsDetailsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
         cell.titleTopConstraint.constant = 12.0
         cell.titleBottomConstraint.constant = 8.0
-        cell.configCell(title: "Travellers", titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, isFirstCell: false, price: "PNR/Status", isLastCell: false, cellHeight: 38.0)
+        let paxCount = self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section - self.viewModel.noOfLegCellAboveLeg].pax.count ?? 0
+        cell.configCell(title: paxCount > 1 ? LocalizedString.Travellers.localized : LocalizedString.Traveller.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, isFirstCell: false, price: "PNR/Status", isLastCell: false, cellHeight: 38.0)
         cell.clipsToBounds = true
         return cell
     }
@@ -284,7 +285,7 @@ extension FlightBookingsDetailsVC {
     func getWeatherInfoCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherInfoTableViewCell.reusableIdentifier, for: indexPath) as? WeatherInfoTableViewCell else { return UITableViewCell() }
         cell.usingFor = .flight
-        cell.isLastCell = indexPath.row == (self.viewModel.bookingDetail?.tripWeatherData.count ?? 0)
+        cell.isLastCell = indexPath.row == ((self.viewModel.bookingDetail?.tripWeatherData.count ?? 0) - 1) && !self.viewModel.isSeeAllWeatherButtonTapped
         cell.weatherData = self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1]
         cell.clipsToBounds = true
         return cell

@@ -65,7 +65,7 @@ class CompletedVC: BaseVC {
     
     override func setupTexts() {
         self.emptyStateImageView.image = #imageLiteral(resourceName: "upcoming_emptystate")
-        self.emptyStateTitleLabel.text = LocalizedString.YouHaveNoComletedBookings.localized
+        self.emptyStateTitleLabel.text = LocalizedString.YouHaveNoCompletedBookings.localized
         self.emptyStateSubTitleLabel.text = LocalizedString.NewDestinationsAreAwaiting.localized
     }
     
@@ -123,7 +123,7 @@ class CompletedVC: BaseVC {
     }
     
     private func emptyStateSetUp() {
-        self.emptyStateTitleLabel?.text = self.isOnlyPendingAction ? LocalizedString.YouHaveNoPendingAction.localized : LocalizedString.YouHaveNoComletedBookings.localized
+        self.emptyStateTitleLabel?.text = self.isOnlyPendingAction ? LocalizedString.YouHaveNoPendingAction.localized : LocalizedString.YouHaveNoCompletedBookings.localized
         if let sections = self.fetchedResultsController.sections, !sections.isEmpty {
             self.emptyStateImageView?.isHidden = true
             self.emptyStateTitleLabel?.isHidden = true

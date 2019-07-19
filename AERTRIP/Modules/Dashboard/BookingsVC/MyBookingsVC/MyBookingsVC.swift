@@ -247,6 +247,8 @@ class MyBookingsVC: BaseVC {
 extension MyBookingsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         MyBookingFilterVM.shared.searchText = ""
+        MyBookingFilterVM.shared.filteredResultCount = 0
+        MyBookingFilterVM.shared.setToDefault()
         self.navigationController?.popViewController(animated: true)
     }
     

@@ -92,8 +92,7 @@ class BookingReschedulingVC: BaseVC {
     private func setupTotalRefundAndCont() {
         if self.viewModel.usingFor == .rescheduling {
             //hide price
-            self.priceView.isHidden = true
-            self.priceViewAndButtonContainerHeight.constant = 50.0
+            self.priceViewAndButtonContainerHeight.constant = 94.0
         }
         else {
             //show price
@@ -105,7 +104,7 @@ class BookingReschedulingVC: BaseVC {
     
     private func updateTotalRefund() {
         let totalRef = self.viewModel.usingFor == .rescheduling ?  self.viewModel.totRefundForRescheduling : self.viewModel.totalRefundForCancellation
-        self.continueButton.isEnabled = totalRef != 0.0
+        self.continueButton.isUserInteractionEnabled = totalRef != 0.0
         self.totalPriceLabel.text = totalRef.delimiterWithSymbol
     }
     
@@ -148,7 +147,7 @@ class BookingReschedulingVC: BaseVC {
     @IBAction func continueButtonTapped(_ sender: Any) {
         if self.viewModel.usingFor == .rescheduling {
             //rescheduling
-            AppFlowManager.default.moveToRequestReschedulingVC(onNavController: self.navigationController, legs: self.viewModel.legsData)
+            AppFlowManager.default.moveToRequestReschedulingVC(onNavController: self.navigationController, legs: self.viewModel.selectedLegs)
         }
         else {
             //cancellation
@@ -251,10 +250,17 @@ class BookingReschedulingVC: BaseVC {
         }
         
         if selectedCounts.isEmpty {
+            self.continueButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
             self.passengerLabel.text = LocalizedString.SelectPassengerFlightRescheduled.localized
+            self.priceView.isHidden = true
+            self.priceViewAndButtonContainerHeight.constant = 50.0
         }
         else {
+            self.continueButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(1.0), for: .normal)
+
             self.passengerLabel.text = "\(selectedCounts.joined(separator: ", ")) \(LocalizedString.PassengersSelected.localized)"
+            self.priceView.isHidden = false
+            self.priceViewAndButtonContainerHeight.constant = 94.0
         }
     }
     
@@ -268,6 +274,8 @@ class BookingReschedulingVC: BaseVC {
 // MARK: - Top Navigation View Delegate
 
 extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
+    
+   
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.viewModel.legsData.count
     }

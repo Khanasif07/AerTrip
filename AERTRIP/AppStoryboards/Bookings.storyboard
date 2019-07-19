@@ -53,8 +53,8 @@
                                     <constraint firstAttribute="height" constant="295" id="Iwp-Wf-6gb"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Bookings yet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cfv-Kb-Z8G">
-                                <rect key="frame" x="19" y="398" width="337" height="28"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Bookings yet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cfv-Kb-Z8G">
+                                <rect key="frame" x="4" y="398" width="367" height="28"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -86,11 +86,11 @@ with us!</string>
                             <constraint firstItem="uXe-VR-jq5" firstAttribute="top" secondItem="Nlo-zj-iHg" secondAttribute="bottom" id="IaC-9x-RRM"/>
                             <constraint firstAttribute="trailing" secondItem="uXe-VR-jq5" secondAttribute="trailing" id="Ofs-7q-FoV"/>
                             <constraint firstItem="r5R-Jl-udX" firstAttribute="top" secondItem="cfv-Kb-Z8G" secondAttribute="bottom" constant="6" id="Ro4-QT-xFM"/>
+                            <constraint firstItem="cfv-Kb-Z8G" firstAttribute="leading" secondItem="Hnr-2M-F8B" secondAttribute="leading" constant="4" id="ZZa-xs-jRx"/>
+                            <constraint firstItem="Hnr-2M-F8B" firstAttribute="trailing" secondItem="cfv-Kb-Z8G" secondAttribute="trailing" constant="4" id="ivc-Ld-PPC"/>
                             <constraint firstItem="Hnr-2M-F8B" firstAttribute="trailing" secondItem="vbn-S9-1fG" secondAttribute="trailing" constant="19" id="kdN-7n-McN"/>
                             <constraint firstItem="vbn-S9-1fG" firstAttribute="leading" secondItem="Hnr-2M-F8B" secondAttribute="leading" constant="19" id="koU-U4-5LC"/>
                             <constraint firstItem="cfv-Kb-Z8G" firstAttribute="top" secondItem="vbn-S9-1fG" secondAttribute="bottom" constant="18" id="n4R-r4-g1X"/>
-                            <constraint firstItem="cfv-Kb-Z8G" firstAttribute="leading" secondItem="vbn-S9-1fG" secondAttribute="leading" id="nHT-fW-C57"/>
-                            <constraint firstItem="cfv-Kb-Z8G" firstAttribute="trailing" secondItem="vbn-S9-1fG" secondAttribute="trailing" id="nhF-FM-DZf"/>
                             <constraint firstItem="bxm-3n-Eoq" firstAttribute="top" secondItem="uXe-VR-jq5" secondAttribute="bottom" id="om5-Fe-v4V"/>
                             <constraint firstItem="Nlo-zj-iHg" firstAttribute="top" secondItem="Hnr-2M-F8B" secondAttribute="top" id="vUf-p5-10a"/>
                         </constraints>
@@ -974,13 +974,13 @@ with us!</string>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no upcoming bookings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hvt-dm-F92">
-                                <rect key="frame" x="40" y="348" width="297" height="26"/>
+                                <rect key="frame" x="16" y="348" width="343" height="28"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New destinations are awaiting " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVj-hn-MK3">
-                                <rect key="frame" x="52" y="380" width="271" height="21"/>
+                                <rect key="frame" x="52" y="382" width="271" height="23"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -999,8 +999,8 @@ with us!</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="UJl-PL-qc9" firstAttribute="bottom" secondItem="Juw-B5-Gbd" secondAttribute="bottom" id="APy-bq-snr"/>
-                            <constraint firstItem="UJl-PL-qc9" firstAttribute="trailing" secondItem="Hvt-dm-F92" secondAttribute="trailing" constant="38" id="AoC-qf-GVJ"/>
-                            <constraint firstItem="Hvt-dm-F92" firstAttribute="leading" secondItem="UJl-PL-qc9" secondAttribute="leading" constant="40" id="DfO-tS-Pmj"/>
+                            <constraint firstItem="UJl-PL-qc9" firstAttribute="trailing" secondItem="Hvt-dm-F92" secondAttribute="trailing" constant="16" id="AoC-qf-GVJ"/>
+                            <constraint firstItem="Hvt-dm-F92" firstAttribute="leading" secondItem="UJl-PL-qc9" secondAttribute="leading" constant="16" id="DfO-tS-Pmj"/>
                             <constraint firstItem="t65-YV-zCP" firstAttribute="top" secondItem="UJl-PL-qc9" secondAttribute="top" constant="30" id="Gkq-XE-oOj"/>
                             <constraint firstItem="Juw-B5-Gbd" firstAttribute="top" secondItem="wk4-Oa-osq" secondAttribute="bottom" id="MYd-J2-wW8"/>
                             <constraint firstItem="wk4-Oa-osq" firstAttribute="top" secondItem="UJl-PL-qc9" secondAttribute="top" id="Z7N-fV-3sF"/>
@@ -2382,13 +2382,13 @@ with us!</string>
                                                 <rect key="frame" x="16" y="12" width="343" height="20.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Net Refund" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXo-Ws-P9t">
-                                                        <rect key="frame" x="0.0" y="0.0" width="211" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="168" height="20.5"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 1,47,000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYS-pr-Met">
-                                                        <rect key="frame" x="211" y="0.0" width="132" height="20.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYS-pr-Met">
+                                                        <rect key="frame" x="168" y="0.0" width="175" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>

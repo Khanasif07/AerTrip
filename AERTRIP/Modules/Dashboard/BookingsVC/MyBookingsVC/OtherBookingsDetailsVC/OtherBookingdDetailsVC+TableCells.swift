@@ -34,6 +34,7 @@ extension OtherBookingsDetailsVC {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingTravellersDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingTravellersDetailsTableViewCell else { return UITableViewCell() }
             let traveller = self.viewModel.bookingDetail?.bookingDetail?.travellers[indexPath.row]
             cell.configCell(travellersImage: traveller?.profileImage ?? "" , travellerName: traveller?.fullName ?? "", firstName: traveller?.firstName ?? "", lastName: traveller?.lastName ?? "")
+            cell.travellerImageViewBottomConstraint.constant = 0
             // cell divider will not be use here as divider is in document Cell.
             return cell
         }
