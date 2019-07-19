@@ -210,7 +210,30 @@ public class BookingData: NSManagedObject {
         // set up a managed object context just for the insert. This is in addition to the managed object context you may have in your App Delegate.
         let managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = CoreDataManager.shared.persistentStoreCoordinator
-        managedObjectContext.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType)
+        managedObjectContext.mergePolicy = NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType
+        
+//        managedObjectContext.perform {
+////            while(true) { // loop through each batch of inserts
+//
+//                // insert new entity object
+//                autoreleasepool {
+//                    for dataDict in dataDictArray {
+//                        let _ = BookingData.insert(dataDict: dataDict, into: managedObjectContext, isBulkInsertion: true)
+//                    }
+//                }
+//
+//                // only save once per batch insert
+//                do {
+//                    try managedObjectContext.save()
+//                } catch {
+//                    print(error)
+//                }
+//
+////                managedObjectContext.reset()
+//
+//                completionBlock([])
+////            }
+//        }
         
         managedObjectContext.perform { // runs asynchronously
 //            while true { // loop through each batch of inserts. Your implementation may vary.
@@ -221,7 +244,7 @@ public class BookingData: NSManagedObject {
                         dataArr.append(dataTemp)
                     }
                 }
-                
+
                 // only save once per batch insert
                 if managedObjectContext.hasChanges {
                     do {
@@ -231,7 +254,7 @@ public class BookingData: NSManagedObject {
                         printDebug("Problem in saving the managedObjectContext while in bulk is: \(error.localizedDescription)")
                     }
                 }
-                
+
                 CoreDataManager.shared.managedObjectContext.perform({
                     if CoreDataManager.shared.managedObjectContext.hasChanges {
                         do {
@@ -248,9 +271,9 @@ public class BookingData: NSManagedObject {
                     completionBlock(tempDataArr)
 //                    completionBlock(dataArr)
                 })
-//                return
-//            }
-        }
+                return
+            }
+//        }
     }
     
     
