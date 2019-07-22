@@ -102,9 +102,10 @@ extension APICaller {
                 ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
                 completionBlock(false, [:], [], nil, [:], error)
             })
-        }) { error in
+        }) { (error) in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [:], [], nil, [:], [ATErrorManager.LocalError.noInternet.rawValue])
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [:], [], nil, [:], [])
             }
             else {
                 completionBlock(false, [:], [], nil, [:], [ATErrorManager.LocalError.requestTimeOut.rawValue])
@@ -127,9 +128,10 @@ extension APICaller {
                 ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
                 completionBlock(false, error)
             })
-        }) { error in
+        }) { (error) in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [])
             }
             else {
                 completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
@@ -158,9 +160,10 @@ extension APICaller {
                 ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
                 completionBlock(false, error, nil)
             })
-        }) { error in
+        }) { (error) in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], nil)
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], nil)
             }
             else {
                 completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
@@ -187,7 +190,9 @@ extension APICaller {
                 
             }) { (error) in
                 if error.code == AppNetworking.noInternetError.code {
-                    completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+                    AppGlobals.shared.stopLoading()
+                    AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                    completionBlock(false, [])
                 }
                 else {
                     completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
@@ -202,7 +207,9 @@ extension APICaller {
             }, progress: { (progress) in
             }) { (error) in
                 if error.code == AppNetworking.noInternetError.code {
-                    completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue])
+                    AppGlobals.shared.stopLoading()
+                    AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                    completionBlock(false, [])
                 }
                 else {
                     completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])

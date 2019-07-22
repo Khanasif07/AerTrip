@@ -22,12 +22,13 @@ class BookingHotelDetailVC: BaseVC {
     let headerIdentifier = "BookingHDRoomDetailHeaderView"
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
     private var navBarHeight: CGFloat {
-        return UIDevice.isIPhoneX ? 84.0 : 64.0
+        return AppFlowManager.default.mainNavigationController.navigationBar.bounds.height + 11.0
     }
     
     // MARK: - Override methods
     
     override func initialSetup() {
+        
         self.tableViewTopConstraint.constant = -navBarHeight
         self.registerXib()
         self.hotelDetailTableView.dataSource = self

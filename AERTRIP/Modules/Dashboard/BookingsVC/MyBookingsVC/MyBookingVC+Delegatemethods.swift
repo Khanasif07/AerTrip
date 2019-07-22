@@ -27,6 +27,7 @@ extension MyBookingsVC: MyBookingsVMDelegate {
    
     func getBookingDetailFail(error: ErrorCodes) {
         AppGlobals.shared.stopLoading()
+        self.emptyStateSetUp()
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
     }
     
@@ -38,7 +39,7 @@ extension MyBookingsVC: MyBookingsVMDelegate {
     func getBookingsDetailSuccess() {
 
         AppGlobals.shared.stopLoading()
-        MyBookingsVM.shared.allTabTypes = [1,2,3]//CoreDataManager.shared.fetchData(fromEntity: "BookingData", forAttribute: "bookingTabType", usingFunction: "count").map({ ($0["bookingTabType"] as? Int16) ?? -1})
+        MyBookingsVM.shared.allTabTypes = CoreDataManager.shared.fetchData(fromEntity: "BookingData", forAttribute: "bookingTabType", usingFunction: "count").map({ ($0["bookingTabType"] as? Int16) ?? -1})
         self.emptyStateSetUp()
     }
 }

@@ -23,7 +23,9 @@ extension APICaller {
             })
         }) { (error) in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], "")
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], "")
             }
             else {
                 completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], "")
@@ -55,10 +57,12 @@ extension APICaller {
             })
         }) { (error) in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [ATErrorManager.LocalError.noInternet.rawValue], "",ItenaryModel())
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], "", ItenaryModel())
             }
             else {
-                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], "",ItenaryModel())
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], "", ItenaryModel())
             }
         }
     }
@@ -79,12 +83,14 @@ extension APICaller {
                 ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
                 completionBlock(false,[],PaymentModal())
             })
-        }) { error in
+        }) { (error) in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, [],PaymentModal())
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], PaymentModal())
             }
             else {
-                completionBlock(false,[],PaymentModal())
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], PaymentModal())
             }
         }
     }
@@ -106,7 +112,14 @@ extension APICaller {
                 completionBlock(false, errors, [])
             })
         }) { (error) in
-            completionBlock(false, [], [])
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], [])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], [])
+            }
         }
     }
     
@@ -127,7 +140,14 @@ extension APICaller {
                 completionBlock(false, errors, nil)
             })
         }) { (error) in
-            completionBlock(false, [], nil)
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], nil)
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
+            }
         }
     }
     
@@ -147,7 +167,14 @@ extension APICaller {
                 completionBlock(false, errors, nil)
             })
         }) { (error) in
-            completionBlock(false, [], nil)
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], nil)
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
+            }
         }
     }
     
@@ -165,7 +192,14 @@ extension APICaller {
                 completionBlock(false, errors, [:])
             })
         }) { (error) in
-            completionBlock(false, [], [:])
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], [:])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], [:])
+            }
         }
     }
     
@@ -184,7 +218,14 @@ extension APICaller {
                 completionBlock(false, errors, [], [])
             })
         }) { (error) in
-            completionBlock(false, [], [], [])
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], [], [])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], [], [])
+            }
         }
     }
     
@@ -203,7 +244,14 @@ extension APICaller {
                 completionBlock(false, errors, nil)
             })
         }) { (error) in
-            completionBlock(false, [], nil)
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], nil)
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], nil)
+            }
         }
     }
 }

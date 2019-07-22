@@ -329,7 +329,10 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     }
     
     func addToCalender() {
-        AppGlobals.shared.addEventToCalender(title: "Event Detail", notes: "Booking flight Event", startDate: self.viewModel.bookingDetail?.bookingDetail?.eventStartingDate, endDate: self.viewModel.bookingDetail?.bookingDetail?.evenEndingDate)
+        if let start = self.viewModel.bookingDetail?.bookingDetail?.eventStartingDate, let end = self.viewModel.bookingDetail?.bookingDetail?.evenEndingDate {
+            let bId = self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""
+            AppGlobals.shared.addEventToCalender(title: "Hotel Booking: \(bId)", startDate: start, endDate: end, notes: "You've a booking in '\(self.navigationTitleText)' hotel.\nFor reference you booking id is '\(self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? "")'", uniqueId: bId)
+        }
     }
     
     func addToAppleWallet() {

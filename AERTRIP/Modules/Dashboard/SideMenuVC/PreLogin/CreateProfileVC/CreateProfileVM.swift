@@ -43,23 +43,23 @@ class CreateProfileVM {
         
         if self.userData.salutation.isEmpty {
             
-            AppGlobals.shared.showWarning(message: LocalizedString.PleaseSelectSalutation.localized)
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized)
             return false
         } else if self.userData.firstName.isEmpty {
             
-            AppGlobals.shared.showWarning(message: LocalizedString.PleaseEnterFirstName.localized)
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterFirstName.localized)
             return false
         } else if self.userData.lastName.isEmpty {
             
-            AppGlobals.shared.showWarning(message: LocalizedString.PleaseEnterLastName.localized)
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterLastName.localized)
             return false
         } else if (self.userData.address?.country ?? "").isEmpty {
             
-            AppGlobals.shared.showWarning(message: LocalizedString.PleaseSelectCountry.localized)
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectCountry.localized)
             return false
         } else if self.userData.mobile.isEmpty {
             
-            AppGlobals.shared.showWarning(message: LocalizedString.PleaseEnterMobileNumber.localized)
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterMobileNumber.localized)
             return false
         }
         return true

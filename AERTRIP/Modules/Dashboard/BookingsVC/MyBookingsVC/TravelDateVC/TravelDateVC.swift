@@ -50,6 +50,8 @@ class TravelDateVC: BaseVC {
     
     var currentlyUsingAs = UsingFor.account
     weak var delegate: TravelDateVCDelegate?
+    
+    //these all will be passed from, where the object is being created
     var oldFromDate: Date?
     var oldToDate: Date?
     var minFromDate: Date?
@@ -294,21 +296,30 @@ class TravelDateVC: BaseVC {
     }
     
     @objc func toDatePickerValueChanged (_ datePicker: UIDatePicker) {
-        self.setLabelsDate()
+        
+        if self.oldFromDate == nil {
+            self.setDateOnLabels(fromDate: nil, toDate: self.toDatePicker.date)
+        }
+        else {
+            self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
+        }
+        
         self.delegate?.didSelect(toDate: datePicker.date, forType: self.currentlyUsingAs)
     }
     
     @objc func fromDatePickerValueChanged (_ datePicker: UIDatePicker) {
-        self.setLabelsDate()
+        
+        if self.oldToDate == nil {
+            self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: nil)
+        }
+        else {
+            self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
+        }
         
         if self.toDatePicker.date.timeIntervalSince1970 < self.fromDatePicker.date.timeIntervalSince1970 {
             self.toDatePicker.minimumDate = datePicker.date
             self.toDatePicker.setDate(self.fromDatePicker.date, animated: false)
         }
         self.delegate?.didSelect(fromDate: datePicker.date, forType: self.currentlyUsingAs)
-    }
-    
-    private func setLabelsDate() {
-        self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
     }
 }

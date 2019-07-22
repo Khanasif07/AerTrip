@@ -104,6 +104,12 @@ enum AppErrorCodeFor: Int {
         case .authenticationFailed:
             return ""
             
+        case .noInternet:
+            return LocalizedString.NoInternet.localized
+            
+        case .parsing:
+            return LocalizedString.ParsingError.localized
+            
         case .NotLoggedIn:
             return "Not Logged In"
             
@@ -270,8 +276,6 @@ enum AppErrorCodeFor: Int {
         }
     }
 }
-
-// AppErrorCodeFor(rawValue: 1212)?.message
 
 // Navigation
 public enum ATTransitionMode: Int {

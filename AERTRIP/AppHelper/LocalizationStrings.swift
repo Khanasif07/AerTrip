@@ -17,6 +17,8 @@ extension LocalizedString {
 enum LocalizedString: String {
     // MARK: - Strings For Profile Screen
     
+    case requestTimeOut
+    case userNotLoggedIn
     case NoInternet
     case ParsingError
     case error
@@ -933,6 +935,9 @@ enum LocalizedString: String {
     case SpaceWithHiphen
     case FlightTripChangeMessage
     case HotelTripChangeMessage
+    case EventAddedToCalander
+    case UnableToAddEventToCalander
+    case EventAlreadyAddedInCalendar
     case SomethingWentWrong
     case Infant
     

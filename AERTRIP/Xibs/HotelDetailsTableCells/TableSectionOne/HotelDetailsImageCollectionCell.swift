@@ -24,12 +24,13 @@ class HotelDetailsImageCollectionCell: UICollectionViewCell {
     //================
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.bgView.roundTopCorners(cornerRadius: 10.0)
     }
+    
     
     //Mark:- Methods
     //==============
-    internal func configCell(imgUrl: String) {
+    internal func configCell(imgUrl: String, cornerRadius: CGFloat = 10.0) {
+        self.bgView.roundTopCorners(cornerRadius: cornerRadius)
         self.hotelImageView.setImageWithUrl(imgUrl, placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: true)
     }
     
