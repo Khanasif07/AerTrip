@@ -29,7 +29,7 @@ enum AppNetworking {
     internal typealias Failure = ((_ error : NSError) -> Void) //failure response clouser
     internal typealias Progress = ((Double) -> Void) //shows the upload progress
     
-    static let noInternetError = NSError(code: -4531, localizedDescription: "No Internet Connection")
+    static let noInternetError = NSError(code: -4531, localizedDescription: LocalizedString.NoInternet.localized)
     //check device has internet connection or not
     static var isConnectedToNetwork : Bool {
         

@@ -14,7 +14,7 @@ import UIKit
 import EventKit
 
 func printDebug<T>(_ obj: T) {
-    print(obj)
+    //print(obj)
 }
 
 func printFonts() {
@@ -44,16 +44,6 @@ class AppGlobals {
     var travelDateVC: TravelDateVC?
     var eventTypeVC: EventTypeVC?
     var bookingDateVC: TravelDateVC?
-    
-    func showSuccess(message: String) {
-        printDebug(message)
-    }
-    
-    func showError(message: String) {}
-    
-    func showWarning(message: String) {
-        printDebug(message)
-    }
     
     static func lines(label: UILabel) -> Int {
         let textSize = CGSize(width: label.frame.size.width, height: CGFloat(Float.infinity))
@@ -387,30 +377,56 @@ class AppGlobals {
     }
     
 
-    func addEventToCalender(title: String, notes: String = "", startDate: Date? = nil, endDate: Date? = nil) {
+    func addEventToCalender(title: String, startDate: Date, endDate: Date, notes: String = "", uniqueId: String = "") {
         
         let eventStore = EKEventStore()
-        eventStore.requestAccess(to: EKEntityType.event, completion: { granted, error in
-            
-            if granted, (error == nil) {
-                let event = EKEvent(eventStore: eventStore)
+        
+        func addToCalendar() {
+            eventStore.requestAccess(to: EKEntityType.event, completion: { granted, error in
                 
-                event.title = title
-                event.startDate = startDate
-                event.endDate = startDate
-                event.notes = notes
-                event.calendar = eventStore.defaultCalendarForNewEvents
-                DispatchQueue.mainAsync {
-                    do {
-                        try eventStore.save(event, span: .thisEvent)
-                        AppToast.default.showToastMessage(message: "Event added successfully")
-                    } catch let error as NSError {
-                        AppToast.default.showToastMessage(message: "Unable to add event, please try again!")
-                        print("json error: \(error.localizedDescription)")
+                if granted, (error == nil) {
+                    let event = EKEvent(eventStore: eventStore)
+                    
+                    event.title = title
+                    event.startDate = startDate
+                    event.endDate = endDate
+                    event.notes = notes
+                    event.calendar = eventStore.defaultCalendarForNewEvents
+                    DispatchQueue.mainAsync {
+                        do {
+                            try eventStore.save(event, span: .thisEvent)
+                            AppToast.default.showToastMessage(message: LocalizedString.EventAddedToCalander.localized)
+                        } catch let error as NSError {
+                            AppToast.default.showToastMessage(message: LocalizedString.UnableToAddEventToCalander.localized)
+                            print("json error: \(error.localizedDescription)")
+                        }
                     }
                 }
+            })
+        }
+        
+        if uniqueId.isEmpty {
+            addToCalendar()
+        }
+        else {
+            var isAdded: Bool = false
+            
+            //logic for isAdded
+            let pred = eventStore.predicateForEvents(withStart: startDate, end: endDate, calendars: nil)
+            for event in eventStore.events(matching: pred) {
+                if event.title.contains(uniqueId) {
+                    isAdded = true
+                    break
+                }
             }
-        })
+            
+            if isAdded {
+                AppToast.default.showToastMessage(message: LocalizedString.EventAlreadyAddedInCalendar.localized)
+            }
+            else {
+                addToCalendar()
+            }
+        }
     }
         
     //MARK: - Get Strike Through text from a Strig
@@ -502,10 +518,16 @@ extension AppGlobals {
     func viewPdf(urlPath: String, screenTitle: String) {
         //open pdf for booking id
         
+        guard AppNetworking.isConnectedToNetwork else {
+            AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+            return
+        }
+        
         guard let url = urlPath.toUrl else {
             printDebug("Please pass valid url")
             return
         }
+        
         AppGlobals.shared.startLoading()
         self.downloadPdf(fileURL: url, screenTitle: screenTitle) { localPdf in
             if let url = localPdf {

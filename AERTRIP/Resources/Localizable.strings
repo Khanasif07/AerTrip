@@ -7,7 +7,10 @@
 */
 
 //Strings For Profile Screen
-"NoInternet" = "There is no internet.";
+"requestTimeOut" = "Request time out. Please try again.";
+"userNotLoggedIn" = "You are using as guest. Please logout and login again.";
+"SomethingWentWrong"  = "Something went wrong";
+"NoInternet" = "Check your internet connection.";
 "ParsingError" = "Error in parsing the JSON data.";
 "error" = "Error";
 "na" = "N/A";
@@ -673,7 +676,7 @@
 "CancellationRequestSent" = "Cancellation Request has been sent";
 "CancellationRequestMessage" = "Our Customer Service Represenstative will contact you soon regarding this enquiry.";
 "TripName" = "Trip Name";
-"AddToCalender" = "Add to Calender";
+"AddToCalender" = "Add to Calendar";
 "AddToTrips" = "Add to Trips";
 "BookSameFlight" = "Book same flight";
 "Traveller" = "Traveller";
@@ -858,8 +861,8 @@
 "SpaceWithHiphen" = " -";
 "FlightTripChangeMessage" = "Flight booking moved to";
 "HotelTripChangeMessage" = "Hotel booking moved to";
-"SomethingWentWrong"  = "Something went wrong";
-
-
+"EventAddedToCalander" = "Event added to your calendar.";
+"EventAlreadyAddedInCalendar" = "You have already added this in your calendar.";
+"UnableToAddEventToCalander" = "Unable to add event in calendar, please try again!";
 
 

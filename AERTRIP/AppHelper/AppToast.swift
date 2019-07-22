@@ -31,7 +31,7 @@ struct AppToast {
     
      func showToastMessage(message: String, title: String = "", onViewController: UIViewController? = UIApplication.topViewController(), duration: Double = 3.0, buttonTitle: String = "", buttonImage: UIImage? = nil,spaceFromBottom: CGFloat = 10.0, buttonAction: (()->Void)? = nil,toastDidClose: (()->Void)? = nil) {
         
-        if !AppToast.isPreviousView {
+        if !AppToast.isPreviousView, !message.isEmpty {
             
             AppToast.isPreviousView = true
             let ob  = ToastView.instanceFromNib()

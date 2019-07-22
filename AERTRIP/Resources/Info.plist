@@ -123,7 +123,7 @@
 		</dict>
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
-	<string></string>
+	<string>This app need the access to your calander in order to create events.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This app will need the access to your camera.</string>
 	<key>NSContactsUsageDescription</key>

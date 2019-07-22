@@ -27,16 +27,16 @@ class ATErrorManager {
         var message: String {
             switch self {
             case .noInternet:
-                return "Check your internet connection."
+                return LocalizedString.NoInternet.localized
                 
             case .requestTimeOut:
-                return "Request time out. Please try again."
+                return LocalizedString.requestTimeOut.localized
                 
             case .userNotLoggedIn:
-                return "You are using as guest. Please logout and login again."
+                return LocalizedString.userNotLoggedIn.localized
                 
             default:
-                return "Something went wrong"
+                return LocalizedString.SomethingWentWrong.localized
             }
         }
     }

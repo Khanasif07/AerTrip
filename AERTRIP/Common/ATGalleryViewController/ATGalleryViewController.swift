@@ -156,7 +156,7 @@ class ATGalleryViewController: UIViewController {
         
         self.scrollCollectionView(toIndex: self.startShowingFrom)
         
-        self.pageControl.isHidden = true
+        self.pageControl.isHidden = ATGalleryViewConfiguration.viewMode == .vertical
         self.modeChangeButton.isHidden = true
         self.closeButton.isHidden = true
         
@@ -175,7 +175,7 @@ class ATGalleryViewController: UIViewController {
             
             sSelf.view.layoutIfNeeded()
             }, completion: { (isDone) in
-                self.pageControl.isHidden = false
+                self.pageControl.isHidden = ATGalleryViewConfiguration.viewMode == .vertical
                 self.modeChangeButton.isHidden = false
                 self.closeButton.isHidden = false
                 self.mainImageView.isHidden = true
@@ -280,9 +280,14 @@ class ATGalleryViewController: UIViewController {
     }
     
     private func setupPageDots(){
-        self.pageControl.backgroundColor = AppColors.clear
-        self.pageControl.isHidden = ATGalleryViewConfiguration.viewMode == .vertical
-        self.pageControl.numberOfPages = self.numberOfImages
+        DispatchQueue.mainAsync { [weak self] in
+            
+            guard let sSelf = self else {return}
+            
+            sSelf.pageControl.backgroundColor = AppColors.clear
+            sSelf.pageControl.isHidden = ATGalleryViewConfiguration.viewMode == .vertical
+            sSelf.pageControl.numberOfPages = sSelf.numberOfImages
+        }
     }
     
     private func toggleControls(animated: Bool) {

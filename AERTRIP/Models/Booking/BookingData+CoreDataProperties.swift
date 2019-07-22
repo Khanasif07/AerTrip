@@ -47,6 +47,7 @@ extension BookingData {
     @NSManaged public var product: String? // It stores type of product like hotel , flight or Others
     @NSManaged public var hotelName: String?
     @NSManaged public var dateHeader: String?
+    @NSManaged public var dateToSort: String?
     @NSManaged public var bookingDate: String?
     @NSManaged public var bookingNumber: String?
     @NSManaged public var bookingId: String?

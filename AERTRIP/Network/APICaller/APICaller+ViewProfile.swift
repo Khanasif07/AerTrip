@@ -31,7 +31,9 @@ extension APICaller {
             
         }) { (error) in
             if error.code == AppNetworking.noInternetError.code {
-                completionBlock(false, nil, [ATErrorManager.LocalError.noInternet.rawValue])
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, nil, [])
             }
             else {
                 completionBlock(false, nil, [ATErrorManager.LocalError.requestTimeOut.rawValue])
@@ -55,8 +57,15 @@ extension APICaller {
                 completionBlock(false, errors)
             })
             
-        }) { error in
-            printDebug(error)
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [])
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+            }
         }
     }
     

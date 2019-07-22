@@ -48,6 +48,7 @@ class HotelDetailsImgSlideCell: UITableViewCell {
     //Mark:- Methods
     //==============
     private func initialSetUps() {
+        
         let nib = UINib(nibName: "HotelDetailsImageCollectionCell", bundle: nil)
         self.imageCollectionView.register(nib, forCellWithReuseIdentifier: "HotelDetailsImageCollectionCell")
         self.pageControl.isHidden = !(imageUrls.count > 1)
@@ -76,7 +77,8 @@ extension HotelDetailsImgSlideCell: UICollectionViewDelegate , UICollectionViewD
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HotelDetailsImageCollectionCell", for: indexPath) as? HotelDetailsImageCollectionCell else {
             return UICollectionViewCell()
         }
-        cell.configCell(imgUrl: imageUrls[indexPath.item])
+        cell.configCell(imgUrl: imageUrls[indexPath.item], cornerRadius: 0.0)
+        
         return cell
     }
     
