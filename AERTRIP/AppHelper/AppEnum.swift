@@ -707,7 +707,7 @@ enum ATWeatherType: RawRepresentable {
     case mist(code: String)
     
     init?(rawValue: String) {
-        switch rawValue.lowercased() {
+        switch rawValue {
         case "800":
             self = .clearSky(code: rawValue)
             

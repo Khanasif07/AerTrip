@@ -25,7 +25,7 @@ class PKTextView: UITextView {
     var placeholderInsets: UIEdgeInsets = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 5.0)
 
     
-    //MARK:- View Initializatio
+    //MARK:- View Initialization
     //MARK:-
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)

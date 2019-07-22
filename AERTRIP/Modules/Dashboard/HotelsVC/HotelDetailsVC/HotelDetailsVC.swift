@@ -402,3 +402,30 @@ class HotelDetailsVC: BaseVC {
         }
     }
 }
+
+
+class MyClass {
+    fileprivate var name = ""
+    private var age = 23
+    
+    private func testMe() {
+        
+    }
+}
+
+extension MyClass {
+    func printName() {
+        print(self.age)
+        print(self.name)
+        self.testMe()
+    }
+}
+
+class NewWali {
+    
+    let myC = MyClass()
+    
+    func printMe() {
+        print(myC.name)
+    }
+}

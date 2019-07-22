@@ -17,6 +17,7 @@ class FareRuleTableViewCell: UITableViewCell {
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var routeLabelTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var webViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var routeLabelBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var routeLabelHeightConstraint: NSLayoutConstraint!
     override func awakeFromNib() {
@@ -25,6 +26,7 @@ class FareRuleTableViewCell: UITableViewCell {
         self.setUpFont()
         self.setUpTextColor()
         self.webView.uiDelegate = self
+        self.webView.navigationDelegate = self
     }
     
     func setUpFont() {
@@ -52,9 +54,31 @@ class FareRuleTableViewCell: UITableViewCell {
         webView.loadHTMLString(cssStr, baseURL: url)
     }
     
+   
+    
     
 }
 
 extension FareRuleTableViewCell: WKUIDelegate {
+    
+}
+
+
+extension FareRuleTableViewCell: WKNavigationDelegate {
+    func webViewDidFinishLoad(webView: UIWebView) {
+        //webview height
+        webView.frame.size.height = 1
+        webView.frame.size = webView.sizeThatFits(.zero)
+        webView.scrollView.isScrollEnabled = false
+        let height = webView.stringByEvaluatingJavaScript(from: "document.body.scrollHeight")
+        if let height = height {
+            if let heightInt = Int(height) {
+                let heightFloat = Float(heightInt)
+                
+                webViewHeightConstraint.constant = CGFloat(heightFloat)
+            }
+        }
+        webView.scalesPageToFit = true
+    }
     
 }

@@ -95,7 +95,17 @@ extension BookingFlightDetailVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 35.0
+        switch  self.bookingDetailType {
+        case .flightInfo,.fareInfo:
+            return 35.0
+        case .baggage:
+            if self.viewModel.allBaggageCells.count == 1 {
+                return 0
+            } else {
+                 return 35.0
+            }
+        }
+      
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

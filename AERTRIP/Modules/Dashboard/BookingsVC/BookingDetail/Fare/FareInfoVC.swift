@@ -34,7 +34,6 @@ class FareInfoVC: BaseVC {
         
         self.fareInfoTableView.register(UINib(nibName: self.fareInfoHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.fareInfoHeaderViewIdentifier)
         self.fareInfoTableView.register(UINib(nibName: self.footerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.footerViewIdentifier)
-
         self.fareInfoTableView.registerCell(nibName: EconomySaverTableViewCell.reusableIdentifier)
         self.fareInfoTableView.registerCell(nibName: BookingInfoCommonCell.reusableIdentifier)
         self.fareInfoTableView.registerCell(nibName: FareInfoNoteTableViewCell.reusableIdentifier)

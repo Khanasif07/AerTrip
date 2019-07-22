@@ -39,5 +39,9 @@ class HotelNameRatingTableViewCell: ATTableViewCell {
         self.hotelNameLabel.text = hoteName
         self.starRatingView.rating = starRating
         self.tripRatingView.rating = tripRating
+        self.starRatingContatinerView.isHidden = (starRating.isZero && tripRating.isZero) ? true : false
+        self.starRatingView.isHidden = starRating.isZero ? true : false
+        self.tripRatingView.isHidden = tripRating.isZero ? true : false
+        self.tripAdvisorImageView.isHidden = tripRating.isZero ? true : false
     }
 }

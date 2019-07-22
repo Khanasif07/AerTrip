@@ -22,85 +22,94 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KPy-Mw-88Y">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="100.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99f-j0-0Fn">
-                                <rect key="frame" x="16" y="24" width="288" height="24.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="3ZI-p4-ZuL">
-                                <rect key="frame" x="16" y="58.5" width="228" height="22"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="fKV-q2-Zcm">
+                                <rect key="frame" x="16" y="24" width="288" height="66.5"/>
                                 <subviews>
-                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="38r-hB-1JM" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="2" width="85" height="18"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="85" id="9Zx-M1-sZE"/>
-                                            <constraint firstAttribute="height" constant="18" id="bYI-ux-gMB"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="starRatingUnfill"/>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="starRatingFilled"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="minRating">
-                                                <integer key="value" value="0"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
-                                                <integer key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FzB-ZI-fll">
-                                        <rect key="frame" x="89" y="0.0" width="139" height="22"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xeZ-nS-7A8">
+                                        <rect key="frame" x="0.0" y="0.0" width="252.5" height="34.5"/>
+                                        <string key="text">Ramada Powai, Powai Saki Vihar Road Mumbai 400 087, Mumbai, India,
+Pin-code: 400 087</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aFv-gN-7Ac">
+                                        <rect key="frame" x="0.0" y="44.5" width="239" height="22"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviserMailComposer" translatesAutoresizingMaskIntoConstraints="NO" id="uRk-xH-Z9I">
-                                                <rect key="frame" x="20" y="-10" width="32" height="18"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="32" id="Zet-cL-e3p"/>
-                                                </constraints>
-                                            </imageView>
-                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4LQ-ho-SCJ" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="55" y="1" width="84" height="20"/>
+                                            <view userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="D3p-YX-RCR" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
+                                                <rect key="frame" x="4" y="0.0" width="85" height="18"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="84" id="imM-d1-syc"/>
-                                                    <constraint firstAttribute="height" constant="20" id="jJF-Vx-d3C"/>
+                                                    <constraint firstAttribute="height" constant="18" id="Ill-Xz-emh"/>
+                                                    <constraint firstAttribute="width" constant="85" id="cHM-9x-pQb"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="combinedShapeFill"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="starRatingUnfill"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="starRatingFilled"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="minRating">
                                                         <integer key="value" value="0"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
                                                         <integer key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="size" keyPath="minImageSize">
+                                                        <size key="value" width="12" height="12"/>
+                                                    </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="3Fs-ti-sQA">
+                                                <rect key="frame" x="97" y="-2" width="142" height="20"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviserBig" translatesAutoresizingMaskIntoConstraints="NO" id="HYQ-dG-LW6">
+                                                        <rect key="frame" x="20" y="0.0" width="32" height="20"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="32" id="TYt-sO-S56"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <view userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="she-TM-6Ih" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
+                                                        <rect key="frame" x="58" y="0.0" width="84" height="20"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="84" id="C4m-pL-CaV"/>
+                                                            <constraint firstAttribute="height" constant="20" id="u6R-pC-kgG"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
+                                                            <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="combinedShapeFill"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="minRating">
+                                                                <integer key="value" value="0"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                                                                <integer key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="size" keyPath="minImageSize">
+                                                                <size key="value" width="12" height="12"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="HYQ-dG-LW6" firstAttribute="leading" secondItem="3Fs-ti-sQA" secondAttribute="leading" constant="20" id="FXB-xg-0wU"/>
+                                                    <constraint firstItem="she-TM-6Ih" firstAttribute="centerY" secondItem="3Fs-ti-sQA" secondAttribute="centerY" id="HG7-fO-PUz"/>
+                                                    <constraint firstAttribute="trailing" secondItem="she-TM-6Ih" secondAttribute="trailing" id="XMb-Po-pXC"/>
+                                                    <constraint firstItem="she-TM-6Ih" firstAttribute="leading" secondItem="HYQ-dG-LW6" secondAttribute="trailing" constant="6" id="zgI-Gb-YeF"/>
+                                                </constraints>
+                                            </stackView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="uRk-xH-Z9I" firstAttribute="leading" secondItem="FzB-ZI-fll" secondAttribute="leading" constant="20" id="60p-UH-GPs"/>
-                                            <constraint firstAttribute="trailing" secondItem="4LQ-ho-SCJ" secondAttribute="trailing" priority="900" id="6KS-6v-A0I"/>
-                                            <constraint firstItem="4LQ-ho-SCJ" firstAttribute="centerY" secondItem="FzB-ZI-fll" secondAttribute="centerY" id="Cpq-lg-UbV"/>
-                                            <constraint firstItem="4LQ-ho-SCJ" firstAttribute="leading" secondItem="uRk-xH-Z9I" secondAttribute="trailing" constant="3" id="b8C-bR-qAX"/>
-                                            <constraint firstItem="uRk-xH-Z9I" firstAttribute="top" secondItem="FzB-ZI-fll" secondAttribute="top" constant="-10" id="kb5-yh-dnz"/>
+                                            <constraint firstItem="D3p-YX-RCR" firstAttribute="leading" secondItem="aFv-gN-7Ac" secondAttribute="leading" constant="4" id="FID-M5-pzt"/>
+                                            <constraint firstAttribute="height" constant="22" id="frA-aN-faa"/>
                                         </constraints>
-                                    </view>
+                                    </stackView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="FzB-ZI-fll" firstAttribute="leading" secondItem="38r-hB-1JM" secondAttribute="trailing" constant="4" id="tRS-WX-rfm"/>
-                                    <constraint firstAttribute="height" constant="22" id="vMZ-oM-RUf"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="3ZI-p4-ZuL" firstAttribute="leading" secondItem="KPy-Mw-88Y" secondAttribute="leading" constant="16" id="9kz-6n-m7a"/>
-                            <constraint firstItem="99f-j0-0Fn" firstAttribute="top" secondItem="KPy-Mw-88Y" secondAttribute="top" constant="24" id="IMT-BU-0MP"/>
-                            <constraint firstItem="3ZI-p4-ZuL" firstAttribute="top" secondItem="99f-j0-0Fn" secondAttribute="bottom" constant="10" id="O7H-I5-3lF"/>
-                            <constraint firstAttribute="bottom" secondItem="3ZI-p4-ZuL" secondAttribute="bottom" constant="20" id="b03-nD-awS"/>
-                            <constraint firstAttribute="trailing" secondItem="99f-j0-0Fn" secondAttribute="trailing" constant="16" id="mdC-0S-qtw"/>
-                            <constraint firstItem="99f-j0-0Fn" firstAttribute="leading" secondItem="KPy-Mw-88Y" secondAttribute="leading" constant="16" id="v5U-HI-siD"/>
+                            <constraint firstItem="fKV-q2-Zcm" firstAttribute="top" secondItem="KPy-Mw-88Y" secondAttribute="top" constant="24" id="3yQ-zn-UIZ"/>
+                            <constraint firstAttribute="bottom" secondItem="fKV-q2-Zcm" secondAttribute="bottom" constant="10" id="T8q-5u-vKx"/>
+                            <constraint firstItem="fKV-q2-Zcm" firstAttribute="leading" secondItem="KPy-Mw-88Y" secondAttribute="leading" constant="16" id="dkk-NZ-pT9"/>
+                            <constraint firstAttribute="trailing" secondItem="fKV-q2-Zcm" secondAttribute="trailing" constant="16" id="nk0-B6-QK3"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -113,12 +122,12 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="hotelNameLabel" destination="99f-j0-0Fn" id="YgF-Ty-EUZ"/>
-                <outlet property="starRatingContatinerView" destination="3ZI-p4-ZuL" id="ehH-az-tGd"/>
-                <outlet property="starRatingView" destination="38r-hB-1JM" id="ieG-te-rG4"/>
-                <outlet property="taImageLeadingConstraint" destination="60p-UH-GPs" id="oR2-yO-cme"/>
-                <outlet property="tripAdvisorImageView" destination="uRk-xH-Z9I" id="yD1-zf-Yhb"/>
-                <outlet property="tripRatingView" destination="4LQ-ho-SCJ" id="VfP-0U-Zq1"/>
+                <outlet property="hotelNameLabel" destination="xeZ-nS-7A8" id="nnS-sE-ePO"/>
+                <outlet property="starRatingContatinerView" destination="aFv-gN-7Ac" id="ABG-cY-oou"/>
+                <outlet property="starRatingView" destination="D3p-YX-RCR" id="pP4-b4-LY9"/>
+                <outlet property="taImageLeadingConstraint" destination="FXB-xg-0wU" id="8F4-6X-v6D"/>
+                <outlet property="tripAdvisorImageView" destination="HYQ-dG-LW6" id="tnL-Wq-E5N"/>
+                <outlet property="tripRatingView" destination="she-TM-6Ih" id="iMN-Y3-TAP"/>
             </connections>
             <point key="canvasLocation" x="9" y="3"/>
         </tableViewCell>
@@ -128,6 +137,6 @@
         <image name="combinedShapeUnfilled" width="14" height="14"/>
         <image name="starRatingFilled" width="30" height="30"/>
         <image name="starRatingUnfill" width="30" height="30"/>
-        <image name="tripAdviserMailComposer" width="32" height="18"/>
+        <image name="tripAdviserBig" width="32" height="18"/>
     </resources>
 </document>

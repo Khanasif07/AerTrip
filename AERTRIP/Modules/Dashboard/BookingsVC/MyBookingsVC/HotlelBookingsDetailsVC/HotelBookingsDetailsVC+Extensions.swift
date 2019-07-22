@@ -26,7 +26,7 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         let currentSection = self.viewModel.sectionDataForHotelDetail[indexPath.section]
         switch currentSection[indexPath.row] {
         case .hotelBookingInfoCell:
-            return 230.0
+            return UITableView.automaticDimension
         case .roomNameAndTypeCell:
             return UITableView.automaticDimension
         case .travellersCell:
@@ -281,6 +281,8 @@ extension HotlelBookingsDetailsVC: MXParallaxHeaderDelegate {
                 sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
                 
                 sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeImage, endText: self?.navigationTitleText ?? "", font: AppFonts.SemiBold.withSize(18.0), isEndTextBold: true)
+                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 0
+                sSelf.headerView?.bookingIdAndDateLabel.alpha = 0
                 sSelf.topNavBar.dividerView.isHidden = false
             }
         } else {
@@ -290,6 +292,8 @@ extension HotlelBookingsDetailsVC: MXParallaxHeaderDelegate {
                 sSelf.topNavBar.leftButton.isSelected = false
                 sSelf.topNavBar.leftButton.tintColor = AppColors.themeWhite
                 sSelf.topNavBar.navTitleLabel.text = ""
+                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 1
+                sSelf.headerView?.bookingIdAndDateLabel.alpha = 1
                 sSelf.topNavBar.dividerView.isHidden = true
             }
         }

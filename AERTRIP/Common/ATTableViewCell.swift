@@ -9,8 +9,8 @@
 import UIKit
 
 class ATTableViewCell: UITableViewCell {
-    
-    
+
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         

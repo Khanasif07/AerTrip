@@ -21,6 +21,7 @@ class FareRulesVC: BaseVC {
         registerXib()
         self.fareRuleTableView.dataSource = self
         self.fareRuleTableView.delegate = self
+        self.fareRuleTableView.isScrollEnabled = false
         self.fareRuleTableView.reloadData()
     }
 
@@ -46,7 +47,7 @@ extension FareRulesVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.fareRules.sizeCount(withFont: AppFonts.Regular.withSize(16.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0)).height + 60.0
+        return UIDevice.screenSize.height - 84
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -482,3 +482,5 @@ class HotelResultVC: BaseVC {
     }
 }
 
+
+

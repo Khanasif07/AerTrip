@@ -47,10 +47,10 @@ class MyBookingFilterVM {
         get {
              return filteredUpcomingResultCount + filteredCompletedResultCount + filteredCanceledResultCount
         }
-        set (initialValue) {
-          self.filteredUpcomingResultCount = initialValue
-          self.filteredCompletedResultCount = initialValue
-          self.filteredCanceledResultCount = initialValue
+        set  {
+          self.filteredUpcomingResultCount = newValue
+          self.filteredCompletedResultCount = newValue
+          self.filteredCanceledResultCount = newValue
         }
        
     }

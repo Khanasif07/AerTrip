@@ -149,12 +149,16 @@ extension OtherBookingsDetailsVC: MXParallaxHeaderDelegate {
             self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
                 guard let sSelf = self else { return }
                 sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeImage, endText: self?.viewModel.bookingDetail?.bookingDetail?.title ?? "", font: AppFonts.SemiBold.withSize(18.0), isEndTextBold: true)
+                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 0
+                sSelf.headerView?.bookingIdAndDateLabel.alpha = 0
                 sSelf.topNavBar.dividerView.isHidden = false
             }
         } else {
             self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
                 guard let sSelf = self else { return }
                 sSelf.topNavBar.navTitleLabel.text = ""
+                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 1
+                sSelf.headerView?.bookingIdAndDateLabel.alpha = 1
                 sSelf.topNavBar.dividerView.isHidden = true
             }
         }

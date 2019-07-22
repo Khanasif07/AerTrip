@@ -43,7 +43,6 @@ class BookingReviewCancellationVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.statusBarStyle = .default
         self.statusBarColor = AppColors.themeBlack.withAlphaComponent(0.4)
     }
@@ -81,7 +80,8 @@ class BookingReviewCancellationVC: BaseVC {
         
         self.refundModeTextField.delegate = self
         self.cancellationTextField.delegate = self
-        
+        self.commentTextView.textContainerInset = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
+
         if self.viewModel.currentUsingAs == .specialRequest {
             //get the data for special request
             self.viewModel.getAllHotelSpecialRequest()
@@ -258,6 +258,7 @@ extension BookingReviewCancellationVC: BookingReviewCancellationVMDelegate {
     }
     
     func makeCancellationRequestFail() {
+        AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
     }
     
     func willGetCancellationRefundModeReasons() {

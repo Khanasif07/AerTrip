@@ -230,6 +230,8 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
                 sSelf.topNavBar.leftButton.isSelected = true
                 sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
                 sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeImage, endText: self?.viewModel.tripCitiesStr ?? NSMutableAttributedString(string: ""), font: AppFonts.SemiBold.withSize(18.0))
+                sSelf.headerView?.bookingIdAndDateLabel.alpha = 0
+                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 0
                 sSelf.topNavBar.dividerView.isHidden = false
             }
         } else {
@@ -240,6 +242,8 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
                 sSelf.topNavBar.leftButton.tintColor = AppColors.themeWhite
                 sSelf.topNavBar.navTitleLabel.text = ""
                 sSelf.topNavBar.dividerView.isHidden = true
+                sSelf.headerView?.bookingIdAndDateLabel.alpha = 1
+                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 1
             }
         }
         

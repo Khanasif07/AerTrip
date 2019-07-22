@@ -155,7 +155,11 @@ extension SelectTripVC: TopNavigationViewDelegate {
             // move and update trip
             viewModel.moveAndUpdateTripAPI(selectedTrip: viewModel.allTrips[indexPath.row])
         } else {
-            selectionCompleted()
+            if viewModel.usingFor == .bookingTripChange {
+                AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectTrip.localized)
+            } else {
+                selectionCompleted()
+            }
         }
     }
     
