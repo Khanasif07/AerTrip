@@ -41,5 +41,6 @@ extension MyBookingsVC: MyBookingsVMDelegate {
         AppGlobals.shared.stopLoading()
         MyBookingsVM.shared.allTabTypes = CoreDataManager.shared.fetchData(fromEntity: "BookingData", forAttribute: "bookingTabType", usingFunction: "count").map({ ($0["bookingTabType"] as? Int16) ?? -1})
         self.emptyStateSetUp()
+        self.sendDataChangedNotification(data: ATNotification.myBookingSearching)
     }
 }

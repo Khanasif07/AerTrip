@@ -154,10 +154,11 @@ extension UpcomingBookingsVC {
     
     private func eventTypePredicates() -> NSPredicate? {
         var typePredicate : [NSPredicate] = []
-        if MyBookingFilterVM.shared.eventType.isEmpty {
-            MyBookingFilterVM.shared.eventType = [2,3,1]
+        var allEvents = MyBookingFilterVM.shared.eventType
+        if allEvents.isEmpty {
+            allEvents = [2,3,1]
         }
-        for type in MyBookingFilterVM.shared.eventType {
+        for type in allEvents {
             typePredicate.append(NSPredicate(format: "bookingProductType == \(type)"))
         }
         

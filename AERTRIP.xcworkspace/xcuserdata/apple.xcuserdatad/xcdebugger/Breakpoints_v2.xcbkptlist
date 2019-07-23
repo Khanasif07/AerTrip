@@ -10,12 +10,138 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/MyBookingFilterVC/MyBookingFilterVC.swift"
-            timestampString = "585563816.1230119"
+            timestampString = "585577218.055627"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "initialSetup()"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
+            landmarkName = "setBadgesOnAllCategories()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AERTRIP.MyBookingFilterVC.(setBadgesOnAllCategories in _E54A378C3B45ACB3D757FF9A802E67E4)() -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/PK/Projects/Aertrip/AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/MyBookingFilterVC/MyBookingFilterVC.swift"
+                  timestampString = "585577218.668453"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "244"
+                  endingLineNumber = "244"
+                  offsetFromSymbolStart = "808">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AERTRIP.MyBookingFilterVC.(setBadgesOnAllCategories in _E54A378C3B45ACB3D757FF9A802E67E4)() -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/PK/Projects/Aertrip/AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/MyBookingFilterVC/MyBookingFilterVC.swift"
+                  timestampString = "585577218.6716861"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "244"
+                  endingLineNumber = "244"
+                  offsetFromSymbolStart = "833">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AERTRIP.MyBookingFilterVC.(setBadgesOnAllCategories in _E54A378C3B45ACB3D757FF9A802E67E4)() -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/PK/Projects/Aertrip/AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/MyBookingFilterVC/MyBookingFilterVC.swift"
+                  timestampString = "585577218.675631"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "244"
+                  endingLineNumber = "244"
+                  offsetFromSymbolStart = "1599">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AERTRIP.MyBookingFilterVC.(setBadgesOnAllCategories in _E54A378C3B45ACB3D757FF9A802E67E4)() -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/PK/Projects/Aertrip/AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/MyBookingFilterVC/MyBookingFilterVC.swift"
+                  timestampString = "585577218.67857"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "244"
+                  endingLineNumber = "244"
+                  offsetFromSymbolStart = "1987">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/CancelledVC/CancelledVC+CoreData.swift"
+            timestampString = "585577218.0564409"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "eventTypePredicates()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/CompletedVC/CompletedVC+CoreData.swift"
+            timestampString = "585577218.056674"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "eventTypePredicates()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/UpcomingBookingsVC/UpcomingBookingVC+CoreData.swift"
+            timestampString = "585577218.056985"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "eventTypePredicates()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/BookingsVC/MyBookingsVC/MyBookingFilterVC/MyBookingFilterVC.swift"
+            timestampString = "585577218.057259"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
+            landmarkName = "didSelectEventTypes(selection:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

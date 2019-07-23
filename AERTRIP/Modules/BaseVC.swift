@@ -29,6 +29,18 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         }
     }
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+        self.registerDataChangeNotification()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        self.registerDataChangeNotification()
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,8 +52,6 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         indicatorContainer.addSubview(indicator)
 
         self.bindViewModel()
-
-        NotificationCenter.default.addObserver(self, selector: #selector(dataChanged(_:)), name: .dataChanged, object: nil)
 
         self.initialSetup()
         self.setupFonts()
@@ -119,6 +129,10 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     }
     
     //MARK: Overrideabel functions
+    private func registerDataChangeNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(dataChanged(_:)), name: .dataChanged, object: nil)
+    }
+    
     func bindViewModel() {
     }
     
