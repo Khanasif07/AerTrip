@@ -26,7 +26,7 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         let currentSection = self.viewModel.sectionDataForHotelDetail[indexPath.section]
         switch currentSection[indexPath.row] {
         case .hotelBookingInfoCell:
-            return UITableView.automaticDimension
+            return (self.viewModel.bookingDetail?.bookingDetail?.hotelAddress ?? "A").sizeCount(withFont: AppFonts.Regular.withSize(16.0), bundingSize: CGSize(width: (UIDevice.screenWidth - 50.0), height: 10000.0)).height + 182.0
         case .roomNameAndTypeCell:
             return UITableView.automaticDimension
         case .travellersCell:
@@ -213,7 +213,7 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
                 let endPoint = "https://beta.aertrip.com/api/v1/dashboard/booking-action?type=pdf&booking_id=\(self.viewModel.bookingDetail?.id ?? "")"
                 AppGlobals.shared.viewPdf(urlPath: endPoint, screenTitle: LocalizedString.Voucher.localized)
             case 3:
-                AppToast.default.showToastMessage(message: LocalizedString.UnderDevelopment.localized)
+                AppGlobals.shared.showUnderDevelopment()
                 printDebug("Resend Confirmation mail ")
             default:
                 printDebug("default")
@@ -315,7 +315,7 @@ extension HotlelBookingsDetailsVC: MXParallaxHeaderDelegate {
 
 extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     func addToTrips() {
-        printDebug("Manage add to trip flow here")
+        AppGlobals.shared.showUnderDevelopment()
     }
     
     func openWebCheckin() {
@@ -340,7 +340,7 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     }
     
     func addToAppleWallet() {
-        printDebug("Add To Apple Wallet")
+        AppGlobals.shared.showUnderDevelopment()
     }
     
     func webCheckinServices(url: String) {

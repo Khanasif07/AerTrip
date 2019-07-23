@@ -98,7 +98,7 @@ class FlightBookingsDetailsVC: BaseVC {
     
     private func setupParallaxHeader() {
         let parallexHeaderHeight = CGFloat(147.0)
-        let parallexHeaderMinHeight = navigationController?.navigationBar.bounds.height ?? 74 // 105
+        let parallexHeaderMinHeight = CGFloat(0.0)//navigationController?.navigationBar.bounds.height ?? 74 // 105
         self.bookingDetailsTableView.parallaxHeader.view = self.headerView
         self.bookingDetailsTableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
         self.bookingDetailsTableView.parallaxHeader.height = parallexHeaderHeight

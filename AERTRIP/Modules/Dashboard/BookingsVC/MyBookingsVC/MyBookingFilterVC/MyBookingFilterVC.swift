@@ -165,7 +165,7 @@ class MyBookingFilterVC: BaseVC {
     }
     
     private func fetchMinDateFromCoreData() {
-        if let dict = CoreDataManager.shared.fetchData(fromEntity: "BookingData", forAttribute: "depart", usingFunction: "min").first, let minDt = dict["min"] as? String {
+        if let dict = CoreDataManager.shared.fetchData(fromEntity: "BookingData", forAttribute: "dateHeader", usingFunction: "min").first, let minDt = dict["min"] as? String {
             
             //2019-08-07 00:00:00
             printDebug("Min date \(minDt)")

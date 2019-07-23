@@ -19,9 +19,12 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
     var window: UIWindow?
     let transitionCoordinator = TransitionCoordinator()
     static var shared = UIApplication.shared.delegate as! AppDelegate
+    
+    private var reachability: Reachability?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -31,7 +34,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         Fabric.with([Crashlytics.self])
         GMSServices.provideAPIKey(AppConstants.kGoogleAPIKey)
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(checkForReachability(_:)), name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
+        
+        self.reachability = Reachability.networkReachabilityForInternetConnection()
+        let _ = self.reachability?.startNotifier()
+        
         return true
+    }
+    
+    @objc func checkForReachability(_ notification: Notification) {
+        
+        guard let networkReachability = notification.object as? Reachability else {return}
+        let remoteHostStatus = networkReachability.currentReachabilityStatus
+        
+        if remoteHostStatus == .notReachable {
+            print("Not Reachable")
+        }
+        else if remoteHostStatus == .reachableViaWiFi {
+            print("Reachable via Wifi")
+        }
+        else {
+            print("Reachable")
+        }
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
