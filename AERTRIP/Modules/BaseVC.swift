@@ -29,6 +29,18 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         }
     }
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+        self.registerDataChangeNotification()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        self.registerDataChangeNotification()
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,7 +52,6 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         indicatorContainer.addSubview(indicator)
 
         self.bindViewModel()
-        NotificationCenter.default.addObserver(self, selector: #selector(dataChanged(_:)), name: .dataChanged, object: nil)
 
         self.initialSetup()
         self.setupFonts()
@@ -66,7 +77,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         IQKeyboardManager.shared().toolbarTintColor = AppColors.themeGreen
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().isEnableAutoToolbar = true
-       
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -106,7 +117,6 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated);
-       
     }
     
     override func didReceiveMemoryWarning() {
@@ -117,8 +127,12 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
     }
-
+    
     //MARK: Overrideabel functions
+    private func registerDataChangeNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(dataChanged(_:)), name: .dataChanged, object: nil)
+    }
+    
     func bindViewModel() {
     }
     

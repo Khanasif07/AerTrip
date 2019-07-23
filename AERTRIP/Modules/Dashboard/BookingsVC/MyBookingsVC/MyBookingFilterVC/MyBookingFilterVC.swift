@@ -151,6 +151,9 @@ class MyBookingFilterVC: BaseVC {
         self.topNavBar.navTitleLabel.text = "\(MyBookingFilterVM.shared.filteredResultCount) of \(MyBookingFilterVM.shared.totalResultCount) Results"
     }
     private func notifyToFilterApplied() {
+        
+        self.setBadgesOnAllCategories()
+        
         NSObject.cancelPreviousPerformRequests(withTarget: self)
          // dalay for 1 seconds for the filter applied same as Android 
         perform(#selector(sendNotification), with: nil, afterDelay: 1.0)
@@ -214,6 +217,7 @@ class MyBookingFilterVC: BaseVC {
         style.indicatorColor = AppColors.themeGreen
         style.normalColor = AppColors.textFieldTextColor51
         style.selectedColor = AppColors.themeBlack
+        
         style.badgeDotSize = CGSize(width: 4.0, height: 4.0)
         style.badgeBackgroundColor = AppColors.themeGreen
         style.badgeBorderColor = AppColors.clear
@@ -232,6 +236,27 @@ class MyBookingFilterVC: BaseVC {
     }
     
     private func setBadgesOnAllCategories() {
+        
+        for (idx,tab) in self.allTabsStr.enumerated() {
+            
+            var badgeCount = 0
+            
+            switch tab.lowercased() {
+            case LocalizedString.TravelDate.localized.lowercased():
+                badgeCount = (MyBookingFilterVM.shared.travelToDate != nil || MyBookingFilterVM.shared.travelFromDate != nil) ? 1 : 0
+                
+            case LocalizedString.EventType.localized.lowercased():
+                badgeCount = MyBookingFilterVM.shared.eventType.isEmpty ? 0 : 1
+                
+            case LocalizedString.BookingDate.localized.lowercased():
+                badgeCount = (MyBookingFilterVM.shared.bookingToDate != nil || MyBookingFilterVM.shared.bookingFromDate != nil) ? 1 : 0
+                
+            default:
+                printDebug("not useable case")
+            }
+            
+            self.categoryView.setBadge(atIndex: idx, badgeNumber: badgeCount)
+        }
     }
     
     private func setupGesture() {

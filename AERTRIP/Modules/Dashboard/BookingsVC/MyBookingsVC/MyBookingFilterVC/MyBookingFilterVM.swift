@@ -32,7 +32,7 @@ class MyBookingFilterVM {
     var bookingToDate: Date?
     
     // let event Type filter
-    var eventType: [Int] = [1,2,3]
+    var eventType: [Int] = []
     
     var isFirstTime: Bool = true
     
