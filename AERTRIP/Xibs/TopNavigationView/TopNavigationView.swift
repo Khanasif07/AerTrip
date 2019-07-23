@@ -167,7 +167,8 @@ class TopNavigationView: UIView {
         self.backView.isHidden = false
 
         completion?(true)
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+        let time = AppConstants.kAnimationDuration * 0.7
+        UIView.animate(withDuration: time, animations: {
             self.backViewHeightConstraint.constant = isHidden ? 0.0 : self.height
             self.backView.alpha = isHidden ? 0.0 : 1.0
             self.layoutIfNeeded()

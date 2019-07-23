@@ -862,7 +862,7 @@
 "FlightTripChangeMessage" = "Flight booking moved to";
 "HotelTripChangeMessage" = "Hotel booking moved to";
 "EventAddedToCalander" = "Event added to your calendar.";
-"EventAlreadyAddedInCalendar" = "You have already added this in your calendar.";
+"EventAlreadyAddedInCalendar" = "You have already added this event in your calendar.";
 "UnableToAddEventToCalander" = "Unable to add event in calendar, please try again!";
 
 

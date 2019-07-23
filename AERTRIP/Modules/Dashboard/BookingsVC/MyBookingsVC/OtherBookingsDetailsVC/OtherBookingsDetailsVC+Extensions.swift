@@ -73,6 +73,15 @@ extension OtherBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        printDebug("\(indexPath.section)")
+        
+        if let _ = tableView.cellForRow(at: indexPath) as? PaymentInfoTableViewCell, let rcpt = self.viewModel.bookingDetail?.receipt {
+            //move to voucher vc
+            AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: "")
+        }
+    }
 }
 
 extension OtherBookingsDetailsVC: TopNavigationViewDelegate {

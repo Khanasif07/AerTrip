@@ -380,7 +380,6 @@ class AppGlobals {
     func addEventToCalender(title: String, startDate: Date, endDate: Date, notes: String = "", uniqueId: String = "") {
         
         let eventStore = EKEventStore()
-        
         func addToCalendar() {
             eventStore.requestAccess(to: EKEntityType.event, completion: { granted, error in
                 
@@ -405,27 +404,44 @@ class AppGlobals {
             })
         }
         
-        if uniqueId.isEmpty {
-            addToCalendar()
-        }
-        else {
-            var isAdded: Bool = false
+        let authorization = EKEventStore.authorizationStatus(for: EKEntityType.event)
+        
+        if authorization == .authorized || authorization == .notDetermined {
             
-            //logic for isAdded
-            let pred = eventStore.predicateForEvents(withStart: startDate, end: endDate, calendars: nil)
-            for event in eventStore.events(matching: pred) {
-                if event.title.contains(uniqueId) {
-                    isAdded = true
-                    break
-                }
-            }
-            
-            if isAdded {
-                AppToast.default.showToastMessage(message: LocalizedString.EventAlreadyAddedInCalendar.localized)
-            }
-            else {
+            if uniqueId.isEmpty {
                 addToCalendar()
             }
+            else {
+                var isAdded: Bool = false
+                
+                //logic for isAdded
+                let pred = eventStore.predicateForEvents(withStart: startDate, end: endDate, calendars: nil)
+                for event in eventStore.events(matching: pred) {
+                    if event.title.contains(uniqueId) {
+                        isAdded = true
+                        break
+                    }
+                }
+                
+                if isAdded {
+                    AppToast.default.showToastMessage(message: LocalizedString.EventAlreadyAddedInCalendar.localized)
+                }
+                else {
+                    addToCalendar()
+                }
+            }
+        }
+        else {
+            let alertController = UIAlertController(title: "", message: "You have been restricted from using the calendar on this device without calendar access this feature wont work.", preferredStyle: UIAlertController.Style.alert)
+            
+            let alertActionSettings = UIAlertAction(title: "Settings", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+                UIApplication.openSettingsApp
+            }
+            let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+            }
+            alertController.addAction(alertActionSettings)
+            alertController.addAction(alertActionCancel)
+            UIApplication.topViewController()?.present(alertController, animated: true, completion: nil)
         }
     }
         
@@ -435,6 +451,10 @@ class AppGlobals {
         let attributeString: NSMutableAttributedString = NSMutableAttributedString(string: str)
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0, attributeString.length))
         return attributeString
+    }
+    
+    func showUnderDevelopment() {
+        AppToast.default.showToastMessage(message: LocalizedString.UnderDevelopment.localized)
     }
 }
 

@@ -45,12 +45,6 @@ class OtherBookingsDetailsVC: BaseVC {
     // MARK: - LifeCycle
     
     // MARK: ===========
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.statusBarStyle = .lightContent
-    }
-    
     override func initialSetup() {
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
         self.viewModel.getBookingDetail()
@@ -106,7 +100,7 @@ class OtherBookingsDetailsVC: BaseVC {
     
     private func setupParallaxHeader() {
         let parallexHeaderHeight = CGFloat(147.0)
-        let parallexHeaderMinHeight = navigationController?.navigationBar.bounds.height ?? 74
+        let parallexHeaderMinHeight = CGFloat(0.0)//navigationController?.navigationBar.bounds.height ?? 74
         self.dataTableView.parallaxHeader.view = self.headerView
         self.dataTableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
         self.dataTableView.parallaxHeader.height = parallexHeaderHeight

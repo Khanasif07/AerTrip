@@ -102,10 +102,20 @@ extension BookingVoucherVC: UITableViewDataSource,UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 2 {
+        guard let rcpt = self.viewModel.receipt else {
             return 0
         }
-        return 10.0
+        
+        switch section {
+        case 0:
+            return rcpt.otherVoucher.isEmpty ? 0 : 10.0
+            
+        case 1:
+            return rcpt.receiptVoucher.isEmpty ? 0 : 10.0
+            
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

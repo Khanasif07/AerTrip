@@ -125,11 +125,11 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             case .addToCalender:
                 self.addToCalender()
             case .addToTrips:
-                printDebug("Manage Add to Trips here")
+                AppGlobals.shared.showUnderDevelopment()
             case .bookSameFlight:
-                printDebug("Manage book same flight")
+                AppGlobals.shared.showUnderDevelopment()
             case .addToAppleWallet:
-                printDebug("Manage add toa Apple wallet")
+                AppGlobals.shared.showUnderDevelopment()
             }
         }
         else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? PaymentInfoTableViewCell, let rcpt = self.viewModel.bookingDetail?.receipt {
@@ -171,7 +171,7 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
                 AppGlobals.shared.viewPdf(urlPath: endPoints, screenTitle: LocalizedString.ETicket.localized)
             } else if index == 4 {
                 // Present Resend Confirmation Email
-                AppToast.default.showToastMessage(message: LocalizedString.UnderDevelopment.localized)
+                AppGlobals.shared.showUnderDevelopment()
             }
         }
     }
