@@ -20,6 +20,10 @@ extension MyBookingsVC: UISearchBarDelegate {
         self.sendDataChangedNotification(data: ATNotification.myBookingSearching)
         MyBookingFilterVM.shared.searchText = forText
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+         self.view.endEditing(true)
+    }
 }
 
 extension MyBookingsVC: MyBookingsVMDelegate {
