@@ -28,8 +28,6 @@ class UpcomingBookingsVC: BaseVC {
             self.upcomingBookingsTableView.dataSource = self
             self.upcomingBookingsTableView.estimatedRowHeight = UITableView.automaticDimension
             self.upcomingBookingsTableView.rowHeight = UITableView.automaticDimension
-            self.upcomingBookingsTableView.estimatedSectionHeaderHeight = 41.0
-            self.upcomingBookingsTableView.sectionHeaderHeight = 41.0
             self.upcomingBookingsTableView.estimatedSectionFooterHeight = 0.0
             self.upcomingBookingsTableView.sectionFooterHeight = 0.0
         }
@@ -48,7 +46,7 @@ class UpcomingBookingsVC: BaseVC {
     
     // fetch result controller
     lazy var fetchedResultsController: NSFetchedResultsController<BookingData> = {
-        
+        // booking will be in ascending order by date
         self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateHeader", ascending: true), NSSortDescriptor(key: "bookingProductType", ascending: false), NSSortDescriptor(key: "bookingId", ascending: true)]
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "dateHeader", cacheName: nil)

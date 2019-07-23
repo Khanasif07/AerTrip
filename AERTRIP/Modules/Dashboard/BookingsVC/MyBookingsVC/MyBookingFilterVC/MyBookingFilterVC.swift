@@ -227,7 +227,7 @@ class MyBookingFilterVC: BaseVC {
         self.categoryView = categoryView
         
         // Set last Selected Index on Nav bar
-        self.categoryView.select(at: 0)
+        self.categoryView.select(at: MyBookingFilterVM.shared.lastSelectedIndex)
         self.setBadgesOnAllCategories()
     }
     
@@ -265,12 +265,16 @@ extension MyBookingFilterVC: TopNavigationViewDelegate {
     }
 }
 
-//MARK:- ATCategoryNavBarDelegate
+// MARK: - ATCategoryNavBarDelegate
+
 extension MyBookingFilterVC: ATCategoryNavBarDelegate {
     func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
         self.currentIndex = toIndex
+        MyBookingFilterVM.shared.lastSelectedIndex = toIndex
     }
 }
+
+
 
 extension MyBookingFilterVC: EventTypeVCDelegate {
     func didSelectEventTypes(selection: [Int]) {

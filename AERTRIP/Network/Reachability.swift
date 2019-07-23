@@ -23,7 +23,7 @@ class Reachability: NSObject {
     
     private var networkReachability: SCNetworkReachability?
     private var notifying: Bool = false
-
+    
     init?(hostName: String) {
         networkReachability = SCNetworkReachabilityCreateWithName(kCFAllocatorDefault, (hostName as NSString).utf8String!)
         super.init()
@@ -70,7 +70,7 @@ class Reachability: NSObject {
     }
     
     
-        func startNotifier() -> Bool {
+    func startNotifier() -> Bool {
         
         guard notifying == false else {
             return false
@@ -147,8 +147,8 @@ class Reachability: NSObject {
         }
     }
     
-//    deinit {
-//        stopNotifier()
-//    }
-
+    //    deinit {
+    //        stopNotifier()
+    //    }
+    
 }

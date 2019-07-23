@@ -19,19 +19,5 @@ extension NSError {
         self.init(domain: "AppNetworkingError", code: code, userInfo: [NSLocalizedDescriptionKey : localizedDescription])
     }
     
-    class func networkConnectionError(urlString: String) -> NSError{
-        let errorUserInfo =
-            [   NSLocalizedDescriptionKey : AppErrorCodeFor.noInternet.message,
-                NSURLErrorFailingURLErrorKey : "\(urlString)"
-        ]
-        return NSError(domain: NSCocoaErrorDomain, code: AppErrorCodeFor.noInternet.rawValue, userInfo:errorUserInfo)
-    }
     
-    class func jsonParsingError(urlString: String) -> NSError{
-        let errorUserInfo =
-            [   NSLocalizedDescriptionKey : AppErrorCodeFor.parsing.message,
-                NSURLErrorFailingURLErrorKey : "\(urlString)"
-        ]
-        return NSError(domain: NSCocoaErrorDomain, code: AppErrorCodeFor.parsing.rawValue, userInfo:errorUserInfo)
-    }
 }

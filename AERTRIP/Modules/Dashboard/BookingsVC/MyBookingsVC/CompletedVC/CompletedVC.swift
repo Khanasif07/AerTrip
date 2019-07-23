@@ -24,11 +24,8 @@ class CompletedVC: BaseVC {
         didSet {
             self.completedBookingsTableView.delegate = self
             self.completedBookingsTableView.dataSource = self
-            self.completedBookingsTableView.contentInset = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.completedBookingsTableView.estimatedRowHeight = UITableView.automaticDimension
             self.completedBookingsTableView.rowHeight = UITableView.automaticDimension
-            self.completedBookingsTableView.estimatedSectionHeaderHeight = 41.0
-            self.completedBookingsTableView.sectionHeaderHeight = 41.0
             self.completedBookingsTableView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
             self.completedBookingsTableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
         }
@@ -91,8 +88,8 @@ class CompletedVC: BaseVC {
     // fetch result controller
     var fetchRequest: NSFetchRequest<BookingData> = BookingData.fetchRequest()
     lazy var fetchedResultsController: NSFetchedResultsController<BookingData> = {
-        
-        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateHeader", ascending: true), NSSortDescriptor(key: "bookingProductType", ascending: false), NSSortDescriptor(key: "bookingId", ascending: true)]
+        // booking will be in desending order by date
+        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateHeader", ascending: false), NSSortDescriptor(key: "bookingProductType", ascending: false), NSSortDescriptor(key: "bookingId", ascending: true)]
 
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "dateHeader", cacheName: nil)
         return fetchedResultsController

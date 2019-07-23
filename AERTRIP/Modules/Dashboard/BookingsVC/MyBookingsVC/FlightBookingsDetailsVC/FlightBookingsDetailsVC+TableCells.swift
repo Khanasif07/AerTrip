@@ -271,7 +271,7 @@ extension FlightBookingsDetailsVC {
     
     func getWeatherHeaderCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherHeaderTableViewCell.reusableIdentifier, for: indexPath) as? WeatherHeaderTableViewCell else { return UITableViewCell() }
-        cell.seeAllBtnOutlet.isHidden = self.viewModel.bookingDetail?.tripWeatherData.count ?? 0 < 6
+        cell.seeAllBtnOutlet.isHidden =  self.viewModel.isSeeAllWeatherButtonTapped || self.viewModel.bookingDetail?.tripWeatherData.count ?? 0 <= 5
         cell.clipsToBounds = true
         cell.delegate = self
         return cell
@@ -280,7 +280,12 @@ extension FlightBookingsDetailsVC {
     func getWeatherInfoCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherInfoTableViewCell.reusableIdentifier, for: indexPath) as? WeatherInfoTableViewCell else { return UITableViewCell() }
         cell.usingFor = .flight
-        cell.isLastCell = indexPath.row == ((self.viewModel.bookingDetail?.tripWeatherData.count ?? 0)) && !self.viewModel.isSeeAllWeatherButtonTapped
+        if self.viewModel.isSeeAllWeatherButtonTapped || (self.viewModel.bookingDetail?.tripWeatherData.count ?? 0) < 5  {
+            cell.isLastCell = indexPath.row == ((self.viewModel.bookingDetail?.tripWeatherData.count ?? 0))
+        } else {
+             cell.isLastCell = (indexPath.row == (self.viewModel.bookingDetail?.tripWeatherData.count ?? 0) - 1)
+        }
+        
         cell.weatherData = self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1]
         cell.clipsToBounds = true
         return cell
@@ -311,6 +316,7 @@ extension FlightBookingsDetailsVC {
         cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.titleLabelBottomConstraint.constant = 2.0
         cell.clipsToBounds = true
+        cell.dividerView.isHidden = true
         return cell
     }
     
@@ -321,6 +327,7 @@ extension FlightBookingsDetailsVC {
         cell.titleLabelBottomConstraint.constant = 2.0
         cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.clipsToBounds = true
+        cell.dividerView.isHidden = true
         return cell
     }
     
@@ -331,6 +338,7 @@ extension FlightBookingsDetailsVC {
         cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.containerView.backgroundColor = AppColors.screensBackground.color
         cell.clipsToBounds = true
+        cell.dividerView.isHidden = true
         return cell
     }
     
@@ -341,6 +349,7 @@ extension FlightBookingsDetailsVC {
         cell.configCell(title: LocalizedString.BillingAddress.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.address?.completeAddress ?? "", subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
         cell.containerView.backgroundColor = AppColors.screensBackground.color
         cell.clipsToBounds = true
+        cell.dividerView.isHidden = true
         return cell
     }
 }

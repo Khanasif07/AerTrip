@@ -40,7 +40,6 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         indicatorContainer.addSubview(indicator)
 
         self.bindViewModel()
-
         NotificationCenter.default.addObserver(self, selector: #selector(dataChanged(_:)), name: .dataChanged, object: nil)
 
         self.initialSetup()
@@ -67,7 +66,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         IQKeyboardManager.shared().toolbarTintColor = AppColors.themeGreen
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().isEnableAutoToolbar = true
-        
+       
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -107,6 +106,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated);
+       
     }
     
     override func didReceiveMemoryWarning() {
@@ -117,7 +117,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
     }
-    
+
     //MARK: Overrideabel functions
     func bindViewModel() {
     }

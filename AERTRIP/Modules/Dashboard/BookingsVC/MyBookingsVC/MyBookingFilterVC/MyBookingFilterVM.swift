@@ -42,6 +42,7 @@ class MyBookingFilterVM {
     var filteredUpcomingResultCount: Int = 0
     var filteredCompletedResultCount: Int = 0
     var filteredCanceledResultCount: Int = 0
+    var lastSelectedIndex: Int = 0
     
     var filteredResultCount: Int {
         get {

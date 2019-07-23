@@ -94,6 +94,7 @@ class BookingCallVC: BaseVC {
     
     func getCellForHotelSection(_ indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == self.viewModel.hotelData.count {
+            
             guard let emptyCell = self.callTableView.dequeueReusableCell(withIdentifier: "EmptyTableViewCell") as? EmptyTableViewCell else {
                 fatalError("EmptyTableViewCell not found")
             }
@@ -231,7 +232,7 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
                 return 44.0
             case 2:
                 if indexPath.row == self.viewModel.airportData.count {
-                    return 27.0
+                    return self.viewModel.hotelData.count == 1 ? 0 :  27.0
                 } else {
                     return 44.0
                 }
@@ -249,7 +250,7 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
                 }
             case 1:
                 if indexPath.row == self.viewModel.hotelData.count {
-                    return 27.0
+                    return self.viewModel.hotelData.count == 1 ? 0 : 27.0
                 } else {
                     return 44.0
                 }

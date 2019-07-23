@@ -864,5 +864,7 @@
 "EventAddedToCalander" = "Event added to your calendar.";
 "EventAlreadyAddedInCalendar" = "You have already added this in your calendar.";
 "UnableToAddEventToCalander" = "Unable to add event in calendar, please try again!";
+"FlightDomesticCancellationRequest" = "Flight Domestic Cancellation Request";
+"CancellationRequest" = "Cancellation request";
 
 

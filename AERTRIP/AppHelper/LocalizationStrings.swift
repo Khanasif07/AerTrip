@@ -941,6 +941,8 @@ enum LocalizedString: String {
     case EventAlreadyAddedInCalendar
     case SomethingWentWrong
     case Infant
+    case FlightDomesticCancellationRequest
+    case CancellationRequest
     
     // MARK: -
     case UnderDevelopment

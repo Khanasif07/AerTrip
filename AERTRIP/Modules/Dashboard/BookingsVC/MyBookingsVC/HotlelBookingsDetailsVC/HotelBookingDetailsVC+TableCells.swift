@@ -60,7 +60,7 @@ extension HotlelBookingsDetailsVC {
         
         let above = self.viewModel.noOfCellAboveHotelDetail - 1
         cell.configHotelBookingDetailsCell(title: "\(LocalizedString.Room.localized) \(indexPath.section - above)", subTitle: roomD?.roomType ?? LocalizedString.na.localized)
-        
+        cell.dividerView.isHidden = true
         cell.clipsToBounds = true
         return cell
     }
@@ -223,7 +223,7 @@ extension HotlelBookingsDetailsVC {
     func getWeatherHeaderCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherHeaderTableViewCell.reusableIdentifier, for: indexPath) as? WeatherHeaderTableViewCell else { return UITableViewCell() }
         cell.clipsToBounds = true
-        cell.seeAllBtnOutlet.isHidden = self.viewModel.isSeeAllWeatherButtonTapped || self.viewModel.bookingDetail?.tripWeatherData.count ?? 0 < 5
+        cell.seeAllBtnOutlet.isHidden = self.viewModel.isSeeAllWeatherButtonTapped || self.viewModel.bookingDetail?.tripWeatherData.count ?? 0 <= 5
         cell.delegate = self
         return cell
     }
@@ -231,9 +231,12 @@ extension HotlelBookingsDetailsVC {
     func getWeatherInfoCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherInfoTableViewCell.reusableIdentifier, for: indexPath) as? WeatherInfoTableViewCell else { return UITableViewCell() }
         cell.usingFor = .hotel
+        if self.viewModel.isSeeAllWeatherButtonTapped || (self.viewModel.bookingDetail?.tripWeatherData.count ?? 0) < 5  {
+            cell.isLastCell = indexPath.row == ((self.viewModel.bookingDetail?.tripWeatherData.count ?? 0))
+        } else {
+            cell.isLastCell = (indexPath.row == (self.viewModel.bookingDetail?.tripWeatherData.count ?? 0) - 1)
+        }
         cell.weatherData = self.viewModel.bookingDetail?.tripWeatherData[indexPath.row - 1]
-        cell.isLastCell = indexPath.row == ((self.viewModel.bookingDetail?.tripWeatherData.count ?? 0) - 1) && !self.viewModel.isSeeAllWeatherButtonTapped
-        
         cell.clipsToBounds = true
         return cell
     }
@@ -264,6 +267,7 @@ extension HotlelBookingsDetailsVC {
         cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.titleLabelBottomConstraint.constant = 2.0
         cell.clipsToBounds = true
+         cell.dividerView.isHidden = true
         return cell
     }
     
@@ -274,6 +278,7 @@ extension HotlelBookingsDetailsVC {
         cell.titleLabelBottomConstraint.constant = 2.0
         cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.clipsToBounds = true
+        cell.dividerView.isHidden = true
         return cell
     }
     
@@ -284,6 +289,7 @@ extension HotlelBookingsDetailsVC {
         cell.subtitleLabelBottomConstraint.constant = 9.0
         cell.containerView.backgroundColor = AppColors.screensBackground.color
         cell.clipsToBounds = true
+        cell.dividerView.isHidden = true
         return cell
     }
     
@@ -294,6 +300,7 @@ extension HotlelBookingsDetailsVC {
         cell.configCell(title: "Billing Address", titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.address?.completeAddress ?? LocalizedString.na.localized, subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
         cell.containerView.backgroundColor = AppColors.screensBackground.color
         cell.clipsToBounds = true
+        cell.dividerView.isHidden = true
         return cell
     }
 }

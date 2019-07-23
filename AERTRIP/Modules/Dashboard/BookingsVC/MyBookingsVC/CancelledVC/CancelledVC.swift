@@ -24,13 +24,10 @@ class CancelledVC: BaseVC {
         didSet {
             self.cancelledBookingsTableView.delegate = self
             self.cancelledBookingsTableView.dataSource = self
-            self.cancelledBookingsTableView.contentInset = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.cancelledBookingsTableView.estimatedRowHeight = UITableView.automaticDimension
             self.cancelledBookingsTableView.rowHeight = UITableView.automaticDimension
-            self.cancelledBookingsTableView.estimatedSectionHeaderHeight = 41.0
-            self.cancelledBookingsTableView.sectionHeaderHeight = 41.0
-            self.cancelledBookingsTableView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
-            self.cancelledBookingsTableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
+            self.cancelledBookingsTableView.estimatedSectionFooterHeight = 0.0
+            self.cancelledBookingsTableView.sectionFooterHeight = 0.0
         }
     }
     @IBOutlet var footerView: MyBookingFooterView!{
@@ -47,8 +44,8 @@ class CancelledVC: BaseVC {
     var isOnlyPendingAction: Bool = false
     var fetchRequest: NSFetchRequest<BookingData> = BookingData.fetchRequest()
     lazy var fetchedResultsController: NSFetchedResultsController<BookingData> = {
-        
-        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateHeader", ascending: true), NSSortDescriptor(key: "bookingProductType", ascending: false), NSSortDescriptor(key: "bookingId", ascending: true)]
+        // booking will be in desending order by date 
+        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateHeader", ascending: false), NSSortDescriptor(key: "bookingProductType", ascending: false), NSSortDescriptor(key: "bookingId", ascending: true)]
 
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "dateHeader", cacheName: nil)
         return fetchedResultsController

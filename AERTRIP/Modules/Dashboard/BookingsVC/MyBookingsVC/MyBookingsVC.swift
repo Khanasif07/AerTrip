@@ -221,7 +221,7 @@ class MyBookingsVC: BaseVC {
         let categoryView = ATCategoryView(frame: self.childContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
         self.categoryView = categoryView
         categoryView.interControllerSpacing = 0.0
-        categoryView.navBar.internalDelegate = self
+       
         self.childContainerView.addSubview(categoryView)
         
         // Set last Selected Index on Nav bar
@@ -269,7 +269,7 @@ extension MyBookingsVC: TopNavigationViewDelegate {
 extension MyBookingsVC: ATCategoryNavBarDelegate {
     func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
         self.currentIndex = toIndex
-        //        HotelFilterVM.shared.lastSelectedIndex = toIndex
+        MyBookingFilterVM.shared.lastSelectedIndex = toIndex
     }
 }
 

@@ -50,9 +50,9 @@ class BookingAddOnRequestVC: BaseVC {
         self.addFooterView()
         
         self.reloadList()
-        self.setUpNavBar()
         AppGlobals.shared.startLoading()
         self.viewModel.getCaseHistory()
+        self.setUpNavBar()
     }
     
     override func bindViewModel() {
@@ -156,10 +156,14 @@ class BookingAddOnRequestVC: BaseVC {
             //hide
             hideMakePayment()
         }
-        
+        var finalText : String = ""
         self.topNavigationView.firstRightButton.isHidden = !self.shouldShowAbort
-        
-        self.topNavigationView.navTitleLabel.text = self.viewModel.caseHistory?.caseType ?? LocalizedString.dash.localized
+        if (self.viewModel.caseHistory?.caseType ?? "").lowercased() == LocalizedString.FlightDomesticCancellationRequest.localized.lowercased() {
+            finalText = LocalizedString.CancellationRequest.localized
+        } else {
+            finalText = self.viewModel.caseHistory?.caseType ?? LocalizedString.dash.localized
+        }
+        self.topNavigationView.navTitleLabel.text = finalText
     }
     
     @IBAction func makePaymentAction(_ sender: Any) {
