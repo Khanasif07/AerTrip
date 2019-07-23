@@ -381,13 +381,13 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 3, indexPath.row == 2 {
             //download invoice
-            if let bID = self.viewModel.voucher?.bookingId, !bID.isEmpty {
-                AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/booking-action?booking_id=\(bID)&doc=invoice&type=pdf", screenTitle: "Booking Invoice")
+            if let bID = self.viewModel.voucher?.basic?.transactionId, !bID.isEmpty {
+                AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Booking Invoice")
             }
         }
         else if indexPath.section == 2, indexPath.row == 2 {
             //download receipt
-            if let bID = self.viewModel.voucher?.bookingId, !bID.isEmpty {
+            if let bID = self.viewModel.voucher?.basic?.transactionId, !bID.isEmpty {
                 AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Receipt Voucher")
             }
         }

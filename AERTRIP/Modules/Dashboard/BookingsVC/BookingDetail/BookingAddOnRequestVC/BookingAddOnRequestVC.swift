@@ -273,7 +273,7 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
             if self.shouldShowMakePayment, indexPath.row == 0 {
                 return 30.0
             }
-            return 65.0
+            return UITableView.automaticDimension
         }
         else if indexPath.section == 1 {
             //case details

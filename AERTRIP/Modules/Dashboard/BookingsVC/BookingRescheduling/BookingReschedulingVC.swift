@@ -63,8 +63,8 @@ class BookingReschedulingVC: BaseVC {
         self.topNavBar.delegate = self
         self.topNavBar.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.topNavBar.navTitleLabel.textColor = AppColors.themeBlack
-        self.topNavBar.configureNavBar(title: self.viewModel.usingFor == .rescheduling ? LocalizedString.Rescheduling.localized : LocalizedString.Cancellation.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
-        self.topNavBar.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+        self.topNavBar.configureNavBar(title: self.viewModel.usingFor == .rescheduling ? LocalizedString.Rescheduling.localized : LocalizedString.Cancellation.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.topNavBar.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
     }
     
     override func setupFonts() {
@@ -361,6 +361,10 @@ extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
 
 extension BookingReschedulingVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+        dismiss(animated: true)
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         dismiss(animated: true)
     }
 }

@@ -34,6 +34,7 @@ class BookingFFAirlineTableViewCell: ATTableViewCell {
     
     override func doInitialSetup() {
         self.airlineNumberTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+        self.airlineNumberTextField.keyboardType = .numberPad
     }
     
     override func setupFonts() {

@@ -12,24 +12,27 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="BookingRequestRouteTableViewCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="74" id="KGk-i7-Jjw" customClass="BookingRequestRouteTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="64.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="73.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xgr-nq-HxK">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="64.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="73.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJH-y7-krY">
-                                <rect key="frame" x="16" y="10" width="294" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label  sagdu ghjksag cjsgh dFJGH sjdfg jsgDFKHJGS dkf js" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJH-y7-krY">
+                                <rect key="frame" x="16" y="10" width="294" height="28.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l5T-MF-Hv9">
-                                <rect key="frame" x="16" y="31.5" width="294" height="21"/>
+                                <rect key="frame" x="16" y="40.5" width="294" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="JQd-pR-VOS"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -43,6 +46,7 @@
                             <constraint firstAttribute="trailing" secondItem="eJH-y7-krY" secondAttribute="trailing" constant="10" id="g9c-N5-XAf"/>
                             <constraint firstAttribute="trailing" secondItem="l5T-MF-Hv9" secondAttribute="trailing" constant="10" id="hQc-Ya-hx4"/>
                             <constraint firstItem="eJH-y7-krY" firstAttribute="top" secondItem="Xgr-nq-HxK" secondAttribute="top" constant="10" id="ttG-bI-twZ"/>
+                            <constraint firstItem="l5T-MF-Hv9" firstAttribute="top" secondItem="eJH-y7-krY" secondAttribute="bottom" constant="2" id="u7x-pG-Qba"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -58,6 +62,7 @@
                 <outlet property="routeIdLabel" destination="l5T-MF-Hv9" id="Z7G-Y0-jaE"/>
                 <outlet property="routeLabel" destination="eJH-y7-krY" id="Tqk-3c-4nB"/>
             </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="106.47321428571428"/>
         </tableViewCell>
     </objects>
 </document>
