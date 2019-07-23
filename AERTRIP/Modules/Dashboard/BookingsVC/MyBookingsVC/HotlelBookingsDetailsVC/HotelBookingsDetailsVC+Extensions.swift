@@ -160,7 +160,7 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             
             AppFlowManager.default.moveToAddOnRequestVC(caseData: allCases[indexPath.row - 1], receipt: rcpt)
         } else if indexPath.section <= self.viewModel.noOfLegCellAboveLeg {
-            AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: self.viewModel.bookingDetail)
+            AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: self.viewModel.bookingDetail,hotelTitle: self.navigationTitleText)
         } else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? TripChangeTableViewCell {
             printDebug("Trip change table view Cell tapped")
             self.tripChangeIndexPath = indexPath

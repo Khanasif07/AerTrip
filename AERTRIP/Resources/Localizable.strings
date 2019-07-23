@@ -866,5 +866,6 @@
 "UnableToAddEventToCalander" = "Unable to add event in calendar, please try again!";
 "FlightDomesticCancellationRequest" = "Flight Domestic Cancellation Request";
 "CancellationRequest" = "Cancellation request";
+"OperatedBy" = "Operated by";
 
 

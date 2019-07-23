@@ -156,8 +156,7 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
             self.topNavigationView.animateBackView(isHidden: false) { [weak self] _ in
                 guard let sSelf = self else { return }
                 sSelf.topNavigationView.backView.backgroundColor = AppColors.themeWhite
-                sSelf.topNavigationView.navTitleLabel.text =
-                    self?.viewModel.bookingDetail?.bookingDetail?.hotelName ?? ""
+                sSelf.topNavigationView.navTitleLabel.text = self?.viewModel.hotelTitle
                 sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "backGreen"), for: .normal)
                   sSelf.topNavigationView.leftButton.setImage(#imageLiteral(resourceName: "backGreen"), for: .selected)
                 sSelf.topNavigationView.dividerView.isHidden = false

@@ -17,6 +17,7 @@ protocol BookingHotelDetailVMDelgate: class {
 class BookingHotelDetailVM {
     
     var bookingDetail: BookingDetailModel?
+    var hotelTitle: String = ""
    // var hotelData: HotelDetails = HotelDetails()
     
     weak var delegate : BookingHotelDetailVMDelgate?

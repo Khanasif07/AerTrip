@@ -51,6 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if remoteHostStatus == .notReachable {
             print("Not Reachable")
+            AppGlobals.shared.stopLoading()
         }
         else if remoteHostStatus == .reachableViaWiFi {
             print("Reachable via Wifi")

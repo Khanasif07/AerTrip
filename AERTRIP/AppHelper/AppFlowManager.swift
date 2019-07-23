@@ -831,9 +831,10 @@ extension AppFlowManager {
     }
     
     // Complete Hotel Booking Details VC
-    func moveToBookingHotelDetailVC(bookingDetail: BookingDetailModel?) {
+    func moveToBookingHotelDetailVC(bookingDetail: BookingDetailModel?,hotelTitle: String) {
         let ob = BookingHotelDetailVC.instantiate(fromAppStoryboard: .Bookings)
         ob.viewModel.bookingDetail = bookingDetail
+        ob.viewModel.hotelTitle = hotelTitle
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     

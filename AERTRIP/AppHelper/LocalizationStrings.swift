@@ -946,4 +946,5 @@ enum LocalizedString: String {
     
     // MARK: -
     case UnderDevelopment
+    case OperatedBy
 }
