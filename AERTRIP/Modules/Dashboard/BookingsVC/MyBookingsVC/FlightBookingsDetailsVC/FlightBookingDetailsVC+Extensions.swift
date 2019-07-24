@@ -170,7 +170,7 @@ extension FlightBookingsDetailsVC: TopNavigationViewDelegate {
                 let endPoints = "https://beta.aertrip.com/api/v1/dashboard/booking-action?type=pdf&booking_id=\(self?.viewModel.bookingDetail?.id ?? "")"
                 AppGlobals.shared.viewPdf(urlPath: endPoints, screenTitle: LocalizedString.ETicket.localized)
             } else if index == 4 {
-                // Present Resend Confirmation Email
+                // Present Resend Confirmation Email  
                 AppGlobals.shared.showUnderDevelopment()
             }
         }

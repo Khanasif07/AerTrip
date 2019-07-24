@@ -629,34 +629,12 @@ struct BookingDetail {
             self.photos = obj
         }
         
-        let amenitiesGroupData = [
-            [
-                "About the Property": [
-                    "Total Number Of Rooms"
-                ],
-                "Internet & Business Services": [
-                    "Wired Internet",
-                    "Wi-fi"
-                ],
-                "Things to do": [
-                    "Outdoor Freshwater Pool",
-                    "Gym"
-                ],
-                "Services": [
-                    "Air Conditioning In Restaurant",
-                    "Currency Exchange Facilities",
-                    "Air Conditioning In Public Areas",
-                    "Lift Access"
-                ]
-            ]
-        ]
+     
         
-        // TODO: Need to manage with actual data,when It Will come
-//        if let arrObj = json[APIKeys.amenities_group.rawValue] as? [JSONDictionary], let firstObj = arrObj.first {
-//            self.amenitiesGroups = firstObj
-//        }
+        if let jsonData = json[APIKeys.amenities_group.rawValue] as? JSONDictionary {
+            self.amenitiesGroups = jsonData
+        }
         
-        self.amenitiesGroups = amenitiesGroupData.first ?? [:]
         
         if let obj = json[APIKeys.amenities.rawValue] as? JSONDictionary {
             self.amenities = Amenities.getAmenitiesData(response: obj)

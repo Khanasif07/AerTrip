@@ -35,10 +35,10 @@ class BookingFFAirlineTableViewCell: ATTableViewCell {
     override func doInitialSetup() {
         self.airlineNumberTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         self.airlineNumberTextField.keyboardType = .numberPad
+        self.airlineNumberTextField.delegate = self
     }
     
     override func setupFonts() {
-        self.airlineNumberTextField.delegate = self
         self.airlineNameLabel.font = AppFonts.Regular.withSize(18.0)
         self.airlineNumberTextField.font = AppFonts.Regular.withSize(18.0)
     }
@@ -59,8 +59,8 @@ class BookingFFAirlineTableViewCell: ATTableViewCell {
 }
 
 extension BookingFFAirlineTableViewCell: UITextFieldDelegate {
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if textView.text.count == 60 {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField.text?.count == 20 {
             return false
         }
         
