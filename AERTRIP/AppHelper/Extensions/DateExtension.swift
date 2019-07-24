@@ -24,6 +24,10 @@ extension Date {
         return Calendar.current.isDateInWeekend(self)
     }
     
+    var isCurrentYear: Bool {
+        return Date().year == self.year
+    }
+    
     var year: Int {
         return (Calendar.current as NSCalendar).components(.year, from: self).year!
     }

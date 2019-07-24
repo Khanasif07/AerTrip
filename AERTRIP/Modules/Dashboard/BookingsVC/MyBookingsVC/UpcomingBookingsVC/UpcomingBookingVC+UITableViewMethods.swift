@@ -33,7 +33,7 @@ extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 53.0
+        return UITableView.automaticDimension//53.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -46,15 +46,15 @@ extension UpcomingBookingsVC: UITableViewDataSource, UITableViewDelegate {
         let aSection = sections[section]
         let dateStr = aSection.name
         /*  logic to show header text : - if date is greater than 1 year date format  shoulr be d MMM yyyy
-            else
- 
-       */
-          var headerText  = ""
-          if dateStr.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isGreaterThan(Date().add(years: 1) ?? Date()) ?? false {
-            headerText = dateStr.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.toString(dateFormat: "d MMM yyyy") ?? ""
-            } else {
-             headerText = dateStr.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.toString(dateFormat: "E, d MMM") ?? ""
-             }
+         else
+         
+         */
+        var headerText  = ""
+        if let date = dateStr.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss") {
+            let format = date.isCurrentYear ? "E, d MMM" : "d MMM yyyy"
+            headerText = date.toString(dateFormat: format)
+        }
+        
         headerView.dateLabel.text = headerText
         headerView.dateLabelTopConstraint.constant = 11.0
         headerView.contentView.backgroundColor = AppColors.themeWhite
