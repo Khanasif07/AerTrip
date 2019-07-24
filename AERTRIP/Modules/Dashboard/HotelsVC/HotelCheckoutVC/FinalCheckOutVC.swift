@@ -25,7 +25,7 @@ class FinalCheckOutVC: BaseVC {
     // MARK: - Properties
     
     let viewModel = FinalCheckoutVM()
-    let cellIdentifier = "FareSectionHeader"
+    let cellIdentifier = "HotelFareSectionHeader"
     var isWallet: Bool = true // To check if using wallet or Not
     var gradientColors: [UIColor] = [AppColors.shadowBlue, AppColors.themeGreen] {
         didSet {
@@ -530,7 +530,7 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
             return nil
             
         } else {
-            guard let headerView = self.checkOutTableView.dequeueReusableHeaderFooterView(withIdentifier: self.cellIdentifier) as? FareSectionHeader else {
+            guard let headerView = self.checkOutTableView.dequeueReusableHeaderFooterView(withIdentifier: self.cellIdentifier) as? HotelFareSectionHeader else {
                 fatalError("FareSectionHeader not found")
             }
             
@@ -540,12 +540,12 @@ extension FinalCheckOutVC: UITableViewDataSource, UITableViewDelegate {
                 headerView.discountPriceLabel.text = "-" + "\(Double(discountbreak.CPD).amountInDelimeterWithSymbol)"
             }
             
-//            if self.isCouponApplied {
-//                headerView.discountViewHeightConstraint.constant = 27
-//            } else {
-//                headerView.discountViewHeightConstraint.constant = 0
-//                headerView.clipsToBounds = true
-//            }
+            if self.isCouponApplied {
+                headerView.discountViewHeightConstraint.constant = 27
+            } else {
+                headerView.discountViewHeightConstraint.constant = 0
+                headerView.clipsToBounds = true
+            }
             headerView.grossPriceLabel.text = "\(self.getGrossAmount().amountInDelimeterWithSymbol)"
             return headerView
         }
@@ -676,7 +676,7 @@ extension FinalCheckOutVC: FinalCheckoutVMDelegate {
         self.manageLoader(shouldStart: false)
     }
     
-    private func handleDiscountArrowAnimation(_ headerView: FareSectionHeader) {
+    private func handleDiscountArrowAnimation(_ headerView: HotelFareSectionHeader) {
         let rotateTrans = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         if self.isCouponSectionExpanded {
             headerView.arrowButton.transform = .identity

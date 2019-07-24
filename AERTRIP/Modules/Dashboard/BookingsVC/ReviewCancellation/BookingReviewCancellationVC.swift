@@ -82,6 +82,8 @@ class BookingReviewCancellationVC: BaseVC {
         
         self.refundModeTextField.delegate = self
         self.cancellationTextField.delegate = self
+        self.refundModeTextField.tintColor = AppColors.themeWhite.withAlphaComponent(0.01)
+        self.cancellationTextField.tintColor = AppColors.themeWhite.withAlphaComponent(0.01)
         self.commentTextView.textContainerInset = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
 
         if self.viewModel.currentUsingAs == .specialRequest {
@@ -222,25 +224,40 @@ extension BookingReviewCancellationVC {
         
         if self.viewModel.currentUsingAs == .specialRequest {
             PKMultiPicker.noOfComponent = 1
-            PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.specialRequests, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
-                textField.text = firstSelect
-                self.viewModel.selectedSpecialRequest = firstSelect
+            if self.viewModel.specialRequests.isEmpty {
+                AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+            } else {
+                PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.specialRequests, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                    textField.text = firstSelect
+                    self.viewModel.selectedSpecialRequest = firstSelect
+                }
             }
+           
         }
         else {
             if textField === refundModeTextField {
                 PKMultiPicker.noOfComponent = 1
-                PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.refundModes, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
-                    textField.text = firstSelect
-                    self.viewModel.selectedMode = firstSelect
+                if self.viewModel.refundModes.isEmpty {
+                     AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+                } else {
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.refundModes, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                        textField.text = firstSelect
+                        self.viewModel.selectedMode = firstSelect
+                    }
                 }
+                
             }
             else {
                 PKMultiPicker.noOfComponent = 1
-                PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.cancellationReasons, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
-                    textField.text = firstSelect
-                    self.viewModel.selectedReason = firstSelect
+                if self.viewModel.cancellationReasons.isEmpty {
+                 AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+                } else {
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.cancellationReasons, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                        textField.text = firstSelect
+                        self.viewModel.selectedReason = firstSelect
+                    }
                 }
+               
             }
             
            

@@ -30,7 +30,6 @@ extension BookingHotelDetailVC {
             guard let hotelImageSlideCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelDetailsImgSlideCell", for: indexPath) as? HotelDetailsImgSlideCell else {
                 fatalError("HotelDetailsImgSlideCell not found")
             }
-            // TODO: - Currently coming as single image url. will come in array of images need to manage.
             
             hotelImageSlideCell.imageUrls = self.viewModel.bookingDetail?.bookingDetail?.completePhotos ?? []
             hotelImageSlideCell.delegate = self
@@ -69,8 +68,7 @@ extension BookingHotelDetailVC {
         }
         switch indexPath.row {
         case 0: // Beds Cell
-            // TODO: - This key is not coming in the api ,need to manage this.
-            roomDetailCell.configureCell(title: "Beds", text: "2 Single Beds")
+            roomDetailCell.configureCell(title: "Beds", text: self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].bedType ?? "")
             return roomDetailCell
             
         case 1: // Inclusion Cell

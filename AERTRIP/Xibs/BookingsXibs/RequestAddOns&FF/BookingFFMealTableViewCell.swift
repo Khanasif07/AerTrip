@@ -27,6 +27,7 @@ class BookingFFMealTableViewCell: ATTableViewCell {
     
     override func doInitialSetup() {
         self.selectedMealPreferenceTextField.delegate = self
+       
     }
     
     override func setupTexts() {
@@ -45,6 +46,7 @@ class BookingFFMealTableViewCell: ATTableViewCell {
     }
     
     func configureCell(title: String, text: String) {
+        self.selectedMealPreferenceTextField.tintColor = AppColors.themeWhite.withAlphaComponent(0.01)
         self.mealPreferenceLabel.text = title
         self.selectedMealPreferenceTextField.text = text.isEmpty ? "Select" : text
     }

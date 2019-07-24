@@ -79,7 +79,15 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
     }
     
     private func configureCellForGuest() {
-        self.travellerNameLabel.text = self.guestData?.fullName ?? ""
+        var finalStr = self.guestData?.fullName ?? ""
+        if let age = self.guestData?.age.toInt {
+            if  age <= 1 {
+                finalStr += " (Infant) "
+            } else if age <= 12 {
+                finalStr += " (\(age)yrs) "
+            }
+        }
+        self.travellerNameLabel.text = finalStr
         self.bottomConstraint.constant = 0
         self.topConstraint.constant = 10
         let placeImage = AppGlobals.shared.getImageFor(firstName: self.guestData?.firstName, lastName: self.guestData?.lastname, font: AppFonts.Regular.withSize(35.0),backGroundColor: AppColors.blueGray)

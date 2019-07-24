@@ -133,6 +133,8 @@ class CompletedVC: BaseVC {
             self.emptyStateSubTitleLabel?.isHidden = false
             self.completedBookingsTableView?.isHidden = true
         }
+        
+    
     }
     
     

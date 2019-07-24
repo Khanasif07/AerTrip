@@ -110,7 +110,7 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
       
         else if indexPath.section >= self.viewModel.noOfLegCellAboveLeg, indexPath.section <= (self.viewModel.noOfLegCellAboveLeg +  legCount - 1) {
-            AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail,tripCities: self.viewModel.tripCitiesStr )
+            AppFlowManager.default.moveToBookingDetail(bookingDetail: self.viewModel.bookingDetail,tripCities: self.viewModel.tripCitiesStr,legSectionTap: indexPath.section - self.viewModel.noOfLegCellAboveLeg)
         }
         
         else if let _ = self.bookingDetailsTableView.cellForRow(at: indexPath) as? TripChangeTableViewCell {

@@ -55,7 +55,7 @@ class BookingDetailVM {
     }
     
     var tripStr: NSMutableAttributedString = NSMutableAttributedString(string: "")
-    
+    var legSectionTap: Int = 0
     var bookingFee: [BookingFeeDetail] = []
 
     

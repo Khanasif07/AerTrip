@@ -47,6 +47,7 @@ class SelectDateTableViewCell: UITableViewCell {
         //Font
         self.newDateLabel.font = AppFonts.Regular.withSize(14.0)
         self.selectDateTextField.font = AppFonts.Regular.withSize(18.0)
+        self.selectDateTextField.tintColor = AppColors.themeWhite.withAlphaComponent(0.01)
         //Color
         self.newDateLabel.textColor = AppColors.themeGray40
         self.selectDateTextField.textColor = AppColors.textFieldTextColor51

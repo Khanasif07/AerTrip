@@ -11,6 +11,8 @@
 		0C6666AF22D472F1009DFACD /* TripChangeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6666AD22D472F0009DFACD /* TripChangeTableViewCell.xib */; };
 		0C6666B722D486A2009DFACD /* BookingCommonActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6666B522D486A2009DFACD /* BookingCommonActionTableViewCell.swift */; };
 		0C6666B822D486A2009DFACD /* BookingCommonActionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6666B622D486A2009DFACD /* BookingCommonActionTableViewCell.xib */; };
+		0C6C1C6C22E875C800152927 /* HotelFareSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6C1C6B22E875C800152927 /* HotelFareSectionHeader.xib */; };
+		0C6C1C6E22E875D300152927 /* HotelFareSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C1C6D22E875D200152927 /* HotelFareSectionHeader.swift */; };
 		0CAC8C8222E1E0620039D612 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F983A221B51A070018DFED /* UIImageExtension.swift */; };
 		1800FC6521EF1FA20006D6D1 /* AddNotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */; };
 		1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */; };
@@ -970,6 +972,8 @@
 		0C6666AD22D472F0009DFACD /* TripChangeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripChangeTableViewCell.xib; sourceTree = "<group>"; };
 		0C6666B522D486A2009DFACD /* BookingCommonActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCommonActionTableViewCell.swift; sourceTree = "<group>"; };
 		0C6666B622D486A2009DFACD /* BookingCommonActionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingCommonActionTableViewCell.xib; sourceTree = "<group>"; };
+		0C6C1C6B22E875C800152927 /* HotelFareSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelFareSectionHeader.xib; sourceTree = "<group>"; };
+		0C6C1C6D22E875D200152927 /* HotelFareSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelFareSectionHeader.swift; sourceTree = "<group>"; };
 		1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesTableViewCell.swift; sourceTree = "<group>"; };
 		1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddNotesTableViewCell.xib; sourceTree = "<group>"; };
 		180162EC2295706C007E5D43 /* BookingAddOnHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingAddOnHeaderView.swift; sourceTree = "<group>"; };
@@ -2315,6 +2319,7 @@
 		182EB21F22859B85001BFB20 /* BaggageInfo */ = {
 			isa = PBXGroup;
 			children = (
+				0C6C1C6B22E875C800152927 /* HotelFareSectionHeader.xib */,
 				1876849E2284493A009637D6 /* BookingInfoHeaderView.swift */,
 				187684A022844951009637D6 /* BookingInfoHeaderView.xib */,
 				187684A222844C1B009637D6 /* BookingInfoEmptyFooterView.swift */,
@@ -2466,6 +2471,7 @@
 				182EB21E22859B48001BFB20 /* FlightInfo */,
 				182EB21122856D9B001BFB20 /* FareInfo */,
 				182EB21F22859B85001BFB20 /* BaggageInfo */,
+				0C6C1C6D22E875D200152927 /* HotelFareSectionHeader.swift */,
 			);
 			path = BookingDetail;
 			sourceTree = "<group>";
@@ -5540,6 +5546,7 @@
 				182D4859228AECCF004796A2 /* BookingHDWebPhoneTableViewCell.xib in Resources */,
 				0C6666AF22D472F1009DFACD /* TripChangeTableViewCell.xib in Resources */,
 				18E797002248E53B00A7AC8B /* FinalAmountTableViewCell.xib in Resources */,
+				0C6C1C6C22E875C800152927 /* HotelFareSectionHeader.xib in Resources */,
 				8455A67B223288C000CEE2B3 /* HotelDetailsAdvisorRatingSummaryTableViewCell.xib in Resources */,
 				180692BA2295205300177487 /* BookingFrequentFlyerHeaderView.xib in Resources */,
 				182D484B228AAB33004796A2 /* BookingCancellationPolicyTableViewCell.xib in Resources */,
@@ -6053,6 +6060,7 @@
 				84D11CC722702BE500FADD29 /* BookingUserInfoTableViewCell.swift in Sources */,
 				0C6666AE22D472F0009DFACD /* TripChangeTableViewCell.swift in Sources */,
 				1870AD1A220C769400FB32C8 /* SearchedDestination.swift in Sources */,
+				0C6C1C6E22E875D300152927 /* HotelFareSectionHeader.swift in Sources */,
 				1804889421CA7AC300437C81 /* APICaller+ViewProfile.swift in Sources */,
 				18FD91672296695B00D005E9 /* BookingReschedulingVM.swift in Sources */,
 				84956FBF21B667D200BF1183 /* ATButton.swift in Sources */,

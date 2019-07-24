@@ -159,12 +159,18 @@ class MyBookingsVC: BaseVC {
         
         if MyBookingsVM.shared.allTabTypes.contains(Int16(BookingTabCategory.upcoming.rawValue)) {
             self.allTabsStr.append(LocalizedString.Upcoming.localized)
-            if MyBookingsVM.shared.allTabTypes.contains(Int16(BookingTabCategory.completed.rawValue)) {
+        }
+        
+        if MyBookingsVM.shared.allTabTypes.contains(Int16(BookingTabCategory.completed.rawValue)) {
+            if !allTabsStr.contains(LocalizedString.Upcoming.localized) {
+                self.allTabsStr.append(LocalizedString.Upcoming.localized)
                 self.allTabsStr.append(LocalizedString.Completed.localized)
+            } else {
+               self.allTabsStr.append(LocalizedString.Completed.localized)
             }
-            if MyBookingsVM.shared.allTabTypes.contains(Int16(BookingTabCategory.cancelled.rawValue)) {
-                self.allTabsStr.append(LocalizedString.Cancelled.localized)
-            }
+        }
+        if MyBookingsVM.shared.allTabTypes.contains(Int16(BookingTabCategory.cancelled.rawValue)) {
+            self.allTabsStr.append(LocalizedString.Cancelled.localized)
         }
         
         self.allChildVCs.removeAll()

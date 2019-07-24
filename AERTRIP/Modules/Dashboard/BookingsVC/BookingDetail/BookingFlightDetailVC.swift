@@ -37,6 +37,17 @@ class BookingFlightDetailVC: BaseVC {
         self.tableView.delegate = self
         self.setUpSegmentControl()
         self.registerXib()
+        
+        delay(seconds: 0.3) { [weak self] in
+//            if let hView = self?.tableView(self?.tableView ?? UITableView(), viewForHeaderInSection: self?.viewModel.legSectionTap ?? 0) {
+//                let point = self?.view.convert(hView.frame, to: self?.tableView).origin
+//                self?.tableView.setContentOffset(point ?? CGPoint.zero, animated: true)
+//            }
+//            else {
+                self?.tableView.scrollToRow(at: IndexPath(row: 0, section: self?.viewModel.legSectionTap ?? 0), at: .top, animated: false)
+//            }
+        }
+        
         self.viewModel.getBookingFees()
     }
     

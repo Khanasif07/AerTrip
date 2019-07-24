@@ -24,7 +24,7 @@ extension FinalCheckOutVC : ApplyCouponTableViewCellDelegate {
     }
 }
 
-extension FinalCheckOutVC : FareSectionHeaderDelegate {
+extension FinalCheckOutVC : HotelFareSectionHeaderDelegate {
     func headerViewTapped(_ view: UITableViewHeaderFooterView) {
         printDebug("Header View Tapped")
         if self.isCouponApplied {
