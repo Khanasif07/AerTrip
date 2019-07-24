@@ -139,8 +139,7 @@ class BookingReviewCancellationVC: BaseVC {
     override func setupColors() {
         self.refundModeTitleLabel.textColor = AppColors.themeGray40
         self.refundModeTextField.textColor = AppColors.textFieldTextColor51
-        self.requestCancellationButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
-        self.requestCancellationButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .selected)
+        self.manageContinueButton()
 
         self.totalNetRefundLabel.textColor = AppColors.themeBlack
         self.refundAmountLabel.textColor = AppColors.themeBlack
