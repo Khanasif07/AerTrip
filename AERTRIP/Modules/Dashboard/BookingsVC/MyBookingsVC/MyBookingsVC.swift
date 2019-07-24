@@ -80,7 +80,7 @@ class MyBookingsVC: BaseVC {
                 MyBookingFilterVM.shared.setToDefault()
             }
             else if noti == .myBookingCasesRequestStatusChanged {
-                MyBookingsVM.shared.getBookings()
+                MyBookingsVM.shared.getBookings(shouldCallWillDelegate: false)
             }
         }
     }
@@ -188,17 +188,17 @@ class MyBookingsVC: BaseVC {
         if self.allChildVCs.count == 1 {
             self.setupPagerView(headerHeight: 0.0, interItemSpace: 0.0, itemPadding: 0.0, isScrollable: false)
         } else if self.allChildVCs.count == 2 {
-            self.setupPagerView(interItemSpace: 45.0, itemPadding: 32.0)
+            self.setupPagerView(interItemSpace: 107.0, itemPadding: 2.0)
         } else {
-            self.setupPagerView(interItemSpace: 21.8, itemPadding: 12.8)
+            self.setupPagerView(interItemSpace: 52.0, itemPadding: 1.0)
         }
     }
     
     private func setupPagerView(headerHeight: CGFloat = 50.0, interItemSpace: CGFloat, itemPadding: CGFloat, isScrollable: Bool = true) {
         var style = ATCategoryNavBarStyle()
-        style.height = headerHeight // 50.0
-        style.interItemSpace = interItemSpace // 21.8
-        style.itemPadding = itemPadding // 12.8
+        style.height = headerHeight
+        style.interItemSpace = interItemSpace
+        style.itemPadding = itemPadding
         style.isScrollable = isScrollable
         style.layoutAlignment = .left
         style.isEmbeddedToView = true

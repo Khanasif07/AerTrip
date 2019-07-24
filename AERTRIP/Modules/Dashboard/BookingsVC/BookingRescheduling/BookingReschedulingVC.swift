@@ -104,7 +104,7 @@ class BookingReschedulingVC: BaseVC {
     
     private func updateTotalRefund() {
         let totalRef = self.viewModel.usingFor == .rescheduling ?  self.viewModel.totRefundForRescheduling : self.viewModel.totalRefundForCancellation
-        self.continueButton.isUserInteractionEnabled = totalRef != 0.0
+        self.continueButton.isUserInteractionEnabled = true//totalRef != 0.0
         self.totalPriceLabel.text = totalRef.delimiterWithSymbol
     }
     
@@ -257,8 +257,8 @@ class BookingReschedulingVC: BaseVC {
         }
         else {
             self.continueButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(1.0), for: .normal)
-
-            self.passengerLabel.text = "\(selectedCounts.joined(separator: ", ")) \(LocalizedString.PassengersSelected.localized)"
+            let pasngTtl = ((selectedCounts.count == 1) && ((selectedCounts.first ?? 0) == 1)) ? LocalizedString.Passenger.localized : LocalizedString.Passengers.localized
+            self.passengerLabel.text = "\(selectedCounts.joined(separator: ", ")) \(pasngTtl) \(LocalizedString.Selected.localized)"
             self.priceView.isHidden = false
             self.priceViewAndButtonContainerHeight.constant = 94.0
         }

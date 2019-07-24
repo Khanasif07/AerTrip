@@ -82,7 +82,11 @@ class HotlelBookingsDetailsVC: BaseVC {
     
     
     override func dataChanged(_ note: Notification) {
-        self.viewModel.getBookingDetail()
+        if let noti = note.object as? ATNotification {
+            if noti == .myBookingCasesRequestStatusChanged {
+                self.viewModel.getBookingDetail(shouldCallWillDelegate: false)
+            }
+        }
     }
     
     func getUpdatedTitle() -> String {

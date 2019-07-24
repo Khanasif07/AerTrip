@@ -53,8 +53,10 @@ class MyBookingFilterVC: BaseVC {
         
         self.topNavBar.configureNavBar(title: "\(MyBookingFilterVM.shared.filteredResultCount) of \(MyBookingFilterVM.shared.totalResultCount) Results", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .clear)
         
-        self.topNavBar.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, selectedTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
-        self.topNavBar.configureFirstRightButton(normalTitle: LocalizedString.Done.localized, selectedTitle: LocalizedString.Done.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
+        let clearStr = "  \(LocalizedString.ClearAll.localized)"
+        let doneStr = "\(LocalizedString.Done.localized)  "
+        self.topNavBar.configureLeftButton(normalTitle: clearStr, selectedTitle: clearStr, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+        self.topNavBar.configureFirstRightButton(normalTitle: doneStr, selectedTitle: doneStr, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         
         self.mainContainerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
         self.edgesForExtendedLayout = UIRectEdge(rawValue: 4)
