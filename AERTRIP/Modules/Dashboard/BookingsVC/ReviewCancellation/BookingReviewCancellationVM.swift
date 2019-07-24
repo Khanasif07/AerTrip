@@ -69,27 +69,35 @@ class BookingReviewCancellationVM {
     
     weak var delegate: BookingReviewCancellationVMDelegate?
     
-    var isUserDataVerified: Bool {
+    func isUserDataVerified(showMessage: Bool) -> Bool {
         var flag = true
         
         if self.currentUsingAs == .specialRequest {
             if selectedSpecialRequest.isEmpty || selectedMode.lowercased() == LocalizedString.Select.localized.lowercased() {
                 flag = false
-                AppToast.default.showToastMessage(message: "Please select request type.")
+                if showMessage {
+                    AppToast.default.showToastMessage(message: "Please select request type.")
+                }
             }
             else if comment.isEmpty || comment.lowercased() == LocalizedString.Select.localized.lowercased() {
                 flag = false
-                AppToast.default.showToastMessage(message: "Please write something about your special request.")
+                if showMessage {
+                    AppToast.default.showToastMessage(message: "Please write something about your special request.")
+                }
             }
         }
         else {
             if selectedMode.isEmpty || selectedMode.lowercased() == LocalizedString.Select.localized.lowercased() {
                 flag = false
-                AppToast.default.showToastMessage(message: "Please select refund mode.")
+                if showMessage {
+                    AppToast.default.showToastMessage(message: "Please select refund mode.")
+                }
             }
             else if selectedReason.isEmpty || selectedReason.lowercased() == LocalizedString.Select.localized.lowercased() {
                 flag = false
-                AppToast.default.showToastMessage(message: "Please select a reason for cancellation.")
+                if showMessage {
+                    AppToast.default.showToastMessage(message: "Please select a reason for cancellation.")
+                }
             }
         }
         

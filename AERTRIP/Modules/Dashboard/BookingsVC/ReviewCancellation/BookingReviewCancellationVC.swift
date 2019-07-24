@@ -73,6 +73,7 @@ class BookingReviewCancellationVC: BaseVC {
         switch self.viewModel.currentUsingAs {
         case .flightCancellationReview, .hotelCancellationReview:
             self.commentTextView.placeholder = LocalizedString.EnterYourCommentOptional.localized
+            self.commentTextView.placeholderInsets = .zero
         case .specialRequest:
             self.cancellationReasonView.isHidden = true
             self.cancellationViewHeightConstraint.constant = 0.0
@@ -122,6 +123,7 @@ class BookingReviewCancellationVC: BaseVC {
             self.refundModeTextField.text = LocalizedString.Select.localized
             self.infoLabel.text = LocalizedString.ReviewCancellationInfoLabel.localized
             self.commentTextView.placeholder = LocalizedString.WriteAboutYourSpecialRequest.localized
+            self.commentTextView.placeholderInsets = .zero
         }
     }
     
@@ -139,8 +141,7 @@ class BookingReviewCancellationVC: BaseVC {
     override func setupColors() {
         self.refundModeTitleLabel.textColor = AppColors.themeGray40
         self.refundModeTextField.textColor = AppColors.textFieldTextColor51
-        self.requestCancellationButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
-        self.requestCancellationButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .selected)
+        self.manageContinueButton()
 
         self.totalNetRefundLabel.textColor = AppColors.themeBlack
         self.refundAmountLabel.textColor = AppColors.themeBlack
@@ -167,7 +168,7 @@ class BookingReviewCancellationVC: BaseVC {
     
     // MARK: - IBAction
     @IBAction func requestContinueButtonTapped(_ sender: UIButton) {
-        if self.viewModel.isUserDataVerified {
+        if self.viewModel.isUserDataVerified(showMessage: true) {
             if self.viewModel.currentUsingAs == .specialRequest {
                 self.viewModel.makeHotelSpecialRequest()
             }
@@ -180,13 +181,22 @@ class BookingReviewCancellationVC: BaseVC {
     
     // MARK: - Helpe methods
     private func manageContinueButton() {
-        if self.viewModel.isUserDataVerified {
-            self.requestCancellationButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(1.0), for: .normal)
-            self.requestCancellationButton.isUserInteractionEnabled = true
-        } else {
-            self.requestCancellationButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
-            self.requestCancellationButton.isUserInteractionEnabled = false
-        }
+        
+        // if want to manage the button enable/disable state then uncomment the Code 2 and comment Code 1
+
+        //CODE 1
+        self.requestCancellationButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(1.0), for: .normal)
+        self.requestCancellationButton.isUserInteractionEnabled = true
+        
+        
+        //CODE 2
+//        if self.viewModel.isUserDataVerified(showMessage: false) {
+//            self.requestCancellationButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(1.0), for: .normal)
+//            self.requestCancellationButton.isUserInteractionEnabled = true
+//        } else {
+//            self.requestCancellationButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
+//            self.requestCancellationButton.isUserInteractionEnabled = false
+//        }
     }
   
     
@@ -220,50 +230,56 @@ extension BookingReviewCancellationVC {
         self.viewModel.comment = textView.text
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        
-        if self.viewModel.currentUsingAs == .specialRequest {
-            PKMultiPicker.noOfComponent = 1
-            if self.viewModel.specialRequests.isEmpty {
-                AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
-            } else {
-                PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.specialRequests, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
-                    textField.text = firstSelect
-                    self.viewModel.selectedSpecialRequest = firstSelect
-                }
-            }
-           
-        }
-        else {
-            if textField === refundModeTextField {
+        func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+            
+            if self.viewModel.currentUsingAs == .specialRequest {
                 PKMultiPicker.noOfComponent = 1
-                if self.viewModel.refundModes.isEmpty {
-                     AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+                if self.viewModel.specialRequests.isEmpty {
+                    AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
                 } else {
-                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.refundModes, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.specialRequests, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
                         textField.text = firstSelect
-                        self.viewModel.selectedMode = firstSelect
+                        self.viewModel.selectedSpecialRequest = firstSelect
+                self.manageContinueButton()
+
                     }
-                }
-                
-            }
-            else {
-                PKMultiPicker.noOfComponent = 1
-                if self.viewModel.cancellationReasons.isEmpty {
-                 AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
-                } else {
-                    PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.cancellationReasons, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
-                        textField.text = firstSelect
-                        self.viewModel.selectedReason = firstSelect
-                    }
+
                 }
                
             }
-            
-           
+            else {
+                if textField === refundModeTextField {
+                    PKMultiPicker.noOfComponent = 1
+                    if self.viewModel.refundModes.isEmpty {
+                         AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+                    } else {
+                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.refundModes, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                            textField.text = firstSelect
+                            self.viewModel.selectedMode = firstSelect
+                    self.manageContinueButton()
+
+                        }
+                  
+                    }
+                    
+                }
+                else {
+                    PKMultiPicker.noOfComponent = 1
+                    if self.viewModel.cancellationReasons.isEmpty {
+                     AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+                    } else {
+                        PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.cancellationReasons, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                            textField.text = firstSelect
+                            self.viewModel.selectedReason = firstSelect
+                    self.manageContinueButton()
+
+                        }
+                    }
+                   
+                }
+            }
+            return true
         }
-        return true
-    }
 }
 
 

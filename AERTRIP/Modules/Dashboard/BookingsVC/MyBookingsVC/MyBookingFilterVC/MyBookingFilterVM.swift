@@ -70,7 +70,7 @@ class MyBookingFilterVM {
         self.bookingFromDate = nil
         self.bookingToDate = nil
         self.isFirstTime = true
-        self.eventType = [1,2,3]
+        self.eventType = []
     }
 }
 

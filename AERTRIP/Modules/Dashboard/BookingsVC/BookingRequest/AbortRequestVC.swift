@@ -15,23 +15,31 @@ class AbortRequestVC: BaseVC {
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var confirmAbortButton: UIButton!
     @IBOutlet weak var addCommentTextView: PKTextView!
-    @IBOutlet weak var addCommentTextViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var addCommentTextViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var abortRequestTitleLabel: UILabel!
+    @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var bottomDivider: UIView!
     
     
     //MARK: - Variables
     let viewModel = AbortRequestVM()
-    var blankSpace: CGFloat {
-        return UIDevice.screenHeight - (confirmAbortButton.height + topNavView.height + 33.0)
-        //33 for title label n top space
-    }
+//    var blankSpace: CGFloat {
+//        return UIDevice.screenHeight - (confirmAbortButton.height + topNavView.height + 33.0)
+//        //33 for title label n top space
+//    }
+    
+    private var keyboardHeight: CGFloat = 0.0
     
     // MARK:- Overide methods
     
     override func initialSetup() {
         confirmAbortButton.addGredient(isVertical: false)
         addCommentTextView.placeholder = LocalizedString.EnterComments.localized
+        self.view.backgroundColor = AppColors.themeWhite
+        self.bottomView.backgroundColor = AppColors.themeGray04
+        self.bottomDivider.backgroundColor = AppColors.divider.color
+        
+        self.manageTextFieldHeight()
     }
     
     override func setupFonts() {
@@ -68,13 +76,44 @@ class AbortRequestVC: BaseVC {
     
     // MARK: - Override methods
     override func keyboardWillHide(notification: Notification) {
-        //
+        self.keyboardHeight = 0.0
+        self.manageTextFieldHeight()
     }
     
     override func keyboardWillShow(notification: Notification) {
-        //
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.keyboardHeight = keyboardSize.size.height
+            self.manageTextFieldHeight()
+            printDebug("keyboard height is \(self.keyboardHeight)")
+        }
     }
     // MARK: - IBAction
+    private func manageTextFieldHeight() {
+        
+        let allOthersHeight: CGFloat = 150.0
+        let blankSpace: CGFloat = UIDevice.screenHeight - (allOthersHeight)
+
+        var textHeight: CGFloat = 0.0
+        
+        if self.addCommentTextView.text.isEmpty {
+            textHeight = 30.0
+        }
+        else {
+            textHeight = (CGFloat(self.addCommentTextView.numberOfLines) * (self.addCommentTextView.font?.lineHeight ?? 20.0)) + 10.0
+        }
+        
+        var calculatedBlank: CGFloat = blankSpace - (textHeight)
+        calculatedBlank = min(calculatedBlank, blankSpace)
+        
+        if calculatedBlank < self.keyboardHeight {
+            calculatedBlank = self.keyboardHeight
+        }
+        
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.bottomViewHeightConstraint.constant = calculatedBlank
+            self?.view.layoutIfNeeded()
+        }
+    }
     
     @IBAction func confirmAbortButtonTapped(_ sender: Any) {
         self.viewModel.makeRequestAbort()
@@ -113,15 +152,16 @@ extension AbortRequestVC {
     func textViewDidChange(_ textView: UITextView) {
 
         viewModel.comment = textView.text
+        self.manageTextFieldHeight()
         
-        var calculatedH: CGFloat = CGFloat(self.addCommentTextView.numberOfLines) * (self.addCommentTextView.font?.lineHeight ?? 20.0)
-        
-        calculatedH = max(calculatedH, 30.0)
-        calculatedH = min(calculatedH, self.blankSpace)
-        
-        UIView.animate(withDuration: 0.2) { [weak self] in
-            self?.addCommentTextViewHeightConstraint.constant = calculatedH
-            self?.view.layoutIfNeeded()
-        }
+//        var calculatedH: CGFloat = CGFloat(self.addCommentTextView.numberOfLines) * (self.addCommentTextView.font?.lineHeight ?? 20.0)
+//
+//        calculatedH = max(calculatedH, 30.0)
+//        calculatedH = min(calculatedH, self.blankSpace)
+//
+//        UIView.animate(withDuration: 0.2) { [weak self] in
+//            self?.addCommentTextViewHeightConstraint.constant = calculatedH
+//            self?.view.layoutIfNeeded()
+//        }
     }
 }

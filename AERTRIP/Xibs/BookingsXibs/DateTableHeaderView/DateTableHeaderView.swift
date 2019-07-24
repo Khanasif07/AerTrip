@@ -55,7 +55,8 @@ class DateTableHeaderView: UITableViewHeaderFooterView {
     
     internal func configView(date: String , isFirstHeaderView: Bool) {
         self.dateLabel.text = date
-        self.dateLabelTopConstraint.constant = isFirstHeaderView ? 16.0 : 21.0
+        self.dateLabelTopConstraint.constant = isFirstHeaderView ? 16.0 : 25.0
+        self.dataLabelBottomConstraint.constant = 5.0
     }
 }
 
