@@ -320,9 +320,12 @@ class BookingProductDetailVM {
         self.sectionDataForOtherProductType.append([.nameCell, .emailCell, .mobileCell, .gstCell, .billingAddressCell])
     }
     
-    func getBookingDetail() {
+    func getBookingDetail(shouldCallWillDelegate: Bool = true) {
         let params: JSONDictionary = ["booking_id": bookingId]
-        delegate?.willGetBookingDetail()
+        
+        if shouldCallWillDelegate {
+            delegate?.willGetBookingDetail()
+        }
         APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in
             guard let sSelf = self else { return }
             if success {
