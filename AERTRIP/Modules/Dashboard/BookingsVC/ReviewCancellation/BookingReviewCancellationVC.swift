@@ -285,10 +285,11 @@ extension BookingReviewCancellationVC {
 
 extension BookingReviewCancellationVC: BookingReviewCancellationVMDelegate {
     func willMakeCancellationRequest() {
+        self.requestCancellationButton.isLoading = true
     }
     
     func makeCancellationRequestSuccess(caseData: Case?) {
-        
+        self.requestCancellationButton.isLoading = true
         func sendAccordingToResolutionStatus(title: String, caseData: Case?) {
             if let caseD = caseData, ((caseD.resolutionStatus == .successfull) || (caseD.resolutionStatus == .resolved)) {
                 AppFlowManager.default.showCancellationProcessed(buttonTitle: LocalizedString.RequestCancellation.localized, delegate: self)
@@ -310,6 +311,7 @@ extension BookingReviewCancellationVC: BookingReviewCancellationVMDelegate {
     }
     
     func makeCancellationRequestFail() {
+        self.requestCancellationButton.isLoading = true
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
     }
     

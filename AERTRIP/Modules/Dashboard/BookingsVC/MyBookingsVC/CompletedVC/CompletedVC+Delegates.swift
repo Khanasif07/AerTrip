@@ -34,7 +34,7 @@ extension CompletedVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 53.0
+        return 44.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -51,10 +51,9 @@ extension CompletedVC: UITableViewDelegate , UITableViewDataSource {
          
          */
         var headerText  = ""
-        if dateStr.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.isGreaterThan(Date().add(years: 1) ?? Date()) ?? false {
-            headerText = dateStr.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.toString(dateFormat: "d MMM yyyy") ?? ""
-        } else {
-            headerText = dateStr.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss")?.toString(dateFormat: "E, d MMM") ?? ""
+        if let date = dateStr.toDate(dateFormat: "YYYY-MM-dd HH:mm:ss") {
+            let format = date.isCurrentYear ? "E, d MMM" : "d MMM yyyy"
+            headerText = date.toString(dateFormat: format)
         }
         headerView.dateLabel.text = headerText
         headerView.dateLabelTopConstraint.constant = 11.0
