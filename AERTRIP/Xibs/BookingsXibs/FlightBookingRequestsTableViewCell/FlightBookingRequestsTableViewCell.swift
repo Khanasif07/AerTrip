@@ -34,6 +34,13 @@ class FlightBookingRequestsTableViewCell: UITableViewCell {
         self.configureUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        //removing all shadow
+        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeWhite.withAlphaComponent(0.0001), offset: CGSize.zero, opacity: 0.0, shadowRadius: 0.0)
+    }
+    
     // MARK: - Functions
     
     // MARK: ===========
