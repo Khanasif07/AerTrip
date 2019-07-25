@@ -90,7 +90,7 @@ class AbortRequestVC: BaseVC {
     // MARK: - IBAction
     private func manageTextFieldHeight() {
         
-        let allOthersHeight: CGFloat = 150.0
+        let allOthersHeight: CGFloat = UIDevice.isIPhoneX ?  150.0 + 44 : 150
         let blankSpace: CGFloat = UIDevice.screenHeight - (allOthersHeight)
 
         var textHeight: CGFloat = 0.0
