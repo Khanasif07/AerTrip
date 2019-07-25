@@ -106,7 +106,17 @@ class CancelledVC: BaseVC {
     }
     
     func reloadTable() {
-        self.cancelledBookingsTableView?.reloadData()
+        delay(seconds: 0.2) { [weak self] in
+            self?.reloadAndScrollToTop()
+        }
+    }
+    
+    
+    func reloadAndScrollToTop() {
+        self.cancelledBookingsTableView.reloadData()
+        self.cancelledBookingsTableView.layoutIfNeeded()
+        self.cancelledBookingsTableView.setContentOffset(.zero, animated: false)
+        
     }
     
     private func registerXibs() {

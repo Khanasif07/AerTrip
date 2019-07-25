@@ -15,7 +15,12 @@ extension UpcomingBookingsVC {
         do {
             self.fetchedResultsController.fetchRequest.predicate = createFinalPredicate()
             try self.fetchedResultsController.performFetch()
-            self.footerView.isHidden = (self.fetchedResultsController.fetchedObjects?.count ?? 0) == 0
+            MyBookingFilterVM.shared.filteredUpcomingResultCount = self.fetchedResultsController.fetchedObjects?.count ?? 0
+            
+            self.footerView.isHidden = false
+            if let allObjct = self.fetchedResultsController.fetchedObjects, allObjct.isEmpty, !self.isOnlyPendingAction {
+                self.footerView.isHidden = true
+            }
         } catch {
             printDebug(error.localizedDescription)
             printDebug("Fetch failed")

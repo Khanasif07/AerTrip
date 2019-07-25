@@ -108,7 +108,16 @@ class UpcomingBookingsVC: BaseVC {
     }
     
     func reloadTable() {
-        self.upcomingBookingsTableView?.reloadData()
+        delay(seconds: 0.2) { [weak self] in
+              self?.reloadAndScrollToTop()
+        }
+    }
+    
+    func reloadAndScrollToTop() {
+        self.upcomingBookingsTableView.reloadData()
+        self.upcomingBookingsTableView.layoutIfNeeded()
+        self.upcomingBookingsTableView.setContentOffset(.zero, animated: false)
+        
     }
     
     private func registerXibs() {
