@@ -20,6 +20,11 @@ class BookingReviewCancellationVC: BaseVC {
     @IBOutlet weak var refundView: UIView!
     @IBOutlet weak var cancellationReasonView: UIView!
     @IBOutlet weak var refundViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var refundViewTextFieldTopConstraint: NSLayoutConstraint!
+
+    @IBOutlet weak var refundViewDownArrowTrailingConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var cancellationViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var refundModeTitleLabel: UILabel!
     @IBOutlet weak var refundModeTextField: UITextField!
@@ -36,9 +41,13 @@ class BookingReviewCancellationVC: BaseVC {
     
     @IBOutlet weak var infoLabel: UILabel!
     
+
+    
+    @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
     //MARK: - Variables
     let viewModel = BookingReviewCancellationVM()
-    
+    private var keyboardHeight: CGFloat = 0.0
+
     // MARK: - Override methods
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,13 +88,15 @@ class BookingReviewCancellationVC: BaseVC {
             self.cancellationViewHeightConstraint.constant = 0.0
             self.totalNetRefundView.isHidden = true
             self.totalNetRefundViewHeightConstraint.constant = 0.0
+            self.refundViewTextFieldTopConstraint.constant = -2
+            self.refundViewDownArrowTrailingConstraint.constant = -5
+            self.commentTextView.placeholderInsets = .zero
         }
         
         self.refundModeTextField.delegate = self
         self.cancellationTextField.delegate = self
         self.refundModeTextField.tintColor = AppColors.themeWhite.withAlphaComponent(0.01)
         self.cancellationTextField.tintColor = AppColors.themeWhite.withAlphaComponent(0.01)
-        self.commentTextView.textContainerInset = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
 
         if self.viewModel.currentUsingAs == .specialRequest {
             //get the data for special request
@@ -150,13 +161,54 @@ class BookingReviewCancellationVC: BaseVC {
         self.cancellationTextField.textColor = AppColors.themeBlack
     }
     
+    // MARK: - Override methods
+    override func keyboardWillHide(notification: Notification) {
+        self.keyboardHeight = 0.0
+        self.manageTextFieldHeight()
+    }
+    
+    
+    override func keyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.keyboardHeight = keyboardSize.size.height
+            self.manageTextFieldHeight()
+            printDebug("keyboard height is \(self.keyboardHeight)")
+        }
+    }
+    // MARK: - IBAction
+    private func manageTextFieldHeight() {
+        
+        let allOthersHeight: CGFloat = 350
+        let blankSpace: CGFloat = UIDevice.screenHeight - (allOthersHeight)
+        
+        var textHeight: CGFloat = 0.0
+        
+        if self.commentTextView.text.isEmpty {
+            textHeight = 30.0
+        }
+        else {
+            textHeight = (CGFloat(self.commentTextView.numberOfLines) * (self.commentTextView.font?.lineHeight ?? 20.0)) + 10.0
+        }
+        
+        var calculatedBlank: CGFloat = blankSpace - (textHeight)
+        calculatedBlank = min(calculatedBlank, blankSpace)
+        
+        if calculatedBlank < self.keyboardHeight {
+            calculatedBlank = self.keyboardHeight
+        }
+        
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.bottomViewHeightConstraint.constant = calculatedBlank
+            self?.view.layoutIfNeeded()
+        }
+    }
     override func setupNavBar() {
         switch self.viewModel.currentUsingAs {
         case .flightCancellationReview, .hotelCancellationReview:
             self.topNavBar.configureNavBar(title: LocalizedString.ReviewCancellation.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: true)
         case .specialRequest:
             self.topNavBar.configureNavBar(title: LocalizedString.SpecialRequest.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
-            self.topNavBar.firstRightButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
+            self.topNavBar.firstRightButton.setTitle(LocalizedString.CancelWithRightSpace.localized, for: .normal)
             self.topNavBar.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
         }
         self.topNavBar.delegate = self
@@ -228,14 +280,18 @@ extension BookingReviewCancellationVC {
     
     func textViewDidChange(_ textView: UITextView) {
         self.viewModel.comment = textView.text
+        self.manageTextFieldHeight()
     }
     
         func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
             
+            
             if self.viewModel.currentUsingAs == .specialRequest {
                 PKMultiPicker.noOfComponent = 1
                 if self.viewModel.specialRequests.isEmpty {
+                    
                     AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+                    return false
                 } else {
                     PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.specialRequests, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
                         textField.text = firstSelect
@@ -252,11 +308,12 @@ extension BookingReviewCancellationVC {
                     PKMultiPicker.noOfComponent = 1
                     if self.viewModel.refundModes.isEmpty {
                          AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+                         return false
                     } else {
                         PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.refundModes, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
                             textField.text = firstSelect
                             self.viewModel.selectedMode = firstSelect
-                    self.manageContinueButton()
+                            self.manageContinueButton()
 
                         }
                   
@@ -267,6 +324,7 @@ extension BookingReviewCancellationVC {
                     PKMultiPicker.noOfComponent = 1
                     if self.viewModel.cancellationReasons.isEmpty {
                      AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+                     return false
                     } else {
                         PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.viewModel.cancellationReasons, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
                             textField.text = firstSelect
