@@ -103,6 +103,7 @@ class UpcomingBookingsVC: BaseVC {
         if isFirstTimeLoading, let count = self.fetchedResultsController.fetchedObjects?.count {
             self.manageFooter(isHidden: count <= 0)
         }
+        self.upcomingBookingsTableView.setContentOffset(.zero, animated: false)
         self.emptyStateSetUp()
     }
     

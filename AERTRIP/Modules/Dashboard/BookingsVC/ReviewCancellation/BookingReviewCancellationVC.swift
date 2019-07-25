@@ -51,20 +51,13 @@ class BookingReviewCancellationVC: BaseVC {
     // MARK: - Override methods
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         self.commentTextView.delegate = self
 
-        super.viewWillAppear(animated)
-        self.statusBarStyle = .default
-        self.statusBarColor = AppColors.themeBlack.withAlphaComponent(0.4)
         
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        self.statusBarColor = AppColors.clear
-        
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -82,15 +75,13 @@ class BookingReviewCancellationVC: BaseVC {
         switch self.viewModel.currentUsingAs {
         case .flightCancellationReview, .hotelCancellationReview:
             self.commentTextView.placeholder = LocalizedString.EnterYourCommentOptional.localized
-            self.commentTextView.placeholderInsets = .zero
+            self.commentTextView.placeholderInsets = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
         case .specialRequest:
             self.cancellationReasonView.isHidden = true
             self.cancellationViewHeightConstraint.constant = 0.0
             self.totalNetRefundView.isHidden = true
             self.totalNetRefundViewHeightConstraint.constant = 0.0
-            self.refundViewTextFieldTopConstraint.constant = -2
-            self.refundViewDownArrowTrailingConstraint.constant = -5
-            self.commentTextView.placeholderInsets = .zero
+            self.commentTextView.placeholderInsets = UIEdgeInsets(top: 4.0, left: 4.0, bottom: 0.0, right: 0.0)
         }
         
         self.refundModeTextField.delegate = self
@@ -135,7 +126,6 @@ class BookingReviewCancellationVC: BaseVC {
             self.refundModeTextField.text = LocalizedString.Select.localized
             self.infoLabel.text = LocalizedString.ReviewCancellationInfoLabel.localized
             self.commentTextView.placeholder = LocalizedString.WriteAboutYourSpecialRequest.localized
-            self.commentTextView.placeholderInsets = .zero
         }
     }
     
@@ -178,17 +168,21 @@ class BookingReviewCancellationVC: BaseVC {
     }
     // MARK: - IBAction
     private func manageTextFieldHeight() {
-        
-        let allOthersHeight: CGFloat = 234
+        var allOthersHeight: CGFloat = 0.0
+        if self.viewModel.currentUsingAs == .flightCancellationReview || self.viewModel.currentUsingAs == .hotelCancellationReview {
+            allOthersHeight = 320
+        } else {
+            allOthersHeight = 206
+        }
         let blankSpace: CGFloat = UIDevice.screenHeight - (allOthersHeight)
         
         var textHeight: CGFloat = 0.0
         
         if self.commentTextView.text.isEmpty {
-            textHeight = 30.0
+            textHeight = 34.0
         }
         else {
-            textHeight = (CGFloat(self.commentTextView.numberOfLines) * (self.commentTextView.font?.lineHeight ?? 20.0)) + 10.0
+            textHeight = (CGFloat(self.commentTextView.numberOfLines) * (self.commentTextView.font?.lineHeight ?? 20.0)) + 14.0
         }
         
         var calculatedBlank: CGFloat = blankSpace - (textHeight)
@@ -198,10 +192,10 @@ class BookingReviewCancellationVC: BaseVC {
             calculatedBlank = self.keyboardHeight
         }
         
-        UIView.animate(withDuration: 0.2) { [weak self] in
-            self?.bottomViewHeightConstraint.constant = calculatedBlank
+        self.bottomViewHeightConstraint.constant = calculatedBlank
+        UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.view.layoutIfNeeded()
-        }
+        })
     }
     override func setupNavBar() {
         switch self.viewModel.currentUsingAs {
