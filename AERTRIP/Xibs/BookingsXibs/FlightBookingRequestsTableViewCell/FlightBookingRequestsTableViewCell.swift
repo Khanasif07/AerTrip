@@ -34,6 +34,13 @@ class FlightBookingRequestsTableViewCell: UITableViewCell {
         self.configureUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        //removing all shadow
+        self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeWhite.withAlphaComponent(0.0001), offset: CGSize.zero, opacity: 0.0, shadowRadius: 0.0)
+    }
+    
     // MARK: - Functions
     
     // MARK: ===========
@@ -73,6 +80,9 @@ class FlightBookingRequestsTableViewCell: UITableViewCell {
             self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
         }
         else if isFirstCell {
+            self.containerViewBottomConstraint.constant = 0.0
+            self.dividerView.isHidden = false
+            
             self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
         }
         else {
