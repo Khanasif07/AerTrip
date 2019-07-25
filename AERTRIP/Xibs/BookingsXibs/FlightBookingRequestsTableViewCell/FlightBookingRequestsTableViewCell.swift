@@ -80,6 +80,9 @@ class FlightBookingRequestsTableViewCell: UITableViewCell {
             self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
         }
         else if isFirstCell {
+            self.containerViewBottomConstraint.constant = 0.0
+            self.dividerView.isHidden = false
+            
             self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
         }
         else {

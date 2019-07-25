@@ -170,9 +170,9 @@ class BookingReviewCancellationVC: BaseVC {
     private func manageTextFieldHeight() {
         var allOthersHeight: CGFloat = 0.0
         if self.viewModel.currentUsingAs == .flightCancellationReview || self.viewModel.currentUsingAs == .hotelCancellationReview {
-            allOthersHeight =  UIDevice.isIPhoneX ?  320 + 50 : 320
+            allOthersHeight = 300.0 + (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
         } else {
-            allOthersHeight = UIDevice.isIPhoneX ?  206 + 50 : 206
+            allOthersHeight = 186.0 + (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
         }
         let blankSpace: CGFloat = UIDevice.screenHeight - (allOthersHeight)
         
