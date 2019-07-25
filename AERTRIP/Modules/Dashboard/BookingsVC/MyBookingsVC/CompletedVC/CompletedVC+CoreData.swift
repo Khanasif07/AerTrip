@@ -15,7 +15,7 @@ extension CompletedVC {
         do {
             self.fetchedResultsController.fetchRequest.predicate = createFinalPredicate()
             try self.fetchedResultsController.performFetch()
-            MyBookingFilterVM.shared.filteredCompletedResultCount = isForFirstTime ? 0 : self.fetchedResultsController.fetchedObjects?.count ?? 0 
+            MyBookingFilterVM.shared.filteredCompletedResultCount = self.fetchedResultsController.fetchedObjects?.count ?? 0
         } catch {
             printDebug(error.localizedDescription)
             printDebug("Fetch failed")
