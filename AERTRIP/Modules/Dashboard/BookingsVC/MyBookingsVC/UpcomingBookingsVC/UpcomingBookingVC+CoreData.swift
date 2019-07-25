@@ -15,8 +15,6 @@ extension UpcomingBookingsVC {
         do {
             self.fetchedResultsController.fetchRequest.predicate = createFinalPredicate()
             try self.fetchedResultsController.performFetch()
-            MyBookingFilterVM.shared.filteredUpcomingResultCount = isForFirstTime ? 0 :  self.fetchedResultsController.fetchedObjects?.count ?? 0
-            
             self.footerView.isHidden = (self.fetchedResultsController.fetchedObjects?.count ?? 0) == 0
         } catch {
             printDebug(error.localizedDescription)

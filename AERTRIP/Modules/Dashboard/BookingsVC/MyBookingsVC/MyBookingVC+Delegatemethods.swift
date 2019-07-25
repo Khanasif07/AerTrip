@@ -33,6 +33,7 @@ extension MyBookingsVC: MyBookingsVMDelegate {
         AppGlobals.shared.stopLoading()
         self.emptyStateSetUp()
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
+        self.sendDataChangedNotification(data: ATNotification.myBookingSearching)
     }
     
     func willGetBookings() {

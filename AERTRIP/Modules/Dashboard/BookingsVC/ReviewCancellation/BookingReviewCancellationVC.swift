@@ -106,6 +106,7 @@ class BookingReviewCancellationVC: BaseVC {
             //get the data for cancellation request
             self.viewModel.getCancellationRefundModeReasons()
         }
+        self.manageTextFieldHeight()
     }
     
     override func setupTexts() {
@@ -178,7 +179,7 @@ class BookingReviewCancellationVC: BaseVC {
     // MARK: - IBAction
     private func manageTextFieldHeight() {
         
-        let allOthersHeight: CGFloat = 350
+        let allOthersHeight: CGFloat = 234
         let blankSpace: CGFloat = UIDevice.screenHeight - (allOthersHeight)
         
         var textHeight: CGFloat = 0.0
