@@ -110,7 +110,17 @@ class CompletedVC: BaseVC {
     }
     
     func reloadTable() {
-        self.completedBookingsTableView?.reloadData()
+        delay(seconds: 0.2) { [weak self] in
+            self?.reloadAndScrollToTop()
+        }
+    }
+    
+    
+    func reloadAndScrollToTop() {
+        self.completedBookingsTableView.reloadData()
+        self.completedBookingsTableView.layoutIfNeeded()
+        self.completedBookingsTableView.setContentOffset(.zero, animated: false)
+        
     }
     
     private func registerXibs() {

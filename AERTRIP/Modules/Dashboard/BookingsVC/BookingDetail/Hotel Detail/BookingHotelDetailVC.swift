@@ -22,7 +22,7 @@ class BookingHotelDetailVC: BaseVC {
     let headerIdentifier = "BookingHDRoomDetailHeaderView"
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
     private var navBarHeight: CGFloat {
-        return AppFlowManager.default.mainNavigationController.navigationBar.bounds.height + 11.0
+        return AppFlowManager.default.mainNavigationController.navigationBar.bounds.height + AppFlowManager.default.safeAreaInsets.top
     }
     
     // MARK: - Override methods
