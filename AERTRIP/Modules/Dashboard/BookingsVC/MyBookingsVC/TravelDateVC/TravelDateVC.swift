@@ -299,6 +299,8 @@ class TravelDateVC: BaseVC {
         
         if self.oldFromDate == nil {
             self.setDateOnLabels(fromDate: nil, toDate: self.toDatePicker.date)
+            self.oldToDate = self.toDatePicker.date
+           
         }
         else {
             self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
@@ -311,6 +313,7 @@ class TravelDateVC: BaseVC {
         
         if self.oldToDate == nil {
             self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: nil)
+           self.oldFromDate = self.fromDatePicker.date
         }
         else {
             self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)

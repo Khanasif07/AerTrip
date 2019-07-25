@@ -109,19 +109,23 @@ class CompletedVC: BaseVC {
         self.emptyStateSetUp()
     }
     
+//    func reloadTable() {
+//        delay(seconds: 0.2) { [weak self] in
+//            self?.reloadAndScrollToTop()
+//        }
+//    }
+    
+    
     func reloadTable() {
-        delay(seconds: 0.2) { [weak self] in
-            self?.reloadAndScrollToTop()
-        }
-    }
-    
-    
-    func reloadAndScrollToTop() {
         self.completedBookingsTableView?.reloadData()
-        self.completedBookingsTableView?.layoutIfNeeded()
-        self.completedBookingsTableView?.setContentOffset(.zero, animated: false)
-        
     }
+    
+//    func reloadAndScrollToTop() {
+//        self.completedBookingsTableView?.reloadData()
+//        self.completedBookingsTableView?.layoutIfNeeded()
+//        self.completedBookingsTableView?.setContentOffset(.zero, animated: false)
+//
+//    }
     
     private func registerXibs() {
         self.completedBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
