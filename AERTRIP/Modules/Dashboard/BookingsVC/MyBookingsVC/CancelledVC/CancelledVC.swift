@@ -113,9 +113,9 @@ class CancelledVC: BaseVC {
     
     
     func reloadAndScrollToTop() {
-        self.cancelledBookingsTableView.reloadData()
-        self.cancelledBookingsTableView.layoutIfNeeded()
-        self.cancelledBookingsTableView.setContentOffset(.zero, animated: false)
+        self.cancelledBookingsTableView?.reloadData()
+        self.cancelledBookingsTableView?.layoutIfNeeded()
+        self.cancelledBookingsTableView?.setContentOffset(.zero, animated: false)
         
     }
     

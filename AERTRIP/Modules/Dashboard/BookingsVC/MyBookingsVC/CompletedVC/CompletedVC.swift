@@ -117,9 +117,9 @@ class CompletedVC: BaseVC {
     
     
     func reloadAndScrollToTop() {
-        self.completedBookingsTableView.reloadData()
-        self.completedBookingsTableView.layoutIfNeeded()
-        self.completedBookingsTableView.setContentOffset(.zero, animated: false)
+        self.completedBookingsTableView?.reloadData()
+        self.completedBookingsTableView?.layoutIfNeeded()
+        self.completedBookingsTableView?.setContentOffset(.zero, animated: false)
         
     }
     
