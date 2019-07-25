@@ -260,7 +260,7 @@ extension MyBookingsVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         printDebug("topNavBarFirstRightButtonAction")
-        
+        self.dismissKeyboard()
         AppFlowManager.default.showBookingFilterVC(self)
     }
     

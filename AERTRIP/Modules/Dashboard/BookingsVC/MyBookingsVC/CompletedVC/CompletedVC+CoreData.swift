@@ -16,6 +16,10 @@ extension CompletedVC {
             self.fetchedResultsController.fetchRequest.predicate = createFinalPredicate()
             try self.fetchedResultsController.performFetch()
             MyBookingFilterVM.shared.filteredCompletedResultCount = self.fetchedResultsController.fetchedObjects?.count ?? 0
+            self.footerView?.isHidden = false
+            if let allObjct = self.fetchedResultsController.fetchedObjects, allObjct.isEmpty, !self.isOnlyPendingAction {
+                self.footerView?.isHidden = true
+            }
         } catch {
             printDebug(error.localizedDescription)
             printDebug("Fetch failed")

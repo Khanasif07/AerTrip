@@ -49,7 +49,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="gkg-CX-A0d" firstAttribute="leading" secondItem="X5k-bb-JD2" secondAttribute="leading" constant="16" id="44I-Ze-qhj"/>
                             <constraint firstItem="DGl-8c-SSq" firstAttribute="centerY" secondItem="KQe-iD-4Fj" secondAttribute="centerY" id="8ws-kk-dFK"/>

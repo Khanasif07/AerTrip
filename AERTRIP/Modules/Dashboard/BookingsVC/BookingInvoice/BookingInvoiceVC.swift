@@ -118,7 +118,8 @@ class BookingInvoiceVC: BaseVC {
             fatalError("DiscountCell not found")
         }
         discountCell.titleLabelLeadingConstraint.constant = 30
-        
+        discountCell.titleLabelBottomConstraint.constant = 1
+        discountCell.backgroundColor = .red
         let code = self.viewModel.transectionCodes[indexPath.row]
         discountCell.configureCell(title: code.ledgerName, amount: code.amount.delimiterWithSymbol)
         return discountCell
@@ -165,7 +166,8 @@ class BookingInvoiceVC: BaseVC {
             }
             
             totalPayableCell.totalPayableNowLabel.text = ladName
-            
+            totalPayableCell.totalPayableTextTopConstraint.constant = 5
+            totalPayableCell.totalPayableTextBottomConstraint.constant = 17.5
             let grossStr = abs(amount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(20.0))
             grossStr.append((amount > 0) ? drAttr : crAttr)
             totalPayableCell.totalPriceLabel.attributedText = grossStr
@@ -198,7 +200,7 @@ class BookingInvoiceVC: BaseVC {
     }
     
     func getHeightForRowAtSecondSection(_ indexPath: IndexPath) -> CGFloat {
-        return 24.0//[24, 24, 24, 24][indexPath.row]
+        return 25.0//[24, 24, 24, 24][indexPath.row]
     }
     
     func getHeightForRowAtThirdSection(_ indexPath: IndexPath) -> CGFloat {
@@ -206,7 +208,7 @@ class BookingInvoiceVC: BaseVC {
     }
     
     func getHeightForRowAtFourthSection(_ indexPath: IndexPath) -> CGFloat {
-        return [46, 28, 44][indexPath.row]
+        return [54, 28, 44][indexPath.row]
     }
 }
 
