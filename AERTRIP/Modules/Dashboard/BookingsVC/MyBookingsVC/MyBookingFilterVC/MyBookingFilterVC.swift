@@ -374,6 +374,7 @@ extension MyBookingFilterVC {
         self.configureScrollView()
         
         self.selectTab(atIndex: 0, animated: false)
+        self.setBadge()
     }
     
     private func configureTabButtons() {
