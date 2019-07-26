@@ -6,21 +6,20 @@
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
 
-import UIKit
 import CoreData
+import UIKit
 
 class CancelledVC: BaseVC {
-
-    //Mark:- Variables
+    // Mark:- Variables
     //================
     let viewModel = UpcomingBookingsVM()
     
-    //Mark:- IBOutlets
+    // Mark:- IBOutlets
     //================
-    @IBOutlet weak var emptyStateImageView: UIImageView!
-    @IBOutlet weak var emptyStateTitleLabel: UILabel!
-    @IBOutlet weak var emptyStateSubTitleLabel: UILabel!
-    @IBOutlet weak var cancelledBookingsTableView: UITableView! {
+    @IBOutlet var emptyStateImageView: UIImageView!
+    @IBOutlet var emptyStateTitleLabel: UILabel!
+    @IBOutlet var emptyStateSubTitleLabel: UILabel!
+    @IBOutlet var cancelledBookingsTableView: UITableView! {
         didSet {
             self.cancelledBookingsTableView.delegate = self
             self.cancelledBookingsTableView.dataSource = self
@@ -30,35 +29,34 @@ class CancelledVC: BaseVC {
             self.cancelledBookingsTableView.sectionFooterHeight = 0.0
         }
     }
-    @IBOutlet var footerView: MyBookingFooterView!{
+    
+    @IBOutlet var footerView: MyBookingFooterView! {
         didSet {
-            footerView.delegate = self
-            footerView.pendingActionSwitch.isOn = false
+            self.footerView.delegate = self
+            self.footerView.pendingActionSwitch.isOn = false
         }
     }
-    @IBOutlet weak var footerHeightConstraint: NSLayoutConstraint!
-
     
+    @IBOutlet var footerHeightConstraint: NSLayoutConstraint!
     
     // fetch result controller
     var isOnlyPendingAction: Bool = false
     var fetchRequest: NSFetchRequest<BookingData> = BookingData.fetchRequest()
     lazy var fetchedResultsController: NSFetchedResultsController<BookingData> = {
-        // booking will be in desending order by date 
+        // booking will be in desending order by date
         self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateHeader", ascending: false), NSSortDescriptor(key: "bookingProductType", ascending: false), NSSortDescriptor(key: "bookingId", ascending: true)]
-
+        
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "dateHeader", cacheName: nil)
         return fetchedResultsController
     }()
     
-    //Mark:- LifeCycle
+    // Mark:- LifeCycle
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func initialSetup() {
-        
         self.emptyStateImageView.isUserInteractionEnabled = false
         self.emptyStateTitleLabel.isUserInteractionEnabled = false
         self.emptyStateSubTitleLabel.isUserInteractionEnabled = false
@@ -91,7 +89,7 @@ class CancelledVC: BaseVC {
         self.dismissKeyboard()
     }
     
-    //Mark:- Functions
+    // Mark:- Functions
     //================
     private func manageFooter(isHidden: Bool) {
         self.footerView?.isHidden = isHidden
@@ -105,19 +103,22 @@ class CancelledVC: BaseVC {
         self.emptyStateSetUp()
     }
     
+//    func reloadTable() {
+//        delay(seconds: 0.2) { [weak self] in
+//            self?.reloadAndScrollToTop()
+//        }
+//    }
+//
     func reloadTable() {
-        delay(seconds: 0.2) { [weak self] in
-            self?.reloadAndScrollToTop()
-        }
-    }
-    
-    
-    func reloadAndScrollToTop() {
         self.cancelledBookingsTableView?.reloadData()
-        self.cancelledBookingsTableView?.layoutIfNeeded()
-        self.cancelledBookingsTableView?.setContentOffset(.zero, animated: false)
-        
     }
+    
+//    func reloadAndScrollToTop() {
+//        self.cancelledBookingsTableView?.reloadData()
+//        self.cancelledBookingsTableView?.layoutIfNeeded()
+//        self.cancelledBookingsTableView?.setContentOffset(.zero, animated: false)
+//
+//    }
     
     private func registerXibs() {
         self.cancelledBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
@@ -143,9 +144,9 @@ class CancelledVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
-            //refresh the data with filters
+            // refresh the data with filters
             
-            if (noti == .myBookingFilterApplied || noti == .myBookingFilterCleared) {
+            if noti == .myBookingFilterApplied || noti == .myBookingFilterCleared {
                 self.loadSaveData()
                 self.reloadTable()
             }
@@ -156,6 +157,6 @@ class CancelledVC: BaseVC {
         }
     }
     
-    //Mark:- IBActions
+    // Mark:- IBActions
     //================
 }

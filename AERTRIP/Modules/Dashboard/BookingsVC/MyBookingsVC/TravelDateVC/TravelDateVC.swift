@@ -14,39 +14,36 @@ protocol TravelDateVCDelegate: class {
 }
 
 class TravelDateVC: BaseVC {
-    
     enum UsingFor {
         case travelDate
         case bookingDate
         case account
     }
     
-    //Mark:- Variables
+    // Mark:- Variables
     //================
     private var datePickerViewHeightConstraint: CGFloat = 215.0
     
-    //Mark:- IBOutlets
+    // Mark:- IBOutlets
     //================
-    @IBOutlet weak var mainContainerView: UIView!
-    @IBOutlet weak var fromView: UIView!
-    @IBOutlet weak var fromDateTitleLabel: UILabel!
-    @IBOutlet weak var fromDateLabel: UILabel!
-    @IBOutlet weak var firstDividerView: ATDividerView!
-    @IBOutlet weak var fromDatePickerContainer: UIView!
+    @IBOutlet var mainContainerView: UIView!
+    @IBOutlet var fromView: UIView!
+    @IBOutlet var fromDateTitleLabel: UILabel!
+    @IBOutlet var fromDateLabel: UILabel!
+    @IBOutlet var firstDividerView: ATDividerView!
+    @IBOutlet var fromDatePickerContainer: UIView!
     
-    @IBOutlet weak var toView: UIView!
-    @IBOutlet weak var toDateTitleLabel: UILabel!
-    @IBOutlet weak var toDateLabel: UILabel!
-    @IBOutlet weak var secondDividerView: ATDividerView!
-    @IBOutlet weak var thirdDividerView: ATDividerView!
-    @IBOutlet weak var toDatePickerContainer: UIView!
-    @IBOutlet weak var fromViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var toViewHeightConstraint: NSLayoutConstraint!
-    
+    @IBOutlet var toView: UIView!
+    @IBOutlet var toDateTitleLabel: UILabel!
+    @IBOutlet var toDateLabel: UILabel!
+    @IBOutlet var secondDividerView: ATDividerView!
+    @IBOutlet var thirdDividerView: ATDividerView!
+    @IBOutlet var toDatePickerContainer: UIView!
+    @IBOutlet var fromViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var toViewHeightConstraint: NSLayoutConstraint!
     
     var fromDatePicker: UIDatePicker!
     var toDatePicker: UIDatePicker!
-
     
     var currentlyUsingAs = UsingFor.account
     weak var delegate: TravelDateVCDelegate?
@@ -60,9 +57,9 @@ class TravelDateVC: BaseVC {
     
     private let closedHeight: CGFloat = 45.0, openedHeight: CGFloat = 259.0
     
-    //Mark:- LifeCycle
+    // Mark:- LifeCycle
     //================
-
+    
     override func initialSetup() {
         self.setupDatePickers()
     }
@@ -86,10 +83,9 @@ class TravelDateVC: BaseVC {
         self.toDateLabel.textColor = AppColors.themeGray40
     }
     
-    //Mark:- Functions
+    // Mark:- Functions
     //================
     private func setupDatePickers() {
-        
         self.showLoaderOnView(view: self.mainContainerView, show: true)
         
         self.setDateOnLabels(fromDate: nil, toDate: nil)
@@ -106,7 +102,6 @@ class TravelDateVC: BaseVC {
             }
         }
         else if self.currentlyUsingAs == .bookingDate {
-            
             if let _ = self.oldFromDate {
                 self.fromTapGestureAction(UITapGestureRecognizer())
             }
@@ -118,13 +113,13 @@ class TravelDateVC: BaseVC {
             }
         }
         else {
-            //account
+            // account
             self.fromTapGestureAction(UITapGestureRecognizer())
         }
         
         let fromTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.fromTapGestureAction))
         self.fromView.addGestureRecognizer(fromTapGesture)
-
+        
         let toTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.toTapGestureAction))
         self.toView.addGestureRecognizer(toTapGesture)
         
@@ -132,7 +127,7 @@ class TravelDateVC: BaseVC {
     }
     
     @objc func createDatePickers() {
-        //from date picker
+        // from date picker
         self.fromDatePicker = UIDatePicker(frame: self.fromDatePickerContainer.bounds)
         self.fromDatePickerContainer.addSubview(self.fromDatePicker)
         self.fromDatePicker.datePickerMode = .date
@@ -140,7 +135,6 @@ class TravelDateVC: BaseVC {
         self.fromDatePicker.locale = UserInfo.loggedInUser?.currentLocale
         
         self.fromDatePicker.addTarget(self, action: #selector(self.fromDatePickerValueChanged), for: .valueChanged)
-        
         
         //to date picker
         self.toDatePicker = UIDatePicker(frame: self.toDatePickerContainer.bounds)
@@ -159,12 +153,12 @@ class TravelDateVC: BaseVC {
     private func setDateOnLabels(fromDate: Date?, toDate: Date?) {
         self.toDateLabel.text = "-"
         if let date = toDate {
-            self.toDateLabel.text = date.toString(dateFormat: dateFormate)
+            self.toDateLabel.text = date.toString(dateFormat: self.dateFormate)
         }
         
         self.fromDateLabel.text = "-"
         if let date = fromDate {
-            self.fromDateLabel.text = date.toString(dateFormat: dateFormate)
+            self.fromDateLabel.text = date.toString(dateFormat: self.dateFormate)
         }
     }
     
@@ -179,7 +173,7 @@ class TravelDateVC: BaseVC {
 //            else {
 //                self.closeBothPicker(animated: false)
 //            }
-
+            
             self.fromDatePicker.minimumDate = self.minFromDate
             self.fromDatePicker.maximumDate = Date().add(years: 2)
             
@@ -192,7 +186,6 @@ class TravelDateVC: BaseVC {
             self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
         }
         else if self.currentlyUsingAs == .bookingDate {
-            
 //            if let _ = self.oldFromDate {
 //                self.fromTapGestureAction(UITapGestureRecognizer())
 //            }
@@ -215,9 +208,9 @@ class TravelDateVC: BaseVC {
             self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
         }
         else {
-            //account
+            // account
 //            self.fromTapGestureAction(UITapGestureRecognizer())
-
+            
             let fromDt = self.oldFromDate ?? self.minFromDate
             self.fromDatePicker.setDate(fromDt ?? Date(), animated: false)
             self.toDatePicker.setDate(self.oldToDate ?? Date(), animated: false)
@@ -234,59 +227,75 @@ class TravelDateVC: BaseVC {
     
     private func closeBothPicker(animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
-            //close from and to both
+            // close from and to both
             self.fromViewHeightConstraint.constant = self.closedHeight - 1
             self.toViewHeightConstraint.constant = self.closedHeight
             self.fromDatePickerContainer.alpha = 0.0
             self.toDatePickerContainer.alpha = 0.0
             self.view.layoutIfNeeded()
-        }) { (isDone) in
+        }) { _ in
         }
     }
     
-    //Mark:- IBActions
+    // Mark:- IBActions
     //================
-
+    
     @objc func toTapGestureAction(_ gesture: UITapGestureRecognizer) {
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            //open to close from
+            // open to close from
             self.fromViewHeightConstraint.constant = self.closedHeight - 1
             self.toViewHeightConstraint.constant = self.openedHeight
             self.fromDatePickerContainer.alpha = 0.0
             self.toDatePickerContainer.alpha = 1.0
             self.view.layoutIfNeeded()
-        }) { (isDone) in
+        }) { _ in
         }
     }
     
     @objc func fromTapGestureAction(_ gesture: UITapGestureRecognizer) {
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            //open from close to
+            // open from close to
             self.fromViewHeightConstraint.constant = self.openedHeight
             self.toViewHeightConstraint.constant = self.closedHeight
             self.fromDatePickerContainer.alpha = 1.0
             self.toDatePickerContainer.alpha = 0.0
             self.view.layoutIfNeeded()
-        }) { (isDone) in
+        }) { _ in
         }
     }
     
-    @objc func toDatePickerValueChanged (_ datePicker: UIDatePicker) {
-        
+    @objc func toDatePickerValueChanged(_ datePicker: UIDatePicker) {
         if self.oldFromDate == nil {
-            self.setDateOnLabels(fromDate: nil, toDate: self.toDatePicker.date)
+            if self.currentlyUsingAs == .bookingDate {
+                self.setDateOnLabels(fromDate: MyBookingFilterVM.shared.bookingToDate == nil ? nil : self.fromDatePicker.date, toDate: self.toDatePicker.date)
+            }
+            else {
+                self.setDateOnLabels(fromDate: MyBookingFilterVM.shared.travelToDate == nil ? nil : self.fromDatePicker.date, toDate: self.toDatePicker.date)
+            }
+            
+            self.oldToDate = self.toDatePicker.date
         }
         else {
+            self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
+        }
+        
+        if self.toDatePicker.date.timeIntervalSince1970 < self.fromDatePicker.date.timeIntervalSince1970 {
+            self.toDatePicker.setDate(self.fromDatePicker.date, animated: false)
             self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
         }
         
         self.delegate?.didSelect(toDate: datePicker.date, forType: self.currentlyUsingAs)
     }
     
-    @objc func fromDatePickerValueChanged (_ datePicker: UIDatePicker) {
-        
+    @objc func fromDatePickerValueChanged(_ datePicker: UIDatePicker) {
         if self.oldToDate == nil {
-            self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: nil)
+            if self.currentlyUsingAs == .bookingDate {
+                self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: MyBookingFilterVM.shared.bookingFromDate == nil ? nil : self.toDatePicker.date)
+            }
+            else {
+                self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: MyBookingFilterVM.shared.travelFromDate == nil ? nil : self.toDatePicker.date)
+            }
+            self.oldFromDate = self.fromDatePicker.date
         }
         else {
             self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
@@ -295,6 +304,7 @@ class TravelDateVC: BaseVC {
         if self.toDatePicker.date.timeIntervalSince1970 < self.fromDatePicker.date.timeIntervalSince1970 {
             self.toDatePicker.minimumDate = datePicker.date
             self.toDatePicker.setDate(self.fromDatePicker.date, animated: false)
+            self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
         }
         self.delegate?.didSelect(fromDate: datePicker.date, forType: self.currentlyUsingAs)
     }
