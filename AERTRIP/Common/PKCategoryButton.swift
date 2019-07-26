@@ -100,7 +100,7 @@ class PKCategoryButton: UIButton {
     }
     
     func updateBadgeCount() {
-        let textWidth = (titleLabel?.text ?? "A").sizeCount(withFont: titleLabel?.font ?? _normalFont, bundingSize: frame.size).width
+        let textWidth = (titleLabel?.text ?? "b").sizeCount(withFont: titleLabel?.font ?? _normalFont, bundingSize: frame.size).width
         let extraWidthSpace = (frame.size.width - textWidth) / 2.0
         
         let extraHeightSpace = (frame.size.height - (titleLabel?.font ?? _normalFont).lineHeight) / 2.0
