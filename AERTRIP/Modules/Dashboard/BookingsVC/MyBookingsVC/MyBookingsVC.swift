@@ -84,7 +84,7 @@ class MyBookingsVC: BaseVC {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        self.allTabsStr.removeAll()
+//        self.allTabsStr.removeAll()
     }
     
     override func dataChanged(_ note: Notification) {
