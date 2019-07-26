@@ -162,7 +162,7 @@ class MyBookingFilterVC: BaseVC {
     }
     
     @objc private func sendNotification() {
-        self.sendDataChangedNotification(data: ATNotification.myBookingFilterApplied)
+//        self.sendDataChangedNotification(data: ATNotification.myBookingFilterApplied)
        
         delay(seconds: 0.5) { [weak self] in
             self?.setCounts()
