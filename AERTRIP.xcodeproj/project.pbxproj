@@ -319,6 +319,7 @@
 		18D88BFA22C39A700089755D /* BookingConfirmationMailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D88BF922C39A700089755D /* BookingConfirmationMailVM.swift */; };
 		18D88BFC22C39EF30089755D /* BookingConfirmationMailVC+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D88BFB22C39EF30089755D /* BookingConfirmationMailVC+DelegateMethods.swift */; };
 		18DE97D322CB689C0006C5E0 /* FrequentFlyerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DE97D222CB689C0006C5E0 /* FrequentFlyerData.swift */; };
+		18E09F9F22EB089E0065CEB2 /* PKCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E09F9E22EB089E0065CEB2 /* PKCategoryButton.swift */; };
 		18E796FF2248E53B00A7AC8B /* FinalAmountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E796FD2248E53B00A7AC8B /* FinalAmountTableViewCell.swift */; };
 		18E797002248E53B00A7AC8B /* FinalAmountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E796FE2248E53B00A7AC8B /* FinalAmountTableViewCell.xib */; };
 		18E797022248ED6500A7AC8B /* FareSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E797012248ED6500A7AC8B /* FareSectionHeader.swift */; };
@@ -1278,6 +1279,7 @@
 		18D88BF922C39A700089755D /* BookingConfirmationMailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingConfirmationMailVM.swift; sourceTree = "<group>"; };
 		18D88BFB22C39EF30089755D /* BookingConfirmationMailVC+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookingConfirmationMailVC+DelegateMethods.swift"; sourceTree = "<group>"; };
 		18DE97D222CB689C0006C5E0 /* FrequentFlyerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequentFlyerData.swift; sourceTree = "<group>"; };
+		18E09F9E22EB089E0065CEB2 /* PKCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKCategoryButton.swift; sourceTree = "<group>"; };
 		18E796FD2248E53B00A7AC8B /* FinalAmountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalAmountTableViewCell.swift; sourceTree = "<group>"; };
 		18E796FE2248E53B00A7AC8B /* FinalAmountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FinalAmountTableViewCell.xib; sourceTree = "<group>"; };
 		18E797012248ED6500A7AC8B /* FareSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FareSectionHeader.swift; sourceTree = "<group>"; };
@@ -4286,6 +4288,7 @@
 				8460C0C521F34D56007768CC /* ATCollectionView.swift */,
 				84085D2621F5AD2B00F1E844 /* ATDividerView.swift */,
 				182D4846228AA8C8004796A2 /* ATTableViewCell.swift */,
+				18E09F9E22EB089E0065CEB2 /* PKCategoryButton.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -5886,6 +5889,7 @@
 				842EDE802238E7D600E99409 /* SelectTripVC.swift in Sources */,
 				84247F8B22A5308200A0FEB7 /* CompletedVC.swift in Sources */,
 				843A26E222B8EABF00651D8E /* FareInfoVM.swift in Sources */,
+				18E09F9F22EB089E0065CEB2 /* PKCategoryButton.swift in Sources */,
 				18FD917622968CF300D005E9 /* BookingSchedulingPassengerDetailTableViewCell.swift in Sources */,
 				1870AD1D220C769400FB32C8 /* TravellerData+CoreDataClass.swift in Sources */,
 				840DDE91220D7C0800F8BA92 /* HotelDetailsImageCollectionCell.swift in Sources */,

@@ -235,7 +235,78 @@ with us!</string>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U6q-2H-Zqs">
                                         <rect key="frame" x="0.0" y="64" width="375" height="356"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4gG-qg-r8T">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="e9b-IE-J4f">
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Yw-IB-lmm" customClass="PKCategoryButton" customModule="AERTRIP" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="125" height="50"/>
+                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <connections>
+                                                                    <action selector="travelDateButtonAction:" destination="eO9-Zy-OYZ" eventType="touchUpInside" id="0j4-tN-uby"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZV-W4-wXX" customClass="PKCategoryButton" customModule="AERTRIP" customModuleProvider="target">
+                                                                <rect key="frame" x="125" y="0.0" width="125" height="50"/>
+                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <connections>
+                                                                    <action selector="eventTypeButtonAction:" destination="eO9-Zy-OYZ" eventType="touchUpInside" id="cHU-5s-Txn"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SWh-JH-qbS" customClass="PKCategoryButton" customModule="AERTRIP" customModuleProvider="target">
+                                                                <rect key="frame" x="250" y="0.0" width="125" height="50"/>
+                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <connections>
+                                                                    <action selector="bookingDateButtonAction:" destination="eO9-Zy-OYZ" eventType="touchUpInside" id="kHS-Wa-fEd"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gCG-if-kpA" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="49" width="375" height="1"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="1" id="uJV-9Q-Mxh"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gko-71-ebH">
+                                                        <rect key="frame" x="0.0" y="48" width="125" height="2"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="gCG-if-kpA" firstAttribute="leading" secondItem="4gG-qg-r8T" secondAttribute="leading" id="5I4-zJ-PUO"/>
+                                                    <constraint firstItem="e9b-IE-J4f" firstAttribute="top" secondItem="4gG-qg-r8T" secondAttribute="top" id="AhV-LJ-zx6"/>
+                                                    <constraint firstItem="e9b-IE-J4f" firstAttribute="leading" secondItem="4gG-qg-r8T" secondAttribute="leading" id="Fiz-xz-klW"/>
+                                                    <constraint firstAttribute="trailing" secondItem="e9b-IE-J4f" secondAttribute="trailing" id="Lvm-oG-N4V"/>
+                                                    <constraint firstAttribute="height" constant="50" id="NVk-ht-Nxj"/>
+                                                    <constraint firstAttribute="bottom" secondItem="e9b-IE-J4f" secondAttribute="bottom" id="REV-CG-k4u"/>
+                                                    <constraint firstAttribute="bottom" secondItem="gCG-if-kpA" secondAttribute="bottom" id="cAS-3P-P5Z"/>
+                                                    <constraint firstAttribute="trailing" secondItem="gCG-if-kpA" secondAttribute="trailing" id="qiN-dc-nwc"/>
+                                                </constraints>
+                                            </view>
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kxg-nl-UPb">
+                                                <rect key="frame" x="0.0" y="50" width="375" height="306"/>
+                                            </scrollView>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="kxg-nl-UPb" secondAttribute="trailing" id="9Yd-vi-Sjw"/>
+                                            <constraint firstAttribute="bottom" secondItem="kxg-nl-UPb" secondAttribute="bottom" id="Fd5-gc-oYn"/>
+                                            <constraint firstItem="kxg-nl-UPb" firstAttribute="top" secondItem="4gG-qg-r8T" secondAttribute="bottom" id="LeE-8K-q1m"/>
+                                            <constraint firstAttribute="trailing" secondItem="4gG-qg-r8T" secondAttribute="trailing" id="c4J-9M-BXM"/>
+                                            <constraint firstItem="4gG-qg-r8T" firstAttribute="leading" secondItem="U6q-2H-Zqs" secondAttribute="leading" id="cAK-RA-73i"/>
+                                            <constraint firstItem="kxg-nl-UPb" firstAttribute="leading" secondItem="U6q-2H-Zqs" secondAttribute="leading" id="qVn-ZF-YGh"/>
+                                            <constraint firstItem="4gG-qg-r8T" firstAttribute="top" secondItem="U6q-2H-Zqs" secondAttribute="top" id="whF-FK-0HH"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -266,12 +337,18 @@ with us!</string>
                         <viewLayoutGuide key="safeArea" id="0Ms-f8-FPE"/>
                     </view>
                     <connections>
+                        <outlet property="allTabDetailConatinerView" destination="kxg-nl-UPb" id="8CM-AQ-SL6"/>
+                        <outlet property="allTabTitleContainerView" destination="4gG-qg-r8T" id="KRj-p6-78M"/>
+                        <outlet property="bookingDateButton" destination="SWh-JH-qbS" id="TG7-0F-P4u"/>
                         <outlet property="childContainerView" destination="U6q-2H-Zqs" id="0mI-zQ-6lv"/>
+                        <outlet property="eventTypeButton" destination="AZV-W4-wXX" id="N3L-b3-yW2"/>
                         <outlet property="mainBackView" destination="rJG-zF-i8u" id="p4i-8k-42A"/>
                         <outlet property="mainContainerView" destination="0Gr-iF-j8Y" id="prj-jR-cjF"/>
                         <outlet property="mainContainerViewTopConstraint" destination="T8O-bS-olg" id="amn-48-gMN"/>
                         <outlet property="navigationViewTopConstraint" destination="AkR-Yk-FJ1" id="MiE-vB-2sH"/>
+                        <outlet property="tabSelectionIndicatorView" destination="Gko-71-ebH" id="oVV-Jd-mhd"/>
                         <outlet property="topNavBar" destination="Lcv-wN-0WB" id="5Ea-94-gwo"/>
+                        <outlet property="travelDateButton" destination="5Yw-IB-lmm" id="Ho4-Fc-BQm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JCm-Cs-Xmo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1926,7 +2003,7 @@ with us!</string>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackDownArrow" translatesAutoresizingMaskIntoConstraints="NO" id="9DX-T5-2nB">
-                                        <rect key="frame" x="356" y="41" width="9" height="6"/>
+                                        <rect key="frame" x="349" y="36" width="16" height="16"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pcn-yO-9z0" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="16" y="59" width="359" height="1"/>
@@ -1969,7 +2046,7 @@ with us!</string>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackDownArrow" translatesAutoresizingMaskIntoConstraints="NO" id="QyA-tf-R8F">
-                                        <rect key="frame" x="356" y="41" width="9" height="6"/>
+                                        <rect key="frame" x="349" y="36" width="16" height="16"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XbG-cv-fK0" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="16" y="59" width="359" height="1"/>
