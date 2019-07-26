@@ -103,22 +103,25 @@ class UpcomingBookingsVC: BaseVC {
         if isFirstTimeLoading, let count = self.fetchedResultsController.fetchedObjects?.count {
             self.manageFooter(isHidden: count <= 0)
         }
-        self.upcomingBookingsTableView.setContentOffset(.zero, animated: false)
         self.emptyStateSetUp()
     }
     
+//    func reloadTable() {
+//        delay(seconds: 0.2) { [weak self] in
+//              self?.reloadAndScrollToTop()
+//        }
+//    }
+    
     func reloadTable() {
-        delay(seconds: 0.2) { [weak self] in
-              self?.reloadAndScrollToTop()
-        }
+        self.upcomingBookingsTableView?.reloadData()
     }
     
-    func reloadAndScrollToTop() {
-        self.upcomingBookingsTableView.reloadData()
-        self.upcomingBookingsTableView.layoutIfNeeded()
-        self.upcomingBookingsTableView.setContentOffset(.zero, animated: false)
-        
-    }
+//    func reloadAndScrollToTop() {
+//        self.upcomingBookingsTableView.reloadData()
+//        self.upcomingBookingsTableView.layoutIfNeeded()
+//        self.upcomingBookingsTableView.setContentOffset(.zero, animated: false)
+//
+//    }
     
     private func registerXibs() {
         self.upcomingBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)

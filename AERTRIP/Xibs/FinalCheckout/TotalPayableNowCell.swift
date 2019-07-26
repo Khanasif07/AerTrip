@@ -45,11 +45,11 @@ class TotalPayableNowCell: UITableViewCell {
         self.totalPayableNowLabel.text = LocalizedString.TotalPayableNow.localized
         
         self.totalPayableTextTopConstraint.constant = (currentUsingFor == .totalPayableAmout) ? 9.0 : 0.0
-        self.totalPayableTextBottomConstraint.constant = (currentUsingFor == .totalPayableAmout) ? 17.5 : 0.0
+        self.totalPayableTextBottomConstraint.constant = (currentUsingFor == .totalPayableAmout) ? 14.5 : 0.0
     }
     
     private func setUpFont() {
-        self.totalPayableNowLabel.font = AppFonts.Regular.withSize(((currentUsingFor == .totalPayableAmout) ? 20.0 : 16.0))
+        self.totalPayableNowLabel.font = AppFonts.Regular.withSize(((currentUsingFor == .totalPayableAmout) ? 18.0 : 16.0))
         self.totalPriceLabel.font = AppFonts.SemiBold.withSize(((currentUsingFor == .totalPayableAmout) ? 20.0 : 16.0))
     }
     

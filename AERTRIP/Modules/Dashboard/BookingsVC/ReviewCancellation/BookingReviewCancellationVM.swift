@@ -127,6 +127,7 @@ class BookingReviewCancellationVM {
                 self?.delegate?.getCancellationRefundModeReasonsSuccess()
             }
             else {
+                self?.refundModes = [LocalizedString.Select.localized]
                 self?.delegate?.getCancellationRefundModeReasonsFail()
             }
         }
@@ -144,6 +145,7 @@ class BookingReviewCancellationVM {
                 self?.delegate?.getCancellationRefundModeReasonsSuccess()
             }
             else {
+                self?.specialRequests = [LocalizedString.Select.localized]
                 self?.delegate?.getCancellationRefundModeReasonsFail()
             }
         }
@@ -177,7 +179,10 @@ class BookingReviewCancellationVM {
             param["refund_mode"] = self.selectedMode
             param["reason"] = self.selectedReason
             param["cancel"] = allSelected
-            param["comments"] = self.comment
+            if !self.comment.isEmpty {
+              param["comments"] = self.comment
+            }
+        
         }
         else if self.currentUsingAs == .hotelCancellationReview {
 

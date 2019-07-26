@@ -534,7 +534,7 @@ extension MyBookingFilterVC {
         
         if animated {
             UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
-                self?.view.layoutIfNeeded()
+                self?.tabSelectionIndicatorView.layoutIfNeeded()
             }
         }
         

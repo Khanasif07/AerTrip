@@ -14,6 +14,7 @@ extension CancelledVC {
     func loadSaveData(isForFirstTime: Bool = false) {
         do {
             self.fetchedResultsController.fetchRequest.predicate = createFinalPredicate()
+            
             try self.fetchedResultsController.performFetch()
             MyBookingFilterVM.shared.filteredCanceledResultCount = self.fetchedResultsController.fetchedObjects?.count ?? 0
             self.footerView?.isHidden = false
