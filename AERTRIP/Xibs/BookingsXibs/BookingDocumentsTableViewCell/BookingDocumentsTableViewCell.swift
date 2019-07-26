@@ -9,7 +9,7 @@
 import UIKit
 
 protocol BookingDocumentsTableViewCellDelegate: class {
-    func  downloadDocument(documentDirectory: String , tableIndex: IndexPath , collectionIndex: IndexPath)
+    func downloadDocument(documentDirectory: String , tableIndex: IndexPath , collectionIndex: IndexPath)
     func cancelDownloadDocument(itemIndexPath: IndexPath)
 }
 
@@ -172,14 +172,14 @@ extension BookingDocumentsTableViewCell: UICollectionViewDelegate , UICollection
                 self.documentsData[indexPath.item].downloadingStatus = .downloading
                 cell.downloadingStartAnimation()
                 safeDelegate.downloadDocument(documentDirectory: currentDirecotry + "/\(url.lastPathComponent)", tableIndex: index, collectionIndex: indexPath)
-            } else {
-                  let currentDirecotry = self.checkCreateAndReturnDocumentFolder()
-                let url = URL(fileURLWithPath: self.documentsData[indexPath.item].sourceUrl)
+            }
+            else {
                 let completeUrlPath = currentDirecotry + "/\(url.lastPathComponent)"
-                printDebug("FILE AVAILABLE at \( currentDirecotry) /\(url.lastPathComponent)")
-                AppFlowManager.default.openDocument(atURL: URL(fileURLWithPath: completeUrlPath), screenTitle: "Detail")
-                
-                
+                if FileManager.default.fileExists(atPath: completeUrlPath) {
+                    let url = URL(fileURLWithPath: self.documentsData[indexPath.item].sourceUrl)
+                    printDebug("FILE AVAILABLE at \( currentDirecotry) /\(url.lastPathComponent)")
+                    AppFlowManager.default.openDocument(atURL: URL(fileURLWithPath: completeUrlPath), screenTitle: "Detail")
+                }
             }
             self.documentsCollectionView.reloadData()
         }
