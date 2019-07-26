@@ -128,30 +128,6 @@ class TravelDateVC: BaseVC {
         let toTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.toTapGestureAction))
         self.toView.addGestureRecognizer(toTapGesture)
         
-        func setup() {
-            //from date picker
-            self.fromDatePicker = UIDatePicker(frame: self.fromDatePickerContainer.bounds)
-            self.fromDatePickerContainer.addSubview(self.fromDatePicker)
-            self.fromDatePicker.datePickerMode = .date
-            
-            self.fromDatePicker.locale = UserInfo.loggedInUser?.currentLocale
-            
-            self.fromDatePicker.addTarget(self, action: #selector(self.fromDatePickerValueChanged), for: .valueChanged)
-            
-            
-            //to date picker
-            self.toDatePicker = UIDatePicker(frame: self.toDatePickerContainer.bounds)
-            self.toDatePickerContainer.addSubview(self.toDatePicker)
-            self.toDatePicker.datePickerMode = .date
-            
-            self.toDatePicker.locale = UserInfo.loggedInUser?.currentLocale
-            
-            self.toDatePicker.addTarget(self, action: #selector(self.toDatePickerValueChanged), for: .valueChanged)
-            
-            self.setupDateSpan()
-        }
-        
-        
         perform(#selector(createDatePickers), with: nil, afterDelay: 0.1)
     }
     
