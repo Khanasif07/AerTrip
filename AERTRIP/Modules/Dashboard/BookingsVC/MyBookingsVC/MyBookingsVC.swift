@@ -217,7 +217,9 @@ class MyBookingsVC: BaseVC {
 //            }
 //        }
         
-        self.configureTabBar()
+        if self.upcomingVC == nil {
+            self.configureTabBar()
+        }
         
     }
     
@@ -336,7 +338,7 @@ extension MyBookingsVC {
         self.configureSelectionIndicator()
         self.configureScrollView()
         
-        self.selectTab(atIndex: 0, animated: false)
+        self.selectTab(atIndex: CGFloat(MyBookingFilterVM.shared.lastSelectedIndex), animated: false)
     }
     
     private func configureTabButtons() {
@@ -465,6 +467,8 @@ extension MyBookingsVC {
                 self?.tabSelectionIndicatorView.layoutIfNeeded()
             }
         }
+        
+        MyBookingFilterVM.shared.lastSelectedIndex = toIndex
     }
     
     private func onScrollEnding(_ scrollView: UIScrollView) {
