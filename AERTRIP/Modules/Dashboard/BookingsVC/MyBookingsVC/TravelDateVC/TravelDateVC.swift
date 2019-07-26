@@ -293,7 +293,7 @@ class TravelDateVC: BaseVC {
                 self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: MyBookingFilterVM.shared.bookingFromDate == nil ? nil : self.toDatePicker.date)
             }
             else {
-                self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: MyBookingFilterVM.shared.travelFromDate == nil ? nil : self.toDatePicker.date)
+                self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: ((MyBookingFilterVM.shared.travelFromDate == nil) || (MyBookingFilterVM.shared.travelToDate == nil)) ? nil : self.toDatePicker.date)
             }
             self.oldFromDate = self.fromDatePicker.date
         }
