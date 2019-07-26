@@ -2,8 +2,8 @@
 //  ATNotificationLabel.swift
 //
 //
-//  Created by Pramod Kumar on 06/12/18.
-//  Copyright © 2018 Pramod Kumar. All rights reserved.
+//  Created by Admin on 06/12/18.
+//  Copyright © 2018 Admin. All rights reserved.
 //
 
 import UIKit
