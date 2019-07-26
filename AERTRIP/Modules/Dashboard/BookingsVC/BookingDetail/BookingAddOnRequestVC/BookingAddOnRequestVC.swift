@@ -158,12 +158,16 @@ class BookingAddOnRequestVC: BaseVC {
         }
         var finalText : String = ""
         self.topNavigationView.firstRightButton.isHidden = !self.shouldShowAbort
-        if (self.viewModel.caseHistory?.caseType ?? "").lowercased() == LocalizedString.FlightDomesticCancellationRequest.localized.lowercased() {
-            finalText = LocalizedString.CancellationRequest.localized
-        } else {
-            finalText = self.viewModel.caseHistory?.caseType ?? LocalizedString.dash.localized
-        }
+        finalText = getUpdatedTitle(text: self.viewModel.caseHistory?.caseType ?? LocalizedString.dash.localized)
         self.topNavigationView.navTitleLabel.text = finalText
+    }
+    
+    func getUpdatedTitle(text: String ) -> String {
+        var updatedTitle = text
+        if updatedTitle.count > 24 {
+            updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
+        }
+        return updatedTitle
     }
     
     @IBAction func makePaymentAction(_ sender: Any) {

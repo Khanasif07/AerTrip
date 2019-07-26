@@ -29,14 +29,15 @@
                                     <constraint firstAttribute="height" constant="1" id="GIK-5O-Oaq"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQe-iD-4Fj">
-                                <rect key="frame" x="16" y="10" width="244" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="g" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQe-iD-4Fj">
+                                <rect key="frame" x="16" y="10" width="244" height="22"/>
+                                <color key="backgroundColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGl-8c-SSq">
-                                <rect key="frame" x="262" y="10" width="42" height="20.5"/>
+                                <rect key="frame" x="262" y="11" width="42" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -54,7 +55,7 @@
                             <constraint firstItem="gkg-CX-A0d" firstAttribute="leading" secondItem="X5k-bb-JD2" secondAttribute="leading" constant="16" id="44I-Ze-qhj"/>
                             <constraint firstItem="DGl-8c-SSq" firstAttribute="centerY" secondItem="KQe-iD-4Fj" secondAttribute="centerY" id="8ws-kk-dFK"/>
                             <constraint firstItem="hxE-39-BCL" firstAttribute="leading" secondItem="X5k-bb-JD2" secondAttribute="leading" constant="16" id="9F1-O9-GfL"/>
-                            <constraint firstItem="hxE-39-BCL" firstAttribute="top" secondItem="KQe-iD-4Fj" secondAttribute="bottom" constant="14.5" id="Bsm-Xk-8Yy"/>
+                            <constraint firstItem="hxE-39-BCL" firstAttribute="top" secondItem="KQe-iD-4Fj" secondAttribute="bottom" constant="12.5" id="Bsm-Xk-8Yy"/>
                             <constraint firstAttribute="trailing" secondItem="DGl-8c-SSq" secondAttribute="trailing" constant="16" id="HdN-wZ-Ktu"/>
                             <constraint firstAttribute="trailing" secondItem="gkg-CX-A0d" secondAttribute="trailing" constant="16" id="Pfv-14-Cbl"/>
                             <constraint firstItem="KQe-iD-4Fj" firstAttribute="leading" secondItem="X5k-bb-JD2" secondAttribute="leading" constant="16" id="VQb-tO-G1G"/>

@@ -283,8 +283,7 @@ extension BookingReviewCancellationVC {
             
             if self.viewModel.currentUsingAs == .specialRequest {
                 PKMultiPicker.noOfComponent = 1
-                if self.viewModel.specialRequests.isEmpty {
-                    
+                if self.viewModel.specialRequests.count == 1 {
                     AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
                     return false
                 } else {
@@ -301,7 +300,7 @@ extension BookingReviewCancellationVC {
             else {
                 if textField === refundModeTextField {
                     PKMultiPicker.noOfComponent = 1
-                    if self.viewModel.refundModes.isEmpty {
+                    if self.viewModel.refundModes.count == 1 {
                          AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
                          return false
                     } else {
@@ -317,7 +316,7 @@ extension BookingReviewCancellationVC {
                 }
                 else {
                     PKMultiPicker.noOfComponent = 1
-                    if self.viewModel.cancellationReasons.isEmpty {
+                    if self.viewModel.cancellationReasons.count == 1  {
                      AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
                      return false
                     } else {
@@ -364,7 +363,7 @@ extension BookingReviewCancellationVC: BookingReviewCancellationVMDelegate {
     }
     
     func makeCancellationRequestFail() {
-        self.requestCancellationButton.isLoading = true
+        self.requestCancellationButton.isLoading = false
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
     }
     

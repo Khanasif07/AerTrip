@@ -54,6 +54,12 @@ class FlightBookingRequestsTableViewCell: UITableViewCell {
     
     internal func configureCell(requestName: String, actionStatus: ResolutionStatus, actionStatusColor: UIColor = AppColors.themeYellow, isFirstCell: Bool, isLastCell: Bool, isStatusExpired: Bool) {
         self.requestNameLabel.text = requestName
+        
+        if actionStatus.rawValue.lowercased() == "aborted"{
+            self.requestNameLabel.textColor = AppColors.themeGray20
+        } else {
+            self.requestNameLabel.textColor = AppColors.textFieldTextColor51
+        }
         self.actionStatusLabel.text = actionStatus.rawValue
         self.actionStatusLabel.textColor = actionStatus.textColor
 
