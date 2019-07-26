@@ -373,7 +373,7 @@ extension MyBookingFilterVC {
         self.configureSelectionIndicator()
         self.configureScrollView()
         
-        self.selectTab(atIndex: 0, animated: false)
+        self.selectTab(atIndex: CGFloat(MyBookingFilterVM.shared.lastSelectedIndex), animated: false)
         self.setBadge()
     }
     
@@ -390,7 +390,7 @@ extension MyBookingFilterVC {
             button.setTitleFont(font: AppFonts.SemiBold.withSize(16.0), for: .selected)
             
             button.isSelected = false
-            button.tintColor = AppColors.themeWhite.withAlphaComponent(0.1)
+            button.tintColor = AppColors.clear
         }
 
         //Travel Date button
@@ -495,23 +495,9 @@ extension MyBookingFilterVC {
         let point = CGPoint(x: self.allTabDetailConatinerView.width * atIndex, y: 0.0)
         self.allTabDetailConatinerView.setContentOffset(point, animated: animated)
         
-        switch atIndex {
-        case 1.0:
-            self.travelDateButton.isSelected = false
-            self.eventTypeButton.isSelected = true
-            self.bookingDateButton.isSelected = false
-            
-        case 2.0:
-            self.travelDateButton.isSelected = false
-            self.eventTypeButton.isSelected = false
-            self.bookingDateButton.isSelected = true
-            
-        default:
-            self.travelDateButton.isSelected = true
-            self.eventTypeButton.isSelected = false
-            self.bookingDateButton.isSelected = false
+        for (idx, btn) in allTabButtons.enumerated() {
+            btn.isSelected = (idx == Int(atIndex))
         }
-
         self.moveIndicator(fromIndex: Int(atIndex), toIndex: Int(atIndex), progress: 1.0, animated: animated)
     }
     
@@ -551,6 +537,8 @@ extension MyBookingFilterVC {
                 self?.view.layoutIfNeeded()
             }
         }
+        
+        MyBookingFilterVM.shared.lastSelectedIndex = toIndex
     }
     
     private func onScrollEnding(_ scrollView: UIScrollView) {
