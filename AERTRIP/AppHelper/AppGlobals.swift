@@ -14,7 +14,7 @@ import UIKit
 import EventKit
 
 func printDebug<T>(_ obj: T) {
-    //print(obj)
+    print(obj)
 }
 
 func printFonts() {
@@ -463,7 +463,7 @@ class AppGlobals {
 extension Double {
     var amountInDelimeterWithSymbol: String {
         if self < 0 {
-            return "-\(abs(self.roundTo(places: 2)).delimiterWithSymbolTill2Places)"
+            return "- \(abs(self.roundTo(places: 2)).delimiterWithSymbolTill2Places)"
         } else {
             return "\(self.roundTo(places: 2).delimiterWithSymbolTill2Places)"
         }
@@ -471,7 +471,7 @@ extension Double {
     
     var amountInDoubleWithSymbol: String {
         if self < 0 {
-            return "-\(abs(self.roundTo(places: 2)))"
+            return "- \(abs(self.roundTo(places: 2)))"
         } else {
             return "\(self.roundTo(places: 2))"
         }
@@ -479,7 +479,7 @@ extension Double {
     
     var amountInIntWithSymbol: String {
         if self < 0 {
-            return "-\(abs(Int(self)))"
+            return "- \(abs(Int(self)))"
         } else {
             return "\(Int(self))"
         }

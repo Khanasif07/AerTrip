@@ -84,9 +84,11 @@ extension SideMenuViewAccountCell {
         self.amountLabel.attributedText = amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16))
         
         self.dateLabel.text = ""
+        self.dateLabel.isHidden = true
         if let dt = date {
             let str = dt.toString(dateFormat: "EE, dd MMM YYYY")
             if !str.isEmpty {
+                self.dateLabel.isHidden = false
                 self.dateLabel.text = "Before \(str)"
             }
         }

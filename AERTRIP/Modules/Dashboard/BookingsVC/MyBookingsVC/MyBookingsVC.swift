@@ -17,19 +17,7 @@ class MyBookingsVC: BaseVC {
     private var allTabsStr: [String] = []
     
     private var allTabButtons: [PKCategoryButton] = []
-//    private var allTabs: [ATCategoryItem] {
-//        var temp = [ATCategoryItem]()
-//        for title in self.allTabsStr {
-//            var obj = ATCategoryItem()
-//            obj.title = title
-//            temp.append(obj)
-//        }
-//        return temp
-//    }
-//
-    
-    
-//    var allChildVCs: [UIViewController] = []
+
     private var upcomingVC: UpcomingBookingsVC?
     private var completedVC: CompletedVC?
     private var cancelledVC: CancelledVC?
@@ -149,7 +137,7 @@ class MyBookingsVC: BaseVC {
     }
     
     func emptyStateSetUp() {
-//        self.allChildVCs.removeAll()
+
         if MyBookingsVM.shared.allTabTypes.isEmpty {
             self.emptyStateImageView.isHidden = false
             self.emptyStateTitleLabel.isHidden = false
@@ -193,64 +181,11 @@ class MyBookingsVC: BaseVC {
             self.allTabTitleContainerView.isHidden = false
             self.allTabsTitleContainerHeightConstraint.constant = 50.0
         }
-        
-//        self.allChildVCs.removeAll()
-//        for i in 0..<self.allTabsStr.count {
-//            if i == 0 {
-//                let vc = UpcomingBookingsVC.instantiate(fromAppStoryboard: .Bookings)
-//                self.allChildVCs.append(vc)
-//            } else if i == 1 {
-//                let vc = CompletedVC.instantiate(fromAppStoryboard: .Bookings)
-//                self.allChildVCs.append(vc)
-//            }
-//            else if i == 2 {
-//                let vc = CancelledVC.instantiate(fromAppStoryboard: .Bookings)
-//                self.allChildVCs.append(vc)
-//            }
-//            else {
-//                printDebug("No vc")
-//            }
-//        }
-        
+
         if self.upcomingVC == nil {
             self.configureTabBar()
         }
     }
-    
-//    private func setupPagerView(headerHeight: CGFloat = 50.0, interItemSpace: CGFloat, itemPadding: CGFloat, isScrollable: Bool = true) {
-//        var style = ATCategoryNavBarStyle()
-//        style.height = headerHeight
-//        style.interItemSpace = interItemSpace
-//        style.itemPadding = itemPadding
-//        style.isScrollable = isScrollable
-//        style.layoutAlignment = .left
-//        style.isEmbeddedToView = true
-//        style.showBottomSeparator = true
-//        style.bottomSeparatorColor = AppColors.themeGray40
-//        style.defaultFont = AppFonts.Regular.withSize(16.0)
-//        style.selectedFont = AppFonts.SemiBold.withSize(16.0)
-//        style.indicatorColor = AppColors.themeGreen
-//        style.normalColor = AppColors.textFieldTextColor51
-//        style.selectedColor = AppColors.themeBlack
-//        //        style.badgeDotSize = CGSize(width: 0.0, height: 0.0)
-//        //        style.badgeBackgroundColor = AppColors.themeGreen
-//        //        style.badgeBorderColor = AppColors.clear
-//        //        style.badgeBorderWidth = 0.0
-//
-//        if let _ = self.categoryView {
-//            self.categoryView?.removeFromSuperview()
-//            self.categoryView = nil
-//        }
-//        let categoryView = ATCategoryView(frame: self.childContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
-//        self.categoryView = categoryView
-//        categoryView.interControllerSpacing = 0.0
-//
-//        self.childContainerView.addSubview(categoryView)
-//
-//        // Set last Selected Index on Nav bar
-//        self.categoryView.select(at: 0)
-//    }
-    
     
     private func hideAllData() {
         self.emptyStateImageView.isHidden = true
