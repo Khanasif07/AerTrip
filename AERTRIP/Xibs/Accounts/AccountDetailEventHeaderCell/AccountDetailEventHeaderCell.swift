@@ -55,7 +55,7 @@ class AccountDetailEventHeaderCell: UITableViewCell {
         self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMinYCorner ,.layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize.zero, opacity: 0.5, shadowRadius: 4.0)
 
 
-        self.dividerView.defaultHeight = 1.0
+        self.dividerView.defaultHeight = 0.5
         
         self.titleLabel.font = AppFonts.Regular.withSize(18.0)
         

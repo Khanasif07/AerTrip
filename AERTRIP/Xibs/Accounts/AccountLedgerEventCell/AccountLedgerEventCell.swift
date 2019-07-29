@@ -66,7 +66,7 @@ class AccountLedgerEventCell: UITableViewCell {
 
         self.backgroundColor = AppColors.themeWhite
         
-        self.dividerView.defaultHeight = 1.0
+        self.dividerView.defaultHeight = 0.5
         
         self.titleLabel.font = AppFonts.Regular.withSize(18.0)
         

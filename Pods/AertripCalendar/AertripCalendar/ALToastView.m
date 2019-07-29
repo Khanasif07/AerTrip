@@ -73,7 +73,8 @@ static NSMutableArray *toasts;
         // background views
         
         UIBlurEffect * blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-_backgroundBlurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];        _backgroundBlurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _backgroundBlurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        _backgroundBlurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self addSubview:_backgroundBlurEffectView];
 
         
