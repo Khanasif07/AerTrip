@@ -58,14 +58,12 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
             if let allEvent = self.viewModel.accountDetails[self.viewModel.allDates[section]] as? [AccountDetailEvent] {
                 
                 return allEvent.count
-//                return (allEvent.reduce(0) { $0 + $1.numOfRows})
             }
         }
         else {
             if let allEvent = self.viewModel.searchedAccountDetails[self.viewModel.searchedAllDates[section]] as? [AccountDetailEvent] {
                 
                 return allEvent.count
-//                return (allEvent.reduce(0) { $0 + $1.numOfRows})
             }
         }
 
