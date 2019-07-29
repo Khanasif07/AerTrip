@@ -86,7 +86,7 @@ class AccountOutstandingLadgerVC: BaseVC {
         
         self.loaderContainer.addGredient(isVertical: false)
 
-        self.topNavView.configureNavBar(title: LocalizedString.OutstandingLedger.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.topNavView.configureNavBar(title: LocalizedString.OutstandingLedger.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: AppColors.themeWhite))
         
         self.topNavView.delegate = self
         
@@ -133,7 +133,6 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.onAccountValueLabel.font = AppFonts.Regular.withSize(16.0)
         self.netOutstandingValueLabel.font = AppFonts.Regular.withSize(16.0)
         
-        self.payableAmountLabel.font = AppFonts.SemiBold.withSize(20.0)
         self.makePaymentTitleLabel.font = AppFonts.SemiBold.withSize(20.0)
     }
     
@@ -175,10 +174,10 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.searchBarContainerView.backgroundColor = AppColors.themeWhite
         self.blankSpaceView.backgroundColor = AppColors.themeGray04
         
-        self.payableAmountLabel.textColor = AppColors.themeWhite
         self.makePaymentTitleLabel.textColor = AppColors.themeWhite
         
         self.makePaymentContainerView.addGredient(isVertical: false)
+        self.makePaymentContainerView.addShadow(cornerRadius: 0.0, shadowColor: AppColors.themeGreen, backgroundColor: AppColors.clear, offset: CGSize(width: 0.0, height: 12.0))
     }
     
     //MARK:- Methods
@@ -292,7 +291,9 @@ class AccountOutstandingLadgerVC: BaseVC {
             totalAmount = selected
         }
         
-        self.payableAmountLabel.attributedText = totalAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+        let attrText = totalAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+        attrText.addAttributes([NSAttributedString.Key.foregroundColor : AppColors.themeWhite], range: NSRange(location: 0, length: attrText.length))
+        self.payableAmountLabel.attributedText = attrText
         self.makePaymentTitleLabel.text = LocalizedString.MakePayment.localized
     }
     

@@ -165,7 +165,7 @@ class ADEventFilterVC: BaseVC {
         style.height = 50.0
         style.interItemSpace = (self.allTabsStr.count > 2) ? 50.0 : 55.0
         style.itemPadding = (self.allTabsStr.count > 2) ? 25.0 : 28.0
-        style.isScrollable = true
+        style.isScrollable = false
         style.layoutAlignment = .left
         style.isEmbeddedToView = true
         style.showBottomSeparator = true
