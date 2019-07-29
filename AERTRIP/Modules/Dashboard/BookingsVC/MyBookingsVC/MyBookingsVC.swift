@@ -43,11 +43,11 @@ class MyBookingsVC: BaseVC {
         }
     }
     
-       @IBOutlet var childContainerView: UIView!
+    @IBOutlet var childContainerView: UIView!
     
     
     @IBOutlet weak var allTabsTitleContainerHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var allTabTitleContainerView: UIView!
+    @IBOutlet var allTabTitleContainerView: UIView!
     @IBOutlet weak var upcomingButton: PKCategoryButton!
     @IBOutlet weak var completedButton: PKCategoryButton!
     @IBOutlet weak var cancelledButton: PKCategoryButton!
@@ -81,11 +81,6 @@ class MyBookingsVC: BaseVC {
         MyBookingsVM.shared.getBookings()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        self.allTabsStr.removeAll()
-    }
     
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
