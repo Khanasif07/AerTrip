@@ -220,7 +220,6 @@ class MyBookingsVC: BaseVC {
         if self.upcomingVC == nil {
             self.configureTabBar()
         }
-        
     }
     
 //    private func setupPagerView(headerHeight: CGFloat = 50.0, interItemSpace: CGFloat, itemPadding: CGFloat, isScrollable: Bool = true) {

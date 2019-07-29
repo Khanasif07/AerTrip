@@ -117,7 +117,9 @@ class MyBookingFilterVC: BaseVC {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerViewTopConstraint.constant = 0.0
             self.view.layoutIfNeeded()
-        })
+        }) { (isDone) in
+            self.allTabDetailConatinerView.delegate = self
+        }
     }
     
     private func cancelAllOperation() {
@@ -276,7 +278,6 @@ extension MyBookingFilterVC {
     
     private func configureScrollView() {
         self.allTabDetailConatinerView.contentSize = CGSize(width: self.allTabDetailConatinerView.width * CGFloat(totalTabs), height: self.allTabDetailConatinerView.height)
-        self.allTabDetailConatinerView.delegate = self
         self.allTabDetailConatinerView.isPagingEnabled = true
         self.allTabDetailConatinerView.showsVerticalScrollIndicator = false
         self.allTabDetailConatinerView.showsHorizontalScrollIndicator = false
