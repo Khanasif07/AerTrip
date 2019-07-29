@@ -38,9 +38,10 @@ class MyBookingsVM {
     func getBookings(shouldCallWillDelegate: Bool = true) {
         let params: JSONDictionary = [:]
         printDebug(params)
-        if shouldCallWillDelegate {
+//        if shouldCallWillDelegate {
+//            delgate?.willGetBookings()
+//        }
             delgate?.willGetBookings()
-        }
         APICaller.shared.getBookingList(params: params) { [weak self] success, error in
             DispatchQueue.mainAsync { [weak self] in
                 guard let sSelf = self else { return }
