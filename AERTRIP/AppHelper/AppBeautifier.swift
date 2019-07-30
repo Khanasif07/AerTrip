@@ -78,24 +78,24 @@ extension String {
     //MARK:- Say Text Message
     //MARK:-
     ///Method used to speak a text through the speaker.
-    func sayIt() {
-        do {
-            let audioSession = AVAudioSession.sharedInstance()
-
-            try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
-            try audioSession.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
-            try audioSession.setActive(true)
-            let synth = AVSpeechSynthesizer()
-            if let currentChannels = audioSession.currentRoute.outputs.first?.channels {
-                synth.outputChannels = currentChannels
-            }
-            let myUtterance = AVSpeechUtterance(string: self)
-            synth.speak(myUtterance)
-            
-        } catch {
-            AppBeautifier.shared.printDebug(error)
-        }
-    }
+//    func sayIt() {
+//        do {
+//            let audioSession = AVAudioSession.sharedInstance()
+//
+//            try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
+//            try audioSession.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
+//            try audioSession.setActive(true)
+//            let synth = AVSpeechSynthesizer()
+//            if let currentChannels = audioSession.currentRoute.outputs.first?.channels {
+//                synth.outputChannels = currentChannels
+//            }
+//            let myUtterance = AVSpeechUtterance(string: self)
+//            synth.speak(myUtterance)
+//            
+//        } catch {
+//            AppBeautifier.shared.printDebug(error)
+//        }
+//    }
 }
 
 //MARK:- Extention For UIView

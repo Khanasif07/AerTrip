@@ -70,6 +70,6 @@ class RangeVC: BaseVC {
     @IBAction func sliderValueChanged(_ sender: Any) {
         let value = (sender as AnyObject).index ?? 0
         self.rangeLabel.text = value >= 20 ? "Beyond \(value)km" : "Within " + "\(value)" + "Km"
-        HotelFilterVM.shared.distanceRange = Double((sender as AnyObject).index)
+        HotelFilterVM.shared.distanceRange =  Double((sender as AnyObject).index ?? 0)
     }
 }

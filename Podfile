@@ -1,4 +1,4 @@
-# Uncomment the next line to define a global platform for your project
+#Uncomment the next line to define a global platform for your project
  platform :ios, '11.0'
 
 target 'AERTRIP' do
@@ -24,9 +24,8 @@ target 'AERTRIP' do
     pod 'GoogleMaps'
     pod 'GooglePlaces'
     pod 'FlexiblePageControl'
-    pod 'razorpay-pod', '1.1.0'
     pod 'PKLoader'
-
+    pod 'razorpay-pod', '1.0.26'
     pod 'ActiveLabel'
     pod 'TransitionButton'
    pod 'AertripCalendarDataModel' , :git => 'git@gitlab.com:aertrip/ios-shared-rep.git' , :commit => '38ef98df8d00a76bf09f37fffd1905c60d22c58e'

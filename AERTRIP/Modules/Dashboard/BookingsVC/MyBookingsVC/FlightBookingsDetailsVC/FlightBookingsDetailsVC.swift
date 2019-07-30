@@ -37,8 +37,8 @@ class FlightBookingsDetailsVC: BaseVC {
         didSet {
             self.bookingDetailsTableView.estimatedRowHeight = 100.0
             self.bookingDetailsTableView.rowHeight = UITableView.automaticDimension
-            self.bookingDetailsTableView.estimatedSectionHeaderHeight = CGFloat.zero
-            self.bookingDetailsTableView.sectionHeaderHeight = CGFloat.zero
+            self.bookingDetailsTableView.estimatedSectionHeaderHeight = 0
+            self.bookingDetailsTableView.sectionHeaderHeight = 0
         }
     }
     
