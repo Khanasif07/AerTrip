@@ -354,12 +354,12 @@ extension BookingDetailModel {
     var bookingPrice: Double {
         var price: Double = 0.0
         // TODO: Recheck all price logic as transaction key not coming
-//        for voucher in self.receipt?.voucher ?? [] {
-//            if voucher.basic?.voucherType.lowercased() == ATVoucherType.sales.value, let totalTran = voucher.transactions.filter({ $0.ledgerName.lowercased() == "total" }).first {
-//                price = totalTran.amount
-//                break
-//            }
-//        }
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.sales.value, let totalTran = voucher.transactions.filter({ $0.ledgerName.lowercased() == "total" }).first {
+                price = totalTran.amount
+                break
+            }
+        }
         return price
     }
     
@@ -450,8 +450,7 @@ extension BookingDetailModel {
 //    Total cost of booking - Total amount received
     
     var totalOutStanding: Double {
-//        return self.receipt?.totalAmountDue ?? 0.0
-        return 0.0
+         return self.receipt?.totalAmountDue ?? 0.0
     }
     
     // Web checking url
