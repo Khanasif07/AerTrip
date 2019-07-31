@@ -60,8 +60,23 @@ class BookingInvoiceVC: BaseVC {
         
         totalPayableCell.topDeviderView.isHidden = true
         totalPayableCell.bottomDeviderView.isHidden = true
+        let iconWithText: NSMutableAttributedString = AppGlobals.shared.getTextWithImage(startText: "", image: ATPaymentMethodType(rawValue: self.viewModel.voucher?.paymentInfo?._method ?? "")?.icon ?? UIImage(named: "paymentPlaceholderIcon")!, endText: self.viewModel.voucher?.paymentInfo?.paymentTitle ?? "", font: AppFonts.Regular.withSize(18.0))
+//        switch  self.viewModel.voucher?.paymentInfo?.method {
+//        case .none:
+//            iconWithText =  AppGlobals.shared.getTextWithImage(startText: "", image: ATPaymentMethodType(rawValue: self.viewModel.voucher?.paymentInfo?._method ?? "")?.icon ?? UIImage(named: "paymentPlaceholderIcon")!, endText: self.viewModel.voucher?.paymentInfo?.paymentTitle ?? "", font: AppFonts.Regular.withSize(18.0))
+//        case .netbanking?:
+//              iconWithText =  AppGlobals.shared.getTextWithImage(startText: "", image: ATPaymentMethodType(rawValue: self.viewModel.voucher?.paymentInfo?._method ?? "")?.icon ?? UIImage(named: "paymentPlaceholderIcon")!, endText: self.viewModel.voucher?.paymentInfo?.paymentTitle ?? "", font: AppFonts.Regular.withSize(18.0))
+//        case .card?:
+//            iconWithText =  AppGlobals.shared.getTextWithImage(startText: "", image: ATPaymentMethodType(rawValue: self.viewModel.voucher?.paymentInfo?._method ?? "")?.icon ?? UIImage(named: "paymentPlaceholderIcon")!, endText: self.viewModel.voucher?.paymentInfo?.paymentTitle ?? "", font: AppFonts.Regular.withSize(18.0))
+//        case .upi?:
+//              iconWithText =  AppGlobals.shared.getTextWithImage(startText: "", image: ATPaymentMethodType(rawValue: self.viewModel.voucher?.paymentInfo?._method ?? "")?.icon ?? UIImage(named: "paymentPlaceholderIcon")!, endText: self.viewModel.voucher?.paymentInfo?.paymentTitle ?? "", font: AppFonts.Regular.withSize(18.0))
+//
+//        }
+//
+//        totalPayableCell.totalPayableNowLabel.text = self.viewModel.voucher?.paymentInfo?.paymentTitle ?? LocalizedString.dash.localized
         
-        totalPayableCell.totalPayableNowLabel.text = self.viewModel.voucher?.paymentInfo?.paymentTitle ?? LocalizedString.dash.localized
+        
+        totalPayableCell.totalPayableNowLabel.attributedText = iconWithText
         
         totalPayableCell.totalPayableNowLabel.font = AppFonts.Regular.withSize(18.0)
         

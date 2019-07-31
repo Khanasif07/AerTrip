@@ -421,8 +421,8 @@ extension BookingDetailModel {
     // Total_amount_paid
     
     var paid: Double {
-      //  return self.totalAmountPaid
-        return 0.0
+       return self.totalAmountPaid
+       
     }
     
     // Refund Amount: Total of cancellations + Total of Reschedules
@@ -1862,8 +1862,13 @@ struct Voucher {
             self.basic = Basic(json: obj)
         }
         
-        if let obj = json["transactions"] as? [JSONDictionary] {
-            self.transactions = Transaction.models(jsonArr: obj)
+        if let obj = json["transactions"] as? [JSONDictionary], let firstDict = obj.first {
+            if let _ = firstDict["ledger_name"] as? String {
+                self.transactions = Transaction.models(jsonArr: obj)
+            }
+            else {
+                self.transactions = Transaction.models(json: firstDict)
+            }
         }
         else if let obj = json["transactions"] as? JSONDictionary {
             self.transactions = Transaction.models(json: obj)
@@ -2026,7 +2031,7 @@ struct BookingPaymentInfo {
     var pgTax: String = ""
     var transDate: String = ""
     var paymentId: String = ""
-    private var _method: String = ""
+    var _method: String = ""
     var bankName: String = ""
     var upiId: String = ""
     var cardNumber: String = ""
@@ -2045,18 +2050,17 @@ struct BookingPaymentInfo {
         var titleStr = ""
         switch self.method {
         case .netbanking:
-            titleStr = "\(self.method.rawValue.capitalizedFirst()): \(self.bankName)"
+            titleStr = " \(self.bankName)"
             
         case .upi:
-            titleStr = "\(self.method.rawValue.capitalizedFirst()): \(self.upiId)"
+            titleStr = " \(self.upiId)"
             
         case .card:
-            titleStr = (self.cardNumber.count <= 5) ? "XXXX XXXX XXXX \(self.cardNumber)" : self.cardNumber
+            titleStr = (self.cardNumber.count <= 5) ? " XXXX XXXX XXXX \(self.cardNumber)" : self.cardNumber
             
         case .none:
             titleStr = LocalizedString.dash.localized
-        @unknown default:
-            titleStr = LocalizedString.dash.localized
+       
         }
         
         return titleStr

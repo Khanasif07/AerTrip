@@ -21,9 +21,9 @@ extension OtherBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.sectionDataForOtherProductType[section].count
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-         let currentSection = self.viewModel.sectionDataForOtherProductType[indexPath.section]
+        let currentSection = self.viewModel.sectionDataForOtherProductType[indexPath.section]
         switch currentSection[indexPath.row] {
         case .policyDetailCell:
             return 28.0
@@ -53,9 +53,16 @@ extension OtherBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
         case .bookingCell:
             let cell = self.getBookingCell(tableView, indexPath: indexPath)
             return cell
+        case .addOnsCell:
+            return self.getAddOnsCell(tableView, indexPath: indexPath)
+        case .cancellationCell:
+            return self.getCancellationCell(tableView, indexPath: indexPath)
+        case .refundCell:
+            return self.getRefundCell(tableView, indexPath: indexPath)
+        case .paymentPendingCell:
+            return self.getPaymentPendingCell(tableView, indexPath: indexPath)
         case .paidCell:
-            let cell = self.getPaidCell(tableView, indexPath: indexPath)
-            return cell
+            return self.getPaidCell(tableView, indexPath: indexPath)
         case .nameCell:
             let cell = self.getNameCell(tableView, indexPath: indexPath)
             return cell
@@ -73,12 +80,12 @@ extension OtherBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printDebug("\(indexPath.section)")
-        
+
         if let _ = tableView.cellForRow(at: indexPath) as? PaymentInfoTableViewCell, let rcpt = self.viewModel.bookingDetail?.receipt {
-            //move to voucher vc
+            // move to voucher vc
             AppFlowManager.default.moveToBookingVoucherVC(receipt: rcpt, caseId: "")
         }
     }

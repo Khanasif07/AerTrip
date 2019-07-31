@@ -690,9 +690,9 @@ enum ResolutionStatus: RawRepresentable {
         case .confirmationPending: return AppColors.themeRed
         case .canceled: return AppColors.themeBlack
         case .resolved: return AppColors.themeGreen
-
+            
         default:
-           return  AppColors.themeBlack
+            return AppColors.themeBlack
         }
     }
 }
@@ -764,9 +764,130 @@ enum ATWeatherType: RawRepresentable {
         case .brokenClouds: return #imageLiteral(resourceName: "ic_brokenclouds")
         case .showerRain: return #imageLiteral(resourceName: "ic_showrain")
         case .thunderStorm: return #imageLiteral(resourceName: "ic_thunderstorm")
-        case .rain:  return #imageLiteral(resourceName: "ic_rain")
-        case .snow:  return #imageLiteral(resourceName: "ic_snow")
-        case .mist:  return #imageLiteral(resourceName: "ic_mist")
+        case .rain: return #imageLiteral(resourceName: "ic_rain")
+        case .snow: return #imageLiteral(resourceName: "ic_snow")
+        case .mist: return #imageLiteral(resourceName: "ic_mist")
+        }
+    }
+}
+
+// MARK: Payment method type
+
+//TODO: we are using netbanking icon as default: we are getting some other payment methods like mobikwik , ox
+
+enum ATPaymentMethodType: RawRepresentable {
+    case american(method: String)
+    case dinerClub(method: String)
+    case jcb(method: String)
+    case rupay(method: String)
+    case visaMaster(method: String)
+    case visaMaestro(method: String)
+    case visa(method: String)
+    case visaDebit(method: String)
+    case visaElectron(method: String)
+    case bhim(method: String)
+    case googlePay(method: String)
+    case paytm(method: String)
+    case phonePay(method: String)
+    case mobikwik(method: String)
+    case earlySalary(method: String)
+    case zestMoney(method: String)
+    case netBanking(method: String)
+    case placeholderDefault(method: String)
+    
+    init?(rawValue: String) {
+        switch rawValue {
+        case "american express", "amex":
+            self = .american(method: rawValue)
+            
+        case "dinners club":
+            self = .dinerClub(method: rawValue)
+            
+        case "jcb":
+            self = .jcb(method: rawValue)
+            
+        case "rupay":
+            self = .rupay(method: rawValue)
+            
+        case "master":
+            self = .visaMaster(method: rawValue)
+            
+        case "maestro":
+            self = .visaMaestro(method: rawValue)
+            
+        case "visa":
+            self = .visa(method: rawValue)
+            
+        case "visa debit":
+            self = .visaDebit(method: rawValue)
+        case "visa electron":
+            self = .visaElectron(method: rawValue)
+        case "bhim":
+            self = .bhim(method: rawValue)
+        case "google pay":
+            self = .googlePay(method: rawValue)
+        case "paytm":
+            self = .paytm(method: rawValue)
+        case "phonepay":
+            self = .phonePay(method: rawValue)
+        case "mobikwik":
+            self = .mobikwik(method: rawValue)
+        case "early salary":
+            self = .earlySalary(method: rawValue)
+        case "zest money":
+            self = .zestMoney(method: rawValue)
+        case "net banking":
+            self = .netBanking(method: rawValue)
+        default:
+            self = .placeholderDefault(method: rawValue)
+        }
+    }
+    
+    var rawValue: String {
+        switch self {
+        case .american(let method): return method
+        case .dinerClub(let method): return method
+        case .jcb(let method): return method
+        case .rupay(let method): return method
+        case .visaMaster(let method): return method
+        case .visaMaestro(let method): return method
+        case .visa(let method): return method
+        case .visaDebit(let method): return method
+        case .visaElectron(let method): return method
+        case .bhim(let method): return method
+        case .googlePay(let method): return method
+        case .paytm(let method): return method
+        case .phonePay(let method): return method
+        case .mobikwik(let method): return method
+        case .earlySalary(let method): return method
+        case .zestMoney(let method): return method
+        case .netBanking(let method): return method
+        default:
+            return rawValue
+        }
+    }
+    
+    var icon: UIImage {
+        switch self {
+        case .american: return #imageLiteral(resourceName: "americalAmexExpressIcon")
+        case .dinerClub: return #imageLiteral(resourceName: "dinnerClubIcon")
+        case .jcb: return #imageLiteral(resourceName: "jcbIcon")
+        case .rupay: return #imageLiteral(resourceName: "ruPayIcon")
+        case .visaMaster: return #imageLiteral(resourceName: "visaMasterIcon")
+        case .visaMaestro: return #imageLiteral(resourceName: "visaMaestroIcon")
+        case .visa: return #imageLiteral(resourceName: "visaIcon")
+        case .visaDebit: return #imageLiteral(resourceName: "visaDebitIcon")
+        case .visaElectron: return #imageLiteral(resourceName: "visaElectronIcon")
+        case .bhim: return #imageLiteral(resourceName: "bhimIcon")
+        case .googlePay: return #imageLiteral(resourceName: "googlePayIcon")
+        case .paytm: return #imageLiteral(resourceName: "payTmIcon")
+        case .phonePay: return #imageLiteral(resourceName: "phonePayIcon")
+        case .mobikwik: return #imageLiteral(resourceName: "netBankingIcon")
+        case .earlySalary: return #imageLiteral(resourceName: "phonePayIcon")
+        case .zestMoney: return #imageLiteral(resourceName: "zestMoneyIcon")
+        case .netBanking: return #imageLiteral(resourceName: "zestMoneyIcon")
+        default :
+             return #imageLiteral(resourceName: "paymentPlaceholderIcon")
         }
     }
 }

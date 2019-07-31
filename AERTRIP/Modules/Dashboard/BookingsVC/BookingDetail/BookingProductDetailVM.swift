@@ -88,15 +88,15 @@ class BookingProductDetailVM {
         self.sectionDataForHotelDetail.append([.paymentInfoCell, .bookingCell])
         
         if self.bookingDetail?.addOnAmount ?? 0.0 > 0.0 {
-          //  self.sectionDataForHotelDetail.append([.addOnsCell])
+            self.sectionDataForHotelDetail.append([.addOnsCell])
         }
         
         if self.bookingDetail?.cancellationAmount ?? 0.0 < 0.0 {
-           // self.sectionDataForHotelDetail.append([.cancellationCell])
+            self.sectionDataForHotelDetail.append([.cancellationCell])
         }
         
         if self.bookingDetail?.rescheduleAmount ?? 0.0 > 0.0 {
-            //self.sectionDataForHotelDetail.append([.reschedulingRequestCell])
+            self.sectionDataForHotelDetail.append([.reschedulingRequestCell])
         }
         
         if self.bookingDetail?.paid ?? 0.0 >= 0.0 {
@@ -104,11 +104,11 @@ class BookingProductDetailVM {
         }
         
         if self.bookingDetail?.refundAmount ?? 0.0 != 0.0 {
-            //self.sectionDataForHotelDetail.append([.refundCell])
+            self.sectionDataForHotelDetail.append([.refundCell])
         }
         
         if self.bookingDetail?.totalOutStanding != 0.0 {
-            //self.sectionDataForHotelDetail.append([.paymentPendingCell])
+            self.sectionDataForHotelDetail.append([.paymentPendingCell])
         }
         
         // additional info details i.e direction ,call and Add to trips
@@ -230,15 +230,15 @@ class BookingProductDetailVM {
         
         //TODO: - Payment :- transaction key sometimes coming null that's why commenting
         if self.bookingDetail?.addOnAmount ?? 0.0 > 0.0 {
-           // self.sectionDataForFlightProductType.append([.addOnsCell])
+            self.sectionDataForFlightProductType.append([.addOnsCell])
         }
         
         if self.bookingDetail?.cancellationAmount ?? 0.0 < 0.0 {
-            //self.sectionDataForFlightProductType.append([.cancellationCell])
+            self.sectionDataForFlightProductType.append([.cancellationCell])
         }
         
         if self.bookingDetail?.rescheduleAmount ?? 0.0 > 0.0 {
-           // self.sectionDataForFlightProductType.append([.reschedulingRequestCell])
+            self.sectionDataForFlightProductType.append([.reschedulingRequestCell])
         }
         
         if self.bookingDetail?.paid ?? 0.0 >= 0.0 {
@@ -246,11 +246,11 @@ class BookingProductDetailVM {
         }
         
         if self.bookingDetail?.refundAmount ?? 0.0 != 0.0 {
-           // self.sectionDataForFlightProductType.append([.refundCell])
+            self.sectionDataForFlightProductType.append([.refundCell])
         }
         
         if self.bookingDetail?.totalOutStanding != 0.0 {
-            //self.sectionDataForFlightProductType.append([.paymentPendingCell])
+            self.sectionDataForFlightProductType.append([.paymentPendingCell])
         }
         self.sectionDataForFlightProductType.append([.flightsOptionsCell])
         
@@ -295,7 +295,7 @@ class BookingProductDetailVM {
     }
     
     enum TableViewCellForOtherProductType {
-        case insurenceCell, policyDetailCell, travellersDetailCell, documentCell, paymentInfoCell, bookingCell, paidCell, nameCell, emailCell, mobileCell, gstCell, billingAddressCell
+        case insurenceCell, policyDetailCell, travellersDetailCell, documentCell,paymentInfoCell, bookingCell, addOnsCell, cancellationCell, paidCell, refundCell, paymentPendingCell, nameCell, emailCell, mobileCell, gstCell, billingAddressCell
     }
     
     var sectionDataForOtherProductType: [[TableViewCellForOtherProductType]] = []
@@ -316,7 +316,31 @@ class BookingProductDetailVM {
             self.sectionDataForOtherProductType.append([.documentCell])
         }
         
-        self.sectionDataForOtherProductType.append([.paymentInfoCell, .bookingCell, .paidCell])
+        
+        self.sectionDataForOtherProductType.append([.paymentInfoCell, .bookingCell])
+       
+        
+        if self.bookingDetail?.paid ?? 0.0 >= 0.0 {
+            self.sectionDataForOtherProductType.append([.paidCell])
+        }
+        
+        if self.bookingDetail?.addOnAmount ?? 0.0 > 0.0 {
+            self.sectionDataForOtherProductType.append([.addOnsCell])
+        }
+        
+        if self.bookingDetail?.cancellationAmount ?? 0.0 < 0.0 {
+            self.sectionDataForOtherProductType.append([.cancellationCell])
+        }
+        
+        
+        
+        if self.bookingDetail?.refundAmount ?? 0.0 != 0.0 {
+            self.sectionDataForOtherProductType.append([.refundCell])
+        }
+        
+        if self.bookingDetail?.totalOutStanding != 0.0 {
+            self.sectionDataForOtherProductType.append([.paymentPendingCell])
+        }
         self.sectionDataForOtherProductType.append([.nameCell, .emailCell, .mobileCell, .gstCell, .billingAddressCell])
     }
     

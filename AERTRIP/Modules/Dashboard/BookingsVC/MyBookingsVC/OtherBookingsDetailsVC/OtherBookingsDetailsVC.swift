@@ -115,6 +115,8 @@ class OtherBookingsDetailsVC: BaseVC {
         self.dataTableView.registerCell(nibName: BookingDocumentsTableViewCell.reusableIdentifier)
         self.dataTableView.registerCell(nibName: PaymentInfoTableViewCell.reusableIdentifier)
         self.dataTableView.registerCell(nibName: BookingPaymentDetailsTableViewCell.reusableIdentifier)
+        self.dataTableView.registerCell(nibName: PaymentPendingTableViewCell.reusableIdentifier)
+        self.dataTableView.registerCell(nibName: BookingPaymentDetailsTableViewCell.reusableIdentifier)
         self.dataTableView.registerCell(nibName: TravellersDetailsTableViewCell.reusableIdentifier)
     }
     

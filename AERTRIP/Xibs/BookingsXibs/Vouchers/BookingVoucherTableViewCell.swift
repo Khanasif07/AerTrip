@@ -102,10 +102,11 @@ class BookingVoucherTableViewCell: ATTableViewCell {
         self.priceLabel.isHidden = false
         self.arrowImageView.isHidden = false
         
-        var titleStr = ""
+        var titleStr = NSMutableAttributedString(string: "")
         var amount: Double = 0.0
         if let type = self.voucherData.basic?.typeSlug, type == .receipt, let paymentInfo = self.voucherData.paymentInfo {
-            titleStr = paymentInfo.paymentTitle
+            titleStr =  AppGlobals.shared.getTextWithImage(startText: "", image: ATPaymentMethodType(rawValue: paymentInfo._method )?.icon ?? UIImage(named: "paymentPlaceholderIcon")!, endText: paymentInfo.paymentTitle, font: AppFonts.Regular.withSize(18.0))
+            
             if let totalTran = self.voucherData.transactions.first {
                 amount = totalTran.amount
             }
@@ -114,11 +115,12 @@ class BookingVoucherTableViewCell: ATTableViewCell {
             if let totalTran = self.voucherData.transactions.filter({ $0.ledgerName.lowercased() == "total" }).first {
                 amount = totalTran.amount
             }
-            titleStr = self.voucherData.basic?.type ?? LocalizedString.dash.localized
+            titleStr = NSMutableAttributedString(string: self.voucherData.basic?.type ?? LocalizedString.dash.localized)
+            
         }
         
         
-        self.titleLabel.text = titleStr
+        self.titleLabel.attributedText = titleStr
         self.dateLabel.text = self.voucherData.basic?.transactionDateTime?.toString(dateFormat: "EEE, dd MMM yyyy") ?? ""
         
         let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])

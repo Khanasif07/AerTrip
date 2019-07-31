@@ -18,7 +18,7 @@ class ViewProfileVC: BaseVC {
     
     @IBOutlet var topNavView: TopNavigationView!
     @IBOutlet var tableView: ATTableView!
-   @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var headerViewHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Variables
     
@@ -49,7 +49,7 @@ class ViewProfileVC: BaseVC {
         super.viewDidLoad()
         
         self.viewModel.travelData = UserInfo.loggedInUser?.travellerDetailModel
-
+        
         self.profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
         self.profileImageHeaderView?.delegate = self
         
@@ -101,10 +101,9 @@ class ViewProfileVC: BaseVC {
     // MARK: - Helper Methods
     
     func doInitialSetup() {
-        
         self.topNavView.backgroundColor = AppColors.clear
-        self.headerViewHeightConstraint.constant = headerViewHeight
-
+        self.headerViewHeightConstraint.constant = self.headerViewHeight
+        
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: self.cellIdentifier, bundle: nil), forCellReuseIdentifier: self.cellIdentifier)
         
@@ -125,18 +124,18 @@ class ViewProfileVC: BaseVC {
         self.profileImageHeaderView?.delegate = self
         self.setupParallaxHeader()
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 60.0))
-        tableView.tableFooterView = footerView
+        self.tableView.tableFooterView = footerView
         self.tableView.dataSource = self
         self.tableView.delegate = self
     }
     
     func setupParallaxHeader() {
-        let parallexHeaderHeight = CGFloat(300.0)//CGFloat(UIDevice.screenHeight * 0.45)
+        let parallexHeaderHeight = CGFloat(300.0) // CGFloat(UIDevice.screenHeight * 0.45)
         
         let parallexHeaderMinHeight = self.navigationController?.navigationBar.bounds.height ?? 74
         
-        profileImageHeaderView?.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width, height: 0.0)
-        self.tableView.parallaxHeader.view = profileImageHeaderView
+        self.profileImageHeaderView?.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width, height: 0.0)
+        self.tableView.parallaxHeader.view = self.profileImageHeaderView
         self.tableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight // 64
         self.tableView.parallaxHeader.height = parallexHeaderHeight
         self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
@@ -145,13 +144,13 @@ class ViewProfileVC: BaseVC {
         self.profileImageHeaderView?.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized)"
         self.profileImageHeaderView?.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
         self.profileImageHeaderView?.mobileNumberLabel.text = UserInfo.loggedInUser?.mobileWithISD
-
+        
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
             self.profileImageHeaderView?.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? AppPlaceholderImage.user, showIndicator: false)
             self.profileImageHeaderView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(40.0), textColor: AppColors.themeBlack).blur ?? UIImage(), showIndicator: false)
             self.profileImageHeaderView?.blurEffectView.alpha = 1.0
-        } else {
-            
+        }
+        else {
             self.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
             self.profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(40.0), textColor: AppColors.themeBlack).blur
             self.profileImageHeaderView?.blurEffectView.alpha = 0.0
@@ -173,6 +172,7 @@ extension ViewProfileVC: TopNavigationViewDelegate {
         AppFlowManager.default.moveToEditProfileVC(travelData: self.viewModel.travelData, usingFor: .viewProfile)
     }
 }
+
 // MARK: - UITableViewDataSource and UITableViewDelegate Methods
 
 extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
@@ -220,7 +220,8 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
         case "accounts":
             if self.accounts[indexPath.row].rawValue == "Settings" {
                 cell.separatorView.isHidden = false
-            } else {
+            }
+            else {
                 cell.separatorView.isHidden = true
             }
             cell.configureCell(self.accounts[indexPath.row].rawValue)
@@ -250,14 +251,14 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             case 3:
                 self.statusBarStyle = .default
                 AppFlowManager.default.moveToLinkedAccountsVC()
-
+                
             default:
                 break
             }
             
         case "accounts":
             if indexPath.row == 0 {
-                //settings
+                // settings
                 self.statusBarStyle = .default
                 AppFlowManager.default.moveToSettingsVC()
             }
@@ -282,7 +283,6 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
 
 extension ViewProfileVC: MXParallaxHeaderDelegate {
     func updateForParallexProgress() {
-        
         let prallexProgress = self.tableView.parallaxHeader.progress
         
         if prallexProgress >= 0.6 {
@@ -291,15 +291,16 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         
         if prallexProgress <= 0.5 {
             self.statusBarStyle = .default
-            self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
+            self.topNavView.animateBackView(isHidden: false) { [weak self] _ in
                 self?.topNavView.firstRightButton.isSelected = true
                 self?.topNavView.leftButton.isSelected = true
                 self?.topNavView.leftButton.tintColor = AppColors.themeGreen
                 self?.topNavView.navTitleLabel.text = self?.profileImageHeaderView?.userNameLabel.text
             }
-        } else {
+        }
+        else {
             self.statusBarStyle = .lightContent
-            self.topNavView.animateBackView(isHidden: true) { [weak self](isDone) in
+            self.topNavView.animateBackView(isHidden: true) { [weak self] _ in
                 self?.topNavView.firstRightButton.isSelected = false
                 self?.topNavView.leftButton.isSelected = false
                 self?.topNavView.leftButton.tintColor = AppColors.themeWhite
@@ -360,7 +361,6 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
     }
     
     func getSuccess(_ data: TravelDetailModel) {
-        
         self.viewModel.travelData = data
         
         self.tableView.reloadData()
@@ -373,5 +373,3 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
 }
-
-
