@@ -18,14 +18,14 @@ class MainHomeVC: BaseVC {
     
     //MARK:- Properties
     //MARK:- Public
-    private(set) var sideMenuController: PKSideMenuController?
-    private(set) var viewProfileVC: ViewProfileVC?
-    private(set) var socialLoginVC: SocialLoginVC?
-    private(set) var sideMenuVC: SideMenuVC?
+    private(set) weak var sideMenuController: PKSideMenuController?
+    private(set) weak var viewProfileVC: ViewProfileVC?
+    private(set) weak var socialLoginVC: SocialLoginVC?
+    private(set) weak var sideMenuVC: SideMenuVC?
     
     //MARK:- Private
-    private var profileView: SlideMenuProfileImageHeaderView?
-    private var logoView: SideMenuLogoView?
+    private weak var profileView: SlideMenuProfileImageHeaderView?
+    private weak var logoView: SideMenuLogoView?
     
     var transitionAnimator: UIViewPropertyAnimator?
     var animationProgress: CGFloat = 0
@@ -161,19 +161,6 @@ class MainHomeVC: BaseVC {
                 self.popProfileAnimation()
             }
         }
-//        switch sender.state {
-//        case .began:
-//            self.startAnimation()
-//
-//        case .changed:
-//            self.animationInProgress(sender)
-//
-//        case .ended:
-//            self.animationComplete(sender)
-//
-//        default:
-//            break
-//        }
     }
     
     private func createSideMenu() -> PKSideMenuController {
@@ -191,11 +178,7 @@ class MainHomeVC: BaseVC {
         let sideMenu = SideMenuVC.instantiate(fromAppStoryboard: .Dashboard)
         sideMenu.delegate = self
         self.sideMenuVC = sideMenu
-        
-//        delay(seconds: 1.0) {
-//            sideMenu.sideMenuTableView.setContentOffset(CGPoint.zero, animated: false)
-//        }
-        
+
         sideMenuVC.menuViewController(sideMenu)
         
         self.sideMenuController = sideMenuVC

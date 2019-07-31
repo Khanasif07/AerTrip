@@ -16,9 +16,9 @@ protocol ViewProfileVCDelegate: class {
 class ViewProfileVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var topNavView: TopNavigationView!
-    @IBOutlet var tableView: ATTableView!
-   @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var tableView: ATTableView!
+    @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Variables
     
@@ -49,7 +49,7 @@ class ViewProfileVC: BaseVC {
         super.viewDidLoad()
         
         self.viewModel.travelData = UserInfo.loggedInUser?.travellerDetailModel
-
+        
         self.profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
         self.profileImageHeaderView?.delegate = self
         
@@ -102,9 +102,10 @@ class ViewProfileVC: BaseVC {
     
     func doInitialSetup() {
         
+        self.view.backgroundColor = AppColors.themeWhite
         self.topNavView.backgroundColor = AppColors.clear
         self.headerViewHeightConstraint.constant = headerViewHeight
-
+        
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: self.cellIdentifier, bundle: nil), forCellReuseIdentifier: self.cellIdentifier)
         
@@ -145,7 +146,7 @@ class ViewProfileVC: BaseVC {
         self.profileImageHeaderView?.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized)"
         self.profileImageHeaderView?.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
         self.profileImageHeaderView?.mobileNumberLabel.text = UserInfo.loggedInUser?.mobileWithISD
-
+        
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
             self.profileImageHeaderView?.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? AppPlaceholderImage.user, showIndicator: false)
             self.profileImageHeaderView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(40.0), textColor: AppColors.themeBlack).blur ?? UIImage(), showIndicator: false)
@@ -250,7 +251,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             case 3:
                 self.statusBarStyle = .default
                 AppFlowManager.default.moveToLinkedAccountsVC()
-
+                
             default:
                 break
             }

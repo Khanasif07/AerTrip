@@ -18,7 +18,7 @@ protocol ViewProfileDetailVMDelegate: class {
 }
 
 class ViewProfileDetailVM {
-
+    
     weak var delegate: ViewProfileDetailVMDelegate?
     var travelData: TravelDetailModel?
     var currentlyUsingFor: EditProfileVM.UsingFor = .viewProfile
@@ -89,6 +89,4 @@ class ViewProfileDetailVM {
             }
         })
     }
-    
-    
 }

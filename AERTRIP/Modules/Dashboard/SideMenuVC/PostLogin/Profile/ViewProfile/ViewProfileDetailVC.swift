@@ -12,10 +12,10 @@ import UIKit
 class ViewProfileDetailVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var topNavView: TopNavigationView!
-    @IBOutlet var tableView: ATTableView!
+    @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var tableView: ATTableView!
     @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
-
+    
     // MARK: - Variables
     
     let viewModel = ViewProfileDetailVM()
@@ -86,7 +86,7 @@ class ViewProfileDetailVC: BaseVC {
         tableView.register(UINib(nibName: tableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderViewIdentifier)
         
         self.headerViewHeightConstraint.constant = headerViewHeight
-
+        
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Edit.rawValue, selectedTitle: LocalizedString.Edit.rawValue, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
@@ -128,7 +128,7 @@ class ViewProfileDetailVC: BaseVC {
         
         self.view.bringSubviewToFront(self.topNavView)
     }
-
+    
     private func setUpDataFromApi() {
         guard let travel = travelData else {
             return
@@ -140,7 +140,7 @@ class ViewProfileDetailVC: BaseVC {
         profileImageHeaderView.emailIdLabel.text = ""
         profileImageHeaderView.mobileNumberLabel.text = ""
         profileImageHeaderView.familyButton.isHidden = false
-        profileImageHeaderView.familyButton.setTitle(travel.label.isEmpty ? "Others" : travel.label.capitalizedFirst(), for: .normal)
+        profileImageHeaderView.familyButton.setTitle(travel.label.isEmpty ? LocalizedString.Others.localized : travel.label.capitalizedFirst(), for: .normal)
         profileImageHeaderView.layoutIfNeeded()
         
         var placeImage = AppPlaceholderImage.profile
@@ -194,7 +194,7 @@ class ViewProfileDetailVC: BaseVC {
             addresses = travel.address
             sections.append(LocalizedString.Address.localized)
         }
-    
+        
         informations.removeAll()
         moreInformation.removeAll()
         if !travel.dob.isEmpty {
@@ -268,7 +268,7 @@ class ViewProfileDetailVC: BaseVC {
             completeAddress += "\n" + address.city
         }
         if !address.postalCode.isEmpty {
-          completeAddress += "-" + address.postalCode
+            completeAddress += "-" + address.postalCode
         }
         if !address.state.isEmpty {
             completeAddress += "\n" + address.state
@@ -478,6 +478,6 @@ extension ViewProfileDetailVC: ViewProfileDetailVMDelegate {
     }
     
     func getFail(errors: ErrorCodes) {
-         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
 }

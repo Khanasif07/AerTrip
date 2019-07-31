@@ -108,7 +108,7 @@ class RoomGuestSelectionVC: BaseVC {
         
         self.ageSelectionLabel.textColor = AppColors.themeBlack
     }
-
+    
     
     //MARK:- Methods
     //MARK:- Private
@@ -146,13 +146,13 @@ class RoomGuestSelectionVC: BaseVC {
         self.mainContainerHeight = (self.mainContainerHeightConstraint.constant + AppFlowManager.default.safeAreaInsets.bottom)
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerBottomConstraints.constant = 0.0
-//            self.mainContainerHeightConstraint.constant = self.mainContainerHeightConstraint.constant// - self.agesContainerView.frame.height//280.0
+            //            self.mainContainerHeightConstraint.constant = self.mainContainerHeightConstraint.constant// - self.agesContainerView.frame.height//280.0
             self.view.layoutIfNeeded()
         })
     }
     
     private func hide(animated: Bool, shouldRemove: Bool = false) {
-
+        
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.mainContainerBottomConstraints.constant = -(self.mainContainerView.height)
             self.view.layoutIfNeeded()
@@ -318,9 +318,9 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 35.0
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-       
+        
         var pickerLabel: UILabel? = (view as? UILabel)
         if pickerLabel == nil {
             pickerLabel = UILabel()
