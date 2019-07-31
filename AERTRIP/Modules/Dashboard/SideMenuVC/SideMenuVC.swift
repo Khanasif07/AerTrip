@@ -301,19 +301,40 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0, let _ = UserInfo.loggedInUserId {
-            self.viewProfileButtonAction(ATButton())
+        if let _ = UserInfo.loggedInUserId {
+            //current user
+            switch indexPath.row {
+            case 0:
+                //profile
+                self.viewProfileButtonAction(ATButton())
+                
+            case 1:
+                //view account
+                AppFlowManager.default.moveToAccountDetailsScreen()
+                
+            case 2:
+                //my booking
+                AppFlowManager.default.moveToMyBookingsVC()
+                
+            case 6:
+                //settings
+                AppFlowManager.default.moveToSettingsVC()
+                
+            default:
+                AppGlobals.shared.showUnderDevelopment()
+            }
         }
-        else if indexPath.row == 1 {
-            //view account
-            AppFlowManager.default.moveToAccountDetailsScreen()
-        }
-        else if indexPath.row == 2 , UserInfo.loggedInUser != nil {
-            AppFlowManager.default.moveToMyBookingsVC()
-        }
-        else if indexPath.row == 6 {
-            //Settings
-            AppFlowManager.default.moveToSettingsVC()
+        else {
+            //guest user
+            switch indexPath.row {
+                
+            case 5:
+                //settings
+                AppFlowManager.default.moveToSettingsVC()
+                
+            default:
+                AppGlobals.shared.showUnderDevelopment()
+            }
         }
     }
     

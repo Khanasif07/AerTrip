@@ -419,25 +419,38 @@ struct AccountDetailEvent {
     }
     
     static func modelsDict(data: [JSONDictionary]) -> (data: JSONDictionary, allVoucher: [String]) {
-        var temp = JSONDictionary()
+        
         var vchrType: [String] = []
         
-        for dict in data {
-            let obj = AccountDetailEvent(json: dict)
-            if let cDate = obj.creationDateStr, !cDate.isEmpty {
-                if var allOld = temp[cDate] as? [AccountDetailEvent] {
-                    allOld.append(obj)
-                    temp[cDate] = allOld
-                }
-                else {
-                    temp[cDate] = [obj]
-                }
-                if !vchrType.contains(obj.voucher.rawValue) {
-                    vchrType.append(obj.voucher.rawValue)
-                }
+        let temp = data.reduce(into: [String:[AccountDetailEvent]]()) {
+            let obj = AccountDetailEvent(json: $1)
+            if !vchrType.contains(obj.voucher.rawValue) {
+                vchrType.append(obj.voucher.rawValue)
             }
+            $0[obj.creationDateStr ?? "", default: [AccountDetailEvent]()].append(obj)
         }
         
         return (temp, vchrType)
+        
+//        var temp = JSONDictionary()
+//        var vchrType: [String] = []
+//
+//        for dict in data {
+//            let obj = AccountDetailEvent(json: dict)
+//            if let cDate = obj.creationDateStr, !cDate.isEmpty {
+//                if var allOld = temp[cDate] as? [AccountDetailEvent] {
+//                    allOld.append(obj)
+//                    temp[cDate] = allOld
+//                }
+//                else {
+//                    temp[cDate] = [obj]
+//                }
+//                if !vchrType.contains(obj.voucher.rawValue) {
+//                    vchrType.append(obj.voucher.rawValue)
+//                }
+//            }
+//        }
+//
+//        return (temp, vchrType)
     }
 }

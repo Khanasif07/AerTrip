@@ -755,6 +755,7 @@
 //MARK:- OutStanding Ladger
 "Summary" = "Summary";
 "OutstandingLedger" = "Outstanding Ledger";
+"SelectBooking" = "Select Booking";
 "GrossOutstanding" = "Gross Outstanding";
 "OnAccount" = "On Account";
 "NetOutstanding" = "Net Outstanding";
@@ -868,4 +869,6 @@
 "CancellationRequest" = "Cancellation request";
 "OperatedBy" = "Operated by";
 
+"SendingEmail" = "Sending...";
+"LedgerSentToYourEmail" = "Ledger has been sent to your registered email-id.";
 

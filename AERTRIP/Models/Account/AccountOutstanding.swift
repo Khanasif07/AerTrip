@@ -62,23 +62,29 @@ struct OnAccountLedgerEvent {
     }
     
     static func modelsDict(data: [JSONDictionary]) -> JSONDictionary {
-        var temp = JSONDictionary()
         
-        for dict in data {
-            let obj = OnAccountLedgerEvent(json: dict)
-            if let cDate = obj.creationDateStr, !cDate.isEmpty {
-                if var allOld = temp[cDate] as? [OnAccountLedgerEvent] {
-                    allOld.append(obj)
-                    allOld.sort { ($0.onAccountDate?.timeIntervalSince1970 ?? 0) < ($1.onAccountDate?.timeIntervalSince1970 ?? 0)}
-                    temp[cDate] = allOld
-                }
-                else {
-                    temp[cDate] = [obj]
-                }
-            }
+        return data.reduce(into: [String:[OnAccountLedgerEvent]]()) {
+            let obj = OnAccountLedgerEvent(json: $1)
+            $0[obj.creationDateStr ?? "", default: [OnAccountLedgerEvent]()].append(obj)
         }
         
-        return temp
+//        var temp = JSONDictionary()
+//
+//        for dict in data {
+//            let obj = OnAccountLedgerEvent(json: dict)
+//            if let cDate = obj.creationDateStr, !cDate.isEmpty {
+//                if var allOld = temp[cDate] as? [OnAccountLedgerEvent] {
+//                    allOld.append(obj)
+//                    allOld.sort { ($0.onAccountDate?.timeIntervalSince1970 ?? 0) < ($1.onAccountDate?.timeIntervalSince1970 ?? 0)}
+//                    temp[cDate] = allOld
+//                }
+//                else {
+//                    temp[cDate] = [obj]
+//                }
+//            }
+//        }
+//
+//        return temp
     }
 }
 

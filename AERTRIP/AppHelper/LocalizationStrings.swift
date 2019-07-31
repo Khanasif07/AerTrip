@@ -823,6 +823,7 @@ enum LocalizedString: String {
     
     case Summary
     case OutstandingLedger
+    case SelectBooking
     case GrossOutstanding
     case OnAccount
     case NetOutstanding
@@ -947,4 +948,7 @@ enum LocalizedString: String {
     // MARK: -
     case UnderDevelopment
     case OperatedBy
+    
+    case SendingEmail
+    case LedgerSentToYourEmail
 }
