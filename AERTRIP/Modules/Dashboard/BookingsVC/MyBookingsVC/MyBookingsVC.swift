@@ -31,11 +31,11 @@ class MyBookingsVC: BaseVC {
         }
     }
     
-       @IBOutlet var childContainerView: UIView!
+    @IBOutlet var childContainerView: UIView!
     
     
     @IBOutlet weak var allTabsTitleContainerHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var allTabTitleContainerView: UIView!
+    @IBOutlet var allTabTitleContainerView: UIView!
     @IBOutlet weak var upcomingButton: PKCategoryButton!
     @IBOutlet weak var completedButton: PKCategoryButton!
     @IBOutlet weak var cancelledButton: PKCategoryButton!
@@ -67,10 +67,6 @@ class MyBookingsVC: BaseVC {
         self.hideAllData()
         MyBookingsVM.shared.delgate = self
         MyBookingsVM.shared.getBookings()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
     }
     
     override func dataChanged(_ note: Notification) {

@@ -264,13 +264,35 @@ class TravelDateVC: BaseVC {
         }
     }
     
+    @objc func fromDatePickerValueChanged(_ datePicker: UIDatePicker) {
+        if self.oldToDate == nil {
+            if self.currentlyUsingAs == .bookingDate {
+                self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: MyBookingFilterVM.shared.bookingFromDate == nil ? nil : self.toDatePicker.date)
+            }
+            else {
+                self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: MyBookingFilterVM.shared.travelFromDate == nil ? nil : self.toDatePicker.date)
+            }
+            self.oldFromDate = self.fromDatePicker.date
+        }
+        else {
+            self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
+        }
+        
+        if self.toDatePicker.date.timeIntervalSince1970 < self.fromDatePicker.date.timeIntervalSince1970 {
+            self.toDatePicker.minimumDate = datePicker.date
+            self.toDatePicker.setDate(self.fromDatePicker.date, animated: false)
+            self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
+        }
+        self.delegate?.didSelect(fromDate: datePicker.date, forType: self.currentlyUsingAs)
+    }
+    
     @objc func toDatePickerValueChanged(_ datePicker: UIDatePicker) {
         if self.oldFromDate == nil {
             if self.currentlyUsingAs == .bookingDate {
                 self.setDateOnLabels(fromDate: MyBookingFilterVM.shared.bookingToDate == nil ? nil : self.fromDatePicker.date, toDate: self.toDatePicker.date)
             }
             else {
-                self.setDateOnLabels(fromDate: MyBookingFilterVM.shared.travelToDate == nil ? nil : self.fromDatePicker.date, toDate: self.toDatePicker.date)
+                self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: ((MyBookingFilterVM.shared.travelFromDate == nil) || (MyBookingFilterVM.shared.travelToDate == nil)) ? nil : self.toDatePicker.date)
             }
             
             self.oldToDate = self.toDatePicker.date
@@ -285,27 +307,5 @@ class TravelDateVC: BaseVC {
         }
         
         self.delegate?.didSelect(toDate: datePicker.date, forType: self.currentlyUsingAs)
-    }
-    
-    @objc func fromDatePickerValueChanged(_ datePicker: UIDatePicker) {
-        if self.oldToDate == nil {
-            if self.currentlyUsingAs == .bookingDate {
-                self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: MyBookingFilterVM.shared.bookingFromDate == nil ? nil : self.toDatePicker.date)
-            }
-            else {
-                self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: ((MyBookingFilterVM.shared.travelFromDate == nil) || (MyBookingFilterVM.shared.travelToDate == nil)) ? nil : self.toDatePicker.date)
-            }
-            self.oldFromDate = self.fromDatePicker.date
-        }
-        else {
-            self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
-        }
-        
-        if self.toDatePicker.date.timeIntervalSince1970 < self.fromDatePicker.date.timeIntervalSince1970 {
-            self.toDatePicker.minimumDate = datePicker.date
-            self.toDatePicker.setDate(self.fromDatePicker.date, animated: false)
-            self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
-        }
-        self.delegate?.didSelect(fromDate: datePicker.date, forType: self.currentlyUsingAs)
     }
 }

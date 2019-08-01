@@ -323,9 +323,10 @@ class BookingProductDetailVM {
     func getBookingDetail(shouldCallWillDelegate: Bool = true) {
         let params: JSONDictionary = ["booking_id": bookingId]
         
-        if shouldCallWillDelegate {
-            delegate?.willGetBookingDetail()
-        }
+//        if shouldCallWillDelegate {
+//            delegate?.willGetBookingDetail()
+//        }
+        delegate?.willGetBookingDetail()
         APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in
             guard let sSelf = self else { return }
             if success {
