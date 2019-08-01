@@ -116,7 +116,7 @@
 "selectedCountryCode"    = "+91";
 "selectedCountry"        = "India";
 "SelectedCountySymbol" = "IN";
-"PleaseLoginByEmailId" = "Please login by using email id";
+"PleaseLoginByEmailId" = "We didn't got email. Please login by using email id.";
 
 // MARK:- ForgotPasswordVC
 //MARK:-

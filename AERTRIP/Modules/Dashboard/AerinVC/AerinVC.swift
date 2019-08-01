@@ -77,7 +77,7 @@ class AerinVC: BaseVC {
         self.aerInPulsAnimator.radius = 100.0
         self.aerInPulsAnimator.currentAnimation = .line
         self.aerInPulsAnimator.lineWidth = 2.0
-        self.aerInPulsAnimator.lineColor = AppColors.themeDarkGreen
+        self.aerInPulsAnimator.lineColor = AppColors.themeBlackGreen
         self.aerInPulsAnimator.backgroundColor = AppColors.themeGray60.cgColor
         self.aerinContainer.layer.insertSublayer(self.aerInPulsAnimator, below: self.aerinButton.layer)
         self.bottomFirstView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.3)

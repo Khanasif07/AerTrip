@@ -23,10 +23,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="355" height="106"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UgJ-4O-Khy">
-                                <rect key="frame" x="116" y="33" width="123" height="40"/>
+                                <rect key="frame" x="121" y="33" width="113.5" height="40"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Room" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mn6-kE-3uo">
-                                        <rect key="frame" x="39" y="10.5" width="84" height="19.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Room" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mn6-kE-3uo">
+                                        <rect key="frame" x="38" y="10.5" width="75.5" height="19.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -48,8 +48,7 @@
                                     <constraint firstAttribute="trailing" secondItem="mn6-kE-3uo" secondAttribute="trailing" id="FDV-Zx-xgC"/>
                                     <constraint firstItem="WS3-Oi-NfB" firstAttribute="leading" secondItem="UgJ-4O-Khy" secondAttribute="leading" constant="2" id="OI9-zy-xjn"/>
                                     <constraint firstAttribute="height" constant="40" id="WeO-5e-P9d"/>
-                                    <constraint firstAttribute="width" constant="123" id="cVy-Wi-WAi"/>
-                                    <constraint firstItem="mn6-kE-3uo" firstAttribute="leading" secondItem="WS3-Oi-NfB" secondAttribute="trailing" constant="12" id="cu9-hm-s2T"/>
+                                    <constraint firstItem="mn6-kE-3uo" firstAttribute="leading" secondItem="WS3-Oi-NfB" secondAttribute="trailing" constant="11" id="cu9-hm-s2T"/>
                                     <constraint firstItem="mn6-kE-3uo" firstAttribute="centerY" secondItem="WS3-Oi-NfB" secondAttribute="centerY" id="lfx-G4-0OQ"/>
                                     <constraint firstItem="WS3-Oi-NfB" firstAttribute="centerY" secondItem="UgJ-4O-Khy" secondAttribute="centerY" id="qTP-20-gFy"/>
                                 </constraints>

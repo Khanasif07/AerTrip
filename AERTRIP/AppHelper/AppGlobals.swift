@@ -14,7 +14,7 @@ import UIKit
 import EventKit
 
 func printDebug<T>(_ obj: T) {
-//    print(obj)
+    print(obj)
 }
 
 func printFonts() {
@@ -138,7 +138,7 @@ class AppGlobals {
     }
     
     var pKAlertCancelButton: PKAlertButton {
-        return PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeGreen)
+        return PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeDarkGreen)
     }
     
     func saveImage(data: Data, fileNameWithExtension: String? = nil) -> String {

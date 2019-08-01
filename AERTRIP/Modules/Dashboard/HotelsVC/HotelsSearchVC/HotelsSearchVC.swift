@@ -431,7 +431,7 @@ class HotelsSearchVC: BaseVC {
                 }
                 else {
                     if let s = start, let e = end {
-                        final += (s != e) ? "\(s)-\(e), " : "\(s), "
+                        final += (s != e) ? "\(s) - \(e), " : "\(s), "
                         start = nil
                         end = nil
                         prev = nil
@@ -449,7 +449,7 @@ class HotelsSearchVC: BaseVC {
             prev = value
         }
         if let s = start, let e = end {
-            final += (s != e) ? "\(s)-\(e), " : "\(s), "
+            final += (s != e) ? "\(s) - \(e), " : "\(s), "
             start = nil
             end = nil
         }

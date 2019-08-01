@@ -89,7 +89,7 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
         self.firstShadowCard.layer.cornerRadius = 10.0
         self.firstShadowCard.layer.masksToBounds = true
         
-        self.secondShadowCard.backgroundColor = AppColors.themeDarkGreen
+        self.secondShadowCard.backgroundColor = AppColors.themeBlackGreen
         self.secondShadowCard.layer.cornerRadius = 10.0
         self.secondShadowCard.layer.masksToBounds = true
     }

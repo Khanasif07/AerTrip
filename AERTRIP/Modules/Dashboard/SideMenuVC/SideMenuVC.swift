@@ -341,13 +341,13 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
-            return (UserInfo.loggedInUserId == nil) ? 267.0 : 200
+            return (UserInfo.loggedInUserId == nil) ? 267.0 : 218.0
             
         case 1:
-            return (UserInfo.loggedInUserId == nil) ? 60.0 : 63.0
+            return (UserInfo.loggedInUserId == nil) ? 60.0 : 67.0
             
         default:
-            return (UserInfo.loggedInUserId == nil) ? 60.03 : 66.7
+            return (UserInfo.loggedInUserId == nil) ? 64.0 : 64.0
         }
     }
 }
