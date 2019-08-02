@@ -55,6 +55,7 @@ travel experience</string>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="logoImageTopContraint" destination="AYg-UO-Nz1" id="9dn-mK-Vza"/>
                 <outlet property="logoImageView" destination="bob-jK-b56" id="Q6P-vK-1XW"/>
                 <outlet property="logoTextView" destination="HJk-Os-vtO" id="ad9-3j-fJM"/>
                 <outlet property="messageLabel" destination="uho-Jk-ZYW" id="NC9-ic-ByC"/>

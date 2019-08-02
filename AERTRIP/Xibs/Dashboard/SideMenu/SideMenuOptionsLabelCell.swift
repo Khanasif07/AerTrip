@@ -37,6 +37,6 @@ extension SideMenuOptionsLabelCell {
     }
 
     func populateData(text: String) {
-        self.displayTextLabel.text = text
+        displayTextLabel.text = text
     }
 }

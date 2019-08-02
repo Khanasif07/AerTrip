@@ -80,7 +80,6 @@ class SideMenuVC: BaseVC {
                 self.profileContainerView = self.getProfileView()
                 self.profileContainerView.delegate = self
                 self.profileContainerView.isUserInteractionEnabled = true
-                self.profileSuperView?.addSubview(self.profileContainerView)
             }
         }
     }
@@ -135,21 +134,21 @@ class SideMenuVC: BaseVC {
             view.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(textColor: AppColors.themeBlack)
         }
         
-        view.frame = CGRect(x: 0.0, y: 40.0, width: self.profileSuperView?.width ?? 0.0, height: self.profileSuperView?.height ?? 0.0)
-        view.emailIdLabel.isHidden = true
-        view.mobileNumberLabel.isHidden = true
-        view.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-        view.backgroundImageView.isHidden = true
-        view.gradientView.isHidden = true
-        view.dividerView.isHidden = true
-        view.isUserInteractionEnabled = false
-        view.layoutSubviews()
-        view.emailIdLabel.alpha = 0.0
-        view.mobileNumberLabel.alpha = 0.0
-        view.backgroundImageView.alpha = 0.0
-        view.gradientView.alpha = 0.0
-        view.dividerView.alpha = 0.0
-        view.translatesAutoresizingMaskIntoConstraints = true
+//        view.frame = CGRect(x: 0.0, y: 40.0, width: self.profileSuperView?.width ?? 0.0, height: self.profileSuperView?.height ?? 0.0)
+//        view.emailIdLabel.isHidden = true
+//        view.mobileNumberLabel.isHidden = true
+//        view.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+//        view.backgroundImageView.isHidden = true
+//        view.gradientView.isHidden = true
+//        view.dividerView.isHidden = true
+//        view.isUserInteractionEnabled = false
+//        view.layoutSubviews()
+//        view.emailIdLabel.alpha = 0.0
+//        view.mobileNumberLabel.alpha = 0.0
+//        view.backgroundImageView.alpha = 0.0
+//        view.gradientView.alpha = 0.0
+//        view.dividerView.alpha = 0.0
+//        view.translatesAutoresizingMaskIntoConstraints = true
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -278,11 +277,9 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             }
             
             if let _ = UserInfo.loggedInUserId {
-                cell.populateData(text: self.viewModel.cellForLoginUser[indexPath.row - 2])
-                
-                if indexPath.row == 6 {
-                    cell.sepratorView.isHidden = false
-                }
+                let title = self.viewModel.cellForLoginUser[indexPath.row - 2]
+                cell.populateData(text: title)
+                cell.sepratorView.isHidden = !title.isEmpty
                 
             } else {
                 cell.populateData(text: self.viewModel.displayCellsForGuest[indexPath.row - 1])
@@ -339,15 +336,21 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.row {
-        case 0:
-            return (UserInfo.loggedInUserId == nil) ? 267.0 : 218.0
-            
-        case 1:
-            return (UserInfo.loggedInUserId == nil) ? 60.0 : 67.0
-            
-        default:
-            return (UserInfo.loggedInUserId == nil) ? 64.0 : 64.0
+        if indexPath.row > 2, self.viewModel.cellForLoginUser[indexPath.row - 2].isEmpty {
+            //make divider
+            return 10.0
+        }
+        else {
+            switch indexPath.row {
+            case 0:
+                return (UserInfo.loggedInUserId == nil) ? 267.0 : 213.0
+                
+            case 1:
+                return (UserInfo.loggedInUserId == nil) ? 60.0 : 67.0
+                
+            default:
+                return (UserInfo.loggedInUserId == nil) ? 64.0 : 64.0
+            }
         }
     }
 }

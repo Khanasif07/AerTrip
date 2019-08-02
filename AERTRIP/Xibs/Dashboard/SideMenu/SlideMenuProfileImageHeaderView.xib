@@ -114,6 +114,7 @@
                 <constraint firstItem="ycJ-AK-oMp" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Bmw-WN-UKN"/>
                 <constraint firstAttribute="trailing" secondItem="cbl-xr-PpX" secondAttribute="trailing" id="Chh-L4-S5X"/>
                 <constraint firstAttribute="trailing" secondItem="ycJ-AK-oMp" secondAttribute="trailing" id="Hy3-e0-bE4"/>
+                <constraint firstItem="pgB-ko-N2g" firstAttribute="centerX" secondItem="cbl-xr-PpX" secondAttribute="centerX" id="OP8-Bs-m11"/>
                 <constraint firstItem="Ojo-QA-iad" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="bbK-0v-AkW"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="pgB-ko-N2g" secondAttribute="bottom" constant="24" id="cCi-95-C6C"/>
                 <constraint firstItem="Ojo-QA-iad" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="eG1-bH-VIx"/>
@@ -124,20 +125,23 @@
                 <constraint firstItem="Ojo-QA-iad" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="kKO-o2-q7e"/>
                 <constraint firstItem="Ojo-QA-iad" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="pSG-Cm-jrZ"/>
                 <constraint firstItem="x2n-dX-FxW" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="wCJ-bF-R1h"/>
-                <constraint firstItem="pgB-ko-N2g" firstAttribute="centerX" secondItem="x2n-dX-FxW" secondAttribute="centerX" id="weq-Xh-dZR"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="backgroundImageView" destination="Ojo-QA-iad" id="76G-qQ-HcJ"/>
                 <outlet property="dividerView" destination="ycJ-AK-oMp" id="jHj-R4-bfb"/>
+                <outlet property="emailAndContactBottomConstraint" destination="aVT-X6-x1Z" id="B40-FI-lFa"/>
                 <outlet property="emailIdLabel" destination="95a-79-0je" id="uSz-m1-OL3"/>
                 <outlet property="familyButton" destination="pgB-ko-N2g" id="qkA-zP-CuH"/>
+                <outlet property="familyButtonBottomConstraint" destination="cCi-95-C6C" id="03K-n8-lEV"/>
                 <outlet property="gradientView" destination="x2n-dX-FxW" id="N2m-r2-NM7"/>
                 <outlet property="mobileNumberLabel" destination="uqV-cI-FPs" id="9k1-rh-G9x"/>
                 <outlet property="profileContainerView" destination="cbl-xr-PpX" id="YRn-Ad-Jg3"/>
+                <outlet property="profileImageAndNameSpace" destination="LrI-tj-Fwj" id="ecQ-Iy-hZr"/>
                 <outlet property="profileImageView" destination="ARz-1y-xpA" id="aU9-gJ-oCS"/>
                 <outlet property="profileImageViewHeightConstraint" destination="pms-Kr-etU" id="AhU-iJ-0f7"/>
+                <outlet property="userNameHeightLabel" destination="XlT-Ft-NH1" id="AYy-xU-6bI"/>
                 <outlet property="userNameLabel" destination="eAE-bT-BMd" id="23o-EQ-Rd9"/>
             </connections>
             <point key="canvasLocation" x="263.19999999999999" y="115.14242878560721"/>

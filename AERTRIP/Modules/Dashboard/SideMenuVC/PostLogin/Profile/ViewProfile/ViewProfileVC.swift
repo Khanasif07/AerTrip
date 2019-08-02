@@ -51,6 +51,7 @@ class ViewProfileVC: BaseVC {
         self.viewModel.travelData = UserInfo.loggedInUser?.travellerDetailModel
         
         self.profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
+        self.profileImageHeaderView?.currentlyUsingAs = .viewProfile
         self.profileImageHeaderView?.delegate = self
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
@@ -286,11 +287,10 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         
         let prallexProgress = self.tableView.parallaxHeader.progress
         
-        if prallexProgress >= 0.6 {
-            self.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 121 * prallexProgress
+        if 0.6...1.0 ~= prallexProgress {
+            self.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 121.0 * prallexProgress
         }
-        
-        if prallexProgress <= 0.5 {
+        if prallexProgress <= 0.65 {
             self.statusBarStyle = .default
             self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
                 self?.topNavView.firstRightButton.isSelected = true
