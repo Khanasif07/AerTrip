@@ -11,7 +11,7 @@ import UIKit
 class SortVC: UIViewController {
     // MARK: - IBOutlets
     
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Variables
     

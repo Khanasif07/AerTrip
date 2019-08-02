@@ -12,8 +12,8 @@ import UIKit
 class BookingCallVC: BaseVC {
     // MARK: - IB Outlet
     
-    @IBOutlet var topNavBar: TopNavigationView!
-    @IBOutlet var callTableView: ATTableView!
+    @IBOutlet weak var topNavBar: TopNavigationView!
+    @IBOutlet weak var callTableView: ATTableView!
     
     // MARK: - Varibles
     

@@ -15,10 +15,10 @@ protocol BookingReschedulingHeaderViewDelegate: class {
 class BookingReschedulingHeaderView: UITableViewHeaderFooterView {
     // MARK: - IBOutlet
     
-    @IBOutlet var routeLabel: UILabel!
-    @IBOutlet var infoLabel: UILabel!
-    @IBOutlet var selectedButton: UIButton!
-    @IBOutlet var topBackgroundView: UIView!
+    @IBOutlet weak var routeLabel: UILabel!
+    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var selectedButton: UIButton!
+    @IBOutlet weak var topBackgroundView: UIView!
     
     // MARK: - Variables
     

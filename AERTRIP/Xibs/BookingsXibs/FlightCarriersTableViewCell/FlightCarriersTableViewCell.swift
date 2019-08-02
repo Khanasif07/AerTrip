@@ -17,20 +17,20 @@ class FlightCarriersTableViewCell: UITableViewCell {
     
     // MARK: ===========
     
-    @IBOutlet var containerView: UIView!
-    @IBOutlet var firstFlightCarriersContView: UIView!
-    @IBOutlet var firstFlightCarriersImgVw: UIImageView!
-    @IBOutlet var secondFlightCarriersContView: UIView!
-    @IBOutlet var secondFlightCarriersImgVw: UIImageView!
-    @IBOutlet var moreFlightCarriersContView: UIView!
-    @IBOutlet var moreFlightCarriersImgVw: UIImageView!
-    @IBOutlet var moreFlightCarriersLabel: UILabel!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var firstFlightCarriersContView: UIView!
+    @IBOutlet weak var firstFlightCarriersImgVw: UIImageView!
+    @IBOutlet weak var secondFlightCarriersContView: UIView!
+    @IBOutlet weak var secondFlightCarriersImgVw: UIImageView!
+    @IBOutlet weak var moreFlightCarriersContView: UIView!
+    @IBOutlet weak var moreFlightCarriersImgVw: UIImageView!
+    @IBOutlet weak var moreFlightCarriersLabel: UILabel!
     
-    @IBOutlet var moreFlightBlurOverlayView: UIView!
-    @IBOutlet var totalCarriersOrFlNameLabel: UILabel!
-    @IBOutlet var flightCode: UILabel!
-    @IBOutlet var remainingCodesLabel: UILabel!
-    @IBOutlet var nextScreenImageView: UIImageView!
+    @IBOutlet weak var moreFlightBlurOverlayView: UIView!
+    @IBOutlet weak var totalCarriersOrFlNameLabel: UILabel!
+    @IBOutlet weak var flightCode: UILabel!
+    @IBOutlet weak var remainingCodesLabel: UILabel!
+    @IBOutlet weak var nextScreenImageView: UIImageView!
     
     // MARK: - LifeCycle
     

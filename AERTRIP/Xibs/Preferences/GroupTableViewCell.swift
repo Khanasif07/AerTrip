@@ -17,11 +17,11 @@ protocol GroupTableViewCellDelegate: class {
 class GroupTableViewCell: UITableViewCell {
     // MARK: - IB Outlets
     
-    @IBOutlet var deleteButton: UIButton!
-    @IBOutlet var groupNameTextField: UITextField!
-    @IBOutlet var groupCountLabel: UILabel!
-    @IBOutlet var reorderButton: UIButton!
-    @IBOutlet var dividerView: ATDividerView!
+    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var groupNameTextField: UITextField!
+    @IBOutlet weak var groupCountLabel: UILabel!
+    @IBOutlet weak var reorderButton: UIButton!
+    @IBOutlet weak var dividerView: ATDividerView!
     
     // MARK: - Variables
     

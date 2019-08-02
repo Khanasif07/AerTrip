@@ -11,8 +11,8 @@ import UIKit
 class BookingInvoiceVC: BaseVC {
     // MARK: - IBOutlet
     
-    @IBOutlet var topNavBar: TopNavigationView!
-    @IBOutlet var invoiceTableView: ATTableView!
+    @IBOutlet weak var topNavBar: TopNavigationView!
+    @IBOutlet weak var invoiceTableView: ATTableView!
     
     // MARK: - Variables
     let viewModel = BookingInvoiceVM()

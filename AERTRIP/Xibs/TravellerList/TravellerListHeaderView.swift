@@ -15,9 +15,9 @@ protocol TravellerListHeaderViewDelegate : class {
 class TravellerListHeaderView: UIView {
     // MARK: - IB Outlet
     
-    @IBOutlet var profileImageView: UIImageView!
-    @IBOutlet var userNameLabel: UILabel!
-    @IBOutlet var userTypeLbel: UILabel!
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var userTypeLbel: UILabel!
     
     
     // MARK: - Variables

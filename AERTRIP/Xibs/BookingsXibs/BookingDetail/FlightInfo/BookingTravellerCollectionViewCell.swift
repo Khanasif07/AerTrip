@@ -11,9 +11,9 @@ import UIKit
 class BookingTravellerCollectionViewCell: UICollectionViewCell {
     // MARK: -  IBOutlet
     
-    @IBOutlet var profileImageView: UIImageView!
-    @IBOutlet var travellerNameLabel: UILabel!
-    @IBOutlet var bottomSlideView: UIView!
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var travellerNameLabel: UILabel!
+    @IBOutlet weak var bottomSlideView: UIView!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     

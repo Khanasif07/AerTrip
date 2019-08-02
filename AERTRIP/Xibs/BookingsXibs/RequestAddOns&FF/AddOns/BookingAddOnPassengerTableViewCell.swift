@@ -11,10 +11,10 @@ import UIKit
 class BookingAddOnPassengerTableViewCell: ATTableViewCell {
     // MARK: - IBOutlet
     
-    @IBOutlet var passengerNameLabel: UILabel!
-    @IBOutlet var passengerImageView: UIImageView!
+    @IBOutlet weak var passengerNameLabel: UILabel!
+    @IBOutlet weak var passengerImageView: UIImageView!
     
-    @IBOutlet var topConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
     
     override func setupFonts() {
         self.passengerNameLabel.font = AppFonts.SemiBold.withSize(18.0)

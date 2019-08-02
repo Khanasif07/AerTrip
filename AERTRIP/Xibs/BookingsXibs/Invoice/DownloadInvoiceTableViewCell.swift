@@ -9,9 +9,9 @@
 import UIKit
 
 class DownloadInvoiceTableViewCell: ATTableViewCell {
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var topDividerView: UIView!
-    @IBOutlet var bottomDividerView: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var topDividerView: UIView!
+    @IBOutlet weak var bottomDividerView: UIView!
     
     override func setupFonts() {
         self.titleLabel.font = AppFonts.Regular.withSize(18.0)

@@ -15,9 +15,9 @@ protocol BookingRequestAddOnsFFVCDelegate: class  {
 class BookingRequestAddOnsFFVC: BaseVC {
     // MARK: - IBOutlet
     
-    @IBOutlet var topNavigationView: TopNavigationView!
-    @IBOutlet var dataContainerView: UIView!
-    @IBOutlet var requestButton: UIButton!
+    @IBOutlet weak var topNavigationView: TopNavigationView!
+    @IBOutlet weak var dataContainerView: UIView!
+    @IBOutlet weak var requestButton: UIButton!
     
     // MARK: - Properties
     

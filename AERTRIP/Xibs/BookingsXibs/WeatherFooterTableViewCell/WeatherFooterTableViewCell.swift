@@ -17,7 +17,7 @@ class WeatherFooterTableViewCell: UITableViewCell {
     
     // MARK: ===========
     
-    @IBOutlet var weatherLabel: UILabel!
+    @IBOutlet weak var weatherLabel: UILabel!
     
     // MARK: - LifeCycle
     

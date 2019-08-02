@@ -11,8 +11,8 @@ import UIKit
 class BookingHotelDetailVC: BaseVC {
     // MARK: - IBOutlet
     
-    @IBOutlet var hotelDetailTableView: ATTableView!
-    @IBOutlet var topNavigationView: TopNavigationView!
+    @IBOutlet weak var hotelDetailTableView: ATTableView!
+    @IBOutlet weak var topNavigationView: TopNavigationView!
     
     // MARK: - Variables
     @IBOutlet weak var topNavBarHeightConstraint: NSLayoutConstraint!

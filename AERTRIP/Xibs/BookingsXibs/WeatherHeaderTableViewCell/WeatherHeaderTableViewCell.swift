@@ -23,8 +23,8 @@ class WeatherHeaderTableViewCell: UITableViewCell {
     
     // MARK: ===========
     
-    @IBOutlet var weatherLabel: UILabel!
-    @IBOutlet var seeAllBtnOutlet: UIButton!
+    @IBOutlet weak var weatherLabel: UILabel!
+    @IBOutlet weak var seeAllBtnOutlet: UIButton!
     
     // MARK: - LifeCycle
     

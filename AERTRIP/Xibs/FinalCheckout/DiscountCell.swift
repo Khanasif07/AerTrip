@@ -11,13 +11,13 @@ import UIKit
 class DiscountCell: UITableViewCell {
     // MARK: - IB Outlets
     
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var amountLabel: UILabel!
-    @IBOutlet var titleLabelBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var titleLabelBottomConstraint: NSLayoutConstraint!
     
-    @IBOutlet var titleLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var titleLabelLeadingConstraint: NSLayoutConstraint!
     
-    @IBOutlet var titleLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var titleLabelTopConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()

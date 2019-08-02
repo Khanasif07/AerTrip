@@ -13,33 +13,33 @@ class HCDataSelectionVC: BaseVC {
     
     // MARK: -
     
-    @IBOutlet var topNavView: TopNavigationView!
-    @IBOutlet var tableView: ATTableView!
-    @IBOutlet var continueContainerView: UIView!
+    @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var tableView: ATTableView!
+    @IBOutlet weak var continueContainerView: UIView!
     
     // continue
-    @IBOutlet var fareDetailContainerView: UIView!
-    @IBOutlet var fareDetailBottomConstraint: NSLayoutConstraint!
-    @IBOutlet var totalFareLabel: UILabel!
-    @IBOutlet var infoTextLabel: UILabel!
-    @IBOutlet var upArrowImageView: UIImageView!
-    @IBOutlet var continueButton: UIButton!
-    @IBOutlet var infoButton: UIButton!
+    @IBOutlet weak var fareDetailContainerView: UIView!
+    @IBOutlet weak var fareDetailBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var totalFareLabel: UILabel!
+    @IBOutlet weak var infoTextLabel: UILabel!
+    @IBOutlet weak var upArrowImageView: UIImageView!
+    @IBOutlet weak var continueButton: UIButton!
+    @IBOutlet weak var infoButton: UIButton!
     
     // minimized hotel details
-    @IBOutlet var hotelDetailsParentContainerView: UIView!
-    @IBOutlet var hotelDetailsContainerViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var hotelDetailsContainerView: UIView!
-    @IBOutlet var hotelCheckOutDetailsContainerVIew: UIView!
-    @IBOutlet var hotelNameLabel: UILabel!
-    @IBOutlet var checkInOutDate: UILabel!
-    @IBOutlet var detailsButton: UIButton!
-    @IBOutlet var fareBreakupTitleLabel: UILabel!
-    @IBOutlet var fareDetailLabel: UILabel!
-    @IBOutlet var totalPayableTextLabel: UILabel!
-    @IBOutlet var totalFareAmountLabel: UILabel!
-    @IBOutlet var loaderContainerView: UIView!
-    @IBOutlet var activityLoader: UIActivityIndicatorView!
+    @IBOutlet weak var hotelDetailsParentContainerView: UIView!
+    @IBOutlet weak var hotelDetailsContainerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var hotelDetailsContainerView: UIView!
+    @IBOutlet weak var hotelCheckOutDetailsContainerVIew: UIView!
+    @IBOutlet weak var hotelNameLabel: UILabel!
+    @IBOutlet weak var checkInOutDate: UILabel!
+    @IBOutlet weak var detailsButton: UIButton!
+    @IBOutlet weak var fareBreakupTitleLabel: UILabel!
+    @IBOutlet weak var fareDetailLabel: UILabel!
+    @IBOutlet weak var totalPayableTextLabel: UILabel!
+    @IBOutlet weak var totalFareAmountLabel: UILabel!
+    @IBOutlet weak var loaderContainerView: UIView!
+    @IBOutlet weak var activityLoader: UIActivityIndicatorView!
     
     // MARK: - Properties
     

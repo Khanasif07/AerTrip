@@ -12,20 +12,20 @@ import UIKit
 class TravellerListVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var tableView: ATTableView! {
+    @IBOutlet weak var tableView: ATTableView! {
         didSet {
             tableView.delegate = nil
             tableView.dataSource = nil
         }
     }
     
-    @IBOutlet var bottomView: UIView!
+    @IBOutlet weak var bottomView: UIView!
     
-    @IBOutlet var assignGroupButton: UIButton!
-    @IBOutlet var deleteButton: UIButton!
-    @IBOutlet var searchBar: ATSearchBar!
-    @IBOutlet var headerDividerView: ATDividerView!
-    @IBOutlet var topNavView: TopNavigationView!
+    @IBOutlet weak var assignGroupButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var searchBar: ATSearchBar!
+    @IBOutlet weak var headerDividerView: ATDividerView!
+    @IBOutlet weak var topNavView: TopNavigationView!
     
     // MARK: - Variables
     

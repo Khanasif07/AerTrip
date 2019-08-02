@@ -17,9 +17,9 @@ protocol PreferencesVCDelegate: class {
 class PreferencesVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var topNavView: TopNavigationView!
-    @IBOutlet var tableView: ATTableView!
-    @IBOutlet var indicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var tableView: ATTableView!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     // MARK: - Variables
     

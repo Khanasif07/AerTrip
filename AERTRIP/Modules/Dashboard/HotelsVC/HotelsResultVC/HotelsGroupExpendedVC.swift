@@ -12,7 +12,7 @@ class HotelsGroupExpendedVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBOutlet var headerView: UIView!
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var headerThumbView: UIView!
     @IBOutlet weak var collectionView: ATCollectionView! {
         didSet {

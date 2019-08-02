@@ -17,13 +17,13 @@ class FlightBookingRequestsTableViewCell: UITableViewCell {
     
     // MARK: ===========
     
-    @IBOutlet var containerView: UIView!
-    @IBOutlet var requestNameLabel: UILabel!
-    @IBOutlet var actionStatusLabel: UILabel!
-    @IBOutlet var rightArrowImageView: UIImageView!
-    @IBOutlet var dividerView: ATDividerView!
-    @IBOutlet var containerViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet var containerViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var requestNameLabel: UILabel!
+    @IBOutlet weak var actionStatusLabel: UILabel!
+    @IBOutlet weak var rightArrowImageView: UIImageView!
+    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var containerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerViewBottomConstraint: NSLayoutConstraint!
     
     // MARK: - LifeCycle
     

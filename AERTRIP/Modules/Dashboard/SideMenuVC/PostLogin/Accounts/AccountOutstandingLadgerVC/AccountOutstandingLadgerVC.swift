@@ -20,7 +20,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     //MARK:-
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var tableView: ATTableView!
-    @IBOutlet var searchContainerView: UIView!
+    @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var blankSpaceView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
     @IBOutlet weak var searchBar: ATSearchBar!

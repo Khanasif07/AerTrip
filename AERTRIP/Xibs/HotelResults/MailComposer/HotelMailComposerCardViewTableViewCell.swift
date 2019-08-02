@@ -11,12 +11,12 @@ import UIKit
 class HotelMailComposerCardViewTableViewCell: UITableViewCell {
     // MARK: - IB Outlets
     
-    @IBOutlet var hotelCardImageView: UIImageView!
-    @IBOutlet var hotelNameLabel: UILabel!
-    @IBOutlet var hotelPriceLabel: UILabel!
-    @IBOutlet var starRatingView: FloatRatingView!
-    @IBOutlet var tripRatingView: FloatRatingView!
-    @IBOutlet var addressLabel: UILabel!
+    @IBOutlet weak var hotelCardImageView: UIImageView!
+    @IBOutlet weak var hotelNameLabel: UILabel!
+    @IBOutlet weak var hotelPriceLabel: UILabel!
+    @IBOutlet weak var starRatingView: FloatRatingView!
+    @IBOutlet weak var tripRatingView: FloatRatingView!
+    @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var tripAdvisorImageView: UIImageView!
     @IBOutlet weak var cellBackgroundView: UIView!
     @IBOutlet weak var starContainerView: UIStackView!

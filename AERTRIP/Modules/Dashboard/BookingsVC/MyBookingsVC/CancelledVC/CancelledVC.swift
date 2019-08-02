@@ -16,10 +16,10 @@ class CancelledVC: BaseVC {
     
     // Mark:- IBOutlets
     //================
-    @IBOutlet var emptyStateImageView: UIImageView!
-    @IBOutlet var emptyStateTitleLabel: UILabel!
-    @IBOutlet var emptyStateSubTitleLabel: UILabel!
-    @IBOutlet var cancelledBookingsTableView: UITableView! {
+    @IBOutlet weak var emptyStateImageView: UIImageView!
+    @IBOutlet weak var emptyStateTitleLabel: UILabel!
+    @IBOutlet weak var emptyStateSubTitleLabel: UILabel!
+    @IBOutlet weak var cancelledBookingsTableView: UITableView! {
         didSet {
             self.cancelledBookingsTableView.delegate = self
             self.cancelledBookingsTableView.dataSource = self
@@ -30,14 +30,14 @@ class CancelledVC: BaseVC {
         }
     }
     
-    @IBOutlet var footerView: MyBookingFooterView! {
+    @IBOutlet weak var footerView: MyBookingFooterView! {
         didSet {
             self.footerView.delegate = self
             self.footerView.pendingActionSwitch.isOn = false
         }
     }
     
-    @IBOutlet var footerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var footerHeightConstraint: NSLayoutConstraint!
     
     // fetch result controller
     var isOnlyPendingAction: Bool = false

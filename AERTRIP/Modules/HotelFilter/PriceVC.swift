@@ -16,14 +16,14 @@ enum Price {
 class PriceVC: BaseVC {
     // MARK: - IBOutlets
     
-    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     
-    @IBOutlet var minimumPriceView: UIView!
-    @IBOutlet var minimumPriceLabel: UILabel!
+    @IBOutlet weak var minimumPriceView: UIView!
+    @IBOutlet weak var minimumPriceLabel: UILabel!
     
-    @IBOutlet var maximumPriceView: UIView!
-    @IBOutlet var maximumPriceLabel: UILabel!
-    @IBOutlet var tableView: ATTableView!
+    @IBOutlet weak var maximumPriceView: UIView!
+    @IBOutlet weak var maximumPriceLabel: UILabel!
+    @IBOutlet weak var tableView: ATTableView!
     
     // MARK: - Variables
     

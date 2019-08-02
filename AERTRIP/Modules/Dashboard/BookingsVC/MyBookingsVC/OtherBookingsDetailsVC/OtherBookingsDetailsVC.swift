@@ -29,8 +29,8 @@ class OtherBookingsDetailsVC: BaseVC {
     
     // MARK: ===========
     
-    @IBOutlet var topNavBar: TopNavigationView!
-    @IBOutlet var dataTableView: ATTableView! {
+    @IBOutlet weak var topNavBar: TopNavigationView!
+    @IBOutlet weak var dataTableView: ATTableView! {
         didSet {
             self.dataTableView.estimatedRowHeight = 100.0
             self.dataTableView.rowHeight = UITableView.automaticDimension
@@ -40,7 +40,7 @@ class OtherBookingsDetailsVC: BaseVC {
         }
     }
     
-    @IBOutlet var topNavBarHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topNavBarHeightConstraint: NSLayoutConstraint!
     
     // MARK: - LifeCycle
     

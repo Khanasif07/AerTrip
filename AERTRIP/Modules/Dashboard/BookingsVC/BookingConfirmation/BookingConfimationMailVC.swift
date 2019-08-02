@@ -13,17 +13,17 @@ import UIKit
 class BookingConfimationMailVC: BaseVC {
     // MARK: - IB Outlet
     
-    @IBOutlet var topNavigationView: TopNavigationView!
-    @IBOutlet var toLabel: UILabel!
-    @IBOutlet var toMailTextView: ATEmailSelectorTextView!
-    @IBOutlet var addEmailButton: UIButton!
-    @IBOutlet var infoLabel: UILabel!
+    @IBOutlet weak var topNavigationView: TopNavigationView!
+    @IBOutlet weak var toLabel: UILabel!
+    @IBOutlet weak var toMailTextView: ATEmailSelectorTextView!
+    @IBOutlet weak var addEmailButton: UIButton!
+    @IBOutlet weak var infoLabel: UILabel!
     
-    @IBOutlet var toEmailTextViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var toEmailViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var emailTextViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var toEmailTextViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var toEmailViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var emailTextViewBottomConstraint: NSLayoutConstraint!
     
-    @IBOutlet var bottomView: UIView!
+    @IBOutlet weak var bottomView: UIView!
     
     // MARK: - Properties
     let viewModel  = BookingConfirmationMailVM()

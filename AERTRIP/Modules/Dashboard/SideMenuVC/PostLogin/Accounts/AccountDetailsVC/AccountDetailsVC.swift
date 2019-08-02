@@ -28,7 +28,7 @@ class AccountDetailsVC: BaseVC {
     @IBOutlet weak var balanceTextLabel: UILabel!
     @IBOutlet weak var balanceAmountLabel: UILabel!
     @IBOutlet weak var tableView: ATTableView!
-    @IBOutlet var searchContainerView: UIView!
+    @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var blankSpaceView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
     @IBOutlet weak var searchBar: ATSearchBar!
@@ -42,7 +42,7 @@ class AccountDetailsVC: BaseVC {
     @IBOutlet weak var ladgerDummySearchView: UIView!
     @IBOutlet weak var ladgerDummySearchBar: ATSearchBar!
     
-    @IBOutlet var openingDetailContainerView: UIView!
+    @IBOutlet weak var openingDetailContainerView: UIView!
     @IBOutlet weak var openingBalanceTitleLabel: UILabel!
     @IBOutlet weak var openingBalanceDateLabel: UILabel!
     @IBOutlet weak var openingBalanceAmountLabel: UILabel!

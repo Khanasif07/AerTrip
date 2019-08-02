@@ -17,8 +17,8 @@ class SelectTripVC: BaseVC {
     
     // MARK: -
     
-    @IBOutlet var topNavView: TopNavigationView!
-    @IBOutlet var tableView: UITableView! {
+    @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.dataSource = self
             tableView.delegate = self
@@ -28,8 +28,8 @@ class SelectTripVC: BaseVC {
         }
     }
     
-    @IBOutlet var creatNewContainerView: UIView!
-    @IBOutlet var creatNewButton: UIButton!
+    @IBOutlet weak var creatNewContainerView: UIView!
+    @IBOutlet weak var creatNewButton: UIButton!
     
     // MARK: - Properties
     

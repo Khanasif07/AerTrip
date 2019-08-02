@@ -9,7 +9,7 @@
 import UIKit
 
 class TravellerListTableViewSectionView: UITableViewHeaderFooterView {
-    @IBOutlet var headerLabel: UILabel!
+    @IBOutlet weak var headerLabel: UILabel!
 
     func configureCell(_ title: String) {
         headerLabel.text = title.capitalizedFirst()

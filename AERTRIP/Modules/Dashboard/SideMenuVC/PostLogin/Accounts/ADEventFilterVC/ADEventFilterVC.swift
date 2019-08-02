@@ -22,15 +22,15 @@ class ADEventFilterVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBOutlet var topNavBar: TopNavigationView!{
+    @IBOutlet weak var topNavBar: TopNavigationView!{
         didSet {
             self.topNavBar.delegate = self
         }
     }
-    @IBOutlet var childContainerView: UIView!
-    @IBOutlet var mainContainerViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet var mainContainerView: UIView!
-    @IBOutlet var navigationViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var childContainerView: UIView!
+    @IBOutlet weak var mainContainerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mainContainerView: UIView!
+    @IBOutlet weak var navigationViewTopConstraint: NSLayoutConstraint!
     
     //MARK:- Properties
     //MARK:- Public

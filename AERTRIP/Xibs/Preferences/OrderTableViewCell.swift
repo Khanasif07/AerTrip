@@ -11,9 +11,9 @@ import UIKit
 class OrderTableViewCell: UITableViewCell {
     // MARK: - IB Oultets
     
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var checkIconImageView: UIImageView!
-    @IBOutlet var separatorView: ATDividerView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var checkIconImageView: UIImageView!
+    @IBOutlet weak var separatorView: ATDividerView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

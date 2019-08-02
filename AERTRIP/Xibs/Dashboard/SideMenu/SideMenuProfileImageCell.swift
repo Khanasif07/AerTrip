@@ -28,7 +28,7 @@ class SideMenuProfileImageCell: UITableViewCell {
         super.layoutSubviews()
         
         profileImageView.layer.cornerRadius = profileImageView.height / 2.0
-        profileImageView.layer.borderWidth = 3.0
+        profileImageView.layer.borderWidth = 2.0
         profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
     }
     

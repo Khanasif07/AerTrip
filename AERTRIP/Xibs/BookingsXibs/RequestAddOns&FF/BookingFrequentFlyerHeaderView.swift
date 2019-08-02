@@ -11,10 +11,10 @@ import UIKit
 class BookingFrequentFlyerHeaderView: UITableViewHeaderFooterView {
     // MARK: - IB Outlets
     
-    @IBOutlet var profileImageView: UIImageView!
-    @IBOutlet var passengerNameLabel: UILabel!
-    @IBOutlet var dividerView: UIView!
-    @IBOutlet var frequentFlyerLabel: UILabel!
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var passengerNameLabel: UILabel!
+    @IBOutlet weak var dividerView: UIView!
+    @IBOutlet weak var frequentFlyerLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -45,8 +45,8 @@ class SideMenuVC: BaseVC {
     
     // MARK: -
     
-    @IBOutlet var sideMenuTableView: ATTableView!
-    @IBOutlet var socialOptionView: UIView!
+    @IBOutlet weak var sideMenuTableView: ATTableView!
+    @IBOutlet weak var socialOptionView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,7 +111,7 @@ class SideMenuVC: BaseVC {
     func getProfileView() -> SlideMenuProfileImageHeaderView {
         //add the profile view only if user is logged in
         let view = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
-        view.profileImageView.layer.borderWidth = 3.0
+        view.currentlyUsingAs = .sideMenu
         view.backgroundColor = AppColors.clear
         self.updateProfileView(view: view)
         

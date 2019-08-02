@@ -32,7 +32,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     @IBOutlet weak var profileContainerView: UIView!
     @IBOutlet weak var dividerView: ATDividerView!
     
-    @IBOutlet var profileImageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var profileImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var profileImageAndNameSpace: NSLayoutConstraint!
     @IBOutlet weak var userNameHeightLabel: NSLayoutConstraint!
     @IBOutlet weak var familyButtonBottomConstraint: NSLayoutConstraint!
@@ -100,14 +100,11 @@ class SlideMenuProfileImageHeaderView: UIView {
         addBlurToImage()
         doInitialSetup()
         
-//        delay(seconds: 0.3) { [weak self] in
-            self.addTapGesture()
-//        }
+        self.addTapGesture()
     }
 
     func addBlurToImage() {
         if !UIAccessibility.isReduceTransparencyEnabled {
-//            self.backgroundColor = .clear
             
             let blurEffect = UIBlurEffect(style: .light)
             blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -116,8 +113,6 @@ class SlideMenuProfileImageHeaderView: UIView {
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             
             backgroundImageView.addSubview(blurEffectView)
-        } else {
-//            self.backgroundColor = .black
         }
     }
     
@@ -175,7 +170,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         self.userNameHeightLabel.constant = 25.0
         self.emailAndContactBottomConstraint.constant = -10.0
         
-        profileImageView.layer.borderWidth = 3.0
+        profileImageView.layer.borderWidth = 2.0
         
         self.userNameLabel.font = AppFonts.Regular.withSize(20.0)
         

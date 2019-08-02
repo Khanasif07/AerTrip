@@ -11,9 +11,9 @@ import UIKit
 class CurrencyOptionCell: UITableViewCell {
     // MARK: - IB Outlets
     
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var collectionView: UICollectionView!
-    @IBOutlet var infoLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var infoLabel: UILabel!
     
     // MARK: - Properties
     

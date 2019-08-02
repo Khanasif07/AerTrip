@@ -18,8 +18,8 @@ enum BookingCommonActionUsingFor {
 class BookingCommonActionTableViewCell: ATTableViewCell {
     // MARK: - IB Outlet
     
-    @IBOutlet var actionButton: UIButton!
-    @IBOutlet var topBackgroundView: UIView!
+    @IBOutlet weak var actionButton: UIButton!
+    @IBOutlet weak var topBackgroundView: UIView!
     
     // MARK: - Variables
     

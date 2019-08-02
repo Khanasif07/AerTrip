@@ -14,7 +14,7 @@ class FavouriteHotelsVC: BaseVC {
     //MARK:-
 
     @IBOutlet weak var dataContainerView: UIView!
-    @IBOutlet var shimmerView: UIView!
+    @IBOutlet weak var shimmerView: UIView!
     @IBOutlet weak var topNavView: TopNavigationView!
     
     

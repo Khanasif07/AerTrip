@@ -18,13 +18,13 @@ protocol EditProfileTwoPartTableViewCellDelegate: class {
 class EditProfileTwoPartTableViewCell: UITableViewCell {
     // MARK: - IB Outlets
     
-    @IBOutlet var leftView: UIView!
-    @IBOutlet var leftTitleLabel: UILabel!
-    @IBOutlet var blackDownImageView: UIImageView!
-    @IBOutlet var leftSeparatorView: UIView!
-    @IBOutlet var rightViewTextField: UITextField!
-    @IBOutlet var rightSeparatorView: ATDividerView!
-    @IBOutlet var deleteButton: UIButton!
+    @IBOutlet weak var leftView: UIView!
+    @IBOutlet weak var leftTitleLabel: UILabel!
+    @IBOutlet weak var blackDownImageView: UIImageView!
+    @IBOutlet weak var leftSeparatorView: UIView!
+    @IBOutlet weak var rightViewTextField: UITextField!
+    @IBOutlet weak var rightSeparatorView: ATDividerView!
+    @IBOutlet weak var deleteButton: UIButton!
     
     // MARK: - Variables
     

@@ -11,10 +11,10 @@ import UIKit
 class RangeVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var searchResultRangeLabel: UILabel!
-    @IBOutlet var rangeView: UIView!
-    @IBOutlet var rangeLabel: UILabel!
-    @IBOutlet var stepSlider: StepSlider!
+    @IBOutlet weak var searchResultRangeLabel: UILabel!
+    @IBOutlet weak var rangeView: UIView!
+    @IBOutlet weak var rangeLabel: UILabel!
+    @IBOutlet weak var stepSlider: StepSlider!
     
     // MARK: - View Life cycle
     
