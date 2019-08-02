@@ -454,13 +454,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already Registered? " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VeF-rv-nfP">
-                                <rect key="frame" x="62" y="620.5" width="157.5" height="20.5"/>
+                                <rect key="frame" x="69" y="620.5" width="157.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qhT-JY-mA5">
-                                <rect key="frame" x="224.5" y="616" width="73" height="30"/>
+                                <rect key="frame" x="231.5" y="616" width="73" height="30"/>
                                 <state key="normal" title="Login here"/>
                                 <connections>
                                     <action selector="loginHereButtonAction:" destination="DAZ-Gc-qAH" eventType="touchUpInside" id="ch0-M5-Ysw"/>
@@ -482,7 +482,7 @@
                             <constraint firstItem="DsZ-Jg-wIe" firstAttribute="centerX" secondItem="vBZ-BY-zXq" secondAttribute="centerX" id="ZdX-M4-jjX"/>
                             <constraint firstItem="DsZ-Jg-wIe" firstAttribute="top" secondItem="vBZ-BY-zXq" secondAttribute="bottom" constant="30" id="jH1-9l-T7M"/>
                             <constraint firstItem="hGy-N8-L8G" firstAttribute="trailing" secondItem="vBZ-BY-zXq" secondAttribute="trailing" constant="16" id="myN-UT-vj8"/>
-                            <constraint firstItem="VeF-rv-nfP" firstAttribute="centerX" secondItem="hGy-N8-L8G" secondAttribute="centerX" multiplier="0.75" id="pB2-pt-zhn"/>
+                            <constraint firstItem="VeF-rv-nfP" firstAttribute="centerX" secondItem="hGy-N8-L8G" secondAttribute="centerX" multiplier="0.787" id="pB2-pt-zhn"/>
                             <constraint firstItem="knd-x8-mi8" firstAttribute="leading" secondItem="hGy-N8-L8G" secondAttribute="leading" constant="20" id="pH4-H8-Hck"/>
                             <constraint firstItem="hGy-N8-L8G" firstAttribute="trailing" secondItem="wJL-Wd-UP8" secondAttribute="trailing" id="pZC-Pt-BGZ"/>
                             <constraint firstItem="vBZ-BY-zXq" firstAttribute="leading" secondItem="hGy-N8-L8G" secondAttribute="leading" constant="16" id="pp4-nq-WBE"/>
@@ -1146,29 +1146,29 @@ activation link on</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoImage" translatesAutoresizingMaskIntoConstraints="NO" id="whD-cN-46r">
-                                <rect key="frame" x="179.5" y="64" width="16" height="16"/>
+                                <rect key="frame" x="173.5" y="64" width="28" height="25"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Successful" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="soF-hB-etE">
-                                <rect key="frame" x="20" y="96" width="335" height="45.5"/>
+                                <rect key="frame" x="20" y="105" width="335" height="45.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="38"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenOvLogin" translatesAutoresizingMaskIntoConstraints="NO" id="BGA-dP-08B">
-                                <rect key="frame" x="156.5" y="167.5" width="62" height="62"/>
+                                <rect key="frame" x="156.5" y="176.5" width="62" height="62"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="62" id="e3z-rs-C8d"/>
                                     <constraint firstAttribute="width" constant="62" id="p2b-aD-TJo"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your password has been reset successfully." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHv-9D-IBk">
-                                <rect key="frame" x="20" y="250.5" width="335" height="20.5"/>
+                                <rect key="frame" x="20" y="259.5" width="335" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ztg-3b-vAo" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="112.5" y="297" width="150" height="50"/>
+                                <rect key="frame" x="112.5" y="306" width="150" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="TR8-sp-Oj8"/>
                                     <constraint firstAttribute="height" constant="50" id="bNH-z4-vc1"/>
@@ -1181,7 +1181,7 @@ activation link on</string>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenCheckMark" translatesAutoresizingMaskIntoConstraints="NO" id="ct2-Nn-Ece">
-                                <rect key="frame" x="179.5" y="190.5" width="16" height="16"/>
+                                <rect key="frame" x="172" y="195.5" width="31.5" height="24.5"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
