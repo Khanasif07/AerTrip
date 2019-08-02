@@ -38,26 +38,9 @@ class LoginVC: BaseVC {
         
         // Do any additional setup after loading the view.
         self.initialSetups()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         if self.viewModel.isFirstTime {
-            
             self.setupInitialAnimation()
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if self.viewModel.isFirstTime {
-            
             self.setupViewDidLoadAnimation()
         }
     }
