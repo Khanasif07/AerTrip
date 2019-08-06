@@ -149,7 +149,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
             
-        case LocalizedString.PassportDetails.localized:
+        case LocalizedString.PassportDetails.localized: // passport details
             if indexPath.row == 2 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: twoPartEditTableViewCellIdentifier, for: indexPath) as? TwoPartEditTableViewCell else { fatalError("TwoPartEditTableViewCell not found") }
                 
@@ -168,10 +168,13 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: textEditableCellIdentifier, for: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
                 cell.editableTextField.delegate = self
                 cell.delegate = self
+                cell.editableTextField.isFloatingField = false
                 cell.editableTextField.isEnabled = indexPath.row == 0
                 cell.downArrowImageView.isHidden = indexPath.row == 0
-                cell.editableTextField.placeholder = LocalizedString.passportNo.localized
-                
+                if indexPath.row == 0 {
+                    cell.editableTextField.placeholder = LocalizedString.passportNo.localized
+                }
+                cell.editableTextField.lineView.isHidden = true
                 //index 0: passport no, index 1: passport country
                 cell.configureCell(passportDetaitTitle[indexPath.row], (indexPath.row == 0) ? viewModel.passportNumber : viewModel.passportCountryName)
 
@@ -211,6 +214,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 addNotesCell.addNoteTextView.placeholder = LocalizedString.AddNotes.localized
                 addNotesCell.delegate = self
+                addNotesCell.sepratorView.isHidden = true
                 addNotesCell.configureCell(viewModel.notes)
                 return addNotesCell
             } else {
@@ -227,6 +231,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 //index 0: dob, index 1: doa
                 cell.configureCell(moreInformation[indexPath.row].rawValue,  (indexPath.row == 0) ? viewModel.dob : viewModel.doa)
                 cell.separatorView.isHidden = (indexPath.row + 1 == moreInformation.count) ? true : false
+                cell.editableTextField.lineView.isHidden = true
                 return cell
             }
             
@@ -270,6 +275,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: textEditableCellIdentifier, for: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
                 cell.editableTextField.isEnabled = false
+                cell.editableTextField.lineView.isHidden = true
                 cell.downArrowImageView.isHidden = false
                 cell.configureCell(flightPreferencesTitle[indexPath.row], indexPath.row == 0 ? (viewModel.seat.isEmpty ? LocalizedString.Select.localized : viewModel.seat) : (viewModel.meal.isEmpty ? LocalizedString.Select.localized : viewModel.meal))
                 return cell

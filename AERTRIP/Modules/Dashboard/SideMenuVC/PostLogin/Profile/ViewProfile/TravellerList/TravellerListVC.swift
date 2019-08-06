@@ -105,7 +105,7 @@ class TravellerListVC: BaseVC {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        CoreDataManager.shared.deleteCompleteDB()
+       // CoreDataManager.shared.deleteCompleteDB()
     }
     
     override func bindViewModel() {
@@ -294,7 +294,7 @@ class TravellerListVC: BaseVC {
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "label", ascending: false)]
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "label", cacheName: nil) as? NSFetchedResultsController<TravellerData>
             if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
-                fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "firstName", ascending: false))
+                fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "firstName", ascending: true))
                 
             } else {
                 fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "firstName", ascending: true))

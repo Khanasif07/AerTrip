@@ -383,8 +383,8 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
                 viewProfileMultiDetailcell.secondTitleLabel.isHidden = true
                 viewProfileMultiDetailcell.configureCellForFrequentFlyer(indexPath, frequentFlyer[indexPath.row - flightDetails.count].logoUrl, frequentFlyer[indexPath.row - flightDetails.count].airlineName, frequentFlyer[indexPath.row - flightDetails.count].number)
                 
-                viewProfileMultiDetailcell.separatorLeadingConstraint.constant = (indexPath.row < (flightDetails.count + frequentFlyer.count)) ? 0.0 : 16.0
-                viewProfileMultiDetailcell.separatorView.isHidden = false
+                viewProfileMultiDetailcell.separatorLeadingConstraint.constant = (indexPath.row < (flightDetails.count + frequentFlyer.count)) ? 16.0 : 0
+                viewProfileMultiDetailcell.separatorView.isHidden = (indexPath.row == (flightDetails.count + frequentFlyer.count) - 1) ? true : false
                 return viewProfileMultiDetailcell
                 
             }

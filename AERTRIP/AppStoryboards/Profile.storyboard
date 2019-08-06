@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -426,8 +426,15 @@
                                     <constraint firstAttribute="trailing" secondItem="ZOq-Vi-R1h" secondAttribute="trailing" id="qfL-C3-yxL"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="adq-2r-mZf" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="120" width="375" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="dye-Nx-Fl2"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3DL-GV-ofv" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
+                                <rect key="frame" x="0.0" y="121" width="375" height="546"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="iFK-OT-DcT" id="x7T-mg-3Mq"/>
@@ -437,12 +444,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="adq-2r-mZf" firstAttribute="trailing" secondItem="jVu-qX-qP1" secondAttribute="trailing" id="B4V-Og-g7N"/>
                             <constraint firstItem="jVu-qX-qP1" firstAttribute="leading" secondItem="8cg-b7-faI" secondAttribute="leading" id="K6s-v8-TFy"/>
+                            <constraint firstItem="adq-2r-mZf" firstAttribute="leading" secondItem="jVu-qX-qP1" secondAttribute="leading" id="RUK-P4-XEB"/>
                             <constraint firstAttribute="bottom" secondItem="3DL-GV-ofv" secondAttribute="bottom" id="cky-re-sDI"/>
-                            <constraint firstItem="3DL-GV-ofv" firstAttribute="top" secondItem="jVu-qX-qP1" secondAttribute="bottom" id="d8C-cw-Ygp"/>
+                            <constraint firstItem="3DL-GV-ofv" firstAttribute="top" secondItem="adq-2r-mZf" secondAttribute="bottom" id="f4v-C4-7bb"/>
                             <constraint firstItem="jVu-qX-qP1" firstAttribute="top" secondItem="8cg-b7-faI" secondAttribute="top" id="iUd-se-Lcg"/>
                             <constraint firstItem="jVu-qX-qP1" firstAttribute="trailing" secondItem="8cg-b7-faI" secondAttribute="trailing" id="iY0-MZ-hhX"/>
                             <constraint firstItem="3DL-GV-ofv" firstAttribute="leading" secondItem="8cg-b7-faI" secondAttribute="leading" id="kLf-vb-fKu"/>
+                            <constraint firstItem="adq-2r-mZf" firstAttribute="top" secondItem="jVu-qX-qP1" secondAttribute="bottom" id="mQ1-aN-Ydl"/>
                             <constraint firstItem="3DL-GV-ofv" firstAttribute="trailing" secondItem="8cg-b7-faI" secondAttribute="trailing" id="ydB-px-rby"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8cg-b7-faI"/>

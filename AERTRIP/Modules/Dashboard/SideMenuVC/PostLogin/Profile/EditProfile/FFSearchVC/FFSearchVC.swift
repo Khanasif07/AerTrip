@@ -54,6 +54,12 @@ class FFSearchVC: BaseVC {
         registerXib()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.statusBarStyle = .lightContent
+    }
+    
     //
     
     override func bindViewModel() {
