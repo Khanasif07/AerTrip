@@ -129,9 +129,11 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.connectButton.setTitle(LocalizedString.ConnectWithFB.localized, for: .selected)
         self.connectButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.connectButton.setTitleColor(AppColors.themeWhite, for: .selected)
+        self.connectButton.setTitleFont(font: AppFonts.Regular.withSize(16.0), for: .normal)
         self.connectButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .normal)
         self.connectButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .selected)
         self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
+        self.connectButton.shadowColor = AppColors.themeBlack
         self.connectButton.isSocial = true
     }
     
@@ -143,9 +145,11 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.connectButton.setTitle(LocalizedString.ConnectWithGoogle.localized, for: .selected)
         self.connectButton.setTitleColor(AppColors.themeBlack, for: .normal)
         self.connectButton.setTitleColor(AppColors.themeBlack, for: .selected)
+        self.connectButton.setTitleFont(font: AppFonts.Regular.withSize(16.0), for: .normal)
         self.connectButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .normal)
         self.connectButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .selected)
         self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
+        self.connectButton.shadowColor = AppColors.themeBlack
         self.connectButton.isSocial = true
     }
     
@@ -157,9 +161,11 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.connectButton.setTitle(LocalizedString.ConnectWithLinkedIn.localized, for: .selected)
         self.connectButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.connectButton.setTitleColor(AppColors.themeWhite, for: .selected)
+        self.connectButton.setTitleFont(font: AppFonts.Regular.withSize(16.0), for: .normal)
         self.connectButton.setImage(#imageLiteral(resourceName: "linkedInIcon").withRenderingMode(.alwaysOriginal), for: .normal)
         self.connectButton.setImage(#imageLiteral(resourceName: "linkedInIcon").withRenderingMode(.alwaysOriginal), for: .selected)
         self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
+        self.connectButton.shadowColor = AppColors.themeBlack
         self.connectButton.isSocial = true
     }
 }

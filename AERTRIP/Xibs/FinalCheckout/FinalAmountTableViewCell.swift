@@ -11,8 +11,8 @@ import UIKit
 class FinalAmountTableViewCell: UITableViewCell {
     // MARK: - IB Outlets
     
-    @IBOutlet var payableWalletMessageLabel: UILabel!
-    @IBOutlet var netEffectiveFareLabel: UILabel!
+    @IBOutlet weak var payableWalletMessageLabel: UILabel!
+    @IBOutlet weak var netEffectiveFareLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

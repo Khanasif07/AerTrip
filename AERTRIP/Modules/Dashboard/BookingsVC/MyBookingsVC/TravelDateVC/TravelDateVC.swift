@@ -26,21 +26,21 @@ class TravelDateVC: BaseVC {
     
     // Mark:- IBOutlets
     //================
-    @IBOutlet var mainContainerView: UIView!
-    @IBOutlet var fromView: UIView!
-    @IBOutlet var fromDateTitleLabel: UILabel!
-    @IBOutlet var fromDateLabel: UILabel!
-    @IBOutlet var firstDividerView: ATDividerView!
-    @IBOutlet var fromDatePickerContainer: UIView!
+    @IBOutlet weak var mainContainerView: UIView!
+    @IBOutlet weak var fromView: UIView!
+    @IBOutlet weak var fromDateTitleLabel: UILabel!
+    @IBOutlet weak var fromDateLabel: UILabel!
+    @IBOutlet weak var firstDividerView: ATDividerView!
+    @IBOutlet weak var fromDatePickerContainer: UIView!
     
-    @IBOutlet var toView: UIView!
-    @IBOutlet var toDateTitleLabel: UILabel!
-    @IBOutlet var toDateLabel: UILabel!
-    @IBOutlet var secondDividerView: ATDividerView!
-    @IBOutlet var thirdDividerView: ATDividerView!
-    @IBOutlet var toDatePickerContainer: UIView!
-    @IBOutlet var fromViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var toViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var toView: UIView!
+    @IBOutlet weak var toDateTitleLabel: UILabel!
+    @IBOutlet weak var toDateLabel: UILabel!
+    @IBOutlet weak var secondDividerView: ATDividerView!
+    @IBOutlet weak var thirdDividerView: ATDividerView!
+    @IBOutlet weak var toDatePickerContainer: UIView!
+    @IBOutlet weak var fromViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var toViewHeightConstraint: NSLayoutConstraint!
     
     var fromDatePicker: UIDatePicker!
     var toDatePicker: UIDatePicker!

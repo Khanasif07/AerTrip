@@ -13,10 +13,10 @@ protocol HotelFareSectionHeaderDelegate: class{
 }
 
 class HotelFareSectionHeader: UITableViewHeaderFooterView {
-    @IBOutlet var grossFareTitleLabel: UILabel!
-    @IBOutlet var discountsTitleLabel: UILabel!
-    @IBOutlet var grossPriceLabel: UILabel!
-    @IBOutlet var discountPriceLabel: UILabel!
+    @IBOutlet weak var grossFareTitleLabel: UILabel!
+    @IBOutlet weak var discountsTitleLabel: UILabel!
+    @IBOutlet weak var grossPriceLabel: UILabel!
+    @IBOutlet weak var discountPriceLabel: UILabel!
     @IBOutlet weak var topBackgroundView: UIView!
     
     @IBOutlet weak var arrowButton: UIButton!

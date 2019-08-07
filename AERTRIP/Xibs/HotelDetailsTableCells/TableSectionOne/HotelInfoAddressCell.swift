@@ -14,19 +14,19 @@ class HotelInfoAddressCell: UITableViewCell {
     
     // Mark:- IBOutlets
     //================
-    @IBOutlet var containerView: UIView!
-    @IBOutlet var addressLabel: UILabel!
-    @IBOutlet var addressInfoTextView: UITextView! {
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var addressInfoTextView: UITextView! {
         didSet {
             self.addressInfoTextView.isUserInteractionEnabled = false
         }
     }
     
-    @IBOutlet var deviderView: UIView!
-    @IBOutlet var moreBtnOutlet: UIButton!
-    @IBOutlet var moreBtnContainerView: UIView!
-    @IBOutlet var gradientView: UIView!
-    @IBOutlet var infoTextViewTrailingConstraint: NSLayoutConstraint! {
+    @IBOutlet weak var deviderView: UIView!
+    @IBOutlet weak var moreBtnOutlet: UIButton!
+    @IBOutlet weak var moreBtnContainerView: UIView!
+    @IBOutlet weak var gradientView: UIView!
+    @IBOutlet weak var infoTextViewTrailingConstraint: NSLayoutConstraint! {
         didSet {
             self.infoTextViewTrailingConstraint.constant = 0.0
         }

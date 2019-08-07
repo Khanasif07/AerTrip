@@ -22,12 +22,12 @@ class AccountOfflineDepositVC: BaseVC {
     }
     
     //MARK: - IB Outlet
-    @IBOutlet var topNavView: TopNavigationView!
-    @IBOutlet var checkOutTableView: ATTableView!
-    @IBOutlet var payButton: UIButton!
-    @IBOutlet var loaderContainer: UIView!
-    @IBOutlet var indicatorView: UIActivityIndicatorView!
-    @IBOutlet var paymentButtonContainerView: UIView!
+    @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var checkOutTableView: ATTableView!
+    @IBOutlet weak var payButton: UIButton!
+    @IBOutlet weak var loaderContainer: UIView!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var paymentButtonContainerView: UIView!
     
     // MARK: - Properties
     var currentUsingAs: UsingForPayBy = UsingForPayBy.chequeOrDD

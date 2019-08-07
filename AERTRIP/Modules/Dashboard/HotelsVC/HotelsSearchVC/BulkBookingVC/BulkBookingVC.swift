@@ -134,9 +134,6 @@ class BulkBookingVC: BaseVC {
     }
     
     override func setupFonts() {
-        self.whereLabel.font = ((self.cityNameLabel.text ?? "").isEmpty && (self.stateNameLabel.text ?? "").isEmpty ) ? AppFonts.Regular.withSize(20.0) : AppFonts.Regular.withSize(16.0)
-        self.cityNameLabel.font = (self.cityNameLabel.text ?? "").isEmpty ? AppFonts.SemiBold.withSize(26.0) : AppFonts.SemiBold.withSize(20.0)
-        self.stateNameLabel.font = AppFonts.Regular.withSize(16.0)
         self.starRatingLabel.font = AppFonts.Regular.withSize(16.0)
         self.allStarLabel.font = AppFonts.Regular.withSize(14.0)
         self.oneStarLabel.font = AppFonts.Regular.withSize(16.0)
@@ -204,6 +201,8 @@ class BulkBookingVC: BaseVC {
         self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
         self.bottomViewHeightConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
         
+        self.mainContainerView.roundTopCorners(cornerRadius: 15.0)
+
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.BulkBooking.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
         self.topNavView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
@@ -216,8 +215,8 @@ class BulkBookingVC: BaseVC {
         self.rectangleView.cornerRadius = 15.0
         self.rectangleView.layer.masksToBounds = true
         self.configureCheckInOutView()
-        self.cityNameLabel.isHidden = true
-        self.stateNameLabel.isHidden = true
+        
+        self.setWhere(cityName: "", stateName: "")
         self.hide(animated: false)
         delay(seconds: 0.1) { [weak self] in
             self?.show(animated: true)
@@ -244,10 +243,7 @@ class BulkBookingVC: BaseVC {
         self.viewModel.adultsCount = 10
         self.viewModel.childrenCounts = 0
         
-        self.cityNameLabel.text = oldData.cityName
-        self.stateNameLabel.text = oldData.stateName
-        self.cityNameLabel.isHidden = (self.cityNameLabel.text ?? "").isEmpty
-        self.stateNameLabel.isHidden = (self.stateNameLabel.text ?? "").isEmpty
+        self.setWhere(cityName: oldData.cityName, stateName: oldData.stateName)
         
         self.checkInOutView?.setDates(fromData: oldData)
         
@@ -259,6 +255,17 @@ class BulkBookingVC: BaseVC {
         
         self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.ratingCount, maxCount: 5)
         
+    }
+    
+    private func setWhere(cityName: String, stateName: String) {
+        self.whereLabel.font = (cityName.isEmpty && stateName.isEmpty ) ? AppFonts.Regular.withSize(20.0) : AppFonts.Regular.withSize(16.0)
+        self.cityNameLabel.font = cityName.isEmpty ? AppFonts.SemiBold.withSize(26.0) : AppFonts.SemiBold.withSize(20.0)
+        self.stateNameLabel.font = AppFonts.Regular.withSize(16.0)
+
+        self.cityNameLabel.text = cityName
+        self.stateNameLabel.text = stateName
+        self.cityNameLabel.isHidden = cityName.isEmpty
+        self.stateNameLabel.isHidden = stateName.isEmpty
     }
     
     ///ConfigureCheckInOutView
@@ -373,7 +380,7 @@ class BulkBookingVC: BaseVC {
                 }
                 else {
                     if let s = start, let e = end {
-                        final += (s != e) ? "\(s)-\(e), " : "\(s), "
+                        final += (s != e) ? "\(s) - \(e), " : "\(s), "
                         start = nil
                         end = nil
                         prev = nil
@@ -392,7 +399,7 @@ class BulkBookingVC: BaseVC {
         }
         
         if let s = start, let e = end {
-            final += (s != e) ? "\(s)-\(e), " : "\(s), "
+            final += (s != e) ? "\(s) - \(e), " : "\(s), "
             start = nil
             end = nil
         }
@@ -504,21 +511,21 @@ extension BulkBookingVC: TopNavigationViewDelegate {
 extension BulkBookingVC: SelectDestinationVCDelegate {
     func didSelectedDestination(hotel: SearchedDestination) {
         printDebug("selected: \(hotel)")
+        var city = ""
         if !hotel.city.isEmpty {
-            self.cityNameLabel.text = hotel.city
+            city = hotel.city
         } else {
             let newValue = hotel.value.components(separatedBy: ",")
             printDebug(newValue.first)
-            self.cityNameLabel.text = newValue.first ?? ""
+            city = newValue.first ?? ""
         }
-        self.whereLabel.font = AppFonts.Regular.withSize(16.0)
+
         var splittedStringArray = hotel.value.components(separatedBy: ",")
         splittedStringArray.removeFirst()
         let stateName = splittedStringArray.joined(separator: ",")
-        self.stateNameLabel.text = stateName//hotel.value
-//        self.stateNameLabel.text = hotel.value
-        self.cityNameLabel.isHidden = (self.cityNameLabel.text ?? "").isEmpty
-        self.stateNameLabel.isHidden = (self.stateNameLabel.text ?? "").isEmpty
+        
+        self.setWhere(cityName: city, stateName: stateName)
+        
         self.dataForApi(hotel: hotel)
     }
 }

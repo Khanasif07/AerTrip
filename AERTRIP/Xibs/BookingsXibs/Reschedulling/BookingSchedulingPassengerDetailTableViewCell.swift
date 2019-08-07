@@ -9,8 +9,8 @@
 import UIKit
 
 class BookingSchedulingPassengerDetailTableViewCell: ATTableViewCell {
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var titleValueLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleValueLabel: UILabel!
     
     override func setupFonts() {
         self.titleLabel.font = AppFonts.Regular.withSize(16.0)

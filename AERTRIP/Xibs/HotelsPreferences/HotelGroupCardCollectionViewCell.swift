@@ -10,18 +10,18 @@ import UIKit
 import FlexiblePageControl
 
 class HotelGroupCardCollectionViewCell: UICollectionViewCell {
-    @IBOutlet var bgView: UIView!
-    @IBOutlet var hotelImageView: UIImageView!
-    @IBOutlet var saveButton: UIButton!
-    @IBOutlet var hotelNameLabel: UILabel!
-    @IBOutlet var discountedPriceLabel: UILabel!
-    @IBOutlet var actualPriceLabel: UILabel!
-    @IBOutlet var starRatingView: FloatRatingView!
-    @IBOutlet var tripLogoImage: UIImageView!
-    @IBOutlet var greenCircleRatingView: FloatRatingView!
-    @IBOutlet var gradientView: UIView!
-    @IBOutlet var scrollView: UIScrollView!
-    @IBOutlet var pageControl: FlexiblePageControl!
+    @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var hotelImageView: UIImageView!
+    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var hotelNameLabel: UILabel!
+    @IBOutlet weak var discountedPriceLabel: UILabel!
+    @IBOutlet weak var actualPriceLabel: UILabel!
+    @IBOutlet weak var starRatingView: FloatRatingView!
+    @IBOutlet weak var tripLogoImage: UIImageView!
+    @IBOutlet weak var greenCircleRatingView: FloatRatingView!
+    @IBOutlet weak var gradientView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var pageControl: FlexiblePageControl!
     @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var firstShadowCard: UIView!
@@ -89,7 +89,7 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
         self.firstShadowCard.layer.cornerRadius = 10.0
         self.firstShadowCard.layer.masksToBounds = true
         
-        self.secondShadowCard.backgroundColor = AppColors.themeDarkGreen
+        self.secondShadowCard.backgroundColor = AppColors.themeBlackGreen
         self.secondShadowCard.layer.cornerRadius = 10.0
         self.secondShadowCard.layer.masksToBounds = true
     }

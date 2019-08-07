@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -88,7 +87,7 @@
                                                                                 <rect key="frame" x="0.0" y="0.0" width="73.5" height="92"/>
                                                                                 <subviews>
                                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aerin" translatesAutoresizingMaskIntoConstraints="NO" id="hKG-lk-EnP">
-                                                                                        <rect key="frame" x="7" y="0.0" width="60.5" height="60.5"/>
+                                                                                        <rect key="frame" x="6.5" y="0.0" width="60.5" height="60.5"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" secondItem="hKG-lk-EnP" secondAttribute="height" multiplier="1:1" id="DHW-qt-SDU"/>
                                                                                         </constraints>
@@ -126,7 +125,7 @@
                                                                                 <rect key="frame" x="93.5" y="0.0" width="73.5" height="92"/>
                                                                                 <subviews>
                                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flights" translatesAutoresizingMaskIntoConstraints="NO" id="KsZ-Ga-z3J">
-                                                                                        <rect key="frame" x="7" y="0.0" width="60.5" height="60.5"/>
+                                                                                        <rect key="frame" x="6.5" y="0.0" width="60.5" height="60.5"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" secondItem="KsZ-Ga-z3J" secondAttribute="height" multiplier="1:1" id="8Hy-dr-IoG"/>
                                                                                         </constraints>
@@ -164,7 +163,7 @@
                                                                                 <rect key="frame" x="187" y="0.0" width="73.5" height="92"/>
                                                                                 <subviews>
                                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotels" translatesAutoresizingMaskIntoConstraints="NO" id="BKX-kN-nNl">
-                                                                                        <rect key="frame" x="7" y="0.0" width="60.5" height="60.5"/>
+                                                                                        <rect key="frame" x="6.5" y="0.0" width="60.5" height="60.5"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" secondItem="BKX-kN-nNl" secondAttribute="height" multiplier="1:1" id="fdI-Wu-z9g"/>
                                                                                         </constraints>
@@ -202,7 +201,7 @@
                                                                                 <rect key="frame" x="280.5" y="0.0" width="73.5" height="92"/>
                                                                                 <subviews>
                                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trips" translatesAutoresizingMaskIntoConstraints="NO" id="ncO-p1-Aoc">
-                                                                                        <rect key="frame" x="7" y="0.0" width="60.5" height="60.5"/>
+                                                                                        <rect key="frame" x="6.5" y="0.0" width="60.5" height="60.5"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" secondItem="ncO-p1-Aoc" secondAttribute="height" multiplier="1:1" id="H1h-j1-Qqa"/>
                                                                                         </constraints>
@@ -634,7 +633,7 @@ on Christmas”</string>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="GuestSideMenuHeaderCell" rowHeight="257" id="HxV-EE-KPo" customClass="GuestSideMenuHeaderCell" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="257"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HxV-EE-KPo" id="MSE-KU-n6l">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HxV-EE-KPo" id="MSE-KU-n6l">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="257"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -646,7 +645,7 @@ on Christmas”</string>
                                                     </constraints>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yod-Cf-DnY" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                                    <rect key="frame" x="56.5" y="179" width="262.5" height="50"/>
+                                                    <rect key="frame" x="54.5" y="180" width="266" height="50"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="bTS-a2-NBv"/>
@@ -656,7 +655,7 @@ on Christmas”</string>
                                                     </state>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fW6-QH-GVh" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="256" width="340" height="0.5"/>
+                                                    <rect key="frame" x="20" y="254" width="340" height="0.0"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="0.40000000000000002" id="LzN-VQ-gA8"/>
@@ -666,15 +665,15 @@ on Christmas”</string>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="fW6-QH-GVh" firstAttribute="leading" secondItem="MSE-KU-n6l" secondAttribute="leading" constant="20" id="Aah-eD-HPT"/>
-                                                <constraint firstItem="yod-Cf-DnY" firstAttribute="top" secondItem="4sr-St-Vaq" secondAttribute="bottom" id="E7S-YN-tAd"/>
+                                                <constraint firstItem="yod-Cf-DnY" firstAttribute="top" secondItem="4sr-St-Vaq" secondAttribute="bottom" constant="1" id="E7S-YN-tAd"/>
                                                 <constraint firstAttribute="trailing" secondItem="fW6-QH-GVh" secondAttribute="trailing" constant="15" id="H8U-L2-4Sb"/>
                                                 <constraint firstItem="yod-Cf-DnY" firstAttribute="centerX" secondItem="4sr-St-Vaq" secondAttribute="centerX" id="JSa-bc-5WV"/>
-                                                <constraint firstItem="fW6-QH-GVh" firstAttribute="top" secondItem="yod-Cf-DnY" secondAttribute="bottom" constant="27" id="JnX-oI-0Ua"/>
+                                                <constraint firstItem="fW6-QH-GVh" firstAttribute="top" secondItem="yod-Cf-DnY" secondAttribute="bottom" constant="24" id="JnX-oI-0Ua"/>
                                                 <constraint firstItem="4sr-St-Vaq" firstAttribute="leading" secondItem="MSE-KU-n6l" secondAttribute="leading" id="QKZ-oY-PWh"/>
                                                 <constraint firstAttribute="trailing" secondItem="4sr-St-Vaq" secondAttribute="trailing" id="RgJ-dU-EZ3"/>
                                                 <constraint firstItem="4sr-St-Vaq" firstAttribute="top" secondItem="MSE-KU-n6l" secondAttribute="top" id="Wcb-Ws-ong"/>
-                                                <constraint firstAttribute="bottom" secondItem="fW6-QH-GVh" secondAttribute="bottom" constant="0.5" id="fnk-4i-ZnD"/>
-                                                <constraint firstItem="yod-Cf-DnY" firstAttribute="width" secondItem="MSE-KU-n6l" secondAttribute="width" multiplier="0.7" id="poC-tW-X4R"/>
+                                                <constraint firstAttribute="bottom" secondItem="fW6-QH-GVh" secondAttribute="bottom" constant="8" id="fnk-4i-ZnD"/>
+                                                <constraint firstItem="yod-Cf-DnY" firstAttribute="width" secondItem="MSE-KU-n6l" secondAttribute="width" multiplier="0.71" id="poC-tW-X4R"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -695,14 +694,14 @@ on Christmas”</string>
                                                     <rect key="frame" x="20" y="0.0" width="340" height="62"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount Due" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UTm-27-Lt8">
-                                                            <rect key="frame" x="0.0" y="13" width="137" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="10" width="241.5" height="20.5"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZt-tb-ePj">
-                                                            <rect key="frame" x="0.0" y="19.5" width="100" height="44"/>
+                                                            <rect key="frame" x="0.0" y="15.5" width="100" height="44"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="FQa-U9-jkR"/>
                                                                 <constraint firstAttribute="width" constant="100" id="kc3-uS-s2O"/>
@@ -713,17 +712,17 @@ on Christmas”</string>
                                                             </state>
                                                         </button>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="z3B-zb-52K">
-                                                            <rect key="frame" x="147" y="8.5" width="193" height="45"/>
+                                                            <rect key="frame" x="251.5" y="8.5" width="88.5" height="45"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="₹ 18,99545" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K55-7N-Anf">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="193" height="22.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="88.5" height="22.5"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJu-Ck-BcL">
-                                                                    <rect key="frame" x="0.0" y="22.5" width="193" height="22.5"/>
+                                                                    <rect key="frame" x="0.0" y="22.5" width="88.5" height="22.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -739,13 +738,13 @@ on Christmas”</string>
                                                         <constraint firstAttribute="trailing" secondItem="z3B-zb-52K" secondAttribute="trailing" id="06I-dq-kwi"/>
                                                         <constraint firstItem="KZt-tb-ePj" firstAttribute="leading" secondItem="UTm-27-Lt8" secondAttribute="leading" id="GQ2-Fy-b0h"/>
                                                         <constraint firstItem="z3B-zb-52K" firstAttribute="leading" secondItem="UTm-27-Lt8" secondAttribute="trailing" constant="10" id="HMM-7h-dhQ"/>
-                                                        <constraint firstItem="UTm-27-Lt8" firstAttribute="centerY" secondItem="PGv-f2-KsG" secondAttribute="centerY" constant="-8" id="KI5-6u-qnD"/>
-                                                        <constraint firstItem="KZt-tb-ePj" firstAttribute="top" secondItem="UTm-27-Lt8" secondAttribute="bottom" constant="-14" id="YxI-Pb-iXV"/>
+                                                        <constraint firstItem="UTm-27-Lt8" firstAttribute="centerY" secondItem="PGv-f2-KsG" secondAttribute="centerY" constant="-11" id="KI5-6u-qnD"/>
+                                                        <constraint firstItem="KZt-tb-ePj" firstAttribute="top" secondItem="UTm-27-Lt8" secondAttribute="bottom" constant="-15" id="YxI-Pb-iXV"/>
                                                         <constraint firstItem="UTm-27-Lt8" firstAttribute="leading" secondItem="PGv-f2-KsG" secondAttribute="leading" id="iEF-75-ktl"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4u1-Ye-r3d" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="61" width="340" height="1"/>
+                                                    <rect key="frame" x="20" y="57" width="340" height="1"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="Hz7-BP-vUc"/>
@@ -759,7 +758,7 @@ on Christmas”</string>
                                                 <constraint firstItem="PGv-f2-KsG" firstAttribute="leading" secondItem="TmU-Fr-dt0" secondAttribute="leading" constant="20" id="FIj-HO-SA6"/>
                                                 <constraint firstAttribute="bottom" secondItem="PGv-f2-KsG" secondAttribute="bottom" id="QAC-xL-y2V"/>
                                                 <constraint firstItem="z3B-zb-52K" firstAttribute="centerY" secondItem="TmU-Fr-dt0" secondAttribute="centerY" id="jWm-Qq-sb6"/>
-                                                <constraint firstAttribute="bottom" secondItem="4u1-Ye-r3d" secondAttribute="bottom" id="kP6-Mw-HEk"/>
+                                                <constraint firstAttribute="bottom" secondItem="4u1-Ye-r3d" secondAttribute="bottom" constant="4" id="kP6-Mw-HEk"/>
                                                 <constraint firstItem="4u1-Ye-r3d" firstAttribute="trailing" secondItem="PGv-f2-KsG" secondAttribute="trailing" id="st3-fH-ZWW"/>
                                                 <constraint firstAttribute="trailing" secondItem="PGv-f2-KsG" secondAttribute="trailing" constant="15" id="uvq-wp-7aV"/>
                                             </constraints>
@@ -1018,7 +1017,7 @@ on Christmas”</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLz-uM-NAJ">
-                                <rect key="frame" x="167.5" y="223.5" width="41.5" height="25.5"/>
+                                <rect key="frame" x="167" y="223.5" width="41.5" height="25.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>

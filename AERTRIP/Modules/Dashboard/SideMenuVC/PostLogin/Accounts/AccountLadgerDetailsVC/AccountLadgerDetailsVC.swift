@@ -14,7 +14,12 @@ class AccountLadgerDetailsVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var topNavView: TopNavigationView!
-    @IBOutlet weak var tableView: ATTableView!
+    @IBOutlet weak var tableView: ATTableView! {
+        didSet {
+            tableView.delegate = self
+            tableView.dataSource = self
+        }
+    }
     
     
     //MARK:- Properties
@@ -73,10 +78,6 @@ class AccountLadgerDetailsVC: BaseVC {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        
         //after loading the data check if table view scrollable or not
 //        delay(seconds: 0.4) { [weak self] in
 //            guard let sSelf = self else {return}

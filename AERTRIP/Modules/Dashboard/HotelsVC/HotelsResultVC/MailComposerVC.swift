@@ -14,8 +14,8 @@ import ContactsUI
 class MailComposerVC: BaseVC {
     // MARK: IB Outlets
     
-    @IBOutlet var topNavView: TopNavigationView!
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var acitivityIndicatorView: UIActivityIndicatorView!
     
     // MARK: Variables

@@ -17,8 +17,8 @@ class AssignGroupVC: BaseVC {
     // MARK: - IB Outlets
     
     @IBOutlet weak var topNavView: TopNavigationView!
-    @IBOutlet var tableView: ATTableView!
-    @IBOutlet var addNewGroupButton: UIButton!
+    @IBOutlet weak var tableView: ATTableView!
+    @IBOutlet weak var addNewGroupButton: UIButton!
     
     // MARK: - Variables
     

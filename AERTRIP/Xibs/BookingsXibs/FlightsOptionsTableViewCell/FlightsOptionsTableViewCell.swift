@@ -37,8 +37,8 @@ class FlightsOptionsTableViewCell: UITableViewCell {
     
     // MARK: ===========
     
-    @IBOutlet var containerView: UIView!
-    @IBOutlet var flightsOptionCollectionView: UICollectionView! {
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var flightsOptionCollectionView: UICollectionView! {
         didSet {
             self.flightsOptionCollectionView.contentInset = UIEdgeInsets(top: 0.0, left: 1.0, bottom: 0.0, right: 1.0)
         }

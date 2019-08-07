@@ -19,22 +19,22 @@ class FlightBoardingAndDestinationTableViewCell: UITableViewCell {
     
     // MARK: ===========
     
-    @IBOutlet var containerView: UIView!
-    @IBOutlet var boardAndDestStackView: UIStackView!
-    @IBOutlet var boardingLabel: UILabel!
-    @IBOutlet var destinationLabel: UILabel!
-    @IBOutlet var boardingCodeLabel: UILabel!
-    @IBOutlet var destinationCodeLabel: UILabel!
-    @IBOutlet var greencircleContainerView: UIView!
-    @IBOutlet var economyLabel: UILabel!
-    @IBOutlet var noOfStoppageCollectionView: UICollectionView!
-    @IBOutlet var timeLabel: UILabel!
-    @IBOutlet var boardingTimeLabel: UILabel!
-    @IBOutlet var destinationTimeLabel: UILabel!
-    @IBOutlet var boardingDateLabel: UILabel!
-    @IBOutlet var destinationDateLabel: UILabel!
-    @IBOutlet var dottedView: UIView!
-    @IBOutlet var dividerView: ATDividerView!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var boardAndDestStackView: UIStackView!
+    @IBOutlet weak var boardingLabel: UILabel!
+    @IBOutlet weak var destinationLabel: UILabel!
+    @IBOutlet weak var boardingCodeLabel: UILabel!
+    @IBOutlet weak var destinationCodeLabel: UILabel!
+    @IBOutlet weak var greencircleContainerView: UIView!
+    @IBOutlet weak var economyLabel: UILabel!
+    @IBOutlet weak var noOfStoppageCollectionView: UICollectionView!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var boardingTimeLabel: UILabel!
+    @IBOutlet weak var destinationTimeLabel: UILabel!
+    @IBOutlet weak var boardingDateLabel: UILabel!
+    @IBOutlet weak var destinationDateLabel: UILabel!
+    @IBOutlet weak var dottedView: UIView!
+    @IBOutlet weak var dividerView: ATDividerView!
     
     // MARK: - LifeCycle
     

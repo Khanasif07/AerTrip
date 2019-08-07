@@ -16,8 +16,8 @@ class TotalPayableNowCell: UITableViewCell {
     }
     
     // MARK: - IB Outlets
-    @IBOutlet var totalPayableNowLabel: UILabel!
-    @IBOutlet var totalPriceLabel: UILabel!
+    @IBOutlet weak var totalPayableNowLabel: UILabel!
+    @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var topDeviderView: ATDividerView!
     @IBOutlet weak var bottomDeviderView: ATDividerView!
     @IBOutlet weak var totalPayableTextBottomConstraint: NSLayoutConstraint!

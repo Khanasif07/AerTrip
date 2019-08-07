@@ -27,22 +27,22 @@ class HotelResultVC: BaseVC {
     
     // MARK: -
     
-    @IBOutlet var headerContainerView: UIView!
-    @IBOutlet var navContainerView: UIView!
-    @IBOutlet var backButton: UIButton!
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var descriptionLabel: UILabel!
-    @IBOutlet var filterButton: UIButton!
-    @IBOutlet var mapButton: UIButton!
-    @IBOutlet var searchBar: ATSearchBar!
-    @IBOutlet var dividerView: ATDividerView!
-    @IBOutlet var progressView: UIProgressView!
-    @IBOutlet var unPinAllFavouriteButton: UIButton!
-    @IBOutlet var emailButton: UIButton!
-    @IBOutlet var shareButton: UIButton!
-    @IBOutlet var switchView: ATSwitcher!
+    @IBOutlet weak var headerContainerView: UIView!
+    @IBOutlet weak var navContainerView: UIView!
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var filterButton: UIButton!
+    @IBOutlet weak var mapButton: UIButton!
+    @IBOutlet weak var searchBar: ATSearchBar!
+    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var unPinAllFavouriteButton: UIButton!
+    @IBOutlet weak var emailButton: UIButton!
+    @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var switchView: ATSwitcher!
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
-    @IBOutlet var collectionView: UICollectionView! {
+    @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             self.collectionView.registerCell(nibName: HotelCardCollectionViewCell.reusableIdentifier)
             self.collectionView.registerCell(nibName: HotelGroupCardCollectionViewCell.reusableIdentifier)
@@ -54,7 +54,7 @@ class HotelResultVC: BaseVC {
         }
     }
     
-    @IBOutlet var tableViewVertical: ATTableView! {
+    @IBOutlet weak var tableViewVertical: ATTableView! {
         didSet {
             self.tableViewVertical.registerCell(nibName: HotelCardTableViewCell.reusableIdentifier)
             self.tableViewVertical.register(HotelResultSectionHeader.self, forHeaderFooterViewReuseIdentifier: "HotelResultSectionHeader")
@@ -67,33 +67,33 @@ class HotelResultVC: BaseVC {
         }
     }
     
-    @IBOutlet var tableViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet var headerContainerViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet var shimmerView: UIView!
-    @IBOutlet var headerContatinerViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var floatingButtonOnMapView: UIButton!
-    @IBOutlet var cancelButton: UIButton!
+    @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var headerContainerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var shimmerView: UIView!
+    @IBOutlet weak var headerContatinerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var floatingButtonOnMapView: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     
     @IBOutlet weak var mapContainerViewBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
     // Searching View
-    @IBOutlet var hotelSearchView: UIView! {
+    @IBOutlet weak var hotelSearchView: UIView! {
         didSet {
             self.hotelSearchView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
             self.hotelSearchView.isUserInteractionEnabled = true
         }
     }
     
-    @IBOutlet var hotelSearchTableView: ATTableView!
-    @IBOutlet var currentLocationButton: UIButton!
-    @IBOutlet var floatingViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet var floatingButtonBackView: UIView!
-    @IBOutlet var mapContainerView: UIView!
-    @IBOutlet var mapContainerTopConstraint: NSLayoutConstraint!
-    @IBOutlet var switchContainerView: UIView!
-    @IBOutlet var searchBarContainerView: UIView!
+    @IBOutlet weak var hotelSearchTableView: ATTableView!
+    @IBOutlet weak var currentLocationButton: UIButton!
+    @IBOutlet weak var floatingViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var floatingButtonBackView: UIView!
+    @IBOutlet weak var mapContainerView: UIView!
+    @IBOutlet weak var mapContainerTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var switchContainerView: UIView!
+    @IBOutlet weak var searchBarContainerView: UIView!
     
     // MARK: - Properties
     
@@ -281,7 +281,7 @@ class HotelResultVC: BaseVC {
         if let noti = note.object as? ATNotification, noti == .GRNSessionExpired {
             //re-hit the search API
             self.manageShimmer(isHidden: false)
-            _ = CoreDataManager.shared.deleteAllData("HotelSearched")
+            CoreDataManager.shared.deleteData("HotelSearched")
             self.viewModel.hotelListOnPreferencesApi()
         }
         else if let _ = note.object as? HotelDetailsVC {

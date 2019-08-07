@@ -17,14 +17,14 @@ class TravellersDetailsTableViewCell: UITableViewCell {
     
     // MARK: ===========
     
-    @IBOutlet var containerView: UIView!
-    @IBOutlet var containerViewLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet var containerViewTrailingConstraint: NSLayoutConstraint!
-    @IBOutlet var travellerProfileImage: UIImageView!
-    @IBOutlet var travellerName: UILabel!
-    @IBOutlet var dividerView: ATDividerView!
-    @IBOutlet var travellerImgViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet var containerViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var containerViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var travellerProfileImage: UIImageView!
+    @IBOutlet weak var travellerName: UILabel!
+    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var travellerImgViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerViewBottomConstraint: NSLayoutConstraint!
     
     // MARK: - LifeCycle
     

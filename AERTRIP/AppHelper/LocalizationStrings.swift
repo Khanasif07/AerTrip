@@ -351,6 +351,7 @@ enum LocalizedString: String {
     
     case Disconnect
     case LinkedAccountsMessage
+    case DoYouWantToDisconnect
     
     // MARK: - Favourite Hotels
     
@@ -823,6 +824,7 @@ enum LocalizedString: String {
     
     case Summary
     case OutstandingLedger
+    case SelectBooking
     case GrossOutstanding
     case OnAccount
     case NetOutstanding
@@ -947,4 +949,7 @@ enum LocalizedString: String {
     // MARK: -
     case UnderDevelopment
     case OperatedBy
+    
+    case SendingEmail
+    case LedgerSentToYourEmail
 }

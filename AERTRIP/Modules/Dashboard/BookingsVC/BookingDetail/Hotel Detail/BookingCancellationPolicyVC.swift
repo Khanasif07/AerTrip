@@ -12,9 +12,9 @@ class BookingCancellationPolicyVC: BaseVC {
     
     // MARK: - IBOutlet
     
-    @IBOutlet var navTitleLabel: UILabel!
-    @IBOutlet var closeButton: UIButton!
-    @IBOutlet var bookingPolicyTableView: ATTableView!
+    @IBOutlet weak var navTitleLabel: UILabel!
+    @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var bookingPolicyTableView: ATTableView!
     
     // MARK: - Variables
     let viewModel = BookingCancellationPolicyVM()

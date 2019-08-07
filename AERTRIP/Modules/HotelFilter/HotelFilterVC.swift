@@ -16,16 +16,16 @@ protocol HotelFilteVCDelegate: class {
 class HotelFilterVC: BaseVC {
     // MARK:- IB Outlets
     
-    @IBOutlet var clearAllButton: UIButton!
-    @IBOutlet var navigationTitleLabel: UILabel!
+    @IBOutlet weak var clearAllButton: UIButton!
+    @IBOutlet weak var navigationTitleLabel: UILabel!
     
-    @IBOutlet var doneButton: UIButton!
+    @IBOutlet weak var doneButton: UIButton!
     
-    @IBOutlet var dataContainerView: UIView!
-    @IBOutlet var mainContainerViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet var mainContainerView: UIView!
-    @IBOutlet var navigationView: UIView!
-    @IBOutlet var navigationViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dataContainerView: UIView!
+    @IBOutlet weak var mainContainerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mainContainerView: UIView!
+    @IBOutlet weak var navigationView: UIView!
+    @IBOutlet weak var navigationViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainBackView: UIView!
     
     // MARK: - Private

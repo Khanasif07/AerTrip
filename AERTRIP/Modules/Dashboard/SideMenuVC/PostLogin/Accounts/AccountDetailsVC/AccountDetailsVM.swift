@@ -184,14 +184,16 @@ class AccountDetailsVM: NSObject {
         }
     }
     
-    func sendEmailForLedger() {
+    func sendEmailForLedger(onVC: UIViewController) {
         var param = JSONDictionary()
         param["action"] = "email"
         param["type"] = "ledger"
         
+        AppToast.default.showToastMessage(message: LocalizedString.SendingEmail.localized, onViewController: onVC, duration: 10.0)
         APICaller.shared.accountReportActionAPI(params: param) { (success, errors) in
             if success {
-                AppToast.default.showToastMessage(message: "Ledger has been sent to your registered email-id.")
+                AppToast.default.hideToast(onVC, animated: false)
+                AppToast.default.showToastMessage(message: LocalizedString.LedgerSentToYourEmail.localized)
             }
             else {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)

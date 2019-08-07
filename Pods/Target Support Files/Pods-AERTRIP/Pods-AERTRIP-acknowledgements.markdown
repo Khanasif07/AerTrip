@@ -1271,11 +1271,11 @@ Copyright 2019 Google
 
 ## GoogleMaps
 
-Copyright 2018 Google
+Copyright 2019 Google
 
 ## GooglePlaces
 
-Copyright 2018 Google
+Copyright 2019 Google
 
 ## GoogleSignIn
 
@@ -1781,7 +1781,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ## MXParallaxHeader
 
-Copyright (c) 2017 Maxime Epain <maxime.epain@gmail.com>
+Copyright (c) 2019 Maxime Epain <maxime.epain@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

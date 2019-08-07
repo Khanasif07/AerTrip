@@ -16,22 +16,47 @@ protocol SlideMenuProfileImageHeaderViewDelegate: class {
 class SlideMenuProfileImageHeaderView: UIView {
     // MARK: - IBOutlet
     
-    @IBOutlet var profileImageView: UIImageView!
-    @IBOutlet var userNameLabel: UILabel!
-    @IBOutlet var emailIdLabel: UILabel!
-    @IBOutlet var profileImageViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var mobileNumberLabel: UILabel!
-    @IBOutlet var familyButton: UIButton!
-    @IBOutlet var backgroundImageView: UIImageView!
-    @IBOutlet var gradientView: UIView!
-    @IBOutlet var profileContainerView: UIView!
-    @IBOutlet var dividerView: ATDividerView!
+    enum UsingFor {
+        case viewProfile
+        case sideMenu
+        case profileDetails
+    }
+    
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var emailIdLabel: UILabel!
+    @IBOutlet weak var mobileNumberLabel: UILabel!
+    @IBOutlet weak var familyButton: UIButton!
+    @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet weak var gradientView: UIView!
+    @IBOutlet weak var profileContainerView: UIView!
+    @IBOutlet weak var dividerView: ATDividerView!
+    
+    @IBOutlet weak var profileImageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var profileImageAndNameSpace: NSLayoutConstraint!
+    @IBOutlet weak var userNameHeightLabel: NSLayoutConstraint!
+    @IBOutlet weak var familyButtonBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var emailAndContactBottomConstraint: NSLayoutConstraint!
     
     // MARK: - Variable
     
     private let gradient = CAGradientLayer()
     weak var delegate: SlideMenuProfileImageHeaderViewDelegate?
     var blurEffectView: UIVisualEffectView!
+    var currentlyUsingAs = UsingFor.sideMenu {
+        didSet {
+            switch currentlyUsingAs {
+            case .profileDetails:
+                self.setupForProfileDetail()
+                
+            case .viewProfile:
+                self.setupForViewProfile()
+                
+            default:
+                self.setupForSideMenu()
+            }
+        }
+    }
     
     // MARK: - IBAction
     
@@ -56,14 +81,6 @@ class SlideMenuProfileImageHeaderView: UIView {
     }
     
     private func addTapGesture() {
-        
-//        var tapView = profileContainerView
-////        if let superView = self.superview, superView.width < (UIDevice.screenHeight*0.6) {
-////            tapView = superView
-////        }
-//        if let superView = tapView?.superview {
-//            tapView = superView
-//        }
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(SlideMenuProfileImageHeaderView.profileImageClicked))
         self.isUserInteractionEnabled = true
         self.addGestureRecognizer(singleTap)
@@ -83,14 +100,11 @@ class SlideMenuProfileImageHeaderView: UIView {
         addBlurToImage()
         doInitialSetup()
         
-//        delay(seconds: 0.3) { [weak self] in
-            self.addTapGesture()
-//        }
+        self.addTapGesture()
     }
 
     func addBlurToImage() {
         if !UIAccessibility.isReduceTransparencyEnabled {
-//            self.backgroundColor = .clear
             
             let blurEffect = UIBlurEffect(style: .light)
             blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -99,8 +113,6 @@ class SlideMenuProfileImageHeaderView: UIView {
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             
             backgroundImageView.addSubview(blurEffectView)
-        } else {
-//            self.backgroundColor = .black
         }
     }
     
@@ -122,7 +134,56 @@ class SlideMenuProfileImageHeaderView: UIView {
     }
     
     func doInitialSetup() {
-        profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
         familyButton.layer.cornerRadius = familyButton.height / 2.0
+        self.makeImageCircular()
+    }
+    
+    private func makeImageCircular() {
+        profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
+    }
+    
+    private func setupForViewProfile() {
+        self.profileImageViewHeightConstraint.constant = 127.0
+        self.profileImageAndNameSpace.constant = 18.0
+        self.userNameHeightLabel.constant = 33.0
+        self.emailAndContactBottomConstraint.constant = 28.0
+        
+        profileImageView.layer.borderWidth = 6.0
+        
+        self.userNameLabel.font = AppFonts.Regular.withSize(26.0)
+        
+        self.emailIdLabel.font = AppFonts.Regular.withSize(14.0)
+        self.mobileNumberLabel.font = AppFonts.Regular.withSize(14.0)
+        
+        self.emailIdLabel.isHidden = false
+        self.mobileNumberLabel.isHidden = false
+        self.familyButton.isHidden = true
+        
+        self.layoutIfNeeded()
+        
+        self.makeImageCircular()
+    }
+    
+    private func setupForSideMenu() {
+        self.profileImageViewHeightConstraint.constant = 86.0
+        self.profileImageAndNameSpace.constant = 9.0
+        self.userNameHeightLabel.constant = 25.0
+        self.emailAndContactBottomConstraint.constant = -10.0
+        
+        profileImageView.layer.borderWidth = 2.0
+        
+        self.userNameLabel.font = AppFonts.Regular.withSize(20.0)
+        
+        self.emailIdLabel.isHidden = true
+        self.mobileNumberLabel.isHidden = true
+        self.familyButton.isHidden = true
+        
+        self.layoutIfNeeded()
+        
+        self.makeImageCircular()
+    }
+    
+    private func setupForProfileDetail() {
+        //has been done on view controller already
     }
 }

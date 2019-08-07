@@ -32,8 +32,8 @@ class FlightBookingsDetailsVC: BaseVC {
     
     // MARK: -
     
-    @IBOutlet var topNavBar: TopNavigationView!
-    @IBOutlet var bookingDetailsTableView: ATTableView! {
+    @IBOutlet weak var topNavBar: TopNavigationView!
+    @IBOutlet weak var bookingDetailsTableView: ATTableView! {
         didSet {
             self.bookingDetailsTableView.estimatedRowHeight = 100.0
             self.bookingDetailsTableView.rowHeight = UITableView.automaticDimension
@@ -42,7 +42,7 @@ class FlightBookingsDetailsVC: BaseVC {
         }
     }
     
-    @IBOutlet var topNavBarHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topNavBarHeightConstraint: NSLayoutConstraint!
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)

@@ -14,8 +14,8 @@ class HotelNameRatingTableViewCell: ATTableViewCell {
     
     @IBOutlet weak var hotelNameLabel: UILabel!
     @IBOutlet weak var starRatingContatinerView: UIStackView!
-    @IBOutlet var starRatingView: FloatRatingView!
-    @IBOutlet var tripRatingView: FloatRatingView!
+    @IBOutlet weak var starRatingView: FloatRatingView!
+    @IBOutlet weak var tripRatingView: FloatRatingView!
     @IBOutlet weak var tripAdvisorImageView: UIImageView!
     @IBOutlet weak var taImageLeadingConstraint: NSLayoutConstraint!
 

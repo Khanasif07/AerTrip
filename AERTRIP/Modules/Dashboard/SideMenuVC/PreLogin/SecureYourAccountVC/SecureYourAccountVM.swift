@@ -20,7 +20,7 @@ class SecureYourAccountVM {
         case setPassword, resetPasswod
     }
     
-    var delegate: SecureYourAccountVMDelegate?
+    weak var delegate: SecureYourAccountVMDelegate?
     var isPasswordType: SecureAccount = .setPassword
     var email = ""
     var password = ""

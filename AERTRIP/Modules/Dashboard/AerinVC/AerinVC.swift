@@ -17,17 +17,17 @@ class AerinVC: BaseVC {
     
     // MARK: -
     
-    @IBOutlet var greetingLabel: UILabel!
-    @IBOutlet var messageLabel: UILabel!
-    @IBOutlet var aerinButton: UIButton!
-    @IBOutlet var commandHintLabel: UILabel!
-    @IBOutlet var aerinContainer: UIView!
-    @IBOutlet var contentView: UIView!
-    @IBOutlet var weekendMessageLabel: UILabel!
-    @IBOutlet var bottomCollectionView: UIView!
-    @IBOutlet var bottomFirstView: UIView!
-    @IBOutlet var bottomSecondView: UIView!
-    @IBOutlet var bottomViewImage: UIImageView!
+    @IBOutlet weak var greetingLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var aerinButton: UIButton!
+    @IBOutlet weak var commandHintLabel: UILabel!
+    @IBOutlet weak var aerinContainer: UIView!
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var weekendMessageLabel: UILabel!
+    @IBOutlet weak var bottomCollectionView: UIView!
+    @IBOutlet weak var bottomFirstView: UIView!
+    @IBOutlet weak var bottomSecondView: UIView!
+    @IBOutlet weak var bottomViewImage: UIImageView!
     
     private var previousOffSet = CGPoint.zero
     private var aerInPulsAnimator: PKPulseAnimation = PKPulseAnimation()
@@ -77,7 +77,7 @@ class AerinVC: BaseVC {
         self.aerInPulsAnimator.radius = 100.0
         self.aerInPulsAnimator.currentAnimation = .line
         self.aerInPulsAnimator.lineWidth = 2.0
-        self.aerInPulsAnimator.lineColor = AppColors.themeDarkGreen
+        self.aerInPulsAnimator.lineColor = AppColors.themeBlackGreen
         self.aerInPulsAnimator.backgroundColor = AppColors.themeGray60.cgColor
         self.aerinContainer.layer.insertSublayer(self.aerInPulsAnimator, below: self.aerinButton.layer)
         self.bottomFirstView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.3)

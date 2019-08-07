@@ -11,8 +11,8 @@ import UIKit
 class BookingDirectionVC: BaseVC {
     // MARK: - IBOutlet
     
-    @IBOutlet var topNavigationView: TopNavigationView!
-    @IBOutlet var directionTableView: ATTableView!
+    @IBOutlet weak var topNavigationView: TopNavigationView!
+    @IBOutlet weak var directionTableView: ATTableView!
     
     // MARK: - Variables
     

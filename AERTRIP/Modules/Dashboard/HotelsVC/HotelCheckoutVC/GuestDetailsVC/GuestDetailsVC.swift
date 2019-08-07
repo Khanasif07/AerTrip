@@ -22,13 +22,13 @@ class GuestDetailsVC: BaseVC {
     // MARK: - IB Outlets
     
     // Guest Detail table view
-    @IBOutlet var guestDetailTableView: ATTableView!
+    @IBOutlet weak var guestDetailTableView: ATTableView!
     
     // Generic top Nav View
-    @IBOutlet var topNavView: TopNavigationView!
+    @IBOutlet weak var topNavView: TopNavigationView!
     
     // table view for searching traveller from traveller list
-    @IBOutlet var travellersTableView: ATTableView!
+    @IBOutlet weak var travellersTableView: ATTableView!
     
     // Mark: - Properties
     let viewModel = GuestDetailsVM.shared

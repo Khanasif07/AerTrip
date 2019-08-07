@@ -11,10 +11,10 @@ import UIKit
 class TripChangeTableViewCell: ATTableViewCell {
     // MARK: - IB Outlet
     
-    @IBOutlet var tripChangeImageView: UIImageView!
-    @IBOutlet var tripTitleLabel: UILabel!
-    @IBOutlet var tripNameLabel: UILabel!
-    @IBOutlet var changeButton: UIButton!
+    @IBOutlet weak var tripChangeImageView: UIImageView!
+    @IBOutlet weak var tripTitleLabel: UILabel!
+    @IBOutlet weak var tripNameLabel: UILabel!
+    @IBOutlet weak var changeButton: UIButton!
     
     override func doInitialSetup() {
         self.tripChangeImageView.tintColor = AppColors.brightViolet

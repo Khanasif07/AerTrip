@@ -11,13 +11,13 @@ import UIKit
 class RatingVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var starRatingTitleLabel: UILabel!
-    @IBOutlet var starLabel: UILabel!
-    @IBOutlet var includeRatedTitleLabel: UILabel!
-    @IBOutlet var includeRatedStatusButton: UIButton!
+    @IBOutlet weak var starRatingTitleLabel: UILabel!
+    @IBOutlet weak var starLabel: UILabel!
+    @IBOutlet weak var includeRatedTitleLabel: UILabel!
+    @IBOutlet weak var includeRatedStatusButton: UIButton!
     
-    @IBOutlet var tripAdvisorTitleLabel: UILabel!
-    @IBOutlet var tripAdvisorStarLabel: UILabel!
+    @IBOutlet weak var tripAdvisorTitleLabel: UILabel!
+    @IBOutlet weak var tripAdvisorStarLabel: UILabel!
     @IBOutlet var starButtonsOutlet: [UIButton]!
     @IBOutlet var tripAdvisorRatingButtons: [UIButton]!
     

@@ -11,11 +11,11 @@ import UIKit
 class BookingDirectionTableViewCell: ATTableViewCell {
     // MARK: - IBOutlet
     
-    @IBOutlet var airportCodeLabel: UILabel!
-    @IBOutlet var airportNameLabel: UILabel!
-    @IBOutlet var aiportAddressLabel: UILabel!
-    @IBOutlet var bottomDividerView: UIView!
-    @IBOutlet var edgeToedgeBottomDividerView: UIView!
+    @IBOutlet weak var airportCodeLabel: UILabel!
+    @IBOutlet weak var airportNameLabel: UILabel!
+    @IBOutlet weak var aiportAddressLabel: UILabel!
+    @IBOutlet weak var bottomDividerView: UIView!
+    @IBOutlet weak var edgeToedgeBottomDividerView: UIView!
     
     // MARK: Override methods
     

@@ -767,7 +767,7 @@ extension String {
         
         changeRange.length = self.count - changeRange.location
         
-        guard let font = UIFont(name: font.fontName, size: (font.pointSize / 1.5)) else {
+        guard let font = UIFont(name: font.fontName, size: (font.pointSize * 0.75)) else {
             printDebug("font not found")
             return stylizedPrice
         }

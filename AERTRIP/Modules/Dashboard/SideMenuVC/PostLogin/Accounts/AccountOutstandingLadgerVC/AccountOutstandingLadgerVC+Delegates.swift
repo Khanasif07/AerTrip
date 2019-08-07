@@ -75,11 +75,11 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
         let allCount = 2
         if (indexPath.row % allCount) == 0 {
             //event header cell + (for top space)
-            return 67.0 + 5.0
+            return 65.0 + 5.0
         }
         else if (indexPath.row % allCount) == 1 {
             //event description cell + (for bottom space)
-            return 86.0 + 19.0
+            return 95.0 + 5.0
         }
         return 0.0
     }

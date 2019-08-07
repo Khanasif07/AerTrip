@@ -19,14 +19,14 @@ enum CallCellType {
 class BookingCallTableViewCell: ATTableViewCell {
     // MARK: - IBOutlet
     
-    @IBOutlet var cellImageView: UIImageView!
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var phoneLabel: UILabel!
-    @IBOutlet var dividerView: ATDividerView!
-    @IBOutlet var imageViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var cellImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var phoneLabel: UILabel!
+    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var imageViewBottomConstraint: NSLayoutConstraint!
     
-    @IBOutlet var airportCodeLabel: UILabel!
-    @IBOutlet var imageViewCenterConstraint: NSLayoutConstraint!
+    @IBOutlet weak var airportCodeLabel: UILabel!
+    @IBOutlet weak var imageViewCenterConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var imageViewWidthConstraint: NSLayoutConstraint!
     // MARK: - Override methods

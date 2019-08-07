@@ -11,10 +11,10 @@ import UIKit
 class SearchTableViewCell: UITableViewCell {
     // MARK: - IB Outlets
     
-    @IBOutlet var searchImageView: UIImageView!
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var searchCodeLabel: UILabel!
-    @IBOutlet var separatorView: UIView!
+    @IBOutlet weak var searchImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var searchCodeLabel: UILabel!
+    @IBOutlet weak var separatorView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

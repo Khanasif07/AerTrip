@@ -11,17 +11,17 @@ import UIKit
 class BookingReschedulingVC: BaseVC {
     // MARK: - IBOutlet
     
-    @IBOutlet var topNavBar: TopNavigationView!
-    @IBOutlet var passengerLabel: UILabel!
-    @IBOutlet var reschedulingTableView: ATTableView!
+    @IBOutlet weak var topNavBar: TopNavigationView!
+    @IBOutlet weak var passengerLabel: UILabel!
+    @IBOutlet weak var reschedulingTableView: ATTableView!
     
-    @IBOutlet var priceView: UIView!
+    @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var priceViewAndButtonContainerView: UIView!
     @IBOutlet weak var priceViewAndButtonContainerHeight: NSLayoutConstraint!
     
-    @IBOutlet var totalNetRefundLabel: UILabel!
-    @IBOutlet var totalPriceLabel: UILabel!
-    @IBOutlet var continueButton: ATButton!
+    @IBOutlet weak var totalNetRefundLabel: UILabel!
+    @IBOutlet weak var totalPriceLabel: UILabel!
+    @IBOutlet weak var continueButton: ATButton!
     
     // MARK: - Variables
     

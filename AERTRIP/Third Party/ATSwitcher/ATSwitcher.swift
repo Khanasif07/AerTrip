@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol ATSwitcherChangeValueDelegate {
+protocol ATSwitcherChangeValueDelegate: class {
     func switcherDidChangeValue(switcher: ATSwitcher,value: Bool)
 }
 
 class ATSwitcher: UIView {
 
     var button: UIButton!
-    var delegate: ATSwitcherChangeValueDelegate?
+    weak var delegate: ATSwitcherChangeValueDelegate?
     
     @IBInspectable var on: Bool = false
     

@@ -431,7 +431,7 @@ class HotelsSearchVC: BaseVC {
                 }
                 else {
                     if let s = start, let e = end {
-                        final += (s != e) ? "\(s)-\(e), " : "\(s), "
+                        final += (s != e) ? "\(s) - \(e), " : "\(s), "
                         start = nil
                         end = nil
                         prev = nil
@@ -449,7 +449,7 @@ class HotelsSearchVC: BaseVC {
             prev = value
         }
         if let s = start, let e = end {
-            final += (s != e) ? "\(s)-\(e), " : "\(s), "
+            final += (s != e) ? "\(s) - \(e), " : "\(s), "
             start = nil
             end = nil
         }
@@ -532,7 +532,7 @@ class HotelsSearchVC: BaseVC {
             }
             delay(seconds: 0.1) {
                 //send to result screen for current selected form data
-                _ = CoreDataManager.shared.deleteAllData("HotelSearched")
+                CoreDataManager.shared.deleteData("HotelSearched")
                 HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
                 
                 if 1...4 ~= self.viewModel.searchedFormData.ratingCount.count {

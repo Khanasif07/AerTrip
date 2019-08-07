@@ -28,7 +28,7 @@ class AccountDetailsVC: BaseVC {
     @IBOutlet weak var balanceTextLabel: UILabel!
     @IBOutlet weak var balanceAmountLabel: UILabel!
     @IBOutlet weak var tableView: ATTableView!
-    @IBOutlet var searchContainerView: UIView!
+    @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var blankSpaceView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
     @IBOutlet weak var searchBar: ATSearchBar!
@@ -42,7 +42,7 @@ class AccountDetailsVC: BaseVC {
     @IBOutlet weak var ladgerDummySearchView: UIView!
     @IBOutlet weak var ladgerDummySearchBar: ATSearchBar!
     
-    @IBOutlet var openingDetailContainerView: UIView!
+    @IBOutlet weak var openingDetailContainerView: UIView!
     @IBOutlet weak var openingBalanceTitleLabel: UILabel!
     @IBOutlet weak var openingBalanceDateLabel: UILabel!
     @IBOutlet weak var openingBalanceAmountLabel: UILabel!
@@ -254,7 +254,7 @@ class AccountDetailsVC: BaseVC {
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
             if index == 0 {
                 //email tapped
-                self.viewModel.sendEmailForLedger()
+                self.viewModel.sendEmailForLedger(onVC: self)
             } else {
                 //download pdf tapped
                 AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/user-accounts/report-action?action=pdf&type=ledger", screenTitle: LocalizedString.AccountsLegder.localized)

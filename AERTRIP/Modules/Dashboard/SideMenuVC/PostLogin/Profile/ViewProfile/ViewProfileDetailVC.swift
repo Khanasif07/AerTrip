@@ -12,10 +12,10 @@ import UIKit
 class ViewProfileDetailVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var topNavView: TopNavigationView!
-    @IBOutlet var tableView: ATTableView!
+    @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var tableView: ATTableView!
     @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
-
+    
     // MARK: - Variables
     
     let viewModel = ViewProfileDetailVM()
@@ -53,8 +53,8 @@ class ViewProfileDetailVC: BaseVC {
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
-            //            self?.profileImageHeaderView.profileImageViewHeightConstraint.constant = 121
-            //            self?.profileImageHeaderView.layoutIfNeeded()
+            self?.profileImageHeaderView.profileImageViewHeightConstraint.constant = 127.0
+            self?.profileImageHeaderView.layoutIfNeeded()
             self?.view.alpha = 1.0
         }
         doInitialSetUp()
@@ -86,7 +86,7 @@ class ViewProfileDetailVC: BaseVC {
         tableView.register(UINib(nibName: tableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderViewIdentifier)
         
         self.headerViewHeightConstraint.constant = headerViewHeight
-
+        
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Edit.rawValue, selectedTitle: LocalizedString.Edit.rawValue, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
@@ -128,7 +128,7 @@ class ViewProfileDetailVC: BaseVC {
         
         self.view.bringSubviewToFront(self.topNavView)
     }
-
+    
     private func setUpDataFromApi() {
         guard let travel = travelData else {
             return
@@ -140,7 +140,7 @@ class ViewProfileDetailVC: BaseVC {
         profileImageHeaderView.emailIdLabel.text = ""
         profileImageHeaderView.mobileNumberLabel.text = ""
         profileImageHeaderView.familyButton.isHidden = false
-        profileImageHeaderView.familyButton.setTitle(travel.label.isEmpty ? "Others" : travel.label.capitalizedFirst(), for: .normal)
+        profileImageHeaderView.familyButton.setTitle(travel.label.isEmpty ? LocalizedString.Others.localized : travel.label.capitalizedFirst(), for: .normal)
         profileImageHeaderView.layoutIfNeeded()
         
         var placeImage = AppPlaceholderImage.profile
@@ -194,7 +194,7 @@ class ViewProfileDetailVC: BaseVC {
             addresses = travel.address
             sections.append(LocalizedString.Address.localized)
         }
-    
+        
         informations.removeAll()
         moreInformation.removeAll()
         if !travel.dob.isEmpty {
@@ -268,7 +268,7 @@ class ViewProfileDetailVC: BaseVC {
             completeAddress += "\n" + address.city
         }
         if !address.postalCode.isEmpty {
-          completeAddress += "-" + address.postalCode
+            completeAddress += "-" + address.postalCode
         }
         if !address.state.isEmpty {
             completeAddress += "\n" + address.state
@@ -416,11 +416,11 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
         
         printDebug("progress %f \(prallexProgress)")
         
-        if prallexProgress >= 0.6 {
-            profileImageHeaderView.profileImageViewHeightConstraint.constant = 121 * prallexProgress
+        if 0.6...1.0 ~= prallexProgress {
+            profileImageHeaderView.profileImageViewHeightConstraint.constant = 127.0 * prallexProgress
         }
         
-        if prallexProgress <= 0.5 {
+        if prallexProgress <= 0.65 {
             self.statusBarStyle = .default
             self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
                 self?.topNavView.firstRightButton.isSelected = true
@@ -478,6 +478,6 @@ extension ViewProfileDetailVC: ViewProfileDetailVMDelegate {
     }
     
     func getFail(errors: ErrorCodes) {
-         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
 }

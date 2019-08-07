@@ -24,6 +24,10 @@ class ATButton: UIButton {
     private var loaderIndicator:UIActivityIndicatorView!
     private var loaderGradientLayer: CAGradientLayer!
     
+    private var _selectedFont: UIFont = UIFont.systemFont(ofSize: 15.0)
+    private var _normalFont: UIFont = UIFont.systemFont(ofSize: 15.0)
+    private var _highlightedFont: UIFont = UIFont.systemFont(ofSize: 15.0)
+    
     private var isFingerUp: Bool = false
     private(set) var currentActionState: ActionState = ActionState.released
     
@@ -57,6 +61,18 @@ class ATButton: UIButton {
     override var isEnabled: Bool {
         didSet {
             self.layoutSubviews()
+        }
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            setFotAsState()
+        }
+    }
+    
+    override var isHighlighted: Bool {
+        didSet {
+            setFotAsState()
         }
     }
     
@@ -138,6 +154,18 @@ class ATButton: UIButton {
         self.updateGradientLayer(gLayer: gLayer)
         
         return gLayer
+    }
+    
+    private func setFotAsState() {
+        if state == .selected {
+            self.titleLabel?.font = _selectedFont
+        }
+        else if state == .highlighted {
+            self.titleLabel?.font = _highlightedFont
+        }
+        else {
+            self.titleLabel?.font = _normalFont
+        }
     }
     
     private func updateGradientLayer(gLayer: CAGradientLayer) {
@@ -296,6 +324,19 @@ class ATButton: UIButton {
         self.isFingerUp = self.currentActionState == .pressed
         self.currentActionState = .releasing
         self.animateToReleasedSatate()
+    }
+    
+    func setTitleFont(font: UIFont, for state: UIControl.State) {
+        if state == .normal {
+            _normalFont = font
+            self.titleLabel?.font = font
+        }
+        else if state == .highlighted {
+            _highlightedFont = font
+        }
+        else {
+            _selectedFont = font
+        }
     }
 }
 

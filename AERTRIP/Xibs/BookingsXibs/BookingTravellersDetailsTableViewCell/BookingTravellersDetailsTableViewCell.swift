@@ -14,12 +14,12 @@ class BookingTravellersDetailsTableViewCell: UITableViewCell {
     
     // Mark:- IBOutlets
     //================
-    @IBOutlet var containerView: UIView!
-    @IBOutlet var travellersLabel: UILabel!
-    @IBOutlet var travellerNameLabel: UILabel!
-    @IBOutlet var travellerImageView: UIImageView!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var travellersLabel: UILabel!
+    @IBOutlet weak var travellerNameLabel: UILabel!
+    @IBOutlet weak var travellerImageView: UIImageView!
     @IBOutlet weak var travellerImageViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet var dividerView: ATDividerView!
+    @IBOutlet weak var dividerView: ATDividerView!
     // Mark:- LifeCycle
     //================
     override func awakeFromNib() {

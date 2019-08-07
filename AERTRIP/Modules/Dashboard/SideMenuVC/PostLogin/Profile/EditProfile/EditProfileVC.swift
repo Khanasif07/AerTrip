@@ -32,11 +32,11 @@ protocol EditProfileVCDelegate: class {
 class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     // MARK: - IB Outlets
     
-    @IBOutlet var tableView: ATTableView!
-    @IBOutlet var topNavView: TopNavigationView!
-    @IBOutlet var deleteTravellerView: UIView!
-    @IBOutlet var deleteButton: UIButton!
-    @IBOutlet var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var tableView: ATTableView!
+    @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var deleteTravellerView: UIView!
+    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     // MARK: - Variables
     

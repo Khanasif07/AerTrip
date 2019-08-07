@@ -17,13 +17,13 @@ class FlightsOptionCollectionViewCell: UICollectionViewCell {
     
     // MARK: ===========
     
-    @IBOutlet var containerView: UIView!
-    @IBOutlet var optionImageView: UIImageView!
-    @IBOutlet var optionNameLabel: UILabel!
-    @IBOutlet var imageViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet var imageViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var titleTopConstraint: NSLayoutConstraint!
-    @IBOutlet var dividerView: UIView!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var optionImageView: UIImageView!
+    @IBOutlet weak var optionNameLabel: UILabel!
+    @IBOutlet weak var imageViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dividerView: UIView!
     
     // MARK: - LifeCycle
     

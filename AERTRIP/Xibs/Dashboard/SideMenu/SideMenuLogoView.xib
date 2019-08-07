@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,13 +20,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="346" height="179"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoImage" translatesAutoresizingMaskIntoConstraints="NO" id="bob-jK-b56">
-                            <rect key="frame" x="159" y="23" width="28" height="25"/>
+                            <rect key="frame" x="159" y="38" width="28" height="25"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoText" translatesAutoresizingMaskIntoConstraints="NO" id="HJk-Os-vtO">
-                            <rect key="frame" x="117.5" y="83" width="111" height="13"/>
+                            <rect key="frame" x="117.5" y="81" width="111" height="13"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uho-Jk-ZYW">
-                            <rect key="frame" x="70.5" y="126" width="205" height="41"/>
+                            <rect key="frame" x="70.5" y="117" width="205" height="41"/>
                             <string key="text">Enjoy a more personalised 
 travel experience</string>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -36,10 +36,10 @@ travel experience</string>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="uho-Jk-ZYW" firstAttribute="top" secondItem="HJk-Os-vtO" secondAttribute="bottom" constant="30" id="0eX-03-ecD"/>
-                        <constraint firstItem="bob-jK-b56" firstAttribute="top" secondItem="SJD-h8-ZWh" secondAttribute="top" constant="23" id="AYg-UO-Nz1"/>
+                        <constraint firstItem="uho-Jk-ZYW" firstAttribute="top" secondItem="HJk-Os-vtO" secondAttribute="bottom" constant="23" id="0eX-03-ecD"/>
+                        <constraint firstItem="bob-jK-b56" firstAttribute="top" secondItem="SJD-h8-ZWh" secondAttribute="top" constant="38" id="AYg-UO-Nz1"/>
                         <constraint firstItem="bob-jK-b56" firstAttribute="centerX" secondItem="SJD-h8-ZWh" secondAttribute="centerX" id="Dll-sa-pLJ"/>
-                        <constraint firstItem="HJk-Os-vtO" firstAttribute="top" secondItem="bob-jK-b56" secondAttribute="bottom" constant="35" id="Tfi-Ii-X5l"/>
+                        <constraint firstItem="HJk-Os-vtO" firstAttribute="top" secondItem="bob-jK-b56" secondAttribute="bottom" constant="18" id="Tfi-Ii-X5l"/>
                         <constraint firstItem="HJk-Os-vtO" firstAttribute="centerX" secondItem="bob-jK-b56" secondAttribute="centerX" id="Tma-wy-ytz"/>
                         <constraint firstItem="uho-Jk-ZYW" firstAttribute="centerX" secondItem="HJk-Os-vtO" secondAttribute="centerX" id="Ums-s1-LO3"/>
                     </constraints>
@@ -55,6 +55,7 @@ travel experience</string>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="logoImageTopContraint" destination="AYg-UO-Nz1" id="9dn-mK-Vza"/>
                 <outlet property="logoImageView" destination="bob-jK-b56" id="Q6P-vK-1XW"/>
                 <outlet property="logoTextView" destination="HJk-Os-vtO" id="ad9-3j-fJM"/>
                 <outlet property="messageLabel" destination="uho-Jk-ZYW" id="NC9-ic-ByC"/>

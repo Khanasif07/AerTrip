@@ -22,15 +22,15 @@ class ADEventFilterVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-    @IBOutlet var topNavBar: TopNavigationView!{
+    @IBOutlet weak var topNavBar: TopNavigationView!{
         didSet {
             self.topNavBar.delegate = self
         }
     }
-    @IBOutlet var childContainerView: UIView!
-    @IBOutlet var mainContainerViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet var mainContainerView: UIView!
-    @IBOutlet var navigationViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var childContainerView: UIView!
+    @IBOutlet weak var mainContainerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mainContainerView: UIView!
+    @IBOutlet weak var navigationViewTopConstraint: NSLayoutConstraint!
     
     //MARK:- Properties
     //MARK:- Public
@@ -165,7 +165,7 @@ class ADEventFilterVC: BaseVC {
         style.height = 50.0
         style.interItemSpace = (self.allTabsStr.count > 2) ? 50.0 : 55.0
         style.itemPadding = (self.allTabsStr.count > 2) ? 25.0 : 28.0
-        style.isScrollable = true
+        style.isScrollable = false
         style.layoutAlignment = .left
         style.isEmbeddedToView = true
         style.showBottomSeparator = true

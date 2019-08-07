@@ -116,7 +116,7 @@
 "selectedCountryCode"    = "+91";
 "selectedCountry"        = "India";
 "SelectedCountySymbol" = "IN";
-"PleaseLoginByEmailId" = "Please login by using email id";
+"PleaseLoginByEmailId" = "We didn't got email. Please login by using email id.";
 
 // MARK:- ForgotPasswordVC
 //MARK:-
@@ -190,9 +190,9 @@
 "SelectAll" = "Select All";
 "DeselectAll" = "Deselect All";
 "AllowContacts" = "Allow Contacts";
-"ConnectWithGoogle" = "Connect with Google";
-"ConnectWithFB" = "Connect with Facebook";
-"ConnectWithLinkedIn" = "Connect with LinkedIn";
+"ConnectWithGoogle" = " Connect with Google";
+"ConnectWithFB" = " Connect with Facebook";
+"ConnectWithLinkedIn" = " Connect with LinkedIn";
 "ContactsSelected" = "Contacts Selected";
 "SelectContactsToImport" = "Select Contacts to import";
 
@@ -239,7 +239,7 @@
 //MARK:-
 "Disconnect" = "Disconnect";
 "LinkedAccountsMessage" = "Connect your social media accounts for faster login and sharing.";
-
+"DoYouWantToDisconnect" = "Are you sure you want to disconnect?";
 
 //MARK:- Edit Profile VC
 //MARK:-
@@ -755,6 +755,7 @@
 //MARK:- OutStanding Ladger
 "Summary" = "Summary";
 "OutstandingLedger" = "Outstanding Ledger";
+"SelectBooking" = "Select Booking";
 "GrossOutstanding" = "Gross Outstanding";
 "OnAccount" = "On Account";
 "NetOutstanding" = "Net Outstanding";
@@ -868,4 +869,5 @@
 "CancellationRequest" = "Cancellation request";
 "OperatedBy" = "Operated by";
 
-
+"SendingEmail" = "Sending...";
+"LedgerSentToYourEmail" = "Ledger has been sent to your registered email-id.";

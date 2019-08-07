@@ -16,8 +16,8 @@ protocol BookingCancellationPolicyTableViewCellDelegate: class {
 class BookingCancellationPolicyTableViewCell: ATTableViewCell {
     // MARK: - IBOultet
     
-    @IBOutlet var bookingPolicyButton: UIButton!
-    @IBOutlet var cancellationPolicyButton: UIButton!
+    @IBOutlet weak var bookingPolicyButton: UIButton!
+    @IBOutlet weak var cancellationPolicyButton: UIButton!
     
     // MARK: - Variables
     

@@ -9,8 +9,8 @@
 import UIKit
 
 class SideMenuOptionsLabelCell: UITableViewCell {
-    @IBOutlet var displayTextLabel: UILabel!
-    @IBOutlet var sepratorView: ATDividerView!
+    @IBOutlet weak var displayTextLabel: UILabel!
+    @IBOutlet weak var sepratorView: ATDividerView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,6 +37,6 @@ extension SideMenuOptionsLabelCell {
     }
 
     func populateData(text: String) {
-        self.displayTextLabel.text = text
+        displayTextLabel.text = text
     }
 }

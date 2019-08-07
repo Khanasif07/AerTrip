@@ -18,14 +18,14 @@ class MainHomeVC: BaseVC {
     
     //MARK:- Properties
     //MARK:- Public
-    private(set) var sideMenuController: PKSideMenuController?
-    private(set) var viewProfileVC: ViewProfileVC?
-    private(set) var socialLoginVC: SocialLoginVC?
-    private(set) var sideMenuVC: SideMenuVC?
+    private(set) weak var sideMenuController: PKSideMenuController?
+    private(set) weak var viewProfileVC: ViewProfileVC?
+    private(set) weak var socialLoginVC: SocialLoginVC?
+    private(set) weak var sideMenuVC: SideMenuVC?
     
     //MARK:- Private
-    private var profileView: SlideMenuProfileImageHeaderView?
-    private var logoView: SideMenuLogoView?
+    private weak var profileView: SlideMenuProfileImageHeaderView?
+    private weak var logoView: SideMenuLogoView?
     
     var transitionAnimator: UIViewPropertyAnimator?
     var animationProgress: CGFloat = 0
@@ -161,24 +161,11 @@ class MainHomeVC: BaseVC {
                 self.popProfileAnimation()
             }
         }
-//        switch sender.state {
-//        case .began:
-//            self.startAnimation()
-//
-//        case .changed:
-//            self.animationInProgress(sender)
-//
-//        case .ended:
-//            self.animationComplete(sender)
-//
-//        default:
-//            break
-//        }
     }
     
     private func createSideMenu() -> PKSideMenuController {
-        PKSideMenuOptions.opacityViewBackgroundColor = AppColors.themeDarkGreen
-        PKSideMenuOptions.mainViewShadowColor = AppColors.themeDarkGreen
+        PKSideMenuOptions.opacityViewBackgroundColor = AppColors.themeBlackGreen
+        PKSideMenuOptions.mainViewShadowColor = AppColors.themeBlackGreen
         PKSideMenuOptions.dropOffShadowColor = AppColors.themeBlack.withAlphaComponent(0.5)
         
         let sideMenuVC = PKSideMenuController()
@@ -191,11 +178,7 @@ class MainHomeVC: BaseVC {
         let sideMenu = SideMenuVC.instantiate(fromAppStoryboard: .Dashboard)
         sideMenu.delegate = self
         self.sideMenuVC = sideMenu
-        
-//        delay(seconds: 1.0) {
-//            sideMenu.sideMenuTableView.setContentOffset(CGPoint.zero, animated: false)
-//        }
-        
+
         sideMenuVC.menuViewController(sideMenu)
         
         self.sideMenuController = sideMenuVC
@@ -220,28 +203,17 @@ class MainHomeVC: BaseVC {
         return obj
     }
     
-    private func setupLogoView() {
-        guard let sideMenu = self.sideMenuVC else {return}
-        self.logoView = sideMenu.getAppLogoView()
-
-        self.logoView?.isHidden = true
-        
-        self.logoView?.frame.origin = CGPoint(x: self.sideMenuController?.visibleSpace ?? 0.0, y: 30.0)
-        self.mainContainerView.addSubview(self.logoView!)
-    }
-    
     private func setupProfileView() {
         guard let sideMenu = self.sideMenuVC else {return}
         self.profileView = sideMenu.getProfileView()
+        self.profileView?.currentlyUsingAs = .sideMenu
         
         let newFrame = self.sideMenuVC?.profileSuperView?.convert(self.sideMenuVC?.profileSuperView?.frame ?? .zero, to: self.mainContainerView) ?? .zero
-        let finalFrame = CGRect(x: self.sideMenuController?.visibleSpace ?? 120.0, y: newFrame.origin.y + 40.0, width: newFrame.size.width, height: newFrame.size.height)
+        let finalFrame = CGRect(x: self.sideMenuController?.visibleSpace ?? 120.0, y: newFrame.origin.y + 20.0, width: newFrame.size.width, height: newFrame.size.height)
         
         self.profileView?.frame = finalFrame
         
         self.profileView?.isHidden = true
-        self.profileView?.gradientView.isHidden = true
-        self.profileView?.gradientView.alpha = 0.0
         self.mainContainerView.addSubview(self.profileView!)
     }
     
@@ -251,9 +223,10 @@ class MainHomeVC: BaseVC {
         
         self.viewProfileVC?.profileImageHeaderView?.isHidden = true
         self.profileView?.isHidden = false
-        self.sideMenuVC?.profileContainerView.isHidden = true
+        self.sideMenuVC?.profileSuperView.isHidden = true
         
-        let finalFrame = CGRect(x: 0.0, y: -(UIApplication.shared.statusBarFrame.height), width: UIDevice.screenWidth, height: self.viewProfileVC?.profileImageHeaderView?.height ?? UIDevice.screenHeight*0.45)
+        let newH = (self.viewProfileVC?.profileImageHeaderView?.height ?? UIDevice.screenHeight*0.45) + 20.0
+        let finalFrame = CGRect(x: 0.0, y: -(UIApplication.shared.statusBarFrame.height), width: UIDevice.screenWidth, height: newH)
         
         self.profileView?.emailIdLabel.isHidden = false
         self.profileView?.mobileNumberLabel.isHidden = false
@@ -263,7 +236,9 @@ class MainHomeVC: BaseVC {
         
         self.viewProfileVC?.viewModel.webserviceForGetTravelDetail()
 
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+        self.statusBarStyle = .lightContent
+
+        let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
             
             self.scrollView.contentOffset = pushPoint
             self.profileView?.frame = finalFrame
@@ -273,51 +248,50 @@ class MainHomeVC: BaseVC {
             self.profileView?.backgroundImageView.alpha = 1.0
             self.profileView?.dividerView.alpha = 1.0
             self.profileView?.gradientView.alpha = 1.0
-            self.profileView?.profileContainerView.transform = CGAffineTransform.identity
-            self.profileView?.layoutIfNeeded()
+
+            self.profileView?.currentlyUsingAs = .viewProfile
             
-        }, completion: { (isDone) in
-            self.statusBarStyle = .lightContent
+        }
+        
+        animator.addCompletion { (position) in
             self.viewProfileVC?.profileImageHeaderView?.isHidden = false
             self.profileView?.isHidden = true
-            self.sideMenuVC?.profileContainerView.isHidden = true
-        })
+            self.sideMenuVC?.profileSuperView.isHidden = true
+        }
+        
+        animator.startAnimation()
     }
     
     private func popProfileAnimation() {
-        
-        if let profile = self.profileView {
-            self.sideMenuVC?.updateProfileView(view: profile)
-        }
 
         let popPoint = CGPoint(x: 0.0, y: 0.0)
 
         self.viewProfileVC?.profileImageHeaderView?.isHidden = true
         self.profileView?.isHidden = false
-        self.sideMenuVC?.profileContainerView.isHidden = true
+        self.sideMenuVC?.profileSuperView.isHidden = true
 
-        let newFrame = self.sideMenuVC?.profileSuperView.convert(self.sideMenuVC?.profileSuperView.frame ?? .zero, to: self.mainContainerView) ?? .zero
-        let finalFrame = CGRect(x: self.sideMenuController?.visibleSpace ?? 120.0, y: newFrame.origin.y + 40.0, width: newFrame.size.width, height: newFrame.size.height)
+        let newFrame = self.sideMenuVC?.profileSuperView?.convert(self.sideMenuVC?.profileSuperView?.frame ?? .zero, to: self.mainContainerView) ?? .zero
+        let finalFrame = CGRect(x: self.sideMenuController?.visibleSpace ?? 120.0, y: newFrame.origin.y, width: newFrame.size.width, height: newFrame.size.height)
         
         self.statusBarStyle = .default
+        self.profileView?.gradientView.isHidden = true
         let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
             self.scrollView.contentOffset = popPoint
             self.profileView?.frame = finalFrame
-
+            
             self.profileView?.emailIdLabel.alpha = 0.0
             self.profileView?.mobileNumberLabel.alpha = 0.0
             self.profileView?.backgroundImageView.alpha = 0.0
             self.profileView?.dividerView.alpha = 0.0
             self.profileView?.gradientView.alpha = 0.0
-            self.profileView?.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-
-            self.profileView?.layoutIfNeeded()
+            
+            self.profileView?.currentlyUsingAs = .sideMenu
         }
         
         animator.addCompletion { (position) in
             
             self.profileView?.gradientView.isHidden = true
-            
+
             self.profileView?.emailIdLabel.isHidden = true
             self.profileView?.mobileNumberLabel.isHidden = true
 
@@ -325,13 +299,22 @@ class MainHomeVC: BaseVC {
             self.profileView?.dividerView.isHidden = true
 
             self.viewProfileVC?.profileImageHeaderView?.isHidden = true
-//            self.viewProfileVC?.tableView.setContentOffset(CGPoint(x: 0.0, y: -(300.0 + UIApplication.shared.statusBarFrame.height)), animated: false)
             self.profileView?.isHidden = true
-            self.sideMenuVC?.profileContainerView.isHidden = false
-            self.sideMenuVC?.profileContainerView.isUserInteractionEnabled = true
+            self.sideMenuVC?.profileSuperView.isHidden = false
         }
         
         animator.startAnimation()
+    }
+    
+    private func setupLogoView() {
+        guard let sideMenu = self.sideMenuVC else {return}
+        self.logoView = sideMenu.getAppLogoView()
+        self.logoView?.currentlyUsingFor = .sideMenu
+        self.logoView?.isHidden = true
+        
+        self.logoView?.frame.origin = CGPoint(x: self.sideMenuController?.visibleSpace ?? 0.0, y: 30.0)
+        self.logoView?.alpha = 0.6
+        self.mainContainerView.addSubview(self.logoView!)
     }
     
     private func pushLogoAnimation() {
@@ -349,6 +332,7 @@ class MainHomeVC: BaseVC {
             
             self.scrollView.contentOffset = pushPoint
             self.logoView?.frame = finalFrame
+            self.logoView?.currentlyUsingFor = .socialLogin
             self.logoView?.layoutIfNeeded()
             
         }, completion: { (isDone) in
@@ -373,6 +357,7 @@ class MainHomeVC: BaseVC {
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.scrollView.contentOffset = popPoint
             self.logoView?.frame = finalFrame
+            self.logoView?.currentlyUsingFor = .sideMenu
             self.logoView?.layoutIfNeeded()
             
         }, completion: { (isDone) in

@@ -20,6 +20,7 @@ class SideMenuVM {
                              LocalizedString.Notification.localized,
                              LocalizedString.ReferAndEarn.localized,
                              LocalizedString.Settings.localized,
+                             "", //for divider after the settings
                              LocalizedString.WhyAertrip.localized,
                              LocalizedString.SmartSort.localized,
                              LocalizedString.ContactUs.localized]

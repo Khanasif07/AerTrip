@@ -16,10 +16,10 @@ protocol GuestDetailTableViewCellDelegate: class {
 class GuestDetailTableViewCell: UITableViewCell {
     // MARK: - IB Outlets
     
-    @IBOutlet var guestTitleLabel: UILabel!
-    @IBOutlet var salutationTextField: PKFloatLabelTextField!
-    @IBOutlet var firstNameTextField: PKFloatLabelTextField!
-    @IBOutlet var lastNameTextField: PKFloatLabelTextField!
+    @IBOutlet weak var guestTitleLabel: UILabel!
+    @IBOutlet weak var salutationTextField: PKFloatLabelTextField!
+    @IBOutlet weak var firstNameTextField: PKFloatLabelTextField!
+    @IBOutlet weak var lastNameTextField: PKFloatLabelTextField!
     
     // MARK: - Properties
     

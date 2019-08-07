@@ -12,20 +12,20 @@ import UIKit
 class TravellerListVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var tableView: ATTableView! {
+    @IBOutlet weak var tableView: ATTableView! {
         didSet {
             tableView.delegate = nil
             tableView.dataSource = nil
         }
     }
     
-    @IBOutlet var bottomView: UIView!
+    @IBOutlet weak var bottomView: UIView!
     
-    @IBOutlet var assignGroupButton: UIButton!
-    @IBOutlet var deleteButton: UIButton!
-    @IBOutlet var searchBar: ATSearchBar!
-    @IBOutlet var headerDividerView: ATDividerView!
-    @IBOutlet var topNavView: TopNavigationView!
+    @IBOutlet weak var assignGroupButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var searchBar: ATSearchBar!
+    @IBOutlet weak var headerDividerView: ATDividerView!
+    @IBOutlet weak var topNavView: TopNavigationView!
     
     // MARK: - Variables
     
@@ -105,7 +105,7 @@ class TravellerListVC: BaseVC {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-       // CoreDataManager.shared.deleteCompleteDB()
+        CoreDataManager.shared.deleteData("TravellerData")
     }
     
     override func bindViewModel() {
@@ -559,9 +559,10 @@ extension TravellerListVC: TravellerListVMDelegate {
     private func deleteAllSelectedTravllers() {
         for traveller in selectedTravller {
             if let id = traveller.id, !id.isEmpty {
-                _ = CoreDataManager.shared.deleteData("TravellerData", predicate: "id BEGINSWITH '\(id)'")
+                CoreDataManager.shared.deleteData("TravellerData", predicate: "id BEGINSWITH '\(id)'")
             }
         }
+        loadSavedData()
     }
     
     func deleteTravellerAPIFailure() {

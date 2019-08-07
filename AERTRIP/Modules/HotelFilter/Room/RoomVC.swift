@@ -17,8 +17,8 @@ enum RoomType {
 class RoomVC: UIViewController {
     // MARK: -  IB Outlet
     
-    @IBOutlet var tableView: UITableView!
-    @IBOutlet var roomSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var roomSegmentedControl: UISegmentedControl!
     
     // MARK: - Variables
     

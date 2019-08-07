@@ -112,46 +112,37 @@ class CoreDataManager {
     
     //MARK:- Delete Form Core Data
     //MARK:-
-    func deleteAllData(_ modelName: String) -> Bool {
-        if let result = self.fetchData(modelName) {
-            for resultItem in result {
-                let finalItem: AnyObject = resultItem as AnyObject
-                self.managedObjectContext.delete(finalItem as! NSManagedObject)
-            }
-            self.saveContext()
-            return true
+    func deleteData(_ modelName: String, predicate: String? = nil) {
+
+        let context = self.managedObjectContext
+        
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: modelName)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        
+        //set predicate
+        if let prdStr = predicate {
+            deleteFetch.predicate = NSPredicate(format:prdStr)
         }
-        return false
-    }
-    
-    func deleteData(_ modelName: String, predicate: String?)-> Bool {
-        if let result = self.fetchData(modelName, predicate: predicate) {
-            for resultItem in result {
-                let finalItem: AnyObject = resultItem as AnyObject
-                self.managedObjectContext.delete(finalItem as! NSManagedObject)
-            }
+        
+        do {
+            try context.execute(deleteRequest)
             self.saveContext()
-            return true
+        } catch {
+            printDebug("There was an error")
         }
-        return false
     }
     
     func deleteCompleteDB() {
         
-        guard let persistentStore = persistentStoreCoordinator.persistentStores.last else {
-            return
-        }
+        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
         
-        let url = persistentStoreCoordinator.url(for: persistentStore)
-        managedObjectContext.reset()
-        do {
-            try persistentStoreCoordinator.remove(persistentStore)
-            try FileManager.default.removeItem(at: url)
-            try self.persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
-        }
-        catch let error {
-            /*dealing with errors up to the usage*/
-            printDebug("Problem in deleting complete data from core data is: \(error.localizedDescription)")
+        if let path = paths.first {
+            do {
+                try persistentStoreCoordinator.destroyPersistentStore(at: URL(fileURLWithPath: path), ofType: NSSQLiteStoreType, options: nil)
+                
+            } catch {
+                // Error Handling
+            }
         }
     }
     

@@ -11,8 +11,8 @@ import UIKit
 class TableViewAddActionCell: UITableViewCell {
     // MARK: - IB Outlets
 
-    @IBOutlet var cellBackgroundView: UIView!
-    @IBOutlet var actionLabel: UILabel!
+    @IBOutlet weak var cellBackgroundView: UIView!
+    @IBOutlet weak var actionLabel: UILabel!
 
     @IBOutlet weak var topDividerView: ATDividerView!
     
