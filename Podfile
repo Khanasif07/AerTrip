@@ -25,7 +25,7 @@ target 'AERTRIP' do
     pod 'GooglePlaces'
     pod 'FlexiblePageControl'
     pod 'PKLoader'
-    pod 'razorpay-pod', '1.0.26'
+    pod 'razorpay-pod', '1.1.0'
     pod 'ActiveLabel'
     pod 'TransitionButton'
    pod 'AertripCalendarDataModel' , :git => 'git@gitlab.com:aertrip/ios-shared-rep.git' , :commit => '38ef98df8d00a76bf09f37fffd1905c60d22c58e'

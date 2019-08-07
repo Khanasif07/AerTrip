@@ -129,7 +129,7 @@ PODS:
   - PhoneNumberKit/UIKit (2.5.0):
     - PhoneNumberKit/PhoneNumberKitCore
   - PKLoader (0.0.7)
-  - razorpay-pod (1.0.26)
+  - razorpay-pod (1.1.0)
   - SwiftyJSON (4.2.0)
   - TransitionButton (0.5.2)
 
@@ -156,7 +156,7 @@ DEPENDENCIES:
   - MXParallaxHeader
   - PhoneNumberKit (~> 2.5)
   - PKLoader
-  - razorpay-pod (= 1.0.26)
+  - razorpay-pod (= 1.1.0)
   - SwiftyJSON (~> 4.0)
   - TransitionButton
 
@@ -250,10 +250,10 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   PhoneNumberKit: 32a1cd1e0aa9e950feb01886a22fd7386b8cf903
   PKLoader: 25894faef3a0ea94d8c6b8e761e02184aba14783
-  razorpay-pod: 6f1eeb10e473b4a88baee1cd054eed76b926c923
+  razorpay-pod: 135f80666a764f4d92d198ba3f49aff70397afba
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: a584f9494c90b37a90a214b739a736bf8d90922a
+PODFILE CHECKSUM: 8af7009b3f75d753d4798364c06e9885dae857fd
 
 COCOAPODS: 1.6.1
