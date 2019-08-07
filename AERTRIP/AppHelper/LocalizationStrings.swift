@@ -351,6 +351,7 @@ enum LocalizedString: String {
     
     case Disconnect
     case LinkedAccountsMessage
+    case DoYouWantToDisconnect
     
     // MARK: - Favourite Hotels
     

@@ -100,7 +100,8 @@ class SearchFavouriteHotelsVC: BaseVC {
     private func startLoading() {
         // commented because , we need to end keyboard editing
        // self.searchBar.isUserInteractionEnabled = false
-        indicatorView.isHidden = false
+        // if want to show the loader in the top left cornet when the data is being search or like/dislike, replace true with false in next line.
+        indicatorView.isHidden = true
     }
     
     private func stopLoading() {

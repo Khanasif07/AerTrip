@@ -332,7 +332,7 @@ extension PKSideMenuController: UIGestureRecognizerDelegate {
         otherGestureRecognizer.require(toFail: gestureRecognizer)
         return true
     }
-    private func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if let touchedView = touch.view, touchedView.isDescendant(of: self.view) {
             return false
         }

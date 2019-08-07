@@ -281,7 +281,7 @@ class HotelResultVC: BaseVC {
         if let noti = note.object as? ATNotification, noti == .GRNSessionExpired {
             //re-hit the search API
             self.manageShimmer(isHidden: false)
-            _ = CoreDataManager.shared.deleteAllData("HotelSearched")
+            CoreDataManager.shared.deleteData("HotelSearched")
             self.viewModel.hotelListOnPreferencesApi()
         }
         else if let _ = note.object as? HotelDetailsVC {

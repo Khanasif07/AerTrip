@@ -53,8 +53,8 @@ class ViewProfileDetailVC: BaseVC {
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
-            //            self?.profileImageHeaderView.profileImageViewHeightConstraint.constant = 121
-            //            self?.profileImageHeaderView.layoutIfNeeded()
+            self?.profileImageHeaderView.profileImageViewHeightConstraint.constant = 127.0
+            self?.profileImageHeaderView.layoutIfNeeded()
             self?.view.alpha = 1.0
         }
         doInitialSetUp()
@@ -416,11 +416,11 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
         
         printDebug("progress %f \(prallexProgress)")
         
-        if prallexProgress >= 0.6 {
-            profileImageHeaderView.profileImageViewHeightConstraint.constant = 121 * prallexProgress
+        if 0.6...1.0 ~= prallexProgress {
+            profileImageHeaderView.profileImageViewHeightConstraint.constant = 127.0 * prallexProgress
         }
         
-        if prallexProgress <= 0.5 {
+        if prallexProgress <= 0.65 {
             self.statusBarStyle = .default
             self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
                 self?.topNavView.firstRightButton.isSelected = true

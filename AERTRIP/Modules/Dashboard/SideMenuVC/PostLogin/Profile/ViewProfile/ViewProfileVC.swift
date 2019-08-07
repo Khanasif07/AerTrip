@@ -112,7 +112,9 @@ class ViewProfileVC: BaseVC {
         
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
-        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Edit.rawValue, selectedTitle: LocalizedString.Edit.rawValue, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
+        
+        let editStr = "\(LocalizedString.Edit.rawValue) "
+        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editStr, selectedTitle: editStr, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
         
         let tintedImage = #imageLiteral(resourceName: "Back").withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         self.topNavView.leftButton.setImage(tintedImage, for: .normal)
@@ -133,10 +135,10 @@ class ViewProfileVC: BaseVC {
     }
     
     func setupParallaxHeader() {
-        let parallexHeaderHeight = CGFloat(300.0)//CGFloat(UIDevice.screenHeight * 0.45)
+        let parallexHeaderHeight = CGFloat(304.0)//CGFloat(UIDevice.screenHeight * 0.45)
         
         let parallexHeaderMinHeight = self.navigationController?.navigationBar.bounds.height ?? 74
-        
+        self.profileImageHeaderView?.currentlyUsingAs = .viewProfile
         profileImageHeaderView?.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width, height: 0.0)
         self.tableView.parallaxHeader.view = profileImageHeaderView
         self.tableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight // 64
@@ -288,7 +290,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         let prallexProgress = self.tableView.parallaxHeader.progress
         
         if 0.6...1.0 ~= prallexProgress {
-            self.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 121.0 * prallexProgress
+            self.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 127.0 * prallexProgress
         }
         if prallexProgress <= 0.65 {
             self.statusBarStyle = .default

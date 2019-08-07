@@ -139,7 +139,7 @@ extension FavouriteHotelsVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToHotelSearchVC()
+        AppFlowManager.default.moveToSearchFavouriteHotelsVC()
     }
 }
 

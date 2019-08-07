@@ -532,7 +532,7 @@ class HotelsSearchVC: BaseVC {
             }
             delay(seconds: 0.1) {
                 //send to result screen for current selected form data
-                _ = CoreDataManager.shared.deleteAllData("HotelSearched")
+                CoreDataManager.shared.deleteData("HotelSearched")
                 HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
                 
                 if 1...4 ~= self.viewModel.searchedFormData.ratingCount.count {

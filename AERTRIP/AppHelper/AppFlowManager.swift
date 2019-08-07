@@ -280,7 +280,7 @@ extension AppFlowManager {
         self.mainNavigationController.present(controller, animated: true, completion: nil)
     }
     
-    func moveToHotelSearchVC() {
+    func moveToSearchFavouriteHotelsVC() {
         let ob = SearchFavouriteHotelsVC.instantiate(fromAppStoryboard: .HotelPreferences)
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
