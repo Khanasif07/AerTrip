@@ -24,6 +24,14 @@ import UIKit
         }
     }
     
+    var isFloatingField: Bool = true {
+        didSet  {
+            self.hideTitle(true)
+        }
+    }
+    
+
+    
     /// A Boolean value that determines whether the textfield is being edited or is selected.
     open var editingOrSelected: Bool {
         return super.isEditing || isSelected
@@ -176,10 +184,16 @@ import UIKit
 		// Should we show or hide the title label?
 		if let txt = text , txt.isEmpty {
 			// Hide
-			hideTitle(isResp)
+            if isFloatingField {
+               hideTitle(isResp)
+            }
+			
 		} else {
 			// Show
-			showTitle(isResp)
+            if isFloatingField {
+                showTitle(isResp)
+            }
+			
 		}
         
         autocapitalizationType = (keyboardType == .emailAddress) ? .none : .sentences

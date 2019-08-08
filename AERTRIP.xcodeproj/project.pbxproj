@@ -969,6 +969,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C181FBE22FABDAD0088E64A /* Bolts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Bolts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C6666AC22D472F0009DFACD /* TripChangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripChangeTableViewCell.swift; sourceTree = "<group>"; };
 		0C6666AD22D472F0009DFACD /* TripChangeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripChangeTableViewCell.xib; sourceTree = "<group>"; };
 		0C6666B522D486A2009DFACD /* BookingCommonActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCommonActionTableViewCell.swift; sourceTree = "<group>"; };
@@ -5218,6 +5219,7 @@
 		E8564E98314D16DFFD182776 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0C181FBE22FABDAD0088E64A /* Bolts.framework */,
 				188BFBB62203379700B4C315 /* StoreKit.framework */,
 				188BFBB42203378F00B4C315 /* GameKit.framework */,
 				57D7C883F61476F23C0D060C /* Pods_AERTRIP.framework */,

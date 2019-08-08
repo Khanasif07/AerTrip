@@ -42,6 +42,7 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.setUpFonts()
         leftView.isUserInteractionEnabled = true
         rightViewTextField.placeholder = LocalizedString.Phone.localized
     }
@@ -73,6 +74,13 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
         middleView.tag = indexPath?.row ?? 0
         middleView.addGestureRecognizer(middleViewGesture)
         
+    }
+    
+    
+    private func setUpFonts() {
+        self.leftTitleLabel.font = AppFonts.Regular.withSize(18.0)
+        self.rightViewTextField.font = AppFonts.Regular.withSize(18.0)
+        self.countryCodeLabel.font = AppFonts.Regular.withSize(18.0)
     }
     
     

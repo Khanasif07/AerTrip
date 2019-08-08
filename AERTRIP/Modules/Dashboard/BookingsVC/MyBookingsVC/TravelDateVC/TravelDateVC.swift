@@ -181,7 +181,8 @@ class TravelDateVC: BaseVC {
             self.toDatePicker.maximumDate = Date().add(years: 2)
             
             self.fromDatePicker.setDate(self.oldFromDate ?? self.minFromDate ?? Date(), animated: false)
-            self.toDatePicker.setDate(self.oldToDate ?? Date(), animated: false)
+            
+            self.toDatePicker.setDate(self.oldToDate ??  Date().add(years: 2) ?? Date(), animated: false)
             
             self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
         }
@@ -270,7 +271,7 @@ class TravelDateVC: BaseVC {
                 self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: MyBookingFilterVM.shared.bookingFromDate == nil ? nil : self.toDatePicker.date)
             }
             else {
-                self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: MyBookingFilterVM.shared.travelFromDate == nil ? nil : self.toDatePicker.date)
+                self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: MyBookingFilterVM.shared.travelFromDate == nil || oldToDate == nil ? nil : self.toDatePicker.date)
             }
             self.oldFromDate = self.fromDatePicker.date
         }

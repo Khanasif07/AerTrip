@@ -68,7 +68,6 @@ class MyBookingsVC: BaseVC {
         MyBookingsVM.shared.delgate = self
         MyBookingsVM.shared.getBookings()
     }
-    
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
             if noti == .myBookingFilterApplied {
