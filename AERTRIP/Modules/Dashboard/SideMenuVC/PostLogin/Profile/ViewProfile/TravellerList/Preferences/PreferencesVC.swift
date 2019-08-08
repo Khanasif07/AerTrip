@@ -101,12 +101,12 @@ class PreferencesVC: BaseVC {
                 AppToast.default.showToastMessage(message: LocalizedString.GroupNameCanNotEmpty.localized)
                 return
             } else if !self.viewModel.groups.contains(where: { $0.compare(groupName, options: .caseInsensitive) == .orderedSame }) {
-               // if (groupName.lowercased() == LocalizedString.Other.localized.lowercased()) || (groupName.lowercased() == LocalizedString.Others.localized.lowercased()) {
+                if (groupName.lowercased() == LocalizedString.Other.localized.lowercased()) || (groupName.lowercased() == LocalizedString.Others.localized.lowercased()) {
                    AppToast.default.showToastMessage(message: LocalizedString.CantCreateGroupWithThisName.localized)
-              //  } else {
+                } else {
                     self.viewModel.groups.append(groupName)
                     self.viewModel.modifiedGroups.append((originalGroupName: groupName, modifiedGroupName: groupName))
-                // }
+                 }
                
             } else {
                 AppToast.default.showToastMessage(message: LocalizedString.GroupAlreadyExist.localized)

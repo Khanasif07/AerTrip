@@ -22,7 +22,6 @@ class GroupTableViewCell: UITableViewCell {
     @IBOutlet weak var groupCountLabel: UILabel!
     @IBOutlet weak var reorderButton: UIButton!
     @IBOutlet weak var dividerView: ATDividerView!
-    
     @IBOutlet weak var deleteButtonWidthConstraint: NSLayoutConstraint!
     
     // MARK: - Variables
@@ -48,9 +47,9 @@ class GroupTableViewCell: UITableViewCell {
         groupNameTextField.isEnabled = true
         
         if groupName.lowercased() == LocalizedString.Others.localized.lowercased() {
-            self.deleteButtonWidthConstraint.constant = 0
+             self.deleteButton.isHidden = true
         } else {
-             self.deleteButtonWidthConstraint.constant = 38
+             self.deleteButton.isHidden = false
         }
         if groupName.removeAllWhitespaces.lowercased() ==  LocalizedString.Others.localized.removeAllWhitespaces.lowercased() {
             groupNameTextField.isEnabled = false
