@@ -44,6 +44,8 @@ class PreferencesVM: NSObject {
         self.modifiedGroups = self.modifiedGroups.filter({ $0.modifiedGroupName != $0.originalGroupName })
     }
     
+    
+    
     func callSavePreferencesAPI() {
         var params = JSONDictionary()
         
@@ -52,6 +54,8 @@ class PreferencesVM: NSObject {
         params["categorize_by_group"] = self.isCategorizeByGroup
         params["labels"] = self.groups
         params["removed"] = self.removedGroups
+        
+        UserInfo.loggedInUser?.generalPref?.updateLabelsPriority(newList: self.groups)
         
         getFinalModifiedGroups()
         
@@ -68,6 +72,4 @@ class PreferencesVM: NSObject {
             }
         }
     }
-    
-    
 }

@@ -135,6 +135,7 @@ class UserInfo {
         var displayOrder = ""
         var categorizeByGroup : Bool = false
         var labels : [String] = []
+        var labelsWithPriority: [String:Int] = [:]
        
         var jsonDict: [String:Any] {
             return ["sort_order": self.sortOrder,
@@ -155,7 +156,20 @@ class UserInfo {
             self.sortOrder     = json["sort_order"].stringValue
             self.displayOrder   = json["display_order"].stringValue
             self.categorizeByGroup   = json["categorize_by_group"].boolValue
-            self.labels = json["labels"].arrayObject as? [String] ?? []
+            
+            if let array = json["labels"].arrayObject as? [String] {
+                updateLabelsPriority(newList: array)
+            }
+        }
+        
+        mutating func updateLabelsPriority(newList: [String]) {
+            
+            self.labels.removeAll()
+            for (idx, label) in newList.enumerated() {
+                let newLabel = label.removeLeadingTrailingWhitespaces
+                self.labels.append(newLabel)
+                labelsWithPriority[label] = idx + 5
+            }
         }
     }
     

@@ -104,8 +104,6 @@ class TravellerListVC: BaseVC {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
-        CoreDataManager.shared.deleteData("TravellerData")
     }
     
     override func bindViewModel() {
@@ -273,32 +271,32 @@ class TravellerListVC: BaseVC {
     // create label Predicate
     
     func labelPredicate() -> NSPredicate? {
-        var labelPredicate: NSPredicate?
-        var labelPredicates = [AnyHashable]()
+        var labelPredicates:[NSPredicate] = []
         if let generalPref = UserInfo.loggedInUser?.generalPref {
             for group in generalPref.labels {
-                labelPredicates.append(NSPredicate(format: "label == '\(group.removeAllWhiteSpacesAndNewLines)'"))
+                labelPredicates.append(NSPredicate(format: "label == '\(group)'"))
             }
         }
-        if labelPredicates.count > 0 {
-            if let labelPredicates = labelPredicates as? [NSPredicate] {
-                labelPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: labelPredicates)
-            }
+        
+        if !labelPredicates.isEmpty {
+            return NSCompoundPredicate(orPredicateWithSubpredicates: labelPredicates)
         }
-        return labelPredicate
+        return nil
     }
     
     func loadSavedData() {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TravellerData")
+        let fetchRequest = TravellerData.createFetchRequest()//NSFetchRequest<NSFetchRequestResult>(entityName: "TravellerData")
         if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "label", ascending: false)]
-            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "label", cacheName: nil) as? NSFetchedResultsController<TravellerData>
+            var sortDes = [NSSortDescriptor(key: "labelLocPrio", ascending: true)]
+
             if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
-                fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "firstName", ascending: true))
-                
+                sortDes.append(NSSortDescriptor(key: "firstName", ascending: true))
+
             } else {
-                fetchRequest.sortDescriptors?.append(NSSortDescriptor(key: "firstName", ascending: true))
+                sortDes.append(NSSortDescriptor(key: "firstName", ascending: true))
             }
+            fetchRequest.sortDescriptors = sortDes
+            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "labelLocPrio", cacheName: nil)
         } else {
             if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
                 fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameFirstChar", ascending: true)]
@@ -306,7 +304,7 @@ class TravellerListVC: BaseVC {
                 fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameFirstChar", ascending: true)]
             }
             
-            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "firstNameFirstChar", cacheName: nil) as? NSFetchedResultsController<TravellerData>
+            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "firstNameFirstChar", cacheName: nil)
         }
         fetchedResultsController.delegate = self
         if predicateStr.isEmpty {
@@ -448,7 +446,6 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         let backView = UIView(frame: cell.contentView.bounds)
         backView.backgroundColor = AppColors.themeWhite
         cell.selectedBackgroundView = backView
-        
         return cell
     }
     
@@ -501,7 +498,9 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         guard let sections = fetchedResultsController.sections else {
             return nil
         }
-        headerView.configureCell(sections[section].name)
+        if let prio = sections[section].name.toInt, let title = UserInfo.loggedInUser?.generalPref?.labelsWithPriority.someKey(forValue: prio) {
+            headerView.configureCell(title)
+        }
         return headerView
     }
     
@@ -620,7 +619,7 @@ extension TravellerListVC: NSFetchedResultsControllerDelegate {
 
 extension TravellerListVC: PreferencesVCDelegate {
     func cancelButtonTapped() {
-        resetAllItem()
+        shouldHitAPI = false
     }
     
     func preferencesUpdated() {

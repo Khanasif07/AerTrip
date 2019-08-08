@@ -7,17 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "AEECF34A-CDFC-48CE-B24D-D1262150D29D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/SideMenuVC/PreLogin/SocialLoginVC/SocialLoginVM.swift"
-            timestampString = "586339337.664381"
+            filePath = "AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Profile/ViewProfile/TravellerList/TravellerListVC.swift"
+            timestampString = "586941749.903681"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "fbLogin(vc:completionBlock:)"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
+            landmarkName = "loadSavedData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Profile/ViewProfile/TravellerList/TravellerListVM.swift"
+            timestampString = "586941749.904821"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "callSearchTravellerListAPI()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

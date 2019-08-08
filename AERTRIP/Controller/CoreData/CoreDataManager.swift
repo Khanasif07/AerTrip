@@ -43,6 +43,13 @@ class CoreDataManager {
         return container
     }()
     
+    var storageFileUrl: URL? {
+        if let persis = CoreDataManager.shared.persistentContainer.persistentStoreCoordinator.persistentStores.first {
+            return CoreDataManager.shared.persistentContainer.persistentStoreCoordinator.url(for: persis)
+        }
+        return nil
+    }
+    
     var managedObjectModel: NSManagedObjectModel {
         /**
          * The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
