@@ -23,6 +23,8 @@ class GroupTableViewCell: UITableViewCell {
     @IBOutlet weak var reorderButton: UIButton!
     @IBOutlet weak var dividerView: ATDividerView!
     
+    @IBOutlet weak var deleteButtonWidthConstraint: NSLayoutConstraint!
+    
     // MARK: - Variables
     
     weak var delegate: GroupTableViewCellDelegate?
@@ -44,10 +46,15 @@ class GroupTableViewCell: UITableViewCell {
     func configureCell(_ groupName: String, _ totalContactsCount: Int) {
         
         groupNameTextField.isEnabled = true
+        
+        if groupName.lowercased() == LocalizedString.Others.localized.lowercased() {
+            self.deleteButtonWidthConstraint.constant = 0
+        } else {
+             self.deleteButtonWidthConstraint.constant = 38
+        }
         if groupName.removeAllWhitespaces.lowercased() ==  LocalizedString.Others.localized.removeAllWhitespaces.lowercased() {
             groupNameTextField.isEnabled = false
         }
-
         groupNameTextField.text = groupName
         
         groupCountLabel.text = "\(totalContactsCount)"

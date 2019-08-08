@@ -324,6 +324,7 @@ enum LocalizedString: String {
     case PreferencesSavedSuccessfully
     case GroupAlreadyExist
     case GroupNameCanNotEmpty
+    case CantCreateGroupWithThisName
     
     // MARK: - Import Contacts
     
@@ -952,4 +953,7 @@ enum LocalizedString: String {
     
     case SendingEmail
     case LedgerSentToYourEmail
+    
+    // MARK: - Common
+    case Other
 }

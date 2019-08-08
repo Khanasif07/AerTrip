@@ -97,14 +97,17 @@ class PreferencesVC: BaseVC {
             let groupName = alertController.textFields?.first?.text?.trimmingCharacters(in: .whitespaces) ?? "None"
             printDebug("Current group name: \(groupName)")
             
-            if groupName.isEmpty {
+            if groupName.isEmpty{
                 AppToast.default.showToastMessage(message: LocalizedString.GroupNameCanNotEmpty.localized)
                 return
-            }
-            
-            if !self.viewModel.groups.contains(where: { $0.compare(groupName, options: .caseInsensitive) == .orderedSame }) {
-                self.viewModel.groups.append(groupName)
-                self.viewModel.modifiedGroups.append((originalGroupName: groupName, modifiedGroupName: groupName))
+            } else if !self.viewModel.groups.contains(where: { $0.compare(groupName, options: .caseInsensitive) == .orderedSame }) {
+               // if (groupName.lowercased() == LocalizedString.Other.localized.lowercased()) || (groupName.lowercased() == LocalizedString.Others.localized.lowercased()) {
+                   AppToast.default.showToastMessage(message: LocalizedString.CantCreateGroupWithThisName.localized)
+              //  } else {
+                    self.viewModel.groups.append(groupName)
+                    self.viewModel.modifiedGroups.append((originalGroupName: groupName, modifiedGroupName: groupName))
+                // }
+               
             } else {
                 AppToast.default.showToastMessage(message: LocalizedString.GroupAlreadyExist.localized)
             }
