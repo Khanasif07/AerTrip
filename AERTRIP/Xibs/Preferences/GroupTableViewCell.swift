@@ -23,10 +23,17 @@ class GroupTableViewCell: UITableViewCell {
     @IBOutlet weak var reorderButton: UIButton!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var deleteButtonWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topDividerView: ATDividerView!
     
     // MARK: - Variables
     
     weak var delegate: GroupTableViewCellDelegate?
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        dividerView.isHidden = true
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

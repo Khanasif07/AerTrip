@@ -128,7 +128,7 @@ PODS:
   - PhoneNumberKit/UIKit (2.6.0):
     - PhoneNumberKit/PhoneNumberKitCore
   - PKLoader (0.0.7)
-  - razorpay-pod (1.1.0)
+  - razorpay-pod (1.1.2)
   - SwiftyJSON (4.3.0)
   - TransitionButton (0.5.2)
 
@@ -156,7 +156,7 @@ DEPENDENCIES:
   - MXParallaxHeader
   - PhoneNumberKit (~> 2.5)
   - PKLoader
-  - razorpay-pod (= 1.1.0)
+  - razorpay-pod (from `https://github.com/razorpay/razorpay-pod.git`, branch `swift5.1`)
   - SwiftyJSON (~> 4.0)
   - TransitionButton
 
@@ -195,7 +195,6 @@ SPEC REPOS:
     - nanopb
     - PhoneNumberKit
     - PKLoader
-    - razorpay-pod
     - SwiftyJSON
     - TransitionButton
 
@@ -205,6 +204,9 @@ EXTERNAL SOURCES:
   AertripCalendarDataModel:
     :commit: 38ef98df8d00a76bf09f37fffd1905c60d22c58e
     :git: "git@gitlab.com:aertrip/ios-shared-rep.git"
+  razorpay-pod:
+    :branch: swift5.1
+    :git: https://github.com/razorpay/razorpay-pod.git
 
 CHECKOUT OPTIONS:
   AertripCalendar:
@@ -213,6 +215,9 @@ CHECKOUT OPTIONS:
   AertripCalendarDataModel:
     :commit: 38ef98df8d00a76bf09f37fffd1905c60d22c58e
     :git: "git@gitlab.com:aertrip/ios-shared-rep.git"
+  razorpay-pod:
+    :commit: 023765d6bedd8f732f426ae30bc3eced9aaa3107
+    :git: https://github.com/razorpay/razorpay-pod.git
 
 SPEC CHECKSUMS:
   ActiveLabel: 5e3f4de79a1952d4604b845a0610d4776e4b82b3
@@ -250,10 +255,10 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   PhoneNumberKit: 167ee1f0bbb6efce7c62559e620eae745595532f
   PKLoader: 25894faef3a0ea94d8c6b8e761e02184aba14783
-  razorpay-pod: 135f80666a764f4d92d198ba3f49aff70397afba
+  razorpay-pod: bd7b4bfedd59002e7c30d96dd71fe31e740f2bcf
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: 9be936a17229cf89dcb6ff468ad90811d88b6296
+PODFILE CHECKSUM: cd1002768c466debc14189580c234ccb1affd530
 
 COCOAPODS: 1.6.1

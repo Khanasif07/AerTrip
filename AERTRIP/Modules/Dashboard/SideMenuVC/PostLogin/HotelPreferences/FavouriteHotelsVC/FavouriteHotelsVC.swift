@@ -191,7 +191,7 @@ extension FavouriteHotelsVC: FavouriteHotelsListVCDelegate {
         else {
             //reload complete list
             self.updateFavouriteSuccess()
-            self.sendDataChangedNotification(data: self)
+           // self.sendDataChangedNotification(data: self)
         }
     }
     

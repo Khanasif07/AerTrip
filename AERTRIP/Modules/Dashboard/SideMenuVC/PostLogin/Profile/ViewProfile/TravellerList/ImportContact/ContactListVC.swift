@@ -137,7 +137,7 @@ class ContactListVC: BaseVC {
     }
     
     private func reloadList() {
-        self.tableView.reloadData()
+        self.tableView?.reloadData()
     }
     
     private func hideSelectAllButton(isHidden: Bool = true) {
@@ -482,25 +482,25 @@ extension ContactListVC: ImportContactVMDelegate {
         case .facebook:
             self.viewModel.createSectionWiseDataForContacts(for: .facebook)
             if !self.viewModel.isFacebookContactsAllowed {
-                tableView.backgroundView = allowEmptyView
+                tableView?.backgroundView = allowEmptyView
             }
             else if self.viewModel.facebookContacts.isEmpty {
-                tableView.backgroundView = noResultemptyView
+                tableView?.backgroundView = noResultemptyView
             }
             else {
-                tableView.backgroundView = nil
+                tableView?.backgroundView = nil
             }
             
         case .google:
             self.viewModel.createSectionWiseDataForContacts(for: .google)
             if !self.viewModel.isGoogleContactsAllowed {
-                tableView.backgroundView = allowEmptyView
+                tableView?.backgroundView = allowEmptyView
             }
             else if self.viewModel.googleContacts.isEmpty {
-                tableView.backgroundView = noResultemptyView
+                tableView?.backgroundView = noResultemptyView
             }
             else {
-                tableView.backgroundView = nil
+                tableView?.backgroundView = nil
             }
         }
         

@@ -65,7 +65,6 @@ class PreferencesVC: BaseVC {
         tableView.dataSource = self
         tableView.allowsSelectionDuringEditing = true
         tableView.isEditing = true
-        
         indicatorView.color = AppColors.themeGreen
         
         stopLoading()
@@ -279,7 +278,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                 return categoryGroupCell
             }
         case LocalizedString.Groups:
-            guard let groupCell = tableView.dequeueReusableCell(withIdentifier: groupCellIdentifier, for: indexPath) as? GroupTableViewCell else {
+            guard let groupCell = tableView.dequeueReusableCell(withIdentifier: groupCellIdentifier) as? GroupTableViewCell else {
                 fatalError("GroupTableViewCell not found")
             }
             groupCell.dividerView.isHidden = indexPath.row == viewModel.groups.count - 1
@@ -352,12 +351,23 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         // get modified Object
+        
+        
         let movedObject = viewModel.groups[sourceIndexPath.row]
         let movedModifiedObject = viewModel.modifiedGroups[sourceIndexPath.row]
         
         // remove element at Particular index
         viewModel.groups.remove(at: sourceIndexPath.row)
         viewModel.modifiedGroups.remove(at: sourceIndexPath.row)
+        if let sourceCell = self.tableView.cellForRow(at: sourceIndexPath) as? GroupTableViewCell {
+             sourceCell.dividerView.isHidden = false
+        }
+        
+        if let destinationCell = self.tableView.cellForRow(at: destinationIndexPath) as? GroupTableViewCell {
+            destinationCell.dividerView.isHidden = false
+        }
+        
+        
         
         // Insert element at Particular index
         viewModel.groups.insert(movedObject, at: destinationIndexPath.row)
@@ -368,7 +378,6 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         if indexPath.row == viewModel.groups.count {
             return false
         }
-        
         return true
     }
     
@@ -386,6 +395,17 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         }
         return false
     }
+    
+    
+    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        if proposedDestinationIndexPath.section < sourceIndexPath.section {
+            return sourceIndexPath
+        }
+        
+        return proposedDestinationIndexPath
+    }
+    
+    
 }
 
 // MARK: - GroupTableViewCellDelegate methods
