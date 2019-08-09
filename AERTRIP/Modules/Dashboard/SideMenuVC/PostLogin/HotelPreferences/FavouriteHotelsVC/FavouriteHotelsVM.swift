@@ -79,7 +79,9 @@ class FavouriteHotelsVM {
     }
     
     func removeAllHotels(forCityIndex: Int) {
-        self.hotels.remove(at: forCityIndex)
+        if !hotels.isEmpty {
+            self.hotels.remove(at: forCityIndex)
+        }
         self.allTabs = self.hotels.map { (city) -> ATCategoryItem in
             var item = ATCategoryItem()
             item.title = city.cityName

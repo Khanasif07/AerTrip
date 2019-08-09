@@ -810,23 +810,15 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
         }
     }
     
-    func middleViewTap(_ gesture: UITapGestureRecognizer) {
+    func middleViewTap(_ indexPath: IndexPath,_ gesture: UITapGestureRecognizer) {
 
         self.closeGenricAndDatePicker(completion: nil)
         
-        guard let indexPathRow = gesture.view?.tag else {
-            return
-        }
         
-        PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: PKCountryPicker.default.getCountryData(forISDCode: self.viewModel.mobile[indexPathRow].isd)) { [weak self] selectedCountry in
+        PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: PKCountryPicker.default.getCountryData(forISDCode: self.viewModel.mobile[indexPath.row].isd)) { [weak self] selectedCountry in
             printDebug("selected country data: \(selectedCountry)")
 
-            printDebug(indexPathRow)
-            guard indexPathRow >= 0 else {
-                printDebug("Array index must be greater than zero. Going to  return")
-                return
-            }
-            let indexPath = IndexPath(row: indexPathRow, section: 1)
+           
             
             guard let cell = self?.tableView.cellForRow(at: indexPath) as? EditProfileThreePartTableViewCell else {
                 fatalError("EditProfileThreePartTableViewCell not found")

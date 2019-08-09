@@ -551,17 +551,16 @@ extension TravellerListVC: TravellerListVMDelegate {
         bottomView.isHidden = true
         isSelectMode = false
         deleteAllSelectedTravllers()
-        selectedTravller.removeAll()
-        loadSavedData()
         updateNavView()
     }
     
     private func deleteAllSelectedTravllers() {
         for traveller in selectedTravller {
             if let id = traveller.id, !id.isEmpty {
-                CoreDataManager.shared.deleteData("TravellerData", predicate: "id BEGINSWITH '\(id)'")
+                CoreDataManager.shared.deleteData("TravellerData", predicate: "id == '\(id)'")
             }
         }
+        selectedTravller.removeAll()
         loadSavedData()
     }
     

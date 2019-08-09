@@ -22,10 +22,18 @@ class GroupTableViewCell: UITableViewCell {
     @IBOutlet weak var groupCountLabel: UILabel!
     @IBOutlet weak var reorderButton: UIButton!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var deleteButtonWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topDividerView: ATDividerView!
     
     // MARK: - Variables
     
     weak var delegate: GroupTableViewCellDelegate?
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        dividerView.isHidden = true
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,10 +52,15 @@ class GroupTableViewCell: UITableViewCell {
     func configureCell(_ groupName: String, _ totalContactsCount: Int) {
         
         groupNameTextField.isEnabled = true
+        
+        if groupName.lowercased() == LocalizedString.Others.localized.lowercased() {
+             self.deleteButton.isHidden = true
+        } else {
+             self.deleteButton.isHidden = false
+        }
         if groupName.removeAllWhitespaces.lowercased() ==  LocalizedString.Others.localized.removeAllWhitespaces.lowercased() {
             groupNameTextField.isEnabled = false
         }
-
         groupNameTextField.text = groupName
         
         groupCountLabel.text = "\(totalContactsCount)"

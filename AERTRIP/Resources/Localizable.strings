@@ -871,3 +871,7 @@
 
 "SendingEmail" = "Sending...";
 "LedgerSentToYourEmail" = "Ledger has been sent to your registered email-id.";
+
+// MARK: - Common
+"Other" = "Other";
+"CantCreateGroupWithThisName" = "Can't create group with this name.";
