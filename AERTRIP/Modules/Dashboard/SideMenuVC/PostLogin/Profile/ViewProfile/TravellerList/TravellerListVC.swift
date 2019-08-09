@@ -180,7 +180,7 @@ class TravellerListVC: BaseVC {
                 printDebug("select traveller")
                 sSelf.setSelectMode()
             } else if index == 1 {
-                printDebug("preferences  traveller")
+                printDebug("preferences traveller")
                 AppFlowManager.default.moveToPreferencesVC(sSelf)
             } else if index == 2 {
                 printDebug("import traveller")
@@ -285,6 +285,7 @@ class TravellerListVC: BaseVC {
     }
     
     func loadSavedData() {
+        "".toUrl
         let fetchRequest = TravellerData.createFetchRequest()//NSFetchRequest<NSFetchRequestResult>(entityName: "TravellerData")
         if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
             var sortDes = [NSSortDescriptor(key: "labelLocPrio", ascending: true)]
