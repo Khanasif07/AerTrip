@@ -65,8 +65,7 @@ class ViewProfileDetailVC: BaseVC {
         
         // Api calling
         viewModel.webserviceForGetTravelDetail()
-        
-        self.statusBarStyle = .lightContent
+        self.statusBarStyle = topNavView.backView.isHidden ? .lightContent : .default
     }
     
     override func bindViewModel() {
@@ -74,7 +73,7 @@ class ViewProfileDetailVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .profileChanged {
+        if let noti = note.object as? ATNotification, noti == .profileSavedOnServer {
             viewModel.webserviceForGetTravelDetail()
         }
     }
@@ -426,7 +425,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
                 self?.topNavView.firstRightButton.isSelected = true
                 self?.topNavView.leftButton.isSelected = true
                 self?.topNavView.leftButton.tintColor = AppColors.themeGreen
-                self?.topNavView.navTitleLabel.text = self?.profileImageHeaderView.userNameLabel.text
+                self?.topNavView.navTitleLabel.text = self?.getUpdatedTitle()
             }
         } else {
             self.statusBarStyle = .lightContent
@@ -440,6 +439,14 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
         }
         profileImageHeaderView.layoutIfNeeded()
         profileImageHeaderView.doInitialSetup()
+    }
+    
+    func getUpdatedTitle() -> String {
+        var updatedTitle = self.profileImageHeaderView.userNameLabel.text ?? ""
+        if updatedTitle.count > 24 {
+            updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
+        }
+        return updatedTitle
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -475,6 +482,7 @@ extension ViewProfileDetailVC: ViewProfileDetailVMDelegate {
     func getSuccess(_ data: TravelDetailModel) {
         travelData = data
         setUpDataFromApi()
+        self.sendDataChangedNotification(data: ATNotification.profileChanged)
     }
     
     func getFail(errors: ErrorCodes) {

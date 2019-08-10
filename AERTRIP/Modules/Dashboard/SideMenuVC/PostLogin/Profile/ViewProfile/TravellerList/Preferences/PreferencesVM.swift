@@ -52,12 +52,19 @@ class PreferencesVM: NSObject {
         params["sort_order"] = self.sortOrder
         params["display_order"] = self.displayOrder
         params["categorize_by_group"] = self.isCategorizeByGroup
+        for (org, new) in self.modifiedGroups {
+            if let idx = self.groups.firstIndex(of: org) {
+                self.groups[idx] = new
+            }
+        }
         params["labels"] = self.groups
         params["removed"] = self.removedGroups
         
         UserInfo.loggedInUser?.generalPref?.updateLabelsPriority(newList: self.groups)
-        
-        getFinalModifiedGroups()
+        if AppGlobals.shared.isNetworkRechable() {
+            getFinalModifiedGroups()
+        }
+       
         
         for modified in self.modifiedGroups  {
             params["modified[\(modified.originalGroupName)]"] = modified.modifiedGroupName

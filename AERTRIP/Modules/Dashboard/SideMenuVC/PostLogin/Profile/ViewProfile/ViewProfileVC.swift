@@ -64,7 +64,7 @@ class ViewProfileVC: BaseVC {
         super.viewWillAppear(animated)
         
         if let main = AppFlowManager.default.mainHomeVC, main.isPushedToNext {
-            self.statusBarStyle = .lightContent
+            self.statusBarStyle = topNavView.backView.isHidden ? .lightContent : .default
         }
         else if let sideMenu = AppFlowManager.default.sideMenuController, !sideMenu.isOpen {
             self.statusBarStyle = .lightContent
@@ -94,7 +94,7 @@ class ViewProfileVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .profileChanged {
+        if let noti = note.object as? ATNotification, noti == .profileSavedOnServer {
             self.viewModel.webserviceForGetTravelDetail()
         }
     }
@@ -146,6 +146,12 @@ class ViewProfileVC: BaseVC {
         self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.tableView.parallaxHeader.delegate = self
         
+        self.updateUserData()
+        
+        self.view.bringSubviewToFront(self.topNavView)
+    }
+    
+    func updateUserData() {
         self.profileImageHeaderView?.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized)"
         self.profileImageHeaderView?.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
         self.profileImageHeaderView?.mobileNumberLabel.text = UserInfo.loggedInUser?.mobileWithISD
@@ -160,8 +166,14 @@ class ViewProfileVC: BaseVC {
             self.profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(40.0), textColor: AppColors.themeBlack).blur
             self.profileImageHeaderView?.blurEffectView.alpha = 0.0
         }
-        
-        self.view.bringSubviewToFront(self.topNavView)
+    }
+    
+    func getUpdatedTitle() -> String {
+        var updatedTitle = self.profileImageHeaderView?.userNameLabel.text ?? ""
+        if updatedTitle.count > 24 {
+            updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
+        }
+        return updatedTitle
     }
 }
 
@@ -298,7 +310,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
                 self?.topNavView.firstRightButton.isSelected = true
                 self?.topNavView.leftButton.isSelected = true
                 self?.topNavView.leftButton.tintColor = AppColors.themeGreen
-                self?.topNavView.navTitleLabel.text = self?.profileImageHeaderView?.userNameLabel.text
+                self?.topNavView.navTitleLabel.text = self?.getUpdatedTitle()
             }
         } else {
             self.statusBarStyle = .lightContent
@@ -367,13 +379,17 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
         self.viewModel.travelData = data
         
         self.tableView.reloadData()
-        
-        NotificationCenter.default.post(name: .dataChanged, object: nil)
+    
         self.setupParallaxHeader()
+        self.sendDataChangedNotification(data: ATNotification.profileChanged)
     }
     
     func getFail(errors: ErrorCodes) {
-        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+        if AppGlobals.shared.isNetworkRechable() {
+             AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+        } else {
+             AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+        }
     }
 }
 

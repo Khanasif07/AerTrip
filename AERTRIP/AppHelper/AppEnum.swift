@@ -11,6 +11,7 @@ import UIKit
 
 enum ATNotification {
     case profileChanged
+    case profileSavedOnServer
     case userLoggedInSuccess
     case userAsGuest
     case GRNSessionExpired
@@ -19,6 +20,7 @@ enum ATNotification {
     case myBookingFilterCleared
     case myBookingSearching
     case myBookingCasesRequestStatusChanged
+    case profileDetailUpdated
 }
 
 extension Notification.Name {

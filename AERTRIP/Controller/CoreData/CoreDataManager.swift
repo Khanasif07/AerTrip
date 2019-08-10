@@ -124,7 +124,6 @@ class CoreDataManager {
         let context = self.managedObjectContext
         
         let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: modelName)
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
         
         //set predicate
         if let prdStr = predicate {
@@ -132,6 +131,7 @@ class CoreDataManager {
         }
         
         do {
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
             try context.execute(deleteRequest)
             self.saveContext()
         } catch {

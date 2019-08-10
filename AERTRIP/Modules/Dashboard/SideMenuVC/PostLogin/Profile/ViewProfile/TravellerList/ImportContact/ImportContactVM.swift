@@ -144,10 +144,11 @@ class ImportContactVM: NSObject {
     
     //MARK:- Fetch Phone Contacts
     //MARK:-
-    func fetchPhoneContacts(forVC: UIViewController) {
+    func fetchPhoneContacts(forVC: UIViewController, cancled: (()->Void)? = nil) {
         self.delegateList?.willFetchPhoneContacts()
         self.delegateCollection?.willFetchPhoneContacts()
-        forVC.fetchContacts { [weak self] (contacts) in
+        
+        forVC.fetchContacts(complition: { [weak self] (contacts) in
             DispatchQueue.mainAsync {
                 self?.isPhoneContactsAllowed = true
                 self?._phoneContacts = contacts
@@ -155,7 +156,18 @@ class ImportContactVM: NSObject {
                     obj.sendDataChangedNotification(data: Notification.contactFetched)
                 }
             }
+        }) {
+            cancled?()
         }
+//        forVC.fetchContacts { [weak self] (contacts) in
+//            DispatchQueue.mainAsync {
+//                self?.isPhoneContactsAllowed = true
+//                self?._phoneContacts = contacts
+//                if let obj = self?.delegateCollection as? BaseVC {
+//                    obj.sendDataChangedNotification(data: Notification.contactFetched)
+//                }
+//            }
+//        }
     }
     
     //MARK:- Fetch Facebook Contacts

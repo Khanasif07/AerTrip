@@ -310,12 +310,10 @@ class EditProfileVM {
             params[APIKeys.profileImage.rawValue] = self.profilePicture
         } else {
             params[APIKeys.profileImage.rawValue] = ""
-             params[APIKeys.imageSource.rawValue] = "aertrip"
         }
         
         if self.profilePicture.contains("https://") {
             params[APIKeys.profileImage.rawValue] = self.profilePicture
-            params[APIKeys.imageSource.rawValue] = "aertrip"
         }
         
         self.delegate?.willApiCall()
