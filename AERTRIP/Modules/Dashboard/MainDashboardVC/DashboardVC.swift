@@ -30,7 +30,7 @@ class DashboardVC: BaseVC {
     @IBOutlet weak var tripsLabel: UILabel!
     @IBOutlet weak var profileButton: ATNotificationButton!
     
-    private var overlayView = UIView()
+    var overlayView = UIView()
     private var previousOffset = CGPoint.zero
     private var mainScrollViewOffset = CGPoint.zero
     

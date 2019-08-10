@@ -360,11 +360,13 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         viewModel.groups.remove(at: sourceIndexPath.row)
         viewModel.modifiedGroups.remove(at: sourceIndexPath.row)
         if let sourceCell = self.tableView.cellForRow(at: sourceIndexPath) as? GroupTableViewCell {
-             sourceCell.dividerView.isHidden = false
+            let rows = tableView.numberOfRows(inSection: destinationIndexPath.section)
+             sourceCell.dividerView.isHidden = destinationIndexPath.row == (rows - 1)
         }
         
         if let destinationCell = self.tableView.cellForRow(at: destinationIndexPath) as? GroupTableViewCell {
-            destinationCell.dividerView.isHidden = false
+            let rows = tableView.numberOfRows(inSection: sourceIndexPath.section)
+            destinationCell.dividerView.isHidden = sourceIndexPath.row == (rows - 1)
         }
         
         

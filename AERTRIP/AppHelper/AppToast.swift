@@ -59,7 +59,7 @@ struct AppToast {
             var width: CGFloat = maxW
             
             if lines <= 1 {
-                let tempW = message.sizeCount(withFont: ob.messageLabel.font, bundingSize: CGSize(width: 10000.0, height: self.toastHeight)).width + 42.0
+                let tempW = message.sizeCount(withFont: ob.messageLabel.font, bundingSize: CGSize(width: 10000.0, height: self.toastHeight - 20)).width + 42.0
                 width = max(45.0, tempW)
             }
             width = min(width, maxW)
@@ -68,22 +68,34 @@ struct AppToast {
             
             let rect = CGRect(x: newX, y: UIScreen.main.bounds.height - (self.toastHeight + AppFlowManager.default.safeAreaInsets.bottom + spaceFromBottom) , width: width, height: self.toastHeight)
             
-            self.showToast(vc: onViewController!, ob: ob, toastFrame: rect, duration: duration, spaceFromBottom: spaceFromBottom,toastDidClose: toastDidClose)
+            self.showToast(vc: onViewController!, ob: ob, toastFrame: rect, duration: duration, spaceFromBottom: spaceFromBottom, toastDidClose: toastDidClose)
         }
     }
     
     private func showToast(vc: UIViewController, ob: UIView, toastFrame: CGRect, duration: Double,spaceFromBottom: CGFloat,toastDidClose: (()->Void)? = nil) {
-        ob.frame = toastFrame
-        ob.frame.origin.y = UIScreen.main.bounds.height
-
-        vc.view.addSubview(ob)
         
-        UIView.animate(withDuration: AppConstants.kAnimationDuration) {
+        func finalCall() {
             ob.frame = toastFrame
-            vc.view.layoutIfNeeded()
+            ob.frame.origin.y = UIScreen.main.bounds.height
+            
+            vc.view.addSubview(ob)
+            ob.frame = toastFrame
+            UIView.animate(withDuration: AppConstants.kAnimationDuration) {
+                ob.frame = toastFrame
+                vc.view.layoutIfNeeded()
+            }
+            delay(seconds: duration) {
+                self.hideToast(vc, animated: true)
+            }
         }
-        delay(seconds: duration) {
-            self.hideToast(vc, animated: true)
+        
+        if let mainHomeVc = UIApplication.topViewController() as? MainHomeVC, let dashboardVC = mainHomeVc.sideMenuController?.mainViewController as? DashboardVC, !dashboardVC.overlayView.isHidden {
+            delay(seconds: 1.0) {
+                finalCall()
+            }
+        }
+        else {
+            finalCall()
         }
     }
     

@@ -55,8 +55,8 @@ open class PKSideMenuController: UIViewController {
     private(set) var menuViewController : UIViewController?
 
     //MARK:- Private
-    private var mainContainer : UIView?
-    private var mainViewController : UIViewController?
+    private(set) var mainContainer : UIView?
+    private(set) var mainViewController : UIViewController?
     private var shadowLayer: CAShapeLayer!
     private let animationTime: TimeInterval = 0.4
     

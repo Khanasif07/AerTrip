@@ -216,7 +216,9 @@ private extension SideMenuVC {
 extension SideMenuVC {
     
     @objc func loginAndRegistrationButtonAction(_ sender: ATButton) {
-        self.delegate?.loginRegisterAction(sender)
+        delay(seconds: 0.15) { [weak self] in
+            self?.delegate?.loginRegisterAction(sender)
+        }
     }
     
     @objc func viewProfileButtonAction(_ sender: ATButton) {
