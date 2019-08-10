@@ -66,7 +66,6 @@ class DashboardVC: BaseVC {
         aerinView.alpha = 1.0
         self.addOverlayView()
         
-        
         mainScrollView.delaysContentTouches = false
     }
     
