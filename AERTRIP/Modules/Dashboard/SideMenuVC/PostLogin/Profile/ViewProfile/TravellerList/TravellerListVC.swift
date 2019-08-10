@@ -84,7 +84,6 @@ class TravellerListVC: BaseVC {
         statusBarStyle = .default
         
         setUpTravellerHeader()
-//        CoreDataManager.shared.deleteData("TravellerData")
         if shouldHitAPI {
             viewModel.callSearchTravellerListAPI()
         }
@@ -111,6 +110,8 @@ class TravellerListVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification, noti == .profileSavedOnServer {
+            // Clear the DB
+             CoreDataManager.shared.deleteData("TravellerData")
             //re-hit the details API
             viewModel.callSearchTravellerListAPI()
         }
