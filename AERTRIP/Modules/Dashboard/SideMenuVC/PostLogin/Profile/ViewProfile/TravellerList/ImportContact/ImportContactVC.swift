@@ -60,6 +60,8 @@ class ImportContactVC: BaseVC {
         // Do any additional setup after loading the view.
         self.initialSetups()
     }
+    
+    
 
     override func bindViewModel() {
         self.viewModel.delegateCollection = self
@@ -258,6 +260,11 @@ extension ImportContactVC: ImportContactVMDelegate {
             AppToast.default.showToastMessage(message: LocalizedString.NoContactFoundInFB.localized)
         } else if currentlyUsingFor == .google, self.viewModel.googleContacts.isEmpty {
             AppToast.default.showToastMessage(message: LocalizedString.NoContactFoundInGoogle.localized)
+        }
+        
+        //applying the search on the new fetched data, if any
+        if let text = self.searchBar.text, !text.isEmpty {
+            self.viewModel.search(forText: text)
         }
     }
     

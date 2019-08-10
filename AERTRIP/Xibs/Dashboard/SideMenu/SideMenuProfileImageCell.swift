@@ -17,11 +17,15 @@ class SideMenuProfileImageCell: UITableViewCell {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var profileNameLabel: UILabel!
     
+    var userInfo: UserInfo? {
+        didSet {
+            self.configData()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.initialSetups()
     }
     
     override func layoutSubviews() {
@@ -44,19 +48,19 @@ class SideMenuProfileImageCell: UITableViewCell {
 //MARK:-
 extension SideMenuProfileImageCell {
     
-    private func initialSetups() {
+    private func configData() {
         self.viewProfileButton.titleLabel?.font = AppFonts.Regular.withSize(14)
         self.viewProfileButton.titleLabel?.textColor = AppColors.themeGreen
         self.viewProfileButton.setTitle(LocalizedString.ViewProfile.localized, for: .normal)
         
         profileNameLabel.font = AppFonts.Regular.withSize(20.0)
-        profileNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized ) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized )"
+        profileNameLabel.text = "\(userInfo?.firstName ?? LocalizedString.na.localized ) \(userInfo?.lastName ?? LocalizedString.na.localized )"
         
-        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
-            profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
+        if let imagePath = userInfo?.profileImage, !imagePath.isEmpty {
+            profileImageView.setImageWithUrl(imagePath, placeholder: userInfo?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
         }
         else {
-            profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
+            profileImageView.image = userInfo?.profileImagePlaceholder()
         }
     }
 }

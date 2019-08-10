@@ -362,7 +362,7 @@ extension UINavigationController {
 
 //MARK:- Contacts Fetching
 extension UIViewController {
-    var isContactsAuthorized: Bool {
+    func isContactsAuthorized(canceled: (() -> Void)? = nil) -> Bool {
         var flag: Bool = true
         
         if CNContactStore.authorizationStatus(for: .contacts) == .denied {
@@ -373,6 +373,8 @@ extension UIViewController {
                 UIApplication.openSettingsApp
             }
             let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+                printDebug("Cancel tapped")
+                canceled?()
             }
             alertController.addAction(alertActionSettings)
             alertController.addAction(alertActionCancel)
@@ -386,6 +388,8 @@ extension UIViewController {
                 UIApplication.openSettingsApp
             }
             let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) { (action:UIAlertAction) in
+                printDebug("Cancel tapped")
+                canceled?()
             }
             alertController.addAction(alertActionSettings)
             alertController.addAction(alertActionCancel)
@@ -398,7 +402,7 @@ extension UIViewController {
         return flag
     }
     
-    func fetchContacts(complition: @escaping ((_ contacts: [CNContact]) -> Void)) {
+    func fetchContacts(complition: @escaping ((_ contacts: [CNContact]) -> Void), canceled: (() -> Void)? = nil) {
         
         func retrieveContactsWithStore(_ store: CNContactStore) {
 
@@ -447,7 +451,9 @@ extension UIViewController {
                     complition([])
                 }
             }
-        } else if self.isContactsAuthorized {
+        } else if self.isContactsAuthorized(canceled: {
+             canceled?()
+        }) {
             retrieveContactsWithStore(store)
         }
     }

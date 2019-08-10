@@ -31,7 +31,7 @@ class ContactListVC: BaseVC {
     let viewModel = ImportContactVM.shared
     
     //MARK:- Private
-    private lazy var allowEmptyView: EmptyScreenView = {
+     lazy var allowEmptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         
         if self.currentlyUsingFor == .contacts {
@@ -418,7 +418,9 @@ extension ContactListVC: EmptyScreenViewDelegate {
     func firstButtonAction(sender: ATButton) {
         if self.currentlyUsingFor == .contacts {
             sender.isLoading = true
-            self.viewModel.fetchPhoneContacts(forVC: self)
+            self.viewModel.fetchPhoneContacts(forVC: self) {
+                sender.isLoading = false
+            }
         }
         else if self.currentlyUsingFor == .facebook {
             self.viewModel.fetchFacebookContacts(forVC: self)

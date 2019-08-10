@@ -58,6 +58,14 @@ class SideMenuVC: BaseVC {
         super.viewWillAppear(animated)
     }
     
+    
+    override func dataChanged(_ note: Notification) {
+        printDebug("data changed notfication received")
+        //        resetItems()
+        updateProfileView(view: getProfileView())
+        sideMenuTableView.reloadData()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -84,6 +92,8 @@ class SideMenuVC: BaseVC {
         }
     }
     
+
+    
     override func initialSetup() {
         self.view.backgroundColor = AppColors.screensBackground.color
         
@@ -107,6 +117,8 @@ class SideMenuVC: BaseVC {
     private func updateLogoView(view: SideMenuLogoView) {
         view.frame = CGRect(x: 0.0, y: self.sideMenuTableView.y, width: self.sideMenuTableView.width, height: 179.0)
     }
+    
+    
     
     func getProfileView() -> SlideMenuProfileImageHeaderView {
         //add the profile view only if user is logged in
@@ -236,6 +248,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 
                 self.profileSuperView = cell.profileSuperView
+                cell.userInfo = UserInfo.loggedInUser
                 cell.viewProfileButton.addTarget(self, action: #selector(self.viewProfileButtonAction(_:)), for: .touchUpInside)
                 
                 return cell

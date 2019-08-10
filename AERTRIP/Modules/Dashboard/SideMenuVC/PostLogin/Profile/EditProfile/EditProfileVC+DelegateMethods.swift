@@ -196,7 +196,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("AddAddressTableViewCell not found")
                 }
                 cell.delegate = self
-                cell.configureCell(addressType: self.viewModel.addresses[indexPath.row].label, addressLineOne: self.viewModel.addresses[indexPath.row].line1, addressLineTwo: self.viewModel.addresses[indexPath.row].line2, cityName: self.viewModel.addresses[indexPath.row].city, postalCode: self.viewModel.addresses[indexPath.row].postalCode, stateName: self.viewModel.addresses[indexPath.row].state, countryName: self.viewModel.addresses[indexPath.row].countryName)
+                cell.configureCell(addressType: self.viewModel.addresses[indexPath.row].label, addressLineOne: self.viewModel.addresses[indexPath.row].line1, addressLineTwo: self.viewModel.addresses[indexPath.row].line2, cityName: self.viewModel.addresses[indexPath.row].city, postalCode: self.viewModel.addresses[indexPath.row].postalCode, stateName: self.viewModel.addresses[indexPath.row].state, countryName: self.viewModel.addresses[indexPath.row].countryName.isEmpty ? LocalizedString.Select.localized : self.viewModel.addresses[indexPath.row].countryName)
                 
                 cell.deleteButton.isHidden = self.viewModel.addresses.count <= 1
                 cell.cellDividerView.defaultBackgroundColor = AppColors.themeGray04
@@ -486,8 +486,13 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     
     
     func editProfilePhotoForTraveller() {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeRed])
+        var buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen])
         
+        
+        if (!self.viewModel.profilePicture.isEmpty) || (!self.viewModel.filePath.isEmpty) {
+            buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen,AppColors.themeRed])
+        }
+
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
             
             if index == 0 {
@@ -737,7 +742,7 @@ extension EditProfileVC: EditProfileVMDelegate {
     
     func getSuccess() {
         self.stopLoading()
-        self.sendDataChangedNotification(data: ATNotification.profileChanged)
+        self.sendDataChangedNotification(data: ATNotification.profileSavedOnServer)
         self.topNavBarLeftButtonAction(UIButton())
     }
     
@@ -766,7 +771,12 @@ extension EditProfileVC: EditProfileVMDelegate {
     
     func getFail(errors: ErrorCodes) {
          self.stopLoading()
+        if AppGlobals.shared.isNetworkRechable() {
          AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+        }
+        else {
+            AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+        }
     }
 }
 

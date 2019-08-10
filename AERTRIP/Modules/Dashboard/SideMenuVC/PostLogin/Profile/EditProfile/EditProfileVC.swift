@@ -89,6 +89,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        registerXib()
         // Api calling
         viewModel.webserviceForGetDropDownkeys()
         viewModel.webserviceForGetPreferenceList()
@@ -102,7 +103,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             setUpData()
         }
         
-        registerXib()
+     
         setupToolBar()
         setUpToolBarForGenericPickerView()
     }
@@ -113,12 +114,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         statusBarStyle = .default
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        statusBarStyle = .lightContent
-    }
-    
+  
     override func viewDidLayoutSubviews() {
         guard let headerView = tableView.tableHeaderView else {
             return
@@ -204,7 +200,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         tableView.register(UINib(nibName: addressTextEditTableCellIdentier, bundle: nil), forCellReuseIdentifier: addressTextEditTableCellIdentier)
         tableView.register(UINib(nibName: addAddressTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: addAddressTableViewCellIdentifier)
         tableView.register(UINib(nibName: addNotesTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: addNotesTableViewCellIdentifier)
-        tableView.reloadData()
     }
     
     func openCamera() {

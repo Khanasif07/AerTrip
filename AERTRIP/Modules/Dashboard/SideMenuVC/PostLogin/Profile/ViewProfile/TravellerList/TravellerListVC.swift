@@ -84,6 +84,7 @@ class TravellerListVC: BaseVC {
         statusBarStyle = .default
         
         setUpTravellerHeader()
+//        CoreDataManager.shared.deleteData("TravellerData")
         if shouldHitAPI {
             viewModel.callSearchTravellerListAPI()
         }
@@ -102,12 +103,17 @@ class TravellerListVC: BaseVC {
         }
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
+  
     
     override func bindViewModel() {
         viewModel.delegate = self
+    }
+    
+    override func dataChanged(_ note: Notification) {
+        if let noti = note.object as? ATNotification, noti == .profileSavedOnServer {
+            //re-hit the details API
+            viewModel.callSearchTravellerListAPI()
+        }
     }
     
     @objc func handleLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
@@ -314,7 +320,13 @@ class TravellerListVC: BaseVC {
                 fetchedResultsController.fetchRequest.predicate = nil
             }
         } else {
-            fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "firstName CONTAINS[cd] %@", predicateStr)
+            if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
+                let searchPredicate =  NSPredicate(format: "firstName CONTAINS[cd] %@", predicateStr)
+                fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [labelPredicate()!,searchPredicate])
+            } else {
+                 let searchPredicate =  NSPredicate(format: "firstName CONTAINS[cd] %@", predicateStr)
+                fetchedResultsController.fetchRequest.predicate = searchPredicate
+            }
         }
         
         do {
@@ -398,11 +410,8 @@ extension TravellerListVC: TopNavigationViewDelegate {
     }
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
-        if isSelectMode {
-            // no action needed
-        } else {
-            // add new
-            addTravellerTapped()
+        if !isSelectMode,AppGlobals.shared.isNetworkRechable() {
+           addTravellerTapped()
         }
     }
 }
@@ -498,8 +507,12 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         guard let sections = fetchedResultsController.sections else {
             return nil
         }
-        if let prio = sections[section].name.toInt, let title = UserInfo.loggedInUser?.generalPref?.labelsWithPriority.someKey(forValue: prio) {
-            headerView.configureCell(title)
+        if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
+            if let prio = sections[section].name.toInt, let title = UserInfo.loggedInUser?.generalPref?.labelsWithPriority.someKey(forValue: prio) {
+                headerView.configureCell(title)
+            }
+        } else {
+               headerView.configureCell(sections[section].name)
         }
         return headerView
     }
@@ -515,7 +528,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         } else {
             AppFlowManager.default.moveToViewProfileDetailVC(fetchedResultsController.object(at: indexPath).travellerDetailModel, usingFor: .travellerList)
         }
-        
+        shouldHitAPI = false
 //        let cell = tableView.cellForRow(at: indexPath)
 //        cell?.backgroundColor = AppColors.themeWhite
     }
@@ -558,7 +571,7 @@ extension TravellerListVC: TravellerListVMDelegate {
     private func deleteAllSelectedTravllers() {
         for traveller in selectedTravller {
             if let id = traveller.id, !id.isEmpty {
-                CoreDataManager.shared.deleteData("TravellerData", predicate: "id BEGINSWITH '\(id)'")
+                CoreDataManager.shared.deleteData("TravellerData", predicate: "id == '\(id)'")
             }
         }
         loadSavedData()

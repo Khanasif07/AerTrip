@@ -456,6 +456,12 @@ class AppGlobals {
     func showUnderDevelopment() {
         AppToast.default.showToastMessage(message: LocalizedString.UnderDevelopment.localized)
     }
+    
+    
+    func isNetworkRechable() -> Bool {
+        let rechability = Reachability.networkReachabilityForInternetConnection()
+        return  rechability?.isReachable ?? false
+    }
 }
 
 //MARK: - Project Used Extensions

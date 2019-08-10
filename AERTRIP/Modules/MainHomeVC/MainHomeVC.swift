@@ -83,6 +83,9 @@ class MainHomeVC: BaseVC {
             self.scrollViewSetup()
             self.makeDefaultSetup()
         }
+        else if let noti = note.object as? ATNotification, noti == .profileChanged {
+            self.setUserDataOnProfileHeader()
+        }
     }
     
     //MARK:- Methods
@@ -206,6 +209,7 @@ class MainHomeVC: BaseVC {
     private func setupProfileView() {
         guard let sideMenu = self.sideMenuVC else {return}
         self.profileView = sideMenu.getProfileView()
+        self.setUserDataOnProfileHeader()
         self.profileView?.currentlyUsingAs = .sideMenu
         
         let newFrame = self.sideMenuVC?.profileSuperView?.convert(self.sideMenuVC?.profileSuperView?.frame ?? .zero, to: self.mainContainerView) ?? .zero
@@ -215,6 +219,23 @@ class MainHomeVC: BaseVC {
         
         self.profileView?.isHidden = true
         self.mainContainerView.addSubview(self.profileView!)
+    }
+    
+    private func setUserDataOnProfileHeader() {
+        self.profileView?.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized ) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized )"
+        self.profileView?.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
+        self.profileView?.mobileNumberLabel.text = UserInfo.loggedInUser?.mobileWithISD
+        
+        if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
+            //self.profileView?.profileImageView.kf.setImage(with: URL(string: imagePath))
+            self.profileView?.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
+            //  self.profileView?.backgroundImageView.kf.setImage(with: URL(string: imagePath))
+            self.profileView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
+        }
+        else {
+            self.profileView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
+            self.profileView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(textColor: AppColors.themeBlack)
+        }
     }
     
     private func pushProfileAnimation() {
