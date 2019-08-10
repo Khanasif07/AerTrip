@@ -285,7 +285,7 @@ extension String {
     
     /// EZSE: Converts String to URL
     var toUrl: URL? {
-        if self.hasPrefix("https://") || self.hasPrefix("http://") {
+        if self.hasPrefix("file://") || self.hasPrefix("https://") || self.hasPrefix("http://") {
             return URL(string: self)
         } else {
             return URL(fileURLWithPath: self)

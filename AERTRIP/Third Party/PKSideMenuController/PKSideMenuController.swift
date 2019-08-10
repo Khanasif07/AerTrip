@@ -106,12 +106,12 @@ open class PKSideMenuController: UIViewController {
         newFrame.origin.x = PKSideMenuOptions.currentOpeningSide == .right ? -(self.view.bounds.width) : self.view.bounds.width
         self.menuContainer!.frame = newFrame
         self.menuContainer!.backgroundColor = UIColor.clear
-        self.view.addSubview((self.menuContainer!))
+        self.view.addSubview(self.menuContainer!)
         
         self.mainContainer = UIView()
         self.mainContainer!.frame = self.view.bounds
         self.mainContainer!.backgroundColor = UIColor.clear
-        self.view.addSubview((self.mainContainer!))
+        self.view.addSubview(self.mainContainer!)
         
         self.addDropOffShadow()
         if PKSideMenuOptions.currentAnimation == .curve3D {

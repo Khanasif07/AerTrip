@@ -186,7 +186,7 @@ class TravellerListVC: BaseVC {
                 printDebug("select traveller")
                 sSelf.setSelectMode()
             } else if index == 1 {
-                printDebug("preferences  traveller")
+                printDebug("preferences traveller")
                 AppFlowManager.default.moveToPreferencesVC(sSelf)
             } else if index == 2 {
                 printDebug("import traveller")
@@ -321,11 +321,9 @@ class TravellerListVC: BaseVC {
             }
         } else {
             if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
-                let searchPredicate =  NSPredicate(format: "firstName CONTAINS[cd] %@", predicateStr)
-                fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [labelPredicate()!,searchPredicate])
+                fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [labelPredicate()!,getSearchPredicates()])
             } else {
-                 let searchPredicate =  NSPredicate(format: "firstName CONTAINS[cd] %@", predicateStr)
-                fetchedResultsController.fetchRequest.predicate = searchPredicate
+                fetchedResultsController.fetchRequest.predicate = getSearchPredicates()
             }
         }
         
@@ -337,6 +335,14 @@ class TravellerListVC: BaseVC {
             printDebug("Fetch failed")
         }
     }
+    
+    private func getSearchPredicates() -> NSPredicate {
+            let firstName = NSPredicate(format: "firstName CONTAINS[c] '\(predicateStr)'")
+            let lastName = NSPredicate(format: "lastName CONTAINS[c] '\(predicateStr)'")
+        
+            return NSCompoundPredicate(orPredicateWithSubpredicates: [firstName, lastName])
+    }
+    
     
     func reloadList() {
         tableView.reloadData()
@@ -563,8 +569,6 @@ extension TravellerListVC: TravellerListVMDelegate {
         bottomView.isHidden = true
         isSelectMode = false
         deleteAllSelectedTravllers()
-        selectedTravller.removeAll()
-        loadSavedData()
         updateNavView()
     }
     
@@ -574,6 +578,7 @@ extension TravellerListVC: TravellerListVMDelegate {
                 CoreDataManager.shared.deleteData("TravellerData", predicate: "id == '\(id)'")
             }
         }
+        selectedTravller.removeAll()
         loadSavedData()
     }
     
