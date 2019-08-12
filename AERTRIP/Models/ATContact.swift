@@ -151,7 +151,10 @@ struct ATContact {
     static func fetchModels(phoneContactsArr: [CNContact]) -> [ATContact] {
         var temp = [ATContact]()
         for obj in phoneContactsArr {
-            temp.append(ATContact(contact: obj))
+            let contact = ATContact(contact: obj)
+            if !contact.fullName.isEmpty {
+                temp.append(contact)
+            }
         }
         return temp
     }
@@ -182,7 +185,9 @@ struct ATContact {
                 contact.socialId = "\(obj)".removeNull
             }
             
-            temp.append(contact)
+            if !contact.fullName.isEmpty {
+                temp.append(contact)
+            }
         }
         return temp
     }
@@ -221,7 +226,9 @@ struct ATContact {
                     }
                 }
                 
-                temp.append(contact)
+                if !contact.fullName.isEmpty {
+                    temp.append(contact)
+                }
             }
         }
 

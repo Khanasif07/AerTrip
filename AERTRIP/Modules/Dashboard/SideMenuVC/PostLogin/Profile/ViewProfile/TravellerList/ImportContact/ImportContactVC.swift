@@ -198,6 +198,7 @@ class ImportContactVC: BaseVC {
     
     //MARK:- Action
     @IBAction func cancelButtonAction(_ sender: UIButton) {
+        self.viewModel.search(forText: "")
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -216,6 +217,8 @@ extension ImportContactVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.viewModel.search(forText: searchText)
     }
+    
+    
 }
 
 extension ImportContactVC: TopNavigationViewDelegate {
@@ -503,7 +506,7 @@ class ContactListCollectionFlowLayout: UICollectionViewFlowLayout {
     }
     
     override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        let attributes = self.layoutAttributesForItem(at: itemIndexPath)
+        let attributes = super.initialLayoutAttributesForAppearingItem(at: itemIndexPath)
         
         if insertingIndexPaths.contains(itemIndexPath) {
             attributes?.alpha = 0.0
@@ -514,7 +517,7 @@ class ContactListCollectionFlowLayout: UICollectionViewFlowLayout {
     }
     
     override func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        let attributes = self.layoutAttributesForItem(at: itemIndexPath)
+        let attributes = super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath)
         
         if deletingIndexPaths.contains(itemIndexPath) {
             attributes?.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)

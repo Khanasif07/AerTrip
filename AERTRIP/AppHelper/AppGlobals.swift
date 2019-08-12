@@ -14,7 +14,7 @@ import UIKit
 import EventKit
 
 func printDebug<T>(_ obj: T) {
-   // print(obj)
+     print(obj)
 }
 
 func printFonts() {
@@ -493,9 +493,10 @@ extension Double {
 }
 
 extension AppGlobals {
-    func startLoading(animatingView: UIView? = nil) {
-        PKLoaderSettings.shared.indicatorColor = AppColors.themeGreen
+    func startLoading(animatingView: UIView? = nil,loaderBgColor: UIColor = AppColors.themeWhite) {
+        PKLoaderSettings.shared.indicatorColor =  AppColors.themeGreen 
         PKLoaderSettings.shared.indicatorType = .activityIndicator
+        PKLoaderSettings.shared.backgroundColor = loaderBgColor
         PKLoader.shared.startAnimating(onView: animatingView)
     }
     

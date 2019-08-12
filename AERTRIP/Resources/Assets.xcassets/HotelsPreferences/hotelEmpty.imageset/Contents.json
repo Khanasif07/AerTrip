@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "group5.png",
+      "filename" : "hotelEmpty.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "group5@2x.png",
+      "filename" : "hotelEmpty@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "group5@3x.png",
+      "filename" : "hotelEmpty@3x.png",
       "scale" : "3x"
     }
   ],

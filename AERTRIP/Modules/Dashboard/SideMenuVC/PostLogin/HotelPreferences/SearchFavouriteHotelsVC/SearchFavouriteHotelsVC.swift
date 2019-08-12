@@ -220,6 +220,7 @@ extension SearchFavouriteHotelsVC: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        dismissKeyboard()
         let searchText = searchBar.text ?? ""
         self.search(forText: searchText)
     }

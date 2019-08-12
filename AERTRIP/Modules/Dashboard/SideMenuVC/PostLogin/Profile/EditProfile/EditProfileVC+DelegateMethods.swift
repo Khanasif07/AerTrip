@@ -449,7 +449,10 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         default:
             break
         }
-        setUpProfilePhotoInitials()
+        if self.viewModel.profilePicture.isEmpty && self.viewModel.filePath.isEmpty {
+            setUpProfilePhotoInitials()
+        }
+       
     }
     
     func selectGroupTapped() {

@@ -230,11 +230,11 @@ class MainHomeVC: BaseVC {
             //self.profileView?.profileImageView.kf.setImage(with: URL(string: imagePath))
             self.profileView?.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
             //  self.profileView?.backgroundImageView.kf.setImage(with: URL(string: imagePath))
-            self.profileView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
+            self.profileView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont) ?? UIImage(), showIndicator: false)
         }
         else {
             self.profileView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
-            self.profileView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(textColor: AppColors.themeBlack)
+            self.profileView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack)
         }
     }
     

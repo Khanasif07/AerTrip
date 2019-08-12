@@ -206,9 +206,16 @@ extension APICaller {
             }
 
         } else {
-            AppNetworking.POSTWithMultiPart(endPoint: APIEndPoint.saveProfile, parameters: params, multipartData: [(key: "profile_image", filePath:filePath, fileExtention: "jpeg", fileType: AppNetworking.MultiPartFileType.image)], loader: false, success: { (data) in
-                printDebug(data)
-                completionBlock(true,[])
+            AppNetworking.POSTWithMultiPart(endPoint: APIEndPoint.saveProfile, parameters: params, multipartData: [(key: "profile_image", filePath:filePath, fileExtention: "jpeg", fileType: AppNetworking.MultiPartFileType.image)], loader: false, success: {  [weak self] (json) in
+                guard let sSelf = self else {return}
+                
+                sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                    completionBlock(true, [])
+                    
+                }, failure: { (errors) in
+                    ATErrorManager.default.logError(forCodes: errors, fromModule: .profile)
+                    completionBlock(false, errors)
+                })
             }, progress: { (progress) in
             }) { (error) in
                 if error.code == AppNetworking.noInternetError.code {

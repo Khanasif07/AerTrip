@@ -82,10 +82,9 @@ class TravellerListVC: BaseVC {
         super.viewWillAppear(animated)
         
         statusBarStyle = .default
-        
         setUpTravellerHeader()
         if shouldHitAPI {
-            viewModel.callSearchTravellerListAPI()
+            viewModel.callSearchTravellerListAPI(isShowLoader: true)
         }
     }
     
@@ -113,7 +112,12 @@ class TravellerListVC: BaseVC {
             // Clear the DB
              CoreDataManager.shared.deleteData("TravellerData")
             //re-hit the details API
-            viewModel.callSearchTravellerListAPI()
+            viewModel.callSearchTravellerListAPI(isShowLoader: false)
+        } else if let noti = note.object as? ATNotification, noti == .preferenceUpdated {
+            // Clear the DB
+            CoreDataManager.shared.deleteData("TravellerData")
+            //re-hit the details API
+            self.viewModel.callSearchTravellerListAPI(isShowLoader: false)
         }
     }
     
@@ -525,6 +529,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        dismissKeyboard()
         if isSelectMode {
             let current = fetchedResultsController.object(at: indexPath)
           
@@ -562,6 +567,12 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
 // MARK: - TravellerListVMDelegate methods
 
 extension TravellerListVC: TravellerListVMDelegate {
+    func willSearchForTraveller(_ isShowLoader: Bool = false) {
+        if isShowLoader {
+            AppGlobals.shared.startLoading(loaderBgColor: AppColors.clear)
+        }
+    }
+    
     func willCallDeleteTravellerAPI() {
         //
     }
@@ -583,21 +594,25 @@ extension TravellerListVC: TravellerListVMDelegate {
         loadSavedData()
     }
     
-    func deleteTravellerAPIFailure() {
+    func deleteTravellerAPIFailure(errors: ErrorCodes) {
         bottomView.isHidden = true
         isSelectMode = false
         reloadList()
         updateNavView()
+        selectedTravller.removeAll()
+        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
     
     func searchTravellerFail(errors: ErrorCodes) {
         printDebug(errors)
+        AppGlobals.shared.stopLoading()
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
     
-    func willSearchForTraveller() {}
+
     
     func searchTravellerSuccess() {
+        AppGlobals.shared.stopLoading()
         tableView.delegate = self
         tableView.dataSource = self
         shouldHitAPI = true
@@ -642,6 +657,7 @@ extension TravellerListVC: PreferencesVCDelegate {
     }
     
     func preferencesUpdated() {
+        shouldHitAPI = false
         resetAllItem()
         setUpTravellerHeader()
     }
@@ -650,7 +666,7 @@ extension TravellerListVC: PreferencesVCDelegate {
 extension TravellerListVC: AssignGroupVCDelegate {
     func cancelTapped() {
         shouldHitAPI = false
-        viewModel.callSearchTravellerListAPI()
+        viewModel.callSearchTravellerListAPI(isShowLoader: false)
         selectedTravller.removeAll()
         setTravellerMode(shouldReload: false)
         updateNavView()
@@ -659,7 +675,7 @@ extension TravellerListVC: AssignGroupVCDelegate {
     func groupAssigned() {
         predicateStr = ""
         shouldHitAPI = false
-        viewModel.callSearchTravellerListAPI()
+        viewModel.callSearchTravellerListAPI(isShowLoader: false)
         selectedTravller.removeAll()
         setTravellerMode(shouldReload: false)
         updateNavView()

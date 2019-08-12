@@ -139,11 +139,11 @@ class SideMenuVC: BaseVC {
             //view.profileImageView.kf.setImage(with: URL(string: imagePath))
             view.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
             //  view.backgroundImageView.kf.setImage(with: URL(string: imagePath))
-            view.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
+            view.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont) ?? UIImage(), showIndicator: false)
         }
         else {
             view.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
-            view.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(textColor: AppColors.themeBlack)
+            view.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack)
         }
         
 //        view.frame = CGRect(x: 0.0, y: 40.0, width: self.profileSuperView?.width ?? 0.0, height: self.profileSuperView?.height ?? 0.0)

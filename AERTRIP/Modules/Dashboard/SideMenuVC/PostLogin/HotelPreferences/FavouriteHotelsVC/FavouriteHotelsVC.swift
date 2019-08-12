@@ -152,7 +152,7 @@ extension FavouriteHotelsVC: ATCategoryNavBarDelegate {
 
 extension FavouriteHotelsVC: ViewAllHotelsVMDelegate {
     func willGetHotelPreferenceList() {
-        
+        self.dataContainerView.addSubview(self.shimmerView)
     }
     
     func getHotelPreferenceListSuccess() {

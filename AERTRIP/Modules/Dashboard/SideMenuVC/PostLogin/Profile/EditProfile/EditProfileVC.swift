@@ -623,7 +623,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 closeGenricAndDatePicker(completion: nil)
                 PKCountryPickerSettings.shouldShowCountryCode = false
                 UIApplication.shared.sendAction(#selector(resignFirstResponder), to: nil, from: nil, for: nil)
-                PKCountryPicker.default.chooseCountry(onViewController: self) { [weak self] selectedCountry in
+                let prevSectdContry = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.passportCountryCode.isEmpty ? AppConstants.kIndianCountryCode : self.viewModel.passportCountryCode)
+                PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: prevSectdContry) { [weak self] selectedCountry in
                     printDebug("selected country data: \(selectedCountry)")
                     
                     guard let cell = self?.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else {

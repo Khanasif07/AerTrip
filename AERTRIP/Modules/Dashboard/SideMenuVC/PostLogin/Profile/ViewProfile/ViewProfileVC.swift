@@ -158,12 +158,12 @@ class ViewProfileVC: BaseVC {
         
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
             self.profileImageHeaderView?.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? AppPlaceholderImage.user, showIndicator: false)
-            self.profileImageHeaderView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(40.0), textColor: AppColors.themeBlack).blur ?? UIImage(), showIndicator: false)
+            self.profileImageHeaderView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack).blur ?? UIImage(), showIndicator: false)
             self.profileImageHeaderView?.blurEffectView.alpha = 1.0
         } else {
             
             self.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
-            self.profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(40.0), textColor: AppColors.themeBlack).blur
+            self.profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack).blur
             self.profileImageHeaderView?.blurEffectView.alpha = 0.0
         }
     }
@@ -294,10 +294,12 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+
+
 // MARK: - MXParallaxHeaderDelegate methods
 
 extension ViewProfileVC: MXParallaxHeaderDelegate {
-    func updateForParallexProgress() {
+    @objc func updateForParallexProgress() {
         
         let prallexProgress = self.tableView.parallaxHeader.progress
         
@@ -328,15 +330,25 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updateForParallexProgress()
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        perform(#selector(self.updateForParallexProgress), with: nil, afterDelay: 0.2)
+//        self.updateForParallexProgress()
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.updateForParallexProgress()
-    }
+//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+//        self.updateForParallexProgress()
+//        delay(seconds: 0.3) { [weak self] in
+//            self?.updateForParallexProgress()
+//        }
+//    }
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        self.updateForParallexProgress()
-    }
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        self.updateForParallexProgress()
+//    }
+//
+//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        self.updateForParallexProgress()
+//    }
 }
 
 // MARK: - Profile Header view Delegate methods

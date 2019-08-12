@@ -21,6 +21,7 @@ enum ATNotification {
     case myBookingSearching
     case myBookingCasesRequestStatusChanged
     case profileDetailUpdated
+    case preferenceUpdated
 }
 
 extension Notification.Name {
@@ -643,7 +644,7 @@ enum ResolutionStatus: RawRepresentable {
     case confirmationPending
     case open
     case canceled
-    case none
+    case none(title: String)
     case resolved
     
     init?(rawValue: String) {
@@ -656,10 +657,10 @@ enum ResolutionStatus: RawRepresentable {
         case "Closed": self = .closed
         case "Confirmation Pending": self = .confirmationPending
         case "Open": self = .open
-        case "Canceled": self = .canceled
+        case "Cancelled": self = .canceled //earlier it was "Canceled"
         case "resolved": self = .resolved
         default:
-            fatalError("case not handled for '\(rawValue)' in \(#file) at line \(#line)")
+           self = .none(title: rawValue)
         }
     }
     
@@ -673,11 +674,10 @@ enum ResolutionStatus: RawRepresentable {
         case .closed: return "Closed"
         case .confirmationPending: return "Confirmation Pending"
         case .open: return "Open"
-        case .canceled: return "Canceled"
+        case .canceled: return "Cancelled"
         case .resolved: return "Resolved"
-        default:
-            return "none"
-        }
+        case .none(let ttl): return ttl
+     }
     }
     
     var textColor: UIColor {

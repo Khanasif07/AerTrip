@@ -23,6 +23,7 @@ class PreferencesVM: NSObject {
     var sortOrder:String = ""
     var displayOrder:String = ""
     var modifiedGroups: [(originalGroupName: String, modifiedGroupName: String)] = []
+    var modifiedGroupsParams: [(originalGroupName: String, modifiedGroupName: String)] = []
 
     func setUpData() {
         if let generalPref = UserInfo.loggedInUser?.generalPref {
@@ -41,7 +42,7 @@ class PreferencesVM: NSObject {
     }
     
     func getFinalModifiedGroups() {
-        self.modifiedGroups = self.modifiedGroups.filter({ $0.modifiedGroupName != $0.originalGroupName })
+         self.modifiedGroupsParams = self.modifiedGroups.filter({ $0.modifiedGroupName != $0.originalGroupName })
     }
     
     
@@ -66,7 +67,7 @@ class PreferencesVM: NSObject {
         }
        
         
-        for modified in self.modifiedGroups  {
+        for modified in self.modifiedGroupsParams  {
             params["modified[\(modified.originalGroupName)]"] = modified.modifiedGroupName
         }
         delegate?.willSavePreferences()

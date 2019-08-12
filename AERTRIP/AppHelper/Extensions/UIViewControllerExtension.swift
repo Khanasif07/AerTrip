@@ -448,7 +448,6 @@ extension UIViewController {
                 }
                 else {
                     printDebug("Error in fetching contacts: \(error)")
-                    complition([])
                 }
             }
         } else if self.isContactsAuthorized(canceled: {

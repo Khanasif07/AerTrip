@@ -46,7 +46,7 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
     
     func configureCellForFrequentFlyer(_ indexPath:IndexPath,_ logoUrl:String,_ flightName:String,_ flightNo:String) {
       //  self.frequentFlyerImageView.kf.setImage(with: URL(string: logoUrl))
-        self.frequentFlyerImageView.setImageWithUrl(logoUrl, placeholder: AppPlaceholderImage.frequentFlyer, showIndicator: false)
+        self.frequentFlyerImageView.setImageWithUrl(logoUrl, placeholder: AppPlaceholderImage.frequentFlyer, showIndicator: true)
             self.frequentFlyerLabel.text = flightName
         
             self.secondSubTitleLabel.text = flightNo

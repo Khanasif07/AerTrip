@@ -269,10 +269,12 @@ extension EmptyScreenView {
     
     private func setupForHotelPreferences() {
         self.hideFirstButton(isHidden: true)
+        self.messageLabelTopConstraint.constant = 30
+        self.mainImageViewTopConstraint.constant = -171
         self.mainImageView.image = #imageLiteral(resourceName: "hotelEmpty")
         self.messageLabel.font = AppFonts.Regular.withSize(18.0)
         self.messageLabel.textColor = AppColors.themeGray40
-        self.messageLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "Tap ", image: #imageLiteral(resourceName: "ic_fav_hotel_text"), endText: " to add a hotel to favorite list", font: AppFonts.Regular.withSize(18.0))//"Tap   to add a hotel to favorite list"
+        self.messageLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "Tap ", image: #imageLiteral(resourceName: "ic_fav_hotel_text"), endText: " to add a hotel to favorite list \n", font: AppFonts.Regular.withSize(18.0))//"Tap   to add a hotel to favorite list"
     }
     
     private func setupForImportPhoneContacts() {

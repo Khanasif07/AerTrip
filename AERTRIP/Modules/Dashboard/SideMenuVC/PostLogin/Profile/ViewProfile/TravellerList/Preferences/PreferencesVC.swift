@@ -52,7 +52,6 @@ class PreferencesVC: BaseVC {
     // MARK: - IB Actions
     
     // MARK: - Helper methods
-    
     func doInitialSetUp() {
         tableView.separatorStyle = .none
         
@@ -352,29 +351,43 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         // get modified Object
         
-        
         let movedObject = viewModel.groups[sourceIndexPath.row]
         let movedModifiedObject = viewModel.modifiedGroups[sourceIndexPath.row]
         
         // remove element at Particular index
         viewModel.groups.remove(at: sourceIndexPath.row)
         viewModel.modifiedGroups.remove(at: sourceIndexPath.row)
-        if let sourceCell = self.tableView.cellForRow(at: sourceIndexPath) as? GroupTableViewCell {
-            let rows = tableView.numberOfRows(inSection: destinationIndexPath.section)
-             sourceCell.dividerView.isHidden = destinationIndexPath.row == (rows - 1)
+        
+        guard let sourceCell = self.tableView.cellForRow(at: sourceIndexPath) as? GroupTableViewCell else {
+            return
         }
         
-        if let destinationCell = self.tableView.cellForRow(at: destinationIndexPath) as? GroupTableViewCell {
-            let rows = tableView.numberOfRows(inSection: sourceIndexPath.section)
-            destinationCell.dividerView.isHidden = sourceIndexPath.row == (rows - 1)
+        let rows = tableView.numberOfRows(inSection: sourceIndexPath.section)
+        if let lastCell = self.tableView.cellForRow(at: IndexPath(row: rows-1, section: sourceIndexPath.section)) as? GroupTableViewCell {
+            lastCell.dividerView.isHidden = true
+            
+            if destinationIndexPath.row == (rows - 1) {
+                lastCell.dividerView.isHidden = false
+                sourceCell.dividerView.isHidden = true
+            }
+            else if sourceIndexPath.row == (rows - 1) {
+                if (rows - 2) >= 0, let secondlastCell = self.tableView.cellForRow(at: IndexPath(row: rows-2, section: sourceIndexPath.section)) as? GroupTableViewCell {
+                    secondlastCell.dividerView.isHidden = true
+                }
+                sourceCell.dividerView.isHidden = false
+            }
         }
         
-        
+
         
         // Insert element at Particular index
         viewModel.groups.insert(movedObject, at: destinationIndexPath.row)
         viewModel.modifiedGroups.insert(movedModifiedObject, at: destinationIndexPath.row)
     }
+    
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        print("willDisplay \(indexPath.section), \(indexPath.row)")
+//    }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         if indexPath.row == viewModel.groups.count {
@@ -447,6 +460,7 @@ extension PreferencesVC: PreferencesVMDelegate {
     }
     
     func savePreferencesSuccess() {
+        self.sendDataChangedNotification(data: ATNotification.preferenceUpdated)
         stopLoading()
         dismiss(animated: true, completion: nil)
         delegate?.preferencesUpdated()
