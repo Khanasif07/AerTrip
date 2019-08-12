@@ -36,7 +36,7 @@ class ViewProfileDetailVC: BaseVC {
     let tableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
     let cellIdentifier = "ViewProfileDetailTableViewCell"
     let multipleDetailCellIdentifier = "ViewProfileMultiDetailTableViewCell"
-    var profileImageHeaderView: SlideMenuProfileImageHeaderView = SlideMenuProfileImageHeaderView()
+    var profileImageHeaderView: SlideMenuProfileImageHeaderView?
     var travelData: TravelDetailModel?
     
     private var headerViewHeight: CGFloat {
@@ -50,11 +50,12 @@ class ViewProfileDetailVC: BaseVC {
         super.viewDidLoad()
         
         profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
+        profileImageHeaderView?.currentlyUsingAs = .profileDetails
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
-            self?.profileImageHeaderView.profileImageViewHeightConstraint.constant = 127.0
-            self?.profileImageHeaderView.layoutIfNeeded()
+            self?.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 127.0
+            self?.profileImageHeaderView?.layoutIfNeeded()
             self?.view.alpha = 1.0
         }
         doInitialSetUp()
@@ -88,7 +89,9 @@ class ViewProfileDetailVC: BaseVC {
         
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
-        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Edit.rawValue, selectedTitle: LocalizedString.Edit.rawValue, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
+        
+        let editTitle = "\(LocalizedString.Edit.rawValue) "
+        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editTitle, selectedTitle: editTitle, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
         
         let tintedImage = #imageLiteral(resourceName: "Back").withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         self.topNavView.leftButton.setImage(tintedImage, for: .normal)
@@ -105,16 +108,16 @@ class ViewProfileDetailVC: BaseVC {
         tableView.register(UINib(nibName: multipleDetailCellIdentifier, bundle: nil), forCellReuseIdentifier: multipleDetailCellIdentifier)
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: footterHeight))
         tableView.tableFooterView = footerView
-        profileImageHeaderView.dividerView.isHidden = true
+        profileImageHeaderView?.dividerView.isHidden = true
         setUpDataFromApi()
     }
     
     private func setupParallaxHeader() { // Parallax Header
-        let parallexHeaderHeight = CGFloat(300.0)//CGFloat(UIDevice.screenHeight * 0.45)
+        let parallexHeaderHeight = CGFloat(293.0)//CGFloat(UIDevice.screenHeight * 0.45)
         
         let parallexHeaderMinHeight = navigationController?.navigationBar.bounds.height ?? 74
         
-        profileImageHeaderView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 0)
+        profileImageHeaderView?.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 0)
         
         tableView.parallaxHeader.view = profileImageHeaderView
         tableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight // 64
@@ -135,29 +138,29 @@ class ViewProfileDetailVC: BaseVC {
         
         sections.removeAll()
         
-        profileImageHeaderView.userNameLabel.text = (travel.firstName) + " " + (travel.lastName)
-        profileImageHeaderView.emailIdLabel.text = ""
-        profileImageHeaderView.mobileNumberLabel.text = ""
-        profileImageHeaderView.familyButton.isHidden = false
-        profileImageHeaderView.familyButton.setTitle(travel.label.isEmpty ? LocalizedString.Others.localized : travel.label.capitalizedFirst(), for: .normal)
-        profileImageHeaderView.layoutIfNeeded()
+        profileImageHeaderView?.userNameLabel.text = (travel.firstName) + " " + (travel.lastName)
+        profileImageHeaderView?.emailIdLabel.text = ""
+        profileImageHeaderView?.mobileNumberLabel.text = ""
+        profileImageHeaderView?.familyButton.isHidden = false
+        profileImageHeaderView?.familyButton.setTitle(travel.label.isEmpty ? LocalizedString.Others.localized : travel.label.capitalizedFirst(), for: .normal)
+        profileImageHeaderView?.layoutIfNeeded()
         
         var placeImage = AppPlaceholderImage.profile
         
-        placeImage = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, font: AppFonts.Regular.withSize(35.0))
+        placeImage = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, font: AppConstants.profileViewBackgroundNameIntialsFont)
         if travel.profileImage != "" {
-            profileImageHeaderView.profileImageView.setImageWithUrl(travel.profileImage, placeholder: placeImage, showIndicator: false)
-            profileImageHeaderView.backgroundImageView.setImageWithUrl(travel.profileImage, placeholder: placeImage, showIndicator: false)
-            profileImageHeaderView.blurEffectView.alpha = 1.0
+            profileImageHeaderView?.profileImageView.setImageWithUrl(travel.profileImage, placeholder: placeImage, showIndicator: false)
+            profileImageHeaderView?.backgroundImageView.setImageWithUrl(travel.profileImage, placeholder: placeImage, showIndicator: false)
+            profileImageHeaderView?.blurEffectView.alpha = 1.0
         } else {
             if viewModel.currentlyUsingFor == .travellerList {
-                profileImageHeaderView.profileImageView.image = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, font: AppFonts.Regular.withSize(35.0))
-                profileImageHeaderView.backgroundImageView.image = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, textColor: AppColors.themeBlack)
-                profileImageHeaderView.blurEffectView.alpha = 1.0
+                profileImageHeaderView?.profileImageView.image = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, font: AppConstants.profileViewBackgroundNameIntialsFont)
+                profileImageHeaderView?.backgroundImageView.image = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, textColor: AppColors.themeBlack)
+                profileImageHeaderView?.blurEffectView.alpha = 1.0
             } else {
-                profileImageHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(35.0))
-                profileImageHeaderView.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(textColor: AppColors.themeBlack).blur
-                profileImageHeaderView.blurEffectView.alpha = 0.0
+                profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppConstants.profileViewBackgroundNameIntialsFont)
+                profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack).blur
+                profileImageHeaderView?.blurEffectView.alpha = 0.0
             }
         }
         
@@ -416,7 +419,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
         printDebug("progress %f \(prallexProgress)")
         
         if 0.6...1.0 ~= prallexProgress {
-            profileImageHeaderView.profileImageViewHeightConstraint.constant = 127.0 * prallexProgress
+            profileImageHeaderView?.profileImageViewHeightConstraint.constant = 127.0 * prallexProgress
         }
         
         if prallexProgress <= 0.65 {
@@ -437,12 +440,12 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
                 self?.topNavView.backView.backgroundColor = AppColors.themeWhite
             }
         }
-        profileImageHeaderView.layoutIfNeeded()
-        profileImageHeaderView.doInitialSetup()
+        profileImageHeaderView?.layoutIfNeeded()
+        profileImageHeaderView?.doInitialSetup()
     }
     
     func getUpdatedTitle() -> String {
-        var updatedTitle = self.profileImageHeaderView.userNameLabel.text ?? ""
+        var updatedTitle = self.profileImageHeaderView?.userNameLabel.text ?? ""
         if updatedTitle.count > 24 {
             updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
         }

@@ -184,6 +184,24 @@ class SlideMenuProfileImageHeaderView: UIView {
     }
     
     private func setupForProfileDetail() {
-        //has been done on view controller already
+        self.profileImageViewHeightConstraint.constant = 127.0
+        self.profileImageAndNameSpace.constant = 23.0
+        self.userNameHeightLabel.constant = 33.0
+        self.emailAndContactBottomConstraint.constant = 55.0
+        self.familyButtonBottomConstraint.constant = 26.0
+        
+        profileImageView.layer.borderWidth = 6.0
+        
+        self.userNameLabel.font = AppFonts.Regular.withSize(26.0)
+        
+        self.emailIdLabel.text = ""
+        self.mobileNumberLabel.text = ""
+        self.emailIdLabel.isHidden = true
+        self.mobileNumberLabel.isHidden = true
+        self.familyButton.isHidden = false
+        
+        self.layoutIfNeeded()
+        
+        self.makeImageCircular()
     }
 }
