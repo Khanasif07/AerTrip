@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PKCategoryView
 
 protocol ViewAllHotelsVMDelegate: class {
     func willGetHotelPreferenceList()
@@ -22,7 +23,7 @@ class FavouriteHotelsVM {
     
     //MARK:- Properties
     //MARK:- Public
-    var allTabs: [ATCategoryItem] = []
+    var allTabs: [PKCategoryItem] = []
     
     var hotels = [CityHotels]()
     
@@ -44,11 +45,7 @@ class FavouriteHotelsVM {
                 
                 self.hotels = cities
                 
-                self.allTabs = self.hotels.map { (city) -> ATCategoryItem in
-                    var item = ATCategoryItem()
-                    item.title = city.cityName
-                    return item
-                }
+                self.allTabs = self.hotels.map { PKCategoryItem(title: $0.cityName, normalImage: nil, selectedImage: nil) }
                 
                 self.delegate?.getHotelPreferenceListSuccess()
             }
@@ -82,11 +79,7 @@ class FavouriteHotelsVM {
         if !hotels.isEmpty {
             self.hotels.remove(at: forCityIndex)
         }
-        self.allTabs = self.hotels.map { (city) -> ATCategoryItem in
-            var item = ATCategoryItem()
-            item.title = city.cityName
-            return item
-        }
+        self.allTabs = self.hotels.map { PKCategoryItem(title: $0.cityName, normalImage: nil, selectedImage: nil) }
     }
     
     func removeHotel(forCity: CityHotels, cityIndex: Int, forHotelAtIndex: Int) {

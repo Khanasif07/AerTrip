@@ -26,6 +26,8 @@ target 'AERTRIP' do
   pod 'GooglePlaces'
   pod 'FlexiblePageControl'
   
+  pod 'PKCategoryView'
+  
   #if using swift 4.2.1 and xcode 10.1 then use the '1.1.0' of razorpay otherwise latest
 #  pod 'razorpay-pod', '1.1.0'
 pod 'razorpay-pod', :git => 'https://github.com/razorpay/razorpay-pod.git', :branch => 'swift5.1'
