@@ -455,6 +455,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
 //            oldCell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
 //        }
         let cell = UITableViewCell() // oldCell!
+        cell.selectionStyle = .none
         let data = fetchedResultsController.object(at: indexPath)
         configureCell(cell: cell, travellerData: data)
         cell.tintColor = AppColors.themeGreen
