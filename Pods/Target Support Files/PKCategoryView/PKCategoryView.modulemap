@@ -1,0 +1,6 @@
+framework module PKCategoryView {
+  umbrella header "PKCategoryView-umbrella.h"
+
+  export *
+  module * { export * }
+}

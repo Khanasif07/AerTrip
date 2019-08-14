@@ -79,14 +79,14 @@ struct ATContact {
         if self._fullName.isEmpty {
             let final = "\(self.firstName) \(self.lastName)"
             if final.removeAllWhiteSpacesAndNewLines.isEmpty {
-                return self.email
+                return self.email.removeAllWhiteSpacesAndNewLines
             }
             else {
                 return final
             }
         }
         else {
-            return self._fullName
+            return self._fullName.removeAllWhiteSpacesAndNewLines
         }
     }
 
