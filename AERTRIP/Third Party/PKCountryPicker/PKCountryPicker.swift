@@ -51,7 +51,7 @@ open class PKCountryPicker: UIView {
     
     
     public func getCountryData(forISDCode: String) -> PKCountryModel? {
-        let allCountries = self.getAllCountries()
+        let allCountries = self.countries//self.getAllCountries()
         
         var finalISD = forISDCode
         
@@ -75,7 +75,7 @@ open class PKCountryPicker: UIView {
     }
     
     public func getCountryData(forISOCode: String) -> PKCountryModel? {
-        let allCountries = self.getAllCountries()
+        let allCountries = self.countries//self.getAllCountries()self.getAllCountries()
         
         return allCountries.filter { (country) -> Bool in
             country.ISOCode == forISOCode

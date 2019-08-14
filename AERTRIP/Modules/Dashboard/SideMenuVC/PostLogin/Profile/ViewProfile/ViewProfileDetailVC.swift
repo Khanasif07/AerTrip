@@ -51,7 +51,6 @@ class ViewProfileDetailVC: BaseVC {
         
         profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
         profileImageHeaderView?.currentlyUsingAs = .profileDetails
-        
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
             self?.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 127.0
@@ -79,6 +78,20 @@ class ViewProfileDetailVC: BaseVC {
         }
     }
     
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        
+        delay(seconds: 0.5) { [weak self] in
+            self?.topNavView.stopActivityIndicaorLoading()
+            self?.topNavView.isToShowIndicatorView = false
+        }
+        self.topNavView.configureFirstRightButton( normalTitle: LocalizedString.Edit.localized, selectedTitle: LocalizedString.Edit.localized, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
+        
+        
+    }
+    
     // MARK: - Helper method
     
     func doInitialSetUp() {
@@ -90,7 +103,7 @@ class ViewProfileDetailVC: BaseVC {
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
         
-        let editTitle = "\(LocalizedString.Edit.rawValue) "
+        let editTitle = "\(LocalizedString.Edit.localized) "
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editTitle, selectedTitle: editTitle, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
         
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editTitle, selectedTitle: editTitle, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
@@ -292,7 +305,13 @@ extension ViewProfileDetailVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.topNavView.configureFirstRightButton( normalTitle: "", selectedTitle: "")
+        self.topNavView.isToShowIndicatorView = true
+        self.topNavView.startActivityIndicaorLoading()
         AppFlowManager.default.moveToEditProfileVC(travelData: travelData, usingFor: self.viewModel.currentlyUsingFor)
+        delay(seconds: 0.5) { [weak self] in
+            self?.topNavView.stopActivityIndicaorLoading()
+        }
     }
 }
 
@@ -425,7 +444,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
            profileImageHeaderView?.profileImageViewHeightConstraint.constant = 127.0 * prallexProgress
         }
         
-        if prallexProgress <= 0.65 {
+        if prallexProgress <= 0.7 {
             self.statusBarStyle = .default
             self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
                 self?.topNavView.firstRightButton.isSelected = true
@@ -458,7 +477,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updateForParallexProgress()
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        perform(#selector(self.updateForParallexProgress), with: nil, afterDelay: 0.2)
+        perform(#selector(self.updateForParallexProgress), with: nil, afterDelay: 0.05)
         //        self.updateForParallexProgress()
     }
     

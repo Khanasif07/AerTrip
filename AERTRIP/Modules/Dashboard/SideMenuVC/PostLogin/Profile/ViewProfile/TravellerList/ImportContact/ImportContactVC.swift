@@ -275,7 +275,7 @@ extension ImportContactVC: ImportContactVMDelegate {
         let newOffsetX = self.selectedContactsCollectionView.contentSize.width - self.selectedContactsCollectionView.width
         guard newOffsetX > 0 else {return}
         
-        self.selectedContactsCollectionView.setContentOffset(CGPoint(x: newOffsetX, y: 0), animated: true)
+        //self.selectedContactsCollectionView.setContentOffset(CGPoint(x: newOffsetX, y: 0), animated: true)
     }
     
     func add(for usingFor: ContactListVC.UsingFor) {

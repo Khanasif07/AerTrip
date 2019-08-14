@@ -83,6 +83,12 @@ class ViewProfileVC: BaseVC {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.profileImageHeaderView?.isHidden = true
+        delay(seconds: 0.5) { [weak self] in
+            self?.topNavView.isToShowIndicatorView = false
+        }
+        self.topNavView.configureFirstRightButton( normalTitle: LocalizedString.Edit.localized, selectedTitle: LocalizedString.Edit.localized, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
+
+       
     }
     
     override func bindViewModel() {
@@ -98,6 +104,8 @@ class ViewProfileVC: BaseVC {
             self.viewModel.webserviceForGetTravelDetail()
         }
     }
+    
+    
     
     // MARK: - Helper Methods
     
@@ -186,7 +194,13 @@ extension ViewProfileVC: TopNavigationViewDelegate {
         if self.viewModel.travelData == nil {
             self.viewModel.travelData = UserInfo.loggedInUser?.travellerDetailModel
         }
+        self.topNavView.configureFirstRightButton( normalTitle: "", selectedTitle: "")
+        self.topNavView.isToShowIndicatorView = true
+        self.topNavView.startActivityIndicaorLoading()
         AppFlowManager.default.moveToEditProfileVC(travelData: self.viewModel.travelData, usingFor: .viewProfile)
+        delay(seconds: 0.5) { [weak self] in
+            self?.topNavView.stopActivityIndicaorLoading()
+        }
     }
 }
 // MARK: - UITableViewDataSource and UITableViewDelegate Methods
@@ -292,6 +306,8 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             break
         }
     }
+    
+
 }
 
 
@@ -306,6 +322,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         if 0.6...1.0 ~= prallexProgress {
             self.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 127.0 * prallexProgress
         }
+        printDebug(prallexProgress)
         if prallexProgress <= 0.7 {
             self.statusBarStyle = .default
             self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
@@ -331,7 +348,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updateForParallexProgress()
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        perform(#selector(self.updateForParallexProgress), with: nil, afterDelay: 0.2)
+        perform(#selector(self.updateForParallexProgress), with: nil, afterDelay: 0.05)
 //        self.updateForParallexProgress()
     }
     

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -20,7 +19,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SlideMenuProfileImageHeaderView" customModule="AERTRIP" customModuleProvider="target">
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" customClass="SlideMenuProfileImageHeaderView" customModule="AERTRIP" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="531" height="256"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -94,7 +93,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgB-ko-N2g">
-                    <rect key="frame" x="224.5" y="207" width="82" height="25"/>
+                    <rect key="frame" x="224" y="207" width="83" height="25"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="Zvf-8u-c8g"/>
@@ -109,25 +108,24 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="ycJ-AK-oMp" firstAttribute="top" secondItem="cbl-xr-PpX" secondAttribute="bottom" id="2CZ-T1-zTe"/>
-                <constraint firstItem="x2n-dX-FxW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="9ws-vz-w8g"/>
+                <constraint firstItem="x2n-dX-FxW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="9ws-vz-w8g"/>
                 <constraint firstAttribute="bottom" secondItem="ycJ-AK-oMp" secondAttribute="bottom" id="9zN-a6-9wk"/>
-                <constraint firstItem="ycJ-AK-oMp" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Bmw-WN-UKN"/>
+                <constraint firstItem="ycJ-AK-oMp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Bmw-WN-UKN"/>
                 <constraint firstAttribute="trailing" secondItem="cbl-xr-PpX" secondAttribute="trailing" id="Chh-L4-S5X"/>
                 <constraint firstAttribute="trailing" secondItem="ycJ-AK-oMp" secondAttribute="trailing" id="Hy3-e0-bE4"/>
                 <constraint firstItem="pgB-ko-N2g" firstAttribute="centerX" secondItem="cbl-xr-PpX" secondAttribute="centerX" id="OP8-Bs-m11"/>
-                <constraint firstItem="Ojo-QA-iad" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="bbK-0v-AkW"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="pgB-ko-N2g" secondAttribute="bottom" constant="24" id="cCi-95-C6C"/>
-                <constraint firstItem="Ojo-QA-iad" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="eG1-bH-VIx"/>
-                <constraint firstItem="x2n-dX-FxW" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="fkP-SD-7gS"/>
+                <constraint firstItem="Ojo-QA-iad" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="bbK-0v-AkW"/>
+                <constraint firstAttribute="bottom" secondItem="pgB-ko-N2g" secondAttribute="bottom" constant="24" id="cCi-95-C6C"/>
+                <constraint firstItem="Ojo-QA-iad" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="eG1-bH-VIx"/>
+                <constraint firstItem="x2n-dX-FxW" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="fkP-SD-7gS"/>
                 <constraint firstItem="cbl-xr-PpX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="h46-BO-zZN"/>
-                <constraint firstItem="x2n-dX-FxW" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="iDi-J4-ZHk"/>
-                <constraint firstItem="cbl-xr-PpX" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="kAi-3t-AQb"/>
-                <constraint firstItem="Ojo-QA-iad" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="kKO-o2-q7e"/>
+                <constraint firstItem="x2n-dX-FxW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="iDi-J4-ZHk"/>
+                <constraint firstItem="cbl-xr-PpX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="kAi-3t-AQb"/>
+                <constraint firstItem="Ojo-QA-iad" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="kKO-o2-q7e"/>
                 <constraint firstItem="Ojo-QA-iad" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="pSG-Cm-jrZ"/>
-                <constraint firstItem="x2n-dX-FxW" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="wCJ-bF-R1h"/>
+                <constraint firstItem="x2n-dX-FxW" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="wCJ-bF-R1h"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="backgroundImageView" destination="Ojo-QA-iad" id="76G-qQ-HcJ"/>
                 <outlet property="dividerView" destination="ycJ-AK-oMp" id="jHj-R4-bfb"/>
@@ -149,6 +147,6 @@
     </objects>
     <resources>
         <image name="group4" width="375" height="319"/>
-        <image name="profilePlaceholder" width="64" height="64"/>
+        <image name="profilePlaceholder" width="42.275230407714844" height="42.275230407714844"/>
     </resources>
 </document>

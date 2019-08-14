@@ -4090,7 +4090,6 @@
 				84F9837021B51A070018DFED /* AppDelegate */,
 				84F9838421B51A070018DFED /* AppHelper */,
 				84F983B821B51A070018DFED /* AppStoryboards */,
-				84956FB721B65C4300BF1183 /* Common */,
 				84085C6C21F59C0C00F1E844 /* Modules */,
 				1870AD03220C769400FB32C8 /* Models */,
 				180A3D6E21C0D9EF001A1E6A /* Xibs */,
@@ -5154,6 +5153,7 @@
 		84F983B821B51A070018DFED /* AppStoryboards */ = {
 			isa = PBXGroup;
 			children = (
+				84956FB721B65C4300BF1183 /* Common */,
 				84F983B921B51A070018DFED /* PreLogin.storyboard */,
 				84F983BA21B51A070018DFED /* Splash.storyboard */,
 				84D2FB9C21BE767700011000 /* Dashboard.storyboard */,

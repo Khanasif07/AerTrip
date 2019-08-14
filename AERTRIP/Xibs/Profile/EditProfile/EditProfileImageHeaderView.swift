@@ -26,6 +26,7 @@ class EditProfileImageHeaderView: UIView {
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var groupLabel: UILabel!
     @IBOutlet weak var groupTitleLabel: UILabel!
+    @IBOutlet weak var selectGroupDownArrow: UIImageView!
     
     @IBOutlet weak var selectGroupViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var selectGroupView: UIView!

@@ -126,8 +126,9 @@ class TravellerListVC: BaseVC {
             setSelectMode()
             let touchPoint = longPressGestureRecognizer.location(in: tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                tableView.separatorStyle = .singleLine
                 tableView(tableView, didSelectRowAt: indexPath)
-                tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             }
         }
     }
@@ -230,7 +231,7 @@ class TravellerListVC: BaseVC {
     
     func doInitialSetUp() {
         tableView.allowsMultipleSelectionDuringEditing = true
-        tableView.separatorStyle = .singleLine
+//        tableView.separatorStyle = .singleLine
         
         travellerListHeaderView = TravellerListHeaderView.instanceFromNib()
         travellerListHeaderView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 44)
@@ -464,6 +465,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         configureCell(cell: cell, travellerData: data)
         cell.tintColor = AppColors.themeGreen
         let backView = UIView(frame: cell.contentView.bounds)
+        backView.tag = 1
         backView.backgroundColor = AppColors.themeWhite
         cell.selectedBackgroundView = backView
         return cell
@@ -480,10 +482,18 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
                 let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
                 cell.textLabel?.attributedText = getAttributedBoldText(text: "\(salutation) \(firstName) \(lastName)", boldText: boldText)
             }
+            self.tableView.separatorStyle = .singleLine
+//           
+//            let viewFrame = UIView(frame: CGRect(x: 64, y: cell.frame.size.height, width: UIDevice.screenWidth - 12, height: 0.5))
+//            viewFrame.tag = 1
+//            viewFrame.backgroundColor =  UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
+//            cell.addSubview(viewFrame)
+
         }
         
         if let trav = travellerData, self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {
             cell.setSelected(true, animated: false)
+          
         } else {
             cell.setSelected(false, animated: false)
         }
@@ -527,25 +537,34 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         }
         return headerView
     }
+ 
+    
+
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         dismissKeyboard()
         if isSelectMode {
+            tableView.separatorStyle = .singleLine
+//            if let cell = tableView.cellForRow(at: indexPath) {
+//                cell.viewWithTag(1)?.isHidden = false
+//                cell.viewWithTag(1)?.backgroundColor =  UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
+//
+//
+//            }
             let current = fetchedResultsController.object(at: indexPath)
-          
             if !selectedTravller.contains(where: { ($0.id ?? "") == (current.id ?? "") }) {
                 selectedTravller.append(fetchedResultsController.object(at: indexPath))
             }
             updateNavView()
         } else {
+            tableView.reloadSection(section: indexPath.section, with: .none)
             AppFlowManager.default.moveToViewProfileDetailVC(fetchedResultsController.object(at: indexPath).travellerDetailModel, usingFor: .travellerList)
         }
         shouldHitAPI = false
-//        let cell = tableView.cellForRow(at: indexPath)
-//        cell?.backgroundColor = AppColors.themeWhite
-    }
+      }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        
         if isSelectMode {
             let current = fetchedResultsController.object(at: indexPath)
             if let index = selectedTravller.firstIndex(where: { ($0.id ?? "") == (current.id ?? "") }) {
@@ -554,9 +573,9 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
             
             updateNavView()
         }
-//        let cell = tableView.cellForRow(at: indexPath)
-//        cell?.backgroundColor = AppColors.themeWhite
+//        tableView.separatorStyle = .singleLine
     }
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         printDebug("content scroll offset \(scrollView.contentOffset.y)")

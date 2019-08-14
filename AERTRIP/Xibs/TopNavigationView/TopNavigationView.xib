@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,6 +28,7 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="activityIndicatorView" destination="QfJ-5x-W3u" id="y75-Qn-zeI"/>
                 <outlet property="backView" destination="0Hi-Nc-atn" id="d1x-5a-YTI"/>
                 <outlet property="backViewHeightConstraint" destination="NE8-n0-naW" id="K7l-gh-9Yg"/>
                 <outlet property="containerView" destination="5iQ-SE-VF1" id="Wuj-Tf-miD"/>
@@ -96,6 +97,9 @@
                         <action selector="right1BtnTapped:" destination="-1" eventType="touchUpInside" id="B46-Ey-NDx"/>
                     </connections>
                 </button>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="QfJ-5x-W3u">
+                    <rect key="frame" x="336.5" y="21" width="20" height="20"/>
+                </activityIndicatorView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5XU-ZY-yPU" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="61" width="370" height="1"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -110,6 +114,7 @@
                 <constraint firstItem="D4F-Bu-HSK" firstAttribute="top" secondItem="zxX-KT-F33" secondAttribute="top" id="4Az-6w-Ij0"/>
                 <constraint firstAttribute="bottom" secondItem="Wb6-dI-jbo" secondAttribute="bottom" id="GWF-oA-Exq"/>
                 <constraint firstItem="zxX-KT-F33" firstAttribute="trailing" secondItem="5XU-ZY-yPU" secondAttribute="trailing" id="Jkc-Vl-wAB"/>
+                <constraint firstItem="QfJ-5x-W3u" firstAttribute="centerY" secondItem="D4F-Bu-HSK" secondAttribute="centerY" id="MDV-lp-v3k"/>
                 <constraint firstItem="zxX-KT-F33" firstAttribute="trailing" secondItem="D4F-Bu-HSK" secondAttribute="trailing" id="N9p-Mc-gep"/>
                 <constraint firstItem="7uz-9U-A8C" firstAttribute="centerY" secondItem="zxX-KT-F33" secondAttribute="centerY" id="ShQ-2l-S3C"/>
                 <constraint firstItem="DSO-Ke-hNP" firstAttribute="top" secondItem="zxX-KT-F33" secondAttribute="top" id="Tbg-tK-nup"/>
@@ -124,6 +129,7 @@
                 <constraint firstItem="0Hi-Nc-atn" firstAttribute="leading" secondItem="zxX-KT-F33" secondAttribute="leading" id="qIH-2Z-8FT"/>
                 <constraint firstAttribute="bottom" secondItem="D4F-Bu-HSK" secondAttribute="bottom" id="v1V-Xf-AT5"/>
                 <constraint firstItem="zxX-KT-F33" firstAttribute="trailing" secondItem="7uz-9U-A8C" secondAttribute="trailing" constant="44" id="vY6-47-vFE"/>
+                <constraint firstItem="QfJ-5x-W3u" firstAttribute="centerX" secondItem="D4F-Bu-HSK" secondAttribute="centerX" id="xjQ-U3-yP8"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

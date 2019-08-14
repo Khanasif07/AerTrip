@@ -352,10 +352,6 @@
                                         <constraint firstAttribute="trailing" secondItem="WAQ-s4-0cr" secondAttribute="trailing" id="ynj-nx-Faw"/>
                                     </constraints>
                                 </view>
-                                <connections>
-                                    <outlet property="dataSource" destination="ud7-3X-EQa" id="KK4-LI-las"/>
-                                    <outlet property="delegate" destination="ud7-3X-EQa" id="nSQ-wm-vXG"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

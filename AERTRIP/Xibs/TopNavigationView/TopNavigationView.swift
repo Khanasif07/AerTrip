@@ -54,6 +54,15 @@ class TopNavigationView: UIView {
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var backViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    
+    
+    var isToShowIndicatorView: Bool = false {
+        didSet {
+            self.activityIndicatorView.color = AppColors.themeGreen
+            self.activityIndicatorView.isHidden = !isToShowIndicatorView
+        }
+    }
     
     
     //MARK:- View Life Cycle
@@ -83,10 +92,11 @@ class TopNavigationView: UIView {
         addSubview(containerView)
         containerView.frame = self.bounds
         containerView.autoresizingMask = [.flexibleHeight,.flexibleWidth]
-        
+        self.activityIndicatorView.color = AppColors.themeGreen
         self.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
-        
+        self.isToShowIndicatorView = false
         self.configureNavBar(title: "")
+        
     }
     
     private func setBackground() {
@@ -167,7 +177,7 @@ class TopNavigationView: UIView {
         self.backView.isHidden = false
 
         completion?(true)
-        let time = AppConstants.kAnimationDuration * 0.7
+        let time = AppConstants.kAnimationDuration * 0.35
         UIView.animate(withDuration: time, animations: {
             self.backViewHeightConstraint.constant = isHidden ? 0.0 : self.height
             self.backView.alpha = isHidden ? 0.0 : 1.0
@@ -256,5 +266,14 @@ class TopNavigationView: UIView {
     
     @IBAction private func right2BtnTapped(_ sender: UIButton) {
         self.delegate?.topNavBarSecondRightButtonAction(sender)
+    }
+    
+    func startActivityIndicaorLoading() {
+        self.activityIndicatorView.startAnimating()
+    }
+    
+    func stopActivityIndicaorLoading() {
+        self.activityIndicatorView.stopAnimating()
+
     }
 }

@@ -92,10 +92,6 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             }
             
         case LocalizedString.ContactNumber.localized:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: editThreePartCellIdentifier, for: indexPath) as? EditProfileThreePartTableViewCell else {
-                fatalError("EditProfileThreePartTableViewCell not found")
-            }
-            cell.delegate = self
             if indexPath.row == self.viewModel.mobile.count {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: addActionCellIdentifier, for: indexPath) as? TableViewAddActionCell else {
                     fatalError("TableViewAddActionCell not found")
@@ -104,6 +100,10 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.topDividerView.isHidden = false
                 return cell
             } else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: editThreePartCellIdentifier, for: indexPath) as? EditProfileThreePartTableViewCell else {
+                    fatalError("EditProfileThreePartTableViewCell not found")
+                }
+                cell.delegate = self
                 if indexPath.row == 0, self.viewModel.currentlyUsinfFor == .viewProfile {
                     //make disable
                     cell.deleteButton.isHidden = true
@@ -838,8 +838,8 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
             }
             cell.countryCodeLabel.text = selectedCountry.countryCode
             cell.flagImageView.image = selectedCountry.flagImage
-            cell.rightViewTextField.defaultRegion = selectedCountry.ISOCode
-            cell.rightViewTextField.text = cell.rightViewTextField.nationalNumber
+//            cell.rightViewTextField.defaultRegion = selectedCountry.ISOCode
+//            cell.rightViewTextField.text = cell.rightViewTextField.nationalNumber
             
             self?.viewModel.mobile[indexPath.row].isd = selectedCountry.countryCode
         }
