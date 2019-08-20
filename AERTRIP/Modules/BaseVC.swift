@@ -177,10 +177,11 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         UIApplication.topViewController()?.view.endEditing(true)
     }
     
-    final func showLoaderOnView(view:UIView, show:Bool) {
+    final func showLoaderOnView(view:UIView, show:Bool, backgroundColor: UIColor = .clear, padding: UIEdgeInsets = UIEdgeInsets(top: 2.0, left: 1.0, bottom: 2.0, right: 1.0)) {
         if show {
-            indicatorContainer.frame = view.bounds
+            indicatorContainer.frame = CGRect(x: view.bounds.origin.x+padding.left, y: view.bounds.origin.y+padding.top, width: view.bounds.size.width-(padding.left + padding.right), height: view.bounds.size.height-(padding.top + padding.bottom))
             indicatorContainer.layoutIfNeeded()
+            indicatorContainer.backgroundColor = backgroundColor
             indicator.center = indicatorContainer.center
             view.addSubview(indicatorContainer)
         } else {

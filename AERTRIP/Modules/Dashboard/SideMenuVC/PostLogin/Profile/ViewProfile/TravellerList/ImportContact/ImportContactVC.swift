@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKCategoryView
 
 class ImportContactVC: BaseVC {
     
@@ -27,7 +28,7 @@ class ImportContactVC: BaseVC {
     
     //MARK:- Private
     private let collectionLayout: ContactListCollectionFlowLayout = ContactListCollectionFlowLayout()
-    fileprivate weak var categoryView: ATCategoryView!
+    fileprivate weak var categoryView: PKCategoryView!
     private var itemsCounts: [Int] = [0, 0, 0]
     
     private(set) var viewModel = ImportContactVM.shared
@@ -38,12 +39,11 @@ class ImportContactVC: BaseVC {
     }
     
     private let allTabsStr: [String] = [LocalizedString.Contacts.localized, LocalizedString.Facebook.localized, LocalizedString.Google.localized]
-    private var allTabs: [ATCategoryItem] {
-        var temp = [ATCategoryItem]()
+    private var allTabs: [PKCategoryItem] {
+        var temp = [PKCategoryItem]()
         
         for title in allTabsStr {
-            var obj = ATCategoryItem()
-            obj.title = title
+            let obj = PKCategoryItem(title: title, normalImage: nil, selectedImage: nil)
             temp.append(obj)
         }
         
@@ -88,7 +88,7 @@ class ImportContactVC: BaseVC {
         super.viewDidLayoutSubviews()
         
         self.categoryView?.frame = self.listContainerView.bounds
-        self.categoryView?.layoutIfNeeded()
+        self.categoryView?.layoutSubviews()
     }
     
     deinit {
@@ -125,8 +125,8 @@ class ImportContactVC: BaseVC {
             self.allChildVCs.append(vc)
         }
         
-        self.setupPagerView()
-        delay(seconds: 0.2) {[weak self] in
+        delay(seconds: 0.1) {[weak self] in
+            self?.setupPagerView()
             self?.updateNavTitle()
         }
         
@@ -136,24 +136,22 @@ class ImportContactVC: BaseVC {
     
     private func setupPagerView() {
 
-        var style = ATCategoryNavBarStyle()
-        style.height = 45.0
+        var style = PKCategoryViewConfiguration()
+        style.navBarHeight = 45.0
         style.interItemSpace = 5.0
         style.itemPadding = 8.0
-        style.isScrollable = false
-        style.layoutAlignment = .center
+        style.isNavBarScrollEnabled = false
         style.isEmbeddedToView = true
         style.showBottomSeparator = true
-        style.bottomSeparatorColor = AppColors.themeGray40
+        style.bottomSeparatorColor = AppColors.divider.color
         style.defaultFont = AppFonts.Regular.withSize(16.0)
-        style.selectedFont = AppFonts.Regular.withSize(16.0)
+        style.selectedFont = AppFonts.SemiBold.withSize(16.0)
         style.indicatorColor = AppColors.themeGreen
         style.normalColor = AppColors.themeBlack
         style.selectedColor = AppColors.themeBlack
         
-        let categoryView = ATCategoryView(frame: self.listContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
-        categoryView.interControllerSpacing = 0.0
-        categoryView.navBar.internalDelegate = self
+        let categoryView = PKCategoryView(frame: self.listContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, configuration: style, parentVC: self)
+        categoryView.delegate = self
         self.listContainerView.addSubview(categoryView)
         self.categoryView = categoryView
     }
@@ -207,8 +205,11 @@ class ImportContactVC: BaseVC {
     }
 }
 
-extension ImportContactVC: ATCategoryNavBarDelegate {
-    func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
+extension ImportContactVC: PKCategoryViewDelegate {
+    func categoryView(_ view: PKCategoryView, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
+    }
+    
+    func categoryView(_ view: PKCategoryView, didSwitchIndexTo toIndex: Int) {
         self.currentIndex = toIndex
     }
 }

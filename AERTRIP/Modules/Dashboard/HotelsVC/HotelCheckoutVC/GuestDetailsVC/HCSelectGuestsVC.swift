@@ -269,7 +269,7 @@ extension HCSelectGuestsVC: TopNavigationViewDelegate {
 extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
     
     func contactSavedFail() {
-        AppToast.default.showToastMessage(message: "Not able to save contacts. Please try again.")
+        AppToast.default.showToastMessage(message: LocalizedString.NotAbleToSaveContactTryAgain.localized)
     }
     
     func contactSavedSuccess() {
@@ -277,7 +277,7 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
     }
     
     func phoneContactSavedFail() {
-        AppToast.default.showToastMessage(message: "Not able to save contacts. Please try again.")
+        AppToast.default.showToastMessage(message: LocalizedString.NotAbleToSaveContactTryAgain.localized)
     }
     
     func willFetchPhoneContacts() {

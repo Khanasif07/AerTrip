@@ -399,7 +399,7 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
         //
     }
     
-    func willGetDetail() {
+    func willGetDetail(_ isShowLoader: Bool) {
         //
     }
     

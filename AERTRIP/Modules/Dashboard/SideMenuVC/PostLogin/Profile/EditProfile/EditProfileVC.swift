@@ -149,7 +149,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         self.tableView.delegate = self
         self.stopLoading()
         self.tableView.reloadData()
-        
     }
     
     override func bindViewModel() {

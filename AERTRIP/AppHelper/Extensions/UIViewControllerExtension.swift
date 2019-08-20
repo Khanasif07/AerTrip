@@ -447,7 +447,10 @@ extension UIViewController {
                     retrieveContactsWithStore(store)
                 }
                 else {
-                    printDebug("Error in fetching contacts: \(error)")
+                    printDebug("Error in fetching contacts: \(String(describing: error))")
+                    DispatchQueue.mainAsync {
+                        canceled?()
+                    }
                 }
             }
         } else if self.isContactsAuthorized(canceled: {

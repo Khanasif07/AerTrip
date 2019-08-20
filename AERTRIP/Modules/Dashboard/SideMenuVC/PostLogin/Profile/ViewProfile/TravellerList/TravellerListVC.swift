@@ -423,7 +423,8 @@ extension TravellerListVC: TopNavigationViewDelegate {
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
         if !isSelectMode,AppGlobals.shared.isNetworkRechable() {
-           addTravellerTapped()
+            shouldHitAPI = false
+            addTravellerTapped()
         }
     }
 }

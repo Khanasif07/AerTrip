@@ -65,6 +65,12 @@ class PKContainerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateSubViews()
+    }
+    
     func setupScrollView(){
         
         self.scrollView.contentSize = CGSize(width: singlePageSize.width * CGFloat(childVCs.count), height: singlePageSize.height)
@@ -79,6 +85,15 @@ class PKContainerView: UIView {
         }
         
         self.addSubview(self.scrollView)
+    }
+    
+    private func updateSubViews() {
+        scrollView.frame = self.bounds
+        scrollView.layoutSubviews()
+        for (idx, vc) in self.childVCs.enumerated() {
+            vc.view.frame = CGRect(x: (singlePageSize.width * CGFloat(idx)), y: 0.0, width: singlePageSize.width, height: singlePageSize.height)
+            vc.view.layoutSubviews()
+        }
     }
     
     func selectPage(atIndex: Int, animated: Bool) {

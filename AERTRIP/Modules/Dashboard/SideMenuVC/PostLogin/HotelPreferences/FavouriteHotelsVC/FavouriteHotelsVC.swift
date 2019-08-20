@@ -67,8 +67,7 @@ class FavouriteHotelsVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
-        
-        self.currentIndex = 0
+    
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.FavouriteHotels.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "addHotel"), selectedImage: #imageLiteral(resourceName: "addHotel"))
@@ -78,6 +77,8 @@ class FavouriteHotelsVC: BaseVC {
     }
     
     private func setupPagerView() {
+        self.currentIndex = 0
+        
         if self.viewModel.hotels.isEmpty {
             self.emptyView.frame = CGRect(x: 0.0, y: 0.0, width: self.dataContainerView.width, height: self.dataContainerView.height)
             self.dataContainerView.addSubview(self.emptyView)
@@ -92,7 +93,7 @@ class FavouriteHotelsVC: BaseVC {
             style.isNavBarScrollEnabled = true
             style.isEmbeddedToView = true
             style.showBottomSeparator = true
-            style.bottomSeparatorColor = AppColors.themeGray40
+            style.bottomSeparatorColor = AppColors.divider.color
             style.defaultFont = AppFonts.Regular.withSize(16.0)
             style.selectedFont = AppFonts.SemiBold.withSize(16.0)
             style.indicatorColor = AppColors.themeGreen
@@ -143,6 +144,7 @@ extension FavouriteHotelsVC: TopNavigationViewDelegate {
 
 extension FavouriteHotelsVC: PKCategoryViewDelegate {
     func categoryView(_ view: PKCategoryView, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
+        self.currentIndex = toIndex
     }
     
     func categoryView(_ view: PKCategoryView, didSwitchIndexTo toIndex: Int) {
@@ -183,8 +185,8 @@ extension FavouriteHotelsVC: ViewAllHotelsVMDelegate {
 extension FavouriteHotelsVC: FavouriteHotelsListVCDelegate {
     func updatedFavourite(forCity: CityHotels, forHotelAtIndex: Int) {
         
-        self.viewModel.removeHotel(forCity: forCity, cityIndex: self.currentIndex, forHotelAtIndex: forHotelAtIndex)
         if forCity.holetList.count > 1 {
+            self.viewModel.removeHotel(forCity: forCity, cityIndex: self.currentIndex, forHotelAtIndex: forHotelAtIndex)
             //reload list at current city index
             self.allChildVCs[self.currentIndex].viewModel.forCity = self.viewModel.hotels[self.currentIndex]
             self.allChildVCs[self.currentIndex].collectionView.reloadData()

@@ -132,17 +132,16 @@ struct ATContact {
 
 
         if let phone = contact.phoneNumbers.first {
-            let tempNumber = phone.value.stringValue
             self.contact = phone.value.stringValue
-            do {
-                let temp = try PhoneNumberKit().parse(tempNumber)
-                self.contact = "\(temp.nationalNumber)"
-                self.isd = "+\(temp.countryCode)"
-            }
-            catch {
-                printDebug("not able to parse the number")
-                self.contact = ""
-            }
+//            do {
+//                let temp = try PhoneNumberKit().parse(tempNumber)
+//                self.contact = "\(temp.nationalNumber)"
+//                self.isd = "+\(temp.countryCode)"
+//            }
+//            catch {
+//                printDebug("not able to parse the number")
+//                self.contact = ""
+//            }
         }
 
         self.imageData = contact.imageData
@@ -296,14 +295,15 @@ extension CNContact {
     
     var fullContact: (isd: String, contact: String) {
         if let phone = self.phoneNumbers.first {
-            let tempNumber = phone.value.stringValue
-            do {
-                let temp = try PhoneNumberKit().parse(tempNumber)
-                return ("+\(temp.countryCode)", "\(temp.nationalNumber)")
-            }
-            catch {
-                printDebug("not able to parse the number")
-            }
+//            let tempNumber = phone.value.stringValue
+//            do {
+//                let temp = try PhoneNumberKit().parse(tempNumber)
+//                return ("+\(temp.countryCode)", "\(temp.nationalNumber)")
+//            }
+//            catch {
+//                printDebug("not able to parse the number")
+//            }
+            return ("", phone.value.stringValue)
         }
         
         if let currentIsd = PKCountryPicker.default.getCurrentLocalCountryData()?.countryCode {

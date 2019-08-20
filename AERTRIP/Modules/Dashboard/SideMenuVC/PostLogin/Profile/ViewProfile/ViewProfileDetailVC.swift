@@ -74,7 +74,7 @@ class ViewProfileDetailVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification, noti == .profileSavedOnServer {
-            viewModel.webserviceForGetTravelDetail()
+            viewModel.webserviceForGetTravelDetail(isShowLoader: true)
         }
     }
     
@@ -510,17 +510,21 @@ extension ViewProfileDetailVC: ViewProfileDetailVMDelegate {
         //
     }
     
-    func willGetDetail() {
-        //
+    func willGetDetail(_ isShowLoader: Bool = false) {
+        if isShowLoader {
+            AppGlobals.shared.startLoading(loaderBgColor: .clear)
+        }
     }
     
     func getSuccess(_ data: TravelDetailModel) {
+        AppGlobals.shared.stopLoading()
         travelData = data
         setUpDataFromApi()
         self.sendDataChangedNotification(data: ATNotification.profileChanged)
     }
     
     func getFail(errors: ErrorCodes) {
+        AppGlobals.shared.stopLoading()
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Contacts
 
 class ContactDetailsTableCell: UITableViewCell {
     
@@ -26,12 +27,17 @@ class ContactDetailsTableCell: UITableViewCell {
         }
     }
     
+    var cnContact: CNContact? {
+        didSet {
+            self.populateData()
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         self.selectionStyle = .none
     }
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -52,5 +58,9 @@ class ContactDetailsTableCell: UITableViewCell {
             self.selectionButton.isSelected = false
             self.nameLabel.text = self.traveller?.fullName ?? ""
         }
+    }
+    
+    private func populateDataWithCNContact() {
+        
     }
 }
