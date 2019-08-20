@@ -20,7 +20,7 @@ protocol HotelResultDelegate: class {
     func getPinnedTemplateFail()
     func getAllHotelsOnResultFallbackSuccess(_ isDone: Bool)
     func getAllHotelsOnResultFallbackFail(errors: ErrorCodes)
-    
+    func willGetAllHotel()
     func getAllHotelsOnPreferenceSuccess()
     func getAllHotelsOnPreferenceFail()
     
@@ -58,7 +58,7 @@ class HotelsResultVM: NSObject {
     
     func hotelListOnPreferenceResult() {
         let params: JSONDictionary = [APIKeys.vcodes.rawValue: self.hotelSearchRequest?.vcodes.first ?? "", APIKeys.sid.rawValue: self.hotelSearchRequest?.sid ?? ""]
-        printDebug(params)
+        self.delegate?.willGetAllHotel()
         APICaller.shared.getHotelsListOnPreferenceResult(params: params) { [weak self] success, errors, hotels, isDone in
             guard let sSelf = self else { return }
             if success {

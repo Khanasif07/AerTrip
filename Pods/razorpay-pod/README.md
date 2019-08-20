@@ -13,7 +13,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 ## Installation | Docs
 
 ### Note:
-We no longer support Swift 3 , moving forward only the latest version of swift will be supported.
+We no longer support Swift 3 , moving forward only the latest version of swift will be supported.We only support a minimum deployment target of iOS 10+.This decision has been taken based on the following link that clearly shows that the number of devices running iOS 10 are very minimal.
+https://developer.apple.com/support/app-store/
 
 ### Note: 
 We now support another optional parameter to the open method - displayController
@@ -38,10 +39,10 @@ with
 razorpay-pod is available through [CocoaPods]. To install
 it, simply add the following line to your Podfile
 
-For version 1.0.24(Framework Compiled in Swift version 4.2, Use it if you are using Xcode version 10 and above)
+For version 1.1.0(Framework Compiled in Swift version 5, Use it if you are using Xcode version 10 and above)
 
 ```ruby
-pod 'razorpay-pod', '1.0.24'
+pod 'razorpay-pod', '1.1.0'
 ```
 
 

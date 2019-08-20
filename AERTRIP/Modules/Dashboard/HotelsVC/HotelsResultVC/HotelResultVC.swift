@@ -250,8 +250,8 @@ class HotelResultVC: BaseVC {
         self.getPinnedHotelTemplate()
         self.statusBarStyle = .default
         collectionViewLayout.minimumLineSpacing = 0
-        
         self.setUpLongPressOnFilterButton()
+        
         
         
     }

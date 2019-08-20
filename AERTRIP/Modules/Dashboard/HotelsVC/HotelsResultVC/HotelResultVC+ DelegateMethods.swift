@@ -120,6 +120,10 @@ extension HotelResultVC: PKBottomSheetDelegate {
 // MARK: - HotelResultVM Delegate methods
 
 extension HotelResultVC: HotelResultDelegate {
+    func willGetAllHotel() {
+        // will call hotel
+    }
+    
     func callShareTextSuccess() {
         printDebug("get the share text")
         let textToShare = [self.viewModel.shareText]
@@ -190,6 +194,7 @@ extension HotelResultVC: HotelResultDelegate {
         self.noHotelFound()
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
+    
     
     func willGetPinnedTemplate() {
         //
