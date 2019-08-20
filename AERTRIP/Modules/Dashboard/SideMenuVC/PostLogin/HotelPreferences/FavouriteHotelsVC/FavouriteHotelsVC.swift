@@ -94,7 +94,7 @@ class FavouriteHotelsVC: BaseVC {
             style.showBottomSeparator = true
             style.bottomSeparatorColor = AppColors.themeGray40
             style.defaultFont = AppFonts.Regular.withSize(16.0)
-            style.selectedFont = AppFonts.Regular.withSize(16.0)
+            style.selectedFont = AppFonts.SemiBold.withSize(16.0)
             style.indicatorColor = AppColors.themeGreen
             style.indicatorHeight = 2.0
             style.normalColor = AppColors.themeBlack

@@ -454,7 +454,7 @@ class HotelResultVC: BaseVC {
         }
     }
     
-    @IBAction func cancelButtonTapped(_ sender: Any) {
+    @IBAction func cancelButtonTapped(_ sender: UIButton) {
         if self.hoteResultViewType == .ListView {
             self.animateHeaderToListView()
         }

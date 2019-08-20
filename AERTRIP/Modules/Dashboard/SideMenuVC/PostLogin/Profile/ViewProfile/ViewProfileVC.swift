@@ -353,6 +353,10 @@ extension ViewProfileVC: SlideMenuProfileImageHeaderViewDelegate {
 }
 
 extension ViewProfileVC: ViewProfileDetailVMDelegate {
+    func willGetDetail(_ isShowLoader: Bool) {
+        //
+    }
+    
     func willLogOut() {
         //
     }
@@ -370,9 +374,7 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
         //
     }
     
-    func willGetDetail() {
-        //
-    }
+    
     
     func getSuccess(_ data: TravelDetailModel) {
         

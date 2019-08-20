@@ -51,22 +51,22 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="l5x-yk-P62">
-                                <rect key="frame" x="16" y="61" width="246" height="55"/>
+                                <rect key="frame" x="16" y="61" width="246" height="57"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dsddsdg" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTK-1F-gyM">
-                                        <rect key="frame" x="0.0" y="0.0" width="246" height="17.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="246" height="18.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sdsfdfdg" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GFd-qY-h68">
-                                        <rect key="frame" x="0.0" y="18.5" width="246" height="18"/>
+                                        <rect key="frame" x="0.0" y="19.5" width="246" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Labelfdfdfdfdg" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdH-pk-27A">
-                                        <rect key="frame" x="0.0" y="37.5" width="246" height="17.5"/>
+                                        <rect key="frame" x="0.0" y="38.5" width="246" height="18.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -90,7 +90,7 @@
                             <constraint firstItem="OMk-6g-UMN" firstAttribute="centerY" secondItem="XLT-FL-haR" secondAttribute="centerY" id="4gB-ET-UJH"/>
                             <constraint firstItem="MuH-oB-Vcw" firstAttribute="centerY" secondItem="XLT-FL-haR" secondAttribute="centerY" id="4kh-s9-Txl"/>
                             <constraint firstItem="OMk-6g-UMN" firstAttribute="leading" secondItem="XLT-FL-haR" secondAttribute="trailing" constant="8" id="CfW-sC-aVa"/>
-                            <constraint firstAttribute="bottom" secondItem="l5x-yk-P62" secondAttribute="bottom" constant="8" id="HzP-2u-bcS"/>
+                            <constraint firstAttribute="bottom" secondItem="l5x-yk-P62" secondAttribute="bottom" constant="6" id="HzP-2u-bcS"/>
                             <constraint firstItem="E22-uh-BRU" firstAttribute="leading" secondItem="Ux0-oD-D62" secondAttribute="leading" constant="16" id="Ikx-Rn-OME"/>
                             <constraint firstAttribute="trailing" secondItem="l5x-yk-P62" secondAttribute="trailing" constant="16" id="YAM-sN-cFQ"/>
                             <constraint firstItem="XLT-FL-haR" firstAttribute="leading" secondItem="Ux0-oD-D62" secondAttribute="leading" constant="16" id="gMX-9f-SzZ"/>

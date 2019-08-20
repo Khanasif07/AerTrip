@@ -356,7 +356,14 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         if viewModel.paxId == UserInfo.loggedInUser?.paxId {
             editProfileImageHeaderView.selectGroupViewHeightConstraint.constant = 0
         }
-        tableView.reloadData()
+//        UIView.transition(with: tableView,
+//                          duration: 5,
+//                          options: .transitionCurlDown,
+//                          animations: { self.tableView.reloadData() }) // left out the unnecessary syntax in the completion block and the optional completion parameter
+//        tableView.reloadData()
+        
+       self.tableView.reloadWithEaseInAnimation()
+        
     }
     
     private func setUpForNewTraveller() {

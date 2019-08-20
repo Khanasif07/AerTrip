@@ -93,7 +93,7 @@ extension HotelResultVC {
     
     @objc func setProgress() {
         self.time += 1.0
-        self.progressView.setProgress(self.time / 10, animated: true)
+        self.progressView?.setProgress(self.time / 10, animated: true)
         
         if self.time == 8 {
             self.timer?.invalidate()

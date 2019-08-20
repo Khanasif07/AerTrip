@@ -16,7 +16,8 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
         didSet {
             self.containerView.layer.cornerRadius = 10.0
             self.containerView.layer.masksToBounds = true
-            self.containerView.addBlurEffect(backgroundColor: AppColors.themeWhite.withAlphaComponent(0.3))
+            self.containerView.addBlurEffect(backgroundColor: AppColors.themeWhite.withAlphaComponent(0.6))
+            self.containerView.backgroundColor = AppColors.clear
         }
     }
     @IBOutlet weak var cityImageView: UIImageView!
@@ -40,11 +41,11 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
     private func initialSetUp() {
         
         self.cityImageView.image = #imageLiteral(resourceName: "hotelsBlack").withRenderingMode(.alwaysTemplate)
-        self.cityImageView.tintColor = AppColors.shadowBlue
+        self.cityImageView.tintColor = AppColors.recentSeachesSearchTypeBlue
         ///Font
         let regularFont14 = AppFonts.Regular.withSize(14.0)
         self.searchTypeLabel.font = AppFonts.SemiBold.withSize(14.0)
-        self.timeLabel.font = AppFonts.Regular.withSize(14.0)
+        self.timeLabel.font = regularFont14
         self.cityNameLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.stateNameLabel.font = regularFont14
         self.totalNightsLabel.font = regularFont14
