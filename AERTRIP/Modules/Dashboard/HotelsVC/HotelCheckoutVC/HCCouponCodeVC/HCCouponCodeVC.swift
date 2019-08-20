@@ -34,7 +34,7 @@ class HCCouponCodeVC: BaseVC {
     @IBOutlet weak var applyButton: UIButton!
     @IBOutlet weak var couponLabel: UILabel!
     @IBOutlet weak var enterCouponLabel: UILabel!
-    @IBOutlet weak var couponTextField: UITextField! {
+    @IBOutlet weak var couponTextField: PKFloatLabelTextField! {
         didSet {
             self.couponTextField.delegate = self
             self.couponTextField.rightViewMode = .whileEditing
@@ -70,7 +70,7 @@ class HCCouponCodeVC: BaseVC {
     override func initialSetup() {
         self.statusBarStyle = .default
         self.viewModel.getCouponsDetailsApi()
-        //        self.enterCouponLabel.isHidden = true
+        self.enterCouponLabel.isHidden = true
         self.emptyStateImageView.image = #imageLiteral(resourceName: "emptyStateCoupon")
         self.offerTermsView.roundTopCorners(cornerRadius: 10.0)
         self.offerTermsViewSetUp()
@@ -101,8 +101,9 @@ class HCCouponCodeVC: BaseVC {
         self.couponLabel.textColor = AppColors.themeBlack
         self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
         self.cancelButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        self.couponTextField.textColor = AppColors.themeBlack
-        self.couponTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.EnterCouponCode.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0)])
+        self.couponTextField.isHiddenBottomLine = true
+        self.couponTextField.setupTextField(placehoder: LocalizedString.EnterCouponCode.localized, keyboardType: .emailAddress, returnType: .next, isSecureText: false)
+
         self.noCouponsReqLabel.textColor = AppColors.themeBlack
         self.bestPriceLabel.textColor = AppColors.themeGray60
         self.backGroundView.backgroundColor = AppColors.themeGray60.withAlphaComponent(0.6)

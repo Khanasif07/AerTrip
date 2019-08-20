@@ -157,7 +157,7 @@ class HotelFilterVC: BaseVC {
         style.layoutAlignment = .left
         style.isEmbeddedToView = true
         style.showBottomSeparator = true
-        style.bottomSeparatorColor = AppColors.themeGray40
+        style.bottomSeparatorColor = AppColors.themeGray20
         style.defaultFont = AppFonts.Regular.withSize(16.0)
         style.selectedFont = AppFonts.SemiBold.withSize(16.0)
         style.indicatorColor = AppColors.themeGreen

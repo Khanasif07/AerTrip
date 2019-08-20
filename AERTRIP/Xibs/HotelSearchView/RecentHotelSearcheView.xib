@@ -32,7 +32,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="mhI-Ts-4Nq">
-                            <rect key="frame" x="0.0" y="29.5" width="375" height="124"/>
+                            <rect key="frame" x="0.0" y="31.5" width="375" height="124"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="124" id="jL8-KI-zWf"/>
@@ -48,7 +48,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="8q3-jb-9xa" firstAttribute="leading" secondItem="wgd-MR-jfF" secondAttribute="leading" constant="16" id="8ez-VF-mSA"/>
-                        <constraint firstItem="mhI-Ts-4Nq" firstAttribute="top" secondItem="8q3-jb-9xa" secondAttribute="bottom" constant="10" id="RVe-h1-aOV"/>
+                        <constraint firstItem="mhI-Ts-4Nq" firstAttribute="top" secondItem="8q3-jb-9xa" secondAttribute="bottom" constant="12" id="RVe-h1-aOV"/>
                         <constraint firstAttribute="trailing" secondItem="mhI-Ts-4Nq" secondAttribute="trailing" id="Tua-NM-qv1"/>
                         <constraint firstAttribute="trailing" secondItem="8q3-jb-9xa" secondAttribute="trailing" constant="16" id="usI-QN-R5m"/>
                         <constraint firstItem="8q3-jb-9xa" firstAttribute="top" secondItem="wgd-MR-jfF" secondAttribute="top" id="zUj-sC-fRi"/>

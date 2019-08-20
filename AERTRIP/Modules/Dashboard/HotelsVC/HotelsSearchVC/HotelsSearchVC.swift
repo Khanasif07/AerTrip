@@ -619,11 +619,16 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
             return CGSize(width: collectionView.frame.width/2 , height: self.collectionViewHeight)
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        print(indexPath.item)
+    }
 }
 
 //Mark:- Expanded Cell Delegate
 //=============================
 extension HotelsSearchVC: ExpandedCellDelegate {
+    
     
     ///Plus Button Tapped
     func plusButtonTouched(indexPath: IndexPath) {

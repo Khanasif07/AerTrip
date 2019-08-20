@@ -228,6 +228,7 @@ struct ATContact {
                 if !contact.fullName.isEmpty {
                     temp.append(contact)
                 }
+               
             }
         }
 

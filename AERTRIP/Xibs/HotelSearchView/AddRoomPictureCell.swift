@@ -76,13 +76,20 @@ class AddRoomPictureCell: UICollectionViewCell {
     }
     
     ///Configure Cell
+    func hideCrossButton(isHidden: Bool, animated: Bool) {
+        UIViewPropertyAnimator(duration: animated ? 0.2 : 0.0, curve: .easeIn) { [weak self] in
+            self?.cancelBtnOutlet.isHidden = isHidden
+            }.startAnimation()
+    }
+    
     internal func configureCell(for indexPath: IndexPath, viewModel: HotelsSearchVM) {
         let idxPath = indexPath
             //?? IndexPath(item: 0, section: 0)
         self.lineView.backgroundColor = AppColors.divider.color
         self.roomCountLabel.text = "\(LocalizedString.Room.localized) \(idxPath.item + 1)"
         if viewModel.searchedFormData.adultsCount.count == 1 {
-            self.cancelBtnOutlet.isHidden = true
+            self.hideCrossButton(isHidden: true, animated: true)
+//            self.cancelBtnOutlet.isHidden = true
             self.lineView.isHidden = true
             self.stackViewLeadingConstraint.constant = 16.5
         } else{
@@ -100,7 +107,9 @@ class AddRoomPictureCell: UICollectionViewCell {
                 self.lineView.isHidden = true
                 self.lineViewLeadingConstraint.constant = 0.0
             }
-            self.cancelBtnOutlet.isHidden = false
+
+            //            self.cancelBtnOutlet.isHidden = false
+            self.hideCrossButton(isHidden: false, animated: true)
         }
         if idxPath.item < 4 {
             self.childPopUpBtn.isHidden = viewModel.searchedFormData.childrenCounts[idxPath.item] == 0 ? true : false

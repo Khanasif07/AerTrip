@@ -79,7 +79,11 @@ class HCDataSelectionVC: BaseVC {
         viewModel.fetchConfirmItineraryData()
         fillData()
         
-        manageLoader(shouldStart: true)
+//        manageLoader(shouldStart: true)
+        
+        manageLoader(shouldStart: false)
+        AppGlobals.shared.startLoading()
+        
         setUpUserEmailMobile()
         
         setupGuestArray()
@@ -384,7 +388,8 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func willFetchConfirmItineraryData() {
-        manageLoader(shouldStart: true)
+        AppGlobals.shared.startLoading()
+//        manageLoader(shouldStart: true)
     }
     
     func fetchConfirmItineraryDataSuccess() {
@@ -394,7 +399,8 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         }
         else {
             GuestDetailsVM.shared.travellerList = viewModel.itineraryData?.traveller_master ?? []
-            manageLoader(shouldStart: false)
+//            manageLoader(shouldStart: false)
+            AppGlobals.shared.stopLoading()
             fillData()
             self.viewModel.getHotelDetailsSectionData()
             self.updateHotelCheckOutDetailsVIew()
@@ -402,7 +408,8 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func fetchConfirmItineraryDataFail() {
-        manageLoader(shouldStart: false)
+//        manageLoader(shouldStart: false)
+        AppGlobals.shared.stopLoading()
         if viewModel.itineraryData == nil, confirmationCall < 5 {
             confirmationCall += 1
             viewModel.fetchConfirmItineraryData()
@@ -410,7 +417,8 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func willFetchRecheckRatesData() {
-        manageLoader(shouldStart: true)
+//        manageLoader(shouldStart: true)
+        AppGlobals.shared.startLoading()
     }
     
     func fetchRecheckRatesDataFail(errors: ErrorCodes) {
@@ -430,11 +438,13 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
                 }
             }
         }
-        manageLoader(shouldStart: false)
+//        manageLoader(shouldStart: false)
+        AppGlobals.shared.stopLoading()
     }
     
     func fetchRecheckRatesDataSuccess(recheckedData: ItineraryData) {
-        manageLoader(shouldStart: false)
+//        manageLoader(shouldStart: false)
+        AppGlobals.shared.stopLoading()
         if viewModel.isValidateData(vc: self) {
             viewModel.webserviceForItenaryDataTraveller()
         }

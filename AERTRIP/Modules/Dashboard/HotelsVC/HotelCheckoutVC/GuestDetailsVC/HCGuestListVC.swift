@@ -155,7 +155,7 @@ class HCGuestListVC: BaseVC {
     }
     
     private func reloadList() {
-        self.tableView.reloadData()
+        self.tableView?.reloadData()
     }
     
     //MARK:- Public
@@ -371,43 +371,43 @@ extension HCGuestListVC: HCSelectGuestsVMDelegate {
             
         case .travellers:
             if self.viewModel.travellerContacts.isEmpty {
-                tableView.backgroundView = noResultemptyView
+                tableView?.backgroundView = noResultemptyView
             }
             else {
-                tableView.backgroundView = nil
+                tableView?.backgroundView = nil
             }
             
         case .contacts:
             if !self.viewModel.isPhoneContactsAllowed {
-                tableView.backgroundView = allowEmptyView
+                tableView?.backgroundView = allowEmptyView
             }
             else if self.viewModel.phoneContacts.isEmpty {
-                tableView.backgroundView = noResultemptyView
+                tableView?.backgroundView = noResultemptyView
             }
             else {
-                tableView.backgroundView = nil
+                tableView?.backgroundView = nil
             }
             
         case .facebook:
             if !self.viewModel.isFacebookContactsAllowed {
-                tableView.backgroundView = allowEmptyView
+                tableView?.backgroundView = allowEmptyView
             }
             else if self.viewModel.facebookContacts.isEmpty {
-                tableView.backgroundView = noResultemptyView
+                tableView?.backgroundView = noResultemptyView
             }
             else {
-                tableView.backgroundView = nil
+                tableView?.backgroundView = nil
             }
             
         case .google:
             if !self.viewModel.isGoogleContactsAllowed {
-                tableView.backgroundView = allowEmptyView
+                tableView?.backgroundView = allowEmptyView
             }
             else if self.viewModel.googleContacts.isEmpty {
-                tableView.backgroundView = noResultemptyView
+                tableView?.backgroundView = noResultemptyView
             }
             else {
-                tableView.backgroundView = nil
+                tableView?.backgroundView = nil
             }
         }
         

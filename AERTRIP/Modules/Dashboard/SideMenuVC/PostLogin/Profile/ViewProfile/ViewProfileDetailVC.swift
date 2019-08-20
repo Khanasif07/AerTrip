@@ -163,7 +163,7 @@ class ViewProfileDetailVC: BaseVC {
         
         var placeImage = AppPlaceholderImage.profile
         
-        placeImage = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, font: AppFonts.Regular.withSize(35.0))
+        placeImage = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, font: AppConstants.profileViewBackgroundNameIntialsFont)
         if travel.profileImage != "" {
            profileImageHeaderView?.profileImageView.setImageWithUrl(travel.profileImage, placeholder: placeImage, showIndicator: false)
            profileImageHeaderView?.backgroundImageView.setImageWithUrl(travel.profileImage, placeholder: placeImage, showIndicator: false)
@@ -441,7 +441,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
         printDebug("progress %f \(prallexProgress)")
         
         if 0.6...1.0 ~= prallexProgress {
-           profileImageHeaderView?.profileImageViewHeightConstraint.constant = 127.0 * prallexProgress
+            profileImageHeaderView?.profileImageViewHeightConstraint.constant = 127.0 * prallexProgress
         }
         
         if prallexProgress <= 0.7 {
@@ -462,8 +462,8 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
                 self?.topNavView.backView.backgroundColor = AppColors.themeWhite
             }
         }
-       profileImageHeaderView?.layoutIfNeeded()
-       profileImageHeaderView?.doInitialSetup()
+        profileImageHeaderView?.layoutIfNeeded()
+        profileImageHeaderView?.doInitialSetup()
     }
     
     func getUpdatedTitle() -> String {
@@ -511,8 +511,9 @@ extension ViewProfileDetailVC: ViewProfileDetailVMDelegate {
     }
     
     func willGetDetail(_ isShowLoader: Bool = false) {
+
         if isShowLoader {
-            AppGlobals.shared.startLoading(loaderBgColor: .clear)
+            AppGlobals.shared.startLoading(loaderBgColor: AppColors.clear)
         }
     }
     
