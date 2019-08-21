@@ -208,8 +208,12 @@ class BulkBookingVC: BaseVC {
         self.topNavView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         
         self.searchButtonOutlet.layer.cornerRadius = 25.0
-        for starBtn in self.starButtonsOutlet {
-            starBtn.isHighlighted = true
+        for btn in self.starButtonsOutlet {
+            btn.adjustsImageWhenHighlighted = false
+            btn.isSelected = false
+            btn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
+            btn.setImage(nil, for: .selected)
+            btn.setImage(nil, for: .highlighted)
         }
         //self.rectangleView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
         self.rectangleView.cornerRadius = 15.0
@@ -303,34 +307,39 @@ class BulkBookingVC: BaseVC {
     ///Star Button State
     private func updateStarButtonState(forStar: Int, isSettingFirstTime: Bool = false) {
         guard 1...5 ~= forStar else {return}
-        if let currentButton = self.starButtonsOutlet.filter({ (button) -> Bool in
-            button.tag == forStar
-        }).first {
-            if isSettingFirstTime {
-                currentButton.isSelected = true
-            }
-            else {
-                currentButton.isSelected = !currentButton.isSelected
-            }
-            currentButton.isHighlighted = false
-            if self.viewModel.ratingCount.contains(forStar) {
-                self.viewModel.ratingCount.remove(at: self.viewModel.ratingCount.firstIndex(of: forStar)!)
-            }
-            else {
-                self.viewModel.ratingCount.append(forStar)
+        
+        //updating the selection array
+        if let idx = self.viewModel.ratingCount.firstIndex(of: forStar) {
+            self.viewModel.ratingCount.remove(at: idx)
+        }
+        else {
+            self.viewModel.ratingCount.append(forStar)
+        }
+        
+        if self.viewModel.ratingCount.isEmpty || self.viewModel.ratingCount.count == 5 {
+            self.viewModel.ratingCount.removeAll()
+            for starBtn in self.starButtonsOutlet {
+                starBtn.isSelected = false
+                starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
             }
         }
-        if self.viewModel.ratingCount.isEmpty || self.viewModel.ratingCount.count == 5 {
-            delay(seconds: 0.1) {
-                for starBtn in self.starButtonsOutlet {
-                    starBtn.isSelected = false
-                    starBtn.isHighlighted = true
-                }
-                self.viewModel.ratingCount.removeAll()
-            }
-        } else {
+        else {
+            
             for starBtn in self.starButtonsOutlet {
-                starBtn.isHighlighted = false
+                
+                if starBtn.tag == forStar {
+                    starBtn.isSelected = isSettingFirstTime ? true : !starBtn.isSelected
+                    let img = starBtn.isSelected ? #imageLiteral(resourceName: "starRatingFilled") : #imageLiteral(resourceName: "starRatingUnfill")
+                    starBtn.setImage(img, for: starBtn.isSelected ? .selected : .normal)
+                }
+                else if self.viewModel.ratingCount.contains(starBtn.tag) {
+                    starBtn.isSelected = true
+                    starBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .selected)
+                }
+                else {
+                    starBtn.isSelected = false
+                    starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+                }
             }
         }
     }
