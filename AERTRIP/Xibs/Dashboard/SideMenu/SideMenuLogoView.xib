@@ -26,7 +26,7 @@
                             <rect key="frame" x="117.5" y="81" width="111" height="13"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uho-Jk-ZYW">
-                            <rect key="frame" x="70.5" y="117" width="205" height="41"/>
+                            <rect key="frame" x="0.0" y="117" width="346" height="41"/>
                             <string key="text">Enjoy a more personalised 
 travel experience</string>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -37,11 +37,12 @@ travel experience</string>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="uho-Jk-ZYW" firstAttribute="top" secondItem="HJk-Os-vtO" secondAttribute="bottom" constant="23" id="0eX-03-ecD"/>
+                        <constraint firstAttribute="trailing" secondItem="uho-Jk-ZYW" secondAttribute="trailing" id="6K9-Dw-5yH"/>
                         <constraint firstItem="bob-jK-b56" firstAttribute="top" secondItem="SJD-h8-ZWh" secondAttribute="top" constant="38" id="AYg-UO-Nz1"/>
                         <constraint firstItem="bob-jK-b56" firstAttribute="centerX" secondItem="SJD-h8-ZWh" secondAttribute="centerX" id="Dll-sa-pLJ"/>
                         <constraint firstItem="HJk-Os-vtO" firstAttribute="top" secondItem="bob-jK-b56" secondAttribute="bottom" constant="18" id="Tfi-Ii-X5l"/>
                         <constraint firstItem="HJk-Os-vtO" firstAttribute="centerX" secondItem="bob-jK-b56" secondAttribute="centerX" id="Tma-wy-ytz"/>
-                        <constraint firstItem="uho-Jk-ZYW" firstAttribute="centerX" secondItem="HJk-Os-vtO" secondAttribute="centerX" id="Ums-s1-LO3"/>
+                        <constraint firstItem="uho-Jk-ZYW" firstAttribute="leading" secondItem="SJD-h8-ZWh" secondAttribute="leading" id="dMo-Fc-KIY"/>
                     </constraints>
                 </view>
             </subviews>
@@ -55,6 +56,7 @@ travel experience</string>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="logoImageAndNameConstraint" destination="Tfi-Ii-X5l" id="79P-xS-kla"/>
                 <outlet property="logoImageTopContraint" destination="AYg-UO-Nz1" id="9dn-mK-Vza"/>
                 <outlet property="logoImageView" destination="bob-jK-b56" id="Q6P-vK-1XW"/>
                 <outlet property="logoTextView" destination="HJk-Os-vtO" id="ad9-3j-fJM"/>

@@ -297,7 +297,6 @@ extension HotelDetailsVC {
     
     private func closeOnScroll(_ scrollView: UIScrollView) {
         let yOffset = scrollView.contentOffset.y
-        printDebug(yOffset)
         if -(yOffset) >= didsmissOnScrollPosition {
             //close
             self.hideOnScroll()
@@ -410,5 +409,9 @@ extension HotelDetailsVC: HotelDetailAmenitiesCellDelegate {
 extension HotelDetailsVC: HotelRatingInfoCellDelegate {
     func shareButtonAction(_ sender: UIButton) {
         AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: "https://beta.aertrip.com")
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

@@ -36,6 +36,10 @@ class SocialLoginVC: BaseVC {
     @IBOutlet weak var logoContainerView: UIView!
     @IBOutlet weak var newRegistrationContainerView: UIView!
     @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var socialButtosCenterConstraint: NSLayoutConstraint!
+    @IBOutlet weak var socialAndLogoSpace: NSLayoutConstraint!
+    
+    private var logoView: SideMenuLogoView?
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -180,8 +184,31 @@ private extension SocialLoginVC {
     private func addAppLogoView() {
         let view = SideMenuLogoView.instanceFromNib()
         view.frame = self.logoContainerView.bounds
+        logoView = view
         
         self.logoContainerView.addSubview(view)
+        
+        self.updateLogoMessgae()
+    }
+    
+    private func updateLogoMessgae() {
+        
+        if currentlyUsingFrom == .loginProcess {
+            logoView?.messageLabel.font = AppFonts.Regular.withSize(16.0)
+            logoView?.messageLabel.text = LocalizedString.EnjoyAMorePersonalisedTravelExperience.localized
+            logoView?.isAppNameHidden = false
+            
+            socialButtosCenterConstraint.constant = 0.0
+            socialAndLogoSpace.constant = 75.0
+        }
+        else {
+            logoView?.messageLabel.font = AppFonts.Bold.withSize(38.0)
+            logoView?.messageLabel.text = LocalizedString.PleaseSignInToContinue.localized
+            logoView?.isAppNameHidden = true
+            
+            socialButtosCenterConstraint.constant = -44.0
+            socialAndLogoSpace.constant = 63.0
+        }
     }
     
     func setupsFonts() {

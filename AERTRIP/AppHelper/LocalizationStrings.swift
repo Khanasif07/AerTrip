@@ -956,4 +956,6 @@ enum LocalizedString: String {
     
     // MARK: - Common
     case Other
+    
+    case PleaseSignInToContinue
 }

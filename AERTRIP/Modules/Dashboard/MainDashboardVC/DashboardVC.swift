@@ -17,6 +17,7 @@ class DashboardVC: BaseVC {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var segmentContainerView: UIView!
     @IBOutlet weak var segmentCenterYConstraint: NSLayoutConstraint!
+    @IBOutlet weak var segmentHeightConstraint: NSLayoutConstraint!
     
     //segment views
     @IBOutlet weak var aerinView: UIView!
@@ -29,6 +30,7 @@ class DashboardVC: BaseVC {
     @IBOutlet weak var hotelsLabel: UILabel!
     @IBOutlet weak var tripsLabel: UILabel!
     @IBOutlet weak var profileButton: ATNotificationButton!
+    @IBOutlet weak var segmentTopConstraint: NSLayoutConstraint!
     
     var overlayView = UIView()
     private var previousOffset = CGPoint.zero
@@ -270,6 +272,7 @@ extension DashboardVC  {
             }
             
             updateSegmentYPosition(for: scrollView.contentOffset.y)
+            updateSegmentHeight(for: scrollView.contentOffset.y)
             
             switch selectedOption{
             case .aerin: checkAndApplyTransform(aerinView, transformValue: transform, scrolledUp: userDidScrollUp)
@@ -314,11 +317,23 @@ extension DashboardVC  {
     }
     
     private func updateSegmentYPosition(for scrolledY: CGFloat) {
-        let valueToBe: CGFloat = 20.0
+        let valueToBe: CGFloat = 27.0
         
         let ratio = valueToBe / (headerTopConstraint.constant + headerView.height)
         
         segmentCenterYConstraint.constant = ratio * scrolledY
+    }
+    
+    private func updateSegmentHeight(for scrolledY: CGFloat) {
+        //original is 120, need to redce 15 pxl
+        let valueToDecrease: CGFloat = 15.0
+        
+        let ratio = valueToDecrease / (headerTopConstraint.constant + headerView.height)
+        
+        print("\(scrolledY): \(120.0 - (ratio * scrolledY))")
+        let final = (ratio * scrolledY)
+        segmentHeightConstraint.constant = 120.0 - final
+        segmentTopConstraint.constant = -final
     }
     
     private func checkAndApplyTransform(_ view : UIView, transformValue : CGFloat, scrolledUp : Bool){

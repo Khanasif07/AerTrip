@@ -92,6 +92,14 @@ class HotelsSearchVC: BaseVC {
         self.configureRecentSearchesView()
         self.hideRecentSearchesView()
         self.setDataFromPreviousSearch()
+        
+        for btn in self.starButtonsOutlet {
+            btn.adjustsImageWhenHighlighted = false
+            btn.isSelected = false
+            btn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
+            btn.setImage(nil, for: .selected)
+            btn.setImage(nil, for: .highlighted)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -245,7 +253,7 @@ class HotelsSearchVC: BaseVC {
         } else if self.viewModel.searchedFormData.adultsCount.count == 1 {
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 self.containerViewHeightConstraint.constant =  self.containerViewHeight
-                //                self.scrollView.contentSize.height = self.scrollViewContentSize.height
+                //self.scrollView.contentSize.height = self.scrollViewContentSize.height
                 self.view.layoutIfNeeded()
             }) { (isComleted) in
                 //self.scrollView.contentSize.height = self.scrollViewContentSize.height
@@ -320,7 +328,7 @@ class HotelsSearchVC: BaseVC {
         //reset all the buttons first
         for starBtn in self.starButtonsOutlet {
             starBtn.isSelected = false
-            starBtn.isHighlighted = false
+            starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
         }
         for star in oldData.ratingCount {
             self.updateStarButtonState(forStar: star, isSettingFirstTime: isSettingForFirstTime)
@@ -356,34 +364,39 @@ class HotelsSearchVC: BaseVC {
     ///Star Button State
     private func updateStarButtonState(forStar: Int, isSettingFirstTime: Bool = false) {
         guard 1...5 ~= forStar else {return}
-        if let currentButton = self.starButtonsOutlet.filter({ (button) -> Bool in
-            button.tag == forStar
-        }).first {
-            if isSettingFirstTime {
-                currentButton.isSelected = true
-            }
-            else {
-                currentButton.isSelected = !currentButton.isSelected
-            }
-            currentButton.isHighlighted = false
-            if self.viewModel.searchedFormData.ratingCount.contains(forStar) {
-                self.viewModel.searchedFormData.ratingCount.remove(at: self.viewModel.searchedFormData.ratingCount.firstIndex(of: forStar)!)
-            }
-            else {
-                self.viewModel.searchedFormData.ratingCount.append(forStar)
-            }
+        
+        //updating the selection array
+        if let idx = self.viewModel.searchedFormData.ratingCount.firstIndex(of: forStar) {
+            self.viewModel.searchedFormData.ratingCount.remove(at: idx)
         }
+        else {
+            self.viewModel.searchedFormData.ratingCount.append(forStar)
+        }
+        
         if self.viewModel.searchedFormData.ratingCount.isEmpty || self.viewModel.searchedFormData.ratingCount.count == 5 {
-            delay(seconds: 0.1) {
+            self.viewModel.searchedFormData.ratingCount.removeAll()
                 for starBtn in self.starButtonsOutlet {
                     starBtn.isSelected = false
-                    starBtn.isHighlighted = true
+                    starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
                 }
-                self.viewModel.searchedFormData.ratingCount.removeAll()
-            }
-        } else {
+        }
+        else {
+            
             for starBtn in self.starButtonsOutlet {
-                starBtn.isHighlighted = false
+                
+                if starBtn.tag == forStar {
+                    starBtn.isSelected = isSettingFirstTime ? true : !starBtn.isSelected
+                    let img = starBtn.isSelected ? #imageLiteral(resourceName: "starRatingFilled") : #imageLiteral(resourceName: "starRatingUnfill")
+                    starBtn.setImage(img, for: starBtn.isSelected ? .selected : .normal)
+                }
+                else if self.viewModel.searchedFormData.ratingCount.contains(starBtn.tag) {
+                    starBtn.isSelected = true
+                    starBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .selected)
+                }
+                else {
+                    starBtn.isSelected = false
+                    starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+                }
             }
         }
     }

@@ -62,17 +62,20 @@ class RatingVC: BaseVC {
     private func doInitialSetup() {
         
         //setting stars
-        if 1...4 ~= HotelFilterVM.shared.ratingCount.count {
+//        if 1...4 ~= HotelFilterVM.shared.ratingCount.count {
             HotelFilterVM.shared.ratingCount.removeAll()
-        }
-        else if HotelFilterVM.shared.ratingCount.isEmpty {
-            HotelFilterVM.shared.ratingCount = [1,2,3,4,5]
-        }
+//        }
+//        else if HotelFilterVM.shared.ratingCount.isEmpty {
+//            HotelFilterVM.shared.ratingCount = [1,2,3,4,5]
+//        }
         
         //reset all the buttons first
-        for starBtn in self.starButtonsOutlet {
-            starBtn.isSelected = false
-            starBtn.isHighlighted = false
+        for btn in self.starButtonsOutlet {
+            btn.adjustsImageWhenHighlighted = false
+            btn.isSelected = false
+            btn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
+            btn.setImage(nil, for: .selected)
+            btn.setImage(nil, for: .highlighted)
         }
         
         for star in self.filterApplied.ratingCount {
@@ -95,8 +98,6 @@ class RatingVC: BaseVC {
         }
         self.updateStarButtonState(forStar: sender.tag)
         self.starLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.ratingCount, maxCount: 5)
-        sender.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
-        sender.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .selected)
     }
     
     @IBAction func tripAdvisorRatingButtonsAction(_ sender: UIButton) {
@@ -114,34 +115,39 @@ class RatingVC: BaseVC {
     ///Star Button State
     private func updateStarButtonState(forStar: Int, isSettingFirstTime: Bool = false) {
         guard 1...5 ~= forStar else {return}
-        if let currentButton = self.starButtonsOutlet.filter({ (button) -> Bool in
-            button.tag == forStar
-        }).first {
-            if isSettingFirstTime {
-                currentButton.isSelected = true
-            }
-            else {
-                currentButton.isSelected = !currentButton.isSelected
-            }
-            currentButton.isHighlighted = false
-            if HotelFilterVM.shared.ratingCount.contains(forStar) {
-                 HotelFilterVM.shared.ratingCount.remove(at:HotelFilterVM.shared.ratingCount.firstIndex(of: forStar)!)
-             
-            }
-            else {
-               HotelFilterVM.shared.ratingCount.append(forStar)
+        
+        //updating the selection array
+        if let idx = HotelFilterVM.shared.ratingCount.firstIndex(of: forStar) {
+            HotelFilterVM.shared.ratingCount.remove(at: idx)
+        }
+        else {
+            HotelFilterVM.shared.ratingCount.append(forStar)
+        }
+        
+        if HotelFilterVM.shared.ratingCount.isEmpty || HotelFilterVM.shared.ratingCount.count == 5 {
+            HotelFilterVM.shared.ratingCount.removeAll()
+            for starBtn in self.starButtonsOutlet {
+                starBtn.isSelected = false
+                starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
             }
         }
-        if HotelFilterVM.shared.ratingCount.isEmpty || HotelFilterVM.shared.ratingCount.count == 5 {
-            delay(seconds: 0.1) {
-                for starBtn in self.starButtonsOutlet {
-                    starBtn.isSelected = false
-                    starBtn.isHighlighted = true
-                }
-            }
-        } else {
+        else {
+            
             for starBtn in self.starButtonsOutlet {
-                starBtn.isHighlighted = false
+                
+                if starBtn.tag == forStar {
+                    starBtn.isSelected = isSettingFirstTime ? true : !starBtn.isSelected
+                    let img = starBtn.isSelected ? #imageLiteral(resourceName: "starRatingFilled") : #imageLiteral(resourceName: "starRatingUnfill")
+                    starBtn.setImage(img, for: starBtn.isSelected ? .selected : .normal)
+                }
+                else if HotelFilterVM.shared.ratingCount.contains(starBtn.tag) {
+                    starBtn.isSelected = true
+                    starBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .selected)
+                }
+                else {
+                    starBtn.isSelected = false
+                    starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+                }
             }
         }
     }

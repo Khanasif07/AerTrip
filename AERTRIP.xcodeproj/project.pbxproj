@@ -451,7 +451,6 @@
 		84085CF321F59C0E00F1E844 /* LinkedAccountsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CA021F59C0D00F1E844 /* LinkedAccountsVM.swift */; };
 		84085CF521F59C0E00F1E844 /* LinkedAccountsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CA321F59C0D00F1E844 /* LinkedAccountsTableCell.swift */; };
 		84085CF621F59C0E00F1E844 /* LinkedAccountsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CA421F59C0D00F1E844 /* LinkedAccountsVC.swift */; };
-		84085CF721F59C0E00F1E844 /* PreferStarCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CA721F59C0D00F1E844 /* PreferStarCategoryCell.swift */; };
 		84085CF821F59C0E00F1E844 /* AddFavouriteHotels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CA821F59C0D00F1E844 /* AddFavouriteHotels.swift */; };
 		84085CFC21F59C0E00F1E844 /* FavouriteHotelsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CAE21F59C0D00F1E844 /* FavouriteHotelsVC.swift */; };
 		84085CFD21F59C0E00F1E844 /* FavouriteHotelsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CAF21F59C0D00F1E844 /* FavouriteHotelsListVC.swift */; };
@@ -1453,7 +1452,6 @@
 		84085CA021F59C0D00F1E844 /* LinkedAccountsVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedAccountsVM.swift; sourceTree = "<group>"; };
 		84085CA321F59C0D00F1E844 /* LinkedAccountsTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedAccountsTableCell.swift; sourceTree = "<group>"; };
 		84085CA421F59C0D00F1E844 /* LinkedAccountsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedAccountsVC.swift; sourceTree = "<group>"; };
-		84085CA721F59C0D00F1E844 /* PreferStarCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferStarCategoryCell.swift; sourceTree = "<group>"; };
 		84085CA821F59C0D00F1E844 /* AddFavouriteHotels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFavouriteHotels.swift; sourceTree = "<group>"; };
 		84085CAE21F59C0D00F1E844 /* FavouriteHotelsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteHotelsVC.swift; sourceTree = "<group>"; };
 		84085CAF21F59C0D00F1E844 /* FavouriteHotelsListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteHotelsListVC.swift; sourceTree = "<group>"; };
@@ -3289,7 +3287,6 @@
 		84085CA621F59C0D00F1E844 /* PrototypeCells */ = {
 			isa = PBXGroup;
 			children = (
-				84085CA721F59C0D00F1E844 /* PreferStarCategoryCell.swift */,
 				84085CA821F59C0D00F1E844 /* AddFavouriteHotels.swift */,
 			);
 			path = PrototypeCells;
@@ -5867,7 +5864,6 @@
 				84DB3CCE22A27DF000216159 /* FlightBookingsDataModel.swift in Sources */,
 				84085CFD21F59C0E00F1E844 /* FavouriteHotelsListVC.swift in Sources */,
 				84827652223A6DBD007B6A27 /* GuestDetailsVM.swift in Sources */,
-				84085CF721F59C0E00F1E844 /* PreferStarCategoryCell.swift in Sources */,
 				1879C49B2292BD2600897CED /* DownloadInvoiceTableViewCell.swift in Sources */,
 				84085CE321F59C0E00F1E844 /* SuccessPopupVC.swift in Sources */,
 				189EF58822B7B7C600D5E055 /* AdditionalInformationModel.swift in Sources */,

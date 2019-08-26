@@ -95,9 +95,8 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var switchContainerView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
     @IBOutlet weak var cardGradientView: UIView!
-    
     @IBOutlet weak var cardGradientViewBottomConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var shimmerGradientView: UIView!
     
     // MARK: - Properties
     
@@ -258,9 +257,6 @@ class HotelResultVC: BaseVC {
         self.setUpLongPressOnFilterButton()
         self.cardGradientView.backgroundColor = AppColors.clear
         self.cardGradientView.addGredient(isVertical: true, cornerRadius: 10.0, colors: [AppColors.themeWhite.withAlphaComponent(0.01),AppColors.themeWhite.withAlphaComponent(1.0)])
-        
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -316,6 +312,7 @@ class HotelResultVC: BaseVC {
     }
     
     func initialSetups() {
+        self.addShimmerGradient()
         self.setUpFloatingView()
         self.setupTableHeader()
         self.searchBar.delegate = self
@@ -336,16 +333,17 @@ class HotelResultVC: BaseVC {
         self.hotelSearchTableView.backgroundView = noResultemptyView
         self.hotelSearchTableView.reloadData()
         
-        self.switchView.originalColor = AppColors.themeGray04
+        self.switchView.originalColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.switchView.selectedColor = AppColors.themeRed
-        self.switchView.originalBorderColor = AppColors.themeGray20
+        self.switchView.originalBorderColor = AppColors.themeGray04//AppColors.themeGray20
         self.switchView.selectedBorderColor = AppColors.themeRed
-        self.switchView.originalBorderWidth = 1.5
-        self.switchView.selectedBorderWidth = 1.5
+        self.switchView.originalBorderWidth = 0.0//1.5
+        self.switchView.selectedBorderWidth = 0.0//1.5
         self.switchView.iconBorderWidth = 0.0
         self.switchView.iconBorderColor = AppColors.clear
         self.switchView.originalImage = #imageLiteral(resourceName: "switch_fav_off")
         self.switchView.selectedImage = #imageLiteral(resourceName: "switch_fav_on")
+        self.switchView.isBackgroundBlurry = true
         
         self.addTapGestureOnMap()
     }
@@ -372,6 +370,11 @@ class HotelResultVC: BaseVC {
         self.collectionView.register(UINib(nibName: "SectionHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
         self.collectionView.register(UINib(nibName: "SectionFooter", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "SectionFooter")
         self.hotelSearchTableView.register(UINib(nibName: self.hotelResultCellIdentifier, bundle: nil), forCellReuseIdentifier: self.hotelResultCellIdentifier)
+    }
+    
+    private func addShimmerGradient() {
+        self.shimmerGradientView.backgroundColor = AppColors.clear
+        self.shimmerGradientView.addGredient(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeWhite.withAlphaComponent(0.001), AppColors.themeWhite])
     }
     
     private func presentEmailVC() {
