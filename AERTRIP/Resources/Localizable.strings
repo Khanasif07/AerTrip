@@ -594,9 +594,9 @@
 "AertripEmailId" = "support@aertrip.com";
 "ThankYouStmtForBookingId" = "Thank you for booking with Aertrip. Use the above booking id for all future communication with Aertrip.";
 "ThankYouStmtForCId" = "Thank you for booking with Aertrip. Use the above case id for all future communication with Aertrip.";
-"WriteReviews" = "WriteReviews";
+"WriteReviews" = "Write Reviews";
 "Photos" = "Photos";
-"ReadReviews" = "ReadReviews";
+"ReadReviews" = "Read Reviews";
 
 //AccountDetails Screen
 "Accounts" = "Accounts";

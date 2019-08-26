@@ -21,7 +21,7 @@ class HotelDetailsOverviewVC: BaseVC {
     //================
     @IBOutlet weak var overViewTextViewOutlet: UITextView! {
         didSet {
-            self.overViewTextViewOutlet.contentInset = UIEdgeInsets(top: 10.0, left: 16.0, bottom: 20.0, right: 16.0)
+            self.overViewTextViewOutlet.contentInset = UIEdgeInsets(top: 10.0, left: 4.0, bottom: 20.0, right: 4.0)
             self.overViewTextViewOutlet.delegate = self
         }
     }
@@ -57,7 +57,7 @@ class HotelDetailsOverviewVC: BaseVC {
     
     override func initialSetup() {
         self.dividerView.isHidden = true
-        self.overViewTextViewOutlet.attributedText = self.viewModel.overViewInfo.htmlToAttributedString(withFontSize: 16.0, fontFamily: AppFonts.Regular.rawValue, fontColor: AppColors.themeBlack)
+        self.overViewTextViewOutlet.attributedText = self.viewModel.overViewInfo.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.rawValue, fontColor: AppColors.themeBlack)
         //Heading
 //        self.overViewTextViewOutlet.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline).withSize(16.0)
 //        // subheadline

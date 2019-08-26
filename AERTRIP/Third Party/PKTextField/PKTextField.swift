@@ -165,6 +165,10 @@ class PKTextField: UIScrollView {
         self.updateTextField()
     }
     
+    override func becomeFirstResponder() -> Bool {
+        super.becomeFirstResponder()
+        return self.textField.becomeFirstResponder()
+    }
     
     //MARK:- Methods
     //MARK:- Private

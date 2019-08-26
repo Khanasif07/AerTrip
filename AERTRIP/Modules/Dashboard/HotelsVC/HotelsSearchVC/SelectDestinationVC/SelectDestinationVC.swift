@@ -359,7 +359,6 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
                 }
                 else {
                     cell.configureData(data: self.viewModel.popularHotels[indexPath.row], forText: "")
-                    cell.dividerView.isHidden = (self.viewModel.popularDestinationLimit - 1) == indexPath.row
                 }
                 
                 return cell

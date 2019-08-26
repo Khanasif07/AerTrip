@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKCategoryView
 
 protocol HotelFilteVCDelegate: class {
     func doneButtonTapped()
@@ -36,17 +37,15 @@ class HotelFilterVC: BaseVC {
         }
     }
     
-    fileprivate weak var categoryView: ATCategoryView!
+    fileprivate weak var categoryView: PKCategoryView!
     
     // MARK: - Variables
     
     private let allTabsStr: [String] = [LocalizedString.Sort.localized, LocalizedString.Range.localized, LocalizedString.Price.localized, LocalizedString.Ratings.localized, LocalizedString.Amenities.localized,LocalizedString.Room.localized]
-    private var allTabs: [ATCategoryItem] {
-        var temp = [ATCategoryItem]()
-        
+    private var allTabs: [PKCategoryItem] {
+        var temp = [PKCategoryItem]()
         for title in self.allTabsStr {
-            var obj = ATCategoryItem()
-            obj.title = title
+            let obj = PKCategoryItem(title: title, normalImage: nil, selectedImage: nil)
             temp.append(obj)
         }
         
@@ -64,6 +63,15 @@ class HotelFilterVC: BaseVC {
         self.initialSetups()
         self.setupGesture()
     }
+
+    
+    override func viewWillLayoutSubviews() {
+         super.viewWillLayoutSubviews()
+        
+        self.categoryView?.frame = self.dataContainerView.bounds
+        self.categoryView?.layoutIfNeeded()
+    }
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -97,7 +105,7 @@ class HotelFilterVC: BaseVC {
     
    private func initialSetups() {
         self.mainContainerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
-        self.edgesForExtendedLayout = UIRectEdge(rawValue: 4)
+        self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
         for i in 0..<self.allTabsStr.count {
             if i == 1 {
                 let vc = RangeVC.instantiate(fromAppStoryboard: .Filter)
@@ -149,18 +157,19 @@ class HotelFilterVC: BaseVC {
     
     
     private func setupPagerView() {
-        var style = ATCategoryNavBarStyle()
-        style.height = 50.0
+        var style = PKCategoryViewConfiguration()
+        style.navBarHeight = 50.0
         style.interItemSpace = 15.0
         style.itemPadding = 8.0
-        style.isScrollable = true
-        style.layoutAlignment = .left
+        style.isNavBarScrollEnabled = true
         style.isEmbeddedToView = true
         style.showBottomSeparator = true
         style.bottomSeparatorColor = AppColors.themeGray20
         style.defaultFont = AppFonts.Regular.withSize(16.0)
         style.selectedFont = AppFonts.SemiBold.withSize(16.0)
         style.indicatorColor = AppColors.themeGreen
+        style.indicatorHeight = 2.0
+
         style.normalColor = AppColors.textFieldTextColor51
         style.selectedColor = AppColors.themeBlack
         
@@ -170,14 +179,14 @@ class HotelFilterVC: BaseVC {
         style.badgeBorderWidth = 0.0
         
         
-        let categoryView = ATCategoryView(frame: self.dataContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
-        categoryView.interControllerSpacing = 0.0
-        categoryView.navBar.internalDelegate = self
+        let categoryView = PKCategoryView(frame: self.dataContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, configuration: style, parentVC: self)
+        categoryView.delegate = self
         self.dataContainerView.addSubview(categoryView)
         self.categoryView = categoryView
         
         // Set last Selected Index on Nav bar
-        self.categoryView.select(at: HotelFilterVM.shared.lastSelectedIndex)
+//        categoryView.select(HotelFilterVM.shared.lastSelectedIndex)
+      self.categoryView.selectTab(atIndex: HotelFilterVM.shared.lastSelectedIndex)
         self.setBadgesOnAllCategories()
     }
     
@@ -237,7 +246,7 @@ class HotelFilterVC: BaseVC {
                 printDebug("not useable case")
             }
             
-            self.categoryView.setBadge(atIndex: idx, badgeNumber: badgeCount)
+            self.categoryView.setBadge(count: badgeCount, atIndex: idx)
         }
     }
     
@@ -270,11 +279,16 @@ class HotelFilterVC: BaseVC {
     
 }
 
-// MARK: - ATCategoryNavBarDelegate
+// MARK: - PKCategoryViewDelegate
 
-extension HotelFilterVC: ATCategoryNavBarDelegate {
-    func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
+extension HotelFilterVC: PKCategoryViewDelegate {
+    func categoryView(_ view: PKCategoryView, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
+        printDebug("Manage will switch to next index ")
+    }
+    
+    func categoryView(_ view: PKCategoryView, didSwitchIndexTo toIndex: Int) {
         self.currentIndex = toIndex
         HotelFilterVM.shared.lastSelectedIndex = toIndex
     }
+    
 }

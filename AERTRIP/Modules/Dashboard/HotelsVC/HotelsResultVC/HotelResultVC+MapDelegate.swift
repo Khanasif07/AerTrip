@@ -27,7 +27,7 @@ extension HotelResultVC {
             
             mapView?.delegate = self
             mapView?.isMyLocationEnabled = true
-            mapView?.settings.myLocationButton = true
+            mapView?.settings.myLocationButton = false
             mapView?.setMinZoom(self.minZoomLabel, maxZoom: self.maxZoomLabel)
             mapView?.animate(toZoom: self.defaultZoomLabel - 4.0)
             
@@ -297,6 +297,7 @@ extension HotelResultVC: GMSMapViewDelegate {
                     self?.collectionView.isHidden = false
                     self?.collectionViewHeightConstraint.constant = 230
                     self?.floatingViewBottomConstraint.constant = self?.floatingViewInitialConstraint ?? 0.0
+                    self?.cardGradientView.isHidden = true
                     self?.mapContainerViewBottomConstraint.constant = 230
                     self?.mapView?.frame = CGRect(x: 0.0, y: 0.0, width: self?.mapContainerView.width ?? 0, height: UIDevice.screenHeight - 230)
                     self?.mapContainerView.layoutIfNeeded()

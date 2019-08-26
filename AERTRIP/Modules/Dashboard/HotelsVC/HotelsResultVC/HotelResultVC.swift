@@ -94,6 +94,10 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var mapContainerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var switchContainerView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
+    @IBOutlet weak var cardGradientView: UIView!
+    
+    @IBOutlet weak var cardGradientViewBottomConstraint: NSLayoutConstraint!
+    
     
     // MARK: - Properties
     
@@ -213,7 +217,7 @@ class HotelResultVC: BaseVC {
         
         self.filterButton.isEnabled = false
         self.mapButton.isEnabled = false
-        
+        self.mapView?.isMyLocationEnabled = false
         self.animateCollectionView(isHidden: true, animated: false)
         self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
         
@@ -236,6 +240,7 @@ class HotelResultVC: BaseVC {
         self.toastDidClose = {
             UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
             UserInfo.hotelFilterApplied = nil
+            UserInfo.hotelFilter = nil
             HotelFilterVM.shared.resetToDefault()
         }
         
@@ -251,6 +256,8 @@ class HotelResultVC: BaseVC {
         self.statusBarStyle = .default
         collectionViewLayout.minimumLineSpacing = 0
         self.setUpLongPressOnFilterButton()
+        self.cardGradientView.backgroundColor = AppColors.clear
+        self.cardGradientView.addGredient(isVertical: true, cornerRadius: 10.0, colors: [AppColors.themeWhite.withAlphaComponent(0.01),AppColors.themeWhite.withAlphaComponent(1.0)])
         
         
         
@@ -315,7 +322,7 @@ class HotelResultVC: BaseVC {
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.searchIntitialFrame = self.searchBarContainerView.frame
         self.reloadHotelList()
-        self.manageFloatingView(isHidden: false)
+        self.manageFloatingView(isHidden: true)
         self.floatingButtonOnMapView.isHidden = true
         self.cancelButton.alpha = 0
         self.hotelSearchTableView.separatorStyle = .none

@@ -398,6 +398,7 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
         CoreDataManager.shared.deleteCompleteDB()
         UserDefaults.removeObject(forKey: UserDefaults.Key.currentUserCookies.rawValue)
         UserDefaults.removeObject(forKey: UserDefaults.Key.xAuthToken.rawValue)
+        UserInfo.hotelFilterApplied = nil
     }
     
     func didLogOutFail(errors: ErrorCodes) {

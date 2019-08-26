@@ -86,6 +86,8 @@ class HotelsSearchVC: BaseVC {
         self.containerView.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         self.scrollView.delegate = self
         self.searchBtnOutlet.layer.cornerRadius = 25.0
+        self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+        self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
         self.configureCheckInOutView()
         self.configureRecentSearchesView()
         self.hideRecentSearchesView()

@@ -25,13 +25,33 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotelCardPlaceHolder" translatesAutoresizingMaskIntoConstraints="NO" id="9kY-W1-1YH">
                                 <rect key="frame" x="0.0" y="0.0" width="388" height="197"/>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JHV-tg-F0l">
+                                <rect key="frame" x="0.0" y="0.0" width="388" height="72"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="72" id="fTg-Kg-XHm"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o72-1h-VPa">
+                                <rect key="frame" x="176" y="6" width="36" height="4"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="4" id="1wg-p6-In4"/>
+                                    <constraint firstAttribute="width" constant="36" id="a7B-dr-jV6"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="o72-1h-VPa" firstAttribute="top" secondItem="cWh-qH-9Py" secondAttribute="top" constant="6" id="2X7-r0-z7H"/>
                             <constraint firstItem="9kY-W1-1YH" firstAttribute="leading" secondItem="cWh-qH-9Py" secondAttribute="leading" id="5PQ-of-L1t"/>
                             <constraint firstItem="9kY-W1-1YH" firstAttribute="top" secondItem="cWh-qH-9Py" secondAttribute="top" id="5QR-dk-1xM"/>
+                            <constraint firstItem="JHV-tg-F0l" firstAttribute="leading" secondItem="cWh-qH-9Py" secondAttribute="leading" id="DSu-fu-wI5"/>
                             <constraint firstAttribute="trailing" secondItem="9kY-W1-1YH" secondAttribute="trailing" id="a7M-Os-oIj"/>
                             <constraint firstAttribute="bottom" secondItem="9kY-W1-1YH" secondAttribute="bottom" id="dDm-vU-YsB"/>
+                            <constraint firstItem="JHV-tg-F0l" firstAttribute="top" secondItem="cWh-qH-9Py" secondAttribute="top" id="gsv-cO-kWb"/>
+                            <constraint firstItem="o72-1h-VPa" firstAttribute="centerX" secondItem="cWh-qH-9Py" secondAttribute="centerX" id="nvo-lh-Wk8"/>
+                            <constraint firstAttribute="trailing" secondItem="JHV-tg-F0l" secondAttribute="trailing" id="vGX-s8-9VD"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -47,7 +67,9 @@
             <size key="customSize" width="388" height="197"/>
             <connections>
                 <outlet property="bgView" destination="cWh-qH-9Py" id="X54-A3-fvc"/>
+                <outlet property="gradientView" destination="JHV-tg-F0l" id="rzg-2d-OeP"/>
                 <outlet property="hotelImageView" destination="9kY-W1-1YH" id="hde-ll-Ymf"/>
+                <outlet property="smallLineView" destination="o72-1h-VPa" id="91O-yV-5Bv"/>
             </connections>
             <point key="canvasLocation" x="89.599999999999994" y="73.313343328335833"/>
         </collectionViewCell>

@@ -32,7 +32,8 @@ class ATGalleryScrollCell: UICollectionViewCell {
         imageView.clipsToBounds = true
         imageView.backgroundColor = AppColors.themeBlack
         
-        scrollView.minimumZoomScale = ATGalleryViewConfiguration.minimumZoomScale
+        scrollView.minimumZoomScale = 1.0
+
         scrollView.maximumZoomScale = ATGalleryViewConfiguration.maximumZoomScale
         scrollView.zoomScale = 1.0
         scrollView.delegate = self

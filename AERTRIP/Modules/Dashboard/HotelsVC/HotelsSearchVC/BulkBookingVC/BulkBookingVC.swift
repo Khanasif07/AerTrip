@@ -206,7 +206,8 @@ class BulkBookingVC: BaseVC {
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.BulkBooking.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
         self.topNavView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
-        
+        self.searchButtonOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+        self.searchButtonOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
         self.searchButtonOutlet.layer.cornerRadius = 25.0
         for starBtn in self.starButtonsOutlet {
             starBtn.isHighlighted = true
@@ -463,12 +464,12 @@ class BulkBookingVC: BaseVC {
     
     @objc func preferredButtonAction() {
         self.view.endEditing(true)
-        self.preferredTextView.becomeFirstResponder()
+        _ = self.preferredTextView.becomeFirstResponder()
     }
     
     @objc func specialReqAction() {
         self.view.endEditing(true)
-        self.specialReqTextView.becomeFirstResponder()
+        _ = self.specialReqTextView.becomeFirstResponder()
     }
 }
 

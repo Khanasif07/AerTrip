@@ -25,6 +25,7 @@ class HCDataSelectionVC: BaseVC {
     @IBOutlet weak var upArrowImageView: UIImageView!
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet weak var continueButtonActivityIndicator: UIActivityIndicatorView!
     
     // minimized hotel details
     @IBOutlet weak var hotelDetailsParentContainerView: UIView!
@@ -80,9 +81,9 @@ class HCDataSelectionVC: BaseVC {
         fillData()
         
 //        manageLoader(shouldStart: true)
-        
         manageLoader(shouldStart: false)
-        AppGlobals.shared.startLoading()
+        startLoading()
+        continueButtonActivityIndicator.color = AppColors.themeWhite
         
         setUpUserEmailMobile()
         
@@ -302,6 +303,20 @@ class HCDataSelectionVC: BaseVC {
         }
     }
     
+    
+    // MARK: Helper methods
+    
+    func startLoading() {
+        self.continueButtonActivityIndicator.isHidden = false
+        self.continueButtonActivityIndicator.startAnimating()
+        self.continueButton.isHidden = true
+    }
+    
+    func stopLoading() {
+        self.continueButtonActivityIndicator.isHidden = true
+        self.continueButtonActivityIndicator.stopAnimating()
+        self.continueButton.isHidden = false
+    }
     // MARK: - Public
     
     // MARK: - Action
@@ -388,7 +403,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func willFetchConfirmItineraryData() {
-        AppGlobals.shared.startLoading()
+            self.startLoading()
 //        manageLoader(shouldStart: true)
     }
     
@@ -400,7 +415,8 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         else {
             GuestDetailsVM.shared.travellerList = viewModel.itineraryData?.traveller_master ?? []
 //            manageLoader(shouldStart: false)
-            AppGlobals.shared.stopLoading()
+//            AppGlobals.shared.stopLoading()
+            self.stopLoading()
             fillData()
             self.viewModel.getHotelDetailsSectionData()
             self.updateHotelCheckOutDetailsVIew()
@@ -409,7 +425,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     
     func fetchConfirmItineraryDataFail() {
 //        manageLoader(shouldStart: false)
-        AppGlobals.shared.stopLoading()
+//        AppGlobals.shared.stopLoading()
         if viewModel.itineraryData == nil, confirmationCall < 5 {
             confirmationCall += 1
             viewModel.fetchConfirmItineraryData()
@@ -418,7 +434,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     
     func willFetchRecheckRatesData() {
 //        manageLoader(shouldStart: true)
-        AppGlobals.shared.startLoading()
+        startLoading()
     }
     
     func fetchRecheckRatesDataFail(errors: ErrorCodes) {
@@ -439,12 +455,13 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
             }
         }
 //        manageLoader(shouldStart: false)
-        AppGlobals.shared.stopLoading()
+        stopLoading()
+        //AppGlobals.shared.stopLoading()
     }
     
     func fetchRecheckRatesDataSuccess(recheckedData: ItineraryData) {
 //        manageLoader(shouldStart: false)
-        AppGlobals.shared.stopLoading()
+        stopLoading()
         if viewModel.isValidateData(vc: self) {
             viewModel.webserviceForItenaryDataTraveller()
         }

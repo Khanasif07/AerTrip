@@ -32,7 +32,7 @@ class ReviewTableViewCell: UITableViewCell {
 
         //Color
         self.progressBarView.backgroundColor = AppColors.themeGray04
-        self.progressBarView.tintColor = AppColors.themeGreen
+        self.progressBarView.progressTint = AppColors.themeDarkAdvisorColor
 
         self.reviewTitle.textColor = AppColors.themeBlack
         self.numbOfReviews.textColor = AppColors.themeBlack

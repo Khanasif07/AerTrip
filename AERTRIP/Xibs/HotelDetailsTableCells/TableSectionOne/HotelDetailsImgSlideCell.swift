@@ -38,6 +38,7 @@ class HotelDetailsImgSlideCell: UITableViewCell {
     weak var delegate: HotelDetailsImgSlideCellDelegate?
     
     
+    
     //Mark:- LifeCycle
     //================
     override func awakeFromNib() {

@@ -52,6 +52,11 @@ open class PKCategoryView: UIView {
     public func setBadge(count: Int, atIndex index: Int) {
         self.navBar?.setBadge(count: count, atIndex: index)
     }
+    
+    public func selectTab(atIndex: Int) {
+        self.navBar.moveSelection(fromIndex: atIndex, to: atIndex, withProgress: 0.0)
+
+    }
 }
 
 //MARK:- Subviews Setup

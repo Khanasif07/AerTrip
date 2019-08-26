@@ -26,7 +26,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jdg-bw-y5F" customClass="ATCollectionView" customModule="AERTRIP" customModuleProvider="target">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jdg-bw-y5F" customClass="ATCollectionView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ZbT-5D-Ght">
@@ -2751,6 +2751,13 @@ been sent</string>
                                     <constraint firstItem="Pv9-Pq-S7S" firstAttribute="top" secondItem="aHc-Vi-zSn" secondAttribute="top" id="uAj-dc-Qgz"/>
                                 </constraints>
                             </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="64p-9f-HDB">
+                                <rect key="frame" x="0.0" y="393" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="GpG-MH-m9G"/>
+                                </constraints>
+                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="oLY-cZ-RG2">
                                 <rect key="frame" x="0.0" y="437" width="375" height="230"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2788,7 +2795,9 @@ been sent</string>
                             <constraint firstItem="0o3-aH-xeT" firstAttribute="trailing" secondItem="b4p-u6-PAq" secondAttribute="trailing" id="FEQ-m1-50d"/>
                             <constraint firstItem="V4z-cq-RyF" firstAttribute="trailing" secondItem="b4p-u6-PAq" secondAttribute="trailing" id="FKR-2j-Xde"/>
                             <constraint firstItem="b4p-u6-PAq" firstAttribute="bottom" secondItem="aHc-Vi-zSn" secondAttribute="bottom" constant="10" id="IrP-Bo-aXF"/>
+                            <constraint firstItem="64p-9f-HDB" firstAttribute="leading" secondItem="oLY-cZ-RG2" secondAttribute="leading" id="N5w-Xq-8xl"/>
                             <constraint firstItem="0o3-aH-xeT" firstAttribute="leading" secondItem="b4p-u6-PAq" secondAttribute="leading" id="O8e-Pd-jph"/>
+                            <constraint firstItem="oLY-cZ-RG2" firstAttribute="top" secondItem="64p-9f-HDB" secondAttribute="bottom" id="PTo-Ms-L8S"/>
                             <constraint firstItem="b4p-u6-PAq" firstAttribute="trailing" secondItem="oLY-cZ-RG2" secondAttribute="trailing" id="Px0-Sh-Uz4"/>
                             <constraint firstItem="b4p-u6-PAq" firstAttribute="bottom" secondItem="0o3-aH-xeT" secondAttribute="bottom" id="SHp-MZ-3nP"/>
                             <constraint firstItem="b4p-u6-PAq" firstAttribute="bottom" secondItem="oLY-cZ-RG2" secondAttribute="bottom" id="T6R-mW-CFp"/>
@@ -2801,6 +2810,7 @@ been sent</string>
                             <constraint firstAttribute="trailing" secondItem="aHc-Vi-zSn" secondAttribute="trailing" id="aky-3u-626"/>
                             <constraint firstItem="aM9-4Q-rjl" firstAttribute="bottom" secondItem="b4p-u6-PAq" secondAttribute="bottom" id="bIF-38-3c7"/>
                             <constraint firstItem="Tm4-Rt-BXI" firstAttribute="leading" secondItem="b4p-u6-PAq" secondAttribute="leading" id="heA-UN-L35"/>
+                            <constraint firstItem="64p-9f-HDB" firstAttribute="trailing" secondItem="oLY-cZ-RG2" secondAttribute="trailing" id="i97-vt-HpN"/>
                             <constraint firstItem="b4p-u6-PAq" firstAttribute="bottom" secondItem="Tm4-Rt-BXI" secondAttribute="bottom" constant="230" id="laO-zd-NSG"/>
                             <constraint firstItem="QAK-AD-OFu" firstAttribute="leading" secondItem="b4p-u6-PAq" secondAttribute="leading" id="sct-fe-fKG"/>
                             <constraint firstItem="b4p-u6-PAq" firstAttribute="trailing" secondItem="Tm4-Rt-BXI" secondAttribute="trailing" id="tfX-zr-pnf"/>
@@ -2814,6 +2824,8 @@ been sent</string>
                     <connections>
                         <outlet property="backButton" destination="ZMo-hF-ekJ" id="sT3-MR-1Iu"/>
                         <outlet property="cancelButton" destination="yZE-ic-PI4" id="hkf-DP-zJq"/>
+                        <outlet property="cardGradientView" destination="64p-9f-HDB" id="ZSD-qz-Tl3"/>
+                        <outlet property="cardGradientViewBottomConstraint" destination="PTo-Ms-L8S" id="56m-qv-pQt"/>
                         <outlet property="collectionView" destination="oLY-cZ-RG2" id="5Cn-uS-fQq"/>
                         <outlet property="collectionViewHeightConstraint" destination="rUd-SU-sdm" id="ANc-kc-mcR"/>
                         <outlet property="collectionViewLayout" destination="TS7-Ln-F1l" id="R3i-p2-9KP"/>
@@ -2850,7 +2862,7 @@ been sent</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKJ-fV-GuR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3054" y="1405"/>
+            <point key="canvasLocation" x="3053.5999999999999" y="1404.6476761619192"/>
         </scene>
     </scenes>
     <resources>
