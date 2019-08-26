@@ -58,12 +58,64 @@ class HotelDetailsVC: BaseVC {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var footerView: UIView!
     @IBOutlet weak var stickyBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var contentContainerView: UIView!
     @IBOutlet weak var mainView: UIView!
     
+    var startPanPoint: CGPoint = .zero
+    var animator = UIViewPropertyAnimator()
+
     //Mark:- LifeCycle
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let panGes = UIPanGestureRecognizer(target: self, action: #selector(self.panHandler(_:)))
+        panGes.delegate = self
+//        self.view.addGestureRecognizer(panGes)
+    }
+    
+    @objc func panHandler(_ sender: UIPanGestureRecognizer) {
+        
+        //        let translation = sender.translation(in: self.view)
+        //
+        //        if sender.state == .began {
+        //            self.startPanPoint = translation
+        //        }
+        //        else if sender.state == .changed {
+        //
+        //            let moved = translation.y - self.startPanPoint.y
+        //
+        //            print(moved)
+        //        }
+        
+        let progress = sender.translation(in: self.view).y / self.hotelTableView.height
+        print(progress)
+        switch sender.state {
+        case .began:
+            animator = UIViewPropertyAnimator(duration: 3, curve: .easeOut, animations: { [weak self] in
+                guard let sSelf = self else {return}
+                sSelf.imageView.frame = sSelf.sourceFrame
+                sSelf.hotelTableView.alpha = 0.0
+                //            sSelf.mainView.alpha = 0
+                sSelf.hotelTableView.frame = sSelf.tableFrameHidden
+            })
+            animator.startAnimation()
+            animator.pauseAnimation()
+
+            animator.addCompletion { [weak self](position) in
+                guard let sSelf = self else {return}
+                print(position)
+                sSelf.removeFromParentVC
+                sSelf.headerView.isHidden = false
+            }
+
+        case .changed:
+            animator.fractionComplete = progress
+        case .ended:
+            animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+        default:
+            ()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -179,6 +231,9 @@ class HotelDetailsVC: BaseVC {
         self.headerTopConstraint.constant = 8.0
         let newImageFrame = CGRect(x: 0.0, y: newY, width: self.view.width, height: hotelImageHeight)
         let newTableFrame = CGRect(x: 0.0, y: newY, width: self.view.width, height: (self.view.height-(newY+AppFlowManager.default.safeAreaInsets.bottom)))
+        
+        self.footerView.isHidden = true
+        self.headerView.isHidden = true
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else {return}
             sSelf.imageView.frame = newImageFrame
@@ -187,6 +242,8 @@ class HotelDetailsVC: BaseVC {
             }, completion: { [weak self](isDone) in
                 guard let sSelf = self else {return}
                 sSelf.imageView.isHidden = true
+                sSelf.footerView.isHidden = false
+                sSelf.headerView.isHidden = false
         })
     }
     
@@ -197,6 +254,9 @@ class HotelDetailsVC: BaseVC {
     
     func hide(animated: Bool) {
         self.imageView.isHidden = false
+        
+        self.footerView.isHidden = true
+        self.headerView.isHidden = true
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else {return}
             sSelf.imageView.frame = sSelf.sourceFrame

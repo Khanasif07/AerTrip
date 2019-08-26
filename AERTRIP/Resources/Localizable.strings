@@ -875,3 +875,6 @@
 // MARK: - Common
 "Other" = "Other";
 "CantCreateGroupWithThisName" = "Can't create group with this name.";
+
+"PleaseSignInToContinue" = "Please sign in to\ncontinue";
+"EnjoyPersonalisedTravelExperience" = "Enjoy a more personalised travel experience";

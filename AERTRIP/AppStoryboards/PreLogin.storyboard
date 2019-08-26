@@ -179,7 +179,7 @@
                             <constraint firstItem="VH1-Zd-UoS" firstAttribute="leading" secondItem="QL8-ug-Kiz" secondAttribute="leading" constant="20" id="Pc8-EK-m4l"/>
                             <constraint firstItem="J4c-5O-gNA" firstAttribute="top" secondItem="QL8-ug-Kiz" secondAttribute="top" id="QIP-AW-ppJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="moM-Cd-hz7" secondAttribute="trailing" id="RdC-Q3-jfh"/>
-                            <constraint firstItem="VH1-Zd-UoS" firstAttribute="top" secondItem="J4c-5O-gNA" secondAttribute="bottom" constant="4" id="Rfr-nQ-Egy"/>
+                            <constraint firstItem="UaD-gk-V9Y" firstAttribute="top" secondItem="VH1-Zd-UoS" secondAttribute="bottom" constant="63" id="U5a-LV-bmm"/>
                             <constraint firstItem="QL8-ug-Kiz" firstAttribute="bottom" secondItem="moM-Cd-hz7" secondAttribute="bottom" constant="25" id="UV5-pN-dTs"/>
                             <constraint firstItem="UaD-gk-V9Y" firstAttribute="centerY" secondItem="QL8-ug-Kiz" secondAttribute="centerY" multiplier="1.19" id="eo2-QD-0nb"/>
                             <constraint firstItem="QL8-ug-Kiz" firstAttribute="trailing" secondItem="VH1-Zd-UoS" secondAttribute="trailing" constant="20" id="fLd-xC-uwQ"/>
@@ -196,7 +196,9 @@
                         <outlet property="newRegisterLabel" destination="Bvt-bN-fe0" id="DN8-S4-SZI"/>
                         <outlet property="newRegistrationContainerView" destination="moM-Cd-hz7" id="PTk-4A-6lX"/>
                         <outlet property="sepratorLineImage" destination="tgC-3v-ig4" id="QQx-Xh-ZY8"/>
+                        <outlet property="socialAndLogoSpace" destination="U5a-LV-bmm" id="NaO-aE-e1o"/>
                         <outlet property="socialButtonsStackView" destination="KAq-60-Ls3" id="MkM-7q-qwO"/>
+                        <outlet property="socialButtosCenterConstraint" destination="eo2-QD-0nb" id="Ujd-kh-72k"/>
                         <outlet property="topNavView" destination="J4c-5O-gNA" id="zOy-et-Xkp"/>
                     </connections>
                 </viewController>

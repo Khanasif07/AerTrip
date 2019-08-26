@@ -251,7 +251,7 @@ class HotelsSearchVC: BaseVC {
         } else if self.viewModel.searchedFormData.adultsCount.count == 1 {
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 self.containerViewHeightConstraint.constant =  self.containerViewHeight
-                //                self.scrollView.contentSize.height = self.scrollViewContentSize.height
+                //self.scrollView.contentSize.height = self.scrollViewContentSize.height
                 self.view.layoutIfNeeded()
             }) { (isComleted) in
                 //self.scrollView.contentSize.height = self.scrollViewContentSize.height

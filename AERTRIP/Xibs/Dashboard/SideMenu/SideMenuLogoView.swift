@@ -19,6 +19,7 @@ class SideMenuLogoView: UIView {
     @IBOutlet weak var logoTextView: UIImageView!
     @IBOutlet weak var messageLabel: UILabel!
     
+    @IBOutlet weak var logoImageAndNameConstraint: NSLayoutConstraint!
     @IBOutlet weak var logoImageTopContraint: NSLayoutConstraint!
     
     var currentlyUsingFor = UsingFor.sideMenu {
@@ -30,6 +31,12 @@ class SideMenuLogoView: UIView {
             default:
                 self.setupForSideMenu()
             }
+        }
+    }
+    
+    var isAppNameHidden: Bool = false {
+        didSet {
+            self.updateAppName()
         }
     }
     
@@ -59,5 +66,10 @@ class SideMenuLogoView: UIView {
     
     private func setupForSocialLogin() {
         logoImageTopContraint.constant = 38.0
+    }
+    
+    private func updateAppName() {
+        self.logoTextView.isHidden = self.isAppNameHidden
+        self.logoImageAndNameConstraint.constant = self.isAppNameHidden ? -22.0 : 33.0
     }
 }
