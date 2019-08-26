@@ -30,7 +30,6 @@ class DashboardVC: BaseVC {
     @IBOutlet weak var hotelsLabel: UILabel!
     @IBOutlet weak var tripsLabel: UILabel!
     @IBOutlet weak var profileButton: ATNotificationButton!
-    @IBOutlet weak var segmentTopConstraint: NSLayoutConstraint!
     
     var overlayView = UIView()
     private var previousOffset = CGPoint.zero
@@ -272,7 +271,8 @@ extension DashboardVC  {
             }
             
             updateSegmentYPosition(for: scrollView.contentOffset.y)
-            updateSegmentHeight(for: scrollView.contentOffset.y)
+            updateSegmentTop(for: scrollView.contentOffset.y)
+            updateInnerScrollTop(for: scrollView.contentOffset.y)
             
             switch selectedOption{
             case .aerin: checkAndApplyTransform(aerinView, transformValue: transform, scrolledUp: userDidScrollUp)
@@ -317,23 +317,35 @@ extension DashboardVC  {
     }
     
     private func updateSegmentYPosition(for scrolledY: CGFloat) {
-        let valueToBe: CGFloat = 27.0
+        let valueToBe: CGFloat = 20.0
         
         let ratio = valueToBe / (headerTopConstraint.constant + headerView.height)
         
         segmentCenterYConstraint.constant = ratio * scrolledY
     }
     
-    private func updateSegmentHeight(for scrolledY: CGFloat) {
-        //original is 120, need to redce 15 pxl
-        let valueToDecrease: CGFloat = 15.0
-        
+    private func updateInnerScrollTop(for scrolledY: CGFloat) {
+        let valueToDecrease: CGFloat = 18.0
         let ratio = valueToDecrease / (headerTopConstraint.constant + headerView.height)
-        
-        print("\(scrolledY): \(120.0 - (ratio * scrolledY))")
         let final = (ratio * scrolledY)
-        segmentHeightConstraint.constant = 120.0 - final
-        segmentTopConstraint.constant = -final
+        if final == 0 {
+            innerScrollView.transform = CGAffineTransform.identity
+        }
+        else {
+            innerScrollView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
+        }
+    }
+    
+    private func updateSegmentTop(for scrolledY: CGFloat) {
+        let valueToDecrease: CGFloat = 15.0
+        let ratio = valueToDecrease / (headerTopConstraint.constant + headerView.height)
+        let final = (ratio * scrolledY)
+        if final == 0 {
+            segmentContainerView.transform = CGAffineTransform.identity
+        }
+        else {
+            segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
+        }
     }
     
     private func checkAndApplyTransform(_ view : UIView, transformValue : CGFloat, scrolledUp : Bool){

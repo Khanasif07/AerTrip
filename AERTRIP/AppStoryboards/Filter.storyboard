@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -31,12 +31,8 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4cd-5g-yVs">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="511"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="515.33333333333337"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e2I-lS-6Bs">
-                                        <rect key="frame" x="0.0" y="64.000000000000028" width="414" height="445.66666666666674"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="We1-vK-Fq2">
                                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                                         <subviews>
@@ -80,6 +76,10 @@
                                             <constraint firstAttribute="trailing" secondItem="yTY-5z-BDT" secondAttribute="trailing" constant="16" id="rIM-28-5zW"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e2I-lS-6Bs">
+                                        <rect key="frame" x="0.0" y="63.999999999999972" width="414" height="451.33333333333326"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
@@ -87,6 +87,7 @@
                                     <constraint firstItem="We1-vK-Fq2" firstAttribute="leading" secondItem="4cd-5g-yVs" secondAttribute="leading" id="8Lm-dH-IVl"/>
                                     <constraint firstItem="We1-vK-Fq2" firstAttribute="top" secondItem="4cd-5g-yVs" secondAttribute="top" constant="20" id="GKq-an-ZQ5"/>
                                     <constraint firstAttribute="trailing" secondItem="We1-vK-Fq2" secondAttribute="trailing" id="QQW-mA-gzn"/>
+                                    <constraint firstAttribute="bottom" secondItem="e2I-lS-6Bs" secondAttribute="bottom" id="Sxw-Ou-Kpg"/>
                                     <constraint firstItem="e2I-lS-6Bs" firstAttribute="top" secondItem="We1-vK-Fq2" secondAttribute="bottom" id="ZHi-0h-Qhk"/>
                                     <constraint firstItem="e2I-lS-6Bs" firstAttribute="leading" secondItem="4cd-5g-yVs" secondAttribute="leading" id="cN7-yc-xBh"/>
                                     <constraint firstAttribute="trailing" secondItem="e2I-lS-6Bs" secondAttribute="trailing" id="iUm-d1-jzQ"/>
@@ -96,13 +97,12 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="4cd-5g-yVs" firstAttribute="leading" secondItem="dxU-Fm-YZC" secondAttribute="leading" id="5E7-et-eDD"/>
-                            <constraint firstItem="e2I-lS-6Bs" firstAttribute="height" secondItem="vJy-po-FUp" secondAttribute="height" multiplier="404:667" id="84b-iL-w0d"/>
+                            <constraint firstItem="4cd-5g-yVs" firstAttribute="width" secondItem="vJy-po-FUp" secondAttribute="width" id="2Mc-KZ-Y73"/>
+                            <constraint firstItem="4cd-5g-yVs" firstAttribute="height" secondItem="vJy-po-FUp" secondAttribute="height" multiplier="0.7" id="KHg-WT-dVe"/>
                             <constraint firstItem="4cd-5g-yVs" firstAttribute="top" secondItem="vJy-po-FUp" secondAttribute="top" id="V6S-9b-TaK"/>
                             <constraint firstItem="dxU-Fm-YZC" firstAttribute="trailing" secondItem="TYJ-ic-F1i" secondAttribute="trailing" id="YmA-2G-lqp"/>
                             <constraint firstItem="TYJ-ic-F1i" firstAttribute="top" secondItem="dxU-Fm-YZC" secondAttribute="top" id="a2E-2L-Dot"/>
-                            <constraint firstItem="4cd-5g-yVs" firstAttribute="height" secondItem="vJy-po-FUp" secondAttribute="height" multiplier="405:667" constant="64" id="ftN-Rc-5Uc"/>
-                            <constraint firstItem="dxU-Fm-YZC" firstAttribute="trailing" secondItem="4cd-5g-yVs" secondAttribute="trailing" id="mjY-eN-O01"/>
+                            <constraint firstItem="4cd-5g-yVs" firstAttribute="centerX" secondItem="dxU-Fm-YZC" secondAttribute="centerX" id="aSq-3M-tDY"/>
                             <constraint firstItem="dxU-Fm-YZC" firstAttribute="bottom" secondItem="TYJ-ic-F1i" secondAttribute="bottom" id="oAd-cG-5Wp"/>
                             <constraint firstItem="TYJ-ic-F1i" firstAttribute="leading" secondItem="dxU-Fm-YZC" secondAttribute="leading" id="pfW-E5-EJh"/>
                         </constraints>
@@ -305,7 +305,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sxV-AI-Khq">
-                                <rect key="frame" x="16" y="163.66666666666666" width="382" height="0.33333333333334281"/>
+                                <rect key="frame" x="16" y="163.66666666666666" width="382" height="0.66666666666665719"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="N3e-6T-QRH"/>
