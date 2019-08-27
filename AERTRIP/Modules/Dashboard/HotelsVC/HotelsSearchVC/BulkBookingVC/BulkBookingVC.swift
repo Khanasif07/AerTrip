@@ -198,7 +198,7 @@ class BulkBookingVC: BaseVC {
     ///InitialSetUp
     private func initialSetups() {
         self.view.alpha = 1.0
-        self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+        self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
         self.bottomViewHeightConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
         
         self.mainContainerView.roundTopCorners(cornerRadius: 15.0)
@@ -285,24 +285,50 @@ class BulkBookingVC: BaseVC {
     ///Show View
     private func show(animated: Bool) {
         self.bottomView.isHidden = false
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+        
+        func setValue() {
             self.mainCintainerBottomConstraint.constant = 0.0
+            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
             self.view.layoutIfNeeded()
-        }, completion: { (isDone) in
-        })
+        }
+        
+        if animated {
+            let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+                setValue()
+            }
+            animater.startAnimation()
+        }
+        else {
+            setValue()
+        }
     }
     
     ///Hide View
     private func hide(animated: Bool, shouldRemove: Bool = false) {
         self.bottomView.isHidden = true
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+        
+        func setValue() {
             self.mainCintainerBottomConstraint.constant = -(self.mainContainerView.frame.height + 100)
+            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
             self.view.layoutIfNeeded()
-        }, completion: { (isDone) in
-            if shouldRemove {
-                self.removeFromParentVC
+        }
+        
+        if animated {
+            let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+                setValue()
             }
-        })
+            
+            animater.addCompletion { (position) in
+                if shouldRemove {
+                    self.removeFromParentVC
+                }
+            }
+            
+            animater.startAnimation()
+        }
+        else {
+            setValue()
+        }
     }
     
     ///Star Button State
