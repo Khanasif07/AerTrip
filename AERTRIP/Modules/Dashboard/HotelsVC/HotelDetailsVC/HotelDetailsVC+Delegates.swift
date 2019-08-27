@@ -280,17 +280,22 @@ extension HotelDetailsVC {
                 else if (self.initialStickyPosition + self.footerView.height) < finalY {
                     //hidden
                     self.stickyBottomConstraint.constant = -(self.footerView.height)
+                    self.tableFooterView?.isHidden = true
+
                 }
             }
             else {
                 if (self.initialStickyPosition + self.footerView.height) > self.hotelTableView.contentOffset.y {
                     self.stickyBottomConstraint.constant = 0.0
+                    self.tableFooterView?.isHidden = true
+
                 }
                 self.initialStickyPosition = -1.0
             }
         }
         else {
             self.stickyBottomConstraint.constant = 0.0
+            self.tableFooterView?.isHidden = true
         }
         self.oldScrollPosition = self.hotelTableView.contentOffset
     }

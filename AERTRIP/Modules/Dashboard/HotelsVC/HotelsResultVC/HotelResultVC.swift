@@ -98,6 +98,7 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var cardGradientViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var shimmerGradientView: UIView!
     
+    @IBOutlet weak var switchGradientView: UIView!
     // MARK: - Properties
     
 //    var container: NSPersistentContainer!
@@ -247,7 +248,7 @@ class HotelResultVC: BaseVC {
         self.aerinFilterUndoCompletion = {
             printDebug("Undo Button tapped")
         }
-        
+        self.cardGradientView.isHidden = true
         //call API to get vcode, sid
         self.viewModel.hotelListOnPreferencesApi()
         
@@ -344,7 +345,8 @@ class HotelResultVC: BaseVC {
         self.switchView.originalImage = #imageLiteral(resourceName: "switch_fav_off")
         self.switchView.selectedImage = #imageLiteral(resourceName: "switch_fav_on")
         self.switchView.isBackgroundBlurry = true
-        
+        self.switchGradientView.backgroundColor = AppColors.clear
+        self.switchGradientView.addGrayShadow(ofColor: AppColors.themeBlack.withAlphaComponent(0.2), radius: 18, offset: .zero, opacity: 2, cornerRadius: 100)
         self.addTapGestureOnMap()
     }
     
@@ -420,16 +422,22 @@ class HotelResultVC: BaseVC {
         self.hideFavsButtons()
         self.switchView.setOn(isOn: false)
         self.fetchRequestType = .normal
+        self.backButton.isHidden = false
+        self.cardGradientView.isHidden = true
         if self.hoteResultViewType == .ListView {
             self.mapButton.isSelected = true
             self.hoteResultViewType = .MapView
             self.animateHeaderToMapView()
             self.convertToMapView()
+            self.cardGradientView.isHidden = true
+
         } else {
             self.hoteResultViewType = .ListView
             self.mapButton.isSelected = false
             self.animateHeaderToListView()
             self.convertToListView()
+            self.cardGradientView.isHidden = false
+           
         }
         self.reloadHotelList()
     }
@@ -467,9 +475,12 @@ class HotelResultVC: BaseVC {
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
         if self.hoteResultViewType == .ListView {
             self.animateHeaderToListView()
+        } else {
+            backButton.alpha = 1
         }
         self.searchedHotels.removeAll()
         self.fetchRequestType = .normal
+        
         self.hideSearchAnimation()
         self.view.endEditing(true)
         self.searchBar.text = ""

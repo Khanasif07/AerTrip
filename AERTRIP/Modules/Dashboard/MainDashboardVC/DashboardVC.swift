@@ -257,7 +257,7 @@ extension DashboardVC  {
             
             var transform : CGFloat = 0.0
             
-            if scrollView.contentOffset.y - mainScrollViewOffset.y > 0 {
+             if scrollView.contentOffset.y - mainScrollViewOffset.y > 0 {
                 let valueMoved = scrollView.contentOffset.y - mainScrollViewOffset.y
                 let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
                 updateUpLabels(with: headerValueMoved)
