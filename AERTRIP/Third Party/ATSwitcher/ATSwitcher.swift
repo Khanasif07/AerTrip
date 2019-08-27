@@ -179,7 +179,7 @@ class ATSwitcher: UIView {
         }
         
         self.blurView?.alpha = 0.95
-        self.blurView?.backgroundColor = AppColors.clear
+        self.blurView?.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.02)
     }
     
     func animationSwitcherButton(animated: Bool = true) {

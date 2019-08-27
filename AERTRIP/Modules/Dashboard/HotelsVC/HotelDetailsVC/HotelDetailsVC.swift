@@ -53,6 +53,7 @@ class HotelDetailsVC: BaseVC {
         didSet {
             self.smallLineView.cornerRadius = self.smallLineView.height/2.0
             self.smallLineView.clipsToBounds = true
+            self.smallLineView.alpha = 0
         }
     }
     @IBOutlet weak var imageView: UIImageView!
@@ -143,7 +144,6 @@ class HotelDetailsVC: BaseVC {
         }
         self.viewModel.getHotelInfoApi()
         self.smallLineView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
-        self.headerView.bringSubviewToFront(self.smallLineView)
     }
     
     override func bindViewModel() {
@@ -246,6 +246,9 @@ class HotelDetailsVC: BaseVC {
                 sSelf.imageView.isHidden = true
                 sSelf.footerView.isHidden = false
                 sSelf.headerView.isHidden = false
+                sSelf.smallLineView?.alpha = 1
+
+
         })
     }
     
@@ -445,6 +448,7 @@ class HotelDetailsVC: BaseVC {
     //=================
     @IBAction func cancelButtonAction (_ sender: UIButton) {
         self.headerView.isHidden = true
+        self.smallLineView.alpha = 0
         self.hide(animated: true)
     }
     

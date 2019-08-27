@@ -342,7 +342,8 @@ class HCDataSelectionVC: BaseVC {
             hotelCheckOutDetailsContainerVIew.isHidden = false
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 if self.fareDetailContainerView.isHidden {
-                    self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + AppFlowManager.default.safeAreaInsets.top)
+//                    self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + AppFlowManager.default.safeAreaInsets.top)
+                    self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (  UIDevice.isIPhoneX   ?  self.hotelDetailsParentContainerView.height +  AppFlowManager.default.safeAreaInsets.top - 5 :  self.hotelDetailsParentContainerView.height + 3 )
                 }
                 else {
                     self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + self.fareDetailContainerView.height + AppFlowManager.default.safeAreaInsets.top)
@@ -350,6 +351,9 @@ class HCDataSelectionVC: BaseVC {
                 self.view.layoutIfNeeded()
             }, completion: { [weak self] _ in
                 self?.isHotelDetailsCheckOutViewOpen = true
+                self?.hotelCheckOutDetailsContainerVIew?.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+                self?.statusBarColor = AppColors.clear
+
             })
         }
     }
@@ -705,6 +709,8 @@ extension HCDataSelectionVC: HotelCheckOutDetailsVIewDelegate {
     }
     
     func crossButtonTapped() {
+        self.hotelCheckOutDetailsContainerVIew.backgroundColor = AppColors.clear
+        self.statusBarColor =  AppColors.clear
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.hotelDetailsContainerViewHeightConstraint.constant = 0.0
             self.view.layoutIfNeeded()
@@ -713,6 +719,7 @@ extension HCDataSelectionVC: HotelCheckOutDetailsVIewDelegate {
             sSelf.isHotelDetailsCheckOutViewOpen = false
             sSelf.hotelDetailsContainerView.isHidden = false
             sSelf.hotelCheckOutDetailsContainerVIew.isHidden = true
+           
         }
     }
 }

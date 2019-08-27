@@ -39,15 +39,15 @@ extension HotelResultVC {
     }
     
     func searchBarFrame(isInSearchMode: Bool) -> CGRect {
-        return CGRect(x: self.searchIntitialFrame.origin.x + 20
-            , y: self.searchIntitialFrame.origin.y - 45, width: self.searchIntitialFrame.width - (isInSearchMode ? 80.0 : 100.0), height: 50)
+        return CGRect(x: isInSearchMode ? self.searchIntitialFrame.origin.x  - 1 :   self.searchIntitialFrame.origin.x + 20
+            , y: self.searchIntitialFrame.origin.y - 45, width: self.searchIntitialFrame.width - (isInSearchMode ? 60.0 : 100.0), height: 50)
     }
     
     func showSearchAnimation() {
         self.filterButton.isHidden = true
         self.mapButton.isHidden = true
         self.cancelButton.alpha = 1
-        
+        self.backButton.alpha = 0
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.searchBarContainerView.frame = self.searchBarFrame(isInSearchMode: true)
             self.view.layoutIfNeeded()
@@ -60,10 +60,19 @@ extension HotelResultVC {
         self.cancelButton.alpha = 0
         
         if self.hoteResultViewType == .MapView {
-            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations:  {
                 self.searchBarContainerView.frame = self.searchBarFrame(isInSearchMode: false)
                 self.view.layoutIfNeeded()
-            }, completion: nil)
+            },completion: nil)
+        } else {
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations:{
+                 self.searchBarContainerView.backgroundColor = AppColors.clear
+            }) { (done) in
+                if done {
+                    self.backButton.alpha = 1
+                    self.searchBarContainerView.backgroundColor = AppColors.themeWhite
+                }
+            }
         }
     }
     
