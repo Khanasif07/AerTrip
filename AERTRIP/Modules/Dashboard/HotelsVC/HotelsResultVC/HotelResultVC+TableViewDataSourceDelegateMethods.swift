@@ -178,8 +178,8 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             }
         } else {
             let hData = fetchedResultsController.object(at: indexPath)
-            if let cell = tableView.cellForRow(at: indexPath) {
-                AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: hData, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+            if let cell = tableView.cellForRow(at: indexPath) as? HotelCardTableViewCell {
+                AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: hData, sourceView: cell.hotelImageView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
             }
         }
     }
