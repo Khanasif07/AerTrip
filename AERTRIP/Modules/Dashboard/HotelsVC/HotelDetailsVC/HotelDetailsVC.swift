@@ -59,7 +59,6 @@ class HotelDetailsVC: BaseVC {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var footerView: UIView!
     @IBOutlet weak var stickyBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var contentContainerView: UIView!
     @IBOutlet weak var mainView: UIView!
     
     var startPanPoint: CGPoint = .zero
@@ -236,20 +235,48 @@ class HotelDetailsVC: BaseVC {
         
         self.footerView.isHidden = true
         self.headerView.isHidden = true
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
-            guard let sSelf = self else {return}
-            sSelf.imageView.frame = newImageFrame
-            sSelf.hotelTableView.frame = newTableFrame
-            sSelf.hotelTableView.alpha = 1.0
-            }, completion: { [weak self](isDone) in
-                guard let sSelf = self else {return}
-                sSelf.imageView.isHidden = true
-                sSelf.footerView.isHidden = false
-                sSelf.headerView.isHidden = false
-                sSelf.smallLineView?.alpha = 1
-
-
-        })
+        
+        func setValue() {
+            self.imageView.frame = newImageFrame
+            self.hotelTableView.frame = newTableFrame
+            self.hotelTableView.alpha = 1.0
+            self.mainView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+            self.view.layoutIfNeeded()
+        }
+        
+        func manageOnComplition() {
+            self.imageView.isHidden = true
+            self.footerView.isHidden = false
+            self.headerView.isHidden = false
+            self.smallLineView?.alpha = 1
+        }
+        
+        if animated {
+            let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+                setValue()
+            }
+            animator.addCompletion { (position) in
+                manageOnComplition()
+            }
+            animator.startAnimation()
+        }
+        else {
+            setValue()
+            manageOnComplition()
+        }
+        
+//        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
+//            guard let sSelf = self else {return}
+//            sSelf.imageView.frame = newImageFrame
+//            sSelf.hotelTableView.frame = newTableFrame
+//            sSelf.hotelTableView.alpha = 1.0
+//            }, completion: { [weak self](isDone) in
+//                guard let sSelf = self else {return}
+//                sSelf.imageView.isHidden = true
+//                sSelf.footerView.isHidden = false
+//                sSelf.headerView.isHidden = false
+//                sSelf.smallLineView?.alpha = 1
+//        })
     }
     
     func hideOnScroll() {
@@ -262,18 +289,46 @@ class HotelDetailsVC: BaseVC {
         
         self.footerView.isHidden = true
         self.headerView.isHidden = true
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
-            guard let sSelf = self else {return}
-            sSelf.imageView.frame = sSelf.sourceFrame
-            sSelf.hotelTableView.alpha = 0.0
-//            sSelf.mainView.alpha = 0
-            sSelf.hotelTableView.frame = sSelf.tableFrameHidden
-            }, completion: { [weak self](isDone) in
-                guard let sSelf = self else {return}
-               
-                sSelf.removeFromParentVC
-                sSelf.headerView.isHidden = false
-        })
+        
+        func setValue() {
+            self.imageView.frame = self.sourceFrame
+            self.hotelTableView.alpha = 0.0
+            self.hotelTableView.frame = self.tableFrameHidden
+            self.mainView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
+            self.view.layoutIfNeeded()
+        }
+        
+        func manageOnComplition() {
+            self.removeFromParentVC
+            self.headerView.isHidden = false
+        }
+        
+        if animated {
+            let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+                setValue()
+            }
+            animator.addCompletion { (position) in
+                manageOnComplition()
+            }
+            animator.startAnimation()
+        }
+        else {
+            setValue()
+            manageOnComplition()
+        }
+        
+//        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
+//            guard let sSelf = self else {return}
+//            sSelf.imageView.frame = sSelf.sourceFrame
+//            sSelf.hotelTableView.alpha = 0.0
+////            sSelf.mainView.alpha = 0
+//            sSelf.hotelTableView.frame = sSelf.tableFrameHidden
+//            }, completion: { [weak self](isDone) in
+//                guard let sSelf = self else {return}
+//
+//                sSelf.removeFromParentVC
+//                sSelf.headerView.isHidden = false
+//        })
     }
     
     private func footerViewSetUp() {
@@ -311,7 +366,7 @@ class HotelDetailsVC: BaseVC {
     
     private func configUI() {
         self.view.backgroundColor = AppColors.clear
-        self.mainView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+        self.mainView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
         self.headerView.configureNavBar(title: nil , isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
         self.manageFavIcon()
         self.headerView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "CancelButtonWhite"), selectedImage: #imageLiteral(resourceName: "black_cross"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)

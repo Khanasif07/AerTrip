@@ -195,17 +195,16 @@ extension HotelDetailsVC {
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
             cell.delegate = self
             cell.configureNotesCell(ratesData: ratesData, isHotelDetailsScreen: true)
+            cell.allDetailsLabel.isHidden = true
+            cell.descriptionLabel.lineBreakMode = .byWordWrapping
             if self.allIndexPath.contains(indexPath) {
-                cell.descriptionLabel.text = ""
-                cell.allDetailsLabel.isHidden = false
                 cell.moreInfoContainerView.isHidden = true
-                cell.allDetailsLabel.attributedText = cell.fullNotesDetails(ratesData: ratesData)?.trimWhiteSpace()
+                cell.descriptionLabel.numberOfLines = 0
                 cell.moreBtnOutlet.isHidden = true
             }
             else {
                 cell.moreInfoContainerView.isHidden = false
-                cell.allDetailsLabel.isHidden = true
-                cell.allDetailsLabel.attributedText = nil
+                cell.descriptionLabel.numberOfLines = 1
                 cell.moreBtnOutlet.isHidden = false
             }
             cell.clipsToBounds = true

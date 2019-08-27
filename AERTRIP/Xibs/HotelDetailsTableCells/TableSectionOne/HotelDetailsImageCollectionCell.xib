@@ -22,7 +22,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cWh-qH-9Py">
                         <rect key="frame" x="0.0" y="0.0" width="388" height="197"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotelCardPlaceHolder" translatesAutoresizingMaskIntoConstraints="NO" id="9kY-W1-1YH">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotelCardPlaceHolder" translatesAutoresizingMaskIntoConstraints="NO" id="9kY-W1-1YH">
                                 <rect key="frame" x="0.0" y="0.0" width="388" height="197"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JHV-tg-F0l">

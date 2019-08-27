@@ -101,7 +101,7 @@ class SelectDestinationVC: BaseVC {
         registerXib()
         
         self.view.alpha = 1.0
-        self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+        self.view.backgroundColor = AppColors.clear//AppColors.themeBlack.withAlphaComponent(0.3)
         self.bottomViewHeightConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
 
         //self.headerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
@@ -126,25 +126,55 @@ class SelectDestinationVC: BaseVC {
         self.bottomView.isHidden = false
         let toDeduct = (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
         let finalValue = (self.currentlyUsingFor == .hotelForm) ? (self.view.height - toDeduct) : (self.view.height - (15.0 + toDeduct))
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+        
+        func setValue() {
             self.mainCintainerBottomConstraint.constant = 0.0
             self.mainContainerViewHeightConstraint.constant = finalValue
+            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
             self.view.layoutIfNeeded()
-        }, completion: { (isDone) in
-            self.reloadData()
-        })
+        }
+        
+        if animated {
+            let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+                setValue()
+            }
+            
+            animater.addCompletion { (position) in
+                self.reloadData()
+            }
+            
+            animater.startAnimation()
+        }
+        else {
+            setValue()
+        }
     }
     
     private func hide(animated: Bool, shouldRemove: Bool = false) {
-        self.bottomView.isHidden = true
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+        
+        func setValue() {
             self.mainCintainerBottomConstraint.constant = -(self.mainContainerView.height + 100)
+            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
             self.view.layoutIfNeeded()
-        }, completion: { (isDone) in
-            if shouldRemove {
-                self.removeFromParentVC
+        }
+        
+        self.bottomView.isHidden = true
+        if animated {
+            let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+                setValue()
             }
-        })
+            
+            animater.addCompletion { (position) in
+                if shouldRemove {
+                    self.removeFromParentVC
+                }
+            }
+            
+            animater.startAnimation()
+        }
+        else {
+            setValue()
+        }
     }
     
     private func reloadData(){

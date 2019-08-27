@@ -143,8 +143,6 @@ extension ThankYouRegistrationVC: SFSafariViewControllerDelegate {
             self.viewModel.webserviceForGetRegistrationData()
         }
         
-        self.emailLabel.text = self.viewModel.email
-        
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         topNavBar.delegate = self
     }
@@ -188,6 +186,7 @@ extension ThankYouRegistrationVC : ThankYouRegistrationVMDelegate {
     
     func didGetSuccess() {
         printDebug("before comit")
+        self.emailLabel.text = self.viewModel.email
         if self.viewModel.type == .deeplinkSetPassword {
             
             AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword, email: self.viewModel.email, key: self.viewModel.refId)

@@ -286,7 +286,7 @@ extension APICaller {
     
     //MARK: - Api for Update UserDetail
     //MARK: -
-    func callVerifyRegistrationApi(type: ThankYouRegistrationVM.VerifyRegistrasion, params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes)->Void ) {
+    func callVerifyRegistrationApi(type: ThankYouRegistrationVM.VerifyRegistrasion, params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ email: String)->Void ) {
         
         var endPoint = APIEndPoint.verifyRegistration
         if type == .deeplinkResetPassword {
@@ -298,21 +298,21 @@ extension APICaller {
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
-                completionBlock(true, [])
+                completionBlock(true, [], jsonData["data"]["email"].stringValue)
                 
             }, failure: { (errors) in
                 ATErrorManager.default.logError(forCodes: errors, fromModule: .login)
-                completionBlock(false, errors)
+                completionBlock(false, errors, "")
             })
             
         }) { (error) in
             if error.code == AppNetworking.noInternetError.code {
                 AppGlobals.shared.stopLoading()
                 AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
-                completionBlock(false, [])
+                completionBlock(false, [], "")
             }
             else {
-                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue])
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], "")
             }
         }
     }

@@ -116,7 +116,7 @@ class RoomGuestSelectionVC: BaseVC {
         
         //background view
         self.backgroundView.alpha = 1.0
-        self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+        self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
         self.mainContainerView.roundTopCorners(cornerRadius: 15.0)
         let tapGest = UITapGestureRecognizer(target: self, action: #selector(tappedOnBackgroundView(_:)))
         self.backgroundView.addGestureRecognizer(tapGest)
@@ -144,23 +144,48 @@ class RoomGuestSelectionVC: BaseVC {
     
     private func show(animated: Bool) {
         self.mainContainerHeight = (self.mainContainerHeightConstraint.constant + AppFlowManager.default.safeAreaInsets.bottom)
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+        
+        func setValue() {
             self.mainContainerBottomConstraints.constant = 0.0
-            //            self.mainContainerHeightConstraint.constant = self.mainContainerHeightConstraint.constant// - self.agesContainerView.frame.height//280.0
+            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
             self.view.layoutIfNeeded()
-        })
+        }
+        
+        if animated {
+            let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+                setValue()
+            }
+            animater.startAnimation()
+        }
+        else {
+            setValue()
+        }
     }
     
     private func hide(animated: Bool, shouldRemove: Bool = false) {
         
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+        func setValue() {
             self.mainContainerBottomConstraints.constant = -(self.mainContainerView.height)
+            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
             self.view.layoutIfNeeded()
-        }, completion: { (isDone) in
-            if shouldRemove {
-                self.removeFromParentVC
+        }
+
+        if animated {
+            let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+                setValue()
             }
-        })
+            
+            animater.addCompletion { (position) in
+                if shouldRemove {
+                    self.removeFromParentVC
+                }
+            }
+            
+            animater.startAnimation()
+        }
+        else {
+            setValue()
+        }
     }
     
     private func updateSelection(animated: Bool = true , needToChangePickerViewHeight: Bool) {
