@@ -467,6 +467,11 @@ class HotelDetailsVC: BaseVC {
             initialPanPoint = touchPoint
         }
     }
+    
+    func openMap() {
+        guard let reqParams = self.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel.hotelData else { return }
+        AppGlobals.shared.redirectToMap(sourceView: view, originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
+    }
 }
 
 

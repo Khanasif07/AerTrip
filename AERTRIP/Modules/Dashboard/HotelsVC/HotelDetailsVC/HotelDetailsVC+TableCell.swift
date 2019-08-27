@@ -55,8 +55,10 @@ extension HotelDetailsVC {
     
     internal func getHotelInfoAddressCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
-//        cell.addressInfoTextView.isSelectable = true
         cell.configureAddressCell(hotelData: hotelDetails)
+        cell.addressInfoTextView.isUserInteractionEnabled = true
+        cell.addressInfoTextView.isSelectable = false
+        cell.addressInfoTextView.isEditable = false
         return cell
     }
     
