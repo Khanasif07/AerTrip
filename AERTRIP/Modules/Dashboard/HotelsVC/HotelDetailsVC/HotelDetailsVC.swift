@@ -247,8 +247,6 @@ class HotelDetailsVC: BaseVC {
                 sSelf.footerView.isHidden = false
                 sSelf.headerView.isHidden = false
                 sSelf.smallLineView?.alpha = 1
-
-
         })
     }
     
