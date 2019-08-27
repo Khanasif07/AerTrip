@@ -54,8 +54,7 @@ open class PKCategoryView: UIView {
     }
     
     public func selectTab(atIndex: Int) {
-        self.navBar.moveSelection(fromIndex: atIndex, to: atIndex, withProgress: 0.0)
-
+        self.containerView.selectPage(atIndex: atIndex, animated: true)
     }
 }
 

@@ -63,10 +63,10 @@ class HotelFilterVC: BaseVC {
         self.initialSetups()
         self.setupGesture()
     }
-
+    
     
     override func viewWillLayoutSubviews() {
-         super.viewWillLayoutSubviews()
+        super.viewWillLayoutSubviews()
         
         self.categoryView?.frame = self.dataContainerView.bounds
         self.categoryView?.layoutIfNeeded()
@@ -103,8 +103,7 @@ class HotelFilterVC: BaseVC {
     
     // MARK: - Helper methods
     
-   private func initialSetups() {
-        self.mainContainerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
+    private func initialSetups() {
         self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
         for i in 0..<self.allTabsStr.count {
             if i == 1 {
@@ -134,6 +133,8 @@ class HotelFilterVC: BaseVC {
         self.hide(animated: false)
         delay(seconds: 0.01) { [weak self] in
             self?.show(animated: true)
+            self?.categoryView.selectTab(atIndex: HotelFilterVM.shared.lastSelectedIndex)
+            self?.mainContainerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
         }
     }
     
@@ -169,7 +170,7 @@ class HotelFilterVC: BaseVC {
         style.selectedFont = AppFonts.SemiBold.withSize(16.0)
         style.indicatorColor = AppColors.themeGreen
         style.indicatorHeight = 2.0
-
+        
         style.normalColor = AppColors.textFieldTextColor51
         style.selectedColor = AppColors.themeBlack
         
@@ -185,13 +186,12 @@ class HotelFilterVC: BaseVC {
         self.categoryView = categoryView
         
         // Set last Selected Index on Nav bar
-//        categoryView.select(HotelFilterVM.shared.lastSelectedIndex)
-      self.categoryView.selectTab(atIndex: HotelFilterVM.shared.lastSelectedIndex)
+        //        categoryView.select(HotelFilterVM.shared.lastSelectedIndex)
         self.setBadgesOnAllCategories()
     }
     
     private func setBadgesOnAllCategories() {
-
+        
         for (idx,tab) in self.allTabsStr.enumerated() {
             
             var badgeCount = 0
@@ -201,7 +201,7 @@ class HotelFilterVC: BaseVC {
                 
             case LocalizedString.Range.localized.lowercased():
                 badgeCount = (HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange) ? 0 : 1
-
+                
             case LocalizedString.Price.localized.lowercased():
                 if HotelFilterVM.shared.leftRangePrice != HotelFilterVM.shared.defaultLeftRangePrice {
                     badgeCount = 1
@@ -212,7 +212,7 @@ class HotelFilterVC: BaseVC {
                 else if HotelFilterVM.shared.priceType != HotelFilterVM.shared.defaultPriceType {
                     badgeCount = 1
                 }
-
+                
             case LocalizedString.Ratings.localized.lowercased():
                 
                 
@@ -230,7 +230,7 @@ class HotelFilterVC: BaseVC {
                 if !HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty {
                     badgeCount = 1
                 }
-
+                
             case LocalizedString.Room.localized.lowercased():
                 if !HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty {
                     badgeCount = 1
@@ -241,7 +241,7 @@ class HotelFilterVC: BaseVC {
                 else if !HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty {
                     badgeCount = 1
                 }
-
+                
             default:
                 printDebug("not useable case")
             }

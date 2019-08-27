@@ -29,6 +29,8 @@ public class PKCategoryNavBar: UIView {
     
     fileprivate lazy var buttons = [PKCategoryButton]()
     
+    fileprivate var bottomSeparator: UIView?
+    
     // this tag relects any changes in VC switching
     fileprivate var currentButtonTag: Int = 0
     
@@ -63,6 +65,12 @@ public class PKCategoryNavBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateSubviews()
+    }
+    
     func setBadge(count: Int, atIndex index: Int) {
         self.buttons[index].badgeCount = count
     }
@@ -70,6 +78,11 @@ public class PKCategoryNavBar: UIView {
 
 //MARK:- Subviews Setup
 private extension PKCategoryNavBar {
+    
+    func updateSubviews() {
+        setupBottomSeparator()
+        updateButtons()
+    }
     
     func setupSubviews() {
         setupBottomSeparator()
@@ -82,11 +95,16 @@ private extension PKCategoryNavBar {
         guard configuration.showBottomSeparator else {
             return
         }
-        let separator = UIView()
+        
+        if self.bottomSeparator == nil {
+            self.bottomSeparator = UIView()
+            self.addSubview(self.bottomSeparator!)
+        }
+
         let height: CGFloat = 0.5
-        separator.frame = CGRect(x: 0, y: self.bounds.height - height, width: self.bounds.width, height: height)
-        separator.backgroundColor = configuration.bottomSeparatorColor
-        self.addSubview(separator)
+        bottomSeparator?.frame = CGRect(x: 0, y: self.bounds.height - height, width: self.bounds.width, height: height)
+        bottomSeparator?.backgroundColor = configuration.bottomSeparatorColor
+        
     }
     
     func setupScrollView(){
@@ -124,6 +142,51 @@ private extension PKCategoryNavBar {
         
         if let selectedImage = item.selectedImage {
             btn.setImage(selectedImage, for: .selected)
+        }
+    }
+    
+    func updateButtons() {
+        scrollView.frame = self.bounds
+        
+        for i in 0..<buttons.count {
+            let btn = buttons[i]
+            let item = categories[i]
+            setup(btn, with: item, atIndex: i)
+            
+            var x: CGFloat = 0.0
+            let y: CGFloat = 0.0
+            var width: CGFloat = 0.0
+            let height = self.buttonHeight
+            let textWidth: CGFloat = btn.intrinsicContentSize.width
+            
+            
+            
+            if configuration.isNavBarScrollEnabled {
+                // scrollabel, each label has its own width according to its text
+                width = textWidth + configuration.itemPadding * 2
+                if i > 0 {
+                    let previousBtn = buttons[i - 1]
+                    x = previousBtn.frame.maxX + configuration.interItemSpace
+                }
+                // special adjustment for the first button
+                if i == 0 {
+                    x = configuration.interItemSpace * 0.5
+                }
+            }
+            else {
+                width = self.bounds.width / CGFloat(categories.count)
+                
+                if i > 0 {
+                    x = width * CGFloat(i)
+                }
+            }
+            
+            btn.frame = CGRect(x: x, y: y, width: width, height: height)
+            
+            let contentWidth:CGFloat = buttons.last!.frame.maxX + configuration.interItemSpace * 0.5
+            let contentHeight:CGFloat = self.bounds.height
+            scrollView.translatesAutoresizingMaskIntoConstraints = true
+            scrollView.contentSize = CGSize(width: contentWidth, height: contentHeight)
         }
     }
     
