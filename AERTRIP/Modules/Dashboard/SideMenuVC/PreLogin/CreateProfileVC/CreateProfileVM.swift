@@ -75,6 +75,10 @@ class CreateProfileVM {
 //MARK:-
 extension CreateProfileVM {
     
+    func getEmail() {
+        
+    }
+    
     func webserviceForUpdateProfile() {
         
         var params = JSONDictionary()

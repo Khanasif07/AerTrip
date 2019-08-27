@@ -46,9 +46,10 @@ extension ThankYouRegistrationVM {
         
         
         self.delegate?.willApiCall()
-        APICaller.shared.callVerifyRegistrationApi(type: self.type, params: params, loader: true, completionBlock: {(success, errors) in
+        APICaller.shared.callVerifyRegistrationApi(type: self.type, params: params, loader: true, completionBlock: {(success, errors, email) in
             
             if success {
+                self.email = email
                 self.delegate?.didGetSuccess()
             }
             else {

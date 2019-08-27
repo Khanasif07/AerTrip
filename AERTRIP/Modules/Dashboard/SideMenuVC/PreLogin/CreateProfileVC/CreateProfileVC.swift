@@ -106,10 +106,9 @@ class CreateProfileVC: BaseVC {
     @IBAction func letsGetStartButton(_ sender: ATButton) {
         
         self.view.endEditing(true)
-        self.getSuccess()
-//        if self.viewModel.isValidateData {
-//            self.viewModel.webserviceForUpdateProfile()
-//        }
+        if self.viewModel.isValidateData {
+            self.viewModel.webserviceForUpdateProfile()
+        }
     }
 }
 

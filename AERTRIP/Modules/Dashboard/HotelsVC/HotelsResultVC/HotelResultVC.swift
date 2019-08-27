@@ -320,7 +320,6 @@ class HotelResultVC: BaseVC {
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.searchIntitialFrame = self.searchBarContainerView.frame
         self.reloadHotelList()
-        self.manageFloatingView(isHidden: true)
         self.floatingButtonOnMapView.isHidden = true
         self.cancelButton.alpha = 0
         self.hotelSearchTableView.separatorStyle = .none
@@ -348,6 +347,7 @@ class HotelResultVC: BaseVC {
         self.switchGradientView.backgroundColor = AppColors.clear
         self.switchGradientView.addGrayShadow(ofColor: AppColors.themeBlack.withAlphaComponent(0.2), radius: 18, offset: .zero, opacity: 2, cornerRadius: 100)
         self.addTapGestureOnMap()
+        self.manageFloatingView(isHidden: true)
     }
     
     override func setupFonts() {

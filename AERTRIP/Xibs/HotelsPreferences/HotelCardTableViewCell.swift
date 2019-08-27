@@ -74,6 +74,7 @@ class HotelCardTableViewCell: UITableViewCell {
         self.hotelImageView.cornerRadius = 10.0
         self.scrollView.cornerRadius = 10.0
         self.gradientView.cornerRadius = 10.0
+        self.contentView.cornerRadius = 10.0
     }
     
     override func layoutSubviews() {
