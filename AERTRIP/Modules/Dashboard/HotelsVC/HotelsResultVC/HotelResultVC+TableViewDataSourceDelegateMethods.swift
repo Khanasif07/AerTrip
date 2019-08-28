@@ -60,7 +60,6 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView === hotelSearchTableView {
-          
             return self.searchedHotels.count
         } else {
             guard let sections = self.fetchedResultsController.sections else {
@@ -68,7 +67,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
                 return 0
             }
             let sectionInfo = sections[section]
-            let dbData = CoreDataManager.shared.fetchData("HotelSearched") ?? []
+            let dbData = fetchedResultsController.fetchedObjects ?? []//CoreDataManager.shared.fetchData("HotelSearched") ?? []
             self.manageShimmer(isHidden: !dbData.isEmpty)
             manageViewForSearchAndFilterMode()
             return sectionInfo.numberOfObjects

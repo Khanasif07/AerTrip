@@ -12,6 +12,11 @@ import UIKit
 // MARK: - Search bar delegate methods
 
 extension HotelResultVC: UISearchBarDelegate {
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        return !((fetchedResultsController.fetchedObjects ?? []).isEmpty)
+    }
+    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         animateHeaderToMapView()
         //self.predicateStr = searchBar.text ?? ""

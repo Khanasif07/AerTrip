@@ -106,24 +106,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         return true
-        
-        let handled = DynamicLinks.dynamicLinks().handleUniversalLink(userActivity.webpageURL!) { dynamiclink, _ in
-            // ...
-            guard let url = dynamiclink?.url else { return }
-            
-            if url.absoluteString.contains("email="), url.absoluteString.contains("&ref") {
-                guard let email = url.absoluteString.slice(from: "email=", to: "&ref") else { return }
-                guard let ref = url.absoluteString.components(separatedBy: "&ref=").last else { return }
-                AppFlowManager.default.deeplinkToRegistrationSuccefullyVC(type: .deeplinkSetPassword, email: email, refId: ref)
-            }
-            else if url.absoluteString.contains("&key="), url.absoluteString.contains("&token="), url.absoluteString.contains("&email=") {
-                guard let ref = url.absoluteString.slice(from: "&key=", to: "&token=") else { return }
-                guard let token = url.absoluteString.slice(from: "&token=", to: "&email=") else { return }
-                guard let email = url.absoluteString.components(separatedBy: "&email=").last else { return }
-                AppFlowManager.default.deeplinkToRegistrationSuccefullyVC(type: .deeplinkResetPassword, email: email, refId: ref, token: token)
-            }
-        }
-        return handled
+//        let handled = DynamicLinks.dynamicLinks().handleUniversalLink(userActivity.webpageURL!) { dynamiclink, _ in
+//            // ...
+//            guard let url = dynamiclink?.url else { return }
+//
+//            if url.absoluteString.contains("email="), url.absoluteString.contains("&ref") {
+//                guard let email = url.absoluteString.slice(from: "email=", to: "&ref") else { return }
+//                guard let ref = url.absoluteString.components(separatedBy: "&ref=").last else { return }
+//                AppFlowManager.default.deeplinkToRegistrationSuccefullyVC(type: .deeplinkSetPassword, email: email, refId: ref)
+//            }
+//            else if url.absoluteString.contains("&key="), url.absoluteString.contains("&token="), url.absoluteString.contains("&email=") {
+//                guard let ref = url.absoluteString.slice(from: "&key=", to: "&token=") else { return }
+//                guard let token = url.absoluteString.slice(from: "&token=", to: "&email=") else { return }
+//                guard let email = url.absoluteString.components(separatedBy: "&email=").last else { return }
+//                AppFlowManager.default.deeplinkToRegistrationSuccefullyVC(type: .deeplinkResetPassword, email: email, refId: ref, token: token)
+//            }
+//        }
+//        return handled
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
