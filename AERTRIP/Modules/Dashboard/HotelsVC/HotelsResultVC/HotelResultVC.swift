@@ -76,7 +76,6 @@ class HotelResultVC: BaseVC {
     
     @IBOutlet weak var mapContainerViewBottomConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
     
     // Searching View
@@ -96,7 +95,6 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var switchContainerView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
     @IBOutlet weak var cardGradientView: UIView!
-    @IBOutlet weak var cardGradientViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var shimmerGradientView: UIView!
     
     @IBOutlet weak var switchGradientView: UIView!
@@ -133,6 +131,7 @@ class HotelResultVC: BaseVC {
     
     var oldOffset: CGPoint = .zero //used in colletion view scrolling for map re-focus
     var isCollectionScrollingInc: Bool = false
+    var isHidingOnMapTap: Bool = false
     
     //Map Related
     var clusterManager: GMUClusterManager!
@@ -279,7 +278,9 @@ class HotelResultVC: BaseVC {
         super.viewDidLayoutSubviews()
         
         self.configureCollectionViewLayoutItemSize()
-        self.mapView?.frame = self.mapContainerView.bounds
+        if isHidingOnMapTap {
+            self.mapView?.frame = self.mapContainerView.bounds
+        }
     }
     
     override func keyboardWillHide(notification: Notification) {

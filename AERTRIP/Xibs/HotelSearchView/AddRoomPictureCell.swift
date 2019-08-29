@@ -111,7 +111,7 @@ class AddRoomPictureCell: UICollectionViewCell {
             //            self.cancelBtnOutlet.isHidden = false
             self.hideCrossButton(isHidden: false, animated: true)
         }
-        if idxPath.item < 4 {
+        if idxPath.item < viewModel.searchedFormData.childrenCounts.count {
             self.childPopUpBtn.isHidden = viewModel.searchedFormData.childrenCounts[idxPath.item] == 0 ? true : false
             self.adultPopUpBtn.setTitle("\(viewModel.searchedFormData.adultsCount[idxPath.item])", for: .normal)
             self.childPopUpBtn.setTitle("\(viewModel.searchedFormData.childrenCounts[idxPath.item])", for: .normal)

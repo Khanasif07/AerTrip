@@ -279,27 +279,39 @@ extension HotelResultVC: GMSMapViewDelegate {
         if hoteResultViewType == .MapView {
             if self.isMapInFullView {
                 //show collection view list
-                UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
-                    self?.collectionViewBottomConstraint.constant = 0.0
-                    self?.floatingViewBottomConstraint.constant = self?.floatingViewInitialConstraint ?? 0.0
-                    self?.cardGradientView.isHidden = true
-                    self?.mapContainerViewBottomConstraint.constant = 230.0
-                    self?.isMapInFullView = false
-                    self?.collectionView.alpha = 1
-                    self?.view.layoutIfNeeded()
-                }.startAnimation()
+                self.isHidingOnMapTap = true
+                self.isMapInFullView = false
+
+                let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                    guard let sSelf = self else {return}
+                    sSelf.collectionViewBottomConstraint.constant = 0.0
+                    sSelf.floatingViewBottomConstraint.constant = sSelf.floatingViewInitialConstraint
+//                    sSelf.collectionView.alpha = 1
+                    sSelf.view.layoutIfNeeded()
+                }
+                
+                animator.addCompletion { [weak self](pos) in
+                    self?.isHidingOnMapTap = false
+                }
+                animator.startAnimation()
             }
             else {
                 //hide collection view list
-                UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
-                    self?.collectionViewBottomConstraint.constant = -230.0
-                    self?.collectionView.alpha = 0
-                    self?.floatingViewBottomConstraint.constant = 0.0
-                    
-                    self?.mapContainerViewBottomConstraint.constant = 0
-                    self?.isMapInFullView = true
-                    self?.view.layoutIfNeeded()
-                    }.startAnimation()
+                self.isHidingOnMapTap = true
+                self.isMapInFullView = true
+                
+                let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                    guard let sSelf = self else {return}
+                    sSelf.collectionViewBottomConstraint.constant = -230.0
+                    sSelf.floatingViewBottomConstraint.constant = 0.0
+//                    sSelf.collectionView.alpha = 0
+                    sSelf.view.layoutIfNeeded()
+                }
+                
+                animator.addCompletion { [weak self](pos) in
+                    self?.isHidingOnMapTap = false
+                }
+                animator.startAnimation()
             }
         }
         printDebug("Coordinate on tapped")
