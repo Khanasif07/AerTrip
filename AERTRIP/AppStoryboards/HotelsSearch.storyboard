@@ -2850,6 +2850,7 @@ been sent</string>
                         <outlet property="cardGradientView" destination="cs7-6S-u7V" id="fv6-Ef-dAT"/>
                         <outlet property="cardGradientViewBottomConstraint" destination="EP1-Xb-pbZ" id="bHx-Zw-q7o"/>
                         <outlet property="collectionView" destination="oLY-cZ-RG2" id="5Cn-uS-fQq"/>
+                        <outlet property="collectionViewBottomConstraint" destination="T6R-mW-CFp" id="uFm-qW-Ftp"/>
                         <outlet property="collectionViewHeightConstraint" destination="rUd-SU-sdm" id="ANc-kc-mcR"/>
                         <outlet property="collectionViewLayout" destination="TS7-Ln-F1l" id="R3i-p2-9KP"/>
                         <outlet property="currentLocationButton" destination="qCE-3h-xC4" id="dfk-nh-1jt"/>

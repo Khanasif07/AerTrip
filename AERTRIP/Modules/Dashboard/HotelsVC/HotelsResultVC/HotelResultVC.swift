@@ -77,6 +77,7 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var mapContainerViewBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
     
     // Searching View
     @IBOutlet weak var hotelSearchView: UIView! {
