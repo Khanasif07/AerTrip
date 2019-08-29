@@ -91,31 +91,67 @@ extension HotelResultVC {
         
         self.mapView?.animate(toZoom: isHidden ? self.defaultZoomLabel : (self.defaultZoomLabel + self.extraZoomLabelForMapView))
         isHidden ? self.moveMapToCurrentCity() : self.animateMapToFirstHotelInMapMode()
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+        
+        let animator = UIViewPropertyAnimator(duration: animated ? AppConstants.kAnimationDuration : 0.0, curve: .linear) {[weak self] in
+            
+            guard let sSelf = self else {return}
             // map resize animation
-            self.mapView?.frame = mapFrame
+            sSelf.mapView?.frame = mapFrame
             
             // vertical list animation
-            self.collectionView.frame = isHidden ? hiddenFrame : shownFrame
-            self.collectionView.alpha = isHidden ? 0.0 : 1.0
-            self.floatingViewInitialConstraint = isHidden ? 10.0 : (hiddenFrame.height)
+            sSelf.collectionView.frame = isHidden ? hiddenFrame : shownFrame
+            sSelf.collectionView.alpha = isHidden ? 0.0 : 1.0
+            sSelf.floatingViewInitialConstraint = isHidden ? 10.0 : (hiddenFrame.height)
             // floating buttons animation
-            self.floatingViewBottomConstraint.constant = isHidden ? 10.0 : (hiddenFrame.height)
-            self.floatingButtonBackView.alpha = isHidden ? 0.0 : 1.0
+            sSelf.floatingViewBottomConstraint.constant = isHidden ? 10.0 : (hiddenFrame.height)
+            sSelf.floatingButtonBackView.alpha = isHidden ? 0.0 : 1.0
             
             // horizontal list animation
-            self.tableViewTopConstraint.constant = isHidden ? 100.0 : UIDevice.screenHeight
-            self.tableViewVertical.alpha = isHidden ? 1.0 : 0.0
+            sSelf.tableViewTopConstraint.constant = isHidden ? 100.0 : UIDevice.screenHeight
+            sSelf.tableViewVertical.alpha = isHidden ? 1.0 : 0.0
+            sSelf.cardGradientView.alpha = isHidden ? 0.0 : 1.0
             
-            self.view.layoutIfNeeded()
-        }, completion: { _ in
+            sSelf.view.layoutIfNeeded()
+        }
+        
+        animator.addCompletion { [weak self](position) in
+            guard let sSelf = self else {return}
             if isHidden {
-                self.floatingButtonBackView.isHidden = true
-                self.collectionView.isHidden = true
-                self.relocateSwitchButton(shouldMoveUp: true, animated: true)
+                sSelf.floatingButtonBackView.isHidden = true
+                sSelf.collectionView.isHidden = true
+                sSelf.relocateSwitchButton(shouldMoveUp: true, animated: true)
             }
-            self.view.bringSubviewToFront(self.collectionView)
-        })
+            sSelf.view.bringSubviewToFront(sSelf.collectionView)
+        }
+        
+        animator.startAnimation()
+        
+//        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+//            // map resize animation
+//            self.mapView?.frame = mapFrame
+//
+//            // vertical list animation
+//            self.collectionView.frame = isHidden ? hiddenFrame : shownFrame
+//            self.collectionView.alpha = isHidden ? 0.0 : 1.0
+//            self.floatingViewInitialConstraint = isHidden ? 10.0 : (hiddenFrame.height)
+//            // floating buttons animation
+//            self.floatingViewBottomConstraint.constant = isHidden ? 10.0 : (hiddenFrame.height)
+//            self.floatingButtonBackView.alpha = isHidden ? 0.0 : 1.0
+//
+//            // horizontal list animation
+//            self.tableViewTopConstraint.constant = isHidden ? 100.0 : UIDevice.screenHeight
+//            self.tableViewVertical.alpha = isHidden ? 1.0 : 0.0
+//
+//            self.view.layoutIfNeeded()
+//        }, completion: { _ in
+//            if isHidden {
+//                self.floatingButtonBackView.isHidden = true
+//                self.collectionView.isHidden = true
+//                self.relocateSwitchButton(shouldMoveUp: true, animated: true)
+//                self.cardGradientView.isHidden = true
+//            }
+//            self.view.bringSubviewToFront(self.collectionView)
+//        })
     }
     
     // Animate button on List View

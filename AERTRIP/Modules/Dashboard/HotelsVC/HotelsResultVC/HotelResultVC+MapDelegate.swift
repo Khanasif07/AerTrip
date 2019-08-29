@@ -277,18 +277,30 @@ extension HotelResultVC: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         if hoteResultViewType == .MapView {
-            //show or hide collection view list
-            UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
-                guard let sSelf = self else {return}
-                sSelf.collectionViewHeightConstraint.constant = sSelf.isMapInFullView ? 230.0 : 0.0
-                sSelf.floatingViewBottomConstraint.constant = sSelf.isMapInFullView ? sSelf.floatingViewInitialConstraint : 0.0
-                
-                sSelf.cardGradientView.isHidden = sSelf.isMapInFullView
-                sSelf.mapContainerViewBottomConstraint.constant = sSelf.isMapInFullView ? 230.0 : 0.0
-                sSelf.isMapInFullView = !sSelf.isMapInFullView
-                sSelf.collectionView.alpha = sSelf.isMapInFullView ? 1.0 : 0.0
-                sSelf.view.layoutIfNeeded()
+            if self.isMapInFullView {
+                //show collection view list
+                UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                    self?.collectionViewBottomConstraint.constant = 0.0
+                    self?.floatingViewBottomConstraint.constant = self?.floatingViewInitialConstraint ?? 0.0
+                    self?.cardGradientView.isHidden = true
+                    self?.mapContainerViewBottomConstraint.constant = 230.0
+                    self?.isMapInFullView = false
+                    self?.collectionView.alpha = 1
+                    self?.view.layoutIfNeeded()
                 }.startAnimation()
+            }
+            else {
+                //hide collection view list
+                UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                    self?.collectionViewBottomConstraint.constant = -230.0
+                    self?.collectionView.alpha = 0
+                    self?.floatingViewBottomConstraint.constant = 0.0
+                    
+                    self?.mapContainerViewBottomConstraint.constant = 0
+                    self?.isMapInFullView = true
+                    self?.view.layoutIfNeeded()
+                    }.startAnimation()
+            }
         }
         printDebug("Coordinate on tapped")
     }
