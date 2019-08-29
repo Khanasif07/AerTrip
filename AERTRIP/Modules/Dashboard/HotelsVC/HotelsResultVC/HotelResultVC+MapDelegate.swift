@@ -15,13 +15,11 @@ extension HotelResultVC {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == .authorizedAlways {}
         
-        let mapRact = mapContainerView.bounds
-        
         if mapView == nil {
             //this code will call only once or when mapview in nill
             let camera = GMSCameraPosition.camera(withLatitude: viewModel.hotelSearchRequest?.requestParameters.latitude.toDouble ?? 0.0, longitude: viewModel.hotelSearchRequest?.requestParameters.longitude.toDouble ?? 0.0, zoom: 10.0)
 
-            let mapV = GMSMapView.map(withFrame: mapRact, camera: camera)
+            let mapV = GMSMapView.map(withFrame: mapContainerView.bounds, camera: camera)
             mapView = mapV
             mapContainerView.addSubview(mapV)
             
@@ -36,7 +34,7 @@ extension HotelResultVC {
             }
         }
         
-        mapView?.frame = mapRact
+        mapView?.frame = mapContainerView.bounds
         
         self.prevZoomLabel = self.minZoomLabel
         self.updateMarkers()
@@ -279,32 +277,18 @@ extension HotelResultVC: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         if hoteResultViewType == .MapView {
-            if self.isMapInFullView == false {
-                UIView.animate(withDuration: 0.4) { [weak self] in
-                    self?.collectionView.isHidden = true
-                    self?.collectionViewHeightConstraint.constant = 0
-                    self?.collectionView.alpha = 0
-                    self?.floatingViewBottomConstraint.constant = 10
-                    
-                    self?.mapContainerViewBottomConstraint.constant = 0
-                    self?.mapView?.frame = CGRect(x: 0.0, y: 0.0, width: self?.mapContainerView.width ?? 0, height: UIDevice.screenHeight)
-                    self?.mapContainerView.layoutIfNeeded()
-                    self?.isMapInFullView = true
-                }
-            }
-            else {
-                UIView.animate(withDuration: 0.4) { [weak self] in
-                    self?.collectionView.isHidden = false
-                    self?.collectionViewHeightConstraint.constant = 230
-                    self?.floatingViewBottomConstraint.constant = self?.floatingViewInitialConstraint ?? 0.0
-                    self?.cardGradientView.isHidden = true
-                    self?.mapContainerViewBottomConstraint.constant = 230
-                    self?.mapView?.frame = CGRect(x: 0.0, y: 0.0, width: self?.mapContainerView.width ?? 0, height: UIDevice.screenHeight - 230)
-                    self?.mapContainerView.layoutIfNeeded()
-                    self?.isMapInFullView = false
-                    self?.collectionView.alpha = 1
-                }
-            }
+            //show or hide collection view list
+            UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                guard let sSelf = self else {return}
+                sSelf.collectionViewHeightConstraint.constant = sSelf.isMapInFullView ? 230.0 : 0.0
+                sSelf.floatingViewBottomConstraint.constant = sSelf.isMapInFullView ? sSelf.floatingViewInitialConstraint : 0.0
+                
+                sSelf.cardGradientView.isHidden = sSelf.isMapInFullView
+                sSelf.mapContainerViewBottomConstraint.constant = sSelf.isMapInFullView ? 230.0 : 0.0
+                sSelf.isMapInFullView = !sSelf.isMapInFullView
+                sSelf.collectionView.alpha = sSelf.isMapInFullView ? 1.0 : 0.0
+                sSelf.view.layoutIfNeeded()
+                }.startAnimation()
         }
         printDebug("Coordinate on tapped")
     }

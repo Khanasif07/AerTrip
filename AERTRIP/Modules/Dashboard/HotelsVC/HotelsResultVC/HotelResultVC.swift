@@ -257,11 +257,17 @@ class HotelResultVC: BaseVC {
         collectionViewLayout.minimumLineSpacing = 0
         self.setUpLongPressOnFilterButton()
         self.cardGradientView.backgroundColor = AppColors.clear
-        self.cardGradientView.addGredient(isVertical: true, cornerRadius: 10.0, colors: [AppColors.themeWhite.withAlphaComponent(0.01),AppColors.themeWhite.withAlphaComponent(1.0)])
+        self.cardGradientView.addGredient(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeWhite.withAlphaComponent(0.01),AppColors.themeWhite.withAlphaComponent(1.0)])
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.statusBarColor = AppColors.themeWhite
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.statusBarColor = AppColors.clear
     }
     
     override func bindViewModel() {
@@ -272,6 +278,7 @@ class HotelResultVC: BaseVC {
         super.viewDidLayoutSubviews()
         
         self.configureCollectionViewLayoutItemSize()
+        self.mapView?.frame = self.mapContainerView.bounds
     }
     
     override func keyboardWillHide(notification: Notification) {
@@ -499,7 +506,6 @@ class HotelResultVC: BaseVC {
              printDebug("Long press tapped")
             AppFlowManager.default.presentAerinTextSpeechVC()
         }
-       
     }
 }
 
