@@ -42,6 +42,15 @@ class MailComposerVC: BaseVC {
         self.statusBarStyle = .default
     }
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.statusBarStyle = .default
+    }
+    
+    
+    
     override func bindViewModel() {
         self.viewModel.delegate = self
     }

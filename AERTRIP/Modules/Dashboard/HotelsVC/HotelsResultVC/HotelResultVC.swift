@@ -305,6 +305,8 @@ class HotelResultVC: BaseVC {
         else if let _ = note.object as? HotelDetailsVC {
             //fav updated from hotel details
             updateFavOnList(forIndexPath: selectedIndexPath)
+            // manage favourite switch buttons 
+            self.getFavouriteHotels(shouldReloadData: true)
         }
         else if let _ = note.object as? HCDataSelectionVC {
             updateFavOnList(forIndexPath: selectedIndexPath)

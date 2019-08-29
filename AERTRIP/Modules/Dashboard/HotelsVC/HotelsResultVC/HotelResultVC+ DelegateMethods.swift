@@ -320,7 +320,6 @@ extension HotelResultVC: HotelFilteVCDelegate {
     }
 
     func doneButtonTapped() {
-        
         if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
             UserInfo.hotelFilterApplied = UserInfo.hotelFilter
         }

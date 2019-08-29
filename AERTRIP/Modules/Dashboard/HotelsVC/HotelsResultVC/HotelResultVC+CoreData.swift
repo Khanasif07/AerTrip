@@ -106,7 +106,6 @@ extension HotelResultVC {
 //        else if let starPred = starPredicate(forStars: HotelsSearchVM.hotelFormData.ratingCount) {
 //            self.fetchedResultsController.fetchRequest.predicate = starPred
 //        }
-        
         self.fetchDataFromCoreData()
     }
     
