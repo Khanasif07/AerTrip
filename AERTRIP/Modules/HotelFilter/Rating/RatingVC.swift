@@ -101,10 +101,13 @@ class RatingVC: BaseVC {
     }
     
     @IBAction func tripAdvisorRatingButtonsAction(_ sender: UIButton) {
-        self.updateTripAdvisorRatingButtonState(forStar: sender.tag)
-        self.tripAdvisorStarLabel.text = self.getTARatingString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
-        sender.setImage(#imageLiteral(resourceName: "deselectedAdvisorRating"), for: .normal)
-        sender.setImage(#imageLiteral(resourceName: "selectedAdvisorRating"), for: .selected)
+        delay(seconds: 0.1) { [weak self] in
+            self?.updateTripAdvisorRatingButtonState(forStar: sender.tag)
+            self?.tripAdvisorStarLabel.text = self?.getTARatingString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
+            sender.setImage(#imageLiteral(resourceName: "deselectedAdvisorRating"), for: .normal)
+            sender.setImage(#imageLiteral(resourceName: "selectedAdvisorRating"), for: .selected)
+        }
+       
     }
     
     @IBAction func includeUnratedAction(_ sender: UIButton) {
