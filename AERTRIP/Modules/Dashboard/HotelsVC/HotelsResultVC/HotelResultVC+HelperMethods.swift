@@ -344,7 +344,8 @@ extension HotelResultVC {
     
     // MARK: - Manage Header animation
     
-    func manageTopHeader(_ scrollView: UIScrollView, velocity: CGPoint? = nil) {
+    func manageTopHeader(_ scrollView: UIScrollView, velocity: CGPoint? = nil)
+    {
         guard scrollView === tableViewVertical else {
             return
         }
@@ -352,7 +353,7 @@ extension HotelResultVC {
         let animationThreshold: CGFloat = 10.0
         
         var isHeaderHidden: Bool {
-            return self.headerContainerViewTopConstraint.constant < 0
+            return self.headerContainerViewTopConstraint.constant == -140.0
         }
         
         func showHeader() {
@@ -376,33 +377,92 @@ extension HotelResultVC {
             })
         }
         
-        let yPosition = scrollView.contentOffset.y
-        guard scrollView.contentSize.height > (scrollView.height + animationThreshold) else {
-            if yPosition >= 0 {
-                scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
-            }
-            else if yPosition < 0, isHeaderHidden {
-                showHeader()
-            }
-            return
-        }
-        
-        if 0...animationThreshold ~= yPosition {
-            self.headerContainerViewTopConstraint.constant = -(yPosition)
-        }
-        else if yPosition < 0 {
-            self.headerContainerViewTopConstraint.constant = -(animationThreshold)
-        }
 
-        if yPosition <= animationThreshold {
-            // show
-            showHeader()
+        let yPosition = scrollView.contentOffset.y
+        
+        guard yPosition >= 0 else {return}
+        print(yPosition)
+        if 0...140.0 ~= yPosition {
+            if (self.oldScrollPosition.y < yPosition && self.headerContainerViewTopConstraint.constant != -140.0) || (self.oldScrollPosition.y > yPosition && self.headerContainerViewTopConstraint.constant != 0) {
+                self.headerContainerViewTopConstraint.constant = -yPosition
+            }
+            let finalPos = 100.0 - yPosition
+            self.tableViewTopConstraint.constant = finalPos
+            self.mapContainerTopConstraint.constant = finalPos
         }
         else {
-            // hide
-            hideHeader()
+            //show with progress after header height scrolled up
+            let newProg = self.oldScrollPosition.y - yPosition
+            let headrC = min(0,max(-140.0, (self.headerContainerViewTopConstraint.constant + newProg)))
+            let othrC = min(100.0, max(0, (self.tableViewTopConstraint.constant + newProg)))
+            
+            self.headerContainerViewTopConstraint.constant = headrC
+//            self.tableViewTopConstraint.constant = othrC
+//            self.mapContainerTopConstraint.constant = othrC
         }
+        
+        self.oldScrollPosition = scrollView.contentOffset
     }
+    
+//    {
+//        guard scrollView === tableViewVertical else {
+//            return
+//        }
+//
+//        let animationThreshold: CGFloat = 10.0
+//
+//        var isHeaderHidden: Bool {
+//            return self.headerContainerViewTopConstraint.constant < 0
+//        }
+//
+//        func showHeader() {
+//            guard self.headerContainerViewTopConstraint.constant <= -(animationThreshold) else {return}
+//            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+//                self.headerContainerViewTopConstraint.constant = 0
+//                self.tableViewTopConstraint.constant = (self.hoteResultViewType == .MapView) ? 50.0 : 100.0
+//                self.mapContainerTopConstraint.constant = (self.hoteResultViewType == .MapView) ? 50.0 : 100.0
+//                self.view.layoutIfNeeded()
+//            })
+//            self.view.addBlurEffect()
+//        }
+//
+//        func hideHeader() {
+//            guard self.headerContainerViewTopConstraint.constant != -140 else {return}
+//            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+//                self.headerContainerViewTopConstraint.constant = -140
+//                self.tableViewTopConstraint.constant = 0
+//                self.mapContainerTopConstraint.constant = 0
+//                self.view.layoutIfNeeded()
+//            })
+//        }
+//
+//        let yPosition = scrollView.contentOffset.y
+//        guard scrollView.contentSize.height > (scrollView.height + animationThreshold) else {
+//            if yPosition >= 0 {
+//                scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+//            }
+//            else if yPosition < 0, isHeaderHidden {
+//                showHeader()
+//            }
+//            return
+//        }
+//
+//        if 0...animationThreshold ~= yPosition {
+//            self.headerContainerViewTopConstraint.constant = -(yPosition)
+//        }
+//        else if yPosition < 0 {
+//            self.headerContainerViewTopConstraint.constant = -(animationThreshold)
+//        }
+//
+//        if yPosition <= animationThreshold {
+//            // show
+//            showHeader()
+//        }
+//        else {
+//            // hide
+//            hideHeader()
+//        }
+//    }
     
     func manageFloatingButtonOnPaginationScroll(_ scrollView: UIScrollView) {
         guard scrollView === collectionView else {
@@ -514,7 +574,7 @@ extension HotelResultVC {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.manageTopHeader(scrollView)
-        self.manageMapViewOnScroll(scrollView)
+//        self.manageMapViewOnScroll(scrollView)
         // self.manageFloatingButtonOnPaginationScroll(scrollView)
         
         //for map re-focusing
@@ -531,16 +591,16 @@ extension HotelResultVC {
         self.oldOffset = scrollView.contentOffset
     }
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        self.manageTopHeader(scrollView)
-        self.oldScrollPosition = scrollView.contentOffset
-        
-        indexOfCellBeforeDragging = indexOfMajorCell()
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.manageTopHeader(scrollView)
-    }
+//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+//        self.manageTopHeader(scrollView)
+//        self.oldScrollPosition = scrollView.contentOffset
+//
+//        indexOfCellBeforeDragging = indexOfMajorCell()
+//    }
+//
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        self.manageTopHeader(scrollView)
+//    }
     
     func manageForCollectionView(atIndex: Int) {
         let locStr = Array(self.viewModel.collectionViewList.keys)[atIndex]
