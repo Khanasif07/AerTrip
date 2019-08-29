@@ -462,7 +462,6 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
 //            oldCell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
 //        }
         let cell = UITableViewCell() // oldCell!
-        cell.selectionStyle = .none
         let data = fetchedResultsController.object(at: indexPath)
         configureCell(cell: cell, travellerData: data)
         cell.tintColor = AppColors.themeGreen
@@ -485,12 +484,6 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
                 cell.textLabel?.attributedText = getAttributedBoldText(text: "\(salutation) \(firstName) \(lastName)", boldText: boldText)
             }
             self.tableView.separatorStyle = .singleLine
-//           
-//            let viewFrame = UIView(frame: CGRect(x: 64, y: cell.frame.size.height, width: UIDevice.screenWidth - 12, height: 0.5))
-//            viewFrame.tag = 1
-//            viewFrame.backgroundColor =  UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
-//            cell.addSubview(viewFrame)
-
         }
         
         if let trav = travellerData, self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {
@@ -547,12 +540,6 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         dismissKeyboard()
         if isSelectMode {
             tableView.separatorStyle = .singleLine
-//            if let cell = tableView.cellForRow(at: indexPath) {
-//                cell.viewWithTag(1)?.isHidden = false
-//                cell.viewWithTag(1)?.backgroundColor =  UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
-//
-//
-//            }
             let current = fetchedResultsController.object(at: indexPath)
             if !selectedTravller.contains(where: { ($0.id ?? "") == (current.id ?? "") }) {
                 selectedTravller.append(fetchedResultsController.object(at: indexPath))
@@ -575,7 +562,6 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
             
             updateNavView()
         }
-//        tableView.separatorStyle = .singleLine
     }
     
     

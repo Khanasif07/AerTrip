@@ -560,8 +560,9 @@ class HotelsSearchVC: BaseVC {
                     UserInfo.hotelFilterApplied = nil
                     UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
                 }
-                
+                if AppGlobals.shared.isNetworkRechable() {
                 AppFlowManager.default.moveToHotelsResultVc(withFormData: HotelsSearchVM.hotelFormData)
+                }
                 sender?.isLoading = false
             }
         }
@@ -597,6 +598,7 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
                 return UICollectionViewCell()
             }
             addRoomCell.delegate = self
+            
             return addRoomCell
         } else {
             guard let addRoomPicCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddRoomPictureCell", for: indexPath) as? AddRoomPictureCell else {
@@ -829,9 +831,13 @@ extension HotelsSearchVC: CalendarDataHandler {
     func selectedDates(fromCalendar startDate: Date!, end endDate: Date!, isHotelCalendar: Bool, isReturn: Bool) {
         if startDate != nil {
             self.viewModel.searchedFormData.checkInDate = startDate.toString(dateFormat: "yyyy-MM-dd")
+        } else {
+            self.viewModel.searchedFormData.checkInDate = ""
         }
         if endDate != nil {
             self.viewModel.searchedFormData.checkOutDate = endDate.toString(dateFormat: "yyyy-MM-dd")
+        } else {
+            self.viewModel.searchedFormData.checkOutDate = ""
         }
         if let checkInOutVw = self.checkInOutView {
             checkInOutVw.setDates(fromData: self.viewModel.searchedFormData)

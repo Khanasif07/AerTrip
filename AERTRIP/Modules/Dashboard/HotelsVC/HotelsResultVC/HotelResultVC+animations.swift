@@ -45,7 +45,7 @@ extension HotelResultVC {
     
     func showSearchAnimation() {
         self.filterButton.isHidden = true
-        self.mapButton.isHidden = true
+         self.mapButton.isHidden = true
         self.cancelButton.alpha = 1
         self.backButton.alpha = 0
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
@@ -76,7 +76,7 @@ extension HotelResultVC {
         }
     }
     
-    func animateCollectionView(isHidden: Bool, animated: Bool) {
+    func animateCollectionView(isHidden: Bool, animated: Bool, completion: ((Bool) -> Void)? = nil) {
         self.collectionView.translatesAutoresizingMaskIntoConstraints = true
         let hiddenFrame: CGRect = CGRect(x: collectionView.width, y: (UIDevice.screenHeight - collectionView.height), width: collectionView.width, height: collectionView.height)
         let shownFrame: CGRect = CGRect(x: 0.0, y: (UIDevice.screenHeight - (collectionView.height + AppFlowManager.default.safeAreaInsets.bottom)), width: collectionView.width, height: collectionView.height)
@@ -114,6 +114,7 @@ extension HotelResultVC {
                 self.collectionView.isHidden = true
                 self.relocateSwitchButton(shouldMoveUp: true, animated: true)
             }
+            completion?(true)
             self.view.bringSubviewToFront(self.collectionView)
         })
     }

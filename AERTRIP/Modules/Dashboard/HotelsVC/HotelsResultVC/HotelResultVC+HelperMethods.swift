@@ -49,12 +49,18 @@ extension HotelResultVC {
 
     }
     
-    func convertToMapView() {
-        self.animateCollectionView(isHidden: false, animated: true)
+    func convertToMapView(completion: ((Bool) -> Void)?) {
+//        self.animateCollectionView(isHidden: false, animated: true)
+        self.animateCollectionView(isHidden: false, animated: true) { (isAnimated) in
+            completion?(isAnimated)
+        }
     }
     
-    func convertToListView() {
-        self.animateCollectionView(isHidden: true, animated: true)
+    func convertToListView(completion: ((Bool) -> Void)?) {
+//        self.animateCollectionView(isHidden: true, animated: true)
+            self.animateCollectionView(isHidden: true, animated: true, completion: { (isAnimated) in
+                completion?(isAnimated)
+            })
     }
     
     func getFavouriteHotels(shouldReloadData: Bool = false) {
@@ -287,6 +293,7 @@ extension HotelResultVC {
         }
     }
     
+
     func manageSwitchContainer(isHidden: Bool, shouldOff: Bool = true) {
         if hoteResultViewType == .ListView {
             manageFloatingView(isHidden: false)

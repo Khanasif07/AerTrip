@@ -89,7 +89,7 @@ class AddRoomPictureCell: UICollectionViewCell {
         self.roomCountLabel.text = "\(LocalizedString.Room.localized) \(idxPath.item + 1)"
         if viewModel.searchedFormData.adultsCount.count == 1 {
             self.hideCrossButton(isHidden: true, animated: true)
-//            self.cancelBtnOutlet.isHidden = true
+            self.cancelBtnOutlet.isHidden = true
             self.lineView.isHidden = true
             self.stackViewLeadingConstraint.constant = 16.5
         } else{

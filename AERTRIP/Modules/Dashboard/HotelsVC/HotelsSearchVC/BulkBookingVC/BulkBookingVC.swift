@@ -492,7 +492,7 @@ class BulkBookingVC: BaseVC {
                 }
                 sSelf.searchButtonOutlet.setTitle(LocalizedString.Submit.localized, for: .normal)
                 sender.isLoading = true
-                sSelf.viewModel.bulkBookingEnquiryApi()
+                
             }
         }
     }
@@ -622,9 +622,13 @@ extension BulkBookingVC: CalendarDataHandler {
     func selectedDates(fromCalendar startDate: Date!, end endDate: Date!, isHotelCalendar: Bool, isReturn: Bool) {
         if startDate != nil {
             self.viewModel.oldData.checkInDate = startDate.toString(dateFormat: "yyyy-MM-dd")
+        } else {
+             self.viewModel.oldData.checkInDate = ""
         }
         if endDate != nil {
             self.viewModel.oldData.checkOutDate = endDate.toString(dateFormat: "yyyy-MM-dd")
+        } else {
+             self.viewModel.oldData.checkOutDate = ""
         }
         if let checkInOutVw = self.checkInOutView {
             checkInOutVw.setDates(fromData: self.viewModel.oldData)

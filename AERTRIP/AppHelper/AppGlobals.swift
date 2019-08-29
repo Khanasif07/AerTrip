@@ -14,7 +14,7 @@ import UIKit
 import EventKit
 
 func printDebug<T>(_ obj: T) {
-     //print(obj)
+     print(obj)
 }
 
 func printFonts() {
@@ -131,7 +131,7 @@ class AppGlobals {
         }
         var temp = [PKAlertButton]()
         for (idx, title) in forTitles.enumerated() {
-            temp.append(PKAlertButton(title: title, titleColor: colors[idx]))
+            temp.append(PKAlertButton(title: title, titleColor: colors[idx],titleFont: AppFonts.Regular.withSize(20.0)))
         }
         
         return temp

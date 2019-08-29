@@ -10,7 +10,7 @@ import Foundation
 
 enum AppConstants {
     
-    static let isReleasingToClient: Bool = true
+    static let isReleasingToClient: Bool = false
     
     static let kCurrency = ""
     
@@ -95,5 +95,6 @@ enum AppConstants {
     static let kChildPax = "CHD"
     static let kInfantPax = "INF"
     static let kIndianCountryCode = "IN"
+    static let staticRoomTags: [String] = ["Sea view","Lake view","Deluxe","Suite","Parking","Lounge"]
 }
 
