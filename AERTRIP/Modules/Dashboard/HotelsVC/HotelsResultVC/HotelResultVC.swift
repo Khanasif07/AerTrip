@@ -22,6 +22,25 @@ enum HotelResultViewType {
     case ListView
 }
 
+class MapContainerView: UIView {
+    weak var mapView: GMSMapView? {
+        didSet {
+            if let vw = mapView {
+                self.addSubview(vw)
+            }
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.mapView?.frame = self.bounds
+        
+        self.backgroundColor = AppColors.themeRed
+        self.mapView?.backgroundColor = AppColors.themeGreen
+    }
+}
+
 class HotelResultVC: BaseVC {
     // MARK: - IBOutlets
     
@@ -76,6 +95,7 @@ class HotelResultVC: BaseVC {
     
     @IBOutlet weak var mapContainerViewBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var collectionViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
     
     // Searching View
@@ -90,7 +110,7 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var currentLocationButton: UIButton!
     @IBOutlet weak var floatingViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var floatingButtonBackView: UIView!
-    @IBOutlet weak var mapContainerView: UIView!
+    @IBOutlet weak var mapContainerView: MapContainerView!
     @IBOutlet weak var mapContainerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var switchContainerView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
@@ -284,9 +304,9 @@ class HotelResultVC: BaseVC {
         super.viewDidLayoutSubviews()
         
         self.configureCollectionViewLayoutItemSize()
-        if isHidingOnMapTap {
-            self.mapView?.frame = self.mapContainerView.bounds
-        }
+//        if isHidingOnMapTap {
+//            self.mapView?.frame = self.mapContainerView.bounds
+//        }
     }
     
     override func keyboardWillHide(notification: Notification) {

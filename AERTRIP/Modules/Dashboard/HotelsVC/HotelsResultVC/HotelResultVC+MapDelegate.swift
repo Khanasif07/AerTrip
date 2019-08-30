@@ -21,7 +21,7 @@ extension HotelResultVC {
 
             let mapV = GMSMapView.map(withFrame: mapContainerView.bounds, camera: camera)
             mapView = mapV
-            mapContainerView.addSubview(mapV)
+            mapContainerView.mapView = mapView
             
             mapView?.delegate = self
             mapView?.isMyLocationEnabled = true
@@ -286,7 +286,8 @@ extension HotelResultVC: GMSMapViewDelegate {
                     guard let sSelf = self else {return}
                     sSelf.collectionViewBottomConstraint.constant = 0.0
                     sSelf.floatingViewBottomConstraint.constant = sSelf.floatingViewInitialConstraint
-//                    sSelf.collectionView.alpha = 1
+                    sSelf.mapContainerViewBottomConstraint.constant = 230.0
+                    sSelf.mapContainerView.layoutSubviews()
                     sSelf.view.layoutIfNeeded()
                 }
                 
@@ -303,8 +304,9 @@ extension HotelResultVC: GMSMapViewDelegate {
                 let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
                     guard let sSelf = self else {return}
                     sSelf.collectionViewBottomConstraint.constant = -230.0
+                    sSelf.mapContainerViewBottomConstraint.constant = 0.0
                     sSelf.floatingViewBottomConstraint.constant = 0.0
-//                    sSelf.collectionView.alpha = 0
+                    sSelf.mapContainerView.layoutSubviews()
                     sSelf.view.layoutIfNeeded()
                 }
                 

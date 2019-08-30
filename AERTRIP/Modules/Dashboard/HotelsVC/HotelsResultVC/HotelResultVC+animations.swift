@@ -77,9 +77,9 @@ extension HotelResultVC {
     }
     
     func animateCollectionView(isHidden: Bool, animated: Bool, completion: ((Bool) -> Void)? = nil) {
-        self.collectionView.translatesAutoresizingMaskIntoConstraints = true
+//        self.collectionView.translatesAutoresizingMaskIntoConstraints = true
         let hiddenFrame: CGRect = CGRect(x: collectionView.width, y: (UIDevice.screenHeight - collectionView.height), width: collectionView.width, height: collectionView.height)
-        let shownFrame: CGRect = CGRect(x: 0.0, y: (UIDevice.screenHeight - (collectionView.height + AppFlowManager.default.safeAreaInsets.bottom)), width: collectionView.width, height: collectionView.height)
+//        let shownFrame: CGRect = CGRect(x: 0.0, y: (UIDevice.screenHeight - (collectionView.height + AppFlowManager.default.safeAreaInsets.bottom)), width: collectionView.width, height: collectionView.height)
         
         if !isHidden {
             self.collectionView.isHidden = false
@@ -87,8 +87,6 @@ extension HotelResultVC {
         }
         
         // resize the map view for map/list view
-        let mapFrame = CGRect(x: 0.0, y: 0.0, width: mapContainerView.width, height: isHidden ? visibleMapHeightInVerticalMode : mapContainerView.height)
-        
         self.mapView?.animate(toZoom: isHidden ? self.defaultZoomLabel : (self.defaultZoomLabel + self.extraZoomLabelForMapView))
         isHidden ? self.moveMapToCurrentCity() : self.animateMapToFirstHotelInMapMode()
         
@@ -96,10 +94,10 @@ extension HotelResultVC {
             
             guard let sSelf = self else {return}
             // map resize animation
-            sSelf.mapView?.frame = mapFrame
+//            sSelf.mapView?.frame = sSelf.mapContainerView.bounds
             
             // vertical list animation
-            sSelf.collectionView.frame = isHidden ? hiddenFrame : shownFrame
+            sSelf.collectionViewLeadingConstraint.constant = isHidden ? -((hiddenFrame.width)) : 0.0
             sSelf.collectionView.alpha = isHidden ? 0.0 : 1.0
             sSelf.floatingViewInitialConstraint = isHidden ? 10.0 : (hiddenFrame.height)
             // floating buttons animation
@@ -110,7 +108,9 @@ extension HotelResultVC {
             sSelf.tableViewTopConstraint.constant = isHidden ? 100.0 : UIDevice.screenHeight
             sSelf.tableViewVertical.alpha = isHidden ? 1.0 : 0.0
             sSelf.cardGradientView.alpha = isHidden ? 0.0 : 1.0
-            
+            sSelf.collectionViewBottomConstraint.constant = 0.0
+            sSelf.mapContainerTopConstraint.constant = isHidden ? 100.0 : 50.0
+            sSelf.mapContainerView.layoutSubviews()
             sSelf.view.layoutIfNeeded()
         }
         
@@ -123,6 +123,7 @@ extension HotelResultVC {
             }
             completion?(true)
             sSelf.view.bringSubviewToFront(sSelf.collectionView)
+            sSelf.mapContainerView.layoutSubviews()
         }
         
         animator.startAnimation()
