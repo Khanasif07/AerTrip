@@ -35,6 +35,7 @@ class HotelDetailsVC: BaseVC {
     var tableFooterView: HotelFilterResultFooterView?
     weak var delegate : HotelDetailsVCDelegate?
     
+    @IBOutlet weak var footerViewHeightConstraint: NSLayoutConstraint!
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
@@ -331,7 +332,7 @@ class HotelDetailsVC: BaseVC {
 //        })
     }
     
-    private func footerViewSetUp() {
+     func footerViewSetUp() {
         self.stickyView = getStickyFooter()
         if let stickyView = self.stickyView {
             stickyView.frame = self.footerView.bounds
@@ -395,7 +396,7 @@ class HotelDetailsVC: BaseVC {
     func manageFavIcon() {
         let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
         let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
-       self.headerView.configureLeftButton(normalImage: buttonImage, selectedImage: selectedFevImage, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
+        self.headerView.configureLeftButton(normalImage: buttonImage, selectedImage: selectedFevImage, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
     }
     
     internal func getSavedFilter() {
@@ -410,7 +411,7 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.roomCancellationDataCopy = filter.roomCancelation
         
         self.viewModel.syncPermanentTagsWithSelectedFilter()
-       self.viewModel.selectedTags = filter.roomMeal + filter.roomCancelation + filter.roomOther
+       //self.viewModel.selectedTags = filter.roomMeal + filter.roomCancelation + filter.roomOther
     }
     
     internal func permanentTagsForFilteration() {
@@ -424,34 +425,39 @@ class HotelDetailsVC: BaseVC {
     }
         
     internal func heightForRow(tableView: UITableView, indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0, indexPath.row == 2 {
-            if let hotelData = self.viewModel.hotelData {
-                let text = hotelData.address + "Maps    "
-                let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
-                return size.height + 46.5
-                    + 21.0  + 2.0//y of textview 46.5 + bottom space 14.0 + 7.0
+        if !self.viewModel.hotelDetailsTableSectionData.isEmpty, self.viewModel.hotelDetailsTableSectionData[indexPath.section][indexPath.row] == .searchTagCell {
+             return self.viewModel.selectedTags.isEmpty ?  50 : UITableView.automaticDimension
+        } else {
+            if indexPath.section == 0, indexPath.row == 2 {
+                if let hotelData = self.viewModel.hotelData {
+                    let text = hotelData.address + "Maps    "
+                    let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+                    return size.height + 46.5
+                        + 21.0  + 2.0//y of textview 46.5 + bottom space 14.0 + 7.0
+                }
+                else {
+                    return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (211.0 + 126.5)
+                }
             }
-            else {
-                return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (211.0 + 126.5)
-            }
-        }
-        else if indexPath.section == 0, indexPath.row == 3 {
-            //overview cell
-            if let hotelData = self.viewModel.hotelData {
-                let text = hotelData.info
-                var height = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0)).height
-                
-                let maxH = AppFonts.Regular.withSize(18.0).lineHeight * 3.0
-                let minH = AppFonts.Regular.withSize(18.0).lineHeight
-                
-                height = max(height, minH)
-                height = min(height, maxH)
-                return height + 46.5
-                    + 21.0  + 2.0//y of textview 46.5 + bottom space 14.0
+            else if indexPath.section == 0, indexPath.row == 3 {
+                //overview cell
+                if let hotelData = self.viewModel.hotelData {
+                    let text = hotelData.info
+                    var height = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0)).height
+                    
+                    let maxH = AppFonts.Regular.withSize(18.0).lineHeight * 3.0
+                    let minH = AppFonts.Regular.withSize(18.0).lineHeight
+                    
+                    height = max(height, minH)
+                    height = min(height, maxH)
+                    return height + 46.5
+                        + 21.0  + 2.0//y of textview 46.5 + bottom space 14.0
+                }
+                return UITableView.automaticDimension
             }
             return UITableView.automaticDimension
         }
-        return UITableView.automaticDimension
+        
     }
     
     internal func heightForHeaderView(tableView: UITableView, section: Int) -> CGFloat {
@@ -521,6 +527,11 @@ class HotelDetailsVC: BaseVC {
             self.hide(animated: true)
             initialPanPoint = touchPoint
         }
+    }
+    
+    func openMap() {
+        guard let reqParams = self.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel.hotelData else { return }
+        AppGlobals.shared.redirectToMap(sourceView: view, originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
     }
 }
 

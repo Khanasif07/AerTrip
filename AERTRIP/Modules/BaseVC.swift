@@ -80,6 +80,8 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(checkForReachability(_:)), name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
+        
     }
 
     override func viewWillLayoutSubviews() {
@@ -294,6 +296,10 @@ extension BaseVC {
     
     @objc private func cancelButtonTapped() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func checkForReachability(_ notification: Notification) {
+        
     }
 }
 

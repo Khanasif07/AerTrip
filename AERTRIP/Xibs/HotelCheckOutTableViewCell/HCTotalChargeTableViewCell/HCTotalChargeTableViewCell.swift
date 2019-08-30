@@ -46,6 +46,6 @@ class HCTotalChargeTableViewCell: UITableViewCell {
     ///COnfigure Cell
     internal func configCell(mode: String , totalCharge: String) {
         self.paymentModeLabel.text = mode.capitalizedFirst()
-        self.totalCostLabel.text = "\(LocalizedString.rupeesText.localized) \(totalCharge)"
+        self.totalCostLabel.text = "\(totalCharge)"
     }
 }

@@ -250,7 +250,13 @@ class HotelResultVC: BaseVC {
         }
         self.cardGradientView.isHidden = true
         //call API to get vcode, sid
-        self.viewModel.hotelListOnPreferencesApi()
+        if AppGlobals.shared.isNetworkRechable() {
+             self.viewModel.hotelListOnPreferencesApi()
+        } else {
+            self.noHotelFound()
+            AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+        }
+       
         
         self.getPinnedHotelTemplate()
         self.statusBarStyle = .default
@@ -300,6 +306,8 @@ class HotelResultVC: BaseVC {
         else if let _ = note.object as? HotelDetailsVC {
             //fav updated from hotel details
             updateFavOnList(forIndexPath: selectedIndexPath)
+            // manage favourite switch buttons 
+            self.getFavouriteHotels(shouldReloadData: true)
         }
         else if let _ = note.object as? HCDataSelectionVC {
             updateFavOnList(forIndexPath: selectedIndexPath)
@@ -429,25 +437,35 @@ class HotelResultVC: BaseVC {
     
     @IBAction func mapButtonAction(_ sender: Any) {
         self.hideFavsButtons()
-        self.switchView.setOn(isOn: false)
         self.fetchRequestType = .normal
         self.backButton.isHidden = false
         self.cardGradientView.isHidden = true
         if self.hoteResultViewType == .ListView {
             self.mapButton.isSelected = true
+            self.currentLocationButton.isHidden = false
             self.hoteResultViewType = .MapView
             self.animateHeaderToMapView()
-            self.convertToMapView()
+            self.convertToMapView { [weak self] (isConverted) in
+                if isConverted {
+                    self?.switchView.setOn(isOn: self?.switchView.on ?? false)
+                }
+            }
             self.cardGradientView.isHidden = true
-
+            
         } else {
+            self.currentLocationButton.isHidden = true
             self.hoteResultViewType = .ListView
             self.mapButton.isSelected = false
             self.animateHeaderToListView()
-            self.convertToListView()
+            self.convertToListView { [weak self] (isConverted) in
+                if isConverted {
+                    self?.switchView.setOn(isOn: self?.switchView.on ?? false)
+                }
+            }
             self.cardGradientView.isHidden = false
-           
+            
         }
+        
         self.reloadHotelList()
     }
     
@@ -509,6 +527,25 @@ class HotelResultVC: BaseVC {
             AppFlowManager.default.presentAerinTextSpeechVC()
         }
     }
+    
+    override func checkForReachability(_ notification: Notification) {
+        
+        guard let networkReachability = notification.object as? Reachability else {return}
+        let remoteHostStatus = networkReachability.currentReachabilityStatus
+        
+        if remoteHostStatus == .notReachable {
+            print("Not Reachable")
+            self.noHotelFound()
+            
+        }
+        else if remoteHostStatus == .reachableViaWiFi {
+            print("Reachable via Wifi")
+        }
+        else {
+            print("Reachable")
+        }
+    }
+
 }
 
 

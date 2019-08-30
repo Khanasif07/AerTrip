@@ -799,6 +799,12 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated: true, completion: nil)
     }
     
+    
+    func moveToTestViewController() {
+        let ob = TestViewController.instantiate(fromAppStoryboard: .Common)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
     // MARK: - Aerin
     
     func showAerinTextToSpeechVC() {

@@ -72,8 +72,9 @@ open class PKAlertController {
     //MARK:- Public
     func presentActionSheet(_ title: String?, titleFont: UIFont? = nil, titleColor: UIColor? = nil, message: String?, messageFont: UIFont? = AppFonts.SemiBold.withSize(14.0), messageColor: UIColor? = AppColors.themeGray40, sourceView: UIView, alertButtons: [PKAlertButton], cancelButton: PKAlertButton, tapBlock:((UIAlertAction,Int) -> Void)?) -> UIAlertController {
         
-        alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        self.changeControllerTitle(title: title, font: titleFont, color: titleColor)
+        alertController = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+       // self.changeControllerTitle(title: title, font: titleFont, color: titleColor)
+        alertController.setValue(self.getAttributedString(string:  title ?? "", font: titleFont, color: titleColor), forKey: "attributedTitle")
         self.changeControllerMessage(message: message, font: messageFont, color: messageColor)
         
         //add all alert buttons

@@ -111,8 +111,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
         if indexPath.section == 0 {
             if (tableView.cellForRow(at: indexPath) as? HotelInfoAddressCell) != nil {
                 if indexPath.row == 2 {
-                    guard let reqParams = self.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel.hotelData else { return }
-                    AppGlobals.shared.redirectToMap(sourceView: view, originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
+                  // self.openMap()
                 } else if indexPath.row == 3 {
                     AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel.hotelData?.info ?? "")
                 }
@@ -279,14 +278,17 @@ extension HotelDetailsVC {
                 }
                 else if (self.initialStickyPosition + self.footerView.height) < finalY {
                     //hidden
-                    self.stickyBottomConstraint.constant = -(self.footerView.height)
+                    self.stickyBottomConstraint.constant = 0
                     self.tableFooterView?.isHidden = true
+                    self.hotelTableView.tableFooterView?.isHidden = true
+                    self.hotelTableView.tableFooterView = UIView(frame: CGRect.zero)
+                    self.footerViewHeightConstraint.constant = 0
 
                 }
             }
             else {
                 if (self.initialStickyPosition + self.footerView.height) > self.hotelTableView.contentOffset.y {
-                    self.stickyBottomConstraint.constant = 0.0
+                    self.stickyBottomConstraint.constant = -(self.footerView.height)
                     self.tableFooterView?.isHidden = true
 
                 }
@@ -296,8 +298,26 @@ extension HotelDetailsVC {
         else {
             self.stickyBottomConstraint.constant = 0.0
             self.tableFooterView?.isHidden = true
+            self.tableFooterView?.backgroundView?.backgroundColor = AppColors.themeRed
         }
         self.oldScrollPosition = self.hotelTableView.contentOffset
+        printDebug(" scroll to top \(hotelTableView.contentOffset)")
+        if hotelTableView.contentOffset == .zero {
+            printDebug("scroll to top ")
+             self.tableFooterView?.isHidden = false
+             self.footerView.isHidden = false
+            if let tableFooterView = self.tableFooterView {
+                tableFooterView.containerView.backgroundColor = AppColors.themeGreen
+                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+                tableFooterView.noRoomsAvailable.isHidden = true
+                tableFooterView.fromLabel.isHidden = false
+                tableFooterView.hotelFeesLabel.isHidden = false
+                tableFooterView.selectRoomLabel.isHidden = false
+                
+                self.hotelTableView.tableFooterView = tableFooterView
+            }
+             self.footerViewSetUp()
+        }
     }
     
     private func closeOnScroll(_ scrollView: UIScrollView) {

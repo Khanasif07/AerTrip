@@ -33,6 +33,7 @@ class HotelDetailsVM {
     //================
     internal var hotelInfo: HotelSearched?
     internal var hotelData: HotelDetails?
+    
     internal var hotelSearchRequest: HotelSearchRequestModel?
     internal var placeModel: PlaceModel?
     internal weak var delegate: HotelDetailDelegate?

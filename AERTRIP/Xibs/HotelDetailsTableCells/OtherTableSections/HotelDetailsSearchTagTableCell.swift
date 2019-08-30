@@ -104,7 +104,10 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
     @IBAction func searchBarBtnAction(_ sender: Any) {
         if let parentVC = self.parentViewController as? HotelDetailsVC {
             printDebug(parentVC.className)
-            AppFlowManager.default.presentSearchHotelTagVC(tagButtons: self.allTagsForFilteration, superView: self)
+            // Commented because we have to use the roomTags key that is coming empty
+            //AppFlowManager.default.presentSearchHotelTagVC(tagButtons: self.allTagsForFilteration, superView: self)
+            AppFlowManager.default.presentSearchHotelTagVC(tagButtons: AppConstants.staticRoomTags, superView: self)
+
         }
     }
 }

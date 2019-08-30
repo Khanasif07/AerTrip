@@ -53,7 +53,6 @@ class BulkBookingVM {
         if self.ratingCount.isEmpty {
             self.ratingCount = [1,2,3,4,5]
         }
-        
         params[APIKeys.stars.rawValue] = self.ratingCount.joined(separator: ",")
         return params
     }
@@ -62,7 +61,7 @@ class BulkBookingVM {
     ///Hotel List Api
     func bulkBookingEnquiryApi() {
         
-        APICaller.shared.bulkBookingEnquiryApi(params: self.paramsForApi()) { [weak self] (success, errors, enquiryId) in
+        APICaller.shared.bulkBookingEnquiryApi(params: AppGlobals.shared.isNetworkRechable() ?  self.paramsForApi() : [:]) { [weak self] (success, errors, enquiryId) in
             guard let sSelf = self else { return }
             if success {
                 sSelf.enquiryId = enquiryId

@@ -197,6 +197,7 @@ class AerinVC: BaseVC {
             
             // for showing bookig invoice VC
             
+            AppFlowManager.default.moveToTestViewController()
             
           //****  Booking DirectionVC ******
  

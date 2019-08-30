@@ -131,7 +131,7 @@ class AppGlobals {
         }
         var temp = [PKAlertButton]()
         for (idx, title) in forTitles.enumerated() {
-            temp.append(PKAlertButton(title: title, titleColor: colors[idx]))
+            temp.append(PKAlertButton(title: title, titleColor: colors[idx],titleFont: AppFonts.Regular.withSize(20.0)))
         }
         
         return temp
@@ -469,17 +469,17 @@ class AppGlobals {
 extension Double {
     var amountInDelimeterWithSymbol: String {
         if self < 0 {
-            return "- \(abs(self.roundTo(places: 2)).delimiterWithSymbolTill2Places)"
+            return "- \(abs(self.roundTo(places: 0)).delimiterWithSymbolTill2Places)"
         } else {
-            return "\(self.roundTo(places: 2).delimiterWithSymbolTill2Places)"
+            return "\(self.roundTo(places: 0).delimiterWithSymbolTill2Places)"
         }
     }
     
     var amountInDoubleWithSymbol: String {
         if self < 0 {
-            return "- \(abs(self.roundTo(places: 2)))"
+            return "- \(abs(self.roundTo(places: 0)))"
         } else {
-            return "\(self.roundTo(places: 2))"
+            return "\(self.roundTo(places: 0))"
         }
     }
     
