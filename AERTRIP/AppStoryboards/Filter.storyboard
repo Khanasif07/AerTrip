@@ -426,7 +426,7 @@
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyY-ed-ygo">
                                                         <rect key="frame" x="1.6666666666666714" y="31.333333333333329" width="30" height="30"/>
                                                         <state key="normal" image="starRatingUnfill"/>
-                                                        <state key="selected" image="starRatingFilled"/>
+                                                        <state key="selected" image="starRatingFilledShadow"/>
                                                         <state key="highlighted" image="UnselectedStar"/>
                                                         <connections>
                                                             <action selector="starButtonsAction:" destination="Ny0-QT-oGF" eventType="touchUpOutside" id="HZW-mV-8y4"/>
@@ -818,6 +818,7 @@
         <image name="deselectedAdvisorRating" width="30" height="30"/>
         <image name="selectedAdvisorRating" width="31" height="30"/>
         <image name="starRatingFilled" width="30" height="30"/>
+        <image name="starRatingFilledShadow" width="30" height="42"/>
         <image name="starRatingUnfill" width="30" height="30"/>
         <image name="thumbImage" width="31" height="32"/>
         <image name="tick" width="22" height="22"/>

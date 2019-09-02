@@ -49,8 +49,8 @@ class RatingVC: BaseVC {
         guard let filter = UserInfo.hotelFilter else {
             printDebug("filter not found")
             HotelFilterVM.shared.resetToDefault()
-            HotelFilterVM.shared.ratingCount = [1,2,3,4,5]
-            HotelFilterVM.shared.tripAdvisorRatingCount = [1,2,3,4,5]
+            HotelFilterVM.shared.ratingCount.removeAll()
+            self.doInitialSetup()
             return
         }
         self.filterApplied = filter
@@ -62,13 +62,8 @@ class RatingVC: BaseVC {
     private func doInitialSetup() {
         
         //setting stars
-//        if 1...4 ~= HotelFilterVM.shared.ratingCount.count {
-           
-            HotelFilterVM.shared.ratingCount.removeAll()
-//        }
-//        else if HotelFilterVM.shared.ratingCount.isEmpty {
-//            HotelFilterVM.shared.ratingCount = [1,2,3,4,5]
-//        }
+        
+        HotelFilterVM.shared.ratingCount.removeAll()
         
         //reset all the buttons first
         for btn in self.starButtonsOutlet {

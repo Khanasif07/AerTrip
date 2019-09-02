@@ -385,10 +385,6 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         viewModel.modifiedGroups.insert(movedModifiedObject, at: destinationIndexPath.row)
     }
     
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        print("willDisplay \(indexPath.section), \(indexPath.row)")
-//    }
-    
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         if indexPath.row == viewModel.groups.count {
             return false

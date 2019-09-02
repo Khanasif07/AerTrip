@@ -253,6 +253,9 @@ extension HotelResultVC {
             if !isUpdatingFav {
                 self.reloadHotelList()
             }
+            
+          self.getFavouriteHotels(shouldReloadData: false)
+
         } catch {
             printDebug(error.localizedDescription)
             printDebug("Fetch failed")

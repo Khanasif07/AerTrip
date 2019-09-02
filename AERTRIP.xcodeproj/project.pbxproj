@@ -15,7 +15,6 @@
 		0C6C1C6E22E875D300152927 /* HotelFareSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C1C6D22E875D200152927 /* HotelFareSectionHeader.swift */; };
 		0CAC8C8222E1E0620039D612 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F983A221B51A070018DFED /* UIImageExtension.swift */; };
 		0CC23989231639EF00ADEE92 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC23988231639EF00ADEE92 /* TestViewController.swift */; };
-		0CFBFC6B2315376F0028B224 /* PKTapAndCopyUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFBFC6A2315376F0028B224 /* PKTapAndCopyUITextView.swift */; };
 		1800FC6521EF1FA20006D6D1 /* AddNotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */; };
 		1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */; };
 		180162ED2295706C007E5D43 /* BookingAddOnHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180162EC2295706C007E5D43 /* BookingAddOnHeaderView.swift */; };
@@ -257,6 +256,7 @@
 		188785A721DF7D990061869E /* TravellerListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188785A521DF7D990061869E /* TravellerListTableViewCell.xib */; };
 		188BFBB52203378F00B4C315 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188BFBB42203378F00B4C315 /* GameKit.framework */; };
 		188BFBB72203379700B4C315 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188BFBB62203379700B4C315 /* StoreKit.framework */; };
+		188DFC852318FC530060F9D1 /* PKTapAndCopyUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188DFC842318FC530060F9D1 /* PKTapAndCopyUITextView.swift */; };
 		188E930C221A8F9A008FE50A /* CustomMarker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188E930B221A8F9A008FE50A /* CustomMarker.xib */; };
 		188E930E221A957A008FE50A /* CustomMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E930D221A957A008FE50A /* CustomMarker.swift */; };
 		18922E7B2204722200939F72 /* RangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18922E7A2204722200939F72 /* RangeVC.swift */; };
@@ -978,7 +978,6 @@
 		0C6C1C6B22E875C800152927 /* HotelFareSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelFareSectionHeader.xib; sourceTree = "<group>"; };
 		0C6C1C6D22E875D200152927 /* HotelFareSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelFareSectionHeader.swift; sourceTree = "<group>"; };
 		0CC23988231639EF00ADEE92 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
-		0CFBFC6A2315376F0028B224 /* PKTapAndCopyUITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKTapAndCopyUITextView.swift; sourceTree = SOURCE_ROOT; };
 		1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesTableViewCell.swift; sourceTree = "<group>"; };
 		1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddNotesTableViewCell.xib; sourceTree = "<group>"; };
 		180162EC2295706C007E5D43 /* BookingAddOnHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingAddOnHeaderView.swift; sourceTree = "<group>"; };
@@ -1217,6 +1216,7 @@
 		188785A521DF7D990061869E /* TravellerListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TravellerListTableViewCell.xib; sourceTree = "<group>"; };
 		188BFBB42203378F00B4C315 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		188BFBB62203379700B4C315 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		188DFC842318FC530060F9D1 /* PKTapAndCopyUITextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKTapAndCopyUITextView.swift; sourceTree = "<group>"; };
 		188E930B221A8F9A008FE50A /* CustomMarker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMarker.xib; sourceTree = "<group>"; };
 		188E930D221A957A008FE50A /* CustomMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarker.swift; sourceTree = "<group>"; };
 		18922E7A2204722200939F72 /* RangeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeVC.swift; sourceTree = "<group>"; };
@@ -2011,14 +2011,6 @@
 			path = CommonAction;
 			sourceTree = "<group>";
 		};
-		0CFBFC69231537290028B224 /* PKTapAndCopyUITextView */ = {
-			isa = PBXGroup;
-			children = (
-				0CFBFC6A2315376F0028B224 /* PKTapAndCopyUITextView.swift */,
-			);
-			path = PKTapAndCopyUITextView;
-			sourceTree = "<group>";
-		};
 		180162EB22956FE0007E5D43 /* AddOns */ = {
 			isa = PBXGroup;
 			children = (
@@ -2594,6 +2586,14 @@
 				188785A521DF7D990061869E /* TravellerListTableViewCell.xib */,
 			);
 			path = TravellerList;
+			sourceTree = "<group>";
+		};
+		188DFC832318FC530060F9D1 /* PKTapAndCopyUITextView */ = {
+			isa = PBXGroup;
+			children = (
+				188DFC842318FC530060F9D1 /* PKTapAndCopyUITextView.swift */,
+			);
+			path = PKTapAndCopyUITextView;
 			sourceTree = "<group>";
 		};
 		188E9309221A8CCA008FE50A /* HotelResults */ = {
@@ -5025,7 +5025,7 @@
 		84F9838121B51A070018DFED /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
-				0CFBFC69231537290028B224 /* PKTapAndCopyUITextView */,
+				188DFC832318FC530060F9D1 /* PKTapAndCopyUITextView */,
 				84269060228E9EF700CFCBFC /* PKMultiPicker */,
 				18EF75352280144100FCBBE6 /* PKWaterWaveView */,
 				847F7EB62279DB75009BE02F /* PKTextField */,
@@ -5671,7 +5671,6 @@
 				183B71B622899A6F00A75B7F /* BookingTravellerCollectionViewCell.swift in Sources */,
 				842A56AB22897C70004FD51F /* OfflineDepositeTextImageCell.swift in Sources */,
 				1819D3D721FF4900006A367E /* CustomShimmerSetup.swift in Sources */,
-				0CFBFC6B2315376F0028B224 /* PKTapAndCopyUITextView.swift in Sources */,
 				84D2FB8321BE351E00011000 /* PKCountryView.swift in Sources */,
 				84085CDC21F59C0E00F1E844 /* DashboardVC.swift in Sources */,
 				84F2DC95226472E300212F05 /* MyBookingsVM.swift in Sources */,
@@ -5781,6 +5780,7 @@
 				18F968022233BF0400B163C8 /* GrowingTextView.swift in Sources */,
 				84D5F22822A644F600824A9F /* HotelBookingDetailsVC+TableCells.swift in Sources */,
 				84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */,
+				188DFC852318FC530060F9D1 /* PKTapAndCopyUITextView.swift in Sources */,
 				84271E832237A10700C1A70D /* HCDataSelectionVC.swift in Sources */,
 				182EB22222859BA8001BFB20 /* FlightInfoTableViewCell.swift in Sources */,
 				18930A2921D36761005442C8 /* TextEditableTableViewCell.swift in Sources */,
