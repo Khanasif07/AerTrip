@@ -295,7 +295,7 @@ class HotelResultVC: BaseVC {
         super.viewWillDisappear(animated)
         self.statusBarColor = AppColors.clear
     }
-    
+  
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
@@ -304,9 +304,6 @@ class HotelResultVC: BaseVC {
         super.viewDidLayoutSubviews()
         
         self.configureCollectionViewLayoutItemSize()
-//        if isHidingOnMapTap {
-//            self.mapView?.frame = self.mapContainerView.bounds
-//        }
     }
     
     override func keyboardWillHide(notification: Notification) {

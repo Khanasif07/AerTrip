@@ -287,6 +287,7 @@ extension HotelResultVC: GMSMapViewDelegate {
                     sSelf.collectionViewBottomConstraint.constant = 0.0
                     sSelf.floatingViewBottomConstraint.constant = sSelf.floatingViewInitialConstraint
                     sSelf.mapContainerViewBottomConstraint.constant = 230.0
+                    sSelf.headerContainerViewTopConstraint.constant = 0.0
                     sSelf.mapContainerView.layoutSubviews()
                     sSelf.view.layoutIfNeeded()
                 }
@@ -306,6 +307,7 @@ extension HotelResultVC: GMSMapViewDelegate {
                     sSelf.collectionViewBottomConstraint.constant = -230.0
                     sSelf.mapContainerViewBottomConstraint.constant = 0.0
                     sSelf.floatingViewBottomConstraint.constant = 0.0
+                    sSelf.headerContainerViewTopConstraint.constant = 0.0
                     sSelf.mapContainerView.layoutSubviews()
                     sSelf.view.layoutIfNeeded()
                 }

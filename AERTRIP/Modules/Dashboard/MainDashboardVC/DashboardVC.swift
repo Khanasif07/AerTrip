@@ -37,6 +37,8 @@ class DashboardVC: BaseVC {
     
     private var firstTime = true
     private var userDidScrollUp = false
+    private var isSelectingFromTabs = false
+    private var toBeSelect : SelectedOption = .aerin
     private var previousSelected : SelectedOption = .aerin
     private var alreadyTransformedValue : CGFloat = 0.0
     private var identitySize = CGSize.zero
@@ -125,18 +127,24 @@ class DashboardVC: BaseVC {
     //MARK:- IBAction
     @IBAction func aerinAction(_ sender: UIButton) {
         if selectedOption == .aerin {return}
+        toBeSelect = .aerin
+        isSelectingFromTabs = true
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.aerin.rawValue), y: innerScrollView.contentOffset.y), animated: true)
     }
     
     @IBAction func flightsAction(_ sender: UIButton) {
         
         if selectedOption == .flight {return}
+        toBeSelect = .flight
+        isSelectingFromTabs = true
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.flight.rawValue), y: innerScrollView.contentOffset.y), animated: true)
     }
     
     @IBAction func hotelsAction(_ sender: UIButton) {
         
         if selectedOption == .hotels {return}
+        toBeSelect = .hotels
+        isSelectingFromTabs = true
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.hotels.rawValue), y: innerScrollView.contentOffset.y), animated: true)
     }
     
@@ -144,6 +152,8 @@ class DashboardVC: BaseVC {
     @IBAction func tripsAction(_ sender: UIButton) {
         
         if selectedOption == .trips {return}
+        toBeSelect = .trips
+        isSelectingFromTabs = true
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.trips.rawValue), y: innerScrollView.contentOffset.y), animated: true)
     }
     
@@ -247,6 +257,7 @@ extension DashboardVC  {
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         
+        isSelectingFromTabs = false
         previousSelected = selectedOption
     }
     
@@ -256,7 +267,7 @@ extension DashboardVC  {
             
             var transform : CGFloat = 0.0
             
-             if scrollView.contentOffset.y - mainScrollViewOffset.y > 0 {
+            if scrollView.contentOffset.y - mainScrollViewOffset.y > 0 {
                 let valueMoved = scrollView.contentOffset.y - mainScrollViewOffset.y
                 let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
                 updateUpLabels(with: headerValueMoved)
@@ -289,8 +300,8 @@ extension DashboardVC  {
             
             let page = Int(scrollView.contentOffset.x/scrollView.bounds.width)
             let offset = scrollView.contentOffset
-            
-            if offset.x - previousOffset.x > 0{
+            let isForward = (offset.x - previousOffset.x) > 0
+            if isForward {
                 
                 //as we want on scale of 0.0 to 1.0 so i divide it by the width
                 let valueMoved = offset.x - previousOffset.x
@@ -299,7 +310,14 @@ extension DashboardVC  {
                 let increaseTransform = 1.0 + progressValueMoved/4.0
                 let decreaseTransform = 1.0 - progressValueMoved/4.0
                 
-                animateForPage(moved: progressValueMoved, page: page, isForward: true, increaseSize: increaseTransform, decreaseSize : decreaseTransform)
+                if self.isSelectingFromTabs {
+                    if self.selectedOption != self.toBeSelect {
+                        animateForPage(fromPage: self.selectedOption.rawValue, toPage: self.toBeSelect.rawValue)
+                    }
+                }
+                else {
+                    animateForPage(moved: progressValueMoved, page: page, isForward: true, increaseSize: increaseTransform, decreaseSize : decreaseTransform)
+                }
                 
             }else{
                 
@@ -309,9 +327,15 @@ extension DashboardVC  {
                 let increaseTransform = 1.0 + tabValueMoved/4.0
                 let decreaseTransform = 1.0 - tabValueMoved/4.0
                 
-                animateForPage(moved: tabValueMoved, page: page, isForward: false, increaseSize: increaseTransform, decreaseSize : decreaseTransform)
+                if self.isSelectingFromTabs {
+                    if self.selectedOption != self.toBeSelect {
+                        animateForPage(fromPage: self.selectedOption.rawValue, toPage: self.toBeSelect.rawValue)
+                    }
+                }
+                else {
+                    animateForPage(moved: tabValueMoved, page: page, isForward: false, increaseSize: increaseTransform, decreaseSize : decreaseTransform)
+                }
             }
-            
             previousOffset = scrollView.contentOffset
         }
     }
@@ -353,12 +377,17 @@ extension DashboardVC  {
         let initialTransform = view.transform
         let transformedBounds = view.bounds.applying(initialTransform.scaledBy(x: transformValue, y: transformValue))
         
-        if transformedBounds.size.width >= identitySize.width && !scrolledUp{
-            view.transform = CGAffineTransform.identity
-        }else if transformedBounds.size.width < smallerSize.width && scrolledUp{
-            view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-        }else{
-            view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
+        if isSelectingFromTabs {
+            view.transform = (transformValue == 1.0) ? CGAffineTransform.identity : CGAffineTransform(scaleX: transformValue, y: transformValue)
+        }
+        else {
+            if transformedBounds.size.width >= identitySize.width && !scrolledUp{
+                view.transform = CGAffineTransform.identity
+            }else if transformedBounds.size.width < smallerSize.width && scrolledUp{
+                view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+            }else{
+                view.transform = view.transform.scaledBy(x: transformValue, y: transformValue)
+            }
         }
     }
     
@@ -382,11 +411,45 @@ extension DashboardVC  {
         tripsLabel.alpha = min(tripsLabel.alpha + alpha, 1.0)
     }
     
+    private func viewFor(option: SelectedOption) -> UIView {
+        switch option {
+        case .flight: return self.flightsView
+        case .hotels: return self.hotelsView
+        case .trips: return self.tripsView
+        default: return self.aerinView
+        }
+    }
+    
+    private func animateForPage(fromPage: Int, toPage: Int){
+        
+        guard let fromPg = SelectedOption(rawValue: fromPage), let toPg = SelectedOption(rawValue: toPage) else {return}
+        selectedOption = toPg
+        
+        let fromV = viewFor(option: fromPg)
+        let toV = viewFor(option: toPg)
+        
+        let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration * 0.6, curve: .linear) { [weak self] in
+            guard let `self` = self else {return}
+            
+            fromV.alpha = 0.5
+            toV.alpha = 1.0
+            if !self.userDidScrollUp {
+                self.checkAndApplyTransform(fromV, transformValue: 0.7, scrolledUp: true)
+                self.checkAndApplyTransform(toV, transformValue: 1.0, scrolledUp: true)
+            }
+        }
+        
+        animator.addCompletion { [weak self](pos) in
+            self?.isSelectingFromTabs = false
+        }
+        
+        animator.startAnimation()
+    }
+    
     private func animateForPage(moved : CGFloat, page : Int, isForward : Bool, increaseSize : CGFloat, decreaseSize : CGFloat){
         
         guard let currentOption = SelectedOption(rawValue: page) else {return}
         selectedOption = currentOption
-        
         if isForward{
             switch currentOption{
             case .aerin:

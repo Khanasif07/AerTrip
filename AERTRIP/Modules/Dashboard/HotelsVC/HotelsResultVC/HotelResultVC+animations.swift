@@ -10,32 +10,77 @@ import Foundation
 
 extension HotelResultVC {
     func animateHeaderToListView() {
-        self.headerContatinerViewHeightConstraint.constant = 100
-        self.tableViewTopConstraint.constant = 100
-        self.mapContainerTopConstraint.constant = 100
-        self.searchBarContainerView.backgroundColor = AppColors.themeWhite
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.searchBarContainerView.frame = self.searchIntitialFrame
-            self.titleLabel.transform = .identity
-            self.descriptionLabel.transform = .identity
-            self.view.layoutIfNeeded()
-        })
+        
+        let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+            guard let sSelf = self else {return}
+            
+            sSelf.headerContatinerViewHeightConstraint.constant = 100
+            sSelf.tableViewTopConstraint.constant = 100
+            sSelf.mapContainerTopConstraint.constant = 100
+            sSelf.headerContainerViewTopConstraint.constant = 0.0
+            sSelf.searchBarContainerView.backgroundColor = AppColors.themeWhite
+            
+            sSelf.searchBarContainerView.frame = sSelf.searchIntitialFrame
+            sSelf.titleLabel.transform = .identity
+            sSelf.descriptionLabel.transform = .identity
+            sSelf.mapContainerView.layoutSubviews()
+            sSelf.view.layoutIfNeeded()
+        }
+
+        animator.startAnimation()
+        
+//        self.headerContatinerViewHeightConstraint.constant = 100
+//        self.tableViewTopConstraint.constant = 100
+//        self.mapContainerTopConstraint.constant = 100
+//        self.searchBarContainerView.backgroundColor = AppColors.themeWhite
+//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: { [weak self] in
+//            guard let sSelf = self else {return}
+//            sSelf.searchBarContainerView.frame = sSelf.searchIntitialFrame
+//            sSelf.titleLabel.transform = .identity
+//            sSelf.descriptionLabel.transform = .identity
+//            sSelf.mapContainerView.layoutSubviews()
+//            sSelf.view.layoutIfNeeded()
+//        })
     }
     
     func animateHeaderToMapView() {
-        self.headerContatinerViewHeightConstraint.constant = 50
-        self.tableViewTopConstraint.constant = 50
-        self.mapContainerTopConstraint.constant = 50
-        self.searchBarContainerView.translatesAutoresizingMaskIntoConstraints = true
-        self.searchBarContainerView.backgroundColor = AppColors.clear
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.searchBarContainerView.frame = self.searchBarFrame(isInSearchMode: (self.hoteResultViewType == .ListView))
-            self.titleLabel.transform = CGAffineTransform(translationX: 0, y: -60)
-            self.descriptionLabel.transform = CGAffineTransform(translationX: 0, y: -60)
-            self.view.layoutIfNeeded()
-        }, completion: { (isDone) in
-            self.view.bringSubviewToFront(self.searchBarContainerView)
-        })
+        
+        let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+            guard let sSelf = self else {return}
+            
+            sSelf.headerContatinerViewHeightConstraint.constant = 50
+            sSelf.tableViewTopConstraint.constant = 50
+            sSelf.mapContainerTopConstraint.constant = 50
+            sSelf.headerContainerViewTopConstraint.constant = 0.0
+            sSelf.searchBarContainerView.translatesAutoresizingMaskIntoConstraints = true
+            sSelf.searchBarContainerView.backgroundColor = AppColors.clear
+            
+            sSelf.searchBarContainerView.frame = sSelf.searchBarFrame(isInSearchMode: (sSelf.hoteResultViewType == .ListView))
+            sSelf.titleLabel.transform = CGAffineTransform(translationX: 0, y: -60)
+            sSelf.descriptionLabel.transform = CGAffineTransform(translationX: 0, y: -60)
+            sSelf.mapContainerView.layoutSubviews()
+
+            sSelf.view.layoutIfNeeded()
+        }
+        
+        animator.addCompletion { [weak self](pos) in
+            guard let sSelf = self else {return}
+            sSelf.view.bringSubviewToFront(sSelf.searchBarContainerView)
+        }
+        
+        animator.startAnimation()
+        
+//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: { [weak self] in
+//            guard let sSelf = self else {return}
+//            sSelf.searchBarContainerView.frame = sSelf.searchBarFrame(isInSearchMode: (sSelf.hoteResultViewType == .ListView))
+//            sSelf.titleLabel.transform = CGAffineTransform(translationX: 0, y: -60)
+//            sSelf.descriptionLabel.transform = CGAffineTransform(translationX: 0, y: -60)
+//            sSelf.mapContainerView.layoutSubviews()
+//            sSelf.view.layoutIfNeeded()
+//        }, completion: { [weak self](isDone) in
+//            guard let sSelf = self else {return}
+//            sSelf.view.bringSubviewToFront(sSelf.searchBarContainerView)
+//        })
     }
     
     func searchBarFrame(isInSearchMode: Bool) -> CGRect {
@@ -109,8 +154,6 @@ extension HotelResultVC {
             sSelf.tableViewVertical.alpha = isHidden ? 1.0 : 0.0
             sSelf.cardGradientView.alpha = isHidden ? 0.0 : 1.0
             sSelf.collectionViewBottomConstraint.constant = 0.0
-            sSelf.mapContainerTopConstraint.constant = isHidden ? 100.0 : 50.0
-            sSelf.mapContainerView.layoutSubviews()
             sSelf.view.layoutIfNeeded()
         }
         

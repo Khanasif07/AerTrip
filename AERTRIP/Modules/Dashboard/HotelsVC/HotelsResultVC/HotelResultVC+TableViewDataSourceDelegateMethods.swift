@@ -103,6 +103,11 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             return ""
         }
         
+        
+        var arr = ["w"]
+        let removed = arr.remove(at: 4)
+        arr.insert(removed, at: 5)
+        
         var finalText = "a" // for handling empty case
         if section >= (allSections.count - 1) {
             //it's a last section updated this
