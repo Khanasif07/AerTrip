@@ -35,6 +35,7 @@ extension HotelResultVC {
             HotelFilterVM.shared.resetToDefault()
             return
         }
+        self.fetchRequestType = .FilterApplied
         self.filterApplied = filter
     }
     

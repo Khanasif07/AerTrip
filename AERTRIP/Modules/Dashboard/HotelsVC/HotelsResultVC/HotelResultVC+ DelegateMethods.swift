@@ -324,8 +324,10 @@ extension HotelResultVC: HotelFilteVCDelegate {
             UserInfo.hotelFilterApplied = UserInfo.hotelFilter
         }
         
-        self.fetchRequestType = .FilterApplied
-        HotelFilterVM.shared.saveDataToUserDefaults()
+        
+        if HotelFilterVM.shared.isFilterApplied {
+         HotelFilterVM.shared.saveDataToUserDefaults()
+        }
         printDebug("done button tapped")
         self.getSavedFilter()
         self.loadSaveData()

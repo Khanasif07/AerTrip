@@ -395,7 +395,9 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
         //
         UserInfo.loggedInUserId = nil
         AppFlowManager.default.goToDashboard()
-        CoreDataManager.shared.deleteCompleteDB()
+        CoreDataManager.shared.deleteData("TravellerData")
+        CoreDataManager.shared.deleteData("BookingData")
+        CoreDataManager.shared.deleteData("HotelSearched")
         UserDefaults.removeObject(forKey: UserDefaults.Key.currentUserCookies.rawValue)
         UserDefaults.removeObject(forKey: UserDefaults.Key.xAuthToken.rawValue)
         UserInfo.hotelFilterApplied = nil

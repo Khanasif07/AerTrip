@@ -51,7 +51,7 @@ extension HotelResultVC {
             if self.switchView.on {
                 let favPred = NSPredicate(format: "fav == '1'")
                 if let oldPred = finalPredicate {
-                    finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [oldPred, favPred])
+                finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [oldPred, favPred])
                 }
                 else {
                     finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [favPred])
