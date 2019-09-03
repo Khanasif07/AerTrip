@@ -106,7 +106,7 @@ extension HotelResultVC {
 //        else if let starPred = starPredicate(forStars: HotelsSearchVM.hotelFormData.ratingCount) {
 //            self.fetchedResultsController.fetchRequest.predicate = starPred
 //        }
-        self.fetchDataFromCoreData()
+        self.fetchDataFromCoreData(finalPredicate: finalPredicate)
     }
     
     // Add Sort Descriptors to fetch request
@@ -239,7 +239,7 @@ extension HotelResultVC {
     
     // Fetch Data from core data
     
-    func fetchDataFromCoreData(isUpdatingFav: Bool = false) {
+    func fetchDataFromCoreData(isUpdatingFav: Bool = false,finalPredicate: NSPredicate? = nil) {
         do {
             try self.fetchedResultsController.performFetch()
             self.getHotelsCount()
@@ -254,7 +254,7 @@ extension HotelResultVC {
                 self.reloadHotelList()
             }
             
-          self.getFavouriteHotels(shouldReloadData: false)
+            self.getFavouriteHotels(shouldReloadData: false,finalPredicate: finalPredicate)
 
         } catch {
             printDebug(error.localizedDescription)

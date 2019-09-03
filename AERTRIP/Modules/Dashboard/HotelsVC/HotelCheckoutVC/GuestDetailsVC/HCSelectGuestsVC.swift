@@ -304,18 +304,18 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
     }
     
     func add(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
-//        self.selectionDidChanged()
+        //        self.selectionDidChanged()
         var item = ATContact(json: [:])
         switch usingFor {
         case .travellers:
             item = self.viewModel._travellerContacts[index]
-
+            
         case .contacts:
             item = self.viewModel._phoneContacts[index]
-
+            
         case .facebook:
             item = self.viewModel._facebookContacts[index]
-
+            
         case .google:
             item = self.viewModel._googleContacts[index]
         }
@@ -323,9 +323,18 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
         item.passengerType = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].passengerType
         item.numberInRoom = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].numberInRoom
         item.age = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].age
-
-        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = item
-        self.selectNextGuest()
+        
+        if let idx = getCollectionIndexPath(forContact: item) {
+            
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = item
+            self.selectNextGuest()
+            self.selectedContactsCollectionView.reloadData()
+            self.selectedContactsCollectionView.performBatchUpdates({
+                self.selectedContactsCollectionView.insertItems(at: [idx])
+            }, completion: { (isDone) in
+                self.scrollCollectionToEnd()
+            })
+        }
     }
     
     func remove(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {

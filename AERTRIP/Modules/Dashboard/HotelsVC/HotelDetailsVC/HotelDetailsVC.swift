@@ -426,7 +426,7 @@ class HotelDetailsVC: BaseVC {
         
     internal func heightForRow(tableView: UITableView, indexPath: IndexPath) -> CGFloat {
         if !self.viewModel.hotelDetailsTableSectionData.isEmpty, self.viewModel.hotelDetailsTableSectionData[indexPath.section][indexPath.row] == .searchTagCell {
-             return self.viewModel.selectedTags.isEmpty ?  50 : UITableView.automaticDimension
+             return  UITableView.automaticDimension
         } else {
             if indexPath.section == 0, indexPath.row == 2 {
                 if let hotelData = self.viewModel.hotelData {

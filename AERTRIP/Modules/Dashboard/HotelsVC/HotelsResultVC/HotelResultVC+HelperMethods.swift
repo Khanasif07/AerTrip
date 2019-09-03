@@ -64,8 +64,14 @@ extension HotelResultVC {
             })
     }
     
-    func getFavouriteHotels(shouldReloadData: Bool = false) {
-        if let allFavs = CoreDataManager.shared.fetchData("HotelSearched", predicate: "fav == '1'")  as? [HotelSearched] {
+    func getFavouriteHotels(shouldReloadData: Bool = false, finalPredicate: NSPredicate? = nil) {
+        
+        var pred: NSPredicate = NSPredicate(format: "fav == '1'")
+        if let all = finalPredicate {
+            pred = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "fav == '1'"), all])
+        }
+
+        if let allFavs = CoreDataManager.shared.fetchData("HotelSearched", nsPredicate: pred)  as? [HotelSearched] {
             self.isLoadingListAfterUpdatingAllFav = false
             self.manageSwitchContainer(isHidden: allFavs.isEmpty)
             self.favouriteHotels = allFavs

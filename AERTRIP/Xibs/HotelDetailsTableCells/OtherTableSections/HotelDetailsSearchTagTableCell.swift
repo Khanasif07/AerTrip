@@ -14,6 +14,7 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
     //===============
     var availableTagsForFilterartion: [String] = []
     var allTagsForFilteration: [String] = []
+    var initialTagsForFiltration: [String] = ["Breakfast","Refundable"]
     
     //Mark:- IBOutlets
     //================
@@ -34,6 +35,7 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         self.configureUI()
     }
     
