@@ -387,7 +387,8 @@ extension HotelResultVC {
 
 
         let yPosition = scrollView.contentOffset.y
-        if yPosition >= 0.5 {
+        let maxBound = scrollView.contentSize.height - scrollView.height
+        if 0.5 < yPosition, yPosition < maxBound {
             if 0...140.0 ~= yPosition {
                 if (self.oldScrollPosition.y < yPosition && self.headerContainerViewTopConstraint.constant != -140.0) || (self.oldScrollPosition.y > yPosition && self.headerContainerViewTopConstraint.constant != 0) {
                     self.headerContainerViewTopConstraint.constant = -yPosition

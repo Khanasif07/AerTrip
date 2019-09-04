@@ -48,7 +48,7 @@ class HotelCardTableViewCell: UITableViewCell {
     var hotelListData: HotelSearched? {
         didSet {
             self.populateHotelData()
-            setUpInstagramDotGalleryView()
+            self.setUpInstagramDotGalleryView()
         }
     }
     
@@ -95,13 +95,13 @@ class HotelCardTableViewCell: UITableViewCell {
         
         printDebug("thumbnail count is \(thumbnail.count)")
         self.pageControl.isHidden = (thumbnail.count <= 1)
-        for index in 0..<thumbnail.count {
-            let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: self.hotelImageView.frame.origin.y, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
-            view.contentMode = .scaleAspectFill
-            view.clipsToBounds = true
-            view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: true)
-            scrollView.addSubview(view)
-        }
+//        for index in 0..<thumbnail.count {
+//            let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: self.hotelImageView.frame.origin.y, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
+//            view.contentMode = .scaleAspectFill
+//            view.clipsToBounds = true
+//            view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: true)
+//            scrollView.addSubview(view)
+//        }
     }
     
     override func draw(_ rect: CGRect) {
