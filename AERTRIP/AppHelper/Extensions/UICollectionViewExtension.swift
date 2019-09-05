@@ -12,9 +12,9 @@ import UIKit
 extension UICollectionView {
     
     func registerCell(nibName:String, bundle:Bundle? = nil, forCellWithReuseIdentifier:String? = nil){
-
+        
         let cellWithReuseIdentifier = forCellWithReuseIdentifier ?? nibName
-         self.register(UINib(nibName: nibName , bundle: bundle), forCellWithReuseIdentifier: cellWithReuseIdentifier)
+        self.register(UINib(nibName: nibName , bundle: bundle), forCellWithReuseIdentifier: cellWithReuseIdentifier)
     }
     
     func cell(forItem: AnyObject) -> UICollectionViewCell? {

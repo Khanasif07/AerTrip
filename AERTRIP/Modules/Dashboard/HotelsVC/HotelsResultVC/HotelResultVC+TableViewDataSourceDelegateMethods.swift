@@ -190,7 +190,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         } else {
             let hData = fetchedResultsController.object(at: indexPath)
             if let cell = tableView.cellForRow(at: indexPath) as? HotelCardTableViewCell {
-                AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: hData, sourceView: cell.hotelImageView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest){
+                AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: hData, sourceView: cell.collectionView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest){
                     self.statusBarColor = AppColors.themeWhite
                 }
             }

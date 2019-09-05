@@ -123,13 +123,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC.swift"
-            timestampString = "589288784.022339"
+            timestampString = "589293827.343953"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "295"
             endingLineNumber = "295"
-            landmarkName = "viewWillDisappear(_:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
