@@ -298,7 +298,7 @@ class HCDataSelectionVC: BaseVC {
                 AppFlowManager.default.moveToFinalCheckoutVC(delegate: self, viewModel.itineraryData, viewModel.itineraryPriceDetail, originLat: viewModel.hotelInfo?.lat ?? "", originLong: viewModel.hotelInfo?.long ?? "")
             }
             else {
-                AppToast.default.showToastMessage(message: "Please enter a valid phone number")
+                AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
             }
         }
     }
@@ -411,6 +411,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func fetchConfirmItineraryDataSuccess() {
+         self.stopLoading()
         if viewModel.itineraryData == nil, confirmationCall < 5 {
             confirmationCall += 1
             viewModel.fetchConfirmItineraryData()
@@ -419,7 +420,6 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
             GuestDetailsVM.shared.travellerList = viewModel.itineraryData?.traveller_master ?? []
 //            manageLoader(shouldStart: false)
 //            AppGlobals.shared.stopLoading()
-            self.stopLoading()
             fillData()
             self.viewModel.getHotelDetailsSectionData()
             self.updateHotelCheckOutDetailsVIew()
@@ -429,6 +429,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     func fetchConfirmItineraryDataFail() {
 //        manageLoader(shouldStart: false)
 //        AppGlobals.shared.stopLoading()
+         self.stopLoading()
         if viewModel.itineraryData == nil, confirmationCall < 5 {
             confirmationCall += 1
             viewModel.fetchConfirmItineraryData()
@@ -441,6 +442,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func fetchRecheckRatesDataFail(errors: ErrorCodes) {
+        self.stopLoading()
         if errors.contains(array: [11]) {
             //send to result screen and re-hit the search API
             self.sendDataChangedNotification(data: ATNotification.GRNSessionExpired)
@@ -456,9 +458,12 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
                     AppFlowManager.default.popViewController(animated: true)
                 }
             }
+        } else {
+            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
         }
 //        manageLoader(shouldStart: false)
-        stopLoading()
+       
+        
         //AppGlobals.shared.stopLoading()
     }
     

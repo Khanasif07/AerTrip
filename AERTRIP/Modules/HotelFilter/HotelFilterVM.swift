@@ -20,6 +20,11 @@ enum SortUsing {
     case DistanceNearestFirst
 }
 
+protocol HotelFilterVMDelegate: class {
+    func updateFiltersTabs()
+}
+
+
 class HotelFilterVM {
     static let shared = HotelFilterVM()
     
@@ -54,6 +59,8 @@ class HotelFilterVM {
     var filterHotelCount: Int = 0
     var lastSelectedIndex: Int = 0
     
+    weak var delegate: HotelFilterVMDelegate?
+    
     var isFilterApplied: Bool {
         return !(HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange && HotelFilterVM.shared.leftRangePrice == HotelFilterVM.shared.defaultLeftRangePrice && HotelFilterVM.shared.rightRangePrice == HotelFilterVM.shared.defaultRightRangePrice && HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount).isEmpty &&  HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty && HotelFilterVM.shared.isIncludeUnrated == HotelFilterVM.shared.defaultIsIncludeUnrated && HotelFilterVM.shared.priceType == HotelFilterVM.shared.defaultPriceType && HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty && HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty && HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty && HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty)
     }
@@ -73,6 +80,10 @@ class HotelFilterVM {
         roomOther = from.roomOther
         sortUsing = from.sortUsing
         priceType = from.priceType
+        
+        delegate?.updateFiltersTabs()
+        
+        
     }
     
     func saveDataToUserDefaults() {

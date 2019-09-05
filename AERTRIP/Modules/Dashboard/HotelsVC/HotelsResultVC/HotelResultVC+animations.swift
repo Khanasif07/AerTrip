@@ -84,13 +84,13 @@ extension HotelResultVC {
     }
     
     func searchBarFrame(isInSearchMode: Bool) -> CGRect {
-        return CGRect(x: isInSearchMode ? self.searchIntitialFrame.origin.x  - 1 :   self.searchIntitialFrame.origin.x + 20
-            , y: self.searchIntitialFrame.origin.y - 45, width: self.searchIntitialFrame.width - (isInSearchMode ? 60.0 : 100.0), height: 50)
+        return CGRect(x: isInSearchMode ? self.searchIntitialFrame.origin.x  - 2 :   self.searchIntitialFrame.origin.x + 20
+            , y: self.searchIntitialFrame.origin.y - 45, width: self.searchIntitialFrame.width - (isInSearchMode ? 64.0 : 100.0), height: 50)
     }
     
     func showSearchAnimation() {
         self.filterButton.isHidden = true
-         self.mapButton.isHidden = true
+        self.mapButton.isHidden = true
         self.cancelButton.alpha = 1
         self.backButton.alpha = 0
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {

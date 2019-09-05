@@ -396,7 +396,8 @@ class HotelDetailsVC: BaseVC {
     func manageFavIcon() {
         let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
         let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
-        self.headerView.configureLeftButton(normalImage: buttonImage, selectedImage: selectedFevImage, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
+        self.headerView.configureLeftButton(normalImage: buttonImage, selectedImage: selectedFevImage, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil,isHideBackView: self.headerView.backView.isHidden)
+        
     }
     
     internal func getSavedFilter() {
@@ -489,7 +490,9 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.ratesData.removeAll()
         self.viewModel.roomRates.removeAll()
         self.viewModel.hotelDetailsTableSectionData.removeAll()
-        
+        self.viewModel.roomMealDataCopy = tagList
+        self.viewModel.roomOtherDataCopy = tagList
+        self.viewModel.roomCancellationDataCopy = tagList
         if let hotelData = self.viewModel.hotelData , let rates = hotelData.rates {
             self.viewModel.hotelDetailsTableSectionData.append(self.getFirstSectionData(hotelData: hotelData))
             self.viewModel.hotelDetailsTableSectionData.append([.searchTagCell])
@@ -503,6 +506,8 @@ class HotelDetailsVC: BaseVC {
                 }
             }
         }
+        
+       self.hotelTableView.reloadData()
     }
     
     //Mark:- IBOActions

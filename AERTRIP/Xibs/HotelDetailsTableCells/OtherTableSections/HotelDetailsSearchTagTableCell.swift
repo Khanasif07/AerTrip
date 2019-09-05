@@ -12,7 +12,13 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
     
     //Mark:- Variables
     //===============
-    var availableTagsForFilterartion: [String] = []
+    var availableTagsForFilterartion: [String] = [] {
+        didSet {
+            if  !self.availableTagsForFilterartion.contains(array: initialTagsForFiltration) {
+                self.availableTagsForFilterartion.insert(contentsOf: initialTagsForFiltration, at: 0)
+            }
+        }
+    }
     var allTagsForFilteration: [String] = []
     var initialTagsForFiltration: [String] = ["Breakfast","Refundable"]
     
@@ -26,7 +32,7 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
             self.tagCollectionView.delegate = self
             self.tagCollectionView.dataSource = self
             self.tagCollectionView.backgroundColor = AppColors.screensBackground.color
-            self.tagCollectionView.contentInset = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
+            self.tagCollectionView.contentInset = UIEdgeInsets(top: 16.0, left: 8.0, bottom: 16.0, right: 16.0)
         }
     }
     
@@ -123,13 +129,17 @@ extension HotelDetailsSearchTagTableCell: UICollectionViewDelegate, UICollection
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotelTagCollectionCell.reusableIdentifier, for: indexPath) as? HotelTagCollectionCell else { return UICollectionViewCell() }
+        if indexPath.row == 0 || indexPath.row == 1{
+            cell.cancelButton.isHidden = true
+        } else {
+            cell.cancelButton.isHidden = false
+        }
         cell.delegate = self
         if let parentVC = self.parentViewController as? HotelDetailsVC {
-            let isCancelButtonAvailable: Bool = parentVC.viewModel.permanentTagsForFilteration.contains(self.availableTagsForFilterartion[indexPath.item]) ? false : true
             if parentVC.viewModel.selectedTags.contains(self.availableTagsForFilterartion[indexPath.item]) {
-                cell.configureCell(tagTitle: self.availableTagsForFilterartion[indexPath.item], titleColor: AppColors.themeGreen, tagBtnColor: AppColors.iceGreen, isCancelButtonAvailable: isCancelButtonAvailable)
+                cell.configureCell(tagTitle: self.availableTagsForFilterartion[indexPath.item], titleColor: AppColors.themeGreen, tagBtnColor: AppColors.iceGreen, isCancelButtonAvailable: false)
             } else {
-                cell.configureCell(tagTitle: self.availableTagsForFilterartion[indexPath.item], titleColor: AppColors.themeGray40, tagBtnColor: AppColors.themeGray04, isCancelButtonAvailable: isCancelButtonAvailable)
+                cell.configureCell(tagTitle: self.availableTagsForFilterartion[indexPath.item], titleColor: AppColors.themeGray40, tagBtnColor: AppColors.themeGray04, isCancelButtonAvailable: false)
             }
         }
         return cell
@@ -138,21 +148,37 @@ extension HotelDetailsSearchTagTableCell: UICollectionViewDelegate, UICollection
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         printDebug(self.availableTagsForFilterartion[indexPath.item])
-        if let parentVC = self.parentViewController as? HotelDetailsVC {
-            if !parentVC.viewModel.selectedTags.contains(self.availableTagsForFilterartion[indexPath.item]) {
+        if indexPath.item == 0 || indexPath.item == 1  {
+            if let parentVC = self.parentViewController as? HotelDetailsVC {
+                if  !parentVC.viewModel.selectedTags.contains(self.availableTagsForFilterartion[indexPath.item]) {
                 parentVC.viewModel.selectedTags.append(self.availableTagsForFilterartion[indexPath.item])
-                self.getTypeOfFIlteration(parentVC: parentVC, currentTag: self.availableTagsForFilterartion[indexPath.item], isAvailableInSource: false)
-                parentVC.filterdHotelData(tagList: parentVC.viewModel.selectedTags)
+                    self.getTypeOfFIlteration(parentVC: parentVC, currentTag: self.availableTagsForFilterartion[indexPath.item], isAvailableInSource: false)
+                    parentVC.filterdHotelData(tagList: parentVC.viewModel.selectedTags)
+                } else {
+                    self.getTypeOfFIlteration(parentVC: parentVC, currentTag: self.availableTagsForFilterartion[indexPath.item], isAvailableInSource: true)
+                    self.tagCollectionView.reloadData()
+                    parentVC.viewModel.selectedTags.remove(object: self.availableTagsForFilterartion[indexPath.item])
+                     parentVC.filterdHotelData(tagList: parentVC.viewModel.selectedTags)
+                }
                 self.tagCollectionView.reloadData()
-                parentVC.hotelTableView.reloadData()
-            } else {
-                parentVC.viewModel.selectedTags.remove(object: self.availableTagsForFilterartion[indexPath.item])
-                self.getTypeOfFIlteration(parentVC: parentVC, currentTag: self.availableTagsForFilterartion[indexPath.item], isAvailableInSource: true)
-                parentVC.filterdHotelData(tagList: parentVC.viewModel.selectedTags)
+            }
+        } else {
+            if let parentVC = self.parentViewController as? HotelDetailsVC {
+                if !parentVC.viewModel.selectedTags.contains(self.availableTagsForFilterartion[indexPath.item]) {
+                parentVC.viewModel.selectedTags.append(self.availableTagsForFilterartion[indexPath.item])
+                    self.getTypeOfFIlteration(parentVC: parentVC, currentTag: self.availableTagsForFilterartion[indexPath.item], isAvailableInSource: false)
+                    parentVC.filterdHotelData(tagList: parentVC.viewModel.selectedTags)
+                } else {
+                    parentVC.viewModel.selectedTags.remove(object: self.availableTagsForFilterartion[indexPath.item])
+                    self.getTypeOfFIlteration(parentVC: parentVC, currentTag: self.availableTagsForFilterartion[indexPath.item], isAvailableInSource: true)
+                    parentVC.filterdHotelData(tagList: parentVC.viewModel.selectedTags)
+                   
+                }
                 self.tagCollectionView.reloadData()
-                parentVC.hotelTableView.reloadData()
+               
             }
         }
+      
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -179,14 +205,16 @@ extension HotelDetailsSearchTagTableCell: DeleteTagButtonDelegate {
     func deleteTagButton(indexPath: IndexPath) {
         if let parentVC = self.parentViewController as? HotelDetailsVC , self.availableTagsForFilterartion.indices.contains(indexPath.item) {
             printDebug("\(self.availableTagsForFilterartion[indexPath.item]) is deleted")
-            self.availableTagsForFilterartion.remove(at: indexPath.item)
+           
             if parentVC.viewModel.selectedTags.indices.contains(indexPath.item) {
                 parentVC.viewModel.selectedTags.remove(at: indexPath.item)
             }
-            self.tagCollectionView.reloadData()
+           
             self.getTypeOfFIlteration(parentVC: parentVC, currentTag: self.availableTagsForFilterartion[indexPath.item], isAvailableInSource: true)
+            self.availableTagsForFilterartion.remove(at: indexPath.item)
             parentVC.filterdHotelData(tagList: parentVC.viewModel.selectedTags)
-            parentVC.hotelTableView.reloadData()
+            self.tagCollectionView.reloadData()
+//            parentVC.hotelTableView.reloadData()
         }
     }
 }
@@ -201,10 +229,6 @@ extension HotelDetailsSearchTagTableCell: AddTagButtonDelegate {
             self.getTypeOfFIlteration(parentVC: parentVC, currentTag: tagName, isAvailableInSource: false)
             parentVC.filterdHotelData(tagList: parentVC.viewModel.selectedTags)
             parentVC.hotelTableView.reloadData()
-//            let indexPath = IndexPath(row: self.allTagsForFilteration.count - 1, section: 0)
-//            if indexPath.item > 3 {
-//                self.tagCollectionView.scrollToItem(at: indexPath, at: .right, animated: true)
-//            }
         }
     }
     

@@ -511,15 +511,23 @@ class BulkBookingVC: BaseVC {
 //MARK:- TextView delegate
 extension BulkBookingVC: PKTextFieldDelegate {
     
+    func pkTextFieldDidBeginEditing(_ pkTextField: PKTextField) {
+        printDebug(pkTextField)
+        self.statusBarStyle = .default
+    }
+    
     func pkTextFieldShouldReturn(_ pkTextField: PKTextField) -> Bool {
         pkTextField.endEditing(true)
-        return true
+         self.statusBarStyle = .lightContent
+                  return true
     }
     
     func pkTextFieldDidEndEditing(_ pkTextField: PKTextField) {
         let finalText = (pkTextField.text ?? "").removeSpaceAsSentence
         pkTextField.text = finalText
         (pkTextField === self.preferredTextView) ? (self.viewModel.preferred = finalText) : (self.viewModel.specialRequest = finalText)
+       
+
     }
     
     func pkTextField(_ pkTextField: PKTextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

@@ -107,7 +107,7 @@ extension HotelResultVC: PKBottomSheetDelegate {
             self?.headerContatinerViewHeightConstraint.constant = isHidden ? 0.0 : 50.0
             self?.tableViewTopConstraint.constant = isHidden ? 0.0 : 50.0
             self?.mapContainerTopConstraint.constant = isHidden ? 0.0 : 50.0
-            self?.progressView.isHidden = isHidden
+            self?.progressView.isHidden = true
             self?.view.layoutIfNeeded()
         }
     }
@@ -156,7 +156,7 @@ extension HotelResultVC: HotelResultDelegate {
     
     func noHotelFound() {
         self.hotelSearchView.isHidden = false
-        self.progressView.removeFromSuperview()
+        self.progressView?.removeFromSuperview()
         self.manageShimmer(isHidden: true)
         self.hotelSearchTableView.backgroundView = noHotelFoundEmptyView
     }

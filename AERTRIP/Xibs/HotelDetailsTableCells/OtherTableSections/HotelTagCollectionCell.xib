@@ -26,13 +26,13 @@
                                 <rect key="frame" x="10" y="0.0" width="101" height="28"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xcxcxcxcxc" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gjd-vP-gef">
-                                        <rect key="frame" x="0.0" y="4.5" width="101" height="19.5"/>
+                                        <rect key="frame" x="0.0" y="4.5" width="76.5" height="19.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lnK-f7-Z2T">
-                                        <rect key="frame" x="0.0" y="3" width="0.0" height="22"/>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lnK-f7-Z2T">
+                                        <rect key="frame" x="80.5" y="3" width="20.5" height="22"/>
                                         <state key="normal" image="cross_icon"/>
                                         <connections>
                                             <action selector="cancelBtnAction:" destination="Off-ko-IjY" eventType="touchUpInside" id="WAQ-pF-P1c"/>

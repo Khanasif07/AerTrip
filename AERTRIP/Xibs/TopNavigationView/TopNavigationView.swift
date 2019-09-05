@@ -203,7 +203,7 @@ class TopNavigationView: UIView {
         self.configureSecondRightButton(normalImage: nil, selectedImage: nil, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
     }
     
-    func configureLeftButton(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, normalColor: UIColor? = nil, selectedColor: UIColor? = nil, font: UIFont = AppFonts.Regular.withSize(18.0)) {
+    func configureLeftButton(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, normalColor: UIColor? = nil, selectedColor: UIColor? = nil, font: UIFont = AppFonts.Regular.withSize(18.0), isHideBackView: Bool = true) {
         
         self.leftButton.setTitle(normalTitle, for: .normal)
         self.leftButton.setTitle(selectedTitle, for: .selected)
@@ -216,8 +216,8 @@ class TopNavigationView: UIView {
         
         self.leftButton.titleLabel?.font = font
         
-        self.backView.isHidden = true
-        self.backView.alpha = 0.0
+        self.backView.isHidden = isHideBackView
+        self.backView.alpha = isHideBackView ? 0.0 :  1.0
         
         self.updateTitleFrames()
     }

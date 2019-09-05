@@ -12,6 +12,7 @@ import PKCategoryView
 protocol HotelFilteVCDelegate: class {
     func doneButtonTapped()
     func clearAllButtonTapped()
+    
 }
 
 class HotelFilterVC: BaseVC {
@@ -38,6 +39,7 @@ class HotelFilterVC: BaseVC {
     }
     
     fileprivate weak var categoryView: PKCategoryView!
+    
     
     // MARK: - Variables
     
@@ -99,6 +101,11 @@ class HotelFilterVC: BaseVC {
         self.clearAllButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.doneButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.navigationTitleLabel.textColor = AppColors.themeGray40
+    }
+    
+    
+    override func bindViewModel() {
+        HotelFilterVM.shared.delegate = self
     }
     
     // MARK: - Helper methods
@@ -273,6 +280,9 @@ class HotelFilterVC: BaseVC {
     
     @objc func  outsideAreaTapped() {
         self.hide(animated: true, shouldRemove: true)
+        if UserInfo.hotelFilter == nil {
+            HotelFilterVM.shared.lastSelectedIndex = 0
+        }
     }
     
     
@@ -291,4 +301,11 @@ extension HotelFilterVC: PKCategoryViewDelegate {
         HotelFilterVM.shared.lastSelectedIndex = toIndex
     }
     
+}
+
+
+extension HotelFilterVC: HotelFilterVMDelegate {
+    func updateFiltersTabs() {
+        self.setBadgesOnAllCategories()
+    }
 }

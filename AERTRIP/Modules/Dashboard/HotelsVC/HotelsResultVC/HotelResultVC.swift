@@ -259,7 +259,6 @@ class HotelResultVC: BaseVC {
         // toast Completion when toast goes way from the screen
         self.toastDidClose = {
             UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
-            UserInfo.hotelFilterApplied = nil
             UserInfo.hotelFilter = nil
             HotelFilterVM.shared.resetToDefault()
         }
