@@ -319,22 +319,29 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
         case .google:
             item = self.viewModel._googleContacts[index]
         }
+    
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].id = item.id
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].salutation = item.salutation
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].firstName = item.firstName
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].lastName = item.lastName
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].profilePicture = item.profilePicture
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].label = item.label
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].email = item.email
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].emailLabel = item.emailLabel
         
-        item.passengerType = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].passengerType
-        item.numberInRoom = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].numberInRoom
-        item.age = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].age
-        
-        if let idx = getCollectionIndexPath(forContact: item) {
-            
-            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = item
-            self.selectNextGuest()
-            self.selectedContactsCollectionView.reloadData()
-            self.selectedContactsCollectionView.performBatchUpdates({
-                self.selectedContactsCollectionView.insertItems(at: [idx])
-            }, completion: { (isDone) in
-                self.scrollCollectionToEnd()
-            })
-        }
+        self.selectedContactsCollectionView.reloadData()
+
+//        if let idx = getCollectionIndexPath(forContact: item) {
+//
+//            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = item
+//            self.selectNextGuest()
+//            self.selectedContactsCollectionView.performBatchUpdates({
+//                self.selectedContactsCollectionView.insertItems(at: [idx])
+//            }, completion: { (isDone) in
+//                self.selectedContactsCollectionView.reloadData()
+//                self.scrollCollectionToEnd()
+//            })
+//        }
     }
     
     func remove(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {

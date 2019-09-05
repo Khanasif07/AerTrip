@@ -29,11 +29,12 @@ class HotelDetailsVC: BaseVC {
     }
     internal var allIndexPath = [IndexPath]()
     internal var initialStickyPosition: CGFloat = -1.0
-    internal var oldScrollPosition: CGPoint = .zero
+//    internal var oldScrollPosition: CGPoint = .zero
     internal var didsmissOnScrollPosition: CGFloat = 200.0
     var stickyView: HotelFilterResultFooterView?
-    var tableFooterView: HotelFilterResultFooterView?
+//    var tableFooterView: HotelFilterResultFooterView?
     weak var delegate : HotelDetailsVCDelegate?
+    var onCloseHandler: (() -> Void)? = nil
     
     @IBOutlet weak var footerViewHeightConstraint: NSLayoutConstraint!
     //Mark:- IBOutlets
@@ -193,17 +194,17 @@ class HotelDetailsVC: BaseVC {
                 stickyView.selectRoomLabel.isHidden = true
             }
             
-            if let tableFooterView = self.tableFooterView {
-                tableFooterView.containerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
-                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterShadow, AppColors.noRoomsAvailableFooterColor])
-                tableFooterView.noRoomsAvailable.isHidden = false
-                tableFooterView.fromLabel.isHidden = true
-                tableFooterView.hotelFeesLabel.isHidden = true
-                tableFooterView.selectRoomLabel.isHidden = true
-            }
-            self.hotelTableView.tableFooterView?.isHidden = true
+//            if let tableFooterView = self.tableFooterView {
+//                tableFooterView.containerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
+//                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterShadow, AppColors.noRoomsAvailableFooterColor])
+//                tableFooterView.noRoomsAvailable.isHidden = false
+//                tableFooterView.fromLabel.isHidden = true
+//                tableFooterView.hotelFeesLabel.isHidden = true
+//                tableFooterView.selectRoomLabel.isHidden = true
+//            }
+//            self.hotelTableView.tableFooterView?.isHidden = true
         } else {
-            self.hotelTableView.tableFooterView?.isHidden = false
+//            self.hotelTableView.tableFooterView?.isHidden = false
             if let stickyView = self.stickyView {
                 stickyView.containerView.backgroundColor = AppColors.themeGreen
                 stickyView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
@@ -213,14 +214,14 @@ class HotelDetailsVC: BaseVC {
                 stickyView.selectRoomLabel.isHidden = false
             }
             
-            if let tableFooterView = self.tableFooterView {
-                tableFooterView.containerView.backgroundColor = AppColors.themeGreen
-                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
-                tableFooterView.noRoomsAvailable.isHidden = true
-                tableFooterView.fromLabel.isHidden = false
-                tableFooterView.hotelFeesLabel.isHidden = false
-                tableFooterView.selectRoomLabel.isHidden = false
-            }
+//            if let tableFooterView = self.tableFooterView {
+//                tableFooterView.containerView.backgroundColor = AppColors.themeGreen
+//                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+//                tableFooterView.noRoomsAvailable.isHidden = true
+//                tableFooterView.fromLabel.isHidden = false
+//                tableFooterView.hotelFeesLabel.isHidden = false
+//                tableFooterView.selectRoomLabel.isHidden = false
+//            }
         }
     }
     
@@ -302,6 +303,7 @@ class HotelDetailsVC: BaseVC {
         func manageOnComplition() {
             self.removeFromParentVC
             self.headerView.isHidden = false
+            self.onCloseHandler?()
         }
         
         if animated {
@@ -339,11 +341,11 @@ class HotelDetailsVC: BaseVC {
             self.footerView.addSubview(stickyView)
         }
         
-        self.tableFooterView = getStickyFooter()
-        if let footerView = self.tableFooterView {
-            footerView.frame = self.footerView.bounds
-            self.hotelTableView.tableFooterView = footerView
-        }
+//        self.tableFooterView = getStickyFooter()
+//        if let footerView = self.tableFooterView {
+//            footerView.frame = self.footerView.bounds
+////            self.hotelTableView.tableFooterView = footerView
+//        }
     }
     
     private func setupBeforeAnimation() {

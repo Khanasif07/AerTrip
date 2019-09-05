@@ -387,16 +387,20 @@ extension HotelResultVC {
 
 
         let yPosition = scrollView.contentOffset.y
-        if yPosition >= 0.5 {
-            if 0...140.0 ~= yPosition {
-                if (self.oldScrollPosition.y < yPosition && self.headerContainerViewTopConstraint.constant != -140.0) || (self.oldScrollPosition.y > yPosition && self.headerContainerViewTopConstraint.constant != 0) {
-                    self.headerContainerViewTopConstraint.constant = -yPosition
-                }
-                let finalPos = 100.0 - yPosition
-                self.tableViewTopConstraint.constant = finalPos
-                self.mapContainerTopConstraint.constant = finalPos
-            }
-            else {
+        let maxBound = scrollView.contentSize.height - scrollView.height
+        
+//        print(scrollView.panGestureRecognizer.velocity(in: self.view))
+        
+        if 0.5 < yPosition, yPosition < maxBound {
+//            if 0...140.0 ~= yPosition {
+//                if (self.oldScrollPosition.y < yPosition && self.headerContainerViewTopConstraint.constant != -140.0) || (self.oldScrollPosition.y > yPosition && self.headerContainerViewTopConstraint.constant != 0) {
+//                    self.headerContainerViewTopConstraint.constant = -yPosition
+//                }
+//                let finalPos = 100.0 - yPosition
+//                self.tableViewTopConstraint.constant = finalPos
+//                self.mapContainerTopConstraint.constant = finalPos
+//            }
+//            else {
                 //show with progress after header height scrolled up
                 let newProg = self.oldScrollPosition.y - yPosition
                 let headrC = min(0,max(-140.0, (self.headerContainerViewTopConstraint.constant + newProg)))
@@ -405,7 +409,7 @@ extension HotelResultVC {
                 let finalPos = 100.0 + headrC
                 self.tableViewTopConstraint.constant = finalPos
                 self.mapContainerTopConstraint.constant = finalPos
-            }
+//            }
         }
         else {
             //convert to map view when threasHold exceed
