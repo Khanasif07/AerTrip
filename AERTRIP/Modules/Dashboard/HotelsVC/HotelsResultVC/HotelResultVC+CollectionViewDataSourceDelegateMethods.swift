@@ -14,16 +14,19 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel.collectionViewList.keys.count
+        return self.viewModel.collectionViewLocArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let hData = (Array(self.viewModel.collectionViewList.values)[indexPath.row] as? [HotelSearched])
+        
+        guard let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.row]] as? [HotelSearched] else {
+            return UICollectionViewCell()
+        }
         
         //        self.isAboveTwentyKm = hData.isHotelBeyondTwentyKm
         //        self.isFotterVisible = self.isAboveTwentyKm
         
-        if (hData?.count ?? 1) > 1 {
+        if hData.count > 1 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotelGroupCardCollectionViewCell.reusableIdentifier, for: indexPath) as? HotelGroupCardCollectionViewCell else {
                 fatalError("HotelGroupCardCollectionViewCell not found")
             }
@@ -31,7 +34,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
 //            cell.contentView.backgroundColor = .green
 //            cell.containerTopConstraint.constant = 29.0
 //            cell.containerBottomConstraint.constant = -29.0
-            cell.hotelListData = hData?.first
+            cell.hotelListData = hData.first
             cell.delegate = self
             cell.shouldShowMultiPhotos = false
             
@@ -44,7 +47,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
 //            cell.contentView.backgroundColor = .red
 //            cell.containerTopConstraint.constant = 29.0
 //            cell.containerBottomConstraint.constant = -29.0
-            cell.hotelListData = hData?.first
+            cell.hotelListData = hData.first
             cell.delegate = self
             cell.shouldShowMultiPhotos = false
             
@@ -65,7 +68,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let _ = collectionView.cellForItem(at: indexPath) as? HotelGroupCardCollectionViewCell {
-            self.expandGroup((Array(self.viewModel.collectionViewList.values)[indexPath.row] as? [HotelSearched] ?? []))
+            self.expandGroup((self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.row]] as? [HotelSearched]) ?? [])
         }
         else if let cell = collectionView.cellForItem(at: indexPath) as? HotelCardCollectionViewCell, let data = cell.hotelListData {
             self.selectedIndexPath = indexPath
