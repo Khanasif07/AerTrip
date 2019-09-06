@@ -541,7 +541,10 @@ class HotelsSearchVC: BaseVC {
     
     @IBAction func searchButtonAction(_ sender: ATButton?) {
         if validateData() {
-            sender?.isLoading = true
+            delay(seconds: 0.1) {
+                sender?.isLoading = true
+            }
+            
             if let _ = sender {
                 self.viewModel.setRecentSearchesData()
             }

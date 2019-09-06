@@ -822,6 +822,7 @@ extension NSAttributedString {
 
 extension String {
     
+    
     var fileSizeInBytes: Int {
         
         guard let url = self.toUrl else {
@@ -855,4 +856,9 @@ extension String {
         let suffix = suffixes[Int(i)]
         return "\(numberString) \(suffix)"
     }
+    
+    mutating func insert(string:String,ind:Int) {
+        self.insert(contentsOf: string, at:self.index(self.startIndex, offsetBy: ind) )
+    }
+  
 }

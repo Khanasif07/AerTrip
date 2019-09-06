@@ -81,7 +81,10 @@ class HotelFilterVM {
         sortUsing = from.sortUsing
         priceType = from.priceType
         
-        delegate?.updateFiltersTabs()
+        delay(seconds: 0.3) { [weak self] in 
+            self?.delegate?.updateFiltersTabs()
+        }
+        
         
         
     }

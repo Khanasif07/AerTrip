@@ -59,6 +59,12 @@ class HCSelectGuestsVC: BaseVC {
     
     private let oldGuestState = GuestDetailsVM.shared.guests
     
+    var noResultemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noResult
+        return newEmptyView
+    }()
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -251,6 +257,7 @@ extension HCSelectGuestsVC: ATCategoryNavBarDelegate {
 extension HCSelectGuestsVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.viewModel.search(forText: searchText)
+        self.viewModel.searchText = searchText
     }
 }
 

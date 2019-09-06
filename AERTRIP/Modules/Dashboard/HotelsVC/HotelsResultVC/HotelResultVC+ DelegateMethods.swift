@@ -341,7 +341,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
         else {
             self.manageSwitchContainer(isHidden: true, shouldOff: false)
         }
-        self.filterButton.isSelected = HotelFilterVM.shared.filterHotelCount == HotelFilterVM.shared.totalHotelCount ? false : true
+        self.filterButton.isSelected = (HotelFilterVM.shared.filterHotelCount == HotelFilterVM.shared.totalHotelCount)  ? false : true
     }
 }
 

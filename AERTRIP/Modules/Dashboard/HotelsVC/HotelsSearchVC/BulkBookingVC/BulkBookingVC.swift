@@ -523,7 +523,9 @@ extension BulkBookingVC: PKTextFieldDelegate {
     }
     
     func pkTextFieldDidEndEditing(_ pkTextField: PKTextField) {
-        let finalText = (pkTextField.text ?? "").removeSpaceAsSentence
+        var finalText: String = (pkTextField.text ?? "").removeSpaceAsSentence
+       finalText.insert(" ", at: finalText.startIndex)
+        finalText.insert(" ", at: finalText.startIndex)
         pkTextField.text = finalText
         (pkTextField === self.preferredTextView) ? (self.viewModel.preferred = finalText) : (self.viewModel.specialRequest = finalText)
        

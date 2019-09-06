@@ -96,6 +96,7 @@ class HCSelectGuestsVM: NSObject {
     
     weak var delegateList: HCSelectGuestsVMDelegate?
     weak var delegateCollection: HCSelectGuestsVMDelegate?
+    var searchText: String = ""
     
     var allSelectedCount: Int {
         return selectedPhoneContacts.count + selectedFacebookContacts.count + selectedGoogleContacts.count + selectedTravellerContacts.count

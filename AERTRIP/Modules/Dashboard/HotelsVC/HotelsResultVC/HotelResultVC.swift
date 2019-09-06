@@ -528,7 +528,9 @@ class HotelResultVC: BaseVC {
         self.view.endEditing(true)
         self.searchBar.text = ""
         self.searchTextStr = ""
-        self.loadSaveData()
+        delay(seconds: 0.1) { [weak self] in
+            self?.loadSaveData()
+        }
         self.getFavouriteHotels(shouldReloadData: false)
     }
     

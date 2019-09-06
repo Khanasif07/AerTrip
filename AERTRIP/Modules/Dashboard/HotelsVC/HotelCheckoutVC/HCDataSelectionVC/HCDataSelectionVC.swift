@@ -520,8 +520,10 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
 extension HCDataSelectionVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         // back button action
-        GuestDetailsVM.shared.guests.removeAll()
         AppFlowManager.default.popViewController(animated: true)
+        delay(seconds: 0.1) {
+            GuestDetailsVM.shared.guests.removeAll()
+        }
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {

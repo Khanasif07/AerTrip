@@ -338,6 +338,7 @@ extension EmptyScreenView {
         self.containerViewCenterYConstraint.constant = -125
         self.messageLabelTopConstraint.constant = 33
         self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
+        self.backgroundColor = .blue
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.themeBlack
         self.messageLabel.text = LocalizedString.noResults.localized

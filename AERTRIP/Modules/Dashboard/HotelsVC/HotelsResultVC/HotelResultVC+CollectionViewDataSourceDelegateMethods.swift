@@ -43,7 +43,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
             
 //            cell.contentView.backgroundColor = .red
 //            cell.containerTopConstraint.constant = 29.0
-//            cell.containerBottomConstraint.constant = -29.0
+          //cell.containerBottomConstraint.constant = -10.0
             cell.hotelListData = hData?.first
             cell.delegate = self
             cell.shouldShowMultiPhotos = false

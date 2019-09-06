@@ -65,7 +65,7 @@ class HCGuestListVC: BaseVC {
         return newEmptyView
     }()
     
-    private lazy var noResultemptyView: EmptyScreenView = {
+    lazy var noResultemptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         newEmptyView.vType = .noResult
         return newEmptyView
@@ -91,11 +91,13 @@ class HCGuestListVC: BaseVC {
         
     }
     
-  
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.containerBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
+        
+        if !self.viewModel.searchText.isEmpty {
+            self.noResultemptyView.messageLabel.text = "\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(self.viewModel.searchText)'"
+        }
     }
     
     override func setupColors() {
@@ -120,21 +122,31 @@ class HCGuestListVC: BaseVC {
                 self.reloadList()
             }
             else if obj == .searchDone {
-                if self.currentlyUsingFor == .travellers && !self.viewModel.travellerContacts.isEmpty {
-                    tableView.backgroundView = noResultemptyView
+                delay(seconds: 0.3) { [weak self] in
+                    guard let `self` = self else {
+                        return
+                    }
+                    self.noResultemptyView.messageLabel.isHidden = false
+                    self.noResultemptyView.messageLabel.numberOfLines = 0
+                    self.noResultemptyView.messageLabelTopConstraint.constant = 30
+                    if self.currentlyUsingFor == .travellers && self.viewModel.travellerContacts.isEmpty {
+                        self.tableView?.backgroundView = self.noResultemptyView
+                    }
+                    else if self.currentlyUsingFor == .contacts && self.viewModel.phoneContacts.isEmpty {
+                        self.tableView?.backgroundView = self.noResultemptyView
+                        
+                    }
+                    else if self.currentlyUsingFor == .facebook && self.viewModel.facebookContacts.isEmpty {
+                        self.tableView?.backgroundView = self.noResultemptyView
+                        
+                    }
+                    else if self.currentlyUsingFor == .google && self.viewModel.googleContacts.isEmpty {
+                        self.tableView?.backgroundView = self.noResultemptyView
+                    }
+                    self.reloadList()
                 }
-                else if self.currentlyUsingFor == .contacts && !self.viewModel.phoneContacts.isEmpty {
-                    tableView.backgroundView = noResultemptyView
-                    
-                }
-                else if self.currentlyUsingFor == .facebook && !self.viewModel.facebookContacts.isEmpty {
-                    tableView.backgroundView = noResultemptyView
-                    
-                }
-                else if self.currentlyUsingFor == .google && !self.viewModel.googleContacts.isEmpty {
-                    tableView.backgroundView = noResultemptyView
-                }
-                self.reloadList()
+               
+              
             }
         }
     }
@@ -147,11 +159,19 @@ class HCGuestListVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         self.viewModel.fetchTravellersContact()
+        delay(seconds: 0.3) { [weak self] in
+            guard let `self` = self else {
+                return
+            }
+            self.noResultemptyView.messageLabel.text = ""
+            self.noResultemptyView.messageLabelTopConstraint.constant = 30
+        }
+        
         self.tableView.backgroundView = self.allowEmptyView
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        noResultemptyView.mainImageViewTopConstraint.constant = 300
+        noResultemptyView.mainImageViewTopConstraint.constant = 200
     }
     
     private func reloadList() {

@@ -127,7 +127,7 @@ class ContactListVC: BaseVC {
         self.tableView.sectionIndexColor = AppColors.themeGreen
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        noResultemptyView.mainImageViewTopConstraint.constant = 300
+        noResultemptyView.mainImageViewTopConstraint.constant = 400
     }
     
     private func reloadList() {
