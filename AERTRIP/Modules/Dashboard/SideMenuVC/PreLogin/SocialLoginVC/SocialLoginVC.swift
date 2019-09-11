@@ -243,7 +243,6 @@ private extension SocialLoginVC {
 
 extension SocialLoginVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        print("back tapped")
         if self.currentlyUsingFrom == .loginProcess {
             self.delegate?.backButtonTapped(sender)
         } else {

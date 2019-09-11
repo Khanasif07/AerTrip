@@ -50,7 +50,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         delay(seconds: 0.5) { [weak self] in
             guard let `self` = self else {return}
-            self.tableViewVertical.isScrollEnabled = self.tableViewVertical.contentSize.height > self.tableViewVertical.height
+           // self.tableViewVertical.isScrollEnabled = self.tableViewVertical.contentSize.height > self.tableViewVertical.height
         }
         manageViewForSearchAndFilterMode()
         if tableView === hotelSearchTableView {
@@ -107,11 +107,6 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         guard let allSections = self.fetchedResultsController.sections else {
             return ""
         }
-        
-        
-        var arr = ["w"]
-        let removed = arr.remove(at: 4)
-        arr.insert(removed, at: 5)
         
         var finalText = "a" // for handling empty case
         if section >= (allSections.count - 1) {

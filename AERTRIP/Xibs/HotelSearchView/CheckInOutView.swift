@@ -91,7 +91,10 @@ class CheckInOutView: UIView {
             totalNights = searchData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd")!.daysFrom(searchData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date())
             checkOutDayStr = Date.getDateFromString(stringDate: searchData.checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "EEEE") ?? ""
         }
-        self.totalNightsLabel.text = (totalNights == 1) ? "\(totalNights) \(LocalizedString.Night.localized)" : "\(totalNights) \(LocalizedString.Nights.localized)"
+        self.totalNightsLabel.text = ""
+        if totalNights != 0 {
+          self.totalNightsLabel.text = (totalNights == 1) ? "\(totalNights) \(LocalizedString.Night.localized)" : "\(totalNights) \(LocalizedString.Nights.localized)"
+        }
         self.checkInDay.text = Date.getDateFromString(stringDate: searchData.checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "EEEE")
         
         self.checkOutDay.text = checkOutDayStr

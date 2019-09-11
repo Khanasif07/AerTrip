@@ -89,6 +89,7 @@ extension SortVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        HotelFilterVM.shared.isSortingApplied = true
         if let cell = tableView.cellForRow(at: indexPath) as? SortTableViewCell {
             cell.tintColor = AppColors.themeGreen
             cell.accessoryType = .checkmark

@@ -79,16 +79,15 @@ class ContactTableCell: UITableViewCell {
     //MARK:- Public
     @IBAction func selectCountruButtonAction(_ sender: UIButton) {
         if let vc = UIApplication.topViewController() {
-            PKCountryPicker.default.chooseCountry(onViewController: vc, preSelectedCountry: preSelectedCountry) { [weak self](country) in
-                
+            let prevSectdContry = preSelectedCountry
+            PKCountryPicker.default.chooseCountry(onViewController: vc, preSelectedCountry: prevSectdContry) { [weak self] selectedCountry in
                 guard let sSelf = self else {return}
-                sSelf.preSelectedCountry = country
-                sSelf.flagImageView.image = country.flagImage
-                sSelf.countryCodeLabel.text = country.countryCode
-                sSelf.contactNumberTextField.defaultRegion = country.ISOCode
+                sSelf.preSelectedCountry = selectedCountry
+                sSelf.flagImageView.image = selectedCountry.flagImage
+                sSelf.countryCodeLabel.text = selectedCountry.countryCode
+                sSelf.contactNumberTextField.defaultRegion = selectedCountry.ISOCode
                 sSelf.contactNumberTextField.text = sSelf.contactNumberTextField.nationalNumber
-//                PKCountryPicker.default.closePicker(animated: true)
-                 sSelf.delegate?.setIsdCode(country)
+                sSelf.delegate?.setIsdCode(selectedCountry)
             }
         }
     }

@@ -26,6 +26,7 @@ open class PKCountryPicker: UIView {
     private var currentSelectedIndex: Int = 0
     private var preSelectedCountry: PKCountryModel?
     let selection = UISelectionFeedbackGenerator()
+    private var isSelectionChanged: Bool = false
     
     //MARK:- Picker Life Cycle
     //MARK:-
@@ -189,9 +190,10 @@ open class PKCountryPicker: UIView {
     @IBAction private func pickerDoneButtonTapped(){
         
         if let handler = self.selectionHandler {
-            handler(self.countries[self.currentSelectedIndex])
-            self.closePicker()
+            // if picker selection changed sent that country, else sent previous selected coutry, Default value for previous
+            isSelectionChanged ?  handler(self.countries[self.currentSelectedIndex]) : handler(preSelectedCountry ?? self.getCountryData(forISDCode: "+91")!)
         }
+         self.closePicker()
     }
 }
 
@@ -221,6 +223,7 @@ extension PKCountryPicker: UIPickerViewDelegate, UIPickerViewDataSource {
     
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.currentSelectedIndex = row
+        self.isSelectionChanged = true
         selection.selectionChanged()
         
         //  Commented because ,Requirement was not to update country when selection changed

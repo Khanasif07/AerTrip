@@ -156,7 +156,6 @@ extension HotelDetailsSearchTagTableCell: UICollectionViewDelegate, UICollection
                     parentVC.filterdHotelData(tagList: parentVC.viewModel.selectedTags)
                 } else {
                     self.getTypeOfFIlteration(parentVC: parentVC, currentTag: self.availableTagsForFilterartion[indexPath.item], isAvailableInSource: true)
-                    self.tagCollectionView.reloadData()
                     parentVC.viewModel.selectedTags.remove(object: self.availableTagsForFilterartion[indexPath.item])
                      parentVC.filterdHotelData(tagList: parentVC.viewModel.selectedTags)
                 }

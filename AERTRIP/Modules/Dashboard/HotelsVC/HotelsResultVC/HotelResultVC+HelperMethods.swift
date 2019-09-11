@@ -142,11 +142,17 @@ extension HotelResultVC {
     func expandGroup(_ hotels: [HotelSearched]) {
         if let topVC = UIApplication.topViewController() {
             let dataVC = HotelsGroupExpendedVC.instantiate(fromAppStoryboard: .HotelsSearch)
+            dataVC.delegate = self
+            dataVC.viewModel.sid = self.viewModel.sid
+            dataVC.viewModel.hotelSearchRequest = self.viewModel.hotelSearchRequest
             self.hotelsGroupExpendedVC = dataVC
             dataVC.viewModel.samePlaceHotels = hotels
             let sheet = PKBottomSheet.instanceFromNib
+            sheet.isAddTapGesture = false
             sheet.headerHeight = 24.0
             sheet.headerView = dataVC.headerView
+            sheet.isHideBottomSheetOnTap = false
+
             sheet.frame = topVC.view.bounds
             sheet.delegate = self
             topVC.view.addSubview(sheet)

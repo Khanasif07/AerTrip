@@ -225,6 +225,8 @@ class HotelResultVC: BaseVC {
     let defaultDuration: CGFloat = 1.2
     let defaultDamping: CGFloat = 0.70
     let defaultVelocity: CGFloat = 15.0
+    var applyButtonTapped: Bool = false
+    var isFilterApplied: Bool = false
         
     //used for making collection view centerlized
     var indexOfCellBeforeDragging = 0
@@ -248,19 +250,28 @@ class HotelResultVC: BaseVC {
         
         self.startProgress()
         self.completion = { [weak self] in
+            self?.applyButtonTapped = true
+            
             UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
             self?.fetchRequestType = .FilterApplied
-            if let old = UserInfo.hotelFilterApplied {
+            if let old = UserInfo.hotelFilter {
                 HotelFilterVM.shared.setData(from: old)
             }
             self?.doneButtonTapped()
+            AppToast.default.hideToast(self, animated: true)
         }
         
         // toast Completion when toast goes way from the screen
-        self.toastDidClose = {
+        self.toastDidClose = { [weak self] in
+            guard let `self` = self else {
+                return
+            }
             UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
-            UserInfo.hotelFilter = nil
-            HotelFilterVM.shared.resetToDefault()
+            if !self.applyButtonTapped {
+                UserInfo.hotelFilter = nil
+                HotelFilterVM.shared.resetToDefault()
+            }
+           
         }
         
         // toast completion,When undo button tapped
@@ -330,6 +341,8 @@ class HotelResultVC: BaseVC {
         }
         else if let _ = note.object as? HotelResultVC {
             updateFavOnList(forIndexPath: selectedIndexPath)
+        } else if let _ = note.object as? HotelsGroupExpendedVC {
+            
         }
     }
     

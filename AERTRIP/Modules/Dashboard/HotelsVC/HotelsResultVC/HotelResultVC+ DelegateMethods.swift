@@ -97,6 +97,16 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
             delay(seconds: 0.2) { [weak self] in
                 self?.tableViewVertical.setContentOffset(CGPoint(x: 0.0, y: -3.0), animated: true)
             }
+            
+            if let data = self.fetchedResultsController.fetchedObjects,data.count  < 2 {
+                printDebug("inside tesing block")
+                //self.manageTopHeader(tableViewVertical, velocity: nil)
+                
+                delay(seconds: 0.1) {
+                    self.tableViewVertical.setContentOffset(CGPoint(x: 0, y: 500), animated: false)
+                }
+            
+            }
         }
     }
 }
@@ -311,6 +321,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
     func clearAllButtonTapped() {
         self.fetchRequestType = .normal
         self.filterButton.isSelected = false
+        HotelFilterVM.shared.isSortingApplied = false
         UserInfo.hotelFilter = nil
         HotelFilterVM.shared.resetToDefault()
         self.loadSaveData()
@@ -341,7 +352,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
         else {
             self.manageSwitchContainer(isHidden: true, shouldOff: false)
         }
-        self.filterButton.isSelected = (HotelFilterVM.shared.filterHotelCount == HotelFilterVM.shared.totalHotelCount)  ? false : true
+        self.filterButton.isSelected =  !(HotelFilterVM.shared.isSortingApplied || self.isFilterApplied) ? false : true
     }
 }
 
@@ -361,5 +372,14 @@ extension HotelResultVC: CLLocationManagerDelegate {
 extension HotelResultVC: HotelDetailsVCDelegate {
     func hotelFavouriteUpdated() {
         //work of this method has been handeled in data changed also, we can remove HotelDetailsVCDelegate after confirming with team.
+    }
+}
+
+
+// MARK: - HotelGroupExpendedVCDelegate methods
+
+extension HotelResultVC: HotelsGroupExpendedVCDelegate {
+    func saveButtonActionFromLocalStorage(forHotel: HotelSearched) {
+        self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)
     }
 }

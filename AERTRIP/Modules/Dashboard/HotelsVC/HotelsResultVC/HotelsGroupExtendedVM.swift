@@ -13,4 +13,6 @@ class HotelsGroupExtendedVM {
     // MARK: - hotels
     
     var samePlaceHotels : [HotelSearched] = []
+    var sid: String = ""
+    var hotelSearchRequest: HotelSearchRequestModel?
 }

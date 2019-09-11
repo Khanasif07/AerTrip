@@ -178,20 +178,21 @@ class HCSelectGuestsVM: NSObject {
     
     //MARK:- Fetch Phone Contacts
     //MARK:-
-    func fetchPhoneContacts(forVC: UIViewController,sender: ATButton? = nil) {
+    func fetchPhoneContacts(forVC: UIViewController,sender: ATButton? = nil, cancled: (()->Void)? = nil) {
         self.delegateList?.willFetchPhoneContacts()
         self.delegateCollection?.willFetchPhoneContacts()
+      
+        
         forVC.fetchContacts(complition: { [weak self] (contacts) in
-                DispatchQueue.mainAsync {
-                    if let obj = self?.delegateCollection as? BaseVC {
-                        obj.sendDataChangedNotification(data: Notification.contactFetched)
-                    }
-                    self?.isPhoneContactsAllowed = true
-                    self?._phoneContacts = ATContact.fetchModels(phoneContactsArr: contacts)
+            DispatchQueue.mainAsync {
+                if let obj = self?.delegateCollection as? BaseVC {
+                    obj.sendDataChangedNotification(data: Notification.contactFetched)
                 }
-            
+                self?.isPhoneContactsAllowed = true
+                self?._phoneContacts = ATContact.fetchModels(phoneContactsArr: contacts)
+            }
         }) {
-            printDebug("process cancelled")
+             cancled?()
         }
     }
     

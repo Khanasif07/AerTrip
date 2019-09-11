@@ -14,6 +14,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        self.collectionView.isHidden = self.viewModel.collectionViewLocArr.count == 0
         return self.viewModel.collectionViewLocArr.count
     }
     

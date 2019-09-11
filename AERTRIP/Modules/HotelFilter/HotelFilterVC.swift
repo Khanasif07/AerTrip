@@ -106,6 +106,9 @@ class HotelFilterVC: BaseVC {
     
     override func bindViewModel() {
         HotelFilterVM.shared.delegate = self
+        if UserInfo.hotelFilter != nil {
+            self.setBadgesOnAllCategories()
+        }
     }
     
     // MARK: - Helper methods
@@ -253,7 +256,7 @@ class HotelFilterVC: BaseVC {
                 printDebug("not useable case")
             }
             
-            self.categoryView.setBadge(count: badgeCount, atIndex: idx)
+            self.categoryView?.setBadge(count: badgeCount, atIndex: idx)
         }
     }
     

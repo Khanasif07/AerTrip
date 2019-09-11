@@ -35,6 +35,8 @@ class HotelDetailsVC: BaseVC {
 //    var tableFooterView: HotelFilterResultFooterView?
     weak var delegate : HotelDetailsVCDelegate?
     var onCloseHandler: (() -> Void)? = nil
+    // manage wheter to hide with animate or note
+    var isHideWithAnimation: Bool = true
     
     @IBOutlet weak var footerViewHeightConstraint: NSLayoutConstraint!
     //Mark:- IBOutlets
@@ -72,7 +74,7 @@ class HotelDetailsVC: BaseVC {
         super.viewDidLoad()
         
         let panGes = UIPanGestureRecognizer(target: self, action: #selector(self.panHandler(_:)))
-        panGes.delegate = self
+         panGes.delegate = self
 //        self.view.addGestureRecognizer(panGes)
     }
     
@@ -185,6 +187,7 @@ class HotelDetailsVC: BaseVC {
     }
     
     internal func updateStickyFooterView() {
+        // No Room available, show when rates Data empty based on filtered applies
         if self.viewModel.ratesData.isEmpty {
             if let stickyView = self.stickyView {
                 stickyView.containerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
@@ -284,7 +287,7 @@ class HotelDetailsVC: BaseVC {
     
     func hideOnScroll() {
         self.imageView.frame = CGRect(x: 0.0, y: didsmissOnScrollPosition, width: self.imageView.frame.size.width, height: self.imageView.frame.size.height)
-        self.hide(animated: true)
+        self.hide(animated: isHideWithAnimation)
     }
     
     func hide(animated: Bool) {
@@ -397,6 +400,7 @@ class HotelDetailsVC: BaseVC {
     }
     
     func manageFavIcon() {
+        printDebug("Manage fav icon")
         let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
         let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
         self.headerView.configureLeftButton(normalImage: buttonImage, selectedImage: selectedFevImage, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil,isHideBackView: self.headerView.backView.isHidden)
@@ -459,7 +463,12 @@ class HotelDetailsVC: BaseVC {
                 }
                 return UITableView.automaticDimension
             }
-            return UITableView.automaticDimension
+            if !self.viewModel.hotelDetailsTableSectionData.isEmpty, self.viewModel.hotelDetailsTableSectionData[indexPath.section][indexPath.row] == .ratesEmptyStateCell {
+                return 550
+            } else {
+                 return UITableView.automaticDimension
+            }
+           
         }
         
     }
@@ -496,12 +505,14 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.roomMealDataCopy = tagList
         self.viewModel.roomOtherDataCopy = tagList
         self.viewModel.roomCancellationDataCopy = tagList
+       
+       
         if let hotelData = self.viewModel.hotelData , let rates = hotelData.rates {
             self.viewModel.hotelDetailsTableSectionData.append(self.getFirstSectionData(hotelData: hotelData))
             self.viewModel.hotelDetailsTableSectionData.append([.searchTagCell])
             self.viewModel.ratesData = self.viewModel.filteredRates(rates: rates , roomMealData: self.viewModel.roomMealDataCopy, roomOtherData: self.viewModel.roomOtherDataCopy, roomCancellationData: self.viewModel.roomCancellationDataCopy)
             if self.viewModel.ratesData.isEmpty {
-                self.viewModel.hotelDetailsTableSectionData.append([.ratesEmptyStateCell])
+            self.viewModel.hotelDetailsTableSectionData.append([.ratesEmptyStateCell])
             } else {
                 for singleRate in self.viewModel.ratesData {
                     self.viewModel.roomRates.append(singleRate.roomData)
@@ -511,6 +522,10 @@ class HotelDetailsVC: BaseVC {
         }
         
        self.hotelTableView.reloadData()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            self?.manageFavIcon()
+        }
     }
     
     //Mark:- IBOActions
@@ -518,7 +533,7 @@ class HotelDetailsVC: BaseVC {
     @IBAction func cancelButtonAction (_ sender: UIButton) {
         self.headerView.isHidden = true
         self.smallLineView.alpha = 0
-        self.hide(animated: true)
+        self.hide(animated: isHideWithAnimation)
     }
     
     @IBAction func fevButtonAction(_ sender: UIButton) {
@@ -532,7 +547,7 @@ class HotelDetailsVC: BaseVC {
             self.initialPanPoint = touchPoint
         }
         else  if (initialPanPoint.y + 10) < touchPoint.y {
-            self.hide(animated: true)
+            self.hide(animated: isHideWithAnimation)
             initialPanPoint = touchPoint
         }
     }
@@ -544,28 +559,4 @@ class HotelDetailsVC: BaseVC {
 }
 
 
-class MyClass {
-    fileprivate var name = ""
-    private var age = 23
-    
-    private func testMe() {
-        
-    }
-}
 
-extension MyClass {
-    func printName() {
-        print(self.age)
-        print(self.name)
-        self.testMe()
-    }
-}
-
-class NewWali {
-    
-    let myC = MyClass()
-    
-    func printMe() {
-        print(myC.name)
-    }
-}

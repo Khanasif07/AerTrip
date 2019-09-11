@@ -478,8 +478,10 @@ class BulkBookingVC: BaseVC {
     
     @IBAction func searchButtonAction(_ sender: ATButton) {
         if let _ = self.returnUserId  {
-            sender.isLoading = true
-            self.viewModel.bulkBookingEnquiryApi()
+            if self.viewModel.isValidateData() {
+                sender.isLoading = true
+               self.viewModel.bulkBookingEnquiryApi()
+            }
         }
         else {
             self.statusBarStyle = .default

@@ -57,6 +57,25 @@ class BulkBookingVM {
         return params
     }
     
+    
+    // MARK: - Validation
+         func isValidateData() -> Bool {
+            var flag = true
+            if self.destination.isEmpty {
+                AppToast.default.showToastMessage(message: "Please select destination name.")
+                flag = false
+            }
+            else if self.oldData.checkInDate.isEmpty {
+                AppToast.default.showToastMessage(message: "Please select check in date.")
+                flag = false
+            }
+            else if self.oldData.checkOutDate.isEmpty {
+                AppToast.default.showToastMessage(message: "Please select check out date.")
+                flag = false
+            }
+            return flag
+        }
+    
     //MARK:- Public
     ///Hotel List Api
     func bulkBookingEnquiryApi() {

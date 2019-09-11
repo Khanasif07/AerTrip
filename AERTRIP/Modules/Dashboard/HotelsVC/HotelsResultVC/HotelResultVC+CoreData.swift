@@ -36,7 +36,6 @@ extension HotelResultVC {
                 self.fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
             }
             
-            self.filterButton.isSelected = true
             if self.searchTextStr == "" {
                 andPredicate = NSCompoundPredicate(type: .and, subpredicates: self.createSubPredicates())
                 finalPredicate = andPredicate
@@ -133,14 +132,12 @@ extension HotelResultVC {
     
     func createSubPredicates() -> [NSPredicate] {
         
-        self.filterButton.isSelected = true
-        
         if HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange && HotelFilterVM.shared.leftRangePrice == HotelFilterVM.shared.defaultLeftRangePrice && HotelFilterVM.shared.rightRangePrice == HotelFilterVM.shared.defaultRightRangePrice && (HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount).isEmpty || HotelFilterVM.shared.ratingCount.count == 0)  &&  HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty && HotelFilterVM.shared.isIncludeUnrated == HotelFilterVM.shared.defaultIsIncludeUnrated && HotelFilterVM.shared.priceType == HotelFilterVM.shared.defaultPriceType && HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty && HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty && HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty && HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty   {
             return []
         }
 
-        
-        
+        // Boolean flag to check and manage red dot icon.
+        self.isFilterApplied = true
         var subpredicates: [NSPredicate] = []
         let minimumPricePredicate = NSPredicate(format: "perNightPrice >= \(filterApplied.leftRangePrice)")
         let maximumPricePredicate = NSPredicate(format: "perNightPrice <= \(filterApplied.rightRangePrice)")
@@ -165,6 +162,9 @@ extension HotelResultVC {
         if let tripAdvisorPredicate = tripAdvisonPredicate() {
             subpredicates.append(tripAdvisorPredicate)
         }
+        
+        // set up filter button red-dot setup
+       // self.filterButton.isSelected = true
         
         return subpredicates
     }

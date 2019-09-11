@@ -58,6 +58,7 @@ class HotelFilterVM {
     var totalHotelCount: Int = 0
     var filterHotelCount: Int = 0
     var lastSelectedIndex: Int = 0
+    var isSortingApplied: Bool = false
     
     weak var delegate: HotelFilterVMDelegate?
     
