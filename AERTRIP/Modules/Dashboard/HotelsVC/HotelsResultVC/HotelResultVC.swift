@@ -466,7 +466,6 @@ class HotelResultVC: BaseVC {
     
     @IBAction func mapButtonAction(_ sender: Any) {
         self.hideFavsButtons()
-        self.fetchRequestType = .normal
         self.backButton.isHidden = false
         self.cardGradientView.isHidden = true
         if self.hoteResultViewType == .ListView {

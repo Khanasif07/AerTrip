@@ -67,10 +67,8 @@ class HotelCardTableViewCell: UITableViewCell {
         self.saveButton.addTarget(self, action: #selector(self.saveButtonTapped(_:)), for: UIControl.Event.touchUpInside)
         self.saveButton.addTarget(self, action: #selector(self.saveButtonTapped(_:)), for: UIControl.Event.touchUpOutside)
         self.setupPageControl()
-//        self.scrollSize = self.hotelImageView.frame.size.width
         
         self.bgView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.6), offset: CGSize.zero, opacity: 0.4, shadowRadius: 4.0)
-//        self.hotelImageView.cornerRadius = 10.0
         self.collectionView.cornerRadius = 10.0
         self.gradientView.cornerRadius = 10.0
         self.collectionView.registerCell(nibName: ATGalleryCell.reusableIdentifier)

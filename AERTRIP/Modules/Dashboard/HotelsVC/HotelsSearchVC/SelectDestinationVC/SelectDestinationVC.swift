@@ -291,10 +291,18 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
                 //my location
                 return 0
                 
-            case 1, 2:
-                //recent search, popular destination
+            case 1:
+                //recent search,
+                if let userId = UserInfo.loggedInUser?.userId ,!userId.isEmpty
+                {
+                    return 28.0
+                } else {
+                    return 0
+                }
+               
+                //popular destination
+            case 2:
                 return 28.0
-                
             default:
                 return 0
             }
@@ -342,8 +350,14 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
                 //my location
                 return 44.5//50.0
                 
-            case 1, 2:
-                //recent search, popular destination
+            case 1:
+                //recent search
+                if let userId = UserInfo.loggedInUser?.userId , !userId.isEmpty {
+                      return 65.0
+                } else {
+                    return 0
+                }
+            case 2: // popular destination
                 return 65.0
                 
             default:
@@ -392,6 +406,7 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
                 }
                 
                 return cell
+                
                 
             default:
                 return UITableViewCell()

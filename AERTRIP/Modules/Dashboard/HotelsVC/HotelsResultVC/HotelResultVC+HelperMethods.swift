@@ -254,12 +254,6 @@ extension HotelResultVC {
     }
     
     func reloadHotelList(isUpdatingFav: Bool = false) {
-        
-//        if !isUpdatingFav {
-//            self.getFavouriteHotels()
-//        }
-        // manage favourite switch buttons
-        
         if let section = self.fetchedResultsController.sections, !section.isEmpty {
             self.tableViewVertical.isHidden = false
         }

@@ -67,7 +67,7 @@ extension HotelResultVC: UISearchBarDelegate {
     }
 }
 
-// MARK: - Hotel Search View Delegate methods
+// MARK: - ATSwitchedChangeValueDelegate methods
 
 extension HotelResultVC: ATSwitcherChangeValueDelegate {
     func switcherDidChangeValue(switcher: ATSwitcher, value: Bool) {
@@ -94,17 +94,20 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
         }
         else {
             //if user in list view then scroll the list till top as fav switch changed.
-            delay(seconds: 0.2) { [weak self] in
-                self?.tableViewVertical.setContentOffset(CGPoint(x: 0.0, y: -3.0), animated: true)
+            if let data = self.fetchedResultsController.fetchedObjects,data.count  > 2 {
+                delay(seconds: 0.1) { [weak self] in
+                    self?.tableViewVertical.setContentOffset(CGPoint(x: 0.0, y: -3.0), animated: true)
+                }
             }
+
             
             if let data = self.fetchedResultsController.fetchedObjects,data.count  < 2 {
                 printDebug("inside tesing block")
-                //self.manageTopHeader(tableViewVertical, velocity: nil)
-                
-                delay(seconds: 0.1) {
-                    self.tableViewVertical.setContentOffset(CGPoint(x: 0, y: 500), animated: false)
+                DispatchQueue.main.async {
+                    self.tableViewVertical.setContentOffset(CGPoint(x: 0, y: -140), animated: false)
                 }
+                
+                reloadHotelList()
             
             }
         }
@@ -280,6 +283,10 @@ extension HotelResultVC: HotelCardCollectionViewCellDelegate {
         }
         self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)
+        // reload that item at particular indexPath
+        if let indexPath = self.selectedIndexPath {
+           self.updateFavOnList(forIndexPath: indexPath)
+        }
     }
 
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {

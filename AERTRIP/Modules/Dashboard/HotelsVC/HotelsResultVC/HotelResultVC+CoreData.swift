@@ -248,8 +248,8 @@ extension HotelResultVC {
                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
                 self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
             }
-            
-            self.viewModel.fetchHotelsDataForCollectionView(fromController: self.fetchedResultsController)
+        
+           self.viewModel.fetchHotelsDataForCollectionView(fromController: self.fetchedResultsController)
             
             if !isUpdatingFav {
                 self.reloadHotelList()
