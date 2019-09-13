@@ -17,6 +17,14 @@ func printDebug<T>(_ obj: T) {
      print(obj)
 }
 
+func + (left: NSAttributedString, right: NSAttributedString) -> NSAttributedString
+{
+    let result = NSMutableAttributedString()
+    result.append(left)
+    result.append(right)
+    return result
+}
+
 func printFonts() {
     for family in UIFont.familyNames {
         let fontsName = UIFont.fontNames(forFamilyName: family)

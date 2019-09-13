@@ -96,7 +96,14 @@ extension HotelResultVC {
     /// Randomly generates cluster items within some extent of the camera and
     /// adds them to the cluster manager.
     private func generateClusterItems() {
-        let hotels = self.fetchedResultsController.fetchedObjects ?? []
+//        let hotels = self.fetchedResultsController.fetchedObjects ?? []
+        var hotels: [HotelSearched] = []
+        for dict in self.viewModel.collectionViewList  {
+            print(dict.value)
+            if let val = dict.value as? [HotelSearched] {
+               hotels.append(contentsOf: val)
+            }
+        }
         for hotel in hotels {
             let item = ATClusterItem(position: CLLocationCoordinate2D(latitude: hotel.lat?.toDouble ?? 0.0, longitude: hotel.long?.toDouble ?? 0.0), hotel: hotel)
             clusterManager.add(item)

@@ -479,7 +479,7 @@ class HotelResultVC: BaseVC {
                 }
             }
             self.cardGradientView.isHidden = true
-            
+            self.collectionView.setContentOffset(.zero, animated: false)
         } else {
             self.currentLocationButton.isHidden = true
             self.hoteResultViewType = .ListView

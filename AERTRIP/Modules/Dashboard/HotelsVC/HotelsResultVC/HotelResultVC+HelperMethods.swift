@@ -122,7 +122,7 @@ extension HotelResultVC {
         if self.time >= 10 {
             self.timer!.invalidate()
             delay(seconds: 0.8) {
-                self.progressView.isHidden = true
+                self.progressView?.isHidden = true
             }
         }
     }

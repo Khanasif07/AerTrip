@@ -435,7 +435,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfl-cY-TyE">
-                                        <rect key="frame" x="235" y="688" width="130" height="45"/>
+                                        <rect key="frame" x="229" y="688" width="130" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="130" id="Gzc-vy-hUd"/>
                                             <constraint firstAttribute="height" constant="45" id="Tbv-jb-MTE"/>
@@ -458,7 +458,7 @@
                                     <constraint firstItem="Llm-Pw-dVj" firstAttribute="leading" secondItem="xne-g4-bdv" secondAttribute="leading" id="05W-M5-mDJ"/>
                                     <constraint firstAttribute="trailing" secondItem="hJo-Q8-0aI" secondAttribute="trailing" id="0dR-ih-aoz"/>
                                     <constraint firstItem="ke5-wp-NRF" firstAttribute="top" secondItem="lfl-cY-TyE" secondAttribute="bottom" id="DFc-OY-VE8"/>
-                                    <constraint firstAttribute="trailing" secondItem="lfl-cY-TyE" secondAttribute="trailing" constant="10" id="OUN-W7-h2j"/>
+                                    <constraint firstAttribute="trailing" secondItem="lfl-cY-TyE" secondAttribute="trailing" constant="16" id="OUN-W7-h2j"/>
                                     <constraint firstItem="Llm-Pw-dVj" firstAttribute="top" secondItem="xne-g4-bdv" secondAttribute="top" id="PhA-8S-1Qy"/>
                                     <constraint firstItem="wna-Yf-HIz" firstAttribute="leading" secondItem="xne-g4-bdv" secondAttribute="leading" id="Y0W-HV-ZRp"/>
                                     <constraint firstItem="ke5-wp-NRF" firstAttribute="leading" secondItem="xne-g4-bdv" secondAttribute="leading" id="a8k-bG-J7e"/>

@@ -185,6 +185,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         deleteButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
         
         editProfileImageHeaderView = EditProfileImageHeaderView.instanceFromNib()
+        
+        editProfileImageHeaderView.editButton.isHidden = (self.viewModel.paxId != UserInfo.loggedInUser?.paxId)
         editProfileImageHeaderView.delegate = self
         
         tableView.separatorStyle = .none
