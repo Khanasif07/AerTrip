@@ -36,4 +36,10 @@ class TestViewController: UIViewController {
         })
     }
     
+    
+    @IBAction func backButtonTapped(_ sender: Any) {
+        AppFlowManager.default.mainNavigationController.popViewController(animated: true)
+           }
+    
+    
 }
