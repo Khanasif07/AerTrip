@@ -947,4 +947,8 @@ enum LocalizedString: String {
     // MARK: -
     case UnderDevelopment
     case OperatedBy
+    
+    // MARK: - Static screen
+    case ComingSoon
+    case QuickPayInfo
 }

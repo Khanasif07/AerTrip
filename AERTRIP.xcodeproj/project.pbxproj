@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C32DC06232F70FC008033B5 /* QuickPayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C32DC05232F70FC008033B5 /* QuickPayVC.swift */; };
 		0C6666AE22D472F0009DFACD /* TripChangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6666AC22D472F0009DFACD /* TripChangeTableViewCell.swift */; };
 		0C6666AF22D472F1009DFACD /* TripChangeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6666AD22D472F0009DFACD /* TripChangeTableViewCell.xib */; };
 		0C6666B722D486A2009DFACD /* BookingCommonActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6666B522D486A2009DFACD /* BookingCommonActionTableViewCell.swift */; };
@@ -969,6 +970,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C32DC05232F70FC008033B5 /* QuickPayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickPayVC.swift; sourceTree = "<group>"; };
 		0C6666AC22D472F0009DFACD /* TripChangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripChangeTableViewCell.swift; sourceTree = "<group>"; };
 		0C6666AD22D472F0009DFACD /* TripChangeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripChangeTableViewCell.xib; sourceTree = "<group>"; };
 		0C6666B522D486A2009DFACD /* BookingCommonActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCommonActionTableViewCell.swift; sourceTree = "<group>"; };
@@ -1990,6 +1992,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C32DC03232F70B5008033B5 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		0C32DC04232F70DD008033B5 /* QuickPay */ = {
+			isa = PBXGroup;
+			children = (
+				0C32DC05232F70FC008033B5 /* QuickPayVC.swift */,
+			);
+			path = QuickPay;
+			sourceTree = "<group>";
+		};
 		0C6666AB22D472C9009DFACD /* TripChange */ = {
 			isa = PBXGroup;
 			children = (
@@ -3150,6 +3167,7 @@
 		84085C7F21F59C0C00F1E844 /* SideMenuVC */ = {
 			isa = PBXGroup;
 			children = (
+				0C32DC03232F70B5008033B5 /* New Group */,
 				84085C8021F59C0C00F1E844 /* SideMenuVC.swift */,
 				84085CD121F59C0D00F1E844 /* SideMenuVM.swift */,
 				84085C8121F59C0C00F1E844 /* PreLogin */,
@@ -3161,6 +3179,7 @@
 		84085C8121F59C0C00F1E844 /* PreLogin */ = {
 			isa = PBXGroup;
 			children = (
+				0C32DC04232F70DD008033B5 /* QuickPay */,
 				84085C8221F59C0C00F1E844 /* LoginVC */,
 				84085C8521F59C0C00F1E844 /* SuccessPopupVC */,
 				84085C8821F59C0C00F1E844 /* CreateProfileVC */,
@@ -6371,6 +6390,7 @@
 				84E4BC7122A1197F00B72306 /* FlightsOptionCollectionViewCell.swift in Sources */,
 				84BBC1DC2228F4A4008CC03A /* HotelFormPreviosSearchData.swift in Sources */,
 				18FA223821EC948C0024B91E /* APICaller+AssignGroup.swift in Sources */,
+				0C32DC06232F70FC008033B5 /* QuickPayVC.swift in Sources */,
 				1886379021D0AE5600D64443 /* APICaller+EditProfile.swift in Sources */,
 				842EDE9022392C9C00E99409 /* HCCouponCodeVM.swift in Sources */,
 				18EF5E86221D265100EFFA6E /* ATClusterItem.swift in Sources */,

@@ -868,4 +868,8 @@
 "CancellationRequest" = "Cancellation request";
 "OperatedBy" = "Operated by";
 
+// MARK: - Static screen
+"ComingSoon" = "Coming Soon";
+"QuickPayInfo" = "Save your credit / debit card details for one click card payments.";
+
 

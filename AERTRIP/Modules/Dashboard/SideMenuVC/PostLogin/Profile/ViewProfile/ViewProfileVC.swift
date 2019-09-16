@@ -237,18 +237,22 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch self.sections[indexPath.section] {
         case "details":
-            
+            self.statusBarStyle = .default
             switch indexPath.row {
+                // Open traveller detail listing
             case 0:
-                self.statusBarStyle = .default
                 AppFlowManager.default.moveToTravellerListVC()
                 
+                // Open View All hotel details
             case 1:
-                self.statusBarStyle = .default
                 AppFlowManager.default.moveToViewAllHotelsVC()
+            
+                // Open Quick pay
+            case 2:
+                AppFlowManager.default.moveToQuickPayVC()
                 
+                // Open linked accout VC
             case 3:
-                self.statusBarStyle = .default
                 AppFlowManager.default.moveToLinkedAccountsVC()
 
             default:

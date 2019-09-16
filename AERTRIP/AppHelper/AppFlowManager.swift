@@ -958,6 +958,18 @@ extension AppFlowManager {
         obj.viewModel.bookingId = bookindId
         self.mainNavigationController.present(obj, animated: true)
     }
+    
+    
+    // Move to Quick Pay Screen
+    
+    func moveToQuickPayVC() {
+        let ob = QuickPayVC.instantiate(fromAppStoryboard: .Profile)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    
+    
+    
 }
 
 // MARK: - Select Trip Flow Methods
