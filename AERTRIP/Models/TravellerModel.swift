@@ -15,6 +15,7 @@ struct TravellerModel {
     var firstName: String
     var lastName: String
     var dob: String
+    var profileImage: String
     
     init() {
         let json = JSON()
@@ -27,7 +28,8 @@ struct TravellerModel {
                 "salutation": self.salutation,
                 "first_name": self.firstName,
                 "last_name": self.lastName,
-                "dob": self.dob]
+                "dob": self.dob,
+                "profile_img": self.profileImage]
     }
     
     var fullName: String {
@@ -47,6 +49,7 @@ struct TravellerModel {
         contact.firstName = self.firstName
         contact.lastName = self.lastName
         contact.dob = self.dob
+        contact.profilePicture = self.profileImage
         
         return contact
     }
@@ -59,6 +62,7 @@ struct TravellerModel {
         self.firstName = json["first_name"].stringValue.removeNull
         self.lastName = json["last_name"].stringValue.removeNull
         self.dob = json["dob"].stringValue.removeNull
+        self.profileImage = json["profile_img"].stringValue.removeNull
     }
     
     static func models(jsonArr: [JSON]) -> [TravellerModel] {

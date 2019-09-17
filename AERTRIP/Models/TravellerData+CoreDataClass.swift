@@ -65,6 +65,10 @@ public class TravellerData: NSManagedObject {
             userData!.salutation = "\(obj)".removeNull
         }
         
+        if let obj = dataDict[APIKeys.profileImg.rawValue] {
+            userData?.profileImage = "\(obj)".removeNull
+        }
+        
         CoreDataManager.shared.saveContext(managedContext: context)
         
         return userData!

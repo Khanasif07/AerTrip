@@ -23,6 +23,7 @@ extension TravellerData {
     @NSManaged public var firstNameFirstChar: String?
     @NSManaged public var lastNameFirstChar: String?
     @NSManaged public var isChecked: Bool
+    @NSManaged public var profileImage: String
 }
 
 extension TravellerData {
@@ -38,6 +39,7 @@ extension TravellerData {
         temp.label = self.label ?? ""
         temp.lastName = self.lastName ?? ""
         temp.salutation = self.salutation ?? ""
+        temp.profileImage = self.profileImage
         return temp
     }
     

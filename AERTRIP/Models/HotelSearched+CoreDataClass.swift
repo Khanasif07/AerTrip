@@ -133,6 +133,8 @@ public class HotelSearched: NSManagedObject {
             hotelSearched!.price = obj as! Double
         }
         
+       
+        
         // function to get rounded value from string
         
         func getRoundedValue(value: Double) -> String {

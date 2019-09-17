@@ -40,7 +40,7 @@ class TravellerListTableViewCell: UITableViewCell {
     
     private func configureCell() {
         profileImageView.image = travellerData?.salutationImage
-        if let firstName = travellerData?.firstName, let lastName = travellerData?.lastName, let salutation = travellerData?.salutation {
+        if let firstName = travellerData?.firstName, let lastName = travellerData?.lastName, let salutation = travellerData?.salutation, (travellerData?.profileImage.isEmpty ?? false) {
             if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
                 let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
                 userNameLabel.attributedText = getAttributedBoldText(text: "\(salutation) \(lastName) \(firstName)", boldText: boldText)
@@ -49,7 +49,9 @@ class TravellerListTableViewCell: UITableViewCell {
                 let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
                 userNameLabel.attributedText = getAttributedBoldText(text: "\(salutation) \(firstName) \(lastName)", boldText: boldText)
             }
-        }
+        } 
+        
+        
     }
     
     private func configureCellForTraveller() {

@@ -454,15 +454,20 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     
     private func configureCell(cell: UITableViewCell, travellerData: TravellerData?) {
         cell.imageView?.image = travellerData?.salutationImage
-        if let firstName = travellerData?.firstName, let lastName = travellerData?.lastName, let salutation = travellerData?.salutation {
-            if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
-                let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
-                cell.textLabel?.attributedText = getAttributedBoldText(text: "\(salutation) \(lastName) \(firstName)", boldText: boldText)
-                
-            } else {
-                let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
-                cell.textLabel?.attributedText = getAttributedBoldText(text: "\(salutation) \(firstName) \(lastName)", boldText: boldText)
-            }
+        guard  let firstName = travellerData?.firstName, let lastName = travellerData?.lastName, let salutation = travellerData?.salutation else {
+           return
+         }
+        if !(travellerData?.profileImage.isEmpty ?? false) {
+            cell.imageView?.setImageWithUrl(travellerData?.profileImage ?? "", placeholder: travellerData?.salutationImage ?? AppPlaceholderImage.user, showIndicator: true)
+        }
+        
+        if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
+            let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
+            cell.textLabel?.attributedText = getAttributedBoldText(text: "\(salutation) \(lastName) \(firstName)", boldText: boldText)
+            
+        } else {
+            let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
+            cell.textLabel?.attributedText = getAttributedBoldText(text: "\(salutation) \(firstName) \(lastName)", boldText: boldText)
         }
         
         if let trav = travellerData, self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {
