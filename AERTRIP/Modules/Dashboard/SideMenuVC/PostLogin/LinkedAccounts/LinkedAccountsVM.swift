@@ -13,7 +13,7 @@ import LinkedinSwift
 protocol LinkedAccountsVMDelegate: class {
     func willFetchLinkedAccount()
     func fetchLinkedAccountSuccess()
-    func fetchLinkedAccountFail()
+    func fetchLinkedAccountFail(error:ErrorCodes)
 }
 
 class LinkedAccountsVM {
@@ -30,14 +30,13 @@ class LinkedAccountsVM {
     //MARK:- Public
     func fetchLinkedAccounts() {
         self.delegate?.willFetchLinkedAccount()
-        APICaller.shared.callFetchLinkedAccountsAPI { (success, accounts, error) in
+        APICaller.shared.callFetchLinkedAccountsAPI { (success, accounts, errors) in
             if success {
                 self.linkedAccounts = accounts
                 self.delegate?.fetchLinkedAccountSuccess()
             }
             else {
-                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .login)
-                self.delegate?.fetchLinkedAccountFail()
+                self.delegate?.fetchLinkedAccountFail(error: errors)
             }
         }
     }

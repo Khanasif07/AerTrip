@@ -103,8 +103,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rv8-CM-H6Z">
                                 <rect key="frame" x="0.0" y="64" width="375" height="55"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V6m-J4-t1S">
-                                        <rect key="frame" x="16" y="5" width="343" height="39"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V6m-J4-t1S">
+                                        <rect key="frame" x="16" y="8" width="343" height="38"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -121,10 +121,10 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="6qt-WK-t9o"/>
                                     <constraint firstAttribute="bottom" secondItem="CTD-vQ-aWq" secondAttribute="bottom" id="CMo-2G-3p3"/>
-                                    <constraint firstItem="V6m-J4-t1S" firstAttribute="top" secondItem="rv8-CM-H6Z" secondAttribute="top" constant="5" id="DaY-mr-XjM"/>
+                                    <constraint firstItem="V6m-J4-t1S" firstAttribute="top" secondItem="rv8-CM-H6Z" secondAttribute="top" constant="8" id="DaY-mr-XjM"/>
                                     <constraint firstAttribute="trailing" secondItem="V6m-J4-t1S" secondAttribute="trailing" constant="16" id="GAF-A3-UzC"/>
                                     <constraint firstItem="V6m-J4-t1S" firstAttribute="leading" secondItem="rv8-CM-H6Z" secondAttribute="leading" constant="16" id="GVf-eO-jFy"/>
-                                    <constraint firstItem="CTD-vQ-aWq" firstAttribute="top" secondItem="V6m-J4-t1S" secondAttribute="bottom" constant="10" id="LZ0-zs-R8b"/>
+                                    <constraint firstItem="CTD-vQ-aWq" firstAttribute="top" secondItem="V6m-J4-t1S" secondAttribute="bottom" constant="8" id="LZ0-zs-R8b"/>
                                     <constraint firstAttribute="trailing" secondItem="CTD-vQ-aWq" secondAttribute="trailing" id="Zj7-k0-rIn"/>
                                     <constraint firstItem="CTD-vQ-aWq" firstAttribute="leading" secondItem="rv8-CM-H6Z" secondAttribute="leading" id="nEs-IX-Cug"/>
                                 </constraints>
@@ -144,10 +144,10 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ANw-WS-SII">
-                                                            <rect key="frame" x="20" y="10" width="335" height="50"/>
+                                                            <rect key="frame" x="16" y="10" width="343" height="50"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="izp-rN-J9r" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
                                                                     <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                     <state key="normal" title="Connect with Facebook" image="linkFacebook">
                                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -166,9 +166,9 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="ANw-WS-SII" secondAttribute="trailing" constant="20" id="nlg-aq-503"/>
+                                                        <constraint firstAttribute="trailing" secondItem="ANw-WS-SII" secondAttribute="trailing" constant="16" id="nlg-aq-503"/>
                                                         <constraint firstItem="ANw-WS-SII" firstAttribute="centerY" secondItem="hxJ-AM-2cn" secondAttribute="centerY" id="qZE-MW-6aG"/>
-                                                        <constraint firstItem="ANw-WS-SII" firstAttribute="leading" secondItem="hxJ-AM-2cn" secondAttribute="leading" constant="20" id="rTO-5I-w1T"/>
+                                                        <constraint firstItem="ANw-WS-SII" firstAttribute="leading" secondItem="hxJ-AM-2cn" secondAttribute="leading" constant="16" id="rTO-5I-w1T"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="se4-6I-Qzf">

@@ -953,4 +953,10 @@ enum LocalizedString: String {
     case QuickPayInfo
     case NoNotificationYet
     case NotificationInfo
+    
+    
+    // MARK: - Disconnect linkedin issue
+    case DisconnectAccountMessage
+    case Yes
+    case No
 }

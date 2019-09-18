@@ -874,4 +874,9 @@
 "NoNotificationYet" = "No Notifications yet";
 "NotificationInfo"  = "We will be coming up with good stuff for you soon.";
 
+// MARK: - Disconnect
+
+"DisconnectAccountMessage" = "Are you sure want to disconnect";
+"Yes" = "Yes";
+ "No" = "No";
 

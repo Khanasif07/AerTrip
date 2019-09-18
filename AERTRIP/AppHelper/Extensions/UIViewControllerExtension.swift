@@ -298,6 +298,8 @@ extension UIViewController{
         let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .destructive) { (_) in
             completion(false)
         }
+        
+        
         alertController.addAction(cancelAction)
         alertController.addAction(doneAction)
         self.present(alertController, animated: true, completion: nil);

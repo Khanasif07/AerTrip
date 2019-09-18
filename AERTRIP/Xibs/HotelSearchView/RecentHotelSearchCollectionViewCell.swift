@@ -56,8 +56,8 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
         let grayColor = AppColors.themeGray60
         let blackColor = AppColors.themeBlack
         let greenColor = AppColors.recentSeachesSearchTypeBlue
-        self.searchTypeLabel.textColor = blackColor
-        self.timeLabel.textColor = blackColor
+        self.searchTypeLabel.textColor = greenColor
+        self.timeLabel.textColor = greenColor
         self.cityNameLabel.textColor = blackColor
         self.stateNameLabel.textColor = blackColor
         self.totalNightsLabel.textColor = grayColor

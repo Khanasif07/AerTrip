@@ -58,7 +58,7 @@ class LinkedAccountsVC: BaseVC {
     
     override func setupTexts() {
         self.navTitleLabel.text = LocalizedString.LinkedAccounts.localized
-        self.topNavigationView.configureNavBar(title: LocalizedString.LinkedAccounts.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false)
+        self.topNavigationView.configureNavBar(title: LocalizedString.LinkedAccounts.localized, isLeftButton: true,isFirstRightButton: false, isSecondRightButton: false,isDivider: false)
         self.messageLabel.text = LocalizedString.LinkedAccountsMessage.localized
     }
     
@@ -96,11 +96,19 @@ extension LinkedAccountsVC: LinkedAccountsVMDelegate {
     
     func fetchLinkedAccountSuccess() {
 //        showLoaderOnView(view: self.view, show: false)
-        self.tableView.reloadData()
+        delay(seconds: 0.1) { [weak self] in 
+            guard let self = self else {
+                return
+            }
+            
+            self.tableView.reloadData()
+            
+        }
+       
     }
     
-    func fetchLinkedAccountFail() {
-//        showLoaderOnView(view: self.view, show: false)
+    func fetchLinkedAccountFail(error: ErrorCodes) {
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .login)
     }
 }
 
@@ -157,7 +165,13 @@ extension LinkedAccountsVC: LinkedAccountsCellDelegate {
     
     func disConnect(_ sender: UIButton, forType: LinkedAccount.SocialType) {
         if let indexPath = self.tableView.indexPath(forItem: sender) {
-            self.viewModel.disConnect(account: self.viewModel.linkedAccounts[indexPath.row])
+            
+            showAlert(title: "\(LocalizedString.Disconnect.localized)", message: "\(LocalizedString.DisconnectAccountMessage.localized) \(AppConstants.kQuestionMark)", successButtonTitle: LocalizedString.Yes.localized, cancelButtonTitle: LocalizedString.No.localized) { (allowed) in
+                if allowed {
+                    self.viewModel.disConnect(account: self.viewModel.linkedAccounts[indexPath.row])
+                }
+            }
+            
         }
     }
 }

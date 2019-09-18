@@ -36,6 +36,7 @@
                             </visualEffectView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotelsBlack" translatesAutoresizingMaskIntoConstraints="NO" id="XLT-FL-haR">
                                 <rect key="frame" x="16" y="11" width="20" height="20"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="7iQ-Sw-nYZ"/>
                                     <constraint firstAttribute="width" secondItem="XLT-FL-haR" secondAttribute="height" multiplier="1:1" id="LXG-vK-lT4"/>

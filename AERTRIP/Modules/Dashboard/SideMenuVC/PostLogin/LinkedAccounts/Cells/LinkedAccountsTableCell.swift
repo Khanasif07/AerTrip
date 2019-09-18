@@ -83,6 +83,7 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.disconnectButton.addTarget(self, action: #selector(disconnectButtonAction(_:)), for: .touchUpInside)
         
         self.connectButton.addTarget(self, action: #selector(connectButtonAction(_:)), for: .touchUpInside)
+        self.connectButton.fontForTitle = AppFonts.Regular.withSize(16.0)
     }
     
     private func configureData() {

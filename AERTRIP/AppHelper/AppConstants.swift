@@ -92,5 +92,7 @@ enum AppConstants {
     static let AdultPax = "ADT"
     static let kChildPax = "CHD"
     static let kInfantPax = "INF"
+    
+    static let kQuestionMark = "?"
 }
 
