@@ -871,5 +871,7 @@
 // MARK: - Static screen
 "ComingSoon" = "Coming Soon";
 "QuickPayInfo" = "Save your credit / debit card details for one click card payments.";
+"NoNotificationYet" = "No Notifications yet";
+"NotificationInfo"  = "We will be coming up with good stuff for you soon.";
 
 

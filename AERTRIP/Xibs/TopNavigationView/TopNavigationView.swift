@@ -135,6 +135,7 @@ class TopNavigationView: UIView {
     
     private func getBlurView(forView: UIView, isDark: Bool) -> UIVisualEffectView {
         let blurEffect = UIBlurEffect(style: isDark ? UIBlurEffect.Style.dark : UIBlurEffect.Style.light)
+        
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = forView.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]

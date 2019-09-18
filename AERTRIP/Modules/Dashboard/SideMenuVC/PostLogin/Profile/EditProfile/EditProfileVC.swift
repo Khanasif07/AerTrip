@@ -105,6 +105,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         registerXib()
         setupToolBar()
         setUpToolBarForGenericPickerView()
+      //  self.tableView.estimatedRowHeight = 44.0
     }
     
     override func viewWillAppear(_ animated: Bool) {

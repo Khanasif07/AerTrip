@@ -454,6 +454,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     
     private func configureCell(cell: UITableViewCell, travellerData: TravellerData?) {
         cell.imageView?.image = travellerData?.salutationImage
+        cell.imageView?.contentMode = .scaleAspectFit
         guard  let firstName = travellerData?.firstName, let lastName = travellerData?.lastName, let salutation = travellerData?.salutation else {
            return
          }

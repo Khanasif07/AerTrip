@@ -16,7 +16,6 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
         didSet {
             self.containerView.layer.cornerRadius = 10.0
             self.containerView.layer.masksToBounds = true
-            self.containerView.addBlurEffect(backgroundColor: AppColors.themeWhite.withAlphaComponent(0.3))
         }
     }
     @IBOutlet weak var cityImageView: UIImageView!
@@ -26,6 +25,9 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var stateNameLabel: UILabel!
     @IBOutlet weak var totalNightsLabel: UILabel!
     @IBOutlet weak var totalAdultsLabel: UILabel!
+    
+    @IBOutlet weak var blurVibranyEffectView: UIVisualEffectView!
+    
     
     //Mark:- LifeCycle
     //================
@@ -40,7 +42,7 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
     private func initialSetUp() {
         
         self.cityImageView.image = #imageLiteral(resourceName: "hotelsBlack").withRenderingMode(.alwaysTemplate)
-        self.cityImageView.tintColor = AppColors.shadowBlue
+        self.cityImageView.tintColor = AppColors.recentSeachesSearchTypeBlue
         ///Font
         let regularFont14 = AppFonts.Regular.withSize(14.0)
         self.searchTypeLabel.font = AppFonts.SemiBold.withSize(14.0)
@@ -54,8 +56,8 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
         let grayColor = AppColors.themeGray60
         let blackColor = AppColors.themeBlack
         let greenColor = AppColors.recentSeachesSearchTypeBlue
-        self.searchTypeLabel.textColor = greenColor
-        self.timeLabel.textColor = greenColor
+        self.searchTypeLabel.textColor = blackColor
+        self.timeLabel.textColor = blackColor
         self.cityNameLabel.textColor = blackColor
         self.stateNameLabel.textColor = blackColor
         self.totalNightsLabel.textColor = grayColor
@@ -68,6 +70,12 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
         self.stateNameLabel.text = ""
         self.totalNightsLabel.text = ""
         self.totalAdultsLabel.text = ""
+        
+        // add vibrancy blur effect you
+        
+        //AppGlobals.shared.removeBlur(fromView: self.blurVibranyEffectView)
+       // self.blurVibranyEffectView.contentView.addSubview(AppGlobals.shared.getBlurView(forView: self.blurVibranyEffectView, isDark: false))
+    //self.blurVibranyEffectView.insertSubview(AppGlobals.shared.getBlurView(forView: self.blurVibranyEffectView, isDark: false), at: 0)
     }
 
     ///ConfigureCell

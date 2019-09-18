@@ -587,8 +587,83 @@
             </objects>
             <point key="canvasLocation" x="669.60000000000002" y="27.436281859070466"/>
         </scene>
+        <!--NotificationVC-->
+        <scene sceneID="hwv-D7-Lg8">
+            <objects>
+                <viewController storyboardIdentifier="NotificationVC" id="Dd6-qi-bc0" customClass="NotificationVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yFP-cF-PGg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AQn-QR-MvI" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="4R1-ho-pkY"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OxI-r9-dQF">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NotificationIcon" translatesAutoresizingMaskIntoConstraints="NO" id="c0w-RI-0UY">
+                                        <rect key="frame" x="45" y="37" width="285" height="262"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="285" id="6sS-ZB-hng"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L3h-bM-RWW">
+                                        <rect key="frame" x="60" y="333" width="255" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K3M-jn-8lT">
+                                        <rect key="frame" x="52" y="359" width="271" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="L3h-bM-RWW" firstAttribute="leading" secondItem="OxI-r9-dQF" secondAttribute="leading" constant="60" id="3br-xb-vfZ"/>
+                                    <constraint firstItem="K3M-jn-8lT" firstAttribute="top" secondItem="L3h-bM-RWW" secondAttribute="bottom" constant="5" id="3hO-O3-538"/>
+                                    <constraint firstItem="L3h-bM-RWW" firstAttribute="top" secondItem="c0w-RI-0UY" secondAttribute="bottom" constant="34" id="6Hb-o9-hUh"/>
+                                    <constraint firstItem="c0w-RI-0UY" firstAttribute="top" secondItem="OxI-r9-dQF" secondAttribute="top" constant="37" id="CDe-Pb-F2d"/>
+                                    <constraint firstAttribute="trailing" secondItem="c0w-RI-0UY" secondAttribute="trailing" constant="45" id="KUE-Sj-TfR"/>
+                                    <constraint firstItem="c0w-RI-0UY" firstAttribute="leading" secondItem="OxI-r9-dQF" secondAttribute="leading" constant="45" id="UV0-VZ-fsA"/>
+                                    <constraint firstItem="K3M-jn-8lT" firstAttribute="leading" secondItem="OxI-r9-dQF" secondAttribute="leading" constant="52" id="WUQ-dA-aj1"/>
+                                    <constraint firstAttribute="trailing" secondItem="L3h-bM-RWW" secondAttribute="trailing" constant="60" id="mSP-6f-M3C"/>
+                                    <constraint firstAttribute="trailing" secondItem="K3M-jn-8lT" secondAttribute="trailing" constant="52" id="wnD-gz-Dbo"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="OxI-r9-dQF" firstAttribute="top" secondItem="AQn-QR-MvI" secondAttribute="bottom" id="0tV-1P-Wlu"/>
+                            <constraint firstItem="OxI-r9-dQF" firstAttribute="leading" secondItem="ogv-EV-BjJ" secondAttribute="leading" id="5W9-1c-Zwe"/>
+                            <constraint firstItem="ogv-EV-BjJ" firstAttribute="trailing" secondItem="AQn-QR-MvI" secondAttribute="trailing" id="8Xf-2h-4nW"/>
+                            <constraint firstItem="AQn-QR-MvI" firstAttribute="leading" secondItem="ogv-EV-BjJ" secondAttribute="leading" id="9Ry-2Y-ZMo"/>
+                            <constraint firstItem="AQn-QR-MvI" firstAttribute="top" secondItem="ogv-EV-BjJ" secondAttribute="top" id="CgB-3F-Zvv"/>
+                            <constraint firstItem="ogv-EV-BjJ" firstAttribute="bottom" secondItem="OxI-r9-dQF" secondAttribute="bottom" id="Hkp-cT-3Ql"/>
+                            <constraint firstItem="ogv-EV-BjJ" firstAttribute="trailing" secondItem="OxI-r9-dQF" secondAttribute="trailing" id="IRm-G1-BCr"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ogv-EV-BjJ"/>
+                    </view>
+                    <connections>
+                        <outlet property="infoImageView" destination="c0w-RI-0UY" id="Mps-2I-iVl"/>
+                        <outlet property="subTiteLabel" destination="K3M-jn-8lT" id="2Ws-qF-AIS"/>
+                        <outlet property="titleLabel" destination="L3h-bM-RWW" id="QQq-HN-6M3"/>
+                        <outlet property="topNavigation" destination="AQn-QR-MvI" id="1nx-yY-weN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mkV-y4-bDP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1482" y="42"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="NotificationIcon" width="284" height="262"/>
         <image name="backGreen" width="27" height="27"/>
         <image name="linkFacebook" width="35" height="35"/>
         <image name="quickPayScreen" width="319" height="225"/>

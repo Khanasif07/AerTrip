@@ -260,10 +260,12 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             }
             
         case "accounts":
+              self.statusBarStyle = .default
             if indexPath.row == 0 {
                 //settings
-                self.statusBarStyle = .default
                 AppFlowManager.default.moveToSettingsVC()
+            } else {
+                AppFlowManager.default.moveToNotificationVC()
             }
             
         case "logOut":

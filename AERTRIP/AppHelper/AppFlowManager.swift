@@ -967,6 +967,13 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
+    // Move to Notification screen
+    
+    func moveToNotificationVC() {
+        let ob = NotificationVC.instantiate(fromAppStoryboard: .Profile)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
     
     
     

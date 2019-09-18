@@ -21,7 +21,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             return 270.0
         } else
             if sections[indexPath.section] == LocalizedString.MoreInformation.localized, indexPath.row == 2 {
-            return 80
+            return UITableView.automaticDimension
         } else {
             return UITableView.automaticDimension
         }
@@ -1010,7 +1010,26 @@ extension EditProfileVC: AddAddressTableViewCellDelegate {
 }
 
 extension EditProfileVC: AddNotesTableViewCellDelegate {
-    func textViewText(_ text: String) {
-        self.viewModel.notes = text
+    func textViewText(_ textView: UITextView) {
+        let startHeight = textView.frame.size.height
+        let calcHeight = textView.sizeThatFits(textView.frame.size).height
+        
+        if startHeight != calcHeight {
+            
+            UIView.setAnimationsEnabled(false) // Disable animations
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let `self` = self else {
+                    return
+                }
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+            }
+            let scrollTo = self.tableView.contentSize.height - self.tableView.frame.size.height
+            self.tableView.setContentOffset(CGPoint(x: 0, y: scrollTo), animated: false)
+            
+            UIView.setAnimationsEnabled(true) 
+            self.viewModel.notes = textView.text
+        }
     }
 }

@@ -951,4 +951,6 @@ enum LocalizedString: String {
     // MARK: - Static screen
     case ComingSoon
     case QuickPayInfo
+    case NoNotificationYet
+    case NotificationInfo
 }
