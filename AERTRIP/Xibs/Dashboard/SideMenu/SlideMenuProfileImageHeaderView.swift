@@ -27,6 +27,8 @@ class SlideMenuProfileImageHeaderView: UIView {
     @IBOutlet var profileContainerView: UIView!
     @IBOutlet var dividerView: ATDividerView!
     
+    @IBOutlet weak var profileImageViewBottomConstraint: NSLayoutConstraint!
+    
     // MARK: - Variable
     
     private let gradient = CAGradientLayer()
@@ -79,7 +81,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         setupDefaultData()
         
         profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
-        profileImageView.layer.borderWidth = 6.0
+        profileImageView.layer.borderWidth = 4.0
         addBlurToImage()
         doInitialSetup()
         

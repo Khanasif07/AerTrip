@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -35,14 +35,14 @@
                     <rect key="frame" x="0.0" y="0.0" width="531" height="255"/>
                     <subviews>
                         <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profilePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="ARz-1y-xpA">
-                            <rect key="frame" x="205" y="23" width="121" height="121"/>
+                            <rect key="frame" x="205" y="27" width="121" height="121"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="ARz-1y-xpA" secondAttribute="height" multiplier="1:1" id="ZV6-Kq-kGB"/>
                                 <constraint firstAttribute="height" constant="121" id="pms-Kr-etU"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggie Fletcher" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAE-bT-BMd">
-                            <rect key="frame" x="10" y="152" width="511" height="33"/>
+                            <rect key="frame" x="10" y="156" width="511" height="33"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="33" id="XlT-Ft-NH1"/>
                             </constraints>
@@ -78,7 +78,7 @@
                     <constraints>
                         <constraint firstItem="ARz-1y-xpA" firstAttribute="centerX" secondItem="LRw-xr-uiF" secondAttribute="centerX" id="14r-wC-AMq"/>
                         <constraint firstAttribute="trailing" secondItem="eAE-bT-BMd" secondAttribute="trailing" constant="10" id="5G0-Pb-9k7"/>
-                        <constraint firstItem="LRw-xr-uiF" firstAttribute="top" secondItem="eAE-bT-BMd" secondAttribute="bottom" constant="8" id="8ey-9o-wNj"/>
+                        <constraint firstItem="LRw-xr-uiF" firstAttribute="top" secondItem="eAE-bT-BMd" secondAttribute="bottom" constant="4" id="8ey-9o-wNj"/>
                         <constraint firstItem="LRw-xr-uiF" firstAttribute="leading" secondItem="cbl-xr-PpX" secondAttribute="leading" constant="20" id="FfI-l5-TGP"/>
                         <constraint firstItem="eAE-bT-BMd" firstAttribute="top" secondItem="ARz-1y-xpA" secondAttribute="bottom" constant="8" id="LrI-tj-Fwj"/>
                         <constraint firstAttribute="trailing" secondItem="LRw-xr-uiF" secondAttribute="trailing" constant="20" id="ZVh-Ac-mw3"/>
@@ -94,7 +94,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgB-ko-N2g">
-                    <rect key="frame" x="224.5" y="207" width="82" height="25"/>
+                    <rect key="frame" x="224.5" y="198" width="82" height="25"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="Zvf-8u-c8g"/>
@@ -115,7 +115,7 @@
                 <constraint firstAttribute="trailing" secondItem="cbl-xr-PpX" secondAttribute="trailing" id="Chh-L4-S5X"/>
                 <constraint firstAttribute="trailing" secondItem="ycJ-AK-oMp" secondAttribute="trailing" id="Hy3-e0-bE4"/>
                 <constraint firstItem="Ojo-QA-iad" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="bbK-0v-AkW"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="pgB-ko-N2g" secondAttribute="bottom" constant="24" id="cCi-95-C6C"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="pgB-ko-N2g" secondAttribute="bottom" constant="33" id="cCi-95-C6C"/>
                 <constraint firstItem="Ojo-QA-iad" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="eG1-bH-VIx"/>
                 <constraint firstItem="x2n-dX-FxW" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="fkP-SD-7gS"/>
                 <constraint firstItem="cbl-xr-PpX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="h46-BO-zZN"/>
@@ -137,6 +137,7 @@
                 <outlet property="mobileNumberLabel" destination="uqV-cI-FPs" id="9k1-rh-G9x"/>
                 <outlet property="profileContainerView" destination="cbl-xr-PpX" id="YRn-Ad-Jg3"/>
                 <outlet property="profileImageView" destination="ARz-1y-xpA" id="aU9-gJ-oCS"/>
+                <outlet property="profileImageViewBottomConstraint" destination="LrI-tj-Fwj" id="dNN-vv-ZmW"/>
                 <outlet property="profileImageViewHeightConstraint" destination="pms-Kr-etU" id="AhU-iJ-0f7"/>
                 <outlet property="userNameLabel" destination="eAE-bT-BMd" id="23o-EQ-Rd9"/>
             </connections>
@@ -145,6 +146,6 @@
     </objects>
     <resources>
         <image name="group4" width="375" height="319"/>
-        <image name="profilePlaceholder" width="64" height="64"/>
+        <image name="profilePlaceholder" width="42.275230407714844" height="42.275230407714844"/>
     </resources>
 </document>

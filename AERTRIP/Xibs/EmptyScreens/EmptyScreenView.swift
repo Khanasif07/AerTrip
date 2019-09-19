@@ -64,6 +64,9 @@ class EmptyScreenView: UIView {
     @IBOutlet weak var firstButtonTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomButtonTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var mainImageViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mainImageViewTrainlingConstraint: NSLayoutConstraint!
+    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -272,7 +275,9 @@ extension EmptyScreenView {
         self.mainImageView.image = #imageLiteral(resourceName: "hotelEmpty")
         self.messageLabel.font = AppFonts.Regular.withSize(17.0)
         self.messageLabel.textColor = AppColors.themeGray40
-        self.messageLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "Tap ", image: #imageLiteral(resourceName: "ic_fav_hotel_text"), endText: " to add a hotel to favorite list", font: AppFonts.Regular.withSize(17.0))//"Tap   to add a hotel to favorite list"
+        self.mainImageViewLeadingConstraint.constant = 54.0
+        self.mainImageViewTrainlingConstraint.constant = 74.0
+        self.messageLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "Tap ", image: #imageLiteral(resourceName: "favIconGray"), endText: " to add a hotel to favorite list", font: AppFonts.Regular.withSize(17.0))//"Tap   to add a hotel to favorite list"
     }
     
     private func setupForImportPhoneContacts() {

@@ -50,7 +50,7 @@ class ViewProfileDetailVC: BaseVC {
         super.viewDidLoad()
         
         profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
-        
+        profileImageHeaderView.profileImageViewBottomConstraint.constant = 16
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
             //            self?.profileImageHeaderView.profileImageViewHeightConstraint.constant = 121
@@ -111,7 +111,7 @@ class ViewProfileDetailVC: BaseVC {
     }
     
     private func setupParallaxHeader() { // Parallax Header
-        let parallexHeaderHeight = CGFloat(300.0)//CGFloat(UIDevice.screenHeight * 0.45)
+        let parallexHeaderHeight = CGFloat(292.0)//CGFloat(UIDevice.screenHeight * 0.45)
         
         let parallexHeaderMinHeight = navigationController?.navigationBar.bounds.height ?? 74
         
