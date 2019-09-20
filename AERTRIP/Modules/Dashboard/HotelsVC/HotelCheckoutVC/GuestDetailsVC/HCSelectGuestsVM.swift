@@ -96,6 +96,7 @@ class HCSelectGuestsVM: NSObject {
     
     weak var delegateList: HCSelectGuestsVMDelegate?
     weak var delegateCollection: HCSelectGuestsVMDelegate?
+    var searchText: String = ""
     
     var allSelectedCount: Int {
         return selectedPhoneContacts.count + selectedFacebookContacts.count + selectedGoogleContacts.count + selectedTravellerContacts.count
@@ -177,23 +178,21 @@ class HCSelectGuestsVM: NSObject {
     
     //MARK:- Fetch Phone Contacts
     //MARK:-
-    func fetchPhoneContacts(forVC: UIViewController,sender: ATButton? = nil) {
+    func fetchPhoneContacts(forVC: UIViewController,sender: ATButton? = nil, cancled: (()->Void)? = nil) {
         self.delegateList?.willFetchPhoneContacts()
         self.delegateCollection?.willFetchPhoneContacts()
-        forVC.fetchContacts { [weak self] (contacts) in
-            if contacts.isEmpty {
-                sender?.isLoading = false
-            } else {
-                DispatchQueue.mainAsync {
-                    if let obj = self?.delegateCollection as? BaseVC {
-                        obj.sendDataChangedNotification(data: Notification.contactFetched)
-                    }
-                    self?.isPhoneContactsAllowed = true
-                    self?._phoneContacts = ATContact.fetchModels(phoneContactsArr: contacts)
+      
+        
+        forVC.fetchContacts(complition: { [weak self] (contacts) in
+            DispatchQueue.mainAsync {
+                if let obj = self?.delegateCollection as? BaseVC {
+                    obj.sendDataChangedNotification(data: Notification.contactFetched)
                 }
+                self?.isPhoneContactsAllowed = true
+                self?._phoneContacts = ATContact.fetchModels(phoneContactsArr: contacts)
             }
-            
-           
+        }) {
+             cancled?()
         }
     }
     

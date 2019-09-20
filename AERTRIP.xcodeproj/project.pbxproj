@@ -16,6 +16,7 @@
 		0C6C1C6E22E875D300152927 /* HotelFareSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C1C6D22E875D200152927 /* HotelFareSectionHeader.swift */; };
 		0C93A8E82330ABB6000795DE /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C93A8E72330ABB6000795DE /* NotificationVC.swift */; };
 		0CAC8C8222E1E0620039D612 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F983A221B51A070018DFED /* UIImageExtension.swift */; };
+		0CC23989231639EF00ADEE92 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC23988231639EF00ADEE92 /* TestViewController.swift */; };
 		1800FC6521EF1FA20006D6D1 /* AddNotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */; };
 		1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */; };
 		180162ED2295706C007E5D43 /* BookingAddOnHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180162EC2295706C007E5D43 /* BookingAddOnHeaderView.swift */; };
@@ -257,6 +258,7 @@
 		188785A721DF7D990061869E /* TravellerListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188785A521DF7D990061869E /* TravellerListTableViewCell.xib */; };
 		188BFBB52203378F00B4C315 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188BFBB42203378F00B4C315 /* GameKit.framework */; };
 		188BFBB72203379700B4C315 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188BFBB62203379700B4C315 /* StoreKit.framework */; };
+		188DFC852318FC530060F9D1 /* PKTapAndCopyUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188DFC842318FC530060F9D1 /* PKTapAndCopyUITextView.swift */; };
 		188E930C221A8F9A008FE50A /* CustomMarker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188E930B221A8F9A008FE50A /* CustomMarker.xib */; };
 		188E930E221A957A008FE50A /* CustomMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E930D221A957A008FE50A /* CustomMarker.swift */; };
 		18922E7B2204722200939F72 /* RangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18922E7A2204722200939F72 /* RangeVC.swift */; };
@@ -453,7 +455,6 @@
 		84085CF321F59C0E00F1E844 /* LinkedAccountsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CA021F59C0D00F1E844 /* LinkedAccountsVM.swift */; };
 		84085CF521F59C0E00F1E844 /* LinkedAccountsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CA321F59C0D00F1E844 /* LinkedAccountsTableCell.swift */; };
 		84085CF621F59C0E00F1E844 /* LinkedAccountsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CA421F59C0D00F1E844 /* LinkedAccountsVC.swift */; };
-		84085CF721F59C0E00F1E844 /* PreferStarCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CA721F59C0D00F1E844 /* PreferStarCategoryCell.swift */; };
 		84085CF821F59C0E00F1E844 /* AddFavouriteHotels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CA821F59C0D00F1E844 /* AddFavouriteHotels.swift */; };
 		84085CFC21F59C0E00F1E844 /* FavouriteHotelsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CAE21F59C0D00F1E844 /* FavouriteHotelsVC.swift */; };
 		84085CFD21F59C0E00F1E844 /* FavouriteHotelsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CAF21F59C0D00F1E844 /* FavouriteHotelsListVC.swift */; };
@@ -972,6 +973,7 @@
 
 /* Begin PBXFileReference section */
 		0C32DC05232F70FC008033B5 /* QuickPayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickPayVC.swift; sourceTree = "<group>"; };
+		0C181FBE22FABDAD0088E64A /* Bolts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Bolts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C6666AC22D472F0009DFACD /* TripChangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripChangeTableViewCell.swift; sourceTree = "<group>"; };
 		0C6666AD22D472F0009DFACD /* TripChangeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripChangeTableViewCell.xib; sourceTree = "<group>"; };
 		0C6666B522D486A2009DFACD /* BookingCommonActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCommonActionTableViewCell.swift; sourceTree = "<group>"; };
@@ -979,6 +981,7 @@
 		0C6C1C6B22E875C800152927 /* HotelFareSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelFareSectionHeader.xib; sourceTree = "<group>"; };
 		0C6C1C6D22E875D200152927 /* HotelFareSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelFareSectionHeader.swift; sourceTree = "<group>"; };
 		0C93A8E72330ABB6000795DE /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
+		0CC23988231639EF00ADEE92 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesTableViewCell.swift; sourceTree = "<group>"; };
 		1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddNotesTableViewCell.xib; sourceTree = "<group>"; };
 		180162EC2295706C007E5D43 /* BookingAddOnHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingAddOnHeaderView.swift; sourceTree = "<group>"; };
@@ -1217,6 +1220,7 @@
 		188785A521DF7D990061869E /* TravellerListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TravellerListTableViewCell.xib; sourceTree = "<group>"; };
 		188BFBB42203378F00B4C315 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		188BFBB62203379700B4C315 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		188DFC842318FC530060F9D1 /* PKTapAndCopyUITextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKTapAndCopyUITextView.swift; sourceTree = "<group>"; };
 		188E930B221A8F9A008FE50A /* CustomMarker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMarker.xib; sourceTree = "<group>"; };
 		188E930D221A957A008FE50A /* CustomMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarker.swift; sourceTree = "<group>"; };
 		18922E7A2204722200939F72 /* RangeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeVC.swift; sourceTree = "<group>"; };
@@ -1456,7 +1460,6 @@
 		84085CA021F59C0D00F1E844 /* LinkedAccountsVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedAccountsVM.swift; sourceTree = "<group>"; };
 		84085CA321F59C0D00F1E844 /* LinkedAccountsTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedAccountsTableCell.swift; sourceTree = "<group>"; };
 		84085CA421F59C0D00F1E844 /* LinkedAccountsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedAccountsVC.swift; sourceTree = "<group>"; };
-		84085CA721F59C0D00F1E844 /* PreferStarCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferStarCategoryCell.swift; sourceTree = "<group>"; };
 		84085CA821F59C0D00F1E844 /* AddFavouriteHotels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFavouriteHotels.swift; sourceTree = "<group>"; };
 		84085CAE21F59C0D00F1E844 /* FavouriteHotelsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteHotelsVC.swift; sourceTree = "<group>"; };
 		84085CAF21F59C0D00F1E844 /* FavouriteHotelsListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouriteHotelsListVC.swift; sourceTree = "<group>"; };
@@ -2612,6 +2615,14 @@
 			path = TravellerList;
 			sourceTree = "<group>";
 		};
+		188DFC832318FC530060F9D1 /* PKTapAndCopyUITextView */ = {
+			isa = PBXGroup;
+			children = (
+				188DFC842318FC530060F9D1 /* PKTapAndCopyUITextView.swift */,
+			);
+			path = PKTapAndCopyUITextView;
+			sourceTree = "<group>";
+		};
 		188E9309221A8CCA008FE50A /* HotelResults */ = {
 			isa = PBXGroup;
 			children = (
@@ -3318,7 +3329,6 @@
 		84085CA621F59C0D00F1E844 /* PrototypeCells */ = {
 			isa = PBXGroup;
 			children = (
-				84085CA721F59C0D00F1E844 /* PreferStarCategoryCell.swift */,
 				84085CA821F59C0D00F1E844 /* AddFavouriteHotels.swift */,
 			);
 			path = PrototypeCells;
@@ -4119,7 +4129,6 @@
 				84F9837021B51A070018DFED /* AppDelegate */,
 				84F9838421B51A070018DFED /* AppHelper */,
 				84F983B821B51A070018DFED /* AppStoryboards */,
-				84956FB721B65C4300BF1183 /* Common */,
 				84085C6C21F59C0C00F1E844 /* Modules */,
 				1870AD03220C769400FB32C8 /* Models */,
 				180A3D6E21C0D9EF001A1E6A /* Xibs */,
@@ -4319,6 +4328,7 @@
 				84085D2621F5AD2B00F1E844 /* ATDividerView.swift */,
 				182D4846228AA8C8004796A2 /* ATTableViewCell.swift */,
 				18E09F9E22EB089E0065CEB2 /* PKCategoryButton.swift */,
+				0CC23988231639EF00ADEE92 /* TestViewController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -5045,6 +5055,7 @@
 		84F9838121B51A070018DFED /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				188DFC832318FC530060F9D1 /* PKTapAndCopyUITextView */,
 				84269060228E9EF700CFCBFC /* PKMultiPicker */,
 				18EF75352280144100FCBBE6 /* PKWaterWaveView */,
 				847F7EB62279DB75009BE02F /* PKTextField */,
@@ -5183,6 +5194,7 @@
 		84F983B821B51A070018DFED /* AppStoryboards */ = {
 			isa = PBXGroup;
 			children = (
+				84956FB721B65C4300BF1183 /* Common */,
 				84F983B921B51A070018DFED /* PreLogin.storyboard */,
 				84F983BA21B51A070018DFED /* Splash.storyboard */,
 				84D2FB9C21BE767700011000 /* Dashboard.storyboard */,
@@ -5248,6 +5260,7 @@
 		E8564E98314D16DFFD182776 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0C181FBE22FABDAD0088E64A /* Bolts.framework */,
 				188BFBB62203379700B4C315 /* StoreKit.framework */,
 				188BFBB42203378F00B4C315 /* GameKit.framework */,
 				57D7C883F61476F23C0D060C /* Pods_AERTRIP.framework */,
@@ -5299,7 +5312,7 @@
 								enabled = 1;
 							};
 							com.apple.SafariKeychain = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -5646,17 +5659,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-resources.sh",
-				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
-				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
-				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -5668,63 +5676,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
-				"${BUILT_PRODUCTS_DIR}/ActiveLabel/ActiveLabel.framework",
-				"${BUILT_PRODUCTS_DIR}/AertripCalendar/AertripCalendar.framework",
-				"${BUILT_PRODUCTS_DIR}/AertripCalendarDataModel/AertripCalendarDataModel.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AvailableHapticFeedback/AvailableHapticFeedback.framework",
-				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
-				"${BUILT_PRODUCTS_DIR}/FlexiblePageControl/FlexiblePageControl.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/IOSLinkedInAPIFix/IOSLinkedInAPIFix.framework",
-				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/LinkedinSwift/LinkedinSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/MXParallaxHeader/MXParallaxHeader.framework",
-				"${BUILT_PRODUCTS_DIR}/MiniLayout/MiniLayout.framework",
-				"${BUILT_PRODUCTS_DIR}/PKLoader/PKLoader.framework",
-				"${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/TransitionButton/TransitionButton.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-				"${PODS_ROOT}/razorpay-pod/Pod/Razorpay.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ActiveLabel.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AertripCalendar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AertripCalendarDataModel.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AvailableHapticFeedback.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSCalendar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlexiblePageControl.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IOSLinkedInAPIFix.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkedinSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MXParallaxHeader.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MiniLayout.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKLoader.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PhoneNumberKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionButton.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Razorpay.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -5853,6 +5810,7 @@
 				18F968022233BF0400B163C8 /* GrowingTextView.swift in Sources */,
 				84D5F22822A644F600824A9F /* HotelBookingDetailsVC+TableCells.swift in Sources */,
 				84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */,
+				188DFC852318FC530060F9D1 /* PKTapAndCopyUITextView.swift in Sources */,
 				84271E832237A10700C1A70D /* HCDataSelectionVC.swift in Sources */,
 				182EB22222859BA8001BFB20 /* FlightInfoTableViewCell.swift in Sources */,
 				18930A2921D36761005442C8 /* TextEditableTableViewCell.swift in Sources */,
@@ -5951,7 +5909,6 @@
 				84DB3CCE22A27DF000216159 /* FlightBookingsDataModel.swift in Sources */,
 				84085CFD21F59C0E00F1E844 /* FavouriteHotelsListVC.swift in Sources */,
 				84827652223A6DBD007B6A27 /* GuestDetailsVM.swift in Sources */,
-				84085CF721F59C0E00F1E844 /* PreferStarCategoryCell.swift in Sources */,
 				1879C49B2292BD2600897CED /* DownloadInvoiceTableViewCell.swift in Sources */,
 				84085CE321F59C0E00F1E844 /* SuccessPopupVC.swift in Sources */,
 				189EF58822B7B7C600D5E055 /* AdditionalInformationModel.swift in Sources */,
@@ -6046,6 +6003,7 @@
 				1820F0E4228D40D60019B8BB /* BookingRequestRouteTableViewCell.swift in Sources */,
 				84085CDD21F59C0E00F1E844 /* AerinVC.swift in Sources */,
 				841E75C72282E6BA003CE1CF /* AccountOutstandingLadgerVM.swift in Sources */,
+				0CC23989231639EF00ADEE92 /* TestViewController.swift in Sources */,
 				84085D1721F59C0E00F1E844 /* GuestSideMenuHeaderCell.swift in Sources */,
 				842A56B222898C6E004FD51F /* AertripBankDetailsVC+Delegates.swift in Sources */,
 				182D484E228AAF5C004796A2 /* CheckInCheckOutTableViewCell.swift in Sources */,
@@ -6489,6 +6447,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -6543,6 +6502,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -6553,6 +6513,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z3688DX2N9;
@@ -6581,6 +6542,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z3688DX2N9;

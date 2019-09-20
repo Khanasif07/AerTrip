@@ -12,7 +12,7 @@ import PhoneNumberKit
 protocol EditProfileThreePartTableViewCellDelegate:class {
     func editProfileThreePartDeleteCellTapped(_ indexPath: IndexPath)
     func threePartLeftViewTap(_ indexPath: IndexPath,_ gesture: UITapGestureRecognizer)
-    func middleViewTap(_ gesture: UITapGestureRecognizer)
+    func middleViewTap(_ indexPath: IndexPath,_ gesture: UITapGestureRecognizer)
     func editProfileThreePartTableViewCellTextFieldText(_ textField: UITextField, _ indexPath: IndexPath, _ text: String, isValide: Bool)
     
 }
@@ -24,7 +24,9 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     @IBOutlet weak var leftTitleLabel: UILabel!
     @IBOutlet weak var blackDownImageView: UIImageView!
     @IBOutlet weak var leftSeparatorView: ATDividerView!
+    
     @IBOutlet weak var rightViewTextField: PhoneNumberTextField!
+    
     @IBOutlet weak var rightSeparatorView: ATDividerView!
     @IBOutlet weak var deleteButton: UIButton!
     
@@ -52,16 +54,15 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     func configureCell(_ isd:String,_ label : String, _ value: String) {
         self.leftTitleLabel.text = label.capitalizedFirst()
         self.rightViewTextField.text = value
-        
+        self.rightViewTextField.delegate = self
         self.countryCodeLabel.text = isd
         self.flagImageView.image = nil
         if let countryData = PKCountryPicker.default.getCountryData(forISDCode: isd) {
-            self.rightViewTextField.defaultRegion = countryData.ISOCode
+            self.rightViewTextField?.defaultRegion = countryData.ISOCode
             self.rightViewTextField.text = self.rightViewTextField.nationalNumber
             self.countryCodeLabel.text = isd
             self.flagImageView.image = countryData.flagImage
         }
-        self.rightViewTextField.delegate = self
         self.rightViewTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.leftViewTap(gesture:)))
         gesture.numberOfTapsRequired = 1
@@ -92,8 +93,11 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     }
     
     @objc func middleViewTap(gesture: UITapGestureRecognizer) {
+        if let idxPath = indexPath {
+              delegate?.middleViewTap(idxPath,gesture)
+        }
         printDebug("middle view tapped")
-        delegate?.middleViewTap(gesture)
+      
     }
     
     
@@ -117,6 +121,7 @@ extension EditProfileThreePartTableViewCell : UITextFieldDelegate {
     @objc func textFieldDidChanged(_ textField: UITextField) {
         if let idxPath = indexPath {
             delegate?.editProfileThreePartTableViewCellTextFieldText(textField, idxPath, self.rightViewTextField.nationalNumber, isValide: self.rightViewTextField.isValidNumber)
+             // delegate?.editProfileThreePartTableViewCellTextFieldText(textField, idxPath, self.rightViewTextField.text ?? "", isValide: true)
         }
     }
     

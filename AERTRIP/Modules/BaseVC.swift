@@ -80,6 +80,8 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(checkForReachability(_:)), name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
+        
     }
 
     override func viewWillLayoutSubviews() {
@@ -177,10 +179,11 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         UIApplication.topViewController()?.view.endEditing(true)
     }
     
-    final func showLoaderOnView(view:UIView, show:Bool) {
+    final func showLoaderOnView(view:UIView, show:Bool, backgroundColor: UIColor = .clear, padding: UIEdgeInsets = UIEdgeInsets(top: 2.0, left: 1.0, bottom: 2.0, right: 1.0)) {
         if show {
-            indicatorContainer.frame = view.bounds
+            indicatorContainer.frame = CGRect(x: view.bounds.origin.x+padding.left, y: view.bounds.origin.y+padding.top, width: view.bounds.size.width-(padding.left + padding.right), height: view.bounds.size.height-(padding.top + padding.bottom))
             indicatorContainer.layoutIfNeeded()
+            indicatorContainer.backgroundColor = backgroundColor
             indicator.center = indicatorContainer.center
             view.addSubview(indicatorContainer)
         } else {
@@ -293,6 +296,10 @@ extension BaseVC {
     
     @objc private func cancelButtonTapped() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func checkForReachability(_ notification: Notification) {
+        
     }
 }
 

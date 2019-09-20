@@ -58,6 +58,9 @@ class ForgotPasswordVC: BaseVC {
         
         self.forgotPasswordLabel.font      = AppFonts.Bold.withSize(38)
         self.intructionLabel.font    = AppFonts.Regular.withSize(16)
+        self.continueButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+        self.continueButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+
         
     }
     

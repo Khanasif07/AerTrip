@@ -14,7 +14,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if self.viewModel.hotelData != nil {
-            self.hotelTableView.tableFooterView?.isHidden = self.viewModel.hotelDetailsTableSectionData.count <= 3
+//            self.hotelTableView.tableFooterView?.isHidden = self.viewModel.hotelDetailsTableSectionData.count <= 3
             return self.viewModel.hotelDetailsTableSectionData.count
         }
         return 1
@@ -111,8 +111,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
         if indexPath.section == 0 {
             if (tableView.cellForRow(at: indexPath) as? HotelInfoAddressCell) != nil {
                 if indexPath.row == 2 {
-                    guard let reqParams = self.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel.hotelData else { return }
-                    AppGlobals.shared.redirectToMap(sourceView: view, originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
+                  // self.openMap()
                 } else if indexPath.row == 3 {
                     AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel.hotelData?.info ?? "")
                 }
@@ -264,40 +263,76 @@ extension HotelDetailsVC {
                     self.initialStickyPosition = finalY
                 }
                 
-                let bottomCons = (self.hotelTableView.contentOffset.y - (self.initialStickyPosition + self.footerView.height))
-                if (self.hotelTableView.contentSize.height - self.hotelTableView.height) <= self.hotelTableView.contentOffset.y {
-                    //if table view scrolled till end then hide sticky view
-                    self.stickyBottomConstraint.constant = -(self.footerView.height)
-                }
-                else if 0...self.footerView.height ~= bottomCons {
-                    //hiding
-                    self.stickyBottomConstraint.constant = -(bottomCons)
-                }
-                else if self.initialStickyPosition <= 0.0 {
-                    //shown
-                    self.stickyBottomConstraint.constant = 0.0
-                }
-                else if (self.initialStickyPosition + self.footerView.height) < finalY {
-                    //hidden
-                    self.stickyBottomConstraint.constant = -(self.footerView.height)
-                }
-            }
-            else {
-                if (self.initialStickyPosition + self.footerView.height) > self.hotelTableView.contentOffset.y {
-                    self.stickyBottomConstraint.constant = 0.0
-                }
-                self.initialStickyPosition = -1.0
+                UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                    guard let `self` = self else {return}
+                    self.stickyBottomConstraint.constant = (self.hotelTableView.contentOffset.y > self.initialStickyPosition) ? -(self.footerView.height + AppFlowManager.default.safeAreaInsets.bottom) : 0.0
+                    }.startAnimation()
+                
+//                let bottomCons = (self.hotelTableView.contentOffset.y - (self.initialStickyPosition + self.footerView.height))
+//                if self.hotelTableView.contentOffset.y > self.initialStickyPosition {
+//                    //hide
+//                    UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+//                        guard let `self` = self else {return}
+//                        self.stickyBottomConstraint.constant = -(self.footerView.height + AppFlowManager.default.safeAreaInsets.bottom)
+//                    }.startAnimation()
+//                }
+//                else {
+//                    //show
+//                    UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+//                        guard let `self` = self else {return}
+//                        self.stickyBottomConstraint.constant = 0
+//                        }.startAnimation()
+//                }
+//                if (self.hotelTableView.contentSize.height - self.hotelTableView.height) <= self.hotelTableView.contentOffset.y {
+//                    //if table view scrolled till end then hide sticky view
+//                    self.stickyBottomConstraint.constant = -(self.footerView.height + AppFlowManager.default.safeAreaInsets.bottom)
+//                }
+//                else if 0...self.footerView.height ~= bottomCons {
+//                    //hiding
+//                    self.stickyBottomConstraint.constant = -(bottomCons + AppFlowManager.default.safeAreaInsets.bottom)
+//                }
+//                else if self.initialStickyPosition <= 0.0 {
+//                    //shown
+//                    self.stickyBottomConstraint.constant = 0.0
+//                }
+//                else if (self.initialStickyPosition + self.footerView.height) < finalY {
+//                    //hidden
+//                    self.stickyBottomConstraint.constant = 0
+////                    self.tableFooterView?.isHidden = true
+////                    self.hotelTableView.tableFooterView?.isHidden = true
+////                    self.hotelTableView.tableFooterView = UIView(frame: CGRect.zero)
+//                    self.footerViewHeightConstraint.constant = 0
+//
+//                }
             }
         }
         else {
             self.stickyBottomConstraint.constant = 0.0
+//            self.tableFooterView?.isHidden = true
+//            self.tableFooterView?.backgroundView?.backgroundColor = AppColors.themeRed
         }
-        self.oldScrollPosition = self.hotelTableView.contentOffset
+//        self.oldScrollPosition = self.hotelTableView.contentOffset
+//        printDebug(" scroll to top \(hotelTableView.contentOffset)")
+//        if hotelTableView.contentOffset == .zero {
+//            printDebug("scroll to top ")
+////             self.tableFooterView?.isHidden = false
+//             self.footerView.isHidden = false
+////            if let tableFooterView = self.tableFooterView {
+////                tableFooterView.containerView.backgroundColor = AppColors.themeGreen
+////                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+////                tableFooterView.noRoomsAvailable.isHidden = true
+////                tableFooterView.fromLabel.isHidden = false
+////                tableFooterView.hotelFeesLabel.isHidden = false
+////                tableFooterView.selectRoomLabel.isHidden = false
+////
+//////                self.hotelTableView.tableFooterView = tableFooterView
+////            }
+//             self.footerViewSetUp()
+//        }
     }
     
     private func closeOnScroll(_ scrollView: UIScrollView) {
         let yOffset = scrollView.contentOffset.y
-        printDebug(yOffset)
         if -(yOffset) >= didsmissOnScrollPosition {
             //close
             self.hideOnScroll()
@@ -310,13 +345,13 @@ extension HotelDetailsVC {
         self.closeOnScroll(scrollView)
     }
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if decelerate {
-            self.closeOnScroll(scrollView)
-            self.manageBottomRateView()
-        }
-    }
-    
+//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        if decelerate {
+//            self.closeOnScroll(scrollView)
+//            self.manageBottomRateView()
+//        }
+//    }
+//
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.closeOnScroll(scrollView)
         self.manageHeaderView()
@@ -410,5 +445,9 @@ extension HotelDetailsVC: HotelDetailAmenitiesCellDelegate {
 extension HotelDetailsVC: HotelRatingInfoCellDelegate {
     func shareButtonAction(_ sender: UIButton) {
         AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: "https://beta.aertrip.com")
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

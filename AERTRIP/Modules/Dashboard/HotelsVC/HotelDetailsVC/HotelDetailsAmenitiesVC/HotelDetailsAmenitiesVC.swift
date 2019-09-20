@@ -16,14 +16,14 @@ class HotelDetailsAmenitiesVC: BaseVC {
     
     // Mark:- IBOutlets
     //================
-    @IBOutlet var headerContainerView: UIView!
-    @IBOutlet var dividerView: ATDividerView!
-    @IBOutlet var containerViewHeigthConstraint: NSLayoutConstraint!
-    @IBOutlet var amenitiesLabel: UILabel!
-    @IBOutlet var stickyTitleLabel: UILabel!
-    @IBOutlet var cancelButtonOutlet: UIButton!
-    @IBOutlet var amenitiesLabelTopConstraints: NSLayoutConstraint!
-    @IBOutlet var amenitiesTblView: UITableView! {
+    @IBOutlet weak var headerContainerView: UIView!
+    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var containerViewHeigthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var amenitiesLabel: UILabel!
+    @IBOutlet weak var stickyTitleLabel: UILabel!
+    @IBOutlet weak var cancelButtonOutlet: UIButton!
+    @IBOutlet weak var amenitiesLabelTopConstraints: NSLayoutConstraint!
+    @IBOutlet weak var amenitiesTblView: UITableView! {
         didSet {
             self.amenitiesTblView.contentInset = UIEdgeInsets(top: 8.0, left: 0.0, bottom: 0.0, right: 0.0)
             self.amenitiesTblView.delegate = self

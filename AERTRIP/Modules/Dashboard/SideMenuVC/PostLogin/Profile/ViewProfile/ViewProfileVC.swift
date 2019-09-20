@@ -16,9 +16,9 @@ protocol ViewProfileVCDelegate: class {
 class ViewProfileVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var topNavView: TopNavigationView!
-    @IBOutlet var tableView: ATTableView!
-   @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var tableView: ATTableView!
+    @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Variables
     
@@ -49,10 +49,11 @@ class ViewProfileVC: BaseVC {
         super.viewDidLoad()
         
         self.viewModel.travelData = UserInfo.loggedInUser?.travellerDetailModel
-
+        
         self.profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
+        self.profileImageHeaderView?.currentlyUsingAs = .viewProfile
         self.profileImageHeaderView?.delegate = self
-        self.profileImageHeaderView?.profileImageViewBottomConstraint.constant = 18
+//        self.profileImageHeaderView?.profileImageViewBottomConstraint.constant = 18
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
         }
@@ -63,7 +64,7 @@ class ViewProfileVC: BaseVC {
         super.viewWillAppear(animated)
         
         if let main = AppFlowManager.default.mainHomeVC, main.isPushedToNext {
-            self.statusBarStyle = .lightContent
+            self.statusBarStyle = topNavView.backView.isHidden ? .lightContent : .default
         }
         else if let sideMenu = AppFlowManager.default.sideMenuController, !sideMenu.isOpen {
             self.statusBarStyle = .lightContent
@@ -82,6 +83,12 @@ class ViewProfileVC: BaseVC {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.profileImageHeaderView?.isHidden = true
+        delay(seconds: 0.5) { [weak self] in
+            self?.topNavView.isToShowIndicatorView = false
+        }
+        self.topNavView.configureFirstRightButton( normalTitle: LocalizedString.Edit.localized, selectedTitle: LocalizedString.Edit.localized, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
+
+       
     }
     
     override func bindViewModel() {
@@ -93,24 +100,29 @@ class ViewProfileVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        if let noti = note.object as? ATNotification, noti == .profileChanged {
+        if let noti = note.object as? ATNotification, noti == .profileSavedOnServer {
             self.viewModel.webserviceForGetTravelDetail()
         }
     }
+    
+    
     
     // MARK: - Helper Methods
     
     func doInitialSetup() {
         
+        self.view.backgroundColor = AppColors.themeWhite
         self.topNavView.backgroundColor = AppColors.clear
         self.headerViewHeightConstraint.constant = headerViewHeight
-
+        
         self.tableView.separatorStyle = .none
         self.tableView.register(UINib(nibName: self.cellIdentifier, bundle: nil), forCellReuseIdentifier: self.cellIdentifier)
         
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
-        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Edit.rawValue, selectedTitle: LocalizedString.Edit.rawValue, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
+        
+        let editStr = "\(LocalizedString.Edit.rawValue) "
+        self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editStr, selectedTitle: editStr, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
         
         let tintedImage = #imageLiteral(resourceName: "Back").withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         self.topNavView.leftButton.setImage(tintedImage, for: .normal)
@@ -131,10 +143,10 @@ class ViewProfileVC: BaseVC {
     }
     
     func setupParallaxHeader() {
-        let parallexHeaderHeight = CGFloat(300.0)//CGFloat(UIDevice.screenHeight * 0.45)
+        let parallexHeaderHeight = CGFloat(304.0)//CGFloat(UIDevice.screenHeight * 0.45)
         
         let parallexHeaderMinHeight = self.navigationController?.navigationBar.bounds.height ?? 74
-        
+        self.profileImageHeaderView?.currentlyUsingAs = .viewProfile
         profileImageHeaderView?.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width, height: 0.0)
         self.tableView.parallaxHeader.view = profileImageHeaderView
         self.tableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight // 64
@@ -142,22 +154,35 @@ class ViewProfileVC: BaseVC {
         self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.tableView.parallaxHeader.delegate = self
         
+        self.updateUserData()
+        
+        self.view.bringSubviewToFront(self.topNavView)
+    }
+    
+    func updateUserData() {
         self.profileImageHeaderView?.userNameLabel.text = "\(UserInfo.loggedInUser?.firstName ?? LocalizedString.na.localized) \(UserInfo.loggedInUser?.lastName ?? LocalizedString.na.localized)"
         self.profileImageHeaderView?.emailIdLabel.text = UserInfo.loggedInUser?.email ?? LocalizedString.na.localized
         self.profileImageHeaderView?.mobileNumberLabel.text = UserInfo.loggedInUser?.mobileWithISD
-
+        
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
             self.profileImageHeaderView?.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? AppPlaceholderImage.user, showIndicator: false)
-            self.profileImageHeaderView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(40.0), textColor: AppColors.themeBlack).blur ?? UIImage(), showIndicator: false)
+            self.profileImageHeaderView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack).blur ?? UIImage(), showIndicator: false)
+
             self.profileImageHeaderView?.blurEffectView.alpha = 1.0
         } else {
             
             self.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
-            self.profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(40.0), textColor: AppColors.themeBlack).blur
+            self.profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack).blur
             self.profileImageHeaderView?.blurEffectView.alpha = 0.0
         }
-        
-        self.view.bringSubviewToFront(self.topNavView)
+    }
+    
+    func getUpdatedTitle() -> String {
+        var updatedTitle = self.profileImageHeaderView?.userNameLabel.text ?? ""
+        if updatedTitle.count > 24 {
+            updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
+        }
+        return updatedTitle
     }
 }
 
@@ -170,7 +195,13 @@ extension ViewProfileVC: TopNavigationViewDelegate {
         if self.viewModel.travelData == nil {
             self.viewModel.travelData = UserInfo.loggedInUser?.travellerDetailModel
         }
+        self.topNavView.configureFirstRightButton( normalTitle: "", selectedTitle: "")
+        self.topNavView.isToShowIndicatorView = true
+        self.topNavView.startActivityIndicaorLoading()
         AppFlowManager.default.moveToEditProfileVC(travelData: self.viewModel.travelData, usingFor: .viewProfile)
+        delay(seconds: 0.5) { [weak self] in
+            self?.topNavView.stopActivityIndicaorLoading()
+        }
     }
 }
 // MARK: - UITableViewDataSource and UITableViewDelegate Methods
@@ -254,7 +285,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
                 // Open linked accout VC
             case 3:
                 AppFlowManager.default.moveToLinkedAccountsVC()
-
+                
             default:
                 break
             }
@@ -282,26 +313,30 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             break
         }
     }
+    
+
 }
+
+
 
 // MARK: - MXParallaxHeaderDelegate methods
 
 extension ViewProfileVC: MXParallaxHeaderDelegate {
-    func updateForParallexProgress() {
+    @objc func updateForParallexProgress() {
         
         let prallexProgress = self.tableView.parallaxHeader.progress
         
-        if prallexProgress >= 0.6 {
-            self.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 121 * prallexProgress
+        if 0.6...1.0 ~= prallexProgress {
+            self.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 127.0 * prallexProgress
         }
-        
-        if prallexProgress <= 0.5 {
+        printDebug(prallexProgress)
+        if prallexProgress <= 0.7 {
             self.statusBarStyle = .default
             self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
                 self?.topNavView.firstRightButton.isSelected = true
                 self?.topNavView.leftButton.isSelected = true
                 self?.topNavView.leftButton.tintColor = AppColors.themeGreen
-                self?.topNavView.navTitleLabel.text = self?.profileImageHeaderView?.userNameLabel.text
+                self?.topNavView.navTitleLabel.text = self?.getUpdatedTitle()
             }
         } else {
             self.statusBarStyle = .lightContent
@@ -319,15 +354,25 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updateForParallexProgress()
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        perform(#selector(self.updateForParallexProgress), with: nil, afterDelay: 0.05)
+//        self.updateForParallexProgress()
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.updateForParallexProgress()
-    }
+//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+//        self.updateForParallexProgress()
+//        delay(seconds: 0.3) { [weak self] in
+//            self?.updateForParallexProgress()
+//        }
+//    }
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        self.updateForParallexProgress()
-    }
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        self.updateForParallexProgress()
+//    }
+//
+//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        self.updateForParallexProgress()
+//    }
 }
 
 // MARK: - Profile Header view Delegate methods
@@ -344,6 +389,10 @@ extension ViewProfileVC: SlideMenuProfileImageHeaderViewDelegate {
 }
 
 extension ViewProfileVC: ViewProfileDetailVMDelegate {
+    func willGetDetail(_ isShowLoader: Bool) {
+        //
+    }
+    
     func willLogOut() {
         //
     }
@@ -352,31 +401,36 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
         //
         UserInfo.loggedInUserId = nil
         AppFlowManager.default.goToDashboard()
-        CoreDataManager.shared.deleteCompleteDB()
+        CoreDataManager.shared.deleteData("TravellerData")
+        CoreDataManager.shared.deleteData("BookingData")
+        CoreDataManager.shared.deleteData("HotelSearched")
         UserDefaults.removeObject(forKey: UserDefaults.Key.currentUserCookies.rawValue)
         UserDefaults.removeObject(forKey: UserDefaults.Key.xAuthToken.rawValue)
+        UserInfo.hotelFilterApplied = nil
     }
     
     func didLogOutFail(errors: ErrorCodes) {
         //
     }
     
-    func willGetDetail() {
-        //
-    }
+    
     
     func getSuccess(_ data: TravelDetailModel) {
         
         self.viewModel.travelData = data
         
         self.tableView.reloadData()
-        
-        NotificationCenter.default.post(name: .dataChanged, object: nil)
+    
         self.setupParallaxHeader()
+        self.sendDataChangedNotification(data: ATNotification.profileChanged)
     }
     
     func getFail(errors: ErrorCodes) {
-        AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+        if AppGlobals.shared.isNetworkRechable() {
+             AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+        } else {
+             AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+        }
     }
 }
 

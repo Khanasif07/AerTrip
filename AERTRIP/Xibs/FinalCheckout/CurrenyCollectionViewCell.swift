@@ -11,8 +11,8 @@ import UIKit
 class CurrenyCollectionViewCell: UICollectionViewCell {
     // MARK: - IB Outlets
     
-    @IBOutlet var currencyNameLabel: UILabel!
-    @IBOutlet var currencyConversionValueLabel: UILabel!
+    @IBOutlet weak var currencyNameLabel: UILabel!
+    @IBOutlet weak var currencyConversionValueLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -22,13 +22,13 @@ class GuestDetailsVC: BaseVC {
     // MARK: - IB Outlets
     
     // Guest Detail table view
-    @IBOutlet var guestDetailTableView: ATTableView!
+    @IBOutlet weak var guestDetailTableView: ATTableView!
     
     // Generic top Nav View
-    @IBOutlet var topNavView: TopNavigationView!
+    @IBOutlet weak var topNavView: TopNavigationView!
     
     // table view for searching traveller from traveller list
-    @IBOutlet var travellersTableView: ATTableView!
+    @IBOutlet weak var travellersTableView: ATTableView!
     
     // Mark: - Properties
     let viewModel = GuestDetailsVM.shared
@@ -58,7 +58,7 @@ class GuestDetailsVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        delay(seconds: 1.2) { [weak self] in
+        delay(seconds: 1.3) { [weak self] in
               self?.makeTableViewIndexSelectable()
         }
         
@@ -320,7 +320,7 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
                     if textField.text?.count ?? 0 < AppConstants.kFirstLastNameTextLimit {
                         GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = textField.text?.removeSpaceAsSentence ?? ""
                     } else {
-                        AppToast.default.showToastMessage(message: "First Name show be less than 30 characters", spaceFromBottom : keyboardHeight)
+                        AppToast.default.showToastMessage(message: "First Name should be less than 30 characters", spaceFromBottom : keyboardHeight)
                         return
                     }
                 }
@@ -330,7 +330,7 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
                     if textField.text?.count ?? 0 < AppConstants.kFirstLastNameTextLimit {
                         GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].lastName = textField.text?.removeSpaceAsSentence ?? ""
                     } else {
-                        AppToast.default.showToastMessage(message: "Last Name show be less than 30 characters", spaceFromBottom: keyboardHeight)
+                        AppToast.default.showToastMessage(message: "Last Name should be less than 30 characters", spaceFromBottom: keyboardHeight)
                         return
                     }
                     

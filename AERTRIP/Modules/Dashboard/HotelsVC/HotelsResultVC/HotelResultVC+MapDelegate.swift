@@ -15,19 +15,17 @@ extension HotelResultVC {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == .authorizedAlways {}
         
-        let mapRact = mapContainerView.bounds
-        
         if mapView == nil {
             //this code will call only once or when mapview in nill
             let camera = GMSCameraPosition.camera(withLatitude: viewModel.hotelSearchRequest?.requestParameters.latitude.toDouble ?? 0.0, longitude: viewModel.hotelSearchRequest?.requestParameters.longitude.toDouble ?? 0.0, zoom: 10.0)
 
-            let mapV = GMSMapView.map(withFrame: mapRact, camera: camera)
+            let mapV = GMSMapView.map(withFrame: mapContainerView.bounds, camera: camera)
             mapView = mapV
-            mapContainerView.addSubview(mapV)
+            mapContainerView.mapView = mapView
             
             mapView?.delegate = self
             mapView?.isMyLocationEnabled = true
-            mapView?.settings.myLocationButton = true
+            mapView?.settings.myLocationButton = false
             mapView?.setMinZoom(self.minZoomLabel, maxZoom: self.maxZoomLabel)
             mapView?.animate(toZoom: self.defaultZoomLabel - 4.0)
             
@@ -36,7 +34,7 @@ extension HotelResultVC {
             }
         }
         
-        mapView?.frame = mapRact
+        mapView?.frame = mapContainerView.bounds
         
         self.prevZoomLabel = self.minZoomLabel
         self.updateMarkers()
@@ -98,7 +96,14 @@ extension HotelResultVC {
     /// Randomly generates cluster items within some extent of the camera and
     /// adds them to the cluster manager.
     private func generateClusterItems() {
-        let hotels = self.fetchedResultsController.fetchedObjects ?? []
+//        let hotels = self.fetchedResultsController.fetchedObjects ?? []
+        var hotels: [HotelSearched] = []
+        for dict in self.viewModel.collectionViewList  {
+            print(dict.value)
+            if let val = dict.value as? [HotelSearched] {
+               hotels.append(contentsOf: val)
+            }
+        }
         for hotel in hotels {
             let item = ATClusterItem(position: CLLocationCoordinate2D(latitude: hotel.lat?.toDouble ?? 0.0, longitude: hotel.long?.toDouble ?? 0.0), hotel: hotel)
             clusterManager.add(item)
@@ -279,30 +284,45 @@ extension HotelResultVC: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         if hoteResultViewType == .MapView {
-            if self.isMapInFullView == false {
-                UIView.animate(withDuration: 0.4) { [weak self] in
-                    self?.collectionView.isHidden = true
-                    self?.collectionViewHeightConstraint.constant = 0
-                    self?.collectionView.alpha = 0
-                    self?.floatingViewBottomConstraint.constant = 10
-                    
-                    self?.mapContainerViewBottomConstraint.constant = 0
-                    self?.mapView?.frame = CGRect(x: 0.0, y: 0.0, width: self?.mapContainerView.width ?? 0, height: UIDevice.screenHeight)
-                    self?.mapContainerView.layoutIfNeeded()
-                    self?.isMapInFullView = true
+            if self.isMapInFullView {
+                //show collection view list
+                self.isHidingOnMapTap = true
+                self.isMapInFullView = false
+
+                let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                    guard let sSelf = self else {return}
+                    sSelf.collectionViewBottomConstraint.constant = 0.0
+                    sSelf.floatingViewBottomConstraint.constant = sSelf.floatingViewInitialConstraint
+                    sSelf.mapContainerViewBottomConstraint.constant = 230.0
+                    sSelf.headerContainerViewTopConstraint.constant = 0.0
+                    sSelf.mapContainerView.layoutSubviews()
+                    sSelf.view.layoutIfNeeded()
                 }
+                
+                animator.addCompletion { [weak self](pos) in
+                    self?.isHidingOnMapTap = false
+                }
+                animator.startAnimation()
             }
             else {
-                UIView.animate(withDuration: 0.4) { [weak self] in
-                    self?.collectionView.isHidden = false
-                    self?.collectionViewHeightConstraint.constant = 230
-                    self?.floatingViewBottomConstraint.constant = self?.floatingViewInitialConstraint ?? 0.0
-                    self?.mapContainerViewBottomConstraint.constant = 230
-                    self?.mapView?.frame = CGRect(x: 0.0, y: 0.0, width: self?.mapContainerView.width ?? 0, height: UIDevice.screenHeight - 230)
-                    self?.mapContainerView.layoutIfNeeded()
-                    self?.isMapInFullView = false
-                    self?.collectionView.alpha = 1
+                //hide collection view list
+                self.isHidingOnMapTap = true
+                self.isMapInFullView = true
+                
+                let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                    guard let sSelf = self else {return}
+                    sSelf.collectionViewBottomConstraint.constant = -230.0
+                    sSelf.mapContainerViewBottomConstraint.constant = 0.0
+                    sSelf.floatingViewBottomConstraint.constant = 0.0
+                    sSelf.headerContainerViewTopConstraint.constant = 0.0
+                    sSelf.mapContainerView.layoutSubviews()
+                    sSelf.view.layoutIfNeeded()
                 }
+                
+                animator.addCompletion { [weak self](pos) in
+                    self?.isHidingOnMapTap = false
+                }
+                animator.startAnimation()
             }
         }
         printDebug("Coordinate on tapped")

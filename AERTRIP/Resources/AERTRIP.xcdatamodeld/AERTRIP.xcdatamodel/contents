@@ -68,7 +68,7 @@
         <attribute name="taWebUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tax" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="tempPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="thumbnail" optional="YES" attributeType="Transformable" customClassName="Array&lt;Any&gt;" syncable="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="Transformable" customClassName="Array&lt;String&gt;" syncable="YES"/>
         <attribute name="vid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="TravellerData" representedClassName="TravellerData" isAbstract="YES" syncable="YES">
@@ -78,6 +78,7 @@
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isChecked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="label" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="labelLocPrio" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastNameFirstChar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="profileImage" optional="YES" attributeType="String" syncable="YES"/>

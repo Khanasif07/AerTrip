@@ -76,15 +76,22 @@
                                             <constraint firstItem="PI6-pz-CWQ" firstAttribute="centerX" secondItem="Vcs-gT-NGI" secondAttribute="centerX" id="fYj-ZX-0d9"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpL-hs-GDS">
-                                        <rect key="frame" x="100" y="30.5" width="22" height="22"/>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpL-hs-GDS">
+                                        <rect key="frame" x="92" y="26.5" width="30" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="0eW-7J-Sgh"/>
+                                            <constraint firstAttribute="width" secondItem="vpL-hs-GDS" secondAttribute="height" multiplier="1:1" id="cCD-Ah-Rba"/>
+                                        </constraints>
                                         <state key="normal" image="cross_icon"/>
                                         <connections>
                                             <action selector="cancelBtnAction:" destination="aub-h8-Lhh" eventType="touchUpInside" id="tAz-Lz-Jbi"/>
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="vpL-hs-GDS" secondAttribute="trailing" id="A8G-cN-95g"/>
+                                </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJR-9b-ccg" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="16" y="85" width="131" height="0.5"/>

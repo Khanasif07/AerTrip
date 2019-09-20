@@ -45,8 +45,8 @@ class SideMenuVC: BaseVC {
     
     // MARK: -
     
-    @IBOutlet var sideMenuTableView: ATTableView!
-    @IBOutlet var socialOptionView: UIView!
+    @IBOutlet weak var sideMenuTableView: ATTableView!
+    @IBOutlet weak var socialOptionView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +56,14 @@ class SideMenuVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    
+    override func dataChanged(_ note: Notification) {
+        printDebug("data changed notfication received")
+        //        resetItems()
+        updateProfileView(view: getProfileView())
+        sideMenuTableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -80,10 +88,11 @@ class SideMenuVC: BaseVC {
                 self.profileContainerView = self.getProfileView()
                 self.profileContainerView.delegate = self
                 self.profileContainerView.isUserInteractionEnabled = true
-                self.profileSuperView?.addSubview(self.profileContainerView)
             }
         }
     }
+    
+
     
     override func initialSetup() {
         self.view.backgroundColor = AppColors.screensBackground.color
@@ -109,11 +118,14 @@ class SideMenuVC: BaseVC {
         view.frame = CGRect(x: 0.0, y: self.sideMenuTableView.y, width: self.sideMenuTableView.width, height: 179.0)
     }
     
+    
+    
     func getProfileView() -> SlideMenuProfileImageHeaderView {
         //add the profile view only if user is logged in
         let view = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
-        view.profileImageViewBottomConstraint.constant = 10
+      //  view.profileImageViewBottomConstraint.constant = 10
         view.profileImageView.layer.borderWidth = 3.0
+        view.currentlyUsingAs = .sideMenu
         view.backgroundColor = AppColors.clear
         self.updateProfileView(view: view)
         
@@ -129,13 +141,12 @@ class SideMenuVC: BaseVC {
             //view.profileImageView.kf.setImage(with: URL(string: imagePath))
             view.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
             //  view.backgroundImageView.kf.setImage(with: URL(string: imagePath))
-            view.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
+            view.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont) ?? UIImage(), showIndicator: false)
         }
         else {
             view.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
-            view.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(textColor: AppColors.themeBlack)
+            view.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack)
         }
-        
         view.frame = CGRect(x: 0.0, y: 40.0, width: self.profileSuperView?.width ?? 0.0, height: self.profileSuperView?.height ?? 0.0)
         view.emailIdLabel.isHidden = true
         view.mobileNumberLabel.isHidden = true
@@ -150,7 +161,6 @@ class SideMenuVC: BaseVC {
         view.backgroundImageView.alpha = 0.0
         view.gradientView.alpha = 0.0
         view.dividerView.alpha = 0.0
-        view.profileImageViewBottomConstraint.constant = 10.0
         view.translatesAutoresizingMaskIntoConstraints = true
     }
     
@@ -207,7 +217,9 @@ private extension SideMenuVC {
 extension SideMenuVC {
     
     @objc func loginAndRegistrationButtonAction(_ sender: ATButton) {
-        self.delegate?.loginRegisterAction(sender)
+        delay(seconds: 0.15) { [weak self] in
+            self?.delegate?.loginRegisterAction(sender)
+        }
     }
     
     @objc func viewProfileButtonAction(_ sender: ATButton) {
@@ -239,6 +251,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 
                 self.profileSuperView = cell.profileSuperView
+                cell.userInfo = UserInfo.loggedInUser
                 cell.viewProfileButton.addTarget(self, action: #selector(self.viewProfileButtonAction(_:)), for: .touchUpInside)
                 
                 return cell
@@ -280,11 +293,9 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             }
             
             if let _ = UserInfo.loggedInUserId {
-                cell.populateData(text: self.viewModel.cellForLoginUser[indexPath.row - 2])
-                
-                if indexPath.row == 6 {
-                    cell.sepratorView.isHidden = false
-                }
+                let title = self.viewModel.cellForLoginUser[indexPath.row - 2]
+                cell.populateData(text: title)
+                cell.sepratorView.isHidden = !title.isEmpty
                 
             } else {
                 cell.populateData(text: self.viewModel.displayCellsForGuest[indexPath.row - 1])
@@ -303,32 +314,59 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0, let _ = UserInfo.loggedInUserId {
-            self.viewProfileButtonAction(ATButton())
+        if let _ = UserInfo.loggedInUserId {
+            //current user
+            switch indexPath.row {
+            case 0:
+                //profile
+                self.viewProfileButtonAction(ATButton())
+                
+            case 1:
+                //view account
+                AppFlowManager.default.moveToAccountDetailsScreen()
+                
+            case 2:
+                //my booking
+                AppFlowManager.default.moveToMyBookingsVC()
+                
+            case 6:
+                //settings
+                AppFlowManager.default.moveToSettingsVC()
+                
+            default:
+                AppGlobals.shared.showUnderDevelopment()
+            }
         }
-        else if indexPath.row == 1 {
-            //view account
-            AppFlowManager.default.moveToAccountDetailsScreen()
-        }
-        else if indexPath.row == 2 , UserInfo.loggedInUser != nil {
-            AppFlowManager.default.moveToMyBookingsVC()
-        }
-        else if indexPath.row == 6 {
-            //Settings
-            AppFlowManager.default.moveToSettingsVC()
+        else {
+            //guest user
+            switch indexPath.row {
+                
+            case 5:
+                //settings
+                AppFlowManager.default.moveToSettingsVC()
+                
+            default:
+                AppGlobals.shared.showUnderDevelopment()
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.row {
-        case 0:
-            return (UserInfo.loggedInUserId == nil) ? 267.0 : 200
-            
-        case 1:
-            return (UserInfo.loggedInUserId == nil) ? 60.0 : 63.0
-            
-        default:
-            return (UserInfo.loggedInUserId == nil) ? 60.03 : 66.7
+        if indexPath.row > 2, self.viewModel.cellForLoginUser[indexPath.row - 2].isEmpty {
+            //make divider
+            return 10.0
+        }
+        else {
+            switch indexPath.row {
+            case 0:
+                return (UserInfo.loggedInUserId == nil) ? 267.0 : 213.0
+                
+            case 1:
+                return (UserInfo.loggedInUserId == nil) ? 60.0 : 67.0
+                
+            default:
+                return (UserInfo.loggedInUserId == nil) ? 64.0 : 64.0
+            }
         }
     }
 }

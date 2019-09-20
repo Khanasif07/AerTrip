@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict/>
+<dict>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:www.aertrip.com</string>
+		<string>applinks:email.mailer.aertrip.com</string>
+		<string>applinks:aertrip.com</string>
+		<string>applinks:beta.aertrip.com</string>
+		<string>applinks:*.aertrip.com</string>
+	</array>
+</dict>
 </plist>

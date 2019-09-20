@@ -17,23 +17,23 @@ protocol EmailComposeerHeaderViewDelegate: class {
 class EmailComposerHeaderView: UIView {
     // MARK: - IB Outlets
     
-    @IBOutlet var toEmailTextView: ATEmailSelectorTextView!
-    @IBOutlet var messageSubjectTextView: UITextView!
-    @IBOutlet var toLabel: UILabel!
-    @IBOutlet var messageLabel: UILabel!
-    @IBOutlet var hotelResultLabel: UILabel!
-    @IBOutlet var sharedStatusLabel: UILabel!
-    @IBOutlet var firstDotedView: UIView!
-    @IBOutlet var secondDotedView: UIView!
-    @IBOutlet var checkInCheckOutView: UIView!
+    @IBOutlet weak var toEmailTextView: ATEmailSelectorTextView!
+    @IBOutlet weak var messageSubjectTextView: UITextView!
+    @IBOutlet weak var toLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var hotelResultLabel: UILabel!
+    @IBOutlet weak var sharedStatusLabel: UILabel!
+    @IBOutlet weak var firstDotedView: UIView!
+    @IBOutlet weak var secondDotedView: UIView!
+    @IBOutlet weak var checkInCheckOutView: UIView!
     
-    @IBOutlet var checkInDateLabel: UILabel!
-    @IBOutlet var checkInDayLabel: UILabel!
-    @IBOutlet var checkOutDateLabel: UILabel!
-    @IBOutlet var checkOutDayLabel: UILabel!
-    @IBOutlet var checkOutMessageLabel: UILabel!
-    @IBOutlet var seeRatesButton: ATButton!
-    @IBOutlet var numberOfNightsLabel: UILabel!
+    @IBOutlet weak var checkInDateLabel: UILabel!
+    @IBOutlet weak var checkInDayLabel: UILabel!
+    @IBOutlet weak var checkOutDateLabel: UILabel!
+    @IBOutlet weak var checkOutDayLabel: UILabel!
+    @IBOutlet weak var checkOutMessageLabel: UILabel!
+    @IBOutlet weak var seeRatesButton: ATButton!
+    @IBOutlet weak var numberOfNightsLabel: UILabel!
     @IBOutlet weak var emailHeightConatraint: NSLayoutConstraint!
     @IBOutlet weak var subjectHeightConstraint: NSLayoutConstraint!
     

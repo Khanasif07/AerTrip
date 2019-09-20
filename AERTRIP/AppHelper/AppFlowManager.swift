@@ -280,7 +280,7 @@ extension AppFlowManager {
         self.mainNavigationController.present(controller, animated: true, completion: nil)
     }
     
-    func moveToHotelSearchVC() {
+    func moveToSearchFavouriteHotelsVC() {
         let ob = SearchFavouriteHotelsVC.instantiate(fromAppStoryboard: .HotelPreferences)
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
@@ -425,13 +425,26 @@ extension AppFlowManager {
         }
     }
     
-    func presentHotelDetailsVC(_ vc: HotelResultVC, hotelInfo: HotelSearched, sourceView: UIView, sid: String, hotelSearchRequest: HotelSearchRequestModel?) {
+    func presentHotelDetailsVC(_ vc: HotelResultVC, hotelInfo: HotelSearched, sourceView: UIView, sid: String, hotelSearchRequest: HotelSearchRequestModel?, onCloseHandler: (() -> Void)? = nil) {
         if let topVC = UIApplication.topViewController() {
             let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
             ob.viewModel.hotelInfo = hotelInfo
             ob.delegate = vc
             ob.viewModel.hotelSearchRequest = hotelSearchRequest
+            ob.onCloseHandler = onCloseHandler
             ob.show(onViewController: topVC, sourceView: sourceView, animated: true)
+        }
+    }
+    // presentHotelDetailsVCOverExpendCard
+    func presentHotelDetailsVCOverExpendCard(_ vc: HotelsGroupExpendedVC, hotelInfo: HotelSearched, sourceView: UIView, sid: String, hotelSearchRequest: HotelSearchRequestModel?, onCloseHandler: (() -> Void)? = nil) {
+        if let topVC = UIApplication.topViewController() {
+            let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
+            ob.viewModel.hotelInfo = hotelInfo
+            ob.delegate = vc
+            ob.isHideWithAnimation = false
+            ob.viewModel.hotelSearchRequest = hotelSearchRequest
+            ob.onCloseHandler = onCloseHandler
+            ob.show(onViewController: topVC, sourceView: sourceView, animated: false)
         }
     }
     
@@ -797,6 +810,12 @@ extension AppFlowManager {
         let obj = AertripBankDetailsVC.instantiate(fromAppStoryboard: .Account)
         obj.viewModel.allBanks = bankDetails
         self.mainNavigationController.present(obj, animated: true, completion: nil)
+    }
+    
+    
+    func moveToTestViewController() {
+        let ob = TestViewController.instantiate(fromAppStoryboard: .Common)
+        self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
     // MARK: - Aerin

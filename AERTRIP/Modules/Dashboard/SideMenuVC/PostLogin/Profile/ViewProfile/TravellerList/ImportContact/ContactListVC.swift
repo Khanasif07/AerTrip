@@ -31,7 +31,7 @@ class ContactListVC: BaseVC {
     let viewModel = ImportContactVM.shared
     
     //MARK:- Private
-    private lazy var allowEmptyView: EmptyScreenView = {
+     lazy var allowEmptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         
         if self.currentlyUsingFor == .contacts {
@@ -100,19 +100,13 @@ class ContactListVC: BaseVC {
                 noResultemptyView.messageLabel.isHidden = false
                 noResultemptyView.messageLabel.text = "\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(self.viewModel.searchingFor)'"
                 if self.currentlyUsingFor == .contacts, self.viewModel.isPhoneContactsAllowed {
-                    
-                    self.viewModel.createSectionWiseDataForContacts(for: .contacts)
                     tableView.backgroundView = noResultemptyView
                 }
                 else if self.currentlyUsingFor == .facebook, self.viewModel.isFacebookContactsAllowed {
-                    
-                    self.viewModel.createSectionWiseDataForContacts(for: .facebook)
                     tableView.backgroundView = noResultemptyView
                     
                 }
                 else if self.currentlyUsingFor == .google, self.viewModel.isGoogleContactsAllowed {
-                    
-                    self.viewModel.createSectionWiseDataForContacts(for: .google)
                     tableView.backgroundView = noResultemptyView
                 }
                 
@@ -133,7 +127,7 @@ class ContactListVC: BaseVC {
         self.tableView.sectionIndexColor = AppColors.themeGreen
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        noResultemptyView.mainImageViewTopConstraint.constant = 300
+        noResultemptyView.mainImageViewTopConstraint.constant = 400
     }
     
     private func reloadList() {
@@ -207,7 +201,8 @@ class ContactListVC: BaseVC {
     }
     
     @IBAction func selectAllButtonAction(_ sender: UIButton) {
-        sender.disable(forSeconds: 0.6)
+        self.showLoaderOnView(view: sender, show: true, backgroundColor: AppColors.themeWhite)
+//        sender.disable(forSeconds: 0.6)
         if self.currentlyUsingFor == .contacts {
             if sender.isSelected {
                 //remove all
@@ -216,16 +211,20 @@ class ContactListVC: BaseVC {
             }
             else {
                 //remove all preselected items
+
                 for contact in self.viewModel.selectedPhoneContacts {
                     if let index = self.getIndexPath(contact: contact) {
                         self.tableView(self.tableView, didSelectRowAt: index)
                     }
                 }
                 
-                
                 self.viewModel.selectedPhoneContacts = self.viewModel.phoneContacts
                 //add all
-                self.viewModel.addAll(for: .contacts)
+                DispatchQueue.backgroundAsync {
+                    DispatchQueue.mainSync({
+                        self.viewModel.addAll(for: .contacts)
+                    })
+                }
             }
         }
         else if self.currentlyUsingFor == .facebook {
@@ -278,6 +277,7 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        self.showLoaderOnView(view: self.selectAllButton, show: false)
         if self.currentlyUsingFor == .contacts {
             self.hideSelectAllButton(isHidden: self.viewModel.sections.isEmpty)
             return self.viewModel.sections.count
@@ -418,7 +418,9 @@ extension ContactListVC: EmptyScreenViewDelegate {
     func firstButtonAction(sender: ATButton) {
         if self.currentlyUsingFor == .contacts {
             sender.isLoading = true
-            self.viewModel.fetchPhoneContacts(forVC: self)
+            self.viewModel.fetchPhoneContacts(forVC: self) {
+                sender.isLoading = false
+            }
         }
         else if self.currentlyUsingFor == .facebook {
             self.viewModel.fetchFacebookContacts(forVC: self)
@@ -468,7 +470,6 @@ extension ContactListVC: ImportContactVMDelegate {
         
         switch self.currentlyUsingFor {
         case .contacts:
-            self.viewModel.createSectionWiseDataForContacts(for: .contacts)
             if !self.viewModel.isPhoneContactsAllowed {
                 tableView.backgroundView = allowEmptyView
             }
@@ -480,7 +481,6 @@ extension ContactListVC: ImportContactVMDelegate {
             }
             
         case .facebook:
-            self.viewModel.createSectionWiseDataForContacts(for: .facebook)
             if !self.viewModel.isFacebookContactsAllowed {
                 tableView?.backgroundView = allowEmptyView
             }
@@ -492,15 +492,14 @@ extension ContactListVC: ImportContactVMDelegate {
             }
             
         case .google:
-            self.viewModel.createSectionWiseDataForContacts(for: .google)
             if !self.viewModel.isGoogleContactsAllowed {
-                tableView.backgroundView = allowEmptyView
+                tableView?.backgroundView = allowEmptyView
             }
             else if self.viewModel.googleContacts.isEmpty {
-                tableView.backgroundView = noResultemptyView
+                tableView?.backgroundView = noResultemptyView
             }
             else {
-                tableView.backgroundView = nil
+                tableView?.backgroundView = nil
             }
         }
         

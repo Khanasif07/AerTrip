@@ -15,23 +15,23 @@ protocol BookingReschedulingPassengerAccordionTableViewCellDelegate: class {
 class BookingReschedulingPassengerAccordionTableViewCell: ATTableViewCell {
     // MARK: - IB Outlet
     
-    @IBOutlet var headerView: UIView!
-    @IBOutlet var passengerNameLabel: UILabel!
-    @IBOutlet var arrowButton: UIButton!
-    @IBOutlet var headerDividerView: ATDividerView!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var passengerNameLabel: UILabel!
+    @IBOutlet weak var arrowButton: UIButton!
+    @IBOutlet weak var headerDividerView: ATDividerView!
     
-    @IBOutlet var detailView: UIView!
-    @IBOutlet var bottomDividerView: ATDividerView!
+    @IBOutlet weak var detailView: UIView!
+    @IBOutlet weak var bottomDividerView: ATDividerView!
     
-    @IBOutlet var selectedTravellerButton: UIButton!
-    @IBOutlet var pnrTitleLabel: UILabel!
-    @IBOutlet var pnrValueLabel: UILabel!
-    @IBOutlet var saleAmountLabel: UILabel!
-    @IBOutlet var saleValueLabel: UILabel!
-    @IBOutlet var cancellationChargeLabel: UILabel!
-    @IBOutlet var cancellationChargeValueLabel: UILabel!
-    @IBOutlet var netRefundLabel: UILabel!
-    @IBOutlet var netRefundValueLabel: UILabel!
+    @IBOutlet weak var selectedTravellerButton: UIButton!
+    @IBOutlet weak var pnrTitleLabel: UILabel!
+    @IBOutlet weak var pnrValueLabel: UILabel!
+    @IBOutlet weak var saleAmountLabel: UILabel!
+    @IBOutlet weak var saleValueLabel: UILabel!
+    @IBOutlet weak var cancellationChargeLabel: UILabel!
+    @IBOutlet weak var cancellationChargeValueLabel: UILabel!
+    @IBOutlet weak var netRefundLabel: UILabel!
+    @IBOutlet weak var netRefundValueLabel: UILabel!
     
     // MARK: - Properties
     

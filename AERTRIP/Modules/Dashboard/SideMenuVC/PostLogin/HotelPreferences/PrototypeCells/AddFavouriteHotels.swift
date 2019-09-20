@@ -27,7 +27,7 @@ class AddFavouriteHotels: UITableViewCell {
     }
     
     @IBAction func addFavouriteButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToHotelSearchVC()
+        AppFlowManager.default.moveToSearchFavouriteHotelsVC()
     }
     
     func setupText() {

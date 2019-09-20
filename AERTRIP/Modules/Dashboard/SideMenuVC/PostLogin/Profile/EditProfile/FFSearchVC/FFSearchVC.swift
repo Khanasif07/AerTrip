@@ -15,7 +15,7 @@ protocol SearchVCDelegate: class {
 class FFSearchVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var tableView: ATTableView!
+    @IBOutlet weak var tableView: ATTableView!
     
     @IBOutlet weak var searchBar: ATSearchBar!
     @IBOutlet weak var topNavView: TopNavigationView!

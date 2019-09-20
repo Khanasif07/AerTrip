@@ -9,7 +9,7 @@
 import UIKit
 
 class ConvenienceFeeTableViewCell: UITableViewCell {
-    @IBOutlet var convenienceFeeLabel: UILabel!
+    @IBOutlet weak var convenienceFeeLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

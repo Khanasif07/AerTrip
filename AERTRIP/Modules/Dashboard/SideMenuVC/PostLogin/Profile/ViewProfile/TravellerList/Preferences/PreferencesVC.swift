@@ -17,9 +17,9 @@ protocol PreferencesVCDelegate: class {
 class PreferencesVC: BaseVC {
     // MARK: - IB Outlets
     
-    @IBOutlet var topNavView: TopNavigationView!
-    @IBOutlet var tableView: ATTableView!
-    @IBOutlet var indicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var tableView: ATTableView!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     // MARK: - Variables
     
@@ -52,7 +52,6 @@ class PreferencesVC: BaseVC {
     // MARK: - IB Actions
     
     // MARK: - Helper methods
-    
     func doInitialSetUp() {
         tableView.separatorStyle = .none
         
@@ -65,7 +64,6 @@ class PreferencesVC: BaseVC {
         tableView.dataSource = self
         tableView.allowsSelectionDuringEditing = true
         tableView.isEditing = true
-        
         indicatorView.color = AppColors.themeGreen
         
         stopLoading()
@@ -97,14 +95,17 @@ class PreferencesVC: BaseVC {
             let groupName = alertController.textFields?.first?.text?.trimmingCharacters(in: .whitespaces) ?? "None"
             printDebug("Current group name: \(groupName)")
             
-            if groupName.isEmpty {
+            if groupName.isEmpty{
                 AppToast.default.showToastMessage(message: LocalizedString.GroupNameCanNotEmpty.localized)
                 return
-            }
-            
-            if !self.viewModel.groups.contains(where: { $0.compare(groupName, options: .caseInsensitive) == .orderedSame }) {
-                self.viewModel.groups.append(groupName)
-                self.viewModel.modifiedGroups.append((originalGroupName: groupName, modifiedGroupName: groupName))
+            } else if !self.viewModel.groups.contains(where: { $0.compare(groupName, options: .caseInsensitive) == .orderedSame }) {
+                if (groupName.lowercased() == LocalizedString.Other.localized.lowercased()) || (groupName.lowercased() == LocalizedString.Others.localized.lowercased()) {
+                   AppToast.default.showToastMessage(message: LocalizedString.CantCreateGroupWithThisName.localized)
+                } else {
+                    self.viewModel.groups.append(groupName)
+                    self.viewModel.modifiedGroups.append((originalGroupName: groupName, modifiedGroupName: groupName))
+                 }
+               
             } else {
                 AppToast.default.showToastMessage(message: LocalizedString.GroupAlreadyExist.localized)
             }
@@ -276,7 +277,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                 return categoryGroupCell
             }
         case LocalizedString.Groups:
-            guard let groupCell = tableView.dequeueReusableCell(withIdentifier: groupCellIdentifier, for: indexPath) as? GroupTableViewCell else {
+            guard let groupCell = tableView.dequeueReusableCell(withIdentifier: groupCellIdentifier) as? GroupTableViewCell else {
                 fatalError("GroupTableViewCell not found")
             }
             groupCell.dividerView.isHidden = indexPath.row == viewModel.groups.count - 1
@@ -349,12 +350,35 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         // get modified Object
+        
         let movedObject = viewModel.groups[sourceIndexPath.row]
         let movedModifiedObject = viewModel.modifiedGroups[sourceIndexPath.row]
         
         // remove element at Particular index
         viewModel.groups.remove(at: sourceIndexPath.row)
         viewModel.modifiedGroups.remove(at: sourceIndexPath.row)
+        
+        guard let sourceCell = self.tableView.cellForRow(at: sourceIndexPath) as? GroupTableViewCell else {
+            return
+        }
+        
+        let rows = tableView.numberOfRows(inSection: sourceIndexPath.section)
+        if let lastCell = self.tableView.cellForRow(at: IndexPath(row: rows-1, section: sourceIndexPath.section)) as? GroupTableViewCell {
+            lastCell.dividerView.isHidden = true
+            
+            if destinationIndexPath.row == (rows - 1) {
+                lastCell.dividerView.isHidden = false
+                sourceCell.dividerView.isHidden = true
+            }
+            else if sourceIndexPath.row == (rows - 1) {
+                if (rows - 2) >= 0, let secondlastCell = self.tableView.cellForRow(at: IndexPath(row: rows-2, section: sourceIndexPath.section)) as? GroupTableViewCell {
+                    secondlastCell.dividerView.isHidden = true
+                }
+                sourceCell.dividerView.isHidden = false
+            }
+        }
+        
+
         
         // Insert element at Particular index
         viewModel.groups.insert(movedObject, at: destinationIndexPath.row)
@@ -365,7 +389,6 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         if indexPath.row == viewModel.groups.count {
             return false
         }
-        
         return true
     }
     
@@ -383,6 +406,17 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         }
         return false
     }
+    
+    
+    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        if proposedDestinationIndexPath.section < sourceIndexPath.section {
+            return sourceIndexPath
+        }
+        
+        return proposedDestinationIndexPath
+    }
+    
+    
 }
 
 // MARK: - GroupTableViewCellDelegate methods
@@ -403,7 +437,7 @@ extension PreferencesVC: GroupTableViewCellDelegate {
             if index == 0 {
                 switch self.sections[indexPath.section] {
                 case LocalizedString.Groups:
-                   self.viewModel.removedGroups.append(self.viewModel.groups.remove(at: indexPath.row))
+                    self.viewModel.removedGroups.append(self.viewModel.groups.remove(at: indexPath.row))
                     self.viewModel.modifiedGroups.remove(at: indexPath.row)
                     self.tableView.reloadData()
                 default:
@@ -422,6 +456,7 @@ extension PreferencesVC: PreferencesVMDelegate {
     }
     
     func savePreferencesSuccess() {
+        self.sendDataChangedNotification(data: ATNotification.preferenceUpdated)
         stopLoading()
         dismiss(animated: true, completion: nil)
         delegate?.preferencesUpdated()

@@ -26,12 +26,12 @@ enum CancellationType {
 }
 
 class CancellationPolicyTableViewCell: ATTableViewCell {
-    @IBOutlet var titleLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var titleLabelLeadingConstraint: NSLayoutConstraint!
     
     // MARK: - IBOultet
     
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var titleValueLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleValueLabel: UILabel!
     
     // Override methods
     

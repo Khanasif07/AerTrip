@@ -11,9 +11,9 @@ import UIKit
 class BookingTravellerAddOnsTableViewCell: UITableViewCell {
     // MARK: - IBOutlet
     
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var travellerCollectionView: UICollectionView!
-    @IBOutlet var travellerAddonsCollectionView: UICollectionView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var travellerCollectionView: UICollectionView!
+    @IBOutlet weak var travellerAddonsCollectionView: UICollectionView!
     
     var paxDetails: [Pax] = [] {
         didSet {

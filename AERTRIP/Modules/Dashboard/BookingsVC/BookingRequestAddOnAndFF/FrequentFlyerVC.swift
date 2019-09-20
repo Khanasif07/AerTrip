@@ -11,7 +11,7 @@ import UIKit
 class FrequentFlyerVC: BaseVC {
     // MARK: - IBOutlet
     
-    @IBOutlet var frequentFlyerTableView: ATTableView!
+    @IBOutlet weak var frequentFlyerTableView: ATTableView!
     
     // MARK: - Variables
     

@@ -179,7 +179,7 @@
                             <constraint firstItem="VH1-Zd-UoS" firstAttribute="leading" secondItem="QL8-ug-Kiz" secondAttribute="leading" constant="20" id="Pc8-EK-m4l"/>
                             <constraint firstItem="J4c-5O-gNA" firstAttribute="top" secondItem="QL8-ug-Kiz" secondAttribute="top" id="QIP-AW-ppJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="moM-Cd-hz7" secondAttribute="trailing" id="RdC-Q3-jfh"/>
-                            <constraint firstItem="VH1-Zd-UoS" firstAttribute="top" secondItem="J4c-5O-gNA" secondAttribute="bottom" constant="4" id="Rfr-nQ-Egy"/>
+                            <constraint firstItem="UaD-gk-V9Y" firstAttribute="top" secondItem="VH1-Zd-UoS" secondAttribute="bottom" constant="63" id="U5a-LV-bmm"/>
                             <constraint firstItem="QL8-ug-Kiz" firstAttribute="bottom" secondItem="moM-Cd-hz7" secondAttribute="bottom" constant="25" id="UV5-pN-dTs"/>
                             <constraint firstItem="UaD-gk-V9Y" firstAttribute="centerY" secondItem="QL8-ug-Kiz" secondAttribute="centerY" multiplier="1.19" id="eo2-QD-0nb"/>
                             <constraint firstItem="QL8-ug-Kiz" firstAttribute="trailing" secondItem="VH1-Zd-UoS" secondAttribute="trailing" constant="20" id="fLd-xC-uwQ"/>
@@ -196,7 +196,9 @@
                         <outlet property="newRegisterLabel" destination="Bvt-bN-fe0" id="DN8-S4-SZI"/>
                         <outlet property="newRegistrationContainerView" destination="moM-Cd-hz7" id="PTk-4A-6lX"/>
                         <outlet property="sepratorLineImage" destination="tgC-3v-ig4" id="QQx-Xh-ZY8"/>
+                        <outlet property="socialAndLogoSpace" destination="U5a-LV-bmm" id="NaO-aE-e1o"/>
                         <outlet property="socialButtonsStackView" destination="KAq-60-Ls3" id="MkM-7q-qwO"/>
+                        <outlet property="socialButtosCenterConstraint" destination="eo2-QD-0nb" id="Ujd-kh-72k"/>
                         <outlet property="topNavView" destination="J4c-5O-gNA" id="zOy-et-Xkp"/>
                     </connections>
                 </viewController>
@@ -454,13 +456,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already Registered? " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VeF-rv-nfP">
-                                <rect key="frame" x="62" y="620.5" width="157.5" height="20.5"/>
+                                <rect key="frame" x="69" y="620.5" width="157.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qhT-JY-mA5">
-                                <rect key="frame" x="224.5" y="616" width="73" height="30"/>
+                                <rect key="frame" x="231.5" y="616" width="73" height="30"/>
                                 <state key="normal" title="Login here"/>
                                 <connections>
                                     <action selector="loginHereButtonAction:" destination="DAZ-Gc-qAH" eventType="touchUpInside" id="ch0-M5-Ysw"/>
@@ -482,7 +484,7 @@
                             <constraint firstItem="DsZ-Jg-wIe" firstAttribute="centerX" secondItem="vBZ-BY-zXq" secondAttribute="centerX" id="ZdX-M4-jjX"/>
                             <constraint firstItem="DsZ-Jg-wIe" firstAttribute="top" secondItem="vBZ-BY-zXq" secondAttribute="bottom" constant="30" id="jH1-9l-T7M"/>
                             <constraint firstItem="hGy-N8-L8G" firstAttribute="trailing" secondItem="vBZ-BY-zXq" secondAttribute="trailing" constant="16" id="myN-UT-vj8"/>
-                            <constraint firstItem="VeF-rv-nfP" firstAttribute="centerX" secondItem="hGy-N8-L8G" secondAttribute="centerX" multiplier="0.75" id="pB2-pt-zhn"/>
+                            <constraint firstItem="VeF-rv-nfP" firstAttribute="centerX" secondItem="hGy-N8-L8G" secondAttribute="centerX" multiplier="0.787" id="pB2-pt-zhn"/>
                             <constraint firstItem="knd-x8-mi8" firstAttribute="leading" secondItem="hGy-N8-L8G" secondAttribute="leading" constant="20" id="pH4-H8-Hck"/>
                             <constraint firstItem="hGy-N8-L8G" firstAttribute="trailing" secondItem="wJL-Wd-UP8" secondAttribute="trailing" id="pZC-Pt-BGZ"/>
                             <constraint firstItem="vBZ-BY-zXq" firstAttribute="leading" secondItem="hGy-N8-L8G" secondAttribute="leading" constant="16" id="pp4-nq-WBE"/>

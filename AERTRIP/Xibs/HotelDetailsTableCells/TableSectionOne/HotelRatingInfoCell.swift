@@ -16,7 +16,7 @@ class HotelRatingInfoCell: UITableViewCell {
 
     //Mark:- Variables
     //================
-    internal var delegate: HotelRatingInfoCellDelegate?
+    internal weak var delegate: HotelRatingInfoCellDelegate?
     
     //Mark:- IBOutlets
     //================

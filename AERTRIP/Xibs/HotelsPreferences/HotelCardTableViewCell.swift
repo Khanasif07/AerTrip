@@ -17,27 +17,26 @@ protocol HotelCardTableViewCellDelegate: class {
 }
 
 class HotelCardTableViewCell: UITableViewCell {
-    @IBOutlet var bgView: UIView!
-    @IBOutlet var hotelImageView: UIImageView!
-    @IBOutlet var saveButton: UIButton!
-    @IBOutlet var hotelNameLabel: UILabel!
-    @IBOutlet var discountedPriceLabel: UILabel!
-    @IBOutlet var actualPriceLabel: UILabel!
-    @IBOutlet var starRatingView: FloatRatingView!
-    @IBOutlet var tripLogoImage: UIImageView!
-    @IBOutlet var greenCircleRatingView: FloatRatingView!
-    @IBOutlet var gradientView: UIView!
-    @IBOutlet var scrollView: UIScrollView!
-    @IBOutlet var pageControl: FlexiblePageControl!
-    @IBOutlet var containerBottomConstraint: NSLayoutConstraint!
-    @IBOutlet var containerTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var hotelNameLabel: UILabel!
+    @IBOutlet weak var discountedPriceLabel: UILabel!
+    @IBOutlet weak var actualPriceLabel: UILabel!
+    @IBOutlet weak var starRatingView: FloatRatingView!
+    @IBOutlet weak var tripLogoImage: UIImageView!
+    @IBOutlet weak var greenCircleRatingView: FloatRatingView!
+    @IBOutlet weak var gradientView: UIView!
+    @IBOutlet weak var pageControl: FlexiblePageControl!
+    @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var ratingContainerLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     weak var delegate: HotelCardCollectionViewCellDelegate?
     
     private var gradientLayer: CAGradientLayer!
-    var scrollSize: CGFloat = 0.0
-    let numberOfPage: Int = 100
+//    var scrollSize: CGFloat = 0.0
+//    let numberOfPage: Int = 100
     
     var hotelData: HotelsModel? {
         didSet {
@@ -48,7 +47,7 @@ class HotelCardTableViewCell: UITableViewCell {
     var hotelListData: HotelSearched? {
         didSet {
             self.populateHotelData()
-            setUpInstagramDotGalleryView()
+            self.setUpInstagramDotGalleryView()
         }
     }
     
@@ -68,12 +67,11 @@ class HotelCardTableViewCell: UITableViewCell {
         self.saveButton.addTarget(self, action: #selector(self.saveButtonTapped(_:)), for: UIControl.Event.touchUpInside)
         self.saveButton.addTarget(self, action: #selector(self.saveButtonTapped(_:)), for: UIControl.Event.touchUpOutside)
         self.setupPageControl()
-        self.scrollSize = self.hotelImageView.frame.size.width
         
-        self.bgView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.8), offset: CGSize.zero, opacity: 0.7, shadowRadius: 2.0)
-        self.hotelImageView.cornerRadius = 10.0
-        self.scrollView.cornerRadius = 10.0
+        self.bgView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.6), offset: CGSize.zero, opacity: 0.4, shadowRadius: 4.0)
+        self.collectionView.cornerRadius = 10.0
         self.gradientView.cornerRadius = 10.0
+        self.collectionView.registerCell(nibName: ATGalleryCell.reusableIdentifier)
     }
     
     override func layoutSubviews() {
@@ -88,18 +86,23 @@ class HotelCardTableViewCell: UITableViewCell {
         }
         
         self.pageControl.numberOfPages = thumbnail.count
-        self.scrollView.delegate = self
-        self.scrollView.isPagingEnabled = (thumbnail.count < 1)
-        self.scrollView.isUserInteractionEnabled = (thumbnail.count > 1)
-        self.scrollView.contentSize = CGSize(width: self.scrollSize * CGFloat(thumbnail.count), height: self.hotelImageView.frame.size.height)
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        self.collectionView.isPagingEnabled = true
+//        self.scrollView.isUserInteractionEnabled = (thumbnail.count > 1)
+//        self.scrollView.contentSize = CGSize(width: self.scrollSize * CGFloat(thumbnail.count), height: self.hotelImageView.frame.size.height)
         
         printDebug("thumbnail count is \(thumbnail.count)")
         self.pageControl.isHidden = (thumbnail.count <= 1)
-        for index in 0..<thumbnail.count {
-            let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: self.hotelImageView.frame.origin.y, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
-            view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: true)
-            scrollView.addSubview(view)
-        }
+        self.collectionView.isScrollEnabled = (thumbnail.count > 1)
+        self.collectionView.reloadData()
+//        for index in 0..<thumbnail.count {
+//            let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: self.hotelImageView.frame.origin.y, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
+//            view.contentMode = .scaleAspectFill
+//            view.clipsToBounds = true
+//            view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: true)
+//            scrollView.addSubview(view)
+//        }
     }
     
     override func draw(_ rect: CGRect) {
@@ -114,9 +117,9 @@ class HotelCardTableViewCell: UITableViewCell {
         self.greenCircleRatingView.rating = self.hotelData?.taRating ?? 0
         self.saveButton.isSelected = self.hotelData?.isFavourite ?? false
         
-        if let image = UIImage(named: "hotelCardPlaceHolder") {
-            self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: true)
-        }
+//        if let image = UIImage(named: "hotelCardPlaceHolder") {
+//            self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: true)
+//        }
     }
     
     private func populateHotelData() {
@@ -174,5 +177,44 @@ extension HotelCardTableViewCell: UIScrollViewDelegate {
         if let idxPath = indexPath {
             self.delegate?.pagingScrollEnable(idxPath, scrollView)
         }
+    }
+}
+
+extension HotelCardTableViewCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let count = hotelListData?.thumbnail?.count ?? 1
+        return (count > 0) ? count : 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ATGalleryCell.reusableIdentifier, for: indexPath) as? ATGalleryCell else {
+            return UICollectionViewCell()
+        }
+        
+        cell.imageHeightConstraint.constant = collectionView.height
+        cell.indicator.isHidden = true
+        if let images = hotelListData?.thumbnail, images.count > indexPath.item {
+            //set image from url
+//            cell.imageView.image = #imageLiteral(resourceName: "hotelCardPlaceHolder")
+            cell.imageView.setImageWithUrl(images[indexPath.item], placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false)
+        }
+        else {
+            //set thumbnail
+            cell.imageView.image = #imageLiteral(resourceName: "hotelCardPlaceHolder")
+        }
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return collectionView.frame.size
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets.zero
     }
 }

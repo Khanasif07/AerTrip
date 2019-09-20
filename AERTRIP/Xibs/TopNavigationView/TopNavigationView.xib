@@ -28,6 +28,7 @@
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="activityIndicatorView" destination="QfJ-5x-W3u" id="y75-Qn-zeI"/>
                 <outlet property="backView" destination="0Hi-Nc-atn" id="d1x-5a-YTI"/>
                 <outlet property="backViewHeightConstraint" destination="NE8-n0-naW" id="K7l-gh-9Yg"/>
                 <outlet property="containerView" destination="5iQ-SE-VF1" id="Wuj-Tf-miD"/>
@@ -96,6 +97,9 @@
                         <action selector="right1BtnTapped:" destination="-1" eventType="touchUpInside" id="B46-Ey-NDx"/>
                     </connections>
                 </button>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="QfJ-5x-W3u">
+                    <rect key="frame" x="336.5" y="21" width="20" height="20"/>
+                </activityIndicatorView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5XU-ZY-yPU" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="61" width="370" height="1"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -124,6 +128,7 @@
                 <constraint firstItem="0Hi-Nc-atn" firstAttribute="leading" secondItem="zxX-KT-F33" secondAttribute="leading" id="qIH-2Z-8FT"/>
                 <constraint firstAttribute="bottom" secondItem="D4F-Bu-HSK" secondAttribute="bottom" id="v1V-Xf-AT5"/>
                 <constraint firstItem="zxX-KT-F33" firstAttribute="trailing" secondItem="7uz-9U-A8C" secondAttribute="trailing" constant="44" id="vY6-47-vFE"/>
+                <constraint firstItem="QfJ-5x-W3u" firstAttribute="centerX" secondItem="D4F-Bu-HSK" secondAttribute="centerX" id="xjQ-U3-yP8"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

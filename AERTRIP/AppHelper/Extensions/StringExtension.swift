@@ -285,7 +285,7 @@ extension String {
     
     /// EZSE: Converts String to URL
     var toUrl: URL? {
-        if self.hasPrefix("https://") || self.hasPrefix("http://") {
+        if self.hasPrefix("file://") || self.hasPrefix("https://") || self.hasPrefix("http://") {
             return URL(string: self)
         } else {
             return URL(fileURLWithPath: self)
@@ -767,7 +767,7 @@ extension String {
         
         changeRange.length = self.count - changeRange.location
         
-        guard let font = UIFont(name: font.fontName, size: (font.pointSize / 1.5)) else {
+        guard let font = UIFont(name: font.fontName, size: (font.pointSize * 0.75)) else {
             printDebug("font not found")
             return stylizedPrice
         }
@@ -822,6 +822,7 @@ extension NSAttributedString {
 
 extension String {
     
+    
     var fileSizeInBytes: Int {
         
         guard let url = self.toUrl else {
@@ -855,4 +856,9 @@ extension String {
         let suffix = suffixes[Int(i)]
         return "\(numberString) \(suffix)"
     }
+    
+    mutating func insert(string:String,ind:Int) {
+        self.insert(contentsOf: string, at:self.index(self.startIndex, offsetBy: ind) )
+    }
+  
 }

@@ -46,7 +46,7 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
         ///Font
         let regularFont14 = AppFonts.Regular.withSize(14.0)
         self.searchTypeLabel.font = AppFonts.SemiBold.withSize(14.0)
-        self.timeLabel.font = AppFonts.Regular.withSize(14.0)
+        self.timeLabel.font = regularFont14
         self.cityNameLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.stateNameLabel.font = regularFont14
         self.totalNightsLabel.font = regularFont14

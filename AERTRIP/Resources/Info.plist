@@ -68,7 +68,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>26</string>
+	<string>31</string>
 	<key>CLIENT_ID</key>
 	<string>175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm.apps.googleusercontent.com</string>
 	<key>Fabric</key>
@@ -89,6 +89,19 @@
 	<string>1080161318756977</string>
 	<key>FacebookDisplayName</key>
 	<string>AERTRIP</string>
+	<key>FirebaseDynamicLinksCustomDomains</key>
+	<array>
+		<string>https://beta.aertrip.com</string>
+		<string>http://beta.aertrip.com</string>
+		<string>https://www.aertrip.com</string>
+		<string>http://www.aertrip.com</string>
+		<string>https://email.mailer.aertrip.com</string>
+		<string>http://email.mailer.aertrip.com</string>
+		<string>https://aertrip.com</string>
+		<string>http://aertrip.com</string>
+		<string>https://*.aertrip.com</string>
+		<string>http://*.aertrip.com</string>
+	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LIAppId</key>

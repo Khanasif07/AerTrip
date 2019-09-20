@@ -10,44 +10,89 @@ import Foundation
 
 extension HotelResultVC {
     func animateHeaderToListView() {
-        self.headerContatinerViewHeightConstraint.constant = 100
-        self.tableViewTopConstraint.constant = 100
-        self.mapContainerTopConstraint.constant = 100
-        self.searchBarContainerView.backgroundColor = AppColors.themeWhite
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.searchBarContainerView.frame = self.searchIntitialFrame
-            self.titleLabel.transform = .identity
-            self.descriptionLabel.transform = .identity
-            self.view.layoutIfNeeded()
-        })
+        
+        let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+            guard let sSelf = self else {return}
+            
+            sSelf.headerContatinerViewHeightConstraint.constant = 100
+            sSelf.tableViewTopConstraint.constant = 100
+            sSelf.mapContainerTopConstraint.constant = 100
+            sSelf.headerContainerViewTopConstraint.constant = 0.0
+            sSelf.searchBarContainerView.backgroundColor = AppColors.themeWhite
+            
+            sSelf.searchBarContainerView.frame = sSelf.searchIntitialFrame
+            sSelf.titleLabel.transform = .identity
+            sSelf.descriptionLabel.transform = .identity
+            sSelf.mapContainerView.layoutSubviews()
+            sSelf.view.layoutIfNeeded()
+        }
+
+        animator.startAnimation()
+        
+//        self.headerContatinerViewHeightConstraint.constant = 100
+//        self.tableViewTopConstraint.constant = 100
+//        self.mapContainerTopConstraint.constant = 100
+//        self.searchBarContainerView.backgroundColor = AppColors.themeWhite
+//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: { [weak self] in
+//            guard let sSelf = self else {return}
+//            sSelf.searchBarContainerView.frame = sSelf.searchIntitialFrame
+//            sSelf.titleLabel.transform = .identity
+//            sSelf.descriptionLabel.transform = .identity
+//            sSelf.mapContainerView.layoutSubviews()
+//            sSelf.view.layoutIfNeeded()
+//        })
     }
     
     func animateHeaderToMapView() {
-        self.headerContatinerViewHeightConstraint.constant = 50
-        self.tableViewTopConstraint.constant = 50
-        self.mapContainerTopConstraint.constant = 50
-        self.searchBarContainerView.translatesAutoresizingMaskIntoConstraints = true
-        self.searchBarContainerView.backgroundColor = AppColors.clear
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.searchBarContainerView.frame = self.searchBarFrame(isInSearchMode: (self.hoteResultViewType == .ListView))
-            self.titleLabel.transform = CGAffineTransform(translationX: 0, y: -60)
-            self.descriptionLabel.transform = CGAffineTransform(translationX: 0, y: -60)
-            self.view.layoutIfNeeded()
-        }, completion: { (isDone) in
-            self.view.bringSubviewToFront(self.searchBarContainerView)
-        })
+        
+        let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+            guard let sSelf = self else {return}
+            
+            sSelf.headerContatinerViewHeightConstraint.constant = 50
+            sSelf.tableViewTopConstraint.constant = 50
+            sSelf.mapContainerTopConstraint.constant = 50
+            sSelf.headerContainerViewTopConstraint.constant = 0.0
+            sSelf.searchBarContainerView.translatesAutoresizingMaskIntoConstraints = true
+            sSelf.searchBarContainerView.backgroundColor = AppColors.clear
+            
+            sSelf.searchBarContainerView.frame = sSelf.searchBarFrame(isInSearchMode: (sSelf.hoteResultViewType == .ListView))
+            sSelf.titleLabel.transform = CGAffineTransform(translationX: 0, y: -60)
+            sSelf.descriptionLabel.transform = CGAffineTransform(translationX: 0, y: -60)
+            sSelf.mapContainerView.layoutSubviews()
+
+            sSelf.view.layoutIfNeeded()
+        }
+        
+        animator.addCompletion { [weak self](pos) in
+            guard let sSelf = self else {return}
+            sSelf.view.bringSubviewToFront(sSelf.searchBarContainerView)
+        }
+        
+        animator.startAnimation()
+        
+//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: { [weak self] in
+//            guard let sSelf = self else {return}
+//            sSelf.searchBarContainerView.frame = sSelf.searchBarFrame(isInSearchMode: (sSelf.hoteResultViewType == .ListView))
+//            sSelf.titleLabel.transform = CGAffineTransform(translationX: 0, y: -60)
+//            sSelf.descriptionLabel.transform = CGAffineTransform(translationX: 0, y: -60)
+//            sSelf.mapContainerView.layoutSubviews()
+//            sSelf.view.layoutIfNeeded()
+//        }, completion: { [weak self](isDone) in
+//            guard let sSelf = self else {return}
+//            sSelf.view.bringSubviewToFront(sSelf.searchBarContainerView)
+//        })
     }
     
     func searchBarFrame(isInSearchMode: Bool) -> CGRect {
-        return CGRect(x: self.searchIntitialFrame.origin.x + 20
-            , y: self.searchIntitialFrame.origin.y - 45, width: self.searchIntitialFrame.width - (isInSearchMode ? 80.0 : 100.0), height: 50)
+        return CGRect(x: isInSearchMode ? self.searchIntitialFrame.origin.x  - 2 :   self.searchIntitialFrame.origin.x + 20
+            , y: self.searchIntitialFrame.origin.y - 45, width: self.searchIntitialFrame.width - (isInSearchMode ? 64.0 : 100.0), height: 50)
     }
     
     func showSearchAnimation() {
         self.filterButton.isHidden = true
         self.mapButton.isHidden = true
         self.cancelButton.alpha = 1
-        
+        self.backButton.alpha = 0
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.searchBarContainerView.frame = self.searchBarFrame(isInSearchMode: true)
             self.view.layoutIfNeeded()
@@ -60,17 +105,26 @@ extension HotelResultVC {
         self.cancelButton.alpha = 0
         
         if self.hoteResultViewType == .MapView {
-            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations:  {
                 self.searchBarContainerView.frame = self.searchBarFrame(isInSearchMode: false)
                 self.view.layoutIfNeeded()
-            }, completion: nil)
+            },completion: nil)
+        } else {
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations:{
+                 self.searchBarContainerView.backgroundColor = AppColors.clear
+            }) { (done) in
+                if done {
+                    self.backButton.alpha = 1
+                    self.searchBarContainerView.backgroundColor = AppColors.themeWhite
+                }
+            }
         }
     }
     
-    func animateCollectionView(isHidden: Bool, animated: Bool) {
-        self.collectionView.translatesAutoresizingMaskIntoConstraints = true
+    func animateCollectionView(isHidden: Bool, animated: Bool, completion: ((Bool) -> Void)? = nil) {
+//        self.collectionView.translatesAutoresizingMaskIntoConstraints = true
         let hiddenFrame: CGRect = CGRect(x: collectionView.width, y: (UIDevice.screenHeight - collectionView.height), width: collectionView.width, height: collectionView.height)
-        let shownFrame: CGRect = CGRect(x: 0.0, y: (UIDevice.screenHeight - (collectionView.height + AppFlowManager.default.safeAreaInsets.bottom)), width: collectionView.width, height: collectionView.height)
+//        let shownFrame: CGRect = CGRect(x: 0.0, y: (UIDevice.screenHeight - (collectionView.height + AppFlowManager.default.safeAreaInsets.bottom)), width: collectionView.width, height: collectionView.height)
         
         if !isHidden {
             self.collectionView.isHidden = false
@@ -78,35 +132,71 @@ extension HotelResultVC {
         }
         
         // resize the map view for map/list view
-        let mapFrame = CGRect(x: 0.0, y: 0.0, width: mapContainerView.width, height: isHidden ? visibleMapHeightInVerticalMode : mapContainerView.height)
-        
         self.mapView?.animate(toZoom: isHidden ? self.defaultZoomLabel : (self.defaultZoomLabel + self.extraZoomLabelForMapView))
         isHidden ? self.moveMapToCurrentCity() : self.animateMapToFirstHotelInMapMode()
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+        
+        let animator = UIViewPropertyAnimator(duration: animated ? AppConstants.kAnimationDuration : 0.0, curve: .linear) {[weak self] in
+            
+            guard let sSelf = self else {return}
             // map resize animation
-            self.mapView?.frame = mapFrame
+//            sSelf.mapView?.frame = sSelf.mapContainerView.bounds
             
             // vertical list animation
-            self.collectionView.frame = isHidden ? hiddenFrame : shownFrame
-            self.collectionView.alpha = isHidden ? 0.0 : 1.0
-            self.floatingViewInitialConstraint = isHidden ? 10.0 : (hiddenFrame.height)
+            sSelf.collectionViewLeadingConstraint.constant = isHidden ? -((hiddenFrame.width)) : 0.0
+            sSelf.collectionView.alpha = isHidden ? 0.0 : 1.0
+            sSelf.floatingViewInitialConstraint = isHidden ? 10.0 : (hiddenFrame.height)
             // floating buttons animation
-            self.floatingViewBottomConstraint.constant = isHidden ? 10.0 : (hiddenFrame.height)
-            self.floatingButtonBackView.alpha = isHidden ? 0.0 : 1.0
+            sSelf.floatingViewBottomConstraint.constant = isHidden ? 10.0 : (hiddenFrame.height)
+            sSelf.floatingButtonBackView.alpha = isHidden ? 0.0 : 1.0
             
             // horizontal list animation
-            self.tableViewTopConstraint.constant = isHidden ? 100.0 : UIDevice.screenHeight
-            self.tableViewVertical.alpha = isHidden ? 1.0 : 0.0
-            
-            self.view.layoutIfNeeded()
-        }, completion: { _ in
+            sSelf.tableViewTopConstraint.constant = isHidden ? 100.0 : UIDevice.screenHeight
+            sSelf.tableViewVertical.alpha = isHidden ? 1.0 : 0.0
+            sSelf.cardGradientView.alpha = isHidden ? 0.0 : 1.0
+            sSelf.collectionViewBottomConstraint.constant = 0.0
+            sSelf.view.layoutIfNeeded()
+        }
+        
+        animator.addCompletion { [weak self](position) in
+            guard let sSelf = self else {return}
             if isHidden {
-                self.floatingButtonBackView.isHidden = true
-                self.collectionView.isHidden = true
-                self.relocateSwitchButton(shouldMoveUp: true, animated: true)
+                sSelf.floatingButtonBackView.isHidden = true
+                sSelf.collectionView.isHidden = true
+                sSelf.relocateSwitchButton(shouldMoveUp: true, animated: true)
             }
-            self.view.bringSubviewToFront(self.collectionView)
-        })
+            completion?(true)
+            sSelf.view.bringSubviewToFront(sSelf.collectionView)
+            sSelf.mapContainerView.layoutSubviews()
+        }
+        
+        animator.startAnimation()
+        
+//        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+//            // map resize animation
+//            self.mapView?.frame = mapFrame
+//
+//            // vertical list animation
+//            self.collectionView.frame = isHidden ? hiddenFrame : shownFrame
+//            self.collectionView.alpha = isHidden ? 0.0 : 1.0
+//            self.floatingViewInitialConstraint = isHidden ? 10.0 : (hiddenFrame.height)
+//            // floating buttons animation
+//            self.floatingViewBottomConstraint.constant = isHidden ? 10.0 : (hiddenFrame.height)
+//            self.floatingButtonBackView.alpha = isHidden ? 0.0 : 1.0
+//
+//            // horizontal list animation
+//            self.tableViewTopConstraint.constant = isHidden ? 100.0 : UIDevice.screenHeight
+//            self.tableViewVertical.alpha = isHidden ? 1.0 : 0.0
+//
+//            self.view.layoutIfNeeded()
+//        }, completion: { _ in
+//            if isHidden {
+//                self.floatingButtonBackView.isHidden = true
+//                self.collectionView.isHidden = true
+//                self.relocateSwitchButton(shouldMoveUp: true, animated: true)
+//                self.cardGradientView.isHidden = true
+//            }
+//            self.view.bringSubviewToFront(self.collectionView)
+//        })
     }
     
     // Animate button on List View

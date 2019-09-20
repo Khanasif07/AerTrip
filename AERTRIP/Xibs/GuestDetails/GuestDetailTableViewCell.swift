@@ -16,10 +16,10 @@ protocol GuestDetailTableViewCellDelegate: class {
 class GuestDetailTableViewCell: UITableViewCell {
     // MARK: - IB Outlets
     
-    @IBOutlet var guestTitleLabel: UILabel!
-    @IBOutlet var salutationTextField: PKFloatLabelTextField!
-    @IBOutlet var firstNameTextField: PKFloatLabelTextField!
-    @IBOutlet var lastNameTextField: PKFloatLabelTextField!
+    @IBOutlet weak var guestTitleLabel: UILabel!
+    @IBOutlet weak var salutationTextField: PKFloatLabelTextField!
+    @IBOutlet weak var firstNameTextField: PKFloatLabelTextField!
+    @IBOutlet weak var lastNameTextField: PKFloatLabelTextField!
     
     // MARK: - Properties
     
@@ -133,7 +133,9 @@ class GuestDetailTableViewCell: UITableViewCell {
     
     @objc func pickerViewDoneButtonAction(_ sender: UITextField) {
         let index = self.salutationPicker.selectedRow(inComponent: 0)
-        self.salutationTextField.text = GuestDetailsVM.shared.salutation[index]
+        if !GuestDetailsVM.shared.salutation.isEmpty {
+         self.salutationTextField.text = GuestDetailsVM.shared.salutation[index]
+        }
         if let indexPath = (self.superview as? UITableView)?.indexPath(for: self) {
             GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = GuestDetailsVM.shared.salutation[index]
         }
@@ -149,8 +151,15 @@ extension GuestDetailTableViewCell: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {
         case self.salutationTextField:
-            self.delegate?.textField(self.salutationTextField)
-            self.salutationTextField.becomeFirstResponder()
+            if GuestDetailsVM.shared.salutation.count == 0 {
+                self.salutationTextField.endEditing(true)
+                self.salutationTextField.inputView = nil
+                 self.salutationTextField.inputAccessoryView = nil
+                AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized, title: "", onViewController: UIApplication.topViewController())
+            } else {
+                 self.delegate?.textField(self.salutationTextField)
+                 self.salutationTextField.becomeFirstResponder()
+            }
         case self.firstNameTextField:
             self.delegate?.textField(self.firstNameTextField)
         case self.lastNameTextField:
@@ -173,7 +182,7 @@ extension GuestDetailTableViewCell: UITextFieldDelegate {
         }
         switch textField {
         case self.salutationTextField:
-             self.delegate?.textFieldWhileEditing(salutationTextField)
+            self.delegate?.textFieldWhileEditing(salutationTextField)
         case self.firstNameTextField:
              self.delegate?.textFieldWhileEditing(firstNameTextField)
         case self.lastNameTextField:

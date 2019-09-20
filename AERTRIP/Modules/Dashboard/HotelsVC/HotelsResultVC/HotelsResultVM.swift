@@ -20,7 +20,7 @@ protocol HotelResultDelegate: class {
     func getPinnedTemplateFail()
     func getAllHotelsOnResultFallbackSuccess(_ isDone: Bool)
     func getAllHotelsOnResultFallbackFail(errors: ErrorCodes)
-    
+    func willGetAllHotel()
     func getAllHotelsOnPreferenceSuccess()
     func getAllHotelsOnPreferenceFail()
     
@@ -37,6 +37,7 @@ class HotelsResultVM: NSObject {
     var shortUrl: String = ""
     var shareText: String = ""
     private(set) var collectionViewList: [String: Any] = [String: Any]()
+    private(set) var collectionViewLocArr: [String] = []
     
     weak var delegate: HotelResultDelegate?
     
@@ -58,7 +59,7 @@ class HotelsResultVM: NSObject {
     
     func hotelListOnPreferenceResult() {
         let params: JSONDictionary = [APIKeys.vcodes.rawValue: self.hotelSearchRequest?.vcodes.first ?? "", APIKeys.sid.rawValue: self.hotelSearchRequest?.sid ?? ""]
-        printDebug(params)
+        self.delegate?.willGetAllHotel()
         APICaller.shared.getHotelsListOnPreferenceResult(params: params) { [weak self] success, errors, hotels, isDone in
             guard let sSelf = self else { return }
             if success {
@@ -84,6 +85,7 @@ class HotelsResultVM: NSObject {
     // MARK: - Public
     func fetchHotelsDataForCollectionView(fromController: NSFetchedResultsController<HotelSearched>) {
         self.collectionViewList.removeAll()
+        self.collectionViewLocArr.removeAll()
         if let allHotels = fromController.fetchedObjects {
             for hs in allHotels {
                 if let lat = hs.lat, let long = hs.long {
@@ -91,6 +93,7 @@ class HotelsResultVM: NSObject {
                         allHotles.append(hs)
                         self.collectionViewList["\(lat),\(long)"] = allHotles
                     } else {
+                        self.collectionViewLocArr.append("\(lat),\(long)")
                         self.collectionViewList["\(lat),\(long)"] = [hs]
                     }
                 }

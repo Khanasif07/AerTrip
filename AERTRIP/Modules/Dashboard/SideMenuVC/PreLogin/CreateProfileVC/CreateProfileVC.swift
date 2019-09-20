@@ -84,6 +84,10 @@ class CreateProfileVC: BaseVC {
         self.createProfileSubTitleLabel.font    = AppFonts.Regular.withSize(16)
         self.countryCodeLabel.font           = AppFonts.Regular.withSize(18)
         self.setupTextFieldColorTextAndFont()
+        self.letsStartedButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+        self.letsStartedButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+
+        
         
     }
     
@@ -106,10 +110,9 @@ class CreateProfileVC: BaseVC {
     @IBAction func letsGetStartButton(_ sender: ATButton) {
         
         self.view.endEditing(true)
-        self.getSuccess()
-//        if self.viewModel.isValidateData {
-//            self.viewModel.webserviceForUpdateProfile()
-//        }
+        if self.viewModel.isValidateData {
+            self.viewModel.webserviceForUpdateProfile()
+        }
     }
 }
 

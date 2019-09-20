@@ -23,6 +23,7 @@ class PreferencesVM: NSObject {
     var sortOrder:String = ""
     var displayOrder:String = ""
     var modifiedGroups: [(originalGroupName: String, modifiedGroupName: String)] = []
+    var modifiedGroupsParams: [(originalGroupName: String, modifiedGroupName: String)] = []
 
     func setUpData() {
         if let generalPref = UserInfo.loggedInUser?.generalPref {
@@ -41,8 +42,10 @@ class PreferencesVM: NSObject {
     }
     
     func getFinalModifiedGroups() {
-        self.modifiedGroups = self.modifiedGroups.filter({ $0.modifiedGroupName != $0.originalGroupName })
+         self.modifiedGroupsParams = self.modifiedGroups.filter({ $0.modifiedGroupName != $0.originalGroupName })
     }
+    
+    
     
     func callSavePreferencesAPI() {
         var params = JSONDictionary()
@@ -50,12 +53,21 @@ class PreferencesVM: NSObject {
         params["sort_order"] = self.sortOrder
         params["display_order"] = self.displayOrder
         params["categorize_by_group"] = self.isCategorizeByGroup
+        for (org, new) in self.modifiedGroups {
+            if let idx = self.groups.firstIndex(of: org) {
+                self.groups[idx] = new
+            }
+        }
         params["labels"] = self.groups
         params["removed"] = self.removedGroups
         
-        getFinalModifiedGroups()
+        UserInfo.loggedInUser?.generalPref?.updateLabelsPriority(newList: self.groups)
+        if AppGlobals.shared.isNetworkRechable() {
+            getFinalModifiedGroups()
+        }
+       
         
-        for modified in self.modifiedGroups  {
+        for modified in self.modifiedGroupsParams  {
             params["modified[\(modified.originalGroupName)]"] = modified.modifiedGroupName
         }
         delegate?.willSavePreferences()
@@ -68,6 +80,4 @@ class PreferencesVM: NSObject {
             }
         }
     }
-    
-    
 }

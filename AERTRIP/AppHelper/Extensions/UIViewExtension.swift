@@ -400,4 +400,8 @@ extension UIView {
         shapeLayer.path = path
         self.layer.addSublayer(shapeLayer)
     }
+    
+    func subView(withTag: Int) -> UIView? {
+        return self.subviews.filter { $0.tag == withTag }.first
+    }
 }

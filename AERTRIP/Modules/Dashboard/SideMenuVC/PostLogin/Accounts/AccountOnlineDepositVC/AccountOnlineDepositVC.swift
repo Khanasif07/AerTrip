@@ -18,11 +18,11 @@ class AccountOnlineDepositVC: BaseVC {
     
     // MARK: - IB Outlet
     
-    @IBOutlet var topNavView: TopNavigationView!
-    @IBOutlet var checkOutTableView: ATTableView!
-    @IBOutlet var payButton: UIButton!
-    @IBOutlet var loaderContainer: UIView!
-    @IBOutlet var indicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var checkOutTableView: ATTableView!
+    @IBOutlet weak var payButton: UIButton!
+    @IBOutlet weak var loaderContainer: UIView!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     // MARK: - Properties
     var currentUsingFor: UsingToPaymentFor = UsingToPaymentFor.accountDeposit

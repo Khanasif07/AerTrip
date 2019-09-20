@@ -165,6 +165,10 @@ class PKTextField: UIScrollView {
         self.updateTextField()
     }
     
+    override func becomeFirstResponder() -> Bool {
+        super.becomeFirstResponder()
+        return self.textField.becomeFirstResponder()
+    }
     
     //MARK:- Methods
     //MARK:- Private
@@ -197,7 +201,7 @@ class PKTextField: UIScrollView {
                 let diffY = panPoint.y - self.oldPanPoint.y
                 let tempY = (self.contentOffset.y - diffY) + self.contentOffset.y
                 
-                let finalY = min(max(0, tempY), maxY)
+                let finalY = min(max(-1, tempY), maxY)
                 printDebug("finalY \(finalY)")
                 self.setContentOffset(CGPoint(x: 0.0, y: finalY), animated: false)
             }
@@ -206,7 +210,7 @@ class PKTextField: UIScrollView {
                 let diffX = panPoint.x - self.oldPanPoint.x
                 let tempX = (self.contentOffset.y - diffX) + self.contentOffset.x
                 
-                let finalX = min(max(0, tempX), maxX)
+                let finalX = min(max(-1, tempX), maxX)
                 printDebug("finalX \(finalX)")
                 self.setContentOffset(CGPoint(x: finalX, y: 0.0), animated: false)
             }

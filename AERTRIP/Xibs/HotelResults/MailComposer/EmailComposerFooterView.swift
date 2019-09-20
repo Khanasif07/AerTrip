@@ -9,10 +9,10 @@
 import UIKit
 
 class EmailComposerFooterView: UIView {
-    @IBOutlet var seeRatesButton: ATButton!
-    @IBOutlet var contactUsLabel: UILabel!
-    @IBOutlet var socialIconStackView: UIStackView!
-    @IBOutlet var licenseLabel: UILabel!
+    @IBOutlet weak var seeRatesButton: ATButton!
+    @IBOutlet weak var contactUsLabel: UILabel!
+    @IBOutlet weak var socialIconStackView: UIStackView!
+    @IBOutlet weak var licenseLabel: UILabel!
     
     class func instanceFromNib() -> EmailComposerFooterView {
         return UINib(nibName: "EmailComposerFooterView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! EmailComposerFooterView

@@ -11,7 +11,7 @@ import UIKit
 class BookingInfoEmptyFooterView: UITableViewHeaderFooterView {
     // MARK: - IB Outlet
     
-    @IBOutlet var footerBackgroundView: UIView!
+    @IBOutlet weak var footerBackgroundView: UIView!
     @IBOutlet weak var topDividerView: ATDividerView!
     override func awakeFromNib() {
         super.awakeFromNib()

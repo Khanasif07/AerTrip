@@ -29,12 +29,16 @@ class HotelDetailsVC: BaseVC {
     }
     internal var allIndexPath = [IndexPath]()
     internal var initialStickyPosition: CGFloat = -1.0
-    internal var oldScrollPosition: CGPoint = .zero
+//    internal var oldScrollPosition: CGPoint = .zero
     internal var didsmissOnScrollPosition: CGFloat = 200.0
     var stickyView: HotelFilterResultFooterView?
-    var tableFooterView: HotelFilterResultFooterView?
+//    var tableFooterView: HotelFilterResultFooterView?
     weak var delegate : HotelDetailsVCDelegate?
+    var onCloseHandler: (() -> Void)? = nil
+    // manage wheter to hide with animate or note
+    var isHideWithAnimation: Bool = true
     
+    @IBOutlet weak var footerViewHeightConstraint: NSLayoutConstraint!
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
@@ -53,6 +57,7 @@ class HotelDetailsVC: BaseVC {
         didSet {
             self.smallLineView.cornerRadius = self.smallLineView.height/2.0
             self.smallLineView.clipsToBounds = true
+            self.smallLineView.alpha = 0
         }
     }
     @IBOutlet weak var imageView: UIImageView!
@@ -60,14 +65,66 @@ class HotelDetailsVC: BaseVC {
     @IBOutlet weak var stickyBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainView: UIView!
     
+    var startPanPoint: CGPoint = .zero
+    var animator = UIViewPropertyAnimator()
+
     //Mark:- LifeCycle
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let panGes = UIPanGestureRecognizer(target: self, action: #selector(self.panHandler(_:)))
+         panGes.delegate = self
+//        self.view.addGestureRecognizer(panGes)
+    }
+    
+    @objc func panHandler(_ sender: UIPanGestureRecognizer) {
+        
+        //        let translation = sender.translation(in: self.view)
+        //
+        //        if sender.state == .began {
+        //            self.startPanPoint = translation
+        //        }
+        //        else if sender.state == .changed {
+        //
+        //            let moved = translation.y - self.startPanPoint.y
+        //
+        //            print(moved)
+        //        }
+        
+        let progress = sender.translation(in: self.view).y / self.hotelTableView.height
+        print(progress)
+        switch sender.state {
+        case .began:
+            animator = UIViewPropertyAnimator(duration: 3, curve: .easeOut, animations: { [weak self] in
+                guard let sSelf = self else {return}
+                sSelf.imageView.frame = sSelf.sourceFrame
+                sSelf.hotelTableView.alpha = 0.0
+                //            sSelf.mainView.alpha = 0
+                sSelf.hotelTableView.frame = sSelf.tableFrameHidden
+            })
+            animator.startAnimation()
+            animator.pauseAnimation()
+
+            animator.addCompletion { [weak self](position) in
+                guard let sSelf = self else {return}
+                print(position)
+                sSelf.removeFromParentVC
+                sSelf.headerView.isHidden = false
+            }
+
+        case .changed:
+            animator.fractionComplete = progress
+        case .ended:
+            animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+        default:
+            ()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         self.statusBarStyle = .default
 //        self.hotelTableView.reloadRow(at: IndexPath(row: 0, section: 0), with: .none)
         self.statusBarColor = AppColors.themeBlack.withAlphaComponent(0.4)
@@ -83,13 +140,14 @@ class HotelDetailsVC: BaseVC {
         self.configUI()
         self.registerNibs()
         self.footerViewSetUp()
-        self.permanentTagsForFilteration()
+       // self.permanentTagsForFilteration()
         self.getSavedFilter()
         self.completion = { [weak self] in
             self?.hotelTableView.reloadData()
             self?.viewModel.getHotelInfoApi()
         }
         self.viewModel.getHotelInfoApi()
+        self.smallLineView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
     }
     
     override func bindViewModel() {
@@ -129,6 +187,7 @@ class HotelDetailsVC: BaseVC {
     }
     
     internal func updateStickyFooterView() {
+        // No Room available, show when rates Data empty based on filtered applies
         if self.viewModel.ratesData.isEmpty {
             if let stickyView = self.stickyView {
                 stickyView.containerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
@@ -139,17 +198,17 @@ class HotelDetailsVC: BaseVC {
                 stickyView.selectRoomLabel.isHidden = true
             }
             
-            if let tableFooterView = self.tableFooterView {
-                tableFooterView.containerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
-                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterShadow, AppColors.noRoomsAvailableFooterColor])
-                tableFooterView.noRoomsAvailable.isHidden = false
-                tableFooterView.fromLabel.isHidden = true
-                tableFooterView.hotelFeesLabel.isHidden = true
-                tableFooterView.selectRoomLabel.isHidden = true
-            }
-            self.hotelTableView.tableFooterView?.isHidden = true
+//            if let tableFooterView = self.tableFooterView {
+//                tableFooterView.containerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
+//                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterShadow, AppColors.noRoomsAvailableFooterColor])
+//                tableFooterView.noRoomsAvailable.isHidden = false
+//                tableFooterView.fromLabel.isHidden = true
+//                tableFooterView.hotelFeesLabel.isHidden = true
+//                tableFooterView.selectRoomLabel.isHidden = true
+//            }
+//            self.hotelTableView.tableFooterView?.isHidden = true
         } else {
-            self.hotelTableView.tableFooterView?.isHidden = false
+//            self.hotelTableView.tableFooterView?.isHidden = false
             if let stickyView = self.stickyView {
                 stickyView.containerView.backgroundColor = AppColors.themeGreen
                 stickyView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
@@ -159,14 +218,14 @@ class HotelDetailsVC: BaseVC {
                 stickyView.selectRoomLabel.isHidden = false
             }
             
-            if let tableFooterView = self.tableFooterView {
-                tableFooterView.containerView.backgroundColor = AppColors.themeGreen
-                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
-                tableFooterView.noRoomsAvailable.isHidden = true
-                tableFooterView.fromLabel.isHidden = false
-                tableFooterView.hotelFeesLabel.isHidden = false
-                tableFooterView.selectRoomLabel.isHidden = false
-            }
+//            if let tableFooterView = self.tableFooterView {
+//                tableFooterView.containerView.backgroundColor = AppColors.themeGreen
+//                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+//                tableFooterView.noRoomsAvailable.isHidden = true
+//                tableFooterView.fromLabel.isHidden = false
+//                tableFooterView.hotelFeesLabel.isHidden = false
+//                tableFooterView.selectRoomLabel.isHidden = false
+//            }
         }
     }
     
@@ -179,50 +238,118 @@ class HotelDetailsVC: BaseVC {
         self.headerTopConstraint.constant = 8.0
         let newImageFrame = CGRect(x: 0.0, y: newY, width: self.view.width, height: hotelImageHeight)
         let newTableFrame = CGRect(x: 0.0, y: newY, width: self.view.width, height: (self.view.height-(newY+AppFlowManager.default.safeAreaInsets.bottom)))
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
-            guard let sSelf = self else {return}
-            sSelf.imageView.frame = newImageFrame
-            sSelf.hotelTableView.frame = newTableFrame
-            sSelf.hotelTableView.alpha = 1.0
-            }, completion: { [weak self](isDone) in
-                guard let sSelf = self else {return}
-                sSelf.imageView.isHidden = true
-        })
+        
+        self.footerView.isHidden = true
+        self.headerView.isHidden = true
+        
+        func setValue() {
+            self.imageView.frame = newImageFrame
+            self.hotelTableView.frame = newTableFrame
+            self.hotelTableView.alpha = 1.0
+            self.mainView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+            self.view.layoutIfNeeded()
+        }
+        
+        func manageOnComplition() {
+            self.imageView.isHidden = true
+            self.footerView.isHidden = false
+            self.headerView.isHidden = false
+            self.smallLineView?.alpha = 1
+        }
+        
+        if animated {
+            let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+                setValue()
+            }
+            animator.addCompletion { (position) in
+                manageOnComplition()
+            }
+            animator.startAnimation()
+        }
+        else {
+            setValue()
+            manageOnComplition()
+        }
+        
+//        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
+//            guard let sSelf = self else {return}
+//            sSelf.imageView.frame = newImageFrame
+//            sSelf.hotelTableView.frame = newTableFrame
+//            sSelf.hotelTableView.alpha = 1.0
+//            }, completion: { [weak self](isDone) in
+//                guard let sSelf = self else {return}
+//                sSelf.imageView.isHidden = true
+//                sSelf.footerView.isHidden = false
+//                sSelf.headerView.isHidden = false
+//                sSelf.smallLineView?.alpha = 1
+//        })
     }
     
     func hideOnScroll() {
         self.imageView.frame = CGRect(x: 0.0, y: didsmissOnScrollPosition, width: self.imageView.frame.size.width, height: self.imageView.frame.size.height)
-        self.hide(animated: true)
+        self.hide(animated: isHideWithAnimation)
     }
     
     func hide(animated: Bool) {
         self.imageView.isHidden = false
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
-            guard let sSelf = self else {return}
-            sSelf.imageView.frame = sSelf.sourceFrame
-            sSelf.hotelTableView.alpha = 0.0
-//            sSelf.mainView.alpha = 0
-            sSelf.hotelTableView.frame = sSelf.tableFrameHidden
-            }, completion: { [weak self](isDone) in
-                guard let sSelf = self else {return}
-               
-                sSelf.removeFromParentVC
-                sSelf.headerView.isHidden = false
-        })
+        
+        self.footerView.isHidden = true
+        self.headerView.isHidden = true
+        
+        func setValue() {
+            self.imageView.frame = self.sourceFrame
+            self.hotelTableView.alpha = 0.0
+            self.hotelTableView.frame = self.tableFrameHidden
+            self.mainView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
+            self.view.layoutIfNeeded()
+        }
+        
+        func manageOnComplition() {
+            self.removeFromParentVC
+            self.headerView.isHidden = false
+            self.onCloseHandler?()
+        }
+        
+        if animated {
+            let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+                setValue()
+            }
+            animator.addCompletion { (position) in
+                manageOnComplition()
+            }
+            animator.startAnimation()
+        }
+        else {
+            setValue()
+            manageOnComplition()
+        }
+        
+//        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
+//            guard let sSelf = self else {return}
+//            sSelf.imageView.frame = sSelf.sourceFrame
+//            sSelf.hotelTableView.alpha = 0.0
+////            sSelf.mainView.alpha = 0
+//            sSelf.hotelTableView.frame = sSelf.tableFrameHidden
+//            }, completion: { [weak self](isDone) in
+//                guard let sSelf = self else {return}
+//
+//                sSelf.removeFromParentVC
+//                sSelf.headerView.isHidden = false
+//        })
     }
     
-    private func footerViewSetUp() {
+     func footerViewSetUp() {
         self.stickyView = getStickyFooter()
         if let stickyView = self.stickyView {
             stickyView.frame = self.footerView.bounds
             self.footerView.addSubview(stickyView)
         }
         
-        self.tableFooterView = getStickyFooter()
-        if let footerView = self.tableFooterView {
-            footerView.frame = self.footerView.bounds
-            self.hotelTableView.tableFooterView = footerView
-        }
+//        self.tableFooterView = getStickyFooter()
+//        if let footerView = self.tableFooterView {
+//            footerView.frame = self.footerView.bounds
+////            self.hotelTableView.tableFooterView = footerView
+//        }
     }
     
     private func setupBeforeAnimation() {
@@ -246,7 +373,7 @@ class HotelDetailsVC: BaseVC {
     
     private func configUI() {
         self.view.backgroundColor = AppColors.clear
-        self.mainView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+        self.mainView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
         self.headerView.configureNavBar(title: nil , isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
         self.manageFavIcon()
         self.headerView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "CancelButtonWhite"), selectedImage: #imageLiteral(resourceName: "black_cross"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
@@ -273,9 +400,11 @@ class HotelDetailsVC: BaseVC {
     }
     
     func manageFavIcon() {
+        printDebug("Manage fav icon")
         let buttonImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
         let selectedFevImage: UIImage = self.viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
-        self.headerView.configureLeftButton(normalImage: buttonImage, selectedImage: selectedFevImage, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
+        self.headerView.configureLeftButton(normalImage: buttonImage, selectedImage: selectedFevImage, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil,isHideBackView: self.headerView.backView.isHidden)
+        
     }
     
     internal func getSavedFilter() {
@@ -290,7 +419,7 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.roomCancellationDataCopy = filter.roomCancelation
         
         self.viewModel.syncPermanentTagsWithSelectedFilter()
-        self.viewModel.selectedTags = filter.roomMeal + filter.roomCancelation + filter.roomOther
+       //self.viewModel.selectedTags = filter.roomMeal + filter.roomCancelation + filter.roomOther
     }
     
     internal func permanentTagsForFilteration() {
@@ -304,34 +433,44 @@ class HotelDetailsVC: BaseVC {
     }
         
     internal func heightForRow(tableView: UITableView, indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0, indexPath.row == 2 {
-            if let hotelData = self.viewModel.hotelData {
-                let text = hotelData.address + "Maps    "
-                let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
-                return size.height + 46.5
-                    + 21.0  + 2.0//y of textview 46.5 + bottom space 14.0 + 7.0
+        if !self.viewModel.hotelDetailsTableSectionData.isEmpty, self.viewModel.hotelDetailsTableSectionData[indexPath.section][indexPath.row] == .searchTagCell {
+             return  UITableView.automaticDimension
+        } else {
+            if indexPath.section == 0, indexPath.row == 2 {
+                if let hotelData = self.viewModel.hotelData {
+                    let text = hotelData.address + "Maps    "
+                    let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+                    return size.height + 46.5
+                        + 21.0  + 2.0//y of textview 46.5 + bottom space 14.0 + 7.0
+                }
+                else {
+                    return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (211.0 + 126.5)
+                }
             }
-            else {
-                return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (211.0 + 126.5)
+            else if indexPath.section == 0, indexPath.row == 3 {
+                //overview cell
+                if let hotelData = self.viewModel.hotelData {
+                    let text = hotelData.info
+                    var height = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0)).height
+                    
+                    let maxH = AppFonts.Regular.withSize(18.0).lineHeight * 3.0
+                    let minH = AppFonts.Regular.withSize(18.0).lineHeight
+                    
+                    height = max(height, minH)
+                    height = min(height, maxH)
+                    return height + 46.5
+                        + 21.0  + 2.0//y of textview 46.5 + bottom space 14.0
+                }
+                return UITableView.automaticDimension
             }
+            if !self.viewModel.hotelDetailsTableSectionData.isEmpty, self.viewModel.hotelDetailsTableSectionData[indexPath.section][indexPath.row] == .ratesEmptyStateCell {
+                return 550
+            } else {
+                 return UITableView.automaticDimension
+            }
+           
         }
-        else if indexPath.section == 0, indexPath.row == 3 {
-            //overview cell
-            if let hotelData = self.viewModel.hotelData {
-                let text = hotelData.info
-                var height = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0)).height
-                
-                let maxH = AppFonts.Regular.withSize(18.0).lineHeight * 3.0
-                let minH = AppFonts.Regular.withSize(18.0).lineHeight
-                
-                height = max(height, minH)
-                height = min(height, maxH)
-                return height + 46.5
-                    + 21.0  + 2.0//y of textview 46.5 + bottom space 14.0
-            }
-            return UITableView.automaticDimension
-        }
-        return UITableView.automaticDimension
+        
     }
     
     internal func heightForHeaderView(tableView: UITableView, section: Int) -> CGFloat {
@@ -363,13 +502,17 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.ratesData.removeAll()
         self.viewModel.roomRates.removeAll()
         self.viewModel.hotelDetailsTableSectionData.removeAll()
-        
+        self.viewModel.roomMealDataCopy = tagList
+        self.viewModel.roomOtherDataCopy = tagList
+        self.viewModel.roomCancellationDataCopy = tagList
+       
+       
         if let hotelData = self.viewModel.hotelData , let rates = hotelData.rates {
             self.viewModel.hotelDetailsTableSectionData.append(self.getFirstSectionData(hotelData: hotelData))
             self.viewModel.hotelDetailsTableSectionData.append([.searchTagCell])
             self.viewModel.ratesData = self.viewModel.filteredRates(rates: rates , roomMealData: self.viewModel.roomMealDataCopy, roomOtherData: self.viewModel.roomOtherDataCopy, roomCancellationData: self.viewModel.roomCancellationDataCopy)
             if self.viewModel.ratesData.isEmpty {
-                self.viewModel.hotelDetailsTableSectionData.append([.ratesEmptyStateCell])
+            self.viewModel.hotelDetailsTableSectionData.append([.ratesEmptyStateCell])
             } else {
                 for singleRate in self.viewModel.ratesData {
                     self.viewModel.roomRates.append(singleRate.roomData)
@@ -377,13 +520,20 @@ class HotelDetailsVC: BaseVC {
                 }
             }
         }
+        
+       self.hotelTableView.reloadData()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            self?.manageFavIcon()
+        }
     }
     
     //Mark:- IBOActions
     //=================
     @IBAction func cancelButtonAction (_ sender: UIButton) {
         self.headerView.isHidden = true
-        self.hide(animated: true)
+        self.smallLineView.alpha = 0
+        self.hide(animated: isHideWithAnimation)
     }
     
     @IBAction func fevButtonAction(_ sender: UIButton) {
@@ -397,35 +547,16 @@ class HotelDetailsVC: BaseVC {
             self.initialPanPoint = touchPoint
         }
         else  if (initialPanPoint.y + 10) < touchPoint.y {
-            self.hide(animated: true)
+            self.hide(animated: isHideWithAnimation)
             initialPanPoint = touchPoint
         }
     }
-}
-
-
-class MyClass {
-    fileprivate var name = ""
-    private var age = 23
     
-    private func testMe() {
-        
+    func openMap() {
+        guard let reqParams = self.viewModel.hotelSearchRequest?.requestParameters,let destParams = self.viewModel.hotelData else { return }
+        AppGlobals.shared.redirectToMap(sourceView: view, originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
     }
 }
 
-extension MyClass {
-    func printName() {
-        print(self.age)
-        print(self.name)
-        self.testMe()
-    }
-}
 
-class NewWali {
-    
-    let myC = MyClass()
-    
-    func printMe() {
-        print(myC.name)
-    }
-}
+

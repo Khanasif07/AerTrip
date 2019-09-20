@@ -25,25 +25,25 @@ class MyBookingsVC: BaseVC {
     
     // Mark:- IBOutlets
     //================
-    @IBOutlet var topNavBar: TopNavigationView! {
+    @IBOutlet weak var topNavBar: TopNavigationView! {
         didSet {
             self.topNavBar.delegate = self
         }
     }
     
-    @IBOutlet var childContainerView: UIView!
+    @IBOutlet weak var childContainerView: UIView!
     
     
     @IBOutlet weak var allTabsTitleContainerHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var allTabTitleContainerView: UIView!
+    @IBOutlet weak var allTabTitleContainerView: UIView!
     @IBOutlet weak var upcomingButton: PKCategoryButton!
     @IBOutlet weak var completedButton: PKCategoryButton!
     @IBOutlet weak var cancelledButton: PKCategoryButton!
     @IBOutlet weak var tabSelectionIndicatorView: UIView!
     @IBOutlet weak var allTabDetailConatinerView: UIScrollView!
     
-    @IBOutlet var searchBarContainerView: UIView!
-    @IBOutlet var searchBar: ATSearchBar! {
+    @IBOutlet weak var searchBarContainerView: UIView!
+    @IBOutlet weak var searchBar: ATSearchBar! {
         didSet {
             self.searchBar.backgroundColor = AppColors.screensBackground.color
             self.searchBar.placeholder = LocalizedString.search.localized
@@ -51,9 +51,9 @@ class MyBookingsVC: BaseVC {
         }
     }
     
-    @IBOutlet var emptyStateImageView: UIImageView!
-    @IBOutlet var emptyStateTitleLabel: UILabel!
-    @IBOutlet var emptyStateSubTitleLabel: UILabel!
+    @IBOutlet weak var emptyStateImageView: UIImageView!
+    @IBOutlet weak var emptyStateTitleLabel: UILabel!
+    @IBOutlet weak var emptyStateSubTitleLabel: UILabel!
  
     
     // Mark:- LifeCycle
@@ -68,8 +68,6 @@ class MyBookingsVC: BaseVC {
         MyBookingsVM.shared.delgate = self
         MyBookingsVM.shared.getBookings()
     }
-    
-    
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
             if noti == .myBookingFilterApplied {

@@ -30,7 +30,7 @@ class SelectTripVM {
     // MARK: - Public
     
     var selectedIndexPath: IndexPath?
-    var delegate: SelectTripVMDelegate?
+    weak var delegate: SelectTripVMDelegate?
     var tripDetails: TripDetails?
     // user for hotel Change
     var tripInfo: TripInfo?

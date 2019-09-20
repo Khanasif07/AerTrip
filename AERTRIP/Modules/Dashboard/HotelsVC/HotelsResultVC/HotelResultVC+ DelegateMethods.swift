@@ -12,6 +12,11 @@ import UIKit
 // MARK: - Search bar delegate methods
 
 extension HotelResultVC: UISearchBarDelegate {
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        return !((fetchedResultsController.fetchedObjects ?? []).isEmpty)
+    }
+    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         animateHeaderToMapView()
         //self.predicateStr = searchBar.text ?? ""
@@ -62,7 +67,7 @@ extension HotelResultVC: UISearchBarDelegate {
     }
 }
 
-// MARK: - Hotel Search View Delegate methods
+// MARK: - ATSwitchedChangeValueDelegate methods
 
 extension HotelResultVC: ATSwitcherChangeValueDelegate {
     func switcherDidChangeValue(switcher: ATSwitcher, value: Bool) {
@@ -89,8 +94,21 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
         }
         else {
             //if user in list view then scroll the list till top as fav switch changed.
-            delay(seconds: 0.2) { [weak self] in
-                self?.tableViewVertical.setContentOffset(CGPoint(x: 0.0, y: -3.0), animated: true)
+            if let data = self.fetchedResultsController.fetchedObjects,data.count  > 2 {
+                delay(seconds: 0.1) { [weak self] in
+                    self?.tableViewVertical.setContentOffset(CGPoint(x: 0.0, y: -3.0), animated: true)
+                }
+            }
+
+            
+            if let data = self.fetchedResultsController.fetchedObjects,data.count  < 2 {
+                printDebug("inside tesing block")
+                DispatchQueue.main.async {
+                    self.tableViewVertical.setContentOffset(CGPoint(x: 0, y: -140), animated: false)
+                }
+                
+                reloadHotelList()
+            
             }
         }
     }
@@ -102,7 +120,7 @@ extension HotelResultVC: PKBottomSheetDelegate {
             self?.headerContatinerViewHeightConstraint.constant = isHidden ? 0.0 : 50.0
             self?.tableViewTopConstraint.constant = isHidden ? 0.0 : 50.0
             self?.mapContainerTopConstraint.constant = isHidden ? 0.0 : 50.0
-            self?.progressView.isHidden = isHidden
+            self?.progressView.isHidden = true
             self?.view.layoutIfNeeded()
         }
     }
@@ -120,6 +138,10 @@ extension HotelResultVC: PKBottomSheetDelegate {
 // MARK: - HotelResultVM Delegate methods
 
 extension HotelResultVC: HotelResultDelegate {
+    func willGetAllHotel() {
+        // will call hotel
+    }
+    
     func callShareTextSuccess() {
         printDebug("get the share text")
         let textToShare = [self.viewModel.shareText]
@@ -147,7 +169,7 @@ extension HotelResultVC: HotelResultDelegate {
     
     func noHotelFound() {
         self.hotelSearchView.isHidden = false
-        self.progressView.removeFromSuperview()
+        self.progressView?.removeFromSuperview()
         self.manageShimmer(isHidden: true)
         self.hotelSearchTableView.backgroundView = noHotelFoundEmptyView
     }
@@ -190,6 +212,7 @@ extension HotelResultVC: HotelResultDelegate {
         self.noHotelFound()
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
+    
     
     func willGetPinnedTemplate() {
         //
@@ -260,6 +283,10 @@ extension HotelResultVC: HotelCardCollectionViewCellDelegate {
         }
         self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)
+        // reload that item at particular indexPath
+        if let indexPath = self.selectedIndexPath {
+           self.updateFavOnList(forIndexPath: indexPath)
+        }
     }
 
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {
@@ -301,6 +328,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
     func clearAllButtonTapped() {
         self.fetchRequestType = .normal
         self.filterButton.isSelected = false
+        HotelFilterVM.shared.isSortingApplied = false
         UserInfo.hotelFilter = nil
         HotelFilterVM.shared.resetToDefault()
         self.loadSaveData()
@@ -310,13 +338,14 @@ extension HotelResultVC: HotelFilteVCDelegate {
     }
 
     func doneButtonTapped() {
-        
         if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
             UserInfo.hotelFilterApplied = UserInfo.hotelFilter
         }
         
-        self.fetchRequestType = .FilterApplied
-        HotelFilterVM.shared.saveDataToUserDefaults()
+        
+        if HotelFilterVM.shared.isFilterApplied {
+         HotelFilterVM.shared.saveDataToUserDefaults()
+        }
         printDebug("done button tapped")
         self.getSavedFilter()
         self.loadSaveData()
@@ -330,7 +359,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
         else {
             self.manageSwitchContainer(isHidden: true, shouldOff: false)
         }
-        self.filterButton.isSelected = HotelFilterVM.shared.filterHotelCount == HotelFilterVM.shared.totalHotelCount ? false : true
+        self.filterButton.isSelected =  !(HotelFilterVM.shared.isSortingApplied || self.isFilterApplied) ? false : true
     }
 }
 
@@ -350,5 +379,14 @@ extension HotelResultVC: CLLocationManagerDelegate {
 extension HotelResultVC: HotelDetailsVCDelegate {
     func hotelFavouriteUpdated() {
         //work of this method has been handeled in data changed also, we can remove HotelDetailsVCDelegate after confirming with team.
+    }
+}
+
+
+// MARK: - HotelGroupExpendedVCDelegate methods
+
+extension HotelResultVC: HotelsGroupExpendedVCDelegate {
+    func saveButtonActionFromLocalStorage(forHotel: HotelSearched) {
+        self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)
     }
 }

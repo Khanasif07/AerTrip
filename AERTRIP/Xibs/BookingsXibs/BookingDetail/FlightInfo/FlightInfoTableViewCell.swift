@@ -11,9 +11,9 @@ import UIKit
 class FlightInfoTableViewCell: UITableViewCell {
     // MARK: - IB Outlet
     
-    @IBOutlet var flightImageView: UIImageView!
-    @IBOutlet var flightNameLabel: UILabel!
-    @IBOutlet var flightDetailsLabel: UILabel!
+    @IBOutlet weak var flightImageView: UIImageView!
+    @IBOutlet weak var flightNameLabel: UILabel!
+    @IBOutlet weak var flightDetailsLabel: UILabel!
     
     var flightDetail: FlightDetail? {
         didSet {

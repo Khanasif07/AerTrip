@@ -55,8 +55,10 @@ extension HotelDetailsVC {
     
     internal func getHotelInfoAddressCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
-//        cell.addressInfoTextView.isSelectable = true
         cell.configureAddressCell(hotelData: hotelDetails)
+        cell.addressInfoTextView.isUserInteractionEnabled = true
+        cell.addressInfoTextView.isSelectable = false
+        cell.addressInfoTextView.isEditable = false
         return cell
     }
     
@@ -88,11 +90,15 @@ extension HotelDetailsVC {
     
     internal func getSearchBarTagCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsSearchTagTableCell") as? HotelDetailsSearchTagTableCell  else { return UITableViewCell() }
-        cell.availableTagsForFilterartion = self.viewModel.permanentTagsForFilteration
-        if let amenities = hotelDetails.amenities {
-            let tags = amenities.basic + amenities.other
-            cell.allTagsForFilteration = tags
+        if !(self.viewModel.selectedTags.contains(AppConstants.kBreakfast) || self.viewModel.selectedTags.contains(AppConstants.kRefundable)) {
+             cell.availableTagsForFilterartion = self.viewModel.selectedTags
         }
+        // commented as We are not getting roomTags empty
+//        if let amenities = hotelDetails.amenities {
+//            let tags = amenities.basic + amenities.other
+//            cell.allTagsForFilteration = tags
+//        }
+        cell.allTagsForFilteration = AppConstants.staticRoomTags
         cell.tagCollectionView.reloadData()
         return cell
     }
@@ -193,17 +199,16 @@ extension HotelDetailsVC {
             guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: HotelDetailsCancelPolicyTableCell.reusableIdentifier, for: indexPath) as? HotelDetailsCancelPolicyTableCell  else { return nil }
             cell.delegate = self
             cell.configureNotesCell(ratesData: ratesData, isHotelDetailsScreen: true)
+            cell.allDetailsLabel.isHidden = true
+            cell.descriptionLabel.lineBreakMode = .byWordWrapping
             if self.allIndexPath.contains(indexPath) {
-                cell.descriptionLabel.text = ""
-                cell.allDetailsLabel.isHidden = false
                 cell.moreInfoContainerView.isHidden = true
-                cell.allDetailsLabel.attributedText = cell.fullNotesDetails(ratesData: ratesData)?.trimWhiteSpace()
+                cell.descriptionLabel.numberOfLines = 0
                 cell.moreBtnOutlet.isHidden = true
             }
             else {
                 cell.moreInfoContainerView.isHidden = false
-                cell.allDetailsLabel.isHidden = true
-                cell.allDetailsLabel.attributedText = nil
+                cell.descriptionLabel.numberOfLines = 1
                 cell.moreBtnOutlet.isHidden = false
             }
             cell.clipsToBounds = true

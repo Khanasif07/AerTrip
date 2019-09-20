@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol ATSwitcherChangeValueDelegate {
+protocol ATSwitcherChangeValueDelegate: class {
     func switcherDidChangeValue(switcher: ATSwitcher,value: Bool)
 }
 
 class ATSwitcher: UIView {
 
     var button: UIButton!
-    var delegate: ATSwitcherChangeValueDelegate?
+    weak var delegate: ATSwitcherChangeValueDelegate?
     
     @IBInspectable var on: Bool = false
     
@@ -31,12 +31,36 @@ class ATSwitcher: UIView {
         }
     }
     
-    @IBInspectable var selectedColor:UIColor = UIColor.green
-    @IBInspectable var originalColor:UIColor = UIColor.gray
-    @IBInspectable var selectedBorderColor:UIColor = UIColor.clear
-    @IBInspectable var originalBorderColor:UIColor = UIColor.lightGray
-    @IBInspectable var selectedBorderWidth:CGFloat = 0.0
-    @IBInspectable var originalBorderWidth:CGFloat = 1.5
+    @IBInspectable var selectedColor:UIColor = UIColor.green {
+        didSet {
+            self.setMainBorderProperties()
+        }
+    }
+    @IBInspectable var originalColor:UIColor = UIColor.gray {
+        didSet {
+            self.setMainBorderProperties()
+        }
+    }
+    @IBInspectable var selectedBorderColor:UIColor = UIColor.clear {
+        didSet {
+            self.setMainBorderProperties()
+        }
+    }
+    @IBInspectable var originalBorderColor:UIColor = UIColor.lightGray{
+        didSet {
+            self.setMainBorderProperties()
+        }
+    }
+    @IBInspectable var selectedBorderWidth:CGFloat = 0.0{
+        didSet {
+            self.setMainBorderProperties()
+        }
+    }
+    @IBInspectable var originalBorderWidth:CGFloat = 1.5{
+        didSet {
+            self.setMainBorderProperties()
+        }
+    }
     @IBInspectable var iconPadding:CGFloat = 3.0
     
     @IBInspectable var iconBorderWidth:CGFloat = 1.0 {
@@ -51,7 +75,13 @@ class ATSwitcher: UIView {
         }
     }
     
-     init(frame: CGRect, on: Bool) {
+    var isBackgroundBlurry: Bool = false {
+        didSet {
+            self.updateBlurEffect()
+        }
+    }
+    
+    init(frame: CGRect, on: Bool) {
         super.init(frame: frame)
         self.on = on
         commonInit()
@@ -60,6 +90,8 @@ class ATSwitcher: UIView {
     override func awakeFromNib() {
         commonInit()
     }
+    
+    private var blurView: UIVisualEffectView?
     
     private func commonInit() {
         button = UIButton(type: .custom)
@@ -79,9 +111,9 @@ class ATSwitcher: UIView {
         
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowPath  = UIBezierPath(roundedRect: button.bounds, cornerRadius: button.bounds.height / 2).cgPath
-        button.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-        button.layer.shadowOpacity = 0.6
-        button.layer.shadowRadius = 2.0
+        button.layer.shadowOffset = CGSize.zero//CGSize(width: 0.0, height: 1.0)
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowRadius = 4.0
         
         if on == true {
             self.backgroundColor = selectedColor
@@ -91,6 +123,9 @@ class ATSwitcher: UIView {
         
         button.frame = self.imageButtonFrame
         animationSwitcherButton()
+        
+        self.setMainBorderProperties()
+        self.updateBlurEffect()
     }
     
     override func layoutSubviews() {
@@ -125,6 +160,28 @@ class ATSwitcher: UIView {
         }
     }
     
+    private func setMainBorderProperties() {
+        self.backgroundColor = self.on ? self.selectedColor : self.originalColor
+        self.layer.borderColor = self.on ? self.selectedBorderColor.cgColor : self.originalBorderColor.cgColor
+        self.layer.borderWidth = self.on ? self.selectedBorderWidth : self.originalBorderWidth
+    }
+    
+    private func updateBlurEffect() {
+        
+        if let blrV = self.blurView {
+            blrV.frame = self.bounds
+        }
+        else {
+            let bv = self.getBlurView()
+            self.blurView = bv
+            
+            self.insertSubview(bv, at: 0)
+        }
+        
+        self.blurView?.alpha = 0.95
+        self.blurView?.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.02)
+    }
+    
     func animationSwitcherButton(animated: Bool = true) {
         button.backgroundColor = originalColor
         if on == true {
@@ -133,10 +190,7 @@ class ATSwitcher: UIView {
                 
                 self.button.frame = self.imageButtonFrame
                 
-                self.layer.borderColor = self.selectedBorderColor.cgColor
-                self.layer.borderWidth = self.selectedBorderWidth
-                
-                self.backgroundColor = self.selectedColor
+                self.setMainBorderProperties()
                 
                 self.layoutIfNeeded()
                 }, completion: { (finish:Bool) -> Void in
@@ -146,11 +200,8 @@ class ATSwitcher: UIView {
                 self.button.isSelected = false
                 
                 self.button.frame = self.imageButtonFrame
-
-                self.layer.borderColor = self.originalBorderColor.cgColor
-                self.layer.borderWidth = self.originalBorderWidth
                 
-                self.backgroundColor = self.originalColor
+                self.setMainBorderProperties()
 
                 self.layoutIfNeeded()
                 }, completion: { (finish:Bool) -> Void in

@@ -18,17 +18,18 @@ protocol EditProfileImageHeaderViewDelegate: class {
 class EditProfileImageHeaderView: UIView {
     // MARK: - IB Outlets
     
-    @IBOutlet var profileImageView: UIImageView!
-    @IBOutlet var editButton: UIButton!
-    @IBOutlet var salutationView: UIView!
-    @IBOutlet var salutaionLabel: UILabel!
-    @IBOutlet var firstNameTextField: UITextField!
-    @IBOutlet var lastNameTextField: UITextField!
-    @IBOutlet var groupLabel: UILabel!
-    @IBOutlet var groupTitleLabel: UILabel!
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var salutationView: UIView!
+    @IBOutlet weak var salutaionLabel: UILabel!
+    @IBOutlet weak var firstNameTextField: UITextField!
+    @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var groupLabel: UILabel!
+    @IBOutlet weak var groupTitleLabel: UILabel!
+    @IBOutlet weak var selectGroupDownArrow: UIImageView!
     
-    @IBOutlet var selectGroupViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var selectGroupView: UIView!
+    @IBOutlet weak var selectGroupViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var selectGroupView: UIView!
     
     // MARK: - Variables
     

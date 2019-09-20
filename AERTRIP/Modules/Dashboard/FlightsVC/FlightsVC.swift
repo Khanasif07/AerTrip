@@ -13,7 +13,7 @@ class FlightsVC: BaseVC {
     var subView = HotelCheckOutDetailsVIew()
     // MARK: -
     
-    @IBOutlet var myButton: UIButton!
+    @IBOutlet weak var myButton: UIButton!
     
     // MARK: - IBOutlets
     
@@ -42,6 +42,6 @@ class FlightsVC: BaseVC {
     // MARK: - Action
     
     @IBAction func myButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToAbortRequestVC(forCase: Case(json: [:], bookindId: ""))
+//        AppFlowManager.default.moveToAbortRequestVC(forCase: Case(json: [:], bookindId: ""))
     }
 }

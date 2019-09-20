@@ -16,24 +16,24 @@ protocol TwoPartEditTableViewCellDelegate: class {
 }
 
 class TwoPartEditTableViewCell: UITableViewCell {
-    @IBOutlet var leftView: UIView!
-    @IBOutlet var leftTitleLabel: UILabel!
-    @IBOutlet var leftTextField: UITextField!
-    @IBOutlet var frequentFlyerView: UIView!
-    @IBOutlet var frequentFlyerImageView: UIImageView!
-    @IBOutlet var frequentFlyerLabel: UILabel!
-    @IBOutlet var downArrowImageView: UIImageView!
+    @IBOutlet weak var leftView: UIView!
+    @IBOutlet weak var leftTitleLabel: UILabel!
+    @IBOutlet weak var leftTextField: UITextField!
+    @IBOutlet weak var frequentFlyerView: UIView!
+    @IBOutlet weak var frequentFlyerImageView: UIImageView!
+    @IBOutlet weak var frequentFlyerLabel: UILabel!
+    @IBOutlet weak var downArrowImageView: UIImageView!
     
-    @IBOutlet var deleteButton: UIButton!
-    @IBOutlet var rightView: UIView!
-    @IBOutlet var rightTitleLabel: UILabel!
-    @IBOutlet var rightTextField: UITextField!
-    @IBOutlet var leftTitleLabelHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var rightView: UIView!
+    @IBOutlet weak var rightTitleLabel: UILabel!
+    @IBOutlet weak var rightTextField: UITextField!
+    @IBOutlet weak var leftTitleLabelHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet var frequentFyerImageViewWidthConstraint: NSLayoutConstraint!
-    @IBOutlet var frequentFlyerLabelLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet var leftSeparatorView: ATDividerView!
-    @IBOutlet var rightSeparatorView: ATDividerView!
+    @IBOutlet weak var frequentFyerImageViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var frequentFlyerLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var leftSeparatorView: ATDividerView!
+    @IBOutlet weak var rightSeparatorView: ATDividerView!
     
     // MARK: - Variables
     

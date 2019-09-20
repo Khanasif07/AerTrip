@@ -86,10 +86,20 @@ class HotelsSearchVC: BaseVC {
         self.containerView.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         self.scrollView.delegate = self
         self.searchBtnOutlet.layer.cornerRadius = 25.0
+        self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+        self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
         self.configureCheckInOutView()
         self.configureRecentSearchesView()
         self.hideRecentSearchesView()
         self.setDataFromPreviousSearch()
+        
+        for btn in self.starButtonsOutlet {
+            btn.adjustsImageWhenHighlighted = false
+            btn.isSelected = false
+            btn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
+            btn.setImage(nil, for: .selected)
+            btn.setImage(nil, for: .highlighted)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -243,7 +253,7 @@ class HotelsSearchVC: BaseVC {
         } else if self.viewModel.searchedFormData.adultsCount.count == 1 {
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 self.containerViewHeightConstraint.constant =  self.containerViewHeight
-                //                self.scrollView.contentSize.height = self.scrollViewContentSize.height
+                //self.scrollView.contentSize.height = self.scrollViewContentSize.height
                 self.view.layoutIfNeeded()
             }) { (isComleted) in
                 //self.scrollView.contentSize.height = self.scrollViewContentSize.height
@@ -318,7 +328,7 @@ class HotelsSearchVC: BaseVC {
         //reset all the buttons first
         for starBtn in self.starButtonsOutlet {
             starBtn.isSelected = false
-            starBtn.isHighlighted = false
+            starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
         }
         for star in oldData.ratingCount {
             self.updateStarButtonState(forStar: star, isSettingFirstTime: isSettingForFirstTime)
@@ -354,34 +364,39 @@ class HotelsSearchVC: BaseVC {
     ///Star Button State
     private func updateStarButtonState(forStar: Int, isSettingFirstTime: Bool = false) {
         guard 1...5 ~= forStar else {return}
-        if let currentButton = self.starButtonsOutlet.filter({ (button) -> Bool in
-            button.tag == forStar
-        }).first {
-            if isSettingFirstTime {
-                currentButton.isSelected = true
-            }
-            else {
-                currentButton.isSelected = !currentButton.isSelected
-            }
-            currentButton.isHighlighted = false
-            if self.viewModel.searchedFormData.ratingCount.contains(forStar) {
-                self.viewModel.searchedFormData.ratingCount.remove(at: self.viewModel.searchedFormData.ratingCount.firstIndex(of: forStar)!)
-            }
-            else {
-                self.viewModel.searchedFormData.ratingCount.append(forStar)
-            }
+        
+        //updating the selection array
+        if let idx = self.viewModel.searchedFormData.ratingCount.firstIndex(of: forStar) {
+            self.viewModel.searchedFormData.ratingCount.remove(at: idx)
         }
+        else {
+            self.viewModel.searchedFormData.ratingCount.append(forStar)
+        }
+        
         if self.viewModel.searchedFormData.ratingCount.isEmpty || self.viewModel.searchedFormData.ratingCount.count == 5 {
-            delay(seconds: 0.1) {
+            self.viewModel.searchedFormData.ratingCount.removeAll()
                 for starBtn in self.starButtonsOutlet {
                     starBtn.isSelected = false
-                    starBtn.isHighlighted = true
+                    starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
                 }
-                self.viewModel.searchedFormData.ratingCount.removeAll()
-            }
-        } else {
+        }
+        else {
+            
             for starBtn in self.starButtonsOutlet {
-                starBtn.isHighlighted = false
+                
+                if starBtn.tag == forStar {
+                    starBtn.isSelected = isSettingFirstTime ? true : !starBtn.isSelected
+                    let img = starBtn.isSelected ? #imageLiteral(resourceName: "starRatingFilled") : #imageLiteral(resourceName: "starRatingUnfill")
+                    starBtn.setImage(img, for: starBtn.isSelected ? .selected : .normal)
+                }
+                else if self.viewModel.searchedFormData.ratingCount.contains(starBtn.tag) {
+                    starBtn.isSelected = true
+                    starBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .selected)
+                }
+                else {
+                    starBtn.isSelected = false
+                    starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+                }
             }
         }
     }
@@ -431,7 +446,7 @@ class HotelsSearchVC: BaseVC {
                 }
                 else {
                     if let s = start, let e = end {
-                        final += (s != e) ? "\(s)-\(e), " : "\(s), "
+                        final += (s != e) ? "\(s) - \(e), " : "\(s), "
                         start = nil
                         end = nil
                         prev = nil
@@ -449,7 +464,7 @@ class HotelsSearchVC: BaseVC {
             prev = value
         }
         if let s = start, let e = end {
-            final += (s != e) ? "\(s)-\(e), " : "\(s), "
+            final += (s != e) ? "\(s) - \(e), " : "\(s), "
             start = nil
             end = nil
         }
@@ -526,13 +541,16 @@ class HotelsSearchVC: BaseVC {
     
     @IBAction func searchButtonAction(_ sender: ATButton?) {
         if validateData() {
-            sender?.isLoading = true
+            delay(seconds: 0.1) {
+                sender?.isLoading = true
+            }
+            
             if let _ = sender {
                 self.viewModel.setRecentSearchesData()
             }
             delay(seconds: 0.1) {
                 //send to result screen for current selected form data
-                _ = CoreDataManager.shared.deleteAllData("HotelSearched")
+                CoreDataManager.shared.deleteData("HotelSearched")
                 HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
                 
                 if 1...4 ~= self.viewModel.searchedFormData.ratingCount.count {
@@ -545,8 +563,9 @@ class HotelsSearchVC: BaseVC {
                     UserInfo.hotelFilterApplied = nil
                     UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
                 }
-                
+                if AppGlobals.shared.isNetworkRechable() {
                 AppFlowManager.default.moveToHotelsResultVc(withFormData: HotelsSearchVM.hotelFormData)
+                }
                 sender?.isLoading = false
             }
         }
@@ -582,6 +601,7 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
                 return UICollectionViewCell()
             }
             addRoomCell.delegate = self
+            
             return addRoomCell
         } else {
             guard let addRoomPicCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddRoomPictureCell", for: indexPath) as? AddRoomPictureCell else {
@@ -619,11 +639,16 @@ extension HotelsSearchVC: UICollectionViewDelegate , UICollectionViewDataSource 
             return CGSize(width: collectionView.frame.width/2 , height: self.collectionViewHeight)
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        print(indexPath.item)
+    }
 }
 
 //Mark:- Expanded Cell Delegate
 //=============================
 extension HotelsSearchVC: ExpandedCellDelegate {
+    
     
     ///Plus Button Tapped
     func plusButtonTouched(indexPath: IndexPath) {
@@ -809,9 +834,13 @@ extension HotelsSearchVC: CalendarDataHandler {
     func selectedDates(fromCalendar startDate: Date!, end endDate: Date!, isHotelCalendar: Bool, isReturn: Bool) {
         if startDate != nil {
             self.viewModel.searchedFormData.checkInDate = startDate.toString(dateFormat: "yyyy-MM-dd")
+        } else {
+            self.viewModel.searchedFormData.checkInDate = ""
         }
         if endDate != nil {
             self.viewModel.searchedFormData.checkOutDate = endDate.toString(dateFormat: "yyyy-MM-dd")
+        } else {
+            self.viewModel.searchedFormData.checkOutDate = ""
         }
         if let checkInOutVw = self.checkInOutView {
             checkInOutVw.setDates(fromData: self.viewModel.searchedFormData)

@@ -116,7 +116,7 @@
 "selectedCountryCode"    = "+91";
 "selectedCountry"        = "India";
 "SelectedCountySymbol" = "IN";
-"PleaseLoginByEmailId" = "Please login by using email id";
+"PleaseLoginByEmailId" = "We didn't got email. Please login by using email id.";
 
 // MARK:- ForgotPasswordVC
 //MARK:-
@@ -190,9 +190,9 @@
 "SelectAll" = "Select All";
 "DeselectAll" = "Deselect All";
 "AllowContacts" = "Allow Contacts";
-"ConnectWithGoogle" = "Connect with Google";
-"ConnectWithFB" = "Connect with Facebook";
-"ConnectWithLinkedIn" = "Connect with LinkedIn";
+"ConnectWithGoogle" = " Connect with Google";
+"ConnectWithFB" = " Connect with Facebook";
+"ConnectWithLinkedIn" = " Connect with LinkedIn";
 "ContactsSelected" = "Contacts Selected";
 "SelectContactsToImport" = "Select Contacts to import";
 
@@ -239,7 +239,7 @@
 //MARK:-
 "Disconnect" = "Disconnect";
 "LinkedAccountsMessage" = "Connect your social media accounts for faster login and sharing.";
-
+"DoYouWantToDisconnect" = "Are you sure you want to disconnect?";
 
 //MARK:- Edit Profile VC
 //MARK:-
@@ -594,9 +594,9 @@
 "AertripEmailId" = "support@aertrip.com";
 "ThankYouStmtForBookingId" = "Thank you for booking with Aertrip. Use the above booking id for all future communication with Aertrip.";
 "ThankYouStmtForCId" = "Thank you for booking with Aertrip. Use the above case id for all future communication with Aertrip.";
-"WriteReviews" = "WriteReviews";
+"WriteReviews" = "Write Reviews";
 "Photos" = "Photos";
-"ReadReviews" = "ReadReviews";
+"ReadReviews" = "Read Reviews";
 
 //AccountDetails Screen
 "Accounts" = "Accounts";
@@ -755,6 +755,7 @@
 //MARK:- OutStanding Ladger
 "Summary" = "Summary";
 "OutstandingLedger" = "Outstanding Ledger";
+"SelectBooking" = "Select Booking";
 "GrossOutstanding" = "Gross Outstanding";
 "OnAccount" = "On Account";
 "NetOutstanding" = "Net Outstanding";
@@ -880,3 +881,12 @@
 "Yes" = "Yes";
  "No" = "No";
 
+"SendingEmail" = "Sending...";
+"LedgerSentToYourEmail" = "Ledger has been sent to your registered email-id.";
+
+// MARK: - Common
+"Other" = "Other";
+"CantCreateGroupWithThisName" = "Can't create group with this name.";
+
+"PleaseSignInToContinue" = "Please sign in to\ncontinue";
+"EnjoyPersonalisedTravelExperience" = "Enjoy a more personalised travel experience";

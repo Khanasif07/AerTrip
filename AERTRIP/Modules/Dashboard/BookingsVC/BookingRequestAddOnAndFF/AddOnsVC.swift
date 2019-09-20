@@ -11,7 +11,7 @@ import UIKit
 class AddOnsVC: BaseVC {
     // MARK: - IBOutlet
     
-    @IBOutlet var addOnTableView: ATTableView!
+    @IBOutlet weak var addOnTableView: ATTableView!
     
     // MARK: - Variables
     

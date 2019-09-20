@@ -30,7 +30,7 @@ class CompletedVC: BaseVC {
             self.completedBookingsTableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
         }
     }
-    @IBOutlet var footerView: MyBookingFooterView!{
+    @IBOutlet weak var footerView: MyBookingFooterView!{
         didSet {
             footerView.delegate = self
             footerView.pendingActionSwitch.isOn = false

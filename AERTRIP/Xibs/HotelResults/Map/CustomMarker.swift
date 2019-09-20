@@ -56,13 +56,15 @@ class CustomMarker: UIView {
         if  let filter = UserInfo.hotelFilter, filter.priceType == .PerNight {
             price = hotel?.perNightPrice ?? 0.0
         }
-        self.priceLabel.attributedText = (price.amountInDelimeterWithSymbol).addPriceSymbolToLeft(using: AppFonts.SemiBold.withSize(16.0))
+        
+        let str = NSAttributedString(string: hotel?.hotelName?.substring(to: 4) ?? "")
+        self.priceLabel.attributedText = (price.amountInDelimeterWithSymbol).addPriceSymbolToLeft(using: AppFonts.SemiBold.withSize(16.0)) + str
     }
     
     private func updateFav() {
         priceView.layer.cornerRadius = 8.0
         priceView.layer.borderWidth = 1.0
-        priceLabel.font = AppFonts.SemiBold.withSize(16.0)
+        priceLabel.font = AppFonts.SemiBold.withSize(12.0)
 
         if isFavourite {
             priceView.layer.borderColor = AppColors.themeRed.cgColor

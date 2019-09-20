@@ -11,8 +11,8 @@ import UIKit
 class FareDetailTableViewCell: UITableViewCell {
     // MARK: - IB Outlets
     
-    @IBOutlet var fareDetailTitleLabel: UILabel!
-    @IBOutlet var numberOfRoomAndLabel: UILabel!
+    @IBOutlet weak var fareDetailTitleLabel: UILabel!
+    @IBOutlet weak var numberOfRoomAndLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
     
     override func awakeFromNib() {

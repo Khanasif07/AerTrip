@@ -20,7 +20,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     //MARK:-
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var tableView: ATTableView!
-    @IBOutlet var searchContainerView: UIView!
+    @IBOutlet weak var searchContainerView: UIView!
     @IBOutlet weak var blankSpaceView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
     @IBOutlet weak var searchBar: ATSearchBar!
@@ -85,12 +85,8 @@ class AccountOutstandingLadgerVC: BaseVC {
         tableView.dataSource = self
         
         self.loaderContainer.addGredient(isVertical: false)
-
-        self.topNavView.configureNavBar(title: LocalizedString.OutstandingLedger.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         
         self.topNavView.delegate = self
-        
-        self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_three_dots"), selectedImage: #imageLiteral(resourceName: "ic_three_dots"))
         
         //add search view in tableView header
         self.tableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
@@ -133,7 +129,6 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.onAccountValueLabel.font = AppFonts.Regular.withSize(16.0)
         self.netOutstandingValueLabel.font = AppFonts.Regular.withSize(16.0)
         
-        self.payableAmountLabel.font = AppFonts.SemiBold.withSize(20.0)
         self.makePaymentTitleLabel.font = AppFonts.SemiBold.withSize(20.0)
     }
     
@@ -175,14 +170,27 @@ class AccountOutstandingLadgerVC: BaseVC {
         self.searchBarContainerView.backgroundColor = AppColors.themeWhite
         self.blankSpaceView.backgroundColor = AppColors.themeGray04
         
-        self.payableAmountLabel.textColor = AppColors.themeWhite
         self.makePaymentTitleLabel.textColor = AppColors.themeWhite
         
         self.makePaymentContainerView.addGredient(isVertical: false)
+        self.makePaymentContainerView.addShadow(cornerRadius: 0.0, shadowColor: AppColors.themeGreen, backgroundColor: AppColors.clear, offset: CGSize(width: 0.0, height: 12.0))
     }
     
     //MARK:- Methods
     //MARK:- Private
+    override func setupNavBar() {
+        if self.currentViewState == .normal {
+            self.topNavView.configureNavBar(title: LocalizedString.OutstandingLedger.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: AppColors.themeWhite))
+            
+            self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "ic_three_dots"), selectedImage: #imageLiteral(resourceName: "ic_three_dots"), normalTitle: nil, selectedTitle: nil)
+        }
+        else {
+            self.topNavView.configureNavBar(title: LocalizedString.SelectBooking.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: AppColors.themeWhite))
+            
+            self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+        }
+    }
+    
     private func manageHeader(animated: Bool) {
 
         if (self.currentViewState == .normal) {
@@ -258,7 +266,7 @@ class AccountOutstandingLadgerVC: BaseVC {
             }
             else if index == 1 {
                 //email tapped
-                self.viewModel.sendEmailForLedger()
+                self.viewModel.sendEmailForLedger(onVC: self)
             }
             else {
                 //download pdf tapped
@@ -287,12 +295,15 @@ class AccountOutstandingLadgerVC: BaseVC {
     private func setPayableAmount() {
         var totalAmount: Double = abs(self.viewModel.accountOutstanding?.grossAmount ?? 0.0)
         
-        let selected = self.viewModel.totalAmountForSelected
-        if self.currentViewState == .selecting, selected > 0.0 {
-            totalAmount = selected
+        if self.currentViewState == .selecting {
+            let selected = self.viewModel.totalAmountForSelected
+            totalAmount = (selected > 0.0) ? selected : 0.0
         }
         
-        self.payableAmountLabel.attributedText = totalAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+        let attrText = totalAmount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.SemiBold.withSize(20.0))
+        attrText.addAttributes([NSAttributedString.Key.foregroundColor : AppColors.themeWhite], range: NSRange(location: 0, length: attrText.length))
+        self.payableAmountLabel.attributedText = attrText
+        self.makePaymentTitleLabel.alpha = (totalAmount > 0) ? 1.0 : 0.6
         self.makePaymentTitleLabel.text = LocalizedString.MakePayment.localized
     }
     
@@ -307,6 +318,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     //MARK:- Public
     func reloadList() {
         
+        self.setupNavBar()
         self.setPayableAmount()
         
         self.tableView.backgroundView = self.noAccountTransectionView
@@ -330,7 +342,9 @@ class AccountOutstandingLadgerVC: BaseVC {
         }
     }
     @IBAction func makePaymentButtonAction(_ sender: UIButton) {
-        self.viewModel.getOutstandingPayment()
+        if self.makePaymentTitleLabel.alpha >= 1.0 {
+            self.viewModel.getOutstandingPayment()
+        }
     }
 }
 
@@ -407,7 +421,14 @@ extension AccountOutstandingLadgerVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         //dots button action
-        self.showMoreOptions()
+        if self.currentViewState == .normal {
+            self.showMoreOptions()
+        }
+        else {
+            self.currentViewState = .normal
+            self.viewModel.selectedEvent.removeAll()
+            self.reloadList()
+        }
     }
     
     func topNavBarSecondRightButtonAction(_ sender: UIButton) {
@@ -498,8 +519,6 @@ extension AccountOutstandingLadgerVC {
 
         guard maxLimit > 0, 0...maxLimit ~= yOffset, abs(yChanged) > 3 else {return}
         
-//        print("velo: \(scrollView.panGestureRecognizer.velocity(in: self))")
-        
         //checking for the boundry limits and returning
         if yOffset <= 0 {
             //show full header
@@ -539,10 +558,6 @@ extension AccountOutstandingLadgerVC {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.manageHeader(scrollView)
-    }
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        print("velocity \(velocity)")
     }
 }
 

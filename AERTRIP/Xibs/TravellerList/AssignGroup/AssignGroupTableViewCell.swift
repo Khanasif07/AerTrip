@@ -9,7 +9,7 @@
 import UIKit
 
 class AssignGroupTableViewCell: UITableViewCell {
-    @IBOutlet var groupNameLabel: UILabel!
+    @IBOutlet weak var groupNameLabel: UILabel!
     @IBOutlet weak var groupCountLabel: UILabel!
     
     override func awakeFromNib() {

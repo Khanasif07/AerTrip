@@ -11,15 +11,15 @@ import UIKit
 class BookingPaymentDetailsTableViewCell: UITableViewCell {
     // Mark:- IBOutlets
     //================
-    @IBOutlet var containerView: UIView!
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var costLabel: UILabel!
-    @IBOutlet var dividerView: ATDividerView!
-    @IBOutlet var cellHeight: NSLayoutConstraint!
-    @IBOutlet var titleTopConstraint: NSLayoutConstraint!
-    @IBOutlet var titleBottomConstraint: NSLayoutConstraint!
-    @IBOutlet var containerViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet var containerViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var costLabel: UILabel!
+    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var cellHeight: NSLayoutConstraint!
+    @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var titleBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerViewBottomConstraint: NSLayoutConstraint!
     
     // Mark:- LifeCycle
     //================

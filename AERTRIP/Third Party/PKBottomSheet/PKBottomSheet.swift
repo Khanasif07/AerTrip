@@ -69,6 +69,17 @@ class PKBottomSheet: UIView {
      */
     var headerView: UIView?
     
+    /* isHideBottomSheetOnTap
+     * - decide whether to hide the bottom sheet on tap
+     */
+    
+    var isHideBottomSheetOnTap: Bool = true
+    var isAddTapGesture: Bool = true {
+        didSet {
+            self.initialSetups()
+        }
+    }
+    
     
     //MARK:- Private
     private var presentedViewController: UIViewController!
@@ -91,8 +102,7 @@ class PKBottomSheet: UIView {
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        self.initialSetups()
+    
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -110,7 +120,9 @@ class PKBottomSheet: UIView {
     private func initialSetups() {
         updateViewSetup()
         
-        addTapGesture()
+        if isAddTapGesture {
+          addTapGesture()
+        }
         addPanGesture()
     }
     
@@ -177,7 +189,9 @@ class PKBottomSheet: UIView {
     }
     
     @objc private func handelTapGesture(_ sender: UIGestureRecognizer) {
-        self.dismiss(animated: true)
+        if isHideBottomSheetOnTap {
+           self.dismiss(animated: true)
+        }
     }
     
     private func addPanGesture() {

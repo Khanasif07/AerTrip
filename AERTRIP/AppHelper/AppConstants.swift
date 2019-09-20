@@ -10,7 +10,7 @@ import Foundation
 
 enum AppConstants {
     
-    static let isReleasingToClient: Bool = true
+    static let isReleasingToClient: Bool = false
     
     static let kCurrency = ""
     
@@ -57,6 +57,8 @@ enum AppConstants {
     static var isStatusBarBlured = true
     static let AddOnRequestTextLimit = 60
     
+    static let profileViewBackgroundNameIntialsFont = AppFonts.Regular.withSize(40.0)
+    
     static let kGoogleAPIKey = "AIzaSyD_W5hNOfKdR3xbEEkbX1rI2sJ3nDv1E64" // "AIzaSyBR5AMB7FJUqlRBZv93B4aVhY-Xt13weaU"
     static let kRuppeeSymbol = "\u{20B9} "
     static let kCopyrightSymbol = "\u{00A9}"
@@ -92,7 +94,10 @@ enum AppConstants {
     static let AdultPax = "ADT"
     static let kChildPax = "CHD"
     static let kInfantPax = "INF"
-    
     static let kQuestionMark = "?"
+    static let kIndianCountryCode = "IN"
+    static let staticRoomTags: [String] = ["Sea view","Lake view","Deluxe","Suite","Parking","Lounge"]
+    static let kBreakfast = "Breakfast"
+    static let kRefundable = "Refundable"
 }
 

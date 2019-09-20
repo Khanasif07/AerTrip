@@ -22,27 +22,46 @@ enum HotelResultViewType {
     case ListView
 }
 
+class MapContainerView: UIView {
+    weak var mapView: GMSMapView? {
+        didSet {
+            if let vw = mapView {
+                self.addSubview(vw)
+            }
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.mapView?.frame = self.bounds
+        
+        self.backgroundColor = AppColors.themeRed
+        self.mapView?.backgroundColor = AppColors.themeGreen
+    }
+}
+
 class HotelResultVC: BaseVC {
     // MARK: - IBOutlets
     
     // MARK: -
     
-    @IBOutlet var headerContainerView: UIView!
-    @IBOutlet var navContainerView: UIView!
-    @IBOutlet var backButton: UIButton!
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var descriptionLabel: UILabel!
-    @IBOutlet var filterButton: UIButton!
-    @IBOutlet var mapButton: UIButton!
-    @IBOutlet var searchBar: ATSearchBar!
-    @IBOutlet var dividerView: ATDividerView!
-    @IBOutlet var progressView: UIProgressView!
-    @IBOutlet var unPinAllFavouriteButton: UIButton!
-    @IBOutlet var emailButton: UIButton!
-    @IBOutlet var shareButton: UIButton!
-    @IBOutlet var switchView: ATSwitcher!
+    @IBOutlet weak var headerContainerView: UIView!
+    @IBOutlet weak var navContainerView: UIView!
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var filterButton: UIButton!
+    @IBOutlet weak var mapButton: UIButton!
+    @IBOutlet weak var searchBar: ATSearchBar!
+    @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var unPinAllFavouriteButton: UIButton!
+    @IBOutlet weak var emailButton: UIButton!
+    @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var switchView: ATSwitcher!
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
-    @IBOutlet var collectionView: UICollectionView! {
+    @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             self.collectionView.registerCell(nibName: HotelCardCollectionViewCell.reusableIdentifier)
             self.collectionView.registerCell(nibName: HotelGroupCardCollectionViewCell.reusableIdentifier)
@@ -54,7 +73,7 @@ class HotelResultVC: BaseVC {
         }
     }
     
-    @IBOutlet var tableViewVertical: ATTableView! {
+    @IBOutlet weak var tableViewVertical: ATTableView! {
         didSet {
             self.tableViewVertical.registerCell(nibName: HotelCardTableViewCell.reusableIdentifier)
             self.tableViewVertical.register(HotelResultSectionHeader.self, forHeaderFooterViewReuseIdentifier: "HotelResultSectionHeader")
@@ -67,34 +86,38 @@ class HotelResultVC: BaseVC {
         }
     }
     
-    @IBOutlet var tableViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet var headerContainerViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet var shimmerView: UIView!
-    @IBOutlet var headerContatinerViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var floatingButtonOnMapView: UIButton!
-    @IBOutlet var cancelButton: UIButton!
+    @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var headerContainerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var shimmerView: UIView!
+    @IBOutlet weak var headerContatinerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var floatingButtonOnMapView: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     
     @IBOutlet weak var mapContainerViewBottomConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
     
     // Searching View
-    @IBOutlet var hotelSearchView: UIView! {
+    @IBOutlet weak var hotelSearchView: UIView! {
         didSet {
             self.hotelSearchView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
             self.hotelSearchView.isUserInteractionEnabled = true
         }
     }
     
-    @IBOutlet var hotelSearchTableView: ATTableView!
-    @IBOutlet var currentLocationButton: UIButton!
-    @IBOutlet var floatingViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet var floatingButtonBackView: UIView!
-    @IBOutlet var mapContainerView: UIView!
-    @IBOutlet var mapContainerTopConstraint: NSLayoutConstraint!
-    @IBOutlet var switchContainerView: UIView!
-    @IBOutlet var searchBarContainerView: UIView!
+    @IBOutlet weak var hotelSearchTableView: ATTableView!
+    @IBOutlet weak var currentLocationButton: UIButton!
+    @IBOutlet weak var floatingViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var floatingButtonBackView: UIView!
+    @IBOutlet weak var mapContainerView: MapContainerView!
+    @IBOutlet weak var mapContainerTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var switchContainerView: UIView!
+    @IBOutlet weak var searchBarContainerView: UIView!
+    @IBOutlet weak var cardGradientView: UIView!
+    @IBOutlet weak var shimmerGradientView: UIView!
     
+    @IBOutlet weak var switchGradientView: UIView!
     // MARK: - Properties
     
 //    var container: NSPersistentContainer!
@@ -128,6 +151,7 @@ class HotelResultVC: BaseVC {
     
     var oldOffset: CGPoint = .zero //used in colletion view scrolling for map re-focus
     var isCollectionScrollingInc: Bool = false
+    var isHidingOnMapTap: Bool = false
     
     //Map Related
     var clusterManager: GMUClusterManager!
@@ -201,6 +225,8 @@ class HotelResultVC: BaseVC {
     let defaultDuration: CGFloat = 1.2
     let defaultDamping: CGFloat = 0.70
     let defaultVelocity: CGFloat = 15.0
+    var applyButtonTapped: Bool = false
+    var isFilterApplied: Bool = false
         
     //used for making collection view centerlized
     var indexOfCellBeforeDragging = 0
@@ -213,7 +239,7 @@ class HotelResultVC: BaseVC {
         
         self.filterButton.isEnabled = false
         self.mapButton.isEnabled = false
-        
+        self.mapView?.isMyLocationEnabled = false
         self.animateCollectionView(isHidden: true, animated: false)
         self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
         
@@ -224,42 +250,62 @@ class HotelResultVC: BaseVC {
         
         self.startProgress()
         self.completion = { [weak self] in
+            self?.applyButtonTapped = true
+            
             UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
             self?.fetchRequestType = .FilterApplied
-            if let old = UserInfo.hotelFilterApplied {
+            if let old = UserInfo.hotelFilter {
                 HotelFilterVM.shared.setData(from: old)
             }
             self?.doneButtonTapped()
+            AppToast.default.hideToast(self, animated: true)
         }
         
         // toast Completion when toast goes way from the screen
-        self.toastDidClose = {
+        self.toastDidClose = { [weak self] in
+            guard let `self` = self else {
+                return
+            }
             UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
-            UserInfo.hotelFilterApplied = nil
-            HotelFilterVM.shared.resetToDefault()
+            if !self.applyButtonTapped {
+                UserInfo.hotelFilter = nil
+                HotelFilterVM.shared.resetToDefault()
+            }
+           
         }
         
         // toast completion,When undo button tapped
         self.aerinFilterUndoCompletion = {
             printDebug("Undo Button tapped")
         }
-        
+        self.cardGradientView.isHidden = true
         //call API to get vcode, sid
-        self.viewModel.hotelListOnPreferencesApi()
+        if AppGlobals.shared.isNetworkRechable() {
+             self.viewModel.hotelListOnPreferencesApi()
+        } else {
+            self.noHotelFound()
+            AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+        }
+       
         
         self.getPinnedHotelTemplate()
         self.statusBarStyle = .default
         collectionViewLayout.minimumLineSpacing = 0
-        
         self.setUpLongPressOnFilterButton()
-        
-        
+        self.cardGradientView.backgroundColor = AppColors.clear
+        self.cardGradientView.addGredient(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeWhite.withAlphaComponent(0.01),AppColors.themeWhite.withAlphaComponent(1.0)])
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.statusBarColor = AppColors.themeWhite
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.statusBarColor = AppColors.clear
+    }
+  
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
@@ -281,18 +327,22 @@ class HotelResultVC: BaseVC {
         if let noti = note.object as? ATNotification, noti == .GRNSessionExpired {
             //re-hit the search API
             self.manageShimmer(isHidden: false)
-            _ = CoreDataManager.shared.deleteAllData("HotelSearched")
+            CoreDataManager.shared.deleteData("HotelSearched")
             self.viewModel.hotelListOnPreferencesApi()
         }
         else if let _ = note.object as? HotelDetailsVC {
             //fav updated from hotel details
             updateFavOnList(forIndexPath: selectedIndexPath)
+            // manage favourite switch buttons 
+            self.getFavouriteHotels(shouldReloadData: true)
         }
         else if let _ = note.object as? HCDataSelectionVC {
             updateFavOnList(forIndexPath: selectedIndexPath)
         }
         else if let _ = note.object as? HotelResultVC {
             updateFavOnList(forIndexPath: selectedIndexPath)
+        } else if let _ = note.object as? HotelsGroupExpendedVC {
+            
         }
     }
     
@@ -309,13 +359,13 @@ class HotelResultVC: BaseVC {
     }
     
     func initialSetups() {
+        self.addShimmerGradient()
         self.setUpFloatingView()
         self.setupTableHeader()
         self.searchBar.delegate = self
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.searchIntitialFrame = self.searchBarContainerView.frame
         self.reloadHotelList()
-        self.manageFloatingView(isHidden: false)
         self.floatingButtonOnMapView.isHidden = true
         self.cancelButton.alpha = 0
         self.hotelSearchTableView.separatorStyle = .none
@@ -329,18 +379,21 @@ class HotelResultVC: BaseVC {
         self.hotelSearchTableView.backgroundView = noResultemptyView
         self.hotelSearchTableView.reloadData()
         
-        self.switchView.originalColor = AppColors.themeGray04
+        self.switchView.originalColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.switchView.selectedColor = AppColors.themeRed
-        self.switchView.originalBorderColor = AppColors.themeGray20
+        self.switchView.originalBorderColor = AppColors.themeGray04//AppColors.themeGray20
         self.switchView.selectedBorderColor = AppColors.themeRed
-        self.switchView.originalBorderWidth = 1.5
-        self.switchView.selectedBorderWidth = 1.5
+        self.switchView.originalBorderWidth = 0.0//1.5
+        self.switchView.selectedBorderWidth = 0.0//1.5
         self.switchView.iconBorderWidth = 0.0
         self.switchView.iconBorderColor = AppColors.clear
-        self.switchView.originalImage = #imageLiteral(resourceName: "switch_fav_off")
+       // self.switchView.originalImage = #imageLiteral(resourceName: "switch_fav_off")
         self.switchView.selectedImage = #imageLiteral(resourceName: "switch_fav_on")
-        
+        self.switchView.isBackgroundBlurry = true
+        self.switchGradientView.backgroundColor = AppColors.clear
+        self.switchGradientView.addGrayShadow(ofColor: AppColors.themeBlack.withAlphaComponent(0.2), radius: 18, offset: .zero, opacity: 2, cornerRadius: 100)
         self.addTapGestureOnMap()
+        self.manageFloatingView(isHidden: true)
     }
     
     override func setupFonts() {
@@ -365,6 +418,11 @@ class HotelResultVC: BaseVC {
         self.collectionView.register(UINib(nibName: "SectionHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
         self.collectionView.register(UINib(nibName: "SectionFooter", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "SectionFooter")
         self.hotelSearchTableView.register(UINib(nibName: self.hotelResultCellIdentifier, bundle: nil), forCellReuseIdentifier: self.hotelResultCellIdentifier)
+    }
+    
+    private func addShimmerGradient() {
+        self.shimmerGradientView.backgroundColor = AppColors.clear
+        self.shimmerGradientView.addGredient(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeWhite.withAlphaComponent(0.001), AppColors.themeWhite])
     }
     
     private func presentEmailVC() {
@@ -408,19 +466,34 @@ class HotelResultVC: BaseVC {
     
     @IBAction func mapButtonAction(_ sender: Any) {
         self.hideFavsButtons()
-        self.switchView.setOn(isOn: false)
-        self.fetchRequestType = .normal
+        self.backButton.isHidden = false
+        self.cardGradientView.isHidden = true
         if self.hoteResultViewType == .ListView {
             self.mapButton.isSelected = true
+            self.currentLocationButton.isHidden = false
             self.hoteResultViewType = .MapView
             self.animateHeaderToMapView()
-            self.convertToMapView()
+            self.convertToMapView { [weak self] (isConverted) in
+                if isConverted {
+                    self?.switchView.setOn(isOn: self?.switchView.on ?? false)
+                }
+            }
+            self.cardGradientView.isHidden = true
+            self.collectionView.setContentOffset(.zero, animated: false)
         } else {
+            self.currentLocationButton.isHidden = true
             self.hoteResultViewType = .ListView
             self.mapButton.isSelected = false
             self.animateHeaderToListView()
-            self.convertToListView()
+            self.convertToListView { [weak self] (isConverted) in
+                if isConverted {
+                    self?.switchView.setOn(isOn: self?.switchView.on ?? false)
+                }
+            }
+            self.cardGradientView.isHidden = false
+            
         }
+        
         self.reloadHotelList()
     }
     
@@ -454,17 +527,22 @@ class HotelResultVC: BaseVC {
         }
     }
     
-    @IBAction func cancelButtonTapped(_ sender: Any) {
+    @IBAction func cancelButtonTapped(_ sender: UIButton) {
         if self.hoteResultViewType == .ListView {
             self.animateHeaderToListView()
+        } else {
+            backButton.alpha = 1
         }
         self.searchedHotels.removeAll()
         self.fetchRequestType = .normal
+        
         self.hideSearchAnimation()
         self.view.endEditing(true)
         self.searchBar.text = ""
         self.searchTextStr = ""
-        self.loadSaveData()
+        delay(seconds: 0.1) { [weak self] in
+            self?.loadSaveData()
+        }
         self.getFavouriteHotels(shouldReloadData: false)
     }
     
@@ -478,8 +556,26 @@ class HotelResultVC: BaseVC {
              printDebug("Long press tapped")
             AppFlowManager.default.presentAerinTextSpeechVC()
         }
-       
     }
+    
+    override func checkForReachability(_ notification: Notification) {
+        
+        guard let networkReachability = notification.object as? Reachability else {return}
+        let remoteHostStatus = networkReachability.currentReachabilityStatus
+        
+        if remoteHostStatus == .notReachable {
+            print("Not Reachable")
+            self.noHotelFound()
+            
+        }
+        else if remoteHostStatus == .reachableViaWiFi {
+            print("Reachable via Wifi")
+        }
+        else {
+            print("Reachable")
+        }
+    }
+
 }
 
 

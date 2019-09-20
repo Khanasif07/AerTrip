@@ -11,8 +11,8 @@ import UIKit
 class HCDataSelectionRoomDetailCell: UITableViewCell {
     // Mark:- IBOutlets
     // Mark:-
-    @IBOutlet var roomNumberLabel: UILabel!
-    @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet weak var roomNumberLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     private(set) var forIndex: IndexPath?
     private let hotelFormData = HotelsSearchVM.hotelFormData
@@ -122,8 +122,8 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
 class HCDataSelectionPrefrencesCell: UITableViewCell {
     // Mark:- IBOutlets
     // Mark:-
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var descriptionLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     
     // Mark:- LifeCycles
     // Mark:-
@@ -154,8 +154,8 @@ class HCDataSelectionPrefrencesCell: UITableViewCell {
 class HCDataSelectionTextLabelCell: UITableViewCell {
     // Mark:- IBOutlets
     // Mark:-
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var topConstraint: NSLayoutConstraint!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
     
     // Mark:- LifeCycles
     // Mark:-
@@ -182,8 +182,8 @@ class HCDataSelectionTextLabelCell: UITableViewCell {
 class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
     // Mark:- IBOutlets
     // Mark:-
-    @IBOutlet var iconImageView: UIImageView!
-    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var infoImageView: UIImageView!
     
     private(set) var isForAdult: Bool = false
@@ -244,7 +244,7 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
                 setupForAdd()
             }
             else {
-                infoImageView.isHidden = !(fName.isEmpty || lName.isEmpty || saltn.isEmpty)
+                infoImageView.isHidden = !((fName.isEmpty || fName.count <= 4) || (lName.isEmpty || lName.count <= 4) || saltn.isEmpty)
                 titleLabel.text = self.contact?.fullName
                 if let img = self.contact?.profilePicture, !img.isEmpty {
                     self.iconImageView.setImageWithUrl(img, placeholder: placeHolder, showIndicator: false)

@@ -126,11 +126,13 @@ class SocialLoginVM {
             }) { (error) -> Void in
 //                completionBlock?(false)
                 //Encounter error
+                printDebug(error.localizedDescription)
             }
             
         }, error: { (error) -> Void in
             //Encounter error: error.localizedDescription
 //            completionBlock?(false)
+            printDebug(error.localizedDescription)
         }, cancel: { () -> Void in
             //User Cancelled!
 //            completionBlock?(false)

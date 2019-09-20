@@ -10,8 +10,8 @@ import UIKit
 
 class BookingTravellerAddOnsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var mainView: UIView!
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var titleValueLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleValueLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

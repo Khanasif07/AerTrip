@@ -165,7 +165,6 @@ extension LinkedAccountsVC: LinkedAccountsCellDelegate {
     
     func disConnect(_ sender: UIButton, forType: LinkedAccount.SocialType) {
         if let indexPath = self.tableView.indexPath(forItem: sender) {
-            
             let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Disconnect.localized], colors: [AppColors.themeRed])
             _ = PKAlertController.default.presentActionSheet(LocalizedString.DisconnectAccountMessage.localized + " " + forType.socialTitle + AppConstants.kQuestionMark, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, message: nil, messageFont: nil, messageColor: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { [weak self] _, index in
                 if index == 0 {

@@ -11,7 +11,7 @@ import UIKit
 class AmenitiesVC: BaseVC {
     // MARK: - IB Outlet
     
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Variables
     

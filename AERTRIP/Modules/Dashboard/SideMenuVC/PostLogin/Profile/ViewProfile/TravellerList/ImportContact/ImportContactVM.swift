@@ -98,9 +98,9 @@ class ImportContactVM: NSObject {
     var facebookSection = [Section]()
     var googleSection = [Section]()
     
-    private(set) var contactListWithHeaderForPhone: [String: Any] = [String: Any]()
-    private(set) var contactListWithHeaderForFacebook: [String: Any] = [String: Any]()
-    private(set) var contactListWithHeaderForGoogle: [String: Any] = [String: Any]()
+//    private(set) var contactListWithHeaderForPhone: [String: Any] = [String: Any]()
+//    private(set) var contactListWithHeaderForFacebook: [String: Any] = [String: Any]()
+//    private(set) var contactListWithHeaderForGoogle: [String: Any] = [String: Any]()
     
 
     
@@ -144,17 +144,21 @@ class ImportContactVM: NSObject {
     
     //MARK:- Fetch Phone Contacts
     //MARK:-
-    func fetchPhoneContacts(forVC: UIViewController) {
+    func fetchPhoneContacts(forVC: UIViewController, cancled: (()->Void)? = nil) {
         self.delegateList?.willFetchPhoneContacts()
         self.delegateCollection?.willFetchPhoneContacts()
-        forVC.fetchContacts { [weak self] (contacts) in
+        
+        forVC.fetchContacts(complition: { [weak self] (contacts) in
             DispatchQueue.mainAsync {
                 self?.isPhoneContactsAllowed = true
                 self?._phoneContacts = contacts
+                self?.createSectionWiseDataForContacts(for: .contacts)
                 if let obj = self?.delegateCollection as? BaseVC {
                     obj.sendDataChangedNotification(data: Notification.contactFetched)
                 }
             }
+        }) {
+            cancled?()
         }
     }
     
@@ -166,11 +170,12 @@ class ImportContactVM: NSObject {
         FacebookController.shared.facebookLogout()
         FacebookController.shared.fetchFacebookFriendsUsingThisAPP(withViewController: forVC, shouldFetchFriends: true, success: { [weak self] (friends) in
             if let fbContacts = friends["data"] as? [JSONDictionary] {
+                self?.isFacebookContactsAllowed = true
+                self?._facebookContacts = ATContact.fetchModels(facebookContactsArr: fbContacts)
+                self?.createSectionWiseDataForContacts(for: .facebook)
                 if let obj = self?.delegateCollection as? BaseVC {
                     obj.sendDataChangedNotification(data: Notification.contactFetched)
                 }
-                self?.isFacebookContactsAllowed = true
-                self?._facebookContacts = ATContact.fetchModels(facebookContactsArr: fbContacts)
             }
         }, failure: { (error) in
             printDebug(error)
@@ -184,11 +189,12 @@ class ImportContactVM: NSObject {
         self.delegateCollection?.willFetchPhoneContacts()
         GoogleLoginController.shared.logout()
         GoogleLoginController.shared.fetchContacts(fromViewController: forVC, success: { [weak self] (contacts) in
+            self?.isGoogleContactsAllowed = true
+            self?._googleContacts = ATContact.fetchModels(googleContactsDict: contacts)
+            self?.createSectionWiseDataForContacts(for: .google)
             if let obj = self?.delegateCollection as? BaseVC {
                 obj.sendDataChangedNotification(data: Notification.contactFetched)
             }
-            self?.isGoogleContactsAllowed = true
-            self?._googleContacts = ATContact.fetchModels(googleContactsDict: contacts)
         }, failure: { (error) in
             printDebug(error)
         })
@@ -197,18 +203,27 @@ class ImportContactVM: NSObject {
     func createSectionWiseDataForContacts(for usingFor: ContactListVC.UsingFor) {
         switch usingFor {
         case .contacts:
+            
+//            sections = Section.fetch(forContacts: self.phoneContacts)
+            
             let groupedDictionary = Dictionary(grouping: self.phoneContacts,by: { String($0.firstName.prefix(1)).capitalizedFirst() })
             let keys = groupedDictionary.keys.sorted()
             sections = keys.map{ Section(letter: $0, contacts: [], cnContacts: groupedDictionary[$0]!.sorted(by: { (ct1, ct2) -> Bool in
                 return ct1.firstName.lowercased() < ct2.firstName.lowercased()
             })) }
         case .facebook:
+            
+//            facebookSection = Section.fetch(forContacts: self.facebookContacts)
+            
             let groupedDictionary = Dictionary(grouping: self.facebookContacts,by: { String($0.firstName.prefix(1)) })
             let keys = groupedDictionary.keys.sorted()
             facebookSection = keys.map{ Section(letter: $0, contacts: groupedDictionary[$0]!.sorted(by: { (ct1, ct2) -> Bool in
                 return ct1.firstName.lowercased() < ct2.firstName.lowercased()
             })) }
         case .google:
+            
+//            googleSection = Section.fetch(forContacts: self.googleContacts)
+            
             let groupedDictionary = Dictionary(grouping: self.googleContacts,by: { String($0.firstName.prefix(1)).capitalizedFirst() })
             let keys = groupedDictionary.keys.sorted()
             googleSection = keys.map{ Section(letter: $0, contacts: groupedDictionary[$0]!.sorted(by: { (ct1, ct2) -> Bool in
@@ -343,5 +358,43 @@ struct Section {
         self.letter = letter
         self.contacts = contacts
         self.cnContacts = cnContacts ?? []
+    }
+    
+    static func fetch(forContacts: [CNContact]) -> [Section] {
+        var tempSec = forContacts.reduce(into: [Section]()) { (result, cont) in
+            if !cont.firstName.isEmpty {
+                if let index = result.firstIndex(where: { $0.letter == "\(cont.firstName.firstCharacter)"}) {
+                    var temp = result.remove(at: index)
+                    temp.cnContacts.append(cont)
+                    temp.cnContacts.sort(by: { $0.firstName < $1.firstName })
+                    result.insert(temp, at: index)
+                }
+                else {
+                    result.append(Section(letter: "\(cont.firstName.firstCharacter)", contacts: [], cnContacts: [cont]))
+                }
+            }
+        }
+        tempSec.sort { $0.letter < $1.letter}
+        return tempSec
+    }
+    
+    static func fetch(forContacts: [ATContact]) -> [Section] {
+        
+        var tempSec = forContacts.reduce(into: [Section]()) { (result, cont) in
+            
+            if !cont.firstName.isEmpty {
+                if let index = result.firstIndex(where: { $0.letter == "\(cont.firstName.firstCharacter)"}) {
+                    var temp = result.remove(at: index)
+                    temp.contacts.append(cont)
+                    temp.contacts.sort(by: { $0.firstName < $1.firstName })
+                    result.insert(temp, at: index)
+                }
+                else {
+                    result.append(Section(letter: "\(cont.firstName.firstCharacter)", contacts: [cont]))
+                }
+            }
+        }
+        tempSec.sort { $0.letter < $1.letter}
+        return tempSec
     }
 }

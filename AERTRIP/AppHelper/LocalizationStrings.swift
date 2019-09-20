@@ -324,6 +324,7 @@ enum LocalizedString: String {
     case PreferencesSavedSuccessfully
     case GroupAlreadyExist
     case GroupNameCanNotEmpty
+    case CantCreateGroupWithThisName
     
     // MARK: - Import Contacts
     
@@ -351,6 +352,7 @@ enum LocalizedString: String {
     
     case Disconnect
     case LinkedAccountsMessage
+    case DoYouWantToDisconnect
     
     // MARK: - Favourite Hotels
     
@@ -823,6 +825,7 @@ enum LocalizedString: String {
     
     case Summary
     case OutstandingLedger
+    case SelectBooking
     case GrossOutstanding
     case OnAccount
     case NetOutstanding
@@ -959,4 +962,11 @@ enum LocalizedString: String {
     case DisconnectAccountMessage
     case Yes
     case No
+    case SendingEmail
+    case LedgerSentToYourEmail
+    
+    // MARK: - Common
+    case Other
+    
+    case PleaseSignInToContinue
 }

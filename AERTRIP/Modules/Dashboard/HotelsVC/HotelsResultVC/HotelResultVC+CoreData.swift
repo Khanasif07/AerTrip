@@ -36,7 +36,6 @@ extension HotelResultVC {
                 self.fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
             }
             
-            self.filterButton.isSelected = true
             if self.searchTextStr == "" {
                 andPredicate = NSCompoundPredicate(type: .and, subpredicates: self.createSubPredicates())
                 finalPredicate = andPredicate
@@ -51,7 +50,7 @@ extension HotelResultVC {
             if self.switchView.on {
                 let favPred = NSPredicate(format: "fav == '1'")
                 if let oldPred = finalPredicate {
-                    finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [oldPred, favPred])
+                finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [oldPred, favPred])
                 }
                 else {
                     finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [favPred])
@@ -106,8 +105,7 @@ extension HotelResultVC {
 //        else if let starPred = starPredicate(forStars: HotelsSearchVM.hotelFormData.ratingCount) {
 //            self.fetchedResultsController.fetchRequest.predicate = starPred
 //        }
-        
-        self.fetchDataFromCoreData()
+        self.fetchDataFromCoreData(finalPredicate: finalPredicate)
     }
     
     // Add Sort Descriptors to fetch request
@@ -134,13 +132,12 @@ extension HotelResultVC {
     
     func createSubPredicates() -> [NSPredicate] {
         
-        
-        if HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange && HotelFilterVM.shared.leftRangePrice == HotelFilterVM.shared.defaultLeftRangePrice && HotelFilterVM.shared.rightRangePrice == HotelFilterVM.shared.defaultRightRangePrice && HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount).isEmpty &&  HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty && HotelFilterVM.shared.isIncludeUnrated == HotelFilterVM.shared.defaultIsIncludeUnrated && HotelFilterVM.shared.priceType == HotelFilterVM.shared.defaultPriceType && HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty && HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty && HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty && HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty   {
+        if HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange && HotelFilterVM.shared.leftRangePrice == HotelFilterVM.shared.defaultLeftRangePrice && HotelFilterVM.shared.rightRangePrice == HotelFilterVM.shared.defaultRightRangePrice && (HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount).isEmpty || HotelFilterVM.shared.ratingCount.count == 0)  &&  HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty && HotelFilterVM.shared.isIncludeUnrated == HotelFilterVM.shared.defaultIsIncludeUnrated && HotelFilterVM.shared.priceType == HotelFilterVM.shared.defaultPriceType && HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty && HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty && HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty && HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty   {
             return []
         }
 
-        
-        
+        // Boolean flag to check and manage red dot icon.
+        self.isFilterApplied = true
         var subpredicates: [NSPredicate] = []
         let minimumPricePredicate = NSPredicate(format: "perNightPrice >= \(filterApplied.leftRangePrice)")
         let maximumPricePredicate = NSPredicate(format: "perNightPrice <= \(filterApplied.rightRangePrice)")
@@ -165,6 +162,9 @@ extension HotelResultVC {
         if let tripAdvisorPredicate = tripAdvisonPredicate() {
             subpredicates.append(tripAdvisorPredicate)
         }
+        
+        // set up filter button red-dot setup
+       // self.filterButton.isSelected = true
         
         return subpredicates
     }
@@ -240,7 +240,7 @@ extension HotelResultVC {
     
     // Fetch Data from core data
     
-    func fetchDataFromCoreData(isUpdatingFav: Bool = false) {
+    func fetchDataFromCoreData(isUpdatingFav: Bool = false,finalPredicate: NSPredicate? = nil) {
         do {
             try self.fetchedResultsController.performFetch()
             self.getHotelsCount()
@@ -248,12 +248,15 @@ extension HotelResultVC {
                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
                 self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
             }
-            
-            self.viewModel.fetchHotelsDataForCollectionView(fromController: self.fetchedResultsController)
+        
+           self.viewModel.fetchHotelsDataForCollectionView(fromController: self.fetchedResultsController)
             
             if !isUpdatingFav {
                 self.reloadHotelList()
             }
+            
+            self.getFavouriteHotels(shouldReloadData: false,finalPredicate: finalPredicate)
+
         } catch {
             printDebug(error.localizedDescription)
             printDebug("Fetch failed")

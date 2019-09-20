@@ -14,8 +14,8 @@ import ContactsUI
 class MailComposerVC: BaseVC {
     // MARK: IB Outlets
     
-    @IBOutlet var topNavView: TopNavigationView!
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var topNavView: TopNavigationView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var acitivityIndicatorView: UIActivityIndicatorView!
     
     // MARK: Variables
@@ -41,6 +41,15 @@ class MailComposerVC: BaseVC {
         
         self.statusBarStyle = .default
     }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.statusBarStyle = .default
+    }
+    
+    
     
     override func bindViewModel() {
         self.viewModel.delegate = self

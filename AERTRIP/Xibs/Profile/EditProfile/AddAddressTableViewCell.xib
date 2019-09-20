@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -208,7 +208,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Umh-6z-Rdc">
-                                <rect key="frame" x="282" y="132" width="22" height="22"/>
+                                <rect key="frame" x="282" y="120" width="22" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="22" id="bDz-qX-QMb"/>
                                     <constraint firstAttribute="height" constant="22" id="vXG-zx-1bG"/>
@@ -248,11 +248,11 @@
                             <constraint firstItem="Sq4-GW-EgE" firstAttribute="top" secondItem="w3N-e2-cIH" secondAttribute="bottom" id="iZq-0C-Fo3"/>
                             <constraint firstItem="tyr-Wf-fX5" firstAttribute="top" secondItem="Kjg-Zr-gZe" secondAttribute="bottom" id="mUw-ua-Mdv"/>
                             <constraint firstItem="aLv-IZ-FCW" firstAttribute="top" secondItem="byy-xE-RXX" secondAttribute="bottom" id="oIe-EB-nhE"/>
-                            <constraint firstItem="Umh-6z-Rdc" firstAttribute="top" secondItem="tyr-Wf-fX5" secondAttribute="top" id="rHp-eV-6Ek"/>
                             <constraint firstItem="w3N-e2-cIH" firstAttribute="top" secondItem="bnX-oS-u73" secondAttribute="bottom" id="wYm-UO-qkA"/>
                             <constraint firstAttribute="trailing" secondItem="zZk-DM-xlE" secondAttribute="trailing" constant="54" id="x5T-Lo-bI2"/>
                             <constraint firstAttribute="trailing" secondItem="tyr-Wf-fX5" secondAttribute="trailing" constant="53.5" id="xTb-mU-7Qk"/>
                             <constraint firstAttribute="trailing" secondItem="Umh-6z-Rdc" secondAttribute="trailing" constant="16" id="ydI-Ct-HWM"/>
+                            <constraint firstItem="Umh-6z-Rdc" firstAttribute="centerY" secondItem="Cfo-1a-dW3" secondAttribute="centerY" id="yxI-We-5kY"/>
                             <constraint firstItem="i1s-hK-EDN" firstAttribute="leading" secondItem="Cfo-1a-dW3" secondAttribute="leading" constant="16" id="zWz-Y0-Tsd"/>
                         </constraints>
                     </view>

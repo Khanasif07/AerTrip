@@ -92,6 +92,7 @@ class HotelCheckOutDetailsVIew: UIView {
         self.headerView.configureLeftButton(normalImage: buttonImage, selectedImage: selectedFevImage, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.headerView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "CancelButtonWhite"), selectedImage: #imageLiteral(resourceName: "black_cross"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.hotelDetailsTableView.roundTopCorners(cornerRadius: 10.0)
+        self.smallLineView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
     }
     
     private func registerXibs() {

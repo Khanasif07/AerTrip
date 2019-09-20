@@ -17,6 +17,14 @@ func printDebug<T>(_ obj: T) {
      print(obj)
 }
 
+func + (left: NSAttributedString, right: NSAttributedString) -> NSAttributedString
+{
+    let result = NSMutableAttributedString()
+    result.append(left)
+    result.append(right)
+    return result
+}
+
 func printFonts() {
     for family in UIFont.familyNames {
         let fontsName = UIFont.fontNames(forFamilyName: family)
@@ -131,14 +139,14 @@ class AppGlobals {
         }
         var temp = [PKAlertButton]()
         for (idx, title) in forTitles.enumerated() {
-            temp.append(PKAlertButton(title: title, titleColor: colors[idx]))
+            temp.append(PKAlertButton(title: title, titleColor: colors[idx],titleFont: AppFonts.Regular.withSize(20.0)))
         }
         
         return temp
     }
     
     var pKAlertCancelButton: PKAlertButton {
-        return PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeGreen)
+        return PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeDarkGreen)
     }
     
     func saveImage(data: Data, fileNameWithExtension: String? = nil) -> String {
@@ -455,6 +463,12 @@ class AppGlobals {
     func showUnderDevelopment() {
         AppToast.default.showToastMessage(message: LocalizedString.UnderDevelopment.localized)
     }
+    
+    
+    func isNetworkRechable() -> Bool {
+        let rechability = Reachability.networkReachabilityForInternetConnection()
+        return  rechability?.isReachable ?? false
+    }
 }
 
 //MARK: - Project Used Extensions
@@ -462,17 +476,17 @@ class AppGlobals {
 extension Double {
     var amountInDelimeterWithSymbol: String {
         if self < 0 {
-            return "- \(abs(self.roundTo(places: 2)).delimiterWithSymbolTill2Places)"
+            return "- \(abs(self.roundTo(places: 0)).delimiterWithSymbolTill2Places)"
         } else {
-            return "\(self.roundTo(places: 2).delimiterWithSymbolTill2Places)"
+            return "\(self.roundTo(places: 0).delimiterWithSymbolTill2Places)"
         }
     }
     
     var amountInDoubleWithSymbol: String {
         if self < 0 {
-            return "- \(abs(self.roundTo(places: 2)))"
+            return "- \(abs(self.roundTo(places: 0)))"
         } else {
-            return "\(self.roundTo(places: 2))"
+            return "\(self.roundTo(places: 0))"
         }
     }
     
@@ -486,9 +500,10 @@ extension Double {
 }
 
 extension AppGlobals {
-    func startLoading(animatingView: UIView? = nil) {
-        PKLoaderSettings.shared.indicatorColor = AppColors.themeGreen
+     func startLoading(animatingView: UIView? = nil,loaderBgColor: UIColor = AppColors.themeWhite) {
+        PKLoaderSettings.shared.indicatorColor =  AppColors.themeGreen
         PKLoaderSettings.shared.indicatorType = .activityIndicator
+        PKLoaderSettings.shared.backgroundColor = loaderBgColor
         PKLoader.shared.startAnimating(onView: animatingView)
     }
     

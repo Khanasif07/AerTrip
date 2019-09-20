@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKCategoryView
 
 class FavouriteHotelsVC: BaseVC {
     
@@ -14,7 +15,7 @@ class FavouriteHotelsVC: BaseVC {
     //MARK:-
 
     @IBOutlet weak var dataContainerView: UIView!
-    @IBOutlet var shimmerView: UIView!
+    @IBOutlet weak var shimmerView: UIView!
     @IBOutlet weak var topNavView: TopNavigationView!
     
     
@@ -30,7 +31,7 @@ class FavouriteHotelsVC: BaseVC {
         return newEmptyView
     }()
     
-    fileprivate weak var categoryView: ATCategoryView!
+    fileprivate weak var categoryView: PKCategoryView!
     
     private var allChildVCs: [FavouriteHotelsListVC] = [FavouriteHotelsListVC]()
     
@@ -66,8 +67,7 @@ class FavouriteHotelsVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
-        
-        self.currentIndex = 0
+    
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.FavouriteHotels.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "addHotel"), selectedImage: #imageLiteral(resourceName: "addHotel"))
@@ -77,6 +77,8 @@ class FavouriteHotelsVC: BaseVC {
     }
     
     private func setupPagerView() {
+        self.currentIndex = 0
+        
         if self.viewModel.hotels.isEmpty {
             self.emptyView.frame = CGRect(x: 0.0, y: 0.0, width: self.dataContainerView.width, height: self.dataContainerView.height)
             self.dataContainerView.addSubview(self.emptyView)
@@ -84,20 +86,18 @@ class FavouriteHotelsVC: BaseVC {
         else {
             self.emptyView.removeFromSuperview()
             self.shimmerView.removeFromSuperview()
-            var style = ATCategoryNavBarStyle()
-            style.height = 51.0
+            var style = PKCategoryViewConfiguration()
+            style.navBarHeight = 51.0
             style.interItemSpace = 5.0
             style.itemPadding = 8.0
-            style.isScrollable = true
-            style.layoutAlignment = .center
+            style.isNavBarScrollEnabled = true
             style.isEmbeddedToView = true
             style.showBottomSeparator = true
-            style.bottomSeparatorColor = AppColors.themeGray40
+            style.bottomSeparatorColor = AppColors.divider.color
             style.defaultFont = AppFonts.Regular.withSize(16.0)
-            style.selectedFont = AppFonts.Regular.withSize(16.0)
+            style.selectedFont = AppFonts.SemiBold.withSize(16.0)
             style.indicatorColor = AppColors.themeGreen
             style.indicatorHeight = 2.0
-            style.indicatorCornerRadius = 2.0
             style.normalColor = AppColors.themeBlack
             style.selectedColor = AppColors.themeBlack
             
@@ -116,9 +116,8 @@ class FavouriteHotelsVC: BaseVC {
                 self.categoryView.removeFromSuperview()
                 self.categoryView = nil
             }
-            let categoryView = ATCategoryView(frame: self.dataContainerView.bounds, categories: self.viewModel.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
-            categoryView.interControllerSpacing = 0.0
-            categoryView.navBar.delegate = self
+            let categoryView = PKCategoryView(frame: self.dataContainerView.bounds, categories: self.viewModel.allTabs, childVCs: self.allChildVCs, configuration: style, parentVC: self)
+            categoryView.delegate = self
             self.dataContainerView.addSubview(categoryView)
             self.categoryView = categoryView
         }
@@ -139,12 +138,16 @@ extension FavouriteHotelsVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToHotelSearchVC()
+        AppFlowManager.default.moveToSearchFavouriteHotelsVC()
     }
 }
 
-extension FavouriteHotelsVC: ATCategoryNavBarDelegate {
-    func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
+extension FavouriteHotelsVC: PKCategoryViewDelegate {
+    func categoryView(_ view: PKCategoryView, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
+        self.currentIndex = toIndex
+    }
+    
+    func categoryView(_ view: PKCategoryView, didSwitchIndexTo toIndex: Int) {
         self.currentIndex = toIndex
         self.allChildVCs[toIndex].delegate = self
     }
@@ -152,7 +155,7 @@ extension FavouriteHotelsVC: ATCategoryNavBarDelegate {
 
 extension FavouriteHotelsVC: ViewAllHotelsVMDelegate {
     func willGetHotelPreferenceList() {
-        
+        self.dataContainerView.addSubview(self.shimmerView)
     }
     
     func getHotelPreferenceListSuccess() {
@@ -182,8 +185,8 @@ extension FavouriteHotelsVC: ViewAllHotelsVMDelegate {
 extension FavouriteHotelsVC: FavouriteHotelsListVCDelegate {
     func updatedFavourite(forCity: CityHotels, forHotelAtIndex: Int) {
         
-        self.viewModel.removeHotel(forCity: forCity, cityIndex: self.currentIndex, forHotelAtIndex: forHotelAtIndex)
         if forCity.holetList.count > 1 {
+            self.viewModel.removeHotel(forCity: forCity, cityIndex: self.currentIndex, forHotelAtIndex: forHotelAtIndex)
             //reload list at current city index
             self.allChildVCs[self.currentIndex].viewModel.forCity = self.viewModel.hotels[self.currentIndex]
             self.allChildVCs[self.currentIndex].collectionView.reloadData()
@@ -191,7 +194,7 @@ extension FavouriteHotelsVC: FavouriteHotelsListVCDelegate {
         else {
             //reload complete list
             self.updateFavouriteSuccess()
-            self.sendDataChangedNotification(data: self)
+           // self.sendDataChangedNotification(data: self)
         }
     }
     

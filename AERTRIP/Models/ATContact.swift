@@ -79,14 +79,14 @@ struct ATContact {
         if self._fullName.isEmpty {
             let final = "\(self.firstName) \(self.lastName)"
             if final.removeAllWhiteSpacesAndNewLines.isEmpty {
-                return self.email
+                return self.email.removeAllWhiteSpacesAndNewLines
             }
             else {
                 return final
             }
         }
         else {
-            return self._fullName
+            return self._fullName.removeAllWhiteSpacesAndNewLines
         }
     }
 
@@ -132,17 +132,16 @@ struct ATContact {
 
 
         if let phone = contact.phoneNumbers.first {
-            let tempNumber = phone.value.stringValue
             self.contact = phone.value.stringValue
-            do {
-                let temp = try PhoneNumberKit().parse(tempNumber)
-                self.contact = "\(temp.nationalNumber)"
-                self.isd = "+\(temp.countryCode)"
-            }
-            catch {
-                printDebug("not able to parse the number")
-                self.contact = ""
-            }
+//            do {
+//                let temp = try PhoneNumberKit().parse(tempNumber)
+//                self.contact = "\(temp.nationalNumber)"
+//                self.isd = "+\(temp.countryCode)"
+//            }
+//            catch {
+//                printDebug("not able to parse the number")
+//                self.contact = ""
+//            }
         }
 
         self.imageData = contact.imageData
@@ -151,7 +150,10 @@ struct ATContact {
     static func fetchModels(phoneContactsArr: [CNContact]) -> [ATContact] {
         var temp = [ATContact]()
         for obj in phoneContactsArr {
-            temp.append(ATContact(contact: obj))
+            let contact = ATContact(contact: obj)
+            if !contact.fullName.isEmpty {
+                temp.append(contact)
+            }
         }
         return temp
     }
@@ -182,7 +184,9 @@ struct ATContact {
                 contact.socialId = "\(obj)".removeNull
             }
             
-            temp.append(contact)
+            if !contact.fullName.isEmpty {
+                temp.append(contact)
+            }
         }
         return temp
     }
@@ -221,7 +225,10 @@ struct ATContact {
                     }
                 }
                 
-                temp.append(contact)
+                if !contact.fullName.isEmpty {
+                    temp.append(contact)
+                }
+               
             }
         }
 
@@ -289,14 +296,15 @@ extension CNContact {
     
     var fullContact: (isd: String, contact: String) {
         if let phone = self.phoneNumbers.first {
-            let tempNumber = phone.value.stringValue
-            do {
-                let temp = try PhoneNumberKit().parse(tempNumber)
-                return ("+\(temp.countryCode)", "\(temp.nationalNumber)")
-            }
-            catch {
-                printDebug("not able to parse the number")
-            }
+//            let tempNumber = phone.value.stringValue
+//            do {
+//                let temp = try PhoneNumberKit().parse(tempNumber)
+//                return ("+\(temp.countryCode)", "\(temp.nationalNumber)")
+//            }
+//            catch {
+//                printDebug("not able to parse the number")
+//            }
+            return ("", phone.value.stringValue)
         }
         
         if let currentIsd = PKCountryPicker.default.getCurrentLocalCountryData()?.countryCode {

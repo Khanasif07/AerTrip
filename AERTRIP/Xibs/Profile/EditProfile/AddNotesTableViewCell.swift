@@ -15,8 +15,8 @@ protocol AddNotesTableViewCellDelegate: class {
 class AddNotesTableViewCell: UITableViewCell {
     // MARK: - IB Outlets
 
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var addNoteTextView: PKTextView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var addNoteTextView: PKTextView!
     @IBOutlet weak var sepratorView: ATDividerView!
     @IBOutlet weak var titleLabelTopConstraint: NSLayoutConstraint!
     

@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ViewProfileDetailVMDelegate: class {
-    func willGetDetail()
+    func willGetDetail(_ isShowLoader: Bool)
     func getSuccess(_ data: TravelDetailModel)
     func getFail(errors: ErrorCodes)
     func willLogOut()
@@ -18,17 +18,17 @@ protocol ViewProfileDetailVMDelegate: class {
 }
 
 class ViewProfileDetailVM {
-
+    
     weak var delegate: ViewProfileDetailVMDelegate?
     var travelData: TravelDetailModel?
     var currentlyUsingFor: EditProfileVM.UsingFor = .viewProfile
     
-    func webserviceForGetTravelDetail() {
+    func webserviceForGetTravelDetail(isShowLoader: Bool = false) {
         var params = JSONDictionary()
         
         params[APIKeys.paxId.rawValue] = self.travelData?.id ?? ""
         
-        self.delegate?.willGetDetail()
+        self.delegate?.willGetDetail(isShowLoader)
         
         APICaller.shared.getTravelDetail(params: params, completionBlock: { success, data, errorCode in
             
@@ -89,6 +89,6 @@ class ViewProfileDetailVM {
             }
         })
     }
-    
-    
 }
+
+

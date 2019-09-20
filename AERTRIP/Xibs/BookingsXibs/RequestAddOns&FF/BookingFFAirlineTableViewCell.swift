@@ -15,9 +15,9 @@ protocol BookingFFAirlineTableViewCellDelegate: class {
 class BookingFFAirlineTableViewCell: ATTableViewCell {
     // MARK: - IBOutlet
     
-    @IBOutlet var airlineImageView: UIImageView!
-    @IBOutlet var airlineNameLabel: UILabel!
-    @IBOutlet var airlineNumberTextField: UITextField!
+    @IBOutlet weak var airlineImageView: UIImageView!
+    @IBOutlet weak var airlineNameLabel: UILabel!
+    @IBOutlet weak var airlineNumberTextField: UITextField!
     @IBOutlet weak var leftDividerView: ATDividerView!
     
     @IBOutlet weak var rightDividerView: ATDividerView!

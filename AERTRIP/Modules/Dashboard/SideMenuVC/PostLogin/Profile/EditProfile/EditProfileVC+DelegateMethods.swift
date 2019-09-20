@@ -92,10 +92,6 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             }
             
         case LocalizedString.ContactNumber.localized:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: editThreePartCellIdentifier, for: indexPath) as? EditProfileThreePartTableViewCell else {
-                fatalError("EditProfileThreePartTableViewCell not found")
-            }
-            cell.delegate = self
             if indexPath.row == self.viewModel.mobile.count {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: addActionCellIdentifier, for: indexPath) as? TableViewAddActionCell else {
                     fatalError("TableViewAddActionCell not found")
@@ -104,6 +100,10 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.topDividerView.isHidden = false
                 return cell
             } else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: editThreePartCellIdentifier, for: indexPath) as? EditProfileThreePartTableViewCell else {
+                    fatalError("EditProfileThreePartTableViewCell not found")
+                }
+                cell.delegate = self
                 if indexPath.row == 0, self.viewModel.currentlyUsinfFor == .viewProfile {
                     //make disable
                     cell.deleteButton.isHidden = true
@@ -196,7 +196,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("AddAddressTableViewCell not found")
                 }
                 cell.delegate = self
-                cell.configureCell(addressType: self.viewModel.addresses[indexPath.row].label, addressLineOne: self.viewModel.addresses[indexPath.row].line1, addressLineTwo: self.viewModel.addresses[indexPath.row].line2, cityName: self.viewModel.addresses[indexPath.row].city, postalCode: self.viewModel.addresses[indexPath.row].postalCode, stateName: self.viewModel.addresses[indexPath.row].state, countryName: self.viewModel.addresses[indexPath.row].countryName)
+                cell.configureCell(addressType: self.viewModel.addresses[indexPath.row].label, addressLineOne: self.viewModel.addresses[indexPath.row].line1, addressLineTwo: self.viewModel.addresses[indexPath.row].line2, cityName: self.viewModel.addresses[indexPath.row].city, postalCode: self.viewModel.addresses[indexPath.row].postalCode, stateName: self.viewModel.addresses[indexPath.row].state, countryName: self.viewModel.addresses[indexPath.row].countryName.isEmpty ? LocalizedString.Select.localized : self.viewModel.addresses[indexPath.row].countryName)
                 
                 cell.deleteButton.isHidden = self.viewModel.addresses.count <= 1
                 cell.cellDividerView.defaultBackgroundColor = AppColors.themeGray04
@@ -449,7 +449,10 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         default:
             break
         }
-        setUpProfilePhotoInitials()
+        if self.viewModel.profilePicture.isEmpty && self.viewModel.filePath.isEmpty {
+            setUpProfilePhotoInitials()
+        }
+       
     }
     
     func selectGroupTapped() {
@@ -486,8 +489,13 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     
     
     func editProfilePhotoForTraveller() {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeRed])
+        var buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen])
         
+        
+        if (!self.viewModel.profilePicture.isEmpty) || (!self.viewModel.filePath.isEmpty) {
+            buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen,AppColors.themeRed])
+        }
+
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
             
             if index == 0 {
@@ -737,7 +745,7 @@ extension EditProfileVC: EditProfileVMDelegate {
     
     func getSuccess() {
         self.stopLoading()
-        self.sendDataChangedNotification(data: ATNotification.profileChanged)
+        self.sendDataChangedNotification(data: ATNotification.profileSavedOnServer)
         self.topNavBarLeftButtonAction(UIButton())
     }
     
@@ -766,7 +774,12 @@ extension EditProfileVC: EditProfileVMDelegate {
     
     func getFail(errors: ErrorCodes) {
          self.stopLoading()
+        if AppGlobals.shared.isNetworkRechable() {
          AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+        }
+        else {
+            AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+        }
     }
 }
 
@@ -810,31 +823,23 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
         }
     }
     
-    func middleViewTap(_ gesture: UITapGestureRecognizer) {
+    func middleViewTap(_ indexPath: IndexPath,_ gesture: UITapGestureRecognizer) {
 
         self.closeGenricAndDatePicker(completion: nil)
         
-        guard let indexPathRow = gesture.view?.tag else {
-            return
-        }
         
-        PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: PKCountryPicker.default.getCountryData(forISDCode: self.viewModel.mobile[indexPathRow].isd)) { [weak self] selectedCountry in
+        PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: PKCountryPicker.default.getCountryData(forISDCode: self.viewModel.mobile[indexPath.row].isd)) { [weak self] selectedCountry in
             printDebug("selected country data: \(selectedCountry)")
 
-            printDebug(indexPathRow)
-            guard indexPathRow >= 0 else {
-                printDebug("Array index must be greater than zero. Going to  return")
-                return
-            }
-            let indexPath = IndexPath(row: indexPathRow, section: 1)
+           
             
             guard let cell = self?.tableView.cellForRow(at: indexPath) as? EditProfileThreePartTableViewCell else {
                 fatalError("EditProfileThreePartTableViewCell not found")
             }
             cell.countryCodeLabel.text = selectedCountry.countryCode
             cell.flagImageView.image = selectedCountry.flagImage
-            cell.rightViewTextField.defaultRegion = selectedCountry.ISOCode
-            cell.rightViewTextField.text = cell.rightViewTextField.nationalNumber
+//            cell.rightViewTextField.defaultRegion = selectedCountry.ISOCode
+//            cell.rightViewTextField.text = cell.rightViewTextField.nationalNumber
             
             self?.viewModel.mobile[indexPath.row].isd = selectedCountry.countryCode
         }
@@ -993,7 +998,7 @@ extension EditProfileVC: AddAddressTableViewCellDelegate {
             pickerType = .country
             pickerData = Array(self.viewModel.countries.values)
             
-            let prevSectdContry = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.addresses[indexPath.row].country)
+            let prevSectdContry = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.addresses[indexPath.row].country.isEmpty ? AppConstants.kIndianIsdCode : self.viewModel.addresses[indexPath.row].country )
             self.closeGenricAndDatePicker(completion: nil)
             PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: prevSectdContry) { [weak self] selectedCountry in
                 printDebug("selected country data: \(selectedCountry)")

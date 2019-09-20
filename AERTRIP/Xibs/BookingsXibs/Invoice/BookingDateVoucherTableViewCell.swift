@@ -9,11 +9,11 @@
 import UIKit
 
 class BookingDateVoucherTableViewCell: ATTableViewCell {
-    @IBOutlet var dateLabel: UILabel!
-    @IBOutlet var voucherLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var voucherLabel: UILabel!
     
-    @IBOutlet var dateValueLabel: UILabel!
-    @IBOutlet var voucherValueLabel: UILabel!
+    @IBOutlet weak var dateValueLabel: UILabel!
+    @IBOutlet weak var voucherValueLabel: UILabel!
     
     override func doInitialSetup() {
         self.dateLabel.font = AppFonts.Regular.withSize(16.0)

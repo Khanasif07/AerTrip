@@ -11,7 +11,7 @@ import UIKit
 class SortVC: UIViewController {
     // MARK: - IBOutlets
     
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Variables
     
@@ -89,6 +89,7 @@ extension SortVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        HotelFilterVM.shared.isSortingApplied = true
         if let cell = tableView.cellForRow(at: indexPath) as? SortTableViewCell {
             cell.tintColor = AppColors.themeGreen
             cell.accessoryType = .checkmark

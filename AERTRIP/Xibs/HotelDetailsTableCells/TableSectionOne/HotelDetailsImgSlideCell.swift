@@ -33,9 +33,11 @@ class HotelDetailsImgSlideCell: UITableViewCell {
             self.pageControl.tintColor = AppColors.themeGray220
             self.pageControl.currentPageTintColor = AppColors.themeWhite
             self.pageControl.radius = 3.0
+            self.pageControl.padding = 5.3
         }
     }
     weak var delegate: HotelDetailsImgSlideCellDelegate?
+    
     
     
     //Mark:- LifeCycle

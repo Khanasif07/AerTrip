@@ -272,8 +272,10 @@ extension EmptyScreenView {
     
     private func setupForHotelPreferences() {
         self.hideFirstButton(isHidden: true)
+        self.messageLabelTopConstraint.constant = 30
+        self.mainImageViewTopConstraint.constant = -171
         self.mainImageView.image = #imageLiteral(resourceName: "hotelEmpty")
-        self.messageLabel.font = AppFonts.Regular.withSize(17.0)
+        self.messageLabel.font = AppFonts.Regular.withSize(18.0)
         self.messageLabel.textColor = AppColors.themeGray40
         self.mainImageViewLeadingConstraint.constant = 54.0
         self.mainImageViewTrainlingConstraint.constant = 74.0
@@ -341,6 +343,7 @@ extension EmptyScreenView {
         self.containerViewCenterYConstraint.constant = -125
         self.messageLabelTopConstraint.constant = 33
         self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
+        self.backgroundColor = .blue
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.themeBlack
         self.messageLabel.text = LocalizedString.noResults.localized

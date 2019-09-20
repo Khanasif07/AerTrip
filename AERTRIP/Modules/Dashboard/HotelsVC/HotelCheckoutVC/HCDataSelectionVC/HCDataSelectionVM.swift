@@ -93,7 +93,7 @@ class HCDataSelectionVM {
         // check for guest details valid or not
         for (_, room) in GuestDetailsVM.shared.guests.enumerated() {
             for (_, guest) in room.enumerated() {
-                if guest.firstName.isEmpty || guest.lastName.isEmpty || guest.salutation.isEmpty {
+                if (guest.firstName.isEmpty || guest.firstName.count <= 4) || (guest.lastName.isEmpty || guest.lastName.count <= 4)  || guest.salutation.isEmpty {
                     isValid = false
                     AppToast.default.showToastMessage(message: LocalizedString.GuestDetailsMessage.localized)
                     return isValid

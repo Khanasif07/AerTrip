@@ -55,8 +55,8 @@ open class PKSideMenuController: UIViewController {
     private(set) var menuViewController : UIViewController?
 
     //MARK:- Private
-    private var mainContainer : UIView?
-    private var mainViewController : UIViewController?
+    private(set) var mainContainer : UIView?
+    private(set) var mainViewController : UIViewController?
     private var shadowLayer: CAShapeLayer!
     private let animationTime: TimeInterval = 0.4
     
@@ -106,12 +106,12 @@ open class PKSideMenuController: UIViewController {
         newFrame.origin.x = PKSideMenuOptions.currentOpeningSide == .right ? -(self.view.bounds.width) : self.view.bounds.width
         self.menuContainer!.frame = newFrame
         self.menuContainer!.backgroundColor = UIColor.clear
-        self.view.addSubview((self.menuContainer!))
+        self.view.addSubview(self.menuContainer!)
         
         self.mainContainer = UIView()
         self.mainContainer!.frame = self.view.bounds
         self.mainContainer!.backgroundColor = UIColor.clear
-        self.view.addSubview((self.mainContainer!))
+        self.view.addSubview(self.mainContainer!)
         
         self.addDropOffShadow()
         if PKSideMenuOptions.currentAnimation == .curve3D {
@@ -332,10 +332,14 @@ extension PKSideMenuController: UIGestureRecognizerDelegate {
         otherGestureRecognizer.require(toFail: gestureRecognizer)
         return true
     }
-    private func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        if let touchedView = touch.view, touchedView.isDescendant(of: self.view) {
-            return false
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if let touchedView = touch.view {
+            return touchedView.isDescendant(of: self.view)
         }
+        return true
+    }
+    
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
 }

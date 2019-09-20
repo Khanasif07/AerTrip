@@ -33,11 +33,11 @@ class WeatherInfoTableViewCell: UITableViewCell {
     
     // MARK: ===========
     
-    @IBOutlet var cityAndDateLabel: UILabel!
-    @IBOutlet var tempLabel: UILabel!
-    @IBOutlet var whetherLabel: UILabel!
-    @IBOutlet var containerView: UIView!
-    @IBOutlet var containerViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var cityAndDateLabel: UILabel!
+    @IBOutlet weak var tempLabel: UILabel!
+    @IBOutlet weak var whetherLabel: UILabel!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var containerViewBottomConstraint: NSLayoutConstraint!
     
     // MARK: - LifeCycle
     

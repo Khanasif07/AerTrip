@@ -53,16 +53,34 @@ class BulkBookingVM {
         if self.ratingCount.isEmpty {
             self.ratingCount = [1,2,3,4,5]
         }
-        
         params[APIKeys.stars.rawValue] = self.ratingCount.joined(separator: ",")
         return params
     }
+    
+    
+    // MARK: - Validation
+         func isValidateData() -> Bool {
+            var flag = true
+            if self.destination.isEmpty {
+                AppToast.default.showToastMessage(message: "Please select destination name.")
+                flag = false
+            }
+            else if self.oldData.checkInDate.isEmpty {
+                AppToast.default.showToastMessage(message: "Please select check in date.")
+                flag = false
+            }
+            else if self.oldData.checkOutDate.isEmpty {
+                AppToast.default.showToastMessage(message: "Please select check out date.")
+                flag = false
+            }
+            return flag
+        }
     
     //MARK:- Public
     ///Hotel List Api
     func bulkBookingEnquiryApi() {
         
-        APICaller.shared.bulkBookingEnquiryApi(params: self.paramsForApi()) { [weak self] (success, errors, enquiryId) in
+        APICaller.shared.bulkBookingEnquiryApi(params: AppGlobals.shared.isNetworkRechable() ?  self.paramsForApi() : [:]) { [weak self] (success, errors, enquiryId) in
             guard let sSelf = self else { return }
             if success {
                 sSelf.enquiryId = enquiryId

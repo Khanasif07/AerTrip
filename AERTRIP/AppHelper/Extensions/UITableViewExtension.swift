@@ -11,6 +11,7 @@ import UIKit
 //MARK:- UITableView Extension
 extension UITableView {
     
+   
     
     func registerCell(nibName:String, bundle:Bundle? = Bundle.main, forCellWithReuseIdentifier:String? = nil){
         
@@ -84,6 +85,13 @@ extension UITableViewCell {
         }
         return nil
     }
+    func hideSeparator() {
+            self.separatorInset = UIEdgeInsets(top: 0, left: self.bounds.size.width, bottom: 0, right: 0)
+        }
+        
+    func showSeparator() {
+            self.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 3, right: 0)
+        }
 }
 
 // MARK: - UITableViewCell Extension

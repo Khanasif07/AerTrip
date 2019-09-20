@@ -59,6 +59,12 @@ class HCSelectGuestsVC: BaseVC {
     
     private let oldGuestState = GuestDetailsVM.shared.guests
     
+    var noResultemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noResult
+        return newEmptyView
+    }()
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -251,6 +257,7 @@ extension HCSelectGuestsVC: ATCategoryNavBarDelegate {
 extension HCSelectGuestsVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.viewModel.search(forText: searchText)
+        self.viewModel.searchText = searchText
     }
 }
 
@@ -269,7 +276,7 @@ extension HCSelectGuestsVC: TopNavigationViewDelegate {
 extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
     
     func contactSavedFail() {
-        AppToast.default.showToastMessage(message: "Not able to save contacts. Please try again.")
+        AppToast.default.showToastMessage(message: LocalizedString.NotAbleToSaveContactTryAgain.localized)
     }
     
     func contactSavedSuccess() {
@@ -277,7 +284,7 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
     }
     
     func phoneContactSavedFail() {
-        AppToast.default.showToastMessage(message: "Not able to save contacts. Please try again.")
+        AppToast.default.showToastMessage(message: LocalizedString.NotAbleToSaveContactTryAgain.localized)
     }
     
     func willFetchPhoneContacts() {
@@ -304,28 +311,44 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
     }
     
     func add(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
-//        self.selectionDidChanged()
+        //        self.selectionDidChanged()
         var item = ATContact(json: [:])
         switch usingFor {
         case .travellers:
             item = self.viewModel._travellerContacts[index]
-
+            
         case .contacts:
             item = self.viewModel._phoneContacts[index]
-
+            
         case .facebook:
             item = self.viewModel._facebookContacts[index]
-
+            
         case .google:
             item = self.viewModel._googleContacts[index]
         }
+    
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].id = item.id
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].salutation = item.salutation
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].firstName = item.firstName
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].lastName = item.lastName
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].profilePicture = item.profilePicture
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].label = item.label
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].email = item.email
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].emailLabel = item.emailLabel
         
-        item.passengerType = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].passengerType
-        item.numberInRoom = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].numberInRoom
-        item.age = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].age
+        self.selectedContactsCollectionView.reloadData()
 
-        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = item
-        self.selectNextGuest()
+//        if let idx = getCollectionIndexPath(forContact: item) {
+//
+//            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = item
+//            self.selectNextGuest()
+//            self.selectedContactsCollectionView.performBatchUpdates({
+//                self.selectedContactsCollectionView.insertItems(at: [idx])
+//            }, completion: { (isDone) in
+//                self.selectedContactsCollectionView.reloadData()
+//                self.scrollCollectionToEnd()
+//            })
+//        }
     }
     
     func remove(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {

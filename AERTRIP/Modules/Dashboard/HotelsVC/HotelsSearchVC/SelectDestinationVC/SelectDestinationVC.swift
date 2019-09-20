@@ -101,7 +101,7 @@ class SelectDestinationVC: BaseVC {
         registerXib()
         
         self.view.alpha = 1.0
-        self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+        self.view.backgroundColor = AppColors.clear//AppColors.themeBlack.withAlphaComponent(0.3)
         self.bottomViewHeightConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
 
         //self.headerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
@@ -126,25 +126,55 @@ class SelectDestinationVC: BaseVC {
         self.bottomView.isHidden = false
         let toDeduct = (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
         let finalValue = (self.currentlyUsingFor == .hotelForm) ? (self.view.height - toDeduct) : (self.view.height - (15.0 + toDeduct))
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+        
+        func setValue() {
             self.mainCintainerBottomConstraint.constant = 0.0
             self.mainContainerViewHeightConstraint.constant = finalValue
+            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
             self.view.layoutIfNeeded()
-        }, completion: { (isDone) in
-            self.reloadData()
-        })
+        }
+        
+        if animated {
+            let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+                setValue()
+            }
+            
+            animater.addCompletion { (position) in
+                self.reloadData()
+            }
+            
+            animater.startAnimation()
+        }
+        else {
+            setValue()
+        }
     }
     
     private func hide(animated: Bool, shouldRemove: Bool = false) {
-        self.bottomView.isHidden = true
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+        
+        func setValue() {
             self.mainCintainerBottomConstraint.constant = -(self.mainContainerView.height + 100)
+            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
             self.view.layoutIfNeeded()
-        }, completion: { (isDone) in
-            if shouldRemove {
-                self.removeFromParentVC
+        }
+        
+        self.bottomView.isHidden = true
+        if animated {
+            let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+                setValue()
             }
-        })
+            
+            animater.addCompletion { (position) in
+                if shouldRemove {
+                    self.removeFromParentVC
+                }
+            }
+            
+            animater.startAnimation()
+        }
+        else {
+            setValue()
+        }
     }
     
     private func reloadData(){
@@ -261,10 +291,18 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
                 //my location
                 return 0
                 
-            case 1, 2:
-                //recent search, popular destination
+            case 1:
+                //recent search,
+                if let userId = UserInfo.loggedInUser?.userId ,!userId.isEmpty
+                {
+                    return 28.0
+                } else {
+                    return 0
+                }
+               
+                //popular destination
+            case 2:
                 return 28.0
-                
             default:
                 return 0
             }
@@ -312,8 +350,14 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
                 //my location
                 return 44.5//50.0
                 
-            case 1, 2:
-                //recent search, popular destination
+            case 1:
+                //recent search
+                if let userId = UserInfo.loggedInUser?.userId , !userId.isEmpty {
+                      return 65.0
+                } else {
+                    return 0
+                }
+            case 2: // popular destination
                 return 65.0
                 
             default:
@@ -359,10 +403,10 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
                 }
                 else {
                     cell.configureData(data: self.viewModel.popularHotels[indexPath.row], forText: "")
-                    cell.dividerView.isHidden = (self.viewModel.popularDestinationLimit - 1) == indexPath.row
                 }
                 
                 return cell
+                
                 
             default:
                 return UITableViewCell()

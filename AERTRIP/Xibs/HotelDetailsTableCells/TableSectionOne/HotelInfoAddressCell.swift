@@ -14,19 +14,19 @@ class HotelInfoAddressCell: UITableViewCell {
     
     // Mark:- IBOutlets
     //================
-    @IBOutlet var containerView: UIView!
-    @IBOutlet var addressLabel: UILabel!
-    @IBOutlet var addressInfoTextView: UITextView! {
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var addressInfoTextView: PKTapAndCopyUITextView! {
         didSet {
             self.addressInfoTextView.isUserInteractionEnabled = false
         }
     }
     
-    @IBOutlet var deviderView: UIView!
-    @IBOutlet var moreBtnOutlet: UIButton!
-    @IBOutlet var moreBtnContainerView: UIView!
-    @IBOutlet var gradientView: UIView!
-    @IBOutlet var infoTextViewTrailingConstraint: NSLayoutConstraint! {
+    @IBOutlet weak var deviderView: UIView!
+    @IBOutlet weak var moreBtnOutlet: UIButton!
+    @IBOutlet weak var moreBtnContainerView: UIView!
+    @IBOutlet weak var gradientView: UIView!
+    @IBOutlet weak var infoTextViewTrailingConstraint: NSLayoutConstraint! {
         didSet {
             self.infoTextViewTrailingConstraint.constant = 0.0
         }
@@ -67,6 +67,13 @@ class HotelInfoAddressCell: UITableViewCell {
         
         // Text
         self.moreBtnOutlet.setTitle(LocalizedString.More.localized, for: .normal)
+        
+        
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressTapped))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(textViewTapped))
+        self.addressInfoTextView.isUserInteractionEnabled = true
+        self.addGestureRecognizer(longPressGesture)
+        self.addressInfoTextView.addGestureRecognizer(tapGesture)
     }
     
     /// AttributeLabelSetup
@@ -79,6 +86,22 @@ class HotelInfoAddressCell: UITableViewCell {
         let attrText = overview.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.withSize(18.0).familyName, fontColor: AppColors.themeBlack)
         self.addressInfoTextView.attributedText = attrText
         self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) ? false : true
+    }
+    
+    @objc func longPressTapped() {
+        printDebug("Long press ")
+        let menu = UIMenuController.shared
+        if !menu.isMenuVisible {
+            menu.setTargetRect(CGRect(x: self.addressInfoTextView.center.x, y: self.addressInfoTextView.center.y, width: 0.0, height: 0.0), in: self)
+            menu.setMenuVisible(true, animated: true)
+        }
+    }
+    
+    
+    @objc func textViewTapped() {
+        if let parentVC = self.parentViewController as? HotelDetailsVC {
+            parentVC.openMap()
+        }
     }
     
  
@@ -156,3 +179,4 @@ class HotelInfoAddressCell: UITableViewCell {
         }
     }
 }
+

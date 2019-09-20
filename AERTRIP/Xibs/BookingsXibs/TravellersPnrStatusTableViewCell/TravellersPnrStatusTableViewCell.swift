@@ -23,14 +23,14 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
     
     // MARK: ===========
     
-    @IBOutlet var containerView: UIView!
-    @IBOutlet var travellerImageView: UIImageView!
-    @IBOutlet var travellerNameLabel: UILabel!
-    @IBOutlet var travellerPnrStatusLabel: UILabel!
-    @IBOutlet var nameDividerView: UIView!
-    @IBOutlet var travellerImgViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet var containerViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet var tavellerImageBlurView: UIView!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var travellerImageView: UIImageView!
+    @IBOutlet weak var travellerNameLabel: UILabel!
+    @IBOutlet weak var travellerPnrStatusLabel: UILabel!
+    @IBOutlet weak var nameDividerView: UIView!
+    @IBOutlet weak var travellerImgViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tavellerImageBlurView: UIView!
     
     // MARK: - LifeCycle
     

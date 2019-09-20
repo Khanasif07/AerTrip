@@ -28,10 +28,7 @@ class ATGuestButton: UIButton {
         self.configButton()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.placeholderImage.frame = self.bounds
-    }
+   
     
     private func configButton() {
         //self.setImage(#imageLiteral(resourceName: "adult_deSelected"), for: .normal)
@@ -46,14 +43,16 @@ class ATGuestButton: UIButton {
         guard !self.isStateAnimating else {return}
         
         self.isStateAnimating = true
-        self.placeholderImage.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        self.placeholderImage.image = selectedImage
+        let trans80 = CGAffineTransform(scaleX: 0.8, y: 0.8)
         UIView.animate(withDuration: AppConstants.kAnimationDuration,
                        delay: 0,
                        usingSpringWithDamping: 0.2,
                        initialSpringVelocity: 3.0,
                        options: .allowAnimatedContent,
                        animations: { [weak self] in
-                        self?.placeholderImage.image = selectedImage
+                        
+                        self?.placeholderImage.transform = trans80
                         self?.placeholderImage.transform = .identity
         }){ (isDone) in
             self.isStateAnimating = false
@@ -63,15 +62,18 @@ class ATGuestButton: UIButton {
     public func deselectedState() {
         guard !self.isStateAnimating else {return}
         self.isStateAnimating = true
-        self.placeholderImage.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-        self.placeholderImage.transform = .identity
+        let trans80 = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        let trans0 = CGAffineTransform(scaleX: 0.001, y: 0.001)
         UIView.animate(withDuration: AppConstants.kAnimationDuration,
                        delay: 0,
                        usingSpringWithDamping: 1.0,
                        initialSpringVelocity: 1.0,
                        options: .allowAnimatedContent,
                        animations: { [weak self] in
-                        self?.placeholderImage.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+                        
+                        self?.placeholderImage.transform = trans80
+                        self?.placeholderImage.transform = .identity
+                        self?.placeholderImage.transform = trans0
         }) { (isDone) in
             self.isStateAnimating = false
             self.placeholderImage.image = nil
