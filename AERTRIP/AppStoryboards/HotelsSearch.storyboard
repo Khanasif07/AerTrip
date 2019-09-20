@@ -742,26 +742,28 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="moU-Lg-VN7">
                                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="85.5"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preferred Hotels" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yma-yu-t5i">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My dates are" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yma-yu-t5i">
                                                                 <rect key="frame" x="20" y="14.5" width="147.5" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BET-uw-EjT" customClass="PKTextField" customModule="AERTRIP" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fixed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ciF-w4-U6x">
                                                                 <rect key="frame" x="20" y="48" width="147.5" height="24"/>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="24" id="b62-xk-t1D"/>
+                                                                    <constraint firstAttribute="height" constant="24" id="P11-Mh-Gub"/>
                                                                 </constraints>
-                                                            </view>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstItem="BET-uw-EjT" firstAttribute="leading" secondItem="yma-yu-t5i" secondAttribute="leading" id="8Ab-XX-2Av"/>
                                                             <constraint firstAttribute="trailing" secondItem="yma-yu-t5i" secondAttribute="trailing" constant="20" id="F7R-xO-8Bd"/>
-                                                            <constraint firstItem="BET-uw-EjT" firstAttribute="trailing" secondItem="yma-yu-t5i" secondAttribute="trailing" id="GZT-GW-nME"/>
-                                                            <constraint firstItem="BET-uw-EjT" firstAttribute="top" secondItem="yma-yu-t5i" secondAttribute="bottom" constant="14" id="JTX-Eb-uRs"/>
+                                                            <constraint firstItem="ciF-w4-U6x" firstAttribute="leading" secondItem="yma-yu-t5i" secondAttribute="leading" id="gs2-IJ-WLc"/>
+                                                            <constraint firstItem="ciF-w4-U6x" firstAttribute="trailing" secondItem="yma-yu-t5i" secondAttribute="trailing" id="leo-xP-2bT"/>
+                                                            <constraint firstItem="ciF-w4-U6x" firstAttribute="top" secondItem="yma-yu-t5i" secondAttribute="bottom" constant="14" id="rMn-dC-T2U"/>
                                                             <constraint firstItem="yma-yu-t5i" firstAttribute="leading" secondItem="moU-Lg-VN7" secondAttribute="leading" constant="20" id="vVe-Ax-5g7"/>
                                                             <constraint firstItem="yma-yu-t5i" firstAttribute="centerY" secondItem="moU-Lg-VN7" secondAttribute="centerY" multiplier="0.57" id="wvY-fO-Hd0"/>
                                                         </constraints>
@@ -1077,6 +1079,7 @@
                         <outlet property="childContainerView" destination="cE3-sz-ARZ" id="aWJ-zy-b0G"/>
                         <outlet property="childCountLabel" destination="jRH-Hn-YjY" id="Chg-pX-kAR"/>
                         <outlet property="cityNameLabel" destination="BWC-uY-YU7" id="sdv-Sz-Orj"/>
+                        <outlet property="dateFlexibleLabel" destination="ciF-w4-U6x" id="2Cs-v5-EBk"/>
                         <outlet property="dateInfoView" destination="BoL-F4-rJK" id="Aho-WI-olp"/>
                         <outlet property="datePickerView" destination="Hkt-JD-idP" id="X6S-VC-cwi"/>
                         <outlet property="fifthLineView" destination="qnr-yJ-h7o" id="cpw-ye-saG"/>
@@ -1088,7 +1091,6 @@
                         <outlet property="mainContainerView" destination="bwF-zP-HlZ" id="2XN-1C-DAV"/>
                         <outlet property="oneStarLabel" destination="nKQ-8F-ZtB" id="Vwd-5w-xTv"/>
                         <outlet property="preferredHotelsLabel" destination="yma-yu-t5i" id="AyJ-TQ-A9K"/>
-                        <outlet property="preferredTextView" destination="BET-uw-EjT" id="WCS-HR-jGd"/>
                         <outlet property="prefredTextContainer" destination="moU-Lg-VN7" id="UMm-Xw-j7o"/>
                         <outlet property="rectangleView" destination="H64-5R-dwG" id="tQl-P7-9eA"/>
                         <outlet property="roomCountLabel" destination="Sfs-hR-X2I" id="Kkf-j5-TnD"/>
@@ -1435,16 +1437,16 @@ been sent</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="99.5" height="246"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="19.5" translatesAutoresizingMaskIntoConstraints="NO" id="5Nc-t2-hZo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="246"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="253"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="lUb-4B-UGW">
-                                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="113.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="120.5"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="627-JL-ot9">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="43"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="50"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rooms" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQ4-Rr-9MZ">
-                                                                                <rect key="frame" x="0.0" y="5" width="99.5" height="19.5"/>
+                                                                                <rect key="frame" x="0.0" y="5" width="99.5" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1460,7 +1462,7 @@ been sent</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFd-nY-Rus">
-                                                                        <rect key="frame" x="0.0" y="55" width="99.5" height="58.5"/>
+                                                                        <rect key="frame" x="0.0" y="62" width="99.5" height="58.5"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4l-qf-vJb">
                                                                                 <rect key="frame" x="34.5" y="0.5" width="31" height="58"/>
@@ -1480,7 +1482,7 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="klb-yY-qLX">
-                                                                <rect key="frame" x="0.0" y="133" width="99.5" height="113"/>
+                                                                <rect key="frame" x="0.0" y="140" width="99.5" height="113"/>
                                                                 <subviews>
                                                                     <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2S-NB-xYW">
                                                                         <rect key="frame" x="0.0" y="0.0" width="99.5" height="113"/>

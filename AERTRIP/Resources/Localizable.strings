@@ -325,6 +325,9 @@
 "BulkEnquirySent" = "Bulk enquiry has been sent";
 "CustomerServicesShallConnect" = "Our Customer service team shall contact \n you soon regarding this enquiry.";
 "Submit" = "Submit";
+"MyDatesAre" = "My dates Are";
+"Fixed" = "Fixed";
+"Flexible" = "Flexible";
 
 //MARK:- FF Search
 "SearchAirlines" = "Search Airlines";

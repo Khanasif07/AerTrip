@@ -401,6 +401,7 @@ enum LocalizedString: String {
     
     case BulkBooking
     case PreferredHotels
+    case MyDatesAre
     case SpecialRequest
     case IfAny
     case Rooms
@@ -958,4 +959,6 @@ enum LocalizedString: String {
     case Other
     
     case PleaseSignInToContinue
+    case Fixed
+    case Flexible
 }

@@ -55,17 +55,15 @@ class BulkBookingVC: BaseVC {
     @IBOutlet weak var preferredHotelsLabel: UILabel!
     @IBOutlet weak var specialReqLabel: UILabel!
     @IBOutlet weak var bulkBookingPopUpBtn: UIButton!
-    @IBOutlet weak var preferredTextView: PKTextField! {
-        didSet {
-            preferredTextView.pkDelegate = self
-        }
-    }
+ 
     @IBOutlet weak var specialReqTextView: PKTextField!{
         didSet {
             specialReqTextView.pkDelegate = self
         }
     }
-
+    
+    @IBOutlet weak var dateFlexibleLabel: UILabel!
+    
     @IBOutlet weak var whereLabel: UILabel!
     @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomView: UIView!
@@ -121,7 +119,7 @@ class BulkBookingVC: BaseVC {
     override func keyboardWillShow(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             
-            let expectedScreenH = self.preferredTextView.convert(self.preferredTextView.frame, to: self.view).origin.y + keyboardSize.height
+            let expectedScreenH = self.specialReqTextView.convert(self.specialReqTextView.frame, to: self.view).origin.y + keyboardSize.height
             let difH = expectedScreenH - UIDevice.screenHeight
             if difH > 0 {
                 self.view.frame = CGRect(x: 0.0, y: -difH, width: self.view.width, height: self.view.height)
@@ -147,8 +145,8 @@ class BulkBookingVC: BaseVC {
         self.roomCountLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.adultCountLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.childCountLabel.font = AppFonts.SemiBold.withSize(18.0)
-        self.preferredTextView.font = AppFonts.Regular.withSize(16.0)
         self.specialReqTextView.font = AppFonts.Regular.withSize(16.0)
+        self.dateFlexibleLabel.font = AppFonts.Regular.withSize(17.0)
     }
     
     override func setupTexts() {
@@ -160,8 +158,9 @@ class BulkBookingVC: BaseVC {
             self.searchButtonOutlet.setTitle(LocalizedString.LoginAndSubmit.localized, for: .normal)
         }
         self.bulkBookingLabel.text = LocalizedString.Guests.localized
-        self.preferredHotelsLabel.text = LocalizedString.PreferredHotels.localized
+        self.preferredHotelsLabel.text = LocalizedString.MyDatesAre.localized
         self.specialReqLabel.text = LocalizedString.SpecialRequest.localized
+        self.dateFlexibleLabel.text = LocalizedString.Fixed.localized
     }
     
     override func setupColors() {
@@ -180,17 +179,11 @@ class BulkBookingVC: BaseVC {
         self.preferredHotelsLabel.textColor = AppColors.themeGray40
         self.specialReqLabel.textColor = AppColors.themeGray40
         self.specialReqTextView.textColor = AppColors.textFieldTextColor51
-        self.preferredTextView.textColor = AppColors.textFieldTextColor51
         let regularFontSize16 = AppFonts.Regular.withSize(16.0)
         
         self.specialReqTextView.attributedPlaceholder = NSMutableAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: regularFontSize16])
-        self.preferredTextView.attributedPlaceholder = NSMutableAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: regularFontSize16])
-        
         self.specialReqTextView.textAlignment = .center
-        self.preferredTextView.textAlignment = .center
-        
         self.specialReqTextView.returnKeyType = .done
-        self.preferredTextView.returnKeyType = .done
     }
 
     //MARK:- Methods
@@ -500,8 +493,7 @@ class BulkBookingVC: BaseVC {
     }
     
     @objc func preferredButtonAction() {
-        self.view.endEditing(true)
-        _ = self.preferredTextView.becomeFirstResponder()
+        self.dateFlexibleLabel.text = self.dateFlexibleLabel.text == LocalizedString.Fixed.localized ? LocalizedString.Flexible.localized : LocalizedString.Fixed.localized
     }
     
     @objc func specialReqAction() {
@@ -529,7 +521,7 @@ extension BulkBookingVC: PKTextFieldDelegate {
        finalText.insert(" ", at: finalText.startIndex)
         finalText.insert(" ", at: finalText.startIndex)
         pkTextField.text = finalText
-        (pkTextField === self.preferredTextView) ? (self.viewModel.preferred = finalText) : (self.viewModel.specialRequest = finalText)
+        self.viewModel.specialRequest = finalText
        
 
     }
