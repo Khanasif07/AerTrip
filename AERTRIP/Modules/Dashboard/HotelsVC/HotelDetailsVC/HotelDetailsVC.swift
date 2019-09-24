@@ -379,6 +379,8 @@ class HotelDetailsVC: BaseVC {
         self.headerView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "CancelButtonWhite"), selectedImage: #imageLiteral(resourceName: "black_cross"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.headerView.firstRightButton.addTarget(self, action: #selector(self.cancelButtonAction), for: .touchUpInside)
         self.headerView.leftButton.addTarget(self, action: #selector(self.fevButtonAction), for: .touchUpInside)
+        // setting to make Close button pixel perfect
+        self.headerView.firstRightButtonTrailingConstraint.constant = -3
         self.hotelTableView.roundTopCorners(cornerRadius: 10.0)
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.panGestureRecognizerHandler))
         self.view.addGestureRecognizer(panGesture)

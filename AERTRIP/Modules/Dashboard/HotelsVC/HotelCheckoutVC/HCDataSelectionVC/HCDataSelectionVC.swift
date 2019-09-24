@@ -206,7 +206,7 @@ class HCDataSelectionVC: BaseVC {
     private func setupNavView() {
         topNavView.delegate = self
         topNavView.configureNavBar(title: LocalizedString.Guests.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
-        
+        topNavView.firstRightButtonTrailingConstraint.constant = 5
         topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "plusButton2"), selectedImage: #imageLiteral(resourceName: "plusButton2"))
     }
     
@@ -549,7 +549,10 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
         if newRow < 0 {
             // room data cell
             let totalCount = hotelFormData.adultsCount[indexPath.row] + hotelFormData.childrenCounts[indexPath.row]
-            return (115.0 * ((totalCount <= 4) ? 1.0 : 2.0)) + 25.0
+            let bottomSpaceToManage: CGFloat = (totalCount <= 4) ? 25.0 : 30.0
+            
+            let lastCellExtraPadding: CGFloat = hotelFormData.roomNumber == indexPath.row + 1 ? 16 : 0
+            return (115.0 * ((totalCount <= 4) ? 1.0 : 2.0))  + bottomSpaceToManage +  lastCellExtraPadding
         }
         else {
             switch newRow {
@@ -563,7 +566,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 3:
                 // contact details text
-                return 54.0
+                return 44.0
                 
             case 4:
                 // mobile number
@@ -624,10 +627,10 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                     return UITableViewCell()
                 }
                 
-                cell.titleLabel.font = AppFonts.SemiBold.withSize(18.0)
-                cell.titleLabel.textColor = AppColors.themeBlack
-                cell.titleLabel.text = "Contact Details"
-                cell.topConstraint.constant = 16.0
+                cell.titleLabel.font = AppFonts.SemiBold.withSize(16.0)
+                cell.titleLabel.textColor = AppColors.textFieldTextColor51
+                cell.titleLabel.set(text: LocalizedString.ContactDetails.localized, withKerning: 0.0)
+                cell.topConstraint.constant = 12.0
                 
                 return cell
                 
@@ -636,6 +639,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ContactTableCell.reusableIdentifier) as? ContactTableCell else {
                     return UITableViewCell()
                 }
+                cell.dividerViewBottomConstraint.constant = 10
                 cell.delegate = self
                 return cell
                 

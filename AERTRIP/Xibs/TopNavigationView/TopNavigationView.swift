@@ -55,7 +55,7 @@ class TopNavigationView: UIView {
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var backViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-    
+    @IBOutlet weak var firstRightButtonTrailingConstraint: NSLayoutConstraint!
     
     var isToShowIndicatorView: Bool = false {
         didSet {

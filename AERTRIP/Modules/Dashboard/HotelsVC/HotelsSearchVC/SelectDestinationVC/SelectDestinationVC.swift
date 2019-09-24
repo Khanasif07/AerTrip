@@ -438,4 +438,12 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
             self.delegate?.didSelectedDestination(hotel: selected)
         }
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        printDebug("content offset is \(scrollView.contentOffset.y)")
+        if scrollView.contentOffset.y == -160 {
+            dismissKeyboard()
+            self.cancelButtonAction(self.cancelButton)
+        }
+    }
 }

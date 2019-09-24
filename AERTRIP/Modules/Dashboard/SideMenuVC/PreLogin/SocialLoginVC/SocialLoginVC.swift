@@ -323,8 +323,10 @@ extension SocialLoginVC {
         
         self.kickContentOutToScreen()
         
+        
+        
         let rDuration = 1.0 / 4.0
-        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
+        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeDiscrete, animations: {
             
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
                 self.fbButton.transform = .identity

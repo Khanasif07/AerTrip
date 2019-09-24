@@ -136,6 +136,7 @@
                 <outlet property="countryCodeContainerView" destination="86L-2M-bDq" id="LrH-3c-sWZ"/>
                 <outlet property="countryCodeLabel" destination="mg4-CR-VUC" id="nLb-QW-iZg"/>
                 <outlet property="dividerView" destination="SGw-5q-uF0" id="Ul6-5E-buE"/>
+                <outlet property="dividerViewBottomConstraint" destination="BxV-SS-Ufb" id="mYn-tf-Cms"/>
                 <outlet property="flagImageView" destination="yZo-hx-O72" id="CGB-Ig-JYe"/>
                 <outlet property="titleLabel" destination="xes-BX-z9E" id="b1B-K9-gYG"/>
             </connections>

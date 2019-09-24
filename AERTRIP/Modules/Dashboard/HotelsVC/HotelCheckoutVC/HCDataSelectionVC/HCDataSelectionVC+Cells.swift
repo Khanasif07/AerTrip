@@ -68,8 +68,7 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
         // width = collectionView.width / <number of visible cell in row>
         let width = collectionView.width / 4.0
         let totalCount = hotelFormData.adultsCount[forIdx.row] + hotelFormData.childrenCounts[forIdx.row]
-        
-        let height = (collectionView.height / ((totalCount <= 4) ? 1.0 : 2.0)) - 5.0
+        let height = (collectionView.height / ((totalCount <= 4) ? 1.0 : 2.0))
         
         return CGSize(width: width, height: height)
     }
@@ -141,7 +140,7 @@ class HCDataSelectionPrefrencesCell: UITableViewCell {
         titleLabel.font = AppFonts.Regular.withSize(18.0)
         titleLabel.textColor = AppColors.themeBlack
         titleLabel.text = LocalizedString.PreferencesSpecialRequests.localized
-        
+        titleLabel.set(text:  LocalizedString.PreferencesSpecialRequests.localized, withKerning: -0.43)
         descriptionLabel.font = AppFonts.Regular.withSize(14.0)
         descriptionLabel.textColor = AppColors.themeGray40
         descriptionLabel.text = LocalizedString.Optional.localized

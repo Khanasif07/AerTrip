@@ -26,7 +26,8 @@ class ContactTableCell: UITableViewCell {
     @IBOutlet weak var contactNumberTextField: PhoneNumberTextField!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var contactTitleLabel: UILabel!
-
+    @IBOutlet weak var dividerViewBottomConstraint: NSLayoutConstraint!
+    
     
     private var preSelectedCountry: PKCountryModel?
     weak var delegate: ContactTableCellDelegate?

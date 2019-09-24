@@ -14,6 +14,7 @@
 		0C6C1C6C22E875C800152927 /* HotelFareSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6C1C6B22E875C800152927 /* HotelFareSectionHeader.xib */; };
 		0C6C1C6E22E875D300152927 /* HotelFareSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C1C6D22E875D200152927 /* HotelFareSectionHeader.swift */; };
 		0CAC8C8222E1E0620039D612 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F983A221B51A070018DFED /* UIImageExtension.swift */; };
+		0CAD5FE32338B32D0086F58D /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD5FE22338B32C0086F58D /* UILabel+Extension.swift */; };
 		0CC23989231639EF00ADEE92 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC23988231639EF00ADEE92 /* TestViewController.swift */; };
 		1800FC6521EF1FA20006D6D1 /* AddNotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */; };
 		1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */; };
@@ -977,6 +978,7 @@
 		0C6666B622D486A2009DFACD /* BookingCommonActionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingCommonActionTableViewCell.xib; sourceTree = "<group>"; };
 		0C6C1C6B22E875C800152927 /* HotelFareSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelFareSectionHeader.xib; sourceTree = "<group>"; };
 		0C6C1C6D22E875D200152927 /* HotelFareSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelFareSectionHeader.swift; sourceTree = "<group>"; };
+		0CAD5FE22338B32C0086F58D /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		0CC23988231639EF00ADEE92 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNotesTableViewCell.swift; sourceTree = "<group>"; };
 		1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddNotesTableViewCell.xib; sourceTree = "<group>"; };
@@ -5123,6 +5125,7 @@
 				84504D502212BB07002C1374 /* UITextViewExtensions.swift */,
 				84254F49223B8BDF00E3D120 /* UITextFieldExtension.swift */,
 				8426D8AF22AE6B9D0081C9D8 /* DoubleExtension.swift */,
+				0CAD5FE22338B32C0086F58D /* UILabel+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5805,6 +5808,7 @@
 				18A96B9621B661F900EA9B3A /* FacebookController.swift in Sources */,
 				1876849F2284493A009637D6 /* BookingInfoHeaderView.swift in Sources */,
 				181F226C22AE2E6B0086EB4C /* BookingProductDetailVM.swift in Sources */,
+				0CAD5FE32338B32D0086F58D /* UILabel+Extension.swift in Sources */,
 				84085D1321F59C0E00F1E844 /* TravellerListVC.swift in Sources */,
 				182EB21322856DC7001BFB20 /* FareInfoHeaderView.swift in Sources */,
 				187684B022845A44009637D6 /* NightStateTableViewCell.swift in Sources */,

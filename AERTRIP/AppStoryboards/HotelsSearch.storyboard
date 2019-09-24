@@ -1431,22 +1431,22 @@ been sent</string>
                                 <rect key="frame" x="0.0" y="332" width="375" height="335"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gGR-oK-1oI">
-                                        <rect key="frame" x="38" y="17" width="299" height="246"/>
+                                        <rect key="frame" x="38" y="17" width="299" height="250"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bbQ-CW-0Rv">
-                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="246"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="250"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="19.5" translatesAutoresizingMaskIntoConstraints="NO" id="5Nc-t2-hZo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="253"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="247.5"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="lUb-4B-UGW">
-                                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="120.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="113"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="627-JL-ot9">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="50"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="43"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rooms" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQ4-Rr-9MZ">
-                                                                                <rect key="frame" x="0.0" y="5" width="99.5" height="20.5"/>
+                                                                                <rect key="frame" x="0.0" y="5" width="99.5" height="19.5"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1462,10 +1462,10 @@ been sent</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFd-nY-Rus">
-                                                                        <rect key="frame" x="0.0" y="62" width="99.5" height="58.5"/>
+                                                                        <rect key="frame" x="0.0" y="55" width="99.5" height="58"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4l-qf-vJb">
-                                                                                <rect key="frame" x="34.5" y="0.5" width="31" height="58"/>
+                                                                                <rect key="frame" x="34.5" y="0.0" width="31" height="58"/>
                                                                                 <state key="normal" image="rooms_white_icon"/>
                                                                             </button>
                                                                         </subviews>
@@ -1482,10 +1482,10 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="klb-yY-qLX">
-                                                                <rect key="frame" x="0.0" y="140" width="99.5" height="113"/>
+                                                                <rect key="frame" x="0.0" y="132.5" width="99.5" height="115"/>
                                                                 <subviews>
                                                                     <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2S-NB-xYW">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="113"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="115"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1511,10 +1511,10 @@ been sent</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSf-Lz-PeC">
-                                                <rect key="frame" x="99.5" y="0.0" width="100" height="246"/>
+                                                <rect key="frame" x="99.5" y="0.0" width="100" height="250"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="19.5" translatesAutoresizingMaskIntoConstraints="NO" id="wVg-xb-02g">
-                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="246"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="248"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="8sd-hy-MIr">
                                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="115"/>
@@ -1565,10 +1565,10 @@ been sent</string>
                                                                 </subviews>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WoY-az-onx">
-                                                                <rect key="frame" x="0.0" y="134.5" width="100" height="111.5"/>
+                                                                <rect key="frame" x="0.0" y="134.5" width="100" height="113.5"/>
                                                                 <subviews>
                                                                     <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DEo-vf-mkT">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="111.5"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="113.5"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1591,7 +1591,7 @@ been sent</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xbo-Hd-rsR">
-                                                <rect key="frame" x="199.5" y="0.0" width="100" height="246"/>
+                                                <rect key="frame" x="199.5" y="0.0" width="100" height="250"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="12.5" translatesAutoresizingMaskIntoConstraints="NO" id="pK7-Yp-wzS">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="248"/>
@@ -1687,14 +1687,14 @@ been sent</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="etP-is-AM4" userLabel="firstLineView">
-                                        <rect key="frame" x="0.0" y="187" width="375" height="1"/>
+                                        <rect key="frame" x="0.0" y="191" width="375" height="1"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="TPg-ax-5bD"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GEZ-9m-jJg" userLabel="secondLineView">
-                                        <rect key="frame" x="0.0" y="223" width="375" height="1"/>
+                                        <rect key="frame" x="0.0" y="227" width="375" height="1"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="Z4H-WS-doQ"/>
@@ -1722,7 +1722,7 @@ been sent</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="335" id="4Vq-7N-7jv"/>
-                                    <constraint firstItem="s9M-NB-ug2" firstAttribute="top" secondItem="GEZ-9m-jJg" secondAttribute="bottom" constant="60" id="8Eb-wG-rej"/>
+                                    <constraint firstItem="s9M-NB-ug2" firstAttribute="top" secondItem="GEZ-9m-jJg" secondAttribute="bottom" constant="56" id="8Eb-wG-rej"/>
                                     <constraint firstAttribute="trailing" secondItem="GEZ-9m-jJg" secondAttribute="trailing" id="B16-TD-KtS"/>
                                     <constraint firstAttribute="bottom" secondItem="XpF-Cy-DU8" secondAttribute="bottom" id="CeB-Wb-CHh"/>
                                     <constraint firstItem="etP-is-AM4" firstAttribute="leading" secondItem="pbf-dV-N1m" secondAttribute="leading" id="DSQ-dR-EXo"/>
@@ -1734,7 +1734,7 @@ been sent</string>
                                     <constraint firstItem="s9M-NB-ug2" firstAttribute="trailing" secondItem="XpF-Cy-DU8" secondAttribute="trailing" id="gnP-Cn-MjV"/>
                                     <constraint firstItem="s9M-NB-ug2" firstAttribute="leading" secondItem="XpF-Cy-DU8" secondAttribute="leading" id="m6K-Co-5bP"/>
                                     <constraint firstItem="gGR-oK-1oI" firstAttribute="top" secondItem="pbf-dV-N1m" secondAttribute="top" constant="17" id="mmf-iD-J3f"/>
-                                    <constraint firstItem="s9M-NB-ug2" firstAttribute="bottom" secondItem="gGR-oK-1oI" secondAttribute="bottom" constant="22" id="oo3-JP-Dyq"/>
+                                    <constraint firstItem="s9M-NB-ug2" firstAttribute="bottom" secondItem="gGR-oK-1oI" secondAttribute="bottom" constant="18" id="oo3-JP-Dyq"/>
                                     <constraint firstItem="XpF-Cy-DU8" firstAttribute="leading" secondItem="pbf-dV-N1m" secondAttribute="leading" id="pb0-85-EmY"/>
                                     <constraint firstAttribute="trailing" secondItem="XpF-Cy-DU8" secondAttribute="trailing" id="xIp-Wz-8H7"/>
                                     <constraint firstItem="gGR-oK-1oI" firstAttribute="leading" secondItem="pbf-dV-N1m" secondAttribute="leading" constant="38" id="zR6-v2-NU3"/>

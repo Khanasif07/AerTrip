@@ -18,6 +18,28 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
         return self.viewModel.collectionViewLocArr.count
     }
     
+    
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        guard let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.item]] as? [HotelSearched] else {
+//            printDebug("hotel data not fouond")
+//            return
+//        }
+//        
+//        let hiddenFrame: CGRect = CGRect(x: collectionView.width, y: (UIDevice.screenHeight - collectionView.height), width: collectionView.width, height: collectionView.height)
+//        var floatingBottomConstraint =  hiddenFrame.height
+//        if hData.count > 1 {
+//            floatingBottomConstraint = hiddenFrame.height + 10
+//        } else {
+//            floatingBottomConstraint = hiddenFrame.height - 20
+//        }
+//        
+//        UIView.animate(withDuration: 0.1) { [weak self] in
+//            self?.floatingViewBottomConstraint.constant = floatingBottomConstraint
+//        }
+//    }
+    
+    
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.item]] as? [HotelSearched] else {
@@ -29,6 +51,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotelGroupCardCollectionViewCell.reusableIdentifier, for: indexPath) as? HotelGroupCardCollectionViewCell else {
                 fatalError("HotelGroupCardCollectionViewCell not found")
             }
+            
             cell.hotelListData = hData.first
             cell.delegate = self
             cell.shouldShowMultiPhotos = false

@@ -961,4 +961,5 @@ enum LocalizedString: String {
     case PleaseSignInToContinue
     case Fixed
     case Flexible
+    case ContactDetails
 }
