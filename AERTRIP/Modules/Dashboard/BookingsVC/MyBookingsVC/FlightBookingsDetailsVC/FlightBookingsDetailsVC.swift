@@ -22,7 +22,7 @@ class FlightBookingsDetailsVC: BaseVC {
     }
     
     private var navBarHeight: CGFloat {
-        return UIDevice.isIPhoneX ? 84.0 : 64.0
+        return UIDevice.isIPhoneX ? 88.0 : 64.0
     }
     
     var tripChangeIndexPath: IndexPath?

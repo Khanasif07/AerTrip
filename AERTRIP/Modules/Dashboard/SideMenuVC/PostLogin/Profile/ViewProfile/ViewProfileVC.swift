@@ -22,8 +22,9 @@ class ViewProfileVC: BaseVC {
     
     // MARK: - Variables
     
+    // Make navigation bar height as 88.0 on iphone X .
     private var headerViewHeight: CGFloat {
-        return UIDevice.isIPhoneX ? 84.0 : 64.0
+        return UIDevice.isIPhoneX ? 88.0 : 64.0
     }
     
     private let headerHeightToAnimate: CGFloat = 30.0

@@ -40,7 +40,7 @@ class ViewProfileDetailVC: BaseVC {
     var travelData: TravelDetailModel?
     
     private var headerViewHeight: CGFloat {
-        return UIDevice.isIPhoneX ? 84.0 : 64.0
+        return UIDevice.isIPhoneX ? 88.0 : 64.0
     }
     
     private let headerHeightToAnimate: CGFloat = 30.0
