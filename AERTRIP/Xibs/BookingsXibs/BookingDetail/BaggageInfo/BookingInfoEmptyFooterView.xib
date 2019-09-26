@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,17 +20,17 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="35"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q0Z-Vq-RiM" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="0.66666666666666663"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="1" id="TYQ-Vu-N9s"/>
+                                <constraint firstAttribute="height" constant="0.5" id="TYQ-Vu-N9s"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="noF-h3-kKn" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="34" width="414" height="1"/>
+                            <rect key="frame" x="0.0" y="34.666666666666664" width="414" height="0.3333333333333357"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="1" id="yli-1v-KvM"/>
+                                <constraint firstAttribute="height" constant="0.5" id="yli-1v-KvM"/>
                             </constraints>
                         </view>
                     </subviews>

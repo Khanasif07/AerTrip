@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,10 +26,10 @@
                                 <rect key="frame" x="0.0" y="26" width="320" height="66.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="esy-qj-I71" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="0.5"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="NjI-BT-rAU"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="NjI-BT-rAU"/>
                                         </constraints>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripChangeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="N8s-Et-pBb">
@@ -47,21 +47,20 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xBz-PV-tqw" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="65.5" width="320" height="1"/>
+                                        <rect key="frame" x="0.0" y="66" width="320" height="0.5"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="4LB-W5-U2T"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="4LB-W5-U2T"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FnT-Xy-WzL">
-                                        <rect key="frame" x="16" y="30" width="42" height="26.5"/>
+                                        <rect key="frame" x="16" y="30" width="42" height="27"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OL2-zt-3b9">
-                                        <rect key="frame" x="258" y="30.5" width="46" height="20.5"/>
-
+                                        <rect key="frame" x="258" y="30.5" width="46" height="26"/>
                                         <state key="normal" title="Button"/>
                                     </button>
                                 </subviews>

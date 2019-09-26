@@ -153,34 +153,34 @@
                                     <rect key="frame" x="0.0" y="35" width="375" height="60"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="67i-IF-VbS" userLabel="topDividerView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
                                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="1" id="uOQ-FT-ZEL"/>
+                                                <constraint firstAttribute="height" constant="0.5" id="uOQ-FT-ZEL"/>
                                             </constraints>
                                         </view>
                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uGN-oZ-Byn" userLabel="bottomDividerView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="59" width="375" height="1"/>
+                                            <rect key="frame" x="0.0" y="59.5" width="375" height="0.5"/>
                                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="1" id="4ll-T3-muY"/>
+                                                <constraint firstAttribute="height" constant="0.5" id="4ll-T3-muY"/>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ESK-xE-fzc">
-                                            <rect key="frame" x="16" y="9" width="343" height="18"/>
+                                            <rect key="frame" x="16" y="8.5" width="343" height="19"/>
                                             <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackDownArrow" translatesAutoresizingMaskIntoConstraints="NO" id="L2V-ER-QOl">
-                                            <rect key="frame" x="350" y="35.5" width="9" height="6"/>
+                                            <rect key="frame" x="350" y="36" width="9" height="6"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="9" id="CGc-H2-4VR"/>
                                                 <constraint firstAttribute="height" constant="6" id="sSV-R4-4XL"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1wN-Sw-RDN">
-                                            <rect key="frame" x="16" y="27" width="334" height="23"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Select" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1wN-Sw-RDN">
+                                            <rect key="frame" x="16" y="27.5" width="334" height="23"/>
                                             <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>

@@ -50,7 +50,7 @@ class ViewProfileDetailVC: BaseVC {
         super.viewDidLoad()
         
         profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
-        profileImageHeaderView?.profileImageViewBottomConstraint.constant = 16
+//        profileImageHeaderView?.profileImageViewBottomConstraint?.constant = 16
         profileImageHeaderView?.currentlyUsingAs = .profileDetails
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200

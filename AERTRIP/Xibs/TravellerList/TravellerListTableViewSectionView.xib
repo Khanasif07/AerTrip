@@ -25,23 +25,23 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="28"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xOK-TY-ldP" userLabel="TopSeparatorView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="1" id="kiR-ms-fyl"/>
+                                <constraint firstAttribute="height" constant="0.5" id="kiR-ms-fyl"/>
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cf-J9-hdG">
-                            <rect key="frame" x="16" y="1" width="339" height="26"/>
+                            <rect key="frame" x="16" y="0.5" width="339" height="27"/>
                             <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CmT-lr-20b" userLabel="BottomSeparatorView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="27" width="375" height="1"/>
+                            <rect key="frame" x="0.0" y="27.5" width="375" height="0.5"/>
                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="1" id="nUS-gE-Y9a"/>
+                                <constraint firstAttribute="height" constant="0.5" id="nUS-gE-Y9a"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -72,6 +72,7 @@
             <connections>
                 <outlet property="headerLabel" destination="8cf-J9-hdG" id="nea-Ct-Dfi"/>
             </connections>
+            <point key="canvasLocation" x="138.40000000000001" y="153.82308845577214"/>
         </view>
     </objects>
 </document>

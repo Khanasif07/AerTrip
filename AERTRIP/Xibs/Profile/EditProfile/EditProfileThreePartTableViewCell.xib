@@ -44,10 +44,10 @@
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hMe-bn-saE" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="43.5" width="78.5" height="1"/>
+                                        <rect key="frame" x="16" y="44" width="78.5" height="0.5"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="qlz-VU-Kfm"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="qlz-VU-Kfm"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -87,10 +87,10 @@
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PhE-WB-dQ8" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="43.5" width="68" height="1"/>
+                                        <rect key="frame" x="16" y="44" width="68" height="0.5"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="dkg-yX-ONL"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="dkg-yX-ONL"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -129,10 +129,10 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l1U-RB-rHW" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="43.5" width="125.5" height="1"/>
+                                        <rect key="frame" x="16" y="44" width="125.5" height="0.5"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="2Af-jc-SWL"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="2Af-jc-SWL"/>
                                         </constraints>
                                     </view>
                                 </subviews>

@@ -319,35 +319,118 @@ extension SocialLoginVC {
         self.linkedInButton.alpha = 0
     }
     
+//    func animateContentOnLoad() {
+//
+//        self.kickContentOutToScreen()
+//
+//        let rDuration = 1.0 / 2.0
+//        let animationOptions: UIView.AnimationOptions = .transitionFlipFromTop
+////        let keyframeAnimationOptions: UIView.KeyframeAnimationOptions = UIView.KeyframeAnimationOptions(rawValue: animationOptions.rawValue)
+//
+//        let keyframeAnimationOptions: UIView.KeyframeAnimationOptions = UIView.KeyframeAnimationOptions(rawValue: animationOptions.rawValue)
+//
+//        _ = UIViewPropertyAnimator(duration: rDuration * 1.0, curve: .easeInOut) {
+//            self.fbButton.transform = .identity
+//            self.fbButton.alpha = 1.0
+//        }
+//
+//
+//
+//
+//        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options:keyframeAnimationOptions
+// , animations: {
+//
+////            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
+////                self.fbButton.transform = .identity
+////                self.fbButton.alpha = 1.0
+////            })
+//
+//    _ = UIViewPropertyAnimator(duration: rDuration * 1.0, curve: .easeInOut) {
+//        self.fbButton.transform = .identity
+//        self.fbButton.alpha = 1.0
+//    }
+//    _ = UIViewPropertyAnimator(duration: rDuration * 1.0, curve: .easeInOut) {
+//        self.googleButton.transform = .identity
+//        self.googleButton.alpha = 1.0
+//    }
+//
+////            UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {
+////                self.googleButton.transform = .identity
+////                self.googleButton.alpha = 1.0
+////            })
+//
+//    _ = UIViewPropertyAnimator(duration: rDuration * 1.0, curve: .easeInOut) {
+//        self.newRegistrationContainerView.transform    = .identity
+//        self.sepratorLineImage.transform  = .identity
+//    }
+//
+//
+////            UIView.addKeyframe(withRelativeStartTime: (rDuration * 2.0), relativeDuration: (rDuration * 3.0), animations: {
+////                self.newRegistrationContainerView.transform    = .identity
+////                self.sepratorLineImage.transform  = .identity
+////            })
+//
+//    _ = UIViewPropertyAnimator(duration: rDuration * 1.0, curve: .easeInOut) {
+//        self.linkedInButton.transform     = .identity
+//        self.linkedInButton.alpha = 1.0
+//    }
+//
+////            UIView.addKeyframe(withRelativeStartTime: (rDuration * 3.0), relativeDuration: (rDuration * 4.0), animations: {
+////                self.linkedInButton.transform     = .identity
+////                self.linkedInButton.alpha = 1.0
+////            })
+//
+//        }) { (success) in
+//            self.viewModel.isFirstTime = false
+//
+//        }
+//    }
+    
     func animateContentOnLoad() {
-        
         self.kickContentOutToScreen()
-        
         let rDuration = 1.0 / 4.0
+        
         UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
-            
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
+                
                 self.fbButton.transform = .identity
                 self.fbButton.alpha = 1.0
+                
             })
-            
             UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {
+                
                 self.googleButton.transform = .identity
                 self.googleButton.alpha = 1.0
+                
             })
+            
+            
             
             UIView.addKeyframe(withRelativeStartTime: (rDuration * 2.0), relativeDuration: (rDuration * 3.0), animations: {
+                
                 self.newRegistrationContainerView.transform    = .identity
+                
                 self.sepratorLineImage.transform  = .identity
+                
             })
+            
+            
             
             UIView.addKeyframe(withRelativeStartTime: (rDuration * 3.0), relativeDuration: (rDuration * 4.0), animations: {
+                
                 self.linkedInButton.transform     = .identity
+                
                 self.linkedInButton.alpha = 1.0
+                
             })
             
+            
+            
         }) { (success) in
+            
             self.viewModel.isFirstTime = false
+            
+            
             
         }
     }

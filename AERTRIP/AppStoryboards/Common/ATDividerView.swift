@@ -31,7 +31,7 @@ open class ATDividerView: UIView {
     //MARK:- Private
     
     //MARK:- Public
-    var defaultHeight: CGFloat = 0.5 {
+    var defaultHeight: CGFloat = 5.5 {
         didSet {
             self.updatedFrame()
         }

@@ -122,9 +122,9 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eVC-si-FGl" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="59.5" width="304" height="1"/>
+                                <rect key="frame" x="16" y="60" width="304" height="0.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="ntS-fD-8zY"/>
+                                    <constraint firstAttribute="height" constant="0.5" id="ntS-fD-8zY"/>
                                 </constraints>
                             </view>
                         </subviews>

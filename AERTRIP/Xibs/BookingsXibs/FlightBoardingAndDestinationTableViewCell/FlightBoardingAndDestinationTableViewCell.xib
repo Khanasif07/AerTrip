@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -133,10 +133,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HNY-PB-XHs" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="121.5" width="311" height="1"/>
+                                <rect key="frame" x="16" y="121.5" width="311" height="0.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="rRl-5w-3kL"/>
+                                    <constraint firstAttribute="height" constant="0.5" id="rRl-5w-3kL"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sat, 26 Jan 2018" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iIa-DW-hgK">
@@ -154,7 +154,6 @@
                             <constraint firstItem="PJ3-G1-jiM" firstAttribute="top" secondItem="If4-0H-4wf" secondAttribute="top" constant="8" id="Q11-Lp-LyD"/>
                             <constraint firstItem="max-U1-geP" firstAttribute="leading" secondItem="PJ3-G1-jiM" secondAttribute="leading" id="QK9-Ni-ccc"/>
                             <constraint firstItem="ZhF-Hg-7X7" firstAttribute="top" secondItem="PJ3-G1-jiM" secondAttribute="bottom" id="RWk-TM-lFi"/>
-                            <constraint firstAttribute="bottom" secondItem="HNY-PB-XHs" secondAttribute="bottom" id="Rvm-Xj-Rsh"/>
                             <constraint firstItem="Z1c-Mo-WRm" firstAttribute="leading" secondItem="ZhF-Hg-7X7" secondAttribute="trailing" id="Ulg-oM-u6V"/>
                             <constraint firstItem="IHN-jV-I9K" firstAttribute="top" secondItem="Z1c-Mo-WRm" secondAttribute="bottom" constant="-6" id="feD-3M-cOt"/>
                             <constraint firstAttribute="trailing" secondItem="HNY-PB-XHs" secondAttribute="trailing" constant="16" id="gEe-kS-jkB"/>
@@ -162,6 +161,7 @@
                             <constraint firstItem="DEP-ny-8py" firstAttribute="top" secondItem="DOe-w5-R0k" secondAttribute="bottom" id="h6e-4O-Of1"/>
                             <constraint firstItem="ZhF-Hg-7X7" firstAttribute="leading" secondItem="max-U1-geP" secondAttribute="trailing" id="hHe-5h-QIO"/>
                             <constraint firstItem="HNY-PB-XHs" firstAttribute="leading" secondItem="If4-0H-4wf" secondAttribute="leading" constant="16" id="jBU-Ag-eOW"/>
+                            <constraint firstAttribute="bottom" secondItem="HNY-PB-XHs" secondAttribute="bottom" constant="0.5" id="nlV-ZP-Pkb"/>
                             <constraint firstItem="IHN-jV-I9K" firstAttribute="trailing" secondItem="Z1c-Mo-WRm" secondAttribute="trailing" id="oP3-0E-u9s"/>
                             <constraint firstItem="Z1c-Mo-WRm" firstAttribute="top" secondItem="PJ3-G1-jiM" secondAttribute="bottom" constant="-6" id="op0-Jd-ppW"/>
                             <constraint firstItem="max-U1-geP" firstAttribute="top" secondItem="PJ3-G1-jiM" secondAttribute="bottom" constant="-6" id="sBt-Ll-Nc3"/>

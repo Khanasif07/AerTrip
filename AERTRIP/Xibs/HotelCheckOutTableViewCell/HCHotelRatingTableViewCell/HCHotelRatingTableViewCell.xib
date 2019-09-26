@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -79,10 +79,10 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Blo-87-bR5" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="92.5" width="344" height="1"/>
+                                <rect key="frame" x="16" y="92.5" width="344" height="0.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="pLC-YL-yzo"/>
+                                    <constraint firstAttribute="height" constant="0.5" id="pLC-YL-yzo"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -95,8 +95,8 @@
                             <constraint firstItem="Blo-87-bR5" firstAttribute="top" secondItem="wZk-v7-XoK" secondAttribute="bottom" constant="25.5" id="N8q-f2-Vhg"/>
                             <constraint firstItem="hpi-d3-IF3" firstAttribute="leading" secondItem="D3u-tr-C8w" secondAttribute="leading" constant="16" id="QTr-no-90d"/>
                             <constraint firstItem="Blo-87-bR5" firstAttribute="leading" secondItem="D3u-tr-C8w" secondAttribute="leading" constant="16" id="Rv4-RK-VCI"/>
-                            <constraint firstAttribute="bottom" secondItem="Blo-87-bR5" secondAttribute="bottom" id="Wsu-gc-XhV"/>
                             <constraint firstItem="hpi-d3-IF3" firstAttribute="top" secondItem="D3u-tr-C8w" secondAttribute="top" constant="11" id="bNV-bD-fCE"/>
+                            <constraint firstAttribute="bottom" secondItem="Blo-87-bR5" secondAttribute="bottom" constant="0.5" id="ezt-fx-Wyk"/>
                             <constraint firstItem="aEr-lW-krw" firstAttribute="leading" secondItem="wZk-v7-XoK" secondAttribute="trailing" constant="3" id="jzm-u2-6ty"/>
                             <constraint firstAttribute="trailing" secondItem="hpi-d3-IF3" secondAttribute="trailing" constant="16" id="nx5-9R-tIi"/>
                             <constraint firstAttribute="trailing" secondItem="Blo-87-bR5" secondAttribute="trailing" constant="16" id="p1g-43-l4x"/>
@@ -126,7 +126,7 @@
     <resources>
         <image name="combinedShapeFill" width="14" height="14"/>
         <image name="combinedShapeUnfilled" width="14" height="14"/>
-        <image name="starRatingFilled" width="30" height="42"/>
+        <image name="starRatingFilled" width="30" height="30"/>
         <image name="starRatingUnfill" width="30" height="30"/>
         <image name="tripAdviserBig" width="32" height="18"/>
     </resources>

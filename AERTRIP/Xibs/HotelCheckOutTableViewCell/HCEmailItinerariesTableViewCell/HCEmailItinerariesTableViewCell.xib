@@ -41,13 +41,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AYe-2u-nzb">
-                                <rect key="frame" x="59" y="36.5" width="220" height="23.5"/>
+                                <rect key="frame" x="59" y="36.5" width="220" height="24"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkX-r9-bsM">
-                                <rect key="frame" x="295" y="34" width="64" height="28"/>
+                                <rect key="frame" x="295" y="34.5" width="64" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="df2-bk-elf"/>
                                     <constraint firstAttribute="height" constant="28" id="u4k-km-Uy2"/>
@@ -59,13 +59,13 @@
                                 </connections>
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="HSR-N2-T3o">
-                                <rect key="frame" x="295" y="38" width="64" height="20"/>
+                                <rect key="frame" x="295" y="38.5" width="64" height="20"/>
                             </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7L7-LV-Lsh" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="59" y="68" width="220" height="1"/>
+                                <rect key="frame" x="59" y="68.5" width="220" height="0.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="bpT-iu-muf"/>
+                                    <constraint firstAttribute="height" constant="0.5" id="bpT-iu-muf"/>
                                 </constraints>
                             </view>
                         </subviews>

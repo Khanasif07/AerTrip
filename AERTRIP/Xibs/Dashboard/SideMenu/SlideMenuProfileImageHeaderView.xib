@@ -31,17 +31,17 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cbl-xr-PpX">
-                    <rect key="frame" x="0.0" y="0.0" width="531" height="255"/>
+                    <rect key="frame" x="0.0" y="0.0" width="531" height="255.5"/>
                     <subviews>
                         <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profilePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="ARz-1y-xpA">
-                            <rect key="frame" x="205" y="22" width="121" height="121"/>
+                            <rect key="frame" x="205" y="22.5" width="121" height="121"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="ARz-1y-xpA" secondAttribute="height" multiplier="1:1" id="ZV6-Kq-kGB"/>
                                 <constraint firstAttribute="height" constant="121" id="pms-Kr-etU"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggie Fletcher" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAE-bT-BMd">
-                            <rect key="frame" x="10" y="151" width="511" height="33"/>
+                            <rect key="frame" x="10" y="151.5" width="511" height="33"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="33" id="XlT-Ft-NH1"/>
                             </constraints>
@@ -50,7 +50,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="LRw-xr-uiF">
-                            <rect key="frame" x="20" y="193" width="491" height="37"/>
+                            <rect key="frame" x="20" y="193.5" width="491" height="37"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggiefleture@gmail.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95a-79-0je">
                                     <rect key="frame" x="0.0" y="0.0" width="491" height="18"/>
@@ -86,10 +86,10 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ycJ-AK-oMp" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="255" width="531" height="1"/>
+                    <rect key="frame" x="0.0" y="255.5" width="531" height="0.5"/>
                     <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="1" id="bd3-nQ-oMo"/>
+                        <constraint firstAttribute="height" constant="0.5" id="bd3-nQ-oMo"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgB-ko-N2g">

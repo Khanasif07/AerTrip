@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -97,20 +97,20 @@
                         </subviews>
                     </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xAo-jX-ddG" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="294" width="375" height="1"/>
+                        <rect key="frame" x="0.0" y="294" width="375" height="0.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="ISA-Y6-s9L"/>
+                            <constraint firstAttribute="height" constant="0.5" id="ISA-Y6-s9L"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="nbM-hh-hIc" firstAttribute="top" secondItem="NZh-1Y-5dq" secondAttribute="bottom" constant="10" id="9HO-zU-lIy"/>
                     <constraint firstAttribute="trailing" secondItem="NZh-1Y-5dq" secondAttribute="trailing" constant="16" id="A2w-8t-lQS"/>
-                    <constraint firstAttribute="bottom" secondItem="xAo-jX-ddG" secondAttribute="bottom" id="AW9-p3-y3z"/>
                     <constraint firstItem="FTr-tR-uPT" firstAttribute="trailing" secondItem="NZh-1Y-5dq" secondAttribute="trailing" id="DOJ-16-0XC"/>
                     <constraint firstAttribute="trailing" secondItem="xAo-jX-ddG" secondAttribute="trailing" id="EAc-Vw-08J"/>
                     <constraint firstItem="NZh-1Y-5dq" firstAttribute="top" secondItem="2QD-4J-MkZ" secondAttribute="bottom" constant="2" id="GzR-Rk-mab"/>
+                    <constraint firstAttribute="bottom" secondItem="xAo-jX-ddG" secondAttribute="bottom" constant="0.5" id="OfZ-VZ-FD3"/>
                     <constraint firstItem="nbM-hh-hIc" firstAttribute="trailing" secondItem="NZh-1Y-5dq" secondAttribute="trailing" id="Qlf-ng-QVf"/>
                     <constraint firstItem="NZh-1Y-5dq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ZrW-rP-kew"/>
                     <constraint firstAttribute="trailing" secondItem="2QD-4J-MkZ" secondAttribute="trailing" id="aKk-2E-VLf"/>
