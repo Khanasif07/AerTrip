@@ -283,7 +283,7 @@ extension PKCategoryNavBar {
                 let newOffset = CGPoint(x: self.startingOffset!.x + addOffset, y: 0.0)
                 self.scrollView.setContentOffset(newOffset, animated: false)
             }
-            else {
+            
                 //if enough space available then move indicator, stuck navBar content
                 let fromX: CGFloat = buttons[fromIdx].frame.origin.x + ((buttons[fromIdx].frame.size.width - buttons[fromIdx].intrinsicContentSize.width) / 2.0)
                 let toX: CGFloat = buttons[toIdx].frame.origin.x + ((buttons[toIdx].frame.size.width - buttons[toIdx].intrinsicContentSize.width) / 2.0)
@@ -294,7 +294,7 @@ extension PKCategoryNavBar {
                 let prgWidth: CGFloat = buttons[fromIdx].intrinsicContentSize.width + (dWidth * progress)
                 
                 self.indicator.frame = CGRect(x: prgX, y: self.indicator.frame.origin.y, width: prgWidth, height: self.indicator.frame.size.height)
-            }
+            
         }
     }
     
