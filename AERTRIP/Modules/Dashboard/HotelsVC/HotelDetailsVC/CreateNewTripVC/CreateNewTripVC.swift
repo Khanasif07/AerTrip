@@ -73,7 +73,7 @@ class CreateNewTripVC: BaseVC {
         createButton.setTitle(LocalizedString.Create.localized, for: .normal)
         
         editButton.setTitle(LocalizedString.Edit.localized, for: .normal)
-        titleTextField.placeholder = LocalizedString.NameYourTrip.localized
+        titleTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.NameYourTrip.localized)
     }
     
     override func setupColors() {

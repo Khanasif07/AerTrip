@@ -99,5 +99,6 @@ enum AppConstants {
     static let staticRoomTags: [String] = ["Sea view","Lake view","Deluxe","Suite","Parking","Lounge"]
     static let kBreakfast = "Breakfast"
     static let kRefundable = "Refundable"
+    static let kAsteriskSymbol = "*"
 }
 

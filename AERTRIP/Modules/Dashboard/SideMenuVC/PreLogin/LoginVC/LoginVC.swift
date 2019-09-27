@@ -70,8 +70,8 @@ class LoginVC: BaseVC {
         self.registerHereLabel.text = currentlyUsingFrom == .loginVerificationForCheckout ? "\(LocalizedString.SkipSignIn.localized)?" : LocalizedString.Not_ye_registered.localized
         
         self.forgotPasswordButton.setTitle(LocalizedString.Forgot_Password.localized, for: .normal)
-        self.emailTextField.setupTextField(placehoder: LocalizedString.Email_ID.localized, keyboardType: .emailAddress, returnType: .next, isSecureText: false)
-        self.passwordTextField.setupTextField(placehoder: LocalizedString.Password.localized, keyboardType: .default, returnType: .done, isSecureText: true)
+        self.emailTextField.setupTextField(placehoder: LocalizedString.Email_ID.localized,with: AppConstants.kAsteriskSymbol, keyboardType: .emailAddress, returnType: .next, isSecureText: false)
+        self.passwordTextField.setupTextField(placehoder: LocalizedString.Password.localized,with: AppConstants.kAsteriskSymbol, keyboardType: .default, returnType: .done, isSecureText: true)
     }
     
     override func setupColors() {

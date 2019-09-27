@@ -348,7 +348,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.textFiledBottomConstraint.constant = 0.0
         cell.editableTextField.isHiddenBottomLine = true
         cell.editableTextField.text = value
-        cell.editableTextField.placeholder = placeholder
+        cell.editableTextField.setUpAttributedPlaceholder(placeholderString: placeholder)
         cell.separatorView.isHidden = !isDivider
         cell.editableTextField.delegate = self
         cell.editableTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)

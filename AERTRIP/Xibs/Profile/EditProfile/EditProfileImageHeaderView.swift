@@ -40,8 +40,9 @@ class EditProfileImageHeaderView: UIView {
         
         editButton.setTitle(LocalizedString.Edit.rawValue.localizedLowercase, for: .normal)
         salutaionLabel.text = LocalizedString.Title.rawValue
-        firstNameTextField.placeholder = LocalizedString.FirstName.localized
-        lastNameTextField.placeholder = LocalizedString.LastName.localized
+      
+        firstNameTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.FirstName.localized)
+        lastNameTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.LastName.localized)
         
         firstNameTextField.delegate = self
         lastNameTextField.delegate = self

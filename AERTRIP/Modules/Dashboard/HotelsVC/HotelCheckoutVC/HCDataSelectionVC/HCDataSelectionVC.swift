@@ -636,6 +636,8 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ContactTableCell.reusableIdentifier) as? ContactTableCell else {
                     return UITableViewCell()
                 }
+                cell.contactTitleLabel.isHidden = true
+                cell.contactNumberTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.Mobile.localized)
                 cell.delegate = self
                 return cell
                 
@@ -650,12 +652,12 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
 //                cell.titleLabel.textColor = AppColors.themeGray20
 //                cell.titleLabel.text = LocalizedString.Email_ID.localized
                 cell.editableTextField.isEnabled = UserInfo.loggedInUserId == nil
+                cell.editableTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.Email_ID.localized)
                 cell.delegate = self
                 cell.editableTextField.text = UserInfo.loggedInUser?.email
                 cell.editableTextField.font = AppFonts.Regular.withSize(18.0)
                 cell.editableTextField.textColor = UserInfo.loggedInUserId == nil ? AppColors.themeBlack : AppColors.themeGray40
                 cell.editableTextField.keyboardType = .emailAddress
-                cell.editableTextField.placeholder = LocalizedString.Email_ID.localized
            
                 
                 return cell

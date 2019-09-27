@@ -331,7 +331,7 @@ import UIKit
 
 extension PKFloatLabelTextField {
     
-    func setupTextField(placehoder: String,
+    func setupTextField(placehoder: String,with symbol: String = "",foregroundColor: UIColor = AppColors.themeGray40,
                         textColor: UIColor = AppColors.themeBlack,
                         titleTextColor: UIColor = AppColors.themeGray20,
                         titleFont: UIFont = AppFonts.Regular.withSize(14.0),
@@ -350,6 +350,12 @@ extension PKFloatLabelTextField {
         self.titleTextColour = titleTextColor
         self.titleFont = titleFont
         self.titleActiveTextColour = titleActiveTextColor
+        let attriburedString = NSMutableAttributedString(string: placehoder)
+        let asterix = NSAttributedString(string: symbol, attributes: [.foregroundColor: foregroundColor])
+        attriburedString.append(asterix)
+        
+        self.attributedPlaceholder = attriburedString
     }
+    
     
 }
