@@ -80,7 +80,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wb6-dI-jbo">
-                    <rect key="frame" x="271" y="0.0" width="47" height="62"/>
+                    <rect key="frame" x="270" y="0.0" width="47" height="62"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                     <state key="normal" image="ic_hotel_filter"/>
@@ -89,7 +89,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4F-Bu-HSK">
-                    <rect key="frame" x="318" y="0.0" width="46" height="62"/>
+                    <rect key="frame" x="317" y="0.0" width="47" height="62"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                     <state key="normal" image="ic_map_view"/>
@@ -114,8 +114,8 @@
                 <constraint firstItem="D4F-Bu-HSK" firstAttribute="top" secondItem="zxX-KT-F33" secondAttribute="top" id="4Az-6w-Ij0"/>
                 <constraint firstItem="zxX-KT-F33" firstAttribute="trailing" secondItem="QfJ-5x-W3u" secondAttribute="trailing" constant="19" id="60y-pW-ZRN"/>
                 <constraint firstAttribute="bottom" secondItem="Wb6-dI-jbo" secondAttribute="bottom" id="GWF-oA-Exq"/>
-                <constraint firstItem="QfJ-5x-W3u" firstAttribute="centerY" secondItem="D4F-Bu-HSK" secondAttribute="centerY" id="HSI-yn-IrY"/>
                 <constraint firstItem="zxX-KT-F33" firstAttribute="trailing" secondItem="5XU-ZY-yPU" secondAttribute="trailing" id="Jkc-Vl-wAB"/>
+                <constraint firstItem="5XU-ZY-yPU" firstAttribute="top" secondItem="QfJ-5x-W3u" secondAttribute="bottom" constant="20.5" id="LsP-Ow-HRf"/>
                 <constraint firstItem="zxX-KT-F33" firstAttribute="trailing" secondItem="D4F-Bu-HSK" secondAttribute="trailing" constant="6" id="N9p-Mc-gep"/>
                 <constraint firstItem="7uz-9U-A8C" firstAttribute="centerY" secondItem="zxX-KT-F33" secondAttribute="centerY" id="ShQ-2l-S3C"/>
                 <constraint firstItem="DSO-Ke-hNP" firstAttribute="top" secondItem="zxX-KT-F33" secondAttribute="top" id="Tbg-tK-nup"/>
@@ -127,11 +127,11 @@
                 <constraint firstItem="7uz-9U-A8C" firstAttribute="leading" secondItem="zxX-KT-F33" secondAttribute="leading" constant="44" id="kVb-z1-G5g"/>
                 <constraint firstItem="DSO-Ke-hNP" firstAttribute="leading" secondItem="zxX-KT-F33" secondAttribute="leading" id="lPM-ii-VL6"/>
                 <constraint firstItem="zxX-KT-F33" firstAttribute="trailing" secondItem="0Hi-Nc-atn" secondAttribute="trailing" id="mDY-cz-dDH"/>
+                <constraint firstItem="QfJ-5x-W3u" firstAttribute="top" secondItem="zxX-KT-F33" secondAttribute="top" constant="21" id="n3d-1k-E2F"/>
                 <constraint firstItem="0Hi-Nc-atn" firstAttribute="top" secondItem="5iQ-SE-VF1" secondAttribute="top" id="q5Y-7o-OgI"/>
                 <constraint firstItem="0Hi-Nc-atn" firstAttribute="leading" secondItem="zxX-KT-F33" secondAttribute="leading" id="qIH-2Z-8FT"/>
                 <constraint firstAttribute="bottom" secondItem="D4F-Bu-HSK" secondAttribute="bottom" id="v1V-Xf-AT5"/>
                 <constraint firstItem="zxX-KT-F33" firstAttribute="trailing" secondItem="7uz-9U-A8C" secondAttribute="trailing" constant="44" id="vY6-47-vFE"/>
-                <constraint firstItem="QfJ-5x-W3u" firstAttribute="centerX" secondItem="D4F-Bu-HSK" secondAttribute="centerX" id="xjQ-U3-yP8"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

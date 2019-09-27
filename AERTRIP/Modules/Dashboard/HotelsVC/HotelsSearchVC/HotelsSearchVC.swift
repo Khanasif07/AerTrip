@@ -26,6 +26,8 @@ class HotelsSearchVC: BaseVC {
         return UserInfo.loggedInUserId
     }
     
+    
+    
     //MARK:- IBOutlets
     //================
     @IBOutlet weak var scrollView: UIScrollView!
