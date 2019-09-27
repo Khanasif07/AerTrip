@@ -56,6 +56,8 @@ class CreateYourAccountVC: BaseVC {
         self.emailTextField.text = self.viewModel.email
         self.emailTextField.autocorrectionType = .no
         self.registerButton.isEnabled = self.viewModel.isEnableRegisterButton
+        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
         self.linkSetupForTermsAndCondition(withLabel: self.privacyPolicyLabel)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
     }
@@ -79,6 +81,7 @@ class CreateYourAccountVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         self.registerButton.layer.cornerRadius = self.registerButton.height/2
+        self.registerButton.layer.masksToBounds = true
     }
     
     override func setupFonts() {

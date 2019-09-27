@@ -49,6 +49,8 @@ class LoginVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         self.loginButton.layer.cornerRadius = self.loginButton.height/2
+        self.loginButton.layer.masksToBounds = true
+        
     }
     
     override func setupFonts() {
@@ -181,6 +183,9 @@ private extension LoginVC {
         
         self.emailTextField.text = self.viewModel.email
         self.loginButton.isEnabled = false
+        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+
         self.setupFontsAndText()
         
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)

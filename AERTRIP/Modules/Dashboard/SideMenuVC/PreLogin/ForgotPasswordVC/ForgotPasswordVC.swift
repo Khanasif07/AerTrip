@@ -52,6 +52,7 @@ class ForgotPasswordVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         self.continueButton.layer.cornerRadius = self.continueButton.height/2
+        self.continueButton.layer.masksToBounds = true
     }
     
     override func setupFonts() {

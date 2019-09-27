@@ -83,6 +83,9 @@ class SocialLoginVC: BaseVC {
         self.fbButton.layer.cornerRadius = self.fbButton.height / 2
         self.googleButton.layer.cornerRadius = self.googleButton.height / 2
         self.linkedInButton.layer.cornerRadius = self.linkedInButton.height / 2
+        self.fbButton.layer.masksToBounds = true
+        self.googleButton.layer.masksToBounds = true
+        self.linkedInButton.layer.masksToBounds = true
     }
     
     override func setupFonts() {

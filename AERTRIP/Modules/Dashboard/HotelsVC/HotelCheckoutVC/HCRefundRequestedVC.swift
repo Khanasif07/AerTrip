@@ -37,6 +37,7 @@ class HCRefundRequestedVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         tickButton.layer.cornerRadius = tickButton.height / 2
+        tickButton.layer.masksToBounds = true
     }
     
     override func initialSetup() {

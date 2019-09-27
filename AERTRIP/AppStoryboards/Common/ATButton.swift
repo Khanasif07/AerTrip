@@ -280,10 +280,12 @@ class ATButton: UIButton {
         self.loaderIndicator.stopAnimating()
     }
     
+    // decreased animation duration so that there  is  feel of pressed and released state .
+    
     private func animateToPressedSatate() {
         disable(forSeconds: 1)
         guard self.shouldShowPressAnimation else {return}
-        UIView.animate(withDuration: AppConstants.kAnimationDuration / 2.0, animations: { [weak self] in
+        UIView.animate(withDuration: AppConstants.kAnimationDuration / 3.5, animations: { [weak self] in
             self?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             self?.shadowLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(scaleX: 0.9, y: 0.8))
         }) { (isDone) in
@@ -299,7 +301,7 @@ class ATButton: UIButton {
     
     @objc private func animateToReleasedSatate() {
         guard self.shouldShowPressAnimation, (self.currentActionState == .pressed) || self.isFingerUp else {return}
-        UIView.animate(withDuration: AppConstants.kAnimationDuration / 2.0, animations: { [weak self] in
+        UIView.animate(withDuration: AppConstants.kAnimationDuration / 3.5, animations: { [weak self] in
             self?.transform = CGAffineTransform.identity
             self?.shadowLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform.identity)
         }) { (isDone) in

@@ -66,6 +66,7 @@ class CreateProfileVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         self.letsStartedButton.layer.cornerRadius = self.letsStartedButton.height/2
+        self.letsStartedButton.layer.masksToBounds = true
     }
     
     override func bindViewModel() {
