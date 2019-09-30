@@ -275,7 +275,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: textEditableCellIdentifier, for: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
                 cell.editableTextField.isEnabled = false
-                cell.editableTextField.lineView.isHidden = true
+                cell.editableTextField.lineView.backgroundColor = AppColors.clear
                 cell.downArrowImageView.isHidden = false
                 cell.configureCell(flightPreferencesTitle[indexPath.row], indexPath.row == 0 ? (viewModel.seat.isEmpty ? LocalizedString.Select.localized : viewModel.seat) : (viewModel.meal.isEmpty ? LocalizedString.Select.localized : viewModel.meal))
                 return cell

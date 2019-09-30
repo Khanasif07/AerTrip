@@ -47,6 +47,9 @@ class CreateYourAccountVC: BaseVC {
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         topNavBar.leftButton.isHidden = true
         topNavBar.delegate = self
+        self.emailTextField.titleYPadding = 12.0
+        self.emailTextField.hintYPadding = 12.0
+        self.emailTextField.lineViewBottomSpace = 10.0
         
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
         

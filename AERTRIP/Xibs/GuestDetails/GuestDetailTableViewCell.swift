@@ -50,6 +50,9 @@ class GuestDetailTableViewCell: UITableViewCell {
         self.salutationTextField.titleYPadding = -10.0
         self.firstNameTextField.titleYPadding = -10.0
         self.lastNameTextField.titleYPadding = -10.0
+        self.salutationTextField.lineViewBottomSpace = 0.0
+        self.firstNameTextField.lineViewBottomSpace = 0.0
+        self.lastNameTextField.lineViewBottomSpace = 0.0
         self.salutationTextField.delegate = self
         self.firstNameTextField.delegate = self
         self.lastNameTextField.delegate = self

@@ -182,6 +182,10 @@ private extension LoginVC {
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
         
         self.emailTextField.text = self.viewModel.email
+        self.emailTextField.lineViewBottomSpace = 10.0
+        self.passwordTextField.lineViewBottomSpace = 10.0
+        self.emailTextField.isSingleTextField = false
+        self.passwordTextField.isSingleTextField = false
         self.loginButton.isEnabled = false
         self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
