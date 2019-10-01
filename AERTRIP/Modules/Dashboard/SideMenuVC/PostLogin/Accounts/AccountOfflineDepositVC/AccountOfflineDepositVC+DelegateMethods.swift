@@ -167,7 +167,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
     
     func makeFileSelection() {
         let titles = [LocalizedString.Camera.localized, LocalizedString.PhotoLibrary.localized, LocalizedString.Document.localized]
-        let ttlClrs = Array(repeating: AppColors.themeGreen, count: titles.count)
+        let ttlClrs = Array(repeating: AppColors.themeDarkGreen, count: titles.count)
         
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: titles, colors: ttlClrs)
         

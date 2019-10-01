@@ -99,7 +99,7 @@ class ThankYouRegistrationVC: BaseVC {
     
     
     @IBAction func openEmailAppButtonAction(_ sender: UIButton) {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Mail_Default.localized, LocalizedString.Gmail.localized], colors: [AppColors.themeGreen, AppColors.themeGreen])
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Mail_Default.localized, LocalizedString.Gmail.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: {(alert,index) in
             
 //            AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword)

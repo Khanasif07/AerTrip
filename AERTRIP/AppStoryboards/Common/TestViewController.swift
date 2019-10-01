@@ -19,7 +19,7 @@ class TestViewController: UIViewController {
 
    
     @IBAction func openPopUp(_ sender: Any) {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Maps.localized, LocalizedString.Google.localized], colors: [AppColors.themeGreen, AppColors.themeGreen])
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Maps.localized, LocalizedString.Google.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         
         
     
