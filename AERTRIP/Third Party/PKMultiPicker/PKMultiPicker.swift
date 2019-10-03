@@ -59,12 +59,25 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
         
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
-        let array = [cancelButton, spaceButton, doneButton]
+        let array = [ spaceButton, doneButton]
         toolbar.setItems(array, animated: true)
         toolbar.backgroundColor = UIColor.lightText
         
-        textField?.inputView = self
+        toolbar.backgroundColor = AppColors.secondarySystemFillColor
+        toolbar.barTintColor = AppColors.secondarySystemFillColor
+        
+        let genericPickerView: UIView = UIView()
+        let pickerSize: CGSize = UIPickerView.pickerSize
+        self.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
+        genericPickerView.addSubview(self)
+        genericPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
+        
+        genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
+        
+        
+        textField?.inputView = genericPickerView
         textField?.inputAccessoryView = toolbar
+        
         
         let index = self.firstValueArray?.index(where: {$0.lowercased() == (firstComponent ?? "").lowercased() })
         self.selectRow(index ?? 0, inComponent: 0, animated: true)
@@ -84,6 +97,10 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
         
         UIApplication.shared.keyWindow?.endEditing(true)
         
+        valueChanged()
+    }
+    
+    private func valueChanged() {
         let index1 : Int?
         let firstValue : String?
         index1 = self.selectedRow(inComponent: 0)
@@ -124,6 +141,10 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
         default:
             return ""
         }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        valueChanged()
     }
 }
 
@@ -190,38 +211,50 @@ class PKDatePicker: UIDatePicker {
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(pickerCancelButtonTapped))
         
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(pickerDoneButtonTapped))
-        
+        doneButton.tintColor = toolBarTint
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action:nil)
         
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
-        if appearance == .dark {
-            self.backgroundColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
-            self.setValue(#colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1), forKey: "textColor")
-            toolbar.barTintColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
-            cancelButton.tintColor = toolBarTint ?? #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-            doneButton.tintColor = toolBarTint ?? #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-        }
-        else {
-            self.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+//        if appearance == .dark {
+//            self.backgroundColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+//            self.setValue(#colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1), forKey: "textColor")
+//            toolbar.barTintColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+//            cancelButton.tintColor = toolBarTint ?? #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+//            doneButton.tintColor = toolBarTint ?? #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+//        }
+//        else {
+//            self.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
             self.setValue(#colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1), forKey: "textColor")
-            toolbar.barTintColor = #colorLiteral(red: 0.9215686275, green: 0.9215686275, blue: 0.9215686275, alpha: 1)
-            cancelButton.tintColor = toolBarTint ?? #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
-            doneButton.tintColor = toolBarTint ?? #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
-        }
+//            toolbar.barTintColor = #colorLiteral(red: 0.9215686275, green: 0.9215686275, blue: 0.9215686275, alpha: 1)
+//            cancelButton.tintColor = toolBarTint ?? #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+//            doneButton.tintColor = toolBarTint ?? #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+//        }
         
-        let array = [cancelButton, spaceButton, doneButton]
+        let array = [spaceButton, doneButton]
         toolbar.setItems(array, animated: true)
         
-        textField?.inputView = self
+        toolbar.backgroundColor = AppColors.secondarySystemFillColor
+        toolbar.barTintColor = AppColors.secondarySystemFillColor
+        
+        let genericPickerView: UIView = UIView()
+        let pickerSize: CGSize = UIPickerView.pickerSize
+        self.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
+        genericPickerView.addSubview(self)
+        genericPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
+        
+        genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
+        
+        
+        textField?.inputView = genericPickerView
         textField?.inputAccessoryView = toolbar
     }
     
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {
-//        let selected = self.dateFormatter.string(from: sender.date)
+        let selected = self.dateFormatter.string(from: sender.date)
 
-//        self.doneBlock(selected)
+        self.doneBlock(selected)
     }
     
     @IBAction private func pickerCancelButtonTapped(){

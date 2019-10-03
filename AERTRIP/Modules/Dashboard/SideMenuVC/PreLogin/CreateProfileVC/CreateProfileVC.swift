@@ -14,6 +14,9 @@ class CreateProfileVC: BaseVC {
     //MARK:-
     let viewModel = CreateProfileVM()
     let salutationPicker = UIPickerView()
+    // GenericPickerView
+    var genericPickerView: UIView = UIView()
+    let pickerSize: CGSize = UIPickerView.pickerSize
     
     //MARK:- IBOutlets
     //MARK:-
@@ -87,8 +90,6 @@ class CreateProfileVC: BaseVC {
         self.letsStartedButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.letsStartedButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
 
-        
-        
     }
     
     override func setupTexts() {
@@ -121,7 +122,6 @@ class CreateProfileVC: BaseVC {
 private extension CreateProfileVC {
     
     func initialSetups() {
-        
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false)
         
         self.view.backgroundColor = AppColors.screensBackground.color
@@ -144,6 +144,7 @@ private extension CreateProfileVC {
         if let currentCountry = PKCountryPicker.default.getCurrentLocalCountryData() {
             self.setupData(forCountry: currentCountry)
         }
+        
     }
     
     private func setupData(forCountry: PKCountryModel) {
@@ -168,10 +169,14 @@ private extension CreateProfileVC {
         self.mobileNumberTextField.setupTextField(placehoder: LocalizedString.Mobile_Number.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .numberPad, returnType: .done, isSecureText: false)
         self.countryCodeTextField.setupTextField(placehoder:"",textColor: AppColors.textFieldTextColor51, keyboardType: .numberPad, returnType: .done, isSecureText: false)
         
+        salutationPicker.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
+        genericPickerView.addSubview(self.salutationPicker)
+        genericPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)        
+        
         self.countryTextField.delegate = self
         self.countryCodeTextField.delegate = self
         self.countryCodeTextField.tintColor = .clear
-        self.nameTitleTextField.inputView = self.salutationPicker
+        self.nameTitleTextField.inputView = self.genericPickerView
         self.nameTitleTextField.inputAccessoryView = self.initToolBar(picker: self.salutationPicker)
         self.nameTitleTextField.tintColor = UIColor.clear
         self.firstNameTextField.delegate = self
@@ -191,6 +196,8 @@ private extension CreateProfileVC {
         let doneButton = UIBarButtonItem()
         doneButton.title  = LocalizedString.Done.localized
         
+        toolBar.backgroundColor = AppColors.secondarySystemFillColor
+        toolBar.barTintColor = AppColors.secondarySystemFillColor
         cancelButton.tintColor = AppColors.themeGreen
         doneButton.tintColor   = AppColors.themeGreen
         
@@ -198,9 +205,10 @@ private extension CreateProfileVC {
         cancelButton.addTargetForAction(self, action: #selector(self.cancleButtonAction(_:)))
         
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.setItems([ spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         
+        self.genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
         return toolBar
     }
     
@@ -208,11 +216,15 @@ private extension CreateProfileVC {
     
     @objc func pickerViewDoneButtonAction(_ sender: UITextField){
         
+        valueChangedGenericPicker()
+        UIApplication.shared.sendAction(#selector(resignFirstResponder), to:nil, from:nil, for:nil)
+    }
+    
+    @objc func valueChangedGenericPicker() {
         let indexPath = self.salutationPicker.selectedRow(inComponent: 0)
         self.nameTitleTextField.text = self.viewModel.salutation[indexPath]
         self.viewModel.userData.salutation = self.viewModel.salutation[indexPath]
         self.letsStartedButton.isEnabled  = self.viewModel.isValidateForButtonEnable
-        UIApplication.shared.sendAction(#selector(resignFirstResponder), to:nil, from:nil, for:nil)
     }
     
     @objc func cancleButtonAction(_ sender: UITextField) {
@@ -255,7 +267,7 @@ extension CreateProfileVC {
         if textField === self.countryCodeTextField || textField === self.countryTextField {
             
             UIApplication.shared.sendAction(#selector(resignFirstResponder), to:nil, from:nil, for:nil)
-            PKCountryPicker.default.chooseCountry(onViewController: self) { [weak self](selectedCountry) in
+            PKCountryPicker.default.chooseCountry(onViewController: self) { [weak self] (selectedCountry,closePicker) in
                 printDebug("selected country data: \(selectedCountry)")
                 
                 guard let sSelf = self else {return}
@@ -266,7 +278,9 @@ extension CreateProfileVC {
                     sSelf.viewModel.userData.mobile  = sSelf.viewModel.userData.mobile.substring(to: sSelf.viewModel.userData.maxContactLimit - 1)
                     sSelf.mobileNumberTextField.text = sSelf.viewModel.userData.mobile
                 }
-                PKCountryPicker.default.closePicker(animated: true)
+                if closePicker {
+                    PKCountryPicker.default.closePicker(animated: true)
+                }
             }
             return false
         } else {
@@ -345,6 +359,7 @@ extension CreateProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.viewModel.userData.salutation = self.viewModel.salutation[row]
+        valueChangedGenericPicker()
     }
 }
 

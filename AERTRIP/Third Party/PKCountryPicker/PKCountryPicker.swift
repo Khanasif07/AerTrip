@@ -21,7 +21,7 @@ open class PKCountryPicker: UIView {
     
     //MARK:- Private
     private let pickerView: UIPickerView = UIPickerView()
-    private var selectionHandler: ((PKCountryModel)->Void)?
+    private var selectionHandler: ((PKCountryModel, Bool)->Void)?
     private weak var parantVC: UIViewController? = nil
     private var currentSelectedIndex: Int = 0
     private var preSelectedCountry: PKCountryModel?
@@ -42,7 +42,7 @@ open class PKCountryPicker: UIView {
     
     //MARK:- Methods
     //MARK:- Public
-    public func chooseCountry(onViewController: UIViewController, preSelectedCountry: PKCountryModel? = nil, selectionHandler: @escaping ((PKCountryModel)->Void)) {
+    public func chooseCountry(onViewController: UIViewController, preSelectedCountry: PKCountryModel? = nil, selectionHandler: @escaping ((PKCountryModel, Bool)->Void)) {
         self.initialSetup()
         self.selectionHandler = selectionHandler
         self.parantVC = onViewController
@@ -65,7 +65,7 @@ open class PKCountryPicker: UIView {
         
         return allCountries.filter { (country) -> Bool in
             country.countryCode == finalISD
-        }.first
+            }.first
     }
     
     public func getCurrentLocalCountryData() -> PKCountryModel? {
@@ -107,32 +107,40 @@ open class PKCountryPicker: UIView {
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action:nil)
         
         if PKCountryPickerSettings.appearance == .dark {
-            toolbar.barTintColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+            //toolbar.barTintColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+            toolbar.backgroundColor = AppColors.secondarySystemFillColor
+            toolbar.barTintColor = AppColors.secondarySystemFillColor
             cancelButton.tintColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
             doneButton.tintColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         }
         else {
-            toolbar.backgroundColor = AppColors.themeGray40
-            toolbar.barTintColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
+//            toolbar.backgroundColor = AppColors.themeGray40
+//            toolbar.barTintColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
+            toolbar.backgroundColor = AppColors.secondarySystemFillColor
+            toolbar.barTintColor = AppColors.secondarySystemFillColor
             cancelButton.tintColor = AppColors.themeGreen
             doneButton.tintColor = AppColors.themeGreen
         }
         
-        let array = [cancelButton, spaceButton, doneButton]
+        // nitin removed the cancel button
+        let array = [ spaceButton, doneButton]
         toolbar.setItems(array, animated: true)
         
+        // nitin change
+        self.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
         self.addSubview(toolbar)
     }
     
     private func setupAppearance() {
-        if PKCountryPickerSettings.appearance == .dark {
-            self.pickerView.backgroundColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
-            self.pickerView.setValue(#colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1), forKey: "textColor")
-        }
-        else {
-            self.pickerView.backgroundColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
-            self.pickerView.setValue(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), forKey: "textColor")
-        }
+        // nitin change
+        //        if PKCountryPickerSettings.appearance == .dark {
+        //            self.pickerView.backgroundColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+        //            self.pickerView.setValue(#colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1), forKey: "textColor")
+        //        }
+        //        else {
+        //self.pickerView.backgroundColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
+        self.pickerView.setValue(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), forKey: "textColor")
+        //        }
     }
     
     private func getAllCountries() -> [PKCountryModel] {
@@ -170,7 +178,7 @@ open class PKCountryPicker: UIView {
         }
     }
     
-     func closePicker(animated: Bool = true, completion: ((Bool) -> Void)? = nil) {
+    func closePicker(animated: Bool = true, completion: ((Bool) -> Void)? = nil) {
         
         let hiddenFrame = CGRect(x: (UIScreen.main.bounds.size.width-PKCountryPickerSettings.pickerSize.width)/2.0, y: UIScreen.main.bounds.size.height, width: PKCountryPickerSettings.pickerSize.width, height: (PKCountryPickerSettings.pickerSize.height + PKCountryPickerSettings.toolbarHeight))
         
@@ -191,9 +199,9 @@ open class PKCountryPicker: UIView {
         
         if let handler = self.selectionHandler {
             // if picker selection changed sent that country, else sent previous selected coutry, Default value for previous
-            isSelectionChanged ?  handler(self.countries[self.currentSelectedIndex]) : handler(preSelectedCountry ?? self.getCountryData(forISDCode: "+91")!)
+            isSelectionChanged ?  handler(self.countries[self.currentSelectedIndex], true) : handler(preSelectedCountry ?? self.getCountryData(forISDCode: "+91")!, true)
         }
-         self.closePicker()
+        self.closePicker()
     }
 }
 
@@ -213,11 +221,11 @@ extension PKCountryPicker: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     public func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-
+        
         let contentView = PKCountryView.instanceFromNib
         contentView.frame = CGRect(x: 0.0, y: 0.0, width: PKCountryPickerSettings.pickerSize.width, height: PKCountryPickerSettings.rowHeight)
         contentView.countryData = self.countries[row]
-
+        contentView.backgroundColor = UIColor.clear
         return contentView
     }
     
@@ -227,10 +235,10 @@ extension PKCountryPicker: UIPickerViewDelegate, UIPickerViewDataSource {
         selection.selectionChanged()
         
         //  Commented because ,Requirement was not to update country when selection changed
-        
-        //        if let handler = self.selectionHandler {
-//            handler(self.countries[self.currentSelectedIndex])
-//
-//        }
+        // nitin change
+        if let handler = self.selectionHandler {
+            handler(self.countries[self.currentSelectedIndex], false)
+            
+        }
     }
 }

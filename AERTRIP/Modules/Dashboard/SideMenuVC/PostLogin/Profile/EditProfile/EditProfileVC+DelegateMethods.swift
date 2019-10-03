@@ -828,7 +828,7 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
         self.closeGenricAndDatePicker(completion: nil)
         
         
-        PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: PKCountryPicker.default.getCountryData(forISDCode: self.viewModel.mobile[indexPath.row].isd)) { [weak self] selectedCountry in
+        PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: PKCountryPicker.default.getCountryData(forISDCode: self.viewModel.mobile[indexPath.row].isd)) { [weak self] (selectedCountry,closePicker) in
             printDebug("selected country data: \(selectedCountry)")
 
            
@@ -865,6 +865,9 @@ extension EditProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         printDebug("selected data \(pickerData[row])")
         pickerTitle = pickerData[row]
+        
+        // changes for picker
+        valueChangedGenericPicker()
     }
 }
 
@@ -1000,7 +1003,7 @@ extension EditProfileVC: AddAddressTableViewCellDelegate {
             
             let prevSectdContry = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.addresses[indexPath.row].country.isEmpty ? AppConstants.kIndianIsdCode : self.viewModel.addresses[indexPath.row].country )
             self.closeGenricAndDatePicker(completion: nil)
-            PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: prevSectdContry) { [weak self] selectedCountry in
+            PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: prevSectdContry) { [weak self] (selectedCountry,closePicker)  in
                 printDebug("selected country data: \(selectedCountry)")
                 
                 guard let cell = self?.tableView.cellForRow(at: indexPath) as? AddAddressTableViewCell else {
