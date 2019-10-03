@@ -41,6 +41,7 @@ class CreateNewTripVC: BaseVC {
         
         createButton.layer.cornerRadius = createButton.height / 2
         editButton.cornerRadius = editButton.height / 2.0
+        createButton.layer.masksToBounds = true
         
         popUpContainerView.roundTopCorners(cornerRadius: 10.0)
         inputContainerView.cornerRadius = 10.0
@@ -62,8 +63,8 @@ class CreateNewTripVC: BaseVC {
     }
     
     override func setupFonts() {
-        createButton.titleLabel?.font = AppFonts.SemiBold.withSize(17.0)
-        
+        createButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+        createButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
         editButton.titleLabel?.font = AppFonts.SemiBold.withSize(16.0)
         titleTextField.font = AppFonts.Regular.withSize(18.0)
     }
@@ -72,7 +73,7 @@ class CreateNewTripVC: BaseVC {
         createButton.setTitle(LocalizedString.Create.localized, for: .normal)
         
         editButton.setTitle(LocalizedString.Edit.localized, for: .normal)
-        titleTextField.placeholder = LocalizedString.NameYourTrip.localized
+        titleTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.NameYourTrip.localized)
     }
     
     override func setupColors() {

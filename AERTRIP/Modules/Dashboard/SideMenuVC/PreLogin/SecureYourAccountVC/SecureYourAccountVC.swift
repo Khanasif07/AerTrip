@@ -49,7 +49,9 @@ class SecureYourAccountVC: BaseVC {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        
         self.nextButton.layer.cornerRadius = self.nextButton.height/2
+        self.nextButton.layer.masksToBounds = true
     }
     
     override func setupFonts() {
@@ -159,6 +161,12 @@ private extension SecureYourAccountVC {
         self.topNavBar.delegate = self
         self.passwordTextField.delegate = self
         self.nextButton.isEnabled = false
+        self.passwordTextField.titleYPadding = 12.0
+        self.passwordTextField.hintYPadding = 12.0
+        self.passwordTextField.lineViewBottomSpace = 10.0
+        self.nextButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+        self.nextButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+
         var placeholder = LocalizedString.Password.localized
         if  self.viewModel.isPasswordType == .resetPasswod {
             placeholder = LocalizedString.New_Password.localized

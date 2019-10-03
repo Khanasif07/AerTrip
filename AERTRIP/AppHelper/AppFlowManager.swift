@@ -814,8 +814,12 @@ extension AppFlowManager {
     
     
     func moveToTestViewController() {
-        let ob = TestViewController.instantiate(fromAppStoryboard: .Common)
+//        let ob = TestViewController.instantiate(fromAppStoryboard: .Common)
+//        self.mainNavigationController.pushViewController(ob, animated: true)
+        let ob = CreateProfileVC.instantiate(fromAppStoryboard: .PreLogin)
         self.mainNavigationController.pushViewController(ob, animated: true)
+        
+        
     }
     
     // MARK: - Aerin

@@ -52,6 +52,9 @@ class GuestDetailTableViewCell: UITableViewCell {
         self.salutationTextField.titleYPadding = -10.0
         self.firstNameTextField.titleYPadding = -10.0
         self.lastNameTextField.titleYPadding = -10.0
+        self.salutationTextField.lineViewBottomSpace = 0.0
+        self.firstNameTextField.lineViewBottomSpace = 0.0
+        self.lastNameTextField.lineViewBottomSpace = 0.0
         self.salutationTextField.delegate = self
         self.firstNameTextField.delegate = self
         self.lastNameTextField.delegate = self
@@ -73,8 +76,10 @@ class GuestDetailTableViewCell: UITableViewCell {
         let attributes = [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,
                           .font: AppFonts.Regular.withSize(18.0)]
         salutationTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.Title.localized, attributes: attributes)
-        firstNameTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.FirstName.localized, attributes: attributes)
-        lastNameTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.LastName.localized, attributes: attributes)
+      //  firstNameTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.FirstName.localized, attributes: attributes)
+       // lastNameTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.LastName.localized, attributes: attributes)
+        firstNameTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.FirstName.localized, foregroundColor: AppColors.themeGray20)
+        lastNameTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.LastName.localized, foregroundColor: AppColors.themeGray20)
         self.salutationTextField.font = AppFonts.Regular.withSize(18.0)
         self.firstNameTextField.font = AppFonts.Regular.withSize(18.0)
         self.lastNameTextField.font = AppFonts.Regular.withSize(18.0)

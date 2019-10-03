@@ -49,6 +49,8 @@ class LoginVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         self.loginButton.layer.cornerRadius = self.loginButton.height/2
+        self.loginButton.layer.masksToBounds = true
+        
     }
     
     override func setupFonts() {
@@ -68,8 +70,8 @@ class LoginVC: BaseVC {
         self.registerHereLabel.text = currentlyUsingFrom == .loginVerificationForCheckout ? "\(LocalizedString.SkipSignIn.localized)?" : LocalizedString.Not_ye_registered.localized
         
         self.forgotPasswordButton.setTitle(LocalizedString.Forgot_Password.localized, for: .normal)
-        self.emailTextField.setupTextField(placehoder: LocalizedString.Email_ID.localized, keyboardType: .emailAddress, returnType: .next, isSecureText: false)
-        self.passwordTextField.setupTextField(placehoder: LocalizedString.Password.localized, keyboardType: .default, returnType: .done, isSecureText: true)
+        self.emailTextField.setupTextField(placehoder: LocalizedString.Email_ID.localized,with: AppConstants.kAsteriskSymbol, keyboardType: .emailAddress, returnType: .next, isSecureText: false)
+        self.passwordTextField.setupTextField(placehoder: LocalizedString.Password.localized,with: AppConstants.kAsteriskSymbol, keyboardType: .default, returnType: .done, isSecureText: true)
     }
     
     override func setupColors() {
@@ -180,7 +182,14 @@ private extension LoginVC {
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
         
         self.emailTextField.text = self.viewModel.email
+        self.emailTextField.lineViewBottomSpace = 10.0
+        self.passwordTextField.lineViewBottomSpace = 10.0
+        self.emailTextField.isSingleTextField = false
+        self.passwordTextField.isSingleTextField = false
         self.loginButton.isEnabled = false
+        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+
         self.setupFontsAndText()
         
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)

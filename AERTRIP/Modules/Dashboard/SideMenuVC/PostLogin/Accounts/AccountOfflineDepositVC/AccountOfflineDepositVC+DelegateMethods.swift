@@ -167,7 +167,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
     
     func makeFileSelection() {
         let titles = [LocalizedString.Camera.localized, LocalizedString.PhotoLibrary.localized, LocalizedString.Document.localized]
-        let ttlClrs = Array(repeating: AppColors.themeGreen, count: titles.count)
+        let ttlClrs = Array(repeating: AppColors.themeDarkGreen, count: titles.count)
         
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: titles, colors: ttlClrs)
         
@@ -348,7 +348,7 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         cell.textFiledBottomConstraint.constant = 0.0
         cell.editableTextField.isHiddenBottomLine = true
         cell.editableTextField.text = value
-        cell.editableTextField.placeholder = placeholder
+        cell.editableTextField.setUpAttributedPlaceholder(placeholderString: placeholder)
         cell.separatorView.isHidden = !isDivider
         cell.editableTextField.delegate = self
         cell.editableTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)

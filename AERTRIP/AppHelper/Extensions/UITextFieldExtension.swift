@@ -38,4 +38,12 @@ extension UITextField {
             clearButton.size = CGSize(width: 16.0, height: 16.0)
         }
     }
+    
+    func setUpAttributedPlaceholder(placeholderString: String,with symbol: String = "*",foregroundColor: UIColor = AppColors.themeGray40) {
+        let attriburedString = NSMutableAttributedString(string: placeholderString)
+        let asterix = NSAttributedString(string: symbol, attributes: [.foregroundColor: foregroundColor])
+        attriburedString.append(asterix)
+        
+        self.attributedPlaceholder = attriburedString
+    }
 }

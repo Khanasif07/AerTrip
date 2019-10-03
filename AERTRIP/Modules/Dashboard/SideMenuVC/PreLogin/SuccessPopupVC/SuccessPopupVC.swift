@@ -34,6 +34,7 @@ class SuccessPopupVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         self.loginButton.layer.cornerRadius = self.loginButton.height/2
+        self.loginButton.layer.masksToBounds = true
     }
     
     

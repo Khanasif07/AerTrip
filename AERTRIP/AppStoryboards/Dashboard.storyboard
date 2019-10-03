@@ -38,11 +38,11 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x1e-WT-TPs">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" image="logoIconRightWhite" translatesAutoresizingMaskIntoConstraints="NO" id="5KX-bs-S52">
-                                                        <rect key="frame" x="16" y="8.5" width="30" height="27"/>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" image="aertripLogoVertical" translatesAutoresizingMaskIntoConstraints="NO" id="5KX-bs-S52">
+                                                        <rect key="frame" x="16" y="7.5" width="29" height="29"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="30" id="JwK-ib-k3z"/>
-                                                            <constraint firstAttribute="width" secondItem="5KX-bs-S52" secondAttribute="height" multiplier="140:124" id="SuB-d3-Nmp"/>
+                                                            <constraint firstAttribute="width" constant="29" id="JwK-ib-k3z"/>
+                                                            <constraint firstAttribute="width" secondItem="5KX-bs-S52" secondAttribute="height" multiplier="1:1" id="qny-fS-ayQ"/>
                                                         </constraints>
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k6A-oH-74k" customClass="ATNotificationButton" customModule="AERTRIP" customModuleProvider="target">
@@ -57,7 +57,7 @@
                                                         </connections>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoTitleWhite" translatesAutoresizingMaskIntoConstraints="NO" id="dc0-cl-wv6">
-                                                        <rect key="frame" x="56" y="15.5" width="111" height="13"/>
+                                                        <rect key="frame" x="55" y="15.5" width="111" height="13"/>
                                                     </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1414,6 +1414,7 @@ on Christmas”</string>
     <resources>
         <image name="aerin" width="62.5" height="57"/>
         <image name="aerinTapLogo" width="170" height="170"/>
+        <image name="aertripLogoVertical" width="48" height="54"/>
         <image name="fbIcon" width="24" height="24"/>
         <image name="flights" width="44.5" height="44"/>
         <image name="gettyimages" width="146.8800048828125" height="97.919998168945312"/>

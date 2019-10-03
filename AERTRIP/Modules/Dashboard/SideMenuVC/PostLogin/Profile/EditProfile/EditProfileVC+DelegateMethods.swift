@@ -275,7 +275,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: textEditableCellIdentifier, for: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
                 cell.editableTextField.isEnabled = false
-                cell.editableTextField.lineView.isHidden = true
+                cell.editableTextField.lineView.backgroundColor = AppColors.clear
                 cell.downArrowImageView.isHidden = false
                 cell.configureCell(flightPreferencesTitle[indexPath.row], indexPath.row == 0 ? (viewModel.seat.isEmpty ? LocalizedString.Select.localized : viewModel.seat) : (viewModel.meal.isEmpty ? LocalizedString.Select.localized : viewModel.meal))
                 return cell
@@ -493,7 +493,7 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         
         
         if (!self.viewModel.profilePicture.isEmpty) || (!self.viewModel.filePath.isEmpty) {
-            buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen,AppColors.themeRed])
+            buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen,AppColors.themeRed])
         }
 
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
@@ -513,14 +513,14 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     }
     
     func editLoggedInUserProfilePhoto(){
-        var buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.ImportFromFacebook.localized, LocalizedString.ImportFromGoogle.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
+        var buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.ImportFromFacebook.localized, LocalizedString.ImportFromGoogle.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         
         if (!self.viewModel.profilePicture.isEmpty) || (!self.viewModel.filePath.isEmpty) {
-            buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.ImportFromFacebook.localized, LocalizedString.ImportFromGoogle.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeRed])
+            buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.ImportFromFacebook.localized, LocalizedString.ImportFromGoogle.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeRed])
         }
 
         
-        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
+        _ = PKAlertController.default.presentActionSheet(nil,message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
             
             if index == 0 {
                 printDebug("open camera")
@@ -1033,10 +1033,7 @@ extension EditProfileVC: AddNotesTableViewCellDelegate {
                 self.tableView.beginUpdates()
                 self.tableView.endUpdates()
             }
-            let scrollTo = self.tableView.contentSize.height - self.tableView.frame.size.height
-            self.tableView.setContentOffset(CGPoint(x: 0, y: scrollTo), animated: false)
-            
-            UIView.setAnimationsEnabled(true) 
+            UIView.setAnimationsEnabled(true)
             self.viewModel.notes = textView.text
         }
     }
