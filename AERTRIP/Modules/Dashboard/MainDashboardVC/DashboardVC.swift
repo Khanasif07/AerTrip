@@ -205,7 +205,7 @@ class DashboardVC: BaseVC {
     }
     
     private func setupInitialAnimation() {
-        
+        // for top header down animation
         let tScale = CGAffineTransform(scaleX: 15.0, y: 15.0)
         let tTrans = CGAffineTransform(translationX: 0.0, y: -(self.view.height))
         
@@ -271,14 +271,17 @@ extension DashboardVC  {
                 let valueMoved = scrollView.contentOffset.y - mainScrollViewOffset.y
                 let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
                 updateUpLabels(with: headerValueMoved)
+                //transform = 1.0 - headerValueMoved/4.0 - 0.08
                 transform = 1.0 - headerValueMoved/4.0
                 userDidScrollUp = true
+                printDebug("Scrolling up \(transform)")
             }else{
                 let valueMoved = mainScrollViewOffset.y - scrollView.contentOffset.y
                 let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
                 updateDownLabels(with: headerValueMoved)
                 transform = 1.0 + headerValueMoved/4.0
                 userDidScrollUp = false
+                 printDebug("Scrolling down \(transform)")
             }
             
             updateSegmentYPosition(for: scrollView.contentOffset.y)
@@ -356,7 +359,9 @@ extension DashboardVC  {
             innerScrollView.transform = CGAffineTransform.identity
         }
         else {
-            innerScrollView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
+            printDebug("final value is \(final)")
+             //innerScrollView.transform = CGAffineTransform(translationX: 0, y: -(final))
+             innerScrollView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
         }
     }
     
@@ -368,6 +373,7 @@ extension DashboardVC  {
             segmentContainerView.transform = CGAffineTransform.identity
         }
         else {
+           // segmentContainerView.transform = CGAffineTransform(translationX: -(final - 4), y: -(final - 0.3))
             segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
         }
     }
