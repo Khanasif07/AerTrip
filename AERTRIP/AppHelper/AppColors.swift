@@ -127,6 +127,9 @@ enum AppColors {
     // RGB - 229,229,230
     static let blueGray = #colorLiteral(red: 0.8980392157, green: 0.8980392157, blue: 0.9019607843, alpha: 1)
     
+    // RGB - 238,238,239
+    static let unicodeBackgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.937254902, alpha: 1)
+    
     case headlines
     case body
     case subheads

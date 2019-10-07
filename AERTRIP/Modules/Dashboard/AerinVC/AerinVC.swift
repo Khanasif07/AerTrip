@@ -197,7 +197,12 @@ class AerinVC: BaseVC {
             
             // for showing bookig invoice VC
             
-            AppFlowManager.default.moveToTestViewController()
+           // AppFlowManager.default.moveToTestViewController()
+            
+            //
+            
+            let obj = CreateProfileVC.instantiate(fromAppStoryboard: .PreLogin)
+            AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: true)
             
           //****  Booking DirectionVC ******
  

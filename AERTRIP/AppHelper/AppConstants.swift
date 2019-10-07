@@ -100,5 +100,10 @@ enum AppConstants {
     static let kBreakfast = "Breakfast"
     static let kRefundable = "Refundable"
     static let kAsteriskSymbol = "*"
+    static let kmR = "Mr"
+    static let kmS = "Ms"
+    static let kmAST = "Mast"
+    static let kmISS = "Miss"
+    static let kmRS = "Mrs"
 }
 

@@ -37,6 +37,11 @@ class CreateProfileVC: BaseVC {
     @IBOutlet weak var whiteBackgroundView: UIView!
     @IBOutlet weak var topNavBar: TopNavigationView!
     
+    // Unicode Switch
+    @IBOutlet weak var unicodeSwitch: ATUnicodeSwitch!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var verticalDividerView: UIView!
+    @IBOutlet weak var switchParentContainerView: UIView!
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -44,6 +49,7 @@ class CreateProfileVC: BaseVC {
         
         // Do any additional setup after loading the view.
         self.initialSetups()
+        self.setUpUnicodeSwitch()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,6 +121,38 @@ class CreateProfileVC: BaseVC {
             self.viewModel.webserviceForUpdateProfile()
         }
     }
+    
+    func setUpUnicodeSwitch() {
+        unicodeSwitch.titleLeft = "🙍🏻‍♂️"
+        unicodeSwitch.titleRight =  "🙍🏻‍♀️"
+        unicodeSwitch.backgroundColor = AppColors.clear
+        containerView.backgroundColor = AppColors.unicodeBackgroundColor
+        containerView.layer.cornerRadius = 20.0
+        unicodeSwitch.sliderView.layer.cornerRadius = 18
+        unicodeSwitch.sliderInset = 1.0
+        verticalDividerView.backgroundColor = AppColors.themeGray20
+    }
+    
+    
+    @IBAction func changeSelectedIndex(_ sender: ATUnicodeSwitch) {
+        verticalDividerView.isHidden = true
+        unicodeSwitch.sliderView.layer.borderColor = AppColors.themeBlack.withAlphaComponent(0.04).cgColor
+        unicodeSwitch.sliderView.layer.borderWidth = 0.5
+        unicodeSwitch.sliderView.dropShadowOnSwitch()
+        if sender.selectedIndex == 1 {
+            unicodeSwitch.titleLeft = "🙍🏻‍♂️"
+            unicodeSwitch.titleRight = "🙋🏻"
+            self.viewModel.userData.salutation = AppConstants.kmS
+        } else {
+            unicodeSwitch.titleRight = "🙍🏻‍♀️"
+            unicodeSwitch.titleLeft = "🙋🏻‍♂️"
+            self.viewModel.userData.salutation = AppConstants.kmR
+        }
+        self.letsStartedButton.isEnabled  = self.viewModel.isValidateForButtonEnable
+
+    }
+    
+    
 }
 
 //MARK:- Extension Initialsetups
@@ -129,7 +167,14 @@ private extension CreateProfileVC {
         self.whiteBackgroundView.backgroundColor = AppColors.screensBackground.color
         
         self.viewModel.webserviceForGetSalutations()
-        
+        self.firstNameTextField.titleYPadding = 12.0
+        self.firstNameTextField.hintYPadding = 12.0
+        self.firstNameTextField.lineViewBottomSpace = 10.0
+        self.lastNameTextField.titleYPadding = 12.0
+        self.lastNameTextField.hintYPadding = 12.0
+        self.lastNameTextField.lineViewBottomSpace = 10.0
+        self.firstNameTextField.isSingleTextField = false
+        self.lastNameTextField.isSingleTextField = false
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         self.topNavBar.delegate = self
         self.viewModel.userData.maxContactLimit = 10
@@ -174,7 +219,7 @@ private extension CreateProfileVC {
         self.countryCodeTextField.tintColor = .clear
         self.nameTitleTextField.inputView = self.salutationPicker
         self.nameTitleTextField.inputAccessoryView = self.initToolBar(picker: self.salutationPicker)
-        self.nameTitleTextField.tintColor = UIColor.clear
+        self.nameTitleTextField.tintColor = AppColors.clear
         self.firstNameTextField.delegate = self
         self.lastNameTextField.delegate = self
         self.mobileNumberTextField.delegate = self
@@ -211,8 +256,8 @@ private extension CreateProfileVC {
         
         let indexPath = self.salutationPicker.selectedRow(inComponent: 0)
         self.nameTitleTextField.text = self.viewModel.salutation[indexPath]
-        self.viewModel.userData.salutation = self.viewModel.salutation[indexPath]
-        self.letsStartedButton.isEnabled  = self.viewModel.isValidateForButtonEnable
+//        self.viewModel.userData.salutation = self.viewModel.salutation[indexPath]
+//        self.letsStartedButton.isEnabled  = self.viewModel.isValidateForButtonEnable
         UIApplication.shared.sendAction(#selector(resignFirstResponder), to:nil, from:nil, for:nil)
     }
     
@@ -236,9 +281,11 @@ extension CreateProfileVC {
         switch textField {
             
         case self.firstNameTextField:
+            self.firstNameTextField.lineViewBottomSpace = -3
            self.viewModel.userData.firstName = textField.text ?? ""
             
         case self.lastNameTextField:
+            self.lastNameTextField.lineViewBottomSpace = -3
             self.viewModel.userData.lastName = textField.text ?? ""
             
         case self.mobileNumberTextField:
@@ -430,6 +477,8 @@ extension CreateProfileVC {
         self.countryFlagImage.transform     = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
         self.titleDropDownImage.transform     = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
         self.countryDropdownImage.transform     = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.switchParentContainerView.transform = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        
     }
     
     func setupViewDidLoadAnimation() {
@@ -458,6 +507,8 @@ extension CreateProfileVC {
                 self.countryDropdownImage.transform      = .identity
                 self.mobileNumberTextField.transform  = .identity
                 self.letsStartedButton.transform = .identity
+                self.switchParentContainerView.transform = .identity
+
             })
             
         }) { (success) in
@@ -481,5 +532,6 @@ extension CreateProfileVC {
         self.countryFlagImage.alpha = 0
         self.titleDropDownImage.alpha = 0
         self.countryDropdownImage.alpha = 0
+        self.switchParentContainerView.alpha = 0
     }
 }
