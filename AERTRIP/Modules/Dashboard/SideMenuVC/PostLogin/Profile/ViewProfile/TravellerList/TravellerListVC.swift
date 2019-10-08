@@ -72,7 +72,7 @@ class TravellerListVC: BaseVC {
         tableView.sectionIndexColor = AppColors.themeGreen
         tableView.backgroundView = noTravEmptyView
         tableView.backgroundView?.isHidden = true
-        
+        tableView.separatorStyle = .singleLine
         loadSavedData()
         doInitialSetUp()
         registerXib()
@@ -479,16 +479,16 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
            return
          }
         if !(travellerData?.profileImage.isEmpty ?? false) {
-            cell.imageView?.setImageWithUrl(travellerData?.profileImage ?? "", placeholder: travellerData?.salutationImage ?? AppPlaceholderImage.user, showIndicator: true)
+            cell.imageView?.setImageWithUrl(travellerData?.profileImage ?? "", placeholder: travellerData?.salutationImage ?? AppPlaceholderImage.user, showIndicator: false)
         }
         
         if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
             let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
-            cell.textLabel?.attributedText = getAttributedBoldText(text: "\(salutation) \(lastName) \(firstName)", boldText: boldText)
+            cell.textLabel?.attributedText = getAttributedBoldText(text: "\(lastName) \(firstName)", boldText: boldText)
             
         } else {
             let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
-            cell.textLabel?.attributedText = getAttributedBoldText(text: "\(salutation) \(firstName) \(lastName)", boldText: boldText)
+            cell.textLabel?.attributedText = getAttributedBoldText(text: "\(firstName) \(lastName)", boldText: boldText)
         }
         
         if let trav = travellerData, self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {

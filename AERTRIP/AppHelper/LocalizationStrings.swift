@@ -494,7 +494,6 @@ enum LocalizedString: String {
     case FreeCancellation
     case FullPaymentNow
     case NoRoomsAvailable
-    
     // Others
     case FreeWifi
     case TransferInclusive
