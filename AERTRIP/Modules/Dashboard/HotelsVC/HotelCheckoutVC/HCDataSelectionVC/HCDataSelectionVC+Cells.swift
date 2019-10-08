@@ -244,7 +244,7 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
                 setupForAdd()
             }
             else {
-                infoImageView.isHidden = !((fName.isEmpty || fName.count <= 4) || (lName.isEmpty || lName.count <= 4) || saltn.isEmpty)
+                infoImageView.isHidden = !((fName.isEmpty || fName.count < 3) || (lName.isEmpty || lName.count < 3) || saltn.isEmpty)
                 titleLabel.text = self.contact?.fullName
                 if let img = self.contact?.profilePicture, !img.isEmpty {
                     self.iconImageView.setImageWithUrl(img, placeholder: placeHolder, showIndicator: false)
