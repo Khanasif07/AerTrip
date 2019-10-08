@@ -61,7 +61,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     // picker
     var pickerView: UIPickerView? = nil
-    let pickerSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: 216.0)
+    let pickerSize: CGSize = UIPickerView.pickerSize
     var pickerData: [String] = [String]()
     var pickerType: PickerType = .salutation
     
@@ -131,6 +131,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -194,15 +195,17 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         tableView.separatorStyle = .none
         tableView.tableHeaderView = editProfileImageHeaderView
+
     }
     
     func setupPickers() {
+        
         datePickerView?.frame = CGRect(x: (UIScreen.main.bounds.size.width - PKCountryPickerSettings.pickerSize.width) / 2.0, y: UIScreen.main.bounds.size.height, width: PKCountryPickerSettings.pickerSize.width, height: (PKCountryPickerSettings.pickerSize.height + PKCountryPickerSettings.toolbarHeight))
-        datePickerView?.backgroundColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
+       // datePickerView?.backgroundColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
         
         // Generic Picker View
-        genericPickerView?.frame = CGRect(x: (UIScreen.main.bounds.size.width - PKCountryPickerSettings.pickerSize.width) / 2.0, y: UIScreen.main.bounds.size.height, width: PKCountryPickerSettings.pickerSize.width, height: (PKCountryPickerSettings.pickerSize.height + PKCountryPickerSettings.toolbarHeight))
-        genericPickerView?.backgroundColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
+        //genericPickerView?.frame = CGRect(x: (UIScreen.main.bounds.size.width - PKCountryPickerSettings.pickerSize.width) / 2.0, y: UIScreen.main.bounds.size.height, width: PKCountryPickerSettings.pickerSize.width, height: (PKCountryPickerSettings.pickerSize.height + PKCountryPickerSettings.toolbarHeight))
+       // genericPickerView?.backgroundColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
         
         pickerView?.frame = CGRect(x: 0.0, y: 0, width: pickerSize.width, height: pickerSize.height)
         pickerView?.selectRow(0, inComponent: 0, animated: true)
@@ -212,9 +215,10 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         datePickerView?.addSubview(datePicker!)
         genericPickerView?.addSubview(pickerView!)
         
+        datePicker?.addTarget(self, action: #selector(valueChangedDatePicker), for: .valueChanged)
         pickerView?.delegate = self
         pickerView?.dataSource = self
-        datePicker?.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+       // datePicker?.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         
         pickerView?.setValue(#colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1), forKey: "textColor")
         setupToolBar()
@@ -457,14 +461,16 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         
-        toolbar.backgroundColor = AppColors.themeGray40
-        toolbar.barTintColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
+        toolbar.backgroundColor = AppColors.secondarySystemFillColor
+        toolbar.barTintColor = AppColors.secondarySystemFillColor
         cancelButton.tintColor = AppColors.themeGreen
         doneButton.tintColor = AppColors.themeGreen
         
-        let array = [cancelButton, spaceButton, doneButton]
+        let array = [ spaceButton, doneButton]
         toolbar.setItems(array, animated: true)
         
+        
+        datePickerView?.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
         datePickerView?.addSubview(toolbar)
     }
     
@@ -478,14 +484,15 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         
-        toolbar.backgroundColor = AppColors.themeGray40
-        toolbar.barTintColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
+        toolbar.backgroundColor = AppColors.secondarySystemFillColor
+        toolbar.barTintColor = AppColors.secondarySystemFillColor
         cancelButton.tintColor = AppColors.themeGreen
         doneButton.tintColor = AppColors.themeGreen
         
-        let array = [cancelButton, spaceButton, doneButton]
+        let array = [ spaceButton, doneButton]
         toolbar.setItems(array, animated: true)
         
+        genericPickerView?.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
         genericPickerView?.addSubview(toolbar)
     }
     
@@ -552,6 +559,10 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     @objc func doneGenericPicker() {
+        valueChangedGenericPicker()
+        self.closePicker(completion: nil)
+    }
+    @objc func valueChangedGenericPicker() {
         switch pickerType {
         case .salutation:
             editProfileImageHeaderView.salutaionLabel.text = "\(pickerTitle)"
@@ -625,7 +636,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             editProfileImageHeaderView.groupLabel.text = pickerTitle
             viewModel.label = pickerTitle
         }
-        closePicker(completion: nil)
     }
     
     func handleMoreInformationSectionSelection(_ indexPath: IndexPath) {
@@ -664,7 +674,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 PKCountryPickerSettings.shouldShowCountryCode = false
                 UIApplication.shared.sendAction(#selector(resignFirstResponder), to: nil, from: nil, for: nil)
                 let prevSectdContry = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.passportCountryCode.isEmpty ? AppConstants.kIndianCountryCode : self.viewModel.passportCountryCode)
-                PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: prevSectdContry) { [weak self] selectedCountry in
+                PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: prevSectdContry) { [weak self] (selectedCountry,closePicker) in
                     printDebug("selected country data: \(selectedCountry)")
                     
                     guard let cell = self?.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else {
@@ -732,7 +742,12 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         openDatePicker()
     }
     
-    @objc func donedatePicker() {
+     @objc func donedatePicker() {
+        valueChangedDatePicker()
+        closeDatePicker(completion: nil)
+    }
+    
+    @objc func valueChangedDatePicker() {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMMM yyyy"
         switch sections[(self.indexPath?.section)!] {
@@ -765,7 +780,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         default:
             break
         }
-        closeDatePicker(completion: nil)
+        
     }
     
     @objc func cancelDatePicker() {

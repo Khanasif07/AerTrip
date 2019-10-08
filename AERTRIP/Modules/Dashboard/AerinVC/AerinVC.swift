@@ -28,6 +28,7 @@ class AerinVC: BaseVC {
     @IBOutlet weak var bottomFirstView: UIView!
     @IBOutlet weak var bottomSecondView: UIView!
     @IBOutlet weak var bottomViewImage: UIImageView!
+    @IBOutlet weak var aerinViewContainer: UIView!
     
     private var previousOffSet = CGPoint.zero
     private var aerInPulsAnimator: PKPulseAnimation = PKPulseAnimation()
@@ -39,6 +40,7 @@ class AerinVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         // Do any additional setup after loading the view.
     }
     
@@ -48,7 +50,7 @@ class AerinVC: BaseVC {
         self.aerInPulsAnimator.start()
         
         if !(AppFlowManager.default.sideMenuController?.isOpen ?? true) {
-            self.setupInitialAnimation()
+            // self.setupInitialAnimation()
         }
     }
     
@@ -82,6 +84,8 @@ class AerinVC: BaseVC {
         self.aerinContainer.layer.insertSublayer(self.aerInPulsAnimator, below: self.aerinButton.layer)
         self.bottomFirstView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.3)
         self.bottomSecondView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.1)
+        
+        setupAnimation()
     }
     
     override func setupFonts() {
@@ -111,7 +115,7 @@ class AerinVC: BaseVC {
         let attributedString = NSMutableAttributedString(string: "Try asking for \n“Flights from Mumbai to Delhi on Christmas”", attributes: [
             .font: AppFonts.Regular.withSize(16.0),
             .foregroundColor: AppColors.themeTextColor
-        ])
+            ])
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 6
         paragraphStyle.alignment = .center
@@ -136,6 +140,22 @@ class AerinVC: BaseVC {
         self.weekendMessageLabel.transform = CGAffineTransform(translationX: 0.0, y: 110.0)
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: [.curveEaseOut], animations: {
+            self.bottomCollectionView.transform = CGAffineTransform.identity
+            self.bottomSecondView.transform = CGAffineTransform.identity
+            self.bottomFirstView.transform = CGAffineTransform.identity
+            self.weekendMessageLabel.transform = CGAffineTransform.identity
+        }, completion: nil)
+    }
+    
+    private func setupAnimation() {
+        aerinViewContainer.transform = .init(scaleX: 0, y: 0)
+        self.bottomCollectionView.transform = CGAffineTransform(translationX: 0.0, y: 200)
+        self.bottomSecondView.transform = CGAffineTransform(translationX: 0.0, y: 200)
+        self.bottomFirstView.transform = CGAffineTransform(translationX: 0.0, y: 200)
+        self.weekendMessageLabel.transform = CGAffineTransform(translationX: 0.0, y: 200)
+        
+        UIView.animate(withDuration: 1.0, delay: 0.0, options: [.curveEaseOut], animations: {
+            self.aerinViewContainer.transform = CGAffineTransform.identity
             self.bottomCollectionView.transform = CGAffineTransform.identity
             self.bottomSecondView.transform = CGAffineTransform.identity
             self.bottomFirstView.transform = CGAffineTransform.identity
@@ -204,12 +224,12 @@ class AerinVC: BaseVC {
             let obj = CreateProfileVC.instantiate(fromAppStoryboard: .PreLogin)
             AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: true)
             
-          //****  Booking DirectionVC ******
- 
+            //****  Booking DirectionVC ******
+            
             //AppFlowManager.default.moveToBookingDirectionVC()
             
-//             let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
-//            AppFlowManager.default.mainNavigationController.present(obj, animated: true)            
+            //             let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
+            //            AppFlowManager.default.mainNavigationController.present(obj, animated: true)
         }
     }
 }

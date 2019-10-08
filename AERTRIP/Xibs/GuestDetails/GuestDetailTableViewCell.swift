@@ -25,6 +25,8 @@ class GuestDetailTableViewCell: UITableViewCell {
     
     weak var delegate: GuestDetailTableViewCellDelegate?
     let salutationPicker = UIPickerView()
+    var genericPickerView: UIView = UIView()
+    let pickerSize: CGSize = UIPickerView.pickerSize
     
     var guestDetail: ATContact? {
         didSet {
@@ -58,7 +60,11 @@ class GuestDetailTableViewCell: UITableViewCell {
         self.lastNameTextField.delegate = self
         self.salutationPicker.delegate = self
        
-        self.salutationTextField.inputView = self.salutationPicker
+        salutationPicker.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
+        genericPickerView.addSubview(self.salutationPicker)
+        genericPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
+        
+        self.salutationTextField.inputView = self.genericPickerView
         self.salutationTextField.inputAccessoryView = self.initToolBar(picker: self.salutationPicker)
         self.salutationTextField.tintColor = UIColor.clear
         self.firstNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
@@ -123,6 +129,8 @@ class GuestDetailTableViewCell: UITableViewCell {
         let doneButton = UIBarButtonItem()
         doneButton.title = LocalizedString.Done.localized
         
+        toolBar.backgroundColor = AppColors.secondarySystemFillColor
+        toolBar.barTintColor = AppColors.secondarySystemFillColor
         cancelButton.tintColor = AppColors.themeGreen
         doneButton.tintColor = AppColors.themeGreen
         
@@ -130,22 +138,29 @@ class GuestDetailTableViewCell: UITableViewCell {
         cancelButton.addTargetForAction(self, action: #selector(self.cancleButtonAction(_:)))
         
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.setItems([spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
+        
+        self.genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
         
         return toolBar
     }
     
     @objc func pickerViewDoneButtonAction(_ sender: UITextField) {
+        pickerValueChanged()
+        UIApplication.shared.sendAction(#selector(resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+    
+    private func pickerValueChanged() {
         let index = self.salutationPicker.selectedRow(inComponent: 0)
         if !GuestDetailsVM.shared.salutation.isEmpty {
-         self.salutationTextField.text = GuestDetailsVM.shared.salutation[index]
+            self.salutationTextField.text = GuestDetailsVM.shared.salutation[index]
         }
         if let indexPath = (self.superview as? UITableView)?.indexPath(for: self) {
             GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = GuestDetailsVM.shared.salutation[index]
         }
-        UIApplication.shared.sendAction(#selector(resignFirstResponder), to: nil, from: nil, for: nil)
     }
+    
     
     @objc func cancleButtonAction(_ sender: UITextField) {
         UIApplication.shared.sendAction(#selector(resignFirstResponder), to: nil, from: nil, for: nil)
@@ -227,5 +242,6 @@ extension GuestDetailTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate
         GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = GuestDetailsVM.shared.salutation[row]
         }
         printDebug(" selected title is \(GuestDetailsVM.shared.salutation[row])")
+        pickerValueChanged()
     }
 }

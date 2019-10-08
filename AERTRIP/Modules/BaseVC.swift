@@ -44,6 +44,8 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     override open func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.layoutSubviews()
+        
         indicatorContainer.frame = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
         indicatorContainer.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.2)
         indicator.center = indicatorContainer.center

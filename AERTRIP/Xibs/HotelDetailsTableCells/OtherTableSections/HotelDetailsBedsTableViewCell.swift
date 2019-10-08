@@ -20,6 +20,8 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     private var bedPickerView = UIPickerView()
     private var selectedRow: Int?
     weak var delegate: HotelDetailsBedsTableViewCellDelegate? = nil
+    var genericPickerView: UIView = UIView()
+    let pickerSize: CGSize = UIPickerView.pickerSize
     
     //Mark:- IBOutlets
     //================
@@ -84,12 +86,19 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         let greenAttribute = [NSAttributedString.Key.font: AppFonts.SemiBold.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeGreen] as [NSAttributedString.Key : Any]
         doneButton.setTitleTextAttributes(greenAttribute , for: .normal)
         toolbar.setItems([spaceButton,doneButton], animated: true)
+        toolbar.backgroundColor = AppColors.secondarySystemFillColor
+        toolbar.barTintColor = AppColors.secondarySystemFillColor
         self.bedPickerView.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - bedPickerViewHeight, width: UIScreen.main.bounds.width , height: bedPickerViewHeight)
+        self.bedPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
+        genericPickerView.addSubview(self.bedPickerView)
+        genericPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
+        self.genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
+        
         self.bedPickerView.delegate = self
         self.bedPickerView.dataSource = self
         self.bedPickerView.backgroundColor = AppColors.themeWhite
         self.dropDownTextField.inputAccessoryView = toolbar
-        self.dropDownTextField.inputView = self.bedPickerView
+        self.dropDownTextField.inputView = self.genericPickerView
     }
     
     ///Configure BedSelection Title ImgSetUp
@@ -195,6 +204,7 @@ extension HotelDetailsBedsTableViewCell: UIPickerViewDelegate , UIPickerViewData
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.selectedRow = row
+        self.dropDownTextField.text = self.typesOfBed[row]
     }
 }
 

@@ -80,7 +80,7 @@ class ContactTableCell: UITableViewCell {
     @IBAction func selectCountruButtonAction(_ sender: UIButton) {
         if let vc = UIApplication.topViewController() {
             let prevSectdContry = preSelectedCountry
-            PKCountryPicker.default.chooseCountry(onViewController: vc, preSelectedCountry: prevSectdContry) { [weak self] selectedCountry in
+            PKCountryPicker.default.chooseCountry(onViewController: vc, preSelectedCountry: prevSectdContry) { [weak self] (selectedCountry,closePicker) in
                 guard let sSelf = self else {return}
                 sSelf.preSelectedCountry = selectedCountry
                 sSelf.flagImageView.image = selectedCountry.flagImage
