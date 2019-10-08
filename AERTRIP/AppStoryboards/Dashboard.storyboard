@@ -57,7 +57,7 @@
                                                         </connections>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoTitleWhite" translatesAutoresizingMaskIntoConstraints="NO" id="dc0-cl-wv6">
-                                                        <rect key="frame" x="55" y="15.5" width="111" height="13"/>
+                                                        <rect key="frame" x="55" y="12" width="161" height="20"/>
                                                     </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -369,10 +369,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoIconVertical" translatesAutoresizingMaskIntoConstraints="NO" id="Jdp-0v-YDa">
-                                        <rect key="frame" x="163.5" y="233" width="48" height="54"/>
+                                        <rect key="frame" x="163.5" y="257" width="48" height="54"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoTitleWhite" translatesAutoresizingMaskIntoConstraints="NO" id="K8k-9r-kde">
-                                        <rect key="frame" x="132" y="327" width="111" height="13"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoTitleWhite" translatesAutoresizingMaskIntoConstraints="NO" id="K8k-9r-kde">
+                                        <rect key="frame" x="107" y="351" width="161" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="161" id="82m-YK-Ojq"/>
+                                            <constraint firstAttribute="height" constant="20" id="oXl-bP-eiY"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -383,7 +387,7 @@
                                     <constraint firstItem="opS-XI-TaD" firstAttribute="leading" secondItem="EIt-yX-B3o" secondAttribute="leading" id="Q9X-uI-b7e"/>
                                     <constraint firstItem="opS-XI-TaD" firstAttribute="top" secondItem="EIt-yX-B3o" secondAttribute="top" id="ZVF-f4-mYJ"/>
                                     <constraint firstItem="K8k-9r-kde" firstAttribute="top" secondItem="Jdp-0v-YDa" secondAttribute="bottom" constant="40" id="lA8-uG-gG4"/>
-                                    <constraint firstItem="K8k-9r-kde" firstAttribute="centerY" secondItem="EIt-yX-B3o" secondAttribute="centerY" id="pSE-iP-QO8"/>
+                                    <constraint firstItem="K8k-9r-kde" firstAttribute="centerY" secondItem="EIt-yX-B3o" secondAttribute="centerY" constant="27.5" id="pSE-iP-QO8"/>
                                     <constraint firstAttribute="bottom" secondItem="opS-XI-TaD" secondAttribute="bottom" id="yWg-F2-wKX"/>
                                 </constraints>
                             </view>
@@ -1453,7 +1457,7 @@ on Christmas”</string>
         <image name="hotels" width="43" height="30"/>
         <image name="logoIconRightWhite" width="54" height="48"/>
         <image name="logoIconVertical" width="48" height="54"/>
-        <image name="logoTitleWhite" width="111" height="13"/>
+        <image name="logoTitleWhite" width="161" height="20"/>
         <image name="splashBackground" width="202" height="359.5"/>
         <image name="trips" width="43" height="32"/>
         <image name="twiterIcon" width="24" height="24"/>

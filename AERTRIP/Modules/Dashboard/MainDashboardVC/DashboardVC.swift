@@ -89,13 +89,13 @@ class DashboardVC: BaseVC {
         
         registerBulkEnquiryNotification()
         if firstTime{
-            // firstTime = false // nitin change
+             firstTime = false
             identitySize = aerinView.bounds.applying(CGAffineTransform.identity).size
             smallerSize = flightsView.bounds.applying(CGAffineTransform(scaleX: 0.75, y: 0.75)).size
         }
         
         if !(AppFlowManager.default.sideMenuController?.isOpen ?? true), !isInitialAminationDone {
-            //isInitialAminationDone = true // nitin change
+            isInitialAminationDone = true
             self.setupInitialAnimation()
         }
     }
@@ -161,17 +161,7 @@ class DashboardVC: BaseVC {
     
     
     @IBAction func profileButtonAction(_ sender: ATNotificationButton) {
-        // AppFlowManager.default.sideMenuController?.toggleMenu() // nitin change
-        if firstTime{
-            // firstTime = false
-            identitySize = aerinView.bounds.applying(CGAffineTransform.identity).size
-            smallerSize = flightsView.bounds.applying(CGAffineTransform(scaleX: 0.75, y: 0.75)).size
-        }
-        
-        if !(AppFlowManager.default.sideMenuController?.isOpen ?? true), !isInitialAminationDone {
-            //isInitialAminationDone = true
-            self.setupInitialAnimation()
-        }
+        AppFlowManager.default.sideMenuController?.toggleMenu() // nitin change
     }
     
     
@@ -226,7 +216,7 @@ class DashboardVC: BaseVC {
         self.segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -150.0)
         
         let rDuration = 1.0 / 2.0
-        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration * 3.0, delay: 0.0, options: .calculationModeLinear, animations: {
+        UIView.animateKeyframes(withDuration: 1.0, delay: 0.0, options: .calculationModeLinear, animations: {
             
             
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
@@ -248,6 +238,10 @@ class DashboardVC: BaseVC {
             self.overlayView.isHidden = true
             self.splashView.isHidden = true
         }
+        
+        
+         
+
     }
     
     private func updateProfileButton() {

@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class HCDataSelectionRoomDetailCell: UITableViewCell {
     // Mark:- IBOutlets
     // Mark:-
@@ -183,8 +184,12 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
     // Mark:- IBOutlets
     // Mark:-
     @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var infoImageView: UIImageView!
+    @IBOutlet weak var lastNameLabel: UILabel!
+    @IBOutlet weak var lastNameAgeContainer: UIView!
+    @IBOutlet weak var ageLabel: UILabel!
+    
     
     private(set) var isForAdult: Bool = false
     
@@ -202,14 +207,33 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
         configUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        lastNameLabel.isHidden = true
+        ageLabel.isHidden = true
+        lastNameAgeContainer.isHidden = true
+
+    }
+    
     // Mark:- Functions
     // Mark:-
     
     private func configUI() {
+        self.layoutIfNeeded()
         iconImageView.image = nil
         
-        titleLabel.font = AppFonts.Regular.withSize(14.0)
-        titleLabel.textColor = AppColors.themeBlack
+        firstNameLabel.font = AppFonts.Regular.withSize(14.0)
+        firstNameLabel.textColor = AppColors.themeBlack
+        
+        lastNameLabel.font = AppFonts.Regular.withSize(14.0)
+        lastNameLabel.textColor = AppColors.themeBlack
+        
+        ageLabel.font = AppFonts.Regular.withSize(14.0)
+        ageLabel.textColor = AppColors.themeGray40
+        
+        lastNameLabel.isHidden = true
+        ageLabel.isHidden = true
+        lastNameAgeContainer.isHidden = true
     }
     
     
@@ -224,11 +248,12 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
                 finalText = "\((type == .Adult) ? LocalizedString.Adult.localized : LocalizedString.Child.localized) \(self.contact?.numberInRoom ?? 0)"
             }
             
-            
-            if let year = self.contact?.age, year >= 0 {
-                finalText += " (\(year))"
+            if let year = self.contact?.age, year > 0 {
+                ageLabel.text = "(\(year)y)"
+                ageLabel.isHidden = false
+                lastNameAgeContainer.isHidden = false
             }
-            titleLabel.text = finalText
+            firstNameLabel.text = finalText
         }
         
         self.iconImageView.cornerRadius = self.iconImageView.height / 2.0
@@ -245,7 +270,13 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
             }
             else {
                 infoImageView.isHidden = !((fName.isEmpty || fName.count <= 4) || (lName.isEmpty || lName.count <= 4) || saltn.isEmpty)
-                titleLabel.text = self.contact?.fullName
+                firstNameLabel.text = fName
+                lastNameLabel.text = lName
+                if !lName.isEmpty {
+                    lastNameLabel.isHidden = false
+                    lastNameAgeContainer.isHidden = false
+                }
+                
                 if let img = self.contact?.profilePicture, !img.isEmpty {
                     self.iconImageView.setImageWithUrl(img, placeholder: placeHolder, showIndicator: false)
                     self.iconImageView.layer.borderColor = AppColors.themeGray40.cgColor
@@ -256,7 +287,14 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
                     self.iconImageView.layer.borderColor = AppColors.themeGray40.cgColor
                     self.iconImageView.layer.borderWidth = 1.0
                 }
+                
+                if let year = self.contact?.age, year > 0 {
+                    ageLabel.text = "(\(year)y)"
+                    ageLabel.isHidden = false
+                    lastNameAgeContainer.isHidden = false
+                }
             }
+            
         }
         else {
             setupForAdd()
@@ -266,3 +304,9 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
     // Mark:- IBActions
     // Mark:-
 }
+
+
+
+
+
+
