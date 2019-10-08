@@ -109,7 +109,7 @@
                                                                                         </subviews>
                                                                                     </stackView>
                                                                                 </subviews>
-                                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <constraints>
                                                                                     <constraint firstItem="k29-kI-UD9" firstAttribute="centerX" secondItem="TbS-dn-FOp" secondAttribute="centerX" priority="250" id="GdU-J0-B7f"/>
                                                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="k29-kI-UD9" secondAttribute="trailing" constant="5" id="Ulv-ke-H8v"/>

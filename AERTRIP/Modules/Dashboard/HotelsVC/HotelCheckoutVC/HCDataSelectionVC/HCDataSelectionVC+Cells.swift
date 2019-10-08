@@ -209,10 +209,7 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        lastNameLabel.isHidden = true
-        ageLabel.isHidden = true
-        lastNameAgeContainer.isHidden = true
-
+        resetView()
     }
     
     // Mark:- Functions
@@ -231,11 +228,14 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
         ageLabel.font = AppFonts.Regular.withSize(14.0)
         ageLabel.textColor = AppColors.themeGray40
         
+        resetView()
+    }
+    
+    private func resetView() {
         lastNameLabel.isHidden = true
         ageLabel.isHidden = true
         lastNameAgeContainer.isHidden = true
     }
-    
     
     private func configData() {
         
