@@ -674,3 +674,115 @@ extension AppGlobals {
     }
 }
 */
+
+
+// MARK: - New Salutation Change
+
+extension AppGlobals {
+    func getEmojiIcon(dob: String,salutation: String,dateFormatter: String) -> UIImage {
+        var emoji = UIImage(named: "person")
+        var age = -1
+        var year = false
+        let dd = dob.toDate(dateFormat: dateFormatter) ?? Date()
+            age = dd.age
+            year = true;
+            if (age == 0) {
+                year = false;
+                age = Date().monthsFrom(dd)
+            }
+        switch (salutation) {
+        case "Mr","Mr.", "Mast","Mast.":
+        if (age == -1) {
+        emoji = UIImage(named: "man")
+        } else {
+            if (year) {
+                if (age > 12) {
+                    emoji = UIImage(named: "man")
+                } else {
+                    emoji = UIImage(named: "boy")
+                }
+            } else {
+                emoji = UIImage(named: "infant")
+            }
+            }
+        case "Mrs","Mrs.","Ms","Ms.","Miss","Miss.":
+            if (age == -1) {
+                emoji = UIImage(named: "woman")
+            } else {
+                if (year) {
+                    if (age > 12) {
+                        emoji = UIImage(named: "woman")
+                    } else {
+                        emoji = UIImage(named: "girl")
+                    }
+                } else {
+                    emoji = UIImage(named: "infant")
+                }
+            }
+        default:
+        emoji = UIImage(named: "person")
+        }
+        return emoji!
+    }
+    
+    //get Age Last String Based on DOB
+    func  getAgeLastString(dob : String,formatter: String) -> String {
+        var ageString = "";
+        let dateDob: Date = dob.toDate(dateFormat: formatter) ?? Date()
+        printDebug(dateDob)
+        let years = Date().yearsFrom(dateDob)
+        if (years == 0) {
+            let months = Date().monthsFrom(dateDob)
+            if (months == 0) {
+                let days = Date().daysFrom(dateDob)
+                if days != 0 {
+                    ageString = "(" + (days.toString) + "d)"
+                }
+            } else {
+                ageString = "(" + (months.toString) + "m)"
+            }
+        } else {
+            ageString = "(" + (years.toString ) + "y)"
+        }
+        
+        return " " + ageString
+    }
+    // Get: Salutation based on  geneder and age
+    func getSalutationAsPerGenderAndAge(gender: String, dob : String,dateFormatter: String) -> String {
+        var mGender =  gender
+       let dd = dob.toDate(dateFormat: dateFormatter) ?? Date()
+       let age = dd.age
+        if (age != 0) {
+            switch (mGender) {
+            case "Mr","Mast":
+                if (age > 12) {
+                    mGender = "Mr";
+                }
+                else if (age > 2) {
+                    mGender = "Mast";
+                }
+                else {
+                    mGender = "Mast";
+                }
+            case "Ms","Mrs","Miss":
+                if (age > 12) {
+                    mGender = "Ms";
+                }
+                else if (age > 2) {
+                    mGender = "Miss";
+                }
+                else {
+                    mGender = "Miss"
+                    
+                }
+            default:
+                mGender = "Mr"
+            }
+        }
+      return mGender;
+        
+    }
+}
+
+
+

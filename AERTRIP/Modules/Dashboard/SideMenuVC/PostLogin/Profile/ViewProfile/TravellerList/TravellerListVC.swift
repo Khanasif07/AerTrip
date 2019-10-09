@@ -273,8 +273,8 @@ class TravellerListVC: BaseVC {
         }
     }
     
-    private func getAttributedBoldText(text: String, boldText: String) -> NSMutableAttributedString {
-        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), .foregroundColor: UIColor.black])
+    private func getAttributedBoldText(text: String, boldText: String,color: UIColor = AppColors.themeBlack) -> NSMutableAttributedString {
+        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), .foregroundColor: color])
         
         attString.addAttribute(.font, value: AppFonts.SemiBold.withSize(18.0), range: (text as NSString).range(of: boldText))
         return attString
@@ -392,6 +392,14 @@ class TravellerListVC: BaseVC {
         searchBar.text = ""
         loadSavedData()
     }
+    
+//    func getUpdatedTitle(str: NSMutableAttributedString) -> NSMutableAttributedString {
+//        var updatedTitle = str
+//        if updatedTitle.length > 24 {
+//            updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.len)
+//        }
+//        return updatedTitle
+//    }
 }
 
 extension TravellerListVC: TopNavigationViewDelegate {
@@ -474,8 +482,14 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     
     private func configureCell(cell: UITableViewCell, travellerData: TravellerData?) {
         cell.imageView?.image = travellerData?.salutationImage
+        cell.imageView?.image = AppGlobals.shared.getEmojiIcon(dob: travellerData?.dob ?? "", salutation: travellerData?.salutation ?? "", dateFormatter: "yyyy-MM-dd")
         cell.imageView?.contentMode = .scaleAspectFit
-        guard  let firstName = travellerData?.firstName, let lastName = travellerData?.lastName, let salutation = travellerData?.salutation else {
+        
+        let dateStr = AppGlobals.shared.getAgeLastString(dob: travellerData?.dob ?? "", formatter: "yyyy-MM-dd")
+        
+        let attributedDateStr = getAttributedBoldText(text: dateStr, boldText: dateStr,color: AppColors.themeGray40)
+        
+        guard  let firstName = travellerData?.firstName, let lastName = travellerData?.lastName else {
            return
          }
         if !(travellerData?.profileImage.isEmpty ?? false) {
@@ -484,11 +498,13 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         
         if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
             let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
-            cell.textLabel?.attributedText = getAttributedBoldText(text: "\(lastName) \(firstName)", boldText: boldText)
+            let boldTextAttributed = getAttributedBoldText(text: "\(lastName) \(firstName)", boldText: boldText)
+            cell.textLabel?.attributedText = boldTextAttributed + attributedDateStr
             
         } else {
             let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
-            cell.textLabel?.attributedText = getAttributedBoldText(text: "\(firstName) \(lastName)", boldText: boldText)
+            let boldTextAttributed = getAttributedBoldText(text: "\(firstName) \(lastName)", boldText: boldText)
+            cell.textLabel?.attributedText = boldTextAttributed + attributedDateStr
         }
         
         if let trav = travellerData, self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {
