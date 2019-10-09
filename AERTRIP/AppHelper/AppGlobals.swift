@@ -698,8 +698,10 @@ extension AppGlobals {
             if (year) {
                 if (age > 12) {
                     emoji = UIImage(named: "man")
-                } else {
+                } else if (age > 2) {
                     emoji = UIImage(named: "boy")
+                }else {
+                    emoji = UIImage(named: "infant")
                 }
             } else {
                 emoji = UIImage(named: "infant")
@@ -712,8 +714,10 @@ extension AppGlobals {
                 if (year) {
                     if (age > 12) {
                         emoji = UIImage(named: "woman")
-                    } else {
+                    } else if (age > 2) {
                         emoji = UIImage(named: "girl")
+                    }else {
+                        emoji = UIImage(named: "infant")
                     }
                 } else {
                     emoji = UIImage(named: "infant")

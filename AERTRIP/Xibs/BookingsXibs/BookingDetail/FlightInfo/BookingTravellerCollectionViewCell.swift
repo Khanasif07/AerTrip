@@ -12,10 +12,13 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
     // MARK: -  IBOutlet
     
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var travellerNameLabel: UILabel!
+    @IBOutlet weak var travellerFirstNameLabel: UILabel!
+    @IBOutlet weak var travellerLastNameLabel: UILabel!
+    @IBOutlet weak var travellerAgeLabel: UILabel!
     @IBOutlet weak var bottomSlideView: UIView!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
+    @IBOutlet weak var lastNameAgeContainer: UIView!
     
     var paxData: Pax? {
         didSet {
@@ -50,11 +53,15 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
     }
     
     private func setUpFont() {
-        self.travellerNameLabel.font = AppFonts.Regular.withSize(14.0)
+        self.travellerFirstNameLabel.font = AppFonts.Regular.withSize(14.0)
+        self.travellerLastNameLabel.font = AppFonts.Regular.withSize(14.0)
+        self.travellerAgeLabel.font = AppFonts.Regular.withSize(14.0)
     }
     
     private func setUpTextColor() {
-        self.travellerNameLabel.textColor = AppColors.themeBlack
+        self.travellerFirstNameLabel.textColor = AppColors.themeBlack
+        self.travellerLastNameLabel.textColor = AppColors.themeBlack
+        self.travellerAgeLabel.textColor = AppColors.themeGray40
         self.bottomSlideView.backgroundColor = AppColors.themeGreen
     }
     
@@ -63,13 +70,19 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
     }
     
     private func configureCell() {
-        var travellerName = self.paxData?.fullName ?? ""
-        if self.paxData?.paxType == AppConstants.kChildPax {
-            travellerName += " ( \(LocalizedString.Child.localized))"
-        } else if  self.paxData?.paxType == AppConstants.kInfantPax {
-            travellerName += " (\(LocalizedString.Infant.localized))"
-        }
-        self.travellerNameLabel.text = travellerName
+//        var travellerName = self.paxData?.fullName ?? ""
+//        if self.paxData?.paxType == AppConstants.kChildPax {
+//            travellerName += " ( \(LocalizedString.Child.localized))"
+//        } else if  self.paxData?.paxType == AppConstants.kInfantPax {
+//            travellerName += " (\(LocalizedString.Infant.localized))"
+//        }
+        self.travellerFirstNameLabel.text = self.paxData?.firstName ?? ""
+        self.travellerLastNameLabel.text = self.paxData?.lastName ?? ""
+        self.travellerAgeLabel.text = AppGlobals.shared.getAgeLastString(dob: self.paxData?.dob ?? "", formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+        lastNameAgeContainer.isHidden = (((self.paxData?.lastName ?? "").isEmpty) && ((self.paxData?.dob ?? "").isEmpty))
+        self.travellerLastNameLabel.isHidden = (self.paxData?.lastName ?? "").isEmpty
+        self.travellerAgeLabel.isHidden = (self.paxData?.dob ?? "").isEmpty
+        
         let placeImage = AppGlobals.shared.getImageFor(firstName: self.paxData?.firstName, lastName: self.paxData?.lastName, font: AppFonts.Regular.withSize(35.0),backGroundColor: AppColors.blueGray)
         if self.paxData?.profileImage.isEmpty ?? false {
             self.profileImageView.image = placeImage
@@ -79,15 +92,20 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
     }
     
     private func configureCellForGuest() {
-        var finalStr = self.guestData?.fullName ?? ""
-        if let age = self.guestData?.age.toInt {
-            if  age <= 1 {
-                finalStr += " (Infant) "
-            } else if age <= 12 {
-                finalStr += " (\(age)yrs) "
-            }
-        }
-        self.travellerNameLabel.text = finalStr
+//        var finalStr = self.guestData?.fullName ?? ""
+//        if let age = self.guestData?.age.toInt {
+//            if  age <= 1 {
+//                finalStr += " (Infant) "
+//            } else if age <= 12 {
+//                finalStr += " (\(age)yrs) "
+//            }
+//        }
+        self.travellerFirstNameLabel.text = self.guestData?.firstName ?? ""
+        self.travellerLastNameLabel.text = self.guestData?.lastname ?? ""
+        self.travellerAgeLabel.text = AppGlobals.shared.getAgeLastString(dob: self.guestData?.dob ?? "", formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+        lastNameAgeContainer.isHidden = (((self.guestData?.lastname ?? "").isEmpty) && ((self.guestData?.dob ?? "").isEmpty))
+        self.travellerLastNameLabel.isHidden = (self.guestData?.lastname ?? "").isEmpty
+        self.travellerAgeLabel.isHidden = (self.guestData?.dob ?? "").isEmpty
         self.bottomConstraint.constant = 0
         self.topConstraint.constant = 10
         let placeImage = AppGlobals.shared.getImageFor(firstName: self.guestData?.firstName, lastName: self.guestData?.lastname, font: AppFonts.Regular.withSize(35.0),backGroundColor: AppColors.blueGray)

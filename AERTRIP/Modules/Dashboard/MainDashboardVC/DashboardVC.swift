@@ -216,7 +216,7 @@ class DashboardVC: BaseVC {
         self.segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -150.0)
         
         let rDuration = 1.0 / 2.0
-        UIView.animateKeyframes(withDuration: 1.0, delay: 0.0, options: .calculationModeLinear, animations: {
+        UIView.animateKeyframes(withDuration: 0.4, delay: 0.0, options: .calculationModeLinear, animations: {
             
             
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
@@ -230,7 +230,7 @@ class DashboardVC: BaseVC {
             
             UIView.addKeyframe(withRelativeStartTime: (rDuration * 0.2), relativeDuration: (rDuration * 2.0), animations: {
                 self.splashView.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
-                self.splashView.alpha = 0.2
+                self.splashView.alpha = 0.0
             })
             
             
@@ -238,9 +238,6 @@ class DashboardVC: BaseVC {
             self.overlayView.isHidden = true
             self.splashView.isHidden = true
         }
-        
-        
-         
 
     }
     

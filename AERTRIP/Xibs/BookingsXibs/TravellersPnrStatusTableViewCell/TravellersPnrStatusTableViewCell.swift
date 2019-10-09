@@ -41,11 +41,16 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
         self.configUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.travellerNameLabel.attributedText = nil
+    }
     // MARK: - Functions
     
     // MARK: ===========
     
     private func configUI() {
+        self.containerView.layoutIfNeeded()
         // Font
         self.travellerNameLabel.font = AppFonts.Regular.withSize(16.0)
         self.travellerPnrStatusLabel.font = AppFonts.Regular.withSize(16.0)
@@ -62,25 +67,39 @@ class TravellersPnrStatusTableViewCell: UITableViewCell {
         self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
     }
     
-    internal func configCell(travellersImage: String, travellerName: String, travellerPnrStatus: String, firstName: String, lastName: String, isLastTraveller: Bool,paxType: String) {
+    internal func configCell(travellersImage: String, travellerName: String, travellerPnrStatus: String, firstName: String, lastName: String, isLastTraveller: Bool,paxType: String, dob: String, salutation: String) {
         self.tavellerImageBlurView.isHidden = true
-        var travelName = travellerName
+        let travelName = travellerName
         if !travellersImage.isEmpty {
             self.travellerImageView.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
+            self.travellerImageView.contentMode = .scaleAspectFit
         } else {
-            self.travellerImageView.makeCircular(borderWidth: 1.0, borderColor: AppColors.themeGray04)
-            self.travellerImageView.image = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName, font: AppFonts.Regular.withSize(35.0))
+            self.travellerImageView.makeCircular(borderWidth: 1.0, borderColor: AppColors.themeGray20)
+            //self.travellerImageView.image = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName, font: AppFonts.Regular.withSize(35.0))
+            self.travellerImageView.image = AppGlobals.shared.getEmojiIcon(dob: dob, salutation: salutation, dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+            self.travellerImageView.contentMode = .center
         }
         
-        if paxType == AppConstants.kChildPax {
-            travelName += " ( \(LocalizedString.Child.localized))"
-        } else if  paxType == AppConstants.kInfantPax {
-            travelName += " (\(LocalizedString.Infant.localized))"
+        
+//        if paxType == AppConstants.kChildPax {
+//            travelName += " ( \(LocalizedString.Child.localized))"
+//        } else if  paxType == AppConstants.kInfantPax {
+//            travelName += " (\(LocalizedString.Infant.localized))"
+//        }
+        
+        var age = ""
+        if !dob.isEmpty {
+            age = AppGlobals.shared.getAgeLastString(dob: dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+            //travelName += age
         }
-        self.travellerNameLabel.text = travelName
+       // self.travellerNameLabel.text = travelName
+        self.travellerNameLabel.appendFixedText(text: travelName, fixedText: age)
         self.travellerPnrStatusLabel.text = travellerPnrStatus
         self.nameDividerView.isHidden = true
         self.travellerPnrStatusLabel.text = travellerPnrStatus
+        if !age.isEmpty {
+           self.travellerNameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
+        }
         switch self.pnrStatus {
         case .active:
             self.travellerPnrStatusLabel.textColor = AppColors.themeBlack

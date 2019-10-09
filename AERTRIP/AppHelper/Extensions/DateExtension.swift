@@ -310,3 +310,25 @@ extension Date {
         return dates
     }
 }
+
+extension Date {
+    
+    // MARK:- DATE FORMAT ENUM
+    //==========================
+    enum DateFormat : String {
+        
+        case yyyy_MM_dd = "yyyy-MM-dd"
+        case yyyyMMddHHmmss = "yyyy-MM-dd HH:mm:ss"
+        case yyyyMMddTHHmmssz = "yyyy-MM-dd'T'HH:mm:ssZ"
+        case yyyyMMddTHHmmssssZZZZZ = "yyyy-MM-dd'T'HH:mm:ss.ssZZZZZ"
+        case yyyyMMdd = "yyyy/MM/dd"
+        case dMMMyyyy = "d MMM, yyyy"
+        case ddMMMyyyy = "dd MMM, yyyy"
+        case MMMdyyyy = "MMM d, yyyy"
+        case hmmazzz = "h:mm a zzz"
+        case dd = "dd"
+        case mm = "MM"
+        case yyyy = "YYYY"
+        
+    }
+}
