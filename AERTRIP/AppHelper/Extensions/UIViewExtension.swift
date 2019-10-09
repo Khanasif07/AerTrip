@@ -413,19 +413,10 @@ extension UIView {
         var shadowLayer: CAShapeLayer!
         let cornerRadius: CGFloat = 16.0
         let fillColor: UIColor = .white
-        func removeShadowLayer() {
-            if let all = self.layer.sublayers {
-                for lay in all {
-                    if let name = lay.name, name == "cardShadow" {
-                        lay.removeFromSuperlayer()
-                        break
-                    }
-                }
-            }
-        }
+        
         
         if shadowLayer == nil {
-            removeShadowLayer()
+            removeCardShadowLayer()
             shadowLayer = CAShapeLayer()
             shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
             shadowLayer.fillColor = fillColor.cgColor
@@ -437,6 +428,17 @@ extension UIView {
             shadowLayer.shadowRadius = 3
             
             layer.insertSublayer(shadowLayer, at: 0)
+        }
+    }
+    
+    func removeCardShadowLayer() {
+        if let all = self.layer.sublayers {
+            for lay in all {
+                if let name = lay.name, name == "cardShadow" {
+                    lay.removeFromSuperlayer()
+                    break
+                }
+            }
         }
     }
 }

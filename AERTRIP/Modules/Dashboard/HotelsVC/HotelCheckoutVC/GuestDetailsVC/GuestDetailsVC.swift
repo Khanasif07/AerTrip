@@ -155,10 +155,10 @@ class GuestDetailsVC: BaseVC {
                 self.travellersTableView.isHidden = !guest.firstName.isEmpty
             }
             delay(seconds: 0.2) { [weak cell] in
-                if guest.salutation.isEmpty {
-                    cell?.salutationTextField.becomeFirstResponder()
-                }
-                else if guest.firstName.isEmpty {
+//                if guest.salutation.isEmpty {
+//                    cell?.salutationTextField.becomeFirstResponder()
+//                } else
+                if guest.firstName.isEmpty {
                     cell?.firstNameTextField.becomeFirstResponder()
                 }
                 else if guest.lastName.isEmpty {
@@ -277,7 +277,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
             self.travellersTableView.isHidden = true
             if let cellindexPath = self.indexPath {
                 if let cell = self.guestDetailTableView.cellForRow(at: cellindexPath) as? GuestDetailTableViewCell {
-                    cell.salutationTextField.text = self.travellers[indexPath.row].salutation
+                    //cell.salutationTextField.text = self.travellers[indexPath.row].salutation
                     cell.firstNameTextField.text = self.travellers[indexPath.row].firstName
                     cell.lastNameTextField.text = self.travellers[indexPath.row].lastName
                 }
@@ -302,7 +302,7 @@ extension GuestDetailsVC: TopNavigationViewDelegate {
     }
 }
 
-extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
+extension GuestDetailsVC: GuestDetailTableViewCellDelegate {    
     func textFieldWhileEditing(_ textField: UITextField) {
         self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
         if textField.text != "" {
@@ -343,6 +343,7 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
     }
     
     func textField(_ textField: UITextField) {
+        /*
         self.travellersTableView.isHidden = self.travellers.count == 0
         self.travellersTableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
         self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
@@ -357,6 +358,7 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
         } else {
             travellersTableView.isHidden = true
         }
+         */
     }
 }
 
