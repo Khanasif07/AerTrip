@@ -103,9 +103,9 @@ class GuestDetailTableViewCell: UITableViewCell {
         }
         
         if let salutaion = self.guestDetail?.salutation, !salutaion.isEmpty {
-            if salutaion == AppConstants.kmS || salutaion == AppConstants.kmISS {
+            if AppConstants.kFemaleSalutaion.contains(salutaion) {
                 configureSalutationSwicth(type: .female)
-            } else if salutaion == AppConstants.kmR || salutaion == AppConstants.kmAST{
+            } else if AppConstants.kMaleSalutaion.contains(salutaion){
                 configureSalutationSwicth(type: .male)
             } else {
                 configureSalutationSwicth(type: .none)
