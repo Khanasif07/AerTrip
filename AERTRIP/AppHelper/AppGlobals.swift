@@ -469,6 +469,14 @@ class AppGlobals {
         let rechability = Reachability.networkReachabilityForInternetConnection()
         return  rechability?.isReachable ?? false
     }
+    
+    func getTrucatedTitle(str: String) -> String {
+        var updatedTitle = str
+        if updatedTitle.count > 20 {
+            updatedTitle = updatedTitle.substring(from: 0, to: 20) + "..."
+        }
+        return updatedTitle
+    }
 }
 
 //MARK: - Project Used Extensions

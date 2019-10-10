@@ -480,10 +480,23 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+
+    
     private func configureCell(cell: UITableViewCell, travellerData: TravellerData?) {
         cell.imageView?.image = travellerData?.salutationImage
         cell.imageView?.image = AppGlobals.shared.getEmojiIcon(dob: travellerData?.dob ?? "", salutation: travellerData?.salutation ?? "", dateFormatter: "yyyy-MM-dd")
+        
+        let textLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 20, height: 10))
+        textLabel.backgroundColor = .red
+        cell.textLabel?.addSubview(textLabel)
         cell.imageView?.contentMode = .scaleAspectFit
+        cell.imageView?.layer.masksToBounds = true
+        if let width = cell.imageView?.frame.size.width {
+            cell.imageView?.layer.cornerRadius = width / 2
+            cell.imageView?.clipsToBounds = true
+
+
+        }
         
         let dateStr = AppGlobals.shared.getAgeLastString(dob: travellerData?.dob ?? "", formatter: "yyyy-MM-dd")
         
@@ -498,7 +511,16 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         
         if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
             let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
-            let boldTextAttributed = getAttributedBoldText(text: "\(lastName) \(firstName)", boldText: boldText)
+            var boldTextAttributed = NSMutableAttributedString(string: "")
+            let fullName = "\(lastName) \(firstName)"
+           
+            if fullName.count > 20 {
+                 printDebug("full name after truncation  \(AppGlobals.shared.getTrucatedTitle(str: fullName)) boldText \(boldText.substring(from: 0, to: boldText.count - 3) + "...")")
+                boldTextAttributed = getAttributedBoldText(text: AppGlobals.shared.getTrucatedTitle(str: fullName), boldText: boldText.substring(from: 0, to: boldText.count - 3) + "...")
+            } else {
+                 boldTextAttributed = getAttributedBoldText(text: "\(lastName) \(firstName)", boldText: boldText)
+            }
+           
             cell.textLabel?.attributedText = boldTextAttributed + attributedDateStr
             
         } else {

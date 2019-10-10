@@ -218,6 +218,9 @@ enum LocalizedString: String {
     case NewsLetters = "Newsletters"
     case Notifications
     case LogOut = "Log Out"
+    case Gender
+    case Male
+    case Female
     
     // MARK: - ViewProfileDetailVC
     

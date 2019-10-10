@@ -306,6 +306,7 @@ class ImportContactVM: NSObject {
 //                let contact = ATContact(contact: cnContact)
                 params["data[\(idx)][last_name]"] = contact.lastName
                 params["data[\(idx)][first_name]"] = contact.firstName
+                params["data[\(idx)][dob]"] = contact.dob
                 
                 params["data[\(idx)][email][0][contact_label]"] = contact.emailLabel
                 params["data[\(idx)][email][0][contact_type]"] = "email"
@@ -316,7 +317,9 @@ class ImportContactVM: NSObject {
                 let fullContact = contact.fullContact
                 params["data[\(idx)][mobile][0][contact_value]"] = fullContact.contact
                 params["data[\(idx)][mobile][0][isd]"] = fullContact.isd
+                
             }
+            
             
             APICaller.shared.callSavePhoneContactsAPI(params: params, loader: true) { [weak self] (success, errorCodes) in
                 printDebug("phone contact saved")

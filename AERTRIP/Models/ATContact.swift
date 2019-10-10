@@ -293,6 +293,15 @@ extension CNContact {
         return "internet"
     }
     
+    var dob: String {
+        if let year = self.birthday?.year,let month = self.birthday?.month,let day = self.birthday?.day {
+             return "\(year)-\(month)-\(day)"
+        } else {
+            return ""
+        }
+       
+    }
+    
     
     var fullContact: (isd: String, contact: String) {
         if let phone = self.phoneNumbers.first {
