@@ -28,7 +28,6 @@ class GuestDetailTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     weak var delegate: GuestDetailTableViewCellDelegate?
-    private var isForAdult: Bool = true
     
     var guestDetail: ATContact? {
         didSet {
@@ -53,7 +52,6 @@ class GuestDetailTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         configureSalutationSwicth(type: .none)
-        self.isForAdult = true
     }
     
     // MARK: - Helper methods
@@ -118,11 +116,7 @@ class GuestDetailTableViewCell: UITableViewCell {
             self.guestTitleLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)(\(self.guestDetail?.age ?? 0))"
         }
         
-        if let age = self.guestDetail?.age, age <= 12 {
-            self.isForAdult = false
-        } else {
-            self.isForAdult = true
-        }
+        
         
     }
     
@@ -173,10 +167,11 @@ class GuestDetailTableViewCell: UITableViewCell {
         var salutation = ""
         if sender.selectedIndex == 1 {
             configureSalutationSwicth(type: .female)
-            salutation = self.isForAdult ? AppConstants.kmS : AppConstants.kmISS
+            salutation = AppGlobals.shared.getSalutationAsPerGenderAndAge(gender: AppConstants.kmRS, dob: self.guestDetail?.dob ?? "", dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+            
         } else {
             configureSalutationSwicth(type: .male)
-            salutation = self.isForAdult ? AppConstants.kmR : AppConstants.kmAST
+            salutation = AppGlobals.shared.getSalutationAsPerGenderAndAge(gender: AppConstants.kmR, dob: self.guestDetail?.dob ?? "", dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
         }
         if let indexPath = (self.superview as? UITableView)?.indexPath(for: self) {
             GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = salutation
