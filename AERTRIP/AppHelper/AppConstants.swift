@@ -105,6 +105,8 @@ enum AppConstants {
     static let kmAST = "Mast"
     static let kmISS = "Miss"
     static let kmRS = "Mrs"
+    static let kMaleSalutaion = ["Mr","Mast"]
+    static let kFemaleSalutaion = ["Ms","Miss","Mrs"]
 }
 
 

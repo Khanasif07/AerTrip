@@ -82,7 +82,7 @@ class EditProfileVM {
     func isValidateData(vc: UIViewController) -> Bool {
         var flag = true
         
-        if self.salutation == LocalizedString.Title.rawValue {
+        if self.salutation.isEmpty {
             AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized)
             flag = false
         } else if self.firstName.removeAllWhiteSpacesAndNewLines.isEmpty {

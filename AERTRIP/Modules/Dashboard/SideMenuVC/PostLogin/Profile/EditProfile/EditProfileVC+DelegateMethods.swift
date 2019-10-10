@@ -437,6 +437,15 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
 // MARK: - EditProfileImageHeaderViewDelegate Methods
 
 extension EditProfileVC: EditProfileImageHeaderViewDelegate {
+    func salutationViewTapped(title: String) {
+        printDebug("Selected in unicode switch \(title)")
+        editProfileImageHeaderView.genderTitleLabel.text = title
+        if title == LocalizedString.Male.localized {
+           self.viewModel.salutation =  AppGlobals.shared.getSalutationAsPerGenderAndAge(gender: AppConstants.kmR, dob: self.viewModel.dob, dateFormatter: "yyyy-MM-dd")
+        } else {
+            self.viewModel.salutation = AppGlobals.shared.getSalutationAsPerGenderAndAge(gender: AppConstants.kmRS, dob: self.viewModel.dob, dateFormatter: "yyyy-MM-dd")
+        }
+    }
     func textFieldText(_ textfield: UITextField) {
         let text = textfield.text ?? ""
         switch textfield {
@@ -458,12 +467,6 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     func selectGroupTapped() {
         dismissKeyboard()
         printDebug("select group tapped")
-        if let groups = UserInfo.loggedInUser?.generalPref?.labels, groups.count > 0 {
-            pickerType = .groups
-            pickerData = groups
-            self.view.endEditing(true)
-            openPicker(withSelection: viewModel.label)
-        }
     }
     
     func salutationViewTapped() {

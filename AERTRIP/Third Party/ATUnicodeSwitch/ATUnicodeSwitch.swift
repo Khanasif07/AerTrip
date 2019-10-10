@@ -59,7 +59,8 @@ class ATUnicodeSwitch: UIControl {
     }
   }
   
-  var selectedIndex: Int = -1
+    var selectedIndex: Int = -1
+    
     var font: UIFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body) {
       didSet {
           for label in backgroundLabels {
@@ -200,10 +201,10 @@ class ATUnicodeSwitch: UIControl {
     layoutFrontLabels()
   }
   
-  private func updateSelectedIndex(index: Int) {
+   func updateSelectedIndex(index: Int) {
     if selectedIndex != index {
       selectedIndex = index
-        sendActions(for: UIControl.Event.valueChanged)
+      sendActions(for: UIControl.Event.valueChanged)
     }
   }
   

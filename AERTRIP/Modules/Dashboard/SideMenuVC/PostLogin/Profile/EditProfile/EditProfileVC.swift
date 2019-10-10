@@ -380,8 +380,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             sections.append(LocalizedString.FlightPreferences.localized)
         }
         
-        viewModel.salutation = travel.salutation.isEmpty ? LocalizedString.Title.localized : travel.salutation
-        editProfileImageHeaderView.salutaionLabel.text = "\(viewModel.salutation)"
+        if !travel.salutation.isEmpty{
+            viewModel.salutation = travel.salutation
+            editProfileImageHeaderView.unicodeSwitch.updateSelectedIndex(index: AppConstants.kMaleSalutaion.contains(viewModel.salutation) ? 0 : 1)
+        }
+        
         editProfileImageHeaderView.firstNameTextField.text = travel.firstName
         viewModel.firstName = travel.firstName
         editProfileImageHeaderView.lastNameTextField.text = travel.lastName
@@ -565,7 +568,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     @objc func valueChangedGenericPicker() {
         switch pickerType {
         case .salutation:
-            editProfileImageHeaderView.salutaionLabel.text = "\(pickerTitle)"
             viewModel.salutation = pickerTitle
         case .email:
             if let indexPath = self.indexPath {

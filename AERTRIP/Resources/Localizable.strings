@@ -167,6 +167,9 @@
 "ALERT"  = "ALERT";
 "DoYouWantToLogout" = "Are you sure you want to log out?";
 "Logout" = "Logout";
+"Gender" = "Gender";
+"Male" = "Male";
+"Female" = "Female";
 
 //MARK:- Hotel Search
 //MARK:-
