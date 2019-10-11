@@ -464,6 +464,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         return 30
     }
     
+   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        var oldCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
 //        if oldCell == nil {
@@ -480,23 +481,18 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        let cell = UITableViewCell() // oldCell!
+//        let data = fetchedResultsController.object(at: indexPath)
+//        configureCell(cell: cell, travellerData: data)
+//    }
 
     
     private func configureCell(cell: UITableViewCell, travellerData: TravellerData?) {
         cell.imageView?.image = travellerData?.salutationImage
         cell.imageView?.image = AppGlobals.shared.getEmojiIcon(dob: travellerData?.dob ?? "", salutation: travellerData?.salutation ?? "", dateFormatter: "yyyy-MM-dd")
-        
-        let textLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 20, height: 10))
-        textLabel.backgroundColor = .red
-        cell.textLabel?.addSubview(textLabel)
-        cell.imageView?.contentMode = .scaleAspectFit
-        cell.imageView?.layer.masksToBounds = true
-        if let width = cell.imageView?.frame.size.width {
-            cell.imageView?.layer.cornerRadius = width / 2
-            cell.imageView?.clipsToBounds = true
-
-
-        }
+     
         
         let dateStr = AppGlobals.shared.getAgeLastString(dob: travellerData?.dob ?? "", formatter: "yyyy-MM-dd")
         
@@ -506,7 +502,18 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
            return
          }
         if !(travellerData?.profileImage.isEmpty ?? false) {
+            
+          
             cell.imageView?.setImageWithUrl(travellerData?.profileImage ?? "", placeholder: travellerData?.salutationImage ?? AppPlaceholderImage.user, showIndicator: false)
+            DispatchQueue.main.async { [weak cell] in
+                cell?.imageView?.contentMode = .scaleAspectFit
+                cell?.imageView?.layer.masksToBounds = true
+                cell?.imageView?.clipsToBounds = true
+//                if let width = cell?.imageView?.frame.size.width {
+//                    cell?.imageView?.layer.cornerRadius = width / 2
+//                    cell?.imageView?.layer.masksToBounds = true
+//                }
+            }
         }
         
         if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {

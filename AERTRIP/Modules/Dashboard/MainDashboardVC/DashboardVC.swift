@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+
 class DashboardVC: BaseVC {
     
     @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
@@ -61,6 +63,9 @@ class DashboardVC: BaseVC {
     
     var selectedOption : SelectedOption = .aerin
     
+    var visualEffectView : UIVisualEffectView!
+    var backView : UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         resetItems()
@@ -98,6 +103,8 @@ class DashboardVC: BaseVC {
             isInitialAminationDone = true
             self.setupInitialAnimation()
         }
+       // addCustomBackgroundBlurView()
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -261,6 +268,26 @@ class DashboardVC: BaseVC {
             
         }
     }
+    
+    func addCustomBackgroundBlurView(){
+        
+        visualEffectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
+        visualEffectView.effect = UIBlurEffect(style: .dark)
+        
+        backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: 200))
+        backView.backgroundColor = UIColor.red.withAlphaComponent(0.4)
+        backView.addSubview(visualEffectView)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.view.backgroundColor = .clear
+        self.navigationController?.view.addSubview(backView)
+        
+        
+        
+        
+        navigationItem.hidesBackButton = true
+        self.navigationItem.leftBarButtonItem=nil
+    }
 }
 
 extension DashboardVC  {
@@ -273,8 +300,7 @@ extension DashboardVC  {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        if scrollView == mainScrollView {
-            
+        if scrollView == mainScrollView {            
             var transform : CGFloat = 0.0
             
             if scrollView.contentOffset.y - mainScrollViewOffset.y > 0 {

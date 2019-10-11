@@ -754,7 +754,10 @@ extension AppGlobals {
                 ageString = "(" + (months.toString) + "m)"
             }
         } else {
-            ageString = "(" + (years.toString ) + "y)"
+            if years <= 12 {
+                 ageString = "(" + (years.toString ) + "y)"
+            }
+           
         }
         
         return " " + ageString

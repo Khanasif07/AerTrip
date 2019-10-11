@@ -382,7 +382,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         if !travel.salutation.isEmpty{
             viewModel.salutation = travel.salutation
-            editProfileImageHeaderView.unicodeSwitch.updateSelectedIndex(index: AppConstants.kMaleSalutaion.contains(viewModel.salutation) ? 0 : 1)
+            if  AppConstants.kMaleSalutaion.contains(viewModel.salutation) {
+                editProfileImageHeaderView.unicodeSwitch.setSelectedIndex(index: 0, animated: true)
+            } else {
+                editProfileImageHeaderView.unicodeSwitch.setSelectedIndex(index: 1, animated: true)
+            }
         }
         
         editProfileImageHeaderView.firstNameTextField.text = travel.firstName
@@ -859,8 +863,11 @@ extension EditProfileVC: TopNavigationViewDelegate {
         viewModel.doa = AppGlobals.shared.formattedDateFromString(dateString: viewModel.doa, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
         viewModel.passportIssueDate = AppGlobals.shared.formattedDateFromString(dateString: viewModel.passportIssueDate, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
         viewModel.passportExpiryDate = AppGlobals.shared.formattedDateFromString(dateString: viewModel.passportExpiryDate, inputFormat: "dd MMMM yyyy", withFormat: "yyyy-MM-dd") ?? ""
-        if viewModel.isValidateData(vc: self) {
+        if self.viewModel.isValidateData(vc: self) {
             viewModel.webserviceForSaveProfile()
+        } else if self.viewModel.salutation.isEmpty {
+            editProfileImageHeaderView.containerView.layer.borderColor = AppColors.themeRed.cgColor
+            editProfileImageHeaderView.containerView.layer.borderWidth = 1.0
         }
     }
 }
