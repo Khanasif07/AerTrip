@@ -22,7 +22,7 @@ enum HotelResultViewType {
     case ListView
 }
 
-let visualEffectViewHeight =  CGFloat(200)//CGFloat(200.0)
+let visualEffectViewHeight =  CGFloat(20)//CGFloat(200.0)
 
 
 class MapContainerView: UIView {
@@ -64,6 +64,8 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var switchView: ATSwitcher!
     @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
+    
+    @IBOutlet weak var backContainerView: UIView!
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             self.collectionView.registerCell(nibName: HotelCardCollectionViewCell.reusableIdentifier)
@@ -296,8 +298,7 @@ class HotelResultVC: BaseVC {
        
         
         self.getPinnedHotelTemplate()
-        self.statusBarStyle = .default
-        collectionViewLayout.minimumLineSpacing = 0
+        searchBar.setTextField(color: UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
         self.cardGradientView.backgroundColor = AppColors.clear
         self.cardGradientView.addGredient(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeWhite.withAlphaComponent(0.01),AppColors.themeWhite.withAlphaComponent(1.0)])
@@ -365,19 +366,22 @@ class HotelResultVC: BaseVC {
             visualEffectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
             visualEffectView.effect = UIBlurEffect(style: .prominent)
             
-            backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: 200))
+            backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: 20))
             backView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
             backView.addSubview(visualEffectView)
             
+            let backVisualEfectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: backContainerView.height))
+            backVisualEfectView.effect = UIBlurEffect(style: .prominent)
+            backVisualEfectView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
             
-//            let statusBarHeight = UIApplication.shared.statusBarFrame.height
+            backContainerView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
+            backContainerView.addSubview(backVisualEfectView)
             
             
             self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
             self.navigationController?.navigationBar.shadowImage = UIImage()
             self.navigationController?.view.backgroundColor = .clear
-            self.navigationController?.view.insertSubview(backView, at: 0)
-            
+            self.navigationController?.view.addSubview(backView)
             navigationItem.hidesBackButton = true
             self.navigationItem.leftBarButtonItem=nil
         
@@ -414,7 +418,8 @@ class HotelResultVC: BaseVC {
         
         self.hotelSearchTableView.backgroundView = noResultemptyView
         self.hotelSearchTableView.reloadData()
-        
+      //  self.searchBar.backgroundColor = .red
+        self.searchBar.searchBarStyle = .default
         self.switchView.originalColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.switchView.selectedColor = AppColors.themeRed
         self.switchView.originalBorderColor = AppColors.themeGray04//AppColors.themeGray20

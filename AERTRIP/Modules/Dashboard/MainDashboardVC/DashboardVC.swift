@@ -103,7 +103,7 @@ class DashboardVC: BaseVC {
             isInitialAminationDone = true
             self.setupInitialAnimation()
         }
-       // addCustomBackgroundBlurView()
+        //addCustomBackgroundBlurView()
 
     }
     
@@ -272,10 +272,10 @@ class DashboardVC: BaseVC {
     func addCustomBackgroundBlurView(){
         
         visualEffectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
-        visualEffectView.effect = UIBlurEffect(style: .dark)
+        visualEffectView.effect = UIBlurEffect(style: .light)
         
-        backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: 200))
-        backView.backgroundColor = UIColor.red.withAlphaComponent(0.4)
+        backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: 20))
+        backView.backgroundColor = UIColor.clear
         backView.addSubview(visualEffectView)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()

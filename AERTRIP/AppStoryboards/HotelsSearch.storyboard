@@ -1435,10 +1435,10 @@ been sent</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="99.5" height="246"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="19.5" translatesAutoresizingMaskIntoConstraints="NO" id="5Nc-t2-hZo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="246"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="245.5"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="lUb-4B-UGW">
-                                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="113.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="113"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="627-JL-ot9">
                                                                         <rect key="frame" x="0.0" y="0.0" width="99.5" height="43"/>
@@ -1460,10 +1460,10 @@ been sent</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFd-nY-Rus">
-                                                                        <rect key="frame" x="0.0" y="55" width="99.5" height="58.5"/>
+                                                                        <rect key="frame" x="0.0" y="55" width="99.5" height="58"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4l-qf-vJb">
-                                                                                <rect key="frame" x="34.5" y="0.5" width="31" height="58"/>
+                                                                                <rect key="frame" x="34.5" y="0.0" width="31" height="58"/>
                                                                                 <state key="normal" image="rooms_white_icon"/>
                                                                             </button>
                                                                         </subviews>
@@ -1480,7 +1480,7 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="klb-yY-qLX">
-                                                                <rect key="frame" x="0.0" y="133" width="99.5" height="113"/>
+                                                                <rect key="frame" x="0.0" y="132.5" width="99.5" height="113"/>
                                                                 <subviews>
                                                                     <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2S-NB-xYW">
                                                                         <rect key="frame" x="0.0" y="0.0" width="99.5" height="113"/>
@@ -2677,6 +2677,10 @@ been sent</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V4z-cq-RyF">
                                 <rect key="frame" x="0.0" y="20" width="375" height="100"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VFS-Xf-tG2">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dci-Q6-szv">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <subviews>
@@ -2729,7 +2733,7 @@ been sent</string>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yZE-ic-PI4">
                                                 <rect key="frame" x="320" y="0.0" width="39" height="44"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Canel"/>
                                                 <connections>
                                                     <action selector="cancelButtonTapped:" destination="Nrz-rD-ver" eventType="touchUpInside" id="p11-J6-uPq"/>
@@ -2764,6 +2768,7 @@ been sent</string>
                                         <subviews>
                                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Ebv-Er-a4m" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </searchBar>
                                         </subviews>
@@ -2792,12 +2797,15 @@ been sent</string>
                                         <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </progressView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Dci-Q6-szv" firstAttribute="leading" secondItem="V4z-cq-RyF" secondAttribute="leading" id="0b4-k5-8ZC"/>
+                                    <constraint firstItem="VFS-Xf-tG2" firstAttribute="leading" secondItem="V4z-cq-RyF" secondAttribute="leading" id="4pw-BW-8oW"/>
                                     <constraint firstItem="7Tu-mg-zuM" firstAttribute="leading" secondItem="V4z-cq-RyF" secondAttribute="leading" id="6Dk-Kt-Q9H"/>
                                     <constraint firstItem="eOs-Fb-lel" firstAttribute="top" secondItem="Dci-Q6-szv" secondAttribute="bottom" constant="-1" id="7AR-Qw-F34"/>
+                                    <constraint firstItem="VFS-Xf-tG2" firstAttribute="top" secondItem="V4z-cq-RyF" secondAttribute="top" id="ARX-Oy-kSY"/>
                                     <constraint firstAttribute="trailing" secondItem="cYF-2F-5gQ" secondAttribute="trailing" id="AXy-JT-SCp"/>
+                                    <constraint firstAttribute="bottom" secondItem="VFS-Xf-tG2" secondAttribute="bottom" id="B5Q-32-Chq"/>
                                     <constraint firstItem="7Tu-mg-zuM" firstAttribute="top" secondItem="eOs-Fb-lel" secondAttribute="bottom" id="Dpi-kw-ywn"/>
                                     <constraint firstItem="Dci-Q6-szv" firstAttribute="top" secondItem="V4z-cq-RyF" secondAttribute="top" id="Eaf-ID-s5A"/>
                                     <constraint firstAttribute="bottom" secondItem="7Tu-mg-zuM" secondAttribute="bottom" id="Lm3-B3-omv"/>
@@ -2807,6 +2815,7 @@ been sent</string>
                                     <constraint firstAttribute="trailing" secondItem="eOs-Fb-lel" secondAttribute="trailing" id="ncN-K3-jPU"/>
                                     <constraint firstAttribute="height" constant="100" id="pFu-uJ-4yb"/>
                                     <constraint firstItem="cYF-2F-5gQ" firstAttribute="leading" secondItem="V4z-cq-RyF" secondAttribute="leading" id="tkN-VD-Yuk"/>
+                                    <constraint firstAttribute="trailing" secondItem="VFS-Xf-tG2" secondAttribute="trailing" id="yJS-7y-xos"/>
                                     <constraint firstAttribute="trailing" secondItem="7Tu-mg-zuM" secondAttribute="trailing" id="yt3-MR-wNh"/>
                                 </constraints>
                             </view>
@@ -2845,6 +2854,7 @@ been sent</string>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="ZMo-hF-ekJ" id="sT3-MR-1Iu"/>
+                        <outlet property="backContainerView" destination="VFS-Xf-tG2" id="fxR-EG-Gn4"/>
                         <outlet property="cancelButton" destination="yZE-ic-PI4" id="hkf-DP-zJq"/>
                         <outlet property="cardGradientView" destination="cs7-6S-u7V" id="fv6-Ef-dAT"/>
                         <outlet property="collectionView" destination="oLY-cZ-RG2" id="5Cn-uS-fQq"/>

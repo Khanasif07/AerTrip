@@ -139,7 +139,13 @@ class TopNavigationView: UIView {
             //blur is already added
         }
         else {
-            onView.insertSubview(getBlurView(forView: onView, isDark: isDark), at: 0)
+           // onView.insertSubview(getBlurView(forView: onView, isDark: isDark), at: 0)
+            let backVisualEfectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:onView.frame.size.width , height: onView.height))
+            backVisualEfectView.effect = UIBlurEffect(style: .prominent)
+            backVisualEfectView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+            
+            backView.backgroundColor = UIColor.red.withAlphaComponent(0.4)
+            backView.addSubview(backVisualEfectView)
         }
     }
     
