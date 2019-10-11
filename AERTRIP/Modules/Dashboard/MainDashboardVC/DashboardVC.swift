@@ -223,7 +223,7 @@ class DashboardVC: BaseVC {
         self.segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -150.0)
         
         let rDuration = 1.0 / 2.0
-        UIView.animateKeyframes(withDuration: 0.4, delay: 0.0, options: .calculationModeLinear, animations: {
+        UIView.animateKeyframes(withDuration: 0.5, delay: 0.0, options: .calculationModeLinear, animations: {
             
             
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {

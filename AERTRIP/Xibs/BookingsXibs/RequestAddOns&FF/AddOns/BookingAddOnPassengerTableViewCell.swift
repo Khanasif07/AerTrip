@@ -16,6 +16,16 @@ class BookingAddOnPassengerTableViewCell: ATTableViewCell {
     
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.layoutIfNeeded()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        passengerNameLabel.attributedText = nil
+    }
+    
     override func setupFonts() {
         self.passengerNameLabel.font = AppFonts.SemiBold.withSize(18.0)
     }
@@ -24,14 +34,16 @@ class BookingAddOnPassengerTableViewCell: ATTableViewCell {
         self.passengerNameLabel.textColor = AppColors.themeBlack
     }
     
-    func configureCell(profileImage: String, salutationImage: UIImage, passengerName: String) {
+    func configureCell(profileImage: String, salutationImage: UIImage, passengerName: String, age: String) {
         if profileImage.isEmpty {
             self.passengerImageView.image = salutationImage
            
         } else {
            self.passengerImageView.setImageWithUrl(profileImage, placeholder: AppPlaceholderImage.user, showIndicator: true)
         }
-        
-        self.passengerNameLabel.text = passengerName
+        self.passengerNameLabel.appendFixedText(text: passengerName, fixedText: age)
+        if !age.isEmpty {
+            self.passengerNameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
+        }
     }
 }

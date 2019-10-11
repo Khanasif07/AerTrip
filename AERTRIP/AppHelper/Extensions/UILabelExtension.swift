@@ -150,9 +150,11 @@ extension UILabel {
     func appendFixedText(text: String, fixedText: String) {
         var labelText = text 
         self.text = text + fixedText
+       // self.sizeToFit()
         while self.isTruncated {
             labelText =  String(labelText.dropLast(2))
-          self.text = labelText + "…" + fixedText
+            self.text = labelText + "…" + fixedText
+            //self.sizeToFit()
         }
     }
 }

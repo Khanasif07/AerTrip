@@ -114,9 +114,7 @@ class GuestDetailTableViewCell: UITableViewCell {
         
         if let type = self.guestDetail?.passengerType, let number = self.guestDetail?.numberInRoom, number >= 0 {
             self.guestTitleLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)(\(self.guestDetail?.age ?? 0))"
-        }
-        
-        
+        }        
         
     }
     

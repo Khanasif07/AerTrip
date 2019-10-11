@@ -42,16 +42,16 @@
                                         <rect key="frame" x="0.0" y="20.5" width="150" height="31.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="4oD-9O-BvB">
-                                                <rect key="frame" x="38" y="5.5" width="74" height="20.5"/>
+                                                <rect key="frame" x="38" y="0.0" width="74" height="31.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8r3-ff-N3O">
-                                                        <rect key="frame" x="0.0" y="0.0" width="36.5" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="36.5" height="31.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WU1-cA-Lz0">
-                                                        <rect key="frame" x="37.5" y="0.0" width="36.5" height="20.5"/>
+                                                        <rect key="frame" x="37.5" y="0.0" width="36.5" height="31.5"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="R15-7N-K3n"/>
                                                         </constraints>
@@ -64,8 +64,10 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="4oD-9O-BvB" firstAttribute="top" secondItem="kQ6-QU-8rS" secondAttribute="top" id="BQt-Oq-sJu"/>
                                             <constraint firstItem="4oD-9O-BvB" firstAttribute="centerX" secondItem="kQ6-QU-8rS" secondAttribute="centerX" priority="250" id="SnD-vw-PCV"/>
                                             <constraint firstItem="4oD-9O-BvB" firstAttribute="centerY" secondItem="kQ6-QU-8rS" secondAttribute="centerY" id="T3O-1S-nWI"/>
+                                            <constraint firstAttribute="bottom" secondItem="4oD-9O-BvB" secondAttribute="bottom" id="h1z-Di-dDp"/>
                                             <constraint firstItem="4oD-9O-BvB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kQ6-QU-8rS" secondAttribute="leading" constant="5" id="n8j-4w-tJN"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4oD-9O-BvB" secondAttribute="trailing" constant="5" id="p5C-9D-yHF"/>
                                         </constraints>
@@ -90,7 +92,7 @@
                             <constraint firstItem="ac9-oi-Ky7" firstAttribute="trailing" secondItem="7hS-Bi-ygM" secondAttribute="trailing" id="SCE-ji-ERw"/>
                             <constraint firstAttribute="bottom" secondItem="ac9-oi-Ky7" secondAttribute="bottom" id="YTb-ao-EBP"/>
                             <constraint firstItem="7hS-Bi-ygM" firstAttribute="top" secondItem="1Cd-hZ-YUu" secondAttribute="bottom" constant="5" id="ooP-Cz-2Gt"/>
-                            <constraint firstItem="ac9-oi-Ky7" firstAttribute="top" secondItem="7hS-Bi-ygM" secondAttribute="bottom" constant="10" id="u0X-Wh-Tla"/>
+                            <constraint firstItem="ac9-oi-Ky7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="7hS-Bi-ygM" secondAttribute="bottom" constant="10" id="u0X-Wh-Tla"/>
                         </constraints>
                     </view>
                 </subviews>

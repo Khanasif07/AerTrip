@@ -70,7 +70,17 @@ class HotelCancellationRoomInfoTableViewCell: UITableViewCell {
 
         self.roomNumberLabel.text = roomNumber
         self.roomNameLabel.text = roomDetails.roomType
-        self.guestNamesLabel.text = roomDetails.guest.map { $0.fullName }.joined(separator: ", ")
+        //self.guestNamesLabel.text = roomDetails.guest.map { $0.fullName }.joined(separator: ", ")
+        
+        var nameArray  = [String]()
+        roomDetails.guest.forEach { (guest) in
+            var name = guest.name
+            if !guest.dob.isEmpty {
+                name += AppGlobals.shared.getAgeLastString(dob: guest.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+            }
+            nameArray.append(name)
+        }
+        self.guestNamesLabel.text = nameArray.joined(separator: ", ")
         if isRoomSelected {
             self.selectRoomButtonOutlet.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
         } else {

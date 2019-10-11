@@ -18,12 +18,20 @@ class BookingFrequentFlyerHeaderView: UITableViewHeaderFooterView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         self.setUpFont()
         self.setUpText()
         self.setUpTextColor()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.layoutIfNeeded()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        passengerNameLabel.attributedText = nil
+    }
     // MARK: - Helper methods
     
     func setUpFont() {
@@ -39,7 +47,8 @@ class BookingFrequentFlyerHeaderView: UITableViewHeaderFooterView {
         self.frequentFlyerLabel.textColor = AppColors.themeGray40
     }
     
-    func configureCell(profileImage: String, salutationImage: UIImage, passengerName: String) {
+    func configureCell(profileImage: String, salutationImage: UIImage, passengerName: String, age: String) {
+        self.layoutIfNeeded()
         if profileImage.isEmpty {
             self.profileImageView.image = salutationImage
             
@@ -47,6 +56,9 @@ class BookingFrequentFlyerHeaderView: UITableViewHeaderFooterView {
             self.profileImageView.setImageWithUrl(profileImage, placeholder: AppPlaceholderImage.user, showIndicator: true)
         }
         
-        self.passengerNameLabel.text = passengerName
+        self.passengerNameLabel.appendFixedText(text: passengerName, fixedText: age)
+        if !age.isEmpty {
+            self.passengerNameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
+        }
     }
 }
