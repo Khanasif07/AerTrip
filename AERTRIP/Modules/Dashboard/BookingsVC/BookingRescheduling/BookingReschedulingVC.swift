@@ -224,8 +224,11 @@ class BookingReschedulingVC: BaseVC {
             let paxD = legD.pax[index]
             
             let pnrNoStr = paxD.pnr.isEmpty ? paxD.status : paxD.pnr
-            
-            bookingAccordionCell.configureCell(passengerName: paxD.fullNameWithSalutation, pnrNo: pnrNoStr, saleValue: paxD.amountPaid.delimiterWithSymbol, cancellationCharge:self.viewModel.usingFor == .rescheduling ? paxD.rescheduleCharge.delimiterWithSymbol : paxD.cancellationCharge.delimiterWithSymbol, refundValue: self.viewModel.usingFor == .rescheduling ? paxD.netRefundForReschedule.delimiterWithSymbol : paxD.netRefundForCancellation.delimiterWithSymbol)
+            var age = ""
+            if !paxD.dob.isEmpty {
+                age = AppGlobals.shared.getAgeLastString(dob: paxD.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+            }
+            bookingAccordionCell.configureCell(passengerName: paxD.paxName, pnrNo: pnrNoStr, saleValue: paxD.amountPaid.delimiterWithSymbol, cancellationCharge:self.viewModel.usingFor == .rescheduling ? paxD.rescheduleCharge.delimiterWithSymbol : paxD.cancellationCharge.delimiterWithSymbol, refundValue: self.viewModel.usingFor == .rescheduling ? paxD.netRefundForReschedule.delimiterWithSymbol : paxD.netRefundForCancellation.delimiterWithSymbol, age: age)
             bookingAccordionCell.delegate = self
             bookingAccordionCell.headerDividerView.isHidden = (legD.pax.count - 1) == (indexPath.row - (legD.flight.count))
             

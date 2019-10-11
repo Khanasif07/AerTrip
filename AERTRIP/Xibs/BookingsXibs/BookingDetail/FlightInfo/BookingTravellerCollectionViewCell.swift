@@ -47,9 +47,15 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
         self.profileImageView.cornerRadius = self.profileImageView.height / 2.0
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        resetView()
+    }
+    
     private func doInitialSetup() {
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2
         self.profileImageView.layer.masksToBounds = true
+        resetView()
     }
     
     private func setUpFont() {
@@ -67,6 +73,12 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
     
     private func updateSelection() {
         self.bottomSlideView.isHidden = !self.isPaxSelected
+    }
+    
+    private func resetView() {
+        travellerLastNameLabel.isHidden = true
+        travellerAgeLabel.isHidden = true
+        lastNameAgeContainer.isHidden = true
     }
     
     private func configureCell() {
