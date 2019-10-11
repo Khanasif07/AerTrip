@@ -58,10 +58,11 @@ struct AppToast {
             let maxW: CGFloat = UIDevice.screenWidth - 20.0
             var width: CGFloat = maxW
             
-            if lines <= 1 {
-                let tempW = message.sizeCount(withFont: ob.messageLabel.font, bundingSize: CGSize(width: 10000.0, height: self.toastHeight - 20)).width + 42.0
-                width = max(45.0, tempW)
-            }
+            // uncomment below code,if you want to use toast view based on string 
+//            if lines <= 1 {
+//                let tempW = message.sizeCount(withFont: ob.messageLabel.font, bundingSize: CGSize(width: 10000.0, height: self.toastHeight - 20)).width + 42.0
+//                width = max(45.0, tempW)
+//            }
             width = min(width, maxW)
             
             let newX: CGFloat = max(((maxW - width) / 2.0), 10.0)

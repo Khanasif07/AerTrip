@@ -104,6 +104,7 @@ class EditProfileImageHeaderView: UIView {
         verticalDividerView.isHidden = true
         unicodeSwitch.sliderView.layer.borderColor = AppColors.themeBlack.withAlphaComponent(0.04).cgColor
         unicodeSwitch.sliderView.layer.borderWidth = 0.5
+        self.containerView.layer.borderColor = AppColors.clear.cgColor
         unicodeSwitch.sliderView.dropShadowOnSwitch()
         if sender.selectedIndex == 1 {
             unicodeSwitch.titleLeft = "🙍🏻‍♂️"

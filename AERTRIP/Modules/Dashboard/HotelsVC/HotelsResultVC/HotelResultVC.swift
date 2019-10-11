@@ -22,6 +22,9 @@ enum HotelResultViewType {
     case ListView
 }
 
+let visualEffectViewHeight =  CGFloat(200)//CGFloat(200.0)
+
+
 class MapContainerView: UIView {
     weak var mapView: GMSMapView? {
         didSet {
@@ -190,6 +193,10 @@ class HotelResultVC: BaseVC {
     var searchedHotels: [HotelSearched] = []
     var andPredicate : NSCompoundPredicate?
     
+    var visualEffectView : UIVisualEffectView!
+    var backView : UIView!
+    
+    
     // Empty State view
     
     lazy var noResultemptyView: EmptyScreenView = {
@@ -298,13 +305,20 @@ class HotelResultVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.statusBarColor = AppColors.themeWhite
+        self.statusBarColor = AppColors.clear
+        
+        addCustomBackgroundBlurView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.statusBarColor = AppColors.clear
+        
+        if  self.isMovingFromParent {
+            backView.removeFromSuperview()
+        }
     }
+    
   
     override func bindViewModel() {
         self.viewModel.delegate = self
@@ -345,7 +359,29 @@ class HotelResultVC: BaseVC {
             
         }
     }
-    
+        
+        func addCustomBackgroundBlurView(){
+            
+            visualEffectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
+            visualEffectView.effect = UIBlurEffect(style: .prominent)
+            
+            backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: 200))
+            backView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
+            backView.addSubview(visualEffectView)
+            
+            
+//            let statusBarHeight = UIApplication.shared.statusBarFrame.height
+            
+            
+            self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+            self.navigationController?.navigationBar.shadowImage = UIImage()
+            self.navigationController?.view.backgroundColor = .clear
+            self.navigationController?.view.insertSubview(backView, at: 0)
+            
+            navigationItem.hidesBackButton = true
+            self.navigationItem.leftBarButtonItem=nil
+        
+    }
     // MARK: - Methods
     
     // MARK: - Private
@@ -576,7 +612,7 @@ class HotelResultVC: BaseVC {
         }
     }
 
+
+
+
 }
-
-
-

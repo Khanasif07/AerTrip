@@ -174,7 +174,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 if indexPath.row == 0 {
                     cell.editableTextField.placeholder = LocalizedString.passportNo.localized
                 }
-                cell.editableTextField.lineView.isHidden = true
+                cell.editableTextField.isHiddenBottomLine = true
                 //index 0: passport no, index 1: passport country
                 cell.configureCell(passportDetaitTitle[indexPath.row], (indexPath.row == 0) ? viewModel.passportNumber : viewModel.passportCountryName)
 
@@ -232,6 +232,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.configureCell(moreInformation[indexPath.row].rawValue,  (indexPath.row == 0) ? viewModel.dob : viewModel.doa)
                 cell.separatorView.isHidden = (indexPath.row + 1 == moreInformation.count) ? true : false
                 cell.editableTextField.lineView.isHidden = true
+                cell.editableTextField.isHiddenBottomLine = true
                 return cell
             }
             
@@ -276,6 +277,8 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: textEditableCellIdentifier, for: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
                 cell.editableTextField.isEnabled = false
                 cell.editableTextField.lineView.backgroundColor = AppColors.clear
+                cell.editableTextField.isHiddenBottomLine = true
+                
                 cell.downArrowImageView.isHidden = false
                 cell.configureCell(flightPreferencesTitle[indexPath.row], indexPath.row == 0 ? (viewModel.seat.isEmpty ? LocalizedString.Select.localized : viewModel.seat) : (viewModel.meal.isEmpty ? LocalizedString.Select.localized : viewModel.meal))
                 return cell

@@ -144,7 +144,7 @@ class TopNavigationView: UIView {
     }
     
     private func getBlurView(forView: UIView, isDark: Bool) -> UIVisualEffectView {
-        let blurEffect = UIBlurEffect(style: isDark ? UIBlurEffect.Style.dark : UIBlurEffect.Style.light)
+        let blurEffect = UIBlurEffect(style: isDark ? UIBlurEffect.Style.dark : UIBlurEffect.Style.prominent)
         
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = forView.bounds
