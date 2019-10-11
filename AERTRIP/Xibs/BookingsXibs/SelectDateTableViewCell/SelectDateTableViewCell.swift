@@ -84,13 +84,14 @@ class SelectDateTableViewCell: UITableViewCell {
         self.datePicker.datePickerMode = .date
         self.datePicker.backgroundColor = AppColors.themeWhite
         
-        toolbar.backgroundColor = AppColors.secondarySystemFillColor
+        toolbar.backgroundColor = .clear
         toolbar.barTintColor = AppColors.secondarySystemFillColor
         
         datePicker.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
         genericPickerView.addSubview(self.datePicker)
         genericPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
-        self.genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
+        genericPickerView.backgroundColor = AppColors.quaternarySystemFillColor
+        //self.genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
         
         self.selectDateTextField.inputAccessoryView = toolbar
         self.selectDateTextField.inputView = self.genericPickerView
