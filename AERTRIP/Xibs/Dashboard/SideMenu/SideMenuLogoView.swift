@@ -21,6 +21,7 @@ class SideMenuLogoView: UIView {
     
     @IBOutlet weak var logoImageAndNameConstraint: NSLayoutConstraint!
     @IBOutlet weak var logoImageTopContraint: NSLayoutConstraint!
+    @IBOutlet weak var messageLabelTopConstraint: NSLayoutConstraint!
     
     var currentlyUsingFor = UsingFor.sideMenu {
         didSet {
@@ -65,7 +66,10 @@ class SideMenuLogoView: UIView {
     }
     
     private func setupForSocialLogin() {
-        logoImageTopContraint.constant = 38.0
+        logoImageTopContraint.constant = 70.0
+        self.logoImageView.layoutIfNeeded()
+        
+        
     }
     
     private func updateAppName() {

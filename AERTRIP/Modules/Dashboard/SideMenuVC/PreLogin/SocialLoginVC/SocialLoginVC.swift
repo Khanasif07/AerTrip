@@ -203,7 +203,7 @@ private extension SocialLoginVC {
             logoView?.isAppNameHidden = false
             
             socialButtosCenterConstraint.constant = 0.0
-            socialAndLogoSpace.constant = 75.0
+            socialAndLogoSpace.constant = 85.0
         }
         else {
             logoView?.messageLabel.font = AppFonts.Bold.withSize(38.0)

@@ -294,6 +294,11 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             
             if let _ = UserInfo.loggedInUserId {
                 let title = self.viewModel.cellForLoginUser[indexPath.row - 2]
+                if indexPath.row == 6 || indexPath.row == 5 || indexPath.row == 4 {
+                    cell.displayTextLabelTopConstraint.constant = -4.0
+                } else {
+                    cell.displayTextLabelTopConstraint.constant = 0.0
+                }
                 cell.populateData(text: title)
                 cell.sepratorView.isHidden = !title.isEmpty
                 
@@ -365,7 +370,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 return (UserInfo.loggedInUserId == nil) ? 60.0 : 67.0
                 
             default:
-                return (UserInfo.loggedInUserId == nil) ? 64.0 : 64.0
+                return (UserInfo.loggedInUserId == nil) ? ( indexPath.row == 6) ? 61.0 : 64.0 : 64.0
             }
         }
     }

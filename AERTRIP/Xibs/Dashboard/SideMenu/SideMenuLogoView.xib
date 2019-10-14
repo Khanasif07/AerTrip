@@ -21,6 +21,7 @@
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upwardAertripLogo" translatesAutoresizingMaskIntoConstraints="NO" id="bob-jK-b56">
                             <rect key="frame" x="159.5" y="38" width="27" height="30"/>
+                            <color key="backgroundColor" red="1" green="0.4660132287" blue="0.44192402720000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoText" translatesAutoresizingMaskIntoConstraints="NO" id="HJk-Os-vtO">
                             <rect key="frame" x="117.5" y="86" width="111" height="13"/>
@@ -61,6 +62,7 @@ travel experience</string>
                 <outlet property="logoImageView" destination="bob-jK-b56" id="Q6P-vK-1XW"/>
                 <outlet property="logoTextView" destination="HJk-Os-vtO" id="ad9-3j-fJM"/>
                 <outlet property="messageLabel" destination="uho-Jk-ZYW" id="NC9-ic-ByC"/>
+                <outlet property="messageLabelTopConstraint" destination="0eX-03-ecD" id="05D-zP-m9M"/>
             </connections>
             <point key="canvasLocation" x="115.2" y="-98.50074962518741"/>
         </view>
