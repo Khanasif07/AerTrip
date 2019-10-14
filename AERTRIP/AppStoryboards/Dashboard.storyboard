@@ -447,10 +447,12 @@
                     <connections>
                         <outlet property="aerinLabel" destination="CMz-6r-Sru" id="HVT-56-aP9"/>
                         <outlet property="aerinView" destination="Wjk-Vp-DEf" id="YYh-Oi-CK7"/>
+                        <outlet property="aertripLogoImageView" destination="5KX-bs-S52" id="CvE-25-HgE"/>
                         <outlet property="flightsLabel" destination="bmS-2d-CXq" id="9dL-7b-RMQ"/>
                         <outlet property="flightsView" destination="M6D-EY-y2X" id="gU9-oL-6zw"/>
                         <outlet property="headerTopConstraint" destination="Ymh-y5-rUR" id="yiZ-zd-bG1"/>
                         <outlet property="headerView" destination="x1e-WT-TPs" id="vGe-8b-K1Q"/>
+                        <outlet property="homeAertripLogoImageView" destination="dc0-cl-wv6" id="EIO-e1-n9G"/>
                         <outlet property="hotelsLabel" destination="7Md-Fs-uVy" id="saJ-vQ-nms"/>
                         <outlet property="hotelsView" destination="vUw-j7-ETK" id="7tD-6H-KLz"/>
                         <outlet property="innerScrollView" destination="7M1-zd-tJX" id="giS-NW-Y3k"/>
@@ -1087,13 +1089,13 @@ on Christmas”</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLz-uM-NAJ">
-                                <rect key="frame" x="167" y="223.5" width="41.5" height="25.5"/>
+                                <rect key="frame" x="166" y="224.5" width="43" height="23.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ws-RO-flc">
-                                <rect key="frame" x="110.5" y="264" width="154" height="21.5"/>
+                                <rect key="frame" x="107" y="263" width="161" height="20"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>

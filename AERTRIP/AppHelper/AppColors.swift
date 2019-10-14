@@ -176,7 +176,7 @@ enum AppColors {
             return AppColors.themeWhite
 
         case .viewProfileTopGradient:
-            return AppColors.themeBlack.withAlphaComponent(0.3)
+            return AppColors.themeBlack.withAlphaComponent(0.21)
         }
     }
 }

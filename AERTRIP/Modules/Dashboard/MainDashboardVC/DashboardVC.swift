@@ -21,6 +21,10 @@ class DashboardVC: BaseVC {
     @IBOutlet weak var segmentCenterYConstraint: NSLayoutConstraint!
     @IBOutlet weak var segmentHeightConstraint: NSLayoutConstraint!
     
+    
+    @IBOutlet weak var aertripLogoImageView: UIImageView!
+    
+    @IBOutlet weak var homeAertripLogoImageView: UIImageView!
     //segment views
     @IBOutlet weak var aerinView: UIView!
     @IBOutlet weak var flightsView: UIView!
@@ -303,6 +307,28 @@ extension DashboardVC  {
         if scrollView == mainScrollView {            
             var transform : CGFloat = 0.0
             
+            let offset = scrollView.contentOffset
+            
+            let upperBound = scrollView.contentSize.height - scrollView.bounds.height
+            guard 0...upperBound ~= offset.y else {
+                return
+            }
+            
+            let progress: CGFloat = offset.y.truncatingRemainder(dividingBy: scrollView.bounds.height) / scrollView.bounds.height
+            
+            if progress != 0 {
+                self.aertripLogoImageView.alpha = 0.2 - progress
+                self.profileButton.alpha = 0.2 - progress
+                self.homeAertripLogoImageView.alpha = 0.2 - progress
+            } else {
+                self.aertripLogoImageView.alpha = 1
+                self.profileButton.alpha = 1
+                self.homeAertripLogoImageView.alpha = 1
+            }
+            
+           
+            
+            printDebug("current progress \(progress)")
             if scrollView.contentOffset.y - mainScrollViewOffset.y > 0 {
                 let valueMoved = scrollView.contentOffset.y - mainScrollViewOffset.y
                 let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
