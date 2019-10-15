@@ -302,7 +302,7 @@ class TravellerListVC: BaseVC {
             var sortDes = [NSSortDescriptor(key: "labelLocPrio", ascending: true)]
 
             if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
-                sortDes.append(NSSortDescriptor(key: "firstName", ascending: true))
+                sortDes.append(NSSortDescriptor(key: "lastName", ascending: true))
 
             } else {
                 sortDes.append(NSSortDescriptor(key: "firstName", ascending: true))
