@@ -19,7 +19,7 @@ public enum PKSideMenuAnimation {
 
 public struct PKSideMenuOptions {
     public static var mainViewCornerRadiusInOpenMode: CGFloat = 18.0
-    public static var sideDistanceForOpenMenu: CGFloat = 220.0
+    public static var sideDistanceForOpenMenu: CGFloat = 230.0
     public static var opacityViewBackgroundColor: UIColor = UIColor.green
     public static var mainViewShadowColor: UIColor = UIColor.black
     public static var mainViewShadowWidth: Double = 5.0
@@ -367,7 +367,7 @@ extension PKSideMenuController {
 
             var tScale : CATransform3D = CATransform3DIdentity
             tScale.m34 = 1.0 / (-800.0)
-            tScale = CATransform3DScale(tScale, 0.85, 0.75, 1.0)
+            tScale = CATransform3DScale(tScale, 0.85, 0.70, 1.0)
             layerTemp.transform = CATransform3DConcat(tScale, tRotate)
 
             self.mainContainer?.frame = mainFrame

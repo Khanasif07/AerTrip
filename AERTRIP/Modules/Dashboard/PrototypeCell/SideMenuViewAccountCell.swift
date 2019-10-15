@@ -81,7 +81,7 @@ extension SideMenuViewAccountCell {
             }
         }
         
-        self.amountLabel.attributedText = amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16))
+        self.amountLabel.attributedText = amount.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(22.0))
         
         self.dateLabel.text = ""
         self.dateLabel.isHidden = true
