@@ -98,7 +98,7 @@ struct AccountDetailEvent {
     var room: String = ""
     var inclusion: String = ""
     var confirmationId: String = ""
-    var names: [String] = []
+    var names: [AccountUser] = []
     
     var bookingId: String = ""
     
@@ -332,14 +332,16 @@ struct AccountDetailEvent {
                     
                     //names for paxs
                     for pnr in pnrs {
-                        if let paxs = pnr[""] as? [JSONDictionary], !paxs.isEmpty {
+                        if let paxs = pnr["pax"] as? [JSONDictionary], !paxs.isEmpty {
+                            self.names = AccountUser.retunsAccountUserArray(jsonArr: paxs)
+                            /*
                             for pax in paxs {
                                 let salt = (pax["salutation"] as? String) ?? ""
                                 let name = (pax["name"] as? String) ?? ""
                                 
                                 let final = salt.isEmpty ? name : "\(salt) \(name)"
                                 self.names.append(final)
-                            }
+                            } */
                         }
                     }
                 }
@@ -392,14 +394,14 @@ struct AccountDetailEvent {
                 //guest names
                 for room in rows {
                     if let guests = room["guests"] as? [JSONDictionary], !rows.isEmpty {
-                        
+                        self.names = AccountUser.retunsAccountUserArray(jsonArr: guests)
+                        /*
                         for guest in guests {
                             let salt = (guest["salutation"] as? String) ?? ""
                             let name = (guest["name"] as? String) ?? ""
-                            
                             let final = salt.isEmpty ? name : "\(salt) \(name)"
-                            self.names.append(final)
-                        }
+                            names.append(final)
+                        } */
                     }
                 }
             }
@@ -453,4 +455,57 @@ struct AccountDetailEvent {
 //
 //        return (temp, vchrType)
     }
+}
+
+struct AccountUser {
+    
+    var paxType: String = ""
+    var paxId: String = ""
+    var salutation: String = ""
+    var name: String = ""
+    var age: String = ""
+    var dob: String = ""
+    
+    
+    init() {
+        self.init(json: [:])
+    }
+    
+    init(json: JSONDictionary) {
+        
+        if let obj = json["pax_type"] {
+            self.paxType = "\(obj)".removeNull
+        }
+        
+        if let obj = json["pax_id"] {
+            self.paxId = "\(obj)".removeNull
+        }
+        
+        if let obj = json["salutation"] {
+            self.salutation = "\(obj)".removeNull
+        }
+        
+        if let obj = json["name"] {
+            self.name = "\(obj)".removeNull
+        }
+        
+        if let obj = json["age"] {
+            self.age = "\(obj)".removeNull
+        }
+        
+        if let obj = json["dob"] {
+            self.dob = "\(obj)".removeNull
+        }
+        
+    }
+    
+    static func retunsAccountUserArray(jsonArr: [JSONDictionary]) -> [AccountUser] {
+        var traveller = [AccountUser]()
+        for element in jsonArr {
+            traveller.append(AccountUser(json: element))
+        }
+        return traveller
+    }
+    
+    
 }

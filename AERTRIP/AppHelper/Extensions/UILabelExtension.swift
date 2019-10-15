@@ -155,7 +155,29 @@ extension UILabel {
             labelText =  String(labelText.dropLast(2))
             self.text = labelText + "…" + fixedText
             //self.sizeToFit()
+            if labelText.isEmpty {
+                break
+            }
         }
+    }
+    
+    func AttributedFont(textFont : UIFont, textColor : UIColor) {
+        
+        //self.textColor = UIColor.black
+        guard let labelString = self.text else { return }
+        
+        let main_string = labelString as NSString
+        
+        var  attribute = NSMutableAttributedString(string: main_string as String, attributes: [NSAttributedString.Key.font : textFont, NSAttributedString.Key.foregroundColor : textColor])
+        if let labelAttributedString = self.attributedText {
+           // attribute = NSMutableAttributedString.init(attributedString: labelAttributedString)
+        }
+        //attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: textColor , range: range)
+        // attribute.addAttribute(NSBaselineOffsetAttributeName, value: 0, range: range)
+        self.attributedText = attribute
+        
+        
+        
     }
 }
 

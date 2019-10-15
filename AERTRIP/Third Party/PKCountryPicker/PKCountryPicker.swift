@@ -108,7 +108,7 @@ open class PKCountryPicker: UIView {
         
         if PKCountryPickerSettings.appearance == .dark {
             //toolbar.barTintColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
-            toolbar.backgroundColor = AppColors.secondarySystemFillColor
+            toolbar.backgroundColor = .clear
             toolbar.barTintColor = AppColors.secondarySystemFillColor
             cancelButton.tintColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
             doneButton.tintColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
@@ -116,7 +116,7 @@ open class PKCountryPicker: UIView {
         else {
 //            toolbar.backgroundColor = AppColors.themeGray40
 //            toolbar.barTintColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
-            toolbar.backgroundColor = AppColors.secondarySystemFillColor
+            toolbar.backgroundColor = .clear
             toolbar.barTintColor = AppColors.secondarySystemFillColor
             cancelButton.tintColor = AppColors.themeGreen
             doneButton.tintColor = AppColors.themeGreen
@@ -127,7 +127,7 @@ open class PKCountryPicker: UIView {
         toolbar.setItems(array, animated: true)
         
         // nitin change
-        self.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
+        //self.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
         self.addSubview(toolbar)
     }
     

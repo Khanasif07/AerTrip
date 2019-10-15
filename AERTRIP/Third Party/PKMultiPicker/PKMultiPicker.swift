@@ -61,9 +61,8 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
         toolbar.sizeToFit()
         let array = [ spaceButton, doneButton]
         toolbar.setItems(array, animated: true)
-        toolbar.backgroundColor = UIColor.lightText
         
-        toolbar.backgroundColor = AppColors.secondarySystemFillColor
+        toolbar.backgroundColor = .clear
         toolbar.barTintColor = AppColors.secondarySystemFillColor
         
         let genericPickerView: UIView = UIView()
@@ -71,8 +70,8 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
         self.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
         genericPickerView.addSubview(self)
         genericPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
-        
-        genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
+        genericPickerView.backgroundColor = AppColors.quaternarySystemFillColor
+        //genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
         
         
         textField?.inputView = genericPickerView
@@ -235,7 +234,7 @@ class PKDatePicker: UIDatePicker {
         let array = [spaceButton, doneButton]
         toolbar.setItems(array, animated: true)
         
-        toolbar.backgroundColor = AppColors.secondarySystemFillColor
+        toolbar.backgroundColor = .clear
         toolbar.barTintColor = AppColors.secondarySystemFillColor
         
         let genericPickerView: UIView = UIView()
@@ -243,8 +242,8 @@ class PKDatePicker: UIDatePicker {
         self.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
         genericPickerView.addSubview(self)
         genericPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
-        
-        genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
+        genericPickerView.backgroundColor = AppColors.quaternarySystemFillColor
+        //genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
         
         
         textField?.inputView = genericPickerView

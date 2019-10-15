@@ -126,10 +126,15 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         
         self.greenCircleRatingView.isHidden = true
         self.tripLogoImage.isHidden = true
-        if let hotel = self.hotelData, hotel.rating > 0.0 {
+//        if let hotel = self.hotelData, hotel.rating > 0.0 {
+//            self.greenCircleRatingView.isHidden = false
+//            self.tripLogoImage.isHidden = false
+//            self.greenCircleRatingView.rating = hotel.rating
+//        }
+        if let hotel = self.hotelData, hotel.taRating > 0.0 {
             self.greenCircleRatingView.isHidden = false
             self.tripLogoImage.isHidden = false
-            self.greenCircleRatingView.rating = hotel.rating
+            self.greenCircleRatingView.rating = hotel.taRating
         }
 
         self.saveButton.isSelected = self.hotelData?.isFavourite ?? false

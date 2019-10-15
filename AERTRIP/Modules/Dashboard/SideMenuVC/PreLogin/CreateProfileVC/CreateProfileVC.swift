@@ -214,6 +214,7 @@ private extension CreateProfileVC {
         salutationPicker.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
         genericPickerView.addSubview(self.salutationPicker)
         genericPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)        
+        genericPickerView.backgroundColor = AppColors.quaternarySystemFillColor
         
         self.countryTextField.delegate = self
         self.countryCodeTextField.delegate = self
@@ -238,7 +239,7 @@ private extension CreateProfileVC {
         let doneButton = UIBarButtonItem()
         doneButton.title  = LocalizedString.Done.localized
         
-        toolBar.backgroundColor = AppColors.secondarySystemFillColor
+        toolBar.backgroundColor = .clear
         toolBar.barTintColor = AppColors.secondarySystemFillColor
         cancelButton.tintColor = AppColors.themeGreen
         doneButton.tintColor   = AppColors.themeGreen
@@ -250,7 +251,7 @@ private extension CreateProfileVC {
         toolBar.setItems([ spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         
-        self.genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
+        //self.genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
         return toolBar
     }
     

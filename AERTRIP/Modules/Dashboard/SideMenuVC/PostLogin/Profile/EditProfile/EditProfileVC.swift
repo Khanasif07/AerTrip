@@ -468,16 +468,16 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         
-        toolbar.backgroundColor = AppColors.secondarySystemFillColor
-        toolbar.barTintColor = AppColors.secondarySystemFillColor
+        toolbar.backgroundColor = .clear
+       toolbar.barTintColor =  AppColors.secondarySystemFillColor
         cancelButton.tintColor = AppColors.themeGreen
         doneButton.tintColor = AppColors.themeGreen
         
         let array = [ spaceButton, doneButton]
         toolbar.setItems(array, animated: true)
+        datePickerView?.backgroundColor = AppColors.quaternarySystemFillColor
         
-        
-        datePickerView?.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
+     //   datePickerView?.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
         datePickerView?.addSubview(toolbar)
     }
     
@@ -491,15 +491,15 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         
-        toolbar.backgroundColor = AppColors.secondarySystemFillColor
-        toolbar.barTintColor = AppColors.secondarySystemFillColor
+        toolbar.backgroundColor = .clear
+      toolbar.barTintColor = AppColors.secondarySystemFillColor
         cancelButton.tintColor = AppColors.themeGreen
         doneButton.tintColor = AppColors.themeGreen
         
         let array = [ spaceButton, doneButton]
         toolbar.setItems(array, animated: true)
-        
-        genericPickerView?.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
+        genericPickerView?.backgroundColor = AppColors.quaternarySystemFillColor
+       // genericPickerView?.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
         genericPickerView?.addSubview(toolbar)
     }
     

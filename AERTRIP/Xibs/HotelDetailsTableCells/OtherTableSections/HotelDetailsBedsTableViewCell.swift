@@ -86,13 +86,14 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         let greenAttribute = [NSAttributedString.Key.font: AppFonts.SemiBold.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeGreen] as [NSAttributedString.Key : Any]
         doneButton.setTitleTextAttributes(greenAttribute , for: .normal)
         toolbar.setItems([spaceButton,doneButton], animated: true)
-        toolbar.backgroundColor = AppColors.secondarySystemFillColor
+        toolbar.backgroundColor = .clear
         toolbar.barTintColor = AppColors.secondarySystemFillColor
         self.bedPickerView.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - bedPickerViewHeight, width: UIScreen.main.bounds.width , height: bedPickerViewHeight)
         self.bedPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
         genericPickerView.addSubview(self.bedPickerView)
         genericPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
         self.genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
+        genericPickerView.backgroundColor = AppColors.quaternarySystemFillColor
         
         self.bedPickerView.delegate = self
         self.bedPickerView.dataSource = self

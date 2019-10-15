@@ -84,6 +84,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             //details
             var key = "", value = ""
             var descColor: UIColor? = nil
+            var age = ""
             
             if let event = self.viewModel.ladgerEvent {
                 if event.voucher == .sales {
@@ -97,6 +98,14 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                         case 1:
                             key = self.viewModel.bookingDetailKeys[indexPath.row]
                             value = (dict[key] as? String) ?? ""
+                            if let model = dict[key] as? AccountUser {
+                                value = model.name
+                                if !model.age.isEmpty, let userAge = Int(model.age)  {
+                                    if (userAge > 0) && (userAge <= 12){
+                                        age = "(\(userAge)y)"
+                                    }
+                                }
+                            }
                             if key.contains("Names"), (key != "Names") {
                                 key = ""
                             }
@@ -121,6 +130,12 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
                         case 2:
                             key = self.viewModel.flightDetailKeys[indexPath.row]
                             value = (dict[key] as? String) ?? ""
+                            if let model = dict[key] as? AccountUser {
+                                value = model.name
+                                if !model.dob.isEmpty {
+                                    age = AppGlobals.shared.getAgeLastString(dob: model.dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+                                }
+                            }
                             if key.contains("Names"), (key != "Names") {
                                 key = ""
                             }
@@ -141,7 +156,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             }
             
             value = value.isEmpty ? LocalizedString.dash.localized : value
-            return self.getDetailCell(title: key, description: value, descriptionColor: descColor)
+            return self.getDetailCell(title: key, description: value, descriptionColor: descColor, age: age)
 
         }
     }
@@ -154,12 +169,12 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func getDetailCell(title: String, description: String, descriptionColor: UIColor? = nil) -> UITableViewCell {
+    func getDetailCell(title: String, description: String, descriptionColor: UIColor? = nil, age: String) -> UITableViewCell {
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: AccountLadgerDetailCell.reusableIdentifier) as? AccountLadgerDetailCell else {
             return UITableViewCell()
         }
         
-        cell.configure(title: title, description: description)
+        cell.configure(title: title, description: description, age: age)
         if let color = descriptionColor {
             cell.descLabel.textColor = color
         }
@@ -185,7 +200,10 @@ class AccountLadgerDetailCell: UITableViewCell {
         
         self.selectionStyle = .none
     }
-    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.descLabel.attributedText = nil
+    }
     //MARK:- Properties
     //MARK:- Private
     
@@ -196,7 +214,7 @@ class AccountLadgerDetailCell: UITableViewCell {
     //MARK:- Private
     
     //MARK:- Public
-    func configure(title: String, description: String) {
+    func configure(title: String, description: String, age: String) {
         
         self.titleLabel.isHidden = false
         self.titleLabel.font = AppFonts.Regular.withSize(16.0)
@@ -207,6 +225,10 @@ class AccountLadgerDetailCell: UITableViewCell {
         self.descLabel.font = AppFonts.Regular.withSize(16.0)
         self.descLabel.textColor = AppColors.textFieldTextColor51
         self.descLabel.text = description
+        if !age.isEmpty {
+            self.descLabel.appendFixedText(text: description, fixedText: age)
+            self.descLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
+        }
     }
 }
 
