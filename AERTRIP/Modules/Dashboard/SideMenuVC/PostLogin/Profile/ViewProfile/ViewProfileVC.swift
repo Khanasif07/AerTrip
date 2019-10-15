@@ -331,7 +331,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
             self.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 127.0 * prallexProgress
         }
         printDebug(prallexProgress)
-        if prallexProgress <= 0.7 {
+        if prallexProgress <= 0.79 {
             self.statusBarStyle = .default
             self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
                 self?.topNavView.firstRightButton.isSelected = true

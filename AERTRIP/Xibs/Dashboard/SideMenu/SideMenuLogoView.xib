@@ -21,7 +21,7 @@
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upwardAertripLogo" translatesAutoresizingMaskIntoConstraints="NO" id="bob-jK-b56">
                             <rect key="frame" x="159.5" y="38" width="27" height="30"/>
-                            <color key="backgroundColor" red="1" green="0.4660132287" blue="0.44192402720000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoText" translatesAutoresizingMaskIntoConstraints="NO" id="HJk-Os-vtO">
                             <rect key="frame" x="117.5" y="86" width="111" height="13"/>
