@@ -76,8 +76,8 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.disconnectButton.setTitle(LocalizedString.Disconnect.localized, for: .normal)
         self.disconnectButton.setTitle(LocalizedString.Disconnect.localized, for: .selected)
         
-        self.disconnectButton.setTitleColor(AppColors.themeRed, for: .normal)
-        self.disconnectButton.setTitleColor(AppColors.themeGray20, for: .disabled)
+       // self.disconnectButton.setTitleColor(AppColors.themeRed, for: .normal)
+       // self.disconnectButton.setTitleColor(AppColors.themeGray20, for: .disabled)
         
         self.disconnectButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
         self.disconnectButton.addTarget(self, action: #selector(disconnectButtonAction(_:)), for: .touchUpInside)
@@ -96,7 +96,7 @@ class LinkedAccountsTableCell: UITableViewCell {
             self.socialTypeLabel.text = self.linkedAccount?.socialType.socialTitle
             self.iconImageView.image = self.linkedAccount?.socialType.socialIconImage
             if let loggedSocial = UserInfo.loggedInUser?.socialLoginType, let currentSocial = self.linkedAccount?.socialType {
-                self.disconnectButton.isEnabled = loggedSocial != currentSocial
+                self.disconnectButton.setTitleColor( loggedSocial != currentSocial ?  AppColors.themeRed : AppColors.themeGray20, for: .normal)
             }
         }
         else {

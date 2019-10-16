@@ -129,16 +129,16 @@ class ATButton: UIButton {
             layer.insertSublayer(shadowLayer, at: 0)
         }
         
-        let shadowFrame = self.isSocial ? self.bounds : CGRect(x: 3.0, y: 0.0, width: bounds.width - 6.0, height: bounds.height)
+        let shadowFrame = self.isSocial ? CGRect(x: 0.0, y:2.0, width: bounds.width, height: bounds.height) : CGRect(x: 3.0, y: 0.0, width: bounds.width - 6.0, height: bounds.height)
         shadowLayer.path = UIBezierPath(roundedRect: shadowFrame, cornerRadius: self.cornerRadius).cgPath
         shadowLayer.fillColor = AppColors.clear.cgColor
         if self.isEnabled {
             
             shadowLayer.shadowColor = shadowColor.cgColor
             shadowLayer.shadowPath  = shadowLayer.path
-            shadowLayer.shadowOffset = CGSize(width: 0.0, height: self.isSocial ? 1.0 : 12.0)
-            shadowLayer.shadowOpacity = self.isSocial ? 0.2 : 0.5
-            shadowLayer.shadowRadius = self.isSocial ? 2.0 : 15.0
+            shadowLayer.shadowOffset = CGSize(width: 0.0, height: self.isSocial ? 2.0 : 12.0)
+            shadowLayer.shadowOpacity = self.isSocial ? 0.16 : 0.5
+            shadowLayer.shadowRadius = self.isSocial ? 8.0 : 15.0
         } else {
             shadowLayer.shadowColor = AppColors.clear.cgColor
             shadowLayer.shadowOffset = CGSize.zero

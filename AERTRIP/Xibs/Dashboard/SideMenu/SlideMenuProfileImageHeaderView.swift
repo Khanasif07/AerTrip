@@ -40,6 +40,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     
     @IBOutlet weak var profileImageViewBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var profileImageViewWidthConstraint: NSLayoutConstraint!
     // MARK: - Variable
     
     private let gradient = CAGradientLayer()

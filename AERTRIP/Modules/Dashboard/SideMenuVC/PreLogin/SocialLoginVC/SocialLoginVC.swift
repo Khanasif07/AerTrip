@@ -101,13 +101,13 @@ class SocialLoginVC: BaseVC {
         self.linkedInButton.gradientColors = [AppColors.linkedinButtonBackgroundColor, AppColors.linkedinButtonBackgroundColor]
         
         self.fbButton.isSocial = true
-        self.fbButton.shadowColor = AppColors.themeBlack
+        self.fbButton.shadowColor = AppColors.themeRed
         
         self.googleButton.isSocial = true
-        self.googleButton.shadowColor = AppColors.themeBlack
+        self.googleButton.shadowColor = AppColors.themeRed
         
         self.linkedInButton.isSocial = true
-        self.linkedInButton.shadowColor = AppColors.themeBlack
+        self.linkedInButton.shadowColor = AppColors.themeRed
     }
     
     override func setupTexts() {

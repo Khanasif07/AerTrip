@@ -36,6 +36,7 @@
                         <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profilePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="ARz-1y-xpA">
                             <rect key="frame" x="205" y="18.5" width="121" height="121"/>
                             <constraints>
+                                <constraint firstAttribute="width" constant="121" id="OzQ-d3-XDb"/>
                                 <constraint firstAttribute="width" secondItem="ARz-1y-xpA" secondAttribute="height" multiplier="1:1" id="ZV6-Kq-kGB"/>
                                 <constraint firstAttribute="height" constant="121" id="pms-Kr-etU"/>
                             </constraints>
@@ -140,6 +141,7 @@
                 <outlet property="profileImageView" destination="ARz-1y-xpA" id="aU9-gJ-oCS"/>
                 <outlet property="profileImageViewBottomConstraint" destination="cbl-xr-PpX" id="4hX-uu-Mmk"/>
                 <outlet property="profileImageViewHeightConstraint" destination="pms-Kr-etU" id="AhU-iJ-0f7"/>
+                <outlet property="profileImageViewWidthConstraint" destination="OzQ-d3-XDb" id="Z6V-g1-d0l"/>
                 <outlet property="userNameHeightLabel" destination="XlT-Ft-NH1" id="AYy-xU-6bI"/>
                 <outlet property="userNameLabel" destination="eAE-bT-BMd" id="23o-EQ-Rd9"/>
             </connections>
