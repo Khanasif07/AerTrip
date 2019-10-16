@@ -302,7 +302,7 @@ class TravellerListVC: BaseVC {
             var sortDes = [NSSortDescriptor(key: "labelLocPrio", ascending: true)]
 
             if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
-                sortDes.append(NSSortDescriptor(key: "lastName", ascending: true))
+                sortDes.append(NSSortDescriptor(key: "firstName", ascending: false))
 
             } else {
                 sortDes.append(NSSortDescriptor(key: "firstName", ascending: true))
@@ -311,14 +311,15 @@ class TravellerListVC: BaseVC {
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "labelLocPrio", cacheName: nil)
         } else {
             if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
-                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameFirstChar", ascending: true)]
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstName", ascending: false)]
             } else {
-                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameFirstChar", ascending: true)]
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstName", ascending: true)]
             }
             
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "firstNameFirstChar", cacheName: nil)
         }
         fetchedResultsController.delegate = self
+        
         if predicateStr.isEmpty {
             if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
                 fetchedResultsController.fetchRequest.predicate = labelPredicate()
@@ -574,6 +575,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
             return nil
         }
         if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
+            
             if let prio = sections[section].name.toInt, let title = UserInfo.loggedInUser?.generalPref?.labelsWithPriority.someKey(forValue: prio) {
                 headerView.configureCell(title)
             }

@@ -57,7 +57,7 @@ public class TravellerData: NSManagedObject {
             }
             
             if let allData = UserInfo.loggedInUser?.generalPref?.labelsWithPriority, let prio = allData[userData!.label!] {
-                userData!.labelLocPrio = "\(prio)"
+                userData!.labelLocPrio = Int16(prio)
             }
         }
         if let obj = dataDict[APIKeys.lastName.rawValue] as? String {
