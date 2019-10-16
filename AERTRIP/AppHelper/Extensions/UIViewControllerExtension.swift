@@ -311,6 +311,7 @@ extension UIViewController{
         let doneAction = UIAlertAction(title:buttonTitle, style: .cancel) { (_) -> Void in
             completion?()
         }
+        alertController.view.tintColor = AppColors.themeGreen
         alertController.addAction(doneAction)
         self.present(alertController, animated: true, completion: nil);
     }

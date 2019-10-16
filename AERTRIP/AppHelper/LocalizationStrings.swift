@@ -971,4 +971,5 @@ enum LocalizedString: String {
     case Other
     
     case PleaseSignInToContinue
+    case KindlyDisconnectMessage
 }
