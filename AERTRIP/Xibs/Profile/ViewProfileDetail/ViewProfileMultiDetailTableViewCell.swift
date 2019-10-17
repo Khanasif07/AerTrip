@@ -16,7 +16,7 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var firstTitleLabel: UILabel!
     @IBOutlet weak var firstTitleLabelHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var firstSubtTitleLabel: UILabel!
-   
+    
     @IBOutlet weak var secondTitleLabel: UILabel!
     
     @IBOutlet weak var secondSubTitleLabel: UILabel!
@@ -28,13 +28,14 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var separatorLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var contentStackView: UIStackView!
     
+    @IBOutlet weak var separatorTrailingConstraint: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
         self.selectionStyle = .none
     }
-
+    
     func cofigureCell(_ issueDate:String,_ expiryDate:String) {
         self.firstTitleLabel.text = LocalizedString.IssueDate.localized
         self.secondTitleLabel.text = LocalizedString.ExpiryDate.localized
@@ -45,11 +46,11 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
     
     
     func configureCellForFrequentFlyer(_ indexPath:IndexPath,_ logoUrl:String,_ flightName:String,_ flightNo:String) {
-      //  self.frequentFlyerImageView.kf.setImage(with: URL(string: logoUrl))
+        //  self.frequentFlyerImageView.kf.setImage(with: URL(string: logoUrl))
         self.frequentFlyerImageView.setImageWithUrl(logoUrl, placeholder: AppPlaceholderImage.frequentFlyer, showIndicator: true)
-            self.frequentFlyerLabel.text = flightName
+        self.frequentFlyerLabel.text = flightName
         
-            self.secondSubTitleLabel.text = flightNo
+        self.secondSubTitleLabel.text = flightNo
         
         self.contentStackView.spacing = -20.0
         if indexPath.row == 2 {

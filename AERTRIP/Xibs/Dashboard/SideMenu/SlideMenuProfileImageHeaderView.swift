@@ -61,6 +61,9 @@ class SlideMenuProfileImageHeaderView: UIView {
         }
     }
     
+    
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    
     // MARK: - IBAction
     
     @IBAction func viewProfileButtonTapped(_ sender: Any) {
@@ -73,6 +76,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         parentView.familyButton.isHidden = !isFamily
         parentView.emailIdLabel.isHidden = isFamily
         parentView.mobileNumberLabel.isHidden = isFamily
+        
         return parentView
     }
     
@@ -98,14 +102,14 @@ class SlideMenuProfileImageHeaderView: UIView {
         super.awakeFromNib()
         setupDefaultData()
         
-        profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
-        profileImageView.layer.borderWidth = 4.0
+        
         addBlurToImage()
         doInitialSetup()
+        activityIndicatorView.isHidden = true
         
         self.addTapGesture()
     }
-
+    
     func addBlurToImage() {
         if !UIAccessibility.isReduceTransparencyEnabled {
             
@@ -141,12 +145,16 @@ class SlideMenuProfileImageHeaderView: UIView {
         self.makeImageCircular()
     }
     
-    private func makeImageCircular() {
+    func makeImageCircular() {
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
+        profileImageView.clipsToBounds = true
+        profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
+        profileImageView.layer.borderWidth = 4.0
+        profileImageView.layer.masksToBounds = true
     }
     
     private func setupForViewProfile() {
-        self.profileImageViewHeightConstraint.constant = 127.0
+        self.profileImageViewHeightConstraint.constant = 121.0
         self.profileImageAndNameSpace.constant = 23.0
         self.userNameHeightLabel.constant = 33.0
         self.emailAndContactBottomConstraint.constant = 28.0
@@ -207,4 +215,16 @@ class SlideMenuProfileImageHeaderView: UIView {
         
         self.makeImageCircular()
     }
+    
+    func startLoading() {
+        activityIndicatorView.isHidden = false
+        activityIndicatorView.startAnimating()
+    }
+    
+    func stopLoading() {
+        activityIndicatorView.isHidden = true
+        activityIndicatorView.stopAnimating()
+    }
+    
+    
 }

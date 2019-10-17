@@ -239,6 +239,12 @@ extension Float{
     func roundTo(places: Int) -> Float {
         return Float(Double(self).roundTo(places: places))
     }
+    
+    func round(decimalPlace:Int)->Float{
+        let format = NSString(format: "%%.%if", decimalPlace)
+        let string = NSString(format: format, self)
+        return Float(atof(string.utf8String))
+    }
 }
 
 
