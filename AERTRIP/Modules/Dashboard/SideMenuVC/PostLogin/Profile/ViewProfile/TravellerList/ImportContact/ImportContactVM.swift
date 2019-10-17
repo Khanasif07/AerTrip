@@ -283,13 +283,32 @@ class ImportContactVM: NSObject {
                 params["contacts[facebook][\(idx)][picture]"] = contact.image
             }
             
+            
             //google contacts
             for (idx, contact) in self.selectedGoogleContacts.enumerated() {
                 params["contacts[google][\(idx)][id]"] = contact.socialId
                 params["contacts[google][\(idx)][type]"] = contact.label.rawValue.uppercased()
                 params["contacts[google][\(idx)][name]"] = contact.fullName
                 params["contacts[google][\(idx)][picture]"] = contact.image
+                if !contact.email.isEmpty {
+                    params["contacts[google][\(idx)][email][\(idx)][contact_label]"] = "home"
+                      params["contacts[google][\(idx)][email][\(idx)][contact_type]"]  = "email"
+                      params["contacts[google][\(idx)][email][\(idx)][contact_value]"] = contact.email
+                }
+                
+//                if !contact.contact.isEmpty {
+//                    params["contacts[google][\(idx)][mobile][\(idx)][contact_label]"] = "home"
+//                    params["contacts[google][\(idx)][mobile][\(idx)][contact_type]"]  = "mobile"
+//                    params["contacts[google][\(idx)][mobile][\(idx)][contact_value]"] = contact.contact // phone number without isd
+//                        params["contacts[google][\(idx)][mobile][\(idx)][isd]"] = contact.contact // isd
+//
+//
+//                }
+                
+                
             }
+            
+        
             
             APICaller.shared.callSaveSocialContactsAPI(params: params, loader: true) { [weak self] (success, errorCodes) in
                 guard let sSelf = self else {return}

@@ -335,10 +335,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         
         var prallexProgress = self.tableView.parallaxHeader.progress
         printDebug("intial progress value \(prallexProgress)")
-        
-        //        if prallexProgress > 1.0 {
-        //            prallexProgress = 0.98
-        //        }
+
         printDebug("progress value \(prallexProgress)")
         
         
@@ -366,7 +363,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
             
             
             
-            self.profileImageHeaderView?.profileImageView.transform = CGAffineTransform(scaleX: (CGFloat(newProgress) * 1000) / 1000 , y: (CGFloat(newProgress) * 1000) / 1000).translatedBy(x: 0, y: CGFloat(2200 * (Float(intValue) / 1000)))
+            self.profileImageHeaderView?.profileImageView.transform = CGAffineTransform(scaleX: (CGFloat(newProgress)) , y: (CGFloat(newProgress))).translatedBy(x: 0, y: CGFloat(2200 * (Float(intValue) / 1000)))
             
             
             

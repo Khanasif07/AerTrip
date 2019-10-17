@@ -133,15 +133,15 @@ struct ATContact {
 
         if let phone = contact.phoneNumbers.first {
             self.contact = phone.value.stringValue
-//            do {
-//                let temp = try PhoneNumberKit().parse(tempNumber)
-//                self.contact = "\(temp.nationalNumber)"
-//                self.isd = "+\(temp.countryCode)"
-//            }
-//            catch {
-//                printDebug("not able to parse the number")
-//                self.contact = ""
-//            }
+            do {
+                let temp = try PhoneNumberKit().parse(self.contact)
+                self.contact = "\(temp.nationalNumber)"
+                self.isd = "+\(temp.countryCode)"
+            }
+            catch {
+                printDebug("not able to parse the number")
+                self.contact = ""
+            }
         }
 
         self.imageData = contact.imageData
@@ -215,6 +215,13 @@ struct ATContact {
                     contact.email = "\(obj)"
                     contact.emailLabel = "internet"
                 }
+                
+                if let phoneArr = dict["gd$phoneNumber"] as? [JSONDictionary], let obj = phoneArr.first?["$t"] {
+                    contact.contact = "\(obj)"
+                }
+                
+                
+                
                 
                 if let links = dict["link"] as? [JSONDictionary] {
                     for link in links {

@@ -159,6 +159,7 @@
                 <outlet property="secondSubTitleLabel" destination="sll-WL-wUf" id="loC-nD-NDi"/>
                 <outlet property="secondTitleLabel" destination="uHU-oq-P1s" id="XjP-Be-dEG"/>
                 <outlet property="separatorLeadingConstraint" destination="EDi-Nd-VuL" id="dnJ-iz-AIo"/>
+                <outlet property="separatorTrailingConstraint" destination="lxW-3T-dng" id="7z7-gD-G6P"/>
                 <outlet property="separatorView" destination="eVC-si-FGl" id="M1b-pr-yWu"/>
             </connections>
             <point key="canvasLocation" x="108.8" y="48.575712143928037"/>
