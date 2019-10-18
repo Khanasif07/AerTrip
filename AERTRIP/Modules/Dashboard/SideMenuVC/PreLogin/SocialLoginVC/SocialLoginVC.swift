@@ -101,13 +101,19 @@ class SocialLoginVC: BaseVC {
         self.linkedInButton.gradientColors = [AppColors.linkedinButtonBackgroundColor, AppColors.linkedinButtonBackgroundColor]
         
         self.fbButton.isSocial = true
-        self.fbButton.shadowColor = AppColors.themeRed
+      
+        //self.fbButton.shadowColor = AppColors.themeBlack
         
         self.googleButton.isSocial = true
-        self.googleButton.shadowColor = AppColors.themeRed
+        //self.googleButton.shadowColor = AppColors.themeRed
+        
+        self.googleButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         
         self.linkedInButton.isSocial = true
-        self.linkedInButton.shadowColor = AppColors.themeRed
+        
+        self.linkedInButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        
+     //   self.linkedInButton.shadowColor = AppColors.themeBlack
     }
     
     override func setupTexts() {
@@ -115,6 +121,19 @@ class SocialLoginVC: BaseVC {
         self.googleButton.setTitle(LocalizedString.Continue_with_Google.localized, for: .normal)
         self.linkedInButton.setTitle(LocalizedString.Continue_with_Linkedin.localized, for: .normal)
         
+        self.fbButton.shadowColor = AppColors.themeRed
+        self.view.backgroundColor = AppColors.themeRed
+        self.fbButton.isSocial = false
+        self.googleButton.isSocial = false
+        self.linkedInButton.isSocial = false
+        
+        delay(seconds: 0.4) {
+            self.fbButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 1.0, x: 0, y: 2, blur: 6, spread: 0)
+            self.googleButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 1.0, x: 0, y: 2, blur: 6, spread: 0)
+            self.linkedInButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 1.0, x: 0, y: 2, blur: 6, spread: 0)
+            
+        }
+       
         self.fbButton.setImage(AppImage.facebookLogoImage, for: .normal)
         self.googleButton.setImage(AppImage.googleLogoImage, for: .normal)
         self.linkedInButton.setImage(AppImage.linkedInLogoImage, for: .normal)
@@ -174,6 +193,9 @@ private extension SocialLoginVC {
         self.view.backgroundColor = AppColors.screensBackground.color
         
         self.setupsFonts()
+        self.fbButton.isSocial = true
+        self.googleButton.isSocial = true
+        self.linkedInButton.isSocial = true
         self.fbButton.addRequiredActionToShowAnimation()
         self.googleButton.addRequiredActionToShowAnimation()
         self.linkedInButton.addRequiredActionToShowAnimation()

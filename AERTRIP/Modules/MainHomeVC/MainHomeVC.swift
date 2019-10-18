@@ -200,8 +200,16 @@ class MainHomeVC: BaseVC {
     private func createSocialLoginVC() -> SocialLoginVC {
         let obj = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
         obj.delegate = self
-        obj.view.backgroundColor = AppColors.screensBackground.color
+     
+
+        
+        obj.view.backgroundColor = AppColors.clear
         self.socialLoginVC = obj
+        self.socialLoginVC?.fbButton.isSocial = true
+        self.socialLoginVC?.googleButton.isSocial = true
+        self.socialLoginVC?.linkedInButton .isSocial = true
+        self.socialLoginVC?.fbButton.layer.applySketchShadow()
+        self.socialLoginVC?.googleButton.layer.applySketchShadow(color: AppColors.themeRed, alpha: 1.0, x: 2, y: 2, blur: 6, spread: 0)
         
         return obj
     }
