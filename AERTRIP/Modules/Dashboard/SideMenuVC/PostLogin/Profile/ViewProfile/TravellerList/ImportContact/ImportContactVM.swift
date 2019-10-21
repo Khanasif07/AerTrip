@@ -305,14 +305,14 @@ class ImportContactVM: NSObject {
                       params["contacts[google][\(idx)][email][\(idx)][contact_value]"] = contact.email
                 }
                 
-//                if !contact.contact.isEmpty {
-//                    params["contacts[google][\(idx)][mobile][\(idx)][contact_label]"] = "home"
-//                    params["contacts[google][\(idx)][mobile][\(idx)][contact_type]"]  = "mobile"
-//                    params["contacts[google][\(idx)][mobile][\(idx)][contact_value]"] = contact.contact // phone number without isd
-//                        params["contacts[google][\(idx)][mobile][\(idx)][isd]"] = contact.contact // isd
-//
-//
-//                }
+                if !contact.contact.isEmpty {
+                    params["contacts[google][\(idx)][mobile][\(idx)][contact_label]"] = "home"
+                    params["contacts[google][\(idx)][mobile][\(idx)][contact_type]"]  = "mobile"
+                    params["contacts[google][\(idx)][mobile][\(idx)][contact_value]"] = contact.contact // phone number without isd
+                        params["contacts[google][\(idx)][mobile][\(idx)][isd]"] = contact.isd // isd
+
+
+                }
                 
                 
             }
