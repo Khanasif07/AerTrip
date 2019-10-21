@@ -52,8 +52,9 @@ class SelectedContactCollectionCell: UICollectionViewCell {
     }
     
     private func initialSetup() {
-        self.crossButton.blurColor = AppColors.themeGray60
-        self.crossButton.blurAlpha = 0.6
+        self.crossButton.blurColor = AppColors.clear
+        self.crossButton.blurStyle = .dark
+        //self.crossButton.blurAlpha = 0.6
         self.crossButton.borderWidth = 2.0
         self.crossButton.addTarget(self, action: #selector(crossButtonAction(_:)), for: UIControl.Event.touchUpInside)
     }

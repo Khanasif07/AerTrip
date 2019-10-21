@@ -80,7 +80,7 @@
                                     <rect key="frame" x="0.0" y="78" width="253" height="44"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLK-QA-oW2">
-                                            <rect key="frame" x="10" y="11.5" width="140" height="21"/>
+                                            <rect key="frame" x="16" y="11.5" width="134" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -171,7 +171,7 @@
                                     <constraints>
                                         <constraint firstItem="VLK-QA-oW2" firstAttribute="centerY" secondItem="hru-XK-TG8" secondAttribute="centerY" id="2wx-kn-Tud"/>
                                         <constraint firstItem="VGe-og-Xhe" firstAttribute="centerY" secondItem="VLK-QA-oW2" secondAttribute="centerY" id="HfC-Dm-MNq"/>
-                                        <constraint firstItem="VLK-QA-oW2" firstAttribute="leading" secondItem="hru-XK-TG8" secondAttribute="leading" constant="10" id="iGX-Gt-1E9"/>
+                                        <constraint firstItem="VLK-QA-oW2" firstAttribute="leading" secondItem="hru-XK-TG8" secondAttribute="leading" constant="16" id="iGX-Gt-1E9"/>
                                         <constraint firstAttribute="trailing" secondItem="VGe-og-Xhe" secondAttribute="trailing" constant="16" id="pGh-mp-ev2"/>
                                         <constraint firstItem="VGe-og-Xhe" firstAttribute="leading" secondItem="VLK-QA-oW2" secondAttribute="trailing" constant="10" id="stK-h9-6yn"/>
                                     </constraints>

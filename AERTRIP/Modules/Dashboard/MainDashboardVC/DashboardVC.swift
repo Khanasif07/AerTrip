@@ -69,6 +69,7 @@ class DashboardVC: BaseVC {
     
     var visualEffectView : UIVisualEffectView!
     var backView : UIView!
+    var isLaunchThroughSplash = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +79,13 @@ class DashboardVC: BaseVC {
         aerinView.transform = .identity
         aerinView.alpha = 1.0
         // nitin change
-        //  self.addOverlayView()
+        if isLaunchThroughSplash {
+            self.splashView.isHidden = false
+        } else {
+            self.splashView.isHidden = true
+            self.addOverlayView()
+        }
+        
         
         mainScrollView.delaysContentTouches = false
     }

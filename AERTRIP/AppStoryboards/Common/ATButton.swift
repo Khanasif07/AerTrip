@@ -58,6 +58,7 @@ class ATButton: UIButton {
     
     var shouldShowPressAnimation: Bool = true
     
+
     override var isEnabled: Bool {
         didSet {
             self.layoutSubviews()
@@ -390,6 +391,15 @@ class ATBlurButton: UIButton {
     var blurAlpha: CGFloat = 1.0 {
         didSet {
             self.updateBlurEffect()
+        }
+    }
+    
+    var shouldShowBlurView: Bool = true {
+        didSet {
+            self.removeBlurEffect()
+            if shouldShowBlurView {
+               self.updateBlurEffect()
+            }
         }
     }
     

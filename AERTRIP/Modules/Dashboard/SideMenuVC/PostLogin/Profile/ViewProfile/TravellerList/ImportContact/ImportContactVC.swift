@@ -107,7 +107,7 @@ class ImportContactVC: BaseVC {
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Import.rawValue, selectedTitle: LocalizedString.Import.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .selected)
-        self.topNavView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .disabled)
+        self.topNavView.firstRightButton.setTitleColor(AppColors.themeGray20, for: .disabled)
         
         self.viewModel.selectedPhoneContacts.removeAll()
         self.viewModel.selectedFacebookContacts.removeAll()
@@ -131,6 +131,7 @@ class ImportContactVC: BaseVC {
         }
         
         self.selectedContactsSetHidden(isHidden: true, animated: false)
+        self.selectedContactsCollectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
     }
     
     
@@ -207,6 +208,7 @@ class ImportContactVC: BaseVC {
 
 extension ImportContactVC: PKCategoryViewDelegate {
     func categoryView(_ view: PKCategoryView, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
+        printDebug("willSwitchIndexFrom \(fromIndex) to \(toIndex)")
     }
     
     func categoryView(_ view: PKCategoryView, didSwitchIndexTo toIndex: Int) {
@@ -218,6 +220,7 @@ extension ImportContactVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.viewModel.search(forText: searchText)
     }
+    
     
     
 }

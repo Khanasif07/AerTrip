@@ -416,6 +416,7 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
 //MARK:-
 extension ContactListVC: EmptyScreenViewDelegate {
     func firstButtonAction(sender: ATButton) {
+        dismissKeyboard()
         if self.currentlyUsingFor == .contacts {
             sender.isLoading = true
             self.viewModel.fetchPhoneContacts(forVC: self) {
