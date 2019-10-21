@@ -217,13 +217,14 @@ class TravellerListVC: BaseVC {
             
             let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [str], colors: [AppColors.themeRed])
             
-            _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.TheseContactsWillBeDeletedFromTravellersList.localized, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+            let alertView = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.TheseContactsWillBeDeletedFromTravellersList.localized, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
                 
                 if index == 0 {
                     self.viewModel.paxIds = self.getSelectedPaxIds()
                     self.viewModel.callDeleteTravellerAPI()
                 }
             }
+            alertView.view.backgroundColor = UIColor.clear
         }
     }
     
@@ -547,10 +548,20 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let traveller = fetchedResultsController.object(at: indexPath)
-            viewModel.paxIds.append(traveller.id ?? "")
-            selectedTravller.append(traveller)
-            viewModel.callDeleteTravellerAPI()
+            
+            let str = "Delete this Contact"
+            
+            let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [str], colors: [AppColors.themeRed])
+            
+            _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.TheseContactsWillBeDeletedFromTravellersList.localized, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] (_, index) in
+                guard let weakSelf = self else {return}
+                let traveller = weakSelf.fetchedResultsController.object(at: indexPath)
+                weakSelf.viewModel.paxIds.append(traveller.id ?? "")
+                weakSelf.selectedTravller.append(traveller)
+                weakSelf.viewModel.callDeleteTravellerAPI()
+            }
+            
+            
         }
     }
     

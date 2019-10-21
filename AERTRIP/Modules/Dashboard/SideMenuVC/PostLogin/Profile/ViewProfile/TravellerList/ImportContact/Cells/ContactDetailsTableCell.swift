@@ -47,6 +47,7 @@ class ContactDetailsTableCell: UITableViewCell {
     }
     
     private func initialSetup() {
+        self.contentView.layoutIfNeeded()
         self.userImageView.makeCircular()
     }
     

@@ -130,14 +130,15 @@ class AppFlowManager: NSObject {
     }
     
     func setupInitialFlow() {
-        self.goToDashboard()
+        self.goToDashboard(launchThroughSplash: true)
         
         self.addBlurToStatusBar()
     }
     
-    func goToDashboard() {
+    func goToDashboard(launchThroughSplash: Bool = false) {
         let mainHome = MainHomeVC.instantiate(fromAppStoryboard: .Dashboard)
         self.mainHomeVC = mainHome
+        self.mainHomeVC?.isLaunchThroughSplash = launchThroughSplash
         let nvc = SwipeNavigationController(rootViewController: mainHome)
         nvc.delegate = AppDelegate.shared.transitionCoordinator
         self.mainNavigationController = nvc

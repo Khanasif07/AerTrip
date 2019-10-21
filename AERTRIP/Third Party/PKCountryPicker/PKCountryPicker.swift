@@ -125,7 +125,7 @@ open class PKCountryPicker: UIView {
         // nitin removed the cancel button
         let array = [ spaceButton, doneButton]
         toolbar.setItems(array, animated: true)
-        
+        self.backgroundColor = AppColors.quaternarySystemFillColor
         // nitin change
         //self.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
         self.addSubview(toolbar)

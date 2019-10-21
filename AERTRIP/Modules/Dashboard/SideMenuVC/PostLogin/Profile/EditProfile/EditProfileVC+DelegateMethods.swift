@@ -470,6 +470,10 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     func selectGroupTapped() {
         dismissKeyboard()
         printDebug("select group tapped")
+        pickerType = .groups
+        pickerData = UserInfo.loggedInUser?.generalPref?.labels ?? []
+        let selectedString = self.viewModel.travelData?.label ?? ""
+        openPicker(withSelection: selectedString)
     }
     
     func salutationViewTapped() {

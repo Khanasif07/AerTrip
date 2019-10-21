@@ -168,10 +168,10 @@ extension UILabel {
         
         let main_string = labelString as NSString
         
-        var  attribute = NSMutableAttributedString(string: main_string as String, attributes: [NSAttributedString.Key.font : textFont, NSAttributedString.Key.foregroundColor : textColor])
-        if let labelAttributedString = self.attributedText {
+        let  attribute = NSMutableAttributedString(string: main_string as String, attributes: [NSAttributedString.Key.font : textFont, NSAttributedString.Key.foregroundColor : textColor])
+        //if let labelAttributedString = self.attributedText {
            // attribute = NSMutableAttributedString.init(attributedString: labelAttributedString)
-        }
+        //}
         //attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: textColor , range: range)
         // attribute.addAttribute(NSBaselineOffsetAttributeName, value: 0, range: range)
         self.attributedText = attribute

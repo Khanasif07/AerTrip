@@ -33,6 +33,7 @@ class MainHomeVC: BaseVC {
     var isPushedToNext: Bool {
         return !(self.scrollView.contentOffset.x < UIDevice.screenWidth)
     }
+    var isLaunchThroughSplash = false
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -176,7 +177,9 @@ class MainHomeVC: BaseVC {
         sideMenuVC.view.frame = UIScreen.main.bounds
         sideMenuVC.view.backgroundColor = AppColors.screensBackground.color
     
-        sideMenuVC.mainViewController(DashboardVC.instantiate(fromAppStoryboard: .Dashboard))
+        let dashBoardScene = DashboardVC.instantiate(fromAppStoryboard: .Dashboard)
+        dashBoardScene.isLaunchThroughSplash = self.isLaunchThroughSplash
+        sideMenuVC.mainViewController(dashBoardScene)
         
         let sideMenu = SideMenuVC.instantiate(fromAppStoryboard: .Dashboard)
         sideMenu.delegate = self
