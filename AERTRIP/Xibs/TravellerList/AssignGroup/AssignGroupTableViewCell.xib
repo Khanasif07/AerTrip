@@ -27,14 +27,14 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Ji-20-EO0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dAJ-1W-iho">
-                                <rect key="frame" x="16" y="10" width="41.5" height="22.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label fsd fdsf sd fsd f sd f fsd f sf  f" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dAJ-1W-iho">
+                                <rect key="frame" x="16" y="10" width="249.5" height="22.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VvP-9C-2C8">
-                                <rect key="frame" x="230.5" y="11" width="73.5" height="22.5"/>
+                                <rect key="frame" x="275.5" y="11" width="28.5" height="22.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -50,7 +50,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="0sA-q3-lMG" secondAttribute="bottom" id="1Z0-gd-KqY"/>
-                            <constraint firstItem="VvP-9C-2C8" firstAttribute="leading" secondItem="dAJ-1W-iho" secondAttribute="trailing" constant="173" id="3Oi-b9-K6d"/>
+                            <constraint firstItem="VvP-9C-2C8" firstAttribute="leading" secondItem="dAJ-1W-iho" secondAttribute="trailing" constant="10" id="3Oi-b9-K6d"/>
                             <constraint firstAttribute="trailing" secondItem="0sA-q3-lMG" secondAttribute="trailing" id="PdZ-9D-ua7"/>
                             <constraint firstItem="0sA-q3-lMG" firstAttribute="leading" secondItem="dAJ-1W-iho" secondAttribute="leading" id="UoK-K0-mp5"/>
                             <constraint firstAttribute="bottom" secondItem="dAJ-1W-iho" secondAttribute="bottom" constant="11" id="fbg-pJ-LtL"/>
