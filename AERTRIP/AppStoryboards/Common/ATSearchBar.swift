@@ -76,15 +76,19 @@ class ATSearchBar: UISearchBar {
         
         self.micButton = UIButton(frame: CGRect(x: (self.width - self.height) + 15.0, y: 1.0, width: self.height, height: self.height))
         self.micButton.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .normal)
-        self.micButton.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .selected)
+       self.micButton.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .selected)
         
         self.micButton.addTarget(self, action: #selector(micButtonAction(_:)), for: .touchUpInside)
         
         self.hideMiceButton(isHidden: !self.isMicEnabled)
         self.addSubview(self.micButton)
         
+        //self.setImage(#imageLiteral(resourceName: "icClear"), for: .clear, state: .normal)
+
+        
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: UITextField.textDidChangeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(textDidEndEditing), name: UITextField.textDidEndEditingNotification, object: nil)
+        self.layoutIfNeeded()
     }
 
     func hideMiceButton(isHidden: Bool) {

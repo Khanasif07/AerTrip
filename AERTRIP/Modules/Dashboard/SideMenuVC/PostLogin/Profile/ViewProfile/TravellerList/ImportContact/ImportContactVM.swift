@@ -241,29 +241,38 @@ class ImportContactVM: NSObject {
             self.searchingFor = forText
             perform(#selector(callSearch(_:)), with: forText, afterDelay: 0.5)
         }
-        
    }
     
     @objc private func callSearch(_ forText: String) {
         if let obj = self.delegateCollection as? BaseVC {
+            
+            defer {
+                createSectionWiseDataForContacts(for: .contacts)
+                createSectionWiseDataForContacts(for: .facebook)
+                createSectionWiseDataForContacts(for: .google)
+                obj.sendDataChangedNotification(data: Notification.searchDone)
+            }
+            
             guard !forText.isEmpty else {
                 self.phoneContacts = self._phoneContacts
                 self.facebookContacts = self._facebookContacts
                 self.googleContacts = self._googleContacts
-                obj.sendDataChangedNotification(data: Notification.searchDone)
+               // obj.sendDataChangedNotification(data: Notification.searchDone)
                 return
             }
             self.phoneContacts = self._phoneContacts.filter({ (contact) -> Bool in
-                contact.fullName.contains(forText)
+                contact.fullName.lowercased().contains(forText.lowercased())
             })
             self.facebookContacts = self._facebookContacts.filter({ (contact) -> Bool in
-                contact.fullName.contains(forText)
+                contact.fullName.lowercased().contains(forText.lowercased())
             })
             self.googleContacts = self._googleContacts.filter({ (contact) -> Bool in
-                contact.fullName.contains(forText)
+                contact.fullName.lowercased().contains(forText.lowercased())
             })
-            obj.sendDataChangedNotification(data: Notification.searchDone)
+            
         }
+        
+        
     }
     
     //MARK:- Save Contacts On Server

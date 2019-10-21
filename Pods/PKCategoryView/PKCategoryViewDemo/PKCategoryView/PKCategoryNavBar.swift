@@ -100,7 +100,7 @@ private extension PKCategoryNavBar {
             self.bottomSeparator = UIView()
             self.addSubview(self.bottomSeparator!)
         }
-
+        
         let height: CGFloat = 0.5
         bottomSeparator?.frame = CGRect(x: 0, y: self.bounds.height - height, width: self.bounds.width, height: height)
         bottomSeparator?.backgroundColor = configuration.bottomSeparatorColor
@@ -115,7 +115,7 @@ private extension PKCategoryNavBar {
     }
     
     
-    func setup(_ btn: PKCategoryButton, with item: PKCategoryItem, atIndex index:Int) {
+    func setup(_ btn: PKCategoryButton, with item: PKCategoryItem, atIndex index:Int, updateState: Bool = true) {
         btn.imageView?.contentMode = .scaleAspectFill
         btn.tag = index
         btn.isHighlighted = false
@@ -127,12 +127,14 @@ private extension PKCategoryNavBar {
             btn.titleLabel?.textAlignment = .center
             btn.setTitleFont(font: configuration.defaultFont, for: .normal)
             btn.setTitleFont(font: configuration.selectedFont, for: .selected)
-            if index == 0 {
-                btn.isSelected = true
-                previousButton = btn
-            }
-            else {
-                btn.isSelected = false
+            if updateState {
+                if index == 0 {
+                    btn.isSelected = true
+                    previousButton = btn
+                }
+                else {
+                    btn.isSelected = false
+                }
             }
         }
         
@@ -151,7 +153,7 @@ private extension PKCategoryNavBar {
         for i in 0..<buttons.count {
             let btn = buttons[i]
             let item = categories[i]
-            setup(btn, with: item, atIndex: i)
+            setup(btn, with: item, atIndex: i, updateState: false)
             
             var x: CGFloat = 0.0
             let y: CGFloat = 0.0
@@ -282,21 +284,21 @@ extension PKCategoryNavBar {
                 
                 let newOffset = CGPoint(x: self.startingOffset!.x + addOffset, y: 0.0)
                 // fixed by nitin
-               // self.scrollView.setContentOffset(newOffset, animated: false)
+                // self.scrollView.setContentOffset(newOffset, animated: false)
             }
-                // fixed by nitin
+            // fixed by nitin
             //else {
-                //if enough space available then move indicator, stuck navBar content
-                let fromX: CGFloat = buttons[fromIdx].frame.origin.x + ((buttons[fromIdx].frame.size.width - buttons[fromIdx].intrinsicContentSize.width) / 2.0)
-                let toX: CGFloat = buttons[toIdx].frame.origin.x + ((buttons[toIdx].frame.size.width - buttons[toIdx].intrinsicContentSize.width) / 2.0)
-                let dX: CGFloat = toX - fromX
-                let prgX: CGFloat = fromX + (dX * progress)
-                
-                let dWidth: CGFloat = buttons[toIdx].intrinsicContentSize.width - buttons[fromIdx].intrinsicContentSize.width
-                let prgWidth: CGFloat = buttons[fromIdx].intrinsicContentSize.width + (dWidth * progress)
-                
-                self.indicator.frame = CGRect(x: prgX, y: self.indicator.frame.origin.y, width: prgWidth, height: self.indicator.frame.size.height)
-        //}
+            //if enough space available then move indicator, stuck navBar content
+            let fromX: CGFloat = buttons[fromIdx].frame.origin.x + ((buttons[fromIdx].frame.size.width - buttons[fromIdx].intrinsicContentSize.width) / 2.0)
+            let toX: CGFloat = buttons[toIdx].frame.origin.x + ((buttons[toIdx].frame.size.width - buttons[toIdx].intrinsicContentSize.width) / 2.0)
+            let dX: CGFloat = toX - fromX
+            let prgX: CGFloat = fromX + (dX * progress)
+            
+            let dWidth: CGFloat = buttons[toIdx].intrinsicContentSize.width - buttons[fromIdx].intrinsicContentSize.width
+            let prgWidth: CGFloat = buttons[fromIdx].intrinsicContentSize.width + (dWidth * progress)
+            
+            self.indicator.frame = CGRect(x: prgX, y: self.indicator.frame.origin.y, width: prgWidth, height: self.indicator.frame.size.height)
+            //}
         }
     }
     
