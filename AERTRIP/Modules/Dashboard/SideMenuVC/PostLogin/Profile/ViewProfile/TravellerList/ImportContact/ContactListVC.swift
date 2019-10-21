@@ -66,7 +66,7 @@ class ContactListVC: BaseVC {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.containerBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
+//        self.containerBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
     }
     
     override func setupColors() {

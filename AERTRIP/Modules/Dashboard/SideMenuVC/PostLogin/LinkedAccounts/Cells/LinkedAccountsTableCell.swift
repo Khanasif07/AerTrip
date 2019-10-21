@@ -69,6 +69,7 @@ class LinkedAccountsTableCell: UITableViewCell {
         
         self.socialTypeLabel.font = AppFonts.Regular.withSize(20.0)
         self.socialTypeLabel.textColor = AppColors.themeBlack
+        self.connectButton.isSocial = true
         
         self.emailLabel.font = AppFonts.Regular.withSize(14.0)
         self.emailLabel.textColor = AppColors.themeGray40
@@ -134,7 +135,8 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.connectButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .normal)
         self.connectButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .selected)
         self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
-        self.connectButton.shadowColor = AppColors.themeBlack
+        self.connectButton.shadowColor = AppColors.clear
+        self.connectButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.connectButton.isSocial = true
     }
     
@@ -150,7 +152,8 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.connectButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .normal)
         self.connectButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .selected)
         self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
-        self.connectButton.shadowColor = AppColors.themeBlack
+        self.connectButton.shadowColor = AppColors.clear
+        self.connectButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.connectButton.isSocial = true
     }
     
@@ -166,7 +169,9 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.connectButton.setImage(#imageLiteral(resourceName: "linkedInIcon").withRenderingMode(.alwaysOriginal), for: .normal)
         self.connectButton.setImage(#imageLiteral(resourceName: "linkedInIcon").withRenderingMode(.alwaysOriginal), for: .selected)
         self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
-        self.connectButton.shadowColor = AppColors.themeBlack
+        self.connectButton.shadowColor = AppColors.clear
+        
+        self.connectButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.connectButton.isSocial = true
     }
 }

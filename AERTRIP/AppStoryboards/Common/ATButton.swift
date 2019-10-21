@@ -92,7 +92,9 @@ class ATButton: UIButton {
     var myCornerRadius: CGFloat = 0.0 {
         didSet {
             self.layer.cornerRadius = self.myCornerRadius
-            self.addShadowLayer()
+            if !self.isSocial {
+                 self.addShadowLayer()
+            }
             self.addGradientLayer()
         }
     }
@@ -119,7 +121,9 @@ class ATButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        self.addShadowLayer()
+        if !self.isSocial {
+          self.addShadowLayer()
+        }
         self.addGradientLayer()
         self.setupLoader()
     }
@@ -130,7 +134,7 @@ class ATButton: UIButton {
             layer.insertSublayer(shadowLayer, at: 0)
         }
         
-        let shadowFrame = self.isSocial ? CGRect(x: 0.0, y:2.0, width: bounds.width, height: bounds.height) : CGRect(x: 3.0, y: 0.0, width: bounds.width - 6.0, height: bounds.height)
+        let shadowFrame = self.isSocial ? CGRect(x: 0.0, y:1.0, width: bounds.width, height: bounds.height) : CGRect(x: 3.0, y: 0.0, width: bounds.width - 6.0, height: bounds.height)
         shadowLayer.path = UIBezierPath(roundedRect: shadowFrame, cornerRadius: self.cornerRadius).cgPath
         shadowLayer.fillColor = AppColors.clear.cgColor
         if self.isEnabled {
@@ -139,7 +143,7 @@ class ATButton: UIButton {
             shadowLayer.shadowPath  = shadowLayer.path
             shadowLayer.shadowOffset = CGSize(width: 0.0, height: self.isSocial ? 2.0 : 12.0)
             shadowLayer.shadowOpacity = self.isSocial ? 0.16 : 0.5
-            shadowLayer.shadowRadius = self.isSocial ? 8.0 : 15.0
+            shadowLayer.shadowRadius = self.isSocial ? 3.0 : 15.0
         } else {
             shadowLayer.shadowColor = AppColors.clear.cgColor
             shadowLayer.shadowOffset = CGSize.zero
@@ -288,7 +292,7 @@ class ATButton: UIButton {
         guard self.shouldShowPressAnimation else {return}
         UIView.animate(withDuration: AppConstants.kAnimationDuration / 3.5, animations: { [weak self] in
             self?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-            self?.shadowLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(scaleX: 0.9, y: 0.8))
+            self?.shadowLayer?.transform = CATransform3DMakeAffineTransform(CGAffineTransform(scaleX: 0.9, y: 0.8))
         }) { (isDone) in
             if self.currentActionState == .releasing {
                 self.currentActionState = .pressed
@@ -304,7 +308,7 @@ class ATButton: UIButton {
         guard self.shouldShowPressAnimation, (self.currentActionState == .pressed) || self.isFingerUp else {return}
         UIView.animate(withDuration: AppConstants.kAnimationDuration / 3.5, animations: { [weak self] in
             self?.transform = CGAffineTransform.identity
-            self?.shadowLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform.identity)
+            self?.shadowLayer?.transform = CATransform3DMakeAffineTransform(CGAffineTransform.identity)
         }) { (isDone) in
             self.currentActionState = .released
             self.isFingerUp = false
@@ -462,4 +466,28 @@ class ATBlurButton: UIButton {
     }
     
     //MARK:- Public
+}
+
+
+extension CALayer {
+    func applySketchShadow(
+        color: UIColor = .black,
+        alpha: Float = 0.5,
+        x: CGFloat = 0,
+        y: CGFloat = 2,
+        blur: CGFloat = 4,
+        spread: CGFloat = 0)
+    {
+        shadowColor = color.cgColor
+        shadowOpacity = alpha
+        shadowOffset = CGSize(width: x, height: y)
+        shadowRadius = blur / 2.0
+        if spread == 0 {
+            shadowPath = nil
+        } else {
+            let dx = -spread
+            let rect = bounds.insetBy(dx: dx, dy: dx)
+            shadowPath = UIBezierPath(rect: rect).cgPath
+        }
+    }
 }

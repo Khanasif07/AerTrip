@@ -73,6 +73,9 @@
                                 </label>
                             </subviews>
                         </stackView>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="aaY-3S-c6N">
+                            <rect key="frame" x="255.5" y="77" width="20" height="20"/>
+                        </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -83,6 +86,8 @@
                         <constraint firstItem="eAE-bT-BMd" firstAttribute="top" secondItem="ARz-1y-xpA" secondAttribute="bottom" constant="12" id="LrI-tj-Fwj"/>
                         <constraint firstAttribute="trailing" secondItem="LRw-xr-uiF" secondAttribute="trailing" constant="20" id="ZVh-Ac-mw3"/>
                         <constraint firstAttribute="bottom" secondItem="LRw-xr-uiF" secondAttribute="bottom" constant="25" id="aVT-X6-x1Z"/>
+                        <constraint firstItem="aaY-3S-c6N" firstAttribute="centerY" secondItem="ARz-1y-xpA" secondAttribute="centerY" multiplier="1.1" id="i8W-8z-T5J"/>
+                        <constraint firstItem="aaY-3S-c6N" firstAttribute="centerX" secondItem="ARz-1y-xpA" secondAttribute="centerX" id="ilh-5h-Qut"/>
                         <constraint firstItem="eAE-bT-BMd" firstAttribute="leading" secondItem="cbl-xr-PpX" secondAttribute="leading" constant="10" id="y1k-TL-sBw"/>
                     </constraints>
                 </view>
@@ -128,6 +133,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="activityIndicatorView" destination="aaY-3S-c6N" id="hK7-Ml-PAs"/>
                 <outlet property="backgroundImageView" destination="Ojo-QA-iad" id="76G-qQ-HcJ"/>
                 <outlet property="dividerView" destination="ycJ-AK-oMp" id="jHj-R4-bfb"/>
                 <outlet property="emailAndContactBottomConstraint" destination="aVT-X6-x1Z" id="B40-FI-lFa"/>
