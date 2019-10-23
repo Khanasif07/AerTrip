@@ -113,7 +113,8 @@ class AppGlobals {
     func showErrorOnToastView(withErrors errors: ErrorCodes, fromModule module: ATErrorManager.Module) {
         let (_, message, _) = ATErrorManager.default.error(forCodes: errors, module: module)
         if !message.isEmpty {
-            AppToast.default.showToastMessage(message: message)
+                AppToast.default.showToastMessage(message: message)
+          
         }
     }
     

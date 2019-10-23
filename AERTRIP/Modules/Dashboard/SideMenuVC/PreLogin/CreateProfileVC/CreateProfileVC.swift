@@ -204,6 +204,7 @@ private extension CreateProfileVC {
         self.viewModel.userData.salutation = ""
         self.salutationPicker.delegate = self
         self.nameTitleTextField.delegate = self
+        self.nameTitleTextField.isEnabled = false
         self.nameTitleTextField.setupTextField(placehoder: LocalizedString.Title.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .done, isSecureText: false)
         self.firstNameTextField.setupTextField(placehoder: LocalizedString.First_Name.localized,with: "*",textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
         self.lastNameTextField.setupTextField(placehoder: LocalizedString.Last_Name.localized,with: "*",textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)

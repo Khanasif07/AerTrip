@@ -201,7 +201,10 @@ extension LinkedAccountsVM {
                 self.fetchLinkedAccounts()
             }
             else {
-                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
+                delay(seconds: 0.2, completion: {
+                    AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
+                })
+              
             }
         })
     }

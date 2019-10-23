@@ -39,7 +39,7 @@ class MapContainerView: UIView {
         
         self.mapView?.frame = self.bounds
         
-        self.backgroundColor = AppColors.themeRed
+        self.backgroundColor = AppColors.clear
         self.mapView?.backgroundColor = AppColors.themeGreen
     }
 }
@@ -307,6 +307,7 @@ class HotelResultVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.statusBarColor = AppColors.clear
+        self.statusBarStyle = .default
         
         addCustomBackgroundBlurView()
     }
