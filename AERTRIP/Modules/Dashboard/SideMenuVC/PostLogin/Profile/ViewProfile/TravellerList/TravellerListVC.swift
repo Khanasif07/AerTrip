@@ -88,6 +88,18 @@ class TravellerListVC: BaseVC {
         }
     }
     
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        statusBarStyle = .default
+       
+        
+        if  self.isMovingFromParent {
+          self.topNavView.backgroundType = .clear
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         guard let headerView = tableView.tableHeaderView else {
             return

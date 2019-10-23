@@ -102,7 +102,7 @@ class ImportContactVC: BaseVC {
         selectedContactsCollectionView.setCollectionViewLayout(self.collectionLayout, animated: false)
 
         self.topNavView.delegate = self
-        self.topNavView.configureNavBar(title: LocalizedString.AllowContacts.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.topNavView.configureNavBar(title: LocalizedString.AllowContacts.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false,backgroundType: .color(color: AppColors.themeWhite))
         self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Import.rawValue, selectedTitle: LocalizedString.Import.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)

@@ -78,6 +78,7 @@ struct ATContact {
     var fullName: String {
         if self._fullName.isEmpty {
             let final = "\(self.firstName) \(self.lastName)"
+            // add Email when first aname and last name empty
             if final.removeAllWhiteSpacesAndNewLines.isEmpty {
                 return self.email.removeAllWhiteSpacesAndNewLines
             }
