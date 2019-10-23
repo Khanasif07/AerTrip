@@ -104,7 +104,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("EditProfileThreePartTableViewCell not found")
                 }
                 cell.delegate = self
-                if indexPath.row == 0, self.viewModel.currentlyUsinfFor == .viewProfile {
+                if indexPath.row == 0 {
                     //make disable
                     cell.deleteButton.isHidden = true
                     cell.leftView.isUserInteractionEnabled = false
@@ -806,6 +806,7 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
     }
     
     func editProfileThreePartDeleteCellTapped(_ indexPath: IndexPath) {
+        guard indexPath.row != 0 else {return}
         self.indexPath = indexPath
         if self.viewModel.mobile[indexPath.row].value.isEmpty {
             self.viewModel.mobile.remove(at: indexPath.row)

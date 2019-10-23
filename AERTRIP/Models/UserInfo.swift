@@ -168,7 +168,7 @@ class UserInfo {
             for (idx, label) in newList.enumerated() {
                 let newLabel = label.removeLeadingTrailingWhitespaces
                 self.labels.append(newLabel)
-                labelsWithPriority[label] = idx + 5
+                labelsWithPriority[newLabel] = idx + 5
             }
         }
     }

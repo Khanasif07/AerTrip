@@ -18,6 +18,9 @@ protocol ImportContactVMDelegate: class {
     
     func addAll(for usingFor: ContactListVC.UsingFor)
     func removeAll(for usingFor: ContactListVC.UsingFor)
+    
+    func showLoader()
+    func hideLoader()
 }
 
 class ImportContactVM: NSObject {
@@ -318,9 +321,10 @@ class ImportContactVM: NSObject {
             }
             
         
-            
+            self.delegateCollection?.showLoader()
             APICaller.shared.callSaveSocialContactsAPI(params: params, loader: true) { [weak self] (success, errorCodes) in
                 guard let sSelf = self else {return}
+                sSelf.delegateCollection?.hideLoader()
                 if let obj = sSelf.delegateCollection as? BaseVC {
                     obj.sendDataChangedNotification(data: success ? Notification.contactSavedSuccess : Notification.contactSavedFail)
                 }
@@ -348,10 +352,11 @@ class ImportContactVM: NSObject {
                 
             }
             
-            
+            self.delegateCollection?.showLoader()
             APICaller.shared.callSavePhoneContactsAPI(params: params, loader: true) { [weak self] (success, errorCodes) in
                 printDebug("phone contact saved")
                 guard let sSelf = self else {return}
+                sSelf.delegateCollection?.hideLoader()
                 if sSelf.selectedFacebookContacts.isEmpty, sSelf.selectedGoogleContacts.isEmpty {
                     if let obj = sSelf.delegateCollection as? BaseVC {
                         obj.sendDataChangedNotification(data: success ? Notification.contactSavedSuccess : Notification.phoneContactSavedFail)

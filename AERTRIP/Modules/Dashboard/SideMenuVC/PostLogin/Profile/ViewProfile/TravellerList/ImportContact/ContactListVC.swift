@@ -31,7 +31,7 @@ class ContactListVC: BaseVC {
     let viewModel = ImportContactVM.shared
     
     //MARK:- Private
-     lazy var allowEmptyView: EmptyScreenView = {
+    lazy var allowEmptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         
         if self.currentlyUsingFor == .contacts {
@@ -66,7 +66,7 @@ class ContactListVC: BaseVC {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-//        self.containerBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
+        //        self.containerBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
     }
     
     override func setupColors() {
@@ -137,7 +137,7 @@ class ContactListVC: BaseVC {
     private func hideSelectAllButton(isHidden: Bool = true) {
         self.bottomHeaderTopDiverView.isHidden = isHidden
         self.selectAllButton.isHidden = isHidden
-
+        
         tableView.backgroundView?.isHidden = !isHidden
     }
     
@@ -202,45 +202,46 @@ class ContactListVC: BaseVC {
     
     @IBAction func selectAllButtonAction(_ sender: UIButton) {
         self.showLoaderOnView(view: sender, show: true, backgroundColor: AppColors.themeWhite)
-//        sender.disable(forSeconds: 0.6)
+        //        sender.disable(forSeconds: 0.6)
         if self.currentlyUsingFor == .contacts {
             if sender.isSelected {
                 //remove all
-                self.viewModel.removeAll(for: .contacts)
                 self.viewModel.selectedPhoneContacts.removeAll()
+                self.viewModel.removeAll(for: .contacts)
+                
             }
             else {
                 //remove all preselected items
-
-                for contact in self.viewModel.selectedPhoneContacts {
-                    if let index = self.getIndexPath(contact: contact) {
-                        self.tableView(self.tableView, didSelectRowAt: index)
-                    }
-                }
+                
+                //                for contact in self.viewModel.selectedPhoneContacts {
+                //                    if let index = self.getIndexPath(contact: contact) {
+                //                        self.tableView(self.tableView, didSelectRowAt: index)
+                //                    }
+                //                }
                 
                 self.viewModel.selectedPhoneContacts = self.viewModel.phoneContacts
                 //add all
-                DispatchQueue.backgroundAsync {
-                    DispatchQueue.mainSync({
-                        self.viewModel.addAll(for: .contacts)
-                    })
-                }
+                //                DispatchQueue.backgroundAsync {
+                //                    DispatchQueue.mainSync({
+                self.viewModel.addAll(for: .contacts)
+                //                    })
+                //                }
             }
         }
         else if self.currentlyUsingFor == .facebook {
             if sender.isSelected {
                 //remove all
-                self.viewModel.removeAll(for: .facebook)
                 self.viewModel.selectedFacebookContacts.removeAll()
+                self.viewModel.removeAll(for: .facebook)
                 
             }
             else {
                 // remove all preselected facebook Items
-                for contact in self.viewModel.facebookContacts {
-                    if let index = self.getIndexPath(contact: contact) {
-                        self.tableView(self.tableView, didSelectRowAt: index)
-                    }
-                }
+                //                for contact in self.viewModel.facebookContacts {
+                //                    if let index = self.getIndexPath(contact: contact) {
+                //                        self.tableView(self.tableView, didSelectRowAt: index)
+                //                    }
+                //                }
                 
                 self.viewModel.selectedFacebookContacts = self.viewModel.facebookContacts
                 //add all
@@ -250,17 +251,17 @@ class ContactListVC: BaseVC {
         else if self.currentlyUsingFor == .google {
             if sender.isSelected {
                 //remove all
-                self.viewModel.removeAll(for: .google)
                 self.viewModel.selectedGoogleContacts.removeAll()
+                self.viewModel.removeAll(for: .google)
                 
             }
             else {
                 // remove all preselected google Contacts Items
-                for contact in self.viewModel.selectedGoogleContacts {
-                    if let index = self.getIndexPath(contact: contact) {
-                        self.tableView(self.tableView, didSelectRowAt: index)
-                    }
-                }
+                //                for contact in self.viewModel.selectedGoogleContacts {
+                //                    if let index = self.getIndexPath(contact: contact) {
+                //                        self.tableView(self.tableView, didSelectRowAt: index)
+                //                    }
+                //                }
                 
                 self.viewModel.selectedGoogleContacts = self.viewModel.googleContacts
                 //add all
@@ -350,7 +351,7 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
                 self.viewModel.remove(fromIndex: index, for: .contacts)
             }
             else {
-            self.viewModel.selectedPhoneContacts.append(self.viewModel.sections[indexPath.section].cnContacts[indexPath.row])
+                self.viewModel.selectedPhoneContacts.append(self.viewModel.sections[indexPath.section].cnContacts[indexPath.row])
                 self.viewModel.add(for: .contacts)
                 self.selectAllButton.isSelected = self.viewModel.selectedPhoneContacts.count >= self.viewModel.sections.count
             }
@@ -435,12 +436,25 @@ extension ContactListVC: EmptyScreenViewDelegate {
 //MARK:- ViewModel Delegate
 //MARK:-
 extension ContactListVC: ImportContactVMDelegate {
+    func showLoader() {
+    }
+    
+    func hideLoader() {
+    }
+    
     func add(for usingFor: ContactListVC.UsingFor) {
         self.reloadList()
     }
     
     func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor) {
         self.reloadList()
+        if usingFor == .contacts {
+            self.selectAllButton.isSelected = false
+        } else if usingFor == .facebook {
+            self.selectAllButton.isSelected = false
+        } else if usingFor == .google {
+            self.selectAllButton.isSelected = false
+        }
     }
     
     func addAll(for usingFor: ContactListVC.UsingFor) {

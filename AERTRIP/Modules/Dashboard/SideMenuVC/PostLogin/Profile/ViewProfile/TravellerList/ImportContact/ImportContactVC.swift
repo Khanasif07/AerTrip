@@ -238,6 +238,14 @@ extension ImportContactVC: TopNavigationViewDelegate {
 //MARK:- ViewModel Delegate
 //MARK:-
 extension ImportContactVC: ImportContactVMDelegate {
+    func showLoader() {
+        AppGlobals.shared.startLoading(loaderBgColor: AppColors.clear)
+    }
+    
+    func hideLoader() {
+        AppGlobals.shared.stopLoading()
+    }
+    
     
     func contactSavedFail() {
         AppToast.default.showToastMessage(message: LocalizedString.NotAbleToSaveContactTryAgain.localized)
@@ -334,11 +342,13 @@ extension ImportContactVC: ImportContactVMDelegate {
             item = 0
         }
         
+        /*
         if self.itemsCounts[usingFor.rawValue] > 0 {
             for idx in 0..<self.itemsCounts[usingFor.rawValue] {
                 self.remove(fromIndex: idx, for: usingFor)
             }
         }
+ 
         
         self.selectedContactsCollectionView.performBatchUpdates({
             for idx in 0..<item {
@@ -346,6 +356,11 @@ extension ImportContactVC: ImportContactVMDelegate {
                 self.itemsCounts[usingFor.rawValue] += 1
             }
         }, completion: nil)
+         */
+        self.itemsCounts[usingFor.rawValue] = item
+        self.selectedContactsCollectionView.reloadData()
+        self.selectionDidChanged()
+
     }
     
     func removeAll(for usingFor: ContactListVC.UsingFor) {
@@ -363,6 +378,7 @@ extension ImportContactVC: ImportContactVMDelegate {
     
         }
         
+        /*
         self.selectedContactsCollectionView.performBatchUpdates({
             for idx in 0..<item {
                 self.selectedContactsCollectionView.deleteItems(at: [IndexPath(item: idx, section: usingFor.rawValue)])
@@ -373,6 +389,10 @@ extension ImportContactVC: ImportContactVMDelegate {
             self.selectedContactsCollectionView.reloadData()
             self.selectionDidChanged()
         })
+         */
+        self.itemsCounts[usingFor.rawValue] = 0
+        self.selectedContactsCollectionView.reloadData()
+        self.selectionDidChanged()
     }
     
     func selectionDidChanged() {
