@@ -962,6 +962,7 @@ enum LocalizedString: String {
     
     // MARK: - Disconnect linkedin issue
     case DisconnectAccountMessage
+    case DeleteTraveller
     case Yes
     case No
     case SendingEmail

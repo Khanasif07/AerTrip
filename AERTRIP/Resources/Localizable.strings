@@ -881,6 +881,7 @@
 // MARK: - Disconnect
 
 "DisconnectAccountMessage" = "Are you sure want to disconnect";
+"DeleteTraveller" = "Are you sure you want to delete this traveller?";
 "Yes" = "Yes";
  "No" = "No";
 

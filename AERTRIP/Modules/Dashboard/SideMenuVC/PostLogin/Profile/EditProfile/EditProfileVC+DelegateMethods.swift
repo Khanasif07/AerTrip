@@ -739,6 +739,7 @@ extension EditProfileVC: EditProfileVMDelegate {
         for viewController in self.navigationController?.viewControllers ?? [] {
             if viewController is TravellerListVC {
                   AppFlowManager.default.popToViewController(viewController, animated: true)
+                 self.sendDataChangedNotification(data: ATNotification.travellerDeleted)
             }
         }
       self.stopLoading()

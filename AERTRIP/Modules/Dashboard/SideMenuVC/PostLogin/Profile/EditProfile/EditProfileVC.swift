@@ -108,6 +108,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         setUpToolBarForGenericPickerView()
       //  self.tableView.estimatedRowHeight = 44.0
        self.startLoading()
+       //self.addFooterView()
         
     }
     
@@ -169,7 +170,13 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     @IBAction func deleteTravellButtonTapped(_ sender: Any) {
         printDebug("delete from Traveller")
-        viewModel.callDeleteTravellerAPI()
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Delete.localized], colors: [AppColors.themeRed])
+        _ = PKAlertController.default.presentActionSheet(LocalizedString.DeleteTraveller.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, message: nil, messageFont: nil, messageColor: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { [weak self] _, index in
+            if index == 0 {
+                self?.viewModel.callDeleteTravellerAPI()
+            }
+        })
+      
     }
     
     // MARK: - Helper Methods
@@ -182,7 +189,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.SaveWithSpace.localized, selectedTitle: LocalizedString.SaveWithSpace.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.CancelWithSpace.localized, selectedTitle: LocalizedString.CancelWithSpace.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         self.deleteTravellerView.isHidden = true
-        delay(seconds: 1.0) { [weak self] in
+        delay(seconds: 0.7) { [weak self] in
             self?.deleteTravellerView.isHidden = self?.viewModel.paxId == UserInfo.loggedInUser?.paxId ? true : false
             self?.deleteButton.setTitle(LocalizedString.DeleteFromTraveller.localized, for: .normal)
             self?.deleteButton.setTitleColor(AppColors.themeRed, for: .normal)
@@ -847,6 +854,13 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             } else {
                 editProfileImageHeaderView.profileImageView.image = AppGlobals.shared.getImageFromText(flText.uppercased(), offSet: CGPoint(x: 0.0, y: 9.0)) }
         }
+    }
+    
+    private func addFooterView() {
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 35))
+        customView.backgroundColor = AppColors.clear
+        
+        tableView.tableFooterView = customView
     }
 }
 

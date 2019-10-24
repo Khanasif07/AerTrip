@@ -330,7 +330,7 @@ class EditProfileVM {
     func callDeleteTravellerAPI() {
         var params = JSONDictionary()
         
-        params["pax_ids"] = self.paxId
+        params["pax_ids[0]"] = self.paxId
         delegate?.willCallDeleteTravellerAPI()
         APICaller.shared.callDeleteTravellerAPI(params: params) { [weak self] success, _ in
             if success {

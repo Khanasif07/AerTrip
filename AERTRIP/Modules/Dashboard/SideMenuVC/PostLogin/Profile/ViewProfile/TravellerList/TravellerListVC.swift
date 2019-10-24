@@ -47,6 +47,8 @@ class TravellerListVC: BaseVC {
         }
     }
     
+    var travellerIdToDelete : String = ""
+    
     private var selectedTravller: [TravellerData] = []
     
     var container: NSPersistentContainer!
@@ -130,6 +132,11 @@ class TravellerListVC: BaseVC {
             CoreDataManager.shared.deleteData("TravellerData")
             //re-hit the details API
             self.viewModel.callSearchTravellerListAPI(isShowLoader: false)
+        } else if let noti = note.object as? ATNotification, noti == .travellerDeleted {
+            // Clear the DB
+            CoreDataManager.shared.deleteData("TravellerData", predicate: "id == '\(travellerIdToDelete)'")
+            //re-hit the details API
+            loadSavedData()
         }
     }
     
@@ -661,6 +668,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
             AppFlowManager.default.moveToViewProfileDetailVC(fetchedResultsController.object(at: indexPath).travellerDetailModel, usingFor: .travellerList)
         }
         shouldHitAPI = false
+        self.travellerIdToDelete = fetchedResultsController.object(at: indexPath).id ?? ""
     }
     
     
