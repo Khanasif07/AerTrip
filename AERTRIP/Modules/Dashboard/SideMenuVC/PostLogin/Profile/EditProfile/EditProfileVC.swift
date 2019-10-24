@@ -214,6 +214,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         datePickerView?.addSubview(datePicker!)
         genericPickerView?.addSubview(pickerView!)
+        genericPickerView?.frame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: pickerSize.width, height: pickerSize.height)
         
         datePicker?.addTarget(self, action: #selector(valueChangedDatePicker), for: .valueChanged)
         pickerView?.delegate = self

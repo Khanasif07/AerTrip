@@ -179,7 +179,7 @@ class TravellerListVC: BaseVC {
     func selectAllTapped() {
         let allTravellers = fetchedResultsController.fetchedObjects ?? []
         if predicateStr.isEmpty {
-        selectedTravller.removeAll()
+            selectedTravller.removeAll()
         }
         selectedTravller.append(contentsOf: allTravellers)
         tableView.reloadData()
@@ -189,10 +189,10 @@ class TravellerListVC: BaseVC {
     func deselectAllTapped() {
         let allTravellers = fetchedResultsController.fetchedObjects ?? []
         for model in allTravellers {
-        if let index = selectedTravller.firstIndex(where: { ($0.id ?? "") == (model.id ?? "") }) {
-            selectedTravller.remove(at: index)
-            topNavView.leftButton.isSelected = false
-        }
+            if let index = selectedTravller.firstIndex(where: { ($0.id ?? "") == (model.id ?? "") }) {
+                selectedTravller.remove(at: index)
+                topNavView.leftButton.isSelected = false
+            }
         }
         tableView.reloadData()
         updateNavView()
@@ -367,10 +367,13 @@ class TravellerListVC: BaseVC {
     }
     
     private func getSearchPredicates() -> NSPredicate {
-        let firstName = NSPredicate(format: "firstName CONTAINS[c] '\(predicateStr)'")
-        let lastName = NSPredicate(format: "lastName CONTAINS[c] '\(predicateStr)'")
+//        let firstName = NSPredicate(format: "firstName CONTAINS[c] '\(predicateStr)'")
+//        let lastName = NSPredicate(format: "lastName CONTAINS[c] '\(predicateStr)'")
+        let lastName = NSPredicate(format: "fullName CONTAINS[c] '\(predicateStr)'")
+
         
-        return NSCompoundPredicate(orPredicateWithSubpredicates: [firstName, lastName])
+       // return NSCompoundPredicate(orPredicateWithSubpredicates: [firstName, lastName])
+        return lastName
     }
     
     
@@ -384,7 +387,7 @@ class TravellerListVC: BaseVC {
             }
         }
         if let array = fetchedResultsController.fetchedObjects, !array.isEmpty {
-        topNavView.leftButton.isSelected = array.count == counter
+            topNavView.leftButton.isSelected = array.count == counter
         }
     }
     
@@ -530,6 +533,9 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         guard  let firstName = travellerData?.firstName, let lastName = travellerData?.lastName else {
             return
         }
+//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 45, height: 30))
+//        label.text = "(30y)"
+//        cell.accessoryView = label
         if !(travellerData?.profileImage.isEmpty ?? false) {
             
             

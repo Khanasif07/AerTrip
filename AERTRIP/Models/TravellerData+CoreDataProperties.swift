@@ -25,6 +25,8 @@ extension TravellerData {
     @NSManaged public var lastNameFirstChar: String?
     @NSManaged public var isChecked: Bool
     @NSManaged public var profileImage: String
+    @NSManaged public var fullName: String?
+
 }
 
 extension TravellerData {
