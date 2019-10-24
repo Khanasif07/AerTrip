@@ -75,6 +75,7 @@
         <attribute name="dob" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstNameFirstChar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fullName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isChecked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="label" optional="YES" attributeType="String" syncable="YES"/>
@@ -87,6 +88,6 @@
     <elements>
         <element name="BookingData" positionX="72" positionY="-225" width="128" height="540"/>
         <element name="HotelSearched" positionX="200.703125" positionY="-343.6796875" width="128" height="555"/>
-        <element name="TravellerData" positionX="-55.05078125" positionY="-381.27734375" width="128" height="210"/>
+        <element name="TravellerData" positionX="-55.05078125" positionY="-381.27734375" width="128" height="225"/>
     </elements>
 </model>

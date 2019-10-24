@@ -77,6 +77,9 @@ public class TravellerData: NSManagedObject {
             userData?.profileImage = "\(obj)".removeNull
         }
         
+        let completeName = "\(userData?.firstName ?? "") \(userData?.lastName ?? "")"
+        userData?.fullName = completeName.removeLeadingTrailingWhitespaces
+        
         CoreDataManager.shared.saveContext(managedContext: context)
         
         return userData!
