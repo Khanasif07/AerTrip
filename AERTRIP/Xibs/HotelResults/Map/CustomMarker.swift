@@ -57,8 +57,8 @@ class CustomMarker: UIView {
             price = hotel?.perNightPrice ?? 0.0
         }
         
-        let str = NSAttributedString(string: hotel?.hotelName?.substring(to: 4) ?? "")
-        self.priceLabel.attributedText = (price.amountInDelimeterWithSymbol).addPriceSymbolToLeft(using: AppFonts.SemiBold.withSize(16.0)) + str
+       // let str = NSAttributedString(string: hotel?.hotelName?.substring(to: 4) ?? "")
+        self.priceLabel.attributedText = (price.amountInDelimeterWithSymbol).addPriceSymbolToLeft(using: AppFonts.SemiBold.withSize(16.0)) 
     }
     
     private func updateFav() {

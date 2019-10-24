@@ -77,7 +77,7 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.disconnectButton.setTitle(LocalizedString.Disconnect.localized, for: .normal)
         self.disconnectButton.setTitle(LocalizedString.Disconnect.localized, for: .selected)
         
-       // self.disconnectButton.setTitleColor(AppColors.themeRed, for: .normal)
+        self.disconnectButton.setTitleColor(AppColors.themeRed, for: .normal)
        // self.disconnectButton.setTitleColor(AppColors.themeGray20, for: .disabled)
         
         self.disconnectButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)

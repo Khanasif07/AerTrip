@@ -45,6 +45,8 @@ class ViewProfileVC: BaseVC {
     var maxValue: CGFloat = 1.0
     var minValue: CGFloat = 0.0
     var finalMaxValue: Int = 0
+    var currentProgress: CGFloat = 0
+    var currentProgressIntValue: Int = 0
     
     var isScrollingFirstTime: Bool = true
     
@@ -154,6 +156,10 @@ class ViewProfileVC: BaseVC {
         let parallexHeaderHeight = CGFloat(304.0)//CGFloat(UIDevice.screenHeight * 0.45)
         
         let parallexHeaderMinHeight = self.navigationController?.navigationBar.bounds.height ?? 74
+        if !self.currentProgress.isZero {
+            CGAffineTransform(scaleX: (CGFloat(self.currentProgress)) , y: (CGFloat(currentProgress))).translatedBy(x: 0, y: CGFloat(2200 * (Float(currentProgressIntValue) / 1000)))
+            
+        }
         self.profileImageHeaderView?.currentlyUsingAs = .viewProfile
         profileImageHeaderView?.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width, height: 0.0)
         self.tableView.parallaxHeader.view = profileImageHeaderView
@@ -340,7 +346,6 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         printDebug("progress value \(prallexProgress)")
         
         
-        
         if isScrollingFirstTime && prallexProgress > 1.0 {
             maxValue = prallexProgress
             minValue = abs(1 - prallexProgress)
@@ -362,8 +367,8 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
             
             printDebug("CGFloat progress  Value is \(newProgress.toCGFloat.roundTo(places: 3))")
             
-            
-            
+            self.currentProgressIntValue = intValue
+            self.currentProgress = newProgress.toCGFloat
             self.profileImageHeaderView?.profileImageView.transform = CGAffineTransform(scaleX: (CGFloat(newProgress)) , y: (CGFloat(newProgress))).translatedBy(x: 0, y: CGFloat(2200 * (Float(intValue) / 1000)))
             
             

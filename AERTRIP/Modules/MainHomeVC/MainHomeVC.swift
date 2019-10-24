@@ -53,6 +53,8 @@ class MainHomeVC: BaseVC {
         else {
             self.statusBarStyle = .lightContent
         }
+        
+       
     }
     
     override func viewDidAppear(_ animated: Bool) {
