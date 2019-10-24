@@ -200,6 +200,16 @@ class ContactListVC: BaseVC {
         return index
     }
     
+    func updateSelectAllState(for usingFor: ContactListVC.UsingFor) {
+        if usingFor == .contacts {
+            self.selectAllButton.isSelected = false
+        } else if usingFor == .facebook {
+            self.selectAllButton.isSelected = false
+        } else if usingFor == .google {
+            self.selectAllButton.isSelected = false
+        }
+    }
+    
     @IBAction func selectAllButtonAction(_ sender: UIButton) {
         self.showLoaderOnView(view: sender, show: true, backgroundColor: AppColors.themeWhite)
         //        sender.disable(forSeconds: 0.6)
@@ -448,13 +458,6 @@ extension ContactListVC: ImportContactVMDelegate {
     
     func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor) {
         self.reloadList()
-        if usingFor == .contacts {
-            self.selectAllButton.isSelected = false
-        } else if usingFor == .facebook {
-            self.selectAllButton.isSelected = false
-        } else if usingFor == .google {
-            self.selectAllButton.isSelected = false
-        }
     }
     
     func addAll(for usingFor: ContactListVC.UsingFor) {

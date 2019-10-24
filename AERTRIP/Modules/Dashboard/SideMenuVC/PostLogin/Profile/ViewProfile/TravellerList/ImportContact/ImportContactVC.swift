@@ -458,16 +458,19 @@ extension ImportContactVC: SelectedContactCollectionCellDelegate {
                 //phone
                 self.viewModel.selectedPhoneContacts.remove(at: indexPath.item)
                 self.viewModel.remove(fromIndex: indexPath.item, for: .contacts)
+                self.allChildVCs[0].updateSelectAllState(for: .contacts)
                 
             case 1:
                 //facebook
                 self.viewModel.selectedFacebookContacts.remove(at: indexPath.item)
                 self.viewModel.remove(fromIndex: indexPath.item, for: .facebook)
+                self.allChildVCs[1].updateSelectAllState(for: .facebook)
                 
             case 2:
                 //google
                 self.viewModel.selectedGoogleContacts.remove(at: indexPath.item)
                 self.viewModel.remove(fromIndex: indexPath.item, for: .google)
+                self.allChildVCs[2].updateSelectAllState(for: .google)
                 
             default:
                 printDebug("not a correct index")

@@ -49,14 +49,18 @@ public class TravellerData: NSManagedObject {
         }
         
         if let obj = dataDict[APIKeys.label.rawValue] as? String {
+            let defaultLabel = "Others"
             if obj.isEmpty {
-                userData!.label = "Others"
+                userData!.label = defaultLabel
             }
             else {
                 userData!.label = "\(obj)".removeNull.removeLeadingTrailingWhitespaces
             }
-            
-            if let allData = UserInfo.loggedInUser?.generalPref?.labelsWithPriority, let prio = allData[userData!.label!] {
+            let allData = UserInfo.loggedInUser?.generalPref?.labelsWithPriority ?? [:]
+            if let prio = allData[userData!.label!] {
+                userData!.labelLocPrio = Int16(prio)
+            } else if let prio = allData[defaultLabel] {
+                userData!.label = defaultLabel
                 userData!.labelLocPrio = Int16(prio)
             }
         }
