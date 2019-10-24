@@ -418,7 +418,7 @@
                                             <constraint firstAttribute="height" constant="1" id="M2X-eb-Hfy"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfl-cY-TyE">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfl-cY-TyE">
                                         <rect key="frame" x="229" y="601" width="130" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="130" id="Gzc-vy-hUd"/>
@@ -468,7 +468,7 @@
                     <connections>
                         <outlet property="bottomHeaderTopDiverView" destination="hJo-Q8-0aI" id="3c9-WE-hEZ"/>
                         <outlet property="containerBottomConstraint" destination="EWq-Iw-iRY" id="Dkr-2a-lzT"/>
-                        <outlet property="selectAllButton" destination="lfl-cY-TyE" id="71F-Yk-LaB"/>
+                        <outlet property="selectAllButton" destination="lfl-cY-TyE" id="q9g-Mg-vkn"/>
                         <outlet property="tableView" destination="wna-Yf-HIz" id="eKN-OT-LwC"/>
                     </connections>
                 </viewController>
