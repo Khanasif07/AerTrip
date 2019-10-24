@@ -122,6 +122,10 @@ class DashboardVC: BaseVC {
         super.viewWillDisappear(animated)
         
         self.deRegisterBulkEnquiryNotification()
+        
+        if  self.isMovingFromParent {
+            backView?.removeFromSuperview()
+        }
     }
     
     override func dataChanged(_ note: Notification) {

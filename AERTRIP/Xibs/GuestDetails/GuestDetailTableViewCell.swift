@@ -59,8 +59,10 @@ class GuestDetailTableViewCell: UITableViewCell {
     private func doInitalSetup() {
         self.firstNameTextField.titleYPadding = -10.0
         self.lastNameTextField.titleYPadding = -10.0
-        self.firstNameTextField.lineViewBottomSpace = 0.0
-        self.lastNameTextField.lineViewBottomSpace = 0.0
+        self.firstNameTextField.lineViewBottomSpace = 0.5
+        self.lastNameTextField.lineViewBottomSpace = 0.5
+        self.firstNameTextField.isSingleTextField = false
+        self.lastNameTextField.isSingleTextField = false
         self.firstNameTextField.delegate = self
         self.lastNameTextField.delegate = self
         
@@ -203,8 +205,10 @@ extension GuestDetailTableViewCell: UITextFieldDelegate {
         }
         switch textField {
         case self.firstNameTextField:
+            self.firstNameTextField.isHiddenBottomLine = false
             self.delegate?.textFieldWhileEditing(firstNameTextField)
         case self.lastNameTextField:
+            self.lastNameTextField.isHiddenBottomLine = false
             self.delegate?.textFieldWhileEditing(lastNameTextField)
         default:
             break

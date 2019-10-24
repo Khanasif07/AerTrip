@@ -155,9 +155,6 @@ class GuestDetailsVC: BaseVC {
                 self.travellersTableView.isHidden = !guest.firstName.isEmpty
             }
             delay(seconds: 0.2) { [weak cell] in
-//                if guest.salutation.isEmpty {
-//                    cell?.salutationTextField.becomeFirstResponder()
-//                } else
                 if guest.firstName.isEmpty {
                     cell?.firstNameTextField.becomeFirstResponder()
                 }
@@ -343,22 +340,23 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
     }
     
     func textField(_ textField: UITextField) {
-        /*
+        
         self.travellersTableView.isHidden = self.travellers.count == 0
         self.travellersTableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
         self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
-        if let cell = self.guestDetailTableView.cell(forItem: textField) as? GuestDetailTableViewCell, textField !== cell.salutationTextField {
-            // get item position
+        if let _ = self.guestDetailTableView.cell(forItem: textField) as? GuestDetailTableViewCell {
+           //  get item position
             let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: guestDetailTableView)
             
             self.guestDetailTableView.setContentOffset(CGPoint(x: self.guestDetailTableView.origin.x, y: itemPosition.y - CGFloat(104)), animated: true)
-            
-            self.guestDetailTableView.isScrollEnabled = (self.travellers.count == 0)//false            travellersTableView.reloadData()
+         
+            self.guestDetailTableView.isScrollEnabled = (self.travellers.count == 0)
+            //false            travellersTableView.reloadData()
             printDebug("item position is \(itemPosition)")
         } else {
             travellersTableView.isHidden = true
         }
-         */
+ 
     }
 }
 
