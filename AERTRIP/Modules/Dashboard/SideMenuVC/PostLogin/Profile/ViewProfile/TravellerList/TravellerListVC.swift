@@ -431,14 +431,6 @@ class TravellerListVC: BaseVC {
         searchBar.text = ""
         loadSavedData()
     }
-    
-    //    func getUpdatedTitle(str: NSMutableAttributedString) -> NSMutableAttributedString {
-    //        var updatedTitle = str
-    //        if updatedTitle.length > 24 {
-    //            updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.len)
-    //        }
-    //        return updatedTitle
-    //    }
 }
 
 extension TravellerListVC: TopNavigationViewDelegate {
@@ -505,10 +497,6 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //        var oldCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
-        //        if oldCell == nil {
-        //            oldCell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
-        //        }
         let cell = UITableViewCell() // oldCell!
         let data = fetchedResultsController.object(at: indexPath)
         configureCell(cell: cell, travellerData: data)
@@ -519,63 +507,37 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         cell.selectedBackgroundView = backView
         return cell
     }
-    
-    
-    //    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    //        let cell = UITableViewCell() // oldCell!
-    //        let data = fetchedResultsController.object(at: indexPath)
-    //        configureCell(cell: cell, travellerData: data)
-    //    }
-    
-    
+
     private func configureCell(cell: UITableViewCell, travellerData: TravellerData?) {
         cell.imageView?.image = travellerData?.salutationImage
         cell.imageView?.image = AppGlobals.shared.getEmojiIcon(dob: travellerData?.dob ?? "", salutation: travellerData?.salutation ?? "", dateFormatter: "yyyy-MM-dd")
         
         
+        // Get age str based on date of birth
         let dateStr = AppGlobals.shared.getAgeLastString(dob: travellerData?.dob ?? "", formatter: "yyyy-MM-dd")
-        
-        let attributedDateStr = getAttributedBoldText(text: dateStr, boldText: dateStr,color: AppColors.themeGray40)
+        // get attributed date str
+        let attributedDateStr = AppGlobals.shared.getAttributedBoldText(text: dateStr, boldText: dateStr,color: AppColors.themeGray40)
         
         guard  let firstName = travellerData?.firstName, let lastName = travellerData?.lastName else {
             return
         }
-//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 45, height: 30))
-//        label.text = "(30y)"
-//        cell.accessoryView = label
-        if !(travellerData?.profileImage.isEmpty ?? false) {
-            
-            
-            cell.imageView?.setImageWithUrl(travellerData?.profileImage ?? "", placeholder: travellerData?.salutationImage ?? AppPlaceholderImage.user, showIndicator: false)
-            DispatchQueue.main.async { [weak cell] in
-                cell?.imageView?.contentMode = .scaleAspectFit
-                cell?.imageView?.layer.masksToBounds = true
-                cell?.imageView?.clipsToBounds = true
-                //                if let width = cell?.imageView?.frame.size.width {
-                //                    cell?.imageView?.layer.cornerRadius = width / 2
-                //                    cell?.imageView?.layer.masksToBounds = true
-                //                }
-            }
-        }
+        
+        // add a UILabel for Age string
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 45, height: 30))
+        label.attributedText = attributedDateStr
+        cell.accessoryView = label
+        
         
         if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
             let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
-            var boldTextAttributed = NSMutableAttributedString(string: "")
-            let fullName = "\(lastName) \(firstName)"
+            let  boldTextAttributed = getAttributedBoldText(text: "\(lastName) \(firstName)", boldText: boldText)
             
-            if fullName.count > 20 {
-                printDebug("full name after truncation  \(AppGlobals.shared.getTrucatedTitle(str: fullName)) boldText \(boldText.substring(from: 0, to: boldText.count - 3) + "...")")
-                boldTextAttributed = getAttributedBoldText(text: AppGlobals.shared.getTrucatedTitle(str: fullName), boldText: boldText.substring(from: 0, to: boldText.count - 3) + "...")
-            } else {
-                boldTextAttributed = getAttributedBoldText(text: "\(lastName) \(firstName)", boldText: boldText)
-            }
-            
-            cell.textLabel?.attributedText = boldTextAttributed + attributedDateStr
+            cell.textLabel?.attributedText = boldTextAttributed
             
         } else {
             let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
             let boldTextAttributed = getAttributedBoldText(text: "\(firstName) \(lastName)", boldText: boldText)
-            cell.textLabel?.attributedText = boldTextAttributed + attributedDateStr
+            cell.textLabel?.attributedText = boldTextAttributed
         }
         
         if let trav = travellerData, self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {

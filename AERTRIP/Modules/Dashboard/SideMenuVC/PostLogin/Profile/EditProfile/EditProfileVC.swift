@@ -108,7 +108,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         setUpToolBarForGenericPickerView()
       //  self.tableView.estimatedRowHeight = 44.0
        self.startLoading()
-       //self.addFooterView()
         
     }
     
@@ -856,12 +855,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         }
     }
     
-    private func addFooterView() {
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 35))
-        customView.backgroundColor = AppColors.clear
-        
-        tableView.tableFooterView = customView
-    }
 }
 
 extension EditProfileVC: TopNavigationViewDelegate {

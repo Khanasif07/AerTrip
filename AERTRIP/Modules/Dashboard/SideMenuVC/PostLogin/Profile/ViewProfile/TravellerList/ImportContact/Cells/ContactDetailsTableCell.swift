@@ -78,11 +78,11 @@ class ContactDetailsTableCell: UITableViewCell {
             }
             let firstName = self.contact?.firstName ?? ""
             let lastName = self.contact?.lastName ?? ""
-            self.nameLabel.appendFixedText(text: "\(firstName) \(lastName)", fixedText: age)
+           // self.nameLabel.appendFixedText(text: "\(firstName) \(lastName)", fixedText: age)
             self.nameLabel.AttributedFont(textFont : AppFonts.Regular.withSize(18.0), textColor : AppColors.themeBlack)
             self.nameLabel.AttributedFontForText(text: firstName, textFont: AppFonts.SemiBold.withSize(18.0))
             if !age.isEmpty {
-                self.nameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
+              //  self.nameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
             }
         }
         else {

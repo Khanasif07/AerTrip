@@ -603,6 +603,13 @@ extension AppGlobals {
             }
         }
     }
+    
+     func getAttributedBoldText(text: String, boldText: String,color: UIColor = AppColors.themeBlack) -> NSMutableAttributedString {
+        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(16.0), .foregroundColor: color])
+        
+        attString.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (text as NSString).range(of: boldText))
+        return attString
+    }
 }
 
 /*extension AppGlobals {

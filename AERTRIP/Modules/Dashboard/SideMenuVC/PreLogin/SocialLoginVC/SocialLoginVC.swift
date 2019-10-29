@@ -124,8 +124,8 @@ class SocialLoginVC: BaseVC {
         self.googleButton.setTitle(LocalizedString.Continue_with_Google.localized, for: .normal)
         self.linkedInButton.setTitle(LocalizedString.Continue_with_Linkedin.localized, for: .normal)
         
-        self.fbButton.shadowColor = AppColors.themeRed
-        self.view.backgroundColor = AppColors.themeRed
+//        self.fbButton.shadowColor = AppColors.themeRed
+//        self.view.backgroundColor = AppColors.themeRed
         self.fbButton.isSocial = false
         self.googleButton.isSocial = false
         self.linkedInButton.isSocial = false
