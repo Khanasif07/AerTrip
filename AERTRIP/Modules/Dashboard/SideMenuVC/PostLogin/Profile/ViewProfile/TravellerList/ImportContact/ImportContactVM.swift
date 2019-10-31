@@ -16,6 +16,8 @@ protocol ImportContactVMDelegate: class {
     func add(for usingFor: ContactListVC.UsingFor)
     func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor)
     
+    func remove(for usingFor: ContactListVC.UsingFor)
+
     func addAll(for usingFor: ContactListVC.UsingFor)
     func removeAll(for usingFor: ContactListVC.UsingFor)
     
@@ -120,10 +122,18 @@ class ImportContactVM: NSObject {
             obj.sendDataChangedNotification(data: Notification.selectionChanged)
         }
     }
-
+    
     func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor) {
         self.delegateList?.remove(fromIndex: fromIndex, for: usingFor)
         self.delegateCollection?.remove(fromIndex: fromIndex, for: usingFor)
+        if let obj = self.delegateCollection as? BaseVC {
+            obj.sendDataChangedNotification(data: Notification.selectionChanged)
+        }
+    }
+    
+    func remove(for usingFor: ContactListVC.UsingFor) {
+        self.delegateList?.remove(for: usingFor)
+        self.delegateCollection?.remove(for: usingFor)
         if let obj = self.delegateCollection as? BaseVC {
             obj.sendDataChangedNotification(data: Notification.selectionChanged)
         }

@@ -282,6 +282,20 @@ extension UIView {
         return subviewClass as? UICollectionViewCell
     }
     
+    var tableViewCell : UITableViewCell? {
+        
+        var subviewClass = self
+        
+        while !(subviewClass is UITableViewCell){
+            
+            guard let view = subviewClass.superview else { return nil }
+            
+            subviewClass = view
+        }
+        return subviewClass as? UITableViewCell
+    }
+
+    
     func showBlurLoader(frame: CGRect) {
         let blurLoader = BlurLoader(frame: frame)
         self.addSubview(blurLoader)

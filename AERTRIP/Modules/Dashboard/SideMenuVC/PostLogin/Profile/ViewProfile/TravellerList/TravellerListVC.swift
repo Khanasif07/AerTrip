@@ -75,6 +75,7 @@ class TravellerListVC: BaseVC {
         tableView.backgroundView = noTravEmptyView
         tableView.backgroundView?.isHidden = true
         tableView.separatorStyle = .singleLine
+        tableView.separatorColor = AppColors.blueGray
         loadSavedData()
         doInitialSetUp()
         registerXib()
@@ -187,8 +188,15 @@ class TravellerListVC: BaseVC {
         let allTravellers = fetchedResultsController.fetchedObjects ?? []
         if predicateStr.isEmpty {
             selectedTravller.removeAll()
+            selectedTravller.append(contentsOf: allTravellers)
+        } else {
+            for model in allTravellers {
+                if !selectedTravller.contains(model) {
+                    selectedTravller.append(model)
+                }
+            }
         }
-        selectedTravller.append(contentsOf: allTravellers)
+        
         tableView.reloadData()
         updateNavView()
     }

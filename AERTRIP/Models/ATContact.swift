@@ -245,7 +245,13 @@ struct ATContact {
         return temp
     }
 }
-
+extension ATContact: Equatable {
+    static func == (lhs: ATContact, rhs: ATContact) -> Bool {
+        return lhs.label == rhs.label &&
+            lhs.id == rhs.id &&
+            lhs.socialId == rhs.socialId
+    }
+}
 
 extension CNContact {
     var firstName: String {

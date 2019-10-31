@@ -61,4 +61,9 @@ extension AddNotesTableViewCell: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         return true
     }
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        delegate?.textViewText(textView)
+        return true
+    }
 }

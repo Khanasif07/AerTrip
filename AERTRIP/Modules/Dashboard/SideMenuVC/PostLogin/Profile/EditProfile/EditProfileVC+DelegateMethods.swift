@@ -1031,22 +1031,35 @@ extension EditProfileVC: AddAddressTableViewCellDelegate {
 
 extension EditProfileVC: AddNotesTableViewCellDelegate {
     func textViewText(_ textView: UITextView) {
-        let startHeight = textView.frame.size.height
-        let calcHeight = textView.sizeThatFits(textView.frame.size).height
         
-        if startHeight != calcHeight {
-            
-            UIView.setAnimationsEnabled(false) // Disable animations
-            
-            DispatchQueue.main.async { [weak self] in
-                guard let `self` = self else {
-                    return
-                }
-                self.tableView.beginUpdates()
-                self.tableView.endUpdates()
-            }
-            UIView.setAnimationsEnabled(true)
-            self.viewModel.notes = textView.text
+        if textView.numberOfLines >= 10 {
+            textView.isScrollEnabled = false
+            textView.isScrollEnabled = true
+            let location = textView.text.count - 1
+            let bottom = NSMakeRange(location, 1)
+            textView.scrollRangeToVisible(bottom)
+        } else {
+            tableView.beginUpdates()
+            textView.isScrollEnabled = false
+            tableView.endUpdates()
         }
+        self.viewModel.notes = textView.text
+
     }
 }
+
+
+/*
+ self.viewModel.notes = textView.text
+ guard let cell = textView.tableViewCell as? AddNotesTableViewCell else { return }
+ UIView.setAnimationsEnabled(false)
+ self.tableView.beginUpdates()
+ cell.contentView.layoutIfNeeded()
+ let location = textView.text.count - 1
+ let bottom = NSMakeRange(location, 1)
+ textView.scrollRangeToVisible(bottom)
+ self.view.layoutIfNeeded()
+ self.tableView.endUpdates()
+ UIView.setAnimationsEnabled(true)
+ */
+// https://stackoverflow.com/questions/38714272/how-to-make-uitextview-height-dynamic-according-to-text-length

@@ -238,6 +238,7 @@ extension ImportContactVC: TopNavigationViewDelegate {
 //MARK:- ViewModel Delegate
 //MARK:-
 extension ImportContactVC: ImportContactVMDelegate {
+   
     func showLoader() {
         AppGlobals.shared.startLoading(loaderBgColor: AppColors.clear)
     }
@@ -291,27 +292,33 @@ extension ImportContactVC: ImportContactVMDelegate {
     }
     
     func add(for usingFor: ContactListVC.UsingFor) {
-        self.selectionDidChanged()
+        
         var item = 0
+        var section = 0
         switch usingFor {
         case .contacts:
-            item = self.viewModel.selectedPhoneContacts.count - 1
-            
+            item = self.viewModel.selectedPhoneContacts.count
+            section = 0
         case .facebook:
-            item = self.viewModel.selectedFacebookContacts.count - 1
-            
+            item = self.viewModel.selectedFacebookContacts.count
+            section = 1
         case .google:
-            item = self.viewModel.selectedGoogleContacts.count - 1
-            
+            item = self.viewModel.selectedGoogleContacts.count
+            section = 2
         default:
             item = 0
         }
-        self.selectedContactsCollectionView.performBatchUpdates({
-            self.selectedContactsCollectionView.insertItems(at: [IndexPath(item: item, section: usingFor.rawValue)])
-            self.itemsCounts[usingFor.rawValue] += 1
-        }, completion: { (isDone) in
-                self.scrollCollectionToEnd()
-        })
+//        self.selectedContactsCollectionView.performBatchUpdates({
+//            self.selectedContactsCollectionView.insertItems(at: [IndexPath(item: item, section: usingFor.rawValue)])
+//            self.itemsCounts[usingFor.rawValue] += 1
+//        }, completion: { (isDone) in
+//                self.scrollCollectionToEnd()
+//        })
+        self.itemsCounts[usingFor.rawValue] = item
+        self.selectionDidChanged()
+        self.selectedContactsCollectionView.reloadSection(section: section)
+        //self.scrollCollectionToEnd()
+        
     }
     
     func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor) {
@@ -323,9 +330,33 @@ extension ImportContactVC: ImportContactVMDelegate {
             self.selectionDidChanged()
         })
     }
-    
-    func addAll(for usingFor: ContactListVC.UsingFor) {
+    func remove(for usingFor: ContactListVC.UsingFor) {
+        var item = 0
+        switch usingFor {
+        case .contacts:
+            item = self.viewModel.selectedPhoneContacts.count
+            
+        case .facebook:
+            item = self.viewModel.selectedFacebookContacts.count
+            
+        case .google:
+            item = self.viewModel.selectedGoogleContacts.count
+            
+        default:
+            item = 0
+        }
+        //        self.selectedContactsCollectionView.performBatchUpdates({
+        //            self.selectedContactsCollectionView.insertItems(at: [IndexPath(item: item, section: usingFor.rawValue)])
+        //            self.itemsCounts[usingFor.rawValue] += 1
+        //        }, completion: { (isDone) in
+        //                self.scrollCollectionToEnd()
+        //        })
+        self.itemsCounts[usingFor.rawValue] = item
         self.selectionDidChanged()
+        self.selectedContactsCollectionView.reloadData()
+        
+    }
+    func addAll(for usingFor: ContactListVC.UsingFor) {
 
         var item = 0
         switch usingFor {
@@ -358,8 +389,9 @@ extension ImportContactVC: ImportContactVMDelegate {
         }, completion: nil)
          */
         self.itemsCounts[usingFor.rawValue] = item
-        self.selectedContactsCollectionView.reloadData()
         self.selectionDidChanged()
+        self.selectedContactsCollectionView.reloadData()
+        
 
     }
     
@@ -390,9 +422,10 @@ extension ImportContactVC: ImportContactVMDelegate {
             self.selectionDidChanged()
         })
          */
-        self.itemsCounts[usingFor.rawValue] = 0
-        self.selectedContactsCollectionView.reloadData()
+        self.itemsCounts[usingFor.rawValue] = item
         self.selectionDidChanged()
+        self.selectedContactsCollectionView.reloadData()
+        
     }
     
     func selectionDidChanged() {
