@@ -1043,7 +1043,7 @@ extension EditProfileVC: AddNotesTableViewCellDelegate {
             textView.isScrollEnabled = false
             tableView.endUpdates()
         }
-        self.viewModel.notes = textView.text
+        self.viewModel.notes = textView.text.removeLeadingTrailingWhitespaces
 
     }
 }
