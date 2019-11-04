@@ -499,7 +499,7 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     
     
     func editProfilePhotoForTraveller() {
-        var buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen])
+        var buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         
         
         if (!self.viewModel.profilePicture.isEmpty) || (!self.viewModel.filePath.isEmpty) {

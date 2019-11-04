@@ -130,6 +130,8 @@ struct ATContact {
             self.email = email.value as String
             self.emailLabel = "internet"
         }
+        
+        self.dob = contact.dob
         var closureSelf = self
         DispatchQueue.backgroundAsync {
             if let phone = contact.phoneNumbers.first {

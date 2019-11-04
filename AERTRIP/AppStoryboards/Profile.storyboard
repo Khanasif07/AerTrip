@@ -104,16 +104,16 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="55"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V6m-J4-t1S">
-                                        <rect key="frame" x="16" y="8" width="343" height="38"/>
+                                        <rect key="frame" x="16" y="8" width="343" height="38.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CTD-vQ-aWq" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="54" width="375" height="1"/>
+                                        <rect key="frame" x="0.0" y="54.5" width="375" height="0.5"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="y0Z-Ix-6sc"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="y0Z-Ix-6sc"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -221,10 +221,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Irw-cL-Enz" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="69" width="375" height="1"/>
+                                                    <rect key="frame" x="0.0" y="69.5" width="375" height="0.5"/>
                                                     <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="ekn-4k-qJn"/>
+                                                        <constraint firstAttribute="height" constant="0.5" id="ekn-4k-qJn"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>

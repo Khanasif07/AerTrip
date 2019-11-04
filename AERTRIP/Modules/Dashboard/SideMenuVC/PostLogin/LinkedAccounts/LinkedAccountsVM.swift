@@ -72,7 +72,9 @@ extension LinkedAccountsVM {
             
             if result.email.isEmpty {
                 //show toast
-                AppToast.default.showToastMessage(message: LocalizedString.PleaseLoginByEmailId.localized)
+                delay(seconds: 0.2, completion: {
+                    AppToast.default.showToastMessage(message: LocalizedString.PleaseLoginByEmailId.localized)
+                })
                 completionBlock?(false)
             }
             else {
@@ -142,7 +144,9 @@ extension LinkedAccountsVM {
                 
                 if let email = data["emailAddress"] as? String, email.isEmpty {
                     //show toast
-                    AppToast.default.showToastMessage(message: LocalizedString.AllowEmailInLinkedIn.localized)
+                    delay(seconds: 0.2, completion: {
+                        AppToast.default.showToastMessage(message: LocalizedString.AllowEmailInLinkedIn.localized)
+                    })
                     linkedinHelper.logout()
                 }
                 else {
