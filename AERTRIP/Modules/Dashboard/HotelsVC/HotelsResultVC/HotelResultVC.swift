@@ -315,10 +315,10 @@ class HotelResultVC: BaseVC {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.statusBarColor = AppColors.clear
-        
-        if  self.isMovingFromParent {
-            backView.removeFromSuperview()
-        }
+        backView.removeFromSuperview()
+//        if  self.isMovingFromParent {
+//            backView.removeFromSuperview()
+//        }
     }
     
   

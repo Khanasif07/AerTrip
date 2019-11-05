@@ -1045,7 +1045,8 @@ extension EditProfileVC: AddNotesTableViewCellDelegate {
             textView.isScrollEnabled = true
             let location = textView.text.count - 1
             let bottom = NSMakeRange(location, 1)
-            textView.scrollRangeToVisible(bottom)
+            //textView.scrollRangeToVisible(bottom)
+            printDebug(textView.selectedRange)
         } else {
             tableView.beginUpdates()
             textView.isScrollEnabled = false

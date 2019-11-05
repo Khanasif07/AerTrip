@@ -42,9 +42,6 @@ import UIKit
         }
     }
     
-    private func getKeyboardLanguage() -> String? {
-        return "en" // here you can choose keyboard any way you need
-    }
     /// A Boolean value that determines whether the textfield is being edited or is selected.
     open var editingOrSelected: Bool {
         return super.isEditing || isSelected
@@ -349,16 +346,7 @@ import UIKit
 
     
     
-    override var textInputMode: UITextInputMode? {
-        if let language = getKeyboardLanguage() {
-            for tim in UITextInputMode.activeInputModes {
-                if tim.primaryLanguage!.contains(language) {
-                    return tim
-                }
-            }
-        }
-        return super.textInputMode
-    }
+    
 }
 
 extension PKFloatLabelTextField {

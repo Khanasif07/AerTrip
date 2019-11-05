@@ -45,7 +45,9 @@ class AddNotesTableViewCell: UITableViewCell {
         if !note.isEmpty {
             addNoteTextView.textColor = AppColors.textFieldTextColor51
             addNoteTextView.text = note
+            addNoteTextView.isScrollEnabled = false
         }
+       
     }
     
     private func manageSeprator() {
