@@ -313,7 +313,8 @@ extension CNContact {
     
     var dob: String {
         if let year = self.birthday?.year,let month = self.birthday?.month,let day = self.birthday?.day {
-            return "\(year)-\(month)-\(day)"
+            let monthString = "\(month)"
+            return "\(year)-\(monthString.count > 1 ? "": "0")\(month)-\(day)"
         } else {
             return ""
         }

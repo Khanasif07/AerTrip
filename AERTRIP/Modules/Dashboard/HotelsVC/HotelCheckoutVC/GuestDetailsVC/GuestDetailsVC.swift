@@ -224,6 +224,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
             }
             cell.delegate = self
+            cell.canShowSalutationError = GuestDetailsVM.shared.canShowSalutationError
             printDebug("=====guest==== \(indexPath.section) \(indexPath.row)\(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
             cell.guestDetail = GuestDetailsVM.shared.guests[indexPath.section][indexPath.row]
             return cell
@@ -296,6 +297,7 @@ extension GuestDetailsVC: TopNavigationViewDelegate {
         printDebug("Done Button tapped")
         AppFlowManager.default.popViewController(animated: true)
         self.vcDelegate?.doneButtonTapped()
+        GuestDetailsVM.shared.canShowSalutationError = true
     }
 }
 

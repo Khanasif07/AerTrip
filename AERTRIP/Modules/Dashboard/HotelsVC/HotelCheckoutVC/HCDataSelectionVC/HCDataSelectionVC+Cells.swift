@@ -234,7 +234,9 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
     private func resetView() {
         lastNameLabel.isHidden = true
         ageLabel.isHidden = true
-        lastNameAgeContainer.isHidden = true
+        lastNameAgeContainer.isHidden = false
+        ageLabel.text = ""
+        ageLabel.text = ""
     }
     
     private func configData() {
@@ -299,6 +301,7 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
         else {
             setupForAdd()
         }
+        
     }
     
     // Mark:- IBActions

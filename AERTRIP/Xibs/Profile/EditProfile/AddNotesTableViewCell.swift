@@ -59,6 +59,12 @@ extension AddNotesTableViewCell: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let inputMode = textView.textInputMode else {
+            return false
+        }
+        if inputMode.primaryLanguage == "emoji" || !(inputMode.primaryLanguage != nil) {
+            return false
+        }
         return true
     }
     

@@ -57,7 +57,17 @@ class TravellerListTableViewCell: UITableViewCell {
     private func configureCellForTraveller() {
         selectTravellerButton.isHidden = true
         leadingConstraint.constant = 16
-        userNameLabel.text = travellerModelData?.firstName
+        profileImageView.image = AppGlobals.shared.getEmojiIcon(dob: travellerModelData?.dob ?? "", salutation: travellerModelData?.salutation ?? "", dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+        let fullName = travellerModelData?.fullName ?? ""
+        var age = ""
+        if let dob = travellerModelData?.dob,!dob.isEmpty {
+            age = AppGlobals.shared.getAgeLastString(dob: dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+            //travelName += age
+        }
+        self.userNameLabel.appendFixedText(text: fullName, fixedText: age)
+        if !age.isEmpty {
+            self.userNameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
+        }
     }
     
     private func getAttributedBoldText(text: String, boldText: String) -> NSMutableAttributedString {

@@ -184,7 +184,7 @@ class HCSelectGuestsVC: BaseVC {
     
     private func selectedContactsSetHidden(isHidden: Bool, animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
-            self?.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 100.0
+            self?.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 120.0
             self?.view.layoutIfNeeded()
         }) { (isCompleted) in
         }
@@ -438,7 +438,7 @@ extension HCSelectGuestsVC: UICollectionViewDataSource, UICollectionViewDelegate
         cell.delegate = self
         
         cell.contact = nil
-        
+        cell.roomNo = indexPath.section + 1
         cell.contact = GuestDetailsVM.shared.guests[indexPath.section][indexPath.item]
         cell.isUsingForGuest = true
         cell.isSelectedForGuest = false

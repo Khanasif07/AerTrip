@@ -38,7 +38,7 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     
     // MARK : - Variables
     weak var delegate : EditProfileThreePartTableViewCellDelegate?
-
+    
     // MARK : - View Life cycle methods
     
     override func awakeFromNib() {
@@ -87,17 +87,17 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
     
     @objc  func leftViewTap(gesture: UITapGestureRecognizer) {
         if let idxPath = indexPath {
-             delegate?.threePartLeftViewTap(idxPath, gesture)
+            delegate?.threePartLeftViewTap(idxPath, gesture)
         }
-       
+        
     }
     
     @objc func middleViewTap(gesture: UITapGestureRecognizer) {
         if let idxPath = indexPath {
-              delegate?.middleViewTap(idxPath,gesture)
+            delegate?.middleViewTap(idxPath,gesture)
         }
         printDebug("middle view tapped")
-      
+        
     }
     
     
@@ -117,11 +117,21 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
 // MARK:- TextFieldDelegateMethods
 
 extension EditProfileThreePartTableViewCell : UITextFieldDelegate {
-
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        printDebug("text field text \(textField.text ?? " ")")
+        guard let inputMode = textField.textInputMode else {
+            return false
+        }
+        if inputMode.primaryLanguage == "emoji" || !(inputMode.primaryLanguage != nil) {
+            return false
+        }
+        return true
+    }
     @objc func textFieldDidChanged(_ textField: UITextField) {
         if let idxPath = indexPath {
             delegate?.editProfileThreePartTableViewCellTextFieldText(textField, idxPath, self.rightViewTextField.nationalNumber, isValide: self.rightViewTextField.isValidNumber)
-             // delegate?.editProfileThreePartTableViewCellTextFieldText(textField, idxPath, self.rightViewTextField.text ?? "", isValide: true)
+            // delegate?.editProfileThreePartTableViewCellTextFieldText(textField, idxPath, self.rightViewTextField.text ?? "", isValide: true)
         }
     }
     

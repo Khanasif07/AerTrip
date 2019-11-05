@@ -34,11 +34,18 @@ class ContactDetailsTableCell: UITableViewCell {
         }
     }
     
+    var showSalutationImage = false
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         self.selectionStyle = .none
         initialSetup()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        showSalutationImage = false
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -78,11 +85,16 @@ class ContactDetailsTableCell: UITableViewCell {
             }
             let firstName = self.contact?.firstName ?? ""
             let lastName = self.contact?.lastName ?? ""
-           // self.nameLabel.appendFixedText(text: "\(firstName) \(lastName)", fixedText: age)
+            self.nameLabel.appendFixedText(text: "\(firstName) \(lastName)", fixedText: age)
             self.nameLabel.AttributedFont(textFont : AppFonts.Regular.withSize(18.0), textColor : AppColors.themeBlack)
             self.nameLabel.AttributedFontForText(text: firstName, textFont: AppFonts.SemiBold.withSize(18.0))
             if !age.isEmpty {
-              //  self.nameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
+                self.nameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
+            }
+            
+            if showSalutationImage {
+                self.userImageView.cancelImageDownloading()
+                self.userImageView.image =  AppGlobals.shared.getEmojiIcon(dob: self.contact?.dob ?? "", salutation: self.contact?.salutation ?? "", dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
             }
         }
         else {

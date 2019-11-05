@@ -555,6 +555,14 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
 
 extension EditProfileVC {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        guard let inputMode = textField.textInputMode else {
+            return false
+        }
+        if inputMode.primaryLanguage == "emoji" || !(inputMode.primaryLanguage != nil) {
+            return false
+        }
+        
         switch textField {
         case self.editProfileImageHeaderView.firstNameTextField:
             self.editProfileImageHeaderView.firstNameTextField.text = textField.text ?? ""

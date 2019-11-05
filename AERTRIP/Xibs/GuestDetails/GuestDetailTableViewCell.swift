@@ -28,6 +28,7 @@ class GuestDetailTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     weak var delegate: GuestDetailTableViewCellDelegate?
+    var canShowSalutationError = false
     
     var guestDetail: ATContact? {
         didSet {
@@ -52,6 +53,7 @@ class GuestDetailTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         configureSalutationSwicth(type: .none)
+        canShowSalutationError = false
     }
     
     // MARK: - Helper methods
@@ -113,6 +115,10 @@ class GuestDetailTableViewCell: UITableViewCell {
                 configureSalutationSwicth(type: .none)
             }
         }
+        if canShowSalutationError, let salutaion = self.guestDetail?.salutation,salutaion.isEmpty {
+            self.containerView.layer.borderColor = AppColors.themeRed.cgColor
+            self.containerView.layer.borderWidth = 1.0
+        }
         
         if let type = self.guestDetail?.passengerType, let number = self.guestDetail?.numberInRoom, number >= 0 {
             self.guestTitleLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)(\(self.guestDetail?.age ?? 0))"
@@ -158,6 +164,8 @@ class GuestDetailTableViewCell: UITableViewCell {
             unicodeSwitch.sliderView.layer.borderWidth = 0
             unicodeSwitch.sliderView.removeCardShadowLayer()
             unicodeSwitch.setSelectedIndex(index: -1, animated: true)
+            self.containerView.layer.borderColor = AppColors.clear.cgColor
+            self.containerView.layer.borderWidth = 0.0
         }
     }
     

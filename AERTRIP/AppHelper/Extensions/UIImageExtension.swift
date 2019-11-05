@@ -139,6 +139,10 @@ extension UIImageView {
         }
     }
     
+    func cancelImageDownloading() {
+        self.kf.cancelDownloadTask()
+    }
+    
     func addBlurEffect()
     {
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)

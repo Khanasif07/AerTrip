@@ -42,6 +42,9 @@ import UIKit
         }
     }
     
+    private func getKeyboardLanguage() -> String? {
+        return "en" // here you can choose keyboard any way you need
+    }
     /// A Boolean value that determines whether the textfield is being edited or is selected.
     open var editingOrSelected: Bool {
         return super.isEditing || isSelected
@@ -344,6 +347,18 @@ import UIKit
         return CGRect(x: 0, y: bounds.size.height - height - (isEditing ? (self.isSingleTextField ? -3.0 :  self.lineViewBottomSpace) : self.lineViewBottomSpace), width: bounds.size.width, height: height)
     }
 
+    
+    
+    override var textInputMode: UITextInputMode? {
+        if let language = getKeyboardLanguage() {
+            for tim in UITextInputMode.activeInputModes {
+                if tim.primaryLanguage!.contains(language) {
+                    return tim
+                }
+            }
+        }
+        return super.textInputMode
+    }
 }
 
 extension PKFloatLabelTextField {
@@ -373,6 +388,7 @@ extension PKFloatLabelTextField {
         
         self.attributedPlaceholder = attriburedString
     }
+    
     
     
 }

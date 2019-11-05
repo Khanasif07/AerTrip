@@ -289,6 +289,7 @@ class HCDataSelectionVC: BaseVC {
             }
             GuestDetailsVM.shared.guests.append(temp)
         }
+        GuestDetailsVM.shared.canShowSalutationError = false
     }
     
     private func sendToFinalCheckoutVC() {
