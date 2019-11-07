@@ -446,8 +446,8 @@ extension ImportContactVC: UICollectionViewDataSource, UICollectionViewDelegate,
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectedContactCollectionCell", for: indexPath) as? SelectedContactCollectionCell else {
-            fatalError("SelectedContactCollectionCell not found")
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectedContactImportCollectionCell", for: indexPath) as? SelectedContactImportCollectionCell else {
+            fatalError("SelectedContactImportCollectionCell not found")
         }
         
         cell.delegate = self

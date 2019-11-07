@@ -79,6 +79,8 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
         travellerLastNameLabel.isHidden = true
         travellerAgeLabel.isHidden = true
         lastNameAgeContainer.isHidden = true
+        travellerAgeLabel.text = ""
+        travellerAgeLabel.text = ""
     }
     
     private func configureCell() {
@@ -105,19 +107,17 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
     
     private func configureCellForGuest() {
 //        var finalStr = self.guestData?.fullName ?? ""
-//        if let age = self.guestData?.age.toInt {
-//            if  age <= 1 {
-//                finalStr += " (Infant) "
-//            } else if age <= 12 {
-//                finalStr += " (\(age)yrs) "
-//            }
-//        }
+        var ageToShow = ""
+        if let age = self.guestData?.age.toInt, (age > 0 && age <= 12) {
+            ageToShow = " (\(age)y)"
+        }
+        
         self.travellerFirstNameLabel.text = self.guestData?.firstName ?? ""
         self.travellerLastNameLabel.text = self.guestData?.lastname ?? ""
-        self.travellerAgeLabel.text = AppGlobals.shared.getAgeLastString(dob: self.guestData?.dob ?? "", formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
-        lastNameAgeContainer.isHidden = (((self.guestData?.lastname ?? "").isEmpty) && ((self.guestData?.dob ?? "").isEmpty))
+        self.travellerAgeLabel.text = ageToShow
+        lastNameAgeContainer.isHidden = (((self.guestData?.lastname ?? "").isEmpty) && ((ageToShow).isEmpty))
         self.travellerLastNameLabel.isHidden = (self.guestData?.lastname ?? "").isEmpty
-        self.travellerAgeLabel.isHidden = (self.guestData?.dob ?? "").isEmpty
+        self.travellerAgeLabel.isHidden = ageToShow.isEmpty
         self.bottomConstraint.constant = 0
         self.topConstraint.constant = 10
         let placeImage = AppGlobals.shared.getImageFor(firstName: self.guestData?.firstName, lastName: self.guestData?.lastname, font: AppFonts.Regular.withSize(35.0),backGroundColor: AppColors.blueGray)

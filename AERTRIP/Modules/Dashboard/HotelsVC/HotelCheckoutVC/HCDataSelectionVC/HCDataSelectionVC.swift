@@ -550,7 +550,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
         if newRow < 0 {
             // room data cell
             let totalCount = hotelFormData.adultsCount[indexPath.row] + hotelFormData.childrenCounts[indexPath.row]
-            let constantHeight = ((141/375) * self.view.width)
+            let constantHeight = ((135/375) * self.view.width)
             return constantHeight * ((totalCount <= 4) ? 1.0 : 2.0) + 25.0
         }
         else {

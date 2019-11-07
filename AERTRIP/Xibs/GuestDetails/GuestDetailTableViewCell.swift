@@ -148,6 +148,8 @@ class GuestDetailTableViewCell: UITableViewCell {
             unicodeSwitch.sliderView.layer.borderWidth = 0.5
             unicodeSwitch.sliderView.dropShadowOnSwitch()
             unicodeSwitch.setSelectedIndex(index: 1, animated: true)
+            self.containerView.layer.borderColor = AppColors.clear.cgColor
+            self.containerView.layer.borderWidth = 0.0
         case .male:
             unicodeSwitch.titleRight = "🙍🏻‍♀️"
             unicodeSwitch.titleLeft = "🙋🏻‍♂️"
@@ -156,6 +158,8 @@ class GuestDetailTableViewCell: UITableViewCell {
             unicodeSwitch.sliderView.layer.borderWidth = 0.5
             unicodeSwitch.sliderView.dropShadowOnSwitch()
             unicodeSwitch.setSelectedIndex(index: 0, animated: true)
+            self.containerView.layer.borderColor = AppColors.clear.cgColor
+            self.containerView.layer.borderWidth = 0.0
         default:
             verticalDividerView.isHidden = false
             unicodeSwitch.titleLeft = "🙍🏻‍♂️"

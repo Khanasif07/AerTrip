@@ -66,8 +66,8 @@ class TravellersDetailsTableViewCell: UITableViewCell {
             self.travellerProfileImage.contentMode = .center
         }
         var age = ""
-        if !dob.isEmpty {
-            age = AppGlobals.shared.getAgeLastString(dob: dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+        if !dob.isEmpty, let intAge = Int(dob), (intAge > 0 && intAge <= 12) {
+            age = " (\(dob)y)"
             //travelName += age
         }
         // self.travellerNameLabel.text = travelName

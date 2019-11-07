@@ -52,6 +52,8 @@ class HCGuestsDetailsCollectionViewCell: UICollectionViewCell {
         guestLastNameLabel.isHidden = true
         guestAgeLabel.isHidden = true
         lastNameAgeContainer.isHidden = true
+        guestAgeLabel.text = ""
+        guestLastNameLabel.text = ""
     }
     
     ///Config Cell

@@ -101,6 +101,8 @@ class ViewProfileVC: BaseVC {
         
     }
     
+    
+    
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
@@ -203,6 +205,8 @@ class ViewProfileVC: BaseVC {
 extension ViewProfileVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         self.delegate?.backButtonAction(sender)
+        self.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -485,9 +489,10 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
         self.profileImageHeaderView?.stopLoading()
         self.viewModel.travelData = data
         
-        self.tableView.reloadData()
+       self.tableView.reloadData()
         
-        self.setupParallaxHeader()
+        //self.setupParallaxHeader()
+        self.updateUserData()
         self.sendDataChangedNotification(data: ATNotification.profileChanged)
     }
     
