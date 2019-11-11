@@ -254,7 +254,8 @@ class BookingReschedulingVC: BaseVC {
         
         if selectedCounts.isEmpty {
             self.continueButton.setTitleColor(AppColors.themeWhite.withAlphaComponent(0.5), for: .normal)
-            self.passengerLabel.text = LocalizedString.SelectPassengerFlightRescheduled.localized
+            
+            self.passengerLabel.text = self.viewModel.usingFor == .rescheduling ? LocalizedString.SelectPassengerFlightRescheduled.localized : LocalizedString.SelectPassengerFlightCancellation.localized
             self.priceView.isHidden = true
             self.priceViewAndButtonContainerHeight.constant = 50.0
         }

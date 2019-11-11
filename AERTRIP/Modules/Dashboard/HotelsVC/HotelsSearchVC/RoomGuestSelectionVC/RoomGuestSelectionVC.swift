@@ -138,7 +138,10 @@ class RoomGuestSelectionVC: BaseVC {
             picker.delegate = self
             if self.viewModel.childrenAge[picker.tag] > 0 {
                 picker.selectRow(self.viewModel.childrenAge[picker.tag], inComponent: 0, animated: false)
+            } else {
+                picker.selectRow(3, inComponent: 0, animated: false)
             }
+            picker.reloadAllComponents()
         }
     }
     
@@ -227,7 +230,15 @@ class RoomGuestSelectionVC: BaseVC {
     
     private func enableAgePicker() {
         for picker in self.agePickers {
-            picker.isHidden = (picker.tag + 1) > self.viewModel.selectedChilds
+            if (picker.tag + 1) > self.viewModel.selectedChilds {
+                picker.isHidden = true
+                self.viewModel.childrenAge[picker.tag] = 3
+                picker.selectRow(3, inComponent: 0, animated: false)
+            } else {
+                picker.isHidden = false
+            }
+            
+            
         }
     }
     

@@ -735,6 +735,7 @@ enum LocalizedString: String {
     case AddOns
     case Request
     case SelectPassengerFlightRescheduled
+    case SelectPassengerFlightCancellation
     case PassengersSelected
     case Rescheduling
     case AddOnRequestSent

@@ -532,6 +532,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         
         // add a UILabel for Age string
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 45, height: 30))
+        label.textAlignment = .right
         label.attributedText = attributedDateStr
         cell.accessoryView = label
         

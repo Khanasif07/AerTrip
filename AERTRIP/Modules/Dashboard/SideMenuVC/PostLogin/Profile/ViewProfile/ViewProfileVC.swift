@@ -82,7 +82,7 @@ class ViewProfileVC: BaseVC {
             self.statusBarStyle = .default
         }
         
-        self.topNavView.backgroundType = .blurAnimatedView(isDark: false)
+       // self.topNavView.backgroundType = .blurAnimatedView(isDark: false)
         self.viewModel.webserviceForGetTravelDetail()
         self.setNeedsStatusBarAppearanceUpdate()
         

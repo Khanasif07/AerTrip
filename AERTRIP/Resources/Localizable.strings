@@ -666,6 +666,7 @@
 "AddOns" = "Add-ons";
 "Request" = "Request";
 "SelectPassengerFlightRescheduled" = "Select Passengers or flights to be rescheduled";
+"SelectPassengerFlightCancellation" = "Select Passengers or flights for cancellation ";
 "PassengersSelected" = "Passengers selected";
 "Rescheduling" = "Rescheduling";
 "AddOnRequestSent" = "Add-on Request has been sent";

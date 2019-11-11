@@ -755,7 +755,7 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kit-gG-YiJ" customClass="ATBlurButton" customModule="AERTRIP" customModuleProvider="target">
-                                                                    <rect key="frame" x="70" y="23" width="25" height="25"/>
+                                                                    <rect key="frame" x="72" y="21" width="25" height="25"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="25" id="4xL-wP-xC1"/>
                                                                         <constraint firstAttribute="width" secondItem="Kit-gG-YiJ" secondAttribute="height" multiplier="1:1" id="too-Th-Cg5"/>
@@ -816,9 +816,9 @@
                                                                 <constraint firstAttribute="trailing" secondItem="vDm-UM-627" secondAttribute="trailing" id="Ncg-ZN-rNt"/>
                                                                 <constraint firstItem="csG-Ag-ZDE" firstAttribute="centerX" secondItem="D9D-zG-3KL" secondAttribute="centerX" id="Oug-f4-te7"/>
                                                                 <constraint firstItem="TzN-Iu-8Qe" firstAttribute="leading" secondItem="D9D-zG-3KL" secondAttribute="leading" id="Zii-IY-dhr"/>
-                                                                <constraint firstItem="Kit-gG-YiJ" firstAttribute="trailing" secondItem="csG-Ag-ZDE" secondAttribute="trailing" id="ag3-5M-Y57"/>
+                                                                <constraint firstItem="Kit-gG-YiJ" firstAttribute="trailing" secondItem="csG-Ag-ZDE" secondAttribute="trailing" constant="2" id="ag3-5M-Y57"/>
                                                                 <constraint firstAttribute="trailing" secondItem="TzN-Iu-8Qe" secondAttribute="trailing" id="cEZ-bC-5cs"/>
-                                                                <constraint firstItem="Kit-gG-YiJ" firstAttribute="top" secondItem="csG-Ag-ZDE" secondAttribute="top" id="g7N-hO-8X3"/>
+                                                                <constraint firstItem="Kit-gG-YiJ" firstAttribute="top" secondItem="csG-Ag-ZDE" secondAttribute="top" constant="-2" id="g7N-hO-8X3"/>
                                                                 <constraint firstItem="vDm-UM-627" firstAttribute="leading" secondItem="D9D-zG-3KL" secondAttribute="leading" id="hB8-tN-6q9"/>
                                                                 <constraint firstAttribute="bottom" secondItem="vDm-UM-627" secondAttribute="bottom" id="qIk-PQ-vVY"/>
                                                             </constraints>

@@ -543,10 +543,11 @@ class HotelsSearchVC: BaseVC {
     
     @IBAction func searchButtonAction(_ sender: ATButton?) {
         if validateData() {
+            
             delay(seconds: 0.1) {
                 sender?.isLoading = true
             }
-            
+            delay(seconds: 0.1) {
             if let _ = sender {
                 self.viewModel.setRecentSearchesData()
             }
@@ -570,6 +571,7 @@ class HotelsSearchVC: BaseVC {
                 }
                 sender?.isLoading = false
             }
+        }
         }
     }
     

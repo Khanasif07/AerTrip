@@ -756,6 +756,41 @@ extension AppGlobals {
         return emoji!
     }
     
+    func getEmojiIconFromAge(ageString: String,salutation: String) -> UIImage {
+        var emoji = UIImage(named: "person")
+        
+        let age = Int(ageString) ?? 0
+        switch (salutation) {
+        case "Mr","Mr.", "Mast","Mast.":
+            if (age <= 0) {
+                emoji = UIImage(named: "man")
+            } else {
+                    if (age > 12) {
+                        emoji = UIImage(named: "man")
+                    } else if (age > 2) {
+                        emoji = UIImage(named: "boy")
+                    }else {
+                        emoji = UIImage(named: "infant")
+                    }
+            }
+        case "Mrs","Mrs.","Ms","Ms.","Miss","Miss.":
+            if (age <= 0) {
+                emoji = UIImage(named: "woman")
+            } else {
+                    if (age > 12) {
+                        emoji = UIImage(named: "woman")
+                    } else if (age > 2) {
+                        emoji = UIImage(named: "girl")
+                    }else {
+                        emoji = UIImage(named: "infant")
+                    }
+            }
+        default:
+            emoji = UIImage(named: "person")
+        }
+        return emoji!
+    }
+    
     //get Age Last String Based on DOB
     func  getAgeLastString(dob : String,formatter: String) -> String {
         var ageString = "";

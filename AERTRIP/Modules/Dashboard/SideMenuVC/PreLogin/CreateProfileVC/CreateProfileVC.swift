@@ -314,7 +314,8 @@ extension CreateProfileVC {
         if textField === self.countryCodeTextField || textField === self.countryTextField {
             
             UIApplication.shared.sendAction(#selector(resignFirstResponder), to:nil, from:nil, for:nil)
-            PKCountryPicker.default.chooseCountry(onViewController: self) { [weak self] (selectedCountry,closePicker) in
+            let model = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.userData.address?.country ?? "")
+            PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: model) { [weak self] (selectedCountry,closePicker) in
                 printDebug("selected country data: \(selectedCountry)")
                 
                 guard let sSelf = self else {return}

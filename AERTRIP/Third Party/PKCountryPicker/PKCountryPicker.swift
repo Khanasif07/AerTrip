@@ -94,6 +94,7 @@ open class PKCountryPicker: UIView {
         self.countries = self.getAllCountries()
         self.setupToolBar()
         self.setupAppearance()
+        self.pickerView.selectRow(0, inComponent: 0, animated: false)
     }
     
     private func setupToolBar() {
