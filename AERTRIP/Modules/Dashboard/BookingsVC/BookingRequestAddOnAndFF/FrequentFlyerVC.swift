@@ -88,8 +88,12 @@ extension FrequentFlyerVC: UITableViewDataSource, UITableViewDelegate {
             return UIView()
         }
         
-        let name = "\(passenger.salutation) \(passenger.paxName)"
-        headerView.configureCell(profileImage: passenger.profileImage, salutationImage: passenger.salutationImage, passengerName: name)
+        var age = ""
+        let dob = passenger.dob
+        if !dob.isEmpty {
+            age = AppGlobals.shared.getAgeLastString(dob: dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+        }
+        headerView.configureCell(profileImage: passenger.profileImage, salutationImage: AppGlobals.shared.getEmojiIcon(dob: dob, salutation: passenger.salutation, dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue), passengerName: passenger.paxName, age: age)
         
         return headerView
     }

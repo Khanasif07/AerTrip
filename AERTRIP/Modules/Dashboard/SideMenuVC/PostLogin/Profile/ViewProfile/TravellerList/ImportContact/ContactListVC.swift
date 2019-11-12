@@ -31,7 +31,7 @@ class ContactListVC: BaseVC {
     let viewModel = ImportContactVM.shared
     
     //MARK:- Private
-     lazy var allowEmptyView: EmptyScreenView = {
+    lazy var allowEmptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         
         if self.currentlyUsingFor == .contacts {
@@ -66,7 +66,7 @@ class ContactListVC: BaseVC {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.containerBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
+        //        self.containerBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
     }
     
     override func setupColors() {
@@ -112,6 +112,55 @@ class ContactListVC: BaseVC {
                 
                 self.reloadList()
             }
+            checkForCheckAllState()
+        }
+    }
+    
+    func checkForCheckAllState() {
+        if self.currentlyUsingFor == .contacts {
+            guard !self.viewModel.selectedPhoneContacts.isEmpty else {return}
+            var totalCount = 0
+            var contactMatched = 0
+            for section in self.viewModel.sections {
+                for contact in section.cnContacts {
+                    if self.viewModel.selectedPhoneContacts.contains(contact) {
+                        contactMatched += 1
+                    }
+                }
+                totalCount += section.cnContacts.count
+            }
+            self.selectAllButton.isSelected = totalCount == contactMatched
+        }else if self.currentlyUsingFor == .facebook {
+            guard !self.viewModel.selectedFacebookContacts.isEmpty else {return}
+            var totalCount = 0
+            var contactMatched = 0
+            for section in self.viewModel.facebookSection {
+                for contact in section.contacts {
+                    if self.viewModel.selectedFacebookContacts.contains(where: { (model) -> Bool in
+                        return contact.id == model.id
+                    }) {
+                        contactMatched += 1
+                    }
+                }
+                totalCount += section.contacts.count
+            }
+            self.selectAllButton.isSelected = totalCount == contactMatched
+        }
+        else if self.currentlyUsingFor == .google {
+            guard !self.viewModel.selectedGoogleContacts.isEmpty else {return}
+            var totalCount = 0
+            var contactMatched = 0
+            for section in self.viewModel.googleSection {
+                for contact in section.contacts {
+                    if self.viewModel.selectedGoogleContacts.contains(where: { (model) -> Bool in
+                        return contact.id == model.id
+                    }) {
+                        contactMatched += 1
+                    }
+                }
+                totalCount += section.contacts.count
+            }
+            self.selectAllButton.isSelected = totalCount == contactMatched
         }
     }
     
@@ -137,7 +186,7 @@ class ContactListVC: BaseVC {
     private func hideSelectAllButton(isHidden: Bool = true) {
         self.bottomHeaderTopDiverView.isHidden = isHidden
         self.selectAllButton.isHidden = isHidden
-
+        
         tableView.backgroundView?.isHidden = !isHidden
     }
     
@@ -200,71 +249,208 @@ class ContactListVC: BaseVC {
         return index
     }
     
+    func updateSelectAllState(for usingFor: ContactListVC.UsingFor) {
+        if usingFor == .contacts {
+            self.selectAllButton.isSelected = false
+        } else if usingFor == .facebook {
+            self.selectAllButton.isSelected = false
+        } else if usingFor == .google {
+            self.selectAllButton.isSelected = false
+        }
+    }
+    
     @IBAction func selectAllButtonAction(_ sender: UIButton) {
         self.showLoaderOnView(view: sender, show: true, backgroundColor: AppColors.themeWhite)
-//        sender.disable(forSeconds: 0.6)
+        //        sender.disable(forSeconds: 0.6)
         if self.currentlyUsingFor == .contacts {
             if sender.isSelected {
                 //remove all
-                self.viewModel.removeAll(for: .contacts)
-                self.viewModel.selectedPhoneContacts.removeAll()
-            }
-            else {
-                //remove all preselected items
-
-                for contact in self.viewModel.selectedPhoneContacts {
-                    if let index = self.getIndexPath(contact: contact) {
-                        self.tableView(self.tableView, didSelectRowAt: index)
+                if !self.viewModel.selectedPhoneContacts.isEmpty  {
+                    var isContactRemoved = false
+                    DispatchQueue.backgroundAsync {
+                    for section in self.viewModel.sections {
+                        for contact in section.cnContacts {
+                            if let contactIndex = self.viewModel.selectedPhoneContacts.firstIndex(of: contact) {
+                                self.viewModel.selectedPhoneContacts.remove(at: contactIndex)
+                                isContactRemoved = true
+                            }
+                        }
+                    }
+                        DispatchQueue.mainAsync {
+                            if isContactRemoved {
+                                self.viewModel.remove(for: .contacts)
+                            }
+                        }
                     }
                 }
                 
-                self.viewModel.selectedPhoneContacts = self.viewModel.phoneContacts
-                //add all
-                DispatchQueue.backgroundAsync {
-                    DispatchQueue.mainSync({
-                        self.viewModel.addAll(for: .contacts)
-                    })
+            }
+            else {
+                //remove all preselected items
+                
+                //                for contact in self.viewModel.selectedPhoneContacts {
+                //                    if let index = self.getIndexPath(contact: contact) {
+                //                        self.tableView(self.tableView, didSelectRowAt: index)
+                //                    }
+                //                }
+                
+                if !self.viewModel.selectedPhoneContacts.isEmpty  {
+                    var isContactAdded = false
+                    DispatchQueue.backgroundAsync {
+                        for section in self.viewModel.sections {
+                            for contact in section.cnContacts {
+                                let contactIndex = self.viewModel.selectedPhoneContacts.firstIndex(of: contact)
+                                if  contactIndex == nil {
+                                    self.viewModel.selectedPhoneContacts.append(contact)
+                                    isContactAdded = true
+                                }
+                            }
+                        }
+                        DispatchQueue.mainAsync {
+                            if isContactAdded {
+                                self.viewModel.add(for: .contacts)
+                            }
+                        }
+                        
+                    }
+                    
+                }else {
+                    self.viewModel.selectedPhoneContacts = self.viewModel.phoneContacts
+                    DispatchQueue.mainAsync {
+                    self.viewModel.addAll(for: .contacts)
+                    }
+                    
                 }
+                
+                //                self.viewModel.selectedPhoneContacts = self.viewModel.phoneContacts
+                //                //add all
+                //                //                DispatchQueue.backgroundAsync {
+                //                //                    DispatchQueue.mainSync({
+                //                self.viewModel.addAll(for: .contacts)
+                //                    })
+                //                }
             }
         }
         else if self.currentlyUsingFor == .facebook {
             if sender.isSelected {
                 //remove all
-                self.viewModel.removeAll(for: .facebook)
-                self.viewModel.selectedFacebookContacts.removeAll()
+                if !self.viewModel.selectedFacebookContacts.isEmpty  {
+                    var isContactRemoved = false
+                    DispatchQueue.backgroundAsync {
+                        for section in self.viewModel.facebookSection {
+                            for contact in section.contacts {
+                                if let contactIndex = self.viewModel.selectedFacebookContacts.firstIndex(where: { (model) -> Bool in
+                                    contact.id == model.id
+                                }) {
+                                    self.viewModel.selectedFacebookContacts.remove(at: contactIndex)
+                                    isContactRemoved = true
+                                    
+                                }
+                            }
+                        }
+                        DispatchQueue.mainAsync {
+                            if isContactRemoved {
+                                self.viewModel.remove(for: .facebook)
+                            }
+                        }
+                    }
+                }
                 
             }
             else {
                 // remove all preselected facebook Items
-                for contact in self.viewModel.facebookContacts {
-                    if let index = self.getIndexPath(contact: contact) {
-                        self.tableView(self.tableView, didSelectRowAt: index)
+                //                for contact in self.viewModel.facebookContacts {
+                //                    if let index = self.getIndexPath(contact: contact) {
+                //                        self.tableView(self.tableView, didSelectRowAt: index)
+                //                    }
+                //                }
+                
+                //                self.viewModel.selectedFacebookContacts = self.viewModel.facebookContacts
+                //                //add all
+                //                self.viewModel.addAll(for: .facebook)
+                
+                if !self.viewModel.selectedFacebookContacts.isEmpty  {
+                    for section in self.viewModel.facebookSection {
+                        for contact in section.contacts {
+                            let contactIndex = self.viewModel.selectedFacebookContacts.firstIndex(of: contact)
+                            if  contactIndex == nil {
+                                self.viewModel.selectedFacebookContacts.append(contact)
+                                self.viewModel.add(for: .facebook)
+                            }
+                        }
+                    }
+                }else {
+                    self.viewModel.selectedFacebookContacts = self.viewModel.facebookContacts
+                    DispatchQueue.mainAsync {
+                    self.viewModel.addAll(for: .facebook)
                     }
                 }
-                
-                self.viewModel.selectedFacebookContacts = self.viewModel.facebookContacts
-                //add all
-                self.viewModel.addAll(for: .facebook)
             }
         }
         else if self.currentlyUsingFor == .google {
             if sender.isSelected {
                 //remove all
-                self.viewModel.removeAll(for: .google)
-                self.viewModel.selectedGoogleContacts.removeAll()
+                if !self.viewModel.selectedGoogleContacts.isEmpty  {
+                    var isContactRemoved = false
+                    DispatchQueue.backgroundAsync {
+                        for section in self.viewModel.googleSection {
+                            for contact in section.contacts {
+                                if let contactIndex = self.viewModel.selectedGoogleContacts.firstIndex(where: { (model) -> Bool in
+                                    contact.id == model.id
+                                }) {
+                                    self.viewModel.selectedGoogleContacts.remove(at: contactIndex)
+                                    isContactRemoved = true
+                                }
+                            }
+                        }
+                        DispatchQueue.mainAsync {
+                            if isContactRemoved {
+                                self.viewModel.remove(for: .google)
+                            }
+                        }
+                    }
+                }
                 
             }
             else {
                 // remove all preselected google Contacts Items
-                for contact in self.viewModel.selectedGoogleContacts {
-                    if let index = self.getIndexPath(contact: contact) {
-                        self.tableView(self.tableView, didSelectRowAt: index)
+                //                for contact in self.viewModel.selectedGoogleContacts {
+                //                    if let index = self.getIndexPath(contact: contact) {
+                //                        self.tableView(self.tableView, didSelectRowAt: index)
+                //                    }
+                //                }
+                if !self.viewModel.selectedGoogleContacts.isEmpty  {
+                    var isContactAdded = false
+                    DispatchQueue.backgroundAsync {
+                        for section in self.viewModel.googleSection {
+                            for contact in section.contacts {
+                                let contactIndex = self.viewModel.selectedGoogleContacts.firstIndex(of: contact)
+                                if  contactIndex == nil {
+                                    self.viewModel.selectedGoogleContacts.append(contact)
+                                    isContactAdded = true
+                                }
+                            }
+                        }
+                        DispatchQueue.mainAsync {
+                            if isContactAdded {
+                                self.viewModel.add(for: .google)
+                            }
+                        }
                     }
+                    
+                    
+                }
+                    
+                else {
+                    self.viewModel.selectedGoogleContacts = self.viewModel.googleContacts
+                    //add all
+                    DispatchQueue.mainAsync {
+                    self.viewModel.addAll(for: .google)
+                    }
+                    
+                    
                 }
                 
-                self.viewModel.selectedGoogleContacts = self.viewModel.googleContacts
-                //add all
-                self.viewModel.addAll(for: .google)
             }
         }
         sender.isSelected = !sender.isSelected
@@ -350,9 +536,9 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
                 self.viewModel.remove(fromIndex: index, for: .contacts)
             }
             else {
-            self.viewModel.selectedPhoneContacts.append(self.viewModel.sections[indexPath.section].cnContacts[indexPath.row])
+                self.viewModel.selectedPhoneContacts.append(self.viewModel.sections[indexPath.section].cnContacts[indexPath.row])
                 self.viewModel.add(for: .contacts)
-                self.selectAllButton.isSelected = self.viewModel.selectedPhoneContacts.count >= self.viewModel.sections.count
+                //self.selectAllButton.isSelected = self.viewModel.selectedPhoneContacts.count >= self.viewModel.sections.count
             }
             
         }
@@ -367,7 +553,7 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
             else {
                 self.viewModel.selectedFacebookContacts.append(self.viewModel.facebookSection[indexPath.section].contacts[indexPath.row])
                 self.viewModel.add(for: .facebook)
-                self.selectAllButton.isSelected = self.viewModel.selectedFacebookContacts.count >= self.viewModel.facebookSection.count
+                // self.selectAllButton.isSelected = self.viewModel.selectedFacebookContacts.count >= self.viewModel.facebookSection.count
             }
         }
         else if self.currentlyUsingFor == .google {
@@ -381,7 +567,7 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
             else {
                 self.viewModel.selectedGoogleContacts.append(self.viewModel.googleSection[indexPath.section].contacts[indexPath.row])
                 self.viewModel.add(for: .google)
-                self.selectAllButton.isSelected = self.viewModel.selectedGoogleContacts.count >= self.viewModel.googleSection.count
+                // self.selectAllButton.isSelected = self.viewModel.selectedGoogleContacts.count >= self.viewModel.googleSection.count
             }
         }
     }
@@ -416,6 +602,7 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
 //MARK:-
 extension ContactListVC: EmptyScreenViewDelegate {
     func firstButtonAction(sender: ATButton) {
+        dismissKeyboard()
         if self.currentlyUsingFor == .contacts {
             sender.isLoading = true
             self.viewModel.fetchPhoneContacts(forVC: self) {
@@ -434,6 +621,16 @@ extension ContactListVC: EmptyScreenViewDelegate {
 //MARK:- ViewModel Delegate
 //MARK:-
 extension ContactListVC: ImportContactVMDelegate {
+    func remove(for usingFor: ContactListVC.UsingFor) {
+        self.reloadList()
+    }
+    
+    func showLoader() {
+    }
+    
+    func hideLoader() {
+    }
+    
     func add(for usingFor: ContactListVC.UsingFor) {
         self.reloadList()
     }

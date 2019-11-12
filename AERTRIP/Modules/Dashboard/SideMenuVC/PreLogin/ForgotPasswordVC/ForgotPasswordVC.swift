@@ -52,6 +52,7 @@ class ForgotPasswordVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         self.continueButton.layer.cornerRadius = self.continueButton.height/2
+        self.continueButton.layer.masksToBounds = true
     }
     
     override func setupFonts() {
@@ -101,8 +102,9 @@ private extension ForgotPasswordVC {
     func initialSetups() {
         
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
-        self.emailTextField.titleYPadding = 14.0
+        self.emailTextField.titleYPadding = 12.0
         self.emailTextField.hintYPadding = 12.0
+        self.emailTextField.lineViewBottomSpace = 10.0
         self.view.backgroundColor = AppColors.screensBackground.color
         
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)

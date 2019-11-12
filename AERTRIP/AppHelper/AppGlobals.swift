@@ -14,7 +14,7 @@ import UIKit
 import EventKit
 
 func printDebug<T>(_ obj: T) {
-    // print(obj)
+    print(obj)
 }
 
 func + (left: NSAttributedString, right: NSAttributedString) -> NSAttributedString
@@ -113,7 +113,8 @@ class AppGlobals {
     func showErrorOnToastView(withErrors errors: ErrorCodes, fromModule module: ATErrorManager.Module) {
         let (_, message, _) = ATErrorManager.default.error(forCodes: errors, module: module)
         if !message.isEmpty {
-            AppToast.default.showToastMessage(message: message)
+                AppToast.default.showToastMessage(message: message)
+          
         }
     }
     
@@ -325,7 +326,7 @@ class AppGlobals {
             //to show the route between source and destination uncomment the next line
             let urlStr = "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"
             
-//            let urlStr = "comgooglemaps://?center=\(destLat),\(destLong)&zoom=14&views=traffic"
+            //            let urlStr = "comgooglemaps://?center=\(destLat),\(destLong)&zoom=14&views=traffic"
             
             if let url = URL(string: urlStr), !url.absoluteString.isEmpty {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -371,20 +372,19 @@ class AppGlobals {
     }
     
     func redirectToMap(sourceView: UIView, originLat: String, originLong: String, destLat: String, destLong: String) {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Maps.localized, LocalizedString.GMap.localized], colors: [AppColors.themeGreen, AppColors.themeGreen])
-        let titleFont = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray40]
-        let titleAttrString = NSMutableAttributedString(string: LocalizedString.Choose_App.localized, attributes: titleFont)
-        
-        _ = PKAlertController.default.presentActionSheetWithAttributed(nil, message: titleAttrString, sourceView: sourceView, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Maps.localized, LocalizedString.GMap.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
+        //        let titleFont = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray40]
+        //        let titleAttrString = NSMutableAttributedString(string: LocalizedString.Choose_App.localized, attributes: titleFont)
+        _ = PKAlertController.default.presentActionSheet(LocalizedString.Choose_App.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, message: nil, messageFont: nil, messageColor: nil, sourceView: sourceView, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { [weak self] _, index in
             if index == 0 {
-                self.openAppleMap(originLat: originLat, originLong: originLong, destLat: destLat, destLong: destLong)
-            } else {
-                self.openGoogleMaps(originLat: originLat, originLong: originLong, destLat: destLat, destLong: destLong)
+                self?.openAppleMap(originLat: originLat, originLong: originLong, destLat: destLat, destLong: destLong)
+            } else if index == 1 {
+                self?.openGoogleMaps(originLat: originLat, originLong: originLong, destLat: destLat, destLong: destLong)
             }
-        }
+        })
     }
     
-
+    
     func addEventToCalender(title: String, startDate: Date, endDate: Date, notes: String = "", uniqueId: String = "") {
         
         let eventStore = EKEventStore()
@@ -452,7 +452,7 @@ class AppGlobals {
             UIApplication.topViewController()?.present(alertController, animated: true, completion: nil)
         }
     }
-        
+    
     //MARK: - Get Strike Through text from a Strig
     
     func getStrikeThroughText(str: String) -> NSMutableAttributedString {
@@ -469,6 +469,14 @@ class AppGlobals {
     func isNetworkRechable() -> Bool {
         let rechability = Reachability.networkReachabilityForInternetConnection()
         return  rechability?.isReachable ?? false
+    }
+    
+    func getTrucatedTitle(str: String) -> String {
+        var updatedTitle = str
+        if updatedTitle.count > 20 {
+            updatedTitle = updatedTitle.substring(from: 0, to: 20) + "..."
+        }
+        return updatedTitle
     }
 }
 
@@ -501,7 +509,7 @@ extension Double {
 }
 
 extension AppGlobals {
-     func startLoading(animatingView: UIView? = nil,loaderBgColor: UIColor = AppColors.themeWhite) {
+    func startLoading(animatingView: UIView? = nil,loaderBgColor: UIColor = AppColors.themeWhite) {
         PKLoaderSettings.shared.indicatorColor =  AppColors.themeGreen
         PKLoaderSettings.shared.indicatorType = .activityIndicator
         PKLoaderSettings.shared.backgroundColor = loaderBgColor
@@ -566,7 +574,7 @@ extension AppGlobals {
         AppGlobals.shared.startLoading()
         self.downloadPdf(fileURL: url, screenTitle: screenTitle) { localPdf in
             if let url = localPdf {
-               
+                
                 DispatchQueue.mainSync {
                     AppGlobals.shared.stopLoading()
                     AppFlowManager.default.openDocument(atURL: url, screenTitle: screenTitle)
@@ -578,83 +586,272 @@ extension AppGlobals {
     func getAirlineCodeImageUrl(code: String) -> String {
         return "https://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/\(code.uppercased()).png"
     }
+    
+    func getBlurView(forView: UIView, isDark: Bool) -> UIVisualEffectView {
+        let blurEffect = UIBlurEffect(style: isDark ? UIBlurEffect.Style.dark : UIBlurEffect.Style.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = forView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        return blurEffectView
+    }
+    
+    func removeBlur(fromView: UIView) {
+        for vw in fromView.subviews {
+            if vw.isKind(of: UIVisualEffectView.self) {
+                vw.removeFromSuperview()
+                break
+            }
+        }
+    }
+    
+     func getAttributedBoldText(text: String, boldText: String,color: UIColor = AppColors.themeBlack) -> NSMutableAttributedString {
+        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(16.0), .foregroundColor: color])
+        
+        attString.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (text as NSString).range(of: boldText))
+        return attString
+    }
 }
 
 /*extension AppGlobals {
  
-    enum DocumentType {
-        case others , flights , hotels
-    }
+ enum DocumentType {
+ case others , flights , hotels
+ }
  
-    func checkCreateAndReturnDocumentFolder(currentDocumentType: DocumentType) -> String {
-        let fileManager = FileManager.default
-        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+ func checkCreateAndReturnDocumentFolder(currentDocumentType: DocumentType) -> String {
+ let fileManager = FileManager.default
+ let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
  
-        switch currentDocumentType {
-        case .others:
-            if self.directoryExistsAtPath(documentDirectory.appendingPathComponent("others").path) {
-                return documentDirectory.appendingPathComponent("others").path
-            } else {
-                do {
-                    try fileManager.createDirectory(atPath: documentDirectory.appendingPathComponent("others").path, withIntermediateDirectories: true, attributes: nil)
-                    return documentDirectory.appendingPathComponent("others").path
-                }
-                catch let error as NSError {
-                    printDebug("Ooops! Something went wrong: \(error)")
-                    return ""
-                }
-            }
-        case .flights:
-            if self.directoryExistsAtPath(documentDirectory.appendingPathComponent("flights").path) {
-                return documentDirectory.appendingPathComponent("flights").path
-            } else {
-                do {
-                    try fileManager.createDirectory(atPath: documentDirectory.appendingPathComponent("flights").path, withIntermediateDirectories: true, attributes: nil)
-                    return documentDirectory.appendingPathComponent("flights").path
-                }
-                catch let error as NSError {
-                    printDebug("Ooops! Something went wrong: \(error)")
-                    return ""
-                }
-            }
-        case .hotels:
-            if self.directoryExistsAtPath(documentDirectory.appendingPathComponent("/hotels").path) {
-                return documentDirectory.appendingPathComponent("hotels").path
-            } else {
-                do {
-                    try fileManager.createDirectory(atPath: documentDirectory.appendingPathComponent("hotels").path, withIntermediateDirectories: true, attributes: nil)
-                    return documentDirectory.appendingPathComponent("hotels").path
-                }
-                catch let error as NSError {
-                    printDebug("Ooops! Something went wrong: \(error)")
-                    return ""
-                }
-            }
+ switch currentDocumentType {
+ case .others:
+ if self.directoryExistsAtPath(documentDirectory.appendingPathComponent("others").path) {
+ return documentDirectory.appendingPathComponent("others").path
+ } else {
+ do {
+ try fileManager.createDirectory(atPath: documentDirectory.appendingPathComponent("others").path, withIntermediateDirectories: true, attributes: nil)
+ return documentDirectory.appendingPathComponent("others").path
+ }
+ catch let error as NSError {
+ printDebug("Ooops! Something went wrong: \(error)")
+ return ""
+ }
+ }
+ case .flights:
+ if self.directoryExistsAtPath(documentDirectory.appendingPathComponent("flights").path) {
+ return documentDirectory.appendingPathComponent("flights").path
+ } else {
+ do {
+ try fileManager.createDirectory(atPath: documentDirectory.appendingPathComponent("flights").path, withIntermediateDirectories: true, attributes: nil)
+ return documentDirectory.appendingPathComponent("flights").path
+ }
+ catch let error as NSError {
+ printDebug("Ooops! Something went wrong: \(error)")
+ return ""
+ }
+ }
+ case .hotels:
+ if self.directoryExistsAtPath(documentDirectory.appendingPathComponent("/hotels").path) {
+ return documentDirectory.appendingPathComponent("hotels").path
+ } else {
+ do {
+ try fileManager.createDirectory(atPath: documentDirectory.appendingPathComponent("hotels").path, withIntermediateDirectories: true, attributes: nil)
+ return documentDirectory.appendingPathComponent("hotels").path
+ }
+ catch let error as NSError {
+ printDebug("Ooops! Something went wrong: \(error)")
+ return ""
+ }
+ }
+ }
+ }
+ 
+ func directoryExistsAtPath(_ path: String) -> Bool {
+ var isDirectory = ObjCBool(true)
+ let exists = FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory)
+ return exists && isDirectory.boolValue
+ }
+ 
+ func checkIsFileExist(nameOfFile: String ,path: String) -> Bool {
+ let url = NSURL(fileURLWithPath: path)
+ if let pathComponent = url.appendingPathComponent(nameOfFile) {
+ let filePath = pathComponent.path
+ let fileManager = FileManager.default
+ if fileManager.fileExists(atPath: filePath) {
+ printDebug("FILE AVAILABLE")
+ return true
+ } else {
+ printDebug("FILE NOT AVAILABLE")
+ return false
+ }
+ } else {
+ printDebug("FILE PATH NOT AVAILABLE")
+ return false
+ }
+ }
+ }
+ */
+
+
+// MARK: - New Salutation Change
+
+extension AppGlobals {
+    func getEmojiIcon(dob: String,salutation: String,dateFormatter: String) -> UIImage {
+        var emoji = UIImage(named: "person")
+        var age = -1
+        var day = -1
+        var year = false
+        let dd = dob.toDate(dateFormat: dateFormatter) ?? Date()
+        age = dd.age
+        year = true;
+        if (age == 0) {
+            year = false;
+            age = Date().monthsFrom(dd)
+            day = Date().daysFrom(dd)
         }
-    }
- 
-    func directoryExistsAtPath(_ path: String) -> Bool {
-        var isDirectory = ObjCBool(true)
-        let exists = FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory)
-        return exists && isDirectory.boolValue
-    }
- 
-    func checkIsFileExist(nameOfFile: String ,path: String) -> Bool {
-        let url = NSURL(fileURLWithPath: path)
-        if let pathComponent = url.appendingPathComponent(nameOfFile) {
-            let filePath = pathComponent.path
-            let fileManager = FileManager.default
-            if fileManager.fileExists(atPath: filePath) {
-                printDebug("FILE AVAILABLE")
-                return true
+        switch (salutation) {
+        case "Mr","Mr.", "Mast","Mast.":
+            if (age == -1) {
+                emoji = UIImage(named: "man")
             } else {
-                printDebug("FILE NOT AVAILABLE")
-                return false
+                if (year) {
+                    if (age > 12) {
+                        emoji = UIImage(named: "man")
+                    } else if (age > 2) {
+                        emoji = UIImage(named: "boy")
+                    }else {
+                        emoji = UIImage(named: "infant")
+                    }
+                } else {
+                    if (day > 0) {
+                      emoji = UIImage(named: "infant")
+                    } else {
+                        emoji = UIImage(named: "man")
+                    }
+                    
+                }
+            }
+        case "Mrs","Mrs.","Ms","Ms.","Miss","Miss.":
+            if (age == -1) {
+                emoji = UIImage(named: "woman")
+            } else {
+                if (year) {
+                    if (age > 12) {
+                        emoji = UIImage(named: "woman")
+                    } else if (age > 2) {
+                        emoji = UIImage(named: "girl")
+                    }else {
+                        emoji = UIImage(named: "infant")
+                    }
+                } else {
+                    if (day > 0) {
+                        emoji = UIImage(named: "infant")
+                    } else {
+                        emoji = UIImage(named: "woman")
+                    }
+                }
+            }
+        default:
+            emoji = UIImage(named: "person")
+        }
+        return emoji!
+    }
+    
+    func getEmojiIconFromAge(ageString: String,salutation: String) -> UIImage {
+        var emoji = UIImage(named: "person")
+        
+        let age = Int(ageString) ?? 0
+        switch (salutation) {
+        case "Mr","Mr.", "Mast","Mast.":
+            if (age <= 0) {
+                emoji = UIImage(named: "man")
+            } else {
+                    if (age > 12) {
+                        emoji = UIImage(named: "man")
+                    } else if (age > 2) {
+                        emoji = UIImage(named: "boy")
+                    }else {
+                        emoji = UIImage(named: "infant")
+                    }
+            }
+        case "Mrs","Mrs.","Ms","Ms.","Miss","Miss.":
+            if (age <= 0) {
+                emoji = UIImage(named: "woman")
+            } else {
+                    if (age > 12) {
+                        emoji = UIImage(named: "woman")
+                    } else if (age > 2) {
+                        emoji = UIImage(named: "girl")
+                    }else {
+                        emoji = UIImage(named: "infant")
+                    }
+            }
+        default:
+            emoji = UIImage(named: "person")
+        }
+        return emoji!
+    }
+    
+    //get Age Last String Based on DOB
+    func  getAgeLastString(dob : String,formatter: String) -> String {
+        var ageString = "";
+        let dateDob: Date = dob.toDate(dateFormat: formatter) ?? Date()
+        printDebug(dateDob)
+        let years = Date().yearsFrom(dateDob)
+        if (years == 0) {
+            let months = Date().monthsFrom(dateDob)
+            if (months == 0) {
+                let days = Date().daysFrom(dateDob)
+                if days != 0 {
+                    ageString = "(" + (days.toString) + "d)"
+                }
+            } else {
+                ageString = "(" + (months.toString) + "m)"
             }
         } else {
-            printDebug("FILE PATH NOT AVAILABLE")
-            return false
+            if years <= 12 {
+                ageString = "(" + (years.toString ) + "y)"
+            }
+            
         }
+        
+        return " " + ageString
+    }
+    // Get: Salutation based on  geneder and age
+    func getSalutationAsPerGenderAndAge(gender: String, dob : String,dateFormatter: String) -> String {
+        var mGender =  gender
+        let dd = dob.toDate(dateFormat: dateFormatter) ?? Date()
+        let age = dd.age
+        if (age != 0) {
+            switch (mGender) {
+            case "Mr","Mast":
+                if (age > 12) {
+                    mGender = "Mr";
+                }
+                else if (age > 2) {
+                    mGender = "Mast";
+                }
+                else {
+                    mGender = "Mast";
+                }
+            case "Ms","Mrs","Miss":
+                if (age > 12) {
+                    mGender = "Ms";
+                }
+                else if (age > 2) {
+                    mGender = "Miss";
+                }
+                else {
+                    mGender = "Miss"
+                    
+                }
+            default:
+                mGender = "Mr"
+            }
+        }
+        return mGender;
+        
     }
 }
-*/
+
+
+

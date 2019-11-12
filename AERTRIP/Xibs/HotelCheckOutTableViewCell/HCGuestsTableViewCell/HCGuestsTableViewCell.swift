@@ -73,8 +73,10 @@ extension HCGuestsTableViewCell: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HCGuestsDetailsCollectionViewCell.reusableIdentifier, for: indexPath) as? HCGuestsDetailsCollectionViewCell else { return UICollectionViewCell() }
 //        self.travellers[indexPath.item]
-        let name = self.travellers[indexPath.item].pax_type == "child" ? "\(self.travellers[indexPath.item].first_name) \(self.travellers[indexPath.item].middle_name) \(self.travellers[indexPath.item].last_name) (\(self.travellers[indexPath.item].age))"  : "\(self.travellers[indexPath.item].first_name) \(self.travellers[indexPath.item].middle_name) \(self.travellers[indexPath.item].last_name)"
-        cell.configCell(name: name, firstName: self.travellers[indexPath.item].first_name , lastName: self.travellers[indexPath.item].last_name , imageUrl: self.travellers[indexPath.item].profile_image)
+        let traveller = self.travellers[indexPath.item]
+        let name = traveller.pax_type == "child" ? "\(self.travellers[indexPath.item].first_name) \(traveller.middle_name) \(traveller.last_name)"  : "\(traveller.first_name) \(traveller.middle_name) \(traveller.last_name)"
+        let age = traveller.age > 0 ? "\(traveller.age)" : ""
+        cell.configCell(name: name, firstName: traveller.first_name , lastName: traveller.last_name, age: age , imageUrl: traveller.profile_image)
         return cell
     }
     

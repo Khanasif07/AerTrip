@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,15 +17,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TableViewAddActionCell" id="KGk-i7-Jjw" customClass="TableViewAddActionCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TableViewAddActionCell" rowHeight="51" id="KGk-i7-Jjw" customClass="TableViewAddActionCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="51"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="34.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="50.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LcR-WZ-13e">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="34.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="50.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s9l-G6-w29">
                                 <rect key="frame" x="53" y="12" width="257" height="18"/>
@@ -41,10 +41,16 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aIf-04-par" userLabel="dividerView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="0.5"/>
                                 <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="n8S-Ib-p73"/>
+                                    <constraint firstAttribute="height" constant="0.5" id="n8S-Ib-p73"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mek-VB-KvZ" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="50" width="320" height="0.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="gaD-8A-I1k"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -52,7 +58,10 @@
                         <constraints>
                             <constraint firstItem="VfI-kW-AZv" firstAttribute="top" secondItem="LcR-WZ-13e" secondAttribute="top" constant="10" id="5tT-yv-moL"/>
                             <constraint firstItem="VfI-kW-AZv" firstAttribute="leading" secondItem="LcR-WZ-13e" secondAttribute="leading" constant="17" id="BXL-mR-n8U"/>
+                            <constraint firstItem="Mek-VB-KvZ" firstAttribute="leading" secondItem="LcR-WZ-13e" secondAttribute="leading" id="BrB-ek-ebA"/>
+                            <constraint firstAttribute="bottom" secondItem="Mek-VB-KvZ" secondAttribute="bottom" id="Edb-Ux-Jmn"/>
                             <constraint firstAttribute="trailing" secondItem="aIf-04-par" secondAttribute="trailing" id="H5T-uy-iSF"/>
+                            <constraint firstAttribute="trailing" secondItem="Mek-VB-KvZ" secondAttribute="trailing" id="M1r-Q9-vgU"/>
                             <constraint firstAttribute="trailing" secondItem="s9l-G6-w29" secondAttribute="trailing" constant="10" id="gPE-93-bJY"/>
                             <constraint firstItem="s9l-G6-w29" firstAttribute="centerY" secondItem="VfI-kW-AZv" secondAttribute="centerY" id="h0O-ig-tHZ"/>
                             <constraint firstItem="aIf-04-par" firstAttribute="leading" secondItem="LcR-WZ-13e" secondAttribute="leading" id="oaA-I1-uBh"/>
@@ -71,10 +80,12 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="actionLabel" destination="s9l-G6-w29" id="MKk-fh-1rj"/>
+                <outlet property="bottomDividerView" destination="Mek-VB-KvZ" id="5BK-3Q-Zpf"/>
                 <outlet property="cellBackgroundView" destination="LcR-WZ-13e" id="HlM-Rf-deL"/>
+                <outlet property="greenButtonLeadingConstraint" destination="BXL-mR-n8U" id="WE7-I3-kZd"/>
                 <outlet property="topDividerView" destination="aIf-04-par" id="lNu-23-Ka3"/>
             </connections>
-            <point key="canvasLocation" x="137.59999999999999" y="153.82308845577214"/>
+            <point key="canvasLocation" x="137.59999999999999" y="160.56971514242881"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -16,8 +16,6 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
         didSet {
             self.containerView.layer.cornerRadius = 10.0
             self.containerView.layer.masksToBounds = true
-            self.containerView.addBlurEffect(backgroundColor: AppColors.themeWhite.withAlphaComponent(0.6))
-            self.containerView.backgroundColor = AppColors.clear
         }
     }
     @IBOutlet weak var cityImageView: UIImageView!
@@ -27,6 +25,9 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var stateNameLabel: UILabel!
     @IBOutlet weak var totalNightsLabel: UILabel!
     @IBOutlet weak var totalAdultsLabel: UILabel!
+    
+    @IBOutlet weak var blurVibranyEffectView: UIVisualEffectView!
+    
     
     //Mark:- LifeCycle
     //================
@@ -69,6 +70,12 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
         self.stateNameLabel.text = ""
         self.totalNightsLabel.text = ""
         self.totalAdultsLabel.text = ""
+        
+        // add vibrancy blur effect you
+        
+        //AppGlobals.shared.removeBlur(fromView: self.blurVibranyEffectView)
+       // self.blurVibranyEffectView.contentView.addSubview(AppGlobals.shared.getBlurView(forView: self.blurVibranyEffectView, isDark: false))
+    //self.blurVibranyEffectView.insertSubview(AppGlobals.shared.getBlurView(forView: self.blurVibranyEffectView, isDark: false), at: 0)
     }
 
     ///ConfigureCell

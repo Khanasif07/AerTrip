@@ -206,7 +206,7 @@ class HCDataSelectionVC: BaseVC {
     private func setupNavView() {
         topNavView.delegate = self
         topNavView.configureNavBar(title: LocalizedString.Guests.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
-        topNavView.firstRightButtonTrailingConstraint.constant = 5
+        
         topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "plusButton2"), selectedImage: #imageLiteral(resourceName: "plusButton2"))
     }
     
@@ -289,6 +289,7 @@ class HCDataSelectionVC: BaseVC {
             }
             GuestDetailsVM.shared.guests.append(temp)
         }
+        GuestDetailsVM.shared.canShowSalutationError = false
     }
     
     private func sendToFinalCheckoutVC() {
@@ -549,10 +550,8 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
         if newRow < 0 {
             // room data cell
             let totalCount = hotelFormData.adultsCount[indexPath.row] + hotelFormData.childrenCounts[indexPath.row]
-            let bottomSpaceToManage: CGFloat = (totalCount <= 4) ? 25.0 : 30.0
-            
-            let lastCellExtraPadding: CGFloat = hotelFormData.roomNumber == indexPath.row + 1 ? 16 : 0
-            return (115.0 * ((totalCount <= 4) ? 1.0 : 2.0))  + bottomSpaceToManage +  lastCellExtraPadding
+            let constantHeight = ((135/375) * self.view.width)
+            return constantHeight * ((totalCount <= 4) ? 1.0 : 2.0) + 25.0
         }
         else {
             switch newRow {
@@ -566,7 +565,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 3:
                 // contact details text
-                return 44.0
+                return 54.0
                 
             case 4:
                 // mobile number
@@ -627,10 +626,10 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                     return UITableViewCell()
                 }
                 
-                cell.titleLabel.font = AppFonts.SemiBold.withSize(16.0)
-                cell.titleLabel.textColor = AppColors.textFieldTextColor51
-                cell.titleLabel.set(text: LocalizedString.ContactDetails.localized, withKerning: 0.0)
-                cell.topConstraint.constant = 12.0
+                cell.titleLabel.font = AppFonts.SemiBold.withSize(18.0)
+                cell.titleLabel.textColor = AppColors.themeBlack
+                cell.titleLabel.text = "Contact Details"
+                cell.topConstraint.constant = 16.0
                 
                 return cell
                 
@@ -639,7 +638,8 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ContactTableCell.reusableIdentifier) as? ContactTableCell else {
                     return UITableViewCell()
                 }
-                cell.dividerViewBottomConstraint.constant = 10
+                cell.contactTitleLabel.isHidden = true
+                cell.contactNumberTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.Mobile.localized)
                 cell.delegate = self
                 return cell
                 
@@ -654,12 +654,12 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
 //                cell.titleLabel.textColor = AppColors.themeGray20
 //                cell.titleLabel.text = LocalizedString.Email_ID.localized
                 cell.editableTextField.isEnabled = UserInfo.loggedInUserId == nil
+                cell.editableTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.Email_ID.localized)
                 cell.delegate = self
                 cell.editableTextField.text = UserInfo.loggedInUser?.email
                 cell.editableTextField.font = AppFonts.Regular.withSize(18.0)
                 cell.editableTextField.textColor = UserInfo.loggedInUserId == nil ? AppColors.themeBlack : AppColors.themeGray40
                 cell.editableTextField.keyboardType = .emailAddress
-                cell.editableTextField.placeholder = LocalizedString.Email_ID.localized
            
                 
                 return cell

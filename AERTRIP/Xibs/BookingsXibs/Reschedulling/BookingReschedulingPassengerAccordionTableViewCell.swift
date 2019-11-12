@@ -40,6 +40,11 @@ class BookingReschedulingPassengerAccordionTableViewCell: ATTableViewCell {
     
     // MARK: - Override methods
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.passengerNameLabel.attributedText = nil
+    }
+    
     override func setupTexts() {
         self.pnrTitleLabel.text = LocalizedString.PNRNo.localized
         self.saleAmountLabel.text = LocalizedString.SaleAmount.localized
@@ -95,12 +100,16 @@ class BookingReschedulingPassengerAccordionTableViewCell: ATTableViewCell {
         self.arrowButton.setImage(#imageLiteral(resourceName: self.expanded ? "upArrowIconCheckout" : "downArrowCheckOut"), for: .normal)
     }
     
-    func configureCell(passengerName: String, pnrNo: String, saleValue: String, cancellationCharge: String, refundValue: String) {
-        self.passengerNameLabel.text = passengerName
+    func configureCell(passengerName: String, pnrNo: String, saleValue: String, cancellationCharge: String, refundValue: String, age: String) {
+        //self.passengerNameLabel.text = passengerName
         self.pnrValueLabel.text = pnrNo
         self.saleValueLabel.text = saleValue
         self.cancellationChargeValueLabel.text = cancellationCharge
         self.netRefundValueLabel.text = refundValue
+        self.passengerNameLabel.appendFixedText(text: passengerName, fixedText: age)
+        if !age.isEmpty {
+            self.passengerNameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
+        }
     }
     
     @IBAction func arrowButtonTapped(_ sender: UIButton) {

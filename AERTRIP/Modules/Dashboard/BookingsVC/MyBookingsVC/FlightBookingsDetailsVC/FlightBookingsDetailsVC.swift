@@ -22,7 +22,7 @@ class FlightBookingsDetailsVC: BaseVC {
     }
     
     private var navBarHeight: CGFloat {
-        return UIDevice.isIPhoneX ? 84.0 : 64.0
+        return UIDevice.isIPhoneX ? 88.0 : 64.0
     }
     
     var tripChangeIndexPath: IndexPath?
@@ -50,7 +50,7 @@ class FlightBookingsDetailsVC: BaseVC {
     
     override func initialSetup() {
         self.topNavBarHeightConstraint.constant = self.navBarHeight
-        self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
+        self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isDivider: false, backgroundType: .color(color: .white))
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
         self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))

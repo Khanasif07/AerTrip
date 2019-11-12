@@ -49,15 +49,19 @@ public class TravellerData: NSManagedObject {
         }
         
         if let obj = dataDict[APIKeys.label.rawValue] as? String {
+            let defaultLabel = "Others"
             if obj.isEmpty {
-                userData!.label = "Others"
+                userData!.label = defaultLabel
             }
             else {
                 userData!.label = "\(obj)".removeNull.removeLeadingTrailingWhitespaces
             }
-            
-            if let allData = UserInfo.loggedInUser?.generalPref?.labelsWithPriority, let prio = allData[userData!.label!] {
-                userData!.labelLocPrio = "\(prio)"
+            let allData = UserInfo.loggedInUser?.generalPref?.labelsWithPriority ?? [:]
+            if let prio = allData[userData!.label!] {
+                userData!.labelLocPrio = Int16(prio)
+            } else if let prio = allData[defaultLabel] {
+                userData!.label = defaultLabel
+                userData!.labelLocPrio = Int16(prio)
             }
         }
         if let obj = dataDict[APIKeys.lastName.rawValue] as? String {
@@ -68,6 +72,13 @@ public class TravellerData: NSManagedObject {
         if let obj = dataDict[APIKeys.salutation.rawValue] {
             userData!.salutation = "\(obj)".removeNull
         }
+        
+        if let obj = dataDict[APIKeys.profileImg.rawValue] {
+            userData?.profileImage = "\(obj)".removeNull
+        }
+        
+        let completeName = "\(userData?.firstName ?? "") \(userData?.lastName ?? "")"
+        userData?.fullName = completeName.removeLeadingTrailingWhitespaces
         
         CoreDataManager.shared.saveContext(managedContext: context)
         

@@ -31,17 +31,18 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cbl-xr-PpX">
-                    <rect key="frame" x="0.0" y="0.0" width="531" height="255"/>
+                    <rect key="frame" x="0.0" y="0.0" width="531" height="255.5"/>
                     <subviews>
                         <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profilePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="ARz-1y-xpA">
-                            <rect key="frame" x="205" y="22" width="121" height="121"/>
+                            <rect key="frame" x="205" y="18.5" width="121" height="121"/>
                             <constraints>
+                                <constraint firstAttribute="width" constant="121" id="OzQ-d3-XDb"/>
                                 <constraint firstAttribute="width" secondItem="ARz-1y-xpA" secondAttribute="height" multiplier="1:1" id="ZV6-Kq-kGB"/>
                                 <constraint firstAttribute="height" constant="121" id="pms-Kr-etU"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggie Fletcher" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAE-bT-BMd">
-                            <rect key="frame" x="10" y="151" width="511" height="33"/>
+                            <rect key="frame" x="10" y="151.5" width="511" height="33"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="33" id="XlT-Ft-NH1"/>
                             </constraints>
@@ -50,7 +51,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="LRw-xr-uiF">
-                            <rect key="frame" x="20" y="193" width="491" height="37"/>
+                            <rect key="frame" x="20" y="193.5" width="491" height="37"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggiefleture@gmail.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95a-79-0je">
                                     <rect key="frame" x="0.0" y="0.0" width="491" height="18"/>
@@ -72,6 +73,9 @@
                                 </label>
                             </subviews>
                         </stackView>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="aaY-3S-c6N">
+                            <rect key="frame" x="255.5" y="77" width="20" height="20"/>
+                        </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -79,21 +83,23 @@
                         <constraint firstAttribute="trailing" secondItem="eAE-bT-BMd" secondAttribute="trailing" constant="10" id="5G0-Pb-9k7"/>
                         <constraint firstItem="LRw-xr-uiF" firstAttribute="top" secondItem="eAE-bT-BMd" secondAttribute="bottom" constant="9" id="8ey-9o-wNj"/>
                         <constraint firstItem="LRw-xr-uiF" firstAttribute="leading" secondItem="cbl-xr-PpX" secondAttribute="leading" constant="20" id="FfI-l5-TGP"/>
-                        <constraint firstItem="eAE-bT-BMd" firstAttribute="top" secondItem="ARz-1y-xpA" secondAttribute="bottom" constant="8" id="LrI-tj-Fwj"/>
+                        <constraint firstItem="eAE-bT-BMd" firstAttribute="top" secondItem="ARz-1y-xpA" secondAttribute="bottom" constant="12" id="LrI-tj-Fwj"/>
                         <constraint firstAttribute="trailing" secondItem="LRw-xr-uiF" secondAttribute="trailing" constant="20" id="ZVh-Ac-mw3"/>
                         <constraint firstAttribute="bottom" secondItem="LRw-xr-uiF" secondAttribute="bottom" constant="25" id="aVT-X6-x1Z"/>
+                        <constraint firstItem="aaY-3S-c6N" firstAttribute="centerY" secondItem="ARz-1y-xpA" secondAttribute="centerY" multiplier="1.1" id="i8W-8z-T5J"/>
+                        <constraint firstItem="aaY-3S-c6N" firstAttribute="centerX" secondItem="ARz-1y-xpA" secondAttribute="centerX" id="ilh-5h-Qut"/>
                         <constraint firstItem="eAE-bT-BMd" firstAttribute="leading" secondItem="cbl-xr-PpX" secondAttribute="leading" constant="10" id="y1k-TL-sBw"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ycJ-AK-oMp" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="255" width="531" height="1"/>
+                    <rect key="frame" x="0.0" y="255.5" width="531" height="0.5"/>
                     <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="1" id="bd3-nQ-oMo"/>
+                        <constraint firstAttribute="height" constant="0.5" id="bd3-nQ-oMo"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgB-ko-N2g">
-                    <rect key="frame" x="224" y="207" width="83" height="25"/>
+                    <rect key="frame" x="224.5" y="207" width="82" height="25"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="Zvf-8u-c8g"/>
@@ -127,6 +133,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="activityIndicatorView" destination="aaY-3S-c6N" id="hK7-Ml-PAs"/>
                 <outlet property="backgroundImageView" destination="Ojo-QA-iad" id="76G-qQ-HcJ"/>
                 <outlet property="dividerView" destination="ycJ-AK-oMp" id="jHj-R4-bfb"/>
                 <outlet property="emailAndContactBottomConstraint" destination="aVT-X6-x1Z" id="B40-FI-lFa"/>
@@ -138,7 +145,9 @@
                 <outlet property="profileContainerView" destination="cbl-xr-PpX" id="YRn-Ad-Jg3"/>
                 <outlet property="profileImageAndNameSpace" destination="LrI-tj-Fwj" id="ecQ-Iy-hZr"/>
                 <outlet property="profileImageView" destination="ARz-1y-xpA" id="aU9-gJ-oCS"/>
+                <outlet property="profileImageViewBottomConstraint" destination="cbl-xr-PpX" id="4hX-uu-Mmk"/>
                 <outlet property="profileImageViewHeightConstraint" destination="pms-Kr-etU" id="AhU-iJ-0f7"/>
+                <outlet property="profileImageViewWidthConstraint" destination="OzQ-d3-XDb" id="Z6V-g1-d0l"/>
                 <outlet property="userNameHeightLabel" destination="XlT-Ft-NH1" id="AYy-xU-6bI"/>
                 <outlet property="userNameLabel" destination="eAE-bT-BMd" id="23o-EQ-Rd9"/>
             </connections>

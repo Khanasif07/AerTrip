@@ -58,7 +58,7 @@ class LinkedAccountsVC: BaseVC {
     
     override func setupTexts() {
         self.navTitleLabel.text = LocalizedString.LinkedAccounts.localized
-        self.topNavigationView.configureNavBar(title: LocalizedString.LinkedAccounts.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
+        self.topNavigationView.configureNavBar(title: LocalizedString.LinkedAccounts.localized, isLeftButton: true,isFirstRightButton: false, isSecondRightButton: false,isDivider: false)
         self.messageLabel.text = LocalizedString.LinkedAccountsMessage.localized
     }
     
@@ -96,11 +96,19 @@ extension LinkedAccountsVC: LinkedAccountsVMDelegate {
     
     func fetchLinkedAccountSuccess() {
 //        showLoaderOnView(view: self.view, show: false)
-        self.tableView.reloadData()
+        delay(seconds: 0.1) { [weak self] in 
+            guard let self = self else {
+                return
+            }
+            
+            self.tableView.reloadData()
+            
+        }
+       
     }
     
-    func fetchLinkedAccountFail() {
-//        showLoaderOnView(view: self.view, show: false)
+    func fetchLinkedAccountFail(error: ErrorCodes) {
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .login)
     }
 }
 
@@ -156,15 +164,22 @@ extension LinkedAccountsVC: LinkedAccountsCellDelegate {
     }
     
     func disConnect(_ sender: UIButton, forType: LinkedAccount.SocialType) {
-        if let indexPath = self.tableView.indexPath(forItem: sender) {
-            let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Disconnect.localized], colors: [AppColors.themeRed])
-            _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.DoYouWantToDisconnect.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
-                
-                if index == 0 {
-                    self.viewModel.disConnect(account: self.viewModel.linkedAccounts[indexPath.row])
-                }
+        
+        if let loggedSocial = UserInfo.loggedInUser?.socialLoginType, loggedSocial == forType {
+            showAlert(title: "Disconnect?", message: LocalizedString.KindlyDisconnectMessage.localized + forType.socialTitle + ".", buttonTitle: "Ok") {
+                printDebug("")
+            }
+        } else {
+            if let indexPath = self.tableView.indexPath(forItem: sender) {
+                let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Disconnect.localized], colors: [AppColors.themeRed])
+                _ = PKAlertController.default.presentActionSheet(LocalizedString.DeleteTraveller.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, message: nil, messageFont: nil, messageColor: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { [weak self] _, index in
+                    if index == 0 {
+                        self?.viewModel.disConnect(account: (self?.viewModel.linkedAccounts[indexPath.row])!)
+                    }
+                })
             }
         }
+    
     }
 }
 

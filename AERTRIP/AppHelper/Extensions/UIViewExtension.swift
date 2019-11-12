@@ -282,6 +282,20 @@ extension UIView {
         return subviewClass as? UICollectionViewCell
     }
     
+    var tableViewCell : UITableViewCell? {
+        
+        var subviewClass = self
+        
+        while !(subviewClass is UITableViewCell){
+            
+            guard let view = subviewClass.superview else { return nil }
+            
+            subviewClass = view
+        }
+        return subviewClass as? UITableViewCell
+    }
+
+    
     func showBlurLoader(frame: CGRect) {
         let blurLoader = BlurLoader(frame: frame)
         self.addSubview(blurLoader)
@@ -403,5 +417,42 @@ extension UIView {
     
     func subView(withTag: Int) -> UIView? {
         return self.subviews.filter { $0.tag == withTag }.first
+    }
+}
+
+
+// Unicode Switch
+extension UIView {
+    func dropShadowOnSwitch() {
+        var shadowLayer: CAShapeLayer!
+        let cornerRadius: CGFloat = 16.0
+        let fillColor: UIColor = .white
+        
+        
+        if shadowLayer == nil {
+            removeCardShadowLayer()
+            shadowLayer = CAShapeLayer()
+            shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
+            shadowLayer.fillColor = fillColor.cgColor
+            shadowLayer.name = "cardShadow"
+            shadowLayer.shadowColor = UIColor.black.withAlphaComponent(0.4).cgColor
+            shadowLayer.shadowPath = shadowLayer.path
+            shadowLayer.shadowOffset = CGSize(width: 1, height: 1)
+            shadowLayer.shadowOpacity = 0.8
+            shadowLayer.shadowRadius = 3
+            
+            layer.insertSublayer(shadowLayer, at: 0)
+        }
+    }
+    
+    func removeCardShadowLayer() {
+        if let all = self.layer.sublayers {
+            for lay in all {
+                if let name = lay.name, name == "cardShadow" {
+                    lay.removeFromSuperlayer()
+                    break
+                }
+            }
+        }
     }
 }

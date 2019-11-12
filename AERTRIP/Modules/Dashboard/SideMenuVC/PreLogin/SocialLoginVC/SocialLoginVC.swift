@@ -56,6 +56,9 @@ class SocialLoginVC: BaseVC {
         self.initialSetups()
     }
     
+    
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -83,6 +86,9 @@ class SocialLoginVC: BaseVC {
         self.fbButton.layer.cornerRadius = self.fbButton.height / 2
         self.googleButton.layer.cornerRadius = self.googleButton.height / 2
         self.linkedInButton.layer.cornerRadius = self.linkedInButton.height / 2
+        self.fbButton.layer.masksToBounds = true
+        self.googleButton.layer.masksToBounds = true
+        self.linkedInButton.layer.masksToBounds = true
     }
     
     override func setupFonts() {
@@ -98,13 +104,19 @@ class SocialLoginVC: BaseVC {
         self.linkedInButton.gradientColors = [AppColors.linkedinButtonBackgroundColor, AppColors.linkedinButtonBackgroundColor]
         
         self.fbButton.isSocial = true
-        self.fbButton.shadowColor = AppColors.themeBlack
+      
+        //self.fbButton.shadowColor = AppColors.themeBlack
         
         self.googleButton.isSocial = true
-        self.googleButton.shadowColor = AppColors.themeBlack
+        //self.googleButton.shadowColor = AppColors.themeRed
+        
+        self.googleButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         
         self.linkedInButton.isSocial = true
-        self.linkedInButton.shadowColor = AppColors.themeBlack
+        
+        self.linkedInButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        
+     //   self.linkedInButton.shadowColor = AppColors.themeBlack
     }
     
     override func setupTexts() {
@@ -112,6 +124,19 @@ class SocialLoginVC: BaseVC {
         self.googleButton.setTitle(LocalizedString.Continue_with_Google.localized, for: .normal)
         self.linkedInButton.setTitle(LocalizedString.Continue_with_Linkedin.localized, for: .normal)
         
+//        self.fbButton.shadowColor = AppColors.themeRed
+//        self.view.backgroundColor = AppColors.themeRed
+        self.fbButton.isSocial = false
+        self.googleButton.isSocial = false
+        self.linkedInButton.isSocial = false
+        
+        delay(seconds: 0.4) {
+            self.fbButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 1.0, x: 0, y: 2, blur: 6, spread: 0)
+            self.googleButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 1.0, x: 0, y: 2, blur: 6, spread: 0)
+            self.linkedInButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 1.0, x: 0, y: 2, blur: 6, spread: 0)
+            
+        }
+       
         self.fbButton.setImage(AppImage.facebookLogoImage, for: .normal)
         self.googleButton.setImage(AppImage.googleLogoImage, for: .normal)
         self.linkedInButton.setImage(AppImage.linkedInLogoImage, for: .normal)
@@ -171,6 +196,9 @@ private extension SocialLoginVC {
         self.view.backgroundColor = AppColors.screensBackground.color
         
         self.setupsFonts()
+        self.fbButton.isSocial = true
+        self.googleButton.isSocial = true
+        self.linkedInButton.isSocial = true
         self.fbButton.addRequiredActionToShowAnimation()
         self.googleButton.addRequiredActionToShowAnimation()
         self.linkedInButton.addRequiredActionToShowAnimation()
@@ -200,7 +228,7 @@ private extension SocialLoginVC {
             logoView?.isAppNameHidden = false
             
             socialButtosCenterConstraint.constant = 0.0
-            socialAndLogoSpace.constant = 75.0
+            socialAndLogoSpace.constant = 85.0
         }
         else {
             logoView?.messageLabel.font = AppFonts.Bold.withSize(38.0)
@@ -319,37 +347,118 @@ extension SocialLoginVC {
         self.linkedInButton.alpha = 0
     }
     
+//    func animateContentOnLoad() {
+//
+//        self.kickContentOutToScreen()
+//
+//        let rDuration = 1.0 / 2.0
+//        let animationOptions: UIView.AnimationOptions = .transitionFlipFromTop
+////        let keyframeAnimationOptions: UIView.KeyframeAnimationOptions = UIView.KeyframeAnimationOptions(rawValue: animationOptions.rawValue)
+//
+//        let keyframeAnimationOptions: UIView.KeyframeAnimationOptions = UIView.KeyframeAnimationOptions(rawValue: animationOptions.rawValue)
+//
+//        _ = UIViewPropertyAnimator(duration: rDuration * 1.0, curve: .easeInOut) {
+//            self.fbButton.transform = .identity
+//            self.fbButton.alpha = 1.0
+//        }
+//
+//
+//
+//
+//        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options:keyframeAnimationOptions
+// , animations: {
+//
+////            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
+////                self.fbButton.transform = .identity
+////                self.fbButton.alpha = 1.0
+////            })
+//
+//    _ = UIViewPropertyAnimator(duration: rDuration * 1.0, curve: .easeInOut) {
+//        self.fbButton.transform = .identity
+//        self.fbButton.alpha = 1.0
+//    }
+//    _ = UIViewPropertyAnimator(duration: rDuration * 1.0, curve: .easeInOut) {
+//        self.googleButton.transform = .identity
+//        self.googleButton.alpha = 1.0
+//    }
+//
+////            UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {
+////                self.googleButton.transform = .identity
+////                self.googleButton.alpha = 1.0
+////            })
+//
+//    _ = UIViewPropertyAnimator(duration: rDuration * 1.0, curve: .easeInOut) {
+//        self.newRegistrationContainerView.transform    = .identity
+//        self.sepratorLineImage.transform  = .identity
+//    }
+//
+//
+////            UIView.addKeyframe(withRelativeStartTime: (rDuration * 2.0), relativeDuration: (rDuration * 3.0), animations: {
+////                self.newRegistrationContainerView.transform    = .identity
+////                self.sepratorLineImage.transform  = .identity
+////            })
+//
+//    _ = UIViewPropertyAnimator(duration: rDuration * 1.0, curve: .easeInOut) {
+//        self.linkedInButton.transform     = .identity
+//        self.linkedInButton.alpha = 1.0
+//    }
+//
+////            UIView.addKeyframe(withRelativeStartTime: (rDuration * 3.0), relativeDuration: (rDuration * 4.0), animations: {
+////                self.linkedInButton.transform     = .identity
+////                self.linkedInButton.alpha = 1.0
+////            })
+//
+//        }) { (success) in
+//            self.viewModel.isFirstTime = false
+//
+//        }
+//    }
+    
     func animateContentOnLoad() {
-        
         self.kickContentOutToScreen()
-        
-        
-        
         let rDuration = 1.0 / 4.0
-        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeDiscrete, animations: {
-            
+        
+        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
+                
                 self.fbButton.transform = .identity
                 self.fbButton.alpha = 1.0
+                
             })
-            
             UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {
+                
                 self.googleButton.transform = .identity
                 self.googleButton.alpha = 1.0
+                
             })
+            
+            
             
             UIView.addKeyframe(withRelativeStartTime: (rDuration * 2.0), relativeDuration: (rDuration * 3.0), animations: {
+                
                 self.newRegistrationContainerView.transform    = .identity
+                
                 self.sepratorLineImage.transform  = .identity
+                
             })
+            
+            
             
             UIView.addKeyframe(withRelativeStartTime: (rDuration * 3.0), relativeDuration: (rDuration * 4.0), animations: {
+                
                 self.linkedInButton.transform     = .identity
+                
                 self.linkedInButton.alpha = 1.0
+                
             })
             
+            
+            
         }) { (success) in
+            
             self.viewModel.isFirstTime = false
+            
+            
             
         }
     }

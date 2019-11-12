@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AddNotesTableViewCellDelegate: class {
-    func textViewText(_ text: String)
+    func textViewText(_ textView: UITextView)
 }
 
 class AddNotesTableViewCell: UITableViewCell {
@@ -32,10 +32,11 @@ class AddNotesTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         addNoteTextView.delegate = self
+        addNoteTextView.placeholder = LocalizedString.AddNotes.localized
+        addNoteTextView.placeholderInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         addNoteTextView.textContainerInset = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
-        addNoteTextView.text = LocalizedString.AddNotes.localized
-        addNoteTextView.textColor = UIColor.lightGray
         self.manageSeprator()
     }
 
@@ -44,7 +45,9 @@ class AddNotesTableViewCell: UITableViewCell {
         if !note.isEmpty {
             addNoteTextView.textColor = AppColors.textFieldTextColor51
             addNoteTextView.text = note
+            addNoteTextView.isScrollEnabled = false
         }
+       
     }
     
     private func manageSeprator() {
@@ -54,13 +57,21 @@ class AddNotesTableViewCell: UITableViewCell {
 
 extension AddNotesTableViewCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        delegate?.textViewText(textView.text)
+        delegate?.textViewText(textView)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == " "{
+        guard let inputMode = textView.textInputMode else {
             return false
         }
+        if inputMode.primaryLanguage == "emoji" || !(inputMode.primaryLanguage != nil) {
+            return false
+        }
+        return true
+    }
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        delegate?.textViewText(textView)
         return true
     }
 }

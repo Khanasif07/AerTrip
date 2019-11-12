@@ -103,7 +103,7 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         self.pageControl.isHidden = (thumbnail.count <= 1)
         for index in 0..<thumbnail.count {
             let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: self.hotelImageView.frame.origin.y, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
-            view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: true)
+            view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: false)
             scrollView.addSubview(view)
         }
     }
@@ -126,16 +126,21 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         
         self.greenCircleRatingView.isHidden = true
         self.tripLogoImage.isHidden = true
-        if let hotel = self.hotelData, hotel.rating > 0.0 {
+//        if let hotel = self.hotelData, hotel.rating > 0.0 {
+//            self.greenCircleRatingView.isHidden = false
+//            self.tripLogoImage.isHidden = false
+//            self.greenCircleRatingView.rating = hotel.rating
+//        }
+        if let hotel = self.hotelData, hotel.taRating > 0.0 {
             self.greenCircleRatingView.isHidden = false
             self.tripLogoImage.isHidden = false
-            self.greenCircleRatingView.rating = hotel.rating
+            self.greenCircleRatingView.rating = hotel.taRating
         }
 
         self.saveButton.isSelected = self.hotelData?.isFavourite ?? false
         
         if let image = UIImage(named: "hotelCardPlaceHolder") {
-            self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: true)
+            self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: false)
         }
     }
 

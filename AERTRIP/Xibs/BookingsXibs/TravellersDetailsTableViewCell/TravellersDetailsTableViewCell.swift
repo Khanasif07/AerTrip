@@ -35,6 +35,10 @@ class TravellersDetailsTableViewCell: UITableViewCell {
         self.configureUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.travellerName.attributedText = nil
+    }
     // MARK: - Functions
     
     // MARK: ===========
@@ -45,8 +49,8 @@ class TravellersDetailsTableViewCell: UITableViewCell {
         self.travellerName.textColor = AppColors.themeBlack
     }
     
-    internal func configCell(travellersImage: String, travellerName: String,firstName: String,lastName: String, isLastTravellerInRoom: Bool, isLastTraveller: Bool, isOtherBookingData: Bool = false) {
-        self.travellerName.text = travellerName
+    internal func configCell(travellersImage: String, travellerName: String,firstName: String,lastName: String, isLastTravellerInRoom: Bool, isLastTraveller: Bool, isOtherBookingData: Bool = false, dob: String, salutation: String, age: String, congigureForHotelDetail: Bool ) {
+        //self.travellerName.text = travellerName
         self.travellerImgViewBottomConstraint.constant = (isLastTraveller || isLastTravellerInRoom) ? 16.0 : 4.0
         self.containerViewBottomConstraint.constant = isLastTraveller ? 26.0 : 0.0
         if !isOtherBookingData {
@@ -54,11 +58,34 @@ class TravellersDetailsTableViewCell: UITableViewCell {
         }
         if !travellersImage.isEmpty {
             self.travellerProfileImage.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
+            self.travellerProfileImage.contentMode = .scaleAspectFit
         } else {
-            self.travellerProfileImage.makeCircular(borderWidth: 1.0, borderColor: AppColors.themeGray04)
-            self.travellerProfileImage.image = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName, font: AppFonts.Regular.withSize(35.0))
+            self.travellerProfileImage.makeCircular(borderWidth: 1.0, borderColor: AppColors.themeGray20)
+            //self.travellerProfileImage.image = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName, font: AppFonts.Regular.withSize(35.0))
+            if congigureForHotelDetail {
+                self.travellerProfileImage.image = AppGlobals.shared.getEmojiIconFromAge(ageString: age, salutation: salutation)
+            } else {
+                self.travellerProfileImage.image = AppGlobals.shared.getEmojiIcon(dob: dob, salutation: salutation, dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+            }
+            
+            self.travellerProfileImage.contentMode = .center
         }
-
+        var ageString = ""
+        if congigureForHotelDetail {
+            if !age.isEmpty, let intAge = Int(age), (intAge > 0 && intAge <= 12) {
+                ageString = " (\(age)y)"
+                //travelName += age
+            }
+        } else {
+            if !dob.isEmpty {
+                ageString = AppGlobals.shared.getAgeLastString(dob: dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+            }
+        }
+        // self.travellerNameLabel.text = travelName
+        self.travellerName.appendFixedText(text: travellerName, fixedText: ageString)
+        if !age.isEmpty {
+            self.travellerName.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
+        }
         
     }
     

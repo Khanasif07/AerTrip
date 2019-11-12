@@ -68,7 +68,7 @@ class ThankYouRegistrationVC: BaseVC {
             
             self.noReplyLabel.attributedText = attributedString
         } else {
-            
+            self.emailLabel.text = self.viewModel.email
             self.headerTitleLabel.text = LocalizedString.Thank_you_for_registering.localized
             self.sentAccountLinkLabel.text = LocalizedString.We_have_sent_you_an_account_activation_link_on.localized
             self.checkEmailLabel.text = LocalizedString.Check_your_email_to_activate_your_account.localized
@@ -99,7 +99,7 @@ class ThankYouRegistrationVC: BaseVC {
     
     
     @IBAction func openEmailAppButtonAction(_ sender: UIButton) {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Mail_Default.localized, LocalizedString.Gmail.localized], colors: [AppColors.themeGreen, AppColors.themeGreen])
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Mail_Default.localized, LocalizedString.Gmail.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: {(alert,index) in
             
 //            AppFlowManager.default.moveToSecureAccountVC(isPasswordType: .setPassword)

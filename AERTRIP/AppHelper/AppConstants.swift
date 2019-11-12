@@ -94,9 +94,19 @@ enum AppConstants {
     static let AdultPax = "ADT"
     static let kChildPax = "CHD"
     static let kInfantPax = "INF"
+    static let kQuestionMark = "?"
     static let kIndianCountryCode = "IN"
     static let staticRoomTags: [String] = ["Sea view","Lake view","Deluxe","Suite","Parking","Lounge"]
     static let kBreakfast = "Breakfast"
     static let kRefundable = "Refundable"
+    static let kAsteriskSymbol = "*"
+    static let kmR = "Mr"
+    static let kmS = "Ms"
+    static let kmAST = "Mast"
+    static let kmISS = "Miss"
+    static let kmRS = "Mrs"
+    static let kMaleSalutaion = ["Mr","Mast"]
+    static let kFemaleSalutaion = ["Ms","Miss","Mrs"]
 }
+
 

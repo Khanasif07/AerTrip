@@ -130,14 +130,15 @@ class AppFlowManager: NSObject {
     }
     
     func setupInitialFlow() {
-        self.goToDashboard()
+        self.goToDashboard(launchThroughSplash: true)
         
         self.addBlurToStatusBar()
     }
     
-    func goToDashboard() {
+    func goToDashboard(launchThroughSplash: Bool = false) {
         let mainHome = MainHomeVC.instantiate(fromAppStoryboard: .Dashboard)
         self.mainHomeVC = mainHome
+        self.mainHomeVC?.isLaunchThroughSplash = launchThroughSplash
         let nvc = SwipeNavigationController(rootViewController: mainHome)
         nvc.delegate = AppDelegate.shared.transitionCoordinator
         self.mainNavigationController = nvc
@@ -814,8 +815,12 @@ extension AppFlowManager {
     
     
     func moveToTestViewController() {
-        let ob = TestViewController.instantiate(fromAppStoryboard: .Common)
+//        let ob = TestViewController.instantiate(fromAppStoryboard: .Common)
+//        self.mainNavigationController.pushViewController(ob, animated: true)
+        let ob = CreateProfileVC.instantiate(fromAppStoryboard: .PreLogin)
         self.mainNavigationController.pushViewController(ob, animated: true)
+        
+        
     }
     
     // MARK: - Aerin
@@ -977,6 +982,25 @@ extension AppFlowManager {
         obj.viewModel.bookingId = bookindId
         self.mainNavigationController.present(obj, animated: true)
     }
+    
+    
+    // Move to Quick Pay Screen
+    
+    func moveToQuickPayVC() {
+        let ob = QuickPayVC.instantiate(fromAppStoryboard: .Profile)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    // Move to Notification screen
+    
+    func moveToNotificationVC() {
+        let ob = NotificationVC.instantiate(fromAppStoryboard: .Profile)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
+    
+    
+    
+    
 }
 
 // MARK: - Select Trip Flow Methods

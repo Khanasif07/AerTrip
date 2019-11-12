@@ -115,7 +115,7 @@ extension HotelResultVC {
             }) { (done) in
                 if done {
                     self.backButton.alpha = 1
-                    self.searchBarContainerView.backgroundColor = AppColors.themeWhite
+                    self.searchBarContainerView.backgroundColor = AppColors.clear
                 }
             }
         }

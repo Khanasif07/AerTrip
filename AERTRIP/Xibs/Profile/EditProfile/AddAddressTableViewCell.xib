@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,7 +25,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cfo-1a-dW3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="262"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="260"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnX-oS-u73">
                                 <rect key="frame" x="0.0" y="0.0" width="266" height="43"/>
@@ -56,14 +56,14 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w3N-e2-cIH" userLabel="dividerView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="43" width="250" height="1"/>
+                                <rect key="frame" x="16" y="43" width="250" height="0.5"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="vuq-ZM-1Xb"/>
+                                    <constraint firstAttribute="height" constant="0.5" id="vuq-ZM-1Xb"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Street" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sq4-GW-EgE">
-                                <rect key="frame" x="16" y="44" width="250" height="43"/>
+                                <rect key="frame" x="16" y="43.5" width="250" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="KOW-1A-oVQ"/>
                                 </constraints>
@@ -72,14 +72,14 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i1s-hK-EDN" userLabel="dividerView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="87" width="250" height="1"/>
+                                <rect key="frame" x="16" y="86.5" width="250" height="0.5"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="Iuy-zf-IoK"/>
+                                    <constraint firstAttribute="height" constant="0.5" id="Iuy-zf-IoK"/>
                                 </constraints>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Street" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="21c-IL-jVe">
-                                <rect key="frame" x="16" y="88" width="250" height="43"/>
+                                <rect key="frame" x="16" y="87" width="250" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="m9I-yd-wWW"/>
                                 </constraints>
@@ -88,14 +88,14 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kjg-Zr-gZe" userLabel="dividerView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="131" width="250" height="1"/>
+                                <rect key="frame" x="16" y="130" width="250" height="0.5"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="uNv-8g-gkX"/>
+                                    <constraint firstAttribute="height" constant="0.5" id="uNv-8g-gkX"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tyr-Wf-fX5">
-                                <rect key="frame" x="0.0" y="132" width="266.5" height="43"/>
+                                <rect key="frame" x="0.0" y="130.5" width="266.5" height="43"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TEb-97-pxR">
                                         <rect key="frame" x="0.0" y="0.0" width="133" height="43"/>
@@ -107,8 +107,11 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MxT-0A-VCw">
-                                                <rect key="frame" x="16" y="43" width="117" height="1"/>
+                                                <rect key="frame" x="16" y="43" width="117" height="0.5"/>
                                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="0.5" id="v7y-BC-Jk4"/>
+                                                </constraints>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -116,7 +119,6 @@
                                             <constraint firstItem="MxT-0A-VCw" firstAttribute="top" secondItem="Upn-U7-H0G" secondAttribute="bottom" id="0bB-P3-4MC"/>
                                             <constraint firstItem="Upn-U7-H0G" firstAttribute="leading" secondItem="TEb-97-pxR" secondAttribute="leading" constant="16" id="6oE-Ya-z9d"/>
                                             <constraint firstAttribute="trailing" secondItem="MxT-0A-VCw" secondAttribute="trailing" id="FGB-OL-mFr"/>
-                                            <constraint firstAttribute="bottom" secondItem="MxT-0A-VCw" secondAttribute="bottom" constant="-1" id="H3g-WH-gpP"/>
                                             <constraint firstItem="Upn-U7-H0G" firstAttribute="top" secondItem="TEb-97-pxR" secondAttribute="top" id="XRi-x5-6TC"/>
                                             <constraint firstAttribute="bottom" secondItem="Upn-U7-H0G" secondAttribute="bottom" id="XsI-hf-kdF"/>
                                             <constraint firstItem="MxT-0A-VCw" firstAttribute="leading" secondItem="TEb-97-pxR" secondAttribute="leading" constant="16" id="yBB-UZ-YP6"/>
@@ -133,8 +135,11 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wfd-0S-Xaf">
-                                                <rect key="frame" x="16" y="43" width="117" height="1"/>
+                                                <rect key="frame" x="16" y="43" width="117" height="0.5"/>
                                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="0.5" id="8YR-ep-aWm"/>
+                                                </constraints>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -143,7 +148,6 @@
                                             <constraint firstItem="ivg-7Q-PdW" firstAttribute="leading" secondItem="EmK-Pi-ha5" secondAttribute="leading" constant="16" id="GkP-CD-ONp"/>
                                             <constraint firstItem="ivg-7Q-PdW" firstAttribute="top" secondItem="EmK-Pi-ha5" secondAttribute="top" id="P3U-VS-5od"/>
                                             <constraint firstAttribute="trailing" secondItem="ivg-7Q-PdW" secondAttribute="trailing" id="Peb-Wh-i07"/>
-                                            <constraint firstAttribute="bottom" secondItem="Wfd-0S-Xaf" secondAttribute="bottom" constant="-1" id="UKN-6G-wBb"/>
                                             <constraint firstAttribute="trailing" secondItem="Wfd-0S-Xaf" secondAttribute="trailing" id="atb-he-cZq"/>
                                             <constraint firstAttribute="bottom" secondItem="ivg-7Q-PdW" secondAttribute="bottom" id="hrl-o9-8IR"/>
                                             <constraint firstItem="Wfd-0S-Xaf" firstAttribute="leading" secondItem="EmK-Pi-ha5" secondAttribute="leading" constant="16" id="mxL-lC-ZXr"/>
@@ -164,7 +168,7 @@
                                 </constraints>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="State" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zZk-DM-xlE">
-                                <rect key="frame" x="16" y="175" width="250" height="43"/>
+                                <rect key="frame" x="16" y="173.5" width="250" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="M1r-cD-7Tz"/>
                                 </constraints>
@@ -173,14 +177,14 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byy-xE-RXX" userLabel="dividerView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="218" width="250" height="1"/>
-                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="16" y="216.5" width="250" height="0.5"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="5j3-nE-hDd"/>
+                                    <constraint firstAttribute="height" constant="0.5" id="5j3-nE-hDd"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aLv-IZ-FCW">
-                                <rect key="frame" x="0.0" y="219" width="266" height="43"/>
+                                <rect key="frame" x="0.0" y="217" width="266" height="43"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I4d-qe-2c6">
                                         <rect key="frame" x="16" y="10" width="250" height="22"/>
@@ -208,7 +212,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Umh-6z-Rdc">
-                                <rect key="frame" x="282" y="120" width="22" height="22"/>
+                                <rect key="frame" x="282" y="119" width="22" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="22" id="bDz-qX-QMb"/>
                                     <constraint firstAttribute="height" constant="22" id="vXG-zx-1bG"/>
@@ -257,17 +261,17 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r10-PF-5nI" userLabel="cellDivider" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="263" width="320" height="8"/>
+                        <rect key="frame" x="0.0" y="260.5" width="320" height="8"/>
                         <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="8" id="l9Y-GH-bzf"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iA0-UP-Lr2" userLabel="cellDivider" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="262" width="320" height="1"/>
+                        <rect key="frame" x="0.0" y="260" width="320" height="0.5"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="sAl-Jk-pBj"/>
+                            <constraint firstAttribute="height" constant="0.5" id="sAl-Jk-pBj"/>
                         </constraints>
                     </view>
                 </subviews>

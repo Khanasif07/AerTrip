@@ -54,7 +54,7 @@
 54,,116,user not found,The email ID provided is incorrect
 55,,106,You have exceeded maximum attempts to Reset Password for the day. Please try again tomorrow.,You have exceeded maximum attempts to Reset Password for the day. Please try again tomorrow.
 56,,,,
-57,,,,
+57,,57,This Social Account is already linked with another Aertrip ID,The social account is already linked with other account.
 58,users/update-password,18,Hash key is required,Please provide valid hash key
 59,,43,Token is required,Please provide valid token
 60,,3,password is required,Please provide a valid password
@@ -73,3 +73,4 @@
 73,,,,
 74,users/update-refund-mode,58,mode is required,Refund mode is required
 75,,59,Failed to update refund mode,Failed to update refund mode
+76,,76,email required,Email ID is required

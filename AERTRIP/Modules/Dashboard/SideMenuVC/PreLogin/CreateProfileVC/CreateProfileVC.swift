@@ -14,6 +14,9 @@ class CreateProfileVC: BaseVC {
     //MARK:-
     let viewModel = CreateProfileVM()
     let salutationPicker = UIPickerView()
+    // GenericPickerView
+    var genericPickerView: UIView = UIView()
+    let pickerSize: CGSize = UIPickerView.pickerSize
     
     //MARK:- IBOutlets
     //MARK:-
@@ -37,6 +40,11 @@ class CreateProfileVC: BaseVC {
     @IBOutlet weak var whiteBackgroundView: UIView!
     @IBOutlet weak var topNavBar: TopNavigationView!
     
+    // Unicode Switch
+    @IBOutlet weak var unicodeSwitch: ATUnicodeSwitch!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var verticalDividerView: UIView!
+    @IBOutlet weak var switchParentContainerView: UIView!
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -44,6 +52,7 @@ class CreateProfileVC: BaseVC {
         
         // Do any additional setup after loading the view.
         self.initialSetups()
+        self.setUpUnicodeSwitch()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,6 +75,7 @@ class CreateProfileVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         self.letsStartedButton.layer.cornerRadius = self.letsStartedButton.height/2
+        self.letsStartedButton.layer.masksToBounds = true
     }
     
     override func bindViewModel() {
@@ -87,8 +97,6 @@ class CreateProfileVC: BaseVC {
         self.letsStartedButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.letsStartedButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
 
-        
-        
     }
     
     override func setupTexts() {
@@ -114,6 +122,38 @@ class CreateProfileVC: BaseVC {
             self.viewModel.webserviceForUpdateProfile()
         }
     }
+    
+    func setUpUnicodeSwitch() {
+        unicodeSwitch.titleLeft = "🙍🏻‍♂️"
+        unicodeSwitch.titleRight =  "🙍🏻‍♀️"
+        unicodeSwitch.backgroundColor = AppColors.clear
+        containerView.backgroundColor = AppColors.unicodeBackgroundColor
+        containerView.layer.cornerRadius = 20.0
+        unicodeSwitch.sliderView.layer.cornerRadius = 18
+        unicodeSwitch.sliderInset = 1.0
+        verticalDividerView.backgroundColor = AppColors.themeGray20
+    }
+    
+    
+    @IBAction func changeSelectedIndex(_ sender: ATUnicodeSwitch) {
+        verticalDividerView.isHidden = true
+        unicodeSwitch.sliderView.layer.borderColor = AppColors.themeBlack.withAlphaComponent(0.04).cgColor
+        unicodeSwitch.sliderView.layer.borderWidth = 0.5
+        unicodeSwitch.sliderView.dropShadowOnSwitch()
+        if sender.selectedIndex == 1 {
+            unicodeSwitch.titleLeft = "🙍🏻‍♂️"
+            unicodeSwitch.titleRight = "🙋🏻"
+            self.viewModel.userData.salutation = AppConstants.kmS
+        } else {
+            unicodeSwitch.titleRight = "🙍🏻‍♀️"
+            unicodeSwitch.titleLeft = "🙋🏻‍♂️"
+            self.viewModel.userData.salutation = AppConstants.kmR
+        }
+        self.letsStartedButton.isEnabled  = self.viewModel.isValidateForButtonEnable
+
+    }
+    
+    
 }
 
 //MARK:- Extension Initialsetups
@@ -121,14 +161,16 @@ class CreateProfileVC: BaseVC {
 private extension CreateProfileVC {
     
     func initialSetups() {
-        
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false)
         
         self.view.backgroundColor = AppColors.screensBackground.color
         self.whiteBackgroundView.backgroundColor = AppColors.screensBackground.color
         
         self.viewModel.webserviceForGetSalutations()
-        
+
+        self.firstNameTextField.titleYPadding = 8.0
+        self.lastNameTextField.titleYPadding = 8.0
+        self.countryTextField.lineViewBottomSpace = 4.0
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         self.topNavBar.delegate = self
         self.viewModel.userData.maxContactLimit = 10
@@ -144,6 +186,7 @@ private extension CreateProfileVC {
         if let currentCountry = PKCountryPicker.default.getCurrentLocalCountryData() {
             self.setupData(forCountry: currentCountry)
         }
+        
     }
     
     private func setupData(forCountry: PKCountryModel) {
@@ -161,19 +204,25 @@ private extension CreateProfileVC {
         self.viewModel.userData.salutation = ""
         self.salutationPicker.delegate = self
         self.nameTitleTextField.delegate = self
+        self.nameTitleTextField.isEnabled = false
         self.nameTitleTextField.setupTextField(placehoder: LocalizedString.Title.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .done, isSecureText: false)
-        self.firstNameTextField.setupTextField(placehoder: LocalizedString.First_Name.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
-        self.lastNameTextField.setupTextField(placehoder: LocalizedString.Last_Name.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
+        self.firstNameTextField.setupTextField(placehoder: LocalizedString.First_Name.localized,with: "*",textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
+        self.lastNameTextField.setupTextField(placehoder: LocalizedString.Last_Name.localized,with: "*",textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
         self.countryTextField.setupTextField(placehoder: LocalizedString.Country.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
         self.mobileNumberTextField.setupTextField(placehoder: LocalizedString.Mobile_Number.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .numberPad, returnType: .done, isSecureText: false)
         self.countryCodeTextField.setupTextField(placehoder:"",textColor: AppColors.textFieldTextColor51, keyboardType: .numberPad, returnType: .done, isSecureText: false)
         
+        salutationPicker.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
+        genericPickerView.addSubview(self.salutationPicker)
+        genericPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)        
+        genericPickerView.backgroundColor = AppColors.quaternarySystemFillColor
+        
         self.countryTextField.delegate = self
         self.countryCodeTextField.delegate = self
         self.countryCodeTextField.tintColor = .clear
-        self.nameTitleTextField.inputView = self.salutationPicker
+        self.nameTitleTextField.inputView = self.genericPickerView
         self.nameTitleTextField.inputAccessoryView = self.initToolBar(picker: self.salutationPicker)
-        self.nameTitleTextField.tintColor = UIColor.clear
+        self.nameTitleTextField.tintColor = AppColors.clear
         self.firstNameTextField.delegate = self
         self.lastNameTextField.delegate = self
         self.mobileNumberTextField.delegate = self
@@ -191,6 +240,8 @@ private extension CreateProfileVC {
         let doneButton = UIBarButtonItem()
         doneButton.title  = LocalizedString.Done.localized
         
+        toolBar.backgroundColor = .clear
+        toolBar.barTintColor = AppColors.secondarySystemFillColor
         cancelButton.tintColor = AppColors.themeGreen
         doneButton.tintColor   = AppColors.themeGreen
         
@@ -198,9 +249,10 @@ private extension CreateProfileVC {
         cancelButton.addTargetForAction(self, action: #selector(self.cancleButtonAction(_:)))
         
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.setItems([ spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         
+        //self.genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
         return toolBar
     }
     
@@ -208,10 +260,15 @@ private extension CreateProfileVC {
     
     @objc func pickerViewDoneButtonAction(_ sender: UITextField){
         
+        valueChangedGenericPicker()
+        UIApplication.shared.sendAction(#selector(resignFirstResponder), to:nil, from:nil, for:nil)
+    }
+    
+    @objc func valueChangedGenericPicker() {
         let indexPath = self.salutationPicker.selectedRow(inComponent: 0)
         self.nameTitleTextField.text = self.viewModel.salutation[indexPath]
-        self.viewModel.userData.salutation = self.viewModel.salutation[indexPath]
-        self.letsStartedButton.isEnabled  = self.viewModel.isValidateForButtonEnable
+//        self.viewModel.userData.salutation = self.viewModel.salutation[indexPath]
+//        self.letsStartedButton.isEnabled  = self.viewModel.isValidateForButtonEnable
         UIApplication.shared.sendAction(#selector(resignFirstResponder), to:nil, from:nil, for:nil)
     }
     
@@ -235,9 +292,11 @@ extension CreateProfileVC {
         switch textField {
             
         case self.firstNameTextField:
+           // self.firstNameTextField.lineViewBottomSpace = -3
            self.viewModel.userData.firstName = textField.text ?? ""
             
         case self.lastNameTextField:
+          //  self.lastNameTextField.lineViewBottomSpace = -3
             self.viewModel.userData.lastName = textField.text ?? ""
             
         case self.mobileNumberTextField:
@@ -255,7 +314,8 @@ extension CreateProfileVC {
         if textField === self.countryCodeTextField || textField === self.countryTextField {
             
             UIApplication.shared.sendAction(#selector(resignFirstResponder), to:nil, from:nil, for:nil)
-            PKCountryPicker.default.chooseCountry(onViewController: self) { [weak self](selectedCountry) in
+            let model = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.userData.address?.country ?? "")
+            PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: model) { [weak self] (selectedCountry,closePicker) in
                 printDebug("selected country data: \(selectedCountry)")
                 
                 guard let sSelf = self else {return}
@@ -266,7 +326,9 @@ extension CreateProfileVC {
                     sSelf.viewModel.userData.mobile  = sSelf.viewModel.userData.mobile.substring(to: sSelf.viewModel.userData.maxContactLimit - 1)
                     sSelf.mobileNumberTextField.text = sSelf.viewModel.userData.mobile
                 }
-                PKCountryPicker.default.closePicker(animated: true)
+                if closePicker {
+                    PKCountryPicker.default.closePicker(animated: true)
+                }
             }
             return false
         } else {
@@ -345,6 +407,7 @@ extension CreateProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.viewModel.userData.salutation = self.viewModel.salutation[row]
+        valueChangedGenericPicker()
     }
 }
 
@@ -429,6 +492,8 @@ extension CreateProfileVC {
         self.countryFlagImage.transform     = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
         self.titleDropDownImage.transform     = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
         self.countryDropdownImage.transform     = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        self.switchParentContainerView.transform = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
+        
     }
     
     func setupViewDidLoadAnimation() {
@@ -457,6 +522,8 @@ extension CreateProfileVC {
                 self.countryDropdownImage.transform      = .identity
                 self.mobileNumberTextField.transform  = .identity
                 self.letsStartedButton.transform = .identity
+                self.switchParentContainerView.transform = .identity
+
             })
             
         }) { (success) in
@@ -480,5 +547,6 @@ extension CreateProfileVC {
         self.countryFlagImage.alpha = 0
         self.titleDropDownImage.alpha = 0
         self.countryDropdownImage.alpha = 0
+        self.switchParentContainerView.alpha = 0
     }
 }

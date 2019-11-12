@@ -17,6 +17,7 @@ class GuestDetailsVM {
     var hotelFormData: HotelFormPreviosSearchData = HotelFormPreviosSearchData()
     var selectedIndexPath: IndexPath = IndexPath()
     var salutation = [String]()
+    var canShowSalutationError = false
     
     // GuestModalArray for travellers
     var guests: [[ATContact]] = [[]]

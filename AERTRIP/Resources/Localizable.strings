@@ -167,6 +167,9 @@
 "ALERT"  = "ALERT";
 "DoYouWantToLogout" = "Are you sure you want to log out?";
 "Logout" = "Logout";
+"Gender" = "Gender";
+"Male" = "Male";
+"Female" = "Female";
 
 //MARK:- Hotel Search
 //MARK:-
@@ -666,6 +669,7 @@
 "AddOns" = "Add-ons";
 "Request" = "Request";
 "SelectPassengerFlightRescheduled" = "Select Passengers or flights to be rescheduled";
+"SelectPassengerFlightCancellation" = "Select Passengers or flights for cancellation ";
 "PassengersSelected" = "Passengers selected";
 "Rescheduling" = "Rescheduling";
 "AddOnRequestSent" = "Add-on Request has been sent";
@@ -872,6 +876,19 @@
 "CancellationRequest" = "Cancellation request";
 "OperatedBy" = "Operated by";
 
+// MARK: - Static screen
+"ComingSoon" = "Coming Soon";
+"QuickPayInfo" = "Save your credit / debit card details for one click card payments.";
+"NoNotificationYet" = "No Notifications yet";
+"NotificationInfo"  = "We will be coming up with good stuff for you soon.";
+
+// MARK: - Disconnect
+
+"DisconnectAccountMessage" = "Are you sure want to disconnect";
+"DeleteTraveller" = "Are you sure you want to delete this traveller?";
+"Yes" = "Yes";
+ "No" = "No";
+
 "SendingEmail" = "Sending...";
 "LedgerSentToYourEmail" = "Ledger has been sent to your registered email-id.";
 
@@ -882,3 +899,4 @@
 "PleaseSignInToContinue" = "Please sign in to\ncontinue";
 "EnjoyPersonalisedTravelExperience" = "Enjoy a more personalised travel experience";
 "ContactDetails" = "Contact Details";
+"KindlyDisconnectMessage" = "Kindly set a password for your Aertrip account or login via another social account before disconnecting ";

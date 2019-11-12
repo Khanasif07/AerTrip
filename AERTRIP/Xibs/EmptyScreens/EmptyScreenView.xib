@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,7 +28,9 @@
                 <outlet property="firstButtonTopConstraint" destination="vBM-CE-w8x" id="qDT-9f-Alu"/>
                 <outlet property="firstbuttonHeightConstraint" destination="3Y0-z6-jZs" id="aRD-CO-Rsi"/>
                 <outlet property="mainImageView" destination="HIw-8B-ngR" id="Ppe-Gu-32n"/>
+                <outlet property="mainImageViewLeadingConstraint" destination="lls-uc-m6X" id="5dO-4A-8kR"/>
                 <outlet property="mainImageViewTopConstraint" destination="wLA-fY-b7H" id="pPQ-CK-8Z9"/>
+                <outlet property="mainImageViewTrainlingConstraint" destination="vqN-KY-tof" id="Xse-0U-ine"/>
                 <outlet property="messageLabel" destination="FQ9-WX-qb2" id="JI0-Eb-Czm"/>
                 <outlet property="messageLabelTopConstraint" destination="Wbf-sn-vWb" id="KrV-DG-UCH"/>
                 <outlet property="searchTextLabel" destination="uVs-tg-3tw" id="mcd-Z4-Mie"/>

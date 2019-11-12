@@ -22,6 +22,7 @@ enum ATNotification {
     case myBookingCasesRequestStatusChanged
     case profileDetailUpdated
     case preferenceUpdated
+    case travellerDeleted
 }
 
 extension Notification.Name {

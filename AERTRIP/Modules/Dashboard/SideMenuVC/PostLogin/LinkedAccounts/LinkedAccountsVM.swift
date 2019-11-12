@@ -13,7 +13,7 @@ import LinkedinSwift
 protocol LinkedAccountsVMDelegate: class {
     func willFetchLinkedAccount()
     func fetchLinkedAccountSuccess()
-    func fetchLinkedAccountFail()
+    func fetchLinkedAccountFail(error:ErrorCodes)
 }
 
 class LinkedAccountsVM {
@@ -30,14 +30,13 @@ class LinkedAccountsVM {
     //MARK:- Public
     func fetchLinkedAccounts() {
         self.delegate?.willFetchLinkedAccount()
-        APICaller.shared.callFetchLinkedAccountsAPI { (success, accounts, error) in
+        APICaller.shared.callFetchLinkedAccountsAPI { (success, accounts, errors) in
             if success {
                 self.linkedAccounts = accounts
                 self.delegate?.fetchLinkedAccountSuccess()
             }
             else {
-                AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .login)
-                self.delegate?.fetchLinkedAccountFail()
+                self.delegate?.fetchLinkedAccountFail(error: errors)
             }
         }
     }
@@ -73,7 +72,9 @@ extension LinkedAccountsVM {
             
             if result.email.isEmpty {
                 //show toast
-                AppToast.default.showToastMessage(message: LocalizedString.PleaseLoginByEmailId.localized)
+                delay(seconds: 0.2, completion: {
+                    AppToast.default.showToastMessage(message: LocalizedString.PleaseLoginByEmailId.localized)
+                })
                 completionBlock?(false)
             }
             else {
@@ -143,7 +144,9 @@ extension LinkedAccountsVM {
                 
                 if let email = data["emailAddress"] as? String, email.isEmpty {
                     //show toast
-                    AppToast.default.showToastMessage(message: LocalizedString.AllowEmailInLinkedIn.localized)
+                    delay(seconds: 0.2, completion: {
+                        AppToast.default.showToastMessage(message: LocalizedString.AllowEmailInLinkedIn.localized)
+                    })
                     linkedinHelper.logout()
                 }
                 else {
@@ -202,7 +205,10 @@ extension LinkedAccountsVM {
                 self.fetchLinkedAccounts()
             }
             else {
-                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
+                delay(seconds: 0.2, completion: {
+                    AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
+                })
+              
             }
         })
     }

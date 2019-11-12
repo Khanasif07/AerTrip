@@ -122,9 +122,9 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eVC-si-FGl" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="59.5" width="304" height="1"/>
+                                <rect key="frame" x="16" y="60" width="304" height="0.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="ntS-fD-8zY"/>
+                                    <constraint firstAttribute="height" constant="0.5" id="ntS-fD-8zY"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -159,6 +159,7 @@
                 <outlet property="secondSubTitleLabel" destination="sll-WL-wUf" id="loC-nD-NDi"/>
                 <outlet property="secondTitleLabel" destination="uHU-oq-P1s" id="XjP-Be-dEG"/>
                 <outlet property="separatorLeadingConstraint" destination="EDi-Nd-VuL" id="dnJ-iz-AIo"/>
+                <outlet property="separatorTrailingConstraint" destination="lxW-3T-dng" id="7z7-gD-G6P"/>
                 <outlet property="separatorView" destination="eVC-si-FGl" id="M1b-pr-yWu"/>
             </connections>
             <point key="canvasLocation" x="108.8" y="48.575712143928037"/>

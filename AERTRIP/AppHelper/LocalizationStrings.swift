@@ -218,6 +218,9 @@ enum LocalizedString: String {
     case NewsLetters = "Newsletters"
     case Notifications
     case LogOut = "Log Out"
+    case Gender
+    case Male
+    case Female
     
     // MARK: - ViewProfileDetailVC
     
@@ -495,7 +498,6 @@ enum LocalizedString: String {
     case FreeCancellation
     case FullPaymentNow
     case NoRoomsAvailable
-    
     // Others
     case FreeWifi
     case TransferInclusive
@@ -734,6 +736,7 @@ enum LocalizedString: String {
     case AddOns
     case Request
     case SelectPassengerFlightRescheduled
+    case SelectPassengerFlightCancellation
     case PassengersSelected
     case Rescheduling
     case AddOnRequestSent
@@ -952,6 +955,18 @@ enum LocalizedString: String {
     case UnderDevelopment
     case OperatedBy
     
+    // MARK: - Static screen
+    case ComingSoon
+    case QuickPayInfo
+    case NoNotificationYet
+    case NotificationInfo
+    
+    
+    // MARK: - Disconnect linkedin issue
+    case DisconnectAccountMessage
+    case DeleteTraveller
+    case Yes
+    case No
     case SendingEmail
     case LedgerSentToYourEmail
     
@@ -962,4 +977,5 @@ enum LocalizedString: String {
     case Fixed
     case Flexible
     case ContactDetails
+    case KindlyDisconnectMessage
 }

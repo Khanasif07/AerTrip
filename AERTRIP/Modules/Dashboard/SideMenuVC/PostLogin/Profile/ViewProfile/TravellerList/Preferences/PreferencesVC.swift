@@ -64,9 +64,11 @@ class PreferencesVC: BaseVC {
         tableView.dataSource = self
         tableView.allowsSelectionDuringEditing = true
         tableView.isEditing = true
+        tableView.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
         indicatorView.color = AppColors.themeGreen
-        
+        tableView.tableFooterView = nil
         stopLoading()
+       // self.view.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
     }
     
     func registerXib() {
@@ -226,7 +228,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         case LocalizedString.DisplayOrder:
             return order.count + 2
         case LocalizedString.Groups:
-            return viewModel.groups.count
+            return viewModel.groups.count + 1
         default:
             return 1
         }
@@ -277,10 +279,18 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
                 return categoryGroupCell
             }
         case LocalizedString.Groups:
+            if indexPath.row == viewModel.groups.count {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: addActionCellIdentifier, for: indexPath) as? TableViewAddActionCell else {
+                    fatalError("TableViewAddActionCell not found")
+                }
+                cell.configureFotAddNewGroup()
+                return cell
+            }
+            
             guard let groupCell = tableView.dequeueReusableCell(withIdentifier: groupCellIdentifier) as? GroupTableViewCell else {
                 fatalError("GroupTableViewCell not found")
             }
-            groupCell.dividerView.isHidden = indexPath.row == viewModel.groups.count - 1
+            groupCell.dividerView.isHidden = false//indexPath.row == viewModel.groups.count - 1
             groupCell.delegate = self
             
             let (orgnlName, mdfdName) = self.viewModel.modifiedGroups[indexPath.row]
@@ -327,6 +337,10 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 viewModel.displayOrder = "LF"
             }
+        case LocalizedString.Groups:
+            if indexPath.row == viewModel.groups.count {
+                self.addNewGroupAlertController()
+            }
         default:
             break
         }
@@ -350,6 +364,11 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         // get modified Object
+        
+        if destinationIndexPath.row == viewModel.groups.count {
+            self.tableView.reloadData()
+            return
+        }
         
         let movedObject = viewModel.groups[sourceIndexPath.row]
         let movedModifiedObject = viewModel.modifiedGroups[sourceIndexPath.row]
@@ -402,6 +421,9 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if sections[indexPath.section] == LocalizedString.Groups {
+            if indexPath.row == viewModel.groups.count {
+                return false
+            }
             return true
         }
         return false
@@ -413,9 +435,29 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
             return sourceIndexPath
         }
         
+        
         return proposedDestinationIndexPath
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        switch sections[section] {
+        case LocalizedString.Groups:
+            return 35
+        default:
+            return CGFloat.leastNormalMagnitude
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        switch sections[section] {
+        case LocalizedString.Groups:
+            let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.width, height: 35))
+            footerView.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
+            return footerView
+        default:
+            return nil
+        }
+    }
     
 }
 

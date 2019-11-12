@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+
 class DashboardVC: BaseVC {
     
     @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
@@ -19,6 +21,10 @@ class DashboardVC: BaseVC {
     @IBOutlet weak var segmentCenterYConstraint: NSLayoutConstraint!
     @IBOutlet weak var segmentHeightConstraint: NSLayoutConstraint!
     
+    
+    @IBOutlet weak var aertripLogoImageView: UIImageView!
+    
+    @IBOutlet weak var homeAertripLogoImageView: UIImageView!
     //segment views
     @IBOutlet weak var aerinView: UIView!
     @IBOutlet weak var flightsView: UIView!
@@ -30,6 +36,7 @@ class DashboardVC: BaseVC {
     @IBOutlet weak var hotelsLabel: UILabel!
     @IBOutlet weak var tripsLabel: UILabel!
     @IBOutlet weak var profileButton: ATNotificationButton!
+    @IBOutlet weak var splashView: UIView!
     
     var overlayView = UIView()
     private var previousOffset = CGPoint.zero
@@ -60,6 +67,10 @@ class DashboardVC: BaseVC {
     
     var selectedOption : SelectedOption = .aerin
     
+    var visualEffectView : UIVisualEffectView!
+    var backView : UIView!
+    var isLaunchThroughSplash = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         resetItems()
@@ -67,7 +78,14 @@ class DashboardVC: BaseVC {
         segmentCenterYConstraint.constant = -5.0
         aerinView.transform = .identity
         aerinView.alpha = 1.0
-        self.addOverlayView()
+        // nitin change
+        if isLaunchThroughSplash {
+            self.splashView.isHidden = false
+        } else {
+            self.splashView.isHidden = true
+            self.addOverlayView()
+        }
+        
         
         mainScrollView.delaysContentTouches = false
     }
@@ -87,7 +105,7 @@ class DashboardVC: BaseVC {
         
         registerBulkEnquiryNotification()
         if firstTime{
-            firstTime = false
+             firstTime = false
             identitySize = aerinView.bounds.applying(CGAffineTransform.identity).size
             smallerSize = flightsView.bounds.applying(CGAffineTransform(scaleX: 0.75, y: 0.75)).size
         }
@@ -96,12 +114,18 @@ class DashboardVC: BaseVC {
             isInitialAminationDone = true
             self.setupInitialAnimation()
         }
+        //addCustomBackgroundBlurView()
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         self.deRegisterBulkEnquiryNotification()
+        
+        if  self.isMovingFromParent {
+            backView?.removeFromSuperview()
+        }
     }
     
     override func dataChanged(_ note: Notification) {
@@ -159,7 +183,7 @@ class DashboardVC: BaseVC {
     
     
     @IBAction func profileButtonAction(_ sender: ATNotificationButton) {
-        AppFlowManager.default.sideMenuController?.toggleMenu()
+        AppFlowManager.default.sideMenuController?.toggleMenu() // nitin change
     }
     
     
@@ -205,7 +229,7 @@ class DashboardVC: BaseVC {
     }
     
     private func setupInitialAnimation() {
-        
+        // for top header down animation
         let tScale = CGAffineTransform(scaleX: 15.0, y: 15.0)
         let tTrans = CGAffineTransform(translationX: 0.0, y: -(self.view.height))
         
@@ -214,7 +238,7 @@ class DashboardVC: BaseVC {
         self.segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -150.0)
         
         let rDuration = 1.0 / 2.0
-        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration * 3.0, delay: 0.0, options: .calculationModeLinear, animations: {
+        UIView.animateKeyframes(withDuration: 0.5, delay: 0.0, options: .calculationModeLinear, animations: {
             
             
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
@@ -226,9 +250,17 @@ class DashboardVC: BaseVC {
                 self.segmentContainerView.transform = CGAffineTransform.identity
             })
             
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 0.2), relativeDuration: (rDuration * 2.0), animations: {
+                self.splashView.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+                self.splashView.alpha = 0.0
+            })
+            
+            
         }) { (isDone) in
             self.overlayView.isHidden = true
+            self.splashView.isHidden = true
         }
+
     }
     
     private func updateProfileButton() {
@@ -251,6 +283,26 @@ class DashboardVC: BaseVC {
             
         }
     }
+    
+    func addCustomBackgroundBlurView(){
+        
+        visualEffectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
+        visualEffectView.effect = UIBlurEffect(style: .light)
+        
+        backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: 20))
+        backView.backgroundColor = UIColor.clear
+        backView.addSubview(visualEffectView)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.view.backgroundColor = .clear
+        self.navigationController?.view.addSubview(backView)
+        
+        
+        
+        
+        navigationItem.hidesBackButton = true
+        self.navigationItem.leftBarButtonItem=nil
+    }
 }
 
 extension DashboardVC  {
@@ -263,22 +315,46 @@ extension DashboardVC  {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        if scrollView == mainScrollView {
-            
+        if scrollView == mainScrollView {            
             var transform : CGFloat = 0.0
             
+            let offset = scrollView.contentOffset
+            
+            let upperBound = scrollView.contentSize.height - scrollView.bounds.height
+            guard 0...upperBound ~= offset.y else {
+                return
+            }
+            
+            let progress: CGFloat = offset.y.truncatingRemainder(dividingBy: scrollView.bounds.height) / scrollView.bounds.height
+            
+            if progress != 0 {
+                self.aertripLogoImageView.alpha = 0.2 - progress
+                self.profileButton.alpha = 0.2 - progress
+                self.homeAertripLogoImageView.alpha = 0.2 - progress
+            } else {
+                self.aertripLogoImageView.alpha = 1
+                self.profileButton.alpha = 1
+                self.homeAertripLogoImageView.alpha = 1
+            }
+            
+           
+            
+            printDebug("current progress \(progress)")
             if scrollView.contentOffset.y - mainScrollViewOffset.y > 0 {
                 let valueMoved = scrollView.contentOffset.y - mainScrollViewOffset.y
                 let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
                 updateUpLabels(with: headerValueMoved)
+                //transform = 1.0 - headerValueMoved/4.0 - 0.08
                 transform = 1.0 - headerValueMoved/4.0
                 userDidScrollUp = true
+                printDebug("Scrolling up \(transform)")
             }else{
                 let valueMoved = mainScrollViewOffset.y - scrollView.contentOffset.y
                 let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
                 updateDownLabels(with: headerValueMoved)
                 transform = 1.0 + headerValueMoved/4.0
                 userDidScrollUp = false
+                 printDebug("Scrolling down \(transform)")
             }
             
             updateSegmentYPosition(for: scrollView.contentOffset.y)
@@ -356,7 +432,9 @@ extension DashboardVC  {
             innerScrollView.transform = CGAffineTransform.identity
         }
         else {
-            innerScrollView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
+            printDebug("final value is \(final)")
+             //innerScrollView.transform = CGAffineTransform(translationX: 0, y: -(final))
+             innerScrollView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
         }
     }
     
@@ -368,6 +446,7 @@ extension DashboardVC  {
             segmentContainerView.transform = CGAffineTransform.identity
         }
         else {
+           // segmentContainerView.transform = CGAffineTransform(translationX: -(final - 4), y: -(final - 0.3))
             segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
         }
     }

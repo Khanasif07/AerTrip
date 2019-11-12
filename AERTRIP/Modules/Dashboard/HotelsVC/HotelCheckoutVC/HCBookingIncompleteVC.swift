@@ -44,6 +44,8 @@ class HCBookingIncompleteVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         payButton.layer.cornerRadius = payButton.height / 2
+        payButton.layer.masksToBounds = true
+
     }
     
     override func initialSetup() {

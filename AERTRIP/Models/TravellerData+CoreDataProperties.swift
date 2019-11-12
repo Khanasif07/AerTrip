@@ -18,12 +18,15 @@ extension TravellerData {
     @NSManaged public var firstName: String?
     @NSManaged public var id: String?
     @NSManaged public var label: String?
-    @NSManaged public var labelLocPrio: String?
+    @NSManaged public var labelLocPrio: Int16
     @NSManaged public var lastName: String?
     @NSManaged public var salutation: String?
     @NSManaged public var firstNameFirstChar: String?
     @NSManaged public var lastNameFirstChar: String?
     @NSManaged public var isChecked: Bool
+    @NSManaged public var profileImage: String
+    @NSManaged public var fullName: String?
+
 }
 
 extension TravellerData {
@@ -39,6 +42,7 @@ extension TravellerData {
         temp.label = self.label ?? ""
         temp.lastName = self.lastName ?? ""
         temp.salutation = self.salutation ?? ""
+        temp.profileImage = self.profileImage
         return temp
     }
     

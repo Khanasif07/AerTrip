@@ -21,7 +21,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             return 270.0
         } else
             if sections[indexPath.section] == LocalizedString.MoreInformation.localized, indexPath.row == 2 {
-            return 80
+            return UITableView.automaticDimension
         } else {
             return UITableView.automaticDimension
         }
@@ -104,7 +104,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     fatalError("EditProfileThreePartTableViewCell not found")
                 }
                 cell.delegate = self
-                if indexPath.row == 0, self.viewModel.currentlyUsinfFor == .viewProfile {
+                if indexPath.row == 0 {
                     //make disable
                     cell.deleteButton.isHidden = true
                     cell.leftView.isUserInteractionEnabled = false
@@ -174,7 +174,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 if indexPath.row == 0 {
                     cell.editableTextField.placeholder = LocalizedString.passportNo.localized
                 }
-                cell.editableTextField.lineView.isHidden = true
+                cell.editableTextField.isHiddenBottomLine = true
                 //index 0: passport no, index 1: passport country
                 cell.configureCell(passportDetaitTitle[indexPath.row], (indexPath.row == 0) ? viewModel.passportNumber : viewModel.passportCountryName)
 
@@ -232,6 +232,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.configureCell(moreInformation[indexPath.row].rawValue,  (indexPath.row == 0) ? viewModel.dob : viewModel.doa)
                 cell.separatorView.isHidden = (indexPath.row + 1 == moreInformation.count) ? true : false
                 cell.editableTextField.lineView.isHidden = true
+                cell.editableTextField.isHiddenBottomLine = true
                 return cell
             }
             
@@ -275,7 +276,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: textEditableCellIdentifier, for: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
                 cell.editableTextField.isEnabled = false
-                cell.editableTextField.lineView.isHidden = true
+                cell.editableTextField.lineView.backgroundColor = AppColors.clear
+                cell.editableTextField.isHiddenBottomLine = true
+                
                 cell.downArrowImageView.isHidden = false
                 cell.configureCell(flightPreferencesTitle[indexPath.row], indexPath.row == 0 ? (viewModel.seat.isEmpty ? LocalizedString.Select.localized : viewModel.seat) : (viewModel.meal.isEmpty ? LocalizedString.Select.localized : viewModel.meal))
                 return cell
@@ -437,6 +440,15 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
 // MARK: - EditProfileImageHeaderViewDelegate Methods
 
 extension EditProfileVC: EditProfileImageHeaderViewDelegate {
+    func salutationViewTapped(title: String) {
+        printDebug("Selected in unicode switch \(title)")
+        editProfileImageHeaderView.genderTitleLabel.text = title
+        if title == LocalizedString.Male.localized {
+           self.viewModel.salutation =  AppGlobals.shared.getSalutationAsPerGenderAndAge(gender: AppConstants.kmR, dob: self.viewModel.dob, dateFormatter: "yyyy-MM-dd")
+        } else {
+            self.viewModel.salutation = AppGlobals.shared.getSalutationAsPerGenderAndAge(gender: AppConstants.kmRS, dob: self.viewModel.dob, dateFormatter: "yyyy-MM-dd")
+        }
+    }
     func textFieldText(_ textfield: UITextField) {
         let text = textfield.text ?? ""
         switch textfield {
@@ -458,12 +470,10 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     func selectGroupTapped() {
         dismissKeyboard()
         printDebug("select group tapped")
-        if let groups = UserInfo.loggedInUser?.generalPref?.labels, groups.count > 0 {
-            pickerType = .groups
-            pickerData = groups
-            self.view.endEditing(true)
-            openPicker(withSelection: viewModel.label)
-        }
+        pickerType = .groups
+        pickerData = UserInfo.loggedInUser?.generalPref?.labels ?? []
+        let selectedString = self.viewModel.travelData?.label ?? ""
+        openPicker(withSelection: selectedString)
     }
     
     func salutationViewTapped() {
@@ -489,11 +499,11 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     
     
     func editProfilePhotoForTraveller() {
-        var buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen])
+        var buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         
         
         if (!self.viewModel.profilePicture.isEmpty) || (!self.viewModel.filePath.isEmpty) {
-            buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen,AppColors.themeRed])
+            buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen,AppColors.themeRed])
         }
 
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
@@ -513,14 +523,14 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
     }
     
     func editLoggedInUserProfilePhoto(){
-        var buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.ImportFromFacebook.localized, LocalizedString.ImportFromGoogle.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
+        var buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.ImportFromFacebook.localized, LocalizedString.ImportFromGoogle.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         
         if (!self.viewModel.profilePicture.isEmpty) || (!self.viewModel.filePath.isEmpty) {
-            buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.ImportFromFacebook.localized, LocalizedString.ImportFromGoogle.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeRed])
+            buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.ImportFromFacebook.localized, LocalizedString.ImportFromGoogle.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeRed])
         }
 
         
-        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
+        _ = PKAlertController.default.presentActionSheet(nil,message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
             
             if index == 0 {
                 printDebug("open camera")
@@ -545,6 +555,14 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
 
 extension EditProfileVC {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        guard let inputMode = textField.textInputMode else {
+            return false
+        }
+        if inputMode.primaryLanguage == "emoji" || !(inputMode.primaryLanguage != nil) {
+            return false
+        }
+        
         switch textField {
         case self.editProfileImageHeaderView.firstNameTextField:
             self.editProfileImageHeaderView.firstNameTextField.text = textField.text ?? ""
@@ -729,6 +747,7 @@ extension EditProfileVC: EditProfileVMDelegate {
         for viewController in self.navigationController?.viewControllers ?? [] {
             if viewController is TravellerListVC {
                   AppFlowManager.default.popToViewController(viewController, animated: true)
+                 self.sendDataChangedNotification(data: ATNotification.travellerDeleted)
             }
         }
       self.stopLoading()
@@ -796,6 +815,7 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
     }
     
     func editProfileThreePartDeleteCellTapped(_ indexPath: IndexPath) {
+        guard indexPath.row != 0 else {return}
         self.indexPath = indexPath
         if self.viewModel.mobile[indexPath.row].value.isEmpty {
             self.viewModel.mobile.remove(at: indexPath.row)
@@ -828,7 +848,7 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
         self.closeGenricAndDatePicker(completion: nil)
         
         
-        PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: PKCountryPicker.default.getCountryData(forISDCode: self.viewModel.mobile[indexPath.row].isd)) { [weak self] selectedCountry in
+        PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: PKCountryPicker.default.getCountryData(forISDCode: self.viewModel.mobile[indexPath.row].isd)) { [weak self] (selectedCountry,closePicker) in
             printDebug("selected country data: \(selectedCountry)")
 
            
@@ -865,6 +885,9 @@ extension EditProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         printDebug("selected data \(pickerData[row])")
         pickerTitle = pickerData[row]
+        
+        // changes for picker
+        valueChangedGenericPicker()
     }
 }
 
@@ -1000,7 +1023,7 @@ extension EditProfileVC: AddAddressTableViewCellDelegate {
             
             let prevSectdContry = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.addresses[indexPath.row].country.isEmpty ? AppConstants.kIndianIsdCode : self.viewModel.addresses[indexPath.row].country )
             self.closeGenricAndDatePicker(completion: nil)
-            PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: prevSectdContry) { [weak self] selectedCountry in
+            PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: prevSectdContry) { [weak self] (selectedCountry,closePicker)  in
                 printDebug("selected country data: \(selectedCountry)")
                 
                 guard let cell = self?.tableView.cellForRow(at: indexPath) as? AddAddressTableViewCell else {
@@ -1015,7 +1038,37 @@ extension EditProfileVC: AddAddressTableViewCellDelegate {
 }
 
 extension EditProfileVC: AddNotesTableViewCellDelegate {
-    func textViewText(_ text: String) {
-        self.viewModel.notes = text
+    func textViewText(_ textView: UITextView) {
+        
+        if textView.numberOfLines >= 10 {
+            textView.isScrollEnabled = false
+            textView.isScrollEnabled = true
+            let location = textView.text.count - 1
+            let bottom = NSMakeRange(location, 1)
+            //textView.scrollRangeToVisible(bottom)
+            printDebug(textView.selectedRange)
+        } else {
+            tableView.beginUpdates()
+            textView.isScrollEnabled = false
+            tableView.endUpdates()
+        }
+        self.viewModel.notes = textView.text.removeLeadingTrailingWhitespaces
+
     }
 }
+
+
+/*
+ self.viewModel.notes = textView.text
+ guard let cell = textView.tableViewCell as? AddNotesTableViewCell else { return }
+ UIView.setAnimationsEnabled(false)
+ self.tableView.beginUpdates()
+ cell.contentView.layoutIfNeeded()
+ let location = textView.text.count - 1
+ let bottom = NSMakeRange(location, 1)
+ textView.scrollRangeToVisible(bottom)
+ self.view.layoutIfNeeded()
+ self.tableView.endUpdates()
+ UIView.setAnimationsEnabled(true)
+ */
+// https://stackoverflow.com/questions/38714272/how-to-make-uitextview-height-dynamic-according-to-text-length

@@ -18,9 +18,8 @@ class SelectDateTableViewCell: UITableViewCell {
     //MARK:===========
     weak var delegate: SelectDateTableViewCellDelegate?
     private var datePicker = UIDatePicker()
-    private var pickerViewHeight: CGFloat {
-        return 217.0
-    }
+    var genericPickerView: UIView = UIView()
+    let pickerSize: CGSize = UIPickerView.pickerSize
     
     //MARK:- IBOutlets
     //MARK:===========
@@ -73,20 +72,30 @@ class SelectDateTableViewCell: UITableViewCell {
         bottomView.frame = CGRect(x: 0.0, y: 44.00, width: UIScreen.main.bounds.width, height: 0.35)
         bottomView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
         toolbar.addSubview(bottomView)
-        toolbar.layer.borderColor = AppColors.themeBlack.withAlphaComponent(0.3).cgColor
+        //toolbar.layer.borderColor = AppColors.themeBlack.withAlphaComponent(0.3).cgColor
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneDatePicker))
         let greenAttribute = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
         doneButton.setTitleTextAttributes(greenAttribute , for: .normal)
         toolbar.setItems([spaceButton,doneButton], animated: true)
-        self.datePicker.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - pickerViewHeight, width: UIScreen.main.bounds.width , height: pickerViewHeight)
+//        self.datePicker.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - pickerViewHeight, width: UIScreen.main.bounds.width , height: pickerViewHeight)
         self.datePicker.minimumDate = Date()
         self.datePicker.maximumDate = Date().add(years: 0, months: 0, days: 29, hours: 0, minutes: 0, seconds: 0)
         self.datePicker.datePickerMode = .date
         self.datePicker.backgroundColor = AppColors.themeWhite
+        
+        toolbar.backgroundColor = .clear
+        toolbar.barTintColor = AppColors.secondarySystemFillColor
+        
+        datePicker.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
+        genericPickerView.addSubview(self.datePicker)
+        genericPickerView.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
+        genericPickerView.backgroundColor = AppColors.quaternarySystemFillColor
+        //self.genericPickerView.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
+        
         self.selectDateTextField.inputAccessoryView = toolbar
-        self.selectDateTextField.inputView = self.datePicker
-        //self.datePicker.addTarget(self, action: #selector(self.datePickerValueChanged), for: .valueChanged)
+        self.selectDateTextField.inputView = self.genericPickerView
+        self.datePicker.addTarget(self, action: #selector(self.datePickerValueChanged), for: .valueChanged)
         self.selectDateTextField.text = LocalizedString.Select.localized//Date().toString(dateFormat: "dd MMM YYYY")
     }
     
@@ -99,12 +108,10 @@ class SelectDateTableViewCell: UITableViewCell {
         self.endEditing(true)
     }
     
-    /*@objc func datePickerValueChanged (_ datePicker: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMM YYYY"
-        let dateValue = dateFormatter.string(from: datePicker.date)
-        self.selectDateTextField.text = dateValue
-    }*/
+    @objc func datePickerValueChanged (_ datePicker: UIDatePicker) {
+        self.selectDateTextField.text = datePicker.date.toString(dateFormat: "dd MMM YYYY")
+        self.delegate?.didSelect(self, date: datePicker.date)
+    }
 }
 
 //MARK:- Extensions

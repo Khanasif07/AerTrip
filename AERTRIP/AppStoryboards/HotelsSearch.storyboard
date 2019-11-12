@@ -742,28 +742,26 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="moU-Lg-VN7">
                                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="85.5"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My dates are" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yma-yu-t5i">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preferred Hotels" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yma-yu-t5i">
                                                                 <rect key="frame" x="20" y="14.5" width="147.5" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fixed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ciF-w4-U6x">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BET-uw-EjT" customClass="PKTextField" customModule="AERTRIP" customModuleProvider="target">
                                                                 <rect key="frame" x="20" y="48" width="147.5" height="24"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="24" id="P11-Mh-Gub"/>
+                                                                    <constraint firstAttribute="height" constant="24" id="b62-xk-t1D"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
+                                                            </view>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
+                                                            <constraint firstItem="BET-uw-EjT" firstAttribute="leading" secondItem="yma-yu-t5i" secondAttribute="leading" id="8Ab-XX-2Av"/>
                                                             <constraint firstAttribute="trailing" secondItem="yma-yu-t5i" secondAttribute="trailing" constant="20" id="F7R-xO-8Bd"/>
-                                                            <constraint firstItem="ciF-w4-U6x" firstAttribute="leading" secondItem="yma-yu-t5i" secondAttribute="leading" id="gs2-IJ-WLc"/>
-                                                            <constraint firstItem="ciF-w4-U6x" firstAttribute="trailing" secondItem="yma-yu-t5i" secondAttribute="trailing" id="leo-xP-2bT"/>
-                                                            <constraint firstItem="ciF-w4-U6x" firstAttribute="top" secondItem="yma-yu-t5i" secondAttribute="bottom" constant="14" id="rMn-dC-T2U"/>
+                                                            <constraint firstItem="BET-uw-EjT" firstAttribute="trailing" secondItem="yma-yu-t5i" secondAttribute="trailing" id="GZT-GW-nME"/>
+                                                            <constraint firstItem="BET-uw-EjT" firstAttribute="top" secondItem="yma-yu-t5i" secondAttribute="bottom" constant="14" id="JTX-Eb-uRs"/>
                                                             <constraint firstItem="yma-yu-t5i" firstAttribute="leading" secondItem="moU-Lg-VN7" secondAttribute="leading" constant="20" id="vVe-Ax-5g7"/>
                                                             <constraint firstItem="yma-yu-t5i" firstAttribute="centerY" secondItem="moU-Lg-VN7" secondAttribute="centerY" multiplier="0.57" id="wvY-fO-Hd0"/>
                                                         </constraints>
@@ -1079,7 +1077,6 @@
                         <outlet property="childContainerView" destination="cE3-sz-ARZ" id="aWJ-zy-b0G"/>
                         <outlet property="childCountLabel" destination="jRH-Hn-YjY" id="Chg-pX-kAR"/>
                         <outlet property="cityNameLabel" destination="BWC-uY-YU7" id="sdv-Sz-Orj"/>
-                        <outlet property="dateFlexibleLabel" destination="ciF-w4-U6x" id="2Cs-v5-EBk"/>
                         <outlet property="dateInfoView" destination="BoL-F4-rJK" id="Aho-WI-olp"/>
                         <outlet property="datePickerView" destination="Hkt-JD-idP" id="X6S-VC-cwi"/>
                         <outlet property="fifthLineView" destination="qnr-yJ-h7o" id="cpw-ye-saG"/>
@@ -1091,6 +1088,7 @@
                         <outlet property="mainContainerView" destination="bwF-zP-HlZ" id="2XN-1C-DAV"/>
                         <outlet property="oneStarLabel" destination="nKQ-8F-ZtB" id="Vwd-5w-xTv"/>
                         <outlet property="preferredHotelsLabel" destination="yma-yu-t5i" id="AyJ-TQ-A9K"/>
+                        <outlet property="preferredTextView" destination="BET-uw-EjT" id="WCS-HR-jGd"/>
                         <outlet property="prefredTextContainer" destination="moU-Lg-VN7" id="UMm-Xw-j7o"/>
                         <outlet property="rectangleView" destination="H64-5R-dwG" id="tQl-P7-9eA"/>
                         <outlet property="roomCountLabel" destination="Sfs-hR-X2I" id="Kkf-j5-TnD"/>
@@ -1431,13 +1429,13 @@ been sent</string>
                                 <rect key="frame" x="0.0" y="332" width="375" height="335"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gGR-oK-1oI">
-                                        <rect key="frame" x="38" y="17" width="299" height="250"/>
+                                        <rect key="frame" x="38" y="17" width="299" height="246"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bbQ-CW-0Rv">
-                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="250"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="246"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="19.5" translatesAutoresizingMaskIntoConstraints="NO" id="5Nc-t2-hZo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="247.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="245.5"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="lUb-4B-UGW">
                                                                 <rect key="frame" x="0.0" y="0.0" width="99.5" height="113"/>
@@ -1482,10 +1480,10 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="klb-yY-qLX">
-                                                                <rect key="frame" x="0.0" y="132.5" width="99.5" height="115"/>
+                                                                <rect key="frame" x="0.0" y="132.5" width="99.5" height="113"/>
                                                                 <subviews>
                                                                     <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2S-NB-xYW">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="115"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="113"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1511,10 +1509,10 @@ been sent</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSf-Lz-PeC">
-                                                <rect key="frame" x="99.5" y="0.0" width="100" height="250"/>
+                                                <rect key="frame" x="99.5" y="0.0" width="100" height="246"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="19.5" translatesAutoresizingMaskIntoConstraints="NO" id="wVg-xb-02g">
-                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="248"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="246"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="8sd-hy-MIr">
                                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="115"/>
@@ -1565,10 +1563,10 @@ been sent</string>
                                                                 </subviews>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WoY-az-onx">
-                                                                <rect key="frame" x="0.0" y="134.5" width="100" height="113.5"/>
+                                                                <rect key="frame" x="0.0" y="134.5" width="100" height="111.5"/>
                                                                 <subviews>
                                                                     <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DEo-vf-mkT">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="113.5"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="111.5"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1591,7 +1589,7 @@ been sent</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xbo-Hd-rsR">
-                                                <rect key="frame" x="199.5" y="0.0" width="100" height="250"/>
+                                                <rect key="frame" x="199.5" y="0.0" width="100" height="246"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="12.5" translatesAutoresizingMaskIntoConstraints="NO" id="pK7-Yp-wzS">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="248"/>
@@ -1687,14 +1685,14 @@ been sent</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="etP-is-AM4" userLabel="firstLineView">
-                                        <rect key="frame" x="0.0" y="191" width="375" height="1"/>
+                                        <rect key="frame" x="0.0" y="187" width="375" height="1"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="TPg-ax-5bD"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GEZ-9m-jJg" userLabel="secondLineView">
-                                        <rect key="frame" x="0.0" y="227" width="375" height="1"/>
+                                        <rect key="frame" x="0.0" y="223" width="375" height="1"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="Z4H-WS-doQ"/>
@@ -1722,7 +1720,7 @@ been sent</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="335" id="4Vq-7N-7jv"/>
-                                    <constraint firstItem="s9M-NB-ug2" firstAttribute="top" secondItem="GEZ-9m-jJg" secondAttribute="bottom" constant="56" id="8Eb-wG-rej"/>
+                                    <constraint firstItem="s9M-NB-ug2" firstAttribute="top" secondItem="GEZ-9m-jJg" secondAttribute="bottom" constant="60" id="8Eb-wG-rej"/>
                                     <constraint firstAttribute="trailing" secondItem="GEZ-9m-jJg" secondAttribute="trailing" id="B16-TD-KtS"/>
                                     <constraint firstAttribute="bottom" secondItem="XpF-Cy-DU8" secondAttribute="bottom" id="CeB-Wb-CHh"/>
                                     <constraint firstItem="etP-is-AM4" firstAttribute="leading" secondItem="pbf-dV-N1m" secondAttribute="leading" id="DSQ-dR-EXo"/>
@@ -1734,7 +1732,7 @@ been sent</string>
                                     <constraint firstItem="s9M-NB-ug2" firstAttribute="trailing" secondItem="XpF-Cy-DU8" secondAttribute="trailing" id="gnP-Cn-MjV"/>
                                     <constraint firstItem="s9M-NB-ug2" firstAttribute="leading" secondItem="XpF-Cy-DU8" secondAttribute="leading" id="m6K-Co-5bP"/>
                                     <constraint firstItem="gGR-oK-1oI" firstAttribute="top" secondItem="pbf-dV-N1m" secondAttribute="top" constant="17" id="mmf-iD-J3f"/>
-                                    <constraint firstItem="s9M-NB-ug2" firstAttribute="bottom" secondItem="gGR-oK-1oI" secondAttribute="bottom" constant="18" id="oo3-JP-Dyq"/>
+                                    <constraint firstItem="s9M-NB-ug2" firstAttribute="bottom" secondItem="gGR-oK-1oI" secondAttribute="bottom" constant="22" id="oo3-JP-Dyq"/>
                                     <constraint firstItem="XpF-Cy-DU8" firstAttribute="leading" secondItem="pbf-dV-N1m" secondAttribute="leading" id="pb0-85-EmY"/>
                                     <constraint firstAttribute="trailing" secondItem="XpF-Cy-DU8" secondAttribute="trailing" id="xIp-Wz-8H7"/>
                                     <constraint firstItem="gGR-oK-1oI" firstAttribute="leading" secondItem="pbf-dV-N1m" secondAttribute="leading" constant="38" id="zR6-v2-NU3"/>
@@ -2679,6 +2677,10 @@ been sent</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V4z-cq-RyF">
                                 <rect key="frame" x="0.0" y="20" width="375" height="100"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VFS-Xf-tG2">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dci-Q6-szv">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <subviews>
@@ -2731,7 +2733,7 @@ been sent</string>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yZE-ic-PI4">
                                                 <rect key="frame" x="320" y="0.0" width="39" height="44"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Canel"/>
                                                 <connections>
                                                     <action selector="cancelButtonTapped:" destination="Nrz-rD-ver" eventType="touchUpInside" id="p11-J6-uPq"/>
@@ -2766,6 +2768,7 @@ been sent</string>
                                         <subviews>
                                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Ebv-Er-a4m" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </searchBar>
                                         </subviews>
@@ -2794,12 +2797,15 @@ been sent</string>
                                         <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </progressView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Dci-Q6-szv" firstAttribute="leading" secondItem="V4z-cq-RyF" secondAttribute="leading" id="0b4-k5-8ZC"/>
+                                    <constraint firstItem="VFS-Xf-tG2" firstAttribute="leading" secondItem="V4z-cq-RyF" secondAttribute="leading" id="4pw-BW-8oW"/>
                                     <constraint firstItem="7Tu-mg-zuM" firstAttribute="leading" secondItem="V4z-cq-RyF" secondAttribute="leading" id="6Dk-Kt-Q9H"/>
                                     <constraint firstItem="eOs-Fb-lel" firstAttribute="top" secondItem="Dci-Q6-szv" secondAttribute="bottom" constant="-1" id="7AR-Qw-F34"/>
+                                    <constraint firstItem="VFS-Xf-tG2" firstAttribute="top" secondItem="V4z-cq-RyF" secondAttribute="top" id="ARX-Oy-kSY"/>
                                     <constraint firstAttribute="trailing" secondItem="cYF-2F-5gQ" secondAttribute="trailing" id="AXy-JT-SCp"/>
+                                    <constraint firstAttribute="bottom" secondItem="VFS-Xf-tG2" secondAttribute="bottom" id="B5Q-32-Chq"/>
                                     <constraint firstItem="7Tu-mg-zuM" firstAttribute="top" secondItem="eOs-Fb-lel" secondAttribute="bottom" id="Dpi-kw-ywn"/>
                                     <constraint firstItem="Dci-Q6-szv" firstAttribute="top" secondItem="V4z-cq-RyF" secondAttribute="top" id="Eaf-ID-s5A"/>
                                     <constraint firstAttribute="bottom" secondItem="7Tu-mg-zuM" secondAttribute="bottom" id="Lm3-B3-omv"/>
@@ -2809,6 +2815,7 @@ been sent</string>
                                     <constraint firstAttribute="trailing" secondItem="eOs-Fb-lel" secondAttribute="trailing" id="ncN-K3-jPU"/>
                                     <constraint firstAttribute="height" constant="100" id="pFu-uJ-4yb"/>
                                     <constraint firstItem="cYF-2F-5gQ" firstAttribute="leading" secondItem="V4z-cq-RyF" secondAttribute="leading" id="tkN-VD-Yuk"/>
+                                    <constraint firstAttribute="trailing" secondItem="VFS-Xf-tG2" secondAttribute="trailing" id="yJS-7y-xos"/>
                                     <constraint firstAttribute="trailing" secondItem="7Tu-mg-zuM" secondAttribute="trailing" id="yt3-MR-wNh"/>
                                 </constraints>
                             </view>
@@ -2847,6 +2854,7 @@ been sent</string>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="ZMo-hF-ekJ" id="sT3-MR-1Iu"/>
+                        <outlet property="backContainerView" destination="VFS-Xf-tG2" id="fxR-EG-Gn4"/>
                         <outlet property="cancelButton" destination="yZE-ic-PI4" id="hkf-DP-zJq"/>
                         <outlet property="cardGradientView" destination="cs7-6S-u7V" id="fv6-Ef-dAT"/>
                         <outlet property="collectionView" destination="oLY-cZ-RG2" id="5Cn-uS-fQq"/>

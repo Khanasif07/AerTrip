@@ -47,6 +47,9 @@ class CreateYourAccountVC: BaseVC {
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         topNavBar.leftButton.isHidden = true
         topNavBar.delegate = self
+        self.emailTextField.titleYPadding = 12.0
+        self.emailTextField.hintYPadding = 12.0
+        self.emailTextField.lineViewBottomSpace = 10.0
         
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
         
@@ -56,6 +59,8 @@ class CreateYourAccountVC: BaseVC {
         self.emailTextField.text = self.viewModel.email
         self.emailTextField.autocorrectionType = .no
         self.registerButton.isEnabled = self.viewModel.isEnableRegisterButton
+        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
         self.linkSetupForTermsAndCondition(withLabel: self.privacyPolicyLabel)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
     }
@@ -79,6 +84,7 @@ class CreateYourAccountVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         self.registerButton.layer.cornerRadius = self.registerButton.height/2
+        self.registerButton.layer.masksToBounds = true
     }
     
     override func setupFonts() {

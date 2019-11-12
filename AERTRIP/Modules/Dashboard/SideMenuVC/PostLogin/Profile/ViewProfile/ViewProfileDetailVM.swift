@@ -55,6 +55,9 @@ class ViewProfileDetailVM {
                 
                 if let oldTrav = self.travelData {
                     
+                    // nitin changes
+                    // comenting because old values are showing
+                    /*
                     if let obj = oldTrav.contact.email.first {
                         trav.contact.add(email: obj)
                     }
@@ -66,7 +69,7 @@ class ViewProfileDetailVM {
                     if let obj = oldTrav.contact.social.first {
                         trav.contact.add(social: obj)
                     }
-                    
+                    */
                     self.travelData = trav
                 }
                 self.delegate?.getSuccess(trav)

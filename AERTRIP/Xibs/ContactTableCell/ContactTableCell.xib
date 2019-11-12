@@ -112,10 +112,10 @@
                         </constraints>
                     </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SGw-5q-uF0" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="16" y="42.5" width="288" height="1"/>
+                        <rect key="frame" x="16" y="43" width="288" height="0.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="XeE-nF-JSa"/>
+                            <constraint firstAttribute="height" constant="0.5" id="XeE-nF-JSa"/>
                         </constraints>
                     </view>
                 </subviews>

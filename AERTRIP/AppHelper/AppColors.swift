@@ -127,6 +127,15 @@ enum AppColors {
     // RGB - 229,229,230
     static let blueGray = #colorLiteral(red: 0.8980392157, green: 0.8980392157, blue: 0.9019607843, alpha: 1)
     
+    // RGB - 238,238,239
+    static let unicodeBackgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.937254902, alpha: 1)
+    // RGB - 241,241,242
+    static let quaternarySystemFillColor = #colorLiteral(red: 0.9450980392, green: 0.9450980392, blue: 0.9490196078, alpha: 1)
+
+    // RGB - 228,228,229
+    static let secondarySystemFillColor = #colorLiteral(red: 0.8941176471, green: 0.8941176471, blue: 0.8980392157, alpha: 1)
+
+    
     case headlines
     case body
     case subheads
@@ -167,7 +176,7 @@ enum AppColors {
             return AppColors.themeWhite
 
         case .viewProfileTopGradient:
-            return AppColors.themeBlack.withAlphaComponent(0.3)
+            return AppColors.themeBlack.withAlphaComponent(0.21)
         }
     }
 }

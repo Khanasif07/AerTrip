@@ -64,6 +64,9 @@ class EmptyScreenView: UIView {
     @IBOutlet weak var firstButtonTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomButtonTopConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var mainImageViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var mainImageViewTrainlingConstraint: NSLayoutConstraint!
+    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -274,19 +277,25 @@ extension EmptyScreenView {
         self.mainImageView.image = #imageLiteral(resourceName: "hotelEmpty")
         self.messageLabel.font = AppFonts.Regular.withSize(18.0)
         self.messageLabel.textColor = AppColors.themeGray40
-        self.messageLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "Tap ", image: #imageLiteral(resourceName: "ic_fav_hotel_text"), endText: " to add a hotel to favorite list \n", font: AppFonts.Regular.withSize(18.0))//"Tap   to add a hotel to favorite list"
+        self.mainImageViewLeadingConstraint.constant = 54.0
+        self.mainImageViewTrainlingConstraint.constant = 74.0
+        self.messageLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "Tap ", image: #imageLiteral(resourceName: "favIconGray"), endText: " to add a hotel to favorite list", font: AppFonts.Regular.withSize(17.0))//"Tap   to add a hotel to favorite list"
     }
     
     private func setupForImportPhoneContacts() {
         self.hideFirstButton(isHidden: false)
 
-        self.firstButton.layer.cornerRadius = self.firstButton.height / 2.0
+        
         self.firstButton.setTitle(LocalizedString.AllowContacts.localized, for: .normal)
         self.firstButton.setTitle(LocalizedString.AllowContacts.localized, for: .selected)
         self.firstButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.firstButton.setTitleColor(AppColors.themeWhite, for: .selected)
+        self.firstButton.setTitleFont(font: AppFonts.Regular.withSize(16.0), for: .normal)
+        
+        self.firstButton.layer.cornerRadius = self.firstButton.height / 2.0
+        self.firstButton.shadowColor = AppColors.clear
+        self.firstButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.firstButton.isSocial = true
-        self.firstButton.shadowColor = AppColors.themeBlack
         
         self.mainImageView.image = #imageLiteral(resourceName: "contactsEmpty")
         self.messageLabel.font = AppFonts.Regular.withSize(14.0)
@@ -296,18 +305,20 @@ extension EmptyScreenView {
     
     private func setupForImportFacebookContacts() {
         self.hideFirstButton(isHidden: false)
-
-        self.firstButton.layer.cornerRadius = self.firstButton.height / 2.0
+        
         self.firstButton.gradientColors = [AppColors.fbButtonBackgroundColor, AppColors.fbButtonBackgroundColor]
         self.firstButton.setTitle(LocalizedString.ConnectWithFB.localized, for: .normal)
         self.firstButton.setTitle(LocalizedString.ConnectWithFB.localized, for: .selected)
         self.firstButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.firstButton.setTitleColor(AppColors.themeWhite, for: .selected)
-        self.firstButton.setImage(#imageLiteral(resourceName: "facebook"), for: .normal)
-        self.firstButton.setImage(#imageLiteral(resourceName: "facebook"), for: .selected)
-        self.firstButton.isSocial = true
-        self.firstButton.shadowColor = AppColors.themeBlack
         
+        self.firstButton.setTitleFont(font: AppFonts.Regular.withSize(16.0), for: .normal)
+        self.firstButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .normal)
+        self.firstButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .selected)
+        self.firstButton.layer.cornerRadius = self.firstButton.height / 2.0
+        self.firstButton.shadowColor = AppColors.clear
+        self.firstButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        self.firstButton.isSocial = true
         self.mainImageView.image = #imageLiteral(resourceName: "facebookEmpty")
         self.messageLabel.font = AppFonts.Regular.withSize(14.0)
         self.messageLabel.textColor = AppColors.themeBlack
@@ -316,17 +327,24 @@ extension EmptyScreenView {
     
     private func setupForImportGoogleContacts() {
         self.hideFirstButton(isHidden: false)
-
-        self.firstButton.layer.cornerRadius = self.firstButton.height / 2.0
+        
         self.firstButton.gradientColors = [AppColors.themeWhite, AppColors.themeWhite]
         self.firstButton.setTitle(LocalizedString.ConnectWithGoogle.localized, for: .normal)
         self.firstButton.setTitle(LocalizedString.ConnectWithGoogle.localized, for: .selected)
+        
         self.firstButton.setTitleColor(AppColors.themeBlack, for: .normal)
         self.firstButton.setTitleColor(AppColors.themeBlack, for: .selected)
-        self.firstButton.setImage(#imageLiteral(resourceName: "google"), for: .normal)
-        self.firstButton.setImage(#imageLiteral(resourceName: "google"), for: .selected)
+        
+              self.firstButton.setTitleFont(font: AppFonts.Regular.withSize(16.0), for: .normal)
+        
+        self.firstButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .normal)
+        self.firstButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .selected)
+        self.firstButton.layer.cornerRadius = self.firstButton.height / 2.0
+        self.firstButton.shadowColor = AppColors.clear
+        self.firstButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+       
+
         self.firstButton.isSocial = true
-        self.firstButton.shadowColor = AppColors.themeBlack
         
         self.mainImageView.image = #imageLiteral(resourceName: "googleEmpty")
         self.messageLabel.font = AppFonts.Regular.withSize(14.0)

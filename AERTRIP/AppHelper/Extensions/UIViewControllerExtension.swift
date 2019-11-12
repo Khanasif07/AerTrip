@@ -298,6 +298,8 @@ extension UIViewController{
         let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .destructive) { (_) in
             completion(false)
         }
+        
+        
         alertController.addAction(cancelAction)
         alertController.addAction(doneAction)
         self.present(alertController, animated: true, completion: nil);
@@ -309,6 +311,7 @@ extension UIViewController{
         let doneAction = UIAlertAction(title:buttonTitle, style: .cancel) { (_) -> Void in
             completion?()
         }
+        alertController.view.tintColor = AppColors.themeGreen
         alertController.addAction(doneAction)
         self.present(alertController, animated: true, completion: nil);
     }
@@ -411,7 +414,7 @@ extension UIViewController {
                 CNContactFormatter.descriptorForRequiredKeys(for: .fullName),
                 CNContactEmailAddressesKey,
                 CNContactPhoneNumbersKey,
-                CNContactImageDataKey] as [Any]
+                CNContactImageDataKey,CNContactBirthdayKey] as [Any]
             
             // Get all the containers
             var allContainers: [CNContainer] = []

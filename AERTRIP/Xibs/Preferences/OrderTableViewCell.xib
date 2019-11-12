@@ -41,10 +41,10 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mh3-FY-WwA" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="42" width="304" height="1"/>
+                                <rect key="frame" x="16" y="42.5" width="304" height="0.5"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="uMp-a6-CYX"/>
+                                    <constraint firstAttribute="height" constant="0.5" id="uMp-a6-CYX"/>
                                 </constraints>
                             </view>
                         </subviews>

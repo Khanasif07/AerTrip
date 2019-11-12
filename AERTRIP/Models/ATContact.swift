@@ -64,7 +64,7 @@ struct ATContact {
             return PassengersType(rawValue: _passengerType) ?? .Adult
         }
     }
- 
+    
     var label: Label {
         set {
             _label = newValue.rawValue
@@ -78,6 +78,7 @@ struct ATContact {
     var fullName: String {
         if self._fullName.isEmpty {
             let final = "\(self.firstName) \(self.lastName)"
+            // add Email when first aname and last name empty
             if final.removeAllWhiteSpacesAndNewLines.isEmpty {
                 return self.email.removeAllWhiteSpacesAndNewLines
             }
@@ -89,7 +90,7 @@ struct ATContact {
             return self._fullName.removeAllWhiteSpacesAndNewLines
         }
     }
-
+    
     init() {
         let json = JSON()
         self.init(json: json)
@@ -118,40 +119,44 @@ struct ATContact {
     
     init(contact: CNContact) {
         self.init()
-
+        
         self.id = contact.identifier
         self._label = Label.phone.rawValue
-
+        
         self.firstName = contact.firstName
         self.lastName = contact.lastName
-
+        
         if let email = contact.emailAddresses.first {
             self.email = email.value as String
             self.emailLabel = "internet"
         }
-
-
-        if let phone = contact.phoneNumbers.first {
-            self.contact = phone.value.stringValue
-//            do {
-//                let temp = try PhoneNumberKit().parse(tempNumber)
-//                self.contact = "\(temp.nationalNumber)"
-//                self.isd = "+\(temp.countryCode)"
-//            }
-//            catch {
-//                printDebug("not able to parse the number")
-//                self.contact = ""
-//            }
+        
+        self.dob = contact.dob
+        var closureSelf = self
+        DispatchQueue.backgroundAsync {
+            if let phone = contact.phoneNumbers.first {
+                closureSelf.contact = phone.value.stringValue
+                do {
+                    let temp = try PhoneNumberKit().parse(closureSelf.contact)
+                    closureSelf.contact = "\(temp.nationalNumber)"
+                    closureSelf.isd = "+\(temp.countryCode)"
+                }
+                catch {
+                    printDebug("not able to parse the number")
+                    closureSelf.contact = ""
+                }
+            }
         }
-
+        
         self.imageData = contact.imageData
     }
+    
     
     static func fetchModels(phoneContactsArr: [CNContact]) -> [ATContact] {
         var temp = [ATContact]()
         for obj in phoneContactsArr {
             let contact = ATContact(contact: obj)
-            if !contact.fullName.isEmpty {
+            if !contact.firstName.isEmpty || !contact.lastName.isEmpty{
                 temp.append(contact)
             }
         }
@@ -184,7 +189,7 @@ struct ATContact {
                 contact.socialId = "\(obj)".removeNull
             }
             
-            if !contact.fullName.isEmpty {
+            if !contact.firstName.isEmpty || !contact.lastName.isEmpty {
                 temp.append(contact)
             }
         }
@@ -216,6 +221,13 @@ struct ATContact {
                     contact.emailLabel = "internet"
                 }
                 
+                if let phoneArr = dict["gd$phoneNumber"] as? [JSONDictionary], let obj = phoneArr.first?["$t"] {
+                    contact.contact = "\(obj)"
+                }
+                
+                
+                
+                
                 if let links = dict["link"] as? [JSONDictionary] {
                     for link in links {
                         if let type = link["type"] as? String, type == "image/*", let path = link["href"] {
@@ -225,17 +237,23 @@ struct ATContact {
                     }
                 }
                 
-                if !contact.fullName.isEmpty {
+                if !contact.firstName.isEmpty || !contact.lastName.isEmpty {
                     temp.append(contact)
                 }
-               
+                
             }
         }
-
+        
         return temp
     }
 }
-
+extension ATContact: Equatable {
+    static func == (lhs: ATContact, rhs: ATContact) -> Bool {
+        return lhs.label == rhs.label &&
+            lhs.id == rhs.id &&
+            lhs.socialId == rhs.socialId
+    }
+}
 
 extension CNContact {
     var firstName: String {
@@ -293,17 +311,27 @@ extension CNContact {
         return "internet"
     }
     
+    var dob: String {
+        if let year = self.birthday?.year,let month = self.birthday?.month,let day = self.birthday?.day {
+            let monthString = "\(month)"
+            return "\(year)-\(monthString.count > 1 ? "": "0")\(month)-\(day)"
+        } else {
+            return ""
+        }
+        
+    }
+    
     
     var fullContact: (isd: String, contact: String) {
         if let phone = self.phoneNumbers.first {
-//            let tempNumber = phone.value.stringValue
-//            do {
-//                let temp = try PhoneNumberKit().parse(tempNumber)
-//                return ("+\(temp.countryCode)", "\(temp.nationalNumber)")
-//            }
-//            catch {
-//                printDebug("not able to parse the number")
-//            }
+            //            let tempNumber = phone.value.stringValue
+            //            do {
+            //                let temp = try PhoneNumberKit().parse(tempNumber)
+            //                return ("+\(temp.countryCode)", "\(temp.nationalNumber)")
+            //            }
+            //            catch {
+            //                printDebug("not able to parse the number")
+            //            }
             return ("", phone.value.stringValue)
         }
         
@@ -315,5 +343,16 @@ extension CNContact {
     
     var label: ATContact.Label {
         return ATContact.Label.phone
+    }
+}
+
+protocol Test {
+    func printName()
+}
+
+extension Test {
+    
+    func printName() {
+        printDebug("hello world")
     }
 }

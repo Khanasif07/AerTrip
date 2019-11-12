@@ -94,6 +94,8 @@ class FacebookController {
                         failure(e)
                     }) 
                     
+                } else {
+                    failure(error)
                 }
             })
     }
@@ -299,12 +301,12 @@ class FacebookController {
     func facebookLogout(){
         FBSDKAccessToken.setCurrent(nil)
         FBSDKLoginManager().logOut()
-        let cooki  : HTTPCookieStorage! = HTTPCookieStorage.shared
-        if let strorage = HTTPCookieStorage.shared.cookies{
-            for cookie in strorage{
-                cooki.deleteCookie(cookie)
-            }
-        }
+//        let cooki  : HTTPCookieStorage! = HTTPCookieStorage.shared
+//        if let strorage = HTTPCookieStorage.shared.cookies{
+//            for cookie in strorage{
+//                cooki.deleteCookie(cookie)
+//            }
+//        }
     }
     
 }

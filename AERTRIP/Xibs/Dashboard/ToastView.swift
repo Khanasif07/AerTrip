@@ -26,12 +26,13 @@ class ToastView: UIView {
         super.awakeFromNib()
         
         self.setupTextColorAndFont()
+        self.addPanGesture()
     }
     
     func setupTextColorAndFont() {
         
         self.cornerRadius = 8
-        self.clipsToBounds = true
+//        self.clipsToBounds = true
         self.messageLabel.font    = AppFonts.Regular.withSize(16)
         self.messageLabel.textColor = AppColors.themeWhite
         self.addBlurEffect()
@@ -49,6 +50,12 @@ class ToastView: UIView {
         self.backgroundColor = AppColors.clear
     }
     
+    private func addPanGesture() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        addGestureRecognizer(panGesture)
+
+    }
+    
     private func getBlurView(forView: UIView) -> UIVisualEffectView {
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -56,6 +63,12 @@ class ToastView: UIView {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         blurEffectView.alpha = 0.7
         return blurEffectView
+    }
+    
+    @objc func handlePan(_ recognizer: UIPanGestureRecognizer?) {
+        if recognizer?.state.rawValue == 1 {
+            AppToast.default.hideToast(nil, animated: true)
+        }
     }
     
     @IBAction func viewRightButtonTapped(_ sender: UIButton) {

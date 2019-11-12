@@ -1542,6 +1542,8 @@ struct Pax {
     var other: String = ""
     var seatPreferences: String = ""
     var mealPreferenes: String = ""
+    var dob: String = ""
+
     
     var netRefundForReschedule: Double {
         return self.amountPaid - self.rescheduleCharge
@@ -1703,6 +1705,11 @@ struct Pax {
         if let obj = json["profile_image"] {
             self.profileImage = "\(obj)".removeNull
         }
+        
+        if let obj = json["dob"] {
+            self.dob = "\(obj)".removeNull
+        }
+        
     }
     
     static func getModels(json: [JSONDictionary]) -> [Pax] {

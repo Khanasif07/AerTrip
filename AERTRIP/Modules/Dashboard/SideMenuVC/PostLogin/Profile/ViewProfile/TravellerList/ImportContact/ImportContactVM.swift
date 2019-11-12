@@ -16,8 +16,13 @@ protocol ImportContactVMDelegate: class {
     func add(for usingFor: ContactListVC.UsingFor)
     func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor)
     
+    func remove(for usingFor: ContactListVC.UsingFor)
+
     func addAll(for usingFor: ContactListVC.UsingFor)
     func removeAll(for usingFor: ContactListVC.UsingFor)
+    
+    func showLoader()
+    func hideLoader()
 }
 
 class ImportContactVM: NSObject {
@@ -117,10 +122,18 @@ class ImportContactVM: NSObject {
             obj.sendDataChangedNotification(data: Notification.selectionChanged)
         }
     }
-
+    
     func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor) {
         self.delegateList?.remove(fromIndex: fromIndex, for: usingFor)
         self.delegateCollection?.remove(fromIndex: fromIndex, for: usingFor)
+        if let obj = self.delegateCollection as? BaseVC {
+            obj.sendDataChangedNotification(data: Notification.selectionChanged)
+        }
+    }
+    
+    func remove(for usingFor: ContactListVC.UsingFor) {
+        self.delegateList?.remove(for: usingFor)
+        self.delegateCollection?.remove(for: usingFor)
         if let obj = self.delegateCollection as? BaseVC {
             obj.sendDataChangedNotification(data: Notification.selectionChanged)
         }
@@ -241,29 +254,38 @@ class ImportContactVM: NSObject {
             self.searchingFor = forText
             perform(#selector(callSearch(_:)), with: forText, afterDelay: 0.5)
         }
-        
    }
     
     @objc private func callSearch(_ forText: String) {
         if let obj = self.delegateCollection as? BaseVC {
+            
+            defer {
+                createSectionWiseDataForContacts(for: .contacts)
+                createSectionWiseDataForContacts(for: .facebook)
+                createSectionWiseDataForContacts(for: .google)
+                obj.sendDataChangedNotification(data: Notification.searchDone)
+            }
+            
             guard !forText.isEmpty else {
                 self.phoneContacts = self._phoneContacts
                 self.facebookContacts = self._facebookContacts
                 self.googleContacts = self._googleContacts
-                obj.sendDataChangedNotification(data: Notification.searchDone)
+               // obj.sendDataChangedNotification(data: Notification.searchDone)
                 return
             }
             self.phoneContacts = self._phoneContacts.filter({ (contact) -> Bool in
-                contact.fullName.contains(forText)
+                contact.fullName.lowercased().contains(forText.lowercased())
             })
             self.facebookContacts = self._facebookContacts.filter({ (contact) -> Bool in
-                contact.fullName.contains(forText)
+                contact.fullName.lowercased().contains(forText.lowercased())
             })
             self.googleContacts = self._googleContacts.filter({ (contact) -> Bool in
-                contact.fullName.contains(forText)
+                contact.fullName.lowercased().contains(forText.lowercased())
             })
-            obj.sendDataChangedNotification(data: Notification.searchDone)
+            
         }
+        
+        
     }
     
     //MARK:- Save Contacts On Server
@@ -283,16 +305,36 @@ class ImportContactVM: NSObject {
                 params["contacts[facebook][\(idx)][picture]"] = contact.image
             }
             
+            
             //google contacts
             for (idx, contact) in self.selectedGoogleContacts.enumerated() {
                 params["contacts[google][\(idx)][id]"] = contact.socialId
                 params["contacts[google][\(idx)][type]"] = contact.label.rawValue.uppercased()
                 params["contacts[google][\(idx)][name]"] = contact.fullName
                 params["contacts[google][\(idx)][picture]"] = contact.image
+                if !contact.email.isEmpty {
+                    params["contacts[google][\(idx)][email][\(idx)][contact_label]"] = "home"
+                      params["contacts[google][\(idx)][email][\(idx)][contact_type]"]  = "email"
+                      params["contacts[google][\(idx)][email][\(idx)][contact_value]"] = contact.email
+                }
+                
+                if !contact.contact.isEmpty {
+                    params["contacts[google][\(idx)][mobile][\(idx)][contact_label]"] = "home"
+                    params["contacts[google][\(idx)][mobile][\(idx)][contact_type]"]  = "mobile"
+                    params["contacts[google][\(idx)][mobile][\(idx)][contact_value]"] = contact.contact // phone number without isd
+                        params["contacts[google][\(idx)][mobile][\(idx)][isd]"] = contact.isd // isd
+
+
+                }
+                
+                
             }
             
+        
+            self.delegateCollection?.showLoader()
             APICaller.shared.callSaveSocialContactsAPI(params: params, loader: true) { [weak self] (success, errorCodes) in
                 guard let sSelf = self else {return}
+                sSelf.delegateCollection?.hideLoader()
                 if let obj = sSelf.delegateCollection as? BaseVC {
                     obj.sendDataChangedNotification(data: success ? Notification.contactSavedSuccess : Notification.contactSavedFail)
                 }
@@ -306,6 +348,7 @@ class ImportContactVM: NSObject {
 //                let contact = ATContact(contact: cnContact)
                 params["data[\(idx)][last_name]"] = contact.lastName
                 params["data[\(idx)][first_name]"] = contact.firstName
+                params["data[\(idx)][dob]"] = contact.dob
                 
                 params["data[\(idx)][email][0][contact_label]"] = contact.emailLabel
                 params["data[\(idx)][email][0][contact_type]"] = "email"
@@ -316,11 +359,14 @@ class ImportContactVM: NSObject {
                 let fullContact = contact.fullContact
                 params["data[\(idx)][mobile][0][contact_value]"] = fullContact.contact
                 params["data[\(idx)][mobile][0][isd]"] = fullContact.isd
+                
             }
             
+            self.delegateCollection?.showLoader()
             APICaller.shared.callSavePhoneContactsAPI(params: params, loader: true) { [weak self] (success, errorCodes) in
                 printDebug("phone contact saved")
                 guard let sSelf = self else {return}
+                sSelf.delegateCollection?.hideLoader()
                 if sSelf.selectedFacebookContacts.isEmpty, sSelf.selectedGoogleContacts.isEmpty {
                     if let obj = sSelf.delegateCollection as? BaseVC {
                         obj.sendDataChangedNotification(data: success ? Notification.contactSavedSuccess : Notification.phoneContactSavedFail)

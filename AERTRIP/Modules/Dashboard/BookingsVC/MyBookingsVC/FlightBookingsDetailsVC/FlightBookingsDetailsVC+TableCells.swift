@@ -117,7 +117,7 @@ extension FlightBookingsDetailsVC {
         } else if traveller?.status.lowercased() == "pending" {
             cell.pnrStatus = .pending
         }
-        cell.configCell(travellersImage: "", travellerName: traveller?.fullNameWithSalutation ?? "", travellerPnrStatus: traveller?.status == "booked" ? traveller?.pnr ?? "" : traveller?.status.capitalizedFirst() ?? "", firstName: traveller?.firstName ?? "", lastName: traveller?.lastName ?? "", isLastTraveller: indexPath.row - 2 == leg?.pax.count,paxType: traveller?.paxType ?? "" )
+        cell.configCell(travellersImage: "", travellerName: traveller?.paxName ?? "", travellerPnrStatus: traveller?.status == "booked" ? traveller?.pnr ?? "" : traveller?.status.capitalizedFirst() ?? "", firstName: traveller?.firstName ?? "", lastName: traveller?.lastName ?? "", isLastTraveller: indexPath.row - 2 == leg?.pax.count,paxType: traveller?.paxType ?? "", dob: traveller?.dob ?? "", salutation: traveller?.salutation ?? "")
         cell.clipsToBounds = true
         return cell
     }

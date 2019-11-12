@@ -19,14 +19,15 @@
                 <view contentMode="scaleToFill" horizontalHuggingPriority="256" translatesAutoresizingMaskIntoConstraints="NO" id="SJD-h8-ZWh">
                     <rect key="frame" x="0.0" y="0.0" width="346" height="179"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upwardLogoIcon" translatesAutoresizingMaskIntoConstraints="NO" id="bob-jK-b56">
-                            <rect key="frame" x="160.5" y="38" width="25" height="28"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upwardAertripLogo" translatesAutoresizingMaskIntoConstraints="NO" id="bob-jK-b56">
+                            <rect key="frame" x="159.5" y="38" width="27" height="30"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoText" translatesAutoresizingMaskIntoConstraints="NO" id="HJk-Os-vtO">
-                            <rect key="frame" x="117.5" y="84" width="111" height="13"/>
+                            <rect key="frame" x="117.5" y="86" width="111" height="13"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uho-Jk-ZYW">
-                            <rect key="frame" x="0.0" y="120" width="346" height="41"/>
+                            <rect key="frame" x="0.0" y="122" width="346" height="41"/>
                             <string key="text">Enjoy a more personalised 
 travel experience</string>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -61,12 +62,13 @@ travel experience</string>
                 <outlet property="logoImageView" destination="bob-jK-b56" id="Q6P-vK-1XW"/>
                 <outlet property="logoTextView" destination="HJk-Os-vtO" id="ad9-3j-fJM"/>
                 <outlet property="messageLabel" destination="uho-Jk-ZYW" id="NC9-ic-ByC"/>
+                <outlet property="messageLabelTopConstraint" destination="0eX-03-ecD" id="05D-zP-m9M"/>
             </connections>
             <point key="canvasLocation" x="115.2" y="-98.50074962518741"/>
         </view>
     </objects>
     <resources>
         <image name="logoText" width="111" height="13"/>
-        <image name="upwardLogoIcon" width="25" height="28"/>
+        <image name="upwardAertripLogo" width="27" height="30"/>
     </resources>
 </document>

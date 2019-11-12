@@ -27,6 +27,11 @@ class BookingTravellersDetailsTableViewCell: UITableViewCell {
         self.configUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.travellerNameLabel.attributedText = nil
+    }
+    
     // Mark:- Functions
     //================
     private func configUI() {
@@ -39,13 +44,26 @@ class BookingTravellersDetailsTableViewCell: UITableViewCell {
         self.travellerImageView.makeCircular()
     }
     
-    func configCell(travellersImage: String, travellerName: String, firstName: String, lastName: String) {
-          self.travellerNameLabel.text = travellerName
+    func configCell(travellersImage: String, travellerName: String, firstName: String, lastName: String, dob: String, salutation: String) {
+//          self.travellerNameLabel.text = travellerName
         if !travellersImage.isEmpty {
             self.travellerImageView.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
+            self.travellerImageView.contentMode = .scaleAspectFit
         } else {
-            self.travellerImageView.makeCircular(borderWidth: 1.0, borderColor: AppColors.themeGray04)
-            self.travellerImageView.image = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName, font: AppFonts.Regular.withSize(35.0))
+            self.travellerImageView.makeCircular(borderWidth: 1.0, borderColor: AppColors.themeGray20)
+            //self.travellerImageView.image = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName, font: AppFonts.Regular.withSize(35.0))
+            self.travellerImageView.image = AppGlobals.shared.getEmojiIcon(dob: dob, salutation: salutation, dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+            self.travellerImageView.contentMode = .center
+        }
+        var age = ""
+        if !dob.isEmpty {
+            age = AppGlobals.shared.getAgeLastString(dob: dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+            //travelName += age
+        }
+        // self.travellerNameLabel.text = travelName
+        self.travellerNameLabel.appendFixedText(text: travellerName, fixedText: age)
+        if !age.isEmpty {
+            self.travellerNameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
         }
     }
 }

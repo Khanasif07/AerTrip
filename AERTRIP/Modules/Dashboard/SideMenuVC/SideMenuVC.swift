@@ -123,6 +123,7 @@ class SideMenuVC: BaseVC {
     func getProfileView() -> SlideMenuProfileImageHeaderView {
         //add the profile view only if user is logged in
         let view = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
+      //  view.profileImageViewBottomConstraint.constant = 10
         view.currentlyUsingAs = .sideMenu
         view.backgroundColor = AppColors.clear
         self.updateProfileView(view: view)
@@ -145,22 +146,21 @@ class SideMenuVC: BaseVC {
             view.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
             view.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack)
         }
-        
-//        view.frame = CGRect(x: 0.0, y: 40.0, width: self.profileSuperView?.width ?? 0.0, height: self.profileSuperView?.height ?? 0.0)
-//        view.emailIdLabel.isHidden = true
-//        view.mobileNumberLabel.isHidden = true
-//        view.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-//        view.backgroundImageView.isHidden = true
-//        view.gradientView.isHidden = true
-//        view.dividerView.isHidden = true
-//        view.isUserInteractionEnabled = false
-//        view.layoutSubviews()
-//        view.emailIdLabel.alpha = 0.0
-//        view.mobileNumberLabel.alpha = 0.0
-//        view.backgroundImageView.alpha = 0.0
-//        view.gradientView.alpha = 0.0
-//        view.dividerView.alpha = 0.0
-//        view.translatesAutoresizingMaskIntoConstraints = true
+        view.frame = CGRect(x: 0.0, y: 40.0, width: self.profileSuperView?.width ?? 0.0, height: self.profileSuperView?.height ?? 0.0)
+        view.emailIdLabel.isHidden = true
+        view.mobileNumberLabel.isHidden = true
+        view.profileContainerView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        view.backgroundImageView.isHidden = true
+        view.gradientView.isHidden = true
+        view.dividerView.isHidden = true
+        view.isUserInteractionEnabled = false
+        view.layoutSubviews()
+        view.emailIdLabel.alpha = 0.0
+        view.mobileNumberLabel.alpha = 0.0
+        view.backgroundImageView.alpha = 0.0
+        view.gradientView.alpha = 0.0
+        view.dividerView.alpha = 0.0
+        view.translatesAutoresizingMaskIntoConstraints = true
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -293,6 +293,11 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             
             if let _ = UserInfo.loggedInUserId {
                 let title = self.viewModel.cellForLoginUser[indexPath.row - 2]
+                if indexPath.row == 6 || indexPath.row == 5 || indexPath.row == 4 {
+                    cell.displayTextLabelTopConstraint.constant = -4.0
+                } else {
+                    cell.displayTextLabelTopConstraint.constant = 0.0
+                }
                 cell.populateData(text: title)
                 cell.sepratorView.isHidden = !title.isEmpty
                 
@@ -364,7 +369,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 return (UserInfo.loggedInUserId == nil) ? 60.0 : 67.0
                 
             default:
-                return (UserInfo.loggedInUserId == nil) ? 64.0 : 64.0
+                return (UserInfo.loggedInUserId == nil) ? ( indexPath.row == 6) ? 61.0 : 64.0 : 64.0
             }
         }
     }

@@ -82,7 +82,7 @@ class EditProfileVM {
     func isValidateData(vc: UIViewController) -> Bool {
         var flag = true
         
-        if self.salutation == LocalizedString.Title.rawValue {
+        if self.salutation.isEmpty {
             AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectSalutation.localized)
             flag = false
         } else if self.firstName.removeAllWhiteSpacesAndNewLines.isEmpty {
@@ -330,7 +330,7 @@ class EditProfileVM {
     func callDeleteTravellerAPI() {
         var params = JSONDictionary()
         
-        params["pax_ids"] = self.paxId
+        params["pax_ids[0]"] = self.paxId
         delegate?.willCallDeleteTravellerAPI()
         APICaller.shared.callDeleteTravellerAPI(params: params) { [weak self] success, _ in
             if success {

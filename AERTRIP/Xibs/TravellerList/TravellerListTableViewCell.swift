@@ -40,7 +40,7 @@ class TravellerListTableViewCell: UITableViewCell {
     
     private func configureCell() {
         profileImageView.image = travellerData?.salutationImage
-        if let firstName = travellerData?.firstName, let lastName = travellerData?.lastName, let salutation = travellerData?.salutation {
+        if let firstName = travellerData?.firstName, let lastName = travellerData?.lastName, let salutation = travellerData?.salutation, (travellerData?.profileImage.isEmpty ?? false) {
             if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
                 let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
                 userNameLabel.attributedText = getAttributedBoldText(text: "\(salutation) \(lastName) \(firstName)", boldText: boldText)
@@ -49,13 +49,25 @@ class TravellerListTableViewCell: UITableViewCell {
                 let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
                 userNameLabel.attributedText = getAttributedBoldText(text: "\(salutation) \(firstName) \(lastName)", boldText: boldText)
             }
-        }
+        } 
+        
+        
     }
     
     private func configureCellForTraveller() {
         selectTravellerButton.isHidden = true
         leadingConstraint.constant = 16
-        userNameLabel.text = travellerModelData?.firstName
+        profileImageView.image = AppGlobals.shared.getEmojiIcon(dob: travellerModelData?.dob ?? "", salutation: travellerModelData?.salutation ?? "", dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+        let fullName = travellerModelData?.fullName ?? ""
+        var age = ""
+        if let dob = travellerModelData?.dob,!dob.isEmpty {
+            age = AppGlobals.shared.getAgeLastString(dob: dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+            //travelName += age
+        }
+        self.userNameLabel.appendFixedText(text: fullName, fixedText: age)
+        if !age.isEmpty {
+            self.userNameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
+        }
     }
     
     private func getAttributedBoldText(text: String, boldText: String) -> NSMutableAttributedString {

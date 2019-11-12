@@ -155,10 +155,7 @@ class GuestDetailsVC: BaseVC {
                 self.travellersTableView.isHidden = !guest.firstName.isEmpty
             }
             delay(seconds: 0.2) { [weak cell] in
-                if guest.salutation.isEmpty {
-                    cell?.salutationTextField.becomeFirstResponder()
-                }
-                else if guest.firstName.isEmpty {
+                if guest.firstName.isEmpty {
                     cell?.firstNameTextField.becomeFirstResponder()
                 }
                 else if guest.lastName.isEmpty {
@@ -227,6 +224,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
             }
             cell.delegate = self
+            cell.canShowSalutationError = GuestDetailsVM.shared.canShowSalutationError
             printDebug("=====guest==== \(indexPath.section) \(indexPath.row)\(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
             cell.guestDetail = GuestDetailsVM.shared.guests[indexPath.section][indexPath.row]
             return cell
@@ -277,7 +275,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
             self.travellersTableView.isHidden = true
             if let cellindexPath = self.indexPath {
                 if let cell = self.guestDetailTableView.cellForRow(at: cellindexPath) as? GuestDetailTableViewCell {
-                    cell.salutationTextField.text = self.travellers[indexPath.row].salutation
+                    //cell.salutationTextField.text = self.travellers[indexPath.row].salutation
                     cell.firstNameTextField.text = self.travellers[indexPath.row].firstName
                     cell.lastNameTextField.text = self.travellers[indexPath.row].lastName
                 }
@@ -299,10 +297,11 @@ extension GuestDetailsVC: TopNavigationViewDelegate {
         printDebug("Done Button tapped")
         AppFlowManager.default.popViewController(animated: true)
         self.vcDelegate?.doneButtonTapped()
+        GuestDetailsVM.shared.canShowSalutationError = true
     }
 }
 
-extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
+extension GuestDetailsVC: GuestDetailTableViewCellDelegate {    
     func textFieldWhileEditing(_ textField: UITextField) {
         self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
         if textField.text != "" {
@@ -343,20 +342,23 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
     }
     
     func textField(_ textField: UITextField) {
+        
         self.travellersTableView.isHidden = self.travellers.count == 0
         self.travellersTableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
         self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
-        if let cell = self.guestDetailTableView.cell(forItem: textField) as? GuestDetailTableViewCell, textField !== cell.salutationTextField {
-            // get item position
+        if let _ = self.guestDetailTableView.cell(forItem: textField) as? GuestDetailTableViewCell {
+           //  get item position
             let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: guestDetailTableView)
             
             self.guestDetailTableView.setContentOffset(CGPoint(x: self.guestDetailTableView.origin.x, y: itemPosition.y - CGFloat(104)), animated: true)
-            
-            self.guestDetailTableView.isScrollEnabled = (self.travellers.count == 0)//false            travellersTableView.reloadData()
+         
+            self.guestDetailTableView.isScrollEnabled = (self.travellers.count == 0)
+            //false            travellersTableView.reloadData()
             printDebug("item position is \(itemPosition)")
         } else {
             travellersTableView.isHidden = true
         }
+ 
     }
 }
 

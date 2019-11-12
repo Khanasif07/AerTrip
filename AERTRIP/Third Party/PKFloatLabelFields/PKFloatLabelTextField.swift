@@ -30,7 +30,17 @@ import UIKit
         }
     }
     
-
+    var lineViewBottomSpace: CGFloat = -3.0 {
+        didSet  {
+            self.updateLineView()
+        }
+    }
+    
+    var isSingleTextField: Bool = true {
+        didSet {
+            self.updateLineView()
+        }
+    }
     
     /// A Boolean value that determines whether the textfield is being edited or is selected.
     open var editingOrSelected: Bool {
@@ -211,11 +221,18 @@ import UIKit
 	
 	override func editingRect(forBounds bounds:CGRect) -> CGRect {
 		var r = super.editingRect(forBounds: bounds)
+       
 		if let txt = text , !txt.isEmpty {
+            updateLineView(isEditing: true)
 			var top = ceil(title.font.lineHeight + hintYPadding)
 			top = min(top, maxTopInset())
-            r = r.inset(by: UIEdgeInsets(top: top, left: 0.0, bottom: 0.0, right: 0.0))
-		}
+            r = r.inset(by: UIEdgeInsets(top: top, left: 0.0, bottom: 4.0, right: 0.0))
+        } else {
+            UIView.animate(withDuration: 0.0) { [weak self] in
+                self?.updateLineView(isEditing: false)
+            }
+          
+        }
 		return r.integral
 	}
 	
@@ -308,9 +325,9 @@ import UIKit
         addSubview(lineView)
     }
     
-    fileprivate func updateLineView() {
+    fileprivate func updateLineView(isEditing: Bool = false) {
         lineView.isHidden = self.isHiddenBottomLine
-        lineView.frame = lineViewRectForBounds(bounds, editing: editingOrSelected)
+        lineView.frame = lineViewRectForBounds(bounds, editing: editingOrSelected,isEditing: isEditing)
         lineView.backgroundColor = self.lineColor
     }
     
@@ -322,16 +339,19 @@ import UIKit
      - parameter editing: True if the control is selected or highlighted
      - returns: The rectangle that the line bar should render in
      */
-    fileprivate func lineViewRectForBounds(_ bounds: CGRect, editing: Bool) -> CGRect {
+    fileprivate func lineViewRectForBounds(_ bounds: CGRect, editing: Bool,isEditing: Bool = false) -> CGRect {
         let height = editing ? selectedLineHeight : lineHeight
-        return CGRect(x: 0, y: bounds.size.height - height, width: bounds.size.width, height: height)
+        return CGRect(x: 0, y: bounds.size.height - height - (isEditing ? (self.isSingleTextField ? -3.0 :  self.lineViewBottomSpace) : self.lineViewBottomSpace), width: bounds.size.width, height: height)
     }
 
+    
+    
+    
 }
 
 extension PKFloatLabelTextField {
     
-    func setupTextField(placehoder: String,
+    func setupTextField(placehoder: String,with symbol: String = "",foregroundColor: UIColor = AppColors.themeGray40,
                         textColor: UIColor = AppColors.themeBlack,
                         titleTextColor: UIColor = AppColors.themeGray20,
                         titleFont: UIFont = AppFonts.Regular.withSize(14.0),
@@ -350,6 +370,13 @@ extension PKFloatLabelTextField {
         self.titleTextColour = titleTextColor
         self.titleFont = titleFont
         self.titleActiveTextColour = titleActiveTextColor
+        let attriburedString = NSMutableAttributedString(string: placehoder)
+        let asterix = NSAttributedString(string: symbol, attributes: [.foregroundColor: foregroundColor])
+        attriburedString.append(asterix)
+        
+        self.attributedPlaceholder = attriburedString
     }
+    
+    
     
 }

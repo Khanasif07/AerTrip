@@ -76,8 +76,8 @@ extension HotlelBookingsDetailsVC {
         
         let isLastRoom = (allRooms.count - 1) == currentRoomSection
         let isLastTarv = (allGuest.count - 1) == currentGuestIndex
-        
-        cell.configCell(travellersImage: allGuest[currentGuestIndex].profileImage, travellerName: allGuest[currentGuestIndex].fullName, firstName: allGuest[currentGuestIndex].firstName, lastName: allGuest[currentGuestIndex].lastname, isLastTravellerInRoom: isLastTarv, isLastTraveller: isLastRoom && isLastTarv)
+        let guest = allGuest[currentGuestIndex]
+        cell.configCell(travellersImage: guest.profileImage, travellerName: guest.name, firstName: guest.firstName, lastName: guest.lastname, isLastTravellerInRoom: isLastTarv, isLastTraveller: isLastRoom && isLastTarv, dob: guest.dob, salutation: guest.salutation, age: guest.age, congigureForHotelDetail: true)
         
         cell.clipsToBounds = true
         return cell

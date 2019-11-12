@@ -69,6 +69,7 @@ class LinkedAccountsTableCell: UITableViewCell {
         
         self.socialTypeLabel.font = AppFonts.Regular.withSize(20.0)
         self.socialTypeLabel.textColor = AppColors.themeBlack
+        self.connectButton.isSocial = true
         
         self.emailLabel.font = AppFonts.Regular.withSize(14.0)
         self.emailLabel.textColor = AppColors.themeGray40
@@ -77,12 +78,13 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.disconnectButton.setTitle(LocalizedString.Disconnect.localized, for: .selected)
         
         self.disconnectButton.setTitleColor(AppColors.themeRed, for: .normal)
-        self.disconnectButton.setTitleColor(AppColors.themeGray20, for: .disabled)
+       // self.disconnectButton.setTitleColor(AppColors.themeGray20, for: .disabled)
         
         self.disconnectButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
         self.disconnectButton.addTarget(self, action: #selector(disconnectButtonAction(_:)), for: .touchUpInside)
         
         self.connectButton.addTarget(self, action: #selector(connectButtonAction(_:)), for: .touchUpInside)
+        self.connectButton.fontForTitle = AppFonts.Regular.withSize(16.0)
     }
     
     private func configureData() {
@@ -95,7 +97,7 @@ class LinkedAccountsTableCell: UITableViewCell {
             self.socialTypeLabel.text = self.linkedAccount?.socialType.socialTitle
             self.iconImageView.image = self.linkedAccount?.socialType.socialIconImage
             if let loggedSocial = UserInfo.loggedInUser?.socialLoginType, let currentSocial = self.linkedAccount?.socialType {
-                self.disconnectButton.isEnabled = loggedSocial != currentSocial
+                self.disconnectButton.setTitleColor( loggedSocial != currentSocial ?  AppColors.themeRed : AppColors.themeGray20, for: .normal)
             }
         }
         else {
@@ -133,7 +135,8 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.connectButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .normal)
         self.connectButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .selected)
         self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
-        self.connectButton.shadowColor = AppColors.themeBlack
+        self.connectButton.shadowColor = AppColors.clear
+        self.connectButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.connectButton.isSocial = true
     }
     
@@ -149,7 +152,8 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.connectButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .normal)
         self.connectButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .selected)
         self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
-        self.connectButton.shadowColor = AppColors.themeBlack
+        self.connectButton.shadowColor = AppColors.clear
+        self.connectButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.connectButton.isSocial = true
     }
     
@@ -165,7 +169,9 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.connectButton.setImage(#imageLiteral(resourceName: "linkedInIcon").withRenderingMode(.alwaysOriginal), for: .normal)
         self.connectButton.setImage(#imageLiteral(resourceName: "linkedInIcon").withRenderingMode(.alwaysOriginal), for: .selected)
         self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
-        self.connectButton.shadowColor = AppColors.themeBlack
+        self.connectButton.shadowColor = AppColors.clear
+        
+        self.connectButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.connectButton.isSocial = true
     }
 }

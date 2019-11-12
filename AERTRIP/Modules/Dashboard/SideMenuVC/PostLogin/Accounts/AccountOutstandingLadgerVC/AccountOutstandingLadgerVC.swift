@@ -248,7 +248,7 @@ class AccountOutstandingLadgerVC: BaseVC {
             titles.insert(titleStr, at: 0)
         }
         
-        let ttlClrs = Array(repeating: AppColors.themeGreen, count: titles.count)
+        let ttlClrs = Array(repeating: AppColors.themeDarkGreen, count: titles.count)
         
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: titles, colors: ttlClrs)
         

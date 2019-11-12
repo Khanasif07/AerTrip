@@ -53,6 +53,17 @@ class TextEditableTableViewCell: UITableViewCell {
 
 
 extension TextEditableTableViewCell: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        printDebug("text field text \(textField.text ?? " ")")
+        guard let inputMode = textField.textInputMode else {
+            return false
+        }
+        if inputMode.primaryLanguage == "emoji" || !(inputMode.primaryLanguage != nil) {
+            return false
+        }
+        return true
+    }
+    
     @objc func textFieldDidChanged(_ textField: UITextField) {
         printDebug("text field text \(textField.text ?? " ")")
         if let idxPath = indexPath, let textFieldString = textField.text {

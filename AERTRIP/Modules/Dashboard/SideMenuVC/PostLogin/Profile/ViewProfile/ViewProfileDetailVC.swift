@@ -40,7 +40,7 @@ class ViewProfileDetailVC: BaseVC {
     var travelData: TravelDetailModel?
     
     private var headerViewHeight: CGFloat {
-        return UIDevice.isIPhoneX ? 84.0 : 64.0
+        return UIDevice.isIPhoneX ? 88.0 : 64.0
     }
     
     private let headerHeightToAnimate: CGFloat = 30.0
@@ -50,6 +50,7 @@ class ViewProfileDetailVC: BaseVC {
         super.viewDidLoad()
         
         profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
+        //        profileImageHeaderView?.profileImageViewBottomConstraint?.constant = 16
         profileImageHeaderView?.currentlyUsingAs = .profileDetails
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
@@ -74,7 +75,7 @@ class ViewProfileDetailVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification, noti == .profileSavedOnServer {
-            viewModel.webserviceForGetTravelDetail(isShowLoader: true)
+           // viewModel.webserviceForGetTravelDetail(isShowLoader: true)
         }
     }
     
@@ -107,7 +108,7 @@ class ViewProfileDetailVC: BaseVC {
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editTitle, selectedTitle: editTitle, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
         
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editTitle, selectedTitle: editTitle, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
-
+        
         
         let tintedImage = #imageLiteral(resourceName: "Back").withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         self.topNavView.leftButton.setImage(tintedImage, for: .normal)
@@ -130,7 +131,6 @@ class ViewProfileDetailVC: BaseVC {
     
     private func setupParallaxHeader() { // Parallax Header
         let parallexHeaderHeight = CGFloat(293)//CGFloat(UIDevice.screenHeight * 0.45)
-        
         let parallexHeaderMinHeight = navigationController?.navigationBar.bounds.height ?? 74
         
         profileImageHeaderView?.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 0)
@@ -157,26 +157,26 @@ class ViewProfileDetailVC: BaseVC {
         profileImageHeaderView?.userNameLabel.text = (travel.firstName) + " " + (travel.lastName)
         profileImageHeaderView?.emailIdLabel.text = ""
         profileImageHeaderView?.mobileNumberLabel.text = ""
-       profileImageHeaderView?.familyButton.isHidden = false
-       profileImageHeaderView?.familyButton.setTitle(travel.label.isEmpty ? LocalizedString.Others.localized : travel.label.capitalizedFirst(), for: .normal)
-       profileImageHeaderView?.layoutIfNeeded()
+        profileImageHeaderView?.familyButton.isHidden = false
+        profileImageHeaderView?.familyButton.setTitle(travel.label.isEmpty ? LocalizedString.Others.localized : travel.label.capitalizedFirst(), for: .normal)
+        profileImageHeaderView?.layoutIfNeeded()
         
         var placeImage = AppPlaceholderImage.profile
         
         placeImage = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, font: AppConstants.profileViewBackgroundNameIntialsFont)
         if travel.profileImage != "" {
-           profileImageHeaderView?.profileImageView.setImageWithUrl(travel.profileImage, placeholder: placeImage, showIndicator: false)
-           profileImageHeaderView?.backgroundImageView.setImageWithUrl(travel.profileImage, placeholder: placeImage, showIndicator: false)
-           profileImageHeaderView?.blurEffectView.alpha = 1.0
+            profileImageHeaderView?.profileImageView.setImageWithUrl(travel.profileImage, placeholder: placeImage, showIndicator: false)
+            profileImageHeaderView?.backgroundImageView.setImageWithUrl(travel.profileImage, placeholder: placeImage, showIndicator: false)
+            profileImageHeaderView?.blurEffectView.alpha = 1.0
         } else {
             if viewModel.currentlyUsingFor == .travellerList {
-               profileImageHeaderView?.profileImageView.image = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, font: AppFonts.Regular.withSize(35.0))
-               profileImageHeaderView?.backgroundImageView.image = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, textColor: AppColors.themeBlack)
-               profileImageHeaderView?.blurEffectView.alpha = 1.0
+                profileImageHeaderView?.profileImageView.image = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, font: AppFonts.Regular.withSize(35.0))
+                profileImageHeaderView?.backgroundImageView.image = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, textColor: AppColors.themeBlack)
+                profileImageHeaderView?.blurEffectView.alpha = 1.0
             } else {
-               profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(35.0))
-               profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(textColor: AppColors.themeBlack).blur
-               profileImageHeaderView?.blurEffectView.alpha = 0.0
+                profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(35.0))
+                profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(textColor: AppColors.themeBlack).blur
+                profileImageHeaderView?.blurEffectView.alpha = 0.0
             }
         }
         
@@ -408,6 +408,7 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
                 viewProfileMultiDetailcell.configureCellForFrequentFlyer(indexPath, frequentFlyer[indexPath.row - flightDetails.count].logoUrl, frequentFlyer[indexPath.row - flightDetails.count].airlineName, frequentFlyer[indexPath.row - flightDetails.count].number)
                 
                 viewProfileMultiDetailcell.separatorLeadingConstraint.constant = (indexPath.row < (flightDetails.count + frequentFlyer.count)) ? 16.0 : 0
+                viewProfileMultiDetailcell.separatorTrailingConstraint.constant = (indexPath.row < (flightDetails.count + frequentFlyer.count)) ? 16.0 : 0
                 viewProfileMultiDetailcell.separatorView.isHidden = (indexPath.row == (flightDetails.count + frequentFlyer.count) - 1) ? true : false
                 return viewProfileMultiDetailcell
                 
@@ -481,20 +482,20 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
         //        self.updateForParallexProgress()
     }
     
-//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-//        self.updateForParallexProgress()
-//        delay(seconds: 0.3) { [weak self] in
-//            self?.updateForParallexProgress()
-//        }
-//    }
-
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        self.updateForParallexProgress()
-//    }
-//
-//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        self.updateForParallexProgress()
-//    }
+    //    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    //        self.updateForParallexProgress()
+    //        delay(seconds: 0.3) { [weak self] in
+    //            self?.updateForParallexProgress()
+    //        }
+    //    }
+    
+    //    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    //        self.updateForParallexProgress()
+    //    }
+    //
+    //    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    //        self.updateForParallexProgress()
+    //    }
 }
 
 extension ViewProfileDetailVC: ViewProfileDetailVMDelegate {
@@ -511,13 +512,14 @@ extension ViewProfileDetailVC: ViewProfileDetailVMDelegate {
     }
     
     func willGetDetail(_ isShowLoader: Bool = false) {
-
+        self.profileImageHeaderView?.startLoading()
         if isShowLoader {
             AppGlobals.shared.startLoading(loaderBgColor: AppColors.clear)
         }
     }
     
     func getSuccess(_ data: TravelDetailModel) {
+        self.profileImageHeaderView?.stopLoading()
         AppGlobals.shared.stopLoading()
         travelData = data
         setUpDataFromApi()
@@ -525,6 +527,7 @@ extension ViewProfileDetailVC: ViewProfileDetailVMDelegate {
     }
     
     func getFail(errors: ErrorCodes) {
+        self.profileImageHeaderView?.stopLoading()
         AppGlobals.shared.stopLoading()
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
     }
