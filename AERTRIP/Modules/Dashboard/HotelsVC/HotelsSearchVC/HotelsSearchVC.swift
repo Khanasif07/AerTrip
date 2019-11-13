@@ -543,7 +543,6 @@ class HotelsSearchVC: BaseVC {
     
     @IBAction func searchButtonAction(_ sender: ATButton?) {
         if validateData() {
-            
             delay(seconds: 0.1) {
                 sender?.isLoading = true
             }

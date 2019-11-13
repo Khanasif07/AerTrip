@@ -69,7 +69,7 @@ class BulkBookingVC: BaseVC {
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var prefredTextContainer: UIView!
     @IBOutlet weak var specialTextContainer: UIView!
-    
+
     
     //MARK:- Properties
     //MARK:- Public

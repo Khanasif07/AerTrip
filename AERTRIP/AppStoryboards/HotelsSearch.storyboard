@@ -84,13 +84,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hotels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qha-hg-Avg">
-                                <rect key="frame" x="161" y="331" width="53.5" height="25.5"/>
+                                <rect key="frame" x="159" y="332" width="57.5" height="23.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqe-Xh-64F">
-                                <rect key="frame" x="110.5" y="371.5" width="154" height="21.5"/>
+                                <rect key="frame" x="107" y="370.5" width="161" height="20"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -748,22 +748,24 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BET-uw-EjT" customClass="PKTextField" customModule="AERTRIP" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W7g-Rn-0hP">
                                                                 <rect key="frame" x="20" y="48" width="147.5" height="24"/>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="24" id="b62-xk-t1D"/>
+                                                                    <constraint firstAttribute="height" constant="24" id="RT1-PL-yP6"/>
                                                                 </constraints>
-                                                            </view>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstItem="BET-uw-EjT" firstAttribute="leading" secondItem="yma-yu-t5i" secondAttribute="leading" id="8Ab-XX-2Av"/>
                                                             <constraint firstAttribute="trailing" secondItem="yma-yu-t5i" secondAttribute="trailing" constant="20" id="F7R-xO-8Bd"/>
-                                                            <constraint firstItem="BET-uw-EjT" firstAttribute="trailing" secondItem="yma-yu-t5i" secondAttribute="trailing" id="GZT-GW-nME"/>
-                                                            <constraint firstItem="BET-uw-EjT" firstAttribute="top" secondItem="yma-yu-t5i" secondAttribute="bottom" constant="14" id="JTX-Eb-uRs"/>
+                                                            <constraint firstItem="W7g-Rn-0hP" firstAttribute="trailing" secondItem="yma-yu-t5i" secondAttribute="trailing" id="ICp-Td-CpE"/>
+                                                            <constraint firstItem="W7g-Rn-0hP" firstAttribute="top" secondItem="yma-yu-t5i" secondAttribute="bottom" constant="14" id="MFU-hZ-WZu"/>
                                                             <constraint firstItem="yma-yu-t5i" firstAttribute="leading" secondItem="moU-Lg-VN7" secondAttribute="leading" constant="20" id="vVe-Ax-5g7"/>
                                                             <constraint firstItem="yma-yu-t5i" firstAttribute="centerY" secondItem="moU-Lg-VN7" secondAttribute="centerY" multiplier="0.57" id="wvY-fO-Hd0"/>
+                                                            <constraint firstItem="W7g-Rn-0hP" firstAttribute="leading" secondItem="yma-yu-t5i" secondAttribute="leading" id="y2q-aa-6rD"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ruh-Xl-2j4">
@@ -1077,6 +1079,7 @@
                         <outlet property="childContainerView" destination="cE3-sz-ARZ" id="aWJ-zy-b0G"/>
                         <outlet property="childCountLabel" destination="jRH-Hn-YjY" id="Chg-pX-kAR"/>
                         <outlet property="cityNameLabel" destination="BWC-uY-YU7" id="sdv-Sz-Orj"/>
+                        <outlet property="dateFlexibleLabel" destination="W7g-Rn-0hP" id="bjS-LN-dmQ"/>
                         <outlet property="dateInfoView" destination="BoL-F4-rJK" id="Aho-WI-olp"/>
                         <outlet property="datePickerView" destination="Hkt-JD-idP" id="X6S-VC-cwi"/>
                         <outlet property="fifthLineView" destination="qnr-yJ-h7o" id="cpw-ye-saG"/>
@@ -1088,7 +1091,6 @@
                         <outlet property="mainContainerView" destination="bwF-zP-HlZ" id="2XN-1C-DAV"/>
                         <outlet property="oneStarLabel" destination="nKQ-8F-ZtB" id="Vwd-5w-xTv"/>
                         <outlet property="preferredHotelsLabel" destination="yma-yu-t5i" id="AyJ-TQ-A9K"/>
-                        <outlet property="preferredTextView" destination="BET-uw-EjT" id="WCS-HR-jGd"/>
                         <outlet property="prefredTextContainer" destination="moU-Lg-VN7" id="UMm-Xw-j7o"/>
                         <outlet property="rectangleView" destination="H64-5R-dwG" id="tQl-P7-9eA"/>
                         <outlet property="roomCountLabel" destination="Sfs-hR-X2I" id="Kkf-j5-TnD"/>
@@ -1435,7 +1437,7 @@ been sent</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="99.5" height="246"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="19.5" translatesAutoresizingMaskIntoConstraints="NO" id="5Nc-t2-hZo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="245.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="246"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="lUb-4B-UGW">
                                                                 <rect key="frame" x="0.0" y="0.0" width="99.5" height="113"/>
@@ -1480,10 +1482,10 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="klb-yY-qLX">
-                                                                <rect key="frame" x="0.0" y="132.5" width="99.5" height="113"/>
+                                                                <rect key="frame" x="0.0" y="132.5" width="99.5" height="113.5"/>
                                                                 <subviews>
                                                                     <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2S-NB-xYW">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="113"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="113.5"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2081,7 +2083,7 @@ been sent</string>
                                                         <attributedString key="attributedText">
                                                             <fragment content="Want more rooms? Request bulk booking">
                                                                 <attributes>
-                                                                    <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
+                                                                    <font key="NSFont" metaFont="menu" size="14"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                 </attributes>
                                                             </fragment>

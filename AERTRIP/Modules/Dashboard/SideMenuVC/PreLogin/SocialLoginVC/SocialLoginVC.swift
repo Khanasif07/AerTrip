@@ -234,6 +234,7 @@ private extension SocialLoginVC {
             logoView?.messageLabel.font = AppFonts.Bold.withSize(38.0)
             logoView?.messageLabel.text = LocalizedString.PleaseSignInToContinue.localized
             logoView?.isAppNameHidden = true
+            logoView?.logoImageView.image = #imageLiteral(resourceName: "logoImage")
             
             socialButtosCenterConstraint.constant = -44.0
             socialAndLogoSpace.constant = 63.0
