@@ -522,6 +522,11 @@ class HotelResultVC: BaseVC {
             }
             self.cardGradientView.isHidden = true
             self.collectionView.setContentOffset(.zero, animated: false)
+            delay(seconds: 1.2) { [weak self] in
+                guard let strongSelf = self else {return}
+            let indexOfMajorCell = strongSelf.indexOfMajorCell()
+            strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
+            }
         } else {
             self.currentLocationButton.isHidden = true
             self.hoteResultViewType = .ListView

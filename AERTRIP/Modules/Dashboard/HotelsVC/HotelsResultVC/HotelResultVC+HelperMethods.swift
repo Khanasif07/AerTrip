@@ -218,7 +218,7 @@ extension HotelResultVC {
     }
     
     func animateMapToFirstHotelInMapMode() {
-        if let locStr = self.viewModel.collectionViewList.keys.first, let loc = self.getLocationObject(fromLocation: locStr) {
+        if let locStr = self.viewModel.collectionViewLocArr.first, let loc = self.getLocationObject(fromLocation: locStr) {
             self.focusMarker(coordinates: loc)
         }
     }
@@ -642,17 +642,12 @@ extension HotelResultVC {
     }
     
     func manageForCollectionView(atIndex: Int) {
-        let locStr = Array(self.viewModel.collectionViewList.keys)[atIndex]
+        
+        let locStr = self.viewModel.collectionViewLocArr[atIndex]
         
         if let loc = self.getLocationObject(fromLocation: locStr) {
-            if let oldLoc = self.displayingHotelLocation, !(loc == oldLoc) {
-                self.displayingHotelLocation = loc
-                focusMarker(coordinates: loc)
-            }
-            else {
-                self.displayingHotelLocation = loc
-                focusMarker(coordinates: loc)
-            }
+            self.displayingHotelLocation = loc
+            focusMarker(coordinates: loc)
         }
     }
     
@@ -696,7 +691,7 @@ extension HotelResultVC {
         let itemWidth = collectionViewLayout.itemSize.width
         let proportionalOffset = collectionViewLayout.collectionView!.contentOffset.x / itemWidth
         let index = Int(round(proportionalOffset))
-        let numberOfItemInCollection = self.viewModel.collectionViewList.keys.count - 1
+        let numberOfItemInCollection = self.viewModel.collectionViewLocArr.count - 1
         let safeIndex = max(0, min(numberOfItemInCollection, index))
         return safeIndex
     }
@@ -710,7 +705,7 @@ extension HotelResultVC {
         
         guard scrollView === self.collectionView else {return}
         
-        let numberOfItemInCollection = self.viewModel.collectionViewList.keys.count - 1
+        let numberOfItemInCollection = self.viewModel.collectionViewLocArr.count - 1
         
         // Stop scrollView sliding:
         targetContentOffset.pointee = scrollView.contentOffset
