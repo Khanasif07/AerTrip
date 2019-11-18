@@ -22,6 +22,7 @@ class ClusterMarkerView: UIView {
     
     var hotelTtems: [HotelSearched] = [] {
         didSet {
+            self.isForHotel = true
             self.configureUIForHotelItems()
         }
     }
@@ -31,7 +32,15 @@ class ClusterMarkerView: UIView {
             self.updateFav()
         }
     }
+    
+    var isSelected: Bool = false {
+        didSet {
+            self.updateSelection()
+        }
+    }
+    
     private let maxItemCount: Int = 99
+    private var isForHotel = false
     
     //Mark:- LifeCycle
     //================
@@ -103,8 +112,8 @@ class ClusterMarkerView: UIView {
     private func updateFav() {
         countLabel.cornerRadius = countLabel.height / 2.0
         if isFavourite {
-            countLabel.textColor = AppColors.themeBlack
-            countLabel.backgroundColor = AppColors.themeWhite
+            countLabel.textColor = isForHotel ? AppColors.themeWhite : AppColors.themeBlack
+            countLabel.backgroundColor = isForHotel ? AppColors.themeRed : AppColors.themeWhite
             countLabel.layer.borderColor = AppColors.themeRed.cgColor
             countLabel.layer.borderWidth = 1.0
         }
@@ -114,5 +123,19 @@ class ClusterMarkerView: UIView {
             countLabel.layer.borderColor = AppColors.clear.cgColor
             countLabel.layer.borderWidth = 0.0
         }
+    }
+    
+    private func updateSelection() {
+        guard !isFavourite else {
+            self.updateFav()
+            return
+        }
+        
+        countLabel.backgroundColor = isSelected ? (isFavourite ? AppColors.themeRed : AppColors.themeGreen) : AppColors.themeWhite
+        
+        countLabel.layer.borderColor = isSelected ? AppColors.clear.cgColor : AppColors.themeGreen.cgColor
+        countLabel.layer.borderWidth = isSelected ? 0.0 : 1.0
+        
+        countLabel.textColor = isSelected ? AppColors.themeWhite : AppColors.themeGreen
     }
 }

@@ -90,7 +90,12 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
         
         if self.hoteResultViewType == .MapView {
             //if user in map view then update map focus as fav switch changed.
-            self.animateMapToFirstHotelInMapMode()
+           // self.animateMapToFirstHotelInMapMode()
+            delay(seconds: 0.4) { [weak self] in
+                guard let strongSelf = self else {return}
+                let indexOfMajorCell = strongSelf.indexOfMajorCell()
+                strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
+            }
         }
         else {
             //if user in list view then scroll the list till top as fav switch changed.

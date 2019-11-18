@@ -75,6 +75,7 @@ class HotelResultVC: BaseVC {
             self.collectionView.dataSource = self
             self.collectionView.showsVerticalScrollIndicator = false
             self.collectionView.showsHorizontalScrollIndicator = false
+            
         }
     }
     
@@ -88,6 +89,8 @@ class HotelResultVC: BaseVC {
             self.tableViewVertical.separatorStyle = .none
             self.tableViewVertical.showsVerticalScrollIndicator = false
             self.tableViewVertical.showsHorizontalScrollIndicator = false
+            let tap = UITapGestureRecognizer(target: self, action: #selector(tableTapped))
+            self.tableViewVertical.addGestureRecognizer(tap)
         }
     }
     
@@ -160,7 +163,7 @@ class HotelResultVC: BaseVC {
     
     //Map Related
     var clusterManager: GMUClusterManager!
-    let useGoogleCluster: Bool = true
+    let useGoogleCluster: Bool = false
     var mapView: GMSMapView?
     let minZoomLabel: Float = 1.0
     let maxZoomLabel: Float = 30.0
@@ -419,6 +422,8 @@ class HotelResultVC: BaseVC {
         
         self.hotelSearchTableView.backgroundView = noResultemptyView
         self.hotelSearchTableView.reloadData()
+        
+        
       //  self.searchBar.backgroundColor = .red
         self.searchBar.searchBarStyle = .default
         self.switchView.originalColor = AppColors.themeWhite.withAlphaComponent(0.85)
@@ -623,7 +628,18 @@ class HotelResultVC: BaseVC {
         }
     }
 
-
+    // added tap gesture to handle the tap on mapview when vertical tableview is visible
+    @objc func tableTapped(tap:UITapGestureRecognizer) {
+        let location = tap.location(in: self.tableViewVertical)
+        let path = self.tableViewVertical.indexPathForRow(at: location)
+        if let indexPathForRow = path {
+            self.tableView(self.tableViewVertical, didSelectRowAt: indexPathForRow)
+        } else {
+            // handle tap on empty space below existing rows however you want
+            printDebug("tapped at empty space of table view")
+            self.mapButtonAction(self.mapButton)
+        }
+    }
 
 
 }

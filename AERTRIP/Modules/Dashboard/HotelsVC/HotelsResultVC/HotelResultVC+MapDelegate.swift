@@ -251,7 +251,16 @@ extension HotelResultVC {
                 marker.map = nil
                 self.addCustomMarker(forHotel: markerView.hotel!, atLocation: atLocation)
             }
+        }else if let markerView = marker.iconView as? ClusterMarkerView {
+            markerView.isSelected = isSelected
+            marker.map = self.mapView
+            if isSelected {
+                // make custom marker
+                marker.map = nil
+                self.addClusterMarker(forHotels: markerView.hotelTtems, atLocation: atLocation)
+            }
         }
+        
     }
 }
 
