@@ -15,6 +15,10 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
     var availableTagsForFilterartion: [String] = [] {
         didSet {
             if  !self.availableTagsForFilterartion.contains(array: initialTagsForFiltration) {
+//                var index = 0
+                for value in initialTagsForFiltration {
+                   availableTagsForFilterartion.remove(object: value)
+                }
                 self.availableTagsForFilterartion.insert(contentsOf: initialTagsForFiltration, at: 0)
             }
         }
@@ -88,7 +92,7 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
         if !isAvailableInSource {
             if parentVC.viewModel.filterAppliedData.roomMeal.contains(currentTag) {
                 parentVC.viewModel.roomMealDataCopy.append(currentTag)
-                parentVC.viewModel.filterAppliedData.roomMeal.append(currentTag)
+               // parentVC.viewModel.filterAppliedData.roomMeal.append(currentTag)
             } else if parentVC.viewModel.filterAppliedData.roomOther.contains(currentTag) {
                 parentVC.viewModel.roomOtherDataCopy.append(currentTag)
             } else if parentVC.viewModel.filterAppliedData.roomCancelation.contains(currentTag) {
@@ -129,7 +133,7 @@ extension HotelDetailsSearchTagTableCell: UICollectionViewDelegate, UICollection
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotelTagCollectionCell.reusableIdentifier, for: indexPath) as? HotelTagCollectionCell else { return UICollectionViewCell() }
-        if indexPath.row == 0 || indexPath.row == 1{
+        if indexPath.row < initialTagsForFiltration.count{
             cell.cancelButton.isHidden = true
         } else {
             cell.cancelButton.isHidden = false
@@ -148,7 +152,7 @@ extension HotelDetailsSearchTagTableCell: UICollectionViewDelegate, UICollection
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         printDebug(self.availableTagsForFilterartion[indexPath.item])
-        if indexPath.item == 0 || indexPath.item == 1  {
+        if indexPath.row < initialTagsForFiltration.count {
             if let parentVC = self.parentViewController as? HotelDetailsVC {
                 if  !parentVC.viewModel.selectedTags.contains(self.availableTagsForFilterartion[indexPath.item]) {
                 parentVC.viewModel.selectedTags.append(self.availableTagsForFilterartion[indexPath.item])
@@ -205,9 +209,10 @@ extension HotelDetailsSearchTagTableCell: DeleteTagButtonDelegate {
         if let parentVC = self.parentViewController as? HotelDetailsVC , self.availableTagsForFilterartion.indices.contains(indexPath.item) {
             printDebug("\(self.availableTagsForFilterartion[indexPath.item]) is deleted")
            
-            if parentVC.viewModel.selectedTags.indices.contains(indexPath.item) {
-                parentVC.viewModel.selectedTags.remove(at: indexPath.item)
-            }
+//            if parentVC.viewModel.selectedTags.indices.contains(indexPath.item) {
+//                parentVC.viewModel.selectedTags.remove(at: indexPath.item)
+//            }
+            parentVC.viewModel.selectedTags.remove(object: self.availableTagsForFilterartion[indexPath.item])
            
             self.getTypeOfFIlteration(parentVC: parentVC, currentTag: self.availableTagsForFilterartion[indexPath.item], isAvailableInSource: true)
             self.availableTagsForFilterartion.remove(at: indexPath.item)

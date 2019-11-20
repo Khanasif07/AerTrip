@@ -71,6 +71,7 @@ class HotelDetailsVM {
                 self.permanentTagsForFilteration.append(element)
             }
         }
+        self.selectedTags = self.permanentTagsForFilteration
     }
     
     /// Filtered Rates

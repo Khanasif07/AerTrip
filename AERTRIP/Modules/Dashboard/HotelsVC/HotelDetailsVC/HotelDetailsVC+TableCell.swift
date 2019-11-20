@@ -90,9 +90,15 @@ extension HotelDetailsVC {
     
     internal func getSearchBarTagCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsSearchTagTableCell") as? HotelDetailsSearchTagTableCell  else { return UITableViewCell() }
-        if !(self.viewModel.selectedTags.contains(AppConstants.kBreakfast) || self.viewModel.selectedTags.contains(AppConstants.kRefundable)) {
-             cell.availableTagsForFilterartion = self.viewModel.selectedTags
+        for filter in self.viewModel.permanentTagsForFilteration {
+            if !cell.initialTagsForFiltration.contains(filter) {
+                cell.initialTagsForFiltration.append(filter)
+            }
         }
+        
+//        if !(self.viewModel.selectedTags.contains(AppConstants.kBreakfast) || self.viewModel.selectedTags.contains(AppConstants.kRefundable)) {
+             cell.availableTagsForFilterartion = self.viewModel.selectedTags
+//        }
         // commented as We are not getting roomTags empty
 //        if let amenities = hotelDetails.amenities {
 //            let tags = amenities.basic + amenities.other

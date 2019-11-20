@@ -364,13 +364,36 @@ extension HotelResultVC: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        if let clusterItem = marker.userData as? ATClusterItem, let data = clusterItem.hotelDetails {
-            if let lat = data.lat, let long = data.long, let index = Array(self.viewModel.collectionViewList.keys).index(of: "\(lat),\(long)") {
-                self.selectedIndexPath = IndexPath(item: index, section: 0)
-            }
-            AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: data, sourceView: self.collectionView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+//        if let clusterItem = marker.userData as? ATClusterItem, let data = clusterItem.hotelDetails {
+//            if let lat = data.lat, let long = data.long, let index = Array(self.viewModel.collectionViewList.keys).index(of: "\(lat),\(long)") {
+//                self.selectedIndexPath = IndexPath(item: index, section: 0)
+//            }
+//            AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: data, sourceView: self.collectionView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+//        }
+        
+        if let markerView = marker.iconView as? CustomMarker, let data = markerView.hotel {
+            movetoDetailPage(data: data)
         }
+        else if let markerView = marker.iconView as? CustomDotMarker, let data = markerView.hotel {
+            movetoDetailPage(data: data)
+        }else if let markerView = marker.iconView as? ClusterMarkerView, let data = markerView.hotelTtems.first {
+            movetoDetailPage(data: data)
+        }
+        
         return true
+    }
+    
+    private func movetoDetailPage(data: HotelSearched) {
+        if let lat = data.lat, let long = data.long, let index = Array(self.viewModel.collectionViewList.keys).index(of: "\(lat),\(long)") {
+            let index = IndexPath(item: index, section: 0)
+            self.selectedIndexPath = index
+            guard let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[index.item]] as? [HotelSearched] else {return}
+             if hData.count > 1 {
+                self.expandGroup((self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[index.row]] as? [HotelSearched]) ?? [])
+             } else {
+                AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: data, sourceView: self.collectionView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+            }
+        }
     }
 }
 
