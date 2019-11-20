@@ -42,11 +42,11 @@ class CustomDotMarker: UIView {
     }
     
     private func updateFav() {
-        if isFavourite {
-            iconImageView.image = #imageLiteral(resourceName: "favHotelWithShadowMarker")
-        }
-        else {
+//        if isFavourite {
+//            iconImageView.image = #imageLiteral(resourceName: "favHotelWithShadowMarker")
+//        }
+//        else {
             iconImageView.image = #imageLiteral(resourceName: "clusterSmallTag")
-        }
+//        }
     }
 }

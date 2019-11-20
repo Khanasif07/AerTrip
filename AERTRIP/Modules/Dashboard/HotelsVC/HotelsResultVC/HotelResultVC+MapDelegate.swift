@@ -27,7 +27,7 @@ extension HotelResultVC {
             mapView?.isMyLocationEnabled = true
             mapView?.settings.myLocationButton = false
             mapView?.setMinZoom(self.minZoomLabel, maxZoom: self.maxZoomLabel)
-            mapView?.animate(toZoom: self.defaultZoomLabel - 4.0)
+            mapView?.animate(toZoom: self.defaultZoomLabel)
             
             if self.useGoogleCluster {
                 self.setUpClusterManager()
@@ -117,6 +117,14 @@ extension HotelResultVC {
             }
         }
     }
+    
+    func adjustMapPadding() {
+        if hoteResultViewType == .ListView {
+            self.mapView?.padding = UIEdgeInsets(top: 0, left: 0, bottom: 200, right: 0)
+        } else {
+            self.mapView?.padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        }
+    }
 }
 
 // MARK: - Methods for Marker Ploating
@@ -168,14 +176,14 @@ extension HotelResultVC {
     func drawAllDotMarkers() {
         for locStr in Array(self.viewModel.collectionViewList.keys) {
             if let location = self.getLocationObject(fromLocation: locStr), let allHotels = self.viewModel.collectionViewList[locStr] as? [HotelSearched] {
-                if allHotels.count > 1 {
-                    // create cluster marker
-                    self.addClusterMarker(forHotels: allHotels, atLocation: location)
-                }
-                else if allHotels.count == 1 {
+//                if allHotels.count > 1 {
+//                    // create cluster marker
+//                    self.addClusterMarker(forHotels: allHotels, atLocation: location)
+//                }
+//                else if allHotels.count == 1 {
                     // create dot markers
                     self.addDotMarker(forHotel: allHotels.first!, atLocation: location)
-                }
+//                }
             }
         }
     }
@@ -237,6 +245,8 @@ extension HotelResultVC {
         }
         
         if let markerView = marker.iconView as? CustomMarker {
+            let value = markerView.hotel
+            markerView.hotel = value
             markerView.isSelected = isSelected
             marker.map = self.mapView
             if let currentZoom = self.mapView?.camera.zoom, currentZoom < self.thresholdZoomLabel {
@@ -252,13 +262,15 @@ extension HotelResultVC {
                 self.addCustomMarker(forHotel: markerView.hotel!, atLocation: atLocation)
             }
         }else if let markerView = marker.iconView as? ClusterMarkerView {
+            let value = markerView.hotelTtems
+            markerView.hotelTtems = value
             markerView.isSelected = isSelected
             marker.map = self.mapView
-            if isSelected {
-                // make custom marker
-                marker.map = nil
-                self.addClusterMarker(forHotels: markerView.hotelTtems, atLocation: atLocation)
-            }
+//            if isSelected {
+//                // make custom marker
+//                marker.map = nil
+//                self.addClusterMarker(forHotels: markerView.hotelTtems, atLocation: atLocation)
+//            }
         }
         
     }

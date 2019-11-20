@@ -75,7 +75,8 @@ class HotelDetailsVC: BaseVC {
         
         let panGes = UIPanGestureRecognizer(target: self, action: #selector(self.panHandler(_:)))
          panGes.delegate = self
-//        self.view.addGestureRecognizer(panGes)
+       // self.view.addGestureRecognizer(panGes)
+        
     }
     
     @objc func panHandler(_ sender: UIPanGestureRecognizer) {
@@ -148,6 +149,8 @@ class HotelDetailsVC: BaseVC {
         }
         self.viewModel.getHotelInfoApi()
         self.smallLineView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        self.hotelTableView.bounces = true
+        self.view.backgroundColor = .clear
     }
     
     override func bindViewModel() {

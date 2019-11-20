@@ -80,17 +80,22 @@ class CustomMarker: UIView {
     }
     
     private func updateSelection() {
-        guard !isFavourite else {
+        
+        if isSelected && isFavourite {
             self.updateFav()
             return
         }
+//        guard !isFavourite else {
+//            self.updateFav()
+//            return
+//        }
         
-        connectorView.backgroundColor = AppColors.themeGreen
+        connectorView.backgroundColor = isSelected ? AppColors.themeGreen : AppColors.themeWhite
         
-        priceView.layer.borderColor = isSelected ? AppColors.clear.cgColor : AppColors.themeGreen.cgColor
+        priceView.layer.borderColor = isSelected ? AppColors.clear.cgColor : (isFavourite ? AppColors.themeRed.cgColor : AppColors.themeGreen.cgColor)
         priceView.layer.borderWidth = isSelected ? 0.0 : 1.0
-        priceView.backgroundColor = isSelected ? AppColors.themeGreen : AppColors.themeWhite
+        priceView.backgroundColor = isSelected ? (isFavourite ? AppColors.themeRed : AppColors.themeGreen) : AppColors.themeWhite
 
-        priceLabel.textColor = isSelected ? AppColors.themeWhite : AppColors.themeGreen
+        priceLabel.textColor = isSelected ? AppColors.themeWhite : (isFavourite ? AppColors.themeRed : AppColors.themeGreen)
     }
 }

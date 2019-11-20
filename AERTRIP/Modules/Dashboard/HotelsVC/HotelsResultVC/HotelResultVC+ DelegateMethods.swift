@@ -21,13 +21,13 @@ extension HotelResultVC: UISearchBarDelegate {
         animateHeaderToMapView()
         //self.predicateStr = searchBar.text ?? ""
         self.fetchRequestType = .Searching
-//        self.searchForText(searchBar.text ?? "")
-//        self.loadSaveData()
+        //        self.searchForText(searchBar.text ?? "")
+        //        self.loadSaveData()
         self.hotelSearchTableView.backgroundView = nil
         self.showSearchAnimation()
         self.reloadHotelList()
     }
-
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.fetchRequestType = .Searching
         if searchText.isEmpty {
@@ -45,10 +45,10 @@ extension HotelResultVC: UISearchBarDelegate {
             self.searchForText(searchText)
         }
     }
-
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
     }
-
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if searchedHotels.count > 0 {
             self.fetchRequestType = .normal
@@ -90,7 +90,7 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
         
         if self.hoteResultViewType == .MapView {
             //if user in map view then update map focus as fav switch changed.
-           // self.animateMapToFirstHotelInMapMode()
+            // self.animateMapToFirstHotelInMapMode()
             delay(seconds: 0.4) { [weak self] in
                 guard let strongSelf = self else {return}
                 let indexOfMajorCell = strongSelf.indexOfMajorCell()
@@ -104,7 +104,7 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
                     self?.tableViewVertical.setContentOffset(CGPoint(x: 0.0, y: -3.0), animated: true)
                 }
             }
-
+            
             
             if let data = self.fetchedResultsController.fetchedObjects,data.count  < 2 {
                 printDebug("inside tesing block")
@@ -113,7 +113,7 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
                 }
                 
                 reloadHotelList()
-            
+                
             }
         }
     }
@@ -129,11 +129,11 @@ extension HotelResultVC: PKBottomSheetDelegate {
             self?.view.layoutIfNeeded()
         }
     }
-
+    
     func willShow(_ sheet: PKBottomSheet) {
         self.updateNavWhileInMapMode(isHidden: true)
     }
-
+    
     func willHide(_ sheet: PKBottomSheet) {
         self.updateNavWhileInMapMode(isHidden: false)
         self.hotelsGroupExpendedVC?.animateCardsToClose()
@@ -198,15 +198,18 @@ extension HotelResultVC: HotelResultDelegate {
         self.time += 1
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
         self.updateMarkers()
-
+        
         if UserInfo.hotelFilter != nil {
-             self.getSavedFilter()
+            self.getSavedFilter()
             // Apply previous filter
             self.applyPreviousFilter()
             
             // Apply Aerin Filter
-           // self.applyAerinFilter()
-           }
+            // self.applyAerinFilter()
+        }
+        let indexOfMajorCell = self.indexOfMajorCell()
+        self.manageForCollectionView(atIndex: indexOfMajorCell)
+        self.adjustMapPadding()
     }
     
     func getAllHotelsOnResultFallbackSuccess(_ isDone: Bool) {
@@ -222,33 +225,37 @@ extension HotelResultVC: HotelResultDelegate {
     func willGetPinnedTemplate() {
         //
     }
-
+    
     func getPinnedTemplateSuccess() {
         //
     }
-
+    
     func getPinnedTemplateFail() {
         //
     }
-
+    
     func willUpdateFavourite() {
         //
-//        self.updateFavOnList(forIndexPath: self.selectedIndexPath)
+        //        self.updateFavOnList(forIndexPath: self.selectedIndexPath)
     }
-
+    
     func updateFavouriteSuccess() {
         self.getFavouriteHotels(shouldReloadData: true)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
         if self.viewModel.isUnpinHotelTapped {
-             self.reloadHotelList()
-             self.viewModel.isUnpinHotelTapped = false
+            self.reloadHotelList()
+            self.viewModel.isUnpinHotelTapped = false
         } else {
-//             self.updateFavOnList(forIndexPath: self.selectedIndexPath)
+            //             self.updateFavOnList(forIndexPath: self.selectedIndexPath)
+        }
+        if hoteResultViewType == .MapView {
+            let indexOfMajorCell = self.indexOfMajorCell()
+            self.manageForCollectionView(atIndex: indexOfMajorCell)
         }
     }
-
+    
     func updateFavouriteFail(errors:ErrorCodes) {
         self.getFavouriteHotels(shouldReloadData: true)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
-//        self.updateFavOnList(forIndexPath: self.selectedIndexPath)
+        //        self.updateFavOnList(forIndexPath: self.selectedIndexPath)
         if let _ = UserInfo.loggedInUser {
             if errors.contains(array: [-1]){
                 if let _  = UserInfo.loggedInUser?.userId {
@@ -258,8 +265,11 @@ extension HotelResultVC: HotelResultDelegate {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
             }
         }
+        
+        let indexOfMajorCell = self.indexOfMajorCell()
+        self.manageForCollectionView(atIndex: indexOfMajorCell)
     }
-
+    
     func getAllHotelsListResultSuccess(_ isDone: Bool) {
         if !isDone {
             self.viewModel.hotelListOnPreferenceResult()
@@ -267,7 +277,7 @@ extension HotelResultVC: HotelResultDelegate {
             loadFinalDataOnScreen()
         }
     }
-
+    
     func getAllHotelsListResultFail(errors: ErrorCodes) {
         if errors.contains(array: [37]) {
             self.viewModel.hotelListOnResultFallback()
@@ -284,23 +294,25 @@ extension HotelResultVC: HotelCardCollectionViewCellDelegate {
         if let indexPath = self.collectionView.indexPath(forItem: sender) {
             self.selectedIndexPath = indexPath
         } else if let indexPath = self.tableViewVertical.indexPath(forItem: sender) {
-             self.selectedIndexPath = indexPath
+            self.selectedIndexPath = indexPath
         }
         self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)
         // reload that item at particular indexPath
         if let indexPath = self.selectedIndexPath {
-           self.updateFavOnList(forIndexPath: indexPath)
+            self.updateFavOnList(forIndexPath: indexPath)
         }
+        
+        
     }
-
+    
     func saveButtonAction(_ sender: UIButton, forHotel: HotelsModel) {
         //
     }
-
+    
     func pagingScrollEnable(_ indexPath: IndexPath, _ scrollView: UIScrollView) {
         printDebug("Hotel page scroll delegate ")
-
+        
         if let cell = tableViewVertical.cellForRow(at: indexPath) as? HotelCardTableViewCell {
             cell.pageControl.setProgress(contentOffsetX: scrollView.contentOffset.x, pageWidth: scrollView.bounds.width)
         }
@@ -341,7 +353,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
         //manage switch button when clear all filters
         self.getFavouriteHotels(shouldReloadData: false)
     }
-
+    
     func doneButtonTapped() {
         if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
             UserInfo.hotelFilterApplied = UserInfo.hotelFilter
@@ -349,7 +361,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
         
         
         if HotelFilterVM.shared.isFilterApplied {
-         HotelFilterVM.shared.saveDataToUserDefaults()
+            HotelFilterVM.shared.saveDataToUserDefaults()
         }
         printDebug("done button tapped")
         self.getSavedFilter()
@@ -358,7 +370,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
         //manage switch button for the filttred data.
         if let _ = self.fetchedResultsController.fetchedObjects {
             if  let allFavs = CoreDataManager.shared.fetchData("HotelSearched", predicate: "fav == '1'")  as? [HotelSearched]  {
-                 self.manageSwitchContainer(isHidden: allFavs.isEmpty, shouldOff: false)
+                self.manageSwitchContainer(isHidden: allFavs.isEmpty, shouldOff: false)
             }
         }
         else {

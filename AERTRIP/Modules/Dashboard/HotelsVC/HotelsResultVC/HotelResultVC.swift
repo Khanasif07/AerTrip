@@ -338,7 +338,7 @@ class HotelResultVC: BaseVC {
     override func keyboardWillHide(notification: Notification) {
         if let _ = self.view.window, self.searchedHotels.isEmpty {
             //checking if the screen in window only then this method should call
-            self.cancelButtonTapped(self.cancelButton)
+           // self.cancelButtonTapped(self.cancelButton)
         }
     }
     
@@ -532,6 +532,7 @@ class HotelResultVC: BaseVC {
             let indexOfMajorCell = strongSelf.indexOfMajorCell()
             strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
             }
+            self.adjustMapPadding()
         } else {
             self.currentLocationButton.isHidden = true
             self.hoteResultViewType = .ListView
@@ -543,7 +544,7 @@ class HotelResultVC: BaseVC {
                 }
             }
             self.cardGradientView.isHidden = false
-            
+            self.adjustMapPadding()
         }
         
         self.reloadHotelList()

@@ -68,7 +68,7 @@ class HotelsSearchVM: NSObject{
             var childArrayData: JSONDictionaryArray = []
             if index < self.searchedFormData.childrenAge.count {
                 for child in self.searchedFormData.childrenAge[index] {
-                    let show: Int = child >= 1 ? 1 : 0
+                    let show: Int = child >= 0 ? 1 : 0
                     let childData: JSONDictionary = [APIKeys.show.rawValue : show , APIKeys.age.rawValue : child , APIKeys.error.rawValue : false]
                     childArrayData.append(childData)
                 }

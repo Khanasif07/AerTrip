@@ -47,7 +47,6 @@ extension HotelResultVC {
         let finalStr = LocalizedString.ApplyPreviousFilter.localized + starStar + distanceStr.appending(LocalizedString.Kms.localized) + AppConstants.kEllipses
         
         AppToast.default.showToastMessage(message: finalStr, onViewController: self, duration: 5.0, buttonTitle: LocalizedString.apply.localized, buttonImage: nil, buttonAction: self.completion, toastDidClose: self.toastDidClose)
-
     }
     
     func convertToMapView(completion: ((Bool) -> Void)?) {
@@ -174,7 +173,7 @@ extension HotelResultVC {
                     self.collectionView.reloadItems(at: indexPath)
                 }
             }
-            selectedIndexPath = nil
+            //selectedIndexPath = nil
         }
         else {
             if self.fetchRequestType == .Searching {

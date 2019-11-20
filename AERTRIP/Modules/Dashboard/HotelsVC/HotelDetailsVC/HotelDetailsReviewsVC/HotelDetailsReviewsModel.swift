@@ -45,56 +45,56 @@ struct  HotelDetailsReviewsModel {
                 APIKeys.discount.rawValue: self.tripTypes
         ]
     }
-        
-        
-        init(json: JSONDictionary) {
-            
-            if let obj = json[APIKeys.webUrl.rawValue] {
-                self.webUrl = "\(obj)".removeNull
-            }
-            if let obj = json[APIKeys.rating.rawValue] {
-                self.rating = "\(obj)".removeNull
-            }
-            if let obj = json[APIKeys.ratingImgUrl.rawValue] {
-                self.ratingImgUrl = "\(obj)".removeNull
-            }
-            if let obj = json[APIKeys.numReviews.rawValue] {
-                self.numReviews = "\(obj)".removeNull
-            }
-            if let obj = json[APIKeys.writeReview.rawValue] {
-                self.writeReview = "\(obj)".removeNull
-            }
-            if let obj = json[APIKeys.photoCount.rawValue] {
-                self.photoCount = "\(obj)".removeNull
-            }
-            if let obj = json[APIKeys.awardsImage.rawValue] {
-                self.awardsImage = "\(obj)".removeNull
-            }
-            if let obj = json[APIKeys.seeAllPhotos.rawValue] {
-                self.seeAllPhotos = "\(obj)".removeNull
-            }
-            if let obj = json[APIKeys.rankingData.rawValue] as? JSONDictionary {
-                self.rankingData = RankingData.rankingData(response: obj)
-            }
-            if let obj = json[APIKeys.reviewRatingCount.rawValue] as? JSONDictionary {
-                self.reviewRatingCount = obj
-            }
-            if let obj = json[APIKeys.subratings.rawValue] as? [JSONDictionary] {
-                self.ratingSummary = RatingSummary.ratingSummary(response: obj)
-            }
-            if let obj = json[APIKeys.tripTypes.rawValue] as? [JSONDictionary] {
-                self.tripTypes = TripTypes.tripTypes(response: obj)
-            }
-        }
     
-        //Mark:- Functions
-        //================
-        ///Static Function
-        static func hotelDetailsReviews(response: JSONDictionary) -> HotelDetailsReviewsModel {
-            let hotelDetailsReviews = HotelDetailsReviewsModel(json: response)
-            return hotelDetailsReviews
+    
+    init(json: JSONDictionary) {
+        
+        if let obj = json[APIKeys.webUrl.rawValue] {
+            self.webUrl = "\(obj)".removeNull
         }
-
+        if let obj = json[APIKeys.rating.rawValue] {
+            self.rating = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.ratingImgUrl.rawValue] {
+            self.ratingImgUrl = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.numReviews.rawValue] {
+            self.numReviews = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.writeReview.rawValue] {
+            self.writeReview = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.photoCount.rawValue] {
+            self.photoCount = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.awardsImage.rawValue] {
+            self.awardsImage = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.seeAllPhotos.rawValue] {
+            self.seeAllPhotos = "\(obj)".removeNull
+        }
+        if let obj = json[APIKeys.rankingData.rawValue] as? JSONDictionary {
+            self.rankingData = RankingData.rankingData(response: obj)
+        }
+        if let obj = json[APIKeys.reviewRatingCount.rawValue] as? JSONDictionary {
+            self.reviewRatingCount = obj
+        }
+        if let obj = json[APIKeys.subratings.rawValue] as? [JSONDictionary] {
+            self.ratingSummary = RatingSummary.ratingSummary(response: obj)
+        }
+        if let obj = json[APIKeys.tripTypes.rawValue] as? [JSONDictionary] {
+            self.tripTypes = TripTypes.tripTypes(response: obj)
+        }
+    }
+    
+    //Mark:- Functions
+    //================
+    ///Static Function
+    static func hotelDetailsReviews(response: JSONDictionary) -> HotelDetailsReviewsModel {
+        let hotelDetailsReviews = HotelDetailsReviewsModel(json: response)
+        return hotelDetailsReviews
+    }
+    
 }
 
 struct RankingData {
@@ -195,7 +195,7 @@ struct RatingSummary {
         }
         return ratingSummaryData
     }
-
+    
 }
 
 struct TripTypes {

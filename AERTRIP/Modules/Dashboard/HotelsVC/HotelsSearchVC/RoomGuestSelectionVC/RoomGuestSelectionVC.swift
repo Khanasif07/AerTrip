@@ -136,7 +136,7 @@ class RoomGuestSelectionVC: BaseVC {
         for picker in self.agePickers {
             picker.dataSource = self
             picker.delegate = self
-            if self.viewModel.childrenAge[picker.tag] > 0 {
+            if self.viewModel.childrenAge[picker.tag] >= 0 {
                 picker.selectRow(self.viewModel.childrenAge[picker.tag], inComponent: 0, animated: false)
             } else {
                 picker.selectRow(3, inComponent: 0, animated: false)

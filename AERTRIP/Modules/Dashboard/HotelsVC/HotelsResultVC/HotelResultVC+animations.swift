@@ -132,9 +132,9 @@ extension HotelResultVC {
         }
         
         // resize the map view for map/list view
-        self.mapView?.animate(toZoom: isHidden ? self.defaultZoomLabel : (self.defaultZoomLabel + self.extraZoomLabelForMapView))
-        isHidden ? self.moveMapToCurrentCity() : self.animateMapToFirstHotelInMapMode()
-        
+        self.mapView?.animate(toZoom: isHidden ? self.defaultZoomLabel : (self.defaultZoomLabel))
+       // isHidden ? self.moveMapToCurrentCity() : self.animateMapToFirstHotelInMapMode()
+        self.animateMapToFirstHotelInMapMode()
         let animator = UIViewPropertyAnimator(duration: animated ? AppConstants.kAnimationDuration : 0.0, curve: .linear) {[weak self] in
             
             guard let sSelf = self else {return}
