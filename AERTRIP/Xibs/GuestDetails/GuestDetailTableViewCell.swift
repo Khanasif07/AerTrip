@@ -114,6 +114,8 @@ class GuestDetailTableViewCell: UITableViewCell {
             } else {
                 configureSalutationSwicth(type: .none)
             }
+        }else {
+            configureSalutationSwicth(type: .none)
         }
         if canShowSalutationError, let salutaion = self.guestDetail?.salutation,salutaion.isEmpty {
             self.containerView.layer.borderColor = AppColors.themeRed.cgColor
@@ -181,12 +183,14 @@ class GuestDetailTableViewCell: UITableViewCell {
             configureSalutationSwicth(type: .female)
             salutation = AppGlobals.shared.getSalutationAsPerGenderAndAge(gender: AppConstants.kmRS, dob: self.guestDetail?.dob ?? "", dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
             
-        } else {
+        } else if sender.selectedIndex == 0{
             configureSalutationSwicth(type: .male)
             salutation = AppGlobals.shared.getSalutationAsPerGenderAndAge(gender: AppConstants.kmR, dob: self.guestDetail?.dob ?? "", dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
         }
+        if sender.selectedIndex == 0 || sender.selectedIndex == 1 {
         if let indexPath = (self.superview as? UITableView)?.indexPath(for: self) {
             GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = salutation
+        }
         }
     }
 }
