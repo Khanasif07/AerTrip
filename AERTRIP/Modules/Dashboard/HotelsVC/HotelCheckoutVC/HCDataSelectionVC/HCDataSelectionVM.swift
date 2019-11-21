@@ -43,6 +43,8 @@ class HCDataSelectionVM {
     var email: String = ""
     var isGuestUser: String = "false"
     var selectedSpecialRequest : [Int] = []
+    var other: String = ""
+    var specialRequest: String = ""
     // following properties will use to hit the confirmation API, will passed from where this class is being initiated
     var sId = "", hId = "", qId = ""
     
@@ -163,12 +165,17 @@ class HCDataSelectionVM {
         
 //        params["t[0][rid]"] = self.itineraryData?.hotelDetails?.rates?.first?.roomsRates?.first?.rid
 //        params["t[0][qid]"] = self.itineraryData?.hotelDetails?.rates?.first?.qid
-        params["special"] = ""
-        params["other"] = ""
+        params["special"] = self.specialRequest
+        params["other"] = self.other
         
         params["mobile"] = self.mobileNumber
         params["mobile_isd"] = self.mobileIsd
         params["it_id"] = self.itineraryData?.it_id
+        
+        for value in selectedSpecialRequest {
+            params["preference[\(value)]"] = true
+        }
+
         
 //        self.delegate?.willCallForItenaryDataTraveller()
         APICaller.shared.callItenaryDataForTravellerAPI(itinaryId: self.itineraryData?.it_id ?? "", params: params, loader: false) { [weak self] success, errors, _, itinerary in

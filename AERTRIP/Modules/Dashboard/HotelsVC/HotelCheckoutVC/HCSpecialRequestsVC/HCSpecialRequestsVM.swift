@@ -10,10 +10,12 @@ import Foundation
 
 class HCSpecialRequestsVM {
     
-    var preferences: String = ""
-    var request: String = ""
+    var other: String = ""
+    var specialRequest: String = ""
     var selectedRequestsId: [Int] = []
     var specialRequests: [SpecialRequest] = []
     
     
 }
+//"special": "Need red wine"
+//"other": "Need clean room"

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol HCSpecialRequestsDelegate: class {
-    func didPassSelectedRequestsId(ids: [Int],  preferences: String, request: String)
+    func didPassSelectedRequestsId(ids: [Int],  other: String, specialRequest: String)
 }
 
 class HCSpecialRequestsVC: BaseVC {
@@ -126,13 +126,15 @@ extension HCSpecialRequestsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCSpecialRequestTextfieldCell.reusableIdentifier, for: indexPath) as? HCSpecialRequestTextfieldCell else { return UITableViewCell() }
         cell.delegate = self
         if indexPath.row == self.viewModel.specialRequests.count {
-            cell.topDividerViewTopConstraints.constant = 17.0
+            cell.topDividerViewTopConstraints.constant = 0.0//17.0
             cell.configCell(placeHolderText: textFieldPlaceHolder[0])
             cell.topDividerView.isHidden = false
+            cell.infoTextField.text =  self.viewModel.other
         } else {
             cell.topDividerViewTopConstraints.constant = 0.0
             cell.topDividerView.isHidden = true
             cell.configCell(placeHolderText: textFieldPlaceHolder[1])
+            cell.infoTextField.text =  self.viewModel.specialRequest
         }
         return cell
     }
@@ -148,8 +150,8 @@ extension HCSpecialRequestsVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        if let safeDelegate = self.delegate, (!self.viewModel.selectedRequestsId.isEmpty || !self.viewModel.preferences.isEmpty || !self.viewModel.request.isEmpty) {
-            safeDelegate.didPassSelectedRequestsId(ids: self.viewModel.selectedRequestsId, preferences: self.viewModel.preferences, request: self.viewModel.request)
+        if let safeDelegate = self.delegate, (!self.viewModel.selectedRequestsId.isEmpty || !self.viewModel.other.isEmpty || !self.viewModel.specialRequest.isEmpty) {
+            safeDelegate.didPassSelectedRequestsId(ids: self.viewModel.selectedRequestsId, other: self.viewModel.other, specialRequest: self.viewModel.specialRequest)
         }
         self.dismiss(animated: true, completion: nil)
     }
@@ -160,9 +162,9 @@ extension HCSpecialRequestsVC: TopNavigationViewDelegate {
 extension HCSpecialRequestsVC: HCSpecialRequestTextfieldCellDelegate {
     func didPassSpecialRequestAndAirLineText(infoText: String,indexPath: IndexPath) {
         if indexPath.row == self.viewModel.specialRequests.count {
-            self.viewModel.preferences = infoText
+            self.viewModel.other = infoText
         } else {
-            self.viewModel.request = infoText
+            self.viewModel.specialRequest = infoText
         }
         printDebug(infoText)
     }

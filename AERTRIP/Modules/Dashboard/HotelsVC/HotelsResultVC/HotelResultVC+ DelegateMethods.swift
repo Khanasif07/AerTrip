@@ -72,6 +72,7 @@ extension HotelResultVC: UISearchBarDelegate {
 extension HotelResultVC: ATSwitcherChangeValueDelegate {
     func switcherDidChangeValue(switcher: ATSwitcher, value: Bool) {
         self.loadSaveData()
+        self.updateMarkers()
         if value {
             if self.hoteResultViewType == .MapView {
                 self.floatingButtonOnMapView.isHidden = false
