@@ -325,7 +325,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 //profile
                 self.viewProfileButtonAction(ATButton())
                 
-            case 1:
+//            case 1:
                 //view account
                // AppFlowManager.default.moveToAccountDetailsScreen()
                 
