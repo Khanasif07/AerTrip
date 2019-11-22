@@ -31,6 +31,6 @@ class AmenitiesCollectionCell: UICollectionViewCell {
     //==============    
     internal func configureCell(amenitiesMainData: AmenitiesMain) {
         self.amenitiesImageView.image = amenitiesMainData.image
-        self.amenitiesImageView.alpha = amenitiesMainData.available ? 1 : 0.5
+        self.amenitiesImageView.alpha = amenitiesMainData.available ? 1 : 0.2
     }
 }

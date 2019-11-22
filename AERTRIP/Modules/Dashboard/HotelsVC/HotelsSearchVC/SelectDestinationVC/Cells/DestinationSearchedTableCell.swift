@@ -49,7 +49,7 @@ class DestinationSearchedTableCell: UITableViewCell {
         var splittedStringArray = data.value.components(separatedBy: ",")
         splittedStringArray.removeFirst()
         let stateName = splittedStringArray.joined(separator: ",").removeLeadingTrailingWhitespaces
-        self.addressLabel.attributedText = self.getAttributedBoldText(text: stateName, boldText: forText, fullTextColor: AppColors.themeBlack)
+        self.addressLabel.attributedText = self.getAttributedBoldText(text: stateName, boldText: forText, fullTextColor: AppColors.themeGray40)
     }
     
     private func getAttributedBoldText(text: String, boldText: String, fullTextColor: UIColor) -> NSMutableAttributedString {

@@ -261,7 +261,7 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
         }
         else {
             tableView.backgroundView?.isHidden = true
-            return (self.viewModel.recentSearchLimit > 0) ? 3 : 2
+            return (self.viewModel.recentSearchLimit > 0) ? 3 : 3
         }
     }
     
@@ -272,12 +272,7 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
         }
         else {
             
-            if (self.viewModel.recentSearchLimit > 0) {
-                return [1, self.viewModel.recentSearchLimit, self.viewModel.popularDestinationLimit][section]
-            }
-            else {
-                return [1, self.viewModel.popularDestinationLimit][section]
-            }
+            return [1, self.viewModel.recentSearchLimit, self.viewModel.popularDestinationLimit][section]
         }
     }
     
@@ -293,7 +288,7 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
                 
             case 1:
                 //recent search,
-                if let userId = UserInfo.loggedInUser?.userId ,!userId.isEmpty
+                if (self.viewModel.recentSearchLimit > 0) //let userId = UserInfo.loggedInUser?.userId ,!userId.isEmpty
                 {
                     return 28.0
                 } else {
@@ -352,11 +347,11 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
                 
             case 1:
                 //recent search
-                if let userId = UserInfo.loggedInUser?.userId , !userId.isEmpty {
+//                if let userId = UserInfo.loggedInUser?.userId , !userId.isEmpty {
                       return 65.0
-                } else {
-                    return 0
-                }
+//                } else {
+//                    return 0
+//                }
             case 2: // popular destination
                 return 65.0
                 

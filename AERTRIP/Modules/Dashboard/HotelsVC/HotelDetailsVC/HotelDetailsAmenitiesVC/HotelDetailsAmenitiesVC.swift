@@ -150,6 +150,7 @@ extension HotelDetailsAmenitiesVC {
         if let safeAmenitiesData = self.viewModel.amenities {
             cell.amenitiesDetails = safeAmenitiesData
         }
+        cell.amenitiesCollectionView.reloadData()
         return cell
     }
     
