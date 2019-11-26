@@ -50,17 +50,17 @@ extension HotelResultVC {
     }
     
     func convertToMapView(completion: ((Bool) -> Void)?) {
-//        self.animateCollectionView(isHidden: false, animated: true)
+        //        self.animateCollectionView(isHidden: false, animated: true)
         self.animateCollectionView(isHidden: false, animated: true) { (isAnimated) in
             completion?(isAnimated)
         }
     }
     
     func convertToListView(completion: ((Bool) -> Void)?) {
-//        self.animateCollectionView(isHidden: true, animated: true)
-            self.animateCollectionView(isHidden: true, animated: true, completion: { (isAnimated) in
-                completion?(isAnimated)
-            })
+        //        self.animateCollectionView(isHidden: true, animated: true)
+        self.animateCollectionView(isHidden: true, animated: true, completion: { (isAnimated) in
+            completion?(isAnimated)
+        })
     }
     
     func getFavouriteHotels(shouldReloadData: Bool = false, finalPredicate: NSPredicate? = nil) {
@@ -69,7 +69,7 @@ extension HotelResultVC {
         if let all = finalPredicate {
             pred = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "fav == '1'"), all])
         }
-
+        
         if let allFavs = CoreDataManager.shared.fetchData("HotelSearched", nsPredicate: pred)  as? [HotelSearched] {
             self.isLoadingListAfterUpdatingAllFav = false
             self.manageSwitchContainer(isHidden: allFavs.isEmpty)
@@ -127,7 +127,7 @@ extension HotelResultVC {
     }
     
     func openSharingSheet() {
-       self.viewModel.getShareText()
+        self.viewModel.getShareText()
     }
     
     func removeAllFavouritesHotels() {
@@ -151,7 +151,7 @@ extension HotelResultVC {
             sheet.headerHeight = 24.0
             sheet.headerView = dataVC.headerView
             sheet.isHideBottomSheetOnTap = false
-
+            
             sheet.frame = topVC.view.bounds
             sheet.delegate = self
             topVC.view.addSubview(sheet)
@@ -191,7 +191,7 @@ extension HotelResultVC {
             }
         }
     }
-
+    
     func relocateSwitchButton(shouldMoveUp: Bool, animated: Bool) {
         let trans = shouldMoveUp ? CGAffineTransform.identity : CGAffineTransform(translationX: 0.0, y: 30.0)
         
@@ -249,7 +249,7 @@ extension HotelResultVC {
         let checkOut = Date.getDateFromString(stringDate: self.viewModel.searchedFormData.checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
         let numberOfRoom = self.viewModel.searchedFormData.adultsCount.count
         self.descriptionLabel.text = "\(checkIn) - \(checkOut) • \(numberOfRoom) Rooms"
-
+        
     }
     
     func reloadHotelList(isUpdatingFav: Bool = false) {
@@ -300,7 +300,7 @@ extension HotelResultVC {
         }
     }
     
-
+    
     func manageSwitchContainer(isHidden: Bool, shouldOff: Bool = true) {
         if hoteResultViewType == .ListView {
             manageFloatingView(isHidden: false)
@@ -356,59 +356,59 @@ extension HotelResultVC {
         guard scrollView === tableViewVertical else {
             return
         }
-
-//        let animationThreshold: CGFloat = 10.0
-//
-//        var isHeaderHidden: Bool {
-//            return self.headerContainerViewTopConstraint.constant == -140.0
-//        }
-//
-//        func showHeader() {
-//            guard self.headerContainerViewTopConstraint.constant <= -(animationThreshold) else {return}
-//            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-//                self.headerContainerViewTopConstraint.constant = 0
-//                self.tableViewTopConstraint.constant = (self.hoteResultViewType == .MapView) ? 50.0 : 100.0
-//                self.mapContainerTopConstraint.constant = (self.hoteResultViewType == .MapView) ? 50.0 : 100.0
-//                self.view.layoutIfNeeded()
-//            })
-//            self.view.addBlurEffect()
-//        }
-//
-//        func hideHeader() {
-//            guard self.headerContainerViewTopConstraint.constant != -140 else {return}
-//            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-//                self.headerContainerViewTopConstraint.constant = -140
-//                self.tableViewTopConstraint.constant = 0
-//                self.mapContainerTopConstraint.constant = 0
-//                self.view.layoutIfNeeded()
-//            })
-//        }
-
-
+        
+        //        let animationThreshold: CGFloat = 10.0
+        //
+        //        var isHeaderHidden: Bool {
+        //            return self.headerContainerViewTopConstraint.constant == -140.0
+        //        }
+        //
+        //        func showHeader() {
+        //            guard self.headerContainerViewTopConstraint.constant <= -(animationThreshold) else {return}
+        //            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+        //                self.headerContainerViewTopConstraint.constant = 0
+        //                self.tableViewTopConstraint.constant = (self.hoteResultViewType == .MapView) ? 50.0 : 100.0
+        //                self.mapContainerTopConstraint.constant = (self.hoteResultViewType == .MapView) ? 50.0 : 100.0
+        //                self.view.layoutIfNeeded()
+        //            })
+        //            self.view.addBlurEffect()
+        //        }
+        //
+        //        func hideHeader() {
+        //            guard self.headerContainerViewTopConstraint.constant != -140 else {return}
+        //            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+        //                self.headerContainerViewTopConstraint.constant = -140
+        //                self.tableViewTopConstraint.constant = 0
+        //                self.mapContainerTopConstraint.constant = 0
+        //                self.view.layoutIfNeeded()
+        //            })
+        //        }
+        
+        
         let yPosition = scrollView.contentOffset.y
         let maxBound = scrollView.contentSize.height - scrollView.height
         
-//        print(scrollView.panGestureRecognizer.velocity(in: self.view))
+        //        print(scrollView.panGestureRecognizer.velocity(in: self.view))
         
         if 0.5 < yPosition, yPosition < maxBound {
-//            if 0...140.0 ~= yPosition {
-//                if (self.oldScrollPosition.y < yPosition && self.headerContainerViewTopConstraint.constant != -140.0) || (self.oldScrollPosition.y > yPosition && self.headerContainerViewTopConstraint.constant != 0) {
-//                    self.headerContainerViewTopConstraint.constant = -yPosition
-//                }
-//                let finalPos = 100.0 - yPosition
-//                self.tableViewTopConstraint.constant = finalPos
-//                self.mapContainerTopConstraint.constant = finalPos
-//            }
-//            else {
-                //show with progress after header height scrolled up
-                let newProg = self.oldScrollPosition.y - yPosition
-                let headrC = min(0,max(-140.0, (self.headerContainerViewTopConstraint.constant + newProg)))
-                self.headerContainerViewTopConstraint.constant = headrC
-
-                let finalPos = 100.0 + headrC
-                self.tableViewTopConstraint.constant = finalPos
-                self.mapContainerTopConstraint.constant = finalPos
-//            }
+            //            if 0...140.0 ~= yPosition {
+            //                if (self.oldScrollPosition.y < yPosition && self.headerContainerViewTopConstraint.constant != -140.0) || (self.oldScrollPosition.y > yPosition && self.headerContainerViewTopConstraint.constant != 0) {
+            //                    self.headerContainerViewTopConstraint.constant = -yPosition
+            //                }
+            //                let finalPos = 100.0 - yPosition
+            //                self.tableViewTopConstraint.constant = finalPos
+            //                self.mapContainerTopConstraint.constant = finalPos
+            //            }
+            //            else {
+            //show with progress after header height scrolled up
+            let newProg = self.oldScrollPosition.y - yPosition
+            let headrC = min(0,max(-140.0, (self.headerContainerViewTopConstraint.constant + newProg)))
+            self.headerContainerViewTopConstraint.constant = headrC
+            
+            let finalPos = 100.0 + headrC
+            self.tableViewTopConstraint.constant = finalPos
+            self.mapContainerTopConstraint.constant = finalPos
+            //            }
         }
         else {
             //convert to map view when threasHold exceed
@@ -417,69 +417,69 @@ extension HotelResultVC {
                 self.mapButtonAction(self.mapButton)
             }
         }
-
+        
         self.oldScrollPosition = scrollView.contentOffset
     }
     
-//    {
-//        guard scrollView === tableViewVertical else {
-//            return
-//        }
-//
-//        let animationThreshold: CGFloat = 10.0
-//
-//        var isHeaderHidden: Bool {
-//            return self.headerContainerViewTopConstraint.constant < 0
-//        }
-//
-//        func showHeader() {
-//            guard self.headerContainerViewTopConstraint.constant <= -(animationThreshold) else {return}
-//            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-//                self.headerContainerViewTopConstraint.constant = 0
-//                self.tableViewTopConstraint.constant = (self.hoteResultViewType == .MapView) ? 50.0 : 100.0
-//                self.mapContainerTopConstraint.constant = (self.hoteResultViewType == .MapView) ? 50.0 : 100.0
-//                self.view.layoutIfNeeded()
-//            })
-//            self.view.addBlurEffect()
-//        }
-//
-//        func hideHeader() {
-//            guard self.headerContainerViewTopConstraint.constant != -140 else {return}
-//            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-//                self.headerContainerViewTopConstraint.constant = -140
-//                self.tableViewTopConstraint.constant = 0
-//                self.mapContainerTopConstraint.constant = 0
-//                self.view.layoutIfNeeded()
-//            })
-//        }
-//
-//        let yPosition = scrollView.contentOffset.y
-//        guard scrollView.contentSize.height > (scrollView.height + animationThreshold) else {
-//            if yPosition >= 0 {
-//                scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
-//            }
-//            else if yPosition < 0, isHeaderHidden {
-//                showHeader()
-//            }
-//            return
-//        }
-//
-//        if 0...animationThreshold ~= yPosition {
-//            self.headerContainerViewTopConstraint.constant = -(yPosition)
-//        }
-//        else if yPosition < 0 {
-//            self.headerContainerViewTopConstraint.constant = -(animationThreshold)
-//        }
-//
-//        if yPosition <= animationThreshold {
-//            // show
-//            showHeader()
-//        }
-//        else {
-//            // hide
-//            hideHeader()
-//        }
-//    }
+    //    {
+    //        guard scrollView === tableViewVertical else {
+    //            return
+    //        }
+    //
+    //        let animationThreshold: CGFloat = 10.0
+    //
+    //        var isHeaderHidden: Bool {
+    //            return self.headerContainerViewTopConstraint.constant < 0
+    //        }
+    //
+    //        func showHeader() {
+    //            guard self.headerContainerViewTopConstraint.constant <= -(animationThreshold) else {return}
+    //            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+    //                self.headerContainerViewTopConstraint.constant = 0
+    //                self.tableViewTopConstraint.constant = (self.hoteResultViewType == .MapView) ? 50.0 : 100.0
+    //                self.mapContainerTopConstraint.constant = (self.hoteResultViewType == .MapView) ? 50.0 : 100.0
+    //                self.view.layoutIfNeeded()
+    //            })
+    //            self.view.addBlurEffect()
+    //        }
+    //
+    //        func hideHeader() {
+    //            guard self.headerContainerViewTopConstraint.constant != -140 else {return}
+    //            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+    //                self.headerContainerViewTopConstraint.constant = -140
+    //                self.tableViewTopConstraint.constant = 0
+    //                self.mapContainerTopConstraint.constant = 0
+    //                self.view.layoutIfNeeded()
+    //            })
+    //        }
+    //
+    //        let yPosition = scrollView.contentOffset.y
+    //        guard scrollView.contentSize.height > (scrollView.height + animationThreshold) else {
+    //            if yPosition >= 0 {
+    //                scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+    //            }
+    //            else if yPosition < 0, isHeaderHidden {
+    //                showHeader()
+    //            }
+    //            return
+    //        }
+    //
+    //        if 0...animationThreshold ~= yPosition {
+    //            self.headerContainerViewTopConstraint.constant = -(yPosition)
+    //        }
+    //        else if yPosition < 0 {
+    //            self.headerContainerViewTopConstraint.constant = -(animationThreshold)
+    //        }
+    //
+    //        if yPosition <= animationThreshold {
+    //            // show
+    //            showHeader()
+    //        }
+    //        else {
+    //            // hide
+    //            hideHeader()
+    //        }
+    //    }
     
     func manageFloatingButtonOnPaginationScroll(_ scrollView: UIScrollView) {
         guard scrollView === collectionView else {
@@ -591,7 +591,7 @@ extension HotelResultVC {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.manageTopHeader(scrollView)
-//        self.manageMapViewOnScroll(scrollView)
+        //        self.manageMapViewOnScroll(scrollView)
         // self.manageFloatingButtonOnPaginationScroll(scrollView)
         
         //for map re-focusing
@@ -608,16 +608,16 @@ extension HotelResultVC {
         self.oldOffset = scrollView.contentOffset
     }
     
-//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-//        self.manageTopHeader(scrollView)
-//        self.oldScrollPosition = scrollView.contentOffset
-//
-//        indexOfCellBeforeDragging = indexOfMajorCell()
-//    }
-//
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        self.manageTopHeader(scrollView)
-//    }
+    //    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    //        self.manageTopHeader(scrollView)
+    //        self.oldScrollPosition = scrollView.contentOffset
+    //
+    //        indexOfCellBeforeDragging = indexOfMajorCell()
+    //    }
+    //
+    //    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    //        self.manageTopHeader(scrollView)
+    //    }
     
     func showHeaderIfHiddenOnTopAfterEndScrolling(_ scrollView: UIScrollView) {
         let yPosition = scrollView.contentOffset.y
@@ -642,11 +642,12 @@ extension HotelResultVC {
     
     func manageForCollectionView(atIndex: Int) {
         
-        let locStr = self.viewModel.collectionViewLocArr[atIndex]
-        
-        if let loc = self.getLocationObject(fromLocation: locStr) {
-            self.displayingHotelLocation = loc
-            focusMarker(coordinates: loc)
+        if self.viewModel.collectionViewLocArr.indices.contains(atIndex) {
+            let locStr = self.viewModel.collectionViewLocArr[atIndex]
+            if let loc = self.getLocationObject(fromLocation: locStr) {
+                self.displayingHotelLocation = loc
+                focusMarker(coordinates: loc)
+            }
         }
     }
     
@@ -696,9 +697,9 @@ extension HotelResultVC {
     }
     
     //ScrollView Delegate methods
-//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-//        indexOfCellBeforeDragging = indexOfMajorCell()
-//    }
+    //    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    //        indexOfCellBeforeDragging = indexOfMajorCell()
+    //    }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
@@ -807,7 +808,7 @@ extension HotelResultVC {
     func applyAerinFilter() {
         AppToast.default.showToastMessage(message: LocalizedString.FilterApplied.localized, onViewController: self, duration: 5.0, buttonTitle: LocalizedString.Undo.localized, buttonImage: nil, buttonAction: self.aerinFilterUndoCompletion)
     }
-
+    
 }
 
 

@@ -34,6 +34,7 @@ class MapContainerView: UIView {
         }
     }
     
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -41,6 +42,7 @@ class MapContainerView: UIView {
         
         self.backgroundColor = AppColors.clear
         self.mapView?.backgroundColor = AppColors.themeGreen
+        
     }
 }
 
@@ -351,9 +353,10 @@ class HotelResultVC: BaseVC {
         }
         else if let _ = note.object as? HotelDetailsVC {
             //fav updated from hotel details
-            updateFavOnList(forIndexPath: selectedIndexPath)
+            //updateFavOnList(forIndexPath: selectedIndexPath)
             // manage favourite switch buttons 
-            self.getFavouriteHotels(shouldReloadData: true)
+            //self.getFavouriteHotels(shouldReloadData: true)
+            updateFavouriteSuccess()
         }
         else if let _ = note.object as? HCDataSelectionVC {
             updateFavOnList(forIndexPath: selectedIndexPath)
@@ -385,7 +388,7 @@ class HotelResultVC: BaseVC {
             self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
             self.navigationController?.navigationBar.shadowImage = UIImage()
             self.navigationController?.view.backgroundColor = .clear
-            self.navigationController?.view.addSubview(backView)
+            //self.navigationController?.view.addSubview(backView)
             navigationItem.hidesBackButton = true
             self.navigationItem.leftBarButtonItem=nil
         

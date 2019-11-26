@@ -72,6 +72,7 @@ class HotelFilterVC: BaseVC {
         
         self.categoryView?.frame = self.dataContainerView.bounds
         self.categoryView?.layoutIfNeeded()
+        self.categoryView?.layoutSubviews()
     }
     
     
@@ -80,6 +81,7 @@ class HotelFilterVC: BaseVC {
         
         self.categoryView?.frame = self.dataContainerView.bounds
         self.categoryView?.layoutIfNeeded()
+        self.categoryView?.layoutSubviews()
     }
     
     // MARK: - Overrider methods
@@ -115,35 +117,15 @@ class HotelFilterVC: BaseVC {
     
     private func initialSetups() {
         self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
-        for i in 0..<self.allTabsStr.count {
-            if i == 1 {
-                let vc = RangeVC.instantiate(fromAppStoryboard: .Filter)
-                self.allChildVCs.append(vc)
-            } else if i == 2 {
-                let vc = PriceVC.instantiate(fromAppStoryboard: .Filter)
-                self.allChildVCs.append(vc)
-            } else if i == 3 {
-                let vc = RatingVC.instantiate(fromAppStoryboard: .Filter)
-                self.allChildVCs.append(vc)
-            } else if i == 4 {
-                let vc = AmenitiesVC.instantiate(fromAppStoryboard: .Filter)
-                self.allChildVCs.append(vc)
-            } else if i == 5 {
-                let vc = RoomVC.instantiate(fromAppStoryboard: .Filter)
-                self.allChildVCs.append(vc)
-            } else {
-                let vc = SortVC.instantiate(fromAppStoryboard: .Filter)
-                self.allChildVCs.append(vc)
-            }
-        }
+        
         
         let height = UIApplication.shared.statusBarFrame.height
         self.navigationViewTopConstraint.constant = CGFloat(height)
         self.setupPagerView()
+        self.categoryView.selectTab(atIndex: HotelFilterVM.shared.lastSelectedIndex)
         self.hide(animated: false)
         delay(seconds: 0.01) { [weak self] in
             self?.show(animated: true)
-            self?.categoryView.selectTab(atIndex: HotelFilterVM.shared.lastSelectedIndex)
             self?.mainContainerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
         }
     }
@@ -170,7 +152,7 @@ class HotelFilterVC: BaseVC {
     private func setupPagerView() {
         var style = PKCategoryViewConfiguration()
         style.navBarHeight = 50.0
-        style.interItemSpace = 15.0
+        style.interItemSpace = 5.0
         style.itemPadding = 8.0
         style.isNavBarScrollEnabled = true
         style.isEmbeddedToView = true
@@ -189,7 +171,31 @@ class HotelFilterVC: BaseVC {
         style.badgeBorderColor = AppColors.clear
         style.badgeBorderWidth = 0.0
         
-        
+        for i in 0..<self.allTabsStr.count {
+            if i == 1 {
+                let vc = RangeVC.instantiate(fromAppStoryboard: .Filter)
+                self.allChildVCs.append(vc)
+            } else if i == 2 {
+                let vc = PriceVC.instantiate(fromAppStoryboard: .Filter)
+                self.allChildVCs.append(vc)
+            } else if i == 3 {
+                let vc = RatingVC.instantiate(fromAppStoryboard: .Filter)
+                self.allChildVCs.append(vc)
+            } else if i == 4 {
+                let vc = AmenitiesVC.instantiate(fromAppStoryboard: .Filter)
+                self.allChildVCs.append(vc)
+            } else if i == 5 {
+                let vc = RoomVC.instantiate(fromAppStoryboard: .Filter)
+                self.allChildVCs.append(vc)
+            } else {
+                let vc = SortVC.instantiate(fromAppStoryboard: .Filter)
+                self.allChildVCs.append(vc)
+            }
+        }
+        if let _ = self.categoryView {
+            self.categoryView.removeFromSuperview()
+            self.categoryView = nil
+        }
         let categoryView = PKCategoryView(frame: self.dataContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, configuration: style, parentVC: self)
         categoryView.delegate = self
         self.dataContainerView.addSubview(categoryView)
@@ -256,7 +262,7 @@ class HotelFilterVC: BaseVC {
                 printDebug("not useable case")
             }
             
-            self.categoryView?.setBadge(count: badgeCount, atIndex: idx)
+           // self.categoryView?.setBadge(count: badgeCount, atIndex: idx)
         }
     }
     

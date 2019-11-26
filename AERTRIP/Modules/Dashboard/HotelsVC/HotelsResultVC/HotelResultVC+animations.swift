@@ -11,7 +11,7 @@ import Foundation
 extension HotelResultVC {
     func animateHeaderToListView() {
         
-        let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+        let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .easeInOut) { [weak self] in
             guard let sSelf = self else {return}
             
             sSelf.headerContatinerViewHeightConstraint.constant = 100
@@ -19,7 +19,7 @@ extension HotelResultVC {
             sSelf.mapContainerTopConstraint.constant = 100
             sSelf.headerContainerViewTopConstraint.constant = 0.0
             sSelf.searchBarContainerView.backgroundColor = AppColors.themeWhite
-            
+            sSelf.mapContainerViewBottomConstraint.constant = 0.0
             sSelf.searchBarContainerView.frame = sSelf.searchIntitialFrame
             sSelf.titleLabel.transform = .identity
             sSelf.descriptionLabel.transform = .identity
@@ -45,13 +45,14 @@ extension HotelResultVC {
     
     func animateHeaderToMapView() {
         
-        let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+        let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .easeInOut) { [weak self] in
             guard let sSelf = self else {return}
             
             sSelf.headerContatinerViewHeightConstraint.constant = 50
             sSelf.tableViewTopConstraint.constant = 50
             sSelf.mapContainerTopConstraint.constant = 50
             sSelf.headerContainerViewTopConstraint.constant = 0.0
+           sSelf.mapContainerViewBottomConstraint.constant = 230.0
             sSelf.searchBarContainerView.translatesAutoresizingMaskIntoConstraints = true
             sSelf.searchBarContainerView.backgroundColor = AppColors.clear
             
@@ -135,7 +136,7 @@ extension HotelResultVC {
         self.mapView?.animate(toZoom: isHidden ? self.defaultZoomLabel : (self.defaultZoomLabel))
        // isHidden ? self.moveMapToCurrentCity() : self.animateMapToFirstHotelInMapMode()
         self.animateMapToFirstHotelInMapMode()
-        let animator = UIViewPropertyAnimator(duration: animated ? AppConstants.kAnimationDuration : 0.0, curve: .linear) {[weak self] in
+        let animator = UIViewPropertyAnimator(duration: animated ? AppConstants.kAnimationDuration : 0.0, curve: .easeInOut) {[weak self] in
             
             guard let sSelf = self else {return}
             // map resize animation

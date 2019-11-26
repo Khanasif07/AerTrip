@@ -9,7 +9,7 @@
 import UIKit
 
 protocol HCSpecialRequestsDelegate: class {
-    func didPassSelectedRequestsId(ids: [Int],  other: String, specialRequest: String)
+    func didPassSelectedRequestsId(ids: [Int], names: [String], other: String, specialRequest: String)
 }
 
 class HCSpecialRequestsVC: BaseVC {
@@ -96,11 +96,11 @@ extension HCSpecialRequestsVC: UITableViewDelegate, UITableViewDataSource{
         if let _ = tableView.cellForRow(at: indexPath) as? RoomTableViewCell {
             if !self.viewModel.selectedRequestsId.contains(self.viewModel.specialRequests[indexPath.row].id) {
                 self.viewModel.selectedRequestsId.append(self.viewModel.specialRequests[indexPath.row].id)
-                self.viewModel.selectedRequestsId.append(self.viewModel.specialRequests[indexPath.row].id)
+                self.viewModel.selectedRequestsName.append(self.viewModel.specialRequests[indexPath.row].name)
             }
             else {
                 self.viewModel.selectedRequestsId.remove(object: self.viewModel.specialRequests[indexPath.row].id)
-                self.viewModel.selectedRequestsId.remove(object: self.viewModel.specialRequests[indexPath.row].id)
+                self.viewModel.selectedRequestsName.remove(object: self.viewModel.specialRequests[indexPath.row].name)
             }
         }
         self.specialReqTableView.reloadData()
@@ -150,8 +150,8 @@ extension HCSpecialRequestsVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        if let safeDelegate = self.delegate, (!self.viewModel.selectedRequestsId.isEmpty || !self.viewModel.other.isEmpty || !self.viewModel.specialRequest.isEmpty) {
-            safeDelegate.didPassSelectedRequestsId(ids: self.viewModel.selectedRequestsId, other: self.viewModel.other, specialRequest: self.viewModel.specialRequest)
+        if let safeDelegate = self.delegate {
+            safeDelegate.didPassSelectedRequestsId(ids: self.viewModel.selectedRequestsId, names: self.viewModel.selectedRequestsName, other: self.viewModel.other, specialRequest: self.viewModel.specialRequest)
         }
         self.dismiss(animated: true, completion: nil)
     }

@@ -120,7 +120,8 @@ extension HotelResultVC {
     
     func adjustMapPadding() {
         if hoteResultViewType == .ListView {
-            self.mapView?.padding = UIEdgeInsets(top: 0, left: 0, bottom: 200, right: 0)
+            let padding = (400/812) * self.view.height
+            self.mapView?.padding = UIEdgeInsets(top: 0, left: 0, bottom: padding, right: 0)
         } else {
             self.mapView?.padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
@@ -316,6 +317,7 @@ extension HotelResultVC: GMSMapViewDelegate {
                     sSelf.floatingViewBottomConstraint.constant = sSelf.floatingViewInitialConstraint
                     sSelf.mapContainerViewBottomConstraint.constant = 230.0
                     sSelf.headerContainerViewTopConstraint.constant = 0.0
+                    sSelf.mapContainerTopConstraint.constant = 50.0
                     sSelf.mapContainerView.layoutSubviews()
                     sSelf.view.layoutIfNeeded()
                 }
@@ -332,10 +334,11 @@ extension HotelResultVC: GMSMapViewDelegate {
                 
                 let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
                     guard let sSelf = self else {return}
-                    sSelf.collectionViewBottomConstraint.constant = -230.0
+                    sSelf.collectionViewBottomConstraint.constant = -300.0
                     sSelf.mapContainerViewBottomConstraint.constant = 0.0
                     sSelf.floatingViewBottomConstraint.constant = 0.0
-                    sSelf.headerContainerViewTopConstraint.constant = 0.0
+                    sSelf.headerContainerViewTopConstraint.constant = -300.0
+                    sSelf.mapContainerTopConstraint.constant = 0.0
                     sSelf.mapContainerView.layoutSubviews()
                     sSelf.view.layoutIfNeeded()
                 }

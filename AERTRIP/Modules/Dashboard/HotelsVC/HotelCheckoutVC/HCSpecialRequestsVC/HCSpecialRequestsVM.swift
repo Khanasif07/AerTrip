@@ -14,7 +14,8 @@ class HCSpecialRequestsVM {
     var specialRequest: String = ""
     var selectedRequestsId: [Int] = []
     var specialRequests: [SpecialRequest] = []
-    
+    var selectedRequestsName: [String] = []
+
     
 }
 //"special": "Need red wine"

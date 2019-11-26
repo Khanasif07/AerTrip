@@ -66,7 +66,7 @@ extension HCSpecialRequestTextfieldCell: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) else { return false }
         let finalText = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        if let superView = self.superview as? UITableView , let indexPath = superView.indexPath(forItem: textField), !finalText.isEmpty {
+        if let superView = self.superview as? UITableView , let indexPath = superView.indexPath(forItem: textField) {
             self.delegate?.didPassSpecialRequestAndAirLineText(infoText: finalText,indexPath: indexPath)
         }
         return true

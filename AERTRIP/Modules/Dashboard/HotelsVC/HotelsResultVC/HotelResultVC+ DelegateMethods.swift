@@ -208,9 +208,11 @@ extension HotelResultVC: HotelResultDelegate {
             // Apply Aerin Filter
             // self.applyAerinFilter()
         }
-        let indexOfMajorCell = self.indexOfMajorCell()
-        self.manageForCollectionView(atIndex: indexOfMajorCell)
-        self.adjustMapPadding()
+        delay(seconds: 0.4) { [weak self] in
+            self?.manageForCollectionView(atIndex: 0)
+            self?.adjustMapPadding()
+        }
+        
     }
     
     func getAllHotelsOnResultFallbackSuccess(_ isDone: Bool) {
@@ -241,6 +243,7 @@ extension HotelResultVC: HotelResultDelegate {
     }
     
     func updateFavouriteSuccess() {
+        self.loadSaveData()
         self.getFavouriteHotels(shouldReloadData: true)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
         if self.viewModel.isUnpinHotelTapped {
             self.reloadHotelList()
@@ -248,6 +251,8 @@ extension HotelResultVC: HotelResultDelegate {
         } else {
             //             self.updateFavOnList(forIndexPath: self.selectedIndexPath)
         }
+        removeAllMerkers()
+        updateMarkers()
         if hoteResultViewType == .MapView {
             let indexOfMajorCell = self.indexOfMajorCell()
             self.manageForCollectionView(atIndex: indexOfMajorCell)
@@ -255,6 +260,7 @@ extension HotelResultVC: HotelResultDelegate {
     }
     
     func updateFavouriteFail(errors:ErrorCodes) {
+        self.loadSaveData()
         self.getFavouriteHotels(shouldReloadData: true)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
         //        self.updateFavOnList(forIndexPath: self.selectedIndexPath)
         if let _ = UserInfo.loggedInUser {
@@ -267,8 +273,12 @@ extension HotelResultVC: HotelResultDelegate {
             }
         }
         
+        removeAllMerkers()
+        updateMarkers()
+        if hoteResultViewType == .MapView {
         let indexOfMajorCell = self.indexOfMajorCell()
         self.manageForCollectionView(atIndex: indexOfMajorCell)
+        }
     }
     
     func getAllHotelsListResultSuccess(_ isDone: Bool) {

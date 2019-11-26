@@ -377,10 +377,14 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
     }
     
     private func removeContact(forIndexPath indexPath: IndexPath) {
+        GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].id = ""
         GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].salutation = ""
         GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].firstName = ""
         GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].lastName = ""
         GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].profilePicture = ""
+        //GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].label = ""
+        GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].email = ""
+        GuestDetailsVM.shared.guests[indexPath.section][indexPath.item].emailLabel = ""
     }
     
     private func getCollectionIndexPath(forContact contact: ATContact) -> IndexPath? {

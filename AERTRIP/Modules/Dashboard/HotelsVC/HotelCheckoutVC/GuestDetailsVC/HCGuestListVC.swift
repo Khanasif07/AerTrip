@@ -271,7 +271,7 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
                     contact.id == self.viewModel.travellerContacts[indexPath.row].id
                 }) {
                     self.viewModel.selectedTravellerContacts.remove(at: index)
-                    self.viewModel.remove(atIndex: oIndex, for: .travellers)
+                    self.viewModel.remove(atIndex: indexPath.row, for: .travellers)
                 }
                 else if HotelsSearchVM.hotelFormData.totalGuestCount > self.viewModel.allSelectedCount {
                     self.viewModel.selectedTravellerContacts.append(self.viewModel.travellerContacts[indexPath.row])

@@ -43,6 +43,7 @@ class HCDataSelectionVM {
     var email: String = ""
     var isGuestUser: String = "false"
     var selectedSpecialRequest : [Int] = []
+    var selectedRequestsName: [String] = []
     var other: String = ""
     var specialRequest: String = ""
     // following properties will use to hit the confirmation API, will passed from where this class is being initiated

@@ -304,7 +304,6 @@ class HCDataSelectionVC: BaseVC {
         }
     }
     
-    
     // MARK: Helper methods
     
     func startLoading() {
@@ -617,7 +616,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: HCDataSelectionPrefrencesCell.reusableIdentifier) as? HCDataSelectionPrefrencesCell else {
                     return UITableViewCell()
                 }
-                
+                cell.configureData(prefrenceNames: self.viewModel.selectedRequestsName, request: self.viewModel.specialRequest, other: self.viewModel.other)
                 return cell
                 
             case 3:
@@ -684,7 +683,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Redirect to Selection Preference VC
         if let _ = tableView.cellForRow(at: indexPath) as? HCDataSelectionPrefrencesCell, let specialRequests = self.viewModel.itineraryData?.special_requests {
-            AppFlowManager.default.presentHCSpecialRequestsVC(specialRequests: specialRequests,selectedRequestIds: self.viewModel.selectedSpecialRequest, other: self.viewModel.other, specialRequest: self.viewModel.specialRequest,delegate: self)
+            AppFlowManager.default.presentHCSpecialRequestsVC(specialRequests: specialRequests,selectedRequestIds: self.viewModel.selectedSpecialRequest, selectedRequestNames: self.viewModel.selectedRequestsName, other: self.viewModel.other, specialRequest: self.viewModel.specialRequest,delegate: self)
         }
     }
     
@@ -698,11 +697,13 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
 // Mark:- HCSpecialRequestsDelegate
 //================================
 extension HCDataSelectionVC: HCSpecialRequestsDelegate {
-    func didPassSelectedRequestsId(ids: [Int], other: String, specialRequest: String) {
+    func didPassSelectedRequestsId(ids: [Int], names: [String], other: String, specialRequest: String) {
         printDebug("\(ids),\t\(other),\t\(specialRequest)")
         self.viewModel.selectedSpecialRequest = ids
         self.viewModel.other = other
         self.viewModel.specialRequest = specialRequest
+        self.viewModel.selectedRequestsName = names
+        self.tableView.reloadData()
     }
 }
 

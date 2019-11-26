@@ -64,7 +64,7 @@ class CustomMarker: UIView {
     private func updateFav() {
         priceView.layer.cornerRadius = 8.0
         priceView.layer.borderWidth = 1.0
-        priceLabel.font = AppFonts.SemiBold.withSize(12.0)
+       // priceLabel.font = AppFonts.SemiBold.withSize(12.0)
 
         if isFavourite {
             priceView.layer.borderColor = AppColors.themeRed.cgColor

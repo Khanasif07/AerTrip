@@ -150,6 +150,25 @@ class HCDataSelectionPrefrencesCell: UITableViewCell {
     
     // Mark:- IBActions
     // Mark:-
+    
+    func configureData(prefrenceNames: [String], request: String, other: String) {
+        if prefrenceNames.isEmpty && request.isEmpty && other.isEmpty {
+            descriptionLabel.text = LocalizedString.Optional.localized
+        } else {
+            var prefreence = [String]()
+            if !prefrenceNames.isEmpty {
+                prefreence.append(prefrenceNames.joined(separator: ","))
+            }
+            if !other.isEmpty {
+                prefreence.append(other)
+            }
+            if !request.isEmpty {
+                prefreence.append(request)
+            }
+            
+            descriptionLabel.text = prefreence.joined(separator: ",")
+        }
+    }
 }
 
 class HCDataSelectionTextLabelCell: UITableViewCell {
