@@ -120,7 +120,7 @@ extension HotelResultVC {
     
     func adjustMapPadding() {
         if hoteResultViewType == .ListView {
-            let padding = (400/812) * self.view.height
+            let padding = (200/812) * self.view.height
             self.mapView?.padding = UIEdgeInsets(top: 0, left: 0, bottom: padding, right: 0)
         } else {
             self.mapView?.padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)

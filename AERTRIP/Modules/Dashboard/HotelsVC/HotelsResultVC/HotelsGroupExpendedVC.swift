@@ -108,16 +108,16 @@ class HotelsGroupExpendedVC: BaseVC {
     //MARK:- Action
     
     override func dataChanged(_ note: Notification) {
-         if let _ = note.object as? HotelDetailsVC {
+        if let _ = note.object as? HotelDetailsVC {
             //fav updated from hotel details
             printDebug("fav updated from hotel details")
             if let indexPath = selectedIndexPath {
-                    self.viewModel.samePlaceHotels[indexPath.item].fav =  self.viewModel.samePlaceHotels[indexPath.item].fav == "0" ? "1" : "0"
-                    self.delegate?.saveButtonActionFromLocalStorage(forHotel: self.viewModel.samePlaceHotels[indexPath.item])
-                    self.collectionView.reloadData()
+                self.viewModel.samePlaceHotels[indexPath.item].fav =  self.viewModel.samePlaceHotels[indexPath.item].fav == "0" ? "1" : "0"
+                self.delegate?.saveButtonActionFromLocalStorage(forHotel: self.viewModel.samePlaceHotels[indexPath.item])
+                self.collectionView.reloadData()
             }
         }
-       
+        
     }
 }
 
@@ -134,12 +134,12 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
             fatalError("HotelCardCollectionViewCell not found")
         }
         
-//        cell.hotelData = self.viewModel.hotels[indexPath.item]
+        //        cell.hotelData = self.viewModel.hotels[indexPath.item]
         cell.hotelListData = self.viewModel.samePlaceHotels[indexPath.item]
         cell.saveButton.isSelected = self.viewModel.samePlaceHotels[indexPath.item].fav == "0" ? false : true
-//        cell.hotelNameLabel.text = "\(indexPath.item + 1)"
-//        cell.containerTopConstraint.constant = (indexPath.item == 0) ? 16.0 : 5.0
-//        cell.containerBottomConstraint.constant = 5.0
+        //        cell.hotelNameLabel.text = "\(indexPath.item + 1)"
+        //        cell.containerTopConstraint.constant = (indexPath.item == 0) ? 16.0 : 5.0
+        //        cell.containerBottomConstraint.constant = 5.0
         cell.delegate = self
         return cell
     }
@@ -155,9 +155,9 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       AppFlowManager.default.presentHotelDetailsVCOverExpendCard(self,hotelInfo: self.viewModel.samePlaceHotels[indexPath.item], sourceView: self.view, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest){
-           self.statusBarColor = AppColors.themeWhite
-           self.selectedIndexPath = indexPath
+        AppFlowManager.default.presentHotelDetailsVCOverExpendCard(self,hotelInfo: self.viewModel.samePlaceHotels[indexPath.item], sourceView: self.view, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest){
+            self.statusBarColor = AppColors.themeWhite
+            self.selectedIndexPath = indexPath
         }
     }
 }
@@ -171,12 +171,12 @@ extension HotelsGroupExpendedVC: HotelCardCollectionViewCellDelegate {
     
     func saveButtonActionFromLocalStorage(_ sender: UIButton, forHotel: HotelSearched) {
         printDebug("save button action local storage ")
-    self.delegate?.saveButtonActionFromLocalStorage(forHotel: forHotel)
-    
-                if let indexPath = self.collectionView.indexPath(forItem: sender) {
-               self.viewModel.samePlaceHotels[indexPath.item].fav =  self.viewModel.samePlaceHotels[indexPath.item].fav == "0" ? "1" : "0"
-                    self.collectionView.reloadData()
-                }
+        self.delegate?.saveButtonActionFromLocalStorage(forHotel: forHotel)
+        
+        if let indexPath = self.collectionView.indexPath(forItem: sender) {
+            self.viewModel.samePlaceHotels[indexPath.item].fav =  self.viewModel.samePlaceHotels[indexPath.item].fav == "0" ? "1" : "0"
+            self.collectionView.reloadData()
+        }
     }
     
     func pagingScrollEnable(_ indexPath: IndexPath, _ scrollView: UIScrollView) {

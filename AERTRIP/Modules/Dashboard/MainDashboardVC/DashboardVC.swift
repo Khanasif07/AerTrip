@@ -297,9 +297,6 @@ class DashboardVC: BaseVC {
         self.navigationController?.view.backgroundColor = .clear
         self.navigationController?.view.addSubview(backView)
         
-        
-        
-        
         navigationItem.hidesBackButton = true
         self.navigationItem.leftBarButtonItem=nil
     }

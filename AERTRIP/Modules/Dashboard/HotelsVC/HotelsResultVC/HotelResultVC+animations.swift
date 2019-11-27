@@ -19,7 +19,6 @@ extension HotelResultVC {
             sSelf.mapContainerTopConstraint.constant = 100
             sSelf.headerContainerViewTopConstraint.constant = 0.0
             sSelf.searchBarContainerView.backgroundColor = AppColors.themeWhite
-            sSelf.mapContainerViewBottomConstraint.constant = 0.0
             sSelf.searchBarContainerView.frame = sSelf.searchIntitialFrame
             sSelf.titleLabel.transform = .identity
             sSelf.descriptionLabel.transform = .identity
@@ -52,7 +51,6 @@ extension HotelResultVC {
             sSelf.tableViewTopConstraint.constant = 50
             sSelf.mapContainerTopConstraint.constant = 50
             sSelf.headerContainerViewTopConstraint.constant = 0.0
-           sSelf.mapContainerViewBottomConstraint.constant = 230.0
             sSelf.searchBarContainerView.translatesAutoresizingMaskIntoConstraints = true
             sSelf.searchBarContainerView.backgroundColor = AppColors.clear
             

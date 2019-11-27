@@ -92,6 +92,11 @@ class HCDataSelectionVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        delay(seconds: 0.2) {
+            self.statusBarColor = AppColors.clear
+            self.statusBarStyle = .default
+        }
+        
     }
     
     override func viewDidLayoutSubviews() {

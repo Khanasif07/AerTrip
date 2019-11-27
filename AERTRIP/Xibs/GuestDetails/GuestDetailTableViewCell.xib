@@ -12,11 +12,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="119" id="KGk-i7-Jjw" customClass="GuestDetailTableViewCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="119"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="134" id="KGk-i7-Jjw" customClass="GuestDetailTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="134"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="118.5"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="133.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="USd-zI-5DG">
@@ -63,7 +63,7 @@
                                         <rect key="frame" x="211" y="0.0" width="77" height="60"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZt-Ab-RMV">
-                                                <rect key="frame" x="0.0" y="20" width="77" height="38"/>
+                                                <rect key="frame" x="0.0" y="18" width="77" height="38"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PJS-Hy-qID">
                                                         <rect key="frame" x="0.0" y="0.0" width="77" height="38"/>
@@ -148,7 +148,7 @@
                                         <constraints>
                                             <constraint firstItem="DZt-Ab-RMV" firstAttribute="leading" secondItem="cQy-oa-KKM" secondAttribute="leading" id="Nzm-sI-9iD"/>
                                             <constraint firstAttribute="trailing" secondItem="DZt-Ab-RMV" secondAttribute="trailing" id="cAt-Lg-E18"/>
-                                            <constraint firstAttribute="bottom" secondItem="DZt-Ab-RMV" secondAttribute="bottom" constant="2" id="lWk-ti-NKq"/>
+                                            <constraint firstAttribute="bottom" secondItem="DZt-Ab-RMV" secondAttribute="bottom" constant="4" id="lWk-ti-NKq"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -164,7 +164,7 @@
                             <constraint firstItem="Br8-JF-9yQ" firstAttribute="leading" secondItem="USd-zI-5DG" secondAttribute="leading" constant="16" id="DeF-aF-0S7"/>
                             <constraint firstItem="Br8-JF-9yQ" firstAttribute="top" secondItem="USd-zI-5DG" secondAttribute="top" constant="15" id="RoK-8s-XiC"/>
                             <constraint firstItem="wOV-ds-QMg" firstAttribute="leading" secondItem="Br8-JF-9yQ" secondAttribute="leading" id="b35-2r-4eD"/>
-                            <constraint firstAttribute="bottom" secondItem="wOV-ds-QMg" secondAttribute="bottom" constant="3.5" id="o3F-ZP-NsT"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="wOV-ds-QMg" secondAttribute="bottom" id="o3F-ZP-NsT"/>
                             <constraint firstAttribute="trailing" secondItem="wOV-ds-QMg" secondAttribute="trailing" constant="16" id="scz-Tn-i9F"/>
                         </constraints>
                     </view>
@@ -186,7 +186,7 @@
                 <outlet property="unicodeSwitch" destination="mK8-1Q-kTi" id="973-1L-eBf"/>
                 <outlet property="verticalDividerView" destination="eyx-ZB-vtI" id="7OG-H4-8Cr"/>
             </connections>
-            <point key="canvasLocation" x="52.799999999999997" y="51.724137931034484"/>
+            <point key="canvasLocation" x="52.799999999999997" y="58.47076461769116"/>
         </tableViewCell>
     </objects>
 </document>
