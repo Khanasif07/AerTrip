@@ -83,7 +83,7 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
             }
             self.animateButton()
             self.getFavouriteHotels(shouldReloadData: false)
-            self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
+            //self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         }
         else {
             self.hideFavsButtons()
@@ -226,15 +226,15 @@ extension HotelResultVC: HotelResultDelegate {
     
     
     func willGetPinnedTemplate() {
-        //
+        AppGlobals.shared.startLoading()
     }
     
     func getPinnedTemplateSuccess() {
-        //
+        AppGlobals.shared.stopLoading()
     }
     
     func getPinnedTemplateFail() {
-        //
+        AppGlobals.shared.stopLoading()
     }
     
     func willUpdateFavourite() {
@@ -302,12 +302,13 @@ extension HotelResultVC: HotelResultDelegate {
 
 extension HotelResultVC: HotelCardCollectionViewCellDelegate {
     func saveButtonActionFromLocalStorage(_ sender: UIButton, forHotel: HotelSearched) {
+        guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
         if let indexPath = self.collectionView.indexPath(forItem: sender) {
             self.selectedIndexPath = indexPath
         } else if let indexPath = self.tableViewVertical.indexPath(forItem: sender) {
             self.selectedIndexPath = indexPath
         }
-        self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
+        //self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)
         // reload that item at particular indexPath
         if let indexPath = self.selectedIndexPath {
@@ -415,6 +416,7 @@ extension HotelResultVC: HotelDetailsVCDelegate {
 
 extension HotelResultVC: HotelsGroupExpendedVCDelegate {
     func saveButtonActionFromLocalStorage(forHotel: HotelSearched) {
+        guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
         self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)
     }
 }

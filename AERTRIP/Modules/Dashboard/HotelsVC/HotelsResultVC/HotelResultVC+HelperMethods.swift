@@ -97,7 +97,7 @@ extension HotelResultVC {
     
     func getPinnedHotelTemplate() {
         if !self.favouriteHotels.isEmpty {
-            self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
+           // self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         }
     }
     
@@ -127,10 +127,12 @@ extension HotelResultVC {
     }
     
     func openSharingSheet() {
+        guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
         self.viewModel.getShareText()
     }
     
     func removeAllFavouritesHotels() {
+        guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
         self.switchView.setOn(isOn: false)
         self.manageSwitchContainer(isHidden: true)
         self.viewModel.isUnpinHotelTapped = true

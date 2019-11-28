@@ -466,8 +466,12 @@ class AppGlobals {
     }
     
     
-    func isNetworkRechable() -> Bool {
+    func isNetworkRechable(showMessage: Bool = false) -> Bool {
         let rechability = Reachability.networkReachabilityForInternetConnection()
+        let result = rechability?.isReachable ?? false
+        if !result, showMessage {
+            AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+        }
         return  rechability?.isReachable ?? false
     }
     

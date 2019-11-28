@@ -152,14 +152,14 @@ extension APICaller {
                 completionBlock(false, errors, "")
             })
         }) { (error) in
-            if error.code == AppNetworking.noInternetError.code {
-                AppGlobals.shared.stopLoading()
-                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
-                completionBlock(false, [], "")
-            }
-            else {
+//            if error.code == AppNetworking.noInternetError.code {
+//                AppGlobals.shared.stopLoading()
+//                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+//                completionBlock(false, [], "")
+//            }
+//            else {
                 completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], "")
-            }
+//            }
         }
     }
     

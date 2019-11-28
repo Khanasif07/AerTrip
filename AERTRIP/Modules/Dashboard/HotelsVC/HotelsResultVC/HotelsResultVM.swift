@@ -176,7 +176,7 @@ class HotelsResultVM: NSObject {
         }
     }
     
-    func getPinnedTemplate(hotels: [HotelSearched]) {
+    func getPinnedTemplate(hotels: [HotelSearched],completionBlock: @escaping(_ success: Bool)->Void ) {
         var param = JSONDictionary()
         for (idx, hotel) in hotels.enumerated() {
             param["hid[\(idx)]"] = hotel.hid
@@ -188,8 +188,10 @@ class HotelsResultVM: NSObject {
             if isSuccess {
                 self.delegate?.getPinnedTemplateSuccess()
                 self.shortUrl = shortTemplateUrl
+                completionBlock(true)
             } else {
                 self.delegate?.getPinnedTemplateFail()
+                completionBlock(false)
             }
         }
     }

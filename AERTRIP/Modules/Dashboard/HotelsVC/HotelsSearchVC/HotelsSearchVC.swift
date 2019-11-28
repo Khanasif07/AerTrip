@@ -93,7 +93,7 @@ class HotelsSearchVC: BaseVC {
         self.configureCheckInOutView()
         self.configureRecentSearchesView()
         self.hideRecentSearchesView()
-        self.setDataFromPreviousSearch()
+        
         
         for btn in self.starButtonsOutlet {
             btn.adjustsImageWhenHighlighted = false
@@ -102,6 +102,8 @@ class HotelsSearchVC: BaseVC {
             btn.setImage(nil, for: .selected)
             btn.setImage(nil, for: .highlighted)
         }
+        // call this method after all setup
+        self.setDataFromPreviousSearch()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -535,6 +537,7 @@ class HotelsSearchVC: BaseVC {
     @IBAction func starButtonsAction(_ sender: UIButton) {
         self.updateStarButtonState(forStar: sender.tag)
         self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.searchedFormData.ratingCount, maxCount: 5)
+        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
     }
     
     @IBAction func whereButtonAction(_ sender: UIButton) {
@@ -670,6 +673,7 @@ extension HotelsSearchVC: ExpandedCellDelegate {
         } else {
             self.reloadCollectionView()
         }
+        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
     }
     
     ///Cancel Button Tapped
@@ -693,6 +697,7 @@ extension HotelsSearchVC: ExpandedCellDelegate {
                 }
             }
         }
+        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
     }
     
     ///Data For Api
@@ -700,6 +705,7 @@ extension HotelsSearchVC: ExpandedCellDelegate {
         self.viewModel.searchedFormData.destType = hotel.dest_type
         self.viewModel.searchedFormData.destName = hotel.dest_name
         self.viewModel.searchedFormData.destId = hotel.dest_id
+        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
     }
 }
 
@@ -716,6 +722,7 @@ extension HotelsSearchVC: RoomGuestSelectionVCDelegate {
         }
         self.addRoomCollectionView.reloadData()
         printDebug("adults: \(adults), children: \(children), ages: \(childrenAges), roomNumber: \(roomNumber)")
+        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
     }
 }
 
@@ -741,6 +748,7 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
         self.viewModel.searchedFormData.stateName = stateName//hotel.value
         self.manageAddressLabels()
         self.dataForApi(hotel: hotel)
+        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
     }
 }
 
@@ -762,6 +770,7 @@ extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
         }
         self.needToGetRecentSearches = true
         printDebug(self.viewModel.recentSearchesData)
+        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
     }
     
     func getRecentSearchesDataFail() {
@@ -818,6 +827,7 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
         //open result screen for the recent
 //        AppFlowManager.default.moveToHotelsResultVc(withFormData: self.viewModel.searchedFormData)
 //        self.searchBtnOutlet.isLoading = false
+        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
     }
 }
 
@@ -852,5 +862,6 @@ extension HotelsSearchVC: CalendarDataHandler {
         printDebug(endDate)
         printDebug(isHotelCalendar)
         printDebug(isReturn)
+        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
     }
 }

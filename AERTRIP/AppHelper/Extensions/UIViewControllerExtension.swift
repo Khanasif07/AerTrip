@@ -31,9 +31,8 @@ extension UIViewController{
     ///Removes Child View Controller From Parent View Controller
     var removeFromParentVC:Void{
         self.willMove(toParent: nil)
-        self.removeFromParent()
         self.view.removeFromSuperview()
-
+        self.removeFromParent()
     }
     
     ///Updates navigation bar according to given values

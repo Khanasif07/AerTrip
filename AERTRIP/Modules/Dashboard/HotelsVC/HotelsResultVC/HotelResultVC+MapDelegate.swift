@@ -57,8 +57,9 @@ extension HotelResultVC {
             self.generateClusterItems()
         }
         else {
-            self.drawMarkers(atZoomLabel: self.defaultZoomLabel)
+            self.drawMarkers(atZoomLabel: self.mapView?.camera.zoom ?? self.defaultZoomLabel)
         }
+    
     }
     
     func removeAllMerkers() {
@@ -215,7 +216,11 @@ extension HotelResultVC {
         customMarkerView.hotel = forHotel
         
         if let loc = self.displayingHotelLocation, marker.position.latitude == loc.latitude, marker.position.longitude == loc.longitude {
-            customMarkerView.isSelected = true
+            if isMapInFullView {
+                customMarkerView.isSelected = false
+            }else {
+                customMarkerView.isSelected = true
+            }
         }
         else {
             customMarkerView.isSelected = false
@@ -248,7 +253,11 @@ extension HotelResultVC {
         if let markerView = marker.iconView as? CustomMarker {
             let value = markerView.hotel
             markerView.hotel = value
-            markerView.isSelected = isSelected
+            if isMapInFullView {
+                markerView.isSelected = false
+            } else {
+                markerView.isSelected = isSelected
+            }
             marker.map = self.mapView
             if let currentZoom = self.mapView?.camera.zoom, currentZoom < self.thresholdZoomLabel {
                 // make dot marker
@@ -265,7 +274,11 @@ extension HotelResultVC {
         }else if let markerView = marker.iconView as? ClusterMarkerView {
             let value = markerView.hotelTtems
             markerView.hotelTtems = value
-            markerView.isSelected = isSelected
+            if isMapInFullView {
+                markerView.isSelected = false
+            } else {
+                markerView.isSelected = isSelected
+            }
             marker.map = self.mapView
 //            if isSelected {
 //                // make custom marker
@@ -310,7 +323,7 @@ extension HotelResultVC: GMSMapViewDelegate {
                 //show collection view list
                 self.isHidingOnMapTap = true
                 self.isMapInFullView = false
-
+                
                 let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
                     guard let sSelf = self else {return}
                     sSelf.collectionViewBottomConstraint.constant = 0.0
@@ -319,11 +332,14 @@ extension HotelResultVC: GMSMapViewDelegate {
                     sSelf.headerContainerViewTopConstraint.constant = 0.0
                     sSelf.mapContainerTopConstraint.constant = 50.0
                     sSelf.mapContainerView.layoutSubviews()
-                    sSelf.view.layoutIfNeeded()
+                    //sSelf.view.layoutIfNeeded()
                 }
                 
                 animator.addCompletion { [weak self](pos) in
                     self?.isHidingOnMapTap = false
+                    if let loc = self?.displayingHotelLocation {
+                        self?.updateMarker(atLocation: loc)
+                    }
                 }
                 animator.startAnimation()
             }
@@ -331,7 +347,9 @@ extension HotelResultVC: GMSMapViewDelegate {
                 //hide collection view list
                 self.isHidingOnMapTap = true
                 self.isMapInFullView = true
-                
+                if let loc = displayingHotelLocation {
+                    self.updateMarker(atLocation: loc,isSelected: false)
+                }
                 let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
                     guard let sSelf = self else {return}
                     sSelf.collectionViewBottomConstraint.constant = -300.0

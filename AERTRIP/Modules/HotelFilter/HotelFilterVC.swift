@@ -62,6 +62,8 @@ class HotelFilterVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.layoutIfNeeded()
+        self.dataContainerView.layoutIfNeeded()
         self.initialSetups()
         self.setupGesture()
     }
@@ -73,6 +75,7 @@ class HotelFilterVC: BaseVC {
         self.categoryView?.frame = self.dataContainerView.bounds
         self.categoryView?.layoutIfNeeded()
         self.categoryView?.layoutSubviews()
+        self.categoryView?.navBar?.layoutSubviews()
     }
     
     
@@ -82,6 +85,7 @@ class HotelFilterVC: BaseVC {
         self.categoryView?.frame = self.dataContainerView.bounds
         self.categoryView?.layoutIfNeeded()
         self.categoryView?.layoutSubviews()
+        self.categoryView?.navBar?.layoutSubviews()
     }
     
     // MARK: - Overrider methods

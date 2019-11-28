@@ -130,7 +130,7 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var switchGradientView: UIView!
     // MARK: - Properties
     
-//    var container: NSPersistentContainer!
+    //    var container: NSPersistentContainer!
     var searchTextStr: String = ""
     var time: Float = 0.0
     var timer: Timer?
@@ -177,17 +177,17 @@ class HotelResultVC: BaseVC {
     var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
     
     // fetch result controller
-   lazy var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
-       
+    lazy var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
+        
         self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bc", ascending: true)]
-      
+        
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-
-//        do {
-//            try fetchedResultsController.performFetch()
-//        } catch {
-//            printDebug("Error in performFetch: \(error) at line \(#line) in file \(#file)")
-//        }
+        
+        //        do {
+        //            try fetchedResultsController.performFetch()
+        //        } catch {
+        //            printDebug("Error in performFetch: \(error) at line \(#line) in file \(#file)")
+        //        }
         return fetchedResultsController
     }()
     
@@ -241,7 +241,7 @@ class HotelResultVC: BaseVC {
     let defaultVelocity: CGFloat = 15.0
     var applyButtonTapped: Bool = false
     var isFilterApplied: Bool = false
-        
+    
     //used for making collection view centerlized
     var indexOfCellBeforeDragging = 0
     
@@ -285,7 +285,7 @@ class HotelResultVC: BaseVC {
                 UserInfo.hotelFilter = nil
                 HotelFilterVM.shared.resetToDefault()
             }
-           
+            
         }
         
         // toast completion,When undo button tapped
@@ -295,12 +295,12 @@ class HotelResultVC: BaseVC {
         self.cardGradientView.isHidden = true
         //call API to get vcode, sid
         if AppGlobals.shared.isNetworkRechable() {
-             self.viewModel.hotelListOnPreferencesApi()
+            self.viewModel.hotelListOnPreferencesApi()
         } else {
             self.noHotelFound()
             AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
         }
-       
+        
         
         self.getPinnedHotelTemplate()
         searchBar.setTextField(color: UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
@@ -321,12 +321,12 @@ class HotelResultVC: BaseVC {
         super.viewWillDisappear(animated)
         self.statusBarColor = AppColors.clear
         backView.removeFromSuperview()
-//        if  self.isMovingFromParent {
-//            backView.removeFromSuperview()
-//        }
+        //        if  self.isMovingFromParent {
+        //            backView.removeFromSuperview()
+        //        }
     }
     
-  
+    
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
@@ -340,7 +340,7 @@ class HotelResultVC: BaseVC {
     override func keyboardWillHide(notification: Notification) {
         if let _ = self.view.window, self.searchedHotels.isEmpty {
             //checking if the screen in window only then this method should call
-           // self.cancelButtonTapped(self.cancelButton)
+            // self.cancelButtonTapped(self.cancelButton)
         }
     }
     
@@ -367,30 +367,30 @@ class HotelResultVC: BaseVC {
             
         }
     }
+    
+    func addCustomBackgroundBlurView(){
         
-        func addCustomBackgroundBlurView(){
-            
-            visualEffectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
-            visualEffectView.effect = UIBlurEffect(style: .prominent)
-            
-            backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: 20))
-            backView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
-            backView.addSubview(visualEffectView)
-            
-            let backVisualEfectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: backContainerView.height))
-            backVisualEfectView.effect = UIBlurEffect(style: .prominent)
-            backVisualEfectView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-            
-            backContainerView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
-            backContainerView.addSubview(backVisualEfectView)
-            
-            
-            self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-            self.navigationController?.navigationBar.shadowImage = UIImage()
-            self.navigationController?.view.backgroundColor = .clear
-            //self.navigationController?.view.addSubview(backView)
-            navigationItem.hidesBackButton = true
-            self.navigationItem.leftBarButtonItem=nil
+        visualEffectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
+        visualEffectView.effect = UIBlurEffect(style: .prominent)
+        
+        backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: 20))
+        backView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
+        backView.addSubview(visualEffectView)
+        
+        let backVisualEfectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: backContainerView.height))
+        backVisualEfectView.effect = UIBlurEffect(style: .prominent)
+        backVisualEfectView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+        
+        backContainerView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
+        backContainerView.addSubview(backVisualEfectView)
+        
+        
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.view.backgroundColor = .clear
+        //self.navigationController?.view.addSubview(backView)
+        navigationItem.hidesBackButton = true
+        self.navigationItem.leftBarButtonItem=nil
         
     }
     // MARK: - Methods
@@ -427,7 +427,7 @@ class HotelResultVC: BaseVC {
         self.hotelSearchTableView.reloadData()
         
         
-      //  self.searchBar.backgroundColor = .red
+        //  self.searchBar.backgroundColor = .red
         self.searchBar.searchBarStyle = .default
         self.switchView.originalColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.switchView.selectedColor = AppColors.themeRed
@@ -477,10 +477,21 @@ class HotelResultVC: BaseVC {
     
     private func presentEmailVC() {
         
-        AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { (_) in
-             AppFlowManager.default.presentMailComposerVC(self.favouriteHotels, self.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), self.viewModel.shortUrl)
-            AppFlowManager.default.removeLoginConfirmationScreenFromStack()
+        func showEmailComposer() {
+            self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels) { [weak self] (status) in
+                guard let strongSelf = self else {return}
+                if status {
+                    // url fetched
+                    AppFlowManager.default.presentMailComposerVC(strongSelf.favouriteHotels, strongSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), strongSelf.viewModel.shortUrl)
+                    AppFlowManager.default.removeLoginConfirmationScreenFromStack()
+                }
+            }
         }
+        AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { (_) in
+            guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
+            showEmailComposer()
+        }
+        
     }
     
     func manageShimmer(isHidden: Bool) {
@@ -532,8 +543,8 @@ class HotelResultVC: BaseVC {
             self.collectionView.setContentOffset(.zero, animated: false)
             delay(seconds: 1.2) { [weak self] in
                 guard let strongSelf = self else {return}
-            let indexOfMajorCell = strongSelf.indexOfMajorCell()
-            strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
+                let indexOfMajorCell = strongSelf.indexOfMajorCell()
+                strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
             }
             self.adjustMapPadding()
         } else {
@@ -609,7 +620,7 @@ class HotelResultVC: BaseVC {
     
     @objc func longPress(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
-             printDebug("Long press tapped")
+            printDebug("Long press tapped")
             AppFlowManager.default.presentAerinTextSpeechVC()
         }
     }
@@ -621,7 +632,7 @@ class HotelResultVC: BaseVC {
         
         if remoteHostStatus == .notReachable {
             print("Not Reachable")
-            self.noHotelFound()
+            // self.noHotelFound()
             
         }
         else if remoteHostStatus == .reachableViaWiFi {
@@ -631,7 +642,7 @@ class HotelResultVC: BaseVC {
             print("Reachable")
         }
     }
-
+    
     // added tap gesture to handle the tap on mapview when vertical tableview is visible
     @objc func tableTapped(tap:UITapGestureRecognizer) {
         let location = tap.location(in: self.tableViewVertical)
@@ -644,6 +655,6 @@ class HotelResultVC: BaseVC {
             self.mapButtonAction(self.mapButton)
         }
     }
-
-
+    
+    
 }
