@@ -192,3 +192,6 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
 }
+
+
+

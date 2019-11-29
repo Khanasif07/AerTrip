@@ -126,7 +126,7 @@ class HotelFilterVC: BaseVC {
         let height = UIApplication.shared.statusBarFrame.height
         self.navigationViewTopConstraint.constant = CGFloat(height)
         self.setupPagerView()
-        self.categoryView.selectTab(atIndex: HotelFilterVM.shared.lastSelectedIndex)
+        //self.categoryView.selectTab(atIndex: HotelFilterVM.shared.lastSelectedIndex)
         self.hide(animated: false)
         delay(seconds: 0.01) { [weak self] in
             self?.show(animated: true)

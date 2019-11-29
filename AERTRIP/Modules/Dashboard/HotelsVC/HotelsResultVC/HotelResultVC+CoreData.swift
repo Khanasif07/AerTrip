@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-extension HotelResultVC {
+extension HotelResultVC: NSFetchedResultsControllerDelegate {
     // Load Save Data from core data
     func getSearchTextPredicate() -> NSCompoundPredicate {
 //        if self.searchTextStr.count >= AppConstants.kSearchTextLimit {
@@ -217,6 +217,9 @@ extension HotelResultVC {
             for rating in self.filterApplied.tripAdvisorRatingCount {
                 tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '\(rating)'"))
             }
+            if !self.filterApplied.tripAdvisorRatingCount.contains(0) {
+                tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '0'"))
+            }
         }
         
         if tripAdvisorPredicates.count > 0 {
@@ -262,4 +265,33 @@ extension HotelResultVC {
             printDebug("Fetch failed")
         }
     }
+    
+//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+//        switch (type) {
+//        case .insert:
+//            if let indexPath = newIndexPath {
+//                tableViewVertical.insertRows(at: [indexPath], with: .fade)
+//            }
+//            break;
+//        case .delete:
+//            if let indexPath = indexPath {
+//                tableViewVertical.deleteRows(at: [indexPath], with: .fade)
+//            }
+//            break;
+//        case .update:
+//            if let indexPath = indexPath, let cell = tableViewVertical.cellForRow(at: indexPath) as? HotelCardTableViewCell {
+//                configureCell(cell: cell, at: indexPath)
+//            }
+//            break;
+//        case .move:
+//            if let indexPath = indexPath {
+//                tableViewVertical.deleteRows(at: [indexPath], with: .fade)
+//            }
+//
+//            if let newIndexPath = newIndexPath {
+//                tableViewVertical.insertRows(at: [newIndexPath], with: .fade)
+//            }
+//            break;
+//        }
+//    }
 }

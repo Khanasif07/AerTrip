@@ -33,7 +33,7 @@ extension HotelResultVC: UISearchBarDelegate {
         if searchText.isEmpty {
             self.searchTextStr = ""
             
-            self.fetchRequestType = .normalInSearching //for getting all the data in search mode when the search text is blank
+            self.fetchRequestType = self.filterButton.isSelected ? .FilterApplied : .normalInSearching //for getting all the data in search mode when the search text is blank
             self.loadSaveData()
             self.searchForText("", shouldPerformAction: false) //cancel all the previous operation
             self.reloadHotelList()
@@ -251,12 +251,8 @@ extension HotelResultVC: HotelResultDelegate {
         } else {
             //             self.updateFavOnList(forIndexPath: self.selectedIndexPath)
         }
-        removeAllMerkers()
-        updateMarkers()
-        if hoteResultViewType == .MapView {
-            let indexOfMajorCell = self.indexOfMajorCell()
-            self.manageForCollectionView(atIndex: indexOfMajorCell)
-        }
+        
+        
     }
     
     func updateFavouriteFail(errors:ErrorCodes) {
@@ -273,12 +269,7 @@ extension HotelResultVC: HotelResultDelegate {
             }
         }
         
-        removeAllMerkers()
-        updateMarkers()
-        if hoteResultViewType == .MapView {
-        let indexOfMajorCell = self.indexOfMajorCell()
-        self.manageForCollectionView(atIndex: indexOfMajorCell)
-        }
+        
     }
     
     func getAllHotelsListResultSuccess(_ isDone: Bool) {
@@ -378,6 +369,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
         printDebug("done button tapped")
         self.getSavedFilter()
         self.loadSaveData()
+        self.getFavouriteHotels()
         
         //manage switch button for the filttred data.
         if let _ = self.fetchedResultsController.fetchedObjects {

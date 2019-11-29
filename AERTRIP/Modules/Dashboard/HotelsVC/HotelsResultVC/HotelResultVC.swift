@@ -188,6 +188,7 @@ class HotelResultVC: BaseVC {
         //        } catch {
         //            printDebug("Error in performFetch: \(error) at line \(#line) in file \(#file)")
         //        }
+        fetchedResultsController.delegate = self
         return fetchedResultsController
     }()
     

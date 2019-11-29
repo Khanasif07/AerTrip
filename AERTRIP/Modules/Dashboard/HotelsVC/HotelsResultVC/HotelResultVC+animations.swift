@@ -243,3 +243,9 @@ extension HotelResultVC {
         }
     }
 }
+
+
+
+
+///////////////////// Animation changes /////////////////////
+

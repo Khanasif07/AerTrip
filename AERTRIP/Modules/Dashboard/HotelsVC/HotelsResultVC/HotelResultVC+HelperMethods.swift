@@ -267,6 +267,13 @@ extension HotelResultVC {
         else {
             self.collectionView.reloadData()
         }
+        
+        removeAllMerkers()
+        updateMarkers()
+        if hoteResultViewType == .MapView {
+            let indexOfMajorCell = self.indexOfMajorCell()
+            self.manageForCollectionView(atIndex: indexOfMajorCell)
+        }
     }
     
     func searchForText(_ searchText: String, shouldPerformAction: Bool = true) {
@@ -358,6 +365,7 @@ extension HotelResultVC {
         guard scrollView === tableViewVertical else {
             return
         }
+        return
         
         //        let animationThreshold: CGFloat = 10.0
         //
