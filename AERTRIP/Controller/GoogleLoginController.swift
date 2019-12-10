@@ -17,7 +17,7 @@ class GoogleLoginController : NSObject {
     fileprivate(set) var currentGoogleUser: GoogleUser?
     fileprivate weak var contentViewController:UIViewController!
     fileprivate var hasAuthInKeychain: Bool {
-        let hasAuth = GIDSignIn.sharedInstance().hasAuthInKeychain()
+        let hasAuth = GIDSignIn.sharedInstance()?.hasPreviousSignIn() ?? false
         return hasAuth
     }
     
@@ -31,14 +31,14 @@ class GoogleLoginController : NSObject {
         let clientId = "175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().clientID = clientId
         GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().uiDelegate = self
     }
     
     func handleUrl(_ url: URL, options: [UIApplication.OpenURLOptionsKey : Any])->Bool{
         
-        return GIDSignIn.sharedInstance().handle(url,
-                                                 sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-                                                 annotation: options[UIApplication.OpenURLOptionsKey.annotation])
+        return GIDSignIn.sharedInstance()?.handle(url) ?? false
+//        return GIDSignIn.sharedInstance().handle(url,
+//                                                 sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+//                                                 annotation: options[UIApplication.OpenURLOptionsKey.annotation])
     }
     // MARK: - Method for google login...
     // MARK: ============================
@@ -48,7 +48,7 @@ class GoogleLoginController : NSObject {
         
         //GIDSignIn.sharedInstance().signOut()
         if hasAuthInKeychain {
-            GIDSignIn.sharedInstance().signInSilently()
+            GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         } else {
             GIDSignIn.sharedInstance().signIn()
         }
@@ -65,7 +65,7 @@ class GoogleLoginController : NSObject {
 
 // MARK: - GIDSignInUIDelegate and GIDSignInDelegate delegare methods...
 // MARK: ===============================================================
-extension GoogleLoginController : GIDSignInDelegate, GIDSignInUIDelegate {
+extension GoogleLoginController : GIDSignInDelegate {
     
     // MARK: To get user details like name, email etc.
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {

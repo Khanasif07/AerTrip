@@ -270,7 +270,7 @@ class BulkBookingVC: BaseVC {
     private func configureCheckInOutView() {
         self.checkInOutView = CheckInOutView(frame: self.datePickerView.bounds)
         if let view = self.checkInOutView {
-            view.delegate = self
+            view.delegate = self as! CheckInOutViewDelegate
             self.datePickerView.addSubview(view)
         }
     }
@@ -609,37 +609,38 @@ extension BulkBookingVC: BulkBookingVMDelegate {
 
 //MARK:- CheckInOutViewDelegate
 //MARK:-
-extension BulkBookingVC: CheckInOutViewDelegate {
-    
-    func selectCheckInDate(_ sender: UIButton) {
-        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.oldData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self)
-    }
-    
-    func selectCheckOutDate(_ sender: UIButton) {
-        
-        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.oldData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self) }
-}
+//extension BulkBookingVC: CheckInOutViewDelegate {
+//
+//    func selectCheckInDate(_ sender: UIButton) {
+//        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.oldData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self)
+//    }
+//
+//    func selectCheckOutDate(_ sender: UIButton) {
+//
+//        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.oldData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self) }
+//}
 
 //MARK:- CalendarDataHandler
 //MARK:-
-extension BulkBookingVC: CalendarDataHandler {
-    func selectedDates(fromCalendar startDate: Date!, end endDate: Date!, isHotelCalendar: Bool, isReturn: Bool) {
-        if startDate != nil {
-            self.viewModel.oldData.checkInDate = startDate.toString(dateFormat: "yyyy-MM-dd")
-        } else {
-             self.viewModel.oldData.checkInDate = ""
-        }
-        if endDate != nil {
-            self.viewModel.oldData.checkOutDate = endDate.toString(dateFormat: "yyyy-MM-dd")
-        } else {
-             self.viewModel.oldData.checkOutDate = ""
-        }
-        if let checkInOutVw = self.checkInOutView {
-            checkInOutVw.setDates(fromData: self.viewModel.oldData)
-        }
-        printDebug(startDate)
-        printDebug(endDate)
-        printDebug(isHotelCalendar)
-        printDebug(isReturn)
-    }
-}
+//TODO-:CalenderPodCommented
+//extension BulkBookingVC: CalendarDataHandler {
+//    func selectedDates(fromCalendar startDate: Date!, end endDate: Date!, isHotelCalendar: Bool, isReturn: Bool) {
+//        if startDate != nil {
+//            self.viewModel.oldData.checkInDate = startDate.toString(dateFormat: "yyyy-MM-dd")
+//        } else {
+//             self.viewModel.oldData.checkInDate = ""
+//        }
+//        if endDate != nil {
+//            self.viewModel.oldData.checkOutDate = endDate.toString(dateFormat: "yyyy-MM-dd")
+//        } else {
+//             self.viewModel.oldData.checkOutDate = ""
+//        }
+//        if let checkInOutVw = self.checkInOutView {
+//            checkInOutVw.setDates(fromData: self.viewModel.oldData)
+//        }
+//        printDebug(startDate)
+//        printDebug(endDate)
+//        printDebug(isHotelCalendar)
+//        printDebug(isReturn)
+//    }
+//}

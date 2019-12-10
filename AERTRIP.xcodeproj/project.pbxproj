@@ -6570,10 +6570,6 @@
 					"-framework",
 					"\"ActiveLabel\"",
 					"-framework",
-					"\"AertripCalendar\"",
-					"-framework",
-					"\"AertripCalendarDataModel\"",
-					"-framework",
 					"\"Alamofire\"",
 					"-framework",
 					"\"AssetsLibrary\"",
@@ -6637,8 +6633,6 @@
 					"\"GooglePlaces\"",
 					"-framework",
 					"\"GoogleSignIn\"",
-					"-framework",
-					"\"GoogleToolboxForMac\"",
 					"-framework",
 					"\"GoogleUtilities\"",
 					"-framework",
@@ -6719,7 +6713,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AERTRIP/Resources/AERTRIP-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -6756,10 +6750,6 @@
 					"-framework",
 					"\"ActiveLabel\"",
 					"-framework",
-					"\"AertripCalendar\"",
-					"-framework",
-					"\"AertripCalendarDataModel\"",
-					"-framework",
 					"\"Alamofire\"",
 					"-framework",
 					"\"AssetsLibrary\"",
@@ -6823,8 +6813,6 @@
 					"\"GooglePlaces\"",
 					"-framework",
 					"\"GoogleSignIn\"",
-					"-framework",
-					"\"GoogleToolboxForMac\"",
 					"-framework",
 					"\"GoogleUtilities\"",
 					"-framework",
@@ -6905,7 +6893,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AERTRIP/Resources/AERTRIP-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

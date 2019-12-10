@@ -51,10 +51,6 @@ class PKContainerView: UIView {
     private(set) lazy var scrollView: UIScrollView = UIScrollView(frame: self.bounds)
     weak var delegate: PKContainerViewDelegate?
     
-    private var contentSize: CGSize {
-//        return CGSize(width: singlePageSize.width * CGFloat(childVCs.count), height: singlePageSize.height)
-        return CGSize(width: 375.0 * CGFloat(childVCs.count), height: singlePageSize.height)
-    }
     
     init(frame: CGRect, childVCs: [UIViewController], parentVC: UIViewController) {
         self.childVCs = childVCs
@@ -69,48 +65,20 @@ class PKContainerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        updateSubViews()
-    }
-    
     func setupScrollView(){
         
-//        self.scrollView.contentSize = contentSize
+        self.scrollView.contentSize = CGSize(width: singlePageSize.width * CGFloat(childVCs.count), height: singlePageSize.height)
         self.scrollView.isPagingEnabled = true
         self.scrollView.showsVerticalScrollIndicator = false
         self.scrollView.showsHorizontalScrollIndicator = false
         self.scrollView.delegate = self
         
-//        for (idx, vc) in self.childVCs.enumerated() {
-//            vc.view.frame = CGRect(x: (singlePageSize.width * CGFloat(idx)), y: 0.0, width: singlePageSize.width, height: singlePageSize.height)
-//            self.scrollView.addSubview(vc.view)
-//        }
-        
-        updateSubViews(shouldAddSubview: true)
-        
-        self.addSubview(self.scrollView)
-    }
-    
-    private func updateSubViews(shouldAddSubview: Bool = false) {
-        //        let size = contentSize
-        
-        //        if scrollView.contentSize.width != size.width {
-        scrollView.translatesAutoresizingMaskIntoConstraints = true
-        scrollView.contentSize = contentSize
-        scrollView.frame = self.bounds
         for (idx, vc) in self.childVCs.enumerated() {
             vc.view.frame = CGRect(x: (singlePageSize.width * CGFloat(idx)), y: 0.0, width: singlePageSize.width, height: singlePageSize.height)
-            
-            if shouldAddSubview {
-                self.scrollView.addSubview(vc.view)
-            }
-            
-            vc.view.layoutSubviews()
+            self.scrollView.addSubview(vc.view)
         }
-        scrollView.layoutSubviews()
-        //        }
+        
+        self.addSubview(self.scrollView)
     }
     
     func selectPage(atIndex: Int, animated: Bool) {

@@ -836,33 +836,35 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
 extension HotelsSearchVC: CheckInOutViewDelegate {
     
     func selectCheckInDate(_ sender: UIButton) {
-        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self)
+        //TODO-: CalenderPodCommented
+//        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self)
     }
     
     func selectCheckOutDate(_ sender: UIButton) {
         
-        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self) }
+//        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self) }
+}
 }
 
-extension HotelsSearchVC: CalendarDataHandler {
-    func selectedDates(fromCalendar startDate: Date!, end endDate: Date!, isHotelCalendar: Bool, isReturn: Bool) {
-        if startDate != nil {
-            self.viewModel.searchedFormData.checkInDate = startDate.toString(dateFormat: "yyyy-MM-dd")
-        } else {
-            self.viewModel.searchedFormData.checkInDate = ""
-        }
-        if endDate != nil {
-            self.viewModel.searchedFormData.checkOutDate = endDate.toString(dateFormat: "yyyy-MM-dd")
-        } else {
-            self.viewModel.searchedFormData.checkOutDate = ""
-        }
-        if let checkInOutVw = self.checkInOutView {
-            checkInOutVw.setDates(fromData: self.viewModel.searchedFormData)
-        }
-        printDebug(startDate)
-        printDebug(endDate)
-        printDebug(isHotelCalendar)
-        printDebug(isReturn)
-        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
-    }
-}
+//extension HotelsSearchVC: CalendarDataHandler {
+//    func selectedDates(fromCalendar startDate: Date!, end endDate: Date!, isHotelCalendar: Bool, isReturn: Bool) {
+//        if startDate != nil {
+//            self.viewModel.searchedFormData.checkInDate = startDate.toString(dateFormat: "yyyy-MM-dd")
+//        } else {
+//            self.viewModel.searchedFormData.checkInDate = ""
+//        }
+//        if endDate != nil {
+//            self.viewModel.searchedFormData.checkOutDate = endDate.toString(dateFormat: "yyyy-MM-dd")
+//        } else {
+//            self.viewModel.searchedFormData.checkOutDate = ""
+//        }
+//        if let checkInOutVw = self.checkInOutView {
+//            checkInOutVw.setDates(fromData: self.viewModel.searchedFormData)
+//        }
+//        printDebug(startDate)
+//        printDebug(endDate)
+//        printDebug(isHotelCalendar)
+//        printDebug(isReturn)
+//        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
+//    }
+//}

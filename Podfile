@@ -11,7 +11,8 @@ target 'AERTRIP' do
   pod 'SwiftyJSON', '~> 4.0'
   pod 'FBSDKCoreKit', '~> 4.38.1'
   pod 'FBSDKLoginKit', '~> 4.38.1'
-  pod 'GoogleSignIn'
+#  pod 'GoogleSignIn'
+  pod 'GoogleSignIn', '~> 5.0'
   pod 'LinkedinSwift'
   pod 'Firebase/Core'
   pod 'Firebase/DynamicLinks'
@@ -28,13 +29,14 @@ target 'AERTRIP' do
   pod 'PKCategoryView'
 
   #if using swift 4.2.1 and xcode 10.1 then use the '1.0.26' of razorpay otherwise latest , xcode 10.2+ use 1.1.0
-  pod 'razorpay-pod','1.0.26'
+#  pod 'razorpay-pod','1.0.26'
 #pod 'razorpay-pod', :git => 'https://github.com/razorpay/razorpay-pod.git', :branch => 'swift5.1'
+  pod 'razorpay-pod'
   pod 'PKLoader'
   pod 'ActiveLabel'
   pod 'TransitionButton'
-  pod 'AertripCalendarDataModel' , :git => 'git@gitlab.com:aertrip/ios-shared-rep.git' , :commit => '38ef98df8d00a76bf09f37fffd1905c60d22c58e'
-  pod 'AertripCalendar' , :git => 'git@gitlab.com:aertrip/ios-calendar.git'
+#  pod 'AertripCalendarDataModel' , :git => 'git@gitlab.com:aertrip/ios-shared-rep.git' , :commit => '38ef98df8d00a76bf09f37fffd1905c60d22c58e'
+#  pod 'AertripCalendar' , :git => 'git@gitlab.com:aertrip/ios-calendar.git'
   pod 'FSCalendar'
   
 end
