@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -24,7 +24,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="163" height="85.5"/>
                         <subviews>
                             <stackView opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="zqc-Ih-gb7">
-                                <rect key="frame" x="16.5" y="1.5" width="122" height="82.5"/>
+                                <rect key="frame" x="18.5" y="1.5" width="122" height="82.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vcs-gT-NGI">
                                         <rect key="frame" x="0.0" y="0.0" width="90" height="82.5"/>
@@ -67,6 +67,11 @@
                                                     <constraint firstItem="RgO-oT-YjX" firstAttribute="top" secondItem="eSa-H8-9A1" secondAttribute="bottom" constant="8.5" id="ta2-lA-WVh"/>
                                                     <constraint firstItem="eSa-H8-9A1" firstAttribute="leading" secondItem="PI6-pz-CWQ" secondAttribute="leading" id="wem-Ns-RdH"/>
                                                 </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="Z3F-iB-Cef"/>
+                                                    </mask>
+                                                </variation>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -104,10 +109,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="xJR-9b-ccg" secondAttribute="bottom" id="73k-VR-a75"/>
-                            <constraint firstAttribute="trailing" secondItem="zqc-Ih-gb7" secondAttribute="trailing" constant="24.5" id="kLT-rf-P0y"/>
+                            <constraint firstAttribute="trailing" secondItem="zqc-Ih-gb7" secondAttribute="trailing" constant="22.5" id="kLT-rf-P0y"/>
                             <constraint firstAttribute="trailing" secondItem="xJR-9b-ccg" secondAttribute="trailing" constant="16" id="ndE-XK-9wq"/>
                             <constraint firstItem="xJR-9b-ccg" firstAttribute="leading" secondItem="s2V-EX-Aaw" secondAttribute="leading" constant="16" id="nzo-JV-E7x"/>
-                            <constraint firstItem="zqc-Ih-gb7" firstAttribute="leading" secondItem="s2V-EX-Aaw" secondAttribute="leading" constant="16.5" id="oBc-eu-e8u"/>
+                            <constraint firstItem="zqc-Ih-gb7" firstAttribute="leading" secondItem="s2V-EX-Aaw" secondAttribute="leading" constant="18.5" id="oBc-eu-e8u"/>
                             <constraint firstItem="xJR-9b-ccg" firstAttribute="top" secondItem="zqc-Ih-gb7" secondAttribute="bottom" constant="1" id="yZZ-RI-jzY"/>
                             <constraint firstItem="zqc-Ih-gb7" firstAttribute="centerY" secondItem="s2V-EX-Aaw" secondAttribute="centerY" id="zrY-R9-DLb"/>
                         </constraints>
@@ -131,6 +136,7 @@
                 <outlet property="lineViewTrailingConstraint" destination="ndE-XK-9wq" id="IWO-sy-O6y"/>
                 <outlet property="roomCountLabel" destination="eSa-H8-9A1" id="wsc-71-Y4S"/>
                 <outlet property="stackViewLeadingConstraint" destination="oBc-eu-e8u" id="pXk-EC-zrC"/>
+                <outlet property="stackViewTrailingConstraint" destination="kLT-rf-P0y" id="16A-CU-AaX"/>
             </connections>
             <point key="canvasLocation" x="292" y="17"/>
         </collectionViewCell>

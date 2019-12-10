@@ -242,22 +242,34 @@ extension HotelResultVC: HotelResultDelegate {
         //        self.updateFavOnList(forIndexPath: self.selectedIndexPath)
     }
     
-    func updateFavouriteSuccess() {
-        self.loadSaveData()
-        self.getFavouriteHotels(shouldReloadData: true)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
+    func updateFavouriteSuccess(isHotelFavourite: Bool) {
+        if self.switchView.on, !isHotelFavourite  {
+            self.loadSaveData()
+            self.getFavouriteHotels(shouldReloadData: true)
+        } else {
+            self.getFavouriteHotels(shouldReloadData: false)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
+        }
         if self.viewModel.isUnpinHotelTapped {
             self.reloadHotelList()
             self.viewModel.isUnpinHotelTapped = false
         } else {
-            //             self.updateFavOnList(forIndexPath: self.selectedIndexPath)
+            self.updateFavOnList(forIndexPath: self.selectedIndexPath)
         }
         
-        
+        delay(seconds: 0.4) { [weak self] in
+            guard let strongSelf = self else {return}
+            let indexOfMajorCell = strongSelf.indexOfMajorCell()
+            strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
+        }
     }
     
-    func updateFavouriteFail(errors:ErrorCodes) {
-        self.loadSaveData()
-        self.getFavouriteHotels(shouldReloadData: true)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
+    func updateFavouriteFail(errors: ErrorCodes, isHotelFavourite: Bool) {
+        if self.switchView.on, !isHotelFavourite  {
+            self.loadSaveData()
+            self.getFavouriteHotels(shouldReloadData: true)
+        }else {
+            self.getFavouriteHotels(shouldReloadData: false)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
+        }
         //        self.updateFavOnList(forIndexPath: self.selectedIndexPath)
         if let _ = UserInfo.loggedInUser {
             if errors.contains(array: [-1]){
@@ -269,7 +281,11 @@ extension HotelResultVC: HotelResultDelegate {
             }
         }
         
-        
+        delay(seconds: 0.4) { [weak self] in
+            guard let strongSelf = self else {return}
+            let indexOfMajorCell = strongSelf.indexOfMajorCell()
+            strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
+        }
     }
     
     func getAllHotelsListResultSuccess(_ isDone: Bool) {
@@ -303,7 +319,7 @@ extension HotelResultVC: HotelCardCollectionViewCellDelegate {
         self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)
         // reload that item at particular indexPath
         if let indexPath = self.selectedIndexPath {
-            self.updateFavOnList(forIndexPath: indexPath)
+            // self.updateFavOnList(forIndexPath: indexPath)
         }
         
         

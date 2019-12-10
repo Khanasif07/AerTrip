@@ -365,7 +365,6 @@ extension HotelResultVC {
         guard scrollView === tableViewVertical else {
             return
         }
-        return
         
         //        let animationThreshold: CGFloat = 10.0
         //

@@ -13,8 +13,8 @@ protocol HotelResultDelegate: class {
     func getAllHotelsListResultSuccess(_ isDone: Bool)
     func getAllHotelsListResultFail(errors: ErrorCodes)
     func willUpdateFavourite()
-    func updateFavouriteSuccess()
-    func updateFavouriteFail(errors:ErrorCodes)
+    func updateFavouriteSuccess(isHotelFavourite: Bool)
+    func updateFavouriteFail(errors:ErrorCodes, isHotelFavourite: Bool)
     func willGetPinnedTemplate()
     func getPinnedTemplateSuccess()
     func getPinnedTemplateFail()
@@ -111,13 +111,22 @@ class HotelsResultVM: NSObject {
         } else {
             param[APIKeys.status.rawValue] = 0
         }
-
+        var isHotelFavourite = false
             //make fav/unfav locally
             for hotel in forHotels {
                 if !isUnpinHotels {
-                    hotel.fav = hotel.fav == "1" ? "0" : "1"
+                    if hotel.fav == "1" {
+                        hotel.fav = "0"
+                        isHotelFavourite = false
+                    } else {
+                        hotel.fav = "1"
+                      isHotelFavourite = true
+                    }
+                   // hotel.fav = hotel.fav == "1" ? "0" : "1"
+                    
                 } else {
                     hotel.fav = "0"
+                    isHotelFavourite = false
                 }
                 _ = hotel.afterUpdate
             }
@@ -128,16 +137,24 @@ class HotelsResultVM: NSObject {
                 if isUnpinHotels {
                     AppToast.default.showToastMessage(message: successMessage)
                 }
-                self.delegate?.updateFavouriteSuccess()
+                self.delegate?.updateFavouriteSuccess(isHotelFavourite: isHotelFavourite)
             } else {
                 
                 if let _ = UserInfo.loggedInUserId {
                     //revert back in API not success fav/unfav locally
                     for hotel in forHotels {
                         if !isUnpinHotels {
-                            hotel.fav = hotel.fav == "1" ? "0" : "1"
+                            if hotel.fav == "1" {
+                                hotel.fav = "0"
+                                isHotelFavourite = false
+                            } else {
+                                hotel.fav = "1"
+                                isHotelFavourite = true
+                            }
+                            //hotel.fav = hotel.fav == "1" ? "0" : "1"
                         } else {
                             hotel.fav = "1"
+                            isHotelFavourite = true
                         }
                         _ = hotel.afterUpdate
                     }
@@ -164,14 +181,22 @@ class HotelsResultVM: NSObject {
                     //save fav/unfav locally
                     for hotel in forHotels {
                         if !isUnpinHotels {
-                            hotel.fav = hotel.fav == "1" ? "0" : "1"
+                            if hotel.fav == "1" {
+                                hotel.fav = "0"
+                                isHotelFavourite = false
+                            } else {
+                                hotel.fav = "1"
+                                isHotelFavourite = true
+                            }
+                            //hotel.fav = hotel.fav == "1" ? "0" : "1"
                         } else {
                             hotel.fav = "0"
+                            isHotelFavourite = false
                         }
                         _ = hotel.afterUpdate
                     }
                 }
-                self.delegate?.updateFavouriteFail(errors: errors)
+                self.delegate?.updateFavouriteFail(errors: errors, isHotelFavourite: isHotelFavourite)
             }
         }
     }

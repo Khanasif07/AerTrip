@@ -33,6 +33,7 @@ class AddRoomPictureCell: UICollectionViewCell {
     @IBOutlet weak var lineViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var lineViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var stackViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var stackViewTrailingConstraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================
@@ -92,8 +93,16 @@ class AddRoomPictureCell: UICollectionViewCell {
             self.cancelBtnOutlet.isHidden = true
             self.lineView.isHidden = true
             self.stackViewLeadingConstraint.constant = 16.5
+            //self.stackViewTrailingConstraint.constant = 22.5
         } else{
-            self.stackViewLeadingConstraint.constant = 20.0
+            if idxPath.item % 2 == 0 {
+               // self.stackViewTrailingConstraint.constant = 15.0
+                self.stackViewLeadingConstraint.constant = 20.0
+
+            } else {
+                self.stackViewLeadingConstraint.constant = 20.0
+               // self.stackViewTrailingConstraint.constant = 22.5
+            }
             if idxPath.item == 0 || idxPath.item == 1 {
                 self.lineView.isHidden = false
                 if idxPath.item == 0 {

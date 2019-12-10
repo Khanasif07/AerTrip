@@ -60,7 +60,7 @@ class CheckInOutView: UIView {
     private func configureUI() {
         let fontSize16 = AppFonts.Regular.withSize(16.0)
         let fontSize26 = AppFonts.Regular.withSize(26.0)
-        self.checkInLabel.font = AppFonts.Regular.withSize(16.0)
+        self.checkInLabel.font = fontSize16
         self.checkInLabel.textColor = AppColors.themeGray40
         self.checkOutLabel.font = fontSize16
         self.checkOutLabel.textColor = AppColors.themeGray40

@@ -90,6 +90,7 @@ class HotelsSearchVC: BaseVC {
         self.searchBtnOutlet.layer.cornerRadius = 25.0
         self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+        self.searchBtnOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
         self.configureCheckInOutView()
         self.configureRecentSearchesView()
         self.hideRecentSearchesView()
