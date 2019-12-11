@@ -1,5 +1,8 @@
 PODS:
   - ActiveLabel (1.1.0)
+  - AertripCalendar (0.0.5):
+    - FSCalendar
+  - AertripCalendarDataModel (0.0.1)
   - AFNetworking (3.2.1):
     - AFNetworking/NSURLSession (= 3.2.1)
     - AFNetworking/Reachability (= 3.2.1)
@@ -151,6 +154,8 @@ PODS:
 
 DEPENDENCIES:
   - ActiveLabel
+  - "AertripCalendar (from `git@gitlab.com:aertrip/ios-calendar.git`)"
+  - "AertripCalendarDataModel (from `git@gitlab.com:aertrip/ios-shared-rep.git`, commit `38ef98df8d00a76bf09f37fffd1905c60d22c58e`)"
   - Alamofire
   - AvailableHapticFeedback
   - Crashlytics
@@ -221,8 +226,25 @@ SPEC REPOS:
     - SwiftyJSON
     - TransitionButton
 
+EXTERNAL SOURCES:
+  AertripCalendar:
+    :git: "git@gitlab.com:aertrip/ios-calendar.git"
+  AertripCalendarDataModel:
+    :commit: 38ef98df8d00a76bf09f37fffd1905c60d22c58e
+    :git: "git@gitlab.com:aertrip/ios-shared-rep.git"
+
+CHECKOUT OPTIONS:
+  AertripCalendar:
+    :commit: 0d8fd45069ee10f6175d44c0262b89b712a59620
+    :git: "git@gitlab.com:aertrip/ios-calendar.git"
+  AertripCalendarDataModel:
+    :commit: 38ef98df8d00a76bf09f37fffd1905c60d22c58e
+    :git: "git@gitlab.com:aertrip/ios-shared-rep.git"
+
 SPEC CHECKSUMS:
   ActiveLabel: 5e3f4de79a1952d4604b845a0610d4776e4b82b3
+  AertripCalendar: b3e04114b4e23e7b62a0967e0ef6b06dba20df94
+  AertripCalendarDataModel: 52eb9d654ff2145e55b247ad72f7d14641a791b2
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
@@ -265,6 +287,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: 5d7ec8bc5a271ddd03a6502befb3a866c7666960
+PODFILE CHECKSUM: cb7df623d68306132073fad9ceacb0d2af8e607e
 
-COCOAPODS: 1.8.1
+COCOAPODS: 1.8.4
