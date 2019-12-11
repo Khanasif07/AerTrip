@@ -54,10 +54,10 @@ class SocialLoginVM {
                 completionBlock?(true)
             }
             
-        }, failure: { (error) in
+        }) { (error) in
             printDebug(error?.localizedDescription ?? "")
             completionBlock?(false)
-        })
+        }
     }
     
     func googleLogin(vc: UIViewController, completionBlock: ((_ success: Bool)->())? )  {
