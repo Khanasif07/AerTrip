@@ -19,7 +19,7 @@ public enum PKSideMenuAnimation {
 
 public struct PKSideMenuOptions {
     public static var mainViewCornerRadiusInOpenMode: CGFloat = 18.0
-    public static var sideDistanceForOpenMenu: CGFloat = 230.0
+    public static var sideDistanceForOpenMenu: CGFloat = 0.61 * UIScreen.main.bounds.width
     public static var opacityViewBackgroundColor: UIColor = UIColor.green
     public static var mainViewShadowColor: UIColor = UIColor.black
     public static var mainViewShadowWidth: Double = 5.0
@@ -273,6 +273,8 @@ open class PKSideMenuController: UIViewController {
         addTapGestures()
         var fMain : CGRect = self.mainContainer!.frame
         fMain.origin.x = self.distanceOpenMenu
+      
+        
 
         self.delegate?.willOpenSideMenu()
         switch PKSideMenuOptions.currentAnimation {
