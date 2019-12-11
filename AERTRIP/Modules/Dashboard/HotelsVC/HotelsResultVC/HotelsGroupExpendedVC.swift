@@ -37,6 +37,7 @@ class HotelsGroupExpendedVC: BaseVC {
     private var cardViews: [UIView] = []
     let viewModel = HotelsGroupExtendedVM()
     private var selectedIndexPath: IndexPath?
+    var sheetView: PKBottomSheet?
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -171,10 +172,19 @@ extension HotelsGroupExpendedVC: HotelCardCollectionViewCellDelegate {
     
     func saveButtonActionFromLocalStorage(_ sender: UIButton, forHotel: HotelSearched) {
         printDebug("save button action local storage ")
+        guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
         self.delegate?.saveButtonActionFromLocalStorage(forHotel: forHotel)
         
         if let indexPath = self.collectionView.indexPath(forItem: sender) {
-            self.viewModel.samePlaceHotels[indexPath.item].fav =  self.viewModel.samePlaceHotels[indexPath.item].fav == "0" ? "1" : "0"
+            if self.viewModel.isFromFavorite {
+               self.viewModel.samePlaceHotels.remove(at: indexPath.item)
+                if self.viewModel.samePlaceHotels.isEmpty {
+                    sheetView?.dismiss(animated: true)
+                    return
+                }
+            } else {
+            //self.viewModel.samePlaceHotels[indexPath.item].fav =  self.viewModel.samePlaceHotels[indexPath.item].fav == "0" ? "1" : "0"
+            }
             self.collectionView.reloadData()
         }
     }
@@ -182,7 +192,6 @@ extension HotelsGroupExpendedVC: HotelCardCollectionViewCellDelegate {
     func pagingScrollEnable(_ indexPath: IndexPath, _ scrollView: UIScrollView) {
         printDebug("handle scrolling enabled")
     }
-    
     
 }
 

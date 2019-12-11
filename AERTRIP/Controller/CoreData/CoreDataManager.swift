@@ -133,7 +133,8 @@ class CoreDataManager {
         do {
             let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
             try context.execute(deleteRequest)
-            self.saveContext()
+            try context.save()
+            //self.saveContext()
         } catch {
             printDebug("There was an error")
         }

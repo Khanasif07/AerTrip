@@ -82,7 +82,7 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
                 self.shareButton.isHidden = false
             }
             self.animateButton()
-            self.getFavouriteHotels(shouldReloadData: false)
+           // nitin self.getFavouriteHotels(shouldReloadData: false)
             //self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         }
         else {
@@ -192,7 +192,7 @@ extension HotelResultVC: HotelResultDelegate {
         }
         else {
             self.loadSaveData()
-            self.getFavouriteHotels()
+          // nitin  self.getFavouriteHotels()
         }
         
         self.getPinnedHotelTemplate()
@@ -245,7 +245,7 @@ extension HotelResultVC: HotelResultDelegate {
     func updateFavouriteSuccess(isHotelFavourite: Bool) {
         if self.switchView.on, !isHotelFavourite  {
             self.loadSaveData()
-            self.getFavouriteHotels(shouldReloadData: true)
+           // nitin self.getFavouriteHotels(shouldReloadData: true)
         } else {
             self.getFavouriteHotels(shouldReloadData: false)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
         }
@@ -266,9 +266,10 @@ extension HotelResultVC: HotelResultDelegate {
     func updateFavouriteFail(errors: ErrorCodes, isHotelFavourite: Bool) {
         if self.switchView.on, !isHotelFavourite  {
             self.loadSaveData()
-            self.getFavouriteHotels(shouldReloadData: true)
+           // nitin self.getFavouriteHotels(shouldReloadData: true)
         }else {
             self.getFavouriteHotels(shouldReloadData: false)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
+            self.updateFavOnList(forIndexPath: self.selectedIndexPath)
         }
         //        self.updateFavOnList(forIndexPath: self.selectedIndexPath)
         if let _ = UserInfo.loggedInUser {
@@ -370,7 +371,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
         self.loadSaveData()
         
         //manage switch button when clear all filters
-        self.getFavouriteHotels(shouldReloadData: false)
+       // nitin self.getFavouriteHotels(shouldReloadData: false)
     }
     
     func doneButtonTapped() {
@@ -385,7 +386,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
         printDebug("done button tapped")
         self.getSavedFilter()
         self.loadSaveData()
-        self.getFavouriteHotels()
+       // nitin self.getFavouriteHotels()
         
         //manage switch button for the filttred data.
         if let _ = self.fetchedResultsController.fetchedObjects {
@@ -424,7 +425,6 @@ extension HotelResultVC: HotelDetailsVCDelegate {
 
 extension HotelResultVC: HotelsGroupExpendedVCDelegate {
     func saveButtonActionFromLocalStorage(forHotel: HotelSearched) {
-        guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
         self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)
     }
 }

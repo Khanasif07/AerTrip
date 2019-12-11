@@ -127,6 +127,16 @@ extension HotelResultVC {
             self.mapView?.padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
     }
+    
+    func updateMarker(atIndex: Int) {
+        
+        if self.viewModel.collectionViewLocArr.indices.contains(atIndex) {
+            let locStr = self.viewModel.collectionViewLocArr[atIndex]
+            if let loc = self.getLocationObject(fromLocation: locStr) {
+                self.updateMarker(atLocation: loc, isSelected: false)
+            }
+        }
+    }
 }
 
 // MARK: - Methods for Marker Ploating
