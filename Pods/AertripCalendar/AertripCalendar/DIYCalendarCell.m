@@ -59,9 +59,11 @@
         self.selectionLayer.path = [UIBezierPath bezierPathWithRect:self.selectionLayer.bounds].CGPath;
         
     } else if (self.selectionType == SelectionTypeLeftBorder) {
+        self.selectionLayer.frame = CGRectMake(2.0, constantMinus, self.bounds.size.width - 2, self.bounds.size.height - constantMinus * 2);
         self.selectionLayer.path = [UIBezierPath bezierPathWithRoundedRect:self.selectionLayer.bounds byRoundingCorners:UIRectCornerTopLeft|UIRectCornerBottomLeft cornerRadii:CGSizeMake(radius, radius)].CGPath;
         
     } else if (self.selectionType == SelectionTypeRightBorder) {
+        self.selectionLayer.frame = CGRectMake(0.0, constantMinus, self.bounds.size.width - 2, self.bounds.size.height - constantMinus * 2);
         self.selectionLayer.path = [UIBezierPath bezierPathWithRoundedRect:self.selectionLayer.bounds byRoundingCorners:UIRectCornerTopRight|UIRectCornerBottomRight cornerRadii:CGSizeMake( radius, radius)].CGPath;
         
     } else if (self.selectionType == SelectionTypeSingle) {

@@ -26,6 +26,7 @@
 @property (strong , nonatomic) NSMutableArray * selectedDates;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UIView *weekdaysBaseView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewHeight;
 
 @end
 
@@ -125,6 +126,7 @@
         cancelImage = [UIImage imageNamed:@"cancelGray" inBundle:[NSBundle mainBundle] compatibleWithTraitCollection:nil];
     }
     self.cancelButton.imageView.image = cancelImage;
+    [self setSwipeGesture];
 }
 
 
@@ -618,6 +620,20 @@
     
 }
 
+-(void)setSwipeGesture{
+    
+    UISwipeGestureRecognizer * swipeGesture = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeToDismiss)];
+    self.view.userInteractionEnabled = YES;
+    swipeGesture.direction = UISwipeGestureRecognizerDirectionDown;
+    [self.view addGestureRecognizer:swipeGesture];
+}
+
+-(void)swipeToDismiss{
+    [self animateBottomViewOut];
+}
+
+
+
 //MARK:- Target Action methods
 
 
@@ -887,7 +903,7 @@
         }
         
         //Removing previously selected dates if new date is prior to currently selected return date
-        // e.g. if previously 25 is returned date ( self.viewModel.date2 ) and new date is 21,
+        // e.g. if previously selected return journey date ( self.viewModel.date2 ) is 25 and new date is 21,
         // then trim selection for dates 22 to 25.
         if([date compare:self.viewModel.date2] == NSOrderedAscending ) {
             [self deSelectDatesInRange:date endDate:self.viewModel.date2];
@@ -898,12 +914,17 @@
         [self setupCheckOutDateView];
         
         // if newly selected return date is prior to selected onwards date
-        // then remove previouly selected onwards date and trim selected date range
+        // then set is as onwards date and remove return date value
         if ([self.viewModel.date1 compare:self.viewModel.date2] == NSOrderedDescending) {
 
-            [self deSelectDatesInRange:self.viewModel.date2 endDate:self.viewModel.date1];
-            self.viewModel.date1 = nil;
+            
+            self.viewModel.date1 = date;
+            self.viewModel.date2 = nil;
             [self setupCheckInDateView];
+            [self setupCheckOutDateView];
+            [self showDatesSelection];
+            
+            return;
         }
         
         [self showDatesSelection];

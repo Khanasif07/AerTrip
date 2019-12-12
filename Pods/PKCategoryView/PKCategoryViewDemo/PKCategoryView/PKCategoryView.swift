@@ -43,18 +43,8 @@ open class PKCategoryView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        setupSubviews()
-    }
-    
     public func setBadge(count: Int, atIndex index: Int) {
         self.navBar?.setBadge(count: count, atIndex: index)
-    }
-    
-    public func selectTab(atIndex: Int) {
-        self.containerView.selectPage(atIndex: atIndex, animated: true)
     }
 }
 
@@ -78,7 +68,6 @@ private extension PKCategoryView {
         }
         else {
             navBar.frame = barFrame
-            navBar.layoutSubviews()
         }
     }
     
@@ -94,7 +83,6 @@ private extension PKCategoryView {
         }
         else {
             containerView.frame = frame
-            containerView.layoutSubviews()
         }
     }
 }

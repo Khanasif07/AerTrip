@@ -207,6 +207,7 @@ public final class PKLoader {
         }
         
         self.transparentView.removeFromSuperview()
+        
         guard let loader = self.loaderView else {return}
         loader.removeFromSuperview()
         self.loaderView = nil

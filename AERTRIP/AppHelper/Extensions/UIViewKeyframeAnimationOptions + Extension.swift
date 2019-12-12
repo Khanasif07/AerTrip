@@ -12,7 +12,7 @@ import Foundation
 extension UIView.KeyframeAnimationOptions {
     
     init(animationOptions: UIView.AnimationOptions) {
-       rawValue = animationOptions.rawValue
+        self = UIView.KeyframeAnimationOptions(rawValue: animationOptions.rawValue)
     }
     
 }

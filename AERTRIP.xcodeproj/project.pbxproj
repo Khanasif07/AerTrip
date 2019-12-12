@@ -974,7 +974,7 @@
 		84FFDFAE21F9F67B005CA257 /* ATCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FFDFAA21F9F67B005CA257 /* ATCategoryView.swift */; };
 		84FFDFAF21F9F67B005CA257 /* ATPageContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FFDFAB21F9F67B005CA257 /* ATPageContainerView.swift */; };
 		84FFDFB021F9F67B005CA257 /* ATCategoryNavBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FFDFAC21F9F67B005CA257 /* ATCategoryNavBarStyle.swift */; };
-		F7B6F40D28A1A6D63450BF00 /* Pods_AERTRIP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D7C883F61476F23C0D060C /* Pods_AERTRIP.framework */; };
+		EE58E9D6E89B9661B1776B87 /* Pods_AERTRIP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF333E53D01A7363C4935185 /* Pods_AERTRIP.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1426,8 +1426,6 @@
 		18FFD1AE22A674410010C7DB /* BookingConfimationMailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingConfimationMailVC.swift; sourceTree = "<group>"; };
 		1F4636CD21F5ABE2000D56B0 /* CheckInOutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInOutView.swift; sourceTree = "<group>"; };
 		1F4636CF21F5ABF0000D56B0 /* CheckInOutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckInOutView.xib; sourceTree = "<group>"; };
-		251C11088C76CEC899965249 /* Pods-AERTRIP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AERTRIP.release.xcconfig"; path = "Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP.release.xcconfig"; sourceTree = "<group>"; };
-		57D7C883F61476F23C0D060C /* Pods_AERTRIP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AERTRIP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84011A99222E50B20050BDA1 /* HotelDetailsEmptyStateTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailsEmptyStateTableCell.swift; sourceTree = "<group>"; };
 		84011A9A222E50B20050BDA1 /* HotelDetailsEmptyStateTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelDetailsEmptyStateTableCell.xib; sourceTree = "<group>"; };
 		8402009122C1EEB7002E5977 /* BookingAddOnRequestVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingAddOnRequestVM.swift; sourceTree = "<group>"; };
@@ -1992,7 +1990,9 @@
 		84FFDFAA21F9F67B005CA257 /* ATCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATCategoryView.swift; sourceTree = "<group>"; };
 		84FFDFAB21F9F67B005CA257 /* ATPageContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATPageContainerView.swift; sourceTree = "<group>"; };
 		84FFDFAC21F9F67B005CA257 /* ATCategoryNavBarStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATCategoryNavBarStyle.swift; sourceTree = "<group>"; };
-		E0F38BF1D204A4F56D91BDD2 /* Pods-AERTRIP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AERTRIP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AERTRIP/Pods-AERTRIP.debug.xcconfig"; sourceTree = "<group>"; };
+		A32CCFDD5FC3FF76B0C3A7E3 /* Pods-AERTRIP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AERTRIP.debug.xcconfig"; path = "Target Support Files/Pods-AERTRIP/Pods-AERTRIP.debug.xcconfig"; sourceTree = "<group>"; };
+		DF333E53D01A7363C4935185 /* Pods_AERTRIP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AERTRIP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF51AF8DA3B028B5717D763C /* Pods-AERTRIP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AERTRIP.release.xcconfig"; path = "Target Support Files/Pods-AERTRIP/Pods-AERTRIP.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2001,8 +2001,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				188BFBB72203379700B4C315 /* StoreKit.framework in Frameworks */,
-				F7B6F40D28A1A6D63450BF00 /* Pods_AERTRIP.framework in Frameworks */,
 				188BFBB52203378F00B4C315 /* GameKit.framework in Frameworks */,
+				EE58E9D6E89B9661B1776B87 /* Pods_AERTRIP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3086,13 +3086,13 @@
 			path = HotelSearchView;
 			sourceTree = "<group>";
 		};
-		303782E47A5C7F1294906B16 /* Pods */ = {
+		2105333EAE2D78AA30A931CB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E0F38BF1D204A4F56D91BDD2 /* Pods-AERTRIP.debug.xcconfig */,
-				251C11088C76CEC899965249 /* Pods-AERTRIP.release.xcconfig */,
+				A32CCFDD5FC3FF76B0C3A7E3 /* Pods-AERTRIP.debug.xcconfig */,
+				FF51AF8DA3B028B5717D763C /* Pods-AERTRIP.release.xcconfig */,
 			);
-			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		8402009022C1EEB7002E5977 /* BookingAddOnRequestVC */ = {
@@ -4128,8 +4128,8 @@
 			children = (
 				8469FE9121B513FD0027BB2E /* AERTRIP */,
 				8469FE9021B513FD0027BB2E /* Products */,
-				303782E47A5C7F1294906B16 /* Pods */,
 				E8564E98314D16DFFD182776 /* Frameworks */,
+				2105333EAE2D78AA30A931CB /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -5289,7 +5289,7 @@
 				0C181FBE22FABDAD0088E64A /* Bolts.framework */,
 				188BFBB62203379700B4C315 /* StoreKit.framework */,
 				188BFBB42203378F00B4C315 /* GameKit.framework */,
-				57D7C883F61476F23C0D060C /* Pods_AERTRIP.framework */,
+				DF333E53D01A7363C4935185 /* Pods_AERTRIP.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -5301,13 +5301,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8469FEA421B513FF0027BB2E /* Build configuration list for PBXNativeTarget "AERTRIP" */;
 			buildPhases = (
-				0D96C8BB4EF203D585C5F594 /* [CP] Check Pods Manifest.lock */,
+				E2FA1CCF11F016F6C337DDE6 /* [CP] Check Pods Manifest.lock */,
 				8469FE8B21B513FD0027BB2E /* Sources */,
 				8469FE8C21B513FD0027BB2E /* Frameworks */,
 				8469FE8D21B513FD0027BB2E /* Resources */,
-				4C663770F9F33E3DF4F328D9 /* [CP] Embed Pods Frameworks */,
-				1C931071FCDB2F876DBF57D5 /* [CP] Copy Pods Resources */,
 				18FEC85F2200300400C64042 /* ShellScript */,
+				B762E55F157DE884F9B625A7 /* [CP] Embed Pods Frameworks */,
+				B2FDF64CF1CB4B70BAEB5000 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -5644,24 +5644,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0D96C8BB4EF203D585C5F594 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-AERTRIP-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		18FEC85F2200300400C64042 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5680,7 +5662,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" b1d76909c3f911405604adaed9943a3612918dcf 29130d7ad56d8563cac9817934b81940dd44e94e986d09e047fe078330cceb4d\n";
 		};
-		1C931071FCDB2F876DBF57D5 /* [CP] Copy Pods Resources */ = {
+		B2FDF64CF1CB4B70BAEB5000 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -5697,7 +5679,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4C663770F9F33E3DF4F328D9 /* [CP] Embed Pods Frameworks */ = {
+		B762E55F157DE884F9B625A7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -5712,6 +5694,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E2FA1CCF11F016F6C337DDE6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AERTRIP-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -6472,14 +6476,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -6528,22 +6532,23 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		8469FEA521B513FF0027BB2E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E0F38BF1D204A4F56D91BDD2 /* Pods-AERTRIP.debug.xcconfig */;
+			baseConfigurationReference = A32CCFDD5FC3FF76B0C3A7E3 /* Pods-AERTRIP.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -6551,6 +6556,52 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ActiveLabel\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AertripCalendar\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AertripCalendarDataModel\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AvailableHapticFeedback\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Bolts\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FSCalendar\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreDiagnostics\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseDynamicLinks\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInstanceID\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FlexiblePageControl\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMAppAuth\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMSessionFetcher\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransport\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransportCCTSupport\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/IOSLinkedInAPIFix\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManager\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/LinkedinSwift\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MXParallaxHeader\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MiniLayout\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PKCategoryView\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PKLoader\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PhoneNumberKit\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/TransitionButton\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/nanopb\"",
+					"\"${PODS_ROOT}/Crashlytics/iOS\"",
+					"\"${PODS_ROOT}/Fabric/iOS\"",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleAppMeasurement/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleMaps/Base/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleMaps/Maps/Frameworks\"",
+					"\"${PODS_ROOT}/GooglePlaces/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSignIn/Frameworks\"",
+					"\"${PODS_ROOT}/LinkedinSwift\"",
+					"\"${PODS_ROOT}/razorpay-pod/Pod\"",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/AERTRIP/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -6638,8 +6689,6 @@
 					"-framework",
 					"\"GoogleSignIn\"",
 					"-framework",
-					"\"GoogleToolboxForMac\"",
-					"-framework",
 					"\"GoogleUtilities\"",
 					"-framework",
 					"\"IOSLinkedInAPIFix\"",
@@ -6719,16 +6768,17 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AERTRIP/Resources/AERTRIP-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		8469FEA621B513FF0027BB2E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 251C11088C76CEC899965249 /* Pods-AERTRIP.release.xcconfig */;
+			baseConfigurationReference = FF51AF8DA3B028B5717D763C /* Pods-AERTRIP.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -6736,6 +6786,52 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ActiveLabel\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AertripCalendar\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AertripCalendarDataModel\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AvailableHapticFeedback\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Bolts\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FSCalendar\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreDiagnostics\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseDynamicLinks\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInstanceID\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FlexiblePageControl\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMAppAuth\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMSessionFetcher\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransport\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransportCCTSupport\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/IOSLinkedInAPIFix\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManager\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/LinkedinSwift\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MXParallaxHeader\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/MiniLayout\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PKCategoryView\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PKLoader\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PhoneNumberKit\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/TransitionButton\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/nanopb\"",
+					"\"${PODS_ROOT}/Crashlytics/iOS\"",
+					"\"${PODS_ROOT}/Fabric/iOS\"",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleAppMeasurement/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleMaps/Base/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleMaps/Maps/Frameworks\"",
+					"\"${PODS_ROOT}/GooglePlaces/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSignIn/Frameworks\"",
+					"\"${PODS_ROOT}/LinkedinSwift\"",
+					"\"${PODS_ROOT}/razorpay-pod/Pod\"",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/AERTRIP/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -6824,8 +6920,6 @@
 					"-framework",
 					"\"GoogleSignIn\"",
 					"-framework",
-					"\"GoogleToolboxForMac\"",
-					"-framework",
 					"\"GoogleUtilities\"",
 					"-framework",
 					"\"IOSLinkedInAPIFix\"",
@@ -6905,7 +6999,7 @@
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AERTRIP/Resources/AERTRIP-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

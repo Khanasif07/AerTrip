@@ -1,6 +1,6 @@
 {
   "name": "AertripCalendar",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "summary": "AertripCalendar library to be used Aertrip Apps",
   "description": "AertripCalendar library to be used in Aertrip apps and AppInventiv team",
   "homepage": "http://EXAMPLE/AertripCalendar",
@@ -12,7 +12,7 @@
   },
   "source": {
     "git": "git@gitlab.com:aertrip/ios-calendar.git",
-    "tag": "0.0.2"
+    "tag": "0.0.5"
   },
   "source_files": "AertripCalendar/*.{h,m}",
   "public_header_files": "AertripCalendar/*.h",

@@ -28,7 +28,7 @@ target 'AERTRIP' do
   pod 'PKCategoryView'
 
   #if using swift 4.2.1 and xcode 10.1 then use the '1.0.26' of razorpay otherwise latest , xcode 10.2+ use 1.1.0
-  pod 'razorpay-pod','1.0.26'
+  pod 'razorpay-pod'
 #pod 'razorpay-pod', :git => 'https://github.com/razorpay/razorpay-pod.git', :branch => 'swift5.1'
   pod 'PKLoader'
   pod 'ActiveLabel'
@@ -36,5 +36,4 @@ target 'AERTRIP' do
   pod 'AertripCalendarDataModel' , :git => 'git@gitlab.com:aertrip/ios-shared-rep.git' , :commit => '38ef98df8d00a76bf09f37fffd1905c60d22c58e'
   pod 'AertripCalendar' , :git => 'git@gitlab.com:aertrip/ios-calendar.git'
   pod 'FSCalendar'
-  
 end

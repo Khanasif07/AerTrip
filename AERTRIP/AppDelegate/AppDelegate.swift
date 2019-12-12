@@ -133,7 +133,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
         }
         else if url.scheme?.lowercased() == AppConstants.googleUrl {
-            return GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
+            return GIDSignIn.sharedInstance().handle(url)
         }
         else if LinkedinSwiftHelper.shouldHandle(url) {
             return LinkedinSwiftHelper.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)

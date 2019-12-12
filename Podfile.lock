@@ -1,6 +1,6 @@
 PODS:
   - ActiveLabel (1.1.0)
-  - AertripCalendar (0.0.2):
+  - AertripCalendar (0.0.5):
     - FSCalendar
   - AertripCalendarDataModel (0.0.1)
   - AFNetworking (3.2.1):
@@ -18,118 +18,137 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - Alamofire (4.8.2)
-  - AvailableHapticFeedback (1.0.1)
+  - Alamofire (4.9.1)
+  - AppAuth (1.3.0):
+    - AppAuth/Core (= 1.3.0)
+    - AppAuth/ExternalUserAgent (= 1.3.0)
+  - AppAuth/Core (1.3.0)
+  - AppAuth/ExternalUserAgent (1.3.0)
+  - AvailableHapticFeedback (1.0.2)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
-  - Crashlytics (3.13.4):
+  - Crashlytics (3.14.0):
     - Fabric (~> 1.10.2)
   - Fabric (1.10.2)
   - FBSDKCoreKit (4.38.1):
     - Bolts (~> 1.9)
   - FBSDKLoginKit (4.38.1):
     - FBSDKCoreKit
-  - Firebase/Core (6.5.0):
+  - Firebase/Core (6.13.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 6.0.4)
-  - Firebase/CoreOnly (6.5.0):
-    - FirebaseCore (= 6.1.0)
-  - Firebase/DynamicLinks (6.5.0):
+    - FirebaseAnalytics (= 6.1.6)
+  - Firebase/CoreOnly (6.13.0):
+    - FirebaseCore (= 6.4.0)
+  - Firebase/DynamicLinks (6.13.0):
     - Firebase/CoreOnly
-    - FirebaseDynamicLinks (~> 4.0.1)
-  - FirebaseAnalytics (6.0.4):
-    - FirebaseCore (~> 6.1)
+    - FirebaseDynamicLinks (~> 4.0.5)
+  - FirebaseAnalytics (6.1.6):
+    - FirebaseCore (~> 6.4)
     - FirebaseInstanceID (~> 4.2)
-    - GoogleAppMeasurement (= 6.0.4)
+    - GoogleAppMeasurement (= 6.1.6)
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
     - GoogleUtilities/Network (~> 6.0)
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
-    - nanopb (~> 0.3)
-  - FirebaseAnalyticsInterop (1.2.0)
-  - FirebaseCore (6.1.0):
-    - GoogleUtilities/Environment (~> 6.0)
-    - GoogleUtilities/Logger (~> 6.0)
-  - FirebaseDynamicLinks (4.0.1):
-    - FirebaseAnalyticsInterop (~> 1.0)
-    - FirebaseCore (~> 6.0)
-  - FirebaseInstanceID (4.2.2):
+    - nanopb (= 0.3.9011)
+  - FirebaseAnalyticsInterop (1.4.0)
+  - FirebaseCore (6.4.0):
+    - FirebaseCoreDiagnostics (~> 1.0)
+    - FirebaseCoreDiagnosticsInterop (~> 1.0)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Logger (~> 6.2)
+  - FirebaseCoreDiagnostics (1.1.2):
+    - FirebaseCoreDiagnosticsInterop (~> 1.0)
+    - GoogleDataTransportCCTSupport (~> 1.0)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Logger (~> 6.2)
+    - nanopb (~> 0.3.901)
+  - FirebaseCoreDiagnosticsInterop (1.1.0)
+  - FirebaseDynamicLinks (4.0.5):
+    - FirebaseAnalyticsInterop (~> 1.3)
+    - FirebaseCore (~> 6.2)
+  - FirebaseInstanceID (4.2.7):
     - FirebaseCore (~> 6.0)
     - GoogleUtilities/Environment (~> 6.0)
     - GoogleUtilities/UserDefaults (~> 6.0)
   - FlexiblePageControl (1.0.8)
-  - FSCalendar (2.8.0)
-  - GoogleAppMeasurement (6.0.4):
+  - FSCalendar (2.8.1)
+  - GoogleAppMeasurement (6.1.6):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
     - GoogleUtilities/Network (~> 6.0)
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
-    - nanopb (~> 0.3)
-  - GoogleMaps (3.3.0):
-    - GoogleMaps/Maps (= 3.3.0)
-  - GoogleMaps/Base (3.3.0)
-  - GoogleMaps/Maps (3.3.0):
+    - nanopb (= 0.3.9011)
+  - GoogleDataTransport (3.2.0)
+  - GoogleDataTransportCCTSupport (1.2.2):
+    - GoogleDataTransport (~> 3.2)
+    - nanopb (~> 0.3.901)
+  - GoogleMaps (3.6.0):
+    - GoogleMaps/Maps (= 3.6.0)
+  - GoogleMaps/Base (3.6.0)
+  - GoogleMaps/Maps (3.6.0):
     - GoogleMaps/Base
-  - GooglePlaces (3.3.0):
-    - GoogleMaps/Base (= 3.3.0)
-  - GoogleSignIn (4.4.0):
-    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
-    - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
+  - GooglePlaces (3.6.0):
+    - GoogleMaps/Base (= 3.6.0)
+  - GoogleSignIn (5.0.2):
+    - AppAuth (~> 1.2)
+    - GTMAppAuth (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleToolboxForMac/DebugUtils (2.2.1):
-    - GoogleToolboxForMac/Defines (= 2.2.1)
-  - GoogleToolboxForMac/Defines (2.2.1)
-  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.2.1)":
-    - GoogleToolboxForMac/DebugUtils (= 2.2.1)
-    - GoogleToolboxForMac/Defines (= 2.2.1)
-    - "GoogleToolboxForMac/NSString+URLArguments (= 2.2.1)"
-  - "GoogleToolboxForMac/NSString+URLArguments (2.2.1)"
-  - GoogleUtilities/AppDelegateSwizzler (6.2.3):
+  - GoogleUtilities/AppDelegateSwizzler (6.3.2):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (6.2.3)
-  - GoogleUtilities/Logger (6.2.3):
+  - GoogleUtilities/Environment (6.3.2)
+  - GoogleUtilities/Logger (6.3.2):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (6.2.3):
+  - GoogleUtilities/MethodSwizzler (6.3.2):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (6.2.3):
+  - GoogleUtilities/Network (6.3.2):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (6.2.3)"
-  - GoogleUtilities/Reachability (6.2.3):
+  - "GoogleUtilities/NSData+zlib (6.3.2)"
+  - GoogleUtilities/Reachability (6.3.2):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (6.2.3):
+  - GoogleUtilities/UserDefaults (6.3.2):
     - GoogleUtilities/Logger
-  - GTMSessionFetcher/Core (1.2.2)
+  - GTMAppAuth (1.0.0):
+    - AppAuth/Core (~> 1.0)
+    - GTMSessionFetcher (~> 1.1)
+  - GTMSessionFetcher (1.3.0):
+    - GTMSessionFetcher/Full (= 1.3.0)
+  - GTMSessionFetcher/Core (1.3.0)
+  - GTMSessionFetcher/Full (1.3.0):
+    - GTMSessionFetcher/Core (= 1.3.0)
   - IOSLinkedInAPIFix (2.0.4):
     - AFNetworking (>= 2.0.0)
-  - IQKeyboardManager (6.4.0)
-  - Kingfisher (5.7.0)
+  - IQKeyboardManager (6.5.4)
+  - Kingfisher (5.11.0):
+    - Kingfisher/Core (= 5.11.0)
+  - Kingfisher/Core (5.11.0)
   - LinkedinSwift (1.7.9):
     - AFNetworking (>= 3.1.0)
     - IOSLinkedInAPIFix (>= 2.0.4)
   - MiniLayout (1.4.2)
-  - MXParallaxHeader (1.0.0)
-  - nanopb (0.3.901):
-    - nanopb/decode (= 0.3.901)
-    - nanopb/encode (= 0.3.901)
-  - nanopb/decode (0.3.901)
-  - nanopb/encode (0.3.901)
+  - MXParallaxHeader (1.1.0)
+  - nanopb (0.3.9011):
+    - nanopb/decode (= 0.3.9011)
+    - nanopb/encode (= 0.3.9011)
+  - nanopb/decode (0.3.9011)
+  - nanopb/encode (0.3.9011)
   - PhoneNumberKit (2.6.0):
     - PhoneNumberKit/PhoneNumberKitCore (= 2.6.0)
     - PhoneNumberKit/UIKit (= 2.6.0)
   - PhoneNumberKit/PhoneNumberKitCore (2.6.0)
   - PhoneNumberKit/UIKit (2.6.0):
     - PhoneNumberKit/PhoneNumberKitCore
-  - PKCategoryView (0.1.2)
+  - PKCategoryView (0.1.3)
   - PKLoader (0.0.7)
-  - razorpay-pod (1.0.26)
+  - razorpay-pod (1.1.4)
   - SwiftyJSON (4.3.0)
   - TransitionButton (0.5.2)
 
@@ -158,15 +177,16 @@ DEPENDENCIES:
   - PhoneNumberKit (~> 2.5)
   - PKCategoryView
   - PKLoader
-  - razorpay-pod (= 1.0.26)
+  - razorpay-pod
   - SwiftyJSON (~> 4.0)
   - TransitionButton
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - ActiveLabel
     - AFNetworking
     - Alamofire
+    - AppAuth
     - AvailableHapticFeedback
     - Bolts
     - Crashlytics
@@ -177,16 +197,20 @@ SPEC REPOS:
     - FirebaseAnalytics
     - FirebaseAnalyticsInterop
     - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - FirebaseCoreDiagnosticsInterop
     - FirebaseDynamicLinks
     - FirebaseInstanceID
     - FlexiblePageControl
     - FSCalendar
     - GoogleAppMeasurement
+    - GoogleDataTransport
+    - GoogleDataTransportCCTSupport
     - GoogleMaps
     - GooglePlaces
     - GoogleSignIn
-    - GoogleToolboxForMac
     - GoogleUtilities
+    - GTMAppAuth
     - GTMSessionFetcher
     - IOSLinkedInAPIFix
     - IQKeyboardManager
@@ -211,7 +235,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   AertripCalendar:
-    :commit: 3d8fab44ee5918bf1734f89ea15b8a079754e74d
+    :commit: 0d8fd45069ee10f6175d44c0262b89b712a59620
     :git: "git@gitlab.com:aertrip/ios-calendar.git"
   AertripCalendarDataModel:
     :commit: 38ef98df8d00a76bf09f37fffd1905c60d22c58e
@@ -219,45 +243,50 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   ActiveLabel: 5e3f4de79a1952d4604b845a0610d4776e4b82b3
-  AertripCalendar: 00eef33938fa45eade7e9a222400f6c7c6365271
+  AertripCalendar: b3e04114b4e23e7b62a0967e0ef6b06dba20df94
   AertripCalendarDataModel: 52eb9d654ff2145e55b247ad72f7d14641a791b2
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  AvailableHapticFeedback: 4c88299eb4baa09fd833e4a9170c8552bba8a5cb
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
+  AvailableHapticFeedback: 9b21b9f6d3e4566015988b5de35b40abefe6c09a
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
-  Crashlytics: 2dfd686bcb918dc10ee0e76f7f853fe42c7bd552
+  Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   FBSDKCoreKit: 8d47857400e2f5bdea697a80daff882e91c84ef6
   FBSDKLoginKit: 4621c690d9dd8628031a4791497062183ea34b0d
-  Firebase: dedc9e48ea3f3649ad5f6b982f8a0c73508a14b5
-  FirebaseAnalytics: 3fb375bc9d13779add4039716f868d233a473fad
-  FirebaseAnalyticsInterop: efbe45c8385ec626e29f9525e5ebd38520dfb6c1
-  FirebaseCore: aecf02fb2274ec361b9bebeac112f5daa18273bd
-  FirebaseDynamicLinks: 2ba929800a256ecbf6ee28b2af9d73edf46e8914
-  FirebaseInstanceID: 662b8108a09fe9ed01aafdedba100fde8536b0f6
+  Firebase: 458d109512200d1aca2e1b9b6cf7d68a869a4a46
+  FirebaseAnalytics: 45f36d9c429fc91d206283900ab75390cd05ee8a
+  FirebaseAnalyticsInterop: d48b6ab67bcf016a05e55b71fc39c61c0cb6b7f3
+  FirebaseCore: 307ea2508df730c5865334e41965bd9ea344b0e5
+  FirebaseCoreDiagnostics: 511f4f3ed7d440bb69127e8b97c2bc8befae639e
+  FirebaseCoreDiagnosticsInterop: e9b1b023157e3a2fc6418b5cb601e79b9af7b3a0
+  FirebaseDynamicLinks: db62e9da4788f9c5ebce2028dab933a0c158cfe2
+  FirebaseInstanceID: ebd2ea79ee38db0cb5f5167b17a0d387e1cc7b6e
   FlexiblePageControl: 07f7765054f16b3f0bc3f14dfd95ab5f45817ea4
-  FSCalendar: 3a5ed3636e2ba1b83ebebfcf0c2603105a6f5efe
-  GoogleAppMeasurement: 183bd916af7f80deb67c01888368f1108d641832
-  GoogleMaps: cfee83da305b9aaeccf92c24ac79df11c3003492
-  GooglePlaces: 1e2a87bd9efee9623ee65d44ecc35ebfecd7b13c
-  GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
-  GoogleToolboxForMac: b3553629623a3b1bff17f555e736cd5a6d95ad55
-  GoogleUtilities: d2b0e277a95962e09bb27f5cd42f5f0b6a506c7d
-  GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
+  FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
+  GoogleAppMeasurement: dfe55efa543e899d906309eaaac6ca26d249862f
+  GoogleDataTransport: 8e9b210c97d55fbff306cc5468ff91b9cb32dcf5
+  GoogleDataTransportCCTSupport: ef79a4728b864946a8aafdbab770d5294faf3b5f
+  GoogleMaps: 82f8fe307193bb4de6ef6bf9e88f1d624b718f9d
+  GooglePlaces: 1b9d29cf3e164903d873600f511f42acdfe85294
+  GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
+  GoogleUtilities: 547a86735c6f0ee30ad17e94df4fc21f616b71cb
+  GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
+  GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
   IOSLinkedInAPIFix: a520fd805a03dade35f42904c7d89ded2a84c752
-  IQKeyboardManager: fcef267266379c003181fc3592f6bdb8bf4db839
-  Kingfisher: c7d211b54f1f30d8060aadab177d52b4349c825b
+  IQKeyboardManager: 72b359cd7e777e3a984cedbe05f8da45320cbb63
+  Kingfisher: 4569606189149e19c7d9439f47e885d0679b7a90
   LinkedinSwift: f92083bf0404938768cc2cfd8c277205b566236f
   MiniLayout: f819ad87432712e6b2596081a62e633a4961bfc6
-  MXParallaxHeader: a95e0af1f485b1b718a6939f583f0dbae6992c41
-  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  MXParallaxHeader: de3c867e10ba46e8f6e20c8ee1f2a910372b3b94
+  nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PhoneNumberKit: 167ee1f0bbb6efce7c62559e620eae745595532f
-  PKCategoryView: ce1c40b721c72b11b1c2120726050d4beca84b50
+  PKCategoryView: 20ff824a6c91d3f44785d0d1fe6d1fdd0b924460
   PKLoader: 25894faef3a0ea94d8c6b8e761e02184aba14783
-  razorpay-pod: 6f1eeb10e473b4a88baee1cd054eed76b926c923
+  razorpay-pod: 592624080178be4c6121216508e7857fc245f4b8
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: 5ada8243db74c4927d247dee2206006a3515249c
+PODFILE CHECKSUM: 2ad8477bd5f08f69560a1ac1169282a3f99c1876
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.4

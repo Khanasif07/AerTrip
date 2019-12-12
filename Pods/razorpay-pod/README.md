@@ -13,20 +13,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 ## Installation | Docs
 
 ### Note:
-We no longer support Swift 3 , moving forward only the latest version of swift will be supported.
-
-### Note: 
-We now support another optional parameter to the open method - displayController
-When this parameter is specified , the razorpay controller will be pushed on to this controller's navigation controller if present or presented on this controller if absent.
-
-For example, the swift call is 
-
-```
-razorpay.open(options, displayController: self)
-```
-
-### Note:
-If your integrating this on OBJC please replace the line
+If your integrating this on Objective-C please replace the line
 ```
 #import <Razorpay/Razorpay.h>
 ```
@@ -38,14 +25,20 @@ with
 razorpay-pod is available through [CocoaPods]. To install
 it, simply add the following line to your Podfile
 
-For version 1.0.24(Framework Compiled in Swift version 4.2, Use it if you are using Xcode version 10 and above)
+For version 1.1.4 (Framework Compiled in Swift version 5.1, Use it if you are using Xcode version 11 and above)
 
 ```ruby
-pod 'razorpay-pod', '1.0.24'
+pod 'razorpay-pod'
 ```
 
+### Note:
+for Swift 5, use : - 
 
-Refer to the documentation from [here](https://razorpay.com/docs/ios/) 
+```ruby
+pod 'razorpay-pod', '1.1.2'
+```
+
+Refer to the documentation from [here](https://razorpay.com/docs/payment-gateway/ios-integration/standard/) 
 
 ## Contributing
 
