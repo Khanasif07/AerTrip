@@ -19,7 +19,7 @@ public enum PKSideMenuAnimation {
 
 public struct PKSideMenuOptions {
     public static var mainViewCornerRadiusInOpenMode: CGFloat = 18.0
-    public static var sideDistanceForOpenMenu: CGFloat = 230.0
+    public static var sideDistanceForOpenMenu: CGFloat = 0.665*UIScreen.main.bounds.width
     public static var opacityViewBackgroundColor: UIColor = UIColor.green
     public static var mainViewShadowColor: UIColor = UIColor.black
     public static var mainViewShadowWidth: Double = 5.0
@@ -66,7 +66,7 @@ open class PKSideMenuController: UIViewController {
     
     var visibleSpace: CGFloat {
         let extra = PKSideMenuOptions.sideDistanceForOpenMenu - (PKSideMenuOptions.sideDistanceForOpenMenu * 0.85)
-        return self.view.bounds.size.width - (PKSideMenuOptions.sideDistanceForOpenMenu + extra + 10.0)
+        return self.view.bounds.size.width - (PKSideMenuOptions.sideDistanceForOpenMenu + 10.0) + extra
     }
     
     //MARK:- View Controller Life Cycle

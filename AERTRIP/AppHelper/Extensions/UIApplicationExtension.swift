@@ -50,7 +50,9 @@ extension UIApplication {
     
     ///Can get application status bar background view
     var statusBarView: UIView? {
-        return value(forKey: "statusBar") as? UIView
+//TODO:- CommentedDueToCrash
+//        return value(forKey: "statusBar") as? UIView
+        return nil
     }
     
     class func topViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {

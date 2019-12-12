@@ -420,4 +420,5 @@ enum APIKeys: String {
     case requests
     case action_required
     case bstatus
+    case search = "search"
 }

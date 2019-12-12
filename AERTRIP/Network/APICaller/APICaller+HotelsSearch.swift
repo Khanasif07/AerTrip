@@ -225,7 +225,7 @@ extension APICaller {
             guard let sSelf = self else { return }
             printDebug(json)
             sSelf.handleResponse(json, success: { sucess, jsonData in
-                if sucess, let response = jsonData[APIKeys.data.rawValue].arrayObject as? JSONDictionaryArray {
+                if sucess, let response = jsonData[APIKeys.data.rawValue][APIKeys.search.rawValue].arrayObject as? JSONDictionaryArray {
                     let recentSearchesData = RecentSearchesModel.recentSearchData(jsonArr: response)
                     completionBlock(true, [], recentSearchesData)
                 }
