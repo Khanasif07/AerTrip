@@ -15,4 +15,5 @@ class HotelsGroupExtendedVM {
     var samePlaceHotels : [HotelSearched] = []
     var sid: String = ""
     var hotelSearchRequest: HotelSearchRequestModel?
+    var isFromFavorite = false // showing the list of hotels from favourite tab
 }

@@ -63,37 +63,7 @@ extension HotelResultVC {
         })
     }
     
-    func getFavouriteHotels(shouldReloadData: Bool = false, finalPredicate: NSPredicate? = nil) {
-        
-        var pred: NSPredicate = NSPredicate(format: "fav == '1'")
-        if let all = finalPredicate {
-            pred = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "fav == '1'"), all])
-        }
-        
-        if let allFavs = CoreDataManager.shared.fetchData("HotelSearched", nsPredicate: pred)  as? [HotelSearched] {
-            self.isLoadingListAfterUpdatingAllFav = false
-            self.manageSwitchContainer(isHidden: allFavs.isEmpty)
-            self.favouriteHotels = allFavs
-            
-            if shouldReloadData {
-                //using shouldReloadData for breaking the func calling cycle from numberOfRows
-                //load data after hiding/closing the switch button
-                if allFavs.isEmpty {
-                    delay(seconds: 0.3) { [weak self] in
-                        self?.loadSaveData()
-                    }
-                }
-                else {
-                    self.updateFavOnList(forIndexPath: self.selectedIndexPath)
-                }
-            }
-        }
-        else if !isLoadingListAfterUpdatingAllFav {
-            self.fetchRequestType = .normal
-            self.isLoadingListAfterUpdatingAllFav = true
-            self.loadSaveData()
-        }
-    }
+    
     
     func getPinnedHotelTemplate() {
         if !self.favouriteHotels.isEmpty {
@@ -148,11 +118,14 @@ extension HotelResultVC {
             dataVC.viewModel.hotelSearchRequest = self.viewModel.hotelSearchRequest
             self.hotelsGroupExpendedVC = dataVC
             dataVC.viewModel.samePlaceHotels = hotels
+            dataVC.viewModel.isFromFavorite = self.switchView.on
             let sheet = PKBottomSheet.instanceFromNib
             sheet.isAddTapGesture = false
             sheet.headerHeight = 24.0
             sheet.headerView = dataVC.headerView
             sheet.isHideBottomSheetOnTap = false
+            
+            dataVC.sheetView = sheet
             
             sheet.frame = topVC.view.bounds
             sheet.delegate = self
@@ -660,6 +633,8 @@ extension HotelResultVC {
         }
     }
     
+    
+    
     // GestureRecognizer
     @objc func handleGestureOnMap(gesture: UITapGestureRecognizer) -> Void {
         if hoteResultViewType == .MapView {
@@ -693,7 +668,7 @@ extension HotelResultVC {
         let inset: CGFloat = calculateSectionInset() // This inset calculation is some magic so the next and the previous cells will peek from the sides. Don't worry about it
         collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
         
-        collectionViewLayout.itemSize = CGSize(width: collectionViewLayout.collectionView!.frame.size.width - (inset * 2), height: 192.0)
+        collectionViewLayout.itemSize = CGSize(width: UIDevice.screenWidth - (inset * 2), height: 192.0)
     }
     
     func indexOfMajorCell() -> Int {

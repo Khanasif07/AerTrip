@@ -251,6 +251,7 @@ class HotelResultVC: BaseVC {
     // MARK: -
     
     override func initialSetup() {
+        self.view.layoutIfNeeded()
         
         self.filterButton.isEnabled = false
         self.mapButton.isEnabled = false
@@ -308,6 +309,8 @@ class HotelResultVC: BaseVC {
         self.setUpLongPressOnFilterButton()
         self.cardGradientView.backgroundColor = AppColors.clear
         self.cardGradientView.addGredient(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeWhite.withAlphaComponent(0.01),AppColors.themeWhite.withAlphaComponent(1.0)])
+        
+        self.configureCollectionViewLayoutItemSize()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -335,7 +338,7 @@ class HotelResultVC: BaseVC {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.configureCollectionViewLayoutItemSize()
+//        self.configureCollectionViewLayoutItemSize()
     }
     
     override func keyboardWillHide(notification: Notification) {
@@ -611,7 +614,7 @@ class HotelResultVC: BaseVC {
         delay(seconds: 0.1) { [weak self] in
             self?.loadSaveData()
         }
-        self.getFavouriteHotels(shouldReloadData: false)
+  // nitin       self.getFavouriteHotels(shouldReloadData: false)
     }
     
     @IBAction func currentLocationButtonAction(_ sender: UIButton) {

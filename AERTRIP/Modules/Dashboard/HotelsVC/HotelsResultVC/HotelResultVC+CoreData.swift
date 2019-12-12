@@ -266,6 +266,38 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
         }
     }
     
+    func getFavouriteHotels(shouldReloadData: Bool = false, finalPredicate: NSPredicate? = nil) {
+        
+        var pred: NSPredicate = NSPredicate(format: "fav == '1'")
+        if let all = finalPredicate {
+            pred = NSCompoundPredicate(andPredicateWithSubpredicates: [NSPredicate(format: "fav == '1'"), all])
+        }
+        
+        if let allFavs = CoreDataManager.shared.fetchData("HotelSearched", nsPredicate: pred)  as? [HotelSearched] {
+            self.isLoadingListAfterUpdatingAllFav = false
+            self.manageSwitchContainer(isHidden: allFavs.isEmpty)
+            self.favouriteHotels = allFavs
+            
+            if shouldReloadData {
+                //using shouldReloadData for breaking the func calling cycle from numberOfRows
+                //load data after hiding/closing the switch button
+                if allFavs.isEmpty {
+                    delay(seconds: 0.3) { [weak self] in
+                        self?.loadSaveData()
+                    }
+                }
+                else {
+                    self.updateFavOnList(forIndexPath: self.selectedIndexPath)
+                }
+            }
+        }
+        else if !isLoadingListAfterUpdatingAllFav {
+            self.fetchRequestType = .normal
+            self.isLoadingListAfterUpdatingAllFav = true
+            self.loadSaveData()
+        }
+    }
+    
 //    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
 //        switch (type) {
 //        case .insert:

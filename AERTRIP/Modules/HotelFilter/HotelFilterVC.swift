@@ -88,6 +88,13 @@ class HotelFilterVC: BaseVC {
         self.categoryView?.navBar?.layoutSubviews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        delay(seconds: 0.5) { [weak self] in
+            self?.show(animated: true)
+        }
+    }
+    
     // MARK: - Overrider methods
     
     override func setupTexts() {
@@ -126,10 +133,10 @@ class HotelFilterVC: BaseVC {
         let height = UIApplication.shared.statusBarFrame.height
         self.navigationViewTopConstraint.constant = CGFloat(height)
         self.setupPagerView()
-        //self.categoryView.selectTab(atIndex: HotelFilterVM.shared.lastSelectedIndex)
+//        self.categoryView.selectTab(atIndex: HotelFilterVM.shared.lastSelectedIndex)
         self.hide(animated: false)
         delay(seconds: 0.01) { [weak self] in
-            self?.show(animated: true)
+          //  self?.show(animated: true)
             self?.mainContainerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
         }
     }
@@ -207,6 +214,7 @@ class HotelFilterVC: BaseVC {
         
         // Set last Selected Index on Nav bar
         //        categoryView.select(HotelFilterVM.shared.lastSelectedIndex)
+        self.categoryView.selectTab(atIndex: HotelFilterVM.shared.lastSelectedIndex)
         self.setBadgesOnAllCategories()
     }
     
@@ -266,7 +274,7 @@ class HotelFilterVC: BaseVC {
                 printDebug("not useable case")
             }
             
-           // self.categoryView?.setBadge(count: badgeCount, atIndex: idx)
+            self.categoryView?.setBadge(count: badgeCount, atIndex: idx)
         }
     }
     
