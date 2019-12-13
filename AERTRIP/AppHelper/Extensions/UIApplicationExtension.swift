@@ -36,7 +36,7 @@ extension UIApplication {
     ///Can get & set application icon badge number
     @nonobjc class var appIconBadgeNumber:Int{
         get{
-          return UIApplication.shared.applicationIconBadgeNumber
+            return UIApplication.shared.applicationIconBadgeNumber
         }
         set{
             UIApplication.shared.applicationIconBadgeNumber = newValue
@@ -50,9 +50,24 @@ extension UIApplication {
     
     ///Can get application status bar background view
     var statusBarView: UIView? {
-//TODO:- CommentedDueToCrash
-//        return value(forKey: "statusBar") as? UIView
-        return nil
+        if #available(iOS 13.0, *) {
+            let tag = 38482
+            let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+            
+            if let statusBar = keyWindow?.viewWithTag(tag) {
+                return statusBar
+            } else {
+                guard let statusBarFrame = keyWindow?.windowScene?.statusBarManager?.statusBarFrame else { return nil }
+                let statusBarView = UIView(frame: statusBarFrame)
+                statusBarView.tag = tag
+                keyWindow?.addSubview(statusBarView)
+                return statusBarView
+            }
+        } else if responds(to: Selector(("statusBar"))) {
+            return value(forKey: "statusBar") as? UIView
+        } else {
+            return nil
+        }
     }
     
     class func topViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
@@ -92,9 +107,9 @@ extension UIApplication {
     }
     
     func makeStatusBatBlur() {
-//        let blurEffect = UIBlurEffect(style: .regular)
-//        let blurredStatusBar = UIVisualEffectView(effect: blurEffect)
-//        blurredStatusBar.translatesAutoresizingMaskIntoConstraints = false
+        //        let blurEffect = UIBlurEffect(style: .regular)
+        //        let blurredStatusBar = UIVisualEffectView(effect: blurEffect)
+        //        blurredStatusBar.translatesAutoresizingMaskIntoConstraints = false
         
         let view = UIView()
         view.frame = self.statusBarView?.bounds ?? CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 20.0)

@@ -101,6 +101,21 @@ class HotelsResultVM: NSObject {
         }
     }
     
+    func deleteHotelsDataForCollectionView(hotel: HotelSearched) {
+        if let lat = hotel.lat, let long = hotel.long {
+            if var allHotles = self.collectionViewList["\(lat),\(long)"] as? [HotelSearched] {
+                allHotles.remove(object: hotel)
+                if allHotles.isEmpty {
+                    self.collectionViewLocArr.remove(object: "\(lat),\(long)")
+                    self.collectionViewList.removeValue(forKey: "\(lat),\(long)")
+                } else {
+                    self.collectionViewList["\(lat),\(long)"] = allHotles
+                }
+            }
+        }
+    }
+    
+    
     func updateFavourite(forHotels: [HotelSearched], isUnpinHotels: Bool) {
         var param = JSONDictionary()
         for (idx, hotel) in forHotels.enumerated() {
@@ -112,25 +127,25 @@ class HotelsResultVM: NSObject {
             param[APIKeys.status.rawValue] = 0
         }
         var isHotelFavourite = false
-            //make fav/unfav locally
-            for hotel in forHotels {
-                if !isUnpinHotels {
-                    if hotel.fav == "1" {
-                        hotel.fav = "0"
-                        isHotelFavourite = false
-                    } else {
-                        hotel.fav = "1"
-                      isHotelFavourite = true
-                    }
-                   // hotel.fav = hotel.fav == "1" ? "0" : "1"
-                    
-                } else {
+        //make fav/unfav locally
+        for hotel in forHotels {
+            if !isUnpinHotels {
+                if hotel.fav == "1" {
                     hotel.fav = "0"
                     isHotelFavourite = false
+                } else {
+                    hotel.fav = "1"
+                    isHotelFavourite = true
                 }
-                _ = hotel.afterUpdate
+                // hotel.fav = hotel.fav == "1" ? "0" : "1"
+                
+            } else {
+                hotel.fav = "0"
+                isHotelFavourite = false
             }
-      
+            _ = hotel.afterUpdate
+        }
+        
         self.delegate?.willUpdateFavourite()
         APICaller.shared.callUpdateFavouriteAPI(params: param) { isSuccess,errors, successMessage in
             if isSuccess {
@@ -241,7 +256,7 @@ class HotelsResultVM: NSObject {
     
     
     //
-
+    
     func getShareText() {
         
         // create params 
@@ -278,7 +293,7 @@ class HotelsResultVM: NSObject {
                 }
             }
         }
-  
+        
         // Get share text Api
         
         APICaller.shared.callShareTextAPI(params: params) { [weak self ] (success, error, message,shareText) in
@@ -290,7 +305,7 @@ class HotelsResultVM: NSObject {
             }
         }
     }
-   
+    
 }
 
 

@@ -244,8 +244,12 @@ extension HotelResultVC: HotelResultDelegate {
     
     func updateFavouriteSuccess(isHotelFavourite: Bool) {
         if self.switchView.on, !isHotelFavourite  {
-            self.loadSaveData()
-           // nitin self.getFavouriteHotels(shouldReloadData: true)
+            //self.loadSaveData()
+            if self.hoteResultViewType == .MapView, let indexPath = self.selectedIndexPath, self.viewModel.collectionViewLocArr.indices.contains(indexPath.item),let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.item]] as? [HotelSearched], let hotel = hData.first  {
+                self.viewModel.deleteHotelsDataForCollectionView(hotel: hotel)
+                self.collectionView.reloadData()
+            }
+            self.getFavouriteHotels(shouldReloadData: true)
         } else {
             self.getFavouriteHotels(shouldReloadData: false)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
         }
@@ -265,8 +269,12 @@ extension HotelResultVC: HotelResultDelegate {
     
     func updateFavouriteFail(errors: ErrorCodes, isHotelFavourite: Bool) {
         if self.switchView.on, !isHotelFavourite  {
-            self.loadSaveData()
-           // nitin self.getFavouriteHotels(shouldReloadData: true)
+            //self.loadSaveData()
+            if self.hoteResultViewType == .MapView, let indexPath = self.selectedIndexPath, self.viewModel.collectionViewLocArr.indices.contains(indexPath.item),let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.item]] as? [HotelSearched], let hotel = hData.first  {
+                self.viewModel.deleteHotelsDataForCollectionView(hotel: hotel)
+                self.collectionView.reloadData()
+            }
+            self.getFavouriteHotels(shouldReloadData: true)
         }else {
             self.getFavouriteHotels(shouldReloadData: false)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
             self.updateFavOnList(forIndexPath: self.selectedIndexPath)

@@ -67,7 +67,7 @@ extension HotelResultVC {
     
     func getPinnedHotelTemplate() {
         if !self.favouriteHotels.isEmpty {
-           // self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
+            // self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         }
     }
     
@@ -138,17 +138,17 @@ extension HotelResultVC {
         //update the current opened list as user make fav/unfav
         if let indexPath = forIndexPath {
             if self.fetchRequestType == .Searching {
-                self.hotelSearchTableView.reloadRow(at: indexPath, with: .automatic)
+                self.hotelSearchTableView.reloadRow(at: indexPath, with: .none)
             }
             else {
                 if self.hoteResultViewType == .ListView {
-                    self.tableViewVertical.reloadRow(at: indexPath, with: .automatic)
+                    self.tableViewVertical.reloadRow(at: indexPath, with: .none)
                 }
                 else if self.hoteResultViewType == .MapView {
                     self.collectionView.reloadItems(at: indexPath)
                 }
             }
-            //selectedIndexPath = nil
+            selectedIndexPath = nil
         }
         else {
             if self.fetchRequestType == .Searching {

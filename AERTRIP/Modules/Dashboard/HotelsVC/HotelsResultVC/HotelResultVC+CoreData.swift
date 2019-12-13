@@ -12,12 +12,12 @@ import CoreData
 extension HotelResultVC: NSFetchedResultsControllerDelegate {
     // Load Save Data from core data
     func getSearchTextPredicate() -> NSCompoundPredicate {
-//        if self.searchTextStr.count >= AppConstants.kSearchTextLimit {
+        //        if self.searchTextStr.count >= AppConstants.kSearchTextLimit {
         return NSCompoundPredicate(type: .or, subpredicates: [NSPredicate(format: "hotelName CONTAINS[cd] %@", self.searchTextStr), NSPredicate(format: "address CONTAINS[cd] %@", self.searchTextStr)])
-//        }
-//        else {
-//            return NSCompoundPredicate(format: "")
-//        }
+        //        }
+        //        else {
+        //            return NSCompoundPredicate(format: "")
+        //        }
     }
     
     func loadSaveData() {
@@ -50,7 +50,7 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
             if self.switchView.on {
                 let favPred = NSPredicate(format: "fav == '1'")
                 if let oldPred = finalPredicate {
-                finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [oldPred, favPred])
+                    finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [oldPred, favPred])
                 }
                 else {
                     finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [favPred])
@@ -94,17 +94,17 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
         }
         
         
-//        if let pred = finalPredicate {
-//            if let starPred = starPredicate(forStars: HotelsSearchVM.hotelFormData.ratingCount) {
-//                self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [starPred, pred])
-//            }
-//            else {
-//                self.fetchedResultsController.fetchRequest.predicate = pred
-//            }
-//        }
-//        else if let starPred = starPredicate(forStars: HotelsSearchVM.hotelFormData.ratingCount) {
-//            self.fetchedResultsController.fetchRequest.predicate = starPred
-//        }
+        //        if let pred = finalPredicate {
+        //            if let starPred = starPredicate(forStars: HotelsSearchVM.hotelFormData.ratingCount) {
+        //                self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [starPred, pred])
+        //            }
+        //            else {
+        //                self.fetchedResultsController.fetchRequest.predicate = pred
+        //            }
+        //        }
+        //        else if let starPred = starPredicate(forStars: HotelsSearchVM.hotelFormData.ratingCount) {
+        //            self.fetchedResultsController.fetchRequest.predicate = starPred
+        //        }
         self.fetchDataFromCoreData(finalPredicate: finalPredicate)
     }
     
@@ -135,7 +135,7 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
         if HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange && HotelFilterVM.shared.leftRangePrice == HotelFilterVM.shared.defaultLeftRangePrice && HotelFilterVM.shared.rightRangePrice == HotelFilterVM.shared.defaultRightRangePrice && (HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount).isEmpty || HotelFilterVM.shared.ratingCount.count == 0)  &&  HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty && HotelFilterVM.shared.isIncludeUnrated == HotelFilterVM.shared.defaultIsIncludeUnrated && HotelFilterVM.shared.priceType == HotelFilterVM.shared.defaultPriceType && HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty && HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty && HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty && HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty   {
             return []
         }
-
+        
         // Boolean flag to check and manage red dot icon.
         self.isFilterApplied = true
         var subpredicates: [NSPredicate] = []
@@ -164,7 +164,7 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
         }
         
         // set up filter button red-dot setup
-       // self.filterButton.isSelected = true
+        // self.filterButton.isSelected = true
         
         return subpredicates
     }
@@ -251,15 +251,15 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
                 self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
             }
-        
-           self.viewModel.fetchHotelsDataForCollectionView(fromController: self.fetchedResultsController)
+            
+            self.viewModel.fetchHotelsDataForCollectionView(fromController: self.fetchedResultsController)
             
             if !isUpdatingFav {
                 self.reloadHotelList()
             }
             
             self.getFavouriteHotels(shouldReloadData: false,finalPredicate: finalPredicate)
-
+            
         } catch {
             printDebug(error.localizedDescription)
             printDebug("Fetch failed")
@@ -298,32 +298,34 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
         }
     }
     
-//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-//        switch (type) {
-//        case .insert:
-//            if let indexPath = newIndexPath {
-//                tableViewVertical.insertRows(at: [indexPath], with: .fade)
-//            }
-//            break;
-//        case .delete:
-//            if let indexPath = indexPath {
-//                tableViewVertical.deleteRows(at: [indexPath], with: .fade)
-//            }
-//            break;
-//        case .update:
-//            if let indexPath = indexPath, let cell = tableViewVertical.cellForRow(at: indexPath) as? HotelCardTableViewCell {
-//                configureCell(cell: cell, at: indexPath)
-//            }
-//            break;
-//        case .move:
-//            if let indexPath = indexPath {
-//                tableViewVertical.deleteRows(at: [indexPath], with: .fade)
-//            }
-//
-//            if let newIndexPath = newIndexPath {
-//                tableViewVertical.insertRows(at: [newIndexPath], with: .fade)
-//            }
-//            break;
-//        }
-//    }
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch (type) {
+            //        case .insert:
+            //            if let indexPath = newIndexPath {
+            //                tableViewVertical.insertRows(at: [indexPath], with: .fade)
+        //            }
+        case .delete:
+            
+            if self.hoteResultViewType == .ListView, self.switchView.on, let indexPath = indexPath {
+                tableViewVertical.deleteRows(at: [indexPath], with: .fade)
+                if let hotel = anObject as? HotelSearched {
+                    self.viewModel.deleteHotelsDataForCollectionView(hotel: hotel)
+                    self.collectionView.reloadData()
+                }
+            }
+            //        case .update:
+            //            if let indexPath = indexPath, let cell = tableViewVertical.cellForRow(at: indexPath) as? HotelCardTableViewCell {
+            //                configureCell(cell: cell, at: indexPath)
+            //            }
+            //        case .move:
+            //            if let indexPath = indexPath {
+            //                tableViewVertical.deleteRows(at: [indexPath], with: .fade)
+            //            }
+            //
+            //            if let newIndexPath = newIndexPath {
+            //                tableViewVertical.insertRows(at: [newIndexPath], with: .fade)
+        //            }
+        @unknown default: break
+        }
+    }
 }
