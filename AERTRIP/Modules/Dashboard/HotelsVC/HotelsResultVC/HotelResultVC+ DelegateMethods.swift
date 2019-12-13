@@ -91,11 +91,12 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
         
         if self.hoteResultViewType == .MapView {
             //if user in map view then update map focus as fav switch changed.
-            // self.animateMapToFirstHotelInMapMode()
             delay(seconds: 0.4) { [weak self] in
                 guard let strongSelf = self else {return}
-                let indexOfMajorCell = strongSelf.indexOfMajorCell()
-                strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
+//                let indexOfMajorCell = strongSelf.indexOfMajorCell()
+//                strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
+                strongSelf.animateMapToFirstHotelInMapMode()
+
             }
         }
         else {
@@ -116,6 +117,14 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
                 reloadHotelList()
                 
             }
+            
+            delay(seconds: 0.4) { [weak self] in
+                            guard let strongSelf = self else {return}
+            //                let indexOfMajorCell = strongSelf.indexOfMajorCell()
+            //                strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
+                            strongSelf.animateMapToFirstHotelInMapMode()
+
+                        }
         }
     }
 }
