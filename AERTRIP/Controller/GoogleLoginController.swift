@@ -47,10 +47,12 @@ class GoogleLoginController : NSObject {
                failure : @escaping(_ error : Error) -> ()) {
         
         //GIDSignIn.sharedInstance().signOut()
+         GIDSignIn.sharedInstance().presentingViewController = viewController
+
         if hasAuthInKeychain {
             GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         } else {
-            GIDSignIn.sharedInstance().signIn()
+            GIDSignIn.sharedInstance()?.signIn()
         }
         
         contentViewController = viewController

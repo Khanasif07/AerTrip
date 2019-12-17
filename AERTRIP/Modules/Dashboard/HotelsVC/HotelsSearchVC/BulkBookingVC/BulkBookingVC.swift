@@ -478,16 +478,20 @@ class BulkBookingVC: BaseVC {
         }
         else {
             self.statusBarStyle = .default
-            sender.isLoading = true
-            AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { [weak self] (isGuest) in
-                guard let sSelf = self else {return}
-                if let vc = sSelf.parent {
-                    sSelf.statusBarStyle = .lightContent
-                    AppFlowManager.default.popToViewController(vc, animated: true)
-                }
-                sSelf.searchButtonOutlet.setTitle(LocalizedString.Submit.localized, for: .normal)
+            delay(seconds: 0.1) {
                 sender.isLoading = true
-                
+            }
+            delay(seconds: 0.1) {
+                AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { [weak self] (isGuest) in
+                    guard let sSelf = self else {return}
+                    if let vc = sSelf.parent {
+                        sSelf.statusBarStyle = .lightContent
+                        AppFlowManager.default.popToViewController(vc, animated: true)
+                    }
+                    sSelf.searchButtonOutlet.setTitle(LocalizedString.Submit.localized, for: .normal)
+                    sender.isLoading = true
+                    
+                }
             }
         }
     }
