@@ -170,7 +170,7 @@ class RoomGuestSelectionVC: BaseVC {
         func setValue() {
             self.mainContainerBottomConstraints.constant = -(self.mainContainerView.height)
             self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
-            self.view.layoutIfNeeded()
+           // self.view.layoutIfNeeded()
         }
 
         if animated {

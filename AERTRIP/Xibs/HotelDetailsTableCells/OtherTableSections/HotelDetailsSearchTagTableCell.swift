@@ -64,16 +64,27 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
         self.searchBar.layer.cornerRadius = 10.0
         self.searchBar.layer.masksToBounds = true
         self.searchBar.backgroundColor = AppColors.themeGray10
-        //let searchField = searchController.searchBar.searchTextField
-        if let textField = self.searchBar.value(forKey: "_searchField") as? UITextField {
+        if #available(iOS 13.0, *) {
+            let textField = self.searchBar.searchTextField
             //Color
-            textField.borderStyle = .none
-            textField.backgroundColor = .clear
-            //Text
-            textField.attributedPlaceholder = self.attributeLabelSetUp()
-            //Font
-            textField.font = AppFonts.Regular.withSize(18.0)
+                                textField.borderStyle = .none
+                                textField.backgroundColor = .clear
+                                //Text
+                                textField.attributedPlaceholder = self.attributeLabelSetUp()
+                                //Font
+                                textField.font = AppFonts.Regular.withSize(18.0)
+        } else {
+            if let textField = self.searchBar.value(forKey: "_searchField") as? UITextField {
+                     //Color
+                     textField.borderStyle = .none
+                     textField.backgroundColor = .clear
+                     //Text
+                     textField.attributedPlaceholder = self.attributeLabelSetUp()
+                     //Font
+                     textField.font = AppFonts.Regular.withSize(18.0)
+                 }
         }
+        //
     }
     
     private func registerXibs() {

@@ -109,8 +109,8 @@ class BulkRoomSelectionVC: BaseVC {
 //        self.headerView.layer.masksToBounds = true
         let tapGest = UITapGestureRecognizer(target: self, action: #selector(tappedOnBackgroundView(_:)))
         self.backgroundView.addGestureRecognizer(tapGest)
-        self.hide(animated: false)
-        delay(seconds: 0.1) { [weak self] in
+        //self.hide(animated: false)
+        delay(seconds: 0.05) { [weak self] in
             self?.show(animated: true)
         }
     }

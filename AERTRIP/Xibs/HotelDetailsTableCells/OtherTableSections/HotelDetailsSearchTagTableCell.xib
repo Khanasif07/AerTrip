@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,22 +13,22 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HotelDetailsSearchTagTableCell" id="KGk-i7-Jjw" customClass="HotelDetailsSearchTagTableCell" customModule="AERTRIP" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="106"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="105.5"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="106"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BxV-6e-jjY">
+                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BxV-6e-jjY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="105.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Snn-ca-tDu">
-                                <rect key="frame" x="7.5" y="16" width="305" height="36"/>
+                                <rect key="frame" x="8" y="16" width="304" height="36"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" placeholder="i.e. Sea view, deluxe, suite…" translatesAutoresizingMaskIntoConstraints="NO" id="agr-Lp-2El" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="305" height="36"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="304" height="36"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="raa-UD-puN">
-                                        <rect key="frame" x="0.0" y="0.0" width="305" height="36"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="304" height="36"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <action selector="searchBarBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="EGe-zq-Afl"/>
@@ -67,10 +65,10 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="n7F-JS-gRz" firstAttribute="leading" secondItem="BxV-6e-jjY" secondAttribute="leading" id="3im-LK-Pkb"/>
-                            <constraint firstAttribute="trailing" secondItem="Snn-ca-tDu" secondAttribute="trailing" constant="7.5" id="8Ds-E3-GIW"/>
+                            <constraint firstAttribute="trailing" secondItem="Snn-ca-tDu" secondAttribute="trailing" constant="8" id="8Ds-E3-GIW"/>
                             <constraint firstItem="Snn-ca-tDu" firstAttribute="top" secondItem="BxV-6e-jjY" secondAttribute="top" constant="16" id="CyX-NJ-1df"/>
                             <constraint firstAttribute="bottom" secondItem="n7F-JS-gRz" secondAttribute="bottom" id="KAZ-BR-NkT"/>
-                            <constraint firstItem="Snn-ca-tDu" firstAttribute="leading" secondItem="BxV-6e-jjY" secondAttribute="leading" constant="7.5" id="M4g-xo-mCb"/>
+                            <constraint firstItem="Snn-ca-tDu" firstAttribute="leading" secondItem="BxV-6e-jjY" secondAttribute="leading" constant="8" id="M4g-xo-mCb"/>
                             <constraint firstItem="n7F-JS-gRz" firstAttribute="top" secondItem="Snn-ca-tDu" secondAttribute="bottom" id="YMv-cA-Oid"/>
                             <constraint firstAttribute="trailing" secondItem="n7F-JS-gRz" secondAttribute="trailing" id="xqj-pp-90o"/>
                         </constraints>
@@ -90,6 +88,7 @@
                 <outlet property="searchBarButton" destination="raa-UD-puN" id="WdE-rg-gbR"/>
                 <outlet property="tagCollectionView" destination="n7F-JS-gRz" id="dxa-fN-jVd"/>
             </connections>
+            <point key="canvasLocation" x="139" y="148"/>
         </tableViewCell>
     </objects>
 </document>
