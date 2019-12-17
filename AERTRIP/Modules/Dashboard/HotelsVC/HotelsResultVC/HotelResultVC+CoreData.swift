@@ -325,6 +325,8 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
             //            if let newIndexPath = newIndexPath {
             //                tableViewVertical.insertRows(at: [newIndexPath], with: .fade)
         //            }
+       
+            
         @unknown default: break
         }
     }

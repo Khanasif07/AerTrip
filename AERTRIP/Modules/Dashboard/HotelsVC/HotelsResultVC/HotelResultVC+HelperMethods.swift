@@ -396,7 +396,7 @@ extension HotelResultVC {
             //convert to map view when threasHold exceed
             let threasHold = visibleMapHeightInVerticalMode - (UIDevice.isIPhoneX ? 5.0 : 15.0)
             if yPosition <= -(threasHold), self.hoteResultViewType == .ListView {
-                self.mapButtonAction(self.mapButton)
+                self.mapButtonAction(self.mapButton ?? UIButton())
             }
         }
         

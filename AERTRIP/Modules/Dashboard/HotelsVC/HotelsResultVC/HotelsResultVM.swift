@@ -327,7 +327,7 @@ extension HotelsResultVM {
         params[APIKeys.dest_name.rawValue] = self.searchedFormData.destName
         params[APIKeys.isPageRefereshed.rawValue] = true
         
-        for (idx , data ) in _starRating.enumerated() {
+        for (_ , data ) in _starRating.enumerated() {
             //            params["filter[star][\(idx)star]"] = true
             params["filter[star][\(data)star]"] = true
             

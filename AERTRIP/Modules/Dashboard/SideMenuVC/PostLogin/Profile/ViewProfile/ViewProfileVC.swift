@@ -344,7 +344,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         
         
         
-        var prallexProgress = self.tableView.parallaxHeader.progress
+        let prallexProgress = self.tableView.parallaxHeader.progress
         printDebug("intial progress value \(prallexProgress)")
 
         printDebug("progress value \(prallexProgress)")

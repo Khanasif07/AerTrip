@@ -181,6 +181,7 @@ class HotelFilterVC: BaseVC {
         style.badgeBackgroundColor = AppColors.themeGreen
         style.badgeBorderColor = AppColors.clear
         style.badgeBorderWidth = 0.0
+       
         
         for i in 0..<self.allTabsStr.count {
             if i == 1 {

@@ -126,7 +126,8 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
                     //            alert.addAction(UIAlertAction(title: "Call", style: .default, handler: { _ in
                     //
                     //            }))
-                    UIApplication.shared.openURL(phoneURL as URL)
+                    UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
+                   // UIApplication.shared.openURL(phoneURL as URL)
                     //   alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                     
                     // self.present(alert, animated: true, completion: nil)

@@ -121,7 +121,7 @@ extension OtherBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
             documentDownloadingData[collectionIndex.item].downloadingStatus = .downloading
             documentDownloadingData[collectionIndex.item].downloadRequest = request
         }, progressUpdate: { [weak self] progress in
-            guard let sSelf = self else { return }
+            guard self != nil else { return }
             documentDownloadingData[collectionIndex.item].progressUpdate?(progress)
         }, success: { [weak self] success in
             guard let sSelf = self else { return }

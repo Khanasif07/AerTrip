@@ -572,12 +572,13 @@ struct Rates: Hashable {
 
 //Mark:- RoomsRates
 //=================
+
 struct RoomsRates: Hashable {
     
     var hashValue: Int {
         return uuRid.hashValue
     }
-    
+   
     static func == (lhs: RoomsRates, rhs: RoomsRates) -> Bool {
         // Bedtypes
         if lhs.name == rhs.name {
