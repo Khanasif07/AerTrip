@@ -46,6 +46,10 @@ open class PKCategoryView: UIView {
     public func setBadge(count: Int, atIndex index: Int) {
         self.navBar?.setBadge(count: count, atIndex: index)
     }
+    
+    public func selectTab(atIndex: Int) {
+        self.containerView.selectPage(atIndex: atIndex, animated: true)
+    }
 }
 
 //MARK:- Subviews Setup

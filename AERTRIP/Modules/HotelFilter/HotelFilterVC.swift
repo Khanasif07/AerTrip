@@ -214,7 +214,7 @@ class HotelFilterVC: BaseVC {
         
         // Set last Selected Index on Nav bar
 //                categoryView.select(HotelFilterVM.shared.lastSelectedIndex)
-//        self.categoryView.selectTab(atIndex: HotelFilterVM.shared.lastSelectedIndex)
+        self.categoryView.selectTab(atIndex: HotelFilterVM.shared.lastSelectedIndex)
         self.setBadgesOnAllCategories()
     }
     
