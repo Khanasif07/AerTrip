@@ -415,7 +415,7 @@ extension HotelResultVC: GMSMapViewDelegate {
     }
     
     private func movetoDetailPage(data: HotelSearched) {
-        if let lat = data.lat, let long = data.long, let index = Array(self.viewModel.collectionViewList.keys).index(of: "\(lat),\(long)") {
+        if let lat = data.lat, let long = data.long, let index = Array(self.viewModel.collectionViewList.keys).firstIndex(of: "\(lat),\(long)") {
             let index = IndexPath(item: index, section: 0)
             self.selectedIndexPath = index
             guard let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[index.item]] as? [HotelSearched] else {return}

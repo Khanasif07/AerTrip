@@ -336,7 +336,7 @@ extension HotelResultVC: HotelCardCollectionViewCellDelegate {
         //self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)
         // reload that item at particular indexPath
-        if let indexPath = self.selectedIndexPath {
+        if self.selectedIndexPath != nil {
             // self.updateFavOnList(forIndexPath: indexPath)
         }
         

@@ -64,6 +64,7 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
         self.searchBar.layer.cornerRadius = 10.0
         self.searchBar.layer.masksToBounds = true
         self.searchBar.backgroundColor = AppColors.themeGray10
+        //let searchField = searchController.searchBar.searchTextField
         if let textField = self.searchBar.value(forKey: "_searchField") as? UITextField {
             //Color
             textField.borderStyle = .none

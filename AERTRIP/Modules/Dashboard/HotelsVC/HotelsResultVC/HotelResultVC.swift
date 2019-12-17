@@ -656,7 +656,7 @@ class HotelResultVC: BaseVC {
         } else {
             // handle tap on empty space below existing rows however you want
             printDebug("tapped at empty space of table view")
-            self.mapButtonAction(self.mapButton)
+            self.mapButtonAction(self.mapButton ?? UIButton())
         }
     }
     

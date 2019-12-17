@@ -332,7 +332,7 @@ extension HotelDetailsVC {
     }
     
     private func closeOnScroll(_ scrollView: UIScrollView) {
-        let yOffset = scrollView.contentOffset.y
+        _ = scrollView.contentOffset.y
         if (scrollView.isTracking && scrollView.contentOffset.y < 0) {
             //close
             self.hideOnScroll()

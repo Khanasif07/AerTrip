@@ -49,7 +49,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         delay(seconds: 0.5) { [weak self] in
-            guard let `self` = self else {return}
+            guard self != nil else {return}
            // self.tableViewVertical.isScrollEnabled = self.tableViewVertical.contentSize.height > self.tableViewVertical.height
         }
         manageViewForSearchAndFilterMode()
