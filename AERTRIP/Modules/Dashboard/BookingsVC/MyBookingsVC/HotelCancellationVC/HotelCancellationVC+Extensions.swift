@@ -134,7 +134,7 @@ extension HotelCancellationVC: HotelCancellationRoomInfoTableViewCellDelegate {
     
     func cellExpand(for indexPath: IndexPath) {
 
-        if let idx = self.expandedIndexPaths.index(of: indexPath) {
+        if let idx = self.expandedIndexPaths.firstIndex(of: indexPath) {
             self.expandedIndexPaths.remove(at: idx)
         }
         else {

@@ -11,13 +11,13 @@ extension Array where Element : Equatable {
     
     /// MARK:- Removes the first given object
     mutating func removeFirst(_ element: Element) {
-        guard let index = self.index(of: element) else { return }
+        guard let index = self.firstIndex(of: element) else { return }
         self.remove(at: index)
     }
     
     ///Removes a given object from array if present. otherwise does nothing
     mutating func removeObject(_ object : Iterator.Element) {
-        if let index = self.index(of: object) {
+        if let index = self.firstIndex(of: object) {
             self.remove(at: index)
         }
     }
@@ -113,7 +113,7 @@ extension Array where Element: Equatable {
 
 extension Array where Element: Equatable {
     mutating func remove(object: Element) {
-        if let index = self.index(of: object) {
+        if let index = self.firstIndex(of: object) {
             self.remove(at: index)
         }
     }

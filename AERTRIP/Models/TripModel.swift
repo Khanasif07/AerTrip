@@ -26,7 +26,7 @@ struct TripModel {
         }
         
         set {
-            is_default = isDefault ? "1" : "0"
+            is_default = newValue ? "1" : "0"
         }
     }
     
@@ -36,7 +36,7 @@ struct TripModel {
         }
         
         set{
-            is_locked = isLocked ? "1" : "0"
+            is_locked = newValue ? "1" : "0"
         }
     }
     
@@ -46,7 +46,7 @@ struct TripModel {
         }
         
         set{
-            is_owner = isOwner ? "1" : "0"
+            is_owner = newValue ? "1" : "0"
         }
     }
 

@@ -106,7 +106,7 @@ import AVFoundation
         
         let mutableParagraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
         mutableParagraphStyle.lineBreakMode = NSLineBreakMode.byWordWrapping
-        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.font: self.font, NSAttributedString.Key.paragraphStyle: mutableParagraphStyle]
+        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.font: self.font as Any, NSAttributedString.Key.paragraphStyle: mutableParagraphStyle]
         let tempStr = NSString(string: forText)
         
         let rect: CGRect = tempStr.boundingRect(with: CGSize(width: 10000.0, height: self.frame.size.height), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil)

@@ -70,7 +70,7 @@ class LoginVM {
         APICaller.shared.callLoginAPI(params: params, completionBlock: {(success, errors) in
             if success {
                 self.delegate?.didLoginSuccess()
-                UserInfo.loggedInUser?.socialLoginType = .none
+                UserInfo.loggedInUser?.socialLoginType = LinkedAccount.SocialType.none
                 APICaller.shared.saveLocallyFavToServer()
             }
             else {

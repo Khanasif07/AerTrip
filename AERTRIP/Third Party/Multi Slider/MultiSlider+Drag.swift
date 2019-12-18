@@ -19,6 +19,7 @@ extension MultiSlider {
             sendActions(for: .touchUpInside) // no bounds check for now (.touchUpInside vs .touchUpOutside)
             if !isContinuous { sendActions(for: [.valueChanged, .primaryActionTriggered]) }
         case .possible, .changed: break
+        @unknown default: break
         }
         guard draggedThumbIndex >= 0 else { return }
 

@@ -33,6 +33,7 @@ extension AssetController {
             case .authorized: completion(true)
             case .restricted, .denied: completion(false)
             case .notDetermined: self?.requestPermissions(completion: completion)
+            @unknown default: completion(false)
             }
         }
     }

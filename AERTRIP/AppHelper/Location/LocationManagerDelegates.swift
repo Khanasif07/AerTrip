@@ -115,6 +115,8 @@ extension LocationManager {
         case .restricted:
             manager.requestWhenInUseAuthorization()
             break
+        @unknown default:
+            break
         }
     }
 }

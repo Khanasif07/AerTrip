@@ -74,7 +74,7 @@ class PKTextView: UITextView {
                 plceText.draw(in: finalRect)
             }
             else {
-                self.placeholder.draw(in: finalRect, withAttributes: [NSAttributedString.Key.font : self.currentFont, NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+                self.placeholder.draw(in: finalRect, withAttributes: [NSAttributedString.Key.font : self.currentFont as Any, NSAttributedString.Key.foregroundColor : UIColor.lightGray])
             }
         }
     }

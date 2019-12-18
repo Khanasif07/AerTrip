@@ -48,7 +48,7 @@ struct AccountOfflineDepositDetails {
     }
     
     mutating func removeSlip(urlPath: String) {
-        if let idx = self.uploadedSlips.index(of: urlPath) {
+        if let idx = self.uploadedSlips.firstIndex(of: urlPath) {
             self.removeSlip(atIndex: idx)
         }
     }
