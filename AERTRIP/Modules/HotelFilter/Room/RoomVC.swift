@@ -50,6 +50,11 @@ class RoomVC: UIViewController {
         roomSegmentedControl.selectedSegmentIndex = 0
         roomSegmentedControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
         tableView.reloadData()
+        if #available(iOS 13.0, *) {
+            roomSegmentedControl.selectedSegmentTintColor = AppColors.themeGreen
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     private func registerXib() {

@@ -41,6 +41,8 @@ extension CGRect {
             return height
         case .horizontal:
             return width
+        @unknown default:
+            fatalError()
         }
     }
 
@@ -50,6 +52,8 @@ extension CGRect {
             return maxY
         case .horizontal:
             return minX
+        @unknown default:
+            fatalError()
         }
     }
 
@@ -59,6 +63,8 @@ extension CGRect {
             return minY
         case .horizontal:
             return maxX
+        @unknown default:
+            fatalError()
         }
     }
 }
@@ -75,7 +81,7 @@ extension UIView {
     }
 
     func removeFirstConstraint(where: (_: NSLayoutConstraint) -> Bool) {
-        if let constrainIndex = constraints.index(where: `where`) {
+        if let constrainIndex = constraints.firstIndex(where: `where`) {
             removeConstraint(constraints[constrainIndex])
         }
     }
@@ -163,6 +169,8 @@ extension NSLayoutConstraint.Attribute {
             return .top
         case .horizontal:
             return .trailing
+        @unknown default:
+            fatalError()
         }
     }
 
@@ -172,6 +180,8 @@ extension NSLayoutConstraint.Attribute {
             return .bottom
         case .horizontal:
             return .leading
+        @unknown default:
+            fatalError()
         }
     }
 }

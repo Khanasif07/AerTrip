@@ -53,7 +53,7 @@ class ViewProfileDetailVM {
                     }
                 }
                 
-                if let oldTrav = self.travelData {
+                if let _ = self.travelData {
                     
                     // nitin changes
                     // comenting because old values are showing

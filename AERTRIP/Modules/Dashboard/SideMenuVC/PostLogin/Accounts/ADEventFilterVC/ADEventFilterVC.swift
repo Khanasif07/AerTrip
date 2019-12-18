@@ -99,7 +99,7 @@ class ADEventFilterVC: BaseVC {
             self.didSelect(voucher: self.voucherTypes.first ?? "")
         }
         
-        if let vchr = self.oldFilter?.voucherType, let indx = self.voucherTypes.index(of: vchr) {
+        if let vchr = self.oldFilter?.voucherType, let indx = self.voucherTypes.firstIndex(of: vchr) {
             adVoucherTypeVC.viewModel.selectedIndexPath = IndexPath(row: indx, section: 0)
         }
         else {

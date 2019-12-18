@@ -171,7 +171,7 @@ extension ATPageContainerView: UIPageViewControllerDelegate{
         guard let vc = pendingViewControllers.first else {
             return
         }
-        guard let index = childVCs.index(of: vc) else {return}
+        guard let index = childVCs.firstIndex(of: vc) else {return}
         willTransitionToIndex = index
         currentDirection = nil
 
@@ -209,7 +209,7 @@ extension ATPageContainerView: UIPageViewControllerDataSource {
         
         
         
-        guard let index = childVCs.index(of: viewController), index - 1 >= 0 else {
+        guard let index = childVCs.firstIndex(of: viewController), index - 1 >= 0 else {
             return nil
         }
         
@@ -219,7 +219,7 @@ extension ATPageContainerView: UIPageViewControllerDataSource {
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
-        guard let index = childVCs.index(of: viewController), index + 1 < childVCs.count else {
+        guard let index = childVCs.firstIndex(of: viewController), index + 1 < childVCs.count else {
             return nil
         }
         

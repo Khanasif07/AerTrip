@@ -285,6 +285,7 @@ extension UIViewController{
             PHPhotoLibrary.requestAuthorization() { status in
                 self.checkAndOpenLibrary(delegate: delegate)
             }
+        @unknown default: break
         }
     }
     

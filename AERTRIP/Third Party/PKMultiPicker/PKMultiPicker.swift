@@ -78,12 +78,12 @@ class PKMultiPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource 
         textField?.inputAccessoryView = toolbar
         
         
-        let index = self.firstValueArray?.index(where: {$0.lowercased() == (firstComponent ?? "").lowercased() })
+        let index = self.firstValueArray?.firstIndex(where: {$0.lowercased() == (firstComponent ?? "").lowercased() })
         self.selectRow(index ?? 0, inComponent: 0, animated: true)
 
         
         if PKMultiPicker.noOfComponent > 1 {
-            let index1 = self.secondValueArray.index(where: {$0.lowercased() == (secondComponent ?? "").lowercased() })
+            let index1 = self.secondValueArray.firstIndex(where: {$0.lowercased() == (secondComponent ?? "").lowercased() })
             self.selectRow(index1 ?? 0, inComponent: 1, animated: true)
         }
     }

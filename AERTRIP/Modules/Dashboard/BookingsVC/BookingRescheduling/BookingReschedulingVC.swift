@@ -186,7 +186,7 @@ class BookingReschedulingVC: BaseVC {
     }
     
     private func removeFromExpandedIndexPaths(_ indexPath: IndexPath) {
-        if let index = expandedIndexPaths.index(of: indexPath) {
+        if let index = expandedIndexPaths.firstIndex(of: indexPath) {
             self.expandedIndexPaths.remove(at: index)
         }
     }

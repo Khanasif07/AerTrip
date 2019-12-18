@@ -39,10 +39,10 @@ struct  HotelDetailsReviewsModel {
                 APIKeys.price.rawValue: self.photoCount,
                 APIKeys.at_hotel_fares.rawValue: self.awardsImage,
                 APIKeys.no_of_nights.rawValue: self.seeAllPhotos,
-                APIKeys.num_rooms.rawValue: self.rankingData,
+                APIKeys.num_rooms.rawValue: self.rankingData as Any,
                 APIKeys.list_price.rawValue: self.reviewRatingCount,
-                APIKeys.tax.rawValue: self.ratingSummary,
-                APIKeys.discount.rawValue: self.tripTypes
+                APIKeys.tax.rawValue: self.ratingSummary as Any,
+                APIKeys.discount.rawValue: self.tripTypes as Any
         ]
     }
     

@@ -215,6 +215,8 @@ open class MultiSlider: UIControl {
             }
             addConstrainedSubview(minimumView, constrain: .leftMargin, .centerYWithinMargins)
             addConstrainedSubview(maximumView, constrain: .rightMargin, .centerYWithinMargins)
+        @unknown default:
+                break
         }
         setupTrackLayoutMargins()
     }
@@ -427,6 +429,8 @@ open class MultiSlider: UIControl {
             return CGSize(width: thumbSize.width + margin, height: UIView.noIntrinsicMetric)
         case .horizontal:
             return CGSize(width: UIView.noIntrinsicMetric, height: thumbSize.height + margin)
+        @unknown default:
+            fatalError()
         }
     }
 
