@@ -150,6 +150,7 @@ class RoomGuestSelectionVC: BaseVC {
         
         func setValue() {
             self.mainContainerBottomConstraints.constant = 0.0
+            //self.mainContainerView.transform = .identity
             self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
             self.view.layoutIfNeeded()
         }
@@ -168,7 +169,8 @@ class RoomGuestSelectionVC: BaseVC {
     private func hide(animated: Bool, shouldRemove: Bool = false) {
         
         func setValue() {
-            self.mainContainerBottomConstraints.constant = -(self.mainContainerView.height)
+           // self.mainContainerView.transform = CGAffineTransform(translationX: 0, y:  -(self.mainContainerView.height))
+           self.mainContainerBottomConstraints.constant = -(self.mainContainerView.height)
             self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
            // self.view.layoutIfNeeded()
         }

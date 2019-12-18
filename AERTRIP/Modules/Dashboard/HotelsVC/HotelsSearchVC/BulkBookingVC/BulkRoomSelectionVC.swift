@@ -109,7 +109,7 @@ class BulkRoomSelectionVC: BaseVC {
 //        self.headerView.layer.masksToBounds = true
         let tapGest = UITapGestureRecognizer(target: self, action: #selector(tappedOnBackgroundView(_:)))
         self.backgroundView.addGestureRecognizer(tapGest)
-        //self.hide(animated: false)
+        self.hide(animated: false)
         delay(seconds: 0.05) { [weak self] in
             self?.show(animated: true)
         }
@@ -118,25 +118,27 @@ class BulkRoomSelectionVC: BaseVC {
     private func show(animated: Bool) {
         self.safeAreaBackView.isHidden = false
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
-            self.mainContainerBottomConstraint.constant = 0.0
             self.safeAreaBackView.alpha = 1.0
             self.headerView.isHidden = self.mainContainerView.size.height > 200.0
-            self.view.layoutIfNeeded()
+            self.mainContainerView.transform = .identity
         }, completion: { (isDone) in
         })
     }
 
     private func hide(animated: Bool, shouldRemove: Bool = false) {
         self.headerView.isHidden = true
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
-            self.mainContainerBottomConstraint.constant = -(self.mainContainerView.height + 100)
-            self.safeAreaBackView.alpha = 0.0
-            self.view.layoutIfNeeded()
-        }, completion: { (isDone) in
-            self.safeAreaBackView.isHidden = true
-            if shouldRemove {
-                self.removeFromParentVC
-            }
+        self.safeAreaBackView.alpha = 0.0
+        let heightToChange = self.mainContainerView.height + 100
+        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
+            guard let _self = self else { return }
+            _self.safeAreaBackView.alpha = 0.0
+            _self.mainContainerView.transform = CGAffineTransform(translationX: 0, y: heightToChange)
+            }, completion: { [weak self] _ in
+                guard let _self = self else { return }
+                _self.safeAreaBackView.isHidden = true
+                if shouldRemove {
+                    _self.removeFromParentVC
+                }
         })
     }
     
