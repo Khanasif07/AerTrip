@@ -64,7 +64,7 @@ extension HotelResultVC {
         
         animator.addCompletion { [weak self](pos) in
             guard let sSelf = self else {return}
-            sSelf.view.bringSubviewToFront(sSelf.searchBarContainerView)
+            //sSelf.view.bringSubviewToFront(sSelf.searchBarContainerView)
         }
         
         animator.startAnimation()
@@ -164,7 +164,7 @@ extension HotelResultVC {
                 sSelf.relocateSwitchButton(shouldMoveUp: true, animated: true)
             }
             completion?(true)
-            sSelf.view.bringSubviewToFront(sSelf.collectionView)
+            //sSelf.view.bringSubviewToFront(sSelf.collectionView)
             sSelf.mapContainerView.layoutSubviews()
         }
         

@@ -58,6 +58,7 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
             }
             
         case .Searching:
+            self.fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
             var finalPred: NSCompoundPredicate!
             if let andPredicate = self.andPredicate {
                 finalPred = NSCompoundPredicate(andPredicateWithSubpredicates: [orPredicate, andPredicate])
@@ -74,7 +75,7 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
             finalPredicate = finalPred
             
         case .normalInSearching, .normal :
-            
+            self.fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
             if self.fetchRequestType == .normalInSearching {
                 self.searchedHotels.removeAll()
             }

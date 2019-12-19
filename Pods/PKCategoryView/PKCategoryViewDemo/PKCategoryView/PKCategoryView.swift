@@ -112,7 +112,7 @@ extension PKCategoryView: PKContainerViewDelegate {
     }
     
     func categoryContainer(_ container: PKContainerView, willSwitchIndexFrom fromIndex: Int, to toIndex: Int, withProgress progress: CGFloat) {
-        self.navBar.moveSelection(fromIndex: fromIndex, to: toIndex, withProgress: progress)
+      //  self.navBar.moveSelection(fromIndex: fromIndex, to: toIndex, withProgress: progress)
         if !self.willSwitchDelegateCalledInProgress {
             self.willSwitchDelegateCalledInProgress = true
             self.delegate?.categoryView(self, willSwitchIndexFrom: fromIndex, to: toIndex)

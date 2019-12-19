@@ -333,7 +333,7 @@ extension HotelResultVC: GMSMapViewDelegate {
                 //show collection view list
                 self.isHidingOnMapTap = true
                 self.isMapInFullView = false
-                
+                self.currentLocationButton.isHidden = false
                 let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
                     guard let sSelf = self else {return}
                     sSelf.collectionViewBottomConstraint.constant = 0.0
@@ -357,6 +357,7 @@ extension HotelResultVC: GMSMapViewDelegate {
                 //hide collection view list
                 self.isHidingOnMapTap = true
                 self.isMapInFullView = true
+                self.currentLocationButton.isHidden = true
                 if let loc = displayingHotelLocation {
                     self.updateMarker(atLocation: loc,isSelected: false)
                 }
