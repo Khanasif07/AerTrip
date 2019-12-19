@@ -187,9 +187,9 @@ class HCDataSelectionVC: BaseVC {
     private func fillData() {
         totalFareLabel.text = (viewModel.itineraryData?.total_fare ?? 0.0).amountInDelimeterWithSymbol
         setupFareBreakup()
-        
+
         hotelNameLabel.text = viewModel.itineraryData?.hotelDetails?.hname ?? ""
-        
+
         var finalDate = ""
         if let chIn = viewModel.itineraryData?.hotelDetails?.checkin, !chIn.isEmpty {
             finalDate = Date.getDateFromString(stringDate: chIn, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
@@ -197,7 +197,7 @@ class HCDataSelectionVC: BaseVC {
         
         if let chOut = viewModel.itineraryData?.hotelDetails?.checkout, !chOut.isEmpty {
             let txt = Date.getDateFromString(stringDate: chOut, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
-            
+
             if finalDate.isEmpty {
                 finalDate = txt
             }
@@ -262,7 +262,7 @@ class HCDataSelectionVC: BaseVC {
             sSelf.fareDetailBottomConstraint.constant = isHidden ? -(sSelf.fareDetailContainerView.height) : 0.0
             sSelf.upArrowImageView.transform = rotateTrans
             
-            sSelf.view.layoutIfNeeded()
+            //sSelf.view.layoutIfNeeded()
             
         }, completion: { [weak self] _ in
             if isHidden {
@@ -425,7 +425,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
             GuestDetailsVM.shared.travellerList = viewModel.itineraryData?.traveller_master ?? []
 //            manageLoader(shouldStart: false)
 //            AppGlobals.shared.stopLoading()
-            fillData()
+            self.fillData()
             self.viewModel.getHotelDetailsSectionData()
             self.updateHotelCheckOutDetailsVIew()
         }
