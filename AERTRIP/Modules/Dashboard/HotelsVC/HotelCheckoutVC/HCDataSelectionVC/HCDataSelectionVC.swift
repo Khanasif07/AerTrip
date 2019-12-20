@@ -186,9 +186,9 @@ class HCDataSelectionVC: BaseVC {
     
     private func fillData() {
         totalFareLabel.text = (viewModel.itineraryData?.total_fare ?? 0.0).amountInDelimeterWithSymbol
-        setupFareBreakup()
+//        setupFareBreakup()
 
-        hotelNameLabel.text = viewModel.itineraryData?.hotelDetails?.hname ?? ""
+//        hotelNameLabel.text = viewModel.itineraryData?.hotelDetails?.hname ?? ""
 
         var finalDate = ""
         if let chIn = viewModel.itineraryData?.hotelDetails?.checkin, !chIn.isEmpty {
@@ -205,6 +205,9 @@ class HCDataSelectionVC: BaseVC {
                 finalDate += " - \(txt)"
             }
         }
+       
+        checkInOutDate.removeConstraints(checkInOutDate.constraints)
+        
         checkInOutDate.text = finalDate
     }
     
@@ -248,17 +251,19 @@ class HCDataSelectionVC: BaseVC {
         if !isHidden {
             fareDetailContainerView.isHidden = false
             if isHotelDetailsCheckOutViewOpen {
+//                self.hotelCheckOutDetailsContainerVIew.transform = CGAffineTransform(translationX: 0, y: view.height - (hotelDetailsParentContainerView.height + fareDetailContainerView.height + AppFlowManager.default.safeAreaInsets.top))
                 hotelDetailsContainerViewHeightConstraint.constant = view.height - (hotelDetailsParentContainerView.height + fareDetailContainerView.height + AppFlowManager.default.safeAreaInsets.top)
             }
         }
         else {
             if isHotelDetailsCheckOutViewOpen {
+//                 self.hotelCheckOutDetailsContainerVIew.transform = CGAffineTransform(translationX: 0, y: view.height - (hotelDetailsParentContainerView.height +  AppFlowManager.default.safeAreaInsets.top))
                 hotelDetailsContainerViewHeightConstraint.constant = view.height - (hotelDetailsParentContainerView.height + AppFlowManager.default.safeAreaInsets.top)
             }
         }
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else { return }
-            
+//            sSelf.fareDetailContainerView.transform = isHidden ? CGAffineTransform(translationX: 0, y: -(sSelf.fareDetailContainerView.height)) : CGAffineTransform(translationX: 0, y: 0)
             sSelf.fareDetailBottomConstraint.constant = isHidden ? -(sSelf.fareDetailContainerView.height) : 0.0
             sSelf.upArrowImageView.transform = rotateTrans
             

@@ -453,6 +453,7 @@ extension AppFlowManager {
         if let topVC = UIApplication.topViewController() {
             let ob = HCSelectGuestsVC.instantiate(fromAppStoryboard: .HotelCheckout)
             ob.delegate = delegate
+            ob.modalPresentationStyle = .fullScreen
             topVC.present(ob, animated: true, completion: nil)
         }
     }

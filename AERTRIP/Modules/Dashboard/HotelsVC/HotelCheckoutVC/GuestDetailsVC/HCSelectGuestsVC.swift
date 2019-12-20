@@ -185,7 +185,7 @@ class HCSelectGuestsVC: BaseVC {
     private func selectedContactsSetHidden(isHidden: Bool, animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             self?.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 120.0
-            self?.view.layoutIfNeeded()
+            //self?.view.layoutIfNeeded()
         }) { (isCompleted) in
         }
     }
