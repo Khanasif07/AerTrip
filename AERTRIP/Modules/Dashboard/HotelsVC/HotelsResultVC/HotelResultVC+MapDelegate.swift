@@ -67,7 +67,15 @@ extension HotelResultVC {
     }
     
     func focusMarker(coordinates: CLLocationCoordinate2D) {
-        self.mapView?.animate(toLocation: coordinates)
+        if hoteResultViewType == .ListView {
+            self.mapView?.animate(toLocation: coordinates)
+        } else {
+            CATransaction.begin()
+            CATransaction.setValue(AppConstants.kAnimationDuration, forKey: kCATransactionAnimationDuration)
+            self.mapView?.animate(toLocation: coordinates)
+            CATransaction.commit()
+        }
+        
     }
     
     func animateZoomLabel() {
