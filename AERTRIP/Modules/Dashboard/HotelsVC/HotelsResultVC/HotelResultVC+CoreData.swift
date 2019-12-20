@@ -276,7 +276,11 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
         
         if let allFavs = CoreDataManager.shared.fetchData("HotelSearched", nsPredicate: pred)  as? [HotelSearched] {
             self.isLoadingListAfterUpdatingAllFav = false
-            self.manageSwitchContainer(isHidden: allFavs.isEmpty)
+            var turnOffFilter = true
+            if self.fetchRequestType  == .FilterApplied, self.switchView.on  {
+                turnOffFilter = false
+            }
+            self.manageSwitchContainer(isHidden: allFavs.isEmpty, shouldOff: turnOffFilter)
             self.favouriteHotels = allFavs
             
             if shouldReloadData {
