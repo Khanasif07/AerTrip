@@ -28,8 +28,12 @@ extension UIDevice{
     static let systemVersionFloat : Float = Float(systemVersionString)!
     static let systemVersionInt : Int = Int(systemVersionString)!
     
-    static let screenWidth = UIScreen.main.bounds.size.width
-    static let screenHeight = UIScreen.main.bounds.size.height
+    static var screenWidth: CGFloat {
+        return UIScreen.main.bounds.size.width
+    }
+    static var screenHeight: CGFloat {
+        return UIScreen.main.bounds.size.height
+    }
     static let screenSize = UIScreen.main.bounds.size
     
     static var bottomPaddingFromSafeArea:CGFloat{
