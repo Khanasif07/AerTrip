@@ -95,6 +95,11 @@ public struct ATCategoryItem {
     public var normalImage: UIImage?
     public var selectedImage: UIImage?
     public init() {}
+    public init(title: String,normalImage: UIImage?,selectedImage: UIImage?){
+        self.title = title
+        self.normalImage = normalImage
+        self.selectedImage = selectedImage
+    }
 }
 
 
