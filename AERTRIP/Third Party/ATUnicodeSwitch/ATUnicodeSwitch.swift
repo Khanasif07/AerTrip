@@ -220,7 +220,7 @@ class ATUnicodeSwitch: UIControl {
   private func calculateAnimationDuration(index: Int) -> TimeInterval {
     let targetX = sliderWidth * CGFloat(index) + sliderInset
     let distance = targetX - sliderView.frame.origin.x
-    let duration = TimeInterval(distance / 300)
+    _ = TimeInterval(distance / 300)
     return 0
  //   return duration
   }

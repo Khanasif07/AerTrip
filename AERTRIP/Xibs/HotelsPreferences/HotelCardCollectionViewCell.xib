@@ -25,9 +25,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="388" height="197"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" id="LMU-bo-fv2">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LMU-bo-fv2">
                         <rect key="frame" x="8" y="4" width="372" height="189"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotelCardPlaceHolder" translatesAutoresizingMaskIntoConstraints="NO" id="j42-Hp-yYC">
                                 <rect key="frame" x="0.0" y="0.0" width="372" height="189"/>

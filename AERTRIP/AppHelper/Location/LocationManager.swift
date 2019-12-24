@@ -144,7 +144,7 @@ extension LocationManager {
         
         if let url = URL(string:url) {
             if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.openURL(url)
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
             } else {
                 let coordinate = CLLocationCoordinate2DMake(toCoordinate.latitude,toCoordinate.longitude)
                 let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))

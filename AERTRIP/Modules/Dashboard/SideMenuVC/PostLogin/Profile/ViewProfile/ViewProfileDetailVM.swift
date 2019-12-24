@@ -32,7 +32,7 @@ class ViewProfileDetailVM {
         
         APICaller.shared.getTravelDetail(params: params, completionBlock: { success, data, errorCode in
             
-            if success, var trav = data {
+            if success, let trav = data {
                 if let uId = UserInfo.loggedInUserId, uId == trav.id {
                     UserInfo.loggedInUser?.firstName = trav.firstName
                     UserInfo.loggedInUser?.lastName = trav.lastName

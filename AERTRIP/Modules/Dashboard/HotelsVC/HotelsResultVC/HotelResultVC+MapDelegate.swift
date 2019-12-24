@@ -28,7 +28,8 @@ extension HotelResultVC {
             mapView?.settings.myLocationButton = false
             mapView?.setMinZoom(self.minZoomLabel, maxZoom: self.maxZoomLabel)
             mapView?.animate(toZoom: self.defaultZoomLabel)
-            
+            mapView?.settings.scrollGestures = false
+            mapView?.settings.consumesGesturesInView = false
             if self.useGoogleCluster {
                 self.setUpClusterManager()
             }
