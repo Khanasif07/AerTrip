@@ -164,7 +164,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             }
             return cell
         } else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelCardTableViewCell") as? HotelCardTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "HotelCardTableViewCell", for: indexPath) as? HotelCardTableViewCell else {
                 fatalError("HotelCardTableViewCell not found")
             }
             

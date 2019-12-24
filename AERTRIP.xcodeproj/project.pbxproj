@@ -6760,6 +6760,7 @@
 					"\"WebKit\"",
 					"-Xfrontend",
 					"-debug-time-function-bodies",
+					"-Xfrontend",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.aertrip.app;
 				PRODUCT_MODULE_NAME = AERTRIP;
@@ -6991,6 +6992,7 @@
 					"\"WebKit\"",
 					"-Xfrontend",
 					"-debug-time-function-bodies",
+					"-Xfrontend",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.aertrip.app;
 				PRODUCT_MODULE_NAME = AERTRIP;

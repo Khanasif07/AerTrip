@@ -665,7 +665,7 @@ extension HotelResultVC {
 extension HotelResultVC {
     
     func calculateSectionInset() -> CGFloat {
-        return CGFloat(12.0)
+        return CGFloat(16.0)
     }
     
     func configureCollectionViewLayoutItemSize() {

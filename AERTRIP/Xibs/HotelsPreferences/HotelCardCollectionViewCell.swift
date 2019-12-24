@@ -61,7 +61,7 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-
+        
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.gradientView.bounds
         let gradientColor = AppColors.themeBlack

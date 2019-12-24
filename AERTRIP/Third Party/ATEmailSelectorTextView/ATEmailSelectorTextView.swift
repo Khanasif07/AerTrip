@@ -41,7 +41,7 @@ class ATEmailSelectorTextView: UITextView {
     
     var tagSeparator: String {
         set {
-            _tagSeparator = tagSeparator
+            _tagSeparator = newValue
         }
         
         get {
