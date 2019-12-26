@@ -32,19 +32,21 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
-        self.registerDataChangeNotification()
+        //self.registerDataChangeNotification()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        self.registerDataChangeNotification()
+        //self.registerDataChangeNotification()
     }
     
     override open func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.layoutSubviews()
+        
+        self.registerDataChangeNotification()
         
         indicatorContainer.frame = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
         indicatorContainer.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.2)
@@ -226,9 +228,14 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: .dataChanged, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
+
         printDebug("deinit")
     }
 }
+
 
 
 extension BaseVC {

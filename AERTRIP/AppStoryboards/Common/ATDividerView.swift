@@ -24,7 +24,7 @@ open class ATDividerView: UIView {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        self.updatedFrame()
+       // self.updatedFrame()
     }
     
     //MARK:- Properties

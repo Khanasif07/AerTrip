@@ -341,6 +341,10 @@ class HotelResultVC: BaseVC {
 //        self.configureCollectionViewLayoutItemSize()
     }
     
+    deinit {
+        printDebug("HotelResultVC deinit")
+    }
+    
     override func keyboardWillHide(notification: Notification) {
         if let _ = self.view.window, self.searchedHotels.isEmpty {
             //checking if the screen in window only then this method should call
