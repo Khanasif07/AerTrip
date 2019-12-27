@@ -186,9 +186,9 @@ class HCDataSelectionVC: BaseVC {
     
     private func fillData() {
         totalFareLabel.text = (viewModel.itineraryData?.total_fare ?? 0.0).amountInDelimeterWithSymbol
-//        setupFareBreakup()
+        setupFareBreakup()
 
-//        hotelNameLabel.text = viewModel.itineraryData?.hotelDetails?.hname ?? ""
+        hotelNameLabel.text = viewModel.itineraryData?.hotelDetails?.hname ?? ""
 
         var finalDate = ""
         if let chIn = viewModel.itineraryData?.hotelDetails?.checkin, !chIn.isEmpty {
@@ -267,7 +267,7 @@ class HCDataSelectionVC: BaseVC {
             sSelf.fareDetailBottomConstraint.constant = isHidden ? -(sSelf.fareDetailContainerView.height) : 0.0
             sSelf.upArrowImageView.transform = rotateTrans
             
-            //sSelf.view.layoutIfNeeded()
+            sSelf.view.layoutIfNeeded()
             
         }, completion: { [weak self] _ in
             if isHidden {

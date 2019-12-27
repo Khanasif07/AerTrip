@@ -193,26 +193,26 @@ class HCSelectGuestsVC: BaseVC {
     private func selectNextGuest() {
         //update the currentSelected IndexPath according to the data
         
-        //increasing selection for next only
-//        //setup item
-//        let maxItemInCurrentSection = (GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section].count - 1)
-//        let newItem = (currentSelectedGuestIndex.item + 1)
-//
-//        //setup section
-//        if (newItem > maxItemInCurrentSection) {
-//            //increase section and make item 0
-//            let maxSection = (GuestDetailsVM.shared.guests.count - 1)
-//            if currentSelectedGuestIndex.section >= maxSection {
-//                currentSelectedGuestIndex = IndexPath(item: maxItemInCurrentSection, section: maxSection)
-//            }
-//            else {
-//                currentSelectedGuestIndex = IndexPath(item: 0, section: min((currentSelectedGuestIndex.section + 1), maxSection))
-//            }
-//        }
-//        else {
-//            //increase item in current section
-//            currentSelectedGuestIndex = IndexPath(item: min(newItem, maxItemInCurrentSection), section: currentSelectedGuestIndex.section)
-//        }
+     //   increasing selection for next only
+        //setup item
+        let maxItemInCurrentSection = (GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section].count - 1)
+        let newItem = (currentSelectedGuestIndex.item + 1)
+
+        //setup section
+        if (newItem > maxItemInCurrentSection) {
+            //increase section and make item 0
+            let maxSection = (GuestDetailsVM.shared.guests.count - 1)
+            if currentSelectedGuestIndex.section >= maxSection {
+                currentSelectedGuestIndex = IndexPath(item: maxItemInCurrentSection, section: maxSection)
+            }
+            else {
+                currentSelectedGuestIndex = IndexPath(item: 0, section: min((currentSelectedGuestIndex.section + 1), maxSection))
+            }
+        }
+        else {
+            //increase item in current section
+            currentSelectedGuestIndex = IndexPath(item: min(newItem, maxItemInCurrentSection), section: currentSelectedGuestIndex.section)
+        }
         
         
         //increasing next selection according to the selected data
@@ -257,7 +257,7 @@ extension HCSelectGuestsVC: ATCategoryNavBarDelegate {
 extension HCSelectGuestsVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.viewModel.search(forText: searchText)
-        self.viewModel.searchText = searchText
+        self.viewModel.searchText = searchBar.text ?? ""
     }
 }
 
@@ -338,17 +338,17 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
         
         self.selectedContactsCollectionView.reloadData()
 
-//        if let idx = getCollectionIndexPath(forContact: item) {
-//
-//            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = item
-//            self.selectNextGuest()
-//            self.selectedContactsCollectionView.performBatchUpdates({
-//                self.selectedContactsCollectionView.insertItems(at: [idx])
-//            }, completion: { (isDone) in
-//                self.selectedContactsCollectionView.reloadData()
-//                self.scrollCollectionToEnd()
-//            })
-//        }
+        if let idx = getCollectionIndexPath(forContact: item) {
+
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = item
+            self.selectNextGuest()
+            self.selectedContactsCollectionView.performBatchUpdates({
+                self.selectedContactsCollectionView.insertItems(at: [idx])
+            }, completion: { (isDone) in
+                self.selectedContactsCollectionView.reloadData()
+                self.scrollCollectionToEnd()
+            })
+        }
     }
     
     func remove(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
@@ -471,7 +471,7 @@ extension HCSelectGuestsVC: UICollectionViewDataSource, UICollectionViewDelegate
 extension HCSelectGuestsVC: SelectedContactCollectionCellDelegate {
     func crossButtonAction(_ sender: UIButton) {
         if let indexPath = self.selectedContactsCollectionView.indexPath(forItem: sender) {
-            removeContact(forIndexPath: indexPath)
+            
             let oldContact = GuestDetailsVM.shared.guests[indexPath.section][indexPath.item]
             switch oldContact.label {
             case .traveller:
@@ -498,7 +498,6 @@ extension HCSelectGuestsVC: SelectedContactCollectionCellDelegate {
                 }) {
                     self.viewModel.remove(atIndex: index, for: .contacts)
                 }
-                
             case .facebook:
                 if let index = self.viewModel.selectedFacebookContacts.firstIndex(where: { (contact) -> Bool in
                     return oldContact.id == contact.id
@@ -510,7 +509,6 @@ extension HCSelectGuestsVC: SelectedContactCollectionCellDelegate {
                 }) {
                     self.viewModel.remove(atIndex: index, for: .facebook)
                 }
-                
             case .google:
                 if let index = self.viewModel.selectedGoogleContacts.firstIndex(where: { (contact) -> Bool in
                     return oldContact.id == contact.id
@@ -523,6 +521,9 @@ extension HCSelectGuestsVC: SelectedContactCollectionCellDelegate {
                     self.viewModel.remove(atIndex: index, for: .google)
                 }
             }
+            removeContact(forIndexPath: indexPath)
+            currentSelectedGuestIndex = indexPath
+            selectedContactsCollectionView.reloadData()
         }
     }
 }

@@ -15,6 +15,8 @@ protocol HCSelectGuestsVMDelegate: class {
     
     func add(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor)
     func remove(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor)
+    
+   // func reloadTable(for usingFor: HCGuestListVC.UsingFor)
 }
 
 class HCSelectGuestsVM: NSObject {

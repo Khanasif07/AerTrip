@@ -98,4 +98,9 @@ extension ContactTableCell : UITextFieldDelegate {
     @objc func textFieldDidChanged(_ textField: UITextField) {
         delegate?.textFieldText(textField)
     }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        PKCountryPicker.default.closePicker()
+        return true
+    }
 }
