@@ -127,6 +127,7 @@ class HCGuestListVC: BaseVC {
                         return
                     }
                     self.noResultemptyView.messageLabel.isHidden = false
+                    self.noResultemptyView.messageLabel.text = "\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(self.viewModel.searchText)'"
                     self.noResultemptyView.messageLabel.numberOfLines = 0
                     self.noResultemptyView.messageLabelTopConstraint.constant = 30
                     if self.currentlyUsingFor == .travellers && self.viewModel.travellerContacts.isEmpty {
@@ -364,7 +365,7 @@ extension HCGuestListVC: EmptyScreenViewDelegate {
         }
         else if self.currentlyUsingFor == .google {
             sender.isLoading = true
-            self.viewModel.fetchGoogleContacts(forVC: self)
+            self.viewModel.fetchGoogleContacts(forVC: self, sender: sender)
         }
         
     }
