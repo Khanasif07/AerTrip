@@ -316,6 +316,17 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
                 if let hotel = anObject as? HotelSearched {
                     self.viewModel.deleteHotelsDataForCollectionView(hotel: hotel)
                     self.collectionView.reloadData()
+                    if self.viewModel.collectionViewLocArr.indices.contains(indexPath.item) {
+                        let locStr = self.viewModel.collectionViewLocArr[indexPath.item]
+                        if let loc = self.getLocationObject(fromLocation: locStr) {
+                            self.deleteMarker(atLocation: loc)
+                            if let selectedLocation = self.displayingHotelLocation, selectedLocation == loc {
+                                self.displayingHotelLocation = nil
+                            }
+                        }
+                    }
+                    
+                    
                 }
             }
             //        case .update:
@@ -329,8 +340,8 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
             //
             //            if let newIndexPath = newIndexPath {
             //                tableViewVertical.insertRows(at: [newIndexPath], with: .fade)
-        //            }
-       
+            //            }
+            
             
         @unknown default: break
         }

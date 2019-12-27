@@ -307,6 +307,13 @@ extension HotelResultVC {
         }
         
     }
+    
+    func deleteMarker(atLocation: CLLocationCoordinate2D) {
+        guard let marker = self.markersOnLocations[self.getString(fromLocation: atLocation)] as? GMSMarker else {
+            return
+        }
+        marker.map = nil
+    }
 }
 
 extension HotelResultVC: GMSMapViewDelegate {

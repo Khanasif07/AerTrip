@@ -44,6 +44,10 @@ class MapContainerView: UIView {
         self.mapView?.backgroundColor = AppColors.themeGreen
         
     }
+    
+     deinit {
+           printDebug("MapContainerView deinit")
+       }
 }
 
 class HotelResultVC: BaseVC {
@@ -143,7 +147,7 @@ class HotelResultVC: BaseVC {
     weak var hotelsGroupExpendedVC: HotelsGroupExpendedVC?
     var displayingHotelLocation: CLLocationCoordinate2D? {
         didSet {
-            if let oLoc = oldValue {
+            if let oLoc = oldValue, displayingHotelLocation != nil {
                 self.updateMarker(atLocation: oLoc, isSelected: false)
             }
             if let loc = displayingHotelLocation {
@@ -337,11 +341,11 @@ class HotelResultVC: BaseVC {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
 //        self.configureCollectionViewLayoutItemSize()
     }
     
     deinit {
+        CoreDataManager.shared.deleteData("HotelSearched")
         printDebug("HotelResultVC deinit")
     }
     
@@ -364,6 +368,7 @@ class HotelResultVC: BaseVC {
             //updateFavOnList(forIndexPath: selectedIndexPath)
             // manage favourite switch buttons 
             self.getFavouriteHotels(shouldReloadData: true)
+            self.updateMarkers()
 //            updateFavouriteSuccess(isHotelFavourite: true)
         }
         else if let _ = note.object as? HCDataSelectionVC {

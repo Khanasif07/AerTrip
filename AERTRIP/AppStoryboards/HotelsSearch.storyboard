@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1455,16 +1455,16 @@ been sent</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="99.5" height="246"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="19.5" translatesAutoresizingMaskIntoConstraints="NO" id="5Nc-t2-hZo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="253"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="246"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="lUb-4B-UGW">
-                                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="120"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="113"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="627-JL-ot9">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="50"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="43"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rooms" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQ4-Rr-9MZ">
-                                                                                <rect key="frame" x="0.0" y="5" width="99.5" height="20.5"/>
+                                                                                <rect key="frame" x="0.0" y="5" width="99.5" height="19.5"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1480,7 +1480,7 @@ been sent</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFd-nY-Rus">
-                                                                        <rect key="frame" x="0.0" y="62" width="99.5" height="58"/>
+                                                                        <rect key="frame" x="0.0" y="55" width="99.5" height="58"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4l-qf-vJb">
                                                                                 <rect key="frame" x="34.5" y="0.0" width="31" height="58"/>
@@ -1500,7 +1500,7 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="klb-yY-qLX">
-                                                                <rect key="frame" x="0.0" y="139.5" width="99.5" height="113.5"/>
+                                                                <rect key="frame" x="0.0" y="132.5" width="99.5" height="113.5"/>
                                                                 <subviews>
                                                                     <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2S-NB-xYW">
                                                                         <rect key="frame" x="0.0" y="0.0" width="99.5" height="113.5"/>
@@ -2101,7 +2101,7 @@ been sent</string>
                                                         <attributedString key="attributedText">
                                                             <fragment content="Want more rooms? Request bulk booking">
                                                                 <attributes>
-                                                                    <font key="NSFont" metaFont="menuBar"/>
+                                                                    <font key="NSFont" metaFont="menu" size="14"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                 </attributes>
                                                             </fragment>
@@ -2384,7 +2384,7 @@ been sent</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="230" id="rUd-SU-sdm"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="TS7-Ln-F1l">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="TS7-Ln-F1l" customClass="CarouselLayout" customModule="AERTRIP" customModuleProvider="target">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -2973,7 +2973,7 @@ been sent</string>
                             <constraint firstItem="V4z-cq-RyF" firstAttribute="trailing" secondItem="b4p-u6-PAq" secondAttribute="trailing" id="FKR-2j-Xde"/>
                             <constraint firstItem="b4p-u6-PAq" firstAttribute="bottom" secondItem="aHc-Vi-zSn" secondAttribute="bottom" constant="10" id="IrP-Bo-aXF"/>
                             <constraint firstItem="0o3-aH-xeT" firstAttribute="leading" secondItem="b4p-u6-PAq" secondAttribute="leading" id="O8e-Pd-jph"/>
-                            <constraint firstItem="b4p-u6-PAq" firstAttribute="trailing" secondItem="oLY-cZ-RG2" secondAttribute="trailing" id="Px0-Sh-Uz4"/>
+                            <constraint firstAttribute="trailing" secondItem="oLY-cZ-RG2" secondAttribute="trailing" id="Px0-Sh-Uz4"/>
                             <constraint firstAttribute="bottom" secondItem="0o3-aH-xeT" secondAttribute="bottom" id="SHp-MZ-3nP"/>
                             <constraint firstItem="b4p-u6-PAq" firstAttribute="bottom" secondItem="oLY-cZ-RG2" secondAttribute="bottom" id="T6R-mW-CFp"/>
                             <constraint firstItem="b4p-u6-PAq" firstAttribute="trailing" secondItem="QAK-AD-OFu" secondAttribute="trailing" id="VIa-bi-zNt"/>
@@ -2990,7 +2990,7 @@ been sent</string>
                             <constraint firstItem="QAK-AD-OFu" firstAttribute="leading" secondItem="b4p-u6-PAq" secondAttribute="leading" id="sct-fe-fKG"/>
                             <constraint firstItem="b4p-u6-PAq" firstAttribute="trailing" secondItem="Tm4-Rt-BXI" secondAttribute="trailing" id="tfX-zr-pnf"/>
                             <constraint firstItem="aM9-4Q-rjl" firstAttribute="top" secondItem="b4p-u6-PAq" secondAttribute="top" constant="100" id="thm-7z-N56"/>
-                            <constraint firstItem="oLY-cZ-RG2" firstAttribute="leading" secondItem="b4p-u6-PAq" secondAttribute="leading" id="v0A-LL-SeY"/>
+                            <constraint firstItem="oLY-cZ-RG2" firstAttribute="leading" secondItem="He0-20-oIc" secondAttribute="leading" id="v0A-LL-SeY"/>
                             <constraint firstItem="V4z-cq-RyF" firstAttribute="leading" secondItem="b4p-u6-PAq" secondAttribute="leading" id="yhN-7V-y4Y"/>
                             <constraint firstItem="0o3-aH-xeT" firstAttribute="top" secondItem="V4z-cq-RyF" secondAttribute="bottom" id="zOQ-ZY-yzq"/>
                         </constraints>

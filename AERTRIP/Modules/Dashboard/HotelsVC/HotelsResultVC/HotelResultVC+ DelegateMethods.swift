@@ -82,7 +82,7 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
                 self.shareButton.isHidden = false
             }
             self.animateButton()
-           // nitin self.getFavouriteHotels(shouldReloadData: false)
+            // nitin self.getFavouriteHotels(shouldReloadData: false)
             //self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         }
         else {
@@ -93,10 +93,10 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
             //if user in map view then update map focus as fav switch changed.
             delay(seconds: 0.4) { [weak self] in
                 guard let strongSelf = self else {return}
-//                let indexOfMajorCell = strongSelf.indexOfMajorCell()
-//                strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
+                //                let indexOfMajorCell = strongSelf.indexOfMajorCell()
+                //                strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
                 strongSelf.animateMapToFirstHotelInMapMode()
-
+                
             }
         }
         else {
@@ -119,12 +119,12 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
             }
             
             delay(seconds: 0.4) { [weak self] in
-                            guard let strongSelf = self else {return}
-            //                let indexOfMajorCell = strongSelf.indexOfMajorCell()
-            //                strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
-                            strongSelf.animateMapToFirstHotelInMapMode()
-
-                        }
+                guard let strongSelf = self else {return}
+                //                let indexOfMajorCell = strongSelf.indexOfMajorCell()
+                //                strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
+                strongSelf.animateMapToFirstHotelInMapMode()
+                
+            }
         }
     }
 }
@@ -201,7 +201,7 @@ extension HotelResultVC: HotelResultDelegate {
         }
         else {
             self.loadSaveData()
-          // nitin  self.getFavouriteHotels()
+            // nitin  self.getFavouriteHotels()
         }
         
         self.getPinnedHotelTemplate()
@@ -255,8 +255,18 @@ extension HotelResultVC: HotelResultDelegate {
         if self.switchView.on, !isHotelFavourite  {
             //self.loadSaveData()
             if self.hoteResultViewType == .MapView, let indexPath = self.selectedIndexPath, self.viewModel.collectionViewLocArr.indices.contains(indexPath.item),let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.item]] as? [HotelSearched], let hotel = hData.first  {
+                let locStr = self.viewModel.collectionViewLocArr[indexPath.item]
                 self.viewModel.deleteHotelsDataForCollectionView(hotel: hotel)
                 self.collectionView.reloadData()
+                if let loc = self.getLocationObject(fromLocation: locStr) {
+                    self.deleteMarker(atLocation: loc)
+                    if let selectedLocation = self.displayingHotelLocation, selectedLocation == loc {
+                        self.displayingHotelLocation = nil
+                    }
+                }
+            } else if self.hoteResultViewType == .ListView {
+                self.loadSaveData()
+                updateHeaderView(tableViewVertical)
             }
             self.getFavouriteHotels(shouldReloadData: true)
         } else {
@@ -280,8 +290,18 @@ extension HotelResultVC: HotelResultDelegate {
         if self.switchView.on, !isHotelFavourite  {
             //self.loadSaveData()
             if self.hoteResultViewType == .MapView, let indexPath = self.selectedIndexPath, self.viewModel.collectionViewLocArr.indices.contains(indexPath.item),let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.item]] as? [HotelSearched], let hotel = hData.first  {
+                let locStr = self.viewModel.collectionViewLocArr[indexPath.item]
                 self.viewModel.deleteHotelsDataForCollectionView(hotel: hotel)
                 self.collectionView.reloadData()
+                if let loc = self.getLocationObject(fromLocation: locStr) {
+                    self.deleteMarker(atLocation: loc)
+                    if let selectedLocation = self.displayingHotelLocation, selectedLocation == loc {
+                        self.displayingHotelLocation = nil
+                    }
+                }
+            }else if self.hoteResultViewType == .ListView {
+                self.loadSaveData()
+                updateHeaderView(tableViewVertical)
             }
             self.getFavouriteHotels(shouldReloadData: true)
         }else {
@@ -388,7 +408,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
         self.loadSaveData()
         
         //manage switch button when clear all filters
-       // nitin self.getFavouriteHotels(shouldReloadData: false)
+        // nitin self.getFavouriteHotels(shouldReloadData: false)
     }
     
     func doneButtonTapped() {
@@ -403,7 +423,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
         printDebug("done button tapped")
         self.getSavedFilter()
         self.loadSaveData()
-       // nitin self.getFavouriteHotels()
+        // nitin self.getFavouriteHotels()
         
         //manage switch button for the filttred data.
         if let _ = self.fetchedResultsController.fetchedObjects {

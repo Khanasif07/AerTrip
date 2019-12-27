@@ -341,6 +341,9 @@ extension HotelResultVC {
             return
         }
         
+        updateHeaderView(scrollView)
+        
+        /*
         //        let animationThreshold: CGFloat = 10.0
         //
         //        var isHeaderHidden: Bool {
@@ -387,7 +390,43 @@ extension HotelResultVC {
             //show with progress after header height scrolled up
             let newProg = self.oldScrollPosition.y - yPosition
             let headrC = min(0,max(-140.0, (self.headerContainerViewTopConstraint.constant + newProg)))
-            self.headerContainerViewTopConstraint.constant = headrC
+            if headrC != self.headerContainerViewTopConstraint.constant {
+                self.headerContainerViewTopConstraint.constant = headrC
+            }
+            
+            let finalPos = 100.0 + headrC
+            if finalPos != self.tableViewTopConstraint.constant {
+                self.tableViewTopConstraint.constant = finalPos
+                self.mapContainerTopConstraint.constant = finalPos
+            }
+            
+            //            }
+        }
+        else {
+            //convert to map view when threasHold exceed
+            let threasHold = visibleMapHeightInVerticalMode - (UIDevice.isIPhoneX ? 5.0 : 15.0)
+            if yPosition <= -(threasHold), self.hoteResultViewType == .ListView {
+                self.mapButtonAction(self.mapButton ?? UIButton())
+            }
+        }
+        
+        self.oldScrollPosition = scrollView.contentOffset
+        */
+    }
+    
+    func updateHeaderView(_ scrollView: UIScrollView) {
+        let yPosition = scrollView.contentOffset.y
+        let maxBound = scrollView.contentSize.height - scrollView.height
+        
+        //        print(scrollView.panGestureRecognizer.velocity(in: self.view))
+        
+        if 0.5 < abs(yPosition), abs(yPosition) < abs(maxBound) {
+            //show with progress after header height scrolled up
+            let newProg = self.oldScrollPosition.y - yPosition
+            let headrC = min(0,max(-140.0, (self.headerContainerViewTopConstraint.constant + newProg)))
+            if headrC != self.headerContainerViewTopConstraint.constant {
+                self.headerContainerViewTopConstraint.constant = headrC
+            }
             
             let finalPos = 100.0 + headrC
             if finalPos != self.tableViewTopConstraint.constant {
