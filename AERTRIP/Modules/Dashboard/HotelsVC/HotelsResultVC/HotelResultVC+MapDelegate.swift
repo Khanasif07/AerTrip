@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+// marker.tracksViewChanges = false
 extension HotelResultVC {
     
     func addMapView() {
