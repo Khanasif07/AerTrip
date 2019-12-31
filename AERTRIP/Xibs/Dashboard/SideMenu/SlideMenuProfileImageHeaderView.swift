@@ -84,7 +84,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         super.layoutSubviews()
         
         gradient.frame = gradientView.bounds
-        // self.backgroundImageView.frame = self.bounds
+         self.backgroundImageView.frame = self.bounds
     }
     
     private func addTapGesture() {

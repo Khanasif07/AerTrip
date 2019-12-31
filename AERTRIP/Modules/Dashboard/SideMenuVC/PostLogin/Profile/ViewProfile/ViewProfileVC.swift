@@ -164,14 +164,14 @@ class ViewProfileVC: BaseVC {
         }
         self.profileImageHeaderView?.currentlyUsingAs = .viewProfile
         profileImageHeaderView?.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width, height: 0.0)
+        self.profileImageHeaderView?.translatesAutoresizingMaskIntoConstraints = false
         self.tableView.parallaxHeader.view = profileImageHeaderView
         self.tableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight // 64
         self.tableView.parallaxHeader.height = parallexHeaderHeight
         self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
+        self.profileImageHeaderView?.widthAnchor.constraint(equalToConstant: tableView?.width ?? 0.0).isActive = true
         self.tableView.parallaxHeader.delegate = self
-        
         self.updateUserData()
-        
         self.view.bringSubviewToFront(self.topNavView)
     }
     

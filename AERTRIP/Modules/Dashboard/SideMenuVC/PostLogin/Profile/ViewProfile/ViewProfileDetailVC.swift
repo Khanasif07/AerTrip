@@ -134,11 +134,12 @@ class ViewProfileDetailVC: BaseVC {
         let parallexHeaderMinHeight = navigationController?.navigationBar.bounds.height ?? 74
         
         profileImageHeaderView?.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 0)
-        
+        profileImageHeaderView?.translatesAutoresizingMaskIntoConstraints = false
         tableView.parallaxHeader.view = profileImageHeaderView
         tableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight // 64
         tableView.parallaxHeader.height = parallexHeaderHeight
         tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
+        self.profileImageHeaderView?.widthAnchor.constraint(equalToConstant: tableView?.width ?? 0.0).isActive = true
         tableView.parallaxHeader.delegate = self
         
         
@@ -481,21 +482,6 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
         perform(#selector(self.updateForParallexProgress), with: nil, afterDelay: 0.05)
         //        self.updateForParallexProgress()
     }
-    
-    //    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-    //        self.updateForParallexProgress()
-    //        delay(seconds: 0.3) { [weak self] in
-    //            self?.updateForParallexProgress()
-    //        }
-    //    }
-    
-    //    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-    //        self.updateForParallexProgress()
-    //    }
-    //
-    //    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-    //        self.updateForParallexProgress()
-    //    }
 }
 
 extension ViewProfileDetailVC: ViewProfileDetailVMDelegate {
