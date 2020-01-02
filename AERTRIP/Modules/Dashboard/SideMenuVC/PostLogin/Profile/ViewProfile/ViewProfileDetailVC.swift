@@ -145,7 +145,7 @@ class ViewProfileDetailVC: BaseVC {
         
         //  profileImageHeaderView.dividerView.isHidden = true
         
-        self.view.bringSubviewToFront(self.topNavView)
+       // self.view.bringSubviewToFront(self.topNavView)
     }
     
     private func setUpDataFromApi() {

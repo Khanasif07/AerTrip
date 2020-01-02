@@ -258,7 +258,7 @@ extension SecureYourAccountVC {
                     
                     guard let strongSelf = self else {return}
                     
-                    strongSelf.nextButtonTopConstraint.constant = 26
+                    strongSelf.nextButtonTopConstraint.constant = 18
                     strongSelf.passwordConditionLabel.isHidden = true
                     strongSelf.validationStackView.isHidden = true
                     

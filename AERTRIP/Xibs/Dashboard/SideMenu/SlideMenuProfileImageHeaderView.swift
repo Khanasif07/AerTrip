@@ -154,7 +154,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     }
     
     private func setupForViewProfile() {
-        self.profileImageViewHeightConstraint.constant = 121.0
+        self.profileImageViewHeightConstraint.constant = 127.0
         self.profileImageAndNameSpace.constant = 23.0
         self.userNameHeightLabel.constant = 33.0
         self.emailAndContactBottomConstraint.constant = 28.0

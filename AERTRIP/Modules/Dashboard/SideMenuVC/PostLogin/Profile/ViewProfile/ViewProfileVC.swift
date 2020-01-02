@@ -247,7 +247,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             return 80.0
         }
         else if indexPath.row == 1 {
-            return 57.0
+            return 47.0
         }
         else {
             return 65.0
