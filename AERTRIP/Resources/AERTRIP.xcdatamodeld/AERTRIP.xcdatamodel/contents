@@ -1,93 +1,93 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="19A583" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19A583" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="BookingData" representedClassName="BookingData" syncable="YES">
-        <attribute name="actionRequired" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="bookingDate" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="bookingId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="bookingNumber" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="bookingProductType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="bookingStatus" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="bookingTabType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="dateHeader" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="depart" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="descriptions" optional="YES" attributeType="Transformable" customClassName="Array&lt;Any&gt;" syncable="YES"/>
-        <attribute name="destination" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="disconnected" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="eventEndDate" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="eventStartDate" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="eventType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="guestCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="hotelName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="isContainsPending" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="origin" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="pax" optional="YES" attributeType="Transformable" customClassName="Array&lt;Any&gt;" syncable="YES"/>
-        <attribute name="paxArrStr" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="product" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="requests" optional="YES" attributeType="Transformable" customClassName="Dictionary&lt;String, Any&gt;" syncable="YES"/>
-        <attribute name="routes" optional="YES" attributeType="Transformable" customClassName="Array&lt;Array&lt;Any&gt;&gt;" syncable="YES"/>
-        <attribute name="routesArrStr" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="serviceType" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="stepsArray" optional="YES" attributeType="Transformable" customClassName="Array&lt;String&gt;" syncable="YES"/>
-        <attribute name="stepsArrayStr" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="travelledCities" optional="YES" attributeType="Transformable" customClassName="Array&lt;Any&gt;" syncable="YES"/>
-        <attribute name="travelledCitiesArrStr" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tripCities" optional="YES" attributeType="Transformable" customClassName="Array&lt;Any&gt;" syncable="YES"/>
-        <attribute name="tripCitiesArrStr" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tripType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="actionRequired" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="bookingDate" optional="YES" attributeType="String"/>
+        <attribute name="bookingId" optional="YES" attributeType="String"/>
+        <attribute name="bookingNumber" optional="YES" attributeType="String"/>
+        <attribute name="bookingProductType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="bookingStatus" optional="YES" attributeType="String"/>
+        <attribute name="bookingTabType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="dateHeader" optional="YES" attributeType="String"/>
+        <attribute name="depart" optional="YES" attributeType="String"/>
+        <attribute name="descriptions" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="Array&lt;Any&gt;"/>
+        <attribute name="destination" optional="YES" attributeType="String"/>
+        <attribute name="disconnected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="eventEndDate" optional="YES" attributeType="String"/>
+        <attribute name="eventStartDate" optional="YES" attributeType="String"/>
+        <attribute name="eventType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="guestCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="hotelName" optional="YES" attributeType="String"/>
+        <attribute name="isContainsPending" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="origin" optional="YES" attributeType="String"/>
+        <attribute name="pax" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="Array&lt;Any&gt;"/>
+        <attribute name="paxArrStr" optional="YES" attributeType="String"/>
+        <attribute name="product" optional="YES" attributeType="String"/>
+        <attribute name="requests" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="Dictionary&lt;String, Any&gt;"/>
+        <attribute name="routes" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="Array&lt;Array&lt;Any&gt;&gt;"/>
+        <attribute name="routesArrStr" optional="YES" attributeType="String"/>
+        <attribute name="serviceType" optional="YES" attributeType="String"/>
+        <attribute name="stepsArray" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="Array&lt;String&gt;"/>
+        <attribute name="stepsArrayStr" optional="YES" attributeType="String"/>
+        <attribute name="travelledCities" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="Array&lt;Any&gt;"/>
+        <attribute name="travelledCitiesArrStr" optional="YES" attributeType="String"/>
+        <attribute name="tripCities" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="Array&lt;Any&gt;"/>
+        <attribute name="tripCitiesArrStr" optional="YES" attributeType="String"/>
+        <attribute name="tripType" optional="YES" attributeType="String"/>
     </entity>
     <entity name="HotelSearched" representedClassName="HotelSearched" syncable="YES">
-        <attribute name="accountType" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="amenities" optional="YES" attributeType="String" customClassName="Array&lt;Any&gt;" syncable="YES"/>
-        <attribute name="atHotelFares" optional="YES" attributeType="Transformable" customClassName="Array&lt;Any&gt;" syncable="YES"/>
-        <attribute name="bc" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="cityCode" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="discount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="distance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="facilities" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="fav" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="filterStar" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="filterTripAdvisorRating" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="hid" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="hotelName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="isHotelBeyondTwentyKm" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="lat" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="listPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="locid" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="long" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="numberOfNight" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="numberOfRooms" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="perNightListPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="perNightPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="rating" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="sectionTitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="star" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="taReviews" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="taWebUrl" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tax" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="tempPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="thumbnail" optional="YES" attributeType="Transformable" customClassName="Array&lt;String&gt;" syncable="YES"/>
-        <attribute name="vid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="accountType" optional="YES" attributeType="String"/>
+        <attribute name="address" optional="YES" attributeType="String"/>
+        <attribute name="amenities" optional="YES" attributeType="String" customClassName="Array&lt;Any&gt;"/>
+        <attribute name="atHotelFares" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="Array&lt;Any&gt;"/>
+        <attribute name="bc" optional="YES" attributeType="String"/>
+        <attribute name="cityCode" optional="YES" attributeType="String"/>
+        <attribute name="country" optional="YES" attributeType="String"/>
+        <attribute name="discount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="distance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="facilities" optional="YES" attributeType="String"/>
+        <attribute name="fav" optional="YES" attributeType="String"/>
+        <attribute name="filterStar" optional="YES" attributeType="String"/>
+        <attribute name="filterTripAdvisorRating" optional="YES" attributeType="String"/>
+        <attribute name="hid" optional="YES" attributeType="String"/>
+        <attribute name="hotelName" optional="YES" attributeType="String"/>
+        <attribute name="isHotelBeyondTwentyKm" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lat" optional="YES" attributeType="String"/>
+        <attribute name="listPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="locid" optional="YES" attributeType="String"/>
+        <attribute name="long" optional="YES" attributeType="String"/>
+        <attribute name="numberOfNight" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="numberOfRooms" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="perNightListPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="perNightPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="rating" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="sectionTitle" optional="YES" attributeType="String"/>
+        <attribute name="star" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="taReviews" optional="YES" attributeType="String"/>
+        <attribute name="taWebUrl" optional="YES" attributeType="String"/>
+        <attribute name="tax" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="tempPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="Array&lt;String&gt;"/>
+        <attribute name="vid" optional="YES" attributeType="String"/>
     </entity>
     <entity name="TravellerData" representedClassName="TravellerData" isAbstract="YES" syncable="YES">
-        <attribute name="dob" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="firstNameFirstChar" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="fullName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="isChecked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="label" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="labelLocPrio" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="lastNameFirstChar" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="profileImage" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="salutation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dob" optional="YES" attributeType="String"/>
+        <attribute name="firstName" optional="YES" attributeType="String"/>
+        <attribute name="firstNameFirstChar" optional="YES" attributeType="String"/>
+        <attribute name="fullName" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isChecked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="label" optional="YES" attributeType="String"/>
+        <attribute name="labelLocPrio" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String"/>
+        <attribute name="lastNameFirstChar" optional="YES" attributeType="String"/>
+        <attribute name="profileImage" optional="YES" attributeType="String"/>
+        <attribute name="salutation" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="BookingData" positionX="72" positionY="-225" width="128" height="540"/>
-        <element name="HotelSearched" positionX="200.703125" positionY="-343.6796875" width="128" height="555"/>
+        <element name="BookingData" positionX="72" positionY="-225" width="128" height="538"/>
+        <element name="HotelSearched" positionX="200.703125" positionY="-343.6796875" width="128" height="553"/>
         <element name="TravellerData" positionX="-55.05078125" positionY="-381.27734375" width="128" height="225"/>
     </elements>
 </model>

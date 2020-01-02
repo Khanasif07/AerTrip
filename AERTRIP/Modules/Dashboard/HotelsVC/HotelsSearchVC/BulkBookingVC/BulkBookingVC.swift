@@ -616,12 +616,13 @@ extension BulkBookingVC: BulkBookingVMDelegate {
 extension BulkBookingVC: CheckInOutViewDelegate {
     
     func selectCheckInDate(_ sender: UIButton) {
-        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.oldData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self)
+        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.oldData.checkInDate.toDate(dateFormat: "yyyy-MM-dd"), checkOutDate: self.viewModel.oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self)
     }
     
     func selectCheckOutDate(_ sender: UIButton) {
         
-        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.oldData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self) }
+        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.oldData.checkInDate.toDate(dateFormat: "yyyy-MM-dd"), checkOutDate: self.viewModel.oldData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self)
+    }
 }
 
 //MARK:- CalendarDataHandler

@@ -59,11 +59,12 @@ class HotelRatingInfoCell: UITableViewCell {
         self.tripadviserImageView.isHidden = true
     }
     
-    private func textSetUp(hotelName: String , distanceText: String, durationValue: Int, starRating: Double , tripAdvisorRating: Double) {
-        
-       
+    private func textSetUp(hotelName: String , distanceText: String, duration: Int?, starRating: Double , tripAdvisorRating: Double) {
+        self.hotelRatingView.isHidden = false
         self.hotelNameLabel.text = hotelName
         let modeImage: String
+        self.distanceLabel.text = ""
+        if let durationValue = duration {
         if durationValue/60 <= 10 {
             modeImage = "• 🚶🏻 "
             self.distanceLabel.text = "\(distanceText) \(modeImage) \((Double(durationValue)/60.0).roundTo(places: 1)) mins"
@@ -71,7 +72,7 @@ class HotelRatingInfoCell: UITableViewCell {
             modeImage = "• 🚘 "
             self.distanceLabel.text = "\(distanceText) \(modeImage) \((Double(durationValue)/60.0).roundTo(places: 1)) mins"
         }
-        
+        }
         self.distanceLabel.isHidden = (self.distanceLabel.text ?? "").isEmpty
         self.deviderView.isHidden = false
         self.hotelRatingView.rating = starRating
@@ -88,15 +89,16 @@ class HotelRatingInfoCell: UITableViewCell {
     }
 
         
-    internal func configureCell(hotelData: HotelSearched , placeData: PlaceModel) {
+    internal func configureCell(hotelData: HotelSearched , placeData: PlaceModel?) {
 //        self.textSetUp(hotelName: hotelData.hotelName ?? "", distanceText: placeData.distanceText , durationValue: placeData.durationValue, starRating: hotelData.star, tripAdvisorRating: hotelData.rating)
         
         //sending the distabce as we are getting from aertrip data base not from google API as discussed with Nitesh
-        self.textSetUp(hotelName: hotelData.hotelName ?? "", distanceText: "\(hotelData.distance) km", durationValue: placeData.durationValue, starRating: hotelData.star, tripAdvisorRating: hotelData.rating)
+        
+        self.textSetUp(hotelName: hotelData.hotelName ?? "", distanceText: "\(hotelData.distance) km", duration: placeData?.durationValue, starRating: hotelData.star, tripAdvisorRating: hotelData.rating)
     }
     
     internal func configHCDetailsCell(hotelData: HotelDetails , placeData: PlaceModel) {
-        self.textSetUp(hotelName: hotelData.hname , distanceText: placeData.distanceText , durationValue: placeData.durationValue, starRating: hotelData.star, tripAdvisorRating: hotelData.rating)
+        self.textSetUp(hotelName: hotelData.hname , distanceText: placeData.distanceText , duration: placeData.durationValue, starRating: hotelData.star, tripAdvisorRating: hotelData.rating)
     }
     
     //Mark:- IBActions

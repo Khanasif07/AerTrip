@@ -462,6 +462,7 @@ extension AppFlowManager {
         let ob = SearchHotelTagVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.delegate = superView
         ob.tagButtons = tagButtons
+        ob.modalPresentationStyle = .fullScreen
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
@@ -791,7 +792,7 @@ extension AppFlowManager {
         }
     }
     
-    func moveHotelCalenderVC(isHotelCalendar: Bool = false, isReturn: Bool = false, isMultiCity: Bool = false, checkInDate: Date = Date(), checkOutDate: Date? = nil, delegate: CalendarDataHandler) {
+    func moveHotelCalenderVC(isHotelCalendar: Bool = false, isReturn: Bool = false, isMultiCity: Bool = false, checkInDate: Date? = nil, checkOutDate: Date? = nil, delegate: CalendarDataHandler) {
         if let ob = UIStoryboard(name: "AertripCalendar", bundle: Bundle(for: AertripCalendarViewController.self)).instantiateViewController(withIdentifier: "AertripCalendarViewController") as? AertripCalendarViewController {
             let calendarVM = CalendarVM()
             calendarVM.isHotelCalendar = isHotelCalendar
