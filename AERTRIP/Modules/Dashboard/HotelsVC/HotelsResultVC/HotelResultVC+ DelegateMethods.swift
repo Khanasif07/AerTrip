@@ -72,7 +72,6 @@ extension HotelResultVC: UISearchBarDelegate {
 extension HotelResultVC: ATSwitcherChangeValueDelegate {
     func switcherDidChangeValue(switcher: ATSwitcher, value: Bool) {
         self.loadSaveData()
-        self.updateMarkers()
         if value {
             if self.hoteResultViewType == .MapView {
                 self.floatingButtonOnMapView.isHidden = false
@@ -88,7 +87,7 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
         else {
             self.hideFavsButtons()
         }
-        
+        self.updateMarkers()
         if self.hoteResultViewType == .MapView {
             //if user in map view then update map focus as fav switch changed.
             delay(seconds: 0.4) { [weak self] in
@@ -207,7 +206,7 @@ extension HotelResultVC: HotelResultDelegate {
         self.getPinnedHotelTemplate()
         self.time += 1
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
-        self.updateMarkers()
+        //self.updateMarkers()
         
         if UserInfo.hotelFilter != nil {
             self.getSavedFilter()

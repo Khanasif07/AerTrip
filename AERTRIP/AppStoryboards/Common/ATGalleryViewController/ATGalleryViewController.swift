@@ -237,6 +237,7 @@ class ATGalleryViewController: UIViewController {
                 sSelf.verticalCollectionView.alpha = 1.0
                 sSelf.verticalCollectionTopConstraint.constant = 0
                 sSelf.verticalCollectionBottomConstraint.constant = 0
+                sSelf.pageControl.alpha = 0.0
                 
                 sSelf.view.layoutIfNeeded()
                 }, completion: { (isDone) in
@@ -266,6 +267,7 @@ class ATGalleryViewController: UIViewController {
                 sSelf.verticalCollectionView.alpha = 0.0
                 sSelf.verticalCollectionTopConstraint.constant = newFrame.origin.y
                 sSelf.verticalCollectionBottomConstraint.constant = -(newFrame.origin.y)
+                sSelf.pageControl.alpha = 1.0
                 
                 sSelf.view.layoutIfNeeded()
                 }, completion: { (isDone) in
