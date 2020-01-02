@@ -241,7 +241,6 @@ extension HotelResultVC {
             self.collectionView.reloadData()
         }
         
-        removeAllMerkers()
         updateMarkers()
         if hoteResultViewType == .MapView {
             let indexOfMajorCell = self.indexOfMajorCell()
@@ -736,7 +735,7 @@ extension HotelResultVC {
         let numberOfItemInCollection = self.viewModel.collectionViewLocArr.count - 1
         
         // Stop scrollView sliding:
-        targetContentOffset.pointee = scrollView.contentOffset
+      //  targetContentOffset.pointee = scrollView.contentOffset
         
         // calculate where scrollView should snap to:
         var indexOfMajorCell = self.indexOfMajorCell()
