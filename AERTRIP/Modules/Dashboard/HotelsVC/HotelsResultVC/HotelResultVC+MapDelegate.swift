@@ -11,6 +11,7 @@ import Foundation
 extension HotelResultVC {
     
     func addMapView() {
+        
         self.locManager.requestWhenInUseAuthorization()
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == .authorizedAlways {}
@@ -39,6 +40,7 @@ extension HotelResultVC {
         
         self.prevZoomLabel = self.minZoomLabel
         self.updateMarkers()
+        
     }
     
     private func addCityLocation() {

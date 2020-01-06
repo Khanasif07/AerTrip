@@ -89,6 +89,7 @@ open class FloatRatingView: UIView {
     @IBInspectable open var rating: Double = 0 {
         didSet {
             if rating != oldValue {
+                setNeedsLayout()
                 refresh()
             }
         }

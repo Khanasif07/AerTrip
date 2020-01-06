@@ -81,7 +81,6 @@ class HotelResultVC: BaseVC {
             self.collectionView.dataSource = self
             self.collectionView.showsVerticalScrollIndicator = false
             self.collectionView.showsHorizontalScrollIndicator = false
-            
         }
     }
     
