@@ -510,6 +510,7 @@ extension HotelResultVC {
         guard scrollView === collectionView else {
             return
         }
+        return
         
         let xPos = scrollView.contentOffset.x
         

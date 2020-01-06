@@ -349,6 +349,7 @@ extension HotelResultVC: HotelCardCollectionViewCellDelegate {
         guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
         if let indexPath = self.collectionView.indexPath(forItem: sender) {
             self.selectedIndexPath = indexPath
+            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
         } else if let indexPath = self.tableViewVertical.indexPath(forItem: sender) {
             self.selectedIndexPath = indexPath
         }
@@ -358,7 +359,6 @@ extension HotelResultVC: HotelCardCollectionViewCellDelegate {
         if self.selectedIndexPath != nil {
             // self.updateFavOnList(forIndexPath: indexPath)
         }
-        
         
     }
     
