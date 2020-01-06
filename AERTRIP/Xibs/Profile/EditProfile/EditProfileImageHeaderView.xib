@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -57,14 +55,14 @@
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ccg-K6-NO6" userLabel="dividerView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="33" width="253" height="1"/>
+                                    <rect key="frame" x="0.0" y="33" width="253" height="0.5"/>
                                     <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="1" id="Nfl-vC-hiC"/>
+                                        <constraint firstAttribute="height" constant="0.5" id="Nfl-vC-hiC"/>
                                     </constraints>
                                 </view>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7xs-3o-QIb">
-                                    <rect key="frame" x="16" y="44" width="237" height="23"/>
+                                    <rect key="frame" x="16" y="43.5" width="237" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="23" id="7kA-u7-fXP"/>
                                     </constraints>
@@ -73,20 +71,20 @@
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fn-aW-4Me" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="77" width="253" height="1"/>
+                                    <rect key="frame" x="0.0" y="76.5" width="253" height="0.5"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hru-XK-TG8">
-                                    <rect key="frame" x="0.0" y="78" width="253" height="44"/>
+                                    <rect key="frame" x="0.0" y="77" width="253" height="45"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLK-QA-oW2">
-                                            <rect key="frame" x="16" y="11.5" width="134" height="21"/>
+                                            <rect key="frame" x="16" y="12" width="134" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VGe-og-Xhe">
-                                            <rect key="frame" x="160" y="3" width="77" height="38"/>
+                                            <rect key="frame" x="160" y="3.5" width="77" height="38"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rDO-6Y-TgN">
                                                     <rect key="frame" x="0.0" y="0.0" width="77" height="38"/>
@@ -205,10 +203,10 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="35"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eEX-Sf-qBG" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
                                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="1" id="ONa-Eb-8eC"/>
+                                                <constraint firstAttribute="height" constant="0.5" id="ONa-Eb-8eC"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -338,6 +336,6 @@
     </objects>
     <resources>
         <image name="blackDownArrow" width="9" height="6"/>
-        <image name="profilePlaceholder" width="42.275230407714844" height="42.275230407714844"/>
+        <image name="profilePlaceholder" width="64" height="64"/>
     </resources>
 </document>

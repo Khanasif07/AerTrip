@@ -81,6 +81,5 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
         }
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
     }
-
     
 }

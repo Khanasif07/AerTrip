@@ -239,10 +239,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a76-4x-0W5" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="jm5-Ag-baV"/>
+                                                    <constraint firstAttribute="height" constant="0.5" id="jm5-Ag-baV"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mel-ki-lzv">
@@ -396,20 +396,20 @@
                                         <rect key="frame" x="16" y="78" width="343" height="44"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Ya-e6-EJa" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="343" height="1"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="0.5"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="gvf-l2-JNq"/>
+                                                    <constraint firstAttribute="height" constant="0.5" id="gvf-l2-JNq"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Labelvvv dsf vs" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ci-kZ-Fp2">
-                                                <rect key="frame" x="0.0" y="1" width="291" height="43"/>
+                                                <rect key="frame" x="0.0" y="0.5" width="291" height="43.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b6G-94-5kb">
-                                                <rect key="frame" x="301" y="1" width="42" height="43"/>
+                                                <rect key="frame" x="301" y="0.5" width="42" height="43.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -583,10 +583,10 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="270" height="45"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="elz-XH-Iij" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="270" height="1"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="270" height="0.5"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="1" id="ewP-aK-m4n"/>
+                                                            <constraint firstAttribute="height" constant="0.5" id="ewP-aK-m4n"/>
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1XE-5A-AvF">
@@ -611,10 +611,10 @@
                                                 <rect key="frame" x="0.0" y="45" width="270" height="45"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v58-K6-Yue" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="270" height="1"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="270" height="0.5"/>
                                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="1" id="ZXr-0p-geo"/>
+                                                            <constraint firstAttribute="height" constant="0.5" id="ZXr-0p-geo"/>
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgF-bD-kwe">
@@ -915,14 +915,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="567"/>
                                 <subviews>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipo-DC-tu6" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="s62-x8-0Dh"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="s62-x8-0Dh"/>
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dJx-iN-IW4" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1" width="375" height="565"/>
+                                        <rect key="frame" x="0.0" y="0.5" width="375" height="566"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactDetailsTableCell" rowHeight="61" id="S3g-tE-QrT" customClass="ContactDetailsTableCell" customModule="AERTRIP" customModuleProvider="target">
@@ -955,10 +955,10 @@
                                                             </constraints>
                                                         </imageView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lqh-JP-VaR" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                            <rect key="frame" x="54" y="60" width="321" height="1"/>
+                                                            <rect key="frame" x="54" y="60.5" width="321" height="0.5"/>
                                                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="1" id="2hF-zu-9B7"/>
+                                                                <constraint firstAttribute="height" constant="0.5" id="2hF-zu-9B7"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
@@ -985,10 +985,10 @@
                                         </prototypes>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ido-g2-4IG" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="566" width="375" height="1"/>
+                                        <rect key="frame" x="0.0" y="566.5" width="375" height="0.5"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="vUS-Qy-EAw"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="vUS-Qy-EAw"/>
                                         </constraints>
                                     </view>
                                 </subviews>
