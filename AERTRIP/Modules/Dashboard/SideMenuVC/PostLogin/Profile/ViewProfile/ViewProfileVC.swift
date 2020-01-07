@@ -27,6 +27,7 @@ class ViewProfileVC: BaseVC {
         return UIDevice.isIPhoneX ? 88.0 : 64.0
     }
     
+    private var isNavBarHidden:Bool = true
     private let headerHeightToAnimate: CGFloat = 30.0
     private var isHeaderAnimating: Bool = false
     
@@ -82,7 +83,7 @@ class ViewProfileVC: BaseVC {
             self.statusBarStyle = .default
         }
         
-       // self.topNavView.backgroundType = .blurAnimatedView(isDark: false)
+        // self.topNavView.backgroundType = .blurAnimatedView(isDark: false)
         self.viewModel.webserviceForGetTravelDetail()
         self.setNeedsStatusBarAppearanceUpdate()
         
@@ -113,7 +114,7 @@ class ViewProfileVC: BaseVC {
     
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification, noti == .profileSavedOnServer {
-           // self.viewModel.webserviceForGetTravelDetail()
+            // self.viewModel.webserviceForGetTravelDetail()
         }
     }
     
@@ -172,7 +173,7 @@ class ViewProfileVC: BaseVC {
         self.profileImageHeaderView?.widthAnchor.constraint(equalToConstant: tableView?.width ?? 0.0).isActive = true
         self.tableView.parallaxHeader.delegate = self
         self.updateUserData()
-        self.view.bringSubviewToFront(self.topNavView)
+       // self.view.bringSubviewToFront(self.topNavView)
     }
     
     func updateUserData() {
@@ -206,7 +207,7 @@ extension ViewProfileVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         self.delegate?.backButtonAction(sender)
         self.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
-
+        
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -346,7 +347,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         
         let prallexProgress = self.tableView.parallaxHeader.progress
         printDebug("intial progress value \(prallexProgress)")
-
+        
         printDebug("progress value \(prallexProgress)")
         
         
@@ -357,44 +358,61 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
             isScrollingFirstTime = false
             printDebug("minvalue \(minValue) and maxValue \(maxValue)")
         }
-        
-        
+//
+//
         if minValue...maxValue ~= prallexProgress {
             printDebug("progress value \(prallexProgress)")
             let intValue =  finalMaxValue - Int(prallexProgress * 100)
-            
+
             printDebug(" int value \(intValue)")
             let newProgress: Float = (Float(1) - (Float(1.3)  * (Float(intValue) / 100)))
-            
+
             printDebug("new progress value \(newProgress)")
-            
-            
+
+
             printDebug("CGFloat progress  Value is \(newProgress.toCGFloat.roundTo(places: 3))")
-            
+
             self.currentProgressIntValue = intValue
             self.currentProgress = newProgress.toCGFloat
             self.profileImageHeaderView?.profileImageView.transform = CGAffineTransform(scaleX: (CGFloat(newProgress)) , y: (CGFloat(newProgress))).translatedBy(x: 0, y: CGFloat(2200 * (Float(intValue) / 1000)))
-            
-            
-            
+
+
+
         }
-        
-        if prallexProgress <= 0.69 {
-            
-            self.statusBarStyle = .default
-            
-            self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
+//
+        if prallexProgress  <= 0.7 {
+            if isNavBarHidden {
+                self.statusBarStyle = .lightContent
                 
-                self?.topNavView.firstRightButton.isSelected = true
+                self.topNavView.animateBackView(isHidden: true) { [weak self](isDone) in
+                    
+                    self?.topNavView.firstRightButton.isSelected = false
+                    
+                    self?.topNavView.leftButton.isSelected = false
+                    
+                    self?.topNavView.leftButton.tintColor = AppColors.themeWhite
+                    
+                    self?.topNavView.navTitleLabel.text = ""
+                    
+                    self?.topNavView.backView.backgroundColor = AppColors.themeWhite
+                    
+                }
                 
-                self?.topNavView.leftButton.isSelected = true
+            } else {
+                self.statusBarStyle = .default
                 
-                self?.topNavView.leftButton.tintColor = AppColors.themeGreen
-                
-                self?.topNavView.navTitleLabel.text = self?.getUpdatedTitle()
-                
+                self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
+                    
+                    self?.topNavView.firstRightButton.isSelected = true
+                    
+                    self?.topNavView.leftButton.isSelected = true
+                    
+                    self?.topNavView.leftButton.tintColor = AppColors.themeGreen
+                    
+                    self?.topNavView.navTitleLabel.text = self?.getUpdatedTitle()
+                    
+                }
             }
-            
         } else {
             
             self.statusBarStyle = .lightContent
@@ -410,14 +428,13 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
                 self?.topNavView.navTitleLabel.text = ""
                 
                 self?.topNavView.backView.backgroundColor = AppColors.themeWhite
-                
             }
             
         }
-        
-        //        self.profileImageHeaderView?.layoutIfNeeded()
+        self.isNavBarHidden = false
+        //self.profileImageHeaderView?.layoutIfNeeded()
         //
-        //        self.profileImageHeaderView?.doInitialSetup()
+        //self.profileImageHeaderView?.doInitialSetup()
         
     }
     
@@ -489,7 +506,7 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
         self.profileImageHeaderView?.stopLoading()
         self.viewModel.travelData = data
         
-       self.tableView.reloadData()
+        self.tableView.reloadData()
         
         //self.setupParallaxHeader()
         self.updateUserData()

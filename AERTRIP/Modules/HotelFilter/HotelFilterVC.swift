@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import PKCategoryView
+//import PKCategoryView
 
 protocol HotelFilteVCDelegate: class {
     func doneButtonTapped()

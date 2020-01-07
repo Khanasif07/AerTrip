@@ -43,6 +43,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     @IBOutlet weak var profileImageViewWidthConstraint: NSLayoutConstraint!
     // MARK: - Variable
     
+    private var isNavBarHidden = true
     private let gradient = CAGradientLayer()
     weak var delegate: SlideMenuProfileImageHeaderViewDelegate?
     var blurEffectView: UIVisualEffectView!

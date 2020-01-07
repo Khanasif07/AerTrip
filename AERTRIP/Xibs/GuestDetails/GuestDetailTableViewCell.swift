@@ -144,7 +144,7 @@ class GuestDetailTableViewCell: UITableViewCell {
         switch type {
         case .female:
             unicodeSwitch.titleLeft = "🙍🏻‍♂️"
-            unicodeSwitch.titleRight = "🙋🏻"
+            unicodeSwitch.titleRight = "🙋🏻‍♀️"
             verticalDividerView.isHidden = true
             unicodeSwitch.sliderView.layer.borderColor = AppColors.themeBlack.withAlphaComponent(0.04).cgColor
             unicodeSwitch.sliderView.layer.borderWidth = 0.5

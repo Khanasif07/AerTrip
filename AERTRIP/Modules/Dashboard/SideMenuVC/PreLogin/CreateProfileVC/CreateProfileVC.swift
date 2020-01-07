@@ -142,7 +142,7 @@ class CreateProfileVC: BaseVC {
         unicodeSwitch.sliderView.dropShadowOnSwitch()
         if sender.selectedIndex == 1 {
             unicodeSwitch.titleLeft = "🙍🏻‍♂️"
-            unicodeSwitch.titleRight = "🙋🏻"
+            unicodeSwitch.titleRight = "🙋🏻‍♀️"
             self.viewModel.userData.salutation = AppConstants.kmS
         } else {
             unicodeSwitch.titleRight = "🙍🏻‍♀️"

@@ -72,32 +72,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "62A5D2BF-B647-44D3-BFBC-953E7A7CBB5D"
+            uuid = "9B95076D-7A93-4FED-87ED-FA4E34AB2006"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/AppDelegate/AppDelegate.swift"
+            filePath = "AERTRIP/Third Party/PKSideMenuController/PKSideMenuController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
-            landmarkName = "application(_:continue:restorationHandler:)"
+            startingLineNumber = "275"
+            endingLineNumber = "275"
+            landmarkName = "openMenu()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F1EF7A87-7D34-4989-9829-37B7FC8CF022"
-            shouldBeEnabled = "No"
+            uuid = "BD0DBB48-E6DE-446B-B7AC-109D859C2E80"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Profile/ViewProfile/ViewProfileVC.swift"
+            filePath = "AERTRIP/Third Party/PKSideMenuController/PKSideMenuController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
-            landmarkName = "setupParallaxHeader()"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
+            landmarkName = "openMenu()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
