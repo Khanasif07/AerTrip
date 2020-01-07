@@ -11,6 +11,7 @@ import Foundation
 extension HotelResultVC {
     
     func addMapView() {
+        
         self.locManager.requestWhenInUseAuthorization()
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == .authorizedAlways {}
@@ -39,6 +40,7 @@ extension HotelResultVC {
         
         self.prevZoomLabel = self.minZoomLabel
         self.updateMarkers()
+        
     }
     
     private func addCityLocation() {
@@ -330,7 +332,7 @@ extension HotelResultVC: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         //draw all markers as the zoom labels
         printDebug("zoom label \(position.zoom)")
-        
+        if hoteResultViewType == .MapView {
         if !self.useGoogleCluster {
             let current = position.zoom
             if current > self.prevZoomLabel, ((self.prevZoomLabel...current) ~= self.thresholdZoomLabel) {
@@ -340,6 +342,7 @@ extension HotelResultVC: GMSMapViewDelegate {
                 self.drawMarkers(atZoomLabel: current)
             }
             self.prevZoomLabel = current
+        }
         }
     }
     

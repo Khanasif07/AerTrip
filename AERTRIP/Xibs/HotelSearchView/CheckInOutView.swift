@@ -81,9 +81,9 @@ class CheckInOutView: UIView {
     
     //yyyy-MM-dd
     internal func setDates(fromData searchData: HotelFormPreviosSearchData) {
-        let checkInDate = Date.getDateFromString(stringDate: searchData.checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM")
+        let checkInDate = Date.getDateFromString(stringDate: searchData.checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "d MMM")
         self.checkInDateLabel.text = checkInDate
-        let checkOutDate = Date.getDateFromString(stringDate: searchData.checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM")
+        let checkOutDate = Date.getDateFromString(stringDate: searchData.checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "d MMM")
         self.checkOutDateLabel.text = checkOutDate
         
         var totalNights = 0, checkOutDayStr = ""

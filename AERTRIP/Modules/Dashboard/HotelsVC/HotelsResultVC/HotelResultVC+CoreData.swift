@@ -287,7 +287,7 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
                 //using shouldReloadData for breaking the func calling cycle from numberOfRows
                 //load data after hiding/closing the switch button
                 if allFavs.isEmpty {
-                    delay(seconds: 0.3) { [weak self] in
+                    delay(seconds: 0.1) { [weak self] in
                         self?.loadSaveData()
                     }
                 }

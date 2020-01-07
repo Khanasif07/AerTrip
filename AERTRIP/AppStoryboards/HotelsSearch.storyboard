@@ -347,10 +347,10 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="02d-r4-SGK">
-                                        <rect key="frame" x="0.0" y="217" width="375" height="142"/>
+                                        <rect key="frame" x="0.0" y="217" width="375" height="142.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPG-wx-r3d">
-                                                <rect key="frame" x="0.0" y="0.0" width="110" height="142"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="110" height="142.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ages in yrs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUO-YV-irG">
                                                         <rect key="frame" x="16" y="61" width="94" height="20.5"/>
@@ -368,13 +368,13 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Gmk-T6-Nzw">
-                                                <rect key="frame" x="120" y="0.0" width="255" height="142"/>
+                                                <rect key="frame" x="120" y="0.0" width="255" height="142.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2eG-YQ-NyC">
-                                                        <rect key="frame" x="0.0" y="0.0" width="56.5" height="142"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="56.5" height="142.5"/>
                                                         <subviews>
                                                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HIo-10-Ias">
-                                                                <rect key="frame" x="0.0" y="0.0" width="56.5" height="142"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="56.5" height="142.5"/>
                                                             </pickerView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -386,10 +386,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sw1-CR-UHu">
-                                                        <rect key="frame" x="66.5" y="0.0" width="56" height="142"/>
+                                                        <rect key="frame" x="66.5" y="0.0" width="56" height="142.5"/>
                                                         <subviews>
                                                             <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CEQ-Fo-Ppa">
-                                                                <rect key="frame" x="0.0" y="0.0" width="56" height="142"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="56" height="142.5"/>
                                                             </pickerView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -401,10 +401,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LER-5a-mXi">
-                                                        <rect key="frame" x="132.5" y="0.0" width="56.5" height="142"/>
+                                                        <rect key="frame" x="132.5" y="0.0" width="56.5" height="142.5"/>
                                                         <subviews>
                                                             <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IQ0-6x-ZzO">
-                                                                <rect key="frame" x="0.0" y="0.0" width="56.5" height="142"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="56.5" height="142.5"/>
                                                             </pickerView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -416,10 +416,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8oX-tL-k46">
-                                                        <rect key="frame" x="199" y="0.0" width="56" height="142"/>
+                                                        <rect key="frame" x="199" y="0.0" width="56" height="142.5"/>
                                                         <subviews>
                                                             <pickerView tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPt-nO-zur">
-                                                                <rect key="frame" x="0.0" y="0.0" width="56" height="142"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="56" height="142.5"/>
                                                             </pickerView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -449,10 +449,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0DW-gc-R0u" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="369" width="375" height="1"/>
+                                        <rect key="frame" x="0.0" y="369.5" width="375" height="0.5"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="YFE-yt-bzx"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="YFE-yt-bzx"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F2a-tj-c9A">
@@ -1705,24 +1705,24 @@ been sent</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="etP-is-AM4" userLabel="firstLineView">
-                                        <rect key="frame" x="0.0" y="187" width="375" height="1"/>
+                                        <rect key="frame" x="0.0" y="187.5" width="375" height="1"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="TPg-ax-5bD"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GEZ-9m-jJg" userLabel="secondLineView">
-                                        <rect key="frame" x="0.0" y="223" width="375" height="1"/>
+                                        <rect key="frame" x="0.0" y="223.5" width="375" height="1"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="Z4H-WS-doQ"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s9M-NB-ug2" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="284" width="375" height="1"/>
+                                        <rect key="frame" x="0.0" y="284.5" width="375" height="0.5"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="1Yr-Lm-ssT"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="1Yr-Lm-ssT"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XpF-Cy-DU8">
@@ -2395,7 +2395,7 @@ been sent</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0o3-aH-xeT">
                                 <rect key="frame" x="0.0" y="100" width="375" height="567"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Hxb-Wz-HC6" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hxb-Wz-HC6" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="567"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
@@ -2908,10 +2908,10 @@ been sent</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eOs-Fb-lel">
-                                        <rect key="frame" x="0.0" y="43" width="375" height="56"/>
+                                        <rect key="frame" x="0.0" y="43" width="375" height="56.5"/>
                                         <subviews>
                                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Ebv-Er-a4m" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="56.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </searchBar>
@@ -2925,14 +2925,14 @@ been sent</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Tu-mg-zuM">
-                                        <rect key="frame" x="0.0" y="99" width="375" height="1"/>
+                                        <rect key="frame" x="0.0" y="99.5" width="375" height="0.5"/>
                                         <color key="backgroundColor" red="0.81960784310000001" green="0.81960784310000001" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="O9k-H8-wcr"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="O9k-H8-wcr"/>
                                         </constraints>
                                     </view>
                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cYF-2F-5gQ">
-                                        <rect key="frame" x="0.0" y="97" width="375" height="2"/>
+                                        <rect key="frame" x="0.0" y="97.5" width="375" height="2"/>
                                         <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="bco-IS-v2a"/>
@@ -2950,7 +2950,7 @@ been sent</string>
                                     <constraint firstItem="VFS-Xf-tG2" firstAttribute="top" secondItem="V4z-cq-RyF" secondAttribute="top" id="ARX-Oy-kSY"/>
                                     <constraint firstAttribute="trailing" secondItem="cYF-2F-5gQ" secondAttribute="trailing" id="AXy-JT-SCp"/>
                                     <constraint firstAttribute="bottom" secondItem="VFS-Xf-tG2" secondAttribute="bottom" id="B5Q-32-Chq"/>
-                                    <constraint firstItem="7Tu-mg-zuM" firstAttribute="top" secondItem="eOs-Fb-lel" secondAttribute="bottom" id="Dpi-kw-ywn"/>
+                                    <constraint firstAttribute="top" secondItem="eOs-Fb-lel" secondAttribute="bottom" constant="-99.5" id="Dpi-kw-ywn"/>
                                     <constraint firstItem="Dci-Q6-szv" firstAttribute="top" secondItem="V4z-cq-RyF" secondAttribute="top" id="Eaf-ID-s5A"/>
                                     <constraint firstAttribute="bottom" secondItem="7Tu-mg-zuM" secondAttribute="bottom" id="Lm3-B3-omv"/>
                                     <constraint firstItem="eOs-Fb-lel" firstAttribute="leading" secondItem="V4z-cq-RyF" secondAttribute="leading" id="OF6-mF-1nr"/>

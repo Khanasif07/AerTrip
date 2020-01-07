@@ -728,7 +728,7 @@ on Christmas”</string>
                                                     <rect key="frame" x="20" y="248.5" width="340" height="0.5"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="0.40000000000000002" id="LzN-VQ-gA8"/>
+                                                        <constraint firstAttribute="height" constant="0.5" id="LzN-VQ-gA8"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -814,10 +814,10 @@ on Christmas”</string>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4u1-Ye-r3d" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="57" width="340" height="1"/>
+                                                    <rect key="frame" x="20" y="57.5" width="340" height="0.5"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="Hz7-BP-vUc"/>
+                                                        <constraint firstAttribute="height" constant="0.5" id="Hz7-BP-vUc"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>

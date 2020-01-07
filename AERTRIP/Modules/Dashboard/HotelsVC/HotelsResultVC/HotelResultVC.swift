@@ -81,7 +81,6 @@ class HotelResultVC: BaseVC {
             self.collectionView.dataSource = self
             self.collectionView.showsVerticalScrollIndicator = false
             self.collectionView.showsHorizontalScrollIndicator = false
-            
         }
     }
     
@@ -620,6 +619,7 @@ class HotelResultVC: BaseVC {
         self.view.endEditing(true)
         self.searchBar.text = ""
         self.searchTextStr = ""
+        self.reloadHotelList()
         delay(seconds: 0.1) { [weak self] in
             self?.loadSaveData()
         }

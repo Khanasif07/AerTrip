@@ -79,6 +79,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
             self.selectedIndexPath = indexPath
             AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: data, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
         }
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
     }
-
+    
 }
