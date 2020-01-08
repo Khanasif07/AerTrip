@@ -1375,18 +1375,18 @@ Incomplete</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dgG-hf-niu">
-                                <rect key="frame" x="0.0" y="44" width="375" height="64"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="60"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter a Coupon Code" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f71-Kl-Zdi">
-                                        <rect key="frame" x="16" y="6" width="343" height="4"/>
+                                        <rect key="frame" x="16" y="6" width="343" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a Coupon Code" minimumFontSize="16" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4sX-zf-2aM" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="16" width="343" height="42"/>
+                                        <rect key="frame" x="16" y="8" width="343" height="46"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="42" id="CIM-28-ABw"/>
+                                            <constraint firstAttribute="height" constant="46" id="CIM-28-ABw"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -1394,17 +1394,17 @@ Incomplete</string>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="f71-Kl-Zdi" firstAttribute="top" secondItem="dgG-hf-niu" secondAttribute="top" constant="6" id="8R3-ZF-3Pk"/>
-                                    <constraint firstAttribute="height" constant="64" id="DLx-FG-S8T"/>
+                                    <constraint firstAttribute="height" constant="60" id="DLx-FG-S8T"/>
                                     <constraint firstItem="f71-Kl-Zdi" firstAttribute="leading" secondItem="dgG-hf-niu" secondAttribute="leading" constant="16" id="KVM-0F-In8"/>
                                     <constraint firstAttribute="trailing" secondItem="f71-Kl-Zdi" secondAttribute="trailing" constant="16" id="T4A-Kp-TV2"/>
                                     <constraint firstItem="4sX-zf-2aM" firstAttribute="leading" secondItem="f71-Kl-Zdi" secondAttribute="leading" id="XLS-iY-siM"/>
-                                    <constraint firstItem="4sX-zf-2aM" firstAttribute="top" secondItem="f71-Kl-Zdi" secondAttribute="bottom" constant="6" id="bRb-69-vRk"/>
+                                    <constraint firstItem="4sX-zf-2aM" firstAttribute="top" secondItem="f71-Kl-Zdi" secondAttribute="bottom" constant="2" id="bRb-69-vRk"/>
                                     <constraint firstItem="4sX-zf-2aM" firstAttribute="trailing" secondItem="f71-Kl-Zdi" secondAttribute="trailing" id="eLy-Oe-G0t"/>
                                     <constraint firstAttribute="bottom" secondItem="4sX-zf-2aM" secondAttribute="bottom" constant="6" id="fBT-Q0-8NN"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9uT-Oo-DUc" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="108" width="375" height="0.5"/>
+                                <rect key="frame" x="0.0" y="104" width="375" height="0.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="xtX-6X-Zbr"/>
@@ -1447,7 +1447,7 @@ Incomplete</string>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nO1-9x-A83">
-                                <rect key="frame" x="0.0" y="108.5" width="375" height="558.5"/>
+                                <rect key="frame" x="0.0" y="104.5" width="375" height="562.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G1F-4q-n8L">

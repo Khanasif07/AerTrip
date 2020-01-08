@@ -108,7 +108,7 @@ class EditProfileImageHeaderView: UIView {
         unicodeSwitch.sliderView.dropShadowOnSwitch()
         if sender.selectedIndex == 1 {
             unicodeSwitch.titleLeft = "🙍🏻‍♂️"
-            unicodeSwitch.titleRight = "🙋🏻"
+            unicodeSwitch.titleRight = "🙋🏻‍♀️"
             delegate?.salutationViewTapped(title: "Female")
         } else {
             unicodeSwitch.titleRight = "🙍🏻‍♀️"

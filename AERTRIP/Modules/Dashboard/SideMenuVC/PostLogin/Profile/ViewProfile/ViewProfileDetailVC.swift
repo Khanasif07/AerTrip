@@ -42,7 +42,7 @@ class ViewProfileDetailVC: BaseVC {
     private var headerViewHeight: CGFloat {
         return UIDevice.isIPhoneX ? 88.0 : 64.0
     }
-    
+    private var isNavBarHidden: Bool = true
     private let headerHeightToAnimate: CGFloat = 30.0
     private let footterHeight: CGFloat = 35.0
     
@@ -447,12 +447,23 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
         }
         
         if prallexProgress <= 0.7 {
-            self.statusBarStyle = .default
-            self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
-                self?.topNavView.firstRightButton.isSelected = true
-                self?.topNavView.leftButton.isSelected = true
-                self?.topNavView.leftButton.tintColor = AppColors.themeGreen
-                self?.topNavView.navTitleLabel.text = self?.getUpdatedTitle()
+            if isNavBarHidden {
+                       self.statusBarStyle = .lightContent
+                       self.topNavView.animateBackView(isHidden: true) { [weak self](isDone) in
+                           self?.topNavView.firstRightButton.isSelected = false
+                           self?.topNavView.leftButton.isSelected = false
+                           self?.topNavView.leftButton.tintColor = AppColors.themeWhite
+                           self?.topNavView.navTitleLabel.text = ""
+                           self?.topNavView.backView.backgroundColor = AppColors.themeWhite
+                       }
+            } else {
+                self.statusBarStyle = .default
+                           self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
+                               self?.topNavView.firstRightButton.isSelected = true
+                               self?.topNavView.leftButton.isSelected = true
+                               self?.topNavView.leftButton.tintColor = AppColors.themeGreen
+                               self?.topNavView.navTitleLabel.text = self?.getUpdatedTitle()
+                           }
             }
         } else {
             self.statusBarStyle = .lightContent
@@ -464,6 +475,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
                 self?.topNavView.backView.backgroundColor = AppColors.themeWhite
             }
         }
+        self.isNavBarHidden =  false
         profileImageHeaderView?.layoutIfNeeded()
         profileImageHeaderView?.doInitialSetup()
     }

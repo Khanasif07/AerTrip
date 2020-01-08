@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import PKCategoryView
+//import PKCategoryView
 
 class FavouriteHotelsVC: BaseVC {
     
@@ -30,8 +30,8 @@ class FavouriteHotelsVC: BaseVC {
         newEmptyView.vType = .hotelPreferences
         return newEmptyView
     }()
-    
-    fileprivate weak var categoryView: PKCategoryView!
+    fileprivate weak var categoryView: ATCategoryView!
+    //fileprivate weak var categoryView: PKCategoryView!
     
     private var allChildVCs: [FavouriteHotelsListVC] = [FavouriteHotelsListVC]()
     
@@ -86,20 +86,34 @@ class FavouriteHotelsVC: BaseVC {
         else {
             self.emptyView.removeFromSuperview()
             self.shimmerView.removeFromSuperview()
-            var style = PKCategoryViewConfiguration()
-            style.navBarHeight = 51.0
+            var style = ATCategoryNavBarStyle()
+            style.height = 51.0
             style.interItemSpace = 5.0
             style.itemPadding = 8.0
-            style.isNavBarScrollEnabled = true
+            style.isScrollable = true
             style.isEmbeddedToView = true
             style.showBottomSeparator = true
             style.bottomSeparatorColor = AppColors.divider.color
             style.defaultFont = AppFonts.Regular.withSize(16.0)
             style.selectedFont = AppFonts.SemiBold.withSize(16.0)
-            style.indicatorColor = AppColors.themeGreen
+            style.indicatorColor =  AppColors.themeGreen
             style.indicatorHeight = 2.0
             style.normalColor = AppColors.themeBlack
             style.selectedColor = AppColors.themeBlack
+//            var style = PKCategoryViewConfiguration()
+//            style.navBarHeight = 51.0
+//            style.interItemSpace = 5.0
+//            style.itemPadding = 8.0
+//            style.isNavBarScrollEnabled = true
+//            style.isEmbeddedToView = true
+//            style.showBottomSeparator = true
+//            style.bottomSeparatorColor = AppColors.divider.color
+//            style.defaultFont = AppFonts.Regular.withSize(16.0)
+//            style.selectedFont = AppFonts.SemiBold.withSize(16.0)
+//            style.indicatorColor = AppColors.themeGreen
+//            style.indicatorHeight = 2.0
+//            style.normalColor = AppColors.themeBlack
+//            style.selectedColor = AppColors.themeBlack
             
             self.allChildVCs.removeAll()
             
@@ -116,8 +130,9 @@ class FavouriteHotelsVC: BaseVC {
                 self.categoryView.removeFromSuperview()
                 self.categoryView = nil
             }
-            let categoryView = PKCategoryView(frame: self.dataContainerView.bounds, categories: self.viewModel.allTabs, childVCs: self.allChildVCs, configuration: style, parentVC: self)
-            categoryView.delegate = self
+            let categoryView = ATCategoryView(frame: self.dataContainerView.bounds, categories:  self.viewModel.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
+//            let categoryView = PKCategoryView(frame: self.dataContainerView.bounds, categories: self.viewModel.allTabs, childVCs: self.allChildVCs, configuration: style, parentVC: self)
+   //         self.categoryView.delegate = self
             self.dataContainerView.addSubview(categoryView)
             self.categoryView = categoryView
         }
@@ -142,15 +157,23 @@ extension FavouriteHotelsVC: TopNavigationViewDelegate {
     }
 }
 
-extension FavouriteHotelsVC: PKCategoryViewDelegate {
-    func categoryView(_ view: PKCategoryView, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
-        self.currentIndex = toIndex
-    }
+extension FavouriteHotelsVC: ATCategoryNavBarDelegate {
     
-    func categoryView(_ view: PKCategoryView, didSwitchIndexTo toIndex: Int) {
-        self.currentIndex = toIndex
-        self.allChildVCs[toIndex].delegate = self
+    func categoryNavBar(_ navBar: ATCategoryNavBar, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
+         self.currentIndex = toIndex
     }
+    func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
+         self.currentIndex = toIndex
+               self.allChildVCs[toIndex].delegate = self
+    }
+//    func categoryView(_ view: PKCategoryView, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
+//        self.currentIndex = toIndex
+//    }
+//
+//    func categoryView(_ view: PKCategoryView, didSwitchIndexTo toIndex: Int) {
+//        self.currentIndex = toIndex
+//        self.allChildVCs[toIndex].delegate = self
+//    }
 }
 
 extension FavouriteHotelsVC: ViewAllHotelsVMDelegate {
