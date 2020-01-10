@@ -72,32 +72,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9B95076D-7A93-4FED-87ED-FA4E34AB2006"
+            uuid = "9402D733-18CB-4234-B642-5F2F2C22D961"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Third Party/PKSideMenuController/PKSideMenuController.swift"
+            filePath = "AERTRIP/AppHelper/AppFlowManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275"
-            landmarkName = "openMenu()"
+            startingLineNumber = "324"
+            endingLineNumber = "324"
+            landmarkName = "showRoomGuestSelectionVC(selectedAdults:selectedChildren:selectedAges:roomNumber:delegate:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BD0DBB48-E6DE-446B-B7AC-109D859C2E80"
+            uuid = "E383C0E4-7D2B-4592-A2B3-7BAE82C6B214"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Third Party/PKSideMenuController/PKSideMenuController.swift"
+            filePath = "AERTRIP/AppHelper/AppFlowManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
-            landmarkName = "openMenu()"
+            startingLineNumber = "323"
+            endingLineNumber = "323"
+            landmarkName = "showRoomGuestSelectionVC(selectedAdults:selectedChildren:selectedAges:roomNumber:delegate:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -25,7 +25,7 @@ class FareSectionHeader: UITableViewHeaderFooterView {
         
     // MARK: - Properties
     
-    weak var delegate: FareSectionHeaderDelegate?
+   public weak var delegate: FareSectionHeaderDelegate?
 
     var isDownArrow: Bool = true {
         didSet {

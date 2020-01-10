@@ -76,7 +76,7 @@ class RoomGuestSelectionVC: BaseVC {
         self.doneButton.setTitle(LocalizedString.Done.localized, for: UIControl.State.selected)
         
         self.roomNumberLabel.text = "\(LocalizedString.Room.localized) \(self.viewModel.roomNumber)"
-        delay(seconds: 0.1) {
+        delay(seconds: 0.0) {
             self.updateSelection(animated: false, needToChangePickerViewHeight: true)
         }
         
@@ -123,7 +123,7 @@ class RoomGuestSelectionVC: BaseVC {
         
         self.setOldAges()
         self.hide(animated: false)
-        delay(seconds: 0.05) { [weak self] in
+        delay(seconds: 0.050) { [weak self] in
             self?.show(animated: true)
         }
         
@@ -155,10 +155,10 @@ class RoomGuestSelectionVC: BaseVC {
         }
         
         if animated {
-            let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+            UIView.animate(withDuration: animated ? 0.35 : 0.0, animations: {
                 setValue()
-            }
-            animater.startAnimation()
+            }, completion: { (isDone) in
+            })
         }
         else {
             setValue()
@@ -172,19 +172,15 @@ class RoomGuestSelectionVC: BaseVC {
             self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
             self.view.layoutIfNeeded()
         }
-
+        
         if animated {
-            let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+            UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
                 setValue()
-            }
-            
-            animater.addCompletion { (position) in
+            }, completion: { (isDone) in
                 if shouldRemove {
                     self.removeFromParentVC
                 }
-            }
-            
-            animater.startAnimation()
+            })
         }
         else {
             setValue()

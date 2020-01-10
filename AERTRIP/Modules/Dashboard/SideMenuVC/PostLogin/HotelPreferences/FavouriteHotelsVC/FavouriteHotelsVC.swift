@@ -7,13 +7,14 @@
 //
 
 import UIKit
-//import PKCategoryView
+import Foundation
+import PKCategoryView
 
 class FavouriteHotelsVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
-
+    
     @IBOutlet weak var dataContainerView: UIView!
     @IBOutlet weak var shimmerView: UIView!
     @IBOutlet weak var topNavView: TopNavigationView!
@@ -25,13 +26,20 @@ class FavouriteHotelsVC: BaseVC {
     private var currentIndex: Int = 0
     private let selectedIndex:Int = 0
     
+    var tabs:[FavouriteHotelsListVC] = []
+    let numberOfTabs = 5
+    
     private lazy var emptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         newEmptyView.vType = .hotelPreferences
         return newEmptyView
     }()
-    fileprivate weak var categoryView: ATCategoryView!
-    //fileprivate weak var categoryView: PKCategoryView!
+    //fileprivate weak var categoryView: ATCategoryView!
+    fileprivate weak var categoryView: PKCategoryView!
+
+   
+    
+    
     
     private var allChildVCs: [FavouriteHotelsListVC] = [FavouriteHotelsListVC]()
     
@@ -41,11 +49,9 @@ class FavouriteHotelsVC: BaseVC {
     //MARK:-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
         self.initialSetups()
     }
-    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -67,7 +73,7 @@ class FavouriteHotelsVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
-    
+        
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.FavouriteHotels.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "addHotel"), selectedImage: #imageLiteral(resourceName: "addHotel"))
@@ -86,34 +92,34 @@ class FavouriteHotelsVC: BaseVC {
         else {
             self.emptyView.removeFromSuperview()
             self.shimmerView.removeFromSuperview()
-            var style = ATCategoryNavBarStyle()
-            style.height = 51.0
-            style.interItemSpace = 5.0
-            style.itemPadding = 8.0
-            style.isScrollable = true
-            style.isEmbeddedToView = true
-            style.showBottomSeparator = true
-            style.bottomSeparatorColor = AppColors.divider.color
-            style.defaultFont = AppFonts.Regular.withSize(16.0)
-            style.selectedFont = AppFonts.SemiBold.withSize(16.0)
-            style.indicatorColor =  AppColors.themeGreen
-            style.indicatorHeight = 2.0
-            style.normalColor = AppColors.themeBlack
-            style.selectedColor = AppColors.themeBlack
-//            var style = PKCategoryViewConfiguration()
-//            style.navBarHeight = 51.0
+//            var style = ATCategoryNavBarStyle()
+//            style.height = 51.0
 //            style.interItemSpace = 5.0
 //            style.itemPadding = 8.0
-//            style.isNavBarScrollEnabled = true
+//            style.isScrollable = true
 //            style.isEmbeddedToView = true
 //            style.showBottomSeparator = true
 //            style.bottomSeparatorColor = AppColors.divider.color
 //            style.defaultFont = AppFonts.Regular.withSize(16.0)
 //            style.selectedFont = AppFonts.SemiBold.withSize(16.0)
-//            style.indicatorColor = AppColors.themeGreen
+//            style.indicatorColor =  AppColors.themeGreen
 //            style.indicatorHeight = 2.0
 //            style.normalColor = AppColors.themeBlack
 //            style.selectedColor = AppColors.themeBlack
+                        var style = PKCategoryViewConfiguration()
+                        style.navBarHeight = 51.0
+                        style.interItemSpace = 5.0
+                        style.itemPadding = 8.0
+                        style.isNavBarScrollEnabled = true
+                        style.isEmbeddedToView = true
+                        style.showBottomSeparator = true
+                        style.bottomSeparatorColor = AppColors.divider.color
+                        style.defaultFont = AppFonts.Regular.withSize(16.0)
+                        style.selectedFont = AppFonts.SemiBold.withSize(16.0)
+                        style.indicatorColor = AppColors.themeGreen
+                        style.indicatorHeight = 2.0
+                        style.normalColor = AppColors.themeBlack
+                        style.selectedColor = AppColors.themeBlack
             
             self.allChildVCs.removeAll()
             
@@ -130,13 +136,22 @@ class FavouriteHotelsVC: BaseVC {
                 self.categoryView.removeFromSuperview()
                 self.categoryView = nil
             }
-            let categoryView = ATCategoryView(frame: self.dataContainerView.bounds, categories:  self.viewModel.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
-//            let categoryView = PKCategoryView(frame: self.dataContainerView.bounds, categories: self.viewModel.allTabs, childVCs: self.allChildVCs, configuration: style, parentVC: self)
-   //         self.categoryView.delegate = self
+//            let categoryView = ATCategoryView(frame: self.dataContainerView.bounds, categories:  self.viewModel.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
+           let categoryView = PKCategoryView(frame: self.dataContainerView.bounds, categories: self.viewModel.allTabs, childVCs: self.allChildVCs, configuration: style, parentVC: self)
+           // self.categoryView.delegate = self
             self.dataContainerView.addSubview(categoryView)
             self.categoryView = categoryView
         }
-
+        
+    }
+    func setUpTabs(){
+        for idx in 0..<self.viewModel.allTabs.count {
+            let vc = FavouriteHotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
+            let hotels = self.viewModel.hotels[idx]
+            vc.viewModel.forCity = hotels
+            
+            self.tabs.append(vc)
+        }
     }
     
     private func reloadList() {
@@ -157,23 +172,25 @@ extension FavouriteHotelsVC: TopNavigationViewDelegate {
     }
 }
 
-extension FavouriteHotelsVC: ATCategoryNavBarDelegate {
-    
-    func categoryNavBar(_ navBar: ATCategoryNavBar, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
+extension FavouriteHotelsVC: PKCategoryViewDelegate {
+    func categoryView(_ view: PKCategoryView, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
          self.currentIndex = toIndex
     }
-    func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
+    
+    func categoryView(_ view: PKCategoryView, didSwitchIndexTo toIndex: Int) {
          self.currentIndex = toIndex
                self.allChildVCs[toIndex].delegate = self
     }
-//    func categoryView(_ view: PKCategoryView, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
-//        self.currentIndex = toIndex
+    
+    
+//    func categoryNavBar(_ navBar: ATCategoryNavBar, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
+//
+//    }
+//    func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
+//
 //    }
 //
-//    func categoryView(_ view: PKCategoryView, didSwitchIndexTo toIndex: Int) {
-//        self.currentIndex = toIndex
-//        self.allChildVCs[toIndex].delegate = self
-//    }
+    
 }
 
 extension FavouriteHotelsVC: ViewAllHotelsVMDelegate {
@@ -187,7 +204,7 @@ extension FavouriteHotelsVC: ViewAllHotelsVMDelegate {
     }
     
     func getHotelPreferenceListFail() {
-         self.shimmerView.removeFromSuperview()
+        self.shimmerView.removeFromSuperview()
     }
     
     func willUpdateFavourite() {
@@ -217,9 +234,10 @@ extension FavouriteHotelsVC: FavouriteHotelsListVCDelegate {
         else {
             //reload complete list
             self.updateFavouriteSuccess()
-           // self.sendDataChangedNotification(data: self)
+            // self.sendDataChangedNotification(data: self)
         }
     }
+    
     
     func removeAllForCurrentPage() {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Remove.localized], colors: [AppColors.themeRed])

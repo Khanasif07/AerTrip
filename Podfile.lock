@@ -151,6 +151,7 @@ PODS:
   - razorpay-pod (1.1.4)
   - SwiftyJSON (4.3.0)
   - TransitionButton (0.5.2)
+  - WormTabStrip (1.0.1)
 
 DEPENDENCIES:
   - ActiveLabel
@@ -180,6 +181,7 @@ DEPENDENCIES:
   - razorpay-pod
   - SwiftyJSON (~> 4.0)
   - TransitionButton
+  - WormTabStrip
 
 SPEC REPOS:
   trunk:
@@ -225,6 +227,7 @@ SPEC REPOS:
     - razorpay-pod
     - SwiftyJSON
     - TransitionButton
+    - WormTabStrip
 
 EXTERNAL SOURCES:
   AertripCalendar:
@@ -286,7 +289,8 @@ SPEC CHECKSUMS:
   razorpay-pod: 592624080178be4c6121216508e7857fc245f4b8
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
+  WormTabStrip: 5f3d8021fb3cc56cb90c1eaf01cdcd6a9fbdf59f
 
-PODFILE CHECKSUM: 024b39684cf51f58abe8b98b70d9ceb4a71c7a5a
+PODFILE CHECKSUM: 58f5806b38ad25ea1600e73945ba440f6c2e810f
 
 COCOAPODS: 1.8.4

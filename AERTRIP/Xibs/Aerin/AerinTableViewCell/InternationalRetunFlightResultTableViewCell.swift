@@ -20,7 +20,7 @@ class InternationalRetunFlightResultTableViewCell: UITableViewCell {
     @IBOutlet weak var priceCollectionView: UICollectionView!
     @IBOutlet weak var pageControl:ISPageControl!
     
-    weak var delegate: InternationalRetunFlightResultTableViewCellDelegate?
+    open weak var delegate: InternationalRetunFlightResultTableViewCellDelegate?
 
     
     override func awakeFromNib() {

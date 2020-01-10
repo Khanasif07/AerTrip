@@ -25,5 +25,6 @@ ${BUILT_PRODUCTS_DIR}/PKLoader/PKLoader.framework
 ${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework
 ${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework
 ${BUILT_PRODUCTS_DIR}/TransitionButton/TransitionButton.framework
+${BUILT_PRODUCTS_DIR}/WormTabStrip/WormTabStrip.framework
 ${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework
 ${PODS_ROOT}/razorpay-pod/Pod/Razorpay.framework
