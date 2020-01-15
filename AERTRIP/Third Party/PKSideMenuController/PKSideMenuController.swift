@@ -19,7 +19,7 @@ public enum PKSideMenuAnimation {
 
 public struct PKSideMenuOptions {
     public static var mainViewCornerRadiusInOpenMode: CGFloat = 18.0
-    public static var sideDistanceForOpenMenu: CGFloat = 0.665 * UIScreen.main.bounds.width
+    public static var sideDistanceForOpenMenu: CGFloat = 0.5 * UIScreen.main.bounds.width
     public static var opacityViewBackgroundColor: UIColor = UIColor.green
     public static var mainViewShadowColor: UIColor = UIColor.black
     public static var mainViewShadowWidth: Double = 5.0
@@ -241,7 +241,7 @@ open class PKSideMenuController: UIViewController {
         }
         
         self.menuViewController = menuVC
-        let newFrame = CGRect(x: self.visibleSpace, y: 0.0, width: (self.view.bounds.size.width - self.visibleSpace), height: self.view.bounds.size.height)
+        let newFrame = CGRect(x: PKSideMenuOptions.sideDistanceForOpenMenu, y: 0.0, width: (view.width - PKSideMenuOptions.sideDistanceForOpenMenu), height: self.view.bounds.size.height)
         self.menuViewController!.view.frame = newFrame
         self.menuViewController!.view.layer.masksToBounds = true
         self.addChild(self.menuViewController!)
