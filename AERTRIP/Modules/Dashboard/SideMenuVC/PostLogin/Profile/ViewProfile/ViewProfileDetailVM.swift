@@ -30,8 +30,8 @@ class ViewProfileDetailVM {
         
         self.delegate?.willGetDetail(isShowLoader)
         
-        APICaller.shared.getTravelDetail(params: params, completionBlock: { success, data, errorCode in
-            
+        APICaller.shared.getTravelDetail(params: params, completionBlock: { [weak self] (success, data, errorCode) in
+            guard let strongSelf = self else {return}
             if success, let trav = data {
                 if let uId = UserInfo.loggedInUserId, uId == trav.id {
                     UserInfo.loggedInUser?.firstName = trav.firstName
@@ -53,7 +53,7 @@ class ViewProfileDetailVM {
                     }
                 }
                 
-                if let _ = self.travelData {
+                if let _ = strongSelf.travelData {
                     
                     // nitin changes
                     // comenting because old values are showing
@@ -70,11 +70,11 @@ class ViewProfileDetailVM {
                         trav.contact.add(social: obj)
                     }
                     */
-                    self.travelData = trav
+                    strongSelf.travelData = trav
                 }
-                self.delegate?.getSuccess(trav)
+                strongSelf.delegate?.getSuccess(trav)
             } else {
-                self.delegate?.getFail(errors: errorCode)
+                strongSelf.delegate?.getFail(errors: errorCode)
                 debugPrint(errorCode)
             }
         })

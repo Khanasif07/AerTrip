@@ -40,18 +40,18 @@ class FavouriteHotelsVM {
     func webserviceForGetHotelPreferenceList() {
         
         self.delegate?.willGetHotelPreferenceList()
-        APICaller.shared.getHotelPreferenceList(params: [:], completionBlock: {(success, errors, cities, stars)  in
-            
+        APICaller.shared.getHotelPreferenceList(params: [:], completionBlock: { [weak self] (success, errors, cities, stars)  in
+            guard let strongSelf = self else {return}
             if success {
                 
-                self.hotels = cities
+                strongSelf.hotels = cities
                 
-                self.allTabs = self.hotels.map { ATCategoryItem(title: $0.cityName, normalImage: nil, selectedImage: nil) }
+                strongSelf.allTabs = strongSelf.hotels.map { ATCategoryItem(title: $0.cityName, normalImage: nil, selectedImage: nil) }
                 
-                self.delegate?.getHotelPreferenceListSuccess()
+                strongSelf.delegate?.getHotelPreferenceListSuccess()
             }
             else {
-                self.delegate?.getHotelPreferenceListFail()
+                strongSelf.delegate?.getHotelPreferenceListFail()
             }
         })
     }

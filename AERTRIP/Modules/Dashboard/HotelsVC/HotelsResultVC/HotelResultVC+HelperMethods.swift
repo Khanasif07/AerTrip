@@ -227,7 +227,7 @@ extension HotelResultVC {
         
     }
     
-    func reloadHotelList(isUpdatingFav: Bool = false) {
+    func reloadHotelList(isUpdatingFav: Bool = false,drawMarkers: Bool = true) {
         if let section = self.fetchedResultsController.sections, !section.isEmpty {
             self.tableViewVertical.isHidden = false
         }
@@ -241,7 +241,9 @@ extension HotelResultVC {
             self.collectionView.reloadData()
         }
         
-        updateMarkers()
+        if drawMarkers {
+            updateMarkers()
+        }
         if hoteResultViewType == .MapView {
             let indexOfMajorCell = self.indexOfMajorCell()
             self.manageForCollectionView(atIndex: indexOfMajorCell)
@@ -510,7 +512,7 @@ extension HotelResultVC {
         guard scrollView === collectionView else {
             return
         }
-        return
+        
         
         let xPos = scrollView.contentOffset.x
         
@@ -649,9 +651,9 @@ extension HotelResultVC {
         let yPosition = scrollView.contentOffset.y
         if yPosition >= 0 {
             if 0...140.0 ~= yPosition {
-                let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration*0.5, curve: .linear) {
-                    self.headerContainerViewTopConstraint.constant = 0.0
-                    self.view.layoutIfNeeded()
+                let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration*0.5, curve: .linear) { [weak self] in
+                    self?.headerContainerViewTopConstraint.constant = 0.0
+                    self?.view.layoutIfNeeded()
                 }
                 animator.startAnimation()
             }

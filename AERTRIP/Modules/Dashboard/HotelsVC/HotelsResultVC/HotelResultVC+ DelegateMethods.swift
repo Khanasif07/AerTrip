@@ -87,7 +87,7 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
         else {
             self.hideFavsButtons()
         }
-        self.updateMarkers()
+        //self.updateMarkers()
         if self.hoteResultViewType == .MapView {
             //if user in map view then update map focus as fav switch changed.
             delay(seconds: 0.4) { [weak self] in

@@ -9,6 +9,7 @@
 import CoreData
 import GoogleMaps
 import UIKit
+import Kingfisher
 
 enum FetchRequestType {
     case FilterApplied
@@ -30,6 +31,7 @@ class MapContainerView: UIView {
         didSet {
             if let vw = mapView {
                 self.addSubview(vw)
+                vw.autoresizingMask = [.flexibleHeight, .flexibleWidth]
             }
         }
     }
@@ -38,7 +40,7 @@ class MapContainerView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        self.mapView?.frame = self.bounds
+      //  self.mapView?.frame = self.bounds
         
         self.backgroundColor = AppColors.clear
         self.mapView?.backgroundColor = AppColors.themeGreen
@@ -313,6 +315,7 @@ class HotelResultVC: BaseVC {
         self.cardGradientView.backgroundColor = AppColors.clear
         self.cardGradientView.addGredient(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeWhite.withAlphaComponent(0.01),AppColors.themeWhite.withAlphaComponent(1.0)])
         
+        self.additionalSafeAreaInsets = .zero
         self.configureCollectionViewLayoutItemSize()
     }
     
@@ -345,6 +348,9 @@ class HotelResultVC: BaseVC {
     
     deinit {
         CoreDataManager.shared.deleteData("HotelSearched")
+        ImageCache.default.clearMemoryCache()
+        ImageCache.default.clearDiskCache()
+        ImageCache.default.cleanExpiredDiskCache()
         printDebug("HotelResultVC deinit")
     }
     
@@ -355,7 +361,7 @@ class HotelResultVC: BaseVC {
         }
     }
     
-    override func dataChanged(_ note: Notification) {        
+    override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification, noti == .GRNSessionExpired {
             //re-hit the search API
             self.manageShimmer(isHidden: false)
@@ -365,7 +371,7 @@ class HotelResultVC: BaseVC {
         else if let _ = note.object as? HotelDetailsVC {
             //fav updated from hotel details
             //updateFavOnList(forIndexPath: selectedIndexPath)
-            // manage favourite switch buttons 
+            // manage favourite switch buttons
             self.getFavouriteHotels(shouldReloadData: true)
             self.updateMarkers()
 //            updateFavouriteSuccess(isHotelFavourite: true)
@@ -541,6 +547,7 @@ class HotelResultVC: BaseVC {
         self.hideFavsButtons()
         self.backButton.isHidden = false
         self.cardGradientView.isHidden = true
+        self.mapButton.isUserInteractionEnabled = false
         if self.hoteResultViewType == .ListView {
             self.mapButton.isSelected = true
             self.currentLocationButton.isHidden = false
@@ -548,7 +555,8 @@ class HotelResultVC: BaseVC {
             self.animateHeaderToMapView()
             self.convertToMapView { [weak self] (isConverted) in
                 if isConverted {
-                    self?.switchView.setOn(isOn: self?.switchView.on ?? false)
+                    //self?.switchView.setOn(isOn: self?.switchView.on ?? false)
+                    self?.mapButton.isUserInteractionEnabled = true
                 }
             }
             self.cardGradientView.isHidden = true
@@ -566,10 +574,17 @@ class HotelResultVC: BaseVC {
             self.animateHeaderToListView()
             self.convertToListView { [weak self] (isConverted) in
                 if isConverted {
-                    self?.switchView.setOn(isOn: self?.switchView.on ?? false)
+                   // self?.switchView.setOn(isOn: self?.switchView.on ?? false)
+                    self?.mapButton.isUserInteractionEnabled = true
                 }
             }
             self.cardGradientView.isHidden = false
+            self.tableViewVertical.setContentOffset(.zero, animated: false)
+            delay(seconds: 1.2) { [weak self] in
+                guard let strongSelf = self else {return}
+                let indexOfMajorCell = strongSelf.indexOfMajorCell()
+                strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
+            }
             self.adjustMapPadding()
         }
         

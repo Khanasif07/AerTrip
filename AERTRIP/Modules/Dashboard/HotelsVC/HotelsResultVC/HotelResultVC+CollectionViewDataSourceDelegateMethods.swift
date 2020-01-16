@@ -24,7 +24,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
 //            printDebug("hotel data not fouond")
 //            return
 //        }
-//        
+//
 //        let hiddenFrame: CGRect = CGRect(x: collectionView.width, y: (UIDevice.screenHeight - collectionView.height), width: collectionView.width, height: collectionView.height)
 //        var floatingBottomConstraint =  hiddenFrame.height
 //        if hData.count > 1 {
@@ -32,7 +32,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
 //        } else {
 //            floatingBottomConstraint = hiddenFrame.height - 20
 //        }
-//        
+//
 //        UIView.animate(withDuration: 0.1) { [weak self] in
 //            self?.floatingViewBottomConstraint.constant = floatingBottomConstraint
 //        }

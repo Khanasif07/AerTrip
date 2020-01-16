@@ -90,6 +90,7 @@ class SideMenuVC: BaseVC {
                 self.profileContainerView.isUserInteractionEnabled = true
             }
         }
+        
     }
     
 
