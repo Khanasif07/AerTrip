@@ -19,7 +19,7 @@ public enum PKSideMenuAnimation {
 
 public struct PKSideMenuOptions {
     public static var mainViewCornerRadiusInOpenMode: CGFloat = 18.0
-    public static var sideDistanceForOpenMenu: CGFloat = 0.5 * UIScreen.main.bounds.width
+    public static var sideDistanceForOpenMenu: CGFloat = 0.59 * UIScreen.main.bounds.width
     public static var opacityViewBackgroundColor: UIColor = UIColor.green
     public static var mainViewShadowColor: UIColor = UIColor.black
     public static var mainViewShadowWidth: Double = 5.0
@@ -241,7 +241,7 @@ open class PKSideMenuController: UIViewController {
         }
         
         self.menuViewController = menuVC
-        let newFrame = CGRect(x: PKSideMenuOptions.sideDistanceForOpenMenu, y: 0.0, width: (view.width - PKSideMenuOptions.sideDistanceForOpenMenu), height: self.view.bounds.size.height)
+        let newFrame = CGRect(x: PKSideMenuOptions.sideDistanceForOpenMenu/2, y: 0.0, width: (view.width - PKSideMenuOptions.sideDistanceForOpenMenu/2), height: view.height)
         self.menuViewController!.view.frame = newFrame
         self.menuViewController!.view.layer.masksToBounds = true
         self.addChild(self.menuViewController!)
@@ -361,7 +361,6 @@ extension PKSideMenuController {
             var tRotate : CATransform3D = CATransform3DIdentity
             tRotate.m34 = 1.0 / (-800.0)
             tRotate.m44 = 1.0
-
             let aXpos: CGFloat = CGFloat(-40.0 * (.pi / 180))
             tRotate = CATransform3DRotate(tRotate,aXpos, 0.0, 1.0, 0.0)
 
@@ -372,11 +371,9 @@ extension PKSideMenuController {
 
             self.mainContainer?.frame = mainFrame
             
-            var finalX = PKSideMenuOptions.currentOpeningSide == .left ? -(self.view.bounds.width) : self.view.bounds.width
-            if UIDevice.isPlusDevice {
-                finalX += 78.0
-            }
-            self.menuContainer?.transform = CGAffineTransform(translationX: finalX, y: 0.0)
+            let finalX = PKSideMenuOptions.currentOpeningSide == .left ? -(mainFrame.size.width) : (mainFrame.size.width)
+
+            self.menuContainer?.transform = CGAffineTransform(translationX: finalX , y: 0.0)
 
         }) { (finished: Bool) -> Void in
         }
