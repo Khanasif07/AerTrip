@@ -181,7 +181,7 @@ class ImportContactVM: NSObject {
         self.delegateList?.willFetchPhoneContacts()
         self.delegateCollection?.willFetchPhoneContacts()
         FacebookController.shared.facebookLogout()
-        FacebookController.shared.fetchFacebookFriendsUsingThisAPP(withViewController: forVC, shouldFetchFriends: true, success: { [weak self] (friends) in
+        FacebookController.shared.fetchFacebookFriendsUsingThisAPP(withViewController: forVC, success: { [weak self] (friends) in
             if let fbContacts = friends["data"] as? [JSONDictionary] {
                 self?.isFacebookContactsAllowed = true
                 self?._facebookContacts = ATContact.fetchModels(facebookContactsArr: fbContacts)
