@@ -19,7 +19,7 @@ extension HotelResultVC {
         if mapView == nil {
             //this code will call only once or when mapview in nill
             let camera = GMSCameraPosition.camera(withLatitude: viewModel.hotelSearchRequest?.requestParameters.latitude.toDouble ?? 0.0, longitude: viewModel.hotelSearchRequest?.requestParameters.longitude.toDouble ?? 0.0, zoom: 10.0)
-
+            
             let mapV = GMSMapView.map(withFrame: mapContainerView.bounds, camera: camera)
             mapView = mapV
             mapContainerView.mapView = mapView
@@ -29,11 +29,11 @@ extension HotelResultVC {
             mapView?.settings.myLocationButton = false
             mapView?.setMinZoom(self.minZoomLabel, maxZoom: self.maxZoomLabel)
             mapView?.animate(toZoom: self.defaultZoomLabel)
-            mapView?.settings.scrollGestures = false
-            mapView?.settings.consumesGesturesInView = false
+            
             if self.useGoogleCluster {
                 self.setUpClusterManager()
             }
+            
         }
         
         mapView?.frame = mapContainerView.bounds
@@ -62,13 +62,24 @@ extension HotelResultVC {
         else {
             self.drawMarkers(atZoomLabel: self.mapView?.camera.zoom ?? self.defaultZoomLabel)
         }
-    
+        
     }
     
     func removeAllMerkers() {
         self.mapView?.clear()
+        self.markersOnLocations.removeAll()
     }
-    
+    func hideMarker() {
+        self.markersOnLocations.keys.forEach { (locStr) in
+            if let marker = self.markersOnLocations[locStr] as? HotelMarker {
+                if self.viewModel.collectionViewList.keys.contains(locStr) {
+                    marker.opacity = 1.0
+                } else {
+                    marker.opacity = 0.0
+                }
+            }
+        }
+    }
     func focusMarker(coordinates: CLLocationCoordinate2D) {
         if hoteResultViewType == .ListView {
             self.mapView?.animate(toLocation: coordinates)
@@ -108,12 +119,12 @@ extension HotelResultVC {
     /// Randomly generates cluster items within some extent of the camera and
     /// adds them to the cluster manager.
     private func generateClusterItems() {
-//        let hotels = self.fetchedResultsController.fetchedObjects ?? []
+        //        let hotels = self.fetchedResultsController.fetchedObjects ?? []
         var hotels: [HotelSearched] = []
         for dict in self.viewModel.collectionViewList  {
             print(dict.value)
             if let val = dict.value as? [HotelSearched] {
-               hotels.append(contentsOf: val)
+                hotels.append(contentsOf: val)
             }
         }
         for hotel in hotels {
@@ -159,14 +170,16 @@ extension HotelResultVC {
         }
         
         self.removeAllMerkers()
+        
         if atZoomLabel >= self.thresholdZoomLabel {
             // draw markers as custom marker
-            self.drawAllCustomMarkers()
+                self.drawAllCustomMarkers(showFirstMarker: hoteResultViewType != .MapView)
         }
         else {
             // draw markers as dot marker
-            self.drawAllDotMarkers()
+            self.drawAllDotMarkers(showFirstMarker: hoteResultViewType != .MapView)
         }
+        
     }
     
     func getLocationObject(fromLocation: String) -> CLLocationCoordinate2D? {
@@ -181,33 +194,55 @@ extension HotelResultVC {
         return "\(fromLocation.latitude),\(fromLocation.longitude)"
     }
     
-    func drawAllCustomMarkers() {
-        for locStr in Array(self.viewModel.collectionViewList.keys) {
-            if let location = self.getLocationObject(fromLocation: locStr), let allHotels = self.viewModel.collectionViewList[locStr] as? [HotelSearched] {
+    func drawAllCustomMarkers(showFirstMarker: Bool = false) {
+        if showFirstMarker {
+            if let firstLoc = self.viewModel.collectionViewLocArr.first,let location = self.getLocationObject(fromLocation: firstLoc), let allHotels = self.viewModel.collectionViewList[firstLoc] as? [HotelSearched] {
                 if allHotels.count > 1 {
                     // create cluster marker
-                    self.addClusterMarker(forHotels: allHotels, atLocation: location)
+                        self.addClusterMarker(forHotels: allHotels, atLocation: location)
                 }
                 else if allHotels.count == 1 {
                     // create custom marker
-                    self.addCustomMarker(forHotel: allHotels.first!, atLocation: location)
+                        self.addCustomMarker(forHotel: allHotels.first!, atLocation: location)
+                }
+                self.displayingHotelLocation = location
+            }
+        } else {
+            self.viewModel.collectionViewList.keys.forEach { (locStr) in
+            if let location = self.getLocationObject(fromLocation: locStr), let allHotels = self.viewModel.collectionViewList[locStr] as? [HotelSearched] {
+                if allHotels.count > 1 {
+                    // create cluster marker
+                        self.addClusterMarker(forHotels: allHotels, atLocation: location)
+                }
+                else if allHotels.count == 1 {
+                    // create custom marker
+                        self.addCustomMarker(forHotel: allHotels.first!, atLocation: location)
                 }
             }
         }
+        }
     }
     
-    func drawAllDotMarkers() {
-        for locStr in Array(self.viewModel.collectionViewList.keys) {
-            if let location = self.getLocationObject(fromLocation: locStr), let allHotels = self.viewModel.collectionViewList[locStr] as? [HotelSearched] {
-//                if allHotels.count > 1 {
-//                    // create cluster marker
-//                    self.addClusterMarker(forHotels: allHotels, atLocation: location)
-//                }
-//                else if allHotels.count == 1 {
-                    // create dot markers
+    func drawAllDotMarkers(showFirstMarker: Bool = false) {
+        if showFirstMarker {
+            if let firstLoc = self.viewModel.collectionViewLocArr.first,let location = self.getLocationObject(fromLocation: firstLoc), let allHotels = self.viewModel.collectionViewList[firstLoc] as? [HotelSearched] {
                     self.addDotMarker(forHotel: allHotels.first!, atLocation: location)
-//                }
+                self.displayingHotelLocation = location
             }
+        } else {
+        self.viewModel.collectionViewList.keys.forEach { (locStr) in
+            if let location = self.getLocationObject(fromLocation: locStr), let allHotels = self.viewModel.collectionViewList[locStr] as? [HotelSearched] {
+                //                if allHotels.count > 1 {
+                //                    // create cluster marker
+                //                    self.addClusterMarker(forHotels: allHotels, atLocation: location)
+                //                }
+                //                else if allHotels.count == 1 {
+                // create dot markers
+                    self.addDotMarker(forHotel: allHotels.first!, atLocation: location)
+               
+                //                }
+            }
+        }
         }
     }
     
@@ -217,21 +252,24 @@ extension HotelResultVC {
             self.addCustomMarker(forHotel: forHotel, atLocation: atLocation)
         }
         else {
-            let marker = GMSMarker(position: atLocation)
+            let marker = HotelMarker(position: atLocation)
             
             let dotView = CustomDotMarker.instanceFromNib()
             dotView.hotel = forHotel
             
-            marker.iconView = dotView
-            
+            //            marker.iconView = dotView
+            marker .icon = dotView.asImage()
+            marker.markerType = .dotMarker
+            marker.hotel = forHotel
             marker.map = self.mapView
-            
+            marker.isFlat = true
+            marker.tracksViewChanges = false
             self.markersOnLocations[self.getString(fromLocation: atLocation)] = marker
         }
     }
     
-    func addCustomMarker(forHotel: HotelSearched, atLocation: CLLocationCoordinate2D) {
-        let marker = GMSMarker(position: atLocation)
+    func addCustomMarker(forHotel: HotelSearched, atLocation: CLLocationCoordinate2D, isSelected: Bool = false) {
+        let marker = HotelMarker(position: atLocation)
         
         let customMarkerView = CustomMarker.instanceFromNib()
         customMarkerView.hotel = forHotel
@@ -244,74 +282,92 @@ extension HotelResultVC {
             }
         }
         else {
-            customMarkerView.isSelected = false
+            customMarkerView.isSelected = isSelected
         }
-        marker.iconView = customMarkerView
-        
+        //        marker.iconView = customMarkerView
+        marker.icon = customMarkerView.asImage()
+        marker.markerType = .customMarker
+        marker.hotel = forHotel
         marker.map = self.mapView
-        
+        marker.isFlat = true
+        marker.tracksViewChanges = false
         self.markersOnLocations[self.getString(fromLocation: atLocation)] = marker
     }
     
-    func addClusterMarker(forHotels: [HotelSearched], atLocation: CLLocationCoordinate2D) {
-        let marker = GMSMarker(position: atLocation)
+    func addClusterMarker(forHotels: [HotelSearched], atLocation: CLLocationCoordinate2D, isSelected: Bool = false) {
+        let marker = HotelMarker(position: atLocation)
         
         let markerView = ClusterMarkerView(frame: CGRect(x: 0.0, y: 0.0, width: 35.0, height: 35.0))
         
         markerView.hotelTtems = forHotels
-        marker.iconView = markerView
-        
+        markerView.isSelected = isSelected
+        //        marker.iconView = markerView
+        marker.icon = markerView.asImage()
+        //marker.iconView?.contentMode = .scaleAspectFill
+        marker.markerType = .clusterMarker
+        marker.hotelTtems = forHotels
         marker.map = self.mapView
-        
+        marker.isFlat = true
+        marker.tracksViewChanges = false
         self.markersOnLocations[self.getString(fromLocation: atLocation)] = marker
     }
     
     func updateMarker(atLocation: CLLocationCoordinate2D, isSelected: Bool = true) {
-        guard let marker = self.markersOnLocations[self.getString(fromLocation: atLocation)] as? GMSMarker else {
+        
+        guard let marker = self.markersOnLocations[self.getString(fromLocation: atLocation)] as? HotelMarker else {
             return
         }
         
-        if let markerView = marker.iconView as? CustomMarker {
-            let value = markerView.hotel
-            markerView.hotel = value
+        if marker.markerType == .customMarker {
+            //            let value = markerView.hotel
+            //            markerView.hotel = value
+            var markerSelected = false
             if isMapInFullView {
-                markerView.isSelected = false
+                markerSelected = false
             } else {
-                markerView.isSelected = isSelected
+                markerSelected = isSelected
             }
-            marker.map = self.mapView
+            marker.map = nil
+            self.markersOnLocations[self.getString(fromLocation: atLocation)] = nil
             if let currentZoom = self.mapView?.camera.zoom, currentZoom < self.thresholdZoomLabel {
                 // make dot marker
                 marker.map = nil
-                self.addDotMarker(forHotel: markerView.hotel!, atLocation: atLocation)
+                self.addDotMarker(forHotel: marker.hotel!, atLocation: atLocation)
+            }else {
+                self.addCustomMarker(forHotel: marker.hotel!, atLocation: atLocation,isSelected: markerSelected)
             }
         }
-        else if let markerView = marker.iconView as? CustomDotMarker {
+        else if marker.markerType == .dotMarker {
             if isSelected {
                 // make custom marker
                 marker.map = nil
-                self.addCustomMarker(forHotel: markerView.hotel!, atLocation: atLocation)
+                self.markersOnLocations[self.getString(fromLocation: atLocation)] = nil
+                self.addCustomMarker(forHotel: marker.hotel!, atLocation: atLocation)
             }
-        }else if let markerView = marker.iconView as? ClusterMarkerView {
-            let value = markerView.hotelTtems
-            markerView.hotelTtems = value
+        }else if marker.markerType == .clusterMarker {
+            //            let value = markerView.hotelTtems
+            //            markerView.hotelTtems = value
+            var markerSelected = false
             if isMapInFullView {
-                markerView.isSelected = false
+                markerSelected = false
             } else {
-                markerView.isSelected = isSelected
+                markerSelected = isSelected
             }
-            marker.map = self.mapView
-//            if isSelected {
-//                // make custom marker
-//                marker.map = nil
-//                self.addClusterMarker(forHotels: markerView.hotelTtems, atLocation: atLocation)
-//            }
+            marker.map = nil
+            self.markersOnLocations[self.getString(fromLocation: atLocation)] = nil
+            self.addClusterMarker(forHotels: marker.hotelTtems!, atLocation: atLocation, isSelected: markerSelected)
+            
+            //            if isSelected {
+            //                // make custom marker
+            //                marker.map = nil
+            //                self.addClusterMarker(forHotels: markerView.hotelTtems, atLocation: atLocation)
+            //            }
         }
         
     }
     
     func deleteMarker(atLocation: CLLocationCoordinate2D) {
-        guard let marker = self.markersOnLocations[self.getString(fromLocation: atLocation)] as? GMSMarker else {
+        guard let marker = self.markersOnLocations[self.getString(fromLocation: atLocation)] as? HotelMarker else {
             return
         }
         marker.map = nil
@@ -332,18 +388,19 @@ extension HotelResultVC: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         //draw all markers as the zoom labels
         printDebug("zoom label \(position.zoom)")
+        let current = position.zoom
         if hoteResultViewType == .MapView {
-        if !self.useGoogleCluster {
-            let current = position.zoom
-            if current > self.prevZoomLabel, ((self.prevZoomLabel...current) ~= self.thresholdZoomLabel) {
-                self.drawMarkers(atZoomLabel: current)
+            if !self.useGoogleCluster {
+                if current > self.prevZoomLabel, ((self.prevZoomLabel...current) ~= self.thresholdZoomLabel) {
+                    self.drawMarkers(atZoomLabel: current)
+                }
+                else if current < self.prevZoomLabel, ((current...self.prevZoomLabel) ~= self.thresholdZoomLabel) {
+                    self.drawMarkers(atZoomLabel: current)
+                }
             }
-            else if current < self.prevZoomLabel, ((current...self.prevZoomLabel) ~= self.thresholdZoomLabel) {
-                self.drawMarkers(atZoomLabel: current)
-            }
-            self.prevZoomLabel = current
         }
-        }
+        self.prevZoomLabel = current
+
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
@@ -415,12 +472,12 @@ extension HotelResultVC: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-//        if let clusterItem = marker.userData as? ATClusterItem, let data = clusterItem.hotelDetails {
-//            if let lat = data.lat, let long = data.long, let index = Array(self.viewModel.collectionViewList.keys).index(of: "\(lat),\(long)") {
-//                self.selectedIndexPath = IndexPath(item: index, section: 0)
-//            }
-//            AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: data, sourceView: self.collectionView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
-//        }
+        //        if let clusterItem = marker.userData as? ATClusterItem, let data = clusterItem.hotelDetails {
+        //            if let lat = data.lat, let long = data.long, let index = Array(self.viewModel.collectionViewList.keys).index(of: "\(lat),\(long)") {
+        //                self.selectedIndexPath = IndexPath(item: index, section: 0)
+        //            }
+        //            AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: data, sourceView: self.collectionView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+        //        }
         
         if let markerView = marker.iconView as? CustomMarker, let data = markerView.hotel {
             movetoDetailPage(data: data)
@@ -439,9 +496,9 @@ extension HotelResultVC: GMSMapViewDelegate {
             let index = IndexPath(item: index, section: 0)
             self.selectedIndexPath = index
             guard let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[index.item]] as? [HotelSearched] else {return}
-             if hData.count > 1 {
+            if hData.count > 1 {
                 self.expandGroup((self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[index.row]] as? [HotelSearched]) ?? [])
-             } else {
+            } else {
                 AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: data, sourceView: self.collectionView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
             }
         }
@@ -497,4 +554,20 @@ extension HotelResultVC: GMUClusterManagerDelegate, GMUClusterRendererDelegate {
             mapView.moveCamera(update)
         }
     }
+}
+
+
+
+class HotelMarker: GMSMarker {
+    
+    enum TypeOfMarker {
+        case dotMarker
+        case customMarker
+        case clusterMarker
+        case none
+    }
+    
+    var hotel: HotelSearched?
+    var hotelTtems: [HotelSearched]?
+    var markerType = TypeOfMarker.none
 }

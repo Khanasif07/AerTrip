@@ -8,9 +8,11 @@ target 'AERTRIP' do
   # Pods for AERTRIP
   pod 'Alamofire'
   pod 'Kingfisher'
-  pod 'SwiftyJSON', '~> 4.0'
-  pod 'FBSDKCoreKit', '~> 4.38.1'
-  pod 'FBSDKLoginKit', '~> 4.38.1'
+  pod 'SwiftyJSON'
+  #  pod 'FBSDKCoreKit', '~> 4.38.1'
+  #  pod 'FBSDKLoginKit', '~> 4.38.1'
+  pod 'FBSDKCoreKit'
+  pod 'FBSDKLoginKit'
   pod 'GoogleSignIn'
   pod 'LinkedinSwift'
   pod 'Firebase/Core'
@@ -26,11 +28,10 @@ target 'AERTRIP' do
   pod 'GooglePlaces'
   pod 'FlexiblePageControl'
   pod 'PKCategoryView'
-  pod 'WormTabStrip'
-
+  
   #if using swift 4.2.1 and xcode 10.1 then use the '1.0.26' of razorpay otherwise latest , xcode 10.2+ use 1.1.0
   pod 'razorpay-pod'
-#pod 'razorpay-pod', :git => 'https://github.com/razorpay/razorpay-pod.git', :branch => 'swift5.1'
+  #pod 'razorpay-pod', :git => 'https://github.com/razorpay/razorpay-pod.git', :branch => 'swift5.1'
   pod 'PKLoader'
   pod 'ActiveLabel'
   pod 'TransitionButton'
@@ -38,3 +39,7 @@ target 'AERTRIP' do
   pod 'AertripCalendar' , :git => 'git@gitlab.com:aertrip/ios-calendar.git'
   pod 'FSCalendar'
 end
+#AertripCalendar.xcconfig
+#FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AertripCalendarDataModel" "${PODS_CONFIGURATION_BUILD_DIR}/FSCalendar"
+
+

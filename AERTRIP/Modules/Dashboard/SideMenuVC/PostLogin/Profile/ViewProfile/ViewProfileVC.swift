@@ -84,7 +84,9 @@ class ViewProfileVC: BaseVC {
         }
         
         // self.topNavView.backgroundType = .blurAnimatedView(isDark: false)
-        self.viewModel.webserviceForGetTravelDetail()
+        DispatchQueue.delay(0.2) { [weak self] in
+            self?.viewModel.webserviceForGetTravelDetail()
+        }
         self.setNeedsStatusBarAppearanceUpdate()
         
         self.profileImageHeaderView?.delegate = self

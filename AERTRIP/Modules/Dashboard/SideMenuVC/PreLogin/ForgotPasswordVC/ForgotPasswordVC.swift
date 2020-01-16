@@ -30,22 +30,18 @@ class ForgotPasswordVC: BaseVC {
         
         // Do any additional setup after loading the view.
         self.initialSetups()
+        if self.viewModel.isFirstTime {
+            self.setupInitialAnimation()
+            self.setupViewDidLoadAnimation()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if self.viewModel.isFirstTime {
-            self.setupInitialAnimation()
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if self.viewModel.isFirstTime {
-            self.setupViewDidLoadAnimation()
-        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -182,14 +178,14 @@ extension ForgotPasswordVC {
     func setupViewDidLoadAnimation() {
         
         let rDuration = 1.0 / 3.0
-        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
+        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration*2.0, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 0.2), relativeDuration: (rDuration * 1.2), animations: {
                 self.logoImage.transform          = .identity
                 self.topNavBar.leftButton.isHidden = false
             })
             
-            UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 0.2), relativeDuration: (rDuration * 2.0), animations: {
                 self.forgotPasswordLabel.transform      = .identity
             })
             

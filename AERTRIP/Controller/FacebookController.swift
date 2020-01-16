@@ -24,29 +24,25 @@ class FacebookController {
     
     // MARK:- FACEBOOK LOGIN
     //=========================
-    func loginWithFacebook(fromViewController viewController: UIViewController, shouldFetchFriends: Bool = false, completion: @escaping FBSDKLoginManagerRequestTokenHandler) {
+    func loginWithFacebook(fromViewController viewController: UIViewController,isSilentLogin : Bool = false,shouldFetchFriends: Bool = false, completion: @escaping LoginManagerLoginResultBlock) {
+
+        if let _ = AccessToken.current , !isSilentLogin {
+            facebookLogout()
+        }
         
-        facebookLogout()
-        
-        var permissions = ["email", "public_profile"]
+        var permissions = [ "email", "public_profile" ]
         
         if shouldFetchFriends {
             permissions.append("user_friends")
         }
+        let login = LoginManager()
         
-        let login = FBSDKLoginManager()
-        login.loginBehavior = FBSDKLoginBehavior.native
-        
-        login.logIn(withReadPermissions: permissions, from: viewController, handler: {
+        login.logIn(permissions: permissions, from: viewController, handler: {
             result, error in
             
             if let res = result,res.isCancelled {
                 completion(nil,error)
             }else{
-            
-                if let token = result?.token.tokenString {
-                    self.currentAccessToken = token
-                }
                 completion(result,error)
             }
             
@@ -55,19 +51,18 @@ class FacebookController {
     
     // MARK:- FACEBOOK LOGIN WITH SHARE PERMISSIONS
     //================================================
-    func loginWithSharePermission(fromViewController viewController: UIViewController, completion: @escaping FBSDKLoginManagerRequestTokenHandler) {
+    func loginWithSharePermission(fromViewController viewController: UIViewController, completion: @escaping LoginManagerLoginResultBlock) {
         
-        if let current = FBSDKAccessToken.current(), current.hasGranted("publish_actions") {
+        if let current = AccessToken.current, current.hasGranted(permission: "publish_actions") {
             
-            let result = FBSDKLoginManagerLoginResult(token: FBSDKAccessToken.current(), isCancelled: false, grantedPermissions: nil, declinedPermissions: nil)
+            let result = LoginManagerLoginResult(token: AccessToken.current, isCancelled: false, grantedPermissions: [], declinedPermissions: [])
             
             completion(result,nil)
         } else {
             
-            let login = FBSDKLoginManager()
-            login.loginBehavior = FBSDKLoginBehavior.native
+            let login = LoginManager()
             
-            FBSDKLoginManager().logIn(withPublishPermissions: ["publish_actions"], from: viewController, handler: { (result, error) in
+            login.logIn(permissions: ["publish_actions"], from: viewController, handler: { (result, error) in
                 
                 if let res = result,res.isCancelled {
                     completion(nil,error)
@@ -102,20 +97,19 @@ class FacebookController {
     
     private func getInfo(success: @escaping ((FacebookModel) -> Void),
                          failure: @escaping ((Error?) -> Void)){
-        
         // FOR MORE PARAMETERS:- https://developers.facebook.com/docs/graph-api/reference/user
         let params = ["fields": "email, name, gender, first_name, last_name, birthday, cover, currency, devices, education, hometown, is_verified, link, locale, location, relationship_status, website, work, picture.type(large)"]
-
-        let request = self.getGraphRequest(graphPath: "me", parameters: params, httpMethod: "GET")
+        let request = GraphRequest(graphPath: "me", parameters: params)
         request.start(completionHandler: {
             connection, result, error in
             
-            if let result = result {
-                success(FacebookModel(withJSON: JSON(result)))
+            if let result = result as? [String : Any] {
+                success(FacebookModel(withDictionary: result))
             } else {
                 failure(error)
             }
         })
+        
     }
     
     // MARK:- GET IMAGE FROM FACEBOOK
@@ -146,11 +140,11 @@ class FacebookController {
         
             self.loginWithSharePermission(fromViewController: vc, completion: { (result, error) in
                 
-                if error == nil,let token = result?.token,let tokenString = token.tokenString {
+                if error == nil,let token = result?.token {
+                    let tokenString = token.tokenString
                     let param: [String:Any] = ["message" : message, "access_token" : tokenString]
                     
-                    let request = self.getGraphRequest(graphPath: "me/feed", parameters: param, httpMethod: "POST")
-                    request.start(completionHandler: { (connection, result, error) -> Void in
+                    GraphRequest(graphPath: "me/feed", parameters: param, httpMethod: HTTPMethod(rawValue: "POST")).start(completionHandler: { (connection, result, error) -> Void in
                         if let error = error {
                             failure(error)
                         } else {
@@ -168,35 +162,35 @@ class FacebookController {
             })
     }
     
-    func shareImageWithCaptionOnFacebook(withViewController vc : UIViewController,
-                                         _ imageUrl: String,
-                                         _ captionText: String,
-                                         success: @escaping (([String:Any]) -> Void),
-                                         failure: @escaping ((Error?) -> Void)) {
-        
-        self.loginWithSharePermission(fromViewController: vc, completion: { (result, error) in
-            
-            if error == nil,let token = result?.token,let tokenString = token.tokenString {
-                let param: [String:Any] = [ "url" : imageUrl, "caption" : captionText, "access_token" : tokenString]
-                let request = self.getGraphRequest(graphPath: "me/photos", parameters: param, httpMethod: "POST")
-                request.start(completionHandler: { (connection, result, error) -> Void in
-                    if let error = error {
-                        failure(error)
-                    } else {
-                        if let result = result as? [String : Any] {
-                            success(result)
-                        }else{
-                            let err = NSError(domain: "", code: 1, userInfo: [NSLocalizedDescriptionKey : "Something went wrong"])
-                            failure(err)
-                        }
-                    }
-                })
-            }else{
-                failure(error)
-            }
-        })
-    }
-
+     func shareImageWithCaptionOnFacebook(withViewController vc : UIViewController,
+                                            _ imageUrl: String,
+                                            _ captionText: String,
+                                            success: @escaping (([String:Any]) -> Void),
+                                            failure: @escaping ((Error?) -> Void)) {
+           
+           self.loginWithSharePermission(fromViewController: vc, completion: { (result, error) in
+               
+               if error == nil,let token = result?.token {
+                   let tokenString = token.tokenString
+                   let param: [String:Any] = [ "url" : imageUrl, "caption" : captionText, "access_token" : tokenString]
+                   
+                   GraphRequest(graphPath: "me/photos", parameters: param, httpMethod: HTTPMethod(rawValue: "POST")).start(completionHandler: { (connection, result, error) -> Void in
+                       if let error = error {
+                           failure(error)
+                       } else {
+                           if let result = result as? [String : Any] {
+                               success(result)
+                           }else{
+                               let err = NSError(domain: "", code: 1, userInfo: [NSLocalizedDescriptionKey : "Something went wrong"])
+                               failure(err)
+                           }
+                       }
+                   })
+               }else{
+                   failure(error)
+               }
+           })
+       }
     func shareVideoWithCaptionOnFacebook(withViewController vc : UIViewController,
                                          _ videoUrl: String,
                                          _ captionText: String,
@@ -205,11 +199,11 @@ class FacebookController {
         
         self.loginWithSharePermission(fromViewController: vc, completion: { (result, error) in
             
-            if error == nil,let token = result?.token,let tokenString = token.tokenString {
+            if error == nil,let token = result?.token {
+                let tokenString = token.tokenString
                 let param: [String:Any] = [ "url" : videoUrl, "caption" : captionText, "access_token" : tokenString]
                 
-                let request = self.getGraphRequest(graphPath: "me/videos", parameters: param, httpMethod: "POST")
-                request.start(completionHandler: { (connection, result, error) -> Void in
+                GraphRequest(graphPath: "me/videos", parameters: param, httpMethod: HTTPMethod(rawValue: "POST")).start(completionHandler: { (connection, result, error) -> Void in
                     if let error = error {
                         failure(error)
                     } else {
@@ -230,10 +224,10 @@ class FacebookController {
     
     // MARK:- FACEBOOK FRIENDS
     //==========================
-    func fetchFacebookFriendsUsingThisAPP(withViewController vc: UIViewController, shouldFetchFriends: Bool = false, success: @escaping (([String:Any]) -> Void),
+    func fetchFacebookFriendsUsingThisAPP(withViewController vc: UIViewController,success: @escaping (([String:Any]) -> Void),
                               failure: @escaping ((Error?) -> Void)){
         
-            self.loginWithFacebook(fromViewController: vc, shouldFetchFriends: shouldFetchFriends, completion: { (result, err) in
+            self.loginWithFacebook(fromViewController: vc,isSilentLogin: true, completion: { (result, err) in
                 
                 self.fetchFriends(success: { (result) in
                     
@@ -250,11 +244,10 @@ class FacebookController {
     
     private func fetchFriends(success: @escaping (([String:Any]) -> Void),
                               failure: @escaping ((Error?) -> Void)){
-
-        let params = ["fields": "email, name, gender, first_name, last_name, birthday, cover, currency, devices, education, hometown, is_verified, link, locale, location, relationship_status, website, work, picture.type(large)"]
-        let request: FBSDKGraphRequest = self.getGraphRequest(graphPath: "me/friends", parameters: params, httpMethod: "GET")
         
-        request.start { (connection: FBSDKGraphRequestConnection?, result: Any?, error: Error?) in
+        let request: GraphRequest = GraphRequest(graphPath: "me/friends", parameters: ["fields": "email, name, gender, first_name, last_name, birthday, cover, currency, devices, education, hometown, is_verified, link, locale, location, relationship_status, website, work, picture.type(large)"])
+        
+        request.start { (connection: GraphRequestConnection?, result: Any?, error: Error?) in
             
             if let result = result as? [String:Any] {
                 success(result)
@@ -265,42 +258,41 @@ class FacebookController {
 
     }
     
-    private func getGraphRequest(graphPath: String, parameters: [String: Any], httpMethod: String) -> FBSDKGraphRequest {
-        return FBSDKGraphRequest(graphPath: graphPath, parameters: parameters, tokenString: FBSDKAccessToken.current()?.tokenString, version: nil, httpMethod: httpMethod)
-    }
+//    private func getGraphRequest(graphPath: String, parameters: [String: Any], httpMethod: String) -> FBSDKGraphRequest {
+//        return FBSDKGraphRequest(graphPath: graphPath, parameters: parameters, tokenString: FBSDKAccessToken.current()?.tokenString, version: nil, httpMethod: httpMethod)
+//    }
     
-    func fetchFacebookFriendsNotUsingThisAPP(viewController : UIViewController, success: @escaping (([String:Any]) -> Void),
-                                          failure: @escaping ((Error?) -> Void)){
-        
-        FBSDKLoginManager().logIn(withPublishPermissions: ["taggable_friends"], from: viewController, handler: { (result, error) in
-            
-            if let res = result,res.isCancelled {
-                failure(error)
-            }else{
-                if error == nil {
-                    let request: FBSDKGraphRequest = self.getGraphRequest(graphPath: "me/taggable_friends", parameters: ["fields": "name"], httpMethod: "GET")
-                    
-                    request.start { (connection: FBSDKGraphRequestConnection?, result: Any?, error: Error?) in
-                        
-                        if let result = result as? [String:Any] {
-                            success(result)
-                        } else {
-                            failure(error)
-                        }
-                    }
-                }else{
-                    failure(error)
-                }
-            }
-        })
-
-    }
+//    func fetchFacebookFriendsNotUsingThisAPP(viewController : UIViewController, success: @escaping (([String:Any]) -> Void),
+//                                          failure: @escaping ((Error?) -> Void)){
+//
+//        FBSDKLoginManager().logIn(withPublishPermissions: ["taggable_friends"], from: viewController, handler: { (result, error) in
+//
+//            if let res = result,res.isCancelled {
+//                failure(error)
+//            }else{
+//                if error == nil {
+//                    let request: FBSDKGraphRequest = self.getGraphRequest(graphPath: "me/taggable_friends", parameters: ["fields": "name"], httpMethod: "GET")
+//
+//                    request.start { (connection: FBSDKGraphRequestConnection?, result: Any?, error: Error?) in
+//
+//                        if let result = result as? [String:Any] {
+//                            success(result)
+//                        } else {
+//                            failure(error)
+//                        }
+//                    }
+//                }else{
+//                    failure(error)
+//                }
+//            }
+//        })
+//
+//    }
 
     // MARK:- FACEBOOK LOGOUT
     //=========================
     func facebookLogout(){
-        FBSDKAccessToken.setCurrent(nil)
-        FBSDKLoginManager().logOut()
+        LoginManager().logOut()
 //        let cooki  : HTTPCookieStorage! = HTTPCookieStorage.shared
 //        if let strorage = HTTPCookieStorage.shared.cookies{
 //            for cookie in strorage{
@@ -314,59 +306,66 @@ class FacebookController {
 // MARK: FACEBOOK MODEL
 //=======================
 struct FacebookModel {
-    
     var dictionary : [String:Any]!
-    let id: String
+    var id = ""
     var email = ""
     var name = ""
     var first_name = ""
     var last_name = ""
     var currency = ""
     var link = ""
-//    var gender: Gender
+//    var gender = ""
     var verified = ""
-    var password = ""
     var cover: URL?
     var picture: URL?
     var is_verified : Bool
-    var image : String = ""
-    let authToken = FacebookController.shared.currentAccessToken
+    var authToken: String
+    var image = ""
+    var password = ""
+
+    //    init(withJSON json: JSON) {
+    //        self.id = json["id"].stringValue
+    //        self.name = json["name"].stringValue
+    //        self.first_name = json["first_name"].stringValue
+    //        self.currency = json["currency"]["user_currency"].stringValue
+    //        self.email = json["email"].stringValue
+    //        self.gender = json["gender"].stringValue
+    //        self.picture = URL(string: json["picture"]["data"]["url"].stringValue)
+    //        self.cover = URL(string: json["cover"]["source"].stringValue)
+    //        self.link = json["link"].stringValue
+    //        self.last_name = json["last_name"].stringValue
+    //        self.is_verified = json["is_verified"].stringValue
+    //    }
     
-//    FBSDKAccessToken.current()
-    
-    init(withJSON json: JSON) {
+    init(withDictionary dict: [String:Any]) {
         
-        self.dictionary = json.dictionaryValue
-        
-        self.id         = json["id"].stringValue
-        self.name       = json["name"].stringValue
-        self.first_name = json["first_name"].stringValue
-        self.email      = json["email"].stringValue
-        
-//        self.gender     = Gender(stringValue: json["gender"].stringValue)
-        
-        if let currencyDict = json["currency"].dictionary{
+        self.dictionary = dict
+        self.id = "\(dict["id"] ?? "")"
+        self.name = "\(dict["name"] ?? "")"
+        self.first_name = "\(dict["first_name"] ?? "")"
+        self.email = "\(dict["email"] ?? "")"
+//        self.gender = "\(dict["gender"] ?? "")"
+        self.authToken = "\(dict["access_token"] ?? "")"
+        if let currencyDict = dict["currency"] as? [String:Any] {
             
-            self.currency = (currencyDict["user_currency"]?.stringValue)!
-        }
-        
-        if let picture = json["picture"].dictionary, let data = picture["data"] {
-            
-            self.image = data["url"].stringValue
-            self.picture = URL(string: data["url"].stringValue)
+            self.currency = "\(currencyDict["user_currency"] ?? "")"
             
         }
-        
-        if let cover = json["cover"].dictionary {
-            
-            self.cover = URL(string: (cover["source"]?.stringValue)!)
+        if let picture = dict["picture"] as? [String:Any],let data = picture["data"] as? [String:Any] {
+            self.image = "\(data["url"] ?? "")"
+            self.picture = URL(string: "\(data["url"] ?? "")")
             
         }
-        
-        self.link        = json["link"].stringValue
-        self.last_name   = json["last_name"].stringValue
-        self.is_verified = json["is_verified"].string == "0" ? false : true
-        self.password    = json["password"].stringValue
+        if let cover = dict["cover"] as? [String:Any] {
+            
+            self.cover = URL(string: "\(cover["source"] ?? "")")
+            
+        }
+        self.link = "\(dict["link"] ?? "")"
+        self.last_name = "\(dict["last_name"] ?? "")"
+        self.is_verified = "\(dict["is_verified"] ?? "")" == "0" ? false : true
+        self.password    = "\(dict["password"] ?? "")"
+
     }
     
 }
