@@ -85,7 +85,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         super.layoutSubviews()
         
         gradient.frame = gradientView.bounds
-         self.backgroundImageView.frame = self.bounds
+        self.backgroundImageView.frame = self.bounds
     }
     
     private func addTapGesture() {
@@ -150,7 +150,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
         profileImageView.clipsToBounds = true
         profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
-       // profileImageView.layer.borderWidth = 2.0
+        profileImageView.layer.borderWidth = 2.0
         profileImageView.layer.masksToBounds = true
     }
     

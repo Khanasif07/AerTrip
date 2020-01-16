@@ -89,7 +89,7 @@ class CreateYourAccountVC: BaseVC {
     
     override func setupFonts() {
         
-        self.headerTitleLabel.font = AppFonts.Bold.withSize(38)
+        self.headerTitleLabel.font = AppFonts.c.withSize(38)
         self.loginHereButton.titleLabel?.font = AppFonts.SemiBold.withSize(16)
         self.notRegisterYetLabel.font = AppFonts.Regular.withSize(16)
         
