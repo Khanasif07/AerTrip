@@ -126,10 +126,14 @@ class HotelInfoAddressCell: UITableViewCell {
         self.addressInfoTextView.textContainer.maximumNumberOfLines = 3
         self.addressLabel.text = LocalizedString.Overview.localized
         if isForBooking {
-            self.attributeLabelSetUp(overview: overview)
+            self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText:  hotelData.info, startTextColor: AppColors.themeBlack, middleText: " " + LocalizedString.Maps.localized + " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+            self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) ? false : true
+           // self.attributeLabelSetUp(overview: overview)
         }
         else {
-            self.attributeLabelSetUp(overview: hotelData.info)
+            self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText:  hotelData.info, startTextColor: AppColors.themeBlack, middleText: " " + LocalizedString.Maps.localized + " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+             self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) ? false : true
+          //  self.attributeLabelSetUp(overview: hotelData.info)
         }
     }
     
@@ -150,7 +154,7 @@ class HotelInfoAddressCell: UITableViewCell {
         self.addressInfoTextView.isScrollEnabled = false
         let attrText = notes.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.withSize(18.0).familyName, fontColor: AppColors.themeBlack)
         self.addressInfoTextView.attributedText = attrText
-        self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 2) && !self.isMoreButtonTapped ? false : true
+        self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) && !self.isMoreButtonTapped ? false : true
         self.deviderView.isHidden = isHiddenDivider
     }
     

@@ -428,6 +428,7 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: tableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
+        headerView.topDividerHeightConstraint.constant = 0.5
         headerView.headerLabel.text = sections[section].localized
         return headerView
     }

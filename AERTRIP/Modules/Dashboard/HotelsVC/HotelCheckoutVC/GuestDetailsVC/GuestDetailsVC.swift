@@ -263,6 +263,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.headerLabel.text = "\(LocalizedString.Room.localized) \(section + 1)"
             headerView.backgroundColor = AppColors.themeGray04
             headerView.containerView.backgroundColor = AppColors.themeGray04
+            headerView.topDividerHeightConstraint.constant = 0.5
             return headerView
         } else {
             return nil

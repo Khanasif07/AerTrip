@@ -455,18 +455,28 @@ class HotelDetailsVC: BaseVC {
             else if indexPath.section == 0, indexPath.row == 3 {
                 //overview cell
                 if let hotelData = self.viewModel.hotelData {
-                    let text = hotelData.info
-                    var height = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0)).height
-                    
-                    let maxH = AppFonts.Regular.withSize(18.0).lineHeight * 3.0
-                    let minH = AppFonts.Regular.withSize(18.0).lineHeight
-                    
-                    height = max(height, minH)
-                    height = min(height, maxH)
-                    return height + 46.5
-                        + 21.0  + 2.0//y of textview 46.5 + bottom space 14.0
+                    let text = hotelData.address + "Maps    "
+                    let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+                    return size.height + 46.5
+                        + 21.0  + 2.0//y of textview 46.5 + bottom space 14.0 + 7.0
                 }
-                return UITableView.automaticDimension
+                else {
+                    return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (211.0 + 126.5)
+                }
+//                if let hotelData = self.viewModel.hotelData {
+//                    let text = hotelData.info
+//                    var height = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0)).height
+//
+//
+                let maxH = AppFonts.Regular.withSize(18.0).lineHeight * 3.0
+//                    let minH = AppFonts.Regular.withSize(18.0).lineHeight
+//
+//                    height = max(height, minH)
+//                    height = min(height, maxH)
+//                    return height + 46.5
+//                        + 21.0  + 2.0//y of textview 46.5 + bottom space 14.0
+//                }
+//                return UITableView.automaticDimension
             }
             if !self.viewModel.hotelDetailsTableSectionData.isEmpty, self.viewModel.hotelDetailsTableSectionData[indexPath.section][indexPath.row] == .ratesEmptyStateCell {
                 return 550

@@ -56,6 +56,7 @@ class EditProfileThreePartTableViewCell: UITableViewCell {
         self.rightViewTextField.text = value
         self.rightViewTextField.delegate = self
         self.countryCodeLabel.text = isd
+        self.countryCodeLabel.font = AppFonts.Regular.withSize(18)
         self.flagImageView.image = nil
         if let countryData = PKCountryPicker.default.getCountryData(forISDCode: isd) {
             self.rightViewTextField?.defaultRegion = countryData.ISOCode
