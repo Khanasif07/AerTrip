@@ -18,6 +18,7 @@
 				72C73DA7F86706EA22E26153ED5A29C7 /* PBXTargetDependency */,
 			);
 			name = Firebase;
+			productName = Firebase;
 		};
 		0C1885900810601510E0C632060FAF26 /* GooglePlaces */ = {
 			isa = PBXAggregateTarget;
@@ -28,6 +29,7 @@
 				D42315111F400C0605ACCD6B5CAF2178 /* PBXTargetDependency */,
 			);
 			name = GooglePlaces;
+			productName = GooglePlaces;
 		};
 		5EB4B0B6DA6D5C0C3365733BEAA1C485 /* FirebaseCoreDiagnosticsInterop */ = {
 			isa = PBXAggregateTarget;
@@ -37,6 +39,7 @@
 			dependencies = (
 			);
 			name = FirebaseCoreDiagnosticsInterop;
+			productName = FirebaseCoreDiagnosticsInterop;
 		};
 		84CA3424E172CD651235AF0783D01D39 /* razorpay-pod */ = {
 			isa = PBXAggregateTarget;
@@ -46,6 +49,7 @@
 			dependencies = (
 			);
 			name = "razorpay-pod";
+			productName = "razorpay-pod";
 		};
 		ABB048B191245233986A7CD75FE412A5 /* Fabric */ = {
 			isa = PBXAggregateTarget;
@@ -55,6 +59,7 @@
 			dependencies = (
 			);
 			name = Fabric;
+			productName = Fabric;
 		};
 		B53D977A951AFC38B21751B706C1DF83 /* GoogleAppMeasurement */ = {
 			isa = PBXAggregateTarget;
@@ -66,6 +71,7 @@
 				5B0D11F45C01225CB896EB48607C95FB /* PBXTargetDependency */,
 			);
 			name = GoogleAppMeasurement;
+			productName = GoogleAppMeasurement;
 		};
 		C0E41540D6862472ED7F2FA11669BE1F /* Crashlytics */ = {
 			isa = PBXAggregateTarget;
@@ -76,6 +82,7 @@
 				C9CEFEFAAAEDB8CD947737FA56C849D4 /* PBXTargetDependency */,
 			);
 			name = Crashlytics;
+			productName = Crashlytics;
 		};
 		C49E7A4D59E5C8BE8DE9FB1EFB150185 /* FirebaseAnalytics */ = {
 			isa = PBXAggregateTarget;
@@ -90,6 +97,7 @@
 				0925ADB5F67491C83D3F1833A4AEED58 /* PBXTargetDependency */,
 			);
 			name = FirebaseAnalytics;
+			productName = FirebaseAnalytics;
 		};
 		CAD3534FC55B0333104E5117C0A9A324 /* GoogleSignIn */ = {
 			isa = PBXAggregateTarget;
@@ -102,6 +110,7 @@
 				74F3D34B7F14020AE0A57D83A7889F98 /* PBXTargetDependency */,
 			);
 			name = GoogleSignIn;
+			productName = GoogleSignIn;
 		};
 		D372E53E2E8FEAA06A0439FB85E65767 /* FirebaseAnalyticsInterop */ = {
 			isa = PBXAggregateTarget;
@@ -111,6 +120,7 @@
 			dependencies = (
 			);
 			name = FirebaseAnalyticsInterop;
+			productName = FirebaseAnalyticsInterop;
 		};
 		E5B4BBC6DD552AC8943C7E22772FC1D3 /* GoogleMaps */ = {
 			isa = PBXAggregateTarget;
@@ -120,6 +130,7 @@
 			dependencies = (
 			);
 			name = GoogleMaps;
+			productName = GoogleMaps;
 		};
 /* End PBXAggregateTarget section */
 
@@ -1712,10 +1723,10 @@
 		0434EC6A1EA2199882922A50AA98609E /* FIRDLRetrievalProcessResult.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRDLRetrievalProcessResult.m; path = Firebase/DynamicLinks/FIRDLRetrievalProcessResult.m; sourceTree = "<group>"; };
 		0469A49C4ACBCB0D5679DD27620B83D6 /* FBSDKCodelessIndexer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKCodelessIndexer.h; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/Codeless/FBSDKCodelessIndexer.h; sourceTree = "<group>"; };
 		0478A07B517A43A0D27E49C9767C3D66 /* FBSDKBridgeAPIProtocolWebV1.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKBridgeAPIProtocolWebV1.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/BridgeAPI/ProtocolVersions/FBSDKBridgeAPIProtocolWebV1.m; sourceTree = "<group>"; };
-		0499F8AD4A5844EDC2A032E05604B91E /* AertripCalendarDataModel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AertripCalendarDataModel.framework; path = AertripCalendarDataModel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0499F8AD4A5844EDC2A032E05604B91E /* AertripCalendarDataModel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AertripCalendarDataModel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D3E7260732FFFFCFAB2CB66E27594D /* FlexiblePageControl.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FlexiblePageControl.xcconfig; sourceTree = "<group>"; };
 		04E9F8034A26B07764751A574B3F87A7 /* FIRInstanceIDUtilities.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRInstanceIDUtilities.m; path = Firebase/InstanceID/FIRInstanceIDUtilities.m; sourceTree = "<group>"; };
-		05164B1267F2416E9B389B63B597AC52 /* Pods_AERTRIP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_AERTRIP.framework; path = "Pods-AERTRIP.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		05164B1267F2416E9B389B63B597AC52 /* Pods_AERTRIP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AERTRIP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0545F39EAEE3096AEC0291E980F71E49 /* FBSDKEventBindingManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKEventBindingManager.m; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/Codeless/FBSDKEventBindingManager.m; sourceTree = "<group>"; };
 		0587521428F429A83B45E21F35317F39 /* FBSDKContainerViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKContainerViewController.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/FBSDKContainerViewController.m; sourceTree = "<group>"; };
 		060B6ACBACE2E9E37C70CDC18FD12B8B /* FBSDKURL.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKURL.m; path = FBSDKCoreKit/FBSDKCoreKit/FBSDKURL.m; sourceTree = "<group>"; };
@@ -1723,7 +1734,7 @@
 		066B873066B820DBA2C9494924C352D3 /* GDTCCTNanopbHelpers.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GDTCCTNanopbHelpers.m; path = GoogleDataTransportCCTSupport/GDTCCTLibrary/GDTCCTNanopbHelpers.m; sourceTree = "<group>"; };
 		06C9FF031560560FC93EE8575808AAB5 /* OIDRegistrationResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDRegistrationResponse.m; path = Source/OIDRegistrationResponse.m; sourceTree = "<group>"; };
 		06DC86B9625803CF16E28207A8B1A640 /* GULNetworkMessageCode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GULNetworkMessageCode.h; path = GoogleUtilities/Network/Private/GULNetworkMessageCode.h; sourceTree = "<group>"; };
-		06FC5C9CF96D60C50FCD47D339C91951 /* nanopb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = nanopb.framework; path = nanopb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		06FC5C9CF96D60C50FCD47D339C91951 /* nanopb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = nanopb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0705EB7173EF276839A551C2D437209E /* MiniLayout-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "MiniLayout-Info.plist"; sourceTree = "<group>"; };
 		07453B9566106ED8D8BEE48E8BCA0BD9 /* FIRInstanceIDAuthKeyChain.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRInstanceIDAuthKeyChain.m; path = Firebase/InstanceID/FIRInstanceIDAuthKeyChain.m; sourceTree = "<group>"; };
 		07ACEDE6A4C1D9571BBDB54926A3F24E /* FIRInstanceIDCombinedHandler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRInstanceIDCombinedHandler.m; path = Firebase/InstanceID/FIRInstanceIDCombinedHandler.m; sourceTree = "<group>"; };
@@ -1781,7 +1792,7 @@
 		14833DF40C3A71A357412F22652CB16D /* FBSDKMath.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKMath.h; path = FBSDKCoreKit/FBSDKCoreKit/Internal/FBSDKMath.h; sourceTree = "<group>"; };
 		148BC2AC83918624DEB8E706B4401572 /* PKCircleStrokeSpinAnimation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKCircleStrokeSpinAnimation.swift; path = PKLoaderDemo/PKLoader/PKCircleStrokeSpinAnimation.swift; sourceTree = "<group>"; };
 		14943F52D52317AFA01B352534EBA895 /* IQUIScrollView+Additions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "IQUIScrollView+Additions.m"; path = "IQKeyboardManager/Categories/IQUIScrollView+Additions.m"; sourceTree = "<group>"; };
-		14EFFB70366C93DEFBBC950ED7A13C1A /* pb_encode.c */ = {isa = PBXFileReference; includeInIndex = 1; path = pb_encode.c; sourceTree = "<group>"; };
+		14EFFB70366C93DEFBBC950ED7A13C1A /* pb_encode.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; path = pb_encode.c; sourceTree = "<group>"; };
 		150B1E7E67F324FCCF8256B874740835 /* FBSDKMeasurementEvent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKMeasurementEvent.m; path = FBSDKCoreKit/FBSDKCoreKit/FBSDKMeasurementEvent.m; sourceTree = "<group>"; };
 		152BB84F7CB52E72A00D1F7EFD6132AE /* MulticityCalendarVM.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MulticityCalendarVM.m; path = CalendarDataModel/CalendarDataModel/MulticityCalendarVM.m; sourceTree = "<group>"; };
 		1546BDBF9383452B6EC9EBD8A040681C /* Alamofire.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.xcconfig; sourceTree = "<group>"; };
@@ -1838,7 +1849,7 @@
 		235697C346094A1BDFCEE6F61EBDD41D /* OIDFieldMapping.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDFieldMapping.h; path = Source/OIDFieldMapping.h; sourceTree = "<group>"; };
 		23609A2A0C2AB0A0864467AF0C2B2DD9 /* SessionManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionManager.swift; path = Source/SessionManager.swift; sourceTree = "<group>"; };
 		238D87C71B495E3D81EA9364DA5D044A /* GULMutableDictionary.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GULMutableDictionary.h; path = GoogleUtilities/Network/Private/GULMutableDictionary.h; sourceTree = "<group>"; };
-		242698546701C13E4F3A67DBB1ADBDF8 /* ActiveLabel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ActiveLabel.framework; path = ActiveLabel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		242698546701C13E4F3A67DBB1ADBDF8 /* ActiveLabel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ActiveLabel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		244560254956DB4BAEE0D95B333F6D9D /* GTMKeychain.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMKeychain.h; path = Source/GTMKeychain.h; sourceTree = "<group>"; };
 		249EB8EEDB63719C3DF76496360F18BD /* LIALinkedInAuthorizationViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LIALinkedInAuthorizationViewController.m; path = IOSLinkedInAPI/LIALinkedInAuthorizationViewController.m; sourceTree = "<group>"; };
 		25042BC897D3C7575EB2849090059034 /* FBSDKError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKError.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/FBSDKError.m; sourceTree = "<group>"; };
@@ -1871,7 +1882,7 @@
 		2CED256586B6D15E9D74D1F070045AFD /* Resource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Resource.swift; path = Sources/General/ImageSource/Resource.swift; sourceTree = "<group>"; };
 		2D3345A453990CE24D1A63BB1FAF201A /* CallbackQueue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CallbackQueue.swift; path = Sources/Utility/CallbackQueue.swift; sourceTree = "<group>"; };
 		2D4EDC6256CC5624527872E93A4EB89C /* AertripCalendarViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AertripCalendarViewController.m; path = AertripCalendar/AertripCalendarViewController.m; sourceTree = "<group>"; };
-		2DA0D814DFCB860D31D7BCD63D795858 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FirebaseInstanceID.framework; path = FirebaseInstanceID.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DA0D814DFCB860D31D7BCD63D795858 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FirebaseInstanceID.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DDD38030E6B5BF8194786329AF76EFF /* GULNetwork.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GULNetwork.m; path = GoogleUtilities/Network/GULNetwork.m; sourceTree = "<group>"; };
 		2DF603E56431D27967863B808301CD1F /* FBSDKCrashObserving.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKCrashObserving.h; path = FBSDKCoreKit/FBSDKCoreKit/Basics/Instrument/FBSDKCrashObserving.h; sourceTree = "<group>"; };
 		2DFB4C36A00E84863216FEE15DBAE680 /* GULMutableDictionary.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GULMutableDictionary.m; path = GoogleUtilities/Network/GULMutableDictionary.m; sourceTree = "<group>"; };
@@ -1890,7 +1901,7 @@
 		30E8BA6E4F3A449DA91820327B84CB3E /* GTMAppAuth.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = GTMAppAuth.xcconfig; sourceTree = "<group>"; };
 		30EF881B4D3F96A47E2491C7BFE11E40 /* GDTCORTransport_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GDTCORTransport_Private.h; path = GoogleDataTransport/GDTCORLibrary/Private/GDTCORTransport_Private.h; sourceTree = "<group>"; };
 		314940209E580F3FD2D8A2414D73010C /* FBSDKAppLinkReturnToRefererController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKAppLinkReturnToRefererController.h; path = FBSDKCoreKit/FBSDKCoreKit/AppLink/FBSDKAppLinkReturnToRefererController.h; sourceTree = "<group>"; };
-		3157A854336C32A44AA7ED214DFCA125 /* PKLoader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PKLoader.framework; path = PKLoader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3157A854336C32A44AA7ED214DFCA125 /* PKLoader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PKLoader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		31BEC0C33C876818F07DA83959D208FF /* FIRAppInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRAppInternal.h; path = Firebase/Core/Private/FIRAppInternal.h; sourceTree = "<group>"; };
 		31D1EFF864E4B375A28023F2B27A5F1E /* GTMReadMonitorInputStream.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GTMReadMonitorInputStream.m; path = Source/GTMReadMonitorInputStream.m; sourceTree = "<group>"; };
 		31DEEFCE1508C4DC3151A329DE6D7C32 /* FIROptions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIROptions.h; path = Firebase/Core/Public/FIROptions.h; sourceTree = "<group>"; };
@@ -1922,7 +1933,7 @@
 		376294F98A2B2EF34C27FFA9D589032E /* GDTCORStorage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GDTCORStorage.h; path = GoogleDataTransport/GDTCORLibrary/Private/GDTCORStorage.h; sourceTree = "<group>"; };
 		378B1BDA7C7C351A418A4DF10BFB00CF /* FIRInstanceIDCheckinPreferences.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRInstanceIDCheckinPreferences.h; path = Firebase/InstanceID/Private/FIRInstanceIDCheckinPreferences.h; sourceTree = "<group>"; };
 		378F255613FF3B3EFE0BF29D17B7552C /* OIDAuthorizationService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDAuthorizationService.m; path = Source/OIDAuthorizationService.m; sourceTree = "<group>"; };
-		379E5D8B5D076140CD9ED35CD62B0D0B /* pb_decode.c */ = {isa = PBXFileReference; includeInIndex = 1; path = pb_decode.c; sourceTree = "<group>"; };
+		379E5D8B5D076140CD9ED35CD62B0D0B /* pb_decode.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; path = pb_decode.c; sourceTree = "<group>"; };
 		37D6ADC072B3209BB21B47933340DC3E /* FIRInstanceIDTokenDeleteOperation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRInstanceIDTokenDeleteOperation.m; path = Firebase/InstanceID/FIRInstanceIDTokenDeleteOperation.m; sourceTree = "<group>"; };
 		389F2484B80252E4D49936826B229507 /* OIDGrantTypes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDGrantTypes.h; path = Source/OIDGrantTypes.h; sourceTree = "<group>"; };
 		389FD15A99B48B91F8F3509A307C530E /* GTMSessionFetcher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMSessionFetcher.h; path = Source/GTMSessionFetcher.h; sourceTree = "<group>"; };
@@ -1963,14 +1974,14 @@
 		3F6C0A172365865667208E8B14FC2378 /* OIDExternalUserAgentCatalyst.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDExternalUserAgentCatalyst.m; path = Source/iOS/OIDExternalUserAgentCatalyst.m; sourceTree = "<group>"; };
 		3F7B65A6FB6DFB8D12331DC5BE445EED /* Kingfisher.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Kingfisher.modulemap; sourceTree = "<group>"; };
 		3F9B2CE2874CEB30C87601BDD70EB7BE /* KingfisherManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KingfisherManager.swift; path = Sources/General/KingfisherManager.swift; sourceTree = "<group>"; };
-		3FD1B4C1246D643E9476438C28048FA8 /* AppAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AppAuth.framework; path = AppAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FD1B4C1246D643E9476438C28048FA8 /* AppAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FDA0E473A98772120923B71CB15D5A2 /* FBSDKLoginKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FBSDKLoginKit-umbrella.h"; sourceTree = "<group>"; };
 		401DF5B1864FB0166671C8044800BAFD /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = iOS/Crashlytics.framework; sourceTree = "<group>"; };
 		403101763FB12A3DF8973B3EFC1E7A8E /* FBSDKDeviceLoginCodeInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKDeviceLoginCodeInfo.h; path = FBSDKLoginKit/FBSDKLoginKit/FBSDKDeviceLoginCodeInfo.h; sourceTree = "<group>"; };
 		4072A7C1313A6FE670CBC6C07E7771AE /* ActiveLabel-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ActiveLabel-umbrella.h"; sourceTree = "<group>"; };
 		409A0B1B5331E38BC5A2C2881B69F5A6 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIWebView+AFNetworking.h"; path = "UIKit+AFNetworking/UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		40DA34DF941DFA0DF3113D38E0935F01 /* FBSDKAppEventsDeviceInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKAppEventsDeviceInfo.m; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/FBSDKAppEventsDeviceInfo.m; sourceTree = "<group>"; };
-		410EBFF2949D151C0FB58622F6529CD6 /* FBSDKModelRuntime.hpp */ = {isa = PBXFileReference; includeInIndex = 1; name = FBSDKModelRuntime.hpp; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/ML/FBSDKModelRuntime.hpp; sourceTree = "<group>"; };
+		410EBFF2949D151C0FB58622F6529CD6 /* FBSDKModelRuntime.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = FBSDKModelRuntime.hpp; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/ML/FBSDKModelRuntime.hpp; sourceTree = "<group>"; };
 		412937C6C37861436E80DBC290772B6D /* GTMAppAuth.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = GTMAppAuth.modulemap; sourceTree = "<group>"; };
 		416302BA2749F099346025265AFDA932 /* FBSDKAppLinkUtility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKAppLinkUtility.h; path = FBSDKCoreKit/FBSDKCoreKit/AppLink/FBSDKAppLinkUtility.h; sourceTree = "<group>"; };
 		4172F07EC12333E74B0383B381C74441 /* FDLUtilities.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FDLUtilities.m; path = Firebase/DynamicLinks/Utilities/FDLUtilities.m; sourceTree = "<group>"; };
@@ -1981,14 +1992,14 @@
 		41F598A13703D7FE9F3E2F977FB9FF1D /* FBSDKURLOpening.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKURLOpening.h; path = FBSDKCoreKit/FBSDKCoreKit/Internal/BridgeAPI/FBSDKURLOpening.h; sourceTree = "<group>"; };
 		421442AEA4BD1D198621611C463322CD /* FirebaseCoreDiagnostics-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FirebaseCoreDiagnostics-umbrella.h"; sourceTree = "<group>"; };
 		4215D8CE965993D10D737B9B2CFFDA68 /* GDTCORTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GDTCORTransformer.h; path = GoogleDataTransport/GDTCORLibrary/Private/GDTCORTransformer.h; sourceTree = "<group>"; };
-		4217F43561D20C5452E5DDCB877FA973 /* Monaco.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = Monaco.ttf; path = AertripCalendar/Resources/Monaco.ttf; sourceTree = "<group>"; };
+		4217F43561D20C5452E5DDCB877FA973 /* Monaco.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = Monaco.ttf; path = AertripCalendar/Resources/Monaco.ttf; sourceTree = "<group>"; };
 		42191659BDC0EDD96F738E921025CF9C /* AertripCalendarDataModel-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AertripCalendarDataModel-umbrella.h"; sourceTree = "<group>"; };
 		422F5CFF408C9BBE3A0FD181C67C2778 /* LSHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSHeader.h; path = LinkedinSwift/LinkedinSwift/sources/LSHeader.h; sourceTree = "<group>"; };
 		43AD6E89D294BF41045F61DCD07399DA /* FBSDKLoginButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKLoginButton.h; path = FBSDKLoginKit/FBSDKLoginKit/FBSDKLoginButton.h; sourceTree = "<group>"; };
 		43CB130359B7DB4963F70FBD94B9DF0B /* GTMSessionFetcherService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMSessionFetcherService.h; path = Source/GTMSessionFetcherService.h; sourceTree = "<group>"; };
 		44219F72CE11911705811240CC3A7ADA /* FBSDKCrypto.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKCrypto.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/Cryptography/FBSDKCrypto.m; sourceTree = "<group>"; };
 		4484D836707FE8C4DE05CE3051BD27FC /* MXScrollViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MXScrollViewController.m; path = Sources/MXScrollViewController.m; sourceTree = "<group>"; };
-		44B337A9F390DD3958196985641F4FA4 /* SourceSansPro-BoldItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "SourceSansPro-BoldItalic.ttf"; path = "AertripCalendar/Resources/SourceSansPro-BoldItalic.ttf"; sourceTree = "<group>"; };
+		44B337A9F390DD3958196985641F4FA4 /* SourceSansPro-BoldItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "SourceSansPro-BoldItalic.ttf"; path = "AertripCalendar/Resources/SourceSansPro-BoldItalic.ttf"; sourceTree = "<group>"; };
 		44BFF49DF531685FA822E5C5B1A18977 /* GoogleUtilities-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GoogleUtilities-umbrella.h"; sourceTree = "<group>"; };
 		4515F1D078F918AD81C3592A5E00517A /* Filter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Filter.swift; path = Sources/Image/Filter.swift; sourceTree = "<group>"; };
 		45D7455E26464C19BDFB88549E4A0491 /* GULAppDelegateSwizzler_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GULAppDelegateSwizzler_Private.h; path = GoogleUtilities/AppDelegateSwizzler/Internal/GULAppDelegateSwizzler_Private.h; sourceTree = "<group>"; };
@@ -1996,7 +2007,7 @@
 		462206C94D37B1DFF3EEDACFF175B661 /* GTMAppAuthFetcherAuthorization.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GTMAppAuthFetcherAuthorization.m; path = Source/GTMAppAuthFetcherAuthorization.m; sourceTree = "<group>"; };
 		46C276B43389E7C85B3D590DD3F1AE8C /* FIRCoreDiagnostics.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRCoreDiagnostics.m; path = Firebase/CoreDiagnostics/FIRCDLibrary/FIRCoreDiagnostics.m; sourceTree = "<group>"; };
 		47388B7FAD43BB6594F1A73631D67579 /* FIRAnalyticsInteropListener.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRAnalyticsInteropListener.h; path = Interop/Analytics/Public/FIRAnalyticsInteropListener.h; sourceTree = "<group>"; };
-		473B5A677107561E990EDFD23845EC7A /* SourceSansPro-ExtraLight.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "SourceSansPro-ExtraLight.ttf"; path = "AertripCalendar/Resources/SourceSansPro-ExtraLight.ttf"; sourceTree = "<group>"; };
+		473B5A677107561E990EDFD23845EC7A /* SourceSansPro-ExtraLight.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "SourceSansPro-ExtraLight.ttf"; path = "AertripCalendar/Resources/SourceSansPro-ExtraLight.ttf"; sourceTree = "<group>"; };
 		477E15526087A879E924C49665963BF8 /* GULNetworkConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GULNetworkConstants.h; path = GoogleUtilities/Network/Private/GULNetworkConstants.h; sourceTree = "<group>"; };
 		47A06798D7A1EF05113FC232A688FFAB /* OIDTokenUtilities.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDTokenUtilities.m; path = Source/OIDTokenUtilities.m; sourceTree = "<group>"; };
 		47A23B06911A6C143BF55754A1EF4413 /* PKLoader.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = PKLoader.modulemap; sourceTree = "<group>"; };
@@ -2053,7 +2064,7 @@
 		523490603F1890297AD5941EC693E97D /* FIRCoreDiagnosticsConnector.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRCoreDiagnosticsConnector.m; path = Firebase/Core/FIRCoreDiagnosticsConnector.m; sourceTree = "<group>"; };
 		52DEED63287D0449E9D6FE5D5A6E2708 /* FBSDKApplicationDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKApplicationDelegate.h; path = FBSDKCoreKit/FBSDKCoreKit/FBSDKApplicationDelegate.h; sourceTree = "<group>"; };
 		5308E156244D72039A92B5553311DE04 /* FBSDKAppLinkNavigation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKAppLinkNavigation.h; path = FBSDKCoreKit/FBSDKCoreKit/AppLink/FBSDKAppLinkNavigation.h; sourceTree = "<group>"; };
-		534BBA43554022B976C5E8B13E3DD0D0 /* SourceSansPro-ExtraLightItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "SourceSansPro-ExtraLightItalic.ttf"; path = "AertripCalendar/Resources/SourceSansPro-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		534BBA43554022B976C5E8B13E3DD0D0 /* SourceSansPro-ExtraLightItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "SourceSansPro-ExtraLightItalic.ttf"; path = "AertripCalendar/Resources/SourceSansPro-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		536223F15EE86256FD8D505A73A03AD2 /* ParseManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParseManager.swift; path = PhoneNumberKit/ParseManager.swift; sourceTree = "<group>"; };
 		5395CA356F74A21EF9C2EF6D8013427B /* GooglePlaces.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = GooglePlaces.xcconfig; sourceTree = "<group>"; };
 		539846F19015C1A4FCAAFB9ED0BE0AAD /* Response.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Response.swift; path = Source/Response.swift; sourceTree = "<group>"; };
@@ -2081,7 +2092,7 @@
 		57D2E659C71DDF29FC509A7C39488B8A /* Answers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Answers.h; path = iOS/Crashlytics.framework/Headers/Answers.h; sourceTree = "<group>"; };
 		57F61394C7D7D216FBFEB7C8615CE407 /* FIRVersion.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRVersion.m; path = Firebase/Core/FIRVersion.m; sourceTree = "<group>"; };
 		580878CA84924E911F675E1497EB9191 /* GTMKeychain_iOS.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GTMKeychain_iOS.m; path = Source/iOS/GTMKeychain_iOS.m; sourceTree = "<group>"; };
-		582AE8941055BCFE5F8C9955EED288DA /* SourceSansPro-Bold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "SourceSansPro-Bold.ttf"; path = "AertripCalendar/Resources/SourceSansPro-Bold.ttf"; sourceTree = "<group>"; };
+		582AE8941055BCFE5F8C9955EED288DA /* SourceSansPro-Bold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "SourceSansPro-Bold.ttf"; path = "AertripCalendar/Resources/SourceSansPro-Bold.ttf"; sourceTree = "<group>"; };
 		58C513D134656E5B8682AA1D696A858C /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FBSDKCoreKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58DBA02EC77DE219172391732121E872 /* FBSDKCoreKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FBSDKCoreKit-prefix.pch"; sourceTree = "<group>"; };
 		58F37465BA93989C74344EA756310C5D /* ALToastView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ALToastView.h; path = AertripCalendar/ALToastView.h; sourceTree = "<group>"; };
@@ -2113,16 +2124,16 @@
 		5D15E8529187630FAD98D2ACABDEC0FA /* FBSDKUtility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKUtility.h; path = FBSDKCoreKit/FBSDKCoreKit/FBSDKUtility.h; sourceTree = "<group>"; };
 		5D17AF41A7B275B0D603AAF0AA045DA4 /* PhoneNumberParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PhoneNumberParser.swift; path = PhoneNumberKit/PhoneNumberParser.swift; sourceTree = "<group>"; };
 		5D5795F0BADB5206180B37297BBA9EE6 /* IQNSArray+Sort.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "IQNSArray+Sort.h"; path = "IQKeyboardManager/Categories/IQNSArray+Sort.h"; sourceTree = "<group>"; };
-		5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D97D2D35E1076B2179C7CD85E3D1BE3 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLResponseSerialization.m; path = AFNetworking/AFURLResponseSerialization.m; sourceTree = "<group>"; };
-		5DE0FEFC3995E740EC1AE2611D0AEFB0 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FBSDKLoginKit.framework; path = FBSDKLoginKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DE0FEFC3995E740EC1AE2611D0AEFB0 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FBSDKLoginKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E1276EE9D591724C83C71A4A6A5380C /* FIRErrors.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRErrors.m; path = Firebase/Core/FIRErrors.m; sourceTree = "<group>"; };
-		5E8566F79821D41DAE70BF4A3E02658F /* OFL.txt */ = {isa = PBXFileReference; includeInIndex = 1; name = OFL.txt; path = AertripCalendar/Resources/OFL.txt; sourceTree = "<group>"; };
+		5E8566F79821D41DAE70BF4A3E02658F /* OFL.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = OFL.txt; path = AertripCalendar/Resources/OFL.txt; sourceTree = "<group>"; };
 		5F028B965E734A3A7D07B70593464529 /* FBSDKTimeSpentData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKTimeSpentData.m; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/FBSDKTimeSpentData.m; sourceTree = "<group>"; };
 		5F284B27DAE1D63A5B6507703A59B952 /* FBSDKFeatureManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKFeatureManager.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/FBSDKFeatureManager.m; sourceTree = "<group>"; };
 		5F562AE89DF505B05378FF143CCF81F5 /* GDTCORPrioritizer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GDTCORPrioritizer.h; path = GoogleDataTransport/GDTCORLibrary/Public/GDTCORPrioritizer.h; sourceTree = "<group>"; };
 		5F656A8A0F4151AFB1A42C3901FADBEE /* ActiveLabel.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ActiveLabel.modulemap; sourceTree = "<group>"; };
-		5F6BA03A0925860EA21A0CB5F550E9CB /* TransitionButton.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TransitionButton.framework; path = TransitionButton.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F6BA03A0925860EA21A0CB5F550E9CB /* TransitionButton.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TransitionButton.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60187DE5F6F8B950847C316B4B326F43 /* FIRInstanceIDKeyPairStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRInstanceIDKeyPairStore.m; path = Firebase/InstanceID/FIRInstanceIDKeyPairStore.m; sourceTree = "<group>"; };
 		6018FA1CFD1FB525100C63AED34485B1 /* FBSDKBridgeAPI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKBridgeAPI.h; path = FBSDKCoreKit/FBSDKCoreKit/Internal/BridgeAPI/FBSDKBridgeAPI.h; sourceTree = "<group>"; };
 		6024FFF2E52A8995CB09C5196903B924 /* SwiftyJSON-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-prefix.pch"; sourceTree = "<group>"; };
@@ -2162,18 +2173,18 @@
 		68FDA17F08156CECE89D271F1CB51B63 /* FBSDKLoginManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKLoginManager.h; path = FBSDKLoginKit/FBSDKLoginKit/FBSDKLoginManager.h; sourceTree = "<group>"; };
 		691BA52E4C195831F7EBF6BFE77072CF /* Pods-AERTRIP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AERTRIP.release.xcconfig"; sourceTree = "<group>"; };
 		69312FE44C3B68C066372461F49F52CA /* FBSDKServerConfiguration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKServerConfiguration.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/ServerConfiguration/FBSDKServerConfiguration.m; sourceTree = "<group>"; };
-		6942351307BC1F54575D9853307EAE0E /* GoogleDataTransportCCTSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = GoogleDataTransportCCTSupport.framework; path = GoogleDataTransportCCTSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6942351307BC1F54575D9853307EAE0E /* GoogleDataTransportCCTSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoogleDataTransportCCTSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6944D87B88101D1CE69BE16C030599A9 /* Box.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Box.swift; path = Sources/Utility/Box.swift; sourceTree = "<group>"; };
 		69655D799E02F4185FD677EB7B2E34EF /* IQKeyboardManager-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IQKeyboardManager-prefix.pch"; sourceTree = "<group>"; };
-		69681285C13FB58876DD5727BCB2DC85 /* PhoneNumberKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PhoneNumberKit.framework; path = PhoneNumberKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		69681285C13FB58876DD5727BCB2DC85 /* PhoneNumberKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PhoneNumberKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69A964948D51F1C3246E955ABF8ACAED /* ImagePrefetcher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImagePrefetcher.swift; path = Sources/Networking/ImagePrefetcher.swift; sourceTree = "<group>"; };
 		69EC017E55DF68B39D9C84207D5C3BEA /* FIRInstanceIDLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRInstanceIDLogger.m; path = Firebase/InstanceID/FIRInstanceIDLogger.m; sourceTree = "<group>"; };
-		69FE6CBEFFB25BEAA6B05252F725940F /* SourceSansPro-SemiBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "SourceSansPro-SemiBold.ttf"; path = "AertripCalendar/Resources/SourceSansPro-SemiBold.ttf"; sourceTree = "<group>"; };
+		69FE6CBEFFB25BEAA6B05252F725940F /* SourceSansPro-SemiBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "SourceSansPro-SemiBold.ttf"; path = "AertripCalendar/Resources/SourceSansPro-SemiBold.ttf"; sourceTree = "<group>"; };
 		6A396FF7167A21ACA6CADA37B2113349 /* PKCategoryNavBar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKCategoryNavBar.swift; path = PKCategoryViewDemo/PKCategoryView/PKCategoryNavBar.swift; sourceTree = "<group>"; };
 		6A86417329E3D38664BDC4CD549110BB /* FIRDependency.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRDependency.m; path = Firebase/Core/FIRDependency.m; sourceTree = "<group>"; };
 		6AD53E13ABF15EE69389A2358469DBC3 /* StringTrimExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StringTrimExtension.swift; path = ActiveLabel/StringTrimExtension.swift; sourceTree = "<group>"; };
 		6AD8BF7742CBA35BFDE2D0771C1B6D27 /* MiniLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MiniLayout.swift; path = Sources/MiniLayout.swift; sourceTree = "<group>"; };
-		6ADCEE7E1F04C2C118E6D7BB58643239 /* SourceSansPro-SemiBoldItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "SourceSansPro-SemiBoldItalic.ttf"; path = "AertripCalendar/Resources/SourceSansPro-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		6ADCEE7E1F04C2C118E6D7BB58643239 /* SourceSansPro-SemiBoldItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "SourceSansPro-SemiBoldItalic.ttf"; path = "AertripCalendar/Resources/SourceSansPro-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		6B81209972E67E6688455E5AA57EF79F /* GooglePlaces.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlaces.framework; path = Frameworks/GooglePlaces.framework; sourceTree = "<group>"; };
 		6B8A2483A60696D23BB8ADF289C5FB1C /* AertripCalendar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AertripCalendar.h; path = AertripCalendar/AertripCalendar.h; sourceTree = "<group>"; };
 		6BA0AC9656C5A32C8676B2B6C86C14E5 /* FBSDKGraphRequestDataAttachment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKGraphRequestDataAttachment.h; path = FBSDKCoreKit/FBSDKCoreKit/GraphAPI/FBSDKGraphRequestDataAttachment.h; sourceTree = "<group>"; };
@@ -2201,8 +2212,8 @@
 		6F2502B27E5520856A4373E56E404F6F /* FIRComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRComponent.h; path = Firebase/Core/Private/FIRComponent.h; sourceTree = "<group>"; };
 		6F2EFC6922FB8791029E1D544C060191 /* GDTCORConsoleLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GDTCORConsoleLogger.h; path = GoogleDataTransport/GDTCORLibrary/Public/GDTCORConsoleLogger.h; sourceTree = "<group>"; };
 		6F6A6F9770AD01D809504B485927B769 /* GTMAppAuthFetcherAuthorization+Keychain.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "GTMAppAuthFetcherAuthorization+Keychain.m"; path = "Source/GTMAppAuthFetcherAuthorization+Keychain.m"; sourceTree = "<group>"; };
-		6FAE2DB5EA1A351A85AE1D9B403460CF /* pb_common.c */ = {isa = PBXFileReference; includeInIndex = 1; path = pb_common.c; sourceTree = "<group>"; };
-		6FD122EA0AB9AB2A8FFA5F676C795DF0 /* GTMAppAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = GTMAppAuth.framework; path = GTMAppAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FAE2DB5EA1A351A85AE1D9B403460CF /* pb_common.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; path = pb_common.c; sourceTree = "<group>"; };
+		6FD122EA0AB9AB2A8FFA5F676C795DF0 /* GTMAppAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GTMAppAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FE40715D19CFF8689BC55C2E9A59AF8 /* FSCalendarDelegationFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FSCalendarDelegationFactory.h; path = FSCalendar/FSCalendarDelegationFactory.h; sourceTree = "<group>"; };
 		6FE971BC2C34E1934564558F10E1DE45 /* FBSDKURLSessionTask.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKURLSessionTask.h; path = FBSDKCoreKit/FBSDKCoreKit/Basics/Internal/FBSDKURLSessionTask.h; sourceTree = "<group>"; };
 		7022E3CBBC79BB6990C7763F35854C44 /* ImageDownloader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageDownloader.swift; path = Sources/Networking/ImageDownloader.swift; sourceTree = "<group>"; };
@@ -2244,7 +2255,7 @@
 		7619ED8952122348AFF88DBFC07B447F /* LIALinkedInHttpClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LIALinkedInHttpClient.h; path = IOSLinkedInAPI/LIALinkedInHttpClient.h; sourceTree = "<group>"; };
 		761B3CDCF159A2D030BD5735B953822E /* FBSDKGraphRequestDataAttachment.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKGraphRequestDataAttachment.m; path = FBSDKCoreKit/FBSDKCoreKit/GraphAPI/FBSDKGraphRequestDataAttachment.m; sourceTree = "<group>"; };
 		76230768B3A18E7DFD1C4057FD0623A1 /* FirebaseCoreDiagnostics.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FirebaseCoreDiagnostics.modulemap; sourceTree = "<group>"; };
-		76C3B7F41DFF223FC5E36506C0E7E474 /* AertripCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AertripCalendar.framework; path = AertripCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		76C3B7F41DFF223FC5E36506C0E7E474 /* AertripCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AertripCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76EE58260D09F32BD337194B5B5B7FB7 /* FBSDKAddressInferencer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKAddressInferencer.h; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/RestrictiveDataFilter/FBSDKAddressInferencer.h; sourceTree = "<group>"; };
 		778F2B39BFE15076E764D3F38FB9B424 /* OIDExternalUserAgentIOSCustomBrowser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDExternalUserAgentIOSCustomBrowser.h; path = Source/iOS/OIDExternalUserAgentIOSCustomBrowser.h; sourceTree = "<group>"; };
 		77BC2FB7600A6A4DC110A0B460606ED3 /* AFNetworking-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "AFNetworking-Info.plist"; sourceTree = "<group>"; };
@@ -2269,7 +2280,7 @@
 		7B188C46F2CDC6CB20461ED24BC0F969 /* GDTCCTNanopbHelpers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GDTCCTNanopbHelpers.h; path = GoogleDataTransportCCTSupport/GDTCCTLibrary/Private/GDTCCTNanopbHelpers.h; sourceTree = "<group>"; };
 		7B5AE345D52ACAE43511DCC2169A61D5 /* FirebaseAnalytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FirebaseAnalytics.xcconfig; sourceTree = "<group>"; };
 		7B94E47390EB7F2EE1B8A46805ED125E /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+AFNetworking.m"; path = "UIKit+AFNetworking/UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
-		7BF4F9DF012C6B052F90491877CB3432 /* MXParallaxHeader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MXParallaxHeader.framework; path = MXParallaxHeader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BF4F9DF012C6B052F90491877CB3432 /* MXParallaxHeader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MXParallaxHeader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BFAE150AB13597B2009A4A6BBEF03CE /* IQTitleBarButtonItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IQTitleBarButtonItem.h; path = IQKeyboardManager/IQToolbar/IQTitleBarButtonItem.h; sourceTree = "<group>"; };
 		7C26C3DD2DFB3BBBF760515A1E7938F6 /* FBSDKCoreKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FBSDKCoreKit.modulemap; sourceTree = "<group>"; };
 		7C7BC46365D6BBA2A2FF10E3E1104465 /* AertripCalendarDataModel.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AertripCalendarDataModel.xcconfig; sourceTree = "<group>"; };
@@ -2307,7 +2318,7 @@
 		847AC716833AC07C22C4723CCD0F7742 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
 		84B3D21D3115E57DA572FE3FCC43685A /* FBSDKLogo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKLogo.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/UI/FBSDKLogo.m; sourceTree = "<group>"; };
 		85685C2E52B0280E6E1F13864EE0EEFC /* FSCalendarSeparatorDecorationView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FSCalendarSeparatorDecorationView.h; path = FSCalendar/FSCalendarSeparatorDecorationView.h; sourceTree = "<group>"; };
-		856B5CD56F194FAD26EA91620B66D614 /* GoogleDataTransport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = GoogleDataTransport.framework; path = GoogleDataTransport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		856B5CD56F194FAD26EA91620B66D614 /* GoogleDataTransport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoogleDataTransport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		857F901A83B17D33E812B1F6D777804B /* Pods-AERTRIP-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AERTRIP-resources.sh"; sourceTree = "<group>"; };
 		85C7772C874B97A3D4DC000B79F1D2E2 /* FBSDKEventBinding.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKEventBinding.h; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/Codeless/FBSDKEventBinding.h; sourceTree = "<group>"; };
 		85D2D96B14273046F1B4C9870592DAEF /* GoogleDataTransportCCTSupport.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = GoogleDataTransportCCTSupport.modulemap; sourceTree = "<group>"; };
@@ -2324,7 +2335,7 @@
 		8A048D13F8AA7AD7FDE007C3514FE965 /* IQKeyboardManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "IQKeyboardManager-dummy.m"; sourceTree = "<group>"; };
 		8A0BB391B54E72B6D7D40D4639BE407D /* FBSDKErrorConfiguration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKErrorConfiguration.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/ServerConfiguration/FBSDKErrorConfiguration.m; sourceTree = "<group>"; };
 		8A6140B1317BA6C733363A7B903E81E1 /* FSCalendarCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FSCalendarCell.h; path = FSCalendar/FSCalendarCell.h; sourceTree = "<group>"; };
-		8A9F3D24A80641CA93D0BCC8D5DDD893 /* firebasecore.nanopb.c */ = {isa = PBXFileReference; includeInIndex = 1; name = firebasecore.nanopb.c; path = Firebase/CoreDiagnostics/FIRCDLibrary/Protogen/nanopb/firebasecore.nanopb.c; sourceTree = "<group>"; };
+		8A9F3D24A80641CA93D0BCC8D5DDD893 /* firebasecore.nanopb.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = firebasecore.nanopb.c; path = Firebase/CoreDiagnostics/FIRCDLibrary/Protogen/nanopb/firebasecore.nanopb.c; sourceTree = "<group>"; };
 		8AFE4C4160561E4DA01DFF469B2D706D /* GULSwizzler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GULSwizzler.h; path = GoogleUtilities/MethodSwizzler/Private/GULSwizzler.h; sourceTree = "<group>"; };
 		8B178D932968F94E2AD27E6ABA06C7CC /* FIRDLRetrievalProcessFactory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRDLRetrievalProcessFactory.m; path = Firebase/DynamicLinks/FIRDLRetrievalProcessFactory.m; sourceTree = "<group>"; };
 		8B47EF143A8D53532A4A7F8BA5CA6EFE /* ImageCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageCache.swift; path = Sources/Cache/ImageCache.swift; sourceTree = "<group>"; };
@@ -2334,9 +2345,9 @@
 		8BB0CCD12EC039824924E05E5A98D7F8 /* pb_decode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = pb_decode.h; sourceTree = "<group>"; };
 		8BF97B79CD5179E62B6D4AFA87683FB3 /* FBSDKMeasurementEvent_Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKMeasurementEvent_Internal.h; path = FBSDKCoreKit/FBSDKCoreKit/Internal/FBSDKMeasurementEvent_Internal.h; sourceTree = "<group>"; };
 		8C76CFFF498C7A1969AD9CA064ABB557 /* FBSDKLoginTooltipView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKLoginTooltipView.h; path = FBSDKLoginKit/FBSDKLoginKit/FBSDKLoginTooltipView.h; sourceTree = "<group>"; };
-		8CC9178C366942FD6FF6A115604EAD58 /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FirebaseCoreDiagnostics.framework; path = FirebaseCoreDiagnostics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CC9178C366942FD6FF6A115604EAD58 /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FirebaseCoreDiagnostics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D009EAD991FA22358E76418C86F3B6C /* IOSLinkedInAPIFix-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "IOSLinkedInAPIFix-dummy.m"; sourceTree = "<group>"; };
-		8D27E49E41337AFAA57393FBBE6E7EF5 /* IOSLinkedInAPIFix.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = IOSLinkedInAPIFix.framework; path = IOSLinkedInAPIFix.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D27E49E41337AFAA57393FBBE6E7EF5 /* IOSLinkedInAPIFix.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IOSLinkedInAPIFix.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D5D97ED6FF87F0C7F51FB2132A645B3 /* FBSDKInstrumentManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKInstrumentManager.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/Instrument/FBSDKInstrumentManager.m; sourceTree = "<group>"; };
 		8DA48A891AB51CCA969F53E5DF736407 /* AvailableHapticFeedback.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AvailableHapticFeedback.xcconfig; sourceTree = "<group>"; };
 		8DFE2E8947F2B2A9D8EF98C9505601CC /* SwiftyJSON-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyJSON-dummy.m"; sourceTree = "<group>"; };
@@ -2368,7 +2379,7 @@
 		94A55894865AD22AA21E9710E20FF6DB /* OIDServiceConfiguration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDServiceConfiguration.m; path = Source/OIDServiceConfiguration.m; sourceTree = "<group>"; };
 		950C205C1795944E36418FE26905A9E1 /* FBSDKButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKButton.h; path = FBSDKCoreKit/FBSDKCoreKit/FBSDKButton.h; sourceTree = "<group>"; };
 		951D2F6CCABC5FC0F323342826DA29D7 /* FBSDKCrashObserver.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKCrashObserver.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/Instrument/CrashReport/FBSDKCrashObserver.m; sourceTree = "<group>"; };
-		95209B8BB966524BC76543F99C75F5FE /* FSCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FSCalendar.framework; path = FSCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		95209B8BB966524BC76543F99C75F5FE /* FSCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FSCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95AE420035049452E309C50F2BD2F770 /* LIALinkedInApplication.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LIALinkedInApplication.h; path = IOSLinkedInAPI/LIALinkedInApplication.h; sourceTree = "<group>"; };
 		95DCAD378D7AEC9C2D79BF18803F802A /* PKCategoryView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PKCategoryView-umbrella.h"; sourceTree = "<group>"; };
 		95DD2E941F238C5E4C021E49474ED66C /* PhoneNumber.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PhoneNumber.swift; path = PhoneNumberKit/PhoneNumber.swift; sourceTree = "<group>"; };
@@ -2381,7 +2392,7 @@
 		97AF79E72B78974936EC39BDB8EB5D92 /* OIDURLSessionProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDURLSessionProvider.m; path = Source/OIDURLSessionProvider.m; sourceTree = "<group>"; };
 		97CE65165C89B9A3B9A6F0C42494C6FA /* FIRInstanceIDTokenFetchOperation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRInstanceIDTokenFetchOperation.m; path = Firebase/InstanceID/FIRInstanceIDTokenFetchOperation.m; sourceTree = "<group>"; };
 		97CF138A40DA42274AD807BDD001ABEB /* CLSAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSAttributes.h; path = iOS/Crashlytics.framework/Headers/CLSAttributes.h; sourceTree = "<group>"; };
-		98527D7196957AAB07B79E2E2AFDE23E /* IQKeyboardManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = IQKeyboardManager.framework; path = IQKeyboardManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		98527D7196957AAB07B79E2E2AFDE23E /* IQKeyboardManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IQKeyboardManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		986013F683680570D30E4228C8FC39C7 /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkReachabilityManager.swift; path = Source/NetworkReachabilityManager.swift; sourceTree = "<group>"; };
 		9862F5FDDADCC0080539918B3DDD9090 /* FIRInstanceIDTokenOperation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRInstanceIDTokenOperation.m; path = Firebase/InstanceID/FIRInstanceIDTokenOperation.m; sourceTree = "<group>"; };
 		987A29E43DC3AA8FE7912FFA2B39F950 /* FBSDKEventBinding.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKEventBinding.m; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/Codeless/FBSDKEventBinding.m; sourceTree = "<group>"; };
@@ -2392,16 +2403,16 @@
 		9A9680775896136CB7A951DCC78D92BF /* GoogleDataTransport-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GoogleDataTransport-umbrella.h"; sourceTree = "<group>"; };
 		9A97AD20739A58203F42AA71FDE3BF42 /* LIALinkedInHttpClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LIALinkedInHttpClient.m; path = IOSLinkedInAPI/LIALinkedInHttpClient.m; sourceTree = "<group>"; };
 		9AA635D57635FFFC56CEDF7AD9D72384 /* Razorpay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Razorpay.framework; path = Pod/Razorpay.framework; sourceTree = "<group>"; };
-		9B3E7CA6C25160EA6D83A9BB69499BD5 /* FlexiblePageControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FlexiblePageControl.framework; path = FlexiblePageControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B3E7CA6C25160EA6D83A9BB69499BD5 /* FlexiblePageControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlexiblePageControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB50D851F142CB127EE4997190755C6 /* AppAuth-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AppAuth-prefix.pch"; sourceTree = "<group>"; };
 		9C1B69CE6329C328651C605EDFE33B35 /* FBSDKDeviceLoginManagerResult+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBSDKDeviceLoginManagerResult+Internal.h"; path = "FBSDKLoginKit/FBSDKLoginKit/Internal/FBSDKDeviceLoginManagerResult+Internal.h"; sourceTree = "<group>"; };
 		9C1F5AC962931068EA494B59E760C5C2 /* AuthenticationChallengeResponsable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AuthenticationChallengeResponsable.swift; path = Sources/Networking/AuthenticationChallengeResponsable.swift; sourceTree = "<group>"; };
 		9C2133A98CB0CB565F560C2676D90AD6 /* Pods-AERTRIP-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-AERTRIP-dummy.m"; sourceTree = "<group>"; };
 		9CAD16879894E0676B5C1BC98B20AF95 /* FIRInstanceIDKeychain.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRInstanceIDKeychain.h; path = Firebase/InstanceID/FIRInstanceIDKeychain.h; sourceTree = "<group>"; };
-		9CAF4B1599780F412B5FB2296C5D6F61 /* SourceSansPro-Black.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "SourceSansPro-Black.ttf"; path = "AertripCalendar/Resources/SourceSansPro-Black.ttf"; sourceTree = "<group>"; };
+		9CAF4B1599780F412B5FB2296C5D6F61 /* SourceSansPro-Black.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "SourceSansPro-Black.ttf"; path = "AertripCalendar/Resources/SourceSansPro-Black.ttf"; sourceTree = "<group>"; };
 		9D36E11FE16F04B17C70A56041040CD8 /* GDTFLLUploader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GDTFLLUploader.m; path = GoogleDataTransportCCTSupport/GDTCCTLibrary/GDTFLLUploader.m; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9DADB59B5974B19AEDAF31DD42828340 /* PhoneNumberMetadata.json */ = {isa = PBXFileReference; includeInIndex = 1; name = PhoneNumberMetadata.json; path = PhoneNumberKit/Resources/PhoneNumberMetadata.json; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9DADB59B5974B19AEDAF31DD42828340 /* PhoneNumberMetadata.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; name = PhoneNumberMetadata.json; path = PhoneNumberKit/Resources/PhoneNumberMetadata.json; sourceTree = "<group>"; };
 		9E47D888696125629E92FE07B1744886 /* OIDError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDError.m; path = Source/OIDError.m; sourceTree = "<group>"; };
 		9E51DCD7DB5EEB8E021EC3618A125196 /* SizeExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SizeExtensions.swift; path = Sources/Utility/SizeExtensions.swift; sourceTree = "<group>"; };
 		9E7A296FE16DB571E91FD6F7EDEF1CE7 /* FBSDKCodelessIndexer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKCodelessIndexer.m; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/Codeless/FBSDKCodelessIndexer.m; sourceTree = "<group>"; };
@@ -2436,19 +2447,19 @@
 		A49109AC6429B382F3ECC166EB21EE09 /* FDLLogging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FDLLogging.h; path = Firebase/DynamicLinks/Logging/FDLLogging.h; sourceTree = "<group>"; };
 		A4DD6FC7BEF9ED0080C4C0060401BAD1 /* NSRegularExpression+Swift.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSRegularExpression+Swift.swift"; path = "PhoneNumberKit/NSRegularExpression+Swift.swift"; sourceTree = "<group>"; };
 		A4F03D3CA945E200AC2393AE5520FB54 /* FDLURLComponents.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FDLURLComponents.h; path = Firebase/DynamicLinks/Public/FDLURLComponents.h; sourceTree = "<group>"; };
-		A4FA15D44DF6BAC7550EDEED10862AA3 /* AFNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AFNetworking.framework; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4FA15D44DF6BAC7550EDEED10862AA3 /* AFNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AFNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A51D5F2BC665CA62B1D7046A95BFFE48 /* FSCalendar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FSCalendar.m; path = FSCalendar/FSCalendar.m; sourceTree = "<group>"; };
 		A534359EBC7C18DA2364BB6BD5D27FE0 /* GULReachabilityChecker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GULReachabilityChecker.m; path = GoogleUtilities/Reachability/GULReachabilityChecker.m; sourceTree = "<group>"; };
 		A547DC1F82C6DFE96A512FBFDF33BBCB /* OIDTokenRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDTokenRequest.m; path = Source/OIDTokenRequest.m; sourceTree = "<group>"; };
 		A5A85F1EA420ABF08ACCC98937B48E8B /* FIRDynamicLinkNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRDynamicLinkNetworking.m; path = Firebase/DynamicLinks/FIRDynamicLinkNetworking.m; sourceTree = "<group>"; };
 		A5AE930C9FC469787DAFAE9CAF173E02 /* AFURLSessionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFURLSessionManager.m; path = AFNetworking/AFURLSessionManager.m; sourceTree = "<group>"; };
-		A5B2838E4866923F3DA717B058EBFF5D /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = IQKeyboardManager.bundle; path = "IQKeyboardManager-IQKeyboardManager.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5B2838E4866923F3DA717B058EBFF5D /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IQKeyboardManager.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5FE8F7CACFFA54FD48A71FFCF7E2583 /* FBSDKCrashHandler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKCrashHandler.m; path = FBSDKCoreKit/FBSDKCoreKit/Basics/Instrument/FBSDKCrashHandler.m; sourceTree = "<group>"; };
 		A608B33AA6FAC5A98F6CDBF1F09D1444 /* OIDAuthState.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDAuthState.m; path = Source/OIDAuthState.m; sourceTree = "<group>"; };
 		A60E0CEE413FFD28B546B3368B07EF82 /* FIRInstanceIDCheckinStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRInstanceIDCheckinStore.m; path = Firebase/InstanceID/FIRInstanceIDCheckinStore.m; sourceTree = "<group>"; };
 		A669FE53F4673EC4B16153B85FA0DFB5 /* CalendarVM.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CalendarVM.h; path = CalendarDataModel/CalendarDataModel/CalendarVM.h; sourceTree = "<group>"; };
 		A6902F69D213766621F8506A970DA352 /* GDTCORUploadCoordinator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GDTCORUploadCoordinator.m; path = GoogleDataTransport/GDTCORLibrary/GDTCORUploadCoordinator.m; sourceTree = "<group>"; };
-		A6ADC9B1D247C85A16BF0FB890DABAD1 /* SourceSansPro-BlackItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "SourceSansPro-BlackItalic.ttf"; path = "AertripCalendar/Resources/SourceSansPro-BlackItalic.ttf"; sourceTree = "<group>"; };
+		A6ADC9B1D247C85A16BF0FB890DABAD1 /* SourceSansPro-BlackItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "SourceSansPro-BlackItalic.ttf"; path = "AertripCalendar/Resources/SourceSansPro-BlackItalic.ttf"; sourceTree = "<group>"; };
 		A6C087E49E8987E1912265168B18B73F /* FIRApp.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRApp.h; path = Firebase/Core/Public/FIRApp.h; sourceTree = "<group>"; };
 		A6C6A915E5AEB1627AE843C00C9FF734 /* FSCalendarConstants.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FSCalendarConstants.m; path = FSCalendar/FSCalendarConstants.m; sourceTree = "<group>"; };
 		A6EF5C2251D5C744ED86F639513AD06C /* FBSDKAppLink_Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKAppLink_Internal.h; path = FBSDKCoreKit/FBSDKCoreKit/Internal/FBSDKAppLink_Internal.h; sourceTree = "<group>"; };
@@ -2478,7 +2489,7 @@
 		ACE90F68EE0295F3B6A91E6F2502E1EC /* _FBSDKLoginRecoveryAttempter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = _FBSDKLoginRecoveryAttempter.m; path = FBSDKLoginKit/FBSDKLoginKit/Internal/_FBSDKLoginRecoveryAttempter.m; sourceTree = "<group>"; };
 		AD093EFDB9EA0408FD394DAE448062C0 /* ImageModifier.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageModifier.swift; path = Sources/Networking/ImageModifier.swift; sourceTree = "<group>"; };
 		AD22C760B2C64EE5DBE8CBF71215C1E0 /* FBSDKLoginUtility.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKLoginUtility.m; path = FBSDKLoginKit/FBSDKLoginKit/Internal/FBSDKLoginUtility.m; sourceTree = "<group>"; };
-		AD28813F026D0E3D51166227C9806B50 /* Menlo-Regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "Menlo-Regular.ttf"; path = "AertripCalendar/Resources/Menlo-Regular.ttf"; sourceTree = "<group>"; };
+		AD28813F026D0E3D51166227C9806B50 /* Menlo-Regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "Menlo-Regular.ttf"; path = "AertripCalendar/Resources/Menlo-Regular.ttf"; sourceTree = "<group>"; };
 		ADA6F19AFFA9396D477012088C5A84E9 /* FBSDKGraphRequestMetadata.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKGraphRequestMetadata.h; path = FBSDKCoreKit/FBSDKCoreKit/Internal/Network/FBSDKGraphRequestMetadata.h; sourceTree = "<group>"; };
 		ADB7627DDEC7D737CFC6C75C494F256C /* LSResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSResponse.m; path = LinkedinSwift/LinkedinSwift/sources/Entities/LSResponse.m; sourceTree = "<group>"; };
 		ADBF00135F8FCD9E1F46A1240A7FF780 /* GULOriginalIMPConvenienceMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GULOriginalIMPConvenienceMacros.h; path = GoogleUtilities/MethodSwizzler/Private/GULOriginalIMPConvenienceMacros.h; sourceTree = "<group>"; };
@@ -2498,17 +2509,17 @@
 		B05E9F9DD1549E9A6C430DED72EDCD51 /* FBSDKLoginManagerLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKLoginManagerLogger.m; path = FBSDKLoginKit/FBSDKLoginKit/Internal/FBSDKLoginManagerLogger.m; sourceTree = "<group>"; };
 		B06A52D4A401DB8C1DC20EA23462BE00 /* FBSDKAccessTokenExpirer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKAccessTokenExpirer.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/TokenCaching/FBSDKAccessTokenExpirer.m; sourceTree = "<group>"; };
 		B078D3C028DBD8ADEA172C8BA8BE54E7 /* ActiveLabel-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ActiveLabel-prefix.pch"; sourceTree = "<group>"; };
-		B09FD76F370DECBB8736F25C8DBAAC2D /* FBSDKAddressInferencer.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = FBSDKAddressInferencer.mm; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/RestrictiveDataFilter/FBSDKAddressInferencer.mm; sourceTree = "<group>"; };
+		B09FD76F370DECBB8736F25C8DBAAC2D /* FBSDKAddressInferencer.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = FBSDKAddressInferencer.mm; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/RestrictiveDataFilter/FBSDKAddressInferencer.mm; sourceTree = "<group>"; };
 		B12CAF26E725C55DE024BD6DDD381853 /* OIDClientMetadataParameters.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDClientMetadataParameters.h; path = Source/OIDClientMetadataParameters.h; sourceTree = "<group>"; };
 		B1870E1A3E4D97FBF03DBE46E92BC1DA /* FBSDKMutableCopying.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKMutableCopying.h; path = FBSDKCoreKit/FBSDKCoreKit/FBSDKMutableCopying.h; sourceTree = "<group>"; };
 		B1E4B76B60A1D73C0EA7A50123640D60 /* FIRDynamicLinkNetworking+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FIRDynamicLinkNetworking+Private.h"; path = "Firebase/DynamicLinks/FIRDynamicLinkNetworking+Private.h"; sourceTree = "<group>"; };
 		B2C13AE79AF2D42A5436007DC13F1E16 /* FBSDKDeviceLoginManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKDeviceLoginManager.h; path = FBSDKLoginKit/FBSDKLoginKit/FBSDKDeviceLoginManager.h; sourceTree = "<group>"; };
 		B310583957EEF3312DFA9E2D57BD14FD /* FSCalendarStickyHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FSCalendarStickyHeader.m; path = FSCalendar/FSCalendarStickyHeader.m; sourceTree = "<group>"; };
-		B31C2B94C230DED75C9A1DDAC7690310 /* LinkedinSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = LinkedinSwift.framework; path = LinkedinSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B31C2B94C230DED75C9A1DDAC7690310 /* LinkedinSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LinkedinSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B35ABA1D6BFB5A3C640A76E7D10E03FF /* MiniLayout.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MiniLayout.modulemap; sourceTree = "<group>"; };
 		B381FB3E7B3304C3CECB37EF0FC58A9A /* FBSDKMonotonicTime.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKMonotonicTime.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/FBSDKMonotonicTime.m; sourceTree = "<group>"; };
 		B4031FB9E1016553B8CF2B23A8B38D1B /* GoogleUtilities-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "GoogleUtilities-dummy.m"; sourceTree = "<group>"; };
-		B43874C6CBB50E7134FBEC24BABFE14F /* GoogleUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = GoogleUtilities.framework; path = GoogleUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B43874C6CBB50E7134FBEC24BABFE14F /* GoogleUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoogleUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B44E5CBB35FB3C30A5C22A2048491FAB /* SessionDataTask.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionDataTask.swift; path = Sources/Networking/SessionDataTask.swift; sourceTree = "<group>"; };
 		B4765BCB7242E5E62E09BB39096B1286 /* TransitionButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TransitionButton.swift; path = Source/TransitionButton.swift; sourceTree = "<group>"; };
 		B4A227CFE3A6D97458A2D783C32140FA /* TransitionButton.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TransitionButton.xcconfig; sourceTree = "<group>"; };
@@ -2519,7 +2530,7 @@
 		B63E4AD1CA80A90ECEA707F628AFF812 /* FBSDKAddressFilterManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKAddressFilterManager.m; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/RestrictiveDataFilter/FBSDKAddressFilterManager.m; sourceTree = "<group>"; };
 		B683709430C136094A4153C39993A7C0 /* GULReachabilityChecker+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "GULReachabilityChecker+Internal.h"; path = "GoogleUtilities/Reachability/GULReachabilityChecker+Internal.h"; sourceTree = "<group>"; };
 		B709FA612A4AA1AC6941F666A79F0611 /* GDTCORReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GDTCORReachability.h; path = GoogleDataTransport/GDTCORLibrary/Private/GDTCORReachability.h; sourceTree = "<group>"; };
-		B70FB46521F669C2C86769FF44033B17 /* AertripCalendar.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = AertripCalendar.bundle; path = "AertripCalendar-AertripCalendar.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B70FB46521F669C2C86769FF44033B17 /* AertripCalendar.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AertripCalendar.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7823CEB73E319FD416DB16FB7D52E42 /* FIRInstanceID+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FIRInstanceID+Private.h"; path = "Firebase/InstanceID/Private/FIRInstanceID+Private.h"; sourceTree = "<group>"; };
 		B7AB64E9F9C8CB96C9FFCC297D15DF74 /* OIDIDToken.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDIDToken.h; path = Source/OIDIDToken.h; sourceTree = "<group>"; };
 		B7B7C839DE848320B8E3CE4DFB8158DD /* GoogleDataTransport.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = GoogleDataTransport.xcconfig; sourceTree = "<group>"; };
@@ -2554,7 +2565,7 @@
 		BDB7A0845C85AF1A28F39C2F73E9387E /* GDTCORPlatform.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GDTCORPlatform.h; path = GoogleDataTransport/GDTCORLibrary/Public/GDTCORPlatform.h; sourceTree = "<group>"; };
 		BDDA8752DC25356CDADB37BF123830EC /* FIRInstanceIDCheckinPreferences.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRInstanceIDCheckinPreferences.m; path = Firebase/InstanceID/FIRInstanceIDCheckinPreferences.m; sourceTree = "<group>"; };
 		BDF7884133D78080B54556FAB9C22F7C /* Pods-AERTRIP-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-AERTRIP-acknowledgements.markdown"; sourceTree = "<group>"; };
-		BED92AA941958BAB7262153875FD85AB /* MiniLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MiniLayout.framework; path = MiniLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BED92AA941958BAB7262153875FD85AB /* MiniLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MiniLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF3815F84AAF90595A279C266F77F88D /* FBSDKCrashShield.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKCrashShield.h; path = FBSDKCoreKit/FBSDKCoreKit/Internal/Instrument/CrashReport/FBSDKCrashShield.h; sourceTree = "<group>"; };
 		BF3C559D45663F04B04FAB9819EF582C /* GDTCORReachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GDTCORReachability.m; path = GoogleDataTransport/GDTCORLibrary/GDTCORReachability.m; sourceTree = "<group>"; };
 		BF7ABB3BE86E6B8B0AF5FA936D019E58 /* FBSDKInternalUtility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKInternalUtility.h; path = FBSDKCoreKit/FBSDKCoreKit/Internal/FBSDKInternalUtility.h; sourceTree = "<group>"; };
@@ -2568,7 +2579,7 @@
 		C13D5A96CE101D9DD85273CABE957545 /* FBSDKBase64.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKBase64.h; path = FBSDKCoreKit/FBSDKCoreKit/Internal/Base64/FBSDKBase64.h; sourceTree = "<group>"; };
 		C140AF141F8458A3C4A73169A41BD5B9 /* FIRCoreDiagnosticsDateFileStorage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRCoreDiagnosticsDateFileStorage.m; path = Firebase/CoreDiagnostics/FIRCDLibrary/FIRCoreDiagnosticsDateFileStorage.m; sourceTree = "<group>"; };
 		C18ED668E7A96724ED530F1427752468 /* FBSDKTooltipView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKTooltipView.m; path = FBSDKLoginKit/FBSDKLoginKit/FBSDKTooltipView.m; sourceTree = "<group>"; };
-		C1998E0D8085221AD87F89B614C10E52 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = GTMSessionFetcher.framework; path = GTMSessionFetcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1998E0D8085221AD87F89B614C10E52 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GTMSessionFetcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1F75DD00836528317C543E093FC3A9E /* GTMAppAuth.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GTMAppAuth.h; path = Source/GTMAppAuth.h; sourceTree = "<group>"; };
 		C23B5CBCAB02CDA0B0BF4FC2EFCDB396 /* GDTCCTUploader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GDTCCTUploader.m; path = GoogleDataTransportCCTSupport/GDTCCTLibrary/GDTCCTUploader.m; sourceTree = "<group>"; };
 		C24001F61F013F06936281912AF3A64A /* Source.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Source.swift; path = Sources/General/ImageSource/Source.swift; sourceTree = "<group>"; };
@@ -2577,7 +2588,7 @@
 		C365DA32805638A12332D8D6AB524FC6 /* FirebaseInstanceID.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FirebaseInstanceID.xcconfig; sourceTree = "<group>"; };
 		C38E0C6FCB696C8AD055DA808B2ED86B /* IQToolbar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IQToolbar.h; path = IQKeyboardManager/IQToolbar/IQToolbar.h; sourceTree = "<group>"; };
 		C3DDC8B4A9E59581093B68013EEF506E /* FBSDKBridgeAPIProtocolType.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKBridgeAPIProtocolType.h; path = FBSDKCoreKit/FBSDKCoreKit/Internal/BridgeAPI/FBSDKBridgeAPIProtocolType.h; sourceTree = "<group>"; };
-		C3F44C782D64D7EB20B61CE3844EBFAD /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Kingfisher.framework; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3F44C782D64D7EB20B61CE3844EBFAD /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4078B008CACC912CD844B8BD82FD74B /* FSCalendarCollectionView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FSCalendarCollectionView.m; path = FSCalendar/FSCalendarCollectionView.m; sourceTree = "<group>"; };
 		C425525EB9207BA2798E9EA67B0EDE67 /* LinkedinNativeClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LinkedinNativeClient.h; path = LinkedinSwift/LinkedinSwift/sources/LinkedinNativeClient.h; sourceTree = "<group>"; };
 		C42AD8AF18674AFD3C2646CCEBD969B4 /* FIRDynamicLinkComponentsKeyProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRDynamicLinkComponentsKeyProvider.h; path = Firebase/DynamicLinks/FDLURLComponents/FIRDynamicLinkComponentsKeyProvider.h; sourceTree = "<group>"; };
@@ -2593,7 +2604,7 @@
 		C69889AD7A758A1DBB326DE4011A6A0B /* OIDURLSessionProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDURLSessionProvider.h; path = Source/OIDURLSessionProvider.h; sourceTree = "<group>"; };
 		C6A12D35C8BC1F82C4D37575EBC77E20 /* FBSDKPaymentObserver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKPaymentObserver.h; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/FBSDKPaymentObserver.h; sourceTree = "<group>"; };
 		C6BA0C7079C7C183A31F39F54B6951C6 /* OIDTokenUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDTokenUtilities.h; path = Source/OIDTokenUtilities.h; sourceTree = "<group>"; };
-		C7142F461F26172B0CE1FE723CAF3184 /* PKCategoryView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PKCategoryView.framework; path = PKCategoryView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7142F461F26172B0CE1FE723CAF3184 /* PKCategoryView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PKCategoryView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C71B6A663A05AD1AD5B32375F56865EA /* GDTFLLUploader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GDTFLLUploader.h; path = GoogleDataTransportCCTSupport/GDTCCTLibrary/Private/GDTFLLUploader.h; sourceTree = "<group>"; };
 		C7278FDBAAA77F00579A6D98D4FA18A4 /* PKLoaderSettings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKLoaderSettings.swift; path = PKLoaderDemo/PKLoader/PKLoaderSettings.swift; sourceTree = "<group>"; };
 		C7D29C4316E13EF25E0F6471FF3D9713 /* FBSDKCrashObserver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKCrashObserver.h; path = FBSDKCoreKit/FBSDKCoreKit/Internal/Instrument/CrashReport/FBSDKCrashObserver.h; sourceTree = "<group>"; };
@@ -2643,7 +2654,7 @@
 		D067F91FED5D1356AA09100C84BA5B2D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D1FDE251C5E805735201618C41142F47 /* FBSDKSuggestedEventsIndexer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKSuggestedEventsIndexer.h; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/SuggestedEvents/FBSDKSuggestedEventsIndexer.h; sourceTree = "<group>"; };
 		D26D5A2AA446849E98B510390988BE9B /* FIRAnalyticsConfiguration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRAnalyticsConfiguration.m; path = Firebase/Core/FIRAnalyticsConfiguration.m; sourceTree = "<group>"; };
-		D306F3B73B0E0A789613827FE76170DA /* AvailableHapticFeedback.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AvailableHapticFeedback.framework; path = AvailableHapticFeedback.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D306F3B73B0E0A789613827FE76170DA /* AvailableHapticFeedback.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AvailableHapticFeedback.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3291F79A1A197FD4BFEB8BA89160FCF /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Frameworks/FirebaseAnalytics.framework; sourceTree = "<group>"; };
 		D355C5325081929DBAAE189C50666496 /* OIDEndSessionRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDEndSessionRequest.h; path = Source/OIDEndSessionRequest.h; sourceTree = "<group>"; };
 		D3787CB389F9D32E5C5C4707C4E07934 /* FBSDKTestUsersManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKTestUsersManager.h; path = FBSDKCoreKit/FBSDKCoreKit/FBSDKTestUsersManager.h; sourceTree = "<group>"; };
@@ -2669,7 +2680,7 @@
 		D7A61FD149AB1F31596CA7980BD49A92 /* FBSDKBridgeAPI.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKBridgeAPI.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/BridgeAPI/FBSDKBridgeAPI.m; sourceTree = "<group>"; };
 		D7BFF07399309A45246F350909EFE4FF /* FBSDKServerConfiguration+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBSDKServerConfiguration+Internal.h"; path = "FBSDKCoreKit/FBSDKCoreKit/Internal/ServerConfiguration/FBSDKServerConfiguration+Internal.h"; sourceTree = "<group>"; };
 		D7EC77D0C3D6B43745264160FDF8B98C /* razorpay-pod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "razorpay-pod.xcconfig"; sourceTree = "<group>"; };
-		D814682815236265A5A872AE387C1045 /* cct.nanopb.c */ = {isa = PBXFileReference; includeInIndex = 1; name = cct.nanopb.c; path = GoogleDataTransportCCTSupport/GDTCCTLibrary/Protogen/nanopb/cct.nanopb.c; sourceTree = "<group>"; };
+		D814682815236265A5A872AE387C1045 /* cct.nanopb.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = cct.nanopb.c; path = GoogleDataTransportCCTSupport/GDTCCTLibrary/Protogen/nanopb/cct.nanopb.c; sourceTree = "<group>"; };
 		D81D99676207CAD1989D3E9BF9073D7E /* OIDResponseTypes.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OIDResponseTypes.m; path = Source/OIDResponseTypes.m; sourceTree = "<group>"; };
 		D83BFE17A0D6068F70ED3327D2F75EA5 /* GDTCOREvent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GDTCOREvent.m; path = GoogleDataTransport/GDTCORLibrary/GDTCOREvent.m; sourceTree = "<group>"; };
 		D86A6F4E79AA563A8452D27091B14A0C /* FIRCoreDiagnosticsConnector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRCoreDiagnosticsConnector.h; path = Firebase/Core/Private/FIRCoreDiagnosticsConnector.h; sourceTree = "<group>"; };
@@ -2707,13 +2718,13 @@
 		E009AFEA27859BF3F9CF179015F8C083 /* FBSDKBasicUtility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKBasicUtility.h; path = FBSDKCoreKit/FBSDKCoreKit/Basics/Internal/FBSDKBasicUtility.h; sourceTree = "<group>"; };
 		E08609E141CF5B22EC1EE927D9FC92E2 /* OIDAuthorizationService+IOS.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "OIDAuthorizationService+IOS.h"; path = "Source/iOS/OIDAuthorizationService+IOS.h"; sourceTree = "<group>"; };
 		E0BFAA2CF494DDDEBF0C1ECE4A6AEECC /* GTMAppAuth-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "GTMAppAuth-dummy.m"; sourceTree = "<group>"; };
-		E0C2F779D42C2584322B68C0F4A854B1 /* SourceSansPro-LightItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "SourceSansPro-LightItalic.ttf"; path = "AertripCalendar/Resources/SourceSansPro-LightItalic.ttf"; sourceTree = "<group>"; };
+		E0C2F779D42C2584322B68C0F4A854B1 /* SourceSansPro-LightItalic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "SourceSansPro-LightItalic.ttf"; path = "AertripCalendar/Resources/SourceSansPro-LightItalic.ttf"; sourceTree = "<group>"; };
 		E110A9215AF0FD832C617FB900ACD016 /* OIDExternalUserAgentSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDExternalUserAgentSession.h; path = Source/OIDExternalUserAgentSession.h; sourceTree = "<group>"; };
-		E23C076BA70925415F490FEDB215DA92 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftyJSON.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E23C076BA70925415F490FEDB215DA92 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E28465EC314DD73443A08C34B740443C /* FBSDKAppLinkReturnToRefererController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKAppLinkReturnToRefererController.m; path = FBSDKCoreKit/FBSDKCoreKit/AppLink/FBSDKAppLinkReturnToRefererController.m; sourceTree = "<group>"; };
 		E2937D5789A2689F6D00C5C96453EA6E /* GULNSData+zlib.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "GULNSData+zlib.m"; path = "GoogleUtilities/NSData+zlib/GULNSData+zlib.m"; sourceTree = "<group>"; };
 		E2ADAABC3F3851232B252DDFF6F2F48B /* FBSDKBridgeAPIProtocolNativeV1.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKBridgeAPIProtocolNativeV1.h; path = FBSDKCoreKit/FBSDKCoreKit/Internal/BridgeAPI/ProtocolVersions/FBSDKBridgeAPIProtocolNativeV1.h; sourceTree = "<group>"; };
-		E2B63D462DB7F827C4B11FD51E4F8E2D /* FirebaseCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FirebaseCore.framework; path = FirebaseCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2B63D462DB7F827C4B11FD51E4F8E2D /* FirebaseCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FirebaseCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2C8C43497C30EA62DAECB4DE80252B0 /* AFNetworking-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AFNetworking-umbrella.h"; sourceTree = "<group>"; };
 		E4B73CA8EED5C852C318D703EF301E59 /* TransitionButton-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "TransitionButton-Info.plist"; sourceTree = "<group>"; };
 		E4DE2B3F9E28C9BCB25BE44100C45C7E /* FIRInteropParameterNames.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRInteropParameterNames.h; path = Interop/Analytics/Public/FIRInteropParameterNames.h; sourceTree = "<group>"; };
@@ -2733,13 +2744,13 @@
 		E7D36650E560BFAC4A295B0D43ABAA22 /* FlexiblePageControl-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FlexiblePageControl-prefix.pch"; sourceTree = "<group>"; };
 		E84DE51CF86C3700976CD006A0C1308A /* GDTCORLifecycle.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GDTCORLifecycle.m; path = GoogleDataTransport/GDTCORLibrary/GDTCORLifecycle.m; sourceTree = "<group>"; };
 		E855C1623450889B091EC8B5DB2A19BC /* PKBallRotateChaseAnimation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKBallRotateChaseAnimation.swift; path = PKLoaderDemo/PKLoader/PKBallRotateChaseAnimation.swift; sourceTree = "<group>"; };
-		E864BDDB4CAFEC1C4C26AFFE736A7ECC /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "SourceSansPro-Regular.ttf"; path = "AertripCalendar/Resources/SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
+		E864BDDB4CAFEC1C4C26AFFE736A7ECC /* SourceSansPro-Regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "SourceSansPro-Regular.ttf"; path = "AertripCalendar/Resources/SourceSansPro-Regular.ttf"; sourceTree = "<group>"; };
 		E8AAE360627ACC4780DDEDB451FDDBEB /* FBSDKURL_Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKURL_Internal.h; path = FBSDKCoreKit/FBSDKCoreKit/Internal/FBSDKURL_Internal.h; sourceTree = "<group>"; };
 		E93058AC7765AAAB28B0F1F0A0ACF33D /* PKLoader-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PKLoader-umbrella.h"; sourceTree = "<group>"; };
 		E9A9CA55404205FCDA39A37B23D12832 /* FBSDKFeatureExtractor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKFeatureExtractor.m; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/SuggestedEvents/FBSDKFeatureExtractor.m; sourceTree = "<group>"; };
 		E9AAAEFCBF30649D59248D770A0FF97D /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIRefreshControl+AFNetworking.m"; path = "UIKit+AFNetworking/UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		E9DEB0C2F50CC6DCEBFE2E172BD8326A /* AvailableHapticFeedback.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = AvailableHapticFeedback.modulemap; sourceTree = "<group>"; };
-		E9E9F07EA9D18C98D4B7200604EA53FD /* FirebaseDynamicLinks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FirebaseDynamicLinks.framework; path = FirebaseDynamicLinks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9E9F07EA9D18C98D4B7200604EA53FD /* FirebaseDynamicLinks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FirebaseDynamicLinks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA0417D757CA4D0DBDB863415F109D91 /* FirebaseInstanceID-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FirebaseInstanceID-dummy.m"; sourceTree = "<group>"; };
 		EA1328B5B098749850375B9CA88BC45F /* SessionDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionDelegate.swift; path = Source/SessionDelegate.swift; sourceTree = "<group>"; };
 		EA13B6D4F4CD334935A733A9D05F882B /* PKCategoryViewConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKCategoryViewConfiguration.swift; path = PKCategoryViewDemo/PKCategoryView/PKCategoryViewConfiguration.swift; sourceTree = "<group>"; };
@@ -2751,7 +2762,7 @@
 		EC0CBE203BEAFE56DCA34B0D7EAD0236 /* Crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Crashlytics.xcconfig; sourceTree = "<group>"; };
 		EC594C51B718A680A85842D70A09D29E /* FIRDLScionLogging.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRDLScionLogging.m; path = Firebase/DynamicLinks/FIRDLScionLogging.m; sourceTree = "<group>"; };
 		EC595B8423C84D4771694C5CC17E729B /* FIRDLRetrievalProcessFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRDLRetrievalProcessFactory.h; path = Firebase/DynamicLinks/FIRDLRetrievalProcessFactory.h; sourceTree = "<group>"; };
-		EC8F4D0BE3B0C192EBA4A93F8887D89F /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FBSDKCoreKit.framework; path = FBSDKCoreKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC8F4D0BE3B0C192EBA4A93F8887D89F /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FBSDKCoreKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECA5FCF4B0B873C3B1A57AC74372EA47 /* FIRInstanceID.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRInstanceID.h; path = Firebase/InstanceID/Public/FIRInstanceID.h; sourceTree = "<group>"; };
 		ED31A46B71D68F16B11CCAA0B756E3C4 /* FBSDKAppEventsDeviceInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKAppEventsDeviceInfo.h; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/FBSDKAppEventsDeviceInfo.h; sourceTree = "<group>"; };
 		ED76E28326AE56D6EAD9F6EB1874D7C5 /* FBSDKLoginManagerLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKLoginManagerLogger.h; path = FBSDKLoginKit/FBSDKLoginKit/Internal/FBSDKLoginManagerLogger.h; sourceTree = "<group>"; };
@@ -2766,7 +2777,7 @@
 		EEBDEC77C6AA943ABA861EF59D93FF64 /* FSCalendarCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FSCalendarCell.m; path = FSCalendar/FSCalendarCell.m; sourceTree = "<group>"; };
 		EED1F3F23BC3BC37674AAB19F55809F6 /* FBSDKDeviceLoginCodeInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKDeviceLoginCodeInfo.m; path = FBSDKLoginKit/FBSDKLoginKit/FBSDKDeviceLoginCodeInfo.m; sourceTree = "<group>"; };
 		EF1C25D02B59748331411128D1071E5B /* CalendarVM.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CalendarVM.m; path = CalendarDataModel/CalendarDataModel/CalendarVM.m; sourceTree = "<group>"; };
-		EF2DBB885760C9A5A16B7F9EF6FE6A95 /* SourceSansPro-Italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "SourceSansPro-Italic.ttf"; path = "AertripCalendar/Resources/SourceSansPro-Italic.ttf"; sourceTree = "<group>"; };
+		EF2DBB885760C9A5A16B7F9EF6FE6A95 /* SourceSansPro-Italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "SourceSansPro-Italic.ttf"; path = "AertripCalendar/Resources/SourceSansPro-Italic.ttf"; sourceTree = "<group>"; };
 		EF2F59D2E88CA39488A11F2039580BBF /* ExtensionHelpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtensionHelpers.swift; path = Sources/Utility/ExtensionHelpers.swift; sourceTree = "<group>"; };
 		EF63011EA24E169EEC4FA9447ACB6709 /* MXParallaxHeader-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MXParallaxHeader-prefix.pch"; sourceTree = "<group>"; };
 		EF9714DA2B68321B1B2DBF837A5EABF6 /* GDTCCTPrioritizer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GDTCCTPrioritizer.h; path = GoogleDataTransportCCTSupport/GDTCCTLibrary/Private/GDTCCTPrioritizer.h; sourceTree = "<group>"; };
@@ -2780,7 +2791,7 @@
 		F02FFCF4F750132B68684B4A5F18F8B9 /* AertripCalendarDataModel-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "AertripCalendarDataModel-Info.plist"; sourceTree = "<group>"; };
 		F03438F7F0A97C40533D5420A2FEFCA6 /* GULLoggerLevel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GULLoggerLevel.h; path = GoogleUtilities/Logger/Public/GULLoggerLevel.h; sourceTree = "<group>"; };
 		F09A871AA581FB2ECE9ADAD18C4C1418 /* IQKeyboardManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IQKeyboardManager.h; path = IQKeyboardManager/IQKeyboardManager.h; sourceTree = "<group>"; };
-		F10559F936AA3003E37181C6BD8107E6 /* SourceSansPro-Light.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = "SourceSansPro-Light.ttf"; path = "AertripCalendar/Resources/SourceSansPro-Light.ttf"; sourceTree = "<group>"; };
+		F10559F936AA3003E37181C6BD8107E6 /* SourceSansPro-Light.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = "SourceSansPro-Light.ttf"; path = "AertripCalendar/Resources/SourceSansPro-Light.ttf"; sourceTree = "<group>"; };
 		F1077AE681DDA53807A7D0E788275499 /* Notifications.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = Source/Notifications.swift; sourceTree = "<group>"; };
 		F12026F48C9E5EF1172A4365CA14BFB3 /* FBSDKDeviceRequestsHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKDeviceRequestsHelper.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/FBSDKDeviceRequestsHelper.m; sourceTree = "<group>"; };
 		F1528463DABB268F93DA97AC11F3BD0D /* ANSCompatibility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ANSCompatibility.h; path = iOS/Crashlytics.framework/Headers/ANSCompatibility.h; sourceTree = "<group>"; };
@@ -2801,7 +2812,7 @@
 		F3CBE61992F60E3B0906BDCC8D05FDB6 /* FIRInstanceIDCheckinPreferences+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FIRInstanceIDCheckinPreferences+Internal.h"; path = "Firebase/InstanceID/FIRInstanceIDCheckinPreferences+Internal.h"; sourceTree = "<group>"; };
 		F3E7109A7B080402A2F3B1C1C50CE75F /* OIDError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OIDError.h; path = Source/OIDError.h; sourceTree = "<group>"; };
 		F411777AB5EAC76CC3E5BA442CF646E1 /* FIRDLRetrievalProcessProtocols.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRDLRetrievalProcessProtocols.h; path = Firebase/DynamicLinks/FIRDLRetrievalProcessProtocols.h; sourceTree = "<group>"; };
-		F4B4E4E250C23D27979E3E495C8F0C5B /* FBSDKStandaloneModel.hpp */ = {isa = PBXFileReference; includeInIndex = 1; name = FBSDKStandaloneModel.hpp; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/ML/FBSDKStandaloneModel.hpp; sourceTree = "<group>"; };
+		F4B4E4E250C23D27979E3E495C8F0C5B /* FBSDKStandaloneModel.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = FBSDKStandaloneModel.hpp; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/ML/FBSDKStandaloneModel.hpp; sourceTree = "<group>"; };
 		F5281EA336D42B69CEB73A360395B483 /* FSCalendarAppearance.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FSCalendarAppearance.h; path = FSCalendar/FSCalendarAppearance.h; sourceTree = "<group>"; };
 		F55ACA8549EC7B5512D06788B67432A3 /* FIRInstanceIDAuthService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRInstanceIDAuthService.h; path = Firebase/InstanceID/FIRInstanceIDAuthService.h; sourceTree = "<group>"; };
 		F5934367D407FFE02FB6A87690AD7D13 /* Alamofire-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Alamofire-Info.plist"; sourceTree = "<group>"; };
@@ -2814,7 +2825,7 @@
 		F6EDE1C5503A270027203E3500EBC7C6 /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLResponseSerialization.h; path = AFNetworking/AFURLResponseSerialization.h; sourceTree = "<group>"; };
 		F703F07C1DD1C37649C6E49F02F26651 /* FBSDKServerConfigurationManager+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBSDKServerConfigurationManager+Internal.h"; path = "FBSDKCoreKit/FBSDKCoreKit/Internal/ServerConfiguration/FBSDKServerConfigurationManager+Internal.h"; sourceTree = "<group>"; };
 		F7085493650ADAD4318415416BCDC938 /* AertripCalendarViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AertripCalendarViewController.h; path = AertripCalendar/AertripCalendarViewController.h; sourceTree = "<group>"; };
-		F775EEAA6102B71B386135FFE7ED8FE4 /* FBSDKEventInferencer.mm */ = {isa = PBXFileReference; includeInIndex = 1; name = FBSDKEventInferencer.mm; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/SuggestedEvents/FBSDKEventInferencer.mm; sourceTree = "<group>"; };
+		F775EEAA6102B71B386135FFE7ED8FE4 /* FBSDKEventInferencer.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = FBSDKEventInferencer.mm; path = FBSDKCoreKit/FBSDKCoreKit/AppEvents/Internal/SuggestedEvents/FBSDKEventInferencer.mm; sourceTree = "<group>"; };
 		F7C2842F4A8C4CF31FE988DEAB5442DF /* FBSDKImageDownloader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSDKImageDownloader.m; path = FBSDKCoreKit/FBSDKCoreKit/Internal/FBSDKImageDownloader.m; sourceTree = "<group>"; };
 		F7C311B5E4138B67985E7D4740114F37 /* FBSDKDialogConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSDKDialogConfiguration.h; path = FBSDKCoreKit/FBSDKCoreKit/Internal/ServerConfiguration/FBSDKDialogConfiguration.h; sourceTree = "<group>"; };
 		F7D0767ECD63F21284FB291CE60748CB /* nanopb-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "nanopb-Info.plist"; sourceTree = "<group>"; };
@@ -3176,7 +3187,6 @@
 				53F106E80B1AB2989F28B9661A88D2FC /* Login */,
 				DB2E426FDD0112D8303A373D2B0E053E /* Support Files */,
 			);
-			name = FBSDKLoginKit;
 			path = FBSDKLoginKit;
 			sourceTree = "<group>";
 		};
@@ -3200,7 +3210,6 @@
 				9C9C798A61B7C7E384E13BE597DC5004 /* Core */,
 				1F00955ABF1D61805DE2AF6DAE0E55CC /* Support Files */,
 			);
-			name = Kingfisher;
 			path = Kingfisher;
 			sourceTree = "<group>";
 		};
@@ -3282,7 +3291,6 @@
 				6AD8BF7742CBA35BFDE2D0771C1B6D27 /* MiniLayout.swift */,
 				B31BC24DF96A4F5B8F2AC668FC4D0A70 /* Support Files */,
 			);
-			name = MiniLayout;
 			path = MiniLayout;
 			sourceTree = "<group>";
 		};
@@ -3349,7 +3357,6 @@
 				9435A048AF01286BB93835245DFAD69F /* Support Files */,
 				FEE04D2E8E6E17071D227C27EBCE5555 /* UserDefaults */,
 			);
-			name = GoogleUtilities;
 			path = GoogleUtilities;
 			sourceTree = "<group>";
 		};
@@ -3408,7 +3415,6 @@
 				4484D836707FE8C4DE05CE3051BD27FC /* MXScrollViewController.m */,
 				26D36FBDB2D4029D6574CF60308234F7 /* Support Files */,
 			);
-			name = MXParallaxHeader;
 			path = MXParallaxHeader;
 			sourceTree = "<group>";
 		};
@@ -3419,7 +3425,6 @@
 				D81792C009F24B2F2246CB6F926BB5D5 /* Maps */,
 				0B3B49DFD41A6A9AA993F946F3691BFF /* Support Files */,
 			);
-			name = GoogleMaps;
 			path = GoogleMaps;
 			sourceTree = "<group>";
 		};
@@ -3458,7 +3463,6 @@
 				82747365644529F026736E74B542DE94 /* Core */,
 				7E4651C5ECBFFAB978AB9704A19D80CB /* Support Files */,
 			);
-			name = FBSDKCoreKit;
 			path = FBSDKCoreKit;
 			sourceTree = "<group>";
 		};
@@ -3501,7 +3505,6 @@
 				74CBE61CDB1464092B26157598F9ECA0 /* AvailableHapticFeedback.swift */,
 				CBD8162C9D9CA853CA633A7F5BE2E41F /* Support Files */,
 			);
-			name = AvailableHapticFeedback;
 			path = AvailableHapticFeedback;
 			sourceTree = "<group>";
 		};
@@ -3521,7 +3524,6 @@
 				AC5715D416EFB4F0D4E61B735A8D84BC /* ExternalUserAgent */,
 				C810D958952D2FA7A8D1586805BF6922 /* Support Files */,
 			);
-			name = AppAuth;
 			path = AppAuth;
 			sourceTree = "<group>";
 		};
@@ -3561,7 +3563,6 @@
 				4895835AB3CB7A71EC6815C2BB88E4F6 /* FSCalendarWeekdayView.m */,
 				12A1B4E880D0CC63E7F7CF9E4D2E2CBB /* Support Files */,
 			);
-			name = FSCalendar;
 			path = FSCalendar;
 			sourceTree = "<group>";
 		};
@@ -3590,7 +3591,6 @@
 				152BB84F7CB52E72A00D1F7EFD6132AE /* MulticityCalendarVM.m */,
 				CC09FED9D1DB3979DA1BDACA637205CD /* Support Files */,
 			);
-			name = AertripCalendarDataModel;
 			path = AertripCalendarDataModel;
 			sourceTree = "<group>";
 		};
@@ -3628,7 +3628,6 @@
 				8DAF8B273ADE23D1F2D59492ECC931D7 /* Resources */,
 				87AEC7636650EA04620D0FFBDCD95E1D /* Support Files */,
 			);
-			name = IQKeyboardManager;
 			path = IQKeyboardManager;
 			sourceTree = "<group>";
 		};
@@ -3694,7 +3693,6 @@
 				7F890D2D54784CD7E23C5E0FE7A8EEAD /* GoogleDataTransport.h */,
 				D09D0CC0A2422A22D139DF97F4ACD1F8 /* Support Files */,
 			);
-			name = GoogleDataTransport;
 			path = GoogleDataTransport;
 			sourceTree = "<group>";
 		};
@@ -3723,7 +3721,6 @@
 				9D36E11FE16F04B17C70A56041040CD8 /* GDTFLLUploader.m */,
 				261C3DC38DEB34C2FC1F731B5B9AE3A8 /* Support Files */,
 			);
-			name = GoogleDataTransportCCTSupport;
 			path = GoogleDataTransportCCTSupport;
 			sourceTree = "<group>";
 		};
@@ -3754,7 +3751,6 @@
 				C8640C8E3AC56496FD5FBD186BD74B0D /* NSString+LIAEncode.m */,
 				0E2FCC93C88B46FFEB4316CFACAAC078 /* Support Files */,
 			);
-			name = IOSLinkedInAPIFix;
 			path = IOSLinkedInAPIFix;
 			sourceTree = "<group>";
 		};
@@ -3918,7 +3914,6 @@
 				880B387210D5B06ADCF965E725BA8FDE /* FlexiblePageControl.swift */,
 				BE3D0E3CA495BD6764972A4B18F6BFBC /* Support Files */,
 			);
-			name = FlexiblePageControl;
 			path = FlexiblePageControl;
 			sourceTree = "<group>";
 		};
@@ -4007,7 +4002,6 @@
 				B9C16FAFE7D9E6351908669E3EB41361 /* NSError+FIRInstanceID.m */,
 				C6FADE2B17B8D7840098D5FC8B198724 /* Support Files */,
 			);
-			name = FirebaseInstanceID;
 			path = FirebaseInstanceID;
 			sourceTree = "<group>";
 		};
@@ -4040,7 +4034,6 @@
 				E4DE2B3F9E28C9BCB25BE44100C45C7E /* FIRInteropParameterNames.h */,
 				AAD719120F8CA6D4BD406138627E27ED /* Support Files */,
 			);
-			name = FirebaseAnalyticsInterop;
 			path = FirebaseAnalyticsInterop;
 			sourceTree = "<group>";
 		};
@@ -4060,7 +4053,6 @@
 				328495864E9C040295E2FB891716FE8A /* Resources */,
 				5B23CA2BD9FA1A6668E6E9AC39DF72FB /* Support Files */,
 			);
-			name = GoogleSignIn;
 			path = GoogleSignIn;
 			sourceTree = "<group>";
 		};
@@ -4070,7 +4062,6 @@
 				C3ECA4FB4F91D37F1F6269FE9CA3195D /* Frameworks */,
 				C6AB8776BA8AE4BFF674E4364BCB73B8 /* Support Files */,
 			);
-			name = FirebaseAnalytics;
 			path = FirebaseAnalytics;
 			sourceTree = "<group>";
 		};
@@ -4372,7 +4363,6 @@
 				AAB7C7CA8966842C972FB75C8483EA66 /* Frameworks */,
 				E9114C7BE6780B9E3C120EF009CA354F /* Support Files */,
 			);
-			name = GoogleAppMeasurement;
 			path = GoogleAppMeasurement;
 			sourceTree = "<group>";
 		};
@@ -4383,7 +4373,6 @@
 				506952D5846974CA07C5AE5954C1C20F /* FIRCoreDiagnosticsInterop.h */,
 				2D5E6C6293019B21AF76A6A5A94F1C86 /* Support Files */,
 			);
-			name = FirebaseCoreDiagnosticsInterop;
 			path = FirebaseCoreDiagnosticsInterop;
 			sourceTree = "<group>";
 		};
@@ -4439,7 +4428,6 @@
 				90D38137213C6AAD731F4C4E8801F034 /* GTMOAuth2KeychainCompatibility.m */,
 				99342D9B68D04048E266280F04570511 /* Support Files */,
 			);
-			name = GTMAppAuth;
 			path = GTMAppAuth;
 			sourceTree = "<group>";
 		};
@@ -4454,7 +4442,6 @@
 				D5FEC63843267F1A3CD9B9A3A7199C86 /* Support Files */,
 				D220D18901E38684D88DF8F90FD3FD67 /* UIKit */,
 			);
-			name = AFNetworking;
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
@@ -4482,7 +4469,6 @@
 				1AE5AE2FB630131CFA02653537CFE57C /* Frameworks */,
 				43D0DE72E2F15972B022AA45C6C07472 /* Support Files */,
 			);
-			name = LinkedinSwift;
 			path = LinkedinSwift;
 			sourceTree = "<group>";
 		};
@@ -4620,7 +4606,6 @@
 				AEEFD037E03C1DDA0C1F0A0489512C56 /* PKContainerView.swift */,
 				AAB5E3E85938150773FD5A658641A960 /* Support Files */,
 			);
-			name = PKCategoryView;
 			path = PKCategoryView;
 			sourceTree = "<group>";
 		};
@@ -4663,7 +4648,6 @@
 				F3A414ACBAAC9788DF1884D6D56F106F /* Frameworks */,
 				C7B5E1A74BC201F5A458DA160A28D330 /* Support Files */,
 			);
-			name = "razorpay-pod";
 			path = "razorpay-pod";
 			sourceTree = "<group>";
 		};
@@ -4673,7 +4657,6 @@
 				4EFA93C4FDB496460646B9D1FC7CEEEC /* CoreOnly */,
 				CA6513C250972C83F544CE5588EFF630 /* Support Files */,
 			);
-			name = Firebase;
 			path = Firebase;
 			sourceTree = "<group>";
 		};
@@ -4734,7 +4717,6 @@
 				9E649FEF1EE451C0589F0941C02531EA /* Full */,
 				CF1AF1FA3346C50728AF89B93BB4419A /* Support Files */,
 			);
-			name = GTMSessionFetcher;
 			path = GTMSessionFetcher;
 			sourceTree = "<group>";
 		};
@@ -4858,7 +4840,6 @@
 				70DFE8738C5FED99F075FF6C1EF231D5 /* firebasecore.nanopb.h */,
 				CEC7EADEA114E977B83DEA0251C7D1E3 /* Support Files */,
 			);
-			name = FirebaseCoreDiagnostics;
 			path = FirebaseCoreDiagnostics;
 			sourceTree = "<group>";
 		};
@@ -4883,7 +4864,6 @@
 				FBB21D413A871355ECAEDFFE8415B5CA /* Resources */,
 				3D4E0C5D0BD4EAD23B417862C12B2490 /* Support Files */,
 			);
-			name = GooglePlaces;
 			path = GooglePlaces;
 			sourceTree = "<group>";
 		};
@@ -4930,7 +4910,6 @@
 				57F61394C7D7D216FBFEB7C8615CE407 /* FIRVersion.m */,
 				D5501758099945E43F653D56A75F1167 /* Support Files */,
 			);
-			name = FirebaseCore;
 			path = FirebaseCore;
 			sourceTree = "<group>";
 		};
@@ -4985,7 +4964,6 @@
 				26FD7C111601183D14690ED580D05930 /* GINInvocation.m */,
 				A90EE9BF0942801C80C7D023E9BC3E40 /* Support Files */,
 			);
-			name = FirebaseDynamicLinks;
 			path = FirebaseDynamicLinks;
 			sourceTree = "<group>";
 		};
@@ -5104,7 +5082,6 @@
 				2F2AC7FD6BBC449F89ED8AFBB2CA2B2E /* Validation.swift */,
 				4C0AF89588AE4173C93241BE5CDFD181 /* Support Files */,
 			);
-			name = Alamofire;
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
@@ -5193,7 +5170,6 @@
 				FA922561C89F4F4DC6ACB81BA42EF755 /* Support Files */,
 				E1C2838ADCF1FF1EE47CB744389FC121 /* UIKit */,
 			);
-			name = PhoneNumberKit;
 			path = PhoneNumberKit;
 			sourceTree = "<group>";
 		};
@@ -5232,7 +5208,6 @@
 				C7278FDBAAA77F00579A6D98D4FA18A4 /* PKLoaderSettings.swift */,
 				558B1BA0DFF6B56A17F49801C4F92C1B /* Support Files */,
 			);
-			name = PKLoader;
 			path = PKLoader;
 			sourceTree = "<group>";
 		};
@@ -5308,7 +5283,6 @@
 				6AD53E13ABF15EE69389A2358469DBC3 /* StringTrimExtension.swift */,
 				213D7423FA305D6203903BAE5509115A /* Support Files */,
 			);
-			name = ActiveLabel;
 			path = ActiveLabel;
 			sourceTree = "<group>";
 		};
@@ -5326,7 +5300,6 @@
 				FF2DA1E386EF20898E761FEC4E19984C /* encode */,
 				50BBCBAFCD1298B7A19B12421204BAAA /* Support Files */,
 			);
-			name = nanopb;
 			path = nanopb;
 			sourceTree = "<group>";
 		};
@@ -5336,7 +5309,6 @@
 				253E3CA747645EA891EC102805CDACE6 /* SwiftyJSON.swift */,
 				24851C9ECA6088333CF30C83A5BAAB5D /* Support Files */,
 			);
-			name = SwiftyJSON;
 			path = SwiftyJSON;
 			sourceTree = "<group>";
 		};
@@ -5375,7 +5347,6 @@
 				8549EDE4CF3283F41E9F6728147D916D /* Resources */,
 				740128B13B752A4AD6B531E830156910 /* Support Files */,
 			);
-			name = AertripCalendar;
 			path = AertripCalendar;
 			sourceTree = "<group>";
 		};
@@ -5387,7 +5358,6 @@
 				DCCFDCA639035AB08C62B97FB9339139 /* Frameworks */,
 				7B0C8FA347E1635CB893148BC150B309 /* Support Files */,
 			);
-			name = Fabric;
 			path = Fabric;
 			sourceTree = "<group>";
 		};
@@ -5419,7 +5389,6 @@
 				B4765BCB7242E5E62E09BB39096B1286 /* TransitionButton.swift */,
 				3525D9172E810DF0DB5BDC18BFFC33E0 /* Support Files */,
 			);
-			name = TransitionButton;
 			path = TransitionButton;
 			sourceTree = "<group>";
 		};
@@ -5484,7 +5453,6 @@
 				A9895158336CBDFB4A634B89D0E21462 /* Frameworks */,
 				55EFE5DE66E89860DBE8E55C79F70516 /* Support Files */,
 			);
-			name = Crashlytics;
 			path = Crashlytics;
 			sourceTree = "<group>";
 		};
@@ -6895,6 +6863,14 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1100;
+				TargetAttributes = {
+					C727197F08DEE20096B9DA7706A067D3 = {
+						LastSwiftMigration = 1130;
+					};
+					C942A9CCE5CF382E8053D9757DA6249D = {
+						LastSwiftMigration = 1130;
+					};
+				};
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 10.0";
@@ -9315,6 +9291,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -9472,6 +9449,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -10174,7 +10152,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -10583,7 +10561,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
