@@ -90,7 +90,7 @@ class CreateProfileVC: BaseVC {
     
     override func setupFonts() {
         
-        self.createProfileTitleLabel.font      = AppFonts.Bold.withSize(38)
+        self.createProfileTitleLabel.font      = AppFonts.c.withSize(38)
         self.createProfileSubTitleLabel.font    = AppFonts.Regular.withSize(16)
         self.countryCodeLabel.font           = AppFonts.Regular.withSize(18)
         self.setupTextFieldColorTextAndFont()

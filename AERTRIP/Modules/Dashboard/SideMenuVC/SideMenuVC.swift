@@ -335,6 +335,9 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             case 2:
                 //my booking
                 AppFlowManager.default.moveToMyBookingsVC()
+                //my Notifications
+            case 4:
+                AppFlowManager.default.moveToNotificationVC()
                 
             case 6:
                 //settings

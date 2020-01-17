@@ -8,7 +8,7 @@
 
 import UIKit
 import Foundation
-import PKCategoryView
+//import PKCategoryView
 
 class FavouriteHotelsVC: BaseVC {
     
@@ -92,8 +92,10 @@ class FavouriteHotelsVC: BaseVC {
             self.emptyView.removeFromSuperview()
             self.shimmerView.removeFromSuperview()
             self.allChildVCs.removeAll()
-            
-            for idx in 0..<self.viewModel.allTabs.count {
+            if self.viewPager != nil {
+                self.viewPager.removeFromSuperview()
+            }
+            for idx in 0..<self.viewModel.hotels.count {
                 let vc = FavouriteHotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
                 vc.delegate = self
                 let hotels = self.viewModel.hotels[idx]
@@ -102,10 +104,8 @@ class FavouriteHotelsVC: BaseVC {
                 self.allChildVCs.append(vc)
             }
             self.view.layoutIfNeeded()
-            
             viewPager = WormTabStrip(frame: self.dataContainerView.bounds)
             self.dataContainerView.addSubview(viewPager)
-            
             viewPager.delegate = self
             viewPager.eyStyle.isWormEnable = true
             viewPager.eyStyle.wormStyel = .LINE
@@ -128,42 +128,42 @@ class FavouriteHotelsVC: BaseVC {
         }
     }
     
-    private func setupPagerView() {
-        self.currentIndex = 0
-        
-        if self.viewModel.hotels.isEmpty {
-            self.emptyView.frame = CGRect(x: 0.0, y: 0.0, width: self.dataContainerView.width, height: self.dataContainerView.height)
-            self.dataContainerView.addSubview(self.emptyView)
-        }
-        else {
-            self.emptyView.removeFromSuperview()
-            self.shimmerView.removeFromSuperview()
-            var style = PKCategoryViewConfiguration()
-            style.navBarHeight = 51.0
-            style.interItemSpace = 5.0
-            style.itemPadding = 8.0
-            style.isNavBarScrollEnabled = true
-            style.isEmbeddedToView = true
-            style.showBottomSeparator = true
-            style.bottomSeparatorColor = AppColors.divider.color
-            style.defaultFont = AppFonts.Regular.withSize(16.0)
-            style.selectedFont = AppFonts.SemiBold.withSize(16.0)
-            style.indicatorColor = AppColors.themeGreen
-            style.indicatorHeight = 2.0
-            style.normalColor = AppColors.themeBlack
-            style.selectedColor = AppColors.themeBlack
-            
-            self.allChildVCs.removeAll()
-            
-            for idx in 0..<self.viewModel.allTabs.count {
-                let vc = FavouriteHotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
-                vc.delegate = self
-                let hotels = self.viewModel.hotels[idx]
-                vc.viewModel.forCity = hotels
-                
-                self.allChildVCs.append(vc)
-            }
-            
+//    private func setupPagerView() {
+//        self.currentIndex = 0
+//
+//        if self.viewModel.hotels.isEmpty {
+//            self.emptyView.frame = CGRect(x: 0.0, y: 0.0, width: self.dataContainerView.width, height: self.dataContainerView.height)
+//            self.dataContainerView.addSubview(self.emptyView)
+//        }
+//        else {
+//            self.emptyView.removeFromSuperview()
+//            self.shimmerView.removeFromSuperview()
+//            var style = PKCategoryViewConfiguration()
+//            style.navBarHeight = 51.0
+//            style.interItemSpace = 5.0
+//            style.itemPadding = 8.0
+//            style.isNavBarScrollEnabled = true
+//            style.isEmbeddedToView = true
+//            style.showBottomSeparator = true
+//            style.bottomSeparatorColor = AppColors.divider.color
+//            style.defaultFont = AppFonts.Regular.withSize(16.0)
+//            style.selectedFont = AppFonts.SemiBold.withSize(16.0)
+//            style.indicatorColor = AppColors.themeGreen
+//            style.indicatorHeight = 2.0
+//            style.normalColor = AppColors.themeBlack
+//            style.selectedColor = AppColors.themeBlack
+//
+//            self.allChildVCs.removeAll()
+//
+//            for idx in 0..<self.viewModel.hotels.count {
+//                let vc = FavouriteHotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
+//                vc.delegate = self
+//                let hotels = self.viewModel.hotels[idx]
+//                vc.viewModel.forCity = hotels
+//
+//                self.allChildVCs.append(vc)
+//            }
+//
 //            if let _ = self.categoryView {
 //                self.categoryView.removeFromSuperview()
 //                self.categoryView = nil
@@ -171,18 +171,18 @@ class FavouriteHotelsVC: BaseVC {
 //            let categoryView = PKCategoryView(frame: self.dataContainerView.bounds, categories: self.viewModel.allTabs, childVCs: self.allChildVCs, configuration: style, parentVC: self)
 //            self.dataContainerView.addSubview(categoryView)
 //            self.categoryView = categoryView
-        }
-        
-    }
-    func setUpTabs(){
-        for idx in 0..<self.viewModel.allTabs.count {
-            let vc = FavouriteHotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
-            let hotels = self.viewModel.hotels[idx]
-            vc.viewModel.forCity = hotels
-            
-            self.tabs.append(vc)
-        }
-    }
+//        }
+//
+//    }
+//    func setUpTabs(){
+//        for idx in 0..<self.viewModel.hotels.count {
+//            let vc = FavouriteHotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
+//            let hotels = self.viewModel.hotels[idx]
+//            vc.viewModel.forCity = hotels
+//
+//            self.tabs.append(vc)
+//        }
+//    }
     
     private func reloadList() {
         //self.setupPagerView()
@@ -245,7 +245,7 @@ extension FavouriteHotelsVC: ViewAllHotelsVMDelegate {
     
     func updateFavouriteSuccess() {
         self.viewModel.removeAllHotels(forCityIndex: self.currentIndex)
-        self.sendDataChangedNotification(data: self)
+       // self.sendDataChangedNotification(data: self)
         self.reloadList()
     }
     
@@ -284,7 +284,7 @@ extension FavouriteHotelsVC: FavouriteHotelsListVCDelegate {
 
 extension FavouriteHotelsVC: WormTabStripDelegate {
     func WTSNumberOfTabs() -> Int {
-        return self.viewModel.allTabs.count
+        return self.viewModel.hotels.count
     }
     
     func WTSViewOfTab(index: Int) -> UIView {
@@ -292,7 +292,7 @@ extension FavouriteHotelsVC: WormTabStripDelegate {
     }
     
     func WTSTitleForTab(index: Int) -> String {
-        self.viewModel.allTabs[index].title ?? ""
+        self.viewModel.hotels[index].cityName
     }
     
     

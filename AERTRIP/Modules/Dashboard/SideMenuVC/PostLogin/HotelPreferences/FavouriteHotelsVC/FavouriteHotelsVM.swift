@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import PKCategoryView
+//import PKCategoryView
 
 protocol ViewAllHotelsVMDelegate: class {
     func willGetHotelPreferenceList()
@@ -23,7 +23,7 @@ class FavouriteHotelsVM {
     
     //MARK:- Properties
     //MARK:- Public
-    var allTabs: [PKCategoryItem] = []
+    // var allTabs: [PKCategoryItem] = []
     //var allTabs: [ATCategoryItem] = []
     
     var hotels = [CityHotels]()
@@ -31,8 +31,6 @@ class FavouriteHotelsVM {
     weak var delegate: ViewAllHotelsVMDelegate?
     
     //MARK:- Private
-    
-    
     //MARK:- Methods
     //MARK:- Private
     
@@ -45,7 +43,7 @@ class FavouriteHotelsVM {
             if success {
                 
                 strongSelf.hotels = cities
-                strongSelf.allTabs = strongSelf.hotels.map { PKCategoryItem(title: $0.cityName, normalImage: nil, selectedImage: nil) }
+//                strongSelf.allTabs = strongSelf.hotels.map { PKCategoryItem(title: $0.cityName, normalImage: nil, selectedImage: nil) }
                 
                 strongSelf.delegate?.getHotelPreferenceListSuccess()
             }
@@ -79,7 +77,7 @@ class FavouriteHotelsVM {
         if !hotels.isEmpty {
             self.hotels.remove(at: forCityIndex)
         }
-        self.allTabs = self.hotels.map { PKCategoryItem(title: $0.cityName, normalImage: nil, selectedImage: nil) }
+//        self.allTabs = self.hotels.map { PKCategoryItem(title: $0.cityName, normalImage: nil, selectedImage: nil) }
     }
     
     func removeHotel(forCity: CityHotels, cityIndex: Int, forHotelAtIndex: Int) {

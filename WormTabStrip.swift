@@ -143,6 +143,9 @@ public class WormTabStrip: UIView,UIScrollViewDelegate {
         
     }
     
+    deinit {
+        printDebug("WormTabStrip deinit")
+    }
     
     func buildUI()  {
         validate()
@@ -484,7 +487,7 @@ public class WormTabStrip: UIView,UIScrollViewDelegate {
         setTabStyle()
         
         adjustTopScrollViewsContentOffsetX(tab: tab)
-        UIView.animate(withDuration: 0.23) {
+        UIView.animate(withDuration: 0.20) {
             self.slideWormToTabPosition(tab: tab)
             self.resetHeightOfWorm()
             self.centerCurrentlySelectedWorm(tab: tab)
