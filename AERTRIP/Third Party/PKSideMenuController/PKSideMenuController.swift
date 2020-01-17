@@ -209,9 +209,9 @@ open class PKSideMenuController: UIViewController {
     private func addEdgeSwipeGesture() {
         let openGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(edgeSwipeOpenAction(_:)))
         openGesture.edges = (PKSideMenuOptions.currentOpeningSide == .left) ? .right : .left
-        openGesture.delegate = self
+//        openGesture.delegate = self
         
-        self.view.addGestureRecognizer(openGesture)
+        self.mainContainer?.addGestureRecognizer(openGesture)
         
         let closeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(edgeSwipeCloseAction(_:)))
         closeGesture.edges = (PKSideMenuOptions.currentOpeningSide == .right) ? .right : .left
@@ -221,8 +221,15 @@ open class PKSideMenuController: UIViewController {
     }
     
     @objc private func edgeSwipeOpenAction(_ sender: UIGestureRecognizer) {
-        if sender.state == .began, !self.isOpen {
-            self.openMenu()
+        if !self.isOpen {
+//            self.openMenu()
+            if sender.state == .ended {
+                
+            }
+            
+            let progress = sender.location(in: view)
+            print(progress.x)
+            animateOpen(progress.x)
         }
     }
     
@@ -230,6 +237,45 @@ open class PKSideMenuController: UIViewController {
         if sender.state == .began, self.isOpen {
             self.closeMenu()
         }
+    }
+    
+    private func animateOpen(_ progressX: CGFloat) {
+        self.animateDropOffShadow(from: 0.8, to: 0.0)
+        self.animate3DShadow(from: 1.0, to: 0.0)
+        self.animateMainViewCorner(from: PKSideMenuOptions.mainViewCornerRadiusInOpenMode, to: 0.0)
+        UIView.animate(withDuration: 0.001, delay: 0.0, options: UIView.AnimationOptions.beginFromCurrentState, animations: { () -> Void in
+            let layerTemp : CALayer = (self.mainContainer?.layer)!
+
+            var tRotate : CATransform3D = CATransform3DIdentity
+            tRotate.m34 = 1.0 / (-800.0)
+            
+            let mainMultiplier = ((self.view.width - progressX) / self.view.width)*2
+            
+            let aXpos = self.degreesToRadians(-40) * mainMultiplier/2
+            tRotate = CATransform3DRotate(tRotate,aXpos, 0.0, 1.0, 0.0)
+            var tScale : CATransform3D = CATransform3DIdentity
+            tScale.m34 = 1.0 / (-800.0)
+            
+            let xMultiplier = 0.85 * mainMultiplier/3
+            let yMultiplier = 0.7 * mainMultiplier/3
+            
+            tScale = CATransform3DScale(tScale, 1 - xMultiplier, 1 - yMultiplier, 1.0)
+            
+            let scaleRotate = CATransform3DConcat(tScale, tRotate)
+            
+            let translationX = progressX - self.view.bounds.width
+            
+            let transformation = CATransform3DMakeTranslation(translationX, 0, 0)
+            
+            layerTemp.transform = CATransform3DConcat(scaleRotate, transformation)
+
+
+        }) { (finished: Bool) -> Void in
+        }
+    }
+    
+    private func degreesToRadians(_ degrees: CGFloat) -> CGFloat {
+        degrees * (.pi/180)
     }
     
     //MARK:- Public
@@ -353,7 +399,6 @@ extension PKSideMenuController {
         self.animateDropOffShadow(from: 0.0, to: 0.8)
         self.animate3DShadow(from: 0.0, to: 1.0)
         self.animateMainViewCorner(from: 0.0, to: PKSideMenuOptions.mainViewCornerRadiusInOpenMode)
-        
         UIView.animate(withDuration: self.animationTime, delay: 0.0, options: UIView.AnimationOptions.beginFromCurrentState, animations: { () -> Void in
             let layerTemp : CALayer = (self.mainContainer?.layer)!
             layerTemp.zPosition = 1000
