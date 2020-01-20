@@ -207,7 +207,7 @@ open class PKSideMenuController: UIViewController {
     }
     
     private func addEdgeSwipeGesture() {
-        let openGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(edgeSwipeOpenAction(_:)))
+        let openGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(panGestureRecognized(_:)))
         openGesture.edges = (PKSideMenuOptions.currentOpeningSide == .left) ? .right : .left
 //        openGesture.delegate = self
         
@@ -218,19 +218,8 @@ open class PKSideMenuController: UIViewController {
         closeGesture.delegate = self
         
         self.view.addGestureRecognizer(closeGesture)
-    }
-    
-    @objc private func edgeSwipeOpenAction(_ sender: UIGestureRecognizer) {
-        if !self.isOpen {
-//            self.openMenu()
-            if sender.state == .ended {
-                
-            }
-            
-            let progress = sender.location(in: view)
-            print(progress.x)
-            animateOpen(progress.x)
-        }
+        
+        self.addPanGestureOnMenu()
     }
     
     @objc private func edgeSwipeCloseAction(_ sender: UIGestureRecognizer) {
@@ -239,10 +228,8 @@ open class PKSideMenuController: UIViewController {
         }
     }
     
-    private func animateOpen(_ progressX: CGFloat) {
-        self.animateDropOffShadow(from: 0.8, to: 0.0)
-        self.animate3DShadow(from: 1.0, to: 0.0)
-        self.animateMainViewCorner(from: PKSideMenuOptions.mainViewCornerRadiusInOpenMode, to: 0.0)
+    private func animateToProgress(_ progressX: CGFloat) {
+        print(progressX)
         UIView.animate(withDuration: 0.001, delay: 0.0, options: UIView.AnimationOptions.beginFromCurrentState, animations: { () -> Void in
             let layerTemp : CALayer = (self.mainContainer?.layer)!
 
@@ -257,7 +244,7 @@ open class PKSideMenuController: UIViewController {
             tScale.m34 = 1.0 / (-800.0)
             
             let xMultiplier = 0.85 * mainMultiplier/3
-            let yMultiplier = 0.7 * mainMultiplier/3
+            let yMultiplier = 0.5 * mainMultiplier/3
             
             tScale = CATransform3DScale(tScale, 1 - xMultiplier, 1 - yMultiplier, 1.0)
             
@@ -269,6 +256,8 @@ open class PKSideMenuController: UIViewController {
             
             layerTemp.transform = CATransform3DConcat(scaleRotate, transformation)
 
+//            self.menuContainer?.origin.x = self.view.bounds.width + (translationX * 1.72)
+            self.menuContainer?.transform = CGAffineTransform(translationX: (translationX * 1.72), y: 0)
 
         }) { (finished: Bool) -> Void in
         }
@@ -460,7 +449,7 @@ extension PKSideMenuController {
     //MARK:- Normal animation
     private func openWithCurveLinear(mainFrame: CGRect) {
         UIView.animate(withDuration: self.animationTime, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIView.AnimationOptions.curveLinear, animations: { () -> Void in
-            self.mainContainer!.frame = mainFrame
+            self.mainContainer?.frame = mainFrame
             
             self.menuContainer?.transform = CGAffineTransform(translationX: PKSideMenuOptions.currentOpeningSide == .left ? -(self.view.bounds.width) : self.view.bounds.width, y: 0.0)
 
@@ -471,12 +460,80 @@ extension PKSideMenuController {
     
     private func closeWithCurveLinear(mainFrame: CGRect) {
         UIView.animate(withDuration: self.animationTime, delay: 0.0, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.6, options: UIView.AnimationOptions.curveLinear, animations: { () -> Void in
-            self.mainContainer!.frame = mainFrame
+            self.mainContainer?.frame = mainFrame
             
             self.menuContainer?.transform = CGAffineTransform.identity
 
         }) { (finished: Bool) -> Void in
-            self.mainViewController!.view.isUserInteractionEnabled = true
+            self.mainViewController?.view.isUserInteractionEnabled = true
         }
     }
+}
+
+extension PKSideMenuController {
+    
+    private func addPanGestureOnMenu() {
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognized(_:)))
+        panGestureRecognizer.delegate = self
+        self.menuContainer?.addGestureRecognizer(panGestureRecognizer)
+    }
+    
+    @objc
+    func panGestureRecognized(_ recognizer: UIGestureRecognizer) {
+        
+        if recognizer is UIScreenEdgePanGestureRecognizer {
+            if !self.isOpen {
+                let progress = recognizer.location(in: view)
+                let progressX = progress.x
+                if recognizer.state == .ended {
+                    if progressX < (view.width * (2/3)) {
+                        print("animation began")
+                        DispatchQueue.main.async {
+                            UIView.animate(withDuration: 0.5) {
+                                self.animateToProgress(self.view.width - PKSideMenuOptions.sideDistanceForOpenMenu)
+                            }
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            UIView.animate(withDuration: 0.5) {
+                                self.animateToProgress(self.view.width)
+                            }
+                        }
+                    }
+                    addTapGestures()
+                }  else {
+                    if progressX < PKSideMenuOptions.sideDistanceForOpenMenu + 20 {
+                        DispatchQueue.main.async {
+                            UIView.animate(withDuration: 0.3) {
+                                self.animateToProgress(self.view.width - PKSideMenuOptions.sideDistanceForOpenMenu)
+                            }
+                        }
+                        addTapGestures()
+                    } else {
+                        animateToProgress(progressX)
+                    }
+                }
+            }
+            
+        } else {
+            
+            if recognizer.state == .began {
+                //            self.recognizerBegan()
+            }
+            
+            if recognizer.state == .changed {
+                //            self.recognizerChanged(recognizer)
+            }
+            
+            if recognizer.state == .ended {
+                //            self.recognizerEnded(recognizer)
+            }
+            
+        }
+    }
+    
+    private func addShadows() {
+        
+    }
+    
 }
