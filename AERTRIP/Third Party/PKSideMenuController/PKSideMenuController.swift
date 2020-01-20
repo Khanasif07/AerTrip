@@ -132,12 +132,12 @@ open class PKSideMenuController: UIViewController {
         layerTemp.shadowPath = UIBezierPath(roundedRect: self.mainContainer!.bounds, cornerRadius: PKSideMenuOptions.mainViewCornerRadiusInOpenMode).cgPath
     }
     
-    private func animateDropOffShadow(from: CGFloat, to: CGFloat) {
+    private func animateDropOffShadow(from: CGFloat, to: CGFloat, animated: Bool = true) {
         let layerTemp = self.mainContainer!.layer
 
         /* Do Animations */
         CATransaction.begin()
-        CATransaction.setAnimationDuration(self.animationTime)
+        CATransaction.setAnimationDuration(animated ? self.animationTime : 0)
         CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut))
         
         let animation = CABasicAnimation(keyPath: "shadowOpacity")
@@ -149,7 +149,7 @@ open class PKSideMenuController: UIViewController {
         CATransaction.commit()
     }
     
-    private func animate3DShadow(from: CGFloat, to: CGFloat) {
+    private func animate3DShadow(from: CGFloat, to: CGFloat, animated: Bool = true) {
         
         guard let layerTemp = shadowLayer else {
             return
@@ -157,7 +157,7 @@ open class PKSideMenuController: UIViewController {
         
         /* Do Animations */
         CATransaction.begin()
-        CATransaction.setAnimationDuration(self.animationTime)
+        CATransaction.setAnimationDuration(animated ? self.animationTime : 0)
         CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut))
         
         let animation = CABasicAnimation(keyPath: "shadowOpacity")
@@ -169,7 +169,7 @@ open class PKSideMenuController: UIViewController {
         CATransaction.commit()
     }
     
-    private func animateMainViewCorner(from: CGFloat, to: CGFloat) {
+    private func animateMainViewCorner(from: CGFloat, to: CGFloat, animated: Bool = true) {
         
         guard let layerTemp = self.mainViewController?.view.layer else {
             return
@@ -178,7 +178,7 @@ open class PKSideMenuController: UIViewController {
         layerTemp.masksToBounds = true
         /* Do Animations */
         CATransaction.begin()
-        CATransaction.setAnimationDuration(self.animationTime)
+        CATransaction.setAnimationDuration(animated ? self.animationTime : 0)
         CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut))
         
         let animation = CABasicAnimation(keyPath: "cornerRadius")
@@ -385,9 +385,7 @@ extension PKSideMenuController {
 
     //MARK:- 3D Animations
     private func openWith3DAnimation(mainFrame: CGRect) {
-        self.animateDropOffShadow(from: 0.0, to: 0.8)
-        self.animate3DShadow(from: 0.0, to: 1.0)
-        self.animateMainViewCorner(from: 0.0, to: PKSideMenuOptions.mainViewCornerRadiusInOpenMode)
+        addShadowsAndCornerRadius()
         UIView.animate(withDuration: self.animationTime, delay: 0.0, options: UIView.AnimationOptions.beginFromCurrentState, animations: { () -> Void in
             let layerTemp : CALayer = (self.mainContainer?.layer)!
             layerTemp.zPosition = 1000
@@ -414,10 +412,7 @@ extension PKSideMenuController {
     }
     
     private func closeWith3DAnimation() {
-        self.animateDropOffShadow(from: 0.8, to: 0.0)
-        self.animate3DShadow(from: 1.0, to: 0.0)
-        self.animateMainViewCorner(from: PKSideMenuOptions.mainViewCornerRadiusInOpenMode, to: 0.0)
-
+        removeShadowsAndCornerRadius()
         UIView.animate(withDuration: self.animationTime, delay: 0.0, options: UIView.AnimationOptions.beginFromCurrentState, animations: { () -> Void in
             self.mainContainer?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             let layerTemp : CALayer = (self.mainContainer?.layer)!
@@ -485,9 +480,11 @@ extension PKSideMenuController {
             if !self.isOpen {
                 let progress = recognizer.location(in: view)
                 let progressX = progress.x
-                if recognizer.state == .ended {
+                if recognizer.state == .began {
+                    addShadowsAndCornerRadius(false)
+                    
+                } else if recognizer.state == .ended {
                     if progressX < (view.width * (2/3)) {
-                        print("animation began")
                         DispatchQueue.main.async {
                             UIView.animate(withDuration: 0.5) {
                                 self.animateToProgress(self.view.width - PKSideMenuOptions.sideDistanceForOpenMenu)
@@ -495,8 +492,10 @@ extension PKSideMenuController {
                         }
                     } else {
                         DispatchQueue.main.async {
-                            UIView.animate(withDuration: 0.5) {
+                            UIView.animate(withDuration: 0.5, animations: {
                                 self.animateToProgress(self.view.width)
+                            }) { (_) in
+                                self.removeShadowsAndCornerRadius()
                             }
                         }
                     }
@@ -532,8 +531,16 @@ extension PKSideMenuController {
         }
     }
     
-    private func addShadows() {
-        
+    private func addShadowsAndCornerRadius(_ animated: Bool = true) {
+        self.animateDropOffShadow(from: 0.0, to: 0.8, animated: animated)
+        self.animate3DShadow(from: 0.0, to: 1.0, animated: animated)
+        self.animateMainViewCorner(from: 0.0, to: PKSideMenuOptions.mainViewCornerRadiusInOpenMode, animated: animated)
+    }
+    
+    private func removeShadowsAndCornerRadius(_ animated: Bool = true) {
+        self.animateDropOffShadow(from: 0.8, to: 0.0, animated: animated)
+        self.animate3DShadow(from: 1.0, to: 0.0, animated: animated)
+        self.animateMainViewCorner(from: PKSideMenuOptions.mainViewCornerRadiusInOpenMode, to: 0.0, animated: animated)
     }
     
 }
