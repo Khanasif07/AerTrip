@@ -230,8 +230,6 @@ open class PKSideMenuController: UIViewController {
     }
     
     private func animateToProgress(_ progressX: CGFloat) {
-//        print(progressX)
-        UIView.animate(withDuration: 0.001, delay: 0.0, options: UIView.AnimationOptions.beginFromCurrentState, animations: { () -> Void in
             let layerTemp : CALayer = (self.mainContainer?.layer)!
 
             var tRotate : CATransform3D = CATransform3DIdentity
@@ -257,11 +255,8 @@ open class PKSideMenuController: UIViewController {
             
             layerTemp.transform = CATransform3DConcat(scaleRotate, transformation)
 
-//            self.menuContainer?.origin.x = self.view.bounds.width + (translationX * 1.72)
             self.menuContainer?.transform = CGAffineTransform(translationX: (translationX * 1.72), y: 0)
 
-        }) { (finished: Bool) -> Void in
-        }
     }
     
     private func degreesToRadians(_ degrees: CGFloat) -> CGFloat {
@@ -384,6 +379,18 @@ open class PKSideMenuController: UIViewController {
 
 
 extension PKSideMenuController: UIGestureRecognizerDelegate {
+    
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let panGestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer {
+            let translation = panGestureRecognizer.translation(in: view)
+            if abs(translation.x) > abs(translation.y) {
+                return true
+            }
+            return false
+        }
+        return false
+    }
+    
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         otherGestureRecognizer.require(toFail: gestureRecognizer)
         return true
@@ -540,7 +547,13 @@ extension PKSideMenuController {
             
         } else {
             guard let gestRecog = recognizer as? UIPanGestureRecognizer else { return }
+            menuContainer?.subviews.forEach({ (subView) in
+                if subView is UITableView {
+                    
+                }
+            })
             let translationX = gestRecog.translation(in: view).x
+            
             let totalTranslation = (view.width - PKSideMenuOptions.sideDistanceForOpenMenu) + translationX
             guard translationX >= 0, totalTranslation <= view.width else { return }
             
