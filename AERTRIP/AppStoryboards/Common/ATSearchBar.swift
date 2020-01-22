@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Speech
 
 protocol ATSearchBarDelegate: UISearchBarDelegate {
 //extension UISearchBarDelegate {
@@ -16,6 +17,12 @@ protocol ATSearchBarDelegate: UISearchBarDelegate {
 
 class ATSearchBar: UISearchBar {
     
+    enum SpeechStatus {
+        case ready
+        case recognizing
+        case unavailable
+    }
+    
     private(set) var micButton: UIButton!
     
     var isMicEnabled: Bool = true {
@@ -23,6 +30,11 @@ class ATSearchBar: UISearchBar {
             self.hideMiceButton(isHidden: !self.isMicEnabled)
         }
     }
+    private var status = SpeechStatus.ready
+    private let audioEngine = AVAudioEngine()
+    private let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer()
+    private let request = SFSpeechAudioBufferRecognitionRequest()
+    private var recognitionTask: SFSpeechRecognitionTask?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -79,25 +91,48 @@ class ATSearchBar: UISearchBar {
        self.micButton.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .selected)
         
         self.micButton.addTarget(self, action: #selector(micButtonAction(_:)), for: .touchUpInside)
-        
+
         self.hideMiceButton(isHidden: !self.isMicEnabled)
         self.addSubview(self.micButton)
         
         //self.setImage(#imageLiteral(resourceName: "icClear"), for: .clear, state: .normal)
-
         
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: UITextField.textDidChangeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(textDidEndEditing), name: UITextField.textDidEndEditingNotification, object: nil)
         self.layoutIfNeeded()
     }
-
+    
+    
+    
     func hideMiceButton(isHidden: Bool) {
         self.micButton.isHidden = isHidden
         self.bringSubviewToFront(self.micButton)
+        
+//        if (self.micButton != nil) {
+//        switch SFSpeechRecognizer.authorizationStatus() {
+//        case .notDetermined:
+//            askSpeechPermission()
+//        case .authorized:
+//            self.status = .ready
+//        case .denied, .restricted:
+//            self.status = .unavailable
+//        @unknown default: break
+//            }
+//        }
     }
     
     @objc private func micButtonAction(_ sender: UIButton) {
         self.mDelegate?.searchBarDidTappedMicButton(self)
+//        switch status {
+//        case .ready:
+//            startRecording()
+//            status = .recognizing
+//        case .recognizing:
+//            cancelRecording()
+//            status = .ready
+//        default:
+//            break
+//        }
     }
     
     @objc private func textDidEndEditing() {
@@ -113,5 +148,59 @@ class ATSearchBar: UISearchBar {
         else {
             self.hideMiceButton(isHidden: true)
         }
+    }
+}
+
+extension ATSearchBar {
+    /// Ask permission to the user to access their speech data.
+    private func askSpeechPermission() {
+        SFSpeechRecognizer.requestAuthorization { status in
+            OperationQueue.main.addOperation {
+                switch status {
+                case .authorized:
+                    self.status = .ready
+                default:
+                    self.status = .unavailable
+                }
+            }
+        }
+    }
+    
+    /// Start streaming the microphone data to the speech recognizer to recognize it live.
+    private func startRecording() {
+        // Setup audio engine and speech recognizer
+        let node = audioEngine.inputNode
+        let recordingFormat = node.outputFormat(forBus: 0)
+        node.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
+            self.request.append(buffer)
+        }
+
+        // Prepare and start recording
+        audioEngine.prepare()
+        do {
+            try audioEngine.start()
+            self.status = .recognizing
+        } catch {
+            return printDebug(error)
+        }
+
+        // Analyze the speech
+        recognitionTask = speechRecognizer?.recognitionTask(with: request, resultHandler: { [weak self] (result, error) in
+            guard let strongSelf = self else {return}
+            if let result = result {
+                printDebug(result.bestTranscription.formattedString)
+            } else if let error = error {
+                printDebug(error)
+            }
+            strongSelf.cancelRecording()
+        })
+    }
+
+    /// Stops and cancels the speech recognition.
+    private func cancelRecording() {
+        audioEngine.stop()
+        let node = audioEngine.inputNode
+            node.removeTap(onBus: 0)
+        recognitionTask?.cancel()
     }
 }
