@@ -241,7 +241,7 @@
 //MARK:- Linked Accounts
 //MARK:-
 "Disconnect" = "Disconnect";
-"LinkedAccountsMessage" = "Connect your social media accounts for faster login and sharing.";
+"LinkedAccountsMessage" = "Connect your social media accounts for faster login \nand sharing.";
 "DoYouWantToDisconnect" = "Are you sure you want to disconnect?";
 
 //MARK:- Edit Profile VC

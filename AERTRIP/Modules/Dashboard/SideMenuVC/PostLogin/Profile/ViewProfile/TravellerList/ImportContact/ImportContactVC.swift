@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import PKCategoryView
+//import PKCategoryView
 
 class ImportContactVC: BaseVC {
     
@@ -28,7 +28,8 @@ class ImportContactVC: BaseVC {
     
     //MARK:- Private
     private let collectionLayout: ContactListCollectionFlowLayout = ContactListCollectionFlowLayout()
-    fileprivate weak var categoryView: PKCategoryView!
+  //  fileprivate weak var categoryView: PKCategoryView!
+    var viewPager: WormTabStrip!
     private var itemsCounts: [Int] = [0, 0, 0]
     
     private(set) var viewModel = ImportContactVM.shared
@@ -39,16 +40,16 @@ class ImportContactVC: BaseVC {
     }
     
     private let allTabsStr: [String] = [LocalizedString.Contacts.localized, LocalizedString.Facebook.localized, LocalizedString.Google.localized]
-    private var allTabs: [PKCategoryItem] {
-        var temp = [PKCategoryItem]()
-        
-        for title in allTabsStr {
-            let obj = PKCategoryItem(title: title, normalImage: nil, selectedImage: nil)
-            temp.append(obj)
-        }
-        
-        return temp
-    }
+//    private var allTabs: [PKCategoryItem] {
+//        var temp = [PKCategoryItem]()
+//
+//        for title in allTabsStr {
+//            let obj = PKCategoryItem(title: title, normalImage: nil, selectedImage: nil)
+//            temp.append(obj)
+//        }
+//
+//        return temp
+//    }
 
     private var allChildVCs: [ContactListVC] = [ContactListVC]()
     
@@ -86,9 +87,11 @@ class ImportContactVC: BaseVC {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        self.categoryView?.frame = self.listContainerView.bounds
-        self.categoryView?.layoutSubviews()
+        printDebug("viewDidLayoutSubviews")
+        self.viewPager?.frame = self.listContainerView.bounds
+        self.viewPager?.layoutSubviews()
+//        self.categoryView?.frame = self.listContainerView.bounds
+//        self.categoryView?.layoutSubviews()
     }
     
     deinit {
@@ -119,48 +122,87 @@ class ImportContactVC: BaseVC {
         self.selectedContactsCollectionView.dataSource = self
         self.selectedContactsCollectionView.delegate = self
         
-        for idx in 0..<allTabsStr.count {
-            let vc = ContactListVC.instantiate(fromAppStoryboard: .TravellerList)
-            vc.currentlyUsingFor = ContactListVC.UsingFor(rawValue: idx) ?? .contacts
-            self.allChildVCs.append(vc)
-        }
+//        for idx in 0..<allTabsStr.count {
+//            let vc = ContactListVC.instantiate(fromAppStoryboard: .TravellerList)
+//            vc.currentlyUsingFor = ContactListVC.UsingFor(rawValue: idx) ?? .contacts
+//            self.allChildVCs.append(vc)
+//        }
         
         delay(seconds: 0.1) {[weak self] in
-            self?.setupPagerView()
-            self?.updateNavTitle()
+            //self?.setupPagerView()
+            guard let self = self else  {return}
+            self.setUpViewPager()
+            self.updateNavTitle()
         }
         
         self.selectedContactsSetHidden(isHidden: true, animated: false)
         self.selectedContactsCollectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
     }
     
+    private func setUpViewPager() {
+           self.currentIndex = 0
+               self.allChildVCs.removeAll()
+               if self.viewPager != nil {
+                   self.viewPager.removeFromSuperview()
+               }
+               for idx in 0..<allTabsStr.count {
+                          let vc = ContactListVC.instantiate(fromAppStoryboard: .TravellerList)
+                          vc.currentlyUsingFor = ContactListVC.UsingFor(rawValue: idx) ?? .contacts
+                          self.allChildVCs.append(vc)
+                      }
+               self.view.layoutIfNeeded()
+               viewPager = WormTabStrip(frame: self.listContainerView.bounds)
+               self.listContainerView.addSubview(viewPager)
+               viewPager.delegate = self
+               viewPager.eyStyle.isWormEnable = true
+               viewPager.eyStyle.wormStyel = .LINE
+               viewPager.eyStyle.kHeightOfWorm = 2.0
+               viewPager.eyStyle.kHeightOfDivider = 0.5
+               viewPager.eyStyle.kPaddingOfIndicator = 0.0
+               viewPager.eyStyle.WormColor =  AppColors.themeGreen
+               viewPager.eyStyle.dividerBackgroundColor = AppColors.themeGray40.withAlphaComponent(0.5)
+               viewPager.eyStyle.tabItemSelectedColor = AppColors.themeBlack
+               viewPager.eyStyle.tabItemDefaultColor = AppColors.themeBlack.withAlphaComponent(1.0)
+               viewPager.eyStyle.topScrollViewBackgroundColor = UIColor.white
+               viewPager.eyStyle.tabItemDefaultFont = AppFonts.Regular.withSize(16.0)
+               viewPager.eyStyle.tabItemSelectedFont = AppFonts.SemiBold.withSize(16.0)
+               viewPager.eyStyle.kHeightOfTopScrollView = 51.0
+               viewPager.eyStyle.kPaddingOfIndicator = 8.0
+               viewPager.eyStyle.spacingBetweenTabs = 5.0
+               viewPager.eyStyle.contentScrollViewBackgroundColor = .clear
+               viewPager.currentTabIndex = 0
+               viewPager.buildUI()
+           }
+       
     
-    private func setupPagerView() {
-
-        var style = PKCategoryViewConfiguration()
-        style.navBarHeight = 45.0
-        style.interItemSpace = 5.0
-        style.itemPadding = 8.0
-        style.isNavBarScrollEnabled = false
-        style.isEmbeddedToView = true
-        style.showBottomSeparator = true
-        style.bottomSeparatorColor = AppColors.divider.color
-        style.defaultFont = AppFonts.Regular.withSize(16.0)
-        style.selectedFont = AppFonts.SemiBold.withSize(16.0)
-        style.indicatorColor = AppColors.themeGreen
-        style.normalColor = AppColors.themeBlack
-        style.selectedColor = AppColors.themeBlack
-        
-        let categoryView = PKCategoryView(frame: self.listContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, configuration: style, parentVC: self)
-        categoryView.delegate = self
-        self.listContainerView.addSubview(categoryView)
-        self.categoryView = categoryView
-    }
+    
+//    private func setupPagerView() {
+//
+//        var style = PKCategoryViewConfiguration()
+//        style.navBarHeight = 45.0
+//        style.interItemSpace = 5.0
+//        style.itemPadding = 8.0
+//        style.isNavBarScrollEnabled = false
+//        style.isEmbeddedToView = true
+//        style.showBottomSeparator = true
+//        style.bottomSeparatorColor = AppColors.divider.color
+//        style.defaultFont = AppFonts.Regular.withSize(16.0)
+//        style.selectedFont = AppFonts.SemiBold.withSize(16.0)
+//        style.indicatorColor = AppColors.themeGreen
+//        style.normalColor = AppColors.themeBlack
+//        style.selectedColor = AppColors.themeBlack
+//
+//        let categoryView = PKCategoryView(frame: self.listContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, configuration: style, parentVC: self)
+//        categoryView.delegate = self
+//        self.listContainerView.addSubview(categoryView)
+//        self.categoryView = categoryView
+//    }
     
     private func selectedContactsSetHidden(isHidden: Bool, animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
-            self?.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 100.0
-            self?.view.layoutIfNeeded()
+            guard let selff = self else { return }
+            selff.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 100.0
+            selff.selectedContactsCollectionView.layoutIfNeeded()
         }) { (isCompleted) in
         }
     }
@@ -206,15 +248,15 @@ class ImportContactVC: BaseVC {
     }
 }
 
-extension ImportContactVC: PKCategoryViewDelegate {
-    func categoryView(_ view: PKCategoryView, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
-        printDebug("willSwitchIndexFrom \(fromIndex) to \(toIndex)")
-    }
-    
-    func categoryView(_ view: PKCategoryView, didSwitchIndexTo toIndex: Int) {
-        self.currentIndex = toIndex
-    }
-}
+//extension ImportContactVC: PKCategoryViewDelegate {
+//    func categoryView(_ view: PKCategoryView, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
+//        printDebug("willSwitchIndexFrom \(fromIndex) to \(toIndex)")
+//    }
+//
+//    func categoryView(_ view: PKCategoryView, didSwitchIndexTo toIndex: Int) {
+//        self.currentIndex = toIndex
+//    }
+//}
 
 extension ImportContactVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -587,3 +629,57 @@ class ContactListCollectionFlowLayout: UICollectionViewFlowLayout {
         return attributes
     }
 }
+
+extension ImportContactVC: WormTabStripDelegate {
+    func WTSNumberOfTabs() -> Int {
+        self.allTabsStr.count
+    }
+    
+    func WTSViewOfTab(index: Int) -> UIView {
+         return self.allChildVCs[index].view
+    }
+    
+    func WTSTitleForTab(index: Int) -> String {
+        self.allTabsStr[index]
+    }
+    
+    func WTSReachedLeftEdge(panParam: UIPanGestureRecognizer) {
+        
+    }
+    
+    func WTSReachedRightEdge(panParam: UIPanGestureRecognizer) {
+        
+    }
+    
+    func WTSSelectedTabIndex(index: Int) {
+               viewPager.currentTabIndex = index
+               self.currentIndex = index
+    }
+    
+    
+}
+
+//func WTSNumberOfTabs() -> Int {
+//       return self.viewModel.hotels.count
+//   }
+//
+//   func WTSViewOfTab(index: Int) -> UIView {
+//       return self.allChildVCs[index].view
+//   }
+//
+//   func WTSTitleForTab(index: Int) -> String {
+//       self.viewModel.hotels[index].cityName
+//   }
+//
+//
+//   func WTSReachedLeftEdge(panParam: UIPanGestureRecognizer) {
+//   }
+//
+//   func WTSReachedRightEdge(panParam: UIPanGestureRecognizer) {
+//
+//   }
+//
+//   func WTSSelectedTabIndex(index: Int) {
+//       viewPager.currentTabIndex = index
+//       self.currentIndex = index
+//   }

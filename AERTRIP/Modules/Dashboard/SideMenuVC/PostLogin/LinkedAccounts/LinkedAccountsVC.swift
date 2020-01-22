@@ -59,6 +59,7 @@ class LinkedAccountsVC: BaseVC {
     override func setupTexts() {
         self.navTitleLabel.text = LocalizedString.LinkedAccounts.localized
         self.topNavigationView.configureNavBar(title: LocalizedString.LinkedAccounts.localized, isLeftButton: true,isFirstRightButton: false, isSecondRightButton: false,isDivider: false)
+        self.messageLabel.numberOfLines = 2
         self.messageLabel.text = LocalizedString.LinkedAccountsMessage.localized
     }
     
