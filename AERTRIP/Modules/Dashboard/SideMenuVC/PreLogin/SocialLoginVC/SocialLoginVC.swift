@@ -226,7 +226,6 @@ private extension SocialLoginVC {
             logoView?.messageLabel.font = AppFonts.Regular.withSize(16.0)
             logoView?.messageLabel.text = LocalizedString.EnjoyAMorePersonalisedTravelExperience.localized
             logoView?.isAppNameHidden = false
-            
             socialButtosCenterConstraint.constant = 0.0
             socialAndLogoSpace.constant = 85.0
         }
