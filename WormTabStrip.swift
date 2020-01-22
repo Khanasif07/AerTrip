@@ -432,18 +432,18 @@ public class WormTabStrip: UIView,UIScrollViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         //if user was tapping tab no need to do worm animation
         if isUserTappingTab == true {return}
-        
+
         if eyStyle.isWormEnable == false {return}
-        
+
         let currentX = scrollView.contentOffset.x
         var gap:CGFloat = 0
-        
-        
+
+
         //if user dragging to right, which means scrolling finger from right to left
         //which means scroll view is scrolling to right, worm also should worm to right
         if currentX > contentScrollContentOffsetX {
             gap = currentX -  contentScrollContentOffsetX
-            
+
             if gap > Width {
                 contentScrollContentOffsetX = currentX
                 currentTabIndex = Int(currentX/Width)
@@ -451,7 +451,7 @@ public class WormTabStrip: UIView,UIScrollViewDelegate {
                 natruallySlideWormToPosition(tab: tab)
                 return
             }
-            
+
             //if currentTab is not last one do worm to next tab position
             if currentTabIndex + 1 <= tabs.count {
                 let nextDistance:CGFloat = calculateNextMoveDistance(gap: gap, nextTotal: getNextTotalWormingDistance(index: currentTabIndex+1))
@@ -459,8 +459,8 @@ public class WormTabStrip: UIView,UIScrollViewDelegate {
                 setWidthAndHeightOfWormForDistance(distance: nextDistance)
 
             }
-            
-            
+
+
         }else{
             //else  user dragging to left, which means scrolling finger from  left to right
             //which means scroll view is scrolling to left, worm also should worm to left
@@ -471,8 +471,8 @@ public class WormTabStrip: UIView,UIScrollViewDelegate {
                  printDebug(nextDistance)
                 wormToNextLeft(distance: nextDistance)
             }
-            
-            
+
+
         }
         
     }
@@ -523,8 +523,9 @@ public class WormTabStrip: UIView,UIScrollViewDelegate {
         }else{
             let height:CGFloat  = self.calculatePrespectiveHeightOfIndicatorLine(distance: distance)
             worm.frame.size.height = height
-            
+          //MARK: Edited by Asif Khan
             worm.frame.size.width = currentWormWidth + distance
+
         }
         if eyStyle.wormStyel == .LINE {
                 worm.frame.origin.y = eyStyle.kHeightOfTopScrollView - eyStyle.kHeightOfWorm

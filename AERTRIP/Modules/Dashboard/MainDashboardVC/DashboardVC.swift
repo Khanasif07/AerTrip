@@ -75,7 +75,7 @@ class DashboardVC: BaseVC {
         super.viewDidLoad()
         resetItems()
         headerTopConstraint.constant = UIApplication.shared.statusBarFrame.height
-        segmentCenterYConstraint.constant = -5.0
+       // segmentCenterYConstraint.constant = -5.0
         aerinView.transform = .identity
         aerinView.alpha = 1.0
         // nitin change
