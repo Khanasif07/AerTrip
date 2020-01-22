@@ -12,7 +12,7 @@ class EventAdddedTripTableViewCell: UITableViewCell {
 
     //Mark:- Variables
     //================
-    
+    var changeBtnHandler: (()->Void)? = nil
     
     //Mark:- IBOutlets
     //================
@@ -45,13 +45,15 @@ class EventAdddedTripTableViewCell: UITableViewCell {
         self.changeButtonLabel.setTitle(LocalizedString.Change.localized, for: .normal)
     }
 
-    internal func configCell() {
-
+    internal func configCell(tripName: String) {
+        self.eventDescLabel.text = tripName
     }
     
     //Mark:- IBActions
     //================
     @IBAction func changeButtonActin(_ sender: UIButton) {
-        
+        if let handler = self.changeBtnHandler {
+            handler()
+        }
     }
 }

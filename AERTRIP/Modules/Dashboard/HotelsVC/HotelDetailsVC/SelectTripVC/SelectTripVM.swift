@@ -76,6 +76,7 @@ class SelectTripVM {
             if success, let id = eventId {
                 sSelf.eventId = id
                 sSelf.tripDetails?.trip_id = selectedTrip.id
+                sSelf.tripDetails?.name = selectedTrip.name
                 sSelf.newTripId = tripId ?? ""
                 sSelf.saveMovedTrip()
             }
