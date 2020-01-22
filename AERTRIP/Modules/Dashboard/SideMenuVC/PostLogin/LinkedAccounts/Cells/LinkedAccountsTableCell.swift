@@ -135,7 +135,7 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.connectButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .normal)
         self.connectButton.setImage(#imageLiteral(resourceName: "facebook").withRenderingMode(.alwaysOriginal), for: .selected)
         self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
-        self.connectButton.shadowColor = AppColors.clear
+//        self.connectButton.shadowColor = AppColors.clear
         self.connectButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.connectButton.isSocial = true
     }
@@ -152,7 +152,7 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.connectButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .normal)
         self.connectButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .selected)
         self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
-        self.connectButton.shadowColor = AppColors.clear
+       // self.connectButton.shadowColor = AppColors.clear
         self.connectButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.connectButton.isSocial = true
     }
@@ -169,7 +169,7 @@ class LinkedAccountsTableCell: UITableViewCell {
         self.connectButton.setImage(#imageLiteral(resourceName: "linkedInIcon").withRenderingMode(.alwaysOriginal), for: .normal)
         self.connectButton.setImage(#imageLiteral(resourceName: "linkedInIcon").withRenderingMode(.alwaysOriginal), for: .selected)
         self.connectButton.layer.cornerRadius = self.connectButton.height / 2.0
-        self.connectButton.shadowColor = AppColors.clear
+        //self.connectButton.shadowColor = AppColors.clear
         
         self.connectButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         self.connectButton.isSocial = true

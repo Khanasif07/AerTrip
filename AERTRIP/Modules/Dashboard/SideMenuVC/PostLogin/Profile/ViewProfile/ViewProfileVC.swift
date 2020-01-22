@@ -186,13 +186,14 @@ class ViewProfileVC: BaseVC {
         if let imagePath = UserInfo.loggedInUser?.profileImage, !imagePath.isEmpty {
             self.profileImageHeaderView?.profileImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder() ?? AppPlaceholderImage.user, showIndicator: false)
             self.profileImageHeaderView?.backgroundImageView.setImageWithUrl(imagePath, placeholder: UserInfo.loggedInUser?.profileImagePlaceholder(font:AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack).blur ?? UIImage(), showIndicator: false)
-            
+            self.profileImageHeaderView?.profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
             self.profileImageHeaderView?.blurEffectView.alpha = 1.0
         } else {
             
             self.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
             self.profileImageHeaderView?.backgroundImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppConstants.profileViewBackgroundNameIntialsFont, textColor: AppColors.themeBlack).blur
             self.profileImageHeaderView?.blurEffectView.alpha = 0.0
+            self.profileImageHeaderView?.profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
         }
     }
     
