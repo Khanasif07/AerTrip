@@ -75,7 +75,7 @@ class DashboardVC: BaseVC {
         super.viewDidLoad()
         resetItems()
         headerTopConstraint.constant = UIApplication.shared.statusBarFrame.height
-        segmentCenterYConstraint.constant = -5.0
+//        segmentCenterYConstraint.constant = 0.0
         aerinView.transform = .identity
         aerinView.alpha = 1.0
         // nitin change
@@ -419,6 +419,7 @@ extension DashboardVC  {
         let ratio = valueToBe / (headerTopConstraint.constant + headerView.height)
         
         segmentCenterYConstraint.constant = ratio * scrolledY
+        printDebug(segmentCenterYConstraint.constant)
     }
     
     private func updateInnerScrollTop(for scrolledY: CGFloat) {

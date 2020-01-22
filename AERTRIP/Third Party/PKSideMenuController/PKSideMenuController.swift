@@ -40,8 +40,6 @@ open class PKSideMenuController: UIViewController {
     //MARK:- Properties
     //MARK:- Public
     public var isOpen: Bool {
-//        let fMain : CGRect = self.mainContainer!.frame
-//        return (fMain.minX == self.distanceOpenMenu)
         
         if let menu = menuContainer {
             return menu.frame.origin.x <= CGFloat(0.0)
@@ -223,12 +221,6 @@ open class PKSideMenuController: UIViewController {
         closeMenuGestureRecognizer?.isEnabled = false
     }
     
-    @objc private func edgeSwipeCloseAction(_ sender: UIGestureRecognizer) {
-        if sender.state == .began, self.isOpen {
-            self.closeMenu()
-        }
-    }
-    
     private func animateToProgress(_ progressX: CGFloat) {
             let layerTemp : CALayer = (self.mainContainer?.layer)!
 
@@ -308,7 +300,6 @@ open class PKSideMenuController: UIViewController {
         self.delegate?.willOpenSideMenu()
         switch PKSideMenuOptions.currentAnimation {
         case .curve3D:
-//            self.openWith3DAnimation(mainFrame: fMain)
             DispatchQueue.main.async {
                 self.addShadowsAndCornerRadius()
                 UIView.animate(withDuration: self.animationTime, animations: {
@@ -332,7 +323,6 @@ open class PKSideMenuController: UIViewController {
         self.delegate?.willCloseSideMenu()
         switch PKSideMenuOptions.currentAnimation {
         case .curve3D:
-//            self.closeWith3DAnimation()
             DispatchQueue.main.async {
                 UIView.animate(withDuration: self.animationTime, animations: {
                     self.animateToProgress(self.view.width)
@@ -410,64 +400,6 @@ extension PKSideMenuController: UIGestureRecognizerDelegate {
 //MARK:- Animation Funstions
 //MARK:-
 extension PKSideMenuController {
-
-    //MARK:- 3D Animations
-    private func openWith3DAnimation(mainFrame: CGRect) {
-        addShadowsAndCornerRadius()
-        UIView.animate(withDuration: self.animationTime, delay: 0.0, options: UIView.AnimationOptions.beginFromCurrentState, animations: { () -> Void in
-            let layerTemp : CALayer = (self.mainContainer?.layer)!
-            layerTemp.zPosition = 1000
-
-            var tRotate : CATransform3D = CATransform3DIdentity
-            tRotate.m34 = 1.0 / (-800.0)
-            tRotate.m44 = 1.0
-            let aXpos: CGFloat = CGFloat(-40.0 * (.pi / 180))
-            tRotate = CATransform3DRotate(tRotate,aXpos, 0.0, 1.0, 0.0)
-
-            var tScale : CATransform3D = CATransform3DIdentity
-            tScale.m34 = 1.0 / (-800.0)
-            tScale = CATransform3DScale(tScale, 0.85, 0.70, 1.0)
-            layerTemp.transform = CATransform3DConcat(tScale, tRotate)
-
-            self.mainContainer?.frame = mainFrame
-            
-            let finalX = PKSideMenuOptions.currentOpeningSide == .left ? -(mainFrame.size.width) : (mainFrame.size.width)
-
-            self.menuContainer?.transform = CGAffineTransform(translationX: finalX , y: 0.0)
-
-        }) { (finished: Bool) -> Void in
-        }
-    }
-    
-    private func closeWith3DAnimation() {
-        removeShadowsAndCornerRadius()
-        UIView.animate(withDuration: self.animationTime, delay: 0.0, options: UIView.AnimationOptions.beginFromCurrentState, animations: { () -> Void in
-            self.mainContainer?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-            let layerTemp : CALayer = (self.mainContainer?.layer)!
-            layerTemp.zPosition = 1000
-            
-            var tRotate : CATransform3D = CATransform3DIdentity
-            tRotate.m34 = 1.0 / (-800.0)
-            
-            let aXpos: CGFloat = CGFloat(0.0 * (.pi / 180.0))
-            tRotate = CATransform3DRotate(tRotate,aXpos, 0.0, 1.0, 0.0)
-            layerTemp.transform = tRotate
-            
-            var tScale : CATransform3D = CATransform3DIdentity
-            tScale.m34 = 1.0 / (-800.0)
-            tScale = CATransform3DScale(tScale, 1.0, 1.0, 1.0)
-            layerTemp.transform = tScale
-            layerTemp.transform = CATransform3DConcat(tRotate, tScale)
-            layerTemp.transform = CATransform3DConcat(tScale, tRotate)
-            self.mainContainer!.frame = CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: UIScreen.main.bounds.height)
-            
-            self.menuContainer?.transform = CGAffineTransform.identity
-
-        }) { (finished: Bool) -> Void in
-            self.mainViewController!.view.isUserInteractionEnabled = true
-            self.removeGesture()
-        }
-    }
     
     //MARK:- Normal animation
     private func openWithCurveLinear(mainFrame: CGRect) {
@@ -498,67 +430,23 @@ extension PKSideMenuController {
     @objc
     func panGestureRecognized(_ recognizer: UIGestureRecognizer) {
         
-        if recognizer is UIScreenEdgePanGestureRecognizer {
-            if !self.isOpen {
-                let progress = recognizer.location(in: view)
-                let progressX = progress.x
-                if recognizer.state == .began {
-                    addShadowsAndCornerRadius(false)
-                    
-                } else if recognizer.state == .ended {
-                    if progressX < (view.width * (2/3)) {
-                        DispatchQueue.main.async {
-                            UIView.animate(withDuration: 0.3, animations: {
-                                self.animateToProgress(self.view.width - PKSideMenuOptions.sideDistanceForOpenMenu)
-                            }) { _ in
-                                self.edgePanGestureRecognizer?.isEnabled = false
-                                self.closeMenuGestureRecognizer?.isEnabled = true
-                            }
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            UIView.animate(withDuration: 0.3, animations: {
-                                self.animateToProgress(self.view.width)
-                            }) { (_) in
-                                self.removeShadowsAndCornerRadius()
-                                self.removeGesture()
-                                self.edgePanGestureRecognizer?.isEnabled = true
-                                self.closeMenuGestureRecognizer?.isEnabled = false
-                            }
-                        }
-                    }
-                    addTapGestures()
-                }  else {
-                    if progressX < (view.width - PKSideMenuOptions.sideDistanceForOpenMenu) + 20 {
-                        DispatchQueue.main.async {
-                            UIView.animate(withDuration: 0.3, animations: {
-                                self.animateToProgress(self.view.width - PKSideMenuOptions.sideDistanceForOpenMenu)
-                            }) { _ in
-                                self.edgePanGestureRecognizer?.isEnabled = false
-                                self.closeMenuGestureRecognizer?.isEnabled = true
-                            }
-                        }
-                        addTapGestures()
-                    } else {
-                        animateToProgress(progressX)
-                    }
-                }
-            }
-            
+        if let gestRecog =  recognizer as? UIScreenEdgePanGestureRecognizer {
+            actionForEdgePanGesture(gestRecog)
         } else {
             guard let gestRecog = recognizer as? UIPanGestureRecognizer else { return }
-            menuContainer?.subviews.forEach({ (subView) in
-                if subView is UITableView {
-                    
-                }
-            })
-            let translationX = gestRecog.translation(in: view).x
-            
-            let totalTranslation = (view.width - PKSideMenuOptions.sideDistanceForOpenMenu) + translationX
-            guard translationX >= 0, totalTranslation <= view.width else { return }
-            
-            if recognizer.state == .ended {
-                if (totalTranslation) < (view.width * (2/3)) {
+            actionForPanGesture(gestRecog)
+        }
+    }
+    
+    private func actionForEdgePanGesture(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+        if !self.isOpen {
+            let progress = recognizer.location(in: view)
+            let progressX = progress.x
+            if recognizer.state == .began {
+                addShadowsAndCornerRadius(false)
+                
+            } else if recognizer.state == .ended {
+                if progressX < (view.width * (2/3)) {
                     DispatchQueue.main.async {
                         UIView.animate(withDuration: 0.3, animations: {
                             self.animateToProgress(self.view.width - PKSideMenuOptions.sideDistanceForOpenMenu)
@@ -580,8 +468,8 @@ extension PKSideMenuController {
                     }
                 }
                 addTapGestures()
-            } else {
-                if totalTranslation < (view.width - PKSideMenuOptions.sideDistanceForOpenMenu) + 10 {
+            }  else {
+                if progressX < (view.width - PKSideMenuOptions.sideDistanceForOpenMenu) + 20 {
                     DispatchQueue.main.async {
                         UIView.animate(withDuration: 0.3, animations: {
                             self.animateToProgress(self.view.width - PKSideMenuOptions.sideDistanceForOpenMenu)
@@ -591,22 +479,66 @@ extension PKSideMenuController {
                         }
                     }
                     addTapGestures()
-                } else if totalTranslation > (view.width - 20) {
-                    DispatchQueue.main.async {
-                        UIView.animate(withDuration: 0.3, animations: {
-                            self.animateToProgress(self.view.width)
-                        }) { (_) in
-                            self.removeShadowsAndCornerRadius()
-                            self.removeGesture()
-                            self.edgePanGestureRecognizer?.isEnabled = true
-                            self.closeMenuGestureRecognizer?.isEnabled = false
-                        }
-                    }
                 } else {
-                    animateToProgress(totalTranslation)
+                    animateToProgress(progressX)
                 }
             }
-            
+        }
+    }
+    
+    private func actionForPanGesture(_ recognizer: UIPanGestureRecognizer) {
+        let translationX = recognizer.translation(in: view).x
+        let totalTranslation = (view.width - PKSideMenuOptions.sideDistanceForOpenMenu) + translationX
+        guard translationX >= 0, totalTranslation <= view.width else { return }
+        
+        if recognizer.state == .ended {
+            if (totalTranslation) < (view.width * (2/3)) {
+                DispatchQueue.main.async {
+                    UIView.animate(withDuration: 0.3, animations: {
+                        self.animateToProgress(self.view.width - PKSideMenuOptions.sideDistanceForOpenMenu)
+                    }) { _ in
+                        self.edgePanGestureRecognizer?.isEnabled = false
+                        self.closeMenuGestureRecognizer?.isEnabled = true
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    UIView.animate(withDuration: 0.3, animations: {
+                        self.animateToProgress(self.view.width)
+                    }) { (_) in
+                        self.removeShadowsAndCornerRadius()
+                        self.removeGesture()
+                        self.edgePanGestureRecognizer?.isEnabled = true
+                        self.closeMenuGestureRecognizer?.isEnabled = false
+                    }
+                }
+            }
+            addTapGestures()
+        } else {
+            if totalTranslation < (view.width - PKSideMenuOptions.sideDistanceForOpenMenu) + 10 {
+                DispatchQueue.main.async {
+                    UIView.animate(withDuration: 0.3, animations: {
+                        self.animateToProgress(self.view.width - PKSideMenuOptions.sideDistanceForOpenMenu)
+                    }) { _ in
+                        self.edgePanGestureRecognizer?.isEnabled = false
+                        self.closeMenuGestureRecognizer?.isEnabled = true
+                    }
+                }
+                addTapGestures()
+            } else if totalTranslation > (view.width - 20) {
+                DispatchQueue.main.async {
+                    UIView.animate(withDuration: 0.3, animations: {
+                        self.animateToProgress(self.view.width)
+                    }) { (_) in
+                        self.removeShadowsAndCornerRadius()
+                        self.removeGesture()
+                        self.edgePanGestureRecognizer?.isEnabled = true
+                        self.closeMenuGestureRecognizer?.isEnabled = false
+                    }
+                }
+            } else {
+                animateToProgress(totalTranslation)
+            }
         }
     }
     
