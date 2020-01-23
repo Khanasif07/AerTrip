@@ -379,4 +379,10 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             }
         }
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == sideMenuTableView {
+            print(scrollView.contentOffset)
+        }
+    }
 }

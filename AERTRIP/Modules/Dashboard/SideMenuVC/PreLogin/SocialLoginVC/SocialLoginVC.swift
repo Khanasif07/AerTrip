@@ -212,21 +212,19 @@ private extension SocialLoginVC {
     
     private func addAppLogoView() {
         let view = SideMenuLogoView.instanceFromNib()
-        view.frame = self.logoContainerView.bounds
         logoView = view
+        self.updateLogoMessage()
+        logoView?.frame = logoContainerView.bounds
+        self.logoContainerView.addSubview(logoView!)
         
-        self.logoContainerView.addSubview(view)
-        
-        self.updateLogoMessgae()
     }
     
-    private func updateLogoMessgae() {
+    private func updateLogoMessage() {
         
         if currentlyUsingFrom == .loginProcess {
             logoView?.messageLabel.font = AppFonts.Regular.withSize(16.0)
             logoView?.messageLabel.text = LocalizedString.EnjoyAMorePersonalisedTravelExperience.localized
             logoView?.isAppNameHidden = false
-            
             socialButtosCenterConstraint.constant = 0.0
             socialAndLogoSpace.constant = 85.0
         }
