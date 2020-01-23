@@ -304,6 +304,7 @@ extension AppFlowManager {
     
     func moveToImportContactVC() {
         let ob = ImportContactVC.instantiate(fromAppStoryboard: .TravellerList)
+        ob.modalPresentationStyle = .fullScreen
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
@@ -352,6 +353,7 @@ extension AppFlowManager {
     func showEditProfileVC(travelData: TravelDetailModel?, usingFor: EditProfileVM.UsingFor) {
         let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
         ob.viewModel.travelData = travelData
+        ob.modalPresentationStyle = .fullScreen
         ob.viewModel.currentlyUsinfFor = usingFor
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }

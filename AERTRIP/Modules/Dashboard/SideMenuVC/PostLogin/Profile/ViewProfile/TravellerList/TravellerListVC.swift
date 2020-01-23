@@ -177,7 +177,8 @@ class TravellerListVC: BaseVC {
     // MARK: - IB Action
     
     func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
+        //navigationController?.popViewController(animated: true)
+        AppFlowManager.default.popViewController(animated: true)
     }
     
     func addTravellerTapped() {

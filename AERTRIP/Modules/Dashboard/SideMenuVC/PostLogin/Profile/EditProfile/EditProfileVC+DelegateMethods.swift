@@ -118,7 +118,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     cell.leftView.isUserInteractionEnabled = true
                     cell.leftTitleLabel.textColor = AppColors.themeBlack
                 }
-                if self.viewModel.currentlyUsinfFor == .addNewTravellerList {
+                if self.viewModel.currentlyUsinfFor == .addNewTravellerList && indexPath.row != 0 {
                     cell.deleteButton.isHidden = self.viewModel.mobile.count == 1
                 }
                 cell.configureCell(self.viewModel.mobile[indexPath.row].isd, self.viewModel.mobile[indexPath.row].label, self.viewModel.mobile[indexPath.row].value)
@@ -420,7 +420,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         case LocalizedString.EmailAddress.localized:
             return !((indexPath.row == 0 && self.viewModel.currentlyUsinfFor == .viewProfile) || indexPath.row == self.viewModel.email.count)
         case LocalizedString.ContactNumber.localized:
-            return !((indexPath.row == 0 && self.viewModel.currentlyUsinfFor == .viewProfile) || indexPath.row == self.viewModel.mobile.count)
+            return !((indexPath.row == 0 && self.viewModel.currentlyUsinfFor == .viewProfile) || (indexPath.row == 0 && self.viewModel.currentlyUsinfFor == .travellerList) || (indexPath.row == 0 && self.viewModel.currentlyUsinfFor == .addNewTravellerList)) || (indexPath.row == self.viewModel.mobile.count)
         case LocalizedString.SocialAccounts.localized:
             return !(indexPath.row == self.viewModel.social.count || self.viewModel.social.count == 1)
         case LocalizedString.FlightPreferences.localized:
@@ -1020,8 +1020,8 @@ extension EditProfileVC: AddAddressTableViewCellDelegate {
         if self.viewModel.countries.count > 0 {
             pickerType = .country
             pickerData = Array(self.viewModel.countries.values)
-            
-            let prevSectdContry = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.addresses[indexPath.row].country.isEmpty ? AppConstants.kIndianIsdCode : self.viewModel.addresses[indexPath.row].country )
+            // AppConstants.kIndianIsdCode
+            let prevSectdContry = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.addresses[indexPath.row].country.isEmpty ? "IN" : self.viewModel.addresses[indexPath.row].country )
             self.closeGenricAndDatePicker(completion: nil)
             PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: prevSectdContry) { [weak self] (selectedCountry,closePicker)  in
                 printDebug("selected country data: \(selectedCountry)")

@@ -88,7 +88,16 @@ class EditProfileVM {
         } else if self.firstName.removeAllWhiteSpacesAndNewLines.isEmpty {
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterFirstName.localized)
             flag = false
-        } else if self.lastName.removeAllWhiteSpacesAndNewLines.isEmpty {
+        }
+        else if !(self.email.first?.value.removeAllWhiteSpacesAndNewLines.isEmpty ?? true) {
+            for email in self.email {
+                if !email.value.checkValidity(.Email) {
+                    AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_email_address.localized)
+                    flag = false
+                    break
+                }
+            }
+        }else if self.lastName.removeAllWhiteSpacesAndNewLines.isEmpty {
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterLastName.localized)
             flag = false
         } else if !self.passportIssueDate.removeAllWhiteSpacesAndNewLines.isEmpty || !self.passportExpiryDate.removeAllWhiteSpacesAndNewLines.isEmpty {
@@ -127,14 +136,14 @@ class EditProfileVM {
         }
         
         if !self.email.isEmpty {
-//            for (index, _) in self.email.enumerated() {
-//                if index > 0 {
-//                    if self.email[index - 1].value == self.email[index].value {
-//                        AppToast.default.showToastMessage(message: "All email should be unique")
-//                        flag = false
-//                    }
-//                }
-//            }
+            for (index, _) in self.email.enumerated() {
+                if index > 0 {
+                    if self.email[index - 1].value == self.email[index].value {
+                        AppToast.default.showToastMessage(message: "All email should be unique")
+                        flag = false
+                    }
+                }
+            }
         }
         
         if !self.mobile.isEmpty {

@@ -187,6 +187,7 @@ class ContactListVC: BaseVC {
     
     private func reloadList() {
         self.tableView?.reloadData()
+        
     }
     
     private func hideSelectAllButton(isHidden: Bool = true) {

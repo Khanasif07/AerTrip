@@ -74,6 +74,6 @@ class SideMenuLogoView: UIView {
     
     private func updateAppName() {
         self.logoTextView.isHidden = self.isAppNameHidden
-        self.logoImageAndNameConstraint.constant = self.isAppNameHidden ? -22.0 : 33.0
+        self.logoImageAndNameConstraint.constant = self.isAppNameHidden ? -22.0 : 18.0
     }
 }

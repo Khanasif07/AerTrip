@@ -54,6 +54,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     var indexPath: IndexPath?
     var indexPathRow: Int = 0
     var pickerTitle: String = ""
+    var issueDate: Date?
+    var ExpiryDate: Date?
     
     let moreInformation = [LocalizedString.Birthday, LocalizedString.Anniversary, LocalizedString.Notes]
     let passportDetaitTitle: [String] = [LocalizedString.passportNo.rawValue, LocalizedString.issueCountry.rawValue]
@@ -784,12 +786,18 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 fatalError("TextEditableTableViewCell not found")
             }
             if viewType == .leftView {
-                cell.leftTextField.text = formatter.string(from: datePicker?.date ?? Date())
-                viewModel.passportIssueDate = formatter.string(from: datePicker?.date ?? Date())
-
-            } else {
-                cell.rightTextField.text = formatter.string(from: datePicker?.date ?? Date())
-                viewModel.passportExpiryDate = formatter.string(from: datePicker?.date ?? Date())
+                self.issueDate =  datePicker?.date ?? Date()
+                if self.issueDate !=  self.ExpiryDate {
+                    cell.leftTextField.text = formatter.string(from: datePicker?.date ?? Date())
+                    viewModel.passportIssueDate = formatter.string(from: datePicker?.date ?? Date())
+                }
+               
+            }else {
+                self.ExpiryDate = self.datePicker?.date ?? Date()
+                if self.issueDate !=  self.ExpiryDate {
+                    cell.rightTextField.text = formatter.string(from: datePicker?.date ?? Date())
+                    viewModel.passportExpiryDate = formatter.string(from: self.datePicker?.date ?? Date())
+                }
             }
 
         default:
@@ -853,6 +861,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             } else {
                 editProfileImageHeaderView.profileImageView.image = AppGlobals.shared.getImageFromText(flText.uppercased(), offSet: CGPoint(x: 0.0, y: 9.0)) }
         }
+        //MARK:- Asif
+               editProfileImageHeaderView.editButton.isHidden = false
     }
     
 }

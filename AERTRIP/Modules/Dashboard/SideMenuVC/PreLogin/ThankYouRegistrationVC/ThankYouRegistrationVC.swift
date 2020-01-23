@@ -42,7 +42,7 @@ class ThankYouRegistrationVC: BaseVC {
     
     override func setupFonts() {
         
-        self.headerTitleLabel.font = AppFonts.Bold.withSize(38)
+        self.headerTitleLabel.font = AppFonts.c.withSize(38)
         self.emailLabel.font = AppFonts.Regular.withSize(20)
         self.sentAccountLinkLabel.font = AppFonts.Regular.withSize(16)
         self.checkEmailLabel.font = AppFonts.Regular.withSize(16)

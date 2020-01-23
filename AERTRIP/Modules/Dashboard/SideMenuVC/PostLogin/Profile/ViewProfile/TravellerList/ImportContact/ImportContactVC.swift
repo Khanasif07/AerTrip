@@ -69,6 +69,7 @@ class ImportContactVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
+
         if let obj = note.object as? ImportContactVM.Notification {
             if obj == .contactFetched {
                 self.fetchPhoneContactsSuccess()
