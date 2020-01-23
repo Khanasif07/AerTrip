@@ -199,11 +199,17 @@ class ImportContactVC: BaseVC {
 //    }
     
     private func selectedContactsSetHidden(isHidden: Bool, animated: Bool) {
+        let value: CGFloat = self.selectedContactsContainerHeightConstraint.constant
+        let newValue: CGFloat = isHidden ? 0.0 : 100.0
+        if newValue == value {
+            return
+        }
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let selff = self else { return }
-            selff.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 100.0
+            selff.selectedContactsContainerHeightConstraint.constant = newValue
             selff.selectedContactsCollectionView.layoutIfNeeded()
         }) { (isCompleted) in
+            
         }
     }
     
@@ -358,7 +364,10 @@ extension ImportContactVC: ImportContactVMDelegate {
 //        })
         self.itemsCounts[usingFor.rawValue] = item
         self.selectionDidChanged()
-        self.selectedContactsCollectionView.reloadSection(section: section)
+        delay(seconds: 0.2) { [weak self] in
+            self?.selectedContactsCollectionView.reloadSection(section: section)
+        }
+        
         //self.scrollCollectionToEnd()
         
     }
