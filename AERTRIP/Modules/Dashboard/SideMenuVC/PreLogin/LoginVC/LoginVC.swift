@@ -114,7 +114,7 @@ class LoginVC: BaseVC {
     
     @IBAction func bilwiseButtonAction(_ sender: UIButton) {
         self.emailTextField.text = "rahulTest@yopmail.com"
-        self.passwordTextField.text = "Taruna@03"
+        self.passwordTextField.text = "Taruna@04"
         self.viewModel.email = self.emailTextField.text ?? ""
         self.viewModel.password = self.passwordTextField.text ?? ""
         self.loginButtonAction(self.loginButton)

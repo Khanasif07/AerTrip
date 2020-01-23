@@ -53,7 +53,7 @@ class ThankYouRegistrationVC: BaseVC {
     override func setupTexts() {
         
         if self.viewModel.type == .deeplinkResetPassword  || self.viewModel.type == .resetPassword {
-            
+            self.emailLabel.text = self.viewModel.email
             self.headerTitleLabel.text = LocalizedString.CheckYourEmail.localized
             self.sentAccountLinkLabel.text = LocalizedString.PasswordResetInstruction.localized
             self.checkEmailLabel.text = LocalizedString.CheckEmailToResetPassword.localized

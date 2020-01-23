@@ -27,8 +27,11 @@ class ViewProfileDetailVM {
         var params = JSONDictionary()
         
         params[APIKeys.paxId.rawValue] = self.travelData?.id ?? ""
-        
-        self.delegate?.willGetDetail(isShowLoader)
+        if isShowLoader {
+            DispatchQueue.mainAsync {
+                self.delegate?.willGetDetail(isShowLoader)
+            }
+        }
         
         APICaller.shared.getTravelDetail(params: params, completionBlock: { [weak self] (success, data, errorCode) in
             guard let strongSelf = self else {return}
@@ -72,9 +75,13 @@ class ViewProfileDetailVM {
                     */
                     strongSelf.travelData = trav
                 }
-                strongSelf.delegate?.getSuccess(trav)
+                DispatchQueue.mainAsync {
+                    strongSelf.delegate?.getSuccess(trav)
+                }
             } else {
+                DispatchQueue.mainAsync {
                 strongSelf.delegate?.getFail(errors: errorCode)
+                }
                 debugPrint(errorCode)
             }
         })

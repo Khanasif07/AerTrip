@@ -914,7 +914,12 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
             viewType = .leftView
-            showDatePicker(formatter.date(from: viewModel.passportIssueDate),nil, maximumDate: Date())
+            let expiryDate = formatter.date(from: viewModel.passportExpiryDate)
+            var maxDate = Date()
+            if let date = expiryDate, let newDate = date.add(days: -1) {
+                maxDate = newDate
+            }
+            showDatePicker(formatter.date(from: viewModel.passportIssueDate),nil, maximumDate: maxDate)
         }
     }
     
@@ -924,7 +929,12 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
             viewType = .rightView
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
-            showDatePicker(formatter.date(from: viewModel.passportExpiryDate),Date(), maximumDate: nil)
+            let issueDate = formatter.date(from: viewModel.passportIssueDate)
+            var minDate = Date()
+            if let date = issueDate, let newDate = date.add(days: 1) {
+                minDate = newDate
+            }
+            showDatePicker(formatter.date(from: viewModel.passportExpiryDate),minDate, maximumDate: nil)
         }
     }
 }
