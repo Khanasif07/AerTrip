@@ -62,18 +62,16 @@ class SideMenuLogoView: UIView {
     }
     
     private func setupForSideMenu() {
-        logoImageTopContraint.constant = 28.0
+//        logoImageTopContraint.constant = 28.0
     }
     
     private func setupForSocialLogin() {
-        logoImageTopContraint.constant = 70.0
-        self.logoImageView.layoutIfNeeded()
-        
-        
+//        logoImageTopContraint.constant = 70.0
+//        self.logoImageView.layoutIfNeeded()
     }
     
     private func updateAppName() {
         self.logoTextView.isHidden = self.isAppNameHidden
-        self.logoImageAndNameConstraint.constant = self.isAppNameHidden ? -22.0 : 33.0
+//        self.logoImageAndNameConstraint.constant = self.isAppNameHidden ? -22.0 : 33.0
     }
 }

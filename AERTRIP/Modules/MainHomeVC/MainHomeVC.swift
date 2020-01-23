@@ -35,6 +35,9 @@ class MainHomeVC: BaseVC {
     }
     var isLaunchThroughSplash = false
     
+    private var logoViewOriginalFrame: CGRect?
+    private var profileViewOriginalFrame: CGRect?
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -232,6 +235,9 @@ class MainHomeVC: BaseVC {
         
         self.profileView?.isHidden = true
         self.mainContainerView.addSubview(self.profileView!)
+        
+        profileViewOriginalFrame = profileView?.frame
+        profileViewOriginalFrame?.origin.x = (sideMenuVC?.view.frame.origin.x ?? 0) - 5
     }
     
     private func setUserDataOnProfileHeader() {
@@ -347,14 +353,17 @@ class MainHomeVC: BaseVC {
         self.logoView?.isHidden = true
         
         self.logoView?.frame.origin = CGPoint(x: self.sideMenuController?.visibleSpace ?? 0.0, y: 30.0)
-        self.logoView?.alpha = 0.6
+//        self.logoView?.alpha = 0.6
         self.mainContainerView.addSubview(self.logoView!)
+        
+        logoViewOriginalFrame = logoView?.frame
+        logoViewOriginalFrame?.origin.x = (sideMenuVC?.view.frame.origin.x ?? 0) - 5
     }
     
     private func pushLogoAnimation() {
         
         let pushPoint = CGPoint(x: UIDevice.screenWidth, y: 0.0)
-        
+        logoViewOriginalFrame?.origin.y = -((self.sideMenuVC?.sideMenuTableView.contentOffset.y ?? 0) + 20)
         self.socialLoginVC?.logoContainerView.isHidden = true
         self.logoView?.isHidden = false
         self.sideMenuVC?.logoContainerView.isHidden = true
@@ -384,13 +393,10 @@ class MainHomeVC: BaseVC {
         self.socialLoginVC?.logoContainerView.isHidden = true
         self.logoView?.isHidden = false
         self.sideMenuVC?.logoContainerView.isHidden = true
-
-        let finalFrame = CGRect(x: self.sideMenuController?.visibleSpace ?? 0.0, y: (self.sideMenuVC?.sideMenuTableView.y ?? 0.0) + 30.0, width: self.sideMenuVC?.sideMenuTableView.width ?? 110.0, height: 180.0)
-
         self.socialLoginVC?.animateContentOnPop()
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.scrollView.contentOffset = popPoint
-            self.logoView?.frame = finalFrame
+            self.logoView?.frame = self.logoViewOriginalFrame!
             self.logoView?.currentlyUsingFor = .sideMenu
             self.logoView?.layoutIfNeeded()
             
