@@ -170,7 +170,7 @@ private extension CreateProfileVC {
 
         self.firstNameTextField.titleYPadding = 8.0
         self.lastNameTextField.titleYPadding = 8.0
-        self.countryTextField.lineViewBottomSpace = 4.0
+        //self.countryTextField.lineViewBottomSpace = 4.0
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         self.topNavBar.delegate = self
         self.viewModel.userData.maxContactLimit = 10

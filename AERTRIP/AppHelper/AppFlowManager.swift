@@ -278,11 +278,13 @@ extension AppFlowManager {
         let controller = FFSearchVC.instantiate(fromAppStoryboard: .Profile)
         controller.delgate = delegate
         controller.defaultAirlines = defaultAirlines
+        controller.modalPresentationStyle = .fullScreen
         self.mainNavigationController.present(controller, animated: true, completion: nil)
     }
     
     func moveToSearchFavouriteHotelsVC() {
         let ob = SearchFavouriteHotelsVC.instantiate(fromAppStoryboard: .HotelPreferences)
+        ob.modalPresentationStyle = .fullScreen
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
@@ -299,6 +301,7 @@ extension AppFlowManager {
     func moveToPreferencesVC(_ delegate: PreferencesVCDelegate) {
         let ob = PreferencesVC.instantiate(fromAppStoryboard: .TravellerList)
         ob.delegate = delegate
+        ob.modalPresentationStyle = .fullScreen
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
@@ -361,6 +364,7 @@ extension AppFlowManager {
     func presentEditProfileVC() {
         let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
         ob.viewModel.currentlyUsinfFor = .addNewTravellerList
+        ob.modalPresentationStyle = .fullScreen
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
@@ -473,18 +477,21 @@ extension AppFlowManager {
         let ob = HotelDetailsAmenitiesVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.amenitiesGroups = amenitiesGroups
         ob.viewModel.amenities = amentites
+        ob.modalPresentationStyle = .fullScreen
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
     func presentHotelDetailsOverViewVC(overViewInfo: String) {
         let ob = HotelDetailsOverviewVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.overViewInfo = overViewInfo
+        ob.modalPresentationStyle = .fullScreen
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
     func presentHotelDetailsTripAdvisorVC(hotelId: String) {
         let ob = HotelDetailsReviewsVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.hotelId = hotelId
+        ob.modalPresentationStyle = .fullScreen
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
@@ -492,6 +499,7 @@ extension AppFlowManager {
         let ob = AssignGroupVC.instantiate(fromAppStoryboard: .TravellerList)
         ob.viewModel.paxIds = selectedTraveller
         ob.delegate = vc
+        ob.modalPresentationStyle = .fullScreen
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
