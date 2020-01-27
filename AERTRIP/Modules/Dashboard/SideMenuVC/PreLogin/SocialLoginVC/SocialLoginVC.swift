@@ -61,7 +61,6 @@ class SocialLoginVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         if self.viewModel.isFirstTime {
             self.topNavView.leftButton.isHidden  = true
         }
@@ -108,10 +107,9 @@ class SocialLoginVC: BaseVC {
         //self.fbButton.shadowColor = AppColors.themeBlack
         
         self.googleButton.isSocial = true
-        //self.googleButton.shadowColor = AppColors.themeRed
-        
+       //self.googleButton.shadowColor = AppColors.themeGray20
         self.googleButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
-        
+//
         self.linkedInButton.isSocial = true
         
         self.linkedInButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
@@ -134,7 +132,7 @@ class SocialLoginVC: BaseVC {
             self.fbButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 1.0, x: 0, y: 2, blur: 6, spread: 0)
             self.googleButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 1.0, x: 0, y: 2, blur: 6, spread: 0)
             self.linkedInButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 1.0, x: 0, y: 2, blur: 6, spread: 0)
-            
+
         }
        
         self.fbButton.setImage(AppImage.facebookLogoImage, for: .normal)

@@ -53,7 +53,7 @@ class ForgotPasswordVC: BaseVC {
     
     override func setupFonts() {
         
-        self.forgotPasswordLabel.font      = AppFonts.Bold.withSize(38)
+        self.forgotPasswordLabel.font      = AppFonts.c.withSize(38)
         self.intructionLabel.font    = AppFonts.Regular.withSize(16)
         self.continueButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.continueButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)

@@ -5,6 +5,9 @@
 //  Created by Pramod Kumar on 03/12/18.
 //  Copyright © 2018 Pramod Kumar. All rights reserved.
 //
+//self.emailTextField.titleYPadding = 12.0
+//       self.emailTextField.hintYPadding = 12.0
+//       self.emailTextField.lineViewBottomSpace = 10.0
 
 import UIKit
 
@@ -183,10 +186,16 @@ private extension LoginVC {
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
         
         self.emailTextField.text = self.viewModel.email
+        self.emailTextField.titleYPadding = 12.0
+        self.emailTextField.hintYPadding = 12.0
         self.emailTextField.lineViewBottomSpace = 10.0
+        self.passwordTextField.titleYPadding = 12.0
+        self.passwordTextField.hintYPadding = 12.0
         self.passwordTextField.lineViewBottomSpace = 10.0
-        self.emailTextField.isSingleTextField = false
-        self.passwordTextField.isSingleTextField = false
+//        self.emailTextField.lineViewBottomSpace = 10.0
+//        self.passwordTextField.lineViewBottomSpace = 10.0
+//        self.emailTextField.isSingleTextField = false
+//        self.passwordTextField.isSingleTextField = false
         self.loginButton.isEnabled = false
         self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)

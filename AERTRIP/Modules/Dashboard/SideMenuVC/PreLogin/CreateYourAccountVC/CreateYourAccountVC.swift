@@ -83,7 +83,7 @@ class CreateYourAccountVC: BaseVC {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        self.registerButton.layer.cornerRadius = self.registerButton.height/2
+        self.registerButton.layer.cornerRadius = 25.0
         self.registerButton.layer.masksToBounds = true
     }
     

@@ -40,7 +40,7 @@ class SuccessPopupVC: BaseVC {
     
     override func setupFonts() {
         
-        self.successfullLabel.font  = AppFonts.Bold.withSize(38)
+        self.successfullLabel.font  = AppFonts.c.withSize(38)
         self.titleLabel.font        = AppFonts.Regular.withSize(16)
         self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
