@@ -128,8 +128,8 @@ open class PKSideMenuController: UIViewController {
         layerTemp.masksToBounds = false
         layerTemp.shadowColor = PKSideMenuOptions.dropOffShadowColor.cgColor
         layerTemp.shadowOpacity = 0.0
-        layerTemp.shadowOffset = CGSize(width: 0, height: 2)
-        layerTemp.shadowRadius = 15.0
+        layerTemp.shadowOffset = CGSize(width: 25, height: 10)
+        layerTemp.shadowRadius = 50
 
         layerTemp.shadowPath = UIBezierPath(roundedRect: self.mainContainer!.bounds, cornerRadius: PKSideMenuOptions.mainViewCornerRadiusInOpenMode).cgPath
     }
@@ -225,17 +225,17 @@ open class PKSideMenuController: UIViewController {
             let layerTemp : CALayer = (self.mainContainer?.layer)!
 
             var tRotate : CATransform3D = CATransform3DIdentity
-            tRotate.m34 = 1.0 / (-800.0)
+            tRotate.m34 = 1.0 / (-700.0)
             
             let mainMultiplier = ((self.view.width - progressX) / self.view.width)*2
             
             let aXpos = self.degreesToRadians(-40) * mainMultiplier/2
-            tRotate = CATransform3DRotate(tRotate,aXpos, 0.0, 1.0, 0.0)
+            tRotate = CATransform3DRotate(tRotate, aXpos, 0.0, 1.0, 0.0)
             var tScale : CATransform3D = CATransform3DIdentity
             tScale.m34 = 1.0 / (-800.0)
             
-            let xMultiplier = 0.85 * mainMultiplier/3
-            let yMultiplier = 0.5 * mainMultiplier/3
+            let xMultiplier = 0.75 * mainMultiplier/3
+            let yMultiplier = 0.68 * mainMultiplier/3
             
             tScale = CATransform3DScale(tScale, 1 - xMultiplier, 1 - yMultiplier, 1.0)
             
@@ -543,15 +543,17 @@ extension PKSideMenuController {
     }
     
     private func addShadowsAndCornerRadius(_ animated: Bool = true) {
-        self.animateDropOffShadow(from: 0.0, to: 0.8, animated: animated)
+        self.animateDropOffShadow(from: 0.0, to: 1, animated: animated)
         self.animate3DShadow(from: 0.0, to: 1.0, animated: animated)
         self.animateMainViewCorner(from: 0.0, to: PKSideMenuOptions.mainViewCornerRadiusInOpenMode, animated: animated)
+        self.delegate?.willOpenSideMenu()
     }
     
     private func removeShadowsAndCornerRadius(_ animated: Bool = true) {
-        self.animateDropOffShadow(from: 0.8, to: 0.0, animated: animated)
+        self.animateDropOffShadow(from: 1, to: 0.0, animated: animated)
         self.animate3DShadow(from: 1.0, to: 0.0, animated: animated)
         self.animateMainViewCorner(from: PKSideMenuOptions.mainViewCornerRadiusInOpenMode, to: 0.0, animated: animated)
+        self.delegate?.willCloseSideMenu()
     }
     
 }
