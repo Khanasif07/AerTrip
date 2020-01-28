@@ -53,6 +53,8 @@ class DashboardVC: BaseVC {
     
     private var isInitialAminationDone: Bool = false
     
+    private var isAnimatingButtons = false
+        
     var itemWidth : CGFloat {
         return aerinView.width
     }
@@ -150,7 +152,7 @@ class DashboardVC: BaseVC {
     
     //MARK:- IBAction
     @IBAction func aerinAction(_ sender: UIButton) {
-        if selectedOption == .aerin {return}
+        if selectedOption == .aerin || isAnimatingButtons {return}
         toBeSelect = .aerin
         isSelectingFromTabs = true
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.aerin.rawValue), y: innerScrollView.contentOffset.y), animated: true)
@@ -158,7 +160,7 @@ class DashboardVC: BaseVC {
     
     @IBAction func flightsAction(_ sender: UIButton) {
         
-        if selectedOption == .flight {return}
+        if selectedOption == .flight || isAnimatingButtons {return}
         toBeSelect = .flight
         isSelectingFromTabs = true
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.flight.rawValue), y: innerScrollView.contentOffset.y), animated: true)
@@ -166,7 +168,7 @@ class DashboardVC: BaseVC {
     
     @IBAction func hotelsAction(_ sender: UIButton) {
         
-        if selectedOption == .hotels {return}
+        if selectedOption == .hotels || isAnimatingButtons {return}
         toBeSelect = .hotels
         isSelectingFromTabs = true
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.hotels.rawValue), y: innerScrollView.contentOffset.y), animated: true)
@@ -175,7 +177,7 @@ class DashboardVC: BaseVC {
     
     @IBAction func tripsAction(_ sender: UIButton) {
         
-        if selectedOption == .trips {return}
+        if selectedOption == .trips || isAnimatingButtons {return}
         toBeSelect = .trips
         isSelectingFromTabs = true
         innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.trips.rawValue), y: innerScrollView.contentOffset.y), animated: true)
@@ -309,7 +311,7 @@ extension DashboardVC  {
         isSelectingFromTabs = false
         previousSelected = selectedOption
     }
-    
+            
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if scrollView == mainScrollView {            
@@ -368,9 +370,7 @@ extension DashboardVC  {
             mainScrollViewOffset = scrollView.contentOffset
             
         }else{
-            
             //only perform size animation on horizontal scroll if outermost is at the top
-            
             let page = Int(scrollView.contentOffset.x/scrollView.bounds.width)
             let offset = scrollView.contentOffset
             let isForward = (offset.x - previousOffset.x) > 0
@@ -397,8 +397,8 @@ extension DashboardVC  {
                 let valueMoved = previousOffset.x - offset.x
                 let tabValueMoved = valueMoved/scrollView.bounds.width
                 
-                let increaseTransform = 1.0 + tabValueMoved/4.0
-                let decreaseTransform = 1.0 - tabValueMoved/4.0
+                let increaseTransform = 1.0 + tabValueMoved/4
+                let decreaseTransform = 1.0 - tabValueMoved/4
                 
                 if self.isSelectingFromTabs {
                     if self.selectedOption != self.toBeSelect {
@@ -505,19 +505,23 @@ extension DashboardVC  {
         let fromV = viewFor(option: fromPg)
         let toV = viewFor(option: toPg)
         
+        isAnimatingButtons = true
         let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration * 0.6, curve: .linear) { [weak self] in
             guard let `self` = self else {return}
             
             fromV.alpha = 0.5
             toV.alpha = 1.0
             if !self.userDidScrollUp {
-                self.checkAndApplyTransform(fromV, transformValue: 0.7, scrolledUp: true)
+                self.checkAndApplyTransform(fromV, transformValue: 0.75, scrolledUp: true)
                 self.checkAndApplyTransform(toV, transformValue: 1.0, scrolledUp: true)
             }
         }
         
         animator.addCompletion { [weak self](pos) in
-            self?.isSelectingFromTabs = false
+            DispatchQueue.delay(0.05) {
+                self?.isSelectingFromTabs = false
+                self?.isAnimatingButtons = false
+            }
         }
         
         animator.startAnimation()

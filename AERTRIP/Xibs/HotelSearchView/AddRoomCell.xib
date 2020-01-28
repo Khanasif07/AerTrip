@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,26 +11,26 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="AddRoomCell" reuseIdentifier="AddRoomCell" id="gTV-IL-0wX" customClass="AddRoomCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
+            <rect key="frame" x="0.0" y="0.0" width="355" height="106"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
+                <rect key="frame" x="0.0" y="0.0" width="355" height="106"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2e4-n0-bLQ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
+                        <rect key="frame" x="0.0" y="0.0" width="355" height="106"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UgJ-4O-Khy">
-                                <rect key="frame" x="130" y="33" width="115.5" height="40"/>
+                                <rect key="frame" x="117" y="33" width="121.5" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Room" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mn6-kE-3uo">
-                                        <rect key="frame" x="38" y="10.5" width="75.5" height="19.5"/>
+                                        <rect key="frame" x="44" y="10.5" width="75.5" height="19.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WS3-Oi-NfB">
-                                        <rect key="frame" x="2" y="7.5" width="25" height="25"/>
+                                        <rect key="frame" x="7" y="7.5" width="25" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="E3E-Ii-Wa3"/>
                                             <constraint firstAttribute="width" secondItem="WS3-Oi-NfB" secondAttribute="height" multiplier="1:1" id="rUc-q8-51F"/>
@@ -44,9 +44,9 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="mn6-kE-3uo" secondAttribute="trailing" constant="2" id="FDV-Zx-xgC"/>
-                                    <constraint firstItem="WS3-Oi-NfB" firstAttribute="leading" secondItem="UgJ-4O-Khy" secondAttribute="leading" constant="2" id="OI9-zy-xjn"/>
+                                    <constraint firstItem="WS3-Oi-NfB" firstAttribute="leading" secondItem="UgJ-4O-Khy" secondAttribute="leading" constant="7" id="OI9-zy-xjn"/>
                                     <constraint firstAttribute="height" constant="40" id="WeO-5e-P9d"/>
-                                    <constraint firstItem="mn6-kE-3uo" firstAttribute="leading" secondItem="WS3-Oi-NfB" secondAttribute="trailing" constant="11" id="cu9-hm-s2T"/>
+                                    <constraint firstItem="mn6-kE-3uo" firstAttribute="leading" secondItem="WS3-Oi-NfB" secondAttribute="trailing" constant="12" id="cu9-hm-s2T"/>
                                     <constraint firstItem="mn6-kE-3uo" firstAttribute="centerY" secondItem="WS3-Oi-NfB" secondAttribute="centerY" id="lfx-G4-0OQ"/>
                                     <constraint firstItem="WS3-Oi-NfB" firstAttribute="centerY" secondItem="UgJ-4O-Khy" secondAttribute="centerY" id="qTP-20-gFy"/>
                                 </constraints>
