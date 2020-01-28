@@ -191,6 +191,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         self.deleteTravellerView.isHidden = true
         delay(seconds: 0.7) { [weak self] in
             self?.deleteTravellerView.isHidden = self?.viewModel.paxId == UserInfo.loggedInUser?.paxId ? true : false
+            if self?.viewModel.currentlyUsinfFor == .travellerList {
+                self?.deleteTravellerView.isHidden = false
+            } else {
+                self?.deleteTravellerView.isHidden = true
+            }
             self?.deleteButton.setTitle(LocalizedString.DeleteFromTraveller.localized, for: .normal)
             self?.deleteButton.setTitleColor(AppColors.themeRed, for: .normal)
             self?.deleteButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)

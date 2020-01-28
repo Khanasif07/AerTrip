@@ -167,9 +167,14 @@ private extension CreateProfileVC {
         self.whiteBackgroundView.backgroundColor = AppColors.screensBackground.color
         
         self.viewModel.webserviceForGetSalutations()
-
-        self.firstNameTextField.titleYPadding = 8.0
-        self.lastNameTextField.titleYPadding = 8.0
+//        self.firstNameTextField.titleYPadding = 12.0
+//        self.firstNameTextField.hintYPadding = 12.0
+//        self.firstNameTextField.lineViewBottomSpace = 10.0
+//        self.lastNameTextField.titleYPadding = 12.0
+//        self.lastNameTextField.hintYPadding = 12.0
+//        self.lastNameTextField.lineViewBottomSpace = 10.0
+        self.firstNameTextField.titleYPadding = 12.0
+        self.lastNameTextField.titleYPadding = 12.0
         //self.countryTextField.lineViewBottomSpace = 4.0
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         self.topNavBar.delegate = self
