@@ -909,7 +909,11 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
     func twoPartEditLeftViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer) {
         self.indexPath = indexPath
         if sections[indexPath.section] == LocalizedString.FlightPreferences.localized {
-            AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+            if viewModel.currentlyUsinfFor == .addNewTravellerList {
+                presentFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+            } else {
+                 AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+            }
         } else {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
@@ -1067,6 +1071,15 @@ extension EditProfileVC: AddNotesTableViewCellDelegate {
     }
 }
 
+extension EditProfileVC {
+    func presentFFSearchVC(defaultAirlines: [FlyerModel], delegate: SearchVCDelegate?) {
+           let controller = FFSearchVC.instantiate(fromAppStoryboard: .Profile)
+           controller.modalPresentationStyle = .fullScreen
+           controller.delgate = delegate
+           controller.defaultAirlines = defaultAirlines
+           self.present(controller, animated: true, completion: nil)
+       }
+}
 
 /*
  self.viewModel.notes = textView.text

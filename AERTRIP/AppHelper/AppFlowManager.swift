@@ -276,9 +276,9 @@ extension AppFlowManager {
     
     func moveToFFSearchVC(defaultAirlines: [FlyerModel], delegate: SearchVCDelegate?) {
         let controller = FFSearchVC.instantiate(fromAppStoryboard: .Profile)
+        controller.modalPresentationStyle = .fullScreen
         controller.delgate = delegate
         controller.defaultAirlines = defaultAirlines
-        controller.modalPresentationStyle = .fullScreen
         self.mainNavigationController.present(controller, animated: true, completion: nil)
     }
     

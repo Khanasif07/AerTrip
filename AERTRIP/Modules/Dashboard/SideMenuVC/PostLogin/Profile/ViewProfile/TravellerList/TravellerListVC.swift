@@ -332,7 +332,8 @@ class TravellerListVC: BaseVC {
         if !labelPredicates.isEmpty {
             return NSCompoundPredicate(orPredicateWithSubpredicates: labelPredicates)
         }
-        return nil
+        //MARK:- Change Asif
+        return NSCompoundPredicate(orPredicateWithSubpredicates: labelPredicates)
     }
     
     func loadSavedData() {

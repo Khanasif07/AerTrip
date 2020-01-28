@@ -85,9 +85,9 @@ class SocialLoginVC: BaseVC {
         self.fbButton.layer.cornerRadius = self.fbButton.height / 2
         self.googleButton.layer.cornerRadius = self.googleButton.height / 2
         self.linkedInButton.layer.cornerRadius = self.linkedInButton.height / 2
-        self.fbButton.layer.masksToBounds = true
-        self.googleButton.layer.masksToBounds = true
-        self.linkedInButton.layer.masksToBounds = true
+//        self.fbButton.layer.masksToBounds = true
+//        self.googleButton.layer.masksToBounds = true
+//        self.linkedInButton.layer.masksToBounds = true
     }
     
     override func setupFonts() {
@@ -104,15 +104,18 @@ class SocialLoginVC: BaseVC {
         
         self.fbButton.isSocial = true
       
-        //self.fbButton.shadowColor = AppColors.themeBlack
+//        self.fbButton.shadowColor = AppColors.themeBlack
         
         self.googleButton.isSocial = true
-       //self.googleButton.shadowColor = AppColors.themeGray20
-        self.googleButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+//        self.googleButton.shadowColor = AppColors.themeGray20
+        
+        self.fbButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        
+        self.googleButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
 //
         self.linkedInButton.isSocial = true
         
-        self.linkedInButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        self.linkedInButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         
      //   self.linkedInButton.shadowColor = AppColors.themeBlack
     }
@@ -122,19 +125,22 @@ class SocialLoginVC: BaseVC {
         self.googleButton.setTitle(LocalizedString.Continue_with_Google.localized, for: .normal)
         self.linkedInButton.setTitle(LocalizedString.Continue_with_Linkedin.localized, for: .normal)
         
-//        self.fbButton.shadowColor = AppColors.themeRed
-//        self.view.backgroundColor = AppColors.themeRed
+//        self.fbButton.shadowColor = AppColors.themeBlack
+//        self.view.backgroundColor = AppColors.clear
         self.fbButton.isSocial = false
         self.googleButton.isSocial = false
         self.linkedInButton.isSocial = false
-        
+        self.googleButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.fbButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.linkedInButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+
         delay(seconds: 0.4) {
-            self.fbButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 1.0, x: 0, y: 2, blur: 6, spread: 0)
-            self.googleButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 1.0, x: 0, y: 2, blur: 6, spread: 0)
-            self.linkedInButton.layer.applySketchShadow(color: AppColors.themeGreen, alpha: 1.0, x: 0, y: 2, blur: 6, spread: 0)
+            self.fbButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+            self.googleButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+            self.linkedInButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
 
         }
-       
+
         self.fbButton.setImage(AppImage.facebookLogoImage, for: .normal)
         self.googleButton.setImage(AppImage.googleLogoImage, for: .normal)
         self.linkedInButton.setImage(AppImage.linkedInLogoImage, for: .normal)
@@ -224,7 +230,7 @@ private extension SocialLoginVC {
             logoView?.messageLabel.text = LocalizedString.EnjoyAMorePersonalisedTravelExperience.localized
             logoView?.isAppNameHidden = false
             socialButtosCenterConstraint.constant = 0.0
-            socialAndLogoSpace.constant = 87.0
+            socialAndLogoSpace.constant = 89.0
         }
         else {
             logoView?.messageLabel.font = AppFonts.Bold.withSize(38.0)
