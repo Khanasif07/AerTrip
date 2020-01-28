@@ -525,7 +525,7 @@ extension PKSideMenuController {
                     }
                 }
                 addTapGestures()
-            } else if totalTranslation > (view.width - 20) {
+            } else if totalTranslation >= (view.width - 20) {
                 DispatchQueue.main.async {
                     UIView.animate(withDuration: 0.3, animations: {
                         self.animateToProgress(self.view.width)
