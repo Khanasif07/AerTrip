@@ -34,7 +34,7 @@ class SuccessPopupVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         self.loginButton.layer.cornerRadius = self.loginButton.height/2
-        self.loginButton.layer.masksToBounds = true
+        //self.loginButton.layer.masksToBounds = true
     }
     
     
@@ -59,6 +59,8 @@ class SuccessPopupVC: BaseVC {
         
         self.successfullLabel.textColor  = AppColors.themeBlack
         self.titleLabel.textColor  = AppColors.themeBlack
+        self.loginButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.loginButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
     }
     //MARK:- IBOutlets
     //MARK:-

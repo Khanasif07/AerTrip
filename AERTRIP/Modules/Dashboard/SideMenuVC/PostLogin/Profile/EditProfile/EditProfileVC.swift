@@ -205,6 +205,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         editProfileImageHeaderView = EditProfileImageHeaderView.instanceFromNib()
         
         editProfileImageHeaderView.editButton.isHidden = (self.viewModel.paxId != UserInfo.loggedInUser?.paxId)
+        editProfileImageHeaderView.editButton.isHidden =  false
         editProfileImageHeaderView.delegate = self
         
         tableView.separatorStyle = .none
@@ -858,8 +859,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             } else {
                 editProfileImageHeaderView.profileImageView.image = AppGlobals.shared.getImageFromText(flText.uppercased(), offSet: CGPoint(x: 0.0, y: 9.0)) }
         }
-        //MARK:- Asif
-               editProfileImageHeaderView.editButton.isHidden = false
     }
     
 }

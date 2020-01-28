@@ -75,7 +75,7 @@ class CreateProfileVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         self.letsStartedButton.layer.cornerRadius = self.letsStartedButton.height/2
-        self.letsStartedButton.layer.masksToBounds = true
+        //self.letsStartedButton.layer.masksToBounds = true
     }
     
     override func bindViewModel() {
@@ -110,6 +110,9 @@ class CreateProfileVC: BaseVC {
         
         self.createProfileTitleLabel.textColor  = AppColors.themeBlack
         self.createProfileSubTitleLabel.textColor  = AppColors.themeBlack
+       // self.letsStartedButton.layer.masksToBounds = false
+        self.letsStartedButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.letsStartedButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
     }
     
     //MARK:- IBOutlets
@@ -451,7 +454,7 @@ extension CreateProfileVC {
         self.letsStartedButton.setTitle("", for: .normal)
         self.letsStartedButton.setImage(#imageLiteral(resourceName: "Checkmark"), for: .normal)
 
-        self.letsStartedButton.layer.masksToBounds = true
+       // self.letsStartedButton.layer.masksToBounds = true
         let reScaleFrame = CGRect(x: (self.whiteBackgroundView.width - 74.0) / 2.0, y: self.letsStartedButton.y, width: 74.0, height: 74.0)
 
         self.letsStartedButton.translatesAutoresizingMaskIntoConstraints = true
