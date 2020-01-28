@@ -48,12 +48,12 @@ class ForgotPasswordVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         self.continueButton.layer.cornerRadius = self.continueButton.height/2
-        self.continueButton.layer.masksToBounds = true
+       // self.continueButton.layer.masksToBounds = true
     }
     
     override func setupFonts() {
         
-        self.forgotPasswordLabel.font      = AppFonts.Bold.withSize(38)
+        self.forgotPasswordLabel.font      = AppFonts.c.withSize(38)
         self.intructionLabel.font    = AppFonts.Regular.withSize(16)
         self.continueButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.continueButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
@@ -72,6 +72,8 @@ class ForgotPasswordVC: BaseVC {
         
         self.forgotPasswordLabel.textColor  = AppColors.themeBlack
         self.intructionLabel.textColor  = AppColors.themeBlack
+        self.continueButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.continueButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
     }
     
     override func bindViewModel() {

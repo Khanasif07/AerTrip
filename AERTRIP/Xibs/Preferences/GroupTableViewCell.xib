@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,20 +16,20 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="GroupTableViewCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G5a-fe-ECO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zm5-gg-3lW">
-                                <rect key="frame" x="7" y="0.0" width="38" height="38"/>
+                                <rect key="frame" x="16" y="10.5" width="22" height="22"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Zm5-gg-3lW" secondAttribute="height" multiplier="1:1" id="Kyo-jK-IYg"/>
-                                    <constraint firstAttribute="width" constant="38" id="Wcj-Ph-GNn"/>
+                                    <constraint firstAttribute="width" secondItem="Zm5-gg-3lW" secondAttribute="height" multiplier="1:1" id="hGU-CB-TZS"/>
+                                    <constraint firstAttribute="height" constant="22" id="mYE-FR-dBG"/>
                                 </constraints>
                                 <state key="normal" image="redMinusButton"/>
                                 <connections>
@@ -39,13 +37,12 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Me" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l5I-MI-BSY">
-                                <rect key="frame" x="51" y="10" width="228" height="17"/>
-                                <nil key="textColor"/>
+                                <rect key="frame" x="54" y="10" width="280" height="23"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uex-2P-muU">
-                                <rect key="frame" x="278" y="17" width="26" height="10"/>
+                                <rect key="frame" x="333" y="17" width="26" height="10"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="26" id="OAg-lK-b1X"/>
                                     <constraint firstAttribute="height" constant="10" id="weQ-41-Les"/>
@@ -53,13 +50,13 @@
                                 <state key="normal" image="reOrder"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tSw-xN-ckt">
-                                <rect key="frame" x="295" y="10.5" width="9" height="23"/>
+                                <rect key="frame" x="350" y="10.5" width="9" height="23"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5T4-2p-Fgf" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="54" y="37.5" width="316" height="0.5"/>
+                                <rect key="frame" x="54" y="43.5" width="321" height="0.5"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="WKV-FC-s0A"/>
@@ -71,14 +68,13 @@
                             <constraint firstAttribute="trailing" secondItem="uex-2P-muU" secondAttribute="trailing" constant="16" id="0ot-fe-3My"/>
                             <constraint firstAttribute="bottom" secondItem="l5I-MI-BSY" secondAttribute="bottom" constant="11" id="5Oj-Jk-Mx3"/>
                             <constraint firstItem="tSw-xN-ckt" firstAttribute="centerY" secondItem="uex-2P-muU" secondAttribute="centerY" id="8xS-un-vWz"/>
-                            <constraint firstAttribute="trailing" secondItem="5T4-2p-Fgf" secondAttribute="trailing" constant="-50" id="Fzv-Kd-imy"/>
-                            <constraint firstItem="l5I-MI-BSY" firstAttribute="leading" secondItem="Zm5-gg-3lW" secondAttribute="trailing" constant="6" id="NH2-oj-zqD"/>
-                            <constraint firstItem="Zm5-gg-3lW" firstAttribute="top" secondItem="G5a-fe-ECO" secondAttribute="top" id="VZh-sL-GTJ"/>
-                            <constraint firstItem="Zm5-gg-3lW" firstAttribute="leading" secondItem="G5a-fe-ECO" secondAttribute="leading" constant="7" id="Vrd-C3-IsX"/>
-                            <constraint firstAttribute="bottom" secondItem="Zm5-gg-3lW" secondAttribute="bottom" id="bTd-Y3-TQ3"/>
+                            <constraint firstAttribute="trailing" secondItem="5T4-2p-Fgf" secondAttribute="trailing" id="Fzv-Kd-imy"/>
                             <constraint firstItem="l5I-MI-BSY" firstAttribute="top" secondItem="G5a-fe-ECO" secondAttribute="top" constant="10" id="kzI-5N-Q6M"/>
+                            <constraint firstItem="l5I-MI-BSY" firstAttribute="leading" secondItem="Zm5-gg-3lW" secondAttribute="trailing" constant="16" id="mKx-Ue-d20"/>
+                            <constraint firstItem="Zm5-gg-3lW" firstAttribute="leading" secondItem="G5a-fe-ECO" secondAttribute="leading" constant="16" id="s3B-jT-bAQ"/>
                             <constraint firstItem="tSw-xN-ckt" firstAttribute="centerY" secondItem="G5a-fe-ECO" secondAttribute="centerY" id="s8j-ee-2n2"/>
                             <constraint firstAttribute="trailing" secondItem="tSw-xN-ckt" secondAttribute="trailing" constant="16" id="sZs-IO-Mkc"/>
+                            <constraint firstItem="Zm5-gg-3lW" firstAttribute="centerY" secondItem="l5I-MI-BSY" secondAttribute="centerY" id="tkt-92-Hf4"/>
                             <constraint firstItem="uex-2P-muU" firstAttribute="top" secondItem="G5a-fe-ECO" secondAttribute="top" constant="17" id="u8I-Aq-vR3"/>
                             <constraint firstItem="tSw-xN-ckt" firstAttribute="leading" secondItem="l5I-MI-BSY" secondAttribute="trailing" constant="16" id="xLk-h7-biR"/>
                             <constraint firstItem="5T4-2p-Fgf" firstAttribute="leading" secondItem="G5a-fe-ECO" secondAttribute="leading" constant="54" id="yX7-yW-x1V"/>
@@ -96,12 +92,12 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="deleteButton" destination="Zm5-gg-3lW" id="cIq-pI-UXf"/>
-                <outlet property="deleteButtonWidthConstraint" destination="Wcj-Ph-GNn" id="gt5-qj-Ntt"/>
                 <outlet property="dividerView" destination="5T4-2p-Fgf" id="Yw7-5b-Vmx"/>
                 <outlet property="groupCountLabel" destination="tSw-xN-ckt" id="ilG-IH-eiH"/>
                 <outlet property="groupNameTextField" destination="l5I-MI-BSY" id="fwm-8N-K7D"/>
                 <outlet property="reorderButton" destination="uex-2P-muU" id="hT1-oA-ziu"/>
             </connections>
+            <point key="canvasLocation" x="139" y="154"/>
         </tableViewCell>
     </objects>
     <resources>

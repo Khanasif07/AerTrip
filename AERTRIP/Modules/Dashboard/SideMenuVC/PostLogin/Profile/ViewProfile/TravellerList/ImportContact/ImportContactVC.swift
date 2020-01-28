@@ -156,6 +156,7 @@ class ImportContactVC: BaseVC {
                self.listContainerView.addSubview(viewPager)
                viewPager.delegate = self
                viewPager.eyStyle.isWormEnable = true
+               viewPager.shouldCenterSelectedWorm = true
                viewPager.eyStyle.wormStyel = .LINE
                viewPager.eyStyle.kHeightOfWorm = 2.0
                viewPager.eyStyle.kHeightOfDivider = 0.5

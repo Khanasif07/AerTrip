@@ -40,7 +40,7 @@ class GroupTableViewCell: UITableViewCell {
         
         groupNameTextField.font = AppFonts.Regular.withSize(18.0)
         groupNameTextField.textColor = AppColors.themeBlack
-        
+        groupCountLabel.textAlignment = .left
         groupCountLabel.font = AppFonts.Regular.withSize(18.0)
         groupCountLabel.textColor = AppColors.themeGray40
         groupNameTextField.delegate = self

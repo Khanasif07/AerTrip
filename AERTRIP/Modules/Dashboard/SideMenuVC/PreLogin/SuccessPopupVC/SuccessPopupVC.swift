@@ -34,13 +34,13 @@ class SuccessPopupVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         self.loginButton.layer.cornerRadius = self.loginButton.height/2
-        self.loginButton.layer.masksToBounds = true
+        //self.loginButton.layer.masksToBounds = true
     }
     
     
     override func setupFonts() {
         
-        self.successfullLabel.font  = AppFonts.Bold.withSize(38)
+        self.successfullLabel.font  = AppFonts.c.withSize(38)
         self.titleLabel.font        = AppFonts.Regular.withSize(16)
         self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
@@ -59,6 +59,8 @@ class SuccessPopupVC: BaseVC {
         
         self.successfullLabel.textColor  = AppColors.themeBlack
         self.titleLabel.textColor  = AppColors.themeBlack
+        self.loginButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.loginButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
     }
     //MARK:- IBOutlets
     //MARK:-

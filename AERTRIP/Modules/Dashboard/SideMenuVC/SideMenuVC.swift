@@ -163,7 +163,7 @@ class SideMenuVC: BaseVC {
         view.gradientView.alpha = 0.0
         view.dividerView.alpha = 0.0
         view.translatesAutoresizingMaskIntoConstraints = true
-        view.profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
+//        view.profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {

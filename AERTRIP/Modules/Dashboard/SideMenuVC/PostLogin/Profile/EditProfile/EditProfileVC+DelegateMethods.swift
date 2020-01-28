@@ -916,6 +916,7 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
         if sections[indexPath.section] == LocalizedString.FlightPreferences.localized {
             // moved to FrequentFlyerTableViewCellDelegate
            // AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+
         } else {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
@@ -950,8 +951,13 @@ extension EditProfileVC: FrequentFlyerTableViewCellDelegate {
     func frequentFlyerTaped(_ indexPath: IndexPath) {
         self.indexPath = indexPath
         if sections[indexPath.section] == LocalizedString.FlightPreferences.localized {
-            AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+            if viewModel.currentlyUsinfFor == .addNewTravellerList {
+                presentFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+            } else {
+                 AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+            }
         }
+        
     }
     
     func programTextField(_ indexPath: IndexPath) {
@@ -1102,6 +1108,15 @@ extension EditProfileVC: AddNotesTableViewCellDelegate {
     }
 }
 
+extension EditProfileVC {
+    func presentFFSearchVC(defaultAirlines: [FlyerModel], delegate: SearchVCDelegate?) {
+           let controller = FFSearchVC.instantiate(fromAppStoryboard: .Profile)
+           controller.modalPresentationStyle = .fullScreen
+           controller.delgate = delegate
+           controller.defaultAirlines = defaultAirlines
+           self.present(controller, animated: true, completion: nil)
+       }
+}
 
 /*
  self.viewModel.notes = textView.text

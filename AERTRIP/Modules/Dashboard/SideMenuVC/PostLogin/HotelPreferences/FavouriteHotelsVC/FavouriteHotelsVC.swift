@@ -110,6 +110,7 @@ class FavouriteHotelsVC: BaseVC {
             viewPager.delegate = self
             viewPager.eyStyle.isWormEnable = true
             viewPager.eyStyle.wormStyel = .LINE
+            viewPager.shouldCenterSelectedWorm = true
             viewPager.eyStyle.kHeightOfWorm = 2.0
             viewPager.eyStyle.kHeightOfDivider = 0.0
             viewPager.eyStyle.kPaddingOfIndicator = 0.0

@@ -63,6 +63,7 @@ class ViewProfileVC: BaseVC {
         self.profileImageHeaderView = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
         self.profileImageHeaderView?.currentlyUsingAs = .viewProfile
         self.profileImageHeaderView?.delegate = self
+        self.profileImageHeaderView?.profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
         //        self.profileImageHeaderView?.profileImageViewBottomConstraint.constant = 18
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200

@@ -89,6 +89,10 @@ class EditProfileVM {
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterFirstName.localized)
             flag = false
         }
+        else if self.lastName.removeAllWhiteSpacesAndNewLines.isEmpty {
+                AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterLastName.localized)
+                flag = false
+        }
         else if !(self.email.first?.value.removeAllWhiteSpacesAndNewLines.isEmpty ?? true) {
             for email in self.email {
                 if !email.value.checkValidity(.Email) {
@@ -97,10 +101,7 @@ class EditProfileVM {
                     break
                 }
             }
-        }else if self.lastName.removeAllWhiteSpacesAndNewLines.isEmpty {
-            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterLastName.localized)
-            flag = false
-        } else if !self.passportIssueDate.removeAllWhiteSpacesAndNewLines.isEmpty || !self.passportExpiryDate.removeAllWhiteSpacesAndNewLines.isEmpty {
+        }else if !self.passportIssueDate.removeAllWhiteSpacesAndNewLines.isEmpty || !self.passportExpiryDate.removeAllWhiteSpacesAndNewLines.isEmpty {
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
             let date = Date()

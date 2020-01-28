@@ -56,8 +56,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     var indexPath: IndexPath?
     var indexPathRow: Int = 0
     var pickerTitle: String = ""
-    var issueDate: Date?
-    var ExpiryDate: Date?
+  
     
     let moreInformation = [LocalizedString.Birthday, LocalizedString.Anniversary, LocalizedString.Notes]
     let passportDetaitTitle: [String] = [LocalizedString.passportNo.rawValue, LocalizedString.issueCountry.rawValue]
@@ -196,6 +195,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         self.deleteTravellerView.isHidden = true
         delay(seconds: 0.7) { [weak self] in
             self?.deleteTravellerView.isHidden = self?.viewModel.paxId == UserInfo.loggedInUser?.paxId ? true : false
+            if self?.viewModel.currentlyUsinfFor == .travellerList {
+                self?.deleteTravellerView.isHidden = false
+            } else {
+                self?.deleteTravellerView.isHidden = true
+            }
             self?.deleteButton.setTitle(LocalizedString.DeleteFromTraveller.localized, for: .normal)
             self?.deleteButton.setTitleColor(AppColors.themeRed, for: .normal)
             self?.deleteButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
@@ -205,6 +209,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         editProfileImageHeaderView = EditProfileImageHeaderView.instanceFromNib()
         
         editProfileImageHeaderView.editButton.isHidden = (self.viewModel.paxId != UserInfo.loggedInUser?.paxId)
+        editProfileImageHeaderView.editButton.isHidden =  false
         editProfileImageHeaderView.delegate = self
         
         tableView.separatorStyle = .none
@@ -799,18 +804,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 fatalError("TextEditableTableViewCell not found")
             }
             if viewType == .leftView {
-                self.issueDate =  datePicker?.date ?? Date()
-                if self.issueDate !=  self.ExpiryDate {
                     cell.leftTextField.text = formatter.string(from: datePicker?.date ?? Date())
                     viewModel.passportIssueDate = formatter.string(from: datePicker?.date ?? Date())
-                }
-               
             }else {
-                self.ExpiryDate = self.datePicker?.date ?? Date()
-                if self.issueDate !=  self.ExpiryDate {
                     cell.rightTextField.text = formatter.string(from: datePicker?.date ?? Date())
                     viewModel.passportExpiryDate = formatter.string(from: self.datePicker?.date ?? Date())
-                }
             }
 
         default:
@@ -874,8 +872,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             } else {
                 editProfileImageHeaderView.profileImageView.image = AppGlobals.shared.getImageFromText(flText.uppercased(), offSet: CGPoint(x: 0.0, y: 9.0)) }
         }
-        //MARK:- Asif
-               editProfileImageHeaderView.editButton.isHidden = false
     }
     
 }
