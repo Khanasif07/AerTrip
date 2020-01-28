@@ -101,6 +101,7 @@
 "Reset_Password"  = "Reset\nPassword";
 "Please_enter_new_Password" = "Please enter new Password";
 "New_Password" = "New Password";
+"Program" = "Program";
 
 // MARK:- CreateProfileVC
 //MARK:-

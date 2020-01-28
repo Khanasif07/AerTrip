@@ -18,6 +18,8 @@ enum PickerType {
     case country
     case addressTypes
     case groups
+    case program
+
 }
 
 enum ViewType {
@@ -85,6 +87,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     let addressTextEditTableCellIdentier = "AddressTextEditTableViewCell"
     let addAddressTableViewCellIdentifier = "AddAddressTableViewCell"
     let addNotesTableViewCellIdentifier = "AddNotesTableViewCell"
+    let frequentFlyerTableViewCellIdentifier = "FrequentFlyerTableViewCell"
+
     
     // MARK: - View Lifecycle
     
@@ -247,6 +251,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         tableView.register(UINib(nibName: addressTextEditTableCellIdentier, bundle: nil), forCellReuseIdentifier: addressTextEditTableCellIdentier)
         tableView.register(UINib(nibName: addAddressTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: addAddressTableViewCellIdentifier)
         tableView.register(UINib(nibName: addNotesTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: addNotesTableViewCellIdentifier)
+        tableView.register(UINib(nibName: frequentFlyerTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: frequentFlyerTableViewCellIdentifier)
+
     }
     
     func openCamera() {
@@ -652,6 +658,13 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         case .groups:
             editProfileImageHeaderView.groupLabel.text = pickerTitle
             viewModel.label = pickerTitle
+        case .program:
+            
+            let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
+//            self.viewModel.frequentFlyer[indexPath.row]. = pickerTitle
+//            self.viewModel.frequentFlyer[indexPath.row].country = viewModel.countries.someKey(forValue: pickerTitle)!
+           // guard let cell = self.tableView.cellForRow(at: indexPath) as? FrequentFlyerTableViewCell else { fatalError("FrequentFlyerTableViewCell not found") }
+
         }
     }
     

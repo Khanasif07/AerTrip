@@ -824,6 +824,8 @@
 		84D1580022660B3900393528 /* AccountDetailEventDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D157FE22660B3900393528 /* AccountDetailEventDescriptionCell.xib */; };
 		84D1580322660B4F00393528 /* AccountDetailEventHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D1580122660B4F00393528 /* AccountDetailEventHeaderCell.swift */; };
 		84D1580422660B4F00393528 /* AccountDetailEventHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D1580222660B4F00393528 /* AccountDetailEventHeaderCell.xib */; };
+		84D19ECF23E0152D0011BAE8 /* FrequentFlyerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D19ECE23E0152C0011BAE8 /* FrequentFlyerTableViewCell.xib */; };
+		84D19ED123E0154E0011BAE8 /* FrequentFlyerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D19ED023E0154E0011BAE8 /* FrequentFlyerTableViewCell.swift */; };
 		84D2FB8021BE351E00011000 /* PKCountryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D2FB7921BE351E00011000 /* PKCountryView.xib */; };
 		84D2FB8121BE351E00011000 /* PKCountryPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2FB7A21BE351E00011000 /* PKCountryPicker.swift */; };
 		84D2FB8221BE351E00011000 /* PKCountryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2FB7B21BE351E00011000 /* PKCountryModel.swift */; };
@@ -1840,6 +1842,8 @@
 		84D157FE22660B3900393528 /* AccountDetailEventDescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountDetailEventDescriptionCell.xib; sourceTree = "<group>"; };
 		84D1580122660B4F00393528 /* AccountDetailEventHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailEventHeaderCell.swift; sourceTree = "<group>"; };
 		84D1580222660B4F00393528 /* AccountDetailEventHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountDetailEventHeaderCell.xib; sourceTree = "<group>"; };
+		84D19ECE23E0152C0011BAE8 /* FrequentFlyerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FrequentFlyerTableViewCell.xib; sourceTree = "<group>"; };
+		84D19ED023E0154E0011BAE8 /* FrequentFlyerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequentFlyerTableViewCell.swift; sourceTree = "<group>"; };
 		84D2FB7921BE351E00011000 /* PKCountryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PKCountryView.xib; sourceTree = "<group>"; };
 		84D2FB7A21BE351E00011000 /* PKCountryPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCountryPicker.swift; sourceTree = "<group>"; };
 		84D2FB7B21BE351E00011000 /* PKCountryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCountryModel.swift; sourceTree = "<group>"; };
@@ -2191,6 +2195,8 @@
 				180FA06821DCC83F003901FF /* AddAddressTableViewCell.xib */,
 				1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */,
 				1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */,
+				84D19ECE23E0152C0011BAE8 /* FrequentFlyerTableViewCell.xib */,
+				84D19ED023E0154E0011BAE8 /* FrequentFlyerTableViewCell.swift */,
 			);
 			path = EditProfile;
 			sourceTree = "<group>";
@@ -5491,6 +5497,7 @@
 				182EB22B2285B444001BFB20 /* AmentityTableViewCell.xib in Resources */,
 				8491D1F4222D3FC2001D0313 /* SourceSansPro-Bold.ttf in Resources */,
 				84F1626F2240E2C900AA183F /* YouAreAllDoneTableViewCell.xib in Resources */,
+				84D19ECF23E0152D0011BAE8 /* FrequentFlyerTableViewCell.xib in Resources */,
 				84F983DA21B51A070018DFED /* README.md in Resources */,
 				18FD91452271F0F300269268 /* HCEmailTextFieldCell.xib in Resources */,
 				84BF46BF2211E5EF000AA6E3 /* AmenitiesDetailsCollectionCell.xib in Resources */,
@@ -6053,6 +6060,7 @@
 				84085CDD21F59C0E00F1E844 /* AerinVC.swift in Sources */,
 				841E75C72282E6BA003CE1CF /* AccountOutstandingLadgerVM.swift in Sources */,
 				0CC23989231639EF00ADEE92 /* TestViewController.swift in Sources */,
+				84D19ED123E0154E0011BAE8 /* FrequentFlyerTableViewCell.swift in Sources */,
 				84085D1721F59C0E00F1E844 /* GuestSideMenuHeaderCell.swift in Sources */,
 				842A56B222898C6E004FD51F /* AertripBankDetailsVC+Delegates.swift in Sources */,
 				182D484E228AAF5C004796A2 /* CheckInCheckOutTableViewCell.swift in Sources */,

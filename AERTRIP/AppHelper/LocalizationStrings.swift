@@ -127,6 +127,8 @@ enum LocalizedString: String {
     case Reset_Password
     case Please_enter_new_Password
     case New_Password
+    case Program
+
     
     // MARK: - CreateProfileVC
     
