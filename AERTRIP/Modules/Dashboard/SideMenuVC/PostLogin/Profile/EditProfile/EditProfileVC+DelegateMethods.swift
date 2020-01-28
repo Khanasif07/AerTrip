@@ -246,11 +246,13 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     cell.topDividerView.isHidden = false
                     return cell
                 } else {
-                    guard let cell = tableView.dequeueReusableCell(withIdentifier: twoPartEditTableViewCellIdentifier, for: indexPath) as? TwoPartEditTableViewCell else {
-                        fatalError("TwoPartEditTableViewCell not found")
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: frequentFlyerTableViewCellIdentifier, for: indexPath) as? FrequentFlyerTableViewCell else {
+                        fatalError("frequentFlyerTableViewCellIdentifier not found")
                     }
                     cell.delegate = self
                     cell.rightTextField.placeholder = LocalizedString.Number.localized
+                    cell.leftTextField.placeholder = LocalizedString.Program.localized
+                    cell.leftTitleLabel.text = LocalizedString.Program.localized
                     cell.frequentFlyerLabel.text = LocalizedString.SelectAirline.localized
                     if (indexPath.row - 2) < self.viewModel.frequentFlyer.count {
                         // data cells
@@ -262,10 +264,10 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                         cell.ffData = frequentFlyer
                     }
                     cell.deleteButton.isHidden = false
-                    
-                    cell.rightTitleLabel.isHidden = true
-                    cell.leftSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
-                    cell.rightSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
+                    cell.hideSeperator = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
+//                    cell.rightTitleLabel.isHidden = true
+//                    cell.leftSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
+//                    cell.rightSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
                     
                     cell.deleteButton.isHidden = self.viewModel.frequentFlyer.count <= 1
                     cell.isFFTitleHidden = !(indexPath.row == 2)
@@ -471,9 +473,11 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         dismissKeyboard()
         printDebug("select group tapped")
         pickerType = .groups
-        pickerData = UserInfo.loggedInUser?.generalPref?.labels ?? []
+        if let labels = UserInfo.loggedInUser?.generalPref?.labels {
+        pickerData = labels
         let selectedString = self.viewModel.travelData?.label ?? ""
         openPicker(withSelection: selectedString)
+        }
     }
     
     func salutationViewTapped() {
@@ -895,10 +899,11 @@ extension EditProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
 
 extension EditProfileVC: TwoPartEditTableViewCellDelegate {
     func twoPartEditTextField(_ indexPath: IndexPath, _ fullString: String) {
-        if self.viewModel.frequentFlyer.count <= indexPath.row - 2 {
-            self.viewModel.frequentFlyer.append(FrequentFlyer(json: [:]))
-        }
-        self.viewModel.frequentFlyer[indexPath.row - 2].number = fullString
+        // moved to FrequentFlyerTableViewCellDelegate
+//        if self.viewModel.frequentFlyer.count <= indexPath.row - 2 {
+//            self.viewModel.frequentFlyer.append(FrequentFlyer(json: [:]))
+//        }
+//        self.viewModel.frequentFlyer[indexPath.row - 2].number = fullString
     }
     
     func twoPartDeleteCellTapped(_ indexPath: IndexPath) {
@@ -912,7 +917,7 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
             if viewModel.currentlyUsinfFor == .addNewTravellerList {
                 presentFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
             } else {
-                 AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+                AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
             }
         } else {
             let formatter = DateFormatter()
@@ -941,6 +946,35 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
             showDatePicker(formatter.date(from: viewModel.passportExpiryDate),minDate, maximumDate: nil)
         }
     }
+}
+// MARK: - FrequentFlyerTableViewCellDelegate methods
+
+extension EditProfileVC: FrequentFlyerTableViewCellDelegate {
+    func frequentFlyerTaped(_ indexPath: IndexPath) {
+        self.indexPath = indexPath
+        if sections[indexPath.section] == LocalizedString.FlightPreferences.localized {
+            AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+        }
+    }
+    
+    func programTextField(_ indexPath: IndexPath) {
+        dismissKeyboard()
+        AppToast.default.showToastMessage(message: LocalizedString.UnderDevelopment.localized)
+
+//        if self.viewModel.salutationTypes.count > 0 {
+//            pickerType = .salutation
+//            pickerData = self.viewModel.salutationTypes
+//            openPicker(withSelection: viewModel.salutation)
+//        }
+    }
+    
+    func numberTextField(_ indexPath: IndexPath, _ number: String) {
+        if self.viewModel.frequentFlyer.count <= indexPath.row - 2 {
+            self.viewModel.frequentFlyer.append(FrequentFlyer(json: [:]))
+        }
+        self.viewModel.frequentFlyer[indexPath.row - 2].number = number
+    }
+    
 }
 
 // MARK: - SearchVC delegate methods
