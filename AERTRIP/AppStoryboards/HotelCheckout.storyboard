@@ -442,6 +442,9 @@
                                     <constraint firstItem="w0v-ze-ZQc" firstAttribute="top" secondItem="BKd-DZ-Lqi" secondAttribute="bottom" id="wFP-Z9-bLi"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="fLI-xY-h1k">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -454,6 +457,8 @@
                             <constraint firstItem="ffZ-xz-8YE" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="7xd-lw-0Hd"/>
                             <constraint firstItem="pDs-Hh-dQp" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="9Pl-Yz-GTl"/>
                             <constraint firstItem="cUJ-iR-Ql8" firstAttribute="leading" secondItem="pDs-Hh-dQp" secondAttribute="leading" id="Ff9-lJ-Xc4"/>
+                            <constraint firstItem="fLI-xY-h1k" firstAttribute="centerX" secondItem="qGC-DP-rgu" secondAttribute="centerX" id="HId-cg-W7A"/>
+                            <constraint firstItem="fLI-xY-h1k" firstAttribute="centerY" secondItem="qGC-DP-rgu" secondAttribute="centerY" id="JQP-H5-EWI"/>
                             <constraint firstItem="cUJ-iR-Ql8" firstAttribute="bottom" secondItem="ppY-MC-9bt" secondAttribute="bottom" id="KKc-xw-hQ9"/>
                             <constraint firstItem="3bH-R8-FdX" firstAttribute="leading" secondItem="ppY-MC-9bt" secondAttribute="leading" id="MLX-dr-3WG"/>
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="trailing" secondItem="ffZ-xz-8YE" secondAttribute="trailing" id="MyW-Re-Wik"/>
@@ -491,6 +496,7 @@
                         <outlet property="infoButton" destination="CdW-ts-4Dd" id="Ta2-OO-059"/>
                         <outlet property="infoTextLabel" destination="yTr-kx-KUi" id="zlp-9I-uQO"/>
                         <outlet property="loaderContainerView" destination="cUJ-iR-Ql8" id="8CJ-Iy-4us"/>
+                        <outlet property="mainIndicatorView" destination="fLI-xY-h1k" id="Xvv-GC-RaG"/>
                         <outlet property="tableView" destination="ffZ-xz-8YE" id="1RH-TM-3fC"/>
                         <outlet property="topNavView" destination="bXX-Jv-Wqc" id="bF1-3J-foR"/>
                         <outlet property="totalFareAmountLabel" destination="b6G-94-5kb" id="mvu-Ff-Naz"/>

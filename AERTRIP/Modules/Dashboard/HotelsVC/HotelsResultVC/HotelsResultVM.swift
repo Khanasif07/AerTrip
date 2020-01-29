@@ -259,7 +259,7 @@ class HotelsResultVM: NSObject {
     
     func getShareText() {
         
-        // create params 
+        // create params
         var params = JSONDictionary()
         if self.searchedFormData.ratingCount.isEmpty || self.searchedFormData.ratingCount.count == 5 {
             self.searchedFormData.ratingCount = [1,2,3,4,5]

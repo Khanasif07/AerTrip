@@ -18,6 +18,8 @@ enum PickerType {
     case country
     case addressTypes
     case groups
+    case program
+
 }
 
 enum ViewType {
@@ -54,6 +56,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     var indexPath: IndexPath?
     var indexPathRow: Int = 0
     var pickerTitle: String = ""
+  
     
     let moreInformation = [LocalizedString.Birthday, LocalizedString.Anniversary, LocalizedString.Notes]
     let passportDetaitTitle: [String] = [LocalizedString.passportNo.rawValue, LocalizedString.issueCountry.rawValue]
@@ -83,6 +86,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     let addressTextEditTableCellIdentier = "AddressTextEditTableViewCell"
     let addAddressTableViewCellIdentifier = "AddAddressTableViewCell"
     let addNotesTableViewCellIdentifier = "AddNotesTableViewCell"
+    let frequentFlyerTableViewCellIdentifier = "FrequentFlyerTableViewCell"
+
     
     // MARK: - View Lifecycle
     
@@ -190,6 +195,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         self.deleteTravellerView.isHidden = true
         delay(seconds: 0.7) { [weak self] in
             self?.deleteTravellerView.isHidden = self?.viewModel.paxId == UserInfo.loggedInUser?.paxId ? true : false
+            if self?.viewModel.currentlyUsinfFor == .travellerList {
+                self?.deleteTravellerView.isHidden = false
+            } else {
+                self?.deleteTravellerView.isHidden = true
+            }
             self?.deleteButton.setTitle(LocalizedString.DeleteFromTraveller.localized, for: .normal)
             self?.deleteButton.setTitleColor(AppColors.themeRed, for: .normal)
             self?.deleteButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
@@ -199,6 +209,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         editProfileImageHeaderView = EditProfileImageHeaderView.instanceFromNib()
         
         editProfileImageHeaderView.editButton.isHidden = (self.viewModel.paxId != UserInfo.loggedInUser?.paxId)
+        editProfileImageHeaderView.editButton.isHidden =  false
         editProfileImageHeaderView.delegate = self
         
         tableView.separatorStyle = .none
@@ -245,6 +256,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         tableView.register(UINib(nibName: addressTextEditTableCellIdentier, bundle: nil), forCellReuseIdentifier: addressTextEditTableCellIdentier)
         tableView.register(UINib(nibName: addAddressTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: addAddressTableViewCellIdentifier)
         tableView.register(UINib(nibName: addNotesTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: addNotesTableViewCellIdentifier)
+        tableView.register(UINib(nibName: frequentFlyerTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: frequentFlyerTableViewCellIdentifier)
+
     }
     
     func openCamera() {
@@ -650,6 +663,13 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         case .groups:
             editProfileImageHeaderView.groupLabel.text = pickerTitle
             viewModel.label = pickerTitle
+        case .program:
+            
+            let indexPath = IndexPath(row: (self.indexPath?.row)!, section: (self.indexPath?.section)!)
+//            self.viewModel.frequentFlyer[indexPath.row]. = pickerTitle
+//            self.viewModel.frequentFlyer[indexPath.row].country = viewModel.countries.someKey(forValue: pickerTitle)!
+           // guard let cell = self.tableView.cellForRow(at: indexPath) as? FrequentFlyerTableViewCell else { fatalError("FrequentFlyerTableViewCell not found") }
+
         }
     }
     
@@ -784,12 +804,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 fatalError("TextEditableTableViewCell not found")
             }
             if viewType == .leftView {
-                cell.leftTextField.text = formatter.string(from: datePicker?.date ?? Date())
-                viewModel.passportIssueDate = formatter.string(from: datePicker?.date ?? Date())
-
-            } else {
-                cell.rightTextField.text = formatter.string(from: datePicker?.date ?? Date())
-                viewModel.passportExpiryDate = formatter.string(from: datePicker?.date ?? Date())
+                    cell.leftTextField.text = formatter.string(from: datePicker?.date ?? Date())
+                    viewModel.passportIssueDate = formatter.string(from: datePicker?.date ?? Date())
+            }else {
+                    cell.rightTextField.text = formatter.string(from: datePicker?.date ?? Date())
+                    viewModel.passportExpiryDate = formatter.string(from: self.datePicker?.date ?? Date())
             }
 
         default:

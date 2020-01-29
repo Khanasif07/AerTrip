@@ -21,7 +21,19 @@ extension YouAreAllDoneVC {
     
     internal func getEventSharedCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EventAdddedTripTableViewCell.reusableIdentifier, for: indexPath) as? EventAdddedTripTableViewCell else { return nil }
-        cell.configCell()
+        
+        cell.configCell(tripName: self.viewModel.hotelReceiptData?.trip_details?.name ?? "")
+        cell.changeBtnHandler = {[weak self] in
+            guard let strongSelf = self else {return}
+            AppFlowManager.default.selectTrip(strongSelf.viewModel.hotelReceiptData?.trip_details) { [weak self] (tripModel, tripDetail) in
+                guard let strongSelf = self else {return}
+                printDebug(tripDetail)
+                if let detail = tripDetail {
+                    strongSelf.viewModel.hotelReceiptData?.trip_details = detail
+                    strongSelf.allDoneTableView.reloadData()
+                }
+            }
+        }
         return cell
     }
     
@@ -165,7 +177,7 @@ extension YouAreAllDoneVC {
         } else {
             cell.whatNextStackView.isHidden = true
         }
-//        cell.whatNextStackView.isHidden = false
+        //        cell.whatNextStackView.isHidden = false
         return cell
     }
 }

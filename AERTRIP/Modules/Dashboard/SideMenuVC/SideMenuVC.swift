@@ -90,6 +90,7 @@ class SideMenuVC: BaseVC {
                 self.profileContainerView.isUserInteractionEnabled = true
             }
         }
+        
     }
     
 
@@ -153,6 +154,7 @@ class SideMenuVC: BaseVC {
         view.backgroundImageView.isHidden = true
         view.gradientView.isHidden = true
         view.dividerView.isHidden = true
+        view.userNameLabel.font = AppFonts.Regular.withSize(20.0)
         view.isUserInteractionEnabled = false
         view.layoutSubviews()
         view.emailIdLabel.alpha = 0.0
@@ -161,6 +163,7 @@ class SideMenuVC: BaseVC {
         view.gradientView.alpha = 0.0
         view.dividerView.alpha = 0.0
         view.translatesAutoresizingMaskIntoConstraints = true
+//        view.profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -332,6 +335,9 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             case 2:
                 //my booking
                 AppFlowManager.default.moveToMyBookingsVC()
+                //my Notifications
+            case 4:
+                AppFlowManager.default.moveToNotificationVC()
                 
             case 6:
                 //settings

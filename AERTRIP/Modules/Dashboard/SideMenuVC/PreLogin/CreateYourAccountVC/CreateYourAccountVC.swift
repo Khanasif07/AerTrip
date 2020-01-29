@@ -49,8 +49,6 @@ class CreateYourAccountVC: BaseVC {
         topNavBar.delegate = self
         self.emailTextField.titleYPadding = 12.0
         self.emailTextField.hintYPadding = 12.0
-        self.emailTextField.lineViewBottomSpace = 10.0
-        
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
         
         self.view.backgroundColor = AppColors.screensBackground.color
@@ -83,13 +81,13 @@ class CreateYourAccountVC: BaseVC {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        self.registerButton.layer.cornerRadius = self.registerButton.height/2
-        self.registerButton.layer.masksToBounds = true
+        self.registerButton.layer.cornerRadius = 25.0
+       //self.registerButton.layer.masksToBounds = true
     }
     
     override func setupFonts() {
         
-        self.headerTitleLabel.font = AppFonts.Bold.withSize(38)
+        self.headerTitleLabel.font = AppFonts.c.withSize(38)
         self.loginHereButton.titleLabel?.font = AppFonts.SemiBold.withSize(16)
         self.notRegisterYetLabel.font = AppFonts.Regular.withSize(16)
         
@@ -115,6 +113,8 @@ class CreateYourAccountVC: BaseVC {
         self.notRegisterYetLabel.textColor = AppColors.themeBlack
         self.headerTitleLabel.textColor = AppColors.themeBlack
         self.loginHereButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.registerButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.registerButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
     }
     
     override func bindViewModel() {

@@ -101,6 +101,7 @@
 "Reset_Password"  = "Reset\nPassword";
 "Please_enter_new_Password" = "Please enter new Password";
 "New_Password" = "New Password";
+"Program" = "Program";
 
 // MARK:- CreateProfileVC
 //MARK:-
@@ -108,7 +109,7 @@
 "and_you_are_done"    = "and you are done!";
 "Title"           = "Title";
 "First_Name"        = "First Name";
-"Last_Name"        = "Last name";
+"Last_Name"        = "Last Name";
 "Country"          = "Country";
 "Mobile_Number"      = "Mobile Number";
 "Lets_Get_Started"    = "Lets Get Started!";
@@ -241,7 +242,7 @@
 //MARK:- Linked Accounts
 //MARK:-
 "Disconnect" = "Disconnect";
-"LinkedAccountsMessage" = "Connect your social media accounts for faster login and sharing.";
+"LinkedAccountsMessage" = "Connect your social media accounts for faster login \nand sharing.";
 "DoYouWantToDisconnect" = "Are you sure you want to disconnect?";
 
 //MARK:- Edit Profile VC

@@ -85,7 +85,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         super.layoutSubviews()
         
         gradient.frame = gradientView.bounds
-         self.backgroundImageView.frame = self.bounds
+        self.backgroundImageView.frame = self.bounds
     }
     
     private func addTapGesture() {
@@ -150,7 +150,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
         profileImageView.clipsToBounds = true
         profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
-        //profileImageView.layer.borderWidth = 4.0
+        profileImageView.layer.borderWidth = 2.5
         profileImageView.layer.masksToBounds = true
     }
     
@@ -160,7 +160,9 @@ class SlideMenuProfileImageHeaderView: UIView {
         self.userNameHeightLabel.constant = 33.0
         self.emailAndContactBottomConstraint.constant = 28.0
         
-        profileImageView.layer.borderWidth = 4.0
+        profileImageView.layer.borderWidth = 2.5
+       
+       
         
         self.userNameLabel.font = AppFonts.Regular.withSize(26.0)
         
@@ -182,7 +184,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         self.userNameHeightLabel.constant = 25.0
         self.emailAndContactBottomConstraint.constant = -10.0
         
-        profileImageView.layer.borderWidth = 2.0
+        profileImageView.layer.borderWidth = 2.5
         
         self.userNameLabel.font = AppFonts.Regular.withSize(20.0)
         
@@ -202,7 +204,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         self.emailAndContactBottomConstraint.constant = 55.0
         self.familyButtonBottomConstraint.constant = 26.0
         
-        profileImageView.layer.borderWidth = 4.0
+        profileImageView.layer.borderWidth = 2.5
         
         self.userNameLabel.font = AppFonts.Regular.withSize(26.0)
         

@@ -5,6 +5,9 @@
 //  Created by Pramod Kumar on 03/12/18.
 //  Copyright © 2018 Pramod Kumar. All rights reserved.
 //
+//self.emailTextField.titleYPadding = 12.0
+//       self.emailTextField.hintYPadding = 12.0
+//       self.emailTextField.lineViewBottomSpace = 10.0
 
 import UIKit
 
@@ -49,16 +52,17 @@ class LoginVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         self.loginButton.layer.cornerRadius = self.loginButton.height/2
-        self.loginButton.layer.masksToBounds = true
+       // self.loginButton.layer.masksToBounds = true
         
     }
     
     override func setupFonts() {
         
-        self.welcomeLabel.font = AppFonts.Bold.withSize(38)
+        self.welcomeLabel.font = AppFonts.c.withSize(38)
         self.forgotPasswordButton.titleLabel?.font = AppFonts.SemiBold.withSize(16)
         self.registerHereButton.titleLabel?.font = AppFonts.SemiBold.withSize(16)
         self.registerHereLabel.font = AppFonts.Regular.withSize(16)
+        self.loginButton.titleLabel?.font = AppFonts.SemiBold.withSize(17)
     }
     
     override func setupTexts() {
@@ -79,6 +83,7 @@ class LoginVC: BaseVC {
         self.welcomeLabel.textColor = AppColors.themeBlack
         self.forgotPasswordButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.registerHereButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        
     }
     
     override func bindViewModel() {
@@ -113,7 +118,7 @@ class LoginVC: BaseVC {
     
     @IBAction func bilwiseButtonAction(_ sender: UIButton) {
         self.emailTextField.text = "rahulTest@yopmail.com"
-        self.passwordTextField.text = "Taruna@03"
+        self.passwordTextField.text = "Taruna@04"
         self.viewModel.email = self.emailTextField.text ?? ""
         self.viewModel.password = self.passwordTextField.text ?? ""
         self.loginButtonAction(self.loginButton)
@@ -174,7 +179,7 @@ private extension LoginVC {
     
     func initialSetups() {
         
-        self.creditTypeButtonContainer.backgroundColor = AppColors.clear
+//        self.creditTypeButtonContainer.backgroundColor = AppColors.clear
         self.creditTypeButtonContainer.isHidden = AppConstants.isReleasingToClient
         
         self.view.backgroundColor = AppColors.screensBackground.color
@@ -182,10 +187,16 @@ private extension LoginVC {
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
         
         self.emailTextField.text = self.viewModel.email
-        self.emailTextField.lineViewBottomSpace = 10.0
-        self.passwordTextField.lineViewBottomSpace = 10.0
-        self.emailTextField.isSingleTextField = false
-        self.passwordTextField.isSingleTextField = false
+        self.emailTextField.titleYPadding = 12.0
+        self.emailTextField.hintYPadding = 12.0
+       // self.emailTextField.lineViewBottomSpace = 10.0
+        self.passwordTextField.titleYPadding = 12.0
+        self.passwordTextField.hintYPadding = 12.0
+       // self.passwordTextField.lineViewBottomSpace = 10.0
+//        self.emailTextField.lineViewBottomSpace = 10.0
+//        self.passwordTextField.lineViewBottomSpace = 10.0
+//        self.emailTextField.isSingleTextField = false
+//        self.passwordTextField.isSingleTextField = false
         self.loginButton.isEnabled = false
         self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
@@ -195,6 +206,9 @@ private extension LoginVC {
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         self.topNavBar.delegate = self
         self.topNavBar.leftButton.isHidden = true
+        //self.loginButton.layer.masksToBounds = true
+        self.loginButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.loginButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
     }
     
     func setupFontsAndText() {

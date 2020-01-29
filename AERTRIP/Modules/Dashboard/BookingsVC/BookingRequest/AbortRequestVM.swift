@@ -18,7 +18,7 @@ class AbortRequestVM {
     
     var caseToAbort: Case?
     var comment: String = ""
-    weak var delegate: AbortRequestVMDelegate?
+    public weak var delegate: AbortRequestVMDelegate?
     
     func makeRequestAbort() {
         

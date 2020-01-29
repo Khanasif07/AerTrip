@@ -13,6 +13,7 @@ class HCDataSelectionVC: BaseVC {
     
     // MARK: -
     
+    @IBOutlet weak var mainIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var tableView: ATTableView!
     @IBOutlet weak var continueContainerView: UIView!
@@ -70,6 +71,7 @@ class HCDataSelectionVC: BaseVC {
         registerXIBs()
         
         setupNavView()
+        setUpIndicatorView()
         
         statusBarStyle = .default
         configureHotelCheckOutDetailsVIew()
@@ -137,6 +139,11 @@ class HCDataSelectionVC: BaseVC {
         totalPayableTextLabel.text = LocalizedString.TotalPayableNow.localized
     }
     
+    func setUpIndicatorView() {
+              self.mainIndicatorView.isHidden = true
+               self.mainIndicatorView.style = .whiteLarge
+               self.mainIndicatorView.color = AppColors.themeGreen
+    }
     override func setupColors() {
         // continue button
         totalFareLabel.textColor = AppColors.themeWhite
@@ -154,6 +161,9 @@ class HCDataSelectionVC: BaseVC {
     }
     
     private func manageLoader(shouldStart: Bool) {
+        self.mainIndicatorView.isHidden = true
+        self.mainIndicatorView.style = .whiteLarge
+        self.mainIndicatorView.color = AppColors.themeGreen
         activityLoader.style = .whiteLarge
         activityLoader.color = AppColors.themeGreen
         activityLoader.startAnimating()
@@ -416,12 +426,12 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func willFetchConfirmItineraryData() {
-            self.startLoading()
+          self.startLoading()
 //        manageLoader(shouldStart: true)
     }
     
     func fetchConfirmItineraryDataSuccess() {
-         self.stopLoading()
+        self.stopLoading()
         if viewModel.itineraryData == nil, confirmationCall < 5 {
             confirmationCall += 1
             viewModel.fetchConfirmItineraryData()
@@ -439,7 +449,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     func fetchConfirmItineraryDataFail() {
 //        manageLoader(shouldStart: false)
 //        AppGlobals.shared.stopLoading()
-         self.stopLoading()
+        self.stopLoading()
         if viewModel.itineraryData == nil, confirmationCall < 5 {
             confirmationCall += 1
             viewModel.fetchConfirmItineraryData()
@@ -447,12 +457,18 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func willFetchRecheckRatesData() {
-//        manageLoader(shouldStart: true)
-        startLoading()
+      //  manageLoader(shouldStart: true)
+       AppGlobals.shared.startLoading()
+//        self.mainIndicatorView.isHidden = false
+//        self.mainIndicatorView.startAnimating()
+ //       startLoading()
     }
     
     func fetchRecheckRatesDataFail(errors: ErrorCodes) {
-        self.stopLoading()
+       // self.stopLoading()
+        AppGlobals.shared.stopLoading()
+//        self.mainIndicatorView.isHidden = true
+//        manageLoader(shouldStart: true)
         if errors.contains(array: [11]) {
             //send to result screen and re-hit the search API
             self.sendDataChangedNotification(data: ATNotification.GRNSessionExpired)
@@ -478,8 +494,11 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func fetchRecheckRatesDataSuccess(recheckedData: ItineraryData) {
-//        manageLoader(shouldStart: false)
-        stopLoading()
+       // manageLoader(shouldStart: false)
+       // stopLoading()
+        AppGlobals.shared.stopLoading()
+//        self.mainIndicatorView.stopAnimating()
+//        self.mainIndicatorView.isHidden = true
         if viewModel.isValidateData(vc: self) {
             viewModel.webserviceForItenaryDataTraveller()
         }

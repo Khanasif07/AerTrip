@@ -117,16 +117,16 @@ class AppFlowManager: NSObject {
     //    }
     
     private func addBlurToStatusBar() {
-//        if self.blurEffectView == nil {
-//            let bEffect = UIBlurEffect(style: .regular)
-//            let bEffectView = UIVisualEffectView(effect: bEffect)
-//            bEffectView.frame = UIApplication.shared.statusBarFrame
-//            bEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//            bEffectView.alpha = 0.8
-//
-//            self.blurEffectView = bEffectView
-//            self.window.addSubview(bEffectView)
-//        }
+        //        if self.blurEffectView == nil {
+        //            let bEffect = UIBlurEffect(style: .regular)
+        //            let bEffectView = UIVisualEffectView(effect: bEffect)
+        //            bEffectView.frame = UIApplication.shared.statusBarFrame
+        //            bEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        //            bEffectView.alpha = 0.8
+        //
+        //            self.blurEffectView = bEffectView
+        //            self.window.addSubview(bEffectView)
+        //        }
     }
     
     func setupInitialFlow() {
@@ -180,7 +180,7 @@ extension AppFlowManager {
         let obj = ATWebViewVC.instantiate(fromAppStoryboard: .Common)
         obj.urlToLoad = url
         obj.navTitle = screenTitle
-//        self.mainNavigationController.present(obj, animated: true, completion: nil)
+        //        self.mainNavigationController.present(obj, animated: true, completion: nil)
         UIApplication.topViewController()?.present(obj, animated: true, completion: nil)
     }
     
@@ -276,6 +276,7 @@ extension AppFlowManager {
     
     func moveToFFSearchVC(defaultAirlines: [FlyerModel], delegate: SearchVCDelegate?) {
         let controller = FFSearchVC.instantiate(fromAppStoryboard: .Profile)
+        controller.modalPresentationStyle = .fullScreen
         controller.delgate = delegate
         controller.defaultAirlines = defaultAirlines
         self.mainNavigationController.present(controller, animated: true, completion: nil)
@@ -283,6 +284,7 @@ extension AppFlowManager {
     
     func moveToSearchFavouriteHotelsVC() {
         let ob = SearchFavouriteHotelsVC.instantiate(fromAppStoryboard: .HotelPreferences)
+        ob.modalPresentationStyle = .fullScreen
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
@@ -299,11 +301,13 @@ extension AppFlowManager {
     func moveToPreferencesVC(_ delegate: PreferencesVCDelegate) {
         let ob = PreferencesVC.instantiate(fromAppStoryboard: .TravellerList)
         ob.delegate = delegate
+        ob.modalPresentationStyle = .fullScreen
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
     func moveToImportContactVC() {
         let ob = ImportContactVC.instantiate(fromAppStoryboard: .TravellerList)
+        ob.modalPresentationStyle = .fullScreen
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
@@ -352,6 +356,7 @@ extension AppFlowManager {
     func showEditProfileVC(travelData: TravelDetailModel?, usingFor: EditProfileVM.UsingFor) {
         let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
         ob.viewModel.travelData = travelData
+        ob.modalPresentationStyle = .fullScreen
         ob.viewModel.currentlyUsinfFor = usingFor
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
@@ -359,6 +364,7 @@ extension AppFlowManager {
     func presentEditProfileVC() {
         let ob = EditProfileVC.instantiate(fromAppStoryboard: .Profile)
         ob.viewModel.currentlyUsinfFor = .addNewTravellerList
+        ob.modalPresentationStyle = .fullScreen
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
@@ -471,18 +477,21 @@ extension AppFlowManager {
         let ob = HotelDetailsAmenitiesVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.amenitiesGroups = amenitiesGroups
         ob.viewModel.amenities = amentites
+        ob.modalPresentationStyle = .fullScreen
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
     func presentHotelDetailsOverViewVC(overViewInfo: String) {
         let ob = HotelDetailsOverviewVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.overViewInfo = overViewInfo
+        ob.modalPresentationStyle = .fullScreen
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
     func presentHotelDetailsTripAdvisorVC(hotelId: String) {
         let ob = HotelDetailsReviewsVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.hotelId = hotelId
+        ob.modalPresentationStyle = .fullScreen
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
@@ -490,6 +499,7 @@ extension AppFlowManager {
         let ob = AssignGroupVC.instantiate(fromAppStoryboard: .TravellerList)
         ob.viewModel.paxIds = selectedTraveller
         ob.delegate = vc
+        ob.modalPresentationStyle = .fullScreen
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
@@ -631,7 +641,7 @@ extension AppFlowManager {
     func showBookingFilterVC(_ vc: MyBookingsVC) {
         if let obj = UIApplication.topViewController() {
             let ob = MyBookingFilterVC.instantiate(fromAppStoryboard: .Bookings)
-//            ob.delegate = vc
+            //            ob.delegate = vc
             obj.add(childViewController: ob)
         }
     }
@@ -821,8 +831,8 @@ extension AppFlowManager {
     
     
     func moveToTestViewController() {
-//        let ob = TestViewController.instantiate(fromAppStoryboard: .Common)
-//        self.mainNavigationController.pushViewController(ob, animated: true)
+        //        let ob = TestViewController.instantiate(fromAppStoryboard: .Common)
+        //        self.mainNavigationController.pushViewController(ob, animated: true)
         let ob = CreateProfileVC.instantiate(fromAppStoryboard: .PreLogin)
         self.mainNavigationController.pushViewController(ob, animated: true)
         
@@ -934,7 +944,7 @@ extension AppFlowManager {
     func presentBookingReuqestAddOnVC(bookingdata: BookingDetailModel?,delegate:BookingRequestAddOnsFFVCDelegate) {
         let obj = BookingRequestAddOnsFFVC.instantiate(fromAppStoryboard: .Bookings)
         obj.delegate = delegate
-       BookingRequestAddOnsFFVM.shared.bookingDetails = bookingdata
+        BookingRequestAddOnsFFVM.shared.bookingDetails = bookingdata
         self.mainNavigationController.present(obj, animated: true)
     }
     
@@ -1023,22 +1033,24 @@ extension AppFlowManager {
         
         if let detail = tripDetails {
             APICaller.shared.getOwnedTripsAPI(params: ["trip_id": detail.trip_id]) { _, _, trips, defaultTrip in
-                if let trip = defaultTrip {
-                    complition(trip, nil)
-                }
-                else {
-                    openSelectTripScreen(trips: trips)
-                }
+                // commented this for after completing booking from YouAreAllDoneVC
+                //                if let trip = defaultTrip {
+                //                    complition(trip, nil)
+                //                }
+                //                else {
+                openSelectTripScreen(trips: trips)
+                //                }
             }
         }
         else {
             APICaller.shared.getAllTripsAPI { _, _, trips, defaultTrip in
-                if let trip = defaultTrip {
-                    complition(trip, nil)
-                }
-                else {
-                    openSelectTripScreen(trips: trips)
-                }
+                // commented this for after completing booking from YouAreAllDoneVC
+                //                if let trip = defaultTrip {
+                //                    complition(trip, nil)
+                //                }
+                //                else {
+                openSelectTripScreen(trips: trips)
+                //                }
             }
         }
     }

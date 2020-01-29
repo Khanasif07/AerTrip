@@ -177,7 +177,8 @@ class TravellerListVC: BaseVC {
     // MARK: - IB Action
     
     func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
+        //navigationController?.popViewController(animated: true)
+        AppFlowManager.default.popViewController(animated: true)
     }
     
     func addTravellerTapped() {
@@ -331,7 +332,8 @@ class TravellerListVC: BaseVC {
         if !labelPredicates.isEmpty {
             return NSCompoundPredicate(orPredicateWithSubpredicates: labelPredicates)
         }
-        return nil
+        //MARK:- Change Asif
+        return NSCompoundPredicate(orPredicateWithSubpredicates: labelPredicates)
     }
     
     func loadSavedData() {

@@ -63,7 +63,7 @@ extension HotelResultVC {
         }
         
         animator.addCompletion { [weak self](pos) in
-            guard let sSelf = self else {return}
+            guard self != nil else {return}
             //sSelf.view.bringSubviewToFront(sSelf.searchBarContainerView)
         }
         
@@ -104,17 +104,18 @@ extension HotelResultVC {
         self.cancelButton.alpha = 0
         
         if self.hoteResultViewType == .MapView {
-            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations:  {
-                self.searchBarContainerView.frame = self.searchBarFrame(isInSearchMode: false)
-                self.view.layoutIfNeeded()
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations:  { [weak self] in
+                guard let sSelf = self else {return}
+                sSelf.searchBarContainerView.frame = sSelf.searchBarFrame(isInSearchMode: false)
+                sSelf.view.layoutIfNeeded()
             },completion: nil)
         } else {
-            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations:{
-                 self.searchBarContainerView.backgroundColor = AppColors.clear
-            }) { (done) in
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations:{ [weak self] in
+                self?.searchBarContainerView.backgroundColor = AppColors.clear
+            }) { [weak self] (done)  in
                 if done {
-                    self.backButton.alpha = 1
-                    self.searchBarContainerView.backgroundColor = AppColors.clear
+                    self?.backButton.alpha = 1
+                    self?.searchBarContainerView.backgroundColor = AppColors.clear
                 }
             }
         }
@@ -206,13 +207,13 @@ extension HotelResultVC {
                        usingSpringWithDamping: self.defaultDamping,
                        initialSpringVelocity: self.defaultVelocity,
                        options: .allowUserInteraction,
-                       animations: {
-                           self.unPinAllFavouriteButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                           self.emailButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                           self.shareButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                           self.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 54, y: 0)
-                           self.emailButton.transform = CGAffineTransform(translationX: 108, y: 0)
-                           self.shareButton.transform = CGAffineTransform(translationX: 162, y: 0)
+                       animations: { [weak self] in
+                        self?.unPinAllFavouriteButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                        self?.emailButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                        self?.shareButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                        self?.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 54, y: 0)
+                        self?.emailButton.transform = CGAffineTransform(translationX: 108, y: 0)
+                        self?.shareButton.transform = CGAffineTransform(translationX: 162, y: 0)
                        },
                        completion: { _ in
                            printDebug("Animation finished")
@@ -227,8 +228,8 @@ extension HotelResultVC {
                        usingSpringWithDamping: self.defaultDamping,
                        initialSpringVelocity: self.defaultVelocity,
                        options: .allowUserInteraction,
-                       animations: {
-                           self.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 55, y: 0)
+                       animations: { [weak self] in
+                        self?.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 55, y: 0)
                        },
                        completion: { _ in
                            printDebug("Animation finished")

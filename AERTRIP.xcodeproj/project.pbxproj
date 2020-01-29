@@ -666,6 +666,8 @@
 		8455A682223295FF00CEE2B3 /* PoweredByTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455A680223295FF00CEE2B3 /* PoweredByTableViewCell.swift */; };
 		8455A683223295FF00CEE2B3 /* PoweredByTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8455A681223295FF00CEE2B3 /* PoweredByTableViewCell.xib */; };
 		8455A6A52232D01B00CEE2B3 /* PKProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455A6A42232D01B00CEE2B3 /* PKProgressView.swift */; };
+		8459A2B123D071CD0093D8E0 /* WormTabStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459A2B023D071CD0093D8E0 /* WormTabStrip.swift */; };
+		8459A2B323D072010093D8E0 /* WormTabStripButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459A2B223D072010093D8E0 /* WormTabStripButton.swift */; };
 		845D3A1A228D724500062EE5 /* AccountOutstanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D3A19228D724500062EE5 /* AccountOutstanding.swift */; };
 		8460C0C421F34A38007768CC /* ATTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460C0C321F34A38007768CC /* ATTableView.swift */; };
 		8460C0C621F34D56007768CC /* ATCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460C0C521F34D56007768CC /* ATCollectionView.swift */; };
@@ -822,6 +824,8 @@
 		84D1580022660B3900393528 /* AccountDetailEventDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D157FE22660B3900393528 /* AccountDetailEventDescriptionCell.xib */; };
 		84D1580322660B4F00393528 /* AccountDetailEventHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D1580122660B4F00393528 /* AccountDetailEventHeaderCell.swift */; };
 		84D1580422660B4F00393528 /* AccountDetailEventHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D1580222660B4F00393528 /* AccountDetailEventHeaderCell.xib */; };
+		84D19ECF23E0152D0011BAE8 /* FrequentFlyerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D19ECE23E0152C0011BAE8 /* FrequentFlyerTableViewCell.xib */; };
+		84D19ED123E0154E0011BAE8 /* FrequentFlyerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D19ED023E0154E0011BAE8 /* FrequentFlyerTableViewCell.swift */; };
 		84D2FB8021BE351E00011000 /* PKCountryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D2FB7921BE351E00011000 /* PKCountryView.xib */; };
 		84D2FB8121BE351E00011000 /* PKCountryPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2FB7A21BE351E00011000 /* PKCountryPicker.swift */; };
 		84D2FB8221BE351E00011000 /* PKCountryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2FB7B21BE351E00011000 /* PKCountryModel.swift */; };
@@ -1675,6 +1679,8 @@
 		8455A680223295FF00CEE2B3 /* PoweredByTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoweredByTableViewCell.swift; sourceTree = "<group>"; };
 		8455A681223295FF00CEE2B3 /* PoweredByTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PoweredByTableViewCell.xib; sourceTree = "<group>"; };
 		8455A6A42232D01B00CEE2B3 /* PKProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKProgressView.swift; sourceTree = "<group>"; };
+		8459A2B023D071CD0093D8E0 /* WormTabStrip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WormTabStrip.swift; sourceTree = SOURCE_ROOT; };
+		8459A2B223D072010093D8E0 /* WormTabStripButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WormTabStripButton.swift; sourceTree = "<group>"; };
 		845D3A19228D724500062EE5 /* AccountOutstanding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOutstanding.swift; sourceTree = "<group>"; };
 		8460C0C321F34A38007768CC /* ATTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATTableView.swift; sourceTree = "<group>"; };
 		8460C0C521F34D56007768CC /* ATCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATCollectionView.swift; sourceTree = "<group>"; };
@@ -1836,6 +1842,8 @@
 		84D157FE22660B3900393528 /* AccountDetailEventDescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountDetailEventDescriptionCell.xib; sourceTree = "<group>"; };
 		84D1580122660B4F00393528 /* AccountDetailEventHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailEventHeaderCell.swift; sourceTree = "<group>"; };
 		84D1580222660B4F00393528 /* AccountDetailEventHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountDetailEventHeaderCell.xib; sourceTree = "<group>"; };
+		84D19ECE23E0152C0011BAE8 /* FrequentFlyerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FrequentFlyerTableViewCell.xib; sourceTree = "<group>"; };
+		84D19ED023E0154E0011BAE8 /* FrequentFlyerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequentFlyerTableViewCell.swift; sourceTree = "<group>"; };
 		84D2FB7921BE351E00011000 /* PKCountryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PKCountryView.xib; sourceTree = "<group>"; };
 		84D2FB7A21BE351E00011000 /* PKCountryPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCountryPicker.swift; sourceTree = "<group>"; };
 		84D2FB7B21BE351E00011000 /* PKCountryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCountryModel.swift; sourceTree = "<group>"; };
@@ -2187,6 +2195,8 @@
 				180FA06821DCC83F003901FF /* AddAddressTableViewCell.xib */,
 				1800FC6321EF1FA20006D6D1 /* AddNotesTableViewCell.swift */,
 				1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */,
+				84D19ECE23E0152C0011BAE8 /* FrequentFlyerTableViewCell.xib */,
+				84D19ED023E0154E0011BAE8 /* FrequentFlyerTableViewCell.swift */,
 			);
 			path = EditProfile;
 			sourceTree = "<group>";
@@ -4114,6 +4124,15 @@
 			path = YouAreAllDoneFooterView;
 			sourceTree = "<group>";
 		};
+		8459A2AF23D071A20093D8E0 /* WormTab */ = {
+			isa = PBXGroup;
+			children = (
+				8459A2B023D071CD0093D8E0 /* WormTabStrip.swift */,
+				8459A2B223D072010093D8E0 /* WormTabStripButton.swift */,
+			);
+			path = WormTab;
+			sourceTree = "<group>";
+		};
 		84698FCE21FB1E9B00A4A1F7 /* PKFloatLabelFields */ = {
 			isa = PBXGroup;
 			children = (
@@ -5075,6 +5094,7 @@
 		84F9838121B51A070018DFED /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				8459A2AF23D071A20093D8E0 /* WormTab */,
 				0CD644B5234B0AC200D71709 /* ATUnicodeSwitch */,
 				188DFC832318FC530060F9D1 /* PKTapAndCopyUITextView */,
 				84269060228E9EF700CFCBFC /* PKMultiPicker */,
@@ -5477,6 +5497,7 @@
 				182EB22B2285B444001BFB20 /* AmentityTableViewCell.xib in Resources */,
 				8491D1F4222D3FC2001D0313 /* SourceSansPro-Bold.ttf in Resources */,
 				84F1626F2240E2C900AA183F /* YouAreAllDoneTableViewCell.xib in Resources */,
+				84D19ECF23E0152D0011BAE8 /* FrequentFlyerTableViewCell.xib in Resources */,
 				84F983DA21B51A070018DFED /* README.md in Resources */,
 				18FD91452271F0F300269268 /* HCEmailTextFieldCell.xib in Resources */,
 				84BF46BF2211E5EF000AA6E3 /* AmenitiesDetailsCollectionCell.xib in Resources */,
@@ -5851,6 +5872,7 @@
 				842C8C7E22521392008B6122 /* HCCouponAppliedModel.swift in Sources */,
 				8455A6762232784B00CEE2B3 /* TripAdvisorTravelerRatingTableViewCell.swift in Sources */,
 				842EDE892238E86C00E99409 /* HCCouponCodeVC.swift in Sources */,
+				8459A2B123D071CD0093D8E0 /* WormTabStrip.swift in Sources */,
 				841E75C82282E6BA003CE1CF /* AccountOutstandingLadgerVC+Delegates.swift in Sources */,
 				8445B52522A5299400DDBC7F /* SelectDateTableViewCell.swift in Sources */,
 				84E4BC22229BA21100B72306 /* FlightBookingsDetailsVC.swift in Sources */,
@@ -6038,6 +6060,7 @@
 				84085CDD21F59C0E00F1E844 /* AerinVC.swift in Sources */,
 				841E75C72282E6BA003CE1CF /* AccountOutstandingLadgerVM.swift in Sources */,
 				0CC23989231639EF00ADEE92 /* TestViewController.swift in Sources */,
+				84D19ED123E0154E0011BAE8 /* FrequentFlyerTableViewCell.swift in Sources */,
 				84085D1721F59C0E00F1E844 /* GuestSideMenuHeaderCell.swift in Sources */,
 				842A56B222898C6E004FD51F /* AertripBankDetailsVC+Delegates.swift in Sources */,
 				182D484E228AAF5C004796A2 /* CheckInCheckOutTableViewCell.swift in Sources */,
@@ -6361,6 +6384,7 @@
 				183B71982289480800A75B7F /* FareRulesVC.swift in Sources */,
 				187684AC228456F4009637D6 /* BookingInfoCommonCell.swift in Sources */,
 				84698FD521FB1E9B00A4A1F7 /* PKFloatLabelTextView.swift in Sources */,
+				8459A2B323D072010093D8E0 /* WormTabStripButton.swift in Sources */,
 				18F181E4223BC97300323775 /* FareDetailTableViewCell.swift in Sources */,
 				18020B052282A22C00DE5FE0 /* AerinHotelResultCardCollectionViewCell.swift in Sources */,
 				84F2DC98226472FE00212F05 /* TravelDateVM.swift in Sources */,
@@ -6631,8 +6655,6 @@
 					"-framework",
 					"\"AvailableHapticFeedback\"",
 					"-framework",
-					"\"Bolts\"",
-					"-framework",
 					"\"CFNetwork\"",
 					"-framework",
 					"\"CoreData\"",
@@ -6796,7 +6818,6 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AvailableHapticFeedback\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Bolts\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FSCalendar\"",
@@ -6862,8 +6883,6 @@
 					"\"AssetsLibrary\"",
 					"-framework",
 					"\"AvailableHapticFeedback\"",
-					"-framework",
-					"\"Bolts\"",
 					"-framework",
 					"\"CFNetwork\"",
 					"-framework",

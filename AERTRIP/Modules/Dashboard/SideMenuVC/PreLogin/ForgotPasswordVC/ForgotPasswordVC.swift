@@ -30,34 +30,30 @@ class ForgotPasswordVC: BaseVC {
         
         // Do any additional setup after loading the view.
         self.initialSetups()
+        if self.viewModel.isFirstTime {
+            self.setupInitialAnimation()
+            self.setupViewDidLoadAnimation()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if self.viewModel.isFirstTime {
-            self.setupInitialAnimation()
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if self.viewModel.isFirstTime {
-            self.setupViewDidLoadAnimation()
-        }
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
         self.continueButton.layer.cornerRadius = self.continueButton.height/2
-        self.continueButton.layer.masksToBounds = true
+       // self.continueButton.layer.masksToBounds = true
     }
     
     override func setupFonts() {
         
-        self.forgotPasswordLabel.font      = AppFonts.Bold.withSize(38)
+        self.forgotPasswordLabel.font      = AppFonts.c.withSize(38)
         self.intructionLabel.font    = AppFonts.Regular.withSize(16)
         self.continueButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.continueButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
@@ -76,6 +72,8 @@ class ForgotPasswordVC: BaseVC {
         
         self.forgotPasswordLabel.textColor  = AppColors.themeBlack
         self.intructionLabel.textColor  = AppColors.themeBlack
+        self.continueButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.continueButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
     }
     
     override func bindViewModel() {
@@ -104,7 +102,7 @@ private extension ForgotPasswordVC {
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
         self.emailTextField.titleYPadding = 12.0
         self.emailTextField.hintYPadding = 12.0
-        self.emailTextField.lineViewBottomSpace = 10.0
+        //self.emailTextField.lineViewBottomSpace = 10.0
         self.view.backgroundColor = AppColors.screensBackground.color
         
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
@@ -182,14 +180,14 @@ extension ForgotPasswordVC {
     func setupViewDidLoadAnimation() {
         
         let rDuration = 1.0 / 3.0
-        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
+        UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration*2.0, delay: 0.0, options: .calculationModeLinear, animations: {
             
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: (rDuration * 1.0), animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 0.2), relativeDuration: (rDuration * 1.2), animations: {
                 self.logoImage.transform          = .identity
                 self.topNavBar.leftButton.isHidden = false
             })
             
-            UIView.addKeyframe(withRelativeStartTime: (rDuration * 1.0), relativeDuration: (rDuration * 2.0), animations: {
+            UIView.addKeyframe(withRelativeStartTime: (rDuration * 0.2), relativeDuration: (rDuration * 2.0), animations: {
                 self.forgotPasswordLabel.transform      = .identity
             })
             

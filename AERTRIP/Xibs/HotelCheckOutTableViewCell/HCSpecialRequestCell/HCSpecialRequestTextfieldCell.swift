@@ -15,7 +15,7 @@ protocol HCSpecialRequestTextfieldCellDelegate: class {
 class HCSpecialRequestTextfieldCell: UITableViewCell {
     
     //Mark:- Variables
-    weak var delegate: HCSpecialRequestTextfieldCellDelegate?
+  public  weak var delegate: HCSpecialRequestTextfieldCellDelegate?
     
     //Mark:- IBOutlets
     //================

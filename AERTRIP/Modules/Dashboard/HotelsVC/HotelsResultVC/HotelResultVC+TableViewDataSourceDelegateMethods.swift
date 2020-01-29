@@ -72,7 +72,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             }
             let sectionInfo = sections[section]
         //    let dbData = fetchedResultsController.fetchedObjects ?? []//CoreDataManager.shared.fetchData("HotelSearched") ?? []
-            // shimmer will be remain hidden in this case 
+            // shimmer will be remain hidden in this case
             self.manageShimmer(isHidden: true)
             manageViewForSearchAndFilterMode()
             return sectionInfo.numberOfObjects

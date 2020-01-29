@@ -56,7 +56,7 @@ class SecureYourAccountVC: BaseVC {
     
     override func setupFonts() {
         
-        self.secureAccountLabel.font = AppFonts.Bold.withSize(38)
+        self.secureAccountLabel.font = AppFonts.c.withSize(38)
         self.setPasswordLabel.font = AppFonts.Regular.withSize(16)
         self.passwordConditionLabel.font = AppFonts.Regular.withSize(14)
         self.oneLabel.font = AppFonts.Regular.withSize(28)

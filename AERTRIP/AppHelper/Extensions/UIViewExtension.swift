@@ -456,3 +456,32 @@ extension UIView {
         }
     }
 }
+extension UIView {
+
+    // Using a function since `var image` might conflict with an existing variable
+    // (like on `UIImageView`)
+    func asImage() -> UIImage {
+//        if #available(iOS 10.0, *) {
+//            let renderer = UIGraphicsImageRenderer(bounds: bounds)
+////            return renderer.image { rendererContext in
+////                layer.render(in: rendererContext.cgContext)
+////            }
+//            return renderer.image { ctx in
+//                self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
+//            }
+//        } else {
+            
+        UIGraphicsBeginImageContextWithOptions(self.frame.size, false, CGFloat(0.0))
+        self.layer.render(in:UIGraphicsGetCurrentContext()!)
+        
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
+            fatalError("UIVIEW EXTENSION LINE No. 473")
+        }
+        
+        UIGraphicsEndImageContext()
+        
+        return image
+        
+//    }
+    }
+}

@@ -98,6 +98,8 @@ class MainHomeVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         self.statusBarStyle = .lightContent
+
+        self.view.layoutIfNeeded()
         self.view.backgroundColor = AppColors.screensBackground.color
         self.contentView.backgroundColor = AppColors.screensBackground.color
         

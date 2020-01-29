@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import PKCategoryView
+//import PKCategoryView
 
 protocol ViewAllHotelsVMDelegate: class {
     func willGetHotelPreferenceList()
@@ -23,16 +23,14 @@ class FavouriteHotelsVM {
     
     //MARK:- Properties
     //MARK:- Public
-   // var allTabs: [PKCategoryItem] = []
-    var allTabs: [ATCategoryItem] = []
+    // var allTabs: [PKCategoryItem] = []
+    //var allTabs: [ATCategoryItem] = []
     
     var hotels = [CityHotels]()
     
     weak var delegate: ViewAllHotelsVMDelegate?
     
     //MARK:- Private
-    
-    
     //MARK:- Methods
     //MARK:- Private
     
@@ -40,18 +38,17 @@ class FavouriteHotelsVM {
     func webserviceForGetHotelPreferenceList() {
         
         self.delegate?.willGetHotelPreferenceList()
-        APICaller.shared.getHotelPreferenceList(params: [:], completionBlock: {(success, errors, cities, stars)  in
-            
+        APICaller.shared.getHotelPreferenceList(params: [:], completionBlock: { [weak self] (success, errors, cities, stars)  in
+            guard let strongSelf = self else {return}
             if success {
                 
-                self.hotels = cities
+                strongSelf.hotels = cities
+//                strongSelf.allTabs = strongSelf.hotels.map { PKCategoryItem(title: $0.cityName, normalImage: nil, selectedImage: nil) }
                 
-                self.allTabs = self.hotels.map { ATCategoryItem(title: $0.cityName, normalImage: nil, selectedImage: nil) }
-                
-                self.delegate?.getHotelPreferenceListSuccess()
+                strongSelf.delegate?.getHotelPreferenceListSuccess()
             }
             else {
-                self.delegate?.getHotelPreferenceListFail()
+                strongSelf.delegate?.getHotelPreferenceListFail()
             }
         })
     }
@@ -80,7 +77,7 @@ class FavouriteHotelsVM {
         if !hotels.isEmpty {
             self.hotels.remove(at: forCityIndex)
         }
-        self.allTabs = self.hotels.map { ATCategoryItem(title: $0.cityName, normalImage: nil, selectedImage: nil) }
+//        self.allTabs = self.hotels.map { PKCategoryItem(title: $0.cityName, normalImage: nil, selectedImage: nil) }
     }
     
     func removeHotel(forCity: CityHotels, cityIndex: Int, forHotelAtIndex: Int) {

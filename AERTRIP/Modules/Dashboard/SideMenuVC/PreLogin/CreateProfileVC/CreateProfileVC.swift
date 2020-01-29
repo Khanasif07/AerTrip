@@ -75,7 +75,7 @@ class CreateProfileVC: BaseVC {
         super.viewWillLayoutSubviews()
         
         self.letsStartedButton.layer.cornerRadius = self.letsStartedButton.height/2
-        self.letsStartedButton.layer.masksToBounds = true
+        //self.letsStartedButton.layer.masksToBounds = true
     }
     
     override func bindViewModel() {
@@ -90,7 +90,7 @@ class CreateProfileVC: BaseVC {
     
     override func setupFonts() {
         
-        self.createProfileTitleLabel.font      = AppFonts.Bold.withSize(38)
+        self.createProfileTitleLabel.font      = AppFonts.c.withSize(38)
         self.createProfileSubTitleLabel.font    = AppFonts.Regular.withSize(16)
         self.countryCodeLabel.font           = AppFonts.Regular.withSize(18)
         self.setupTextFieldColorTextAndFont()
@@ -110,6 +110,9 @@ class CreateProfileVC: BaseVC {
         
         self.createProfileTitleLabel.textColor  = AppColors.themeBlack
         self.createProfileSubTitleLabel.textColor  = AppColors.themeBlack
+       // self.letsStartedButton.layer.masksToBounds = false
+        self.letsStartedButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.letsStartedButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
     }
     
     //MARK:- IBOutlets
@@ -167,10 +170,17 @@ private extension CreateProfileVC {
         self.whiteBackgroundView.backgroundColor = AppColors.screensBackground.color
         
         self.viewModel.webserviceForGetSalutations()
-
-        self.firstNameTextField.titleYPadding = 8.0
-        self.lastNameTextField.titleYPadding = 8.0
-        self.countryTextField.lineViewBottomSpace = 4.0
+//        self.firstNameTextField.titleYPadding = 12.0
+//        self.firstNameTextField.hintYPadding = 12.0
+//        self.firstNameTextField.lineViewBottomSpace = 10.0
+//        self.lastNameTextField.titleYPadding = 12.0
+//        self.lastNameTextField.hintYPadding = 12.0
+//        self.lastNameTextField.lineViewBottomSpace = 10.0
+        self.firstNameTextField.titleYPadding = 12.0
+        self.firstNameTextField.hintYPadding = 12.0
+        self.lastNameTextField.hintYPadding = 12.0
+        self.lastNameTextField.titleYPadding = 12.0
+        //self.countryTextField.lineViewBottomSpace = 4.0
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         self.topNavBar.delegate = self
         self.viewModel.userData.maxContactLimit = 10
@@ -446,7 +456,7 @@ extension CreateProfileVC {
         self.letsStartedButton.setTitle("", for: .normal)
         self.letsStartedButton.setImage(#imageLiteral(resourceName: "Checkmark"), for: .normal)
 
-        self.letsStartedButton.layer.masksToBounds = true
+       // self.letsStartedButton.layer.masksToBounds = true
         let reScaleFrame = CGRect(x: (self.whiteBackgroundView.width - 74.0) / 2.0, y: self.letsStartedButton.y, width: 74.0, height: 74.0)
 
         self.letsStartedButton.translatesAutoresizingMaskIntoConstraints = true

@@ -17,10 +17,12 @@ class ViewProfileTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+         self.menuOptionLabel.font = AppFonts.Regular.withSize(20.0)
         // Initialization code
     }
     
     func configureCell(_ title: String) {
         menuOptionLabel.text  = title
+        self.menuOptionLabel.font = AppFonts.Regular.withSize(20.0)
     }
 }

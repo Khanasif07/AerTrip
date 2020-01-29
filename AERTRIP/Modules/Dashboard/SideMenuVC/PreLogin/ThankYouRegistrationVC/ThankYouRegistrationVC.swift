@@ -42,7 +42,7 @@ class ThankYouRegistrationVC: BaseVC {
     
     override func setupFonts() {
         
-        self.headerTitleLabel.font = AppFonts.Bold.withSize(38)
+        self.headerTitleLabel.font = AppFonts.c.withSize(38)
         self.emailLabel.font = AppFonts.Regular.withSize(20)
         self.sentAccountLinkLabel.font = AppFonts.Regular.withSize(16)
         self.checkEmailLabel.font = AppFonts.Regular.withSize(16)
@@ -53,7 +53,7 @@ class ThankYouRegistrationVC: BaseVC {
     override func setupTexts() {
         
         if self.viewModel.type == .deeplinkResetPassword  || self.viewModel.type == .resetPassword {
-            
+            self.emailLabel.text = self.viewModel.email
             self.headerTitleLabel.text = LocalizedString.CheckYourEmail.localized
             self.sentAccountLinkLabel.text = LocalizedString.PasswordResetInstruction.localized
             self.checkEmailLabel.text = LocalizedString.CheckEmailToResetPassword.localized

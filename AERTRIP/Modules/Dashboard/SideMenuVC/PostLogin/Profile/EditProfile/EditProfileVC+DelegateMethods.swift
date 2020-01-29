@@ -118,7 +118,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     cell.leftView.isUserInteractionEnabled = true
                     cell.leftTitleLabel.textColor = AppColors.themeBlack
                 }
-                if self.viewModel.currentlyUsinfFor == .addNewTravellerList {
+                if self.viewModel.currentlyUsinfFor == .addNewTravellerList && indexPath.row != 0 {
                     cell.deleteButton.isHidden = self.viewModel.mobile.count == 1
                 }
                 cell.configureCell(self.viewModel.mobile[indexPath.row].isd, self.viewModel.mobile[indexPath.row].label, self.viewModel.mobile[indexPath.row].value)
@@ -246,11 +246,13 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     cell.topDividerView.isHidden = false
                     return cell
                 } else {
-                    guard let cell = tableView.dequeueReusableCell(withIdentifier: twoPartEditTableViewCellIdentifier, for: indexPath) as? TwoPartEditTableViewCell else {
-                        fatalError("TwoPartEditTableViewCell not found")
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: frequentFlyerTableViewCellIdentifier, for: indexPath) as? FrequentFlyerTableViewCell else {
+                        fatalError("frequentFlyerTableViewCellIdentifier not found")
                     }
                     cell.delegate = self
                     cell.rightTextField.placeholder = LocalizedString.Number.localized
+                    cell.leftTextField.placeholder = LocalizedString.Program.localized
+                    cell.leftTitleLabel.text = LocalizedString.Program.localized
                     cell.frequentFlyerLabel.text = LocalizedString.SelectAirline.localized
                     if (indexPath.row - 2) < self.viewModel.frequentFlyer.count {
                         // data cells
@@ -262,10 +264,10 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                         cell.ffData = frequentFlyer
                     }
                     cell.deleteButton.isHidden = false
-                    
-                    cell.rightTitleLabel.isHidden = true
-                    cell.leftSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
-                    cell.rightSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
+                    cell.hideSeperator = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
+//                    cell.rightTitleLabel.isHidden = true
+//                    cell.leftSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
+//                    cell.rightSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
                     
                     cell.deleteButton.isHidden = self.viewModel.frequentFlyer.count <= 1
                     cell.isFFTitleHidden = !(indexPath.row == 2)
@@ -302,7 +304,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
         headerView.topSeparatorView.isHidden = sections[section].localized == LocalizedString.EmailAddress.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.SocialAccounts.localized ? false : true
-        headerView.topDividerHeightConstraint.constant = sections[section].localized == LocalizedString.EmailAddress.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.SocialAccounts.localized ? 1 : 0
+        headerView.topDividerHeightConstraint.constant = sections[section].localized == LocalizedString.EmailAddress.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.SocialAccounts.localized ? 0.5 : 0
         headerView.headerLabel.text = sections[section].localized
         headerView.backgroundColor = AppColors.themeGray04
         headerView.containerView.backgroundColor = AppColors.themeGray04
@@ -420,7 +422,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         case LocalizedString.EmailAddress.localized:
             return !((indexPath.row == 0 && self.viewModel.currentlyUsinfFor == .viewProfile) || indexPath.row == self.viewModel.email.count)
         case LocalizedString.ContactNumber.localized:
-            return !((indexPath.row == 0 && self.viewModel.currentlyUsinfFor == .viewProfile) || indexPath.row == self.viewModel.mobile.count)
+            return !((indexPath.row == 0 && self.viewModel.currentlyUsinfFor == .viewProfile) || (indexPath.row == 0 && self.viewModel.currentlyUsinfFor == .travellerList) || (indexPath.row == 0 && self.viewModel.currentlyUsinfFor == .addNewTravellerList)) || (indexPath.row == self.viewModel.mobile.count)
         case LocalizedString.SocialAccounts.localized:
             return !(indexPath.row == self.viewModel.social.count || self.viewModel.social.count == 1)
         case LocalizedString.FlightPreferences.localized:
@@ -471,9 +473,11 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         dismissKeyboard()
         printDebug("select group tapped")
         pickerType = .groups
-        pickerData = UserInfo.loggedInUser?.generalPref?.labels ?? []
+        if let labels = UserInfo.loggedInUser?.generalPref?.labels {
+        pickerData = labels
         let selectedString = self.viewModel.travelData?.label ?? ""
         openPicker(withSelection: selectedString)
+        }
     }
     
     func salutationViewTapped() {
@@ -792,7 +796,7 @@ extension EditProfileVC: EditProfileVMDelegate {
     }
     
     func getFail(errors: ErrorCodes) {
-         self.stopLoading()
+        self.stopLoading()
         if AppGlobals.shared.isNetworkRechable() {
          AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
         }
@@ -895,10 +899,11 @@ extension EditProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
 
 extension EditProfileVC: TwoPartEditTableViewCellDelegate {
     func twoPartEditTextField(_ indexPath: IndexPath, _ fullString: String) {
-        if self.viewModel.frequentFlyer.count <= indexPath.row - 2 {
-            self.viewModel.frequentFlyer.append(FrequentFlyer(json: [:]))
-        }
-        self.viewModel.frequentFlyer[indexPath.row - 2].number = fullString
+        // moved to FrequentFlyerTableViewCellDelegate
+//        if self.viewModel.frequentFlyer.count <= indexPath.row - 2 {
+//            self.viewModel.frequentFlyer.append(FrequentFlyer(json: [:]))
+//        }
+//        self.viewModel.frequentFlyer[indexPath.row - 2].number = fullString
     }
     
     func twoPartDeleteCellTapped(_ indexPath: IndexPath) {
@@ -909,12 +914,19 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
     func twoPartEditLeftViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer) {
         self.indexPath = indexPath
         if sections[indexPath.section] == LocalizedString.FlightPreferences.localized {
-            AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+            // moved to FrequentFlyerTableViewCellDelegate
+           // AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+
         } else {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
             viewType = .leftView
-            showDatePicker(formatter.date(from: viewModel.passportIssueDate),nil, maximumDate: Date())
+            let expiryDate = formatter.date(from: viewModel.passportExpiryDate)
+            var maxDate = Date()
+            if let date = expiryDate, let newDate = date.add(days: -1) {
+                maxDate = newDate
+            }
+            showDatePicker(formatter.date(from: viewModel.passportIssueDate),nil, maximumDate: maxDate)
         }
     }
     
@@ -924,9 +936,48 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
             viewType = .rightView
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
-            showDatePicker(formatter.date(from: viewModel.passportExpiryDate),Date(), maximumDate: nil)
+            let issueDate = formatter.date(from: viewModel.passportIssueDate)
+            var minDate = Date()
+            if let date = issueDate, let newDate = date.add(days: 1) {
+                minDate = newDate
+            }
+            showDatePicker(formatter.date(from: viewModel.passportExpiryDate),minDate, maximumDate: nil)
         }
     }
+}
+// MARK: - FrequentFlyerTableViewCellDelegate methods
+
+extension EditProfileVC: FrequentFlyerTableViewCellDelegate {
+    func frequentFlyerTaped(_ indexPath: IndexPath) {
+        self.indexPath = indexPath
+        if sections[indexPath.section] == LocalizedString.FlightPreferences.localized {
+            if viewModel.currentlyUsinfFor == .addNewTravellerList {
+                presentFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+            } else {
+                 AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+            }
+        }
+        
+    }
+    
+    func programTextField(_ indexPath: IndexPath) {
+        dismissKeyboard()
+        AppToast.default.showToastMessage(message: LocalizedString.UnderDevelopment.localized)
+
+//        if self.viewModel.salutationTypes.count > 0 {
+//            pickerType = .salutation
+//            pickerData = self.viewModel.salutationTypes
+//            openPicker(withSelection: viewModel.salutation)
+//        }
+    }
+    
+    func numberTextField(_ indexPath: IndexPath, _ number: String) {
+        if self.viewModel.frequentFlyer.count <= indexPath.row - 2 {
+            self.viewModel.frequentFlyer.append(FrequentFlyer(json: [:]))
+        }
+        self.viewModel.frequentFlyer[indexPath.row - 2].number = number
+    }
+    
 }
 
 // MARK: - SearchVC delegate methods
@@ -1020,8 +1071,8 @@ extension EditProfileVC: AddAddressTableViewCellDelegate {
         if self.viewModel.countries.count > 0 {
             pickerType = .country
             pickerData = Array(self.viewModel.countries.values)
-            
-            let prevSectdContry = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.addresses[indexPath.row].country.isEmpty ? AppConstants.kIndianIsdCode : self.viewModel.addresses[indexPath.row].country )
+            // AppConstants.kIndianIsdCode
+            let prevSectdContry = PKCountryPicker.default.getCountryData(forISOCode: self.viewModel.addresses[indexPath.row].country.isEmpty ? "IN" : self.viewModel.addresses[indexPath.row].country )
             self.closeGenricAndDatePicker(completion: nil)
             PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: prevSectdContry) { [weak self] (selectedCountry,closePicker)  in
                 printDebug("selected country data: \(selectedCountry)")
@@ -1057,6 +1108,15 @@ extension EditProfileVC: AddNotesTableViewCellDelegate {
     }
 }
 
+extension EditProfileVC {
+    func presentFFSearchVC(defaultAirlines: [FlyerModel], delegate: SearchVCDelegate?) {
+           let controller = FFSearchVC.instantiate(fromAppStoryboard: .Profile)
+           controller.modalPresentationStyle = .fullScreen
+           controller.delgate = delegate
+           controller.defaultAirlines = defaultAirlines
+           self.present(controller, animated: true, completion: nil)
+       }
+}
 
 /*
  self.viewModel.notes = textView.text

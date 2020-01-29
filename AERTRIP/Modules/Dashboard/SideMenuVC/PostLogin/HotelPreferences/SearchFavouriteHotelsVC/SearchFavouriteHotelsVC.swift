@@ -121,7 +121,7 @@ extension SearchFavouriteHotelsVC: TopNavigationViewDelegate {
     }
 
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+              self.dismiss(animated: true)
     }
 }
 
@@ -174,7 +174,7 @@ extension SearchFavouriteHotelsVC: SearchFavouriteHotelsVMDelegate {
     func willUpdateFavourite() {
         self.startLoading()
         self.collectionView.reloadData()
-        self.sendDataChangedNotification(data: self)
+//        self.sendDataChangedNotification(data: self)
     }
     
     func updateFavouriteSuccess(withMessage: String) {
