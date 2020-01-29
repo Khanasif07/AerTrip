@@ -77,7 +77,7 @@ class DashboardVC: BaseVC {
         super.viewDidLoad()
         resetItems()
         headerTopConstraint.constant = UIApplication.shared.statusBarFrame.height
-//        segmentCenterYConstraint.constant = 0.0
+//        segmentCenterYConstraint.constant = -5.0
         aerinView.transform = .identity
         aerinView.alpha = 1.0
         // nitin change
@@ -318,6 +318,10 @@ extension DashboardVC  {
             var transform : CGFloat = 0.0
             
             let offset = scrollView.contentOffset
+            guard offset.y <= UIApplication.shared.statusBarFrame.height + 44 else {
+                scrollView.contentOffset.y = UIApplication.shared.statusBarFrame.height + 44
+                return
+            }
             
             let upperBound = scrollView.contentSize.height - scrollView.bounds.height
             guard 0...upperBound ~= offset.y else {
@@ -336,8 +340,6 @@ extension DashboardVC  {
                 self.homeAertripLogoImageView.alpha = 1
             }
             
-           
-            
             printDebug("current progress \(progress)")
             if scrollView.contentOffset.y - mainScrollViewOffset.y > 0 {
                 let valueMoved = scrollView.contentOffset.y - mainScrollViewOffset.y
@@ -355,7 +357,6 @@ extension DashboardVC  {
                 userDidScrollUp = false
                  printDebug("Scrolling down \(transform)")
             }
-            
             updateSegmentYPosition(for: scrollView.contentOffset.y)
             updateSegmentTop(for: scrollView.contentOffset.y)
             updateInnerScrollTop(for: scrollView.contentOffset.y)
@@ -419,7 +420,7 @@ extension DashboardVC  {
         let ratio = valueToBe / (headerTopConstraint.constant + headerView.height)
         
         segmentCenterYConstraint.constant = ratio * scrolledY
-        printDebug(segmentCenterYConstraint.constant)
+        printDebug("segment y pos:  \(segmentCenterYConstraint.constant)")
     }
     
     private func updateInnerScrollTop(for scrolledY: CGFloat) {
@@ -437,7 +438,7 @@ extension DashboardVC  {
     }
     
     private func updateSegmentTop(for scrolledY: CGFloat) {
-        let valueToDecrease: CGFloat = 15.0
+        let valueToDecrease: CGFloat = 1
         let ratio = valueToDecrease / (headerTopConstraint.constant + headerView.height)
         let final = (ratio * scrolledY)
         if final == 0 {
