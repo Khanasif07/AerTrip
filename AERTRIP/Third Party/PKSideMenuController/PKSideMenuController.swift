@@ -69,6 +69,7 @@ open class PKSideMenuController: UIViewController {
     
     private var edgePanGestureRecognizer: UIScreenEdgePanGestureRecognizer?
     private var closeMenuGestureRecognizer: UIPanGestureRecognizer?
+    private var lastPanLocation: CGFloat?
     
     //MARK:- View Controller Life Cycle
     //MARK:-
@@ -489,31 +490,12 @@ extension PKSideMenuController {
     private func actionForPanGesture(_ recognizer: UIPanGestureRecognizer) {
         let translationX = recognizer.translation(in: view).x
         let totalTranslation = (view.width - PKSideMenuOptions.sideDistanceForOpenMenu) + translationX
-        guard translationX >= 0, totalTranslation <= view.width else { return }
-        
+        guard translationX >= 0, totalTranslation <= view.width else {
+            applyEndedGesture(totalTranslation)
+            return
+        }
         if recognizer.state == .ended {
-            if (totalTranslation) < (view.width * (2/3)) {
-                DispatchQueue.main.async {
-                    UIView.animate(withDuration: 0.3, animations: {
-                        self.animateToProgress(self.view.width - PKSideMenuOptions.sideDistanceForOpenMenu)
-                    }) { _ in
-                        self.edgePanGestureRecognizer?.isEnabled = false
-                        self.closeMenuGestureRecognizer?.isEnabled = true
-                    }
-                }
-            } else {
-                DispatchQueue.main.async {
-                    UIView.animate(withDuration: 0.3, animations: {
-                        self.animateToProgress(self.view.width)
-                    }) { (_) in
-                        self.removeShadowsAndCornerRadius()
-                        self.removeGesture()
-                        self.edgePanGestureRecognizer?.isEnabled = true
-                        self.closeMenuGestureRecognizer?.isEnabled = false
-                    }
-                }
-            }
-            addTapGestures()
+            applyEndedGesture(totalTranslation)
         } else {
             if totalTranslation < (view.width - PKSideMenuOptions.sideDistanceForOpenMenu) + 10 {
                 DispatchQueue.main.async {
@@ -540,6 +522,32 @@ extension PKSideMenuController {
                 animateToProgress(totalTranslation)
             }
         }
+        lastPanLocation = totalTranslation
+    }
+    
+    private func applyEndedGesture(_ totalTranslation: CGFloat) {
+        if (totalTranslation) < (view.width * (2/3)) {
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.animateToProgress(self.view.width - PKSideMenuOptions.sideDistanceForOpenMenu)
+                }) { _ in
+                    self.edgePanGestureRecognizer?.isEnabled = false
+                    self.closeMenuGestureRecognizer?.isEnabled = true
+                }
+            }
+        } else {
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.animateToProgress(self.view.width)
+                }) { (_) in
+                    self.removeShadowsAndCornerRadius()
+                    self.removeGesture()
+                    self.edgePanGestureRecognizer?.isEnabled = true
+                    self.closeMenuGestureRecognizer?.isEnabled = false
+                }
+            }
+        }
+        addTapGestures()
     }
     
     private func addShadowsAndCornerRadius(_ animated: Bool = true) {
