@@ -735,17 +735,17 @@ on Christmas”</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PGv-f2-KsG">
-                                                    <rect key="frame" x="20" y="0.0" width="340" height="62"/>
+                                                    <rect key="frame" x="10" y="0.0" width="350" height="62"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount Due" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UTm-27-Lt8">
-                                                            <rect key="frame" x="0.0" y="10" width="232.5" height="20"/>
+                                                            <rect key="frame" x="0.0" y="9" width="242.5" height="20"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZt-tb-ePj">
-                                                            <rect key="frame" x="0.0" y="15" width="100" height="44"/>
+                                                            <rect key="frame" x="-2" y="14" width="100" height="44"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="FQa-U9-jkR"/>
                                                                 <constraint firstAttribute="width" constant="100" id="kc3-uS-s2O"/>
@@ -756,7 +756,7 @@ on Christmas”</string>
                                                             </state>
                                                         </button>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="z3B-zb-52K">
-                                                            <rect key="frame" x="242.5" y="8.5" width="97.5" height="45"/>
+                                                            <rect key="frame" x="252.5" y="5.5" width="97.5" height="45"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="₹ 18,99545" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K55-7N-Anf">
                                                                     <rect key="frame" x="0.0" y="0.0" width="97.5" height="22.5"/>
@@ -780,15 +780,15 @@ on Christmas”</string>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="z3B-zb-52K" secondAttribute="trailing" id="06I-dq-kwi"/>
-                                                        <constraint firstItem="KZt-tb-ePj" firstAttribute="leading" secondItem="UTm-27-Lt8" secondAttribute="leading" id="GQ2-Fy-b0h"/>
+                                                        <constraint firstItem="KZt-tb-ePj" firstAttribute="leading" secondItem="UTm-27-Lt8" secondAttribute="leading" constant="-2" id="GQ2-Fy-b0h"/>
                                                         <constraint firstItem="z3B-zb-52K" firstAttribute="leading" secondItem="UTm-27-Lt8" secondAttribute="trailing" constant="10" id="HMM-7h-dhQ"/>
-                                                        <constraint firstItem="UTm-27-Lt8" firstAttribute="centerY" secondItem="PGv-f2-KsG" secondAttribute="centerY" constant="-11" id="KI5-6u-qnD"/>
+                                                        <constraint firstItem="UTm-27-Lt8" firstAttribute="centerY" secondItem="PGv-f2-KsG" secondAttribute="centerY" constant="-12" id="KI5-6u-qnD"/>
                                                         <constraint firstItem="KZt-tb-ePj" firstAttribute="top" secondItem="UTm-27-Lt8" secondAttribute="bottom" constant="-15" id="YxI-Pb-iXV"/>
                                                         <constraint firstItem="UTm-27-Lt8" firstAttribute="leading" secondItem="PGv-f2-KsG" secondAttribute="leading" id="iEF-75-ktl"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4u1-Ye-r3d" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="57.5" width="340" height="0.5"/>
+                                                    <rect key="frame" x="10" y="55.5" width="350" height="0.5"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="0.5" id="Hz7-BP-vUc"/>
@@ -799,10 +799,10 @@ on Christmas”</string>
                                             <constraints>
                                                 <constraint firstItem="PGv-f2-KsG" firstAttribute="top" secondItem="TmU-Fr-dt0" secondAttribute="top" id="4M5-Uh-08z"/>
                                                 <constraint firstItem="4u1-Ye-r3d" firstAttribute="leading" secondItem="PGv-f2-KsG" secondAttribute="leading" id="7au-ZG-ZZs"/>
-                                                <constraint firstItem="PGv-f2-KsG" firstAttribute="leading" secondItem="TmU-Fr-dt0" secondAttribute="leading" constant="20" id="FIj-HO-SA6"/>
+                                                <constraint firstItem="PGv-f2-KsG" firstAttribute="leading" secondItem="TmU-Fr-dt0" secondAttribute="leading" constant="10" id="FIj-HO-SA6"/>
                                                 <constraint firstAttribute="bottom" secondItem="PGv-f2-KsG" secondAttribute="bottom" id="QAC-xL-y2V"/>
-                                                <constraint firstItem="z3B-zb-52K" firstAttribute="centerY" secondItem="TmU-Fr-dt0" secondAttribute="centerY" id="jWm-Qq-sb6"/>
-                                                <constraint firstAttribute="bottom" secondItem="4u1-Ye-r3d" secondAttribute="bottom" constant="4" id="kP6-Mw-HEk"/>
+                                                <constraint firstItem="z3B-zb-52K" firstAttribute="centerY" secondItem="TmU-Fr-dt0" secondAttribute="centerY" constant="-3" id="jWm-Qq-sb6"/>
+                                                <constraint firstAttribute="bottom" secondItem="4u1-Ye-r3d" secondAttribute="bottom" constant="6" id="kP6-Mw-HEk"/>
                                                 <constraint firstItem="4u1-Ye-r3d" firstAttribute="trailing" secondItem="PGv-f2-KsG" secondAttribute="trailing" id="st3-fH-ZWW"/>
                                                 <constraint firstAttribute="trailing" secondItem="PGv-f2-KsG" secondAttribute="trailing" constant="15" id="uvq-wp-7aV"/>
                                             </constraints>

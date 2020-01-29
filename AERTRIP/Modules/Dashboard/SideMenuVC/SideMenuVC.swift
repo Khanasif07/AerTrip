@@ -363,10 +363,10 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
         else {
             switch indexPath.row {
             case 0:
-                return (UserInfo.loggedInUserId == nil) ? 267.0 : 213.0
+                return (UserInfo.loggedInUserId == nil) ? 267.0 : UITableView.automaticDimension
                 
             case 1:
-                return (UserInfo.loggedInUserId == nil) ? 60.0 : 67.0
+                return (UserInfo.loggedInUserId == nil) ? 60.0 : 70
                 
             default:
                 return (UserInfo.loggedInUserId == nil) ? ( indexPath.row == 6) ? 61.0 : 64.0 : 64.0
