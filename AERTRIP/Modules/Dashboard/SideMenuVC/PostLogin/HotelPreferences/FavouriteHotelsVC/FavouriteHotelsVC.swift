@@ -189,7 +189,7 @@ class FavouriteHotelsVC: BaseVC {
     private func reloadList() {
         //self.setupPagerView()
         if self.viewModel.hotels.isEmpty {
-           self.viewPager.removeFromSuperview()
+//           self.viewPager.removeFromSuperview()
            self.emptyView.removeFromSuperview()
            setEmptyState()
         } else {

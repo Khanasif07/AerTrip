@@ -227,12 +227,12 @@ import UIKit
             updateLineView(isEditing: true)
 			var top = ceil(title.font.lineHeight + hintYPadding)
 			top = min(top, maxTopInset())
-            r = r.inset(by: UIEdgeInsets(top: top, left: 0.0, bottom: 4.0, right: 0.0))
+            r = r.inset(by: UIEdgeInsets(top: top, left: 0.0, bottom: 4, right: 0.0))
         } else {
             UIView.animate(withDuration: 0.0) { [weak self] in
                 self?.updateLineView(isEditing: false)
             }
-          
+
         }
 		return r.integral
 	}
@@ -246,12 +246,30 @@ import UIKit
 		}
 		return r.integral
 	}
+    
+    override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+        var r = super.textRect(forBounds: bounds)
+        var top = ceil(title.font.lineHeight + hintYPadding)
+        top = min(top, maxTopInset())
+        r = r.inset(by: UIEdgeInsets(top: top, left: 0.0, bottom: 0.0, right: 0.0))
+        return r.integral
+    }
+    
+    override func caretRect(for position: UITextPosition) -> CGRect {
+        var r = super.caretRect(for: position)
+        if let txt = text, txt.isEmpty {
+            var top = ceil(title.font.lineHeight + hintYPadding)
+            top = min(top, maxTopInset())
+            r = r.inset(by: UIEdgeInsets(top: top/2, left: 0.0, bottom: -top/2, right: 0.0))
+            r.size.width = 3.0
+        }
+        return r.integral
+    }
 	
 	// MARK:- Public Methods
 	
 	// MARK:- Private Methods
 	fileprivate func setupSubviews() {
-        
         borderStyle = UITextField.BorderStyle.none
 		titleActiveTextColour = tintColor
 		// Set up title label
