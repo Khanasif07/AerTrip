@@ -8,6 +8,8 @@
 
 import UIKit
 
+fileprivate let FavouriteHotelsListVCQueue : DispatchQueue = DispatchQueue.init(label: "FavouriteHotelsListVCQueue", target: .main)
+
 protocol FavouriteHotelsListVCDelegate: class {
     func removeAllForCurrentPage()
     func updatedFavourite(forCity: CityHotels, forHotelAtIndex: Int)
@@ -38,7 +40,9 @@ class FavouriteHotelsListVC: BaseVC {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        self.initialSetups()
+        FavouriteHotelsListVCQueue.async {
+            self.initialSetups()
+        }
     }
     
     override func bindViewModel() {
