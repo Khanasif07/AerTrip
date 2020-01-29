@@ -102,7 +102,7 @@ private extension ForgotPasswordVC {
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false, onView: self.emailTextField)
         self.emailTextField.titleYPadding = 12.0
         self.emailTextField.hintYPadding = 12.0
-        self.emailTextField.lineViewBottomSpace = 10.0
+        //self.emailTextField.lineViewBottomSpace = 10.0
         self.view.backgroundColor = AppColors.screensBackground.color
         
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)

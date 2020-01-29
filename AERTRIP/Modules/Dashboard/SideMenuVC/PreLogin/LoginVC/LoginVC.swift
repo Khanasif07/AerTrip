@@ -179,7 +179,7 @@ private extension LoginVC {
     
     func initialSetups() {
         
-        self.creditTypeButtonContainer.backgroundColor = AppColors.clear
+//        self.creditTypeButtonContainer.backgroundColor = AppColors.clear
         self.creditTypeButtonContainer.isHidden = AppConstants.isReleasingToClient
         
         self.view.backgroundColor = AppColors.screensBackground.color
@@ -189,10 +189,10 @@ private extension LoginVC {
         self.emailTextField.text = self.viewModel.email
         self.emailTextField.titleYPadding = 12.0
         self.emailTextField.hintYPadding = 12.0
-        self.emailTextField.lineViewBottomSpace = 10.0
+       // self.emailTextField.lineViewBottomSpace = 10.0
         self.passwordTextField.titleYPadding = 12.0
         self.passwordTextField.hintYPadding = 12.0
-        self.passwordTextField.lineViewBottomSpace = 10.0
+       // self.passwordTextField.lineViewBottomSpace = 10.0
 //        self.emailTextField.lineViewBottomSpace = 10.0
 //        self.passwordTextField.lineViewBottomSpace = 10.0
 //        self.emailTextField.isSingleTextField = false

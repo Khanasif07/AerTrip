@@ -94,6 +94,8 @@ class HotelsSearchVC: BaseVC {
         self.configureCheckInOutView()
         self.configureRecentSearchesView()
         self.hideRecentSearchesView()
+        self.searchBtnOutlet.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.searchBtnOutlet.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         
         
 //        for btn in self.starButtonsOutlet {
