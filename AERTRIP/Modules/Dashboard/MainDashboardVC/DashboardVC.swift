@@ -336,8 +336,6 @@ extension DashboardVC  {
                 self.homeAertripLogoImageView.alpha = 1
             }
             
-           
-            
             printDebug("current progress \(progress)")
             if scrollView.contentOffset.y - mainScrollViewOffset.y > 0 {
                 let valueMoved = scrollView.contentOffset.y - mainScrollViewOffset.y
@@ -355,7 +353,7 @@ extension DashboardVC  {
                 userDidScrollUp = false
                  printDebug("Scrolling down \(transform)")
             }
-            
+            print("scrollView.contentOffset.y: \(scrollView.contentOffset.y)")
             updateSegmentYPosition(for: scrollView.contentOffset.y)
             updateSegmentTop(for: scrollView.contentOffset.y)
             updateInnerScrollTop(for: scrollView.contentOffset.y)
@@ -419,11 +417,11 @@ extension DashboardVC  {
         let ratio = valueToBe / (headerTopConstraint.constant + headerView.height)
         
         segmentCenterYConstraint.constant = ratio * scrolledY
-        printDebug(segmentCenterYConstraint.constant)
+        printDebug("segment y pos:  \(segmentCenterYConstraint.constant)")
     }
     
     private func updateInnerScrollTop(for scrolledY: CGFloat) {
-        let valueToDecrease: CGFloat = 18.0
+        let valueToDecrease: CGFloat = 18.0 + 10
         let ratio = valueToDecrease / (headerTopConstraint.constant + headerView.height)
         let final = (ratio * scrolledY)
         if final == 0 {
@@ -444,6 +442,7 @@ extension DashboardVC  {
             segmentContainerView.transform = CGAffineTransform.identity
         }
         else {
+            print("finalllllllllllllllllllll: \(final)")
            // segmentContainerView.transform = CGAffineTransform(translationX: -(final - 4), y: -(final - 0.3))
             segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
         }
