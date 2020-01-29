@@ -98,7 +98,6 @@ class MainHomeVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         self.statusBarStyle = .lightContent
-        
         self.view.backgroundColor = AppColors.screensBackground.color
         self.contentView.backgroundColor = AppColors.screensBackground.color
         
@@ -262,10 +261,11 @@ class MainHomeVC: BaseVC {
         let pushPoint = CGPoint(x: UIDevice.screenWidth, y: 0.0)
         
         self.viewProfileVC?.profileImageHeaderView?.isHidden = true
+        profileViewOriginalFrame?.origin.y = -((self.sideMenuVC?.sideMenuTableView.contentOffset.y ?? 0) + 20)
         self.profileView?.isHidden = false
         self.sideMenuVC?.profileSuperView.isHidden = true
         
-        let newH = (self.viewProfileVC?.profileImageHeaderView?.height ?? UIDevice.screenHeight*0.45) + 20.0
+        let newH = (self.viewProfileVC?.profileImageHeaderView?.height ?? UIDevice.screenHeight*0.45) + UIApplication.shared.statusBarFrame.height
         let finalFrame = CGRect(x: 0.0, y: -(UIApplication.shared.statusBarFrame.height), width: UIDevice.screenWidth, height: newH)
         
         self.profileView?.emailIdLabel.isHidden = false
@@ -363,7 +363,7 @@ class MainHomeVC: BaseVC {
     private func pushLogoAnimation() {
         
         let pushPoint = CGPoint(x: UIDevice.screenWidth, y: 0.0)
-        logoViewOriginalFrame?.origin.y = -((self.sideMenuVC?.sideMenuTableView.contentOffset.y ?? 0) + 20)
+        logoViewOriginalFrame?.origin.y = -((self.sideMenuVC?.sideMenuTableView.contentOffset.y ?? 0) + UIApplication.shared.statusBarFrame.height)
         self.socialLoginVC?.logoContainerView.isHidden = true
         self.logoView?.isHidden = false
         self.sideMenuVC?.logoContainerView.isHidden = true
@@ -488,7 +488,7 @@ extension MainHomeVC {
                     self.profileView?.layoutIfNeeded()
                 }
                 
-                self.addComplition()
+                self.addCompletion()
             }
             self.transitionAnimator?.startAnimation()
             self.transitionAnimator?.pauseAnimation()
@@ -513,7 +513,7 @@ extension MainHomeVC {
                 self.logoView?.layoutIfNeeded()
             }
             
-            self.addComplition()
+            self.addCompletion()
         }
         
         if UserInfo.loggedInUserId == nil {
@@ -537,7 +537,7 @@ extension MainHomeVC {
         self.transitionAnimator?.fractionComplete = fraction + self.animationProgress
     }
     
-    func addComplition() {
+    func addCompletion() {
         self.transitionAnimator?.addCompletion { (position) in
             
             if UserInfo.loggedInUserId == nil {
