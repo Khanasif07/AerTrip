@@ -78,26 +78,26 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KsR-KY-HZ5">
                                                                 <rect key="frame" x="0.0" y="0.0" width="365" height="105"/>
                                                                 <subviews>
-                                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="38" translatesAutoresizingMaskIntoConstraints="NO" id="th6-Ex-zMh">
-                                                                        <rect key="frame" x="8" y="0.0" width="349" height="105"/>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="th6-Ex-zMh">
+                                                                        <rect key="frame" x="12" y="0.0" width="345" height="105"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1dn-ZH-4Hp">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="59" height="105"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="56.5" height="105"/>
                                                                                 <subviews>
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wjk-Vp-DEf">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="59" height="105"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="56.5" height="105"/>
                                                                                         <subviews>
                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Aerin Test66x66" translatesAutoresizingMaskIntoConstraints="NO" id="hKG-lk-EnP">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="59" height="83"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="56.5" height="83"/>
                                                                                             </imageView>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" ambiguous="YES" text="Aerin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMz-6r-Sru">
-                                                                                                <rect key="frame" x="0.0" y="83" width="59" height="22"/>
+                                                                                                <rect key="frame" x="0.0" y="83" width="56.5" height="22"/>
                                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17.5"/>
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                 <nil key="highlightedColor"/>
                                                                                             </label>
                                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G5c-jg-G8V">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="59" height="105"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="56.5" height="105"/>
                                                                                                 <connections>
                                                                                                     <action selector="aerinAction:" destination="LpR-ft-Vpd" eventType="touchUpInside" id="XEC-2x-8PM"/>
                                                                                                 </connections>
@@ -122,22 +122,22 @@
                                                                                 </subviews>
                                                                             </stackView>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="evC-mV-VxN">
-                                                                                <rect key="frame" x="97" y="0.0" width="58.5" height="105"/>
+                                                                                <rect key="frame" x="96.5" y="0.0" width="56" height="105"/>
                                                                                 <subviews>
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M6D-EY-y2X">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="58.5" height="105"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="56" height="105"/>
                                                                                         <subviews>
                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="FlightTest 66x66" translatesAutoresizingMaskIntoConstraints="NO" id="KsZ-Ga-z3J">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="58.5" height="83.5"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="56" height="83.5"/>
                                                                                             </imageView>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" ambiguous="YES" text="Flights" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmS-2d-CXq">
-                                                                                                <rect key="frame" x="0.0" y="83.5" width="58.5" height="21.5"/>
+                                                                                                <rect key="frame" x="0.0" y="83.5" width="56" height="21.5"/>
                                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                 <nil key="highlightedColor"/>
                                                                                             </label>
                                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ydp-pX-OEm">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="58.5" height="105"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="56" height="105"/>
                                                                                                 <connections>
                                                                                                     <action selector="flightsAction:" destination="LpR-ft-Vpd" eventType="touchUpInside" id="m6B-7i-DW0"/>
                                                                                                 </connections>
@@ -162,22 +162,22 @@
                                                                                 </subviews>
                                                                             </stackView>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hrh-6E-uuO">
-                                                                                <rect key="frame" x="193.5" y="0.0" width="59" height="105"/>
+                                                                                <rect key="frame" x="192.5" y="0.0" width="56.5" height="105"/>
                                                                                 <subviews>
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vUw-j7-ETK">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="59" height="105"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="56.5" height="105"/>
                                                                                         <subviews>
                                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HotelTest 66x66" translatesAutoresizingMaskIntoConstraints="NO" id="BKX-kN-nNl">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="59" height="85"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="56.5" height="85"/>
                                                                                             </imageView>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Hotels" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Md-Fs-uVy">
-                                                                                                <rect key="frame" x="0.0" y="85" width="59" height="20"/>
+                                                                                                <rect key="frame" x="0.0" y="85" width="56.5" height="20"/>
                                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                 <nil key="highlightedColor"/>
                                                                                             </label>
                                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5d-ya-Wwi">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="59" height="105"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="56.5" height="105"/>
                                                                                                 <connections>
                                                                                                     <action selector="hotelsAction:" destination="LpR-ft-Vpd" eventType="touchUpInside" id="k4Q-ft-cuS"/>
                                                                                                 </connections>
@@ -202,22 +202,22 @@
                                                                                 </subviews>
                                                                             </stackView>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lqk-Qk-qhl">
-                                                                                <rect key="frame" x="290.5" y="0.0" width="58.5" height="105"/>
+                                                                                <rect key="frame" x="289" y="0.0" width="56" height="105"/>
                                                                                 <subviews>
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Tu-Ax-XQ7">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="58.5" height="105"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="56" height="105"/>
                                                                                         <subviews>
                                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="TripsTest 66x66" translatesAutoresizingMaskIntoConstraints="NO" id="ncO-p1-Aoc">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="58.5" height="83.5"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="56" height="83.5"/>
                                                                                             </imageView>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" ambiguous="YES" text="Trips" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hM-k5-V70">
-                                                                                                <rect key="frame" x="0.0" y="83.5" width="58.5" height="21.5"/>
+                                                                                                <rect key="frame" x="0.0" y="83.5" width="56" height="21.5"/>
                                                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="17"/>
                                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                 <nil key="highlightedColor"/>
                                                                                             </label>
                                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aja-V4-2aL">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="58.5" height="105"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="56" height="105"/>
                                                                                                 <connections>
                                                                                                     <action selector="tripsAction:" destination="LpR-ft-Vpd" eventType="touchUpInside" id="m3v-5u-bRz"/>
                                                                                                 </connections>
@@ -249,7 +249,7 @@
                                                                     <constraint firstItem="th6-Ex-zMh" firstAttribute="height" secondItem="KsR-KY-HZ5" secondAttribute="height" id="JGi-YF-Bgp"/>
                                                                     <constraint firstAttribute="trailing" secondItem="th6-Ex-zMh" secondAttribute="trailing" constant="8" id="SAB-4n-DTH"/>
                                                                     <constraint firstItem="th6-Ex-zMh" firstAttribute="centerY" secondItem="KsR-KY-HZ5" secondAttribute="centerY" id="WgE-Bf-Pnq"/>
-                                                                    <constraint firstItem="th6-Ex-zMh" firstAttribute="leading" secondItem="KsR-KY-HZ5" secondAttribute="leading" constant="8" id="uKe-7H-t3E"/>
+                                                                    <constraint firstItem="th6-Ex-zMh" firstAttribute="leading" secondItem="KsR-KY-HZ5" secondAttribute="leading" constant="12" id="uKe-7H-t3E"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
