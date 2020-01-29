@@ -914,11 +914,9 @@ extension EditProfileVC: TwoPartEditTableViewCellDelegate {
     func twoPartEditLeftViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer) {
         self.indexPath = indexPath
         if sections[indexPath.section] == LocalizedString.FlightPreferences.localized {
-            if viewModel.currentlyUsinfFor == .addNewTravellerList {
-                presentFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
-            } else {
-                AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
-            }
+            // moved to FrequentFlyerTableViewCellDelegate
+           // AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+
         } else {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
@@ -953,8 +951,13 @@ extension EditProfileVC: FrequentFlyerTableViewCellDelegate {
     func frequentFlyerTaped(_ indexPath: IndexPath) {
         self.indexPath = indexPath
         if sections[indexPath.section] == LocalizedString.FlightPreferences.localized {
-            AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+            if viewModel.currentlyUsinfFor == .addNewTravellerList {
+                presentFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+            } else {
+                 AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+            }
         }
+        
     }
     
     func programTextField(_ indexPath: IndexPath) {
