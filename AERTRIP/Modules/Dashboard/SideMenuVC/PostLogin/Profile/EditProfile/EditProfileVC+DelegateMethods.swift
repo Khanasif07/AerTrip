@@ -796,7 +796,7 @@ extension EditProfileVC: EditProfileVMDelegate {
     }
     
     func getFail(errors: ErrorCodes) {
-         self.stopLoading()
+        self.stopLoading()
         if AppGlobals.shared.isNetworkRechable() {
          AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
         }

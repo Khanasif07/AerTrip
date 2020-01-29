@@ -177,6 +177,8 @@ private extension CreateProfileVC {
 //        self.lastNameTextField.hintYPadding = 12.0
 //        self.lastNameTextField.lineViewBottomSpace = 10.0
         self.firstNameTextField.titleYPadding = 12.0
+        self.firstNameTextField.hintYPadding = 12.0
+        self.lastNameTextField.hintYPadding = 12.0
         self.lastNameTextField.titleYPadding = 12.0
         //self.countryTextField.lineViewBottomSpace = 4.0
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
