@@ -125,7 +125,7 @@ extension BookingConfimationMailVC: CNContactPickerDelegate {
             self.toMailTextView.layoutIfNeeded()
             self.updateHeightOfHeader(self.toMailTextView)
         } else {
-            AppToast.default.showToastMessage(message: LocalizedString.UnableToGetMail.localized, title: "", onViewController: self, duration: 0.6, buttonTitle: "", buttonImage: nil)
+            AppToast.default.showToastMessage(message: LocalizedString.UnableToGetMail.localized, title: "", onViewController: self, duration: 0.6)
         }
     }
 }
