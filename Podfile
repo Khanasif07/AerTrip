@@ -29,6 +29,8 @@ target 'AERTRIP' do
   pod 'FlexiblePageControl'
   pod 'PKCategoryView'
   
+  pod 'Parchment'
+  
   #if using swift 4.2.1 and xcode 10.1 then use the '1.0.26' of razorpay otherwise latest , xcode 10.2+ use 1.1.0
   pod 'razorpay-pod'
   #pod 'razorpay-pod', :git => 'https://github.com/razorpay/razorpay-pod.git', :branch => 'swift5.1'

@@ -10,6 +10,8 @@ import UIKit
 import Foundation
 //import PKCategoryView
 
+import Parchment
+
 class FavouriteHotelsVC: BaseVC {
     
     //MARK:- IBOutlets
@@ -41,11 +43,10 @@ class FavouriteHotelsVC: BaseVC {
     
     //fileprivate weak var categoryView: PKCategoryView!
     
-    
-    
-    
-    
-    private var allChildVCs: [FavouriteHotelsListVC] = [FavouriteHotelsListVC]()
+    // Parchment View
+    fileprivate var parchmentView : PagingViewController<PagingIndexItem>?
+
+    internal var allChildVCs: [FavouriteHotelsListVC] = [FavouriteHotelsListVC]()
     
     //MARK:- Private
     
@@ -60,8 +61,8 @@ class FavouriteHotelsVC: BaseVC {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        //        self.categoryView?.frame = self.dataContainerView.bounds
-        //        self.categoryView?.layoutIfNeeded()
+        self.parchmentView?.view.frame = self.dataContainerView.bounds
+        self.parchmentView?.loadViewIfNeeded()
     }
     
     override func bindViewModel() {
@@ -105,31 +106,67 @@ class FavouriteHotelsVC: BaseVC {
                 self.allChildVCs.append(vc)
             }
             self.view.layoutIfNeeded()
-            viewPager = WormTabStrip(frame: self.dataContainerView.bounds)
-            self.dataContainerView.addSubview(viewPager)
-            viewPager.delegate = self
-            viewPager.eyStyle.isWormEnable = true
-            viewPager.eyStyle.wormStyel = .LINE
-            viewPager.shouldCenterSelectedWorm = true
-            viewPager.eyStyle.kHeightOfWorm = 2.0
-            viewPager.eyStyle.kHeightOfDivider = 0.0
-            viewPager.eyStyle.kPaddingOfIndicator = 0.0
-            viewPager.eyStyle.WormColor =  AppColors.themeGreen
-            viewPager.eyStyle.dividerBackgroundColor = .clear
-            viewPager.eyStyle.tabItemSelectedColor = AppColors.themeBlack
-            viewPager.eyStyle.tabItemDefaultColor = AppColors.themeBlack.withAlphaComponent(1.0)
-            viewPager.eyStyle.topScrollViewBackgroundColor = UIColor.white
-            viewPager.eyStyle.tabItemDefaultFont = AppFonts.Regular.withSize(16.0)
-            viewPager.eyStyle.tabItemSelectedFont = AppFonts.SemiBold.withSize(16.0)
-            viewPager.eyStyle.kHeightOfTopScrollView = 51.0
-            viewPager.eyStyle.kPaddingOfIndicator = 8.0
-            viewPager.eyStyle.spacingBetweenTabs = 5.0
-            viewPager.eyStyle.contentScrollViewBackgroundColor = .clear
-            viewPager.currentTabIndex = 0
-            viewPager.buildUI()
+            
+//            setupWormPager()
+            
+            // Parchmentview, for page control mechanism
+            if let _ = self.parchmentView{
+                self.parchmentView?.view.removeFromSuperview()
+                self.parchmentView = nil
+            }
+            setupParchmentPageController()
         }
     }
     
+    private func setupWormPager(){
+        viewPager = WormTabStrip(frame: self.dataContainerView.bounds)
+        self.dataContainerView.addSubview(viewPager)
+        viewPager.delegate = self
+        viewPager.eyStyle.isWormEnable = true
+        viewPager.eyStyle.wormStyel = .LINE
+        viewPager.shouldCenterSelectedWorm = true
+        viewPager.eyStyle.kHeightOfWorm = 2.0
+        viewPager.eyStyle.kHeightOfDivider = 0.0
+        viewPager.eyStyle.kPaddingOfIndicator = 0.0
+        viewPager.eyStyle.WormColor =  AppColors.themeGreen
+        viewPager.eyStyle.dividerBackgroundColor = .clear
+        viewPager.eyStyle.tabItemSelectedColor = AppColors.themeBlack
+        viewPager.eyStyle.tabItemDefaultColor = AppColors.themeBlack.withAlphaComponent(1.0)
+        viewPager.eyStyle.topScrollViewBackgroundColor = UIColor.white
+        viewPager.eyStyle.tabItemDefaultFont = AppFonts.Regular.withSize(16.0)
+        viewPager.eyStyle.tabItemSelectedFont = AppFonts.SemiBold.withSize(16.0)
+        viewPager.eyStyle.kHeightOfTopScrollView = 51.0
+        viewPager.eyStyle.kPaddingOfIndicator = 8.0
+        viewPager.eyStyle.spacingBetweenTabs = 5.0
+        viewPager.eyStyle.contentScrollViewBackgroundColor = .clear
+        viewPager.currentTabIndex = 0
+        viewPager.buildUI()
+    }
+    
+    // Added to replace the existing page controller, added Hitesh Soni, 28-29Jan'2020
+    private func setupParchmentPageController(){
+        
+        self.parchmentView = PagingViewController<PagingIndexItem>()
+        self.parchmentView?.menuItemSpacing = 10.0
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        self.parchmentView?.borderOptions = PagingBorderOptions.visible(
+                                        height: 0,
+                                        zIndex: Int.max - 1,
+                                        insets: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
+        self.parchmentView?.font = AppFonts.Regular.withSize(15.0)
+        self.parchmentView?.selectedFont = AppFonts.Bold.withSize(15.0)
+        self.parchmentView?.indicatorColor = AppColors.themeGreen
+        self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        self.dataContainerView.addSubview(self.parchmentView!.view)
+        
+        self.parchmentView?.dataSource = self
+        self.parchmentView?.delegate = self
+        self.parchmentView?.select(index: 0)
+        
+        self.parchmentView?.reloadData()
+        self.parchmentView?.reloadMenu()
+    }
+
     //    private func setupPagerView() {
     //        self.currentIndex = 0
     //
