@@ -147,14 +147,14 @@
                                 <rect key="frame" x="335" y="12" width="20" height="20"/>
                             </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="qdC-Cp-sbt" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="375" height="588"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="3EM-4p-E0r" firstAttribute="centerY" secondItem="nwc-An-eba" secondAttribute="centerY" id="ATE-nS-H07"/>
-                            <constraint firstAttribute="bottom" secondItem="qdC-Cp-sbt" secondAttribute="bottom" constant="35" id="E95-Ca-wkq"/>
+                            <constraint firstAttribute="bottom" secondItem="qdC-Cp-sbt" secondAttribute="bottom" id="E95-Ca-wkq"/>
                             <constraint firstItem="nwc-An-eba" firstAttribute="leading" secondItem="R0j-KS-kbu" secondAttribute="leading" id="hCZ-6B-feb"/>
                             <constraint firstItem="3EM-4p-E0r" firstAttribute="trailing" secondItem="nwc-An-eba" secondAttribute="trailing" constant="-20" id="hHo-Tb-SWC"/>
                             <constraint firstItem="qdC-Cp-sbt" firstAttribute="leading" secondItem="R0j-KS-kbu" secondAttribute="leading" id="lrJ-i1-jib"/>

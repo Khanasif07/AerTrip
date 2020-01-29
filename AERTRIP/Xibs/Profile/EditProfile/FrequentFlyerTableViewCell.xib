@@ -26,10 +26,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="141"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vze-Oa-s8L">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="18"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="34"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YEj-MN-zp9">
-                                        <rect key="frame" x="16" y="0.0" width="288" height="18"/>
+                                        <rect key="frame" x="16" y="8" width="288" height="18"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="18" id="sPa-oh-CMJ"/>
                                         </constraints>
@@ -41,22 +41,22 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="YEj-MN-zp9" secondAttribute="trailing" constant="16" id="2Cv-Lr-veh"/>
-                                    <constraint firstItem="YEj-MN-zp9" firstAttribute="top" secondItem="Vze-Oa-s8L" secondAttribute="top" id="DUk-U5-JBC"/>
+                                    <constraint firstItem="YEj-MN-zp9" firstAttribute="top" secondItem="Vze-Oa-s8L" secondAttribute="top" constant="8" id="DUk-U5-JBC"/>
                                     <constraint firstItem="YEj-MN-zp9" firstAttribute="leading" secondItem="Vze-Oa-s8L" secondAttribute="leading" constant="16" id="Hqv-cX-dmC"/>
-                                    <constraint firstAttribute="bottom" secondItem="YEj-MN-zp9" secondAttribute="bottom" id="dNE-1r-gfX"/>
+                                    <constraint firstAttribute="bottom" secondItem="YEj-MN-zp9" secondAttribute="bottom" constant="8" id="dNE-1r-gfX"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="008-3R-MaS">
-                                <rect key="frame" x="0.0" y="18" width="320" height="38.5"/>
+                                <rect key="frame" x="0.0" y="34" width="320" height="40"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vzA-eV-tBx">
-                                        <rect key="frame" x="16" y="10" width="251" height="19.5"/>
+                                        <rect key="frame" x="16" y="10" width="251" height="21"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8mX-v8-5mC">
-                                        <rect key="frame" x="16" y="6.5" width="266" height="23"/>
+                                        <rect key="frame" x="16" y="8" width="266" height="23"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d2X-iI-jYy">
                                                 <rect key="frame" x="0.0" y="0.0" width="23" height="23"/>
@@ -93,7 +93,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zJ7-4f-EG1" userLabel="leftSeparatorView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="38" width="251" height="0.5"/>
+                                        <rect key="frame" x="16" y="39.5" width="251" height="0.5"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="btC-8g-4uW"/>
@@ -115,19 +115,19 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="5dH-WF-dST">
-                                <rect key="frame" x="0.0" y="56.5" width="320" height="84.5"/>
+                                <rect key="frame" x="0.0" y="74" width="320" height="67"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ox-tW-6lH">
-                                        <rect key="frame" x="0.0" y="0.0" width="160" height="84.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="160" height="67"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aVq-rY-Oom">
-                                                <rect key="frame" x="16" y="10" width="128" height="65.5"/>
+                                                <rect key="frame" x="16" y="10" width="128" height="48"/>
                                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zfL-ep-6KV">
-                                                <rect key="frame" x="16" y="52.5" width="144" height="23"/>
+                                                <rect key="frame" x="16" y="35" width="144" height="23"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="led-Vu-jFL">
                                                         <rect key="frame" x="0.0" y="0.0" width="119" height="23"/>
@@ -154,7 +154,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fif-tc-ORs" userLabel="leftSeparatorView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="84" width="144" height="0.5"/>
+                                                <rect key="frame" x="16" y="66.5" width="144" height="0.5"/>
                                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="loB-Ed-veD"/>
@@ -176,16 +176,16 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AhZ-xv-TK9">
-                                        <rect key="frame" x="160" y="0.0" width="160" height="84.5"/>
+                                        <rect key="frame" x="160" y="0.0" width="160" height="67"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jpe-P4-5yG">
-                                                <rect key="frame" x="16" y="10" width="133.5" height="65.5"/>
+                                                <rect key="frame" x="16" y="10" width="133.5" height="48"/>
                                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U4u-BU-otD" userLabel="rightSeparatorView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="84" width="160" height="0.5"/>
+                                                <rect key="frame" x="0.0" y="66.5" width="160" height="0.5"/>
                                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="9ki-zG-3iF"/>
@@ -208,7 +208,7 @@
                         </subviews>
                     </stackView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ak-mc-beD">
-                        <rect key="frame" x="282" y="45.5" width="22" height="22"/>
+                        <rect key="frame" x="282" y="62.5" width="22" height="22"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="ZTs-Pj-lPZ"/>
                             <constraint firstAttribute="width" constant="22" id="fXI-VW-dgu"/>

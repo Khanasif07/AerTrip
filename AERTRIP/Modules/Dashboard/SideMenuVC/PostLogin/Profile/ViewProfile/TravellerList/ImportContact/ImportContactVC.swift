@@ -376,12 +376,15 @@ extension ImportContactVC: ImportContactVMDelegate {
     
     func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor) {
         
-        self.selectedContactsCollectionView.performBatchUpdates({
-            self.selectedContactsCollectionView.deleteItems(at: [IndexPath(item: fromIndex, section: usingFor.rawValue)])
-            self.itemsCounts[usingFor.rawValue] -= 1
-        }, completion: { (isDone) in
-            self.selectionDidChanged()
-        })
+//        self.selectedContactsCollectionView.performBatchUpdates({
+//            self.selectedContactsCollectionView.deleteItems(at: [IndexPath(item: fromIndex, section: usingFor.rawValue)])
+//            self.itemsCounts[usingFor.rawValue] -= 1
+//        }, completion: { (isDone) in
+//            self.selectionDidChanged()
+//        })
+        self.itemsCounts[usingFor.rawValue] -= 1
+        self.selectedContactsCollectionView.reloadData()
+        self.selectionDidChanged()
     }
     func remove(for usingFor: ContactListVC.UsingFor) {
         var item = 0

@@ -68,7 +68,7 @@ class ContactListVC: BaseVC {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if UIDevice.bottomPaddingFromSafeArea > 0.0 {
-              self.selectAllbtnBtmConstraint.constant = 0
+            self.selectAllbtnBtmConstraint.constant = 0
         } else {
             self.selectAllbtnBtmConstraint.constant = 34.0
         }
@@ -274,14 +274,14 @@ class ContactListVC: BaseVC {
                 if !self.viewModel.selectedPhoneContacts.isEmpty  {
                     var isContactRemoved = false
                     DispatchQueue.backgroundAsync {
-                    for section in self.viewModel.sections {
-                        for contact in section.cnContacts {
-                            if let contactIndex = self.viewModel.selectedPhoneContacts.firstIndex(of: contact) {
-                                self.viewModel.selectedPhoneContacts.remove(at: contactIndex)
-                                isContactRemoved = true
+                        for section in self.viewModel.sections {
+                            for contact in section.cnContacts {
+                                if let contactIndex = self.viewModel.selectedPhoneContacts.firstIndex(of: contact) {
+                                    self.viewModel.selectedPhoneContacts.remove(at: contactIndex)
+                                    isContactRemoved = true
+                                }
                             }
                         }
-                    }
                         DispatchQueue.mainAsync {
                             if isContactRemoved {
                                 self.viewModel.remove(for: .contacts)
@@ -323,7 +323,7 @@ class ContactListVC: BaseVC {
                 }else {
                     self.viewModel.selectedPhoneContacts = self.viewModel.phoneContacts
                     DispatchQueue.mainAsync {
-                    self.viewModel.addAll(for: .contacts)
+                        self.viewModel.addAll(for: .contacts)
                     }
                     
                 }
@@ -388,7 +388,7 @@ class ContactListVC: BaseVC {
                 }else {
                     self.viewModel.selectedFacebookContacts = self.viewModel.facebookContacts
                     DispatchQueue.mainAsync {
-                    self.viewModel.addAll(for: .facebook)
+                        self.viewModel.addAll(for: .facebook)
                     }
                 }
             }
@@ -451,7 +451,7 @@ class ContactListVC: BaseVC {
                     self.viewModel.selectedGoogleContacts = self.viewModel.googleContacts
                     //add all
                     DispatchQueue.mainAsync {
-                    self.viewModel.addAll(for: .google)
+                        self.viewModel.addAll(for: .google)
                     }
                     
                     
