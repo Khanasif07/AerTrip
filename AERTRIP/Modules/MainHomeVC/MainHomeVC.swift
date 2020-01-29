@@ -365,7 +365,7 @@ class MainHomeVC: BaseVC {
     private func pushLogoAnimation() {
         
         let pushPoint = CGPoint(x: UIDevice.screenWidth, y: 0.0)
-        logoViewOriginalFrame?.origin.y = -((self.sideMenuVC?.sideMenuTableView.contentOffset.y ?? 0) + UIApplication.shared.statusBarFrame.height)
+        logoViewOriginalFrame?.origin.y = -(self.sideMenuVC?.sideMenuTableView.contentOffset.y ?? 0)
         self.socialLoginVC?.logoContainerView.isHidden = true
         self.logoView?.isHidden = false
         self.sideMenuVC?.logoContainerView.isHidden = true
