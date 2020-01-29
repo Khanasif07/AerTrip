@@ -77,7 +77,7 @@ class DashboardVC: BaseVC {
         super.viewDidLoad()
         resetItems()
         headerTopConstraint.constant = UIApplication.shared.statusBarFrame.height
-//        segmentCenterYConstraint.constant = 0.0
+//        segmentCenterYConstraint.constant = -5.0
         aerinView.transform = .identity
         aerinView.alpha = 1.0
         // nitin change
@@ -318,6 +318,10 @@ extension DashboardVC  {
             var transform : CGFloat = 0.0
             
             let offset = scrollView.contentOffset
+            guard offset.y <= UIApplication.shared.statusBarFrame.height + 44 else {
+                scrollView.contentOffset.y = UIApplication.shared.statusBarFrame.height + 44
+                return
+            }
             
             let upperBound = scrollView.contentSize.height - scrollView.bounds.height
             guard 0...upperBound ~= offset.y else {
@@ -353,7 +357,6 @@ extension DashboardVC  {
                 userDidScrollUp = false
                  printDebug("Scrolling down \(transform)")
             }
-            print("scrollView.contentOffset.y: \(scrollView.contentOffset.y)")
             updateSegmentYPosition(for: scrollView.contentOffset.y)
             updateSegmentTop(for: scrollView.contentOffset.y)
             updateInnerScrollTop(for: scrollView.contentOffset.y)
@@ -421,7 +424,7 @@ extension DashboardVC  {
     }
     
     private func updateInnerScrollTop(for scrolledY: CGFloat) {
-        let valueToDecrease: CGFloat = 18.0 + 10
+        let valueToDecrease: CGFloat = 18.0
         let ratio = valueToDecrease / (headerTopConstraint.constant + headerView.height)
         let final = (ratio * scrolledY)
         if final == 0 {
@@ -435,14 +438,13 @@ extension DashboardVC  {
     }
     
     private func updateSegmentTop(for scrolledY: CGFloat) {
-        let valueToDecrease: CGFloat = 15.0
+        let valueToDecrease: CGFloat = 1
         let ratio = valueToDecrease / (headerTopConstraint.constant + headerView.height)
         let final = (ratio * scrolledY)
         if final == 0 {
             segmentContainerView.transform = CGAffineTransform.identity
         }
         else {
-            print("finalllllllllllllllllllll: \(final)")
            // segmentContainerView.transform = CGAffineTransform(translationX: -(final - 4), y: -(final - 0.3))
             segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
         }
