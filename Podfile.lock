@@ -140,6 +140,7 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
+  - Parchment (1.7.0)
   - PhoneNumberKit (2.6.0):
     - PhoneNumberKit/PhoneNumberKitCore (= 2.6.0)
     - PhoneNumberKit/UIKit (= 2.6.0)
@@ -174,6 +175,7 @@ DEPENDENCIES:
   - LinkedinSwift
   - MiniLayout
   - MXParallaxHeader
+  - Parchment
   - PhoneNumberKit (~> 2.5)
   - PKCategoryView
   - PKLoader
@@ -218,6 +220,7 @@ SPEC REPOS:
     - MiniLayout
     - MXParallaxHeader
     - nanopb
+    - Parchment
     - PhoneNumberKit
     - PKCategoryView
     - PKLoader
@@ -278,6 +281,7 @@ SPEC CHECKSUMS:
   MiniLayout: f819ad87432712e6b2596081a62e633a4961bfc6
   MXParallaxHeader: de3c867e10ba46e8f6e20c8ee1f2a910372b3b94
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  Parchment: cae686f73685d16742cec9c19239b7578a15f0f5
   PhoneNumberKit: 167ee1f0bbb6efce7c62559e620eae745595532f
   PKCategoryView: 20ff824a6c91d3f44785d0d1fe6d1fdd0b924460
   PKLoader: 25894faef3a0ea94d8c6b8e761e02184aba14783
@@ -285,6 +289,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: 7f946c5875e33002b0747efdc40bbce13c1ab4cd
+PODFILE CHECKSUM: 8ae9377afc8182a934931c9d24b9aa486ea2e6a4
 
 COCOAPODS: 1.8.4
