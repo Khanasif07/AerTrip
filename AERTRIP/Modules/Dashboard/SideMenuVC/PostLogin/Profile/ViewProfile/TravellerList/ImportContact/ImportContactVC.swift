@@ -7,7 +7,8 @@
 //
 
 import UIKit
-//import PKCategoryView
+import Parchment
+
 
 class ImportContactVC: BaseVC {
     
@@ -26,11 +27,15 @@ class ImportContactVC: BaseVC {
     //MARK:- Properties
     //MARK:- Public
     
+    
+    
     //MARK:- Private
     private let collectionLayout: ContactListCollectionFlowLayout = ContactListCollectionFlowLayout()
-  //  fileprivate weak var categoryView: PKCategoryView!
-    var viewPager: WormTabStrip!
+  
     private var itemsCounts: [Int] = [0, 0, 0]
+    
+// Parchment View
+       fileprivate var parchmentView : PagingViewController<PagingIndexItem>?
     
     private(set) var viewModel = ImportContactVM.shared
     private var currentIndex: Int = 0 {
@@ -40,16 +45,7 @@ class ImportContactVC: BaseVC {
     }
     
     private let allTabsStr: [String] = [LocalizedString.Contacts.localized, LocalizedString.Facebook.localized, LocalizedString.Google.localized]
-//    private var allTabs: [PKCategoryItem] {
-//        var temp = [PKCategoryItem]()
-//
-//        for title in allTabsStr {
-//            let obj = PKCategoryItem(title: title, normalImage: nil, selectedImage: nil)
-//            temp.append(obj)
-//        }
-//
-//        return temp
-//    }
+
 
     private var allChildVCs: [ContactListVC] = [ContactListVC]()
     
@@ -89,10 +85,8 @@ class ImportContactVC: BaseVC {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         printDebug("viewDidLayoutSubviews")
-        self.viewPager?.frame = self.listContainerView.bounds
-        self.viewPager?.layoutSubviews()
-//        self.categoryView?.frame = self.listContainerView.bounds
-//        self.categoryView?.layoutSubviews()
+        self.parchmentView?.view.frame = self.listContainerView.bounds
+        self.parchmentView?.loadViewIfNeeded()
     }
     
     deinit {
@@ -123,12 +117,6 @@ class ImportContactVC: BaseVC {
         self.selectedContactsCollectionView.dataSource = self
         self.selectedContactsCollectionView.delegate = self
         
-//        for idx in 0..<allTabsStr.count {
-//            let vc = ContactListVC.instantiate(fromAppStoryboard: .TravellerList)
-//            vc.currentlyUsingFor = ContactListVC.UsingFor(rawValue: idx) ?? .contacts
-//            self.allChildVCs.append(vc)
-//        }
-        
         delay(seconds: 0.1) {[weak self] in
             //self?.setupPagerView()
             guard let self = self else  {return}
@@ -141,64 +129,47 @@ class ImportContactVC: BaseVC {
     }
     
     private func setUpViewPager() {
-           self.currentIndex = 0
-               self.allChildVCs.removeAll()
-               if self.viewPager != nil {
-                   self.viewPager.removeFromSuperview()
-               }
-               for idx in 0..<allTabsStr.count {
-                          let vc = ContactListVC.instantiate(fromAppStoryboard: .TravellerList)
-                          vc.currentlyUsingFor = ContactListVC.UsingFor(rawValue: idx) ?? .contacts
-                          self.allChildVCs.append(vc)
-                      }
-               self.view.layoutIfNeeded()
-               viewPager = WormTabStrip(frame: self.listContainerView.bounds)
-               self.listContainerView.addSubview(viewPager)
-               viewPager.delegate = self
-               viewPager.eyStyle.isWormEnable = true
-               viewPager.shouldCenterSelectedWorm = true
-               viewPager.eyStyle.wormStyel = .LINE
-               viewPager.eyStyle.kHeightOfWorm = 2.0
-               viewPager.eyStyle.kHeightOfDivider = 0.5
-               viewPager.eyStyle.kPaddingOfIndicator = 0.0
-               viewPager.eyStyle.WormColor =  AppColors.themeGreen
-               viewPager.eyStyle.dividerBackgroundColor = AppColors.themeGray40.withAlphaComponent(0.5)
-               viewPager.eyStyle.tabItemSelectedColor = AppColors.themeBlack
-               viewPager.eyStyle.tabItemDefaultColor = AppColors.themeBlack.withAlphaComponent(1.0)
-               viewPager.eyStyle.topScrollViewBackgroundColor = UIColor.white
-               viewPager.eyStyle.tabItemDefaultFont = AppFonts.Regular.withSize(16.0)
-               viewPager.eyStyle.tabItemSelectedFont = AppFonts.SemiBold.withSize(16.0)
-               viewPager.eyStyle.kHeightOfTopScrollView = 51.0
-               viewPager.eyStyle.kPaddingOfIndicator = 8.0
-               viewPager.eyStyle.spacingBetweenTabs = 5.0
-               viewPager.eyStyle.contentScrollViewBackgroundColor = .clear
-               viewPager.currentTabIndex = 0
-               viewPager.buildUI()
-           }
-       
+        self.currentIndex = 0
+        self.allChildVCs.removeAll()
+        for idx in 0..<allTabsStr.count {
+            let vc = ContactListVC.instantiate(fromAppStoryboard: .TravellerList)
+            vc.currentlyUsingFor = ContactListVC.UsingFor(rawValue: idx) ?? .contacts
+            self.allChildVCs.append(vc)
+        }
+        self.view.layoutIfNeeded()
+        if let _ = self.parchmentView{
+            self.parchmentView?.view.removeFromSuperview()
+            self.parchmentView = nil
+        }
+        setupParchmentPageController()
+    }
     
-    
-//    private func setupPagerView() {
-//
-//        var style = PKCategoryViewConfiguration()
-//        style.navBarHeight = 45.0
-//        style.interItemSpace = 5.0
-//        style.itemPadding = 8.0
-//        style.isNavBarScrollEnabled = false
-//        style.isEmbeddedToView = true
-//        style.showBottomSeparator = true
-//        style.bottomSeparatorColor = AppColors.divider.color
-//        style.defaultFont = AppFonts.Regular.withSize(16.0)
-//        style.selectedFont = AppFonts.SemiBold.withSize(16.0)
-//        style.indicatorColor = AppColors.themeGreen
-//        style.normalColor = AppColors.themeBlack
-//        style.selectedColor = AppColors.themeBlack
-//
-//        let categoryView = PKCategoryView(frame: self.listContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, configuration: style, parentVC: self)
-//        categoryView.delegate = self
-//        self.listContainerView.addSubview(categoryView)
-//        self.categoryView = categoryView
-//    }
+    // Added to replace the existing page controller, added Hitesh Soni, 28-29Jan'2020
+    private func setupParchmentPageController(){
+        
+        self.parchmentView = PagingViewController<PagingIndexItem>()
+        self.parchmentView?.menuItemSpacing = 60.0
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 33.0, bottom: 0.0, right: 33.0)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 51)
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
+        self.parchmentView?.borderOptions = PagingBorderOptions.visible(
+            height: 0.5,
+            zIndex: Int.max - 1,
+            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
+        self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
+        self.parchmentView?.indicatorColor = AppColors.themeGreen
+        self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        self.listContainerView.addSubview(self.parchmentView!.view)
+        
+        self.parchmentView?.dataSource = self
+        self.parchmentView?.delegate = self
+        self.parchmentView?.select(index: 0)
+        
+        self.parchmentView?.reloadData()
+        self.parchmentView?.reloadMenu()
+    }
     
     private func selectedContactsSetHidden(isHidden: Bool, animated: Bool) {
         let value: CGFloat = self.selectedContactsContainerHeightConstraint.constant
@@ -255,16 +226,6 @@ class ImportContactVC: BaseVC {
         self.viewModel.saveContacts()
     }
 }
-
-//extension ImportContactVC: PKCategoryViewDelegate {
-//    func categoryView(_ view: PKCategoryView, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
-//        printDebug("willSwitchIndexFrom \(fromIndex) to \(toIndex)")
-//    }
-//
-//    func categoryView(_ view: PKCategoryView, didSwitchIndexTo toIndex: Int) {
-//        self.currentIndex = toIndex
-//    }
-//}
 
 extension ImportContactVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -645,56 +606,32 @@ class ContactListCollectionFlowLayout: UICollectionViewFlowLayout {
     }
 }
 
-extension ImportContactVC: WormTabStripDelegate {
-    func WTSNumberOfTabs() -> Int {
-        self.allTabsStr.count
+extension ImportContactVC: PagingViewControllerDataSource , PagingViewControllerDelegate {
+    func numberOfViewControllers<T>(in pagingViewController: PagingViewController<T>) -> Int where T : PagingItem, T : Comparable, T : Hashable {
+         self.allTabsStr.count
     }
     
-    func WTSViewOfTab(index: Int) -> UIView {
-         return self.allChildVCs[index].view
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, viewControllerForIndex index: Int) -> UIViewController where T : PagingItem, T : Comparable, T : Hashable {
+         return self.allChildVCs[index]
     }
     
-    func WTSTitleForTab(index: Int) -> String {
-        self.allTabsStr[index]
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemForIndex index: Int) -> T where T : PagingItem, T : Comparable, T : Hashable {
+        return PagingIndexItem(index: index, title:  self.allTabsStr[index]) as! T
     }
     
-    func WTSReachedLeftEdge(panParam: UIPanGestureRecognizer) {
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
+
+        // depending onthe text size, give the width of the menu item
+        if let pagingIndexItem = pagingItem as? PagingIndexItem{
+            let text = pagingIndexItem.title
+            
+            let font = AppFonts.SemiBold.withSize(16.0)
+            return text.widthOfString(usingFont: font)
+        }
         
+        return 100.0
     }
-    
-    func WTSReachedRightEdge(panParam: UIPanGestureRecognizer) {
-        
-    }
-    
-    func WTSSelectedTabIndex(index: Int) {
-               viewPager.currentTabIndex = index
-               self.currentIndex = index
-    }
-    
     
 }
 
-//func WTSNumberOfTabs() -> Int {
-//       return self.viewModel.hotels.count
-//   }
-//
-//   func WTSViewOfTab(index: Int) -> UIView {
-//       return self.allChildVCs[index].view
-//   }
-//
-//   func WTSTitleForTab(index: Int) -> String {
-//       self.viewModel.hotels[index].cityName
-//   }
-//
-//
-//   func WTSReachedLeftEdge(panParam: UIPanGestureRecognizer) {
-//   }
-//
-//   func WTSReachedRightEdge(panParam: UIPanGestureRecognizer) {
-//
-//   }
-//
-//   func WTSSelectedTabIndex(index: Int) {
-//       viewPager.currentTabIndex = index
-//       self.currentIndex = index
-//   }
+

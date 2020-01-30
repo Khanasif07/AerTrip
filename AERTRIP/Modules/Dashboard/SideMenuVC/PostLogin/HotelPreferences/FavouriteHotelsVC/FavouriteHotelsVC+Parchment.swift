@@ -34,7 +34,7 @@ extension FavouriteHotelsVC : PagingViewControllerDelegate{
         if let pagingIndexItem = pagingItem as? PagingIndexItem{
             let text = pagingIndexItem.title
             
-            let font = AppFonts.SemiBold.withSize(17.0)
+            let font = AppFonts.SemiBold.withSize(16.0)
             return text.widthOfString(usingFont: font)
         }
         
@@ -48,7 +48,7 @@ extension FavouriteHotelsVC : PagingViewControllerDelegate{
     }
 }
 
-fileprivate extension String {
+extension String {
     func widthOfString(usingFont font: UIFont) -> CGFloat {
         let fontAttributes = [NSAttributedString.Key.font: font]
         let size = self.size(withAttributes: fontAttributes)
