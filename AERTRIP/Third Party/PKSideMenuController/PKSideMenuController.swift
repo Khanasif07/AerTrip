@@ -129,7 +129,7 @@ open class PKSideMenuController: UIViewController {
         layerTemp.masksToBounds = false
         layerTemp.shadowColor = PKSideMenuOptions.dropOffShadowColor.cgColor
         layerTemp.shadowOpacity = 0.0
-        layerTemp.shadowOffset = CGSize(width: 25, height: 10)
+        layerTemp.shadowOffset = CGSize(width: 20, height: 10)
         layerTemp.shadowRadius = 50
 
         layerTemp.shadowPath = UIBezierPath(roundedRect: self.mainContainer!.bounds, cornerRadius: PKSideMenuOptions.mainViewCornerRadiusInOpenMode).cgPath
