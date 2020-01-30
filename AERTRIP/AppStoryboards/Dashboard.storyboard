@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -406,11 +406,11 @@
                             <constraint firstItem="oLe-ql-yRs" firstAttribute="trailing" secondItem="O8V-oo-rnK" secondAttribute="trailing" id="aId-Rn-3Si"/>
                             <constraint firstItem="oLe-ql-yRs" firstAttribute="bottom" secondItem="bO0-Bl-9pr" secondAttribute="bottom" id="ab9-JT-wC8"/>
                             <constraint firstItem="EIt-yX-B3o" firstAttribute="leading" secondItem="O8V-oo-rnK" secondAttribute="leading" id="ncQ-6z-EFW"/>
-                            <constraint firstItem="O8V-oo-rnK" firstAttribute="bottom" secondItem="08Q-wv-BRZ" secondAttribute="bottom" id="qhB-Dk-jT1"/>
+                            <constraint firstAttribute="bottom" secondItem="08Q-wv-BRZ" secondAttribute="bottom" id="qhB-Dk-jT1"/>
                             <constraint firstItem="O8V-oo-rnK" firstAttribute="trailing" secondItem="08Q-wv-BRZ" secondAttribute="trailing" id="tzn-WN-Ztz"/>
                             <constraint firstItem="EIt-yX-B3o" firstAttribute="trailing" secondItem="O8V-oo-rnK" secondAttribute="trailing" id="vhz-OP-qFS"/>
                             <constraint firstItem="oLe-ql-yRs" firstAttribute="top" secondItem="bO0-Bl-9pr" secondAttribute="top" id="y3Q-4j-bsN"/>
-                            <constraint firstItem="08Q-wv-BRZ" firstAttribute="top" secondItem="O8V-oo-rnK" secondAttribute="top" id="ycF-94-MyR"/>
+                            <constraint firstItem="08Q-wv-BRZ" firstAttribute="top" secondItem="bO0-Bl-9pr" secondAttribute="top" id="ycF-94-MyR"/>
                             <constraint firstItem="EIt-yX-B3o" firstAttribute="bottom" secondItem="O8V-oo-rnK" secondAttribute="bottom" id="zL5-4e-yel"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O8V-oo-rnK"/>
