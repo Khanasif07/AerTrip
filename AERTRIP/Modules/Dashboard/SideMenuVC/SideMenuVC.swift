@@ -72,7 +72,7 @@ class SideMenuVC: BaseVC {
         if UserInfo.loggedInUserId == nil {
             //add the logo view only if user is not logged in
             if let view = self.logoContainerView {
-                self.updateLogoView(view: view)
+//                self.updateLogoView(view: view)
             }
             else {
                 self.logoContainerView = self.getAppLogoView()
