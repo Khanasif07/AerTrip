@@ -59,7 +59,7 @@ class SideMenuProfileHeaderView: UIView {
     }
     
     class func instanceFromNib(isFamily: Bool = false) -> SlideMenuProfileImageHeaderView {
-        let parentView = UINib(nibName: "SlideMenuProfileImageHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SlideMenuProfileImageHeaderView
+        let parentView = UINib(nibName: "SideMenuProfileHeaderView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! SlideMenuProfileImageHeaderView
         
         parentView.familyButton.isHidden = !isFamily
         parentView.emailIdLabel.isHidden = isFamily
@@ -67,6 +67,7 @@ class SideMenuProfileHeaderView: UIView {
         
         return parentView
     }
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
