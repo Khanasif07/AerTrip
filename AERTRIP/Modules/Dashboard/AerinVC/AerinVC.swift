@@ -223,7 +223,6 @@ class AerinVC: BaseVC {
             
             let obj = CreateProfileVC.instantiate(fromAppStoryboard: .PreLogin)
             AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: true)
-            
             //****  Booking DirectionVC ******
             
             //AppFlowManager.default.moveToBookingDirectionVC()

@@ -8,7 +8,7 @@
 
 import UIKit
 import Foundation
-//import PKCategoryView
+import Parchment
 
 class FavouriteHotelsVC: BaseVC {
     
@@ -23,11 +23,15 @@ class FavouriteHotelsVC: BaseVC {
     //MARK:- Properties
     //MARK:- Public
     private(set) var viewModel = FavouriteHotelsVM()
-    private var currentIndex: Int = 0
+    internal var currentIndex: Int = 0
     private let selectedIndex:Int = 0
     
     //==============
     var viewPager: WormTabStrip!
+    // Parchment View
+    fileprivate var parchmentView : PagingViewController<PagingIndexItem>?
+    
+    
     
     //==============
     
@@ -45,7 +49,7 @@ class FavouriteHotelsVC: BaseVC {
     
     
     
-    private var allChildVCs: [FavouriteHotelsListVC] = [FavouriteHotelsListVC]()
+    internal var allChildVCs: [FavouriteHotelsListVC] = [FavouriteHotelsListVC]()
     
     //MARK:- Private
     
@@ -59,7 +63,9 @@ class FavouriteHotelsVC: BaseVC {
     }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
+        self.parchmentView?.view.frame = self.dataContainerView.bounds
+        self.parchmentView?.loadViewIfNeeded()
+
         //        self.categoryView?.frame = self.dataContainerView.bounds
         //        self.categoryView?.layoutIfNeeded()
     }
@@ -82,7 +88,7 @@ class FavouriteHotelsVC: BaseVC {
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.FavouriteHotels.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         self.topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "addHotel"), selectedImage: #imageLiteral(resourceName: "addHotel"))
-        self.setUpViewPager()
+       // self.setUpViewPager()
     }
     
     private func setUpViewPager() {
@@ -93,103 +99,54 @@ class FavouriteHotelsVC: BaseVC {
             self.emptyView.removeFromSuperview()
             self.shimmerView.removeFromSuperview()
             self.allChildVCs.removeAll()
-            if self.viewPager != nil {
-                self.viewPager.removeFromSuperview()
-            }
             for idx in 0..<self.viewModel.hotels.count {
                 let vc = FavouriteHotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
                 vc.delegate = self
                 let hotels = self.viewModel.hotels[idx]
                 vc.viewModel.forCity = hotels
-                
+
                 self.allChildVCs.append(vc)
             }
             self.view.layoutIfNeeded()
-            viewPager = WormTabStrip(frame: self.dataContainerView.bounds)
-            self.dataContainerView.addSubview(viewPager)
-            viewPager.delegate = self
-            viewPager.eyStyle.isWormEnable = true
-            viewPager.eyStyle.wormStyel = .LINE
-            viewPager.shouldCenterSelectedWorm = true
-            viewPager.eyStyle.kHeightOfWorm = 2.0
-            viewPager.eyStyle.kHeightOfDivider = 0.0
-            viewPager.eyStyle.kPaddingOfIndicator = 0.0
-            viewPager.eyStyle.WormColor =  AppColors.themeGreen
-            viewPager.eyStyle.dividerBackgroundColor = .clear
-            viewPager.eyStyle.tabItemSelectedColor = AppColors.themeBlack
-            viewPager.eyStyle.tabItemDefaultColor = AppColors.themeBlack.withAlphaComponent(1.0)
-            viewPager.eyStyle.topScrollViewBackgroundColor = UIColor.white
-            viewPager.eyStyle.tabItemDefaultFont = AppFonts.Regular.withSize(16.0)
-            viewPager.eyStyle.tabItemSelectedFont = AppFonts.SemiBold.withSize(16.0)
-            viewPager.eyStyle.kHeightOfTopScrollView = 51.0
-            viewPager.eyStyle.kPaddingOfIndicator = 8.0
-            viewPager.eyStyle.spacingBetweenTabs = 5.0
-            viewPager.eyStyle.contentScrollViewBackgroundColor = .clear
-            viewPager.currentTabIndex = 0
-            viewPager.buildUI()
+            if let _ = self.parchmentView{
+                self.parchmentView?.view.removeFromSuperview()
+                self.parchmentView = nil
+            }
+            setupParchmentPageController()
         }
     }
-    
-    //    private func setupPagerView() {
-    //        self.currentIndex = 0
-    //
-    //        if self.viewModel.hotels.isEmpty {
-    //            self.emptyView.frame = CGRect(x: 0.0, y: 0.0, width: self.dataContainerView.width, height: self.dataContainerView.height)
-    //            self.dataContainerView.addSubview(self.emptyView)
-    //        }
-    //        else {
-    //            self.emptyView.removeFromSuperview()
-    //            self.shimmerView.removeFromSuperview()
-    //            var style = PKCategoryViewConfiguration()
-    //            style.navBarHeight = 51.0
-    //            style.interItemSpace = 5.0
-    //            style.itemPadding = 8.0
-    //            style.isNavBarScrollEnabled = true
-    //            style.isEmbeddedToView = true
-    //            style.showBottomSeparator = true
-    //            style.bottomSeparatorColor = AppColors.divider.color
-    //            style.defaultFont = AppFonts.Regular.withSize(16.0)
-    //            style.selectedFont = AppFonts.SemiBold.withSize(16.0)
-    //            style.indicatorColor = AppColors.themeGreen
-    //            style.indicatorHeight = 2.0
-    //            style.normalColor = AppColors.themeBlack
-    //            style.selectedColor = AppColors.themeBlack
-    //
-    //            self.allChildVCs.removeAll()
-    //
-    //            for idx in 0..<self.viewModel.hotels.count {
-    //                let vc = FavouriteHotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
-    //                vc.delegate = self
-    //                let hotels = self.viewModel.hotels[idx]
-    //                vc.viewModel.forCity = hotels
-    //
-    //                self.allChildVCs.append(vc)
-    //            }
-    //
-    //            if let _ = self.categoryView {
-    //                self.categoryView.removeFromSuperview()
-    //                self.categoryView = nil
-    //            }
-    //            let categoryView = PKCategoryView(frame: self.dataContainerView.bounds, categories: self.viewModel.allTabs, childVCs: self.allChildVCs, configuration: style, parentVC: self)
-    //            self.dataContainerView.addSubview(categoryView)
-    //            self.categoryView = categoryView
-    //        }
-    //
-    //    }
-    //    func setUpTabs(){
-    //        for idx in 0..<self.viewModel.hotels.count {
-    //            let vc = FavouriteHotelsListVC.instantiate(fromAppStoryboard: .HotelPreferences)
-    //            let hotels = self.viewModel.hotels[idx]
-    //            vc.viewModel.forCity = hotels
-    //
-    //            self.tabs.append(vc)
-    //        }
-    //    }
+  
+    // Added to replace the existing page controller, added Hitesh Soni, 28-29Jan'2020
+       private func setupParchmentPageController(){
+           
+           self.parchmentView = PagingViewController<PagingIndexItem>()
+           self.parchmentView?.menuItemSpacing = 10.0
+           self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 51)
+           self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
+           self.parchmentView?.borderOptions = PagingBorderOptions.visible(
+                                           height: 0,
+                                           zIndex: Int.max - 1,
+                                           insets: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
+           self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
+           self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
+           self.parchmentView?.indicatorColor = AppColors.themeGreen
+           self.parchmentView?.selectedTextColor = AppColors.themeBlack
+           self.dataContainerView.addSubview(self.parchmentView!.view)
+           
+           self.parchmentView?.dataSource = self
+           self.parchmentView?.delegate = self
+           self.parchmentView?.select(index: 0)
+           
+           self.parchmentView?.reloadData()
+           self.parchmentView?.reloadMenu()
+       }
+
+
     
     private func reloadList() {
         //self.setupPagerView()
         if self.viewModel.hotels.isEmpty {
-           self.viewPager.removeFromSuperview()
+//           self.viewPager.removeFromSuperview()
            self.emptyView.removeFromSuperview()
            setEmptyState()
         } else {
@@ -210,20 +167,6 @@ extension FavouriteHotelsVC: TopNavigationViewDelegate {
         AppFlowManager.default.moveToSearchFavouriteHotelsVC()
     }
 }
-
-//extension FavouriteHotelsVC: PKCategoryViewDelegate {
-//    func categoryView(_ view: PKCategoryView, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
-//        self.currentIndex = toIndex
-//    }
-//
-//    func categoryView(_ view: PKCategoryView, didSwitchIndexTo toIndex: Int) {
-//        self.currentIndex = toIndex
-//        self.allChildVCs[toIndex].delegate = self
-//    }
-//
-//
-//}
-
 extension FavouriteHotelsVC: ViewAllHotelsVMDelegate {
     func willGetHotelPreferenceList() {
         self.dataContainerView.addSubview(self.shimmerView)
@@ -287,33 +230,4 @@ extension FavouriteHotelsVC: FavouriteHotelsListVCDelegate {
             }
         }
     }
-}
-
-
-extension FavouriteHotelsVC: WormTabStripDelegate {
-    func WTSNumberOfTabs() -> Int {
-        return self.viewModel.hotels.count
-    }
-    
-    func WTSViewOfTab(index: Int) -> UIView {
-        return self.allChildVCs[index].view
-    }
-    
-    func WTSTitleForTab(index: Int) -> String {
-        self.viewModel.hotels[index].cityName
-    }
-    
-    
-    func WTSReachedLeftEdge(panParam: UIPanGestureRecognizer) {
-    }
-    
-    func WTSReachedRightEdge(panParam: UIPanGestureRecognizer) {
-        
-    }
-    
-    func WTSSelectedTabIndex(index: Int) {
-        viewPager.currentTabIndex = index
-        self.currentIndex = index
-    }
-    
 }
