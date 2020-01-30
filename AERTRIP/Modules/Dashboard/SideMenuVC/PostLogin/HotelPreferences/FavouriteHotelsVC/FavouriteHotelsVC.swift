@@ -117,7 +117,7 @@ class FavouriteHotelsVC: BaseVC {
            
            self.parchmentView = PagingViewController<PagingIndexItem>()
            self.parchmentView?.menuItemSpacing = 40.0
-           self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 0.0)
+           self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
            self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 51)
            self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
            self.parchmentView?.borderOptions = PagingBorderOptions.visible(
@@ -141,9 +141,7 @@ class FavouriteHotelsVC: BaseVC {
 
     
     private func reloadList() {
-        //self.setupPagerView()
         if self.viewModel.hotels.isEmpty {
-//           self.viewPager.removeFromSuperview()
            self.emptyView.removeFromSuperview()
            setEmptyState()
         } else {
