@@ -67,11 +67,11 @@ class ContactListVC: BaseVC {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if UIDevice.bottomPaddingFromSafeArea > 0.0 {
-            self.selectAllbtnBtmConstraint.constant = 0
-        } else {
-            self.selectAllbtnBtmConstraint.constant = 34.0
-        }
+//        if UIDevice.bottomPaddingFromSafeArea > 0.0 {
+//            self.selectAllbtnBtmConstraint.constant = 0
+//        } else {
+//            self.selectAllbtnBtmConstraint.constant = 34.0
+//        }
         //        self.containerBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
     }
     
