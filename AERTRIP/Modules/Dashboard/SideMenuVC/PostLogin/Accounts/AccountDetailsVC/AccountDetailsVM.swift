@@ -193,7 +193,7 @@ class AccountDetailsVM: NSObject {
         APICaller.shared.accountReportActionAPI(params: param) { (success, errors) in
             if success {
                 AppToast.default.hideToast(onVC, animated: false)
-                AppToast.default.showToastMessage(message: LocalizedString.LedgerSentToYourEmail.localized)
+                AppToast.default.showToastMessage(message: LocalizedString.LedgerSentToYourEmail.localized, onViewController: onVC)
             }
             else {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)

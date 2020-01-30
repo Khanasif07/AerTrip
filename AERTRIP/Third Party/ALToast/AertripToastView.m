@@ -203,6 +203,8 @@ static NSMutableArray *toasts;
     }
     else {
         [toasts addObject:view];
+        // nitin change
+        [AertripToastView ShowToastInView:parentView];
     }
     
     view.userInteractionEnabled = YES;
@@ -272,5 +274,17 @@ static NSMutableArray *toasts;
     }
 }
 
-
+// nitin change
++ (void)HideToastInView:(UIView *)parentView {
+    // If toastView with same view exists , then dismiss the toastView.
+    for ( AertripToastView * toastview in toasts) {
+        
+        UIView * toastParentView = toastview.superview;
+        
+        if (toastParentView == parentView) {
+            [NSObject cancelPreviousPerformRequestsWithTarget:toastview selector:@selector(fadeToastOut) object:nil];
+            [toastview fadeToastOut];
+        }
+    }
+}
 @end

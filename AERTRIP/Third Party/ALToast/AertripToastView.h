@@ -6,7 +6,9 @@
 @protocol AertripToastViewDelegate <NSObject>
 @optional
 - (void)buttonTapped;
-- (void)toastRemoved; // nitin change
+// nitin change
+// when toastView is removed from the superview
+- (void)toastRemoved;
 
 @end
 
@@ -18,6 +20,9 @@
 @property (nonatomic, weak) id  <AertripToastViewDelegate> _Nullable delegate;
 + (void)toastInView:(nonnull UIView *)parentView withText:(nonnull NSString *)text;
 + (void)toastInView:(nonnull UIView *)parentView withText:(nonnull NSString *)text buttonTitle:(nullable NSString *)buttonTitle delegate:(nullable id <AertripToastViewDelegate>)aDelegate;
+// nitin
+// to hide the toastView which is showing on paased view
++ (void)HideToastInView:(nonnull UIView *)parentView;
 @end
 
 

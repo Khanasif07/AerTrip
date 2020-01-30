@@ -84,36 +84,43 @@ class AppToast: NSObject {
         }
     }
     
-    private func showToast(vc: UIViewController, ob: UIView, toastFrame: CGRect, duration: Double,spaceFromBottom: CGFloat,toastDidClose: (()->Void)? = nil) {
-        
-        func finalCall() {
-            ob.frame = toastFrame
-            ob.frame.origin.y = UIScreen.main.bounds.height
-            
-            vc.view.addSubview(ob)
-            ob.frame = toastFrame
-            UIView.animate(withDuration: AppConstants.kAnimationDuration) {
-                ob.frame = toastFrame
-                vc.view.layoutIfNeeded()
-            }
-            delay(seconds: duration) {
-                self.hideToast(vc, animated: true)
-            }
-        }
-        
-        if let mainHomeVc = UIApplication.topViewController() as? MainHomeVC, let dashboardVC = mainHomeVc.sideMenuController?.mainViewController as? DashboardVC, !dashboardVC.overlayView.isHidden {
-            delay(seconds: 1.0) {
-                finalCall()
-            }
-        }
-        else {
-            finalCall()
-        }
-    }
+//    private func showToast(vc: UIViewController, ob: UIView, toastFrame: CGRect, duration: Double,spaceFromBottom: CGFloat,toastDidClose: (()->Void)? = nil) {
+//
+//        func finalCall() {
+//            ob.frame = toastFrame
+//            ob.frame.origin.y = UIScreen.main.bounds.height
+//
+//            vc.view.addSubview(ob)
+//            ob.frame = toastFrame
+//            UIView.animate(withDuration: AppConstants.kAnimationDuration) {
+//                ob.frame = toastFrame
+//                vc.view.layoutIfNeeded()
+//            }
+//            delay(seconds: duration) {
+//                self.hideToast(vc, animated: true)
+//            }
+//        }
+//
+//        if let mainHomeVc = UIApplication.topViewController() as? MainHomeVC, let dashboardVC = mainHomeVc.sideMenuController?.mainViewController as? DashboardVC, !dashboardVC.overlayView.isHidden {
+//            delay(seconds: 1.0) {
+//                finalCall()
+//            }
+//        }
+//        else {
+//            finalCall()
+//        }
+//    }
     
     func hideToast(_ fromViewController: UIViewController?, animated: Bool) {
         
         let parent = fromViewController ?? self.parentViewController
+        
+        if let view = parent?.view {
+            AertripToastView.hideToast(in: view)
+        }
+        
+        
+        /*
         guard let vc = parent, let ob = vc.view.subView(withTag: self.tagAsSubview) else { return }
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         if animated {
@@ -135,6 +142,7 @@ class AppToast: NSObject {
             }
             ob.removeFromSuperview()
         }
+ */
     }
 }
 
