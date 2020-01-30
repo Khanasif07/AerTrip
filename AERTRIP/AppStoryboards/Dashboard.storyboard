@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -623,19 +623,19 @@ on Christmas”</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flights " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="McH-7D-g5Y">
-                                <rect key="frame" x="152" y="211" width="65" height="23.5"/>
+                                <rect key="frame" x="154.5" y="210" width="60" height="25.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dN1-OA-CG2">
-                                <rect key="frame" x="104" y="249.5" width="161" height="20"/>
+                                <rect key="frame" x="107.5" y="250.5" width="154" height="21.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="0.99999600648880005" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WJG-0o-Orm">
-                                <rect key="frame" x="104" y="211" width="161" height="58.5"/>
+                                <rect key="frame" x="107.5" y="210" width="154" height="62"/>
                                 <connections>
                                     <action selector="myButtonAction:" destination="qif-Xc-JfX" eventType="touchUpInside" id="eAu-Pb-X0A"/>
                                 </connections>
@@ -699,7 +699,7 @@ on Christmas”</string>
                                                     </state>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fW6-QH-GVh" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="248.5" width="340" height="0.5"/>
+                                                    <rect key="frame" x="10" y="248.5" width="353" height="0.5"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="0.5" id="LzN-VQ-gA8"/>
@@ -708,9 +708,9 @@ on Christmas”</string>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="fW6-QH-GVh" firstAttribute="leading" secondItem="MSE-KU-n6l" secondAttribute="leading" constant="20" id="Aah-eD-HPT"/>
+                                                <constraint firstItem="fW6-QH-GVh" firstAttribute="leading" secondItem="MSE-KU-n6l" secondAttribute="leading" constant="10" id="Aah-eD-HPT"/>
                                                 <constraint firstItem="yod-Cf-DnY" firstAttribute="top" secondItem="4sr-St-Vaq" secondAttribute="bottom" constant="1" id="E7S-YN-tAd"/>
-                                                <constraint firstAttribute="trailing" secondItem="fW6-QH-GVh" secondAttribute="trailing" constant="15" id="H8U-L2-4Sb"/>
+                                                <constraint firstAttribute="trailing" secondItem="fW6-QH-GVh" secondAttribute="trailing" constant="12" id="H8U-L2-4Sb"/>
                                                 <constraint firstItem="yod-Cf-DnY" firstAttribute="centerX" secondItem="4sr-St-Vaq" secondAttribute="centerX" id="JSa-bc-5WV"/>
                                                 <constraint firstItem="fW6-QH-GVh" firstAttribute="top" secondItem="yod-Cf-DnY" secondAttribute="bottom" constant="24" id="JnX-oI-0Ua"/>
                                                 <constraint firstItem="4sr-St-Vaq" firstAttribute="leading" secondItem="MSE-KU-n6l" secondAttribute="leading" id="QKZ-oY-PWh"/>
@@ -735,17 +735,17 @@ on Christmas”</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PGv-f2-KsG">
-                                                    <rect key="frame" x="20" y="0.0" width="340" height="62"/>
+                                                    <rect key="frame" x="10" y="0.0" width="350" height="62"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount Due" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UTm-27-Lt8">
-                                                            <rect key="frame" x="0.0" y="10" width="220.5" height="20"/>
+                                                            <rect key="frame" x="0.0" y="9" width="242.5" height="20"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZt-tb-ePj">
-                                                            <rect key="frame" x="0.0" y="15" width="100" height="44"/>
+                                                            <rect key="frame" x="-2" y="14" width="100" height="44"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="FQa-U9-jkR"/>
                                                                 <constraint firstAttribute="width" constant="100" id="kc3-uS-s2O"/>
@@ -756,17 +756,17 @@ on Christmas”</string>
                                                             </state>
                                                         </button>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="z3B-zb-52K">
-                                                            <rect key="frame" x="230.5" y="8.5" width="109.5" height="45"/>
+                                                            <rect key="frame" x="252.5" y="5.5" width="97.5" height="45"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="₹ 18,99545" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K55-7N-Anf">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="109.5" height="22.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="97.5" height="22.5"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJu-Ck-BcL">
-                                                                    <rect key="frame" x="0.0" y="22.5" width="109.5" height="22.5"/>
+                                                                    <rect key="frame" x="0.0" y="22.5" width="97.5" height="22.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -780,15 +780,15 @@ on Christmas”</string>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="z3B-zb-52K" secondAttribute="trailing" id="06I-dq-kwi"/>
-                                                        <constraint firstItem="KZt-tb-ePj" firstAttribute="leading" secondItem="UTm-27-Lt8" secondAttribute="leading" id="GQ2-Fy-b0h"/>
+                                                        <constraint firstItem="KZt-tb-ePj" firstAttribute="leading" secondItem="UTm-27-Lt8" secondAttribute="leading" constant="-2" id="GQ2-Fy-b0h"/>
                                                         <constraint firstItem="z3B-zb-52K" firstAttribute="leading" secondItem="UTm-27-Lt8" secondAttribute="trailing" constant="10" id="HMM-7h-dhQ"/>
-                                                        <constraint firstItem="UTm-27-Lt8" firstAttribute="centerY" secondItem="PGv-f2-KsG" secondAttribute="centerY" constant="-11" id="KI5-6u-qnD"/>
+                                                        <constraint firstItem="UTm-27-Lt8" firstAttribute="centerY" secondItem="PGv-f2-KsG" secondAttribute="centerY" constant="-12" id="KI5-6u-qnD"/>
                                                         <constraint firstItem="KZt-tb-ePj" firstAttribute="top" secondItem="UTm-27-Lt8" secondAttribute="bottom" constant="-15" id="YxI-Pb-iXV"/>
                                                         <constraint firstItem="UTm-27-Lt8" firstAttribute="leading" secondItem="PGv-f2-KsG" secondAttribute="leading" id="iEF-75-ktl"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4u1-Ye-r3d" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="57.5" width="340" height="0.5"/>
+                                                    <rect key="frame" x="10" y="55.5" width="353" height="0.5"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="0.5" id="Hz7-BP-vUc"/>
@@ -799,11 +799,11 @@ on Christmas”</string>
                                             <constraints>
                                                 <constraint firstItem="PGv-f2-KsG" firstAttribute="top" secondItem="TmU-Fr-dt0" secondAttribute="top" id="4M5-Uh-08z"/>
                                                 <constraint firstItem="4u1-Ye-r3d" firstAttribute="leading" secondItem="PGv-f2-KsG" secondAttribute="leading" id="7au-ZG-ZZs"/>
-                                                <constraint firstItem="PGv-f2-KsG" firstAttribute="leading" secondItem="TmU-Fr-dt0" secondAttribute="leading" constant="20" id="FIj-HO-SA6"/>
+                                                <constraint firstItem="PGv-f2-KsG" firstAttribute="leading" secondItem="TmU-Fr-dt0" secondAttribute="leading" constant="10" id="FIj-HO-SA6"/>
                                                 <constraint firstAttribute="bottom" secondItem="PGv-f2-KsG" secondAttribute="bottom" id="QAC-xL-y2V"/>
-                                                <constraint firstItem="z3B-zb-52K" firstAttribute="centerY" secondItem="TmU-Fr-dt0" secondAttribute="centerY" id="jWm-Qq-sb6"/>
-                                                <constraint firstAttribute="bottom" secondItem="4u1-Ye-r3d" secondAttribute="bottom" constant="4" id="kP6-Mw-HEk"/>
-                                                <constraint firstItem="4u1-Ye-r3d" firstAttribute="trailing" secondItem="PGv-f2-KsG" secondAttribute="trailing" id="st3-fH-ZWW"/>
+                                                <constraint firstItem="z3B-zb-52K" firstAttribute="centerY" secondItem="TmU-Fr-dt0" secondAttribute="centerY" constant="-3" id="jWm-Qq-sb6"/>
+                                                <constraint firstAttribute="bottom" secondItem="4u1-Ye-r3d" secondAttribute="bottom" constant="6" id="kP6-Mw-HEk"/>
+                                                <constraint firstItem="4u1-Ye-r3d" firstAttribute="trailing" secondItem="PGv-f2-KsG" secondAttribute="trailing" constant="3" id="st3-fH-ZWW"/>
                                                 <constraint firstAttribute="trailing" secondItem="PGv-f2-KsG" secondAttribute="trailing" constant="15" id="uvq-wp-7aV"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -823,7 +823,7 @@ on Christmas”</string>
                         <constraints>
                             <constraint firstItem="Nk2-kJ-uNo" firstAttribute="leading" secondItem="tYV-0J-82w" secondAttribute="leading" id="3d2-8h-COt"/>
                             <constraint firstItem="tYV-0J-82w" firstAttribute="bottom" secondItem="Nk2-kJ-uNo" secondAttribute="bottom" id="NtU-XG-gff"/>
-                            <constraint firstItem="Nk2-kJ-uNo" firstAttribute="top" secondItem="y8S-Y4-E4n" secondAttribute="top" id="ged-fM-RP1"/>
+                            <constraint firstItem="Nk2-kJ-uNo" firstAttribute="top" secondItem="tYV-0J-82w" secondAttribute="top" id="ged-fM-RP1"/>
                             <constraint firstItem="tYV-0J-82w" firstAttribute="trailing" secondItem="Nk2-kJ-uNo" secondAttribute="trailing" id="p1e-In-4Yu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tYV-0J-82w"/>
@@ -838,7 +838,7 @@ on Christmas”</string>
                     <rect key="frame" x="0.0" y="0.0" width="266" height="45"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleAspectFill" distribution="fillEqually" spacing="-36" translatesAutoresizingMaskIntoConstraints="NO" id="xO9-mQ-wya">
-                            <rect key="frame" x="18" y="2" width="232" height="45"/>
+                            <rect key="frame" x="17" y="4" width="233" height="45"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vU4-Hb-QUb">
                                     <rect key="frame" x="0.0" y="0.0" width="101.5" height="45"/>
@@ -848,14 +848,14 @@ on Christmas”</string>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C3X-Wc-eN0">
-                                    <rect key="frame" x="65.5" y="0.0" width="101" height="45"/>
+                                    <rect key="frame" x="65.5" y="0.0" width="102" height="45"/>
                                     <state key="normal" image="googleIcon"/>
                                     <connections>
                                         <action selector="googleLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="Hkv-dh-xZh"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f17-II-i8y">
-                                    <rect key="frame" x="130.5" y="0.0" width="101.5" height="45"/>
+                                    <rect key="frame" x="131.5" y="0.0" width="101.5" height="45"/>
                                     <state key="normal" image="twiterIcon"/>
                                     <connections>
                                         <action selector="linkedLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="TDz-uR-0R0"/>
@@ -869,9 +869,9 @@ on Christmas”</string>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="xO9-mQ-wya" firstAttribute="top" secondItem="mEQ-BN-39k" secondAttribute="top" constant="2" id="dMh-nZ-aZ1"/>
+                        <constraint firstItem="xO9-mQ-wya" firstAttribute="top" secondItem="mEQ-BN-39k" secondAttribute="top" constant="4" id="dMh-nZ-aZ1"/>
                         <constraint firstAttribute="trailing" secondItem="xO9-mQ-wya" secondAttribute="trailing" constant="16" id="pcd-TZ-GJ5"/>
-                        <constraint firstItem="xO9-mQ-wya" firstAttribute="leading" secondItem="mEQ-BN-39k" secondAttribute="leading" constant="18" id="qi5-sY-oAs"/>
+                        <constraint firstItem="xO9-mQ-wya" firstAttribute="leading" secondItem="mEQ-BN-39k" secondAttribute="leading" constant="17" id="qi5-sY-oAs"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="MMV-HB-2Nf"/>
                 </view>
@@ -1061,13 +1061,13 @@ on Christmas”</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLz-uM-NAJ">
-                                <rect key="frame" x="163" y="211" width="43" height="23.5"/>
+                                <rect key="frame" x="164" y="210" width="41.5" height="25.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ws-RO-flc">
-                                <rect key="frame" x="104" y="249.5" width="161" height="20"/>
+                                <rect key="frame" x="107.5" y="250.5" width="154" height="21.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>

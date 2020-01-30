@@ -98,7 +98,7 @@ class SideMenuVC: BaseVC {
     override func initialSetup() {
         self.view.backgroundColor = AppColors.screensBackground.color
         
-        self.socialOptionView.frame = CGRect(x: 0.0, y: 0.0, width: self.sideMenuTableView.width, height: (75.0))
+        self.socialOptionView.frame = CGRect(x: 0.0, y: 0.0, width: self.sideMenuTableView.width, height: (77.0))
         self.sideMenuTableView.tableFooterView = self.socialOptionView
         self.registerXibs()
     }
@@ -369,10 +369,10 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
         else {
             switch indexPath.row {
             case 0:
-                return (UserInfo.loggedInUserId == nil) ? 267.0 : 213.0
+                return (UserInfo.loggedInUserId == nil) ? 267.0 : UITableView.automaticDimension
                 
             case 1:
-                return (UserInfo.loggedInUserId == nil) ? 60.0 : 67.0
+                return (UserInfo.loggedInUserId == nil) ? 60.0 : 70
                 
             default:
                 return (UserInfo.loggedInUserId == nil) ? ( indexPath.row == 6) ? 61.0 : 64.0 : 64.0

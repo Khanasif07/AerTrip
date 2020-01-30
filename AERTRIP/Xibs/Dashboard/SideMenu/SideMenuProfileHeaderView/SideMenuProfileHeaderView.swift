@@ -1,19 +1,14 @@
 //
-//  SlideMenuProfileImageHeaderView.swift
+//  SideMenuProfileHeaderView.swift
 //  AERTRIP
 //
-//  Created by apple on 17/12/18.
-//  Copyright © 2018 Pramod Kumar. All rights reserved.
+//  Created by Rishabh on 30/01/20.
+//  Copyright © 2020 Pramod Kumar. All rights reserved.
 //
 
 import UIKit
 
-protocol SlideMenuProfileImageHeaderViewDelegate: class {
-    func profileHeaderTapped()
-    func profileImageTapped()
-}
-
-class SlideMenuProfileImageHeaderView: UIView {
+class SideMenuProfileHeaderView: UIView {
     // MARK: - IBOutlet
     
     enum UsingFor {
@@ -22,6 +17,8 @@ class SlideMenuProfileImageHeaderView: UIView {
         case profileDetails
     }
     
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var profileContainerView: UIView!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var emailIdLabel: UILabel!
@@ -29,18 +26,8 @@ class SlideMenuProfileImageHeaderView: UIView {
     @IBOutlet weak var familyButton: UIButton!
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var gradientView: UIView!
-    @IBOutlet weak var profileContainerView: UIView!
     @IBOutlet weak var dividerView: ATDividerView!
-    
-    @IBOutlet weak var profileImageViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var profileImageAndNameSpace: NSLayoutConstraint!
-    @IBOutlet weak var userNameHeightLabel: NSLayoutConstraint!
-    @IBOutlet weak var familyButtonBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var emailAndContactBottomConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var profileImageViewBottomConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var profileImageViewWidthConstraint: NSLayoutConstraint!
+        
     // MARK: - Variable
     
     private var isNavBarHidden = true
@@ -155,14 +142,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     }
     
     private func setupForViewProfile() {
-        self.profileImageViewHeightConstraint.constant = 127.0
-        self.profileImageAndNameSpace.constant = 21.0
-        self.userNameHeightLabel.constant = 33.0
-        self.emailAndContactBottomConstraint.constant = 28.0
-        
         profileImageView.layer.borderWidth = 2.5
-       
-       
         
         self.userNameLabel.font = AppFonts.Regular.withSize(26.0)
         
@@ -179,10 +159,6 @@ class SlideMenuProfileImageHeaderView: UIView {
     }
     
     private func setupForSideMenu() {
-        self.profileImageViewHeightConstraint.constant = 86.0
-        self.profileImageAndNameSpace.constant = 9.0
-        self.userNameHeightLabel.constant = 25.0
-        self.emailAndContactBottomConstraint.constant = -10.0
         
         profileImageView.layer.borderWidth = 2.5
         
@@ -198,12 +174,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     }
     
     private func setupForProfileDetail() {
-        self.profileImageViewHeightConstraint.constant = 127.0
-        self.profileImageAndNameSpace.constant = 23.0
-        self.userNameHeightLabel.constant = 33.0
-        self.emailAndContactBottomConstraint.constant = 55.0
-        self.familyButtonBottomConstraint.constant = 26.0
-        
+
         profileImageView.layer.borderWidth = 2.5
         
         self.userNameLabel.font = AppFonts.Regular.withSize(26.0)
@@ -231,3 +202,4 @@ class SlideMenuProfileImageHeaderView: UIView {
     
     
 }
+

@@ -563,5 +563,4 @@ extension PKSideMenuController {
         self.animateMainViewCorner(from: PKSideMenuOptions.mainViewCornerRadiusInOpenMode, to: 0.0, animated: animated)
         self.delegate?.willCloseSideMenu()
     }
-    
 }
