@@ -283,7 +283,7 @@ class MainHomeVC: BaseVC {
         let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
             
             self.scrollView.contentOffset = pushPoint
-//            self.profileView?.frame = finalFrame
+            self.profileView?.frame = finalFrame
             self.profileView?.emailIdLabel.alpha = 1.0
             self.profileView?.mobileNumberLabel.alpha = 1.0
             self.profileView?.backgroundImageView.alpha = 1.0
