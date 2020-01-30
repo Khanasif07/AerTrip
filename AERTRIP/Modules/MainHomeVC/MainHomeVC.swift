@@ -263,7 +263,7 @@ class MainHomeVC: BaseVC {
         let pushPoint = CGPoint(x: UIDevice.screenWidth, y: 0.0)
         
         self.viewProfileVC?.profileImageHeaderView?.isHidden = true
-        profileViewOriginalFrame?.origin.y = -((self.sideMenuVC?.sideMenuTableView.contentOffset.y ?? 0) + 20)
+        profileViewOriginalFrame?.origin.y = -(self.sideMenuVC?.sideMenuTableView.contentOffset.y ?? 0)
         self.profileView?.isHidden = false
         self.sideMenuVC?.profileSuperView.isHidden = true
         
@@ -283,16 +283,16 @@ class MainHomeVC: BaseVC {
         let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
             
             self.scrollView.contentOffset = pushPoint
-            self.profileView?.frame = finalFrame
-            
+//            self.profileView?.frame = finalFrame
             self.profileView?.emailIdLabel.alpha = 1.0
             self.profileView?.mobileNumberLabel.alpha = 1.0
             self.profileView?.backgroundImageView.alpha = 1.0
             self.profileView?.dividerView.alpha = 1.0
             self.profileView?.gradientView.alpha = 1.0
-
             self.profileView?.currentlyUsingAs = .viewProfile
-            
+            self.profileView?.layoutIfNeeded()
+//            self.profileView?.center.x = (self.viewProfileVC?.profileImageHeaderView?.center.x)!
+//            self.profileView?.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         }
         
         animator.addCompletion { (position) in

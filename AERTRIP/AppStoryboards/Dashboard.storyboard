@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -838,7 +838,7 @@ on Christmas”</string>
                     <rect key="frame" x="0.0" y="0.0" width="266" height="45"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleAspectFill" distribution="fillEqually" spacing="-36" translatesAutoresizingMaskIntoConstraints="NO" id="xO9-mQ-wya">
-                            <rect key="frame" x="18" y="2" width="232" height="45"/>
+                            <rect key="frame" x="17" y="4" width="233" height="45"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vU4-Hb-QUb">
                                     <rect key="frame" x="0.0" y="0.0" width="101.5" height="45"/>
@@ -848,14 +848,14 @@ on Christmas”</string>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C3X-Wc-eN0">
-                                    <rect key="frame" x="65.5" y="0.0" width="101" height="45"/>
+                                    <rect key="frame" x="65.5" y="0.0" width="102" height="45"/>
                                     <state key="normal" image="googleIcon"/>
                                     <connections>
                                         <action selector="googleLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="Hkv-dh-xZh"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f17-II-i8y">
-                                    <rect key="frame" x="130.5" y="0.0" width="101.5" height="45"/>
+                                    <rect key="frame" x="131.5" y="0.0" width="101.5" height="45"/>
                                     <state key="normal" image="twiterIcon"/>
                                     <connections>
                                         <action selector="linkedLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="TDz-uR-0R0"/>
@@ -869,9 +869,9 @@ on Christmas”</string>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="xO9-mQ-wya" firstAttribute="top" secondItem="mEQ-BN-39k" secondAttribute="top" constant="2" id="dMh-nZ-aZ1"/>
+                        <constraint firstItem="xO9-mQ-wya" firstAttribute="top" secondItem="mEQ-BN-39k" secondAttribute="top" constant="4" id="dMh-nZ-aZ1"/>
                         <constraint firstAttribute="trailing" secondItem="xO9-mQ-wya" secondAttribute="trailing" constant="16" id="pcd-TZ-GJ5"/>
-                        <constraint firstItem="xO9-mQ-wya" firstAttribute="leading" secondItem="mEQ-BN-39k" secondAttribute="leading" constant="18" id="qi5-sY-oAs"/>
+                        <constraint firstItem="xO9-mQ-wya" firstAttribute="leading" secondItem="mEQ-BN-39k" secondAttribute="leading" constant="17" id="qi5-sY-oAs"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="MMV-HB-2Nf"/>
                 </view>
