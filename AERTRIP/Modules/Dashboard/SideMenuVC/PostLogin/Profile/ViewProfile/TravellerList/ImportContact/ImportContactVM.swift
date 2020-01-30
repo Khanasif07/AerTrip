@@ -177,7 +177,7 @@ class ImportContactVM: NSObject {
     
     //MARK:- Fetch Facebook Contacts
     //MARK:-
-    func fetchFacebookContacts(forVC: UIViewController) {
+    func fetchFacebookContacts(forVC: UIViewController, cancled: (()->Void)? = nil) {
         self.delegateList?.willFetchPhoneContacts()
         self.delegateCollection?.willFetchPhoneContacts()
         FacebookController.shared.facebookLogout()
@@ -192,12 +192,13 @@ class ImportContactVM: NSObject {
             }
         }, failure: { (error) in
             printDebug(error)
+            cancled?()
         })
     }
     
     //MARK:- Fetch Google Contacts
     //MARK:-
-    func fetchGoogleContacts(forVC: UIViewController) {
+    func fetchGoogleContacts(forVC: UIViewController, cancled: (()->Void)? = nil) {
         self.delegateList?.willFetchPhoneContacts()
         self.delegateCollection?.willFetchPhoneContacts()
         GoogleLoginController.shared.logout()
@@ -210,6 +211,7 @@ class ImportContactVM: NSObject {
             }
         }, failure: { (error) in
             printDebug(error)
+            cancled?()
         })
     }
     

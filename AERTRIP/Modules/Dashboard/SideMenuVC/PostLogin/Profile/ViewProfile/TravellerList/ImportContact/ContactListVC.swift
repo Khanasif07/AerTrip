@@ -661,10 +661,16 @@ extension ContactListVC: EmptyScreenViewDelegate {
             }
         }
         else if self.currentlyUsingFor == .facebook {
-            self.viewModel.fetchFacebookContacts(forVC: self)
+            sender.isLoading = true
+            self.viewModel.fetchFacebookContacts(forVC: self) {
+                sender.isLoading = false
+            }
         }
         else if self.currentlyUsingFor == .google {
-            self.viewModel.fetchGoogleContacts(forVC: self)
+            sender.isLoading = true
+            self.viewModel.fetchGoogleContacts(forVC: self) {
+                sender.isLoading = false
+            }
         }
     }
 }

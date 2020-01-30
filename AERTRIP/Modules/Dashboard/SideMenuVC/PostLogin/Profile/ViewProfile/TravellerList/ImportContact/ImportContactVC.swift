@@ -635,6 +635,11 @@ extension ImportContactVC: PagingViewControllerDataSource , PagingViewController
         return 100.0
     }
     
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+           
+           let pagingIndexItem = pagingItem as! PagingIndexItem
+           self.currentIndex = pagingIndexItem.index
+       }
 }
 
 
