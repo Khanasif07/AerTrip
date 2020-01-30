@@ -908,6 +908,9 @@
 		84E9FEFD22A008DB0059F911 /* AccountLedgerEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E9FEFB22A008DB0059F911 /* AccountLedgerEventCell.xib */; };
 		84EAABEB21DA09EC006B757F /* SideMenuLogoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84EAABEA21DA09EC006B757F /* SideMenuLogoView.xib */; };
 		84EAABED21DA0A96006B757F /* SideMenuLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EAABEC21DA0A96006B757F /* SideMenuLogoView.swift */; };
+		84EEA5D323E19DCE008B95CD /* EditProfileFooterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EEA5D223E19DCE008B95CD /* EditProfileFooterTableView.swift */; };
+		84EEA5D523E19E0C008B95CD /* EditProfileFooterTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84EEA5D423E19E0C008B95CD /* EditProfileFooterTableView.xib */; };
+		84EEA5D923E1BC1B008B95CD /* AertripToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EEA5D823E1BC1B008B95CD /* AertripToastView.m */; };
 		84F1626E2240E2C900AA183F /* YouAreAllDoneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F1626C2240E2C900AA183F /* YouAreAllDoneTableViewCell.swift */; };
 		84F1626F2240E2C900AA183F /* YouAreAllDoneTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84F1626D2240E2C900AA183F /* YouAreAllDoneTableViewCell.xib */; };
 		84F162732240FA1B00AA183F /* EventAdddedTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F162712240FA1B00AA183F /* EventAdddedTripTableViewCell.swift */; };
@@ -1928,6 +1931,10 @@
 		84E9FEFB22A008DB0059F911 /* AccountLedgerEventCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountLedgerEventCell.xib; sourceTree = "<group>"; };
 		84EAABEA21DA09EC006B757F /* SideMenuLogoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SideMenuLogoView.xib; sourceTree = "<group>"; };
 		84EAABEC21DA0A96006B757F /* SideMenuLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuLogoView.swift; sourceTree = "<group>"; };
+		84EEA5D223E19DCE008B95CD /* EditProfileFooterTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileFooterTableView.swift; sourceTree = "<group>"; };
+		84EEA5D423E19E0C008B95CD /* EditProfileFooterTableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditProfileFooterTableView.xib; sourceTree = "<group>"; };
+		84EEA5D723E1BC1B008B95CD /* AertripToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AertripToastView.h; sourceTree = "<group>"; };
+		84EEA5D823E1BC1B008B95CD /* AertripToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AertripToastView.m; sourceTree = "<group>"; };
 		84F1626C2240E2C900AA183F /* YouAreAllDoneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouAreAllDoneTableViewCell.swift; sourceTree = "<group>"; };
 		84F1626D2240E2C900AA183F /* YouAreAllDoneTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YouAreAllDoneTableViewCell.xib; sourceTree = "<group>"; };
 		84F162712240FA1B00AA183F /* EventAdddedTripTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAdddedTripTableViewCell.swift; sourceTree = "<group>"; };
@@ -2199,6 +2206,8 @@
 				1800FC6421EF1FA20006D6D1 /* AddNotesTableViewCell.xib */,
 				84D19ECE23E0152C0011BAE8 /* FrequentFlyerTableViewCell.xib */,
 				84D19ED023E0154E0011BAE8 /* FrequentFlyerTableViewCell.swift */,
+				84EEA5D223E19DCE008B95CD /* EditProfileFooterTableView.swift */,
+				84EEA5D423E19E0C008B95CD /* EditProfileFooterTableView.xib */,
 			);
 			path = EditProfile;
 			sourceTree = "<group>";
@@ -4976,6 +4985,15 @@
 			path = AccountLedgerEventCell;
 			sourceTree = "<group>";
 		};
+		84EEA5D623E1BC1B008B95CD /* ALToast */ = {
+			isa = PBXGroup;
+			children = (
+				84EEA5D723E1BC1B008B95CD /* AertripToastView.h */,
+				84EEA5D823E1BC1B008B95CD /* AertripToastView.m */,
+			);
+			path = ALToast;
+			sourceTree = "<group>";
+		};
 		84F1626B2240E0DD00AA183F /* YouAreAllDoneVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -5110,6 +5128,8 @@
 		84F9838121B51A070018DFED /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				84EEA5D623E1BC1B008B95CD /* ALToast */,
+				8459A2AF23D071A20093D8E0 /* WormTab */,
 				0CD644B5234B0AC200D71709 /* ATUnicodeSwitch */,
 				188DFC832318FC530060F9D1 /* PKTapAndCopyUITextView */,
 				84269060228E9EF700CFCBFC /* PKMultiPicker */,
@@ -5528,6 +5548,7 @@
 				84B1405F22A166C900EAA5D2 /* FlightBookingRequestsTableViewCell.xib in Resources */,
 				840DDE8D220D764800F8BA92 /* HotelDetailsImgSlideCell.xib in Resources */,
 				180E7C0E223205D5005FAEA9 /* EmailComposerFooterView.xib in Resources */,
+				84EEA5D523E19E0C008B95CD /* EditProfileFooterTableView.xib in Resources */,
 				1F4636D021F5ABF0000D56B0 /* CheckInOutView.xib in Resources */,
 				84504D592212F382002C1374 /* AmenitiesDescriptionHeaderView.xib in Resources */,
 				84DD24602265A9B50013F77E /* OthersBookingTableViewCell.xib in Resources */,
@@ -5773,6 +5794,7 @@
 				84F983E221B51A070018DFED /* DateExtension.swift in Sources */,
 				18FD91652296694600D005E9 /* BookingReschedulingVC.swift in Sources */,
 				8402210C2202E23A00A95CAA /* UITapGestureRecogniser.swift in Sources */,
+				84EEA5D923E1BC1B008B95CD /* AertripToastView.m in Sources */,
 				182D485B228AF036004796A2 /* BookingHDRoomDetailHeaderView.swift in Sources */,
 				84085CD621F59C0E00F1E844 /* DefaultNavigationTransition.swift in Sources */,
 				1820F100228E93820019B8BB /* BookingVoucherVM.swift in Sources */,
@@ -6150,6 +6172,7 @@
 				84504D572212F375002C1374 /* AmenitiesDescriptionHeaderView.swift in Sources */,
 				84BC598A22B7C28E008D9884 /* BookingFareInfoDetailVM.swift in Sources */,
 				841DD1E52202DC690055FEBB /* HotelsSearchVC.swift in Sources */,
+				84EEA5D323E19DCE008B95CD /* EditProfileFooterTableView.swift in Sources */,
 				84F983D321B51A070018DFED /* NSObjectExtension.swift in Sources */,
 				1887859D21DF745C0061869E /* TravellerListHeaderView.swift in Sources */,
 				183B71AA2289901700A75B7F /* BookingAmenityCollectionViewCell.swift in Sources */,

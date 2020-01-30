@@ -270,7 +270,7 @@ extension MailComposerVC: CNContactPickerDelegate {
             self.updateHeightOfHeader(mailComposerHeaderView,mailComposerHeaderView.toEmailTextView)
             self.selectedUserEmail = _mail
         } else {
-            AppToast.default.showToastMessage(message: LocalizedString.UnableToGetMail.localized, title:"", onViewController: self, duration: 0.6, buttonTitle: "", buttonImage: nil)
+            AppToast.default.showToastMessage(message: LocalizedString.UnableToGetMail.localized, title:"", onViewController: self, duration: 0.6)
         }
         
     }

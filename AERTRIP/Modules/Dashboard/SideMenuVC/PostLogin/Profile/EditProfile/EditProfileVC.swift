@@ -36,8 +36,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     @IBOutlet weak var tableView: ATTableView!
     @IBOutlet weak var topNavView: TopNavigationView!
-    @IBOutlet weak var deleteTravellerView: UIView!
-    @IBOutlet weak var deleteButton: UIButton!
+//    @IBOutlet weak var deleteTravellerView: UIView!
+//    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     // MARK: - Variables
@@ -87,6 +87,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     let addAddressTableViewCellIdentifier = "AddAddressTableViewCell"
     let addNotesTableViewCellIdentifier = "AddNotesTableViewCell"
     let frequentFlyerTableViewCellIdentifier = "FrequentFlyerTableViewCell"
+    let editProfileFooterTableView = "EditProfileFooterTableView"
+
 
     
     // MARK: - View Lifecycle
@@ -172,7 +174,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     // MARK: - IB Actions
     
-    @IBAction func deleteTravellButtonTapped(_ sender: Any) {
+    @IBAction func deleteTravellButtonTapped() {
         printDebug("delete from Traveller")
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Delete.localized], colors: [AppColors.themeRed])
         _ = PKAlertController.default.presentActionSheet(LocalizedString.DeleteTraveller.localized, titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, message: nil, messageFont: nil, messageColor: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { [weak self] _, index in
@@ -192,18 +194,18 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.SaveWithSpace.localized, selectedTitle: LocalizedString.SaveWithSpace.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.CancelWithSpace.localized, selectedTitle: LocalizedString.CancelWithSpace.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
-        self.deleteTravellerView.isHidden = true
-        delay(seconds: 0.7) { [weak self] in
-            self?.deleteTravellerView.isHidden = self?.viewModel.paxId == UserInfo.loggedInUser?.paxId ? true : false
-            if self?.viewModel.currentlyUsinfFor == .travellerList {
-                self?.deleteTravellerView.isHidden = false
-            } else {
-                self?.deleteTravellerView.isHidden = true
-            }
-            self?.deleteButton.setTitle(LocalizedString.DeleteFromTraveller.localized, for: .normal)
-            self?.deleteButton.setTitleColor(AppColors.themeRed, for: .normal)
-            self?.deleteButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
-        }
+//        self.deleteTravellerView.isHidden = true
+//        delay(seconds: 0.7) { [weak self] in
+//            self?.deleteTravellerView.isHidden = self?.viewModel.paxId == UserInfo.loggedInUser?.paxId ? true : false
+//            if self?.viewModel.currentlyUsinfFor == .travellerList {
+//                self?.deleteTravellerView.isHidden = false
+//            } else {
+//                self?.deleteTravellerView.isHidden = true
+//            }
+//            self?.deleteButton.setTitle(LocalizedString.DeleteFromTraveller.localized, for: .normal)
+//            self?.deleteButton.setTitleColor(AppColors.themeRed, for: .normal)
+//            self?.deleteButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
+//        }
        
         
         editProfileImageHeaderView = EditProfileImageHeaderView.instanceFromNib()
@@ -214,7 +216,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         tableView.separatorStyle = .none
         tableView.tableHeaderView = editProfileImageHeaderView
-
     }
     
     func setupPickers() {
@@ -257,6 +258,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         tableView.register(UINib(nibName: addAddressTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: addAddressTableViewCellIdentifier)
         tableView.register(UINib(nibName: addNotesTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: addNotesTableViewCellIdentifier)
         tableView.register(UINib(nibName: frequentFlyerTableViewCellIdentifier, bundle: nil), forCellReuseIdentifier: frequentFlyerTableViewCellIdentifier)
+        tableView.register(UINib(nibName: editProfileFooterTableView, bundle: nil), forHeaderFooterViewReuseIdentifier: editProfileFooterTableView)
 
     }
     

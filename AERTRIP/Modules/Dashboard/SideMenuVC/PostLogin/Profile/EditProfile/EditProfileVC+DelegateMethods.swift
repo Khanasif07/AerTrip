@@ -21,9 +21,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             return 270.0
         } else
             if sections[indexPath.section] == LocalizedString.MoreInformation.localized, indexPath.row == 2 {
-            return UITableView.automaticDimension
-        } else {
-            return UITableView.automaticDimension
+                return UITableView.automaticDimension
+            } else {
+                return UITableView.automaticDimension
         }
     }
     
@@ -177,7 +177,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 cell.editableTextField.isHiddenBottomLine = true
                 //index 0: passport no, index 1: passport country
                 cell.configureCell(passportDetaitTitle[indexPath.row], (indexPath.row == 0) ? viewModel.passportNumber : viewModel.passportCountryName)
-
+                
                 return cell
             }
             
@@ -187,7 +187,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: addActionCellIdentifier, for: indexPath) as? TableViewAddActionCell else {
                     fatalError("TableViewAddActionCell not found")
                 }
-
+                
                 cell.configureCell(LocalizedString.AddAddress.localized)
                 cell.topDividerView.isHidden = true
                 return cell
@@ -265,9 +265,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     }
                     cell.deleteButton.isHidden = false
                     cell.hideSeperator = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
-//                    cell.rightTitleLabel.isHidden = true
-//                    cell.leftSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
-//                    cell.rightSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
+                    //                    cell.rightTitleLabel.isHidden = true
+                    //                    cell.leftSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
+                    //                    cell.rightSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
                     
                     cell.deleteButton.isHidden = self.viewModel.frequentFlyer.count <= 1
                     cell.isFFTitleHidden = !(indexPath.row == 2)
@@ -434,6 +434,36 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
         return true
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        switch sections[section] {
+        case LocalizedString.FlightPreferences.localized:
+            return self.viewModel.currentlyUsinfFor == .travellerList ? 79 : 35
+        default:
+            return CGFloat.leastNormalMagnitude
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        switch sections[section] {
+        case LocalizedString.FlightPreferences.localized:
+            guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: editProfileFooterTableView) as? EditProfileFooterTableView else {return nil}
+            if self.viewModel.currentlyUsinfFor == .travellerList {
+                footerView.deleteTravellerView.isHidden = false
+            } else {
+                footerView.deleteTravellerView.isHidden = true
+            }
+            footerView.deleteBtnHandler = {[weak self] in
+                guard let strongSelf = self else {return}
+                strongSelf.deleteTravellButtonTapped()
+            }
+            
+            return footerView
+        default:
+            return nil
+        }
+    }
+    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.closeAllPicker(completion: nil)
     }
@@ -446,7 +476,7 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         printDebug("Selected in unicode switch \(title)")
         editProfileImageHeaderView.genderTitleLabel.text = title
         if title == LocalizedString.Male.localized {
-           self.viewModel.salutation =  AppGlobals.shared.getSalutationAsPerGenderAndAge(gender: AppConstants.kmR, dob: self.viewModel.dob, dateFormatter: "yyyy-MM-dd")
+            self.viewModel.salutation =  AppGlobals.shared.getSalutationAsPerGenderAndAge(gender: AppConstants.kmR, dob: self.viewModel.dob, dateFormatter: "yyyy-MM-dd")
         } else {
             self.viewModel.salutation = AppGlobals.shared.getSalutationAsPerGenderAndAge(gender: AppConstants.kmRS, dob: self.viewModel.dob, dateFormatter: "yyyy-MM-dd")
         }
@@ -466,7 +496,7 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         if self.viewModel.profilePicture.isEmpty && self.viewModel.filePath.isEmpty {
             setUpProfilePhotoInitials()
         }
-       
+        
     }
     
     func selectGroupTapped() {
@@ -474,9 +504,9 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         printDebug("select group tapped")
         pickerType = .groups
         if let labels = UserInfo.loggedInUser?.generalPref?.labels {
-        pickerData = labels
-        let selectedString = self.viewModel.travelData?.label ?? ""
-        openPicker(withSelection: selectedString)
+            pickerData = labels
+            let selectedString = self.viewModel.travelData?.label ?? ""
+            openPicker(withSelection: selectedString)
         }
     }
     
@@ -509,7 +539,7 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         if (!self.viewModel.profilePicture.isEmpty) || (!self.viewModel.filePath.isEmpty) {
             buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen,AppColors.themeRed])
         }
-
+        
         _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
             
             if index == 0 {
@@ -532,7 +562,7 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         if (!self.viewModel.profilePicture.isEmpty) || (!self.viewModel.filePath.isEmpty) {
             buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.TakePhoto.localized, LocalizedString.ChoosePhoto.localized, LocalizedString.ImportFromFacebook.localized, LocalizedString.ImportFromGoogle.localized, LocalizedString.RemovePhoto.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeRed])
         }
-
+        
         
         _ = PKAlertController.default.presentActionSheet(nil,message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
             
@@ -694,7 +724,7 @@ extension EditProfileVC: EditProfileTwoPartTableViewCellDelegate {
                 self.tableView.reloadData()
                 return
             }
-           
+            
         case LocalizedString.SocialAccounts.localized:
             if self.viewModel.social[indexPath.row].value.isEmpty {
                 self.viewModel.social.remove(at: indexPath.row)
@@ -750,11 +780,11 @@ extension EditProfileVC: EditProfileVMDelegate {
     func deleteTravellerAPISuccess() {
         for viewController in self.navigationController?.viewControllers ?? [] {
             if viewController is TravellerListVC {
-                  AppFlowManager.default.popToViewController(viewController, animated: true)
-                 self.sendDataChangedNotification(data: ATNotification.travellerDeleted)
+                AppFlowManager.default.popToViewController(viewController, animated: true)
+                self.sendDataChangedNotification(data: ATNotification.travellerDeleted)
             }
         }
-      self.stopLoading()
+        self.stopLoading()
     }
     
     func deleteTravellerAPIFailure() {
@@ -798,7 +828,7 @@ extension EditProfileVC: EditProfileVMDelegate {
     func getFail(errors: ErrorCodes) {
         self.stopLoading()
         if AppGlobals.shared.isNetworkRechable() {
-         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+            AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
         }
         else {
             AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
@@ -809,7 +839,7 @@ extension EditProfileVC: EditProfileVMDelegate {
 // MARK: - EditProfileThreePartTableViewCellDelegate
 
 extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
-
+    
     func editProfileThreePartTableViewCellTextFieldText(_ textField: UITextField, _ indexPath: IndexPath, _ text: String, isValide: Bool) {
         
         let final = text.substring(to: AppConstants.kMaxPhoneLength-1)
@@ -848,22 +878,22 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
     }
     
     func middleViewTap(_ indexPath: IndexPath,_ gesture: UITapGestureRecognizer) {
-
+        
         self.closeGenricAndDatePicker(completion: nil)
         
         
         PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: PKCountryPicker.default.getCountryData(forISDCode: self.viewModel.mobile[indexPath.row].isd)) { [weak self] (selectedCountry,closePicker) in
             printDebug("selected country data: \(selectedCountry)")
-
-           
+            
+            
             
             guard let cell = self?.tableView.cellForRow(at: indexPath) as? EditProfileThreePartTableViewCell else {
                 fatalError("EditProfileThreePartTableViewCell not found")
             }
             cell.countryCodeLabel.text = selectedCountry.countryCode
             cell.flagImageView.image = selectedCountry.flagImage
-//            cell.rightViewTextField.defaultRegion = selectedCountry.ISOCode
-//            cell.rightViewTextField.text = cell.rightViewTextField.nationalNumber
+            //            cell.rightViewTextField.defaultRegion = selectedCountry.ISOCode
+            //            cell.rightViewTextField.text = cell.rightViewTextField.nationalNumber
             
             self?.viewModel.mobile[indexPath.row].isd = selectedCountry.countryCode
         }
@@ -900,23 +930,23 @@ extension EditProfileVC: UIPickerViewDataSource, UIPickerViewDelegate {
 extension EditProfileVC: TwoPartEditTableViewCellDelegate {
     func twoPartEditTextField(_ indexPath: IndexPath, _ fullString: String) {
         // moved to FrequentFlyerTableViewCellDelegate
-//        if self.viewModel.frequentFlyer.count <= indexPath.row - 2 {
-//            self.viewModel.frequentFlyer.append(FrequentFlyer(json: [:]))
-//        }
-//        self.viewModel.frequentFlyer[indexPath.row - 2].number = fullString
+        //        if self.viewModel.frequentFlyer.count <= indexPath.row - 2 {
+        //            self.viewModel.frequentFlyer.append(FrequentFlyer(json: [:]))
+        //        }
+        //        self.viewModel.frequentFlyer[indexPath.row - 2].number = fullString
     }
     
     func twoPartDeleteCellTapped(_ indexPath: IndexPath) {
         self.indexPath = indexPath
-       self.deleteCellTapped(indexPath)
+        self.deleteCellTapped(indexPath)
     }
     
     func twoPartEditLeftViewTap(_ indexPath: IndexPath, _ gesture: UITapGestureRecognizer) {
         self.indexPath = indexPath
         if sections[indexPath.section] == LocalizedString.FlightPreferences.localized {
             // moved to FrequentFlyerTableViewCellDelegate
-           // AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
-
+            // AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+            
         } else {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMMM yyyy"
@@ -954,7 +984,7 @@ extension EditProfileVC: FrequentFlyerTableViewCellDelegate {
             if viewModel.currentlyUsinfFor == .addNewTravellerList {
                 presentFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
             } else {
-                 AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
+                AppFlowManager.default.moveToFFSearchVC(defaultAirlines: self.viewModel.defaultAirlines, delegate: self)
             }
         }
         
@@ -963,12 +993,12 @@ extension EditProfileVC: FrequentFlyerTableViewCellDelegate {
     func programTextField(_ indexPath: IndexPath) {
         dismissKeyboard()
         AppToast.default.showToastMessage(message: LocalizedString.UnderDevelopment.localized)
-
-//        if self.viewModel.salutationTypes.count > 0 {
-//            pickerType = .salutation
-//            pickerData = self.viewModel.salutationTypes
-//            openPicker(withSelection: viewModel.salutation)
-//        }
+        
+        //        if self.viewModel.salutationTypes.count > 0 {
+        //            pickerType = .salutation
+        //            pickerData = self.viewModel.salutationTypes
+        //            openPicker(withSelection: viewModel.salutation)
+        //        }
     }
     
     func numberTextField(_ indexPath: IndexPath, _ number: String) {
@@ -1104,18 +1134,18 @@ extension EditProfileVC: AddNotesTableViewCellDelegate {
             tableView.endUpdates()
         }
         self.viewModel.notes = textView.text.removeLeadingTrailingWhitespaces
-
+        
     }
 }
 
 extension EditProfileVC {
     func presentFFSearchVC(defaultAirlines: [FlyerModel], delegate: SearchVCDelegate?) {
-           let controller = FFSearchVC.instantiate(fromAppStoryboard: .Profile)
-           controller.modalPresentationStyle = .fullScreen
-           controller.delgate = delegate
-           controller.defaultAirlines = defaultAirlines
-           self.present(controller, animated: true, completion: nil)
-       }
+        let controller = FFSearchVC.instantiate(fromAppStoryboard: .Profile)
+        controller.modalPresentationStyle = .fullScreen
+        controller.delgate = delegate
+        controller.defaultAirlines = defaultAirlines
+        self.present(controller, animated: true, completion: nil)
+    }
 }
 
 /*

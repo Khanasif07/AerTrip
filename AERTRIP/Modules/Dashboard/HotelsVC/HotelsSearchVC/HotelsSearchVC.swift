@@ -35,7 +35,7 @@ class HotelsSearchVC: BaseVC {
     @IBOutlet weak var whereContainerView: UIView!
     @IBOutlet weak var datePickerView: UIView!
     @IBOutlet weak var addRoomView: UIView!
-//    @IBOutlet weak var starView: UIView!
+    //    @IBOutlet weak var starView: UIView!
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var whereBtnOutlet: UIButton!
     @IBOutlet weak var cityNameLabel: UILabel!
@@ -43,15 +43,15 @@ class HotelsSearchVC: BaseVC {
     @IBOutlet weak var firstLineView: ATDividerView!
     @IBOutlet weak var secondLineView: ATDividerView!
     @IBOutlet weak var thirdLineView: ATDividerView!
-//    @IBOutlet weak var fourthLineView: ATDividerView!
-//    @IBOutlet weak var starRatingLabel: UILabel!
-//    @IBOutlet weak var allStarLabel: UILabel!
-//    @IBOutlet weak var oneStarLabel: UILabel!
-//    @IBOutlet weak var twoStarLabel: UILabel!
-//    @IBOutlet weak var threeStarLabel: UILabel!
-//    @IBOutlet weak var fourStarLabel: UILabel!
-//    @IBOutlet weak var fiveStarLabel: UILabel!
-//    @IBOutlet var starButtonsOutlet: [UIButton]!
+    //    @IBOutlet weak var fourthLineView: ATDividerView!
+    //    @IBOutlet weak var starRatingLabel: UILabel!
+    //    @IBOutlet weak var allStarLabel: UILabel!
+    //    @IBOutlet weak var oneStarLabel: UILabel!
+    //    @IBOutlet weak var twoStarLabel: UILabel!
+    //    @IBOutlet weak var threeStarLabel: UILabel!
+    //    @IBOutlet weak var fourStarLabel: UILabel!
+    //    @IBOutlet weak var fiveStarLabel: UILabel!
+    //    @IBOutlet var starButtonsOutlet: [UIButton]!
     @IBOutlet weak var searchBtnOutlet: ATButton!
     @IBOutlet weak var bulkBookingsLbl: UILabel!
     @IBOutlet weak var addRoomCollectionView: UICollectionView! {
@@ -100,13 +100,13 @@ class HotelsSearchVC: BaseVC {
         self.searchBtnOutlet.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         
         
-//        for btn in self.starButtonsOutlet {
-//            btn.adjustsImageWhenHighlighted = false
-//            btn.isSelected = false
-//            btn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
-//            btn.setImage(nil, for: .selected)
-//            btn.setImage(nil, for: .highlighted)
-//        }
+        //        for btn in self.starButtonsOutlet {
+        //            btn.adjustsImageWhenHighlighted = false
+        //            btn.isSelected = false
+        //            btn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
+        //            btn.setImage(nil, for: .selected)
+        //            btn.setImage(nil, for: .highlighted)
+        //        }
         // call this method after all setup
         self.setDataFromPreviousSearch()
     }
@@ -140,32 +140,32 @@ class HotelsSearchVC: BaseVC {
         let regularFontSize16 = AppFonts.Regular.withSize(16.0)
         self.cityNameLabel.font = AppFonts.SemiBold.withSize(26.0)
         self.stateNameLabel.font = AppFonts.Regular.withSize(16.0)
-//        self.starRatingLabel.font = regularFontSize16
-//        self.allStarLabel.font = AppFonts.Regular.withSize(14.0)
-//        self.oneStarLabel.font = regularFontSize16
-//        self.twoStarLabel.font = regularFontSize16
-//        self.threeStarLabel.font = regularFontSize16
-//        self.fourStarLabel.font = regularFontSize16
-//        self.fiveStarLabel.font = regularFontSize16
+        //        self.starRatingLabel.font = regularFontSize16
+        //        self.allStarLabel.font = AppFonts.Regular.withSize(14.0)
+        //        self.oneStarLabel.font = regularFontSize16
+        //        self.twoStarLabel.font = regularFontSize16
+        //        self.threeStarLabel.font = regularFontSize16
+        //        self.fourStarLabel.font = regularFontSize16
+        //        self.fiveStarLabel.font = regularFontSize16
     }
     
     override func setupColors() {
         self.whereLabel.textColor = AppColors.themeGray40
         self.cityNameLabel.textColor = AppColors.textFieldTextColor51
         self.stateNameLabel.textColor = AppColors.textFieldTextColor51
-//        self.starRatingLabel.textColor = AppColors.themeGray40
-//        self.allStarLabel.textColor = AppColors.themeGray40
-//        self.oneStarLabel.textColor = AppColors.themeGray40
-//        self.twoStarLabel.textColor = AppColors.themeGray40
-//        self.threeStarLabel.textColor = AppColors.themeGray40
-//        self.fourStarLabel.textColor = AppColors.themeGray40
-//        self.fiveStarLabel.textColor = AppColors.themeGray40
+        //        self.starRatingLabel.textColor = AppColors.themeGray40
+        //        self.allStarLabel.textColor = AppColors.themeGray40
+        //        self.oneStarLabel.textColor = AppColors.themeGray40
+        //        self.twoStarLabel.textColor = AppColors.themeGray40
+        //        self.threeStarLabel.textColor = AppColors.themeGray40
+        //        self.fourStarLabel.textColor = AppColors.themeGray40
+        //        self.fiveStarLabel.textColor = AppColors.themeGray40
         self.attributeLabelSetUp()
     }
     
     override func setupTexts() {
         self.whereLabel.text = LocalizedString.WhereButton.localized
-//        self.starRatingLabel.text = LocalizedString.StarRating.localized
+        //        self.starRatingLabel.text = LocalizedString.StarRating.localized
         self.searchBtnOutlet.setTitle(LocalizedString.search.localized, for: .normal)
     }
     
@@ -335,14 +335,14 @@ class HotelsSearchVC: BaseVC {
         }
         
         //reset all the buttons first
-//        for starBtn in self.starButtonsOutlet {
-//            starBtn.isSelected = false
-//            starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
-//        }
-//        for star in oldData.ratingCount {
-//            self.updateStarButtonState(forStar: star, isSettingFirstTime: isSettingForFirstTime)
-//        }
-//        self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.searchedFormData.ratingCount, maxCount: 5)
+        //        for starBtn in self.starButtonsOutlet {
+        //            starBtn.isSelected = false
+        //            starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+        //        }
+        //        for star in oldData.ratingCount {
+        //            self.updateStarButtonState(forStar: star, isSettingFirstTime: isSettingForFirstTime)
+        //        }
+        //        self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.searchedFormData.ratingCount, maxCount: 5)
         
         //set room selection data
         if self.viewModel.searchedFormData.adultsCount.count >= 2 {
@@ -384,29 +384,29 @@ class HotelsSearchVC: BaseVC {
         
         if self.viewModel.searchedFormData.ratingCount.isEmpty || self.viewModel.searchedFormData.ratingCount.count == 5 {
             self.viewModel.searchedFormData.ratingCount.removeAll()
-//            for starBtn in self.starButtonsOutlet {
-//                starBtn.isSelected = false
-//                starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
-//            }
+            //            for starBtn in self.starButtonsOutlet {
+            //                starBtn.isSelected = false
+            //                starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
+            //            }
         }
         else {
             
-//            for starBtn in self.starButtonsOutlet {
-//
-//                if starBtn.tag == forStar {
-//                    starBtn.isSelected = isSettingFirstTime ? true : !starBtn.isSelected
-//                    let img = starBtn.isSelected ? #imageLiteral(resourceName: "starRatingFilled") : #imageLiteral(resourceName: "starRatingUnfill")
-//                    starBtn.setImage(img, for: starBtn.isSelected ? .selected : .normal)
-//                }
-//                else if self.viewModel.searchedFormData.ratingCount.contains(starBtn.tag) {
-//                    starBtn.isSelected = true
-//                    starBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .selected)
-//                }
-//                else {
-//                    starBtn.isSelected = false
-//                    starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
-//                }
-//            }
+            //            for starBtn in self.starButtonsOutlet {
+            //
+            //                if starBtn.tag == forStar {
+            //                    starBtn.isSelected = isSettingFirstTime ? true : !starBtn.isSelected
+            //                    let img = starBtn.isSelected ? #imageLiteral(resourceName: "starRatingFilled") : #imageLiteral(resourceName: "starRatingUnfill")
+            //                    starBtn.setImage(img, for: starBtn.isSelected ? .selected : .normal)
+            //                }
+            //                else if self.viewModel.searchedFormData.ratingCount.contains(starBtn.tag) {
+            //                    starBtn.isSelected = true
+            //                    starBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .selected)
+            //                }
+            //                else {
+            //                    starBtn.isSelected = false
+            //                    starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
+            //                }
+            //            }
         }
     }
     
@@ -539,11 +539,11 @@ class HotelsSearchVC: BaseVC {
     //MARK:- IBAction
     //===============
     
-//    @IBAction func starButtonsAction(_ sender: UIButton) {
-//        self.updateStarButtonState(forStar: sender.tag)
-////        self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.searchedFormData.ratingCount, maxCount: 5)
-//        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
-//    }
+    //    @IBAction func starButtonsAction(_ sender: UIButton) {
+    //        self.updateStarButtonState(forStar: sender.tag)
+    ////        self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.searchedFormData.ratingCount, maxCount: 5)
+    //        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
+    //    }
     
     @IBAction func whereButtonAction(_ sender: UIButton) {
         AppFlowManager.default.showSelectDestinationVC(delegate: self,currentlyUsingFor: .hotelForm)
@@ -584,16 +584,16 @@ class HotelsSearchVC: BaseVC {
     
     ///Tap Label Action
     @IBAction func tapLabel(gesture: UITapGestureRecognizer) {
-            let string = "\(self.bulkBookingsLbl.text ?? "")"
-            let text = LocalizedString.RequestBulkBooking.localized
-            if let range = string.range(of: text) {
-                if gesture.didTapAttributedTextInLabel(label: self.bulkBookingsLbl, inRange: NSRange(range, in: string)) {
-                    printDebug("Tapped BulkBookings")
-                    AppFlowManager.default.showBulkBookingVC(withOldData: self.viewModel.searchedFormData)
-                } else {
-                    printDebug("This is not bulk bookings text")
-                }
+        let string = "\(self.bulkBookingsLbl.text ?? "")"
+        let text = LocalizedString.RequestBulkBooking.localized
+        if let range = string.range(of: text) {
+            if gesture.didTapAttributedTextInLabel(label: self.bulkBookingsLbl, inRange: NSRange(range, in: string)) {
+                printDebug("Tapped BulkBookings")
+                AppFlowManager.default.showBulkBookingVC(withOldData: self.viewModel.searchedFormData)
+            } else {
+                printDebug("This is not bulk bookings text")
             }
+        }
     }
 }
 

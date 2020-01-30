@@ -188,7 +188,7 @@ extension HotelDetailsVC: HotelDetailDelegate {
                 cell.activityIndicator.isHidden = true
             }
         }
-        AppToast.default.showToastMessage(message: LocalizedString.InformationUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonImage: nil, buttonAction: self.completion)
+        AppToast.default.showToastMessage(message: LocalizedString.InformationUnavailable.localized, onViewController: self, buttonTitle: LocalizedString.ReloadResults.localized, buttonAction: self.completion)
         printDebug("API Parsing Failed")
     }
     
