@@ -90,6 +90,17 @@ class DashboardVC: BaseVC {
         
         
         mainScrollView.delaysContentTouches = false
+        
+        addViewOnTop()
+    }
+    
+    private func addViewOnTop() {
+        let safeAreaView = UIView(frame: CGRect(x: 0, y: 0, width: view.width, height: UIApplication.shared.statusBarFrame.height))
+        let safeAreaImgView = UIImageView(frame: safeAreaView.bounds)
+        safeAreaImgView.image = UIImage(named: "statusBarColor")
+        safeAreaView.addSubview(safeAreaImgView)
+        view.addSubview(safeAreaView)
+        view.bringSubviewToFront(safeAreaView)
     }
     
     override func viewDidLayoutSubviews() {
