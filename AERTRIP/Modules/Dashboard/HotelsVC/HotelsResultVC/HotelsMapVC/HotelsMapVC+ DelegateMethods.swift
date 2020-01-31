@@ -11,13 +11,14 @@ import UIKit
 
 // MARK: - Search bar delegate methods
 
-extension HotelResultVC: UISearchBarDelegate {
+extension HotelsMapVC: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         return !((fetchedResultsController.fetchedObjects ?? []).isEmpty)
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        animateHeaderToMapView()
         //self.predicateStr = searchBar.text ?? ""
         self.fetchRequestType = .Searching
         //        self.searchForText(searchBar.text ?? "")
@@ -51,6 +52,7 @@ extension HotelResultVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if searchedHotels.count > 0 {
             self.fetchRequestType = .normal
+            self.animateHeaderToMapView()
             self.hideSearchAnimation()
             self.view.endEditing(true)
             self.reloadHotelList()
@@ -62,14 +64,11 @@ extension HotelResultVC: UISearchBarDelegate {
 
 // MARK: - ATSwitchedChangeValueDelegate methods
 
-extension HotelResultVC: ATSwitcherChangeValueDelegate {
+extension HotelsMapVC: ATSwitcherChangeValueDelegate {
     func switcherDidChangeValue(switcher: ATSwitcher, value: Bool) {
         self.loadSaveData()
         if value {
-
-                self.unPinAllFavouriteButton.isHidden = false
-                self.emailButton.isHidden = false
-                self.shareButton.isHidden = false
+                self.floatingButtonOnMapView.isHidden = false
             self.animateButton()
             // nitin self.getFavouriteHotels(shouldReloadData: false)
             //self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
@@ -77,16 +76,22 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
         else {
             self.hideFavsButtons()
         }
-        
-            
-        
+        //self.updateMarkers()
+            //if user in map view then update map focus as fav switch changed.
+            delay(seconds: 0.4) { [weak self] in
+                guard let strongSelf = self else {return}
+                //                let indexOfMajorCell = strongSelf.indexOfMajorCell()
+                //                strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
+                strongSelf.animateMapToFirstHotelInMapMode()
+                
+            }
     }
 }
 
-extension HotelResultVC: PKBottomSheetDelegate {
+extension HotelsMapVC: PKBottomSheetDelegate {
     func updateNavWhileInMapMode(isHidden: Bool) {
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
-            self?.headerContatinerViewHeightConstraint.constant = isHidden ? 0.0 : 50.0
+//            self?.headerContatinerViewHeightConstraint.constant = isHidden ? 0.0 : 50.0
 //            self?.tableViewTopConstraint.constant = isHidden ? 0.0 : 50.0
 //            self?.mapContainerTopConstraint.constant = isHidden ? 0.0 : 50.0
             self?.progressView.isHidden = true
@@ -106,7 +111,7 @@ extension HotelResultVC: PKBottomSheetDelegate {
 
 // MARK: - HotelResultVM Delegate methods
 
-extension HotelResultVC: HotelResultDelegate {
+extension HotelsMapVC: HotelResultDelegate {
     func willGetAllHotel() {
         // will call hotel
     }
@@ -127,6 +132,7 @@ extension HotelResultVC: HotelResultDelegate {
     
     func getAllHotelsOnPreferenceSuccess() {
         self.fetchRequestType = .normal
+        self.addMapView()
         self.setupTexts()
         self.viewModel.hotelListOnPreferenceResult()
     }
@@ -144,7 +150,7 @@ extension HotelResultVC: HotelResultDelegate {
     
     func loadFinalDataOnScreen() {
         self.filterButton.isEnabled = true
-//        self.mapButton.isEnabled = true
+        self.mapButton.isEnabled = true
         
         if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
             delay(seconds: 1.0) { [weak self] in
@@ -170,7 +176,10 @@ extension HotelResultVC: HotelResultDelegate {
             // Apply Aerin Filter
             // self.applyAerinFilter()
         }
-        
+        delay(seconds: 0.4) { [weak self] in
+            self?.manageForCollectionView(atIndex: 0)
+            self?.adjustMapPadding()
+        }
         
     }
     
@@ -203,7 +212,18 @@ extension HotelResultVC: HotelResultDelegate {
     
     func updateFavouriteSuccess(isHotelFavourite: Bool) {
         if self.switchView.on, !isHotelFavourite  {
-            self.loadSaveData()
+            //self.loadSaveData()
+            if let indexPath = self.selectedIndexPath, self.viewModel.collectionViewLocArr.indices.contains(indexPath.item),let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.item]] as? [HotelSearched], let hotel = hData.first  {
+                let locStr = self.viewModel.collectionViewLocArr[indexPath.item]
+                self.viewModel.deleteHotelsDataForCollectionView(hotel: hotel)
+                self.collectionView.reloadData()
+                if let loc = self.getLocationObject(fromLocation: locStr) {
+                    self.deleteMarker(atLocation: loc)
+                    if let selectedLocation = self.displayingHotelLocation, selectedLocation == loc {
+                        self.displayingHotelLocation = nil
+                    }
+                }
+            }
             self.getFavouriteHotels(shouldReloadData: true)
         } else {
             self.getFavouriteHotels(shouldReloadData: false)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
@@ -214,11 +234,28 @@ extension HotelResultVC: HotelResultDelegate {
         } else {
             self.updateFavOnList(forIndexPath: self.selectedIndexPath)
         }
+        
+        delay(seconds: 0.4) { [weak self] in
+            guard let strongSelf = self else {return}
+            let indexOfMajorCell = strongSelf.indexOfMajorCell()
+            strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
+        }
     }
     
     func updateFavouriteFail(errors: ErrorCodes, isHotelFavourite: Bool) {
         if self.switchView.on, !isHotelFavourite  {
-                self.loadSaveData()
+            //self.loadSaveData()
+            if let indexPath = self.selectedIndexPath, self.viewModel.collectionViewLocArr.indices.contains(indexPath.item),let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.item]] as? [HotelSearched], let hotel = hData.first  {
+                let locStr = self.viewModel.collectionViewLocArr[indexPath.item]
+                self.viewModel.deleteHotelsDataForCollectionView(hotel: hotel)
+                self.collectionView.reloadData()
+                if let loc = self.getLocationObject(fromLocation: locStr) {
+                    self.deleteMarker(atLocation: loc)
+                    if let selectedLocation = self.displayingHotelLocation, selectedLocation == loc {
+                        self.displayingHotelLocation = nil
+                    }
+                }
+            }
             self.getFavouriteHotels(shouldReloadData: true)
         }else {
             self.getFavouriteHotels(shouldReloadData: false)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
@@ -235,7 +272,11 @@ extension HotelResultVC: HotelResultDelegate {
             }
         }
         
-        
+        delay(seconds: 0.4) { [weak self] in
+            guard let strongSelf = self else {return}
+            let indexOfMajorCell = strongSelf.indexOfMajorCell()
+            strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
+        }
     }
     
     func getAllHotelsListResultSuccess(_ isDone: Bool) {
@@ -257,11 +298,12 @@ extension HotelResultVC: HotelResultDelegate {
 
 // MARK: - Hotel Card collection view Delegate methods
 
-extension HotelResultVC: HotelCardCollectionViewCellDelegate {
+extension HotelsMapVC: HotelCardCollectionViewCellDelegate {
     func saveButtonActionFromLocalStorage(_ sender: UIButton, forHotel: HotelSearched) {
         guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
-        if let indexPath = self.tableViewVertical.indexPath(forItem: sender) {
+        if let indexPath = self.collectionView.indexPath(forItem: sender) {
             self.selectedIndexPath = indexPath
+            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
         }
         //self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)
@@ -279,15 +321,13 @@ extension HotelResultVC: HotelCardCollectionViewCellDelegate {
     func pagingScrollEnable(_ indexPath: IndexPath, _ scrollView: UIScrollView) {
         printDebug("Hotel page scroll delegate ")
         
-        if let cell = tableViewVertical.cellForRow(at: indexPath) as? HotelCardTableViewCell {
-            cell.pageControl.setProgress(contentOffsetX: scrollView.contentOffset.x, pageWidth: scrollView.bounds.width)
-        }
+        
     }
 }
 
 // MARK: - Section Footer Delgate methods
 
-extension HotelResultVC: SectionFooterDelegate {
+extension HotelsMapVC: SectionFooterDelegate {
     func showHotelBeyond() {
         if self.isAboveTwentyKm {
             printDebug("hide hotel beyond ")
@@ -307,7 +347,7 @@ extension HotelResultVC: SectionFooterDelegate {
 
 // MARK: - Hotel filter Delegate methods
 
-extension HotelResultVC: HotelFilteVCDelegate {
+extension HotelsMapVC: HotelFilteVCDelegate {
     func clearAllButtonTapped() {
         self.fetchRequestType = .normal
         self.filterButton.isSelected = false
@@ -347,13 +387,20 @@ extension HotelResultVC: HotelFilteVCDelegate {
     }
 }
 
+// MARK: - CL Location manager Delegate
 
-
+extension HotelsMapVC: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        printDebug("location \(String(describing: locations.last))")
+        self.currentLocation = locations.last
+        self.addMapView()
+    }
+}
 
 
 // MARK: - Hotel Detail VC Delegate
 
-extension HotelResultVC: HotelDetailsVCDelegate {
+extension HotelsMapVC: HotelDetailsVCDelegate {
     func hotelFavouriteUpdated() {
         //work of this method has been handeled in data changed also, we can remove HotelDetailsVCDelegate after confirming with team.
     }
@@ -362,7 +409,7 @@ extension HotelResultVC: HotelDetailsVCDelegate {
 
 // MARK: - HotelGroupExpendedVCDelegate methods
 
-extension HotelResultVC: HotelsGroupExpendedVCDelegate {
+extension HotelsMapVC: HotelsGroupExpendedVCDelegate {
     func saveButtonActionFromLocalStorage(forHotel: HotelSearched) {
         self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)
     }

@@ -8,7 +8,7 @@
 
 import Foundation
 // marker.tracksViewChanges = false
-extension HotelResultVC {
+extension HotelsMapVC {
     
     func addMapView() {
         
@@ -81,14 +81,10 @@ extension HotelResultVC {
         }
     }
     func focusMarker(coordinates: CLLocationCoordinate2D) {
-        if hoteResultViewType == .ListView {
-            self.mapView?.animate(toLocation: coordinates)
-        } else {
             CATransaction.begin()
             CATransaction.setValue(AppConstants.kAnimationDuration, forKey: kCATransactionAnimationDuration)
             self.mapView?.animate(toLocation: coordinates)
             CATransaction.commit()
-        }
         
     }
     
@@ -142,12 +138,7 @@ extension HotelResultVC {
     }
     
     func adjustMapPadding() {
-        if hoteResultViewType == .ListView {
-            let padding = (200/812) * self.view.height
-            self.mapView?.padding = UIEdgeInsets(top: 0, left: 0, bottom: padding, right: 0)
-        } else {
             self.mapView?.padding = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        }
     }
     
     func updateMarker(atIndex: Int) {
@@ -163,7 +154,7 @@ extension HotelResultVC {
 
 // MARK: - Methods for Marker Ploating
 
-extension HotelResultVC {
+extension HotelsMapVC {
     func drawMarkers(atZoomLabel: Float) {
         guard !self.viewModel.collectionViewList.isEmpty else {
             return
@@ -173,11 +164,11 @@ extension HotelResultVC {
         
         if atZoomLabel >= self.thresholdZoomLabel {
             // draw markers as custom marker
-                self.drawAllCustomMarkers(showFirstMarker: hoteResultViewType != .MapView)
+                self.drawAllCustomMarkers(showFirstMarker: false)
         }
         else {
             // draw markers as dot marker
-            self.drawAllDotMarkers(showFirstMarker: hoteResultViewType != .MapView)
+            self.drawAllDotMarkers(showFirstMarker: false)
         }
         
     }
@@ -374,7 +365,7 @@ extension HotelResultVC {
     }
 }
 
-extension HotelResultVC: GMSMapViewDelegate {
+extension HotelsMapVC: GMSMapViewDelegate {
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
         guard let lat = mapView.myLocation?.coordinate.latitude,
             let lng = mapView.myLocation?.coordinate.longitude else { return false }
@@ -389,7 +380,6 @@ extension HotelResultVC: GMSMapViewDelegate {
         //draw all markers as the zoom labels
         printDebug("zoom label \(position.zoom)")
         let current = position.zoom
-        if hoteResultViewType == .MapView {
             if !self.useGoogleCluster {
                 if current > self.prevZoomLabel, ((self.prevZoomLabel...current) ~= self.thresholdZoomLabel) {
                     self.drawMarkers(atZoomLabel: current)
@@ -398,13 +388,12 @@ extension HotelResultVC: GMSMapViewDelegate {
                     self.drawMarkers(atZoomLabel: current)
                 }
             }
-        }
+        
         self.prevZoomLabel = current
 
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        if hoteResultViewType == .MapView {
             if self.isMapInFullView {
                 //show collection view list
                 self.isHidingOnMapTap = true
@@ -453,7 +442,7 @@ extension HotelResultVC: GMSMapViewDelegate {
                 }
                 animator.startAnimation()
             }
-        }
+        
         printDebug("Coordinate on tapped")
     }
     
@@ -507,7 +496,7 @@ extension HotelResultVC: GMSMapViewDelegate {
 
 // MARK: - GMUClusterManagerDelegate
 
-extension HotelResultVC: GMUClusterManagerDelegate, GMUClusterRendererDelegate {
+extension HotelsMapVC: GMUClusterManagerDelegate, GMUClusterRendererDelegate {
     func renderer(_ renderer: GMUClusterRenderer, willRenderMarker marker: GMSMarker) {
         if let item = marker.userData as? ATClusterItem, let hotel = item.hotelDetails {
             marker.position = CLLocationCoordinate2D(latitude: hotel.lat?.toDouble ?? 0.0, longitude: hotel.long?.toDouble ?? 0.0)

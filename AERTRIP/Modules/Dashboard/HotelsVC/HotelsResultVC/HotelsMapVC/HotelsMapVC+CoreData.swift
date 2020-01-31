@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-extension HotelResultVC: NSFetchedResultsControllerDelegate {
+extension HotelsMapVC: NSFetchedResultsControllerDelegate {
     // Load Save Data from core data
     func getSearchTextPredicate() -> NSCompoundPredicate {
         //        if self.searchTextStr.count >= AppConstants.kSearchTextLimit {
@@ -303,35 +303,4 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
         }
     }
     
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch (type) {
-            //        case .insert:
-            //            if let indexPath = newIndexPath {
-            //                tableViewVertical.insertRows(at: [indexPath], with: .fade)
-        //            }
-        case .delete:
-            
-            if self.switchView.on, let indexPath = indexPath {
-                tableViewVertical.deleteRows(at: [indexPath], with: .fade)
-                if let hotel = anObject as? HotelSearched {
-                    self.viewModel.deleteHotelsDataForCollectionView(hotel: hotel)
-                }
-            }
-            //        case .update:
-            //            if let indexPath = indexPath, let cell = tableViewVertical.cellForRow(at: indexPath) as? HotelCardTableViewCell {
-            //                configureCell(cell: cell, at: indexPath)
-            //            }
-            //        case .move:
-            //            if let indexPath = indexPath {
-            //                tableViewVertical.deleteRows(at: [indexPath], with: .fade)
-            //            }
-            //
-            //            if let newIndexPath = newIndexPath {
-            //                tableViewVertical.insertRows(at: [newIndexPath], with: .fade)
-            //            }
-            
-            
-        @unknown default: break
-        }
-    }
 }

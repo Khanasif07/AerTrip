@@ -1,33 +1,43 @@
 //
-//  ResultVC.swift
+//  HotelsMapVC.swift
 //  AERTRIP
 //
-//  Created by Admin on 31/01/19.
-//  Copyright © 2019 Pramod Kumar. All rights reserved.
+//  Created by Admin on 31/01/20.
+//  Copyright © 2020 Pramod Kumar. All rights reserved.
 //
 
 import CoreData
+import GoogleMaps
 import UIKit
 import Kingfisher
 
-enum FetchRequestType {
-    case FilterApplied
-    case Searching
-    case normalInSearching
-    case normal
+class MapContainerView: UIView {
+    weak var mapView: GMSMapView? {
+        didSet {
+            if let vw = mapView {
+                self.addSubview(vw)
+                vw.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+            }
+        }
+    }
+    
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+      //  self.mapView?.frame = self.bounds
+        
+        self.backgroundColor = AppColors.clear
+        self.mapView?.backgroundColor = AppColors.themeGreen
+        
+    }
+    
+     deinit {
+           printDebug("MapContainerView deinit")
+       }
 }
 
-enum HotelResultViewType {
-    case MapView
-    case ListView
-}
-
-let visualEffectViewHeight =  CGFloat(20)//CGFloat(200.0)
-
-
-
-
-class HotelResultVC: BaseVC {
+class HotelsMapVC: BaseVC {
     // MARK: - IBOutlets
     
     // MARK: -
@@ -38,7 +48,7 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var filterButton: UIButton!
-//    @IBOutlet weak var mapButton: UIButton!
+    @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var searchBar: ATSearchBar!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var progressView: UIProgressView!
@@ -46,27 +56,32 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var emailButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var switchView: ATSwitcher!
+    @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
+    
     @IBOutlet weak var backContainerView: UIView!
-    @IBOutlet weak var tableViewVertical: ATTableView! {
+    @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
-            self.tableViewVertical.registerCell(nibName: HotelCardTableViewCell.reusableIdentifier)
-            self.tableViewVertical.register(HotelResultSectionHeader.self, forHeaderFooterViewReuseIdentifier: "HotelResultSectionHeader")
-            self.tableViewVertical.register(UINib(nibName: "HotelResultSectionHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "HotelResultSectionHeader")
-            self.tableViewVertical.delegate = self
-            self.tableViewVertical.dataSource = self
-            self.tableViewVertical.separatorStyle = .none
-            self.tableViewVertical.showsVerticalScrollIndicator = false
-            self.tableViewVertical.showsHorizontalScrollIndicator = false
-//            let tap = UITapGestureRecognizer(target: self, action: #selector(tableTapped))
-//            self.tableViewVertical.addGestureRecognizer(tap)
+            self.collectionView.registerCell(nibName: HotelCardCollectionViewCell.reusableIdentifier)
+            self.collectionView.registerCell(nibName: HotelGroupCardCollectionViewCell.reusableIdentifier)
+            self.collectionView.isPagingEnabled = true
+            self.collectionView.delegate = self
+            self.collectionView.dataSource = self
+            self.collectionView.showsVerticalScrollIndicator = false
+            self.collectionView.showsHorizontalScrollIndicator = false
         }
     }
     
+    
+    
     @IBOutlet weak var headerContainerViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var shimmerView: UIView!
     @IBOutlet weak var headerContatinerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var floatingButtonOnMapView: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    
+    @IBOutlet weak var mapContainerViewBottomConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var collectionViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
     
     // Searching View
     @IBOutlet weak var hotelSearchView: UIView! {
@@ -80,22 +95,14 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var currentLocationButton: UIButton!
     @IBOutlet weak var floatingViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var floatingButtonBackView: UIView!
+    @IBOutlet weak var mapContainerView: MapContainerView!
+    @IBOutlet weak var mapContainerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var switchContainerView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
-//    @IBOutlet weak var cardGradientView: UIView!
-//    @IBOutlet weak var shimmerGradientView: UIView!
-    @IBOutlet weak var filterView: UIView!
+    @IBOutlet weak var cardGradientView: UIView!
+    @IBOutlet weak var shimmerGradientView: UIView!
     
-    @IBOutlet weak var filterCollectionView: UICollectionView! {
-        didSet {
-            filterCollectionView.delegate = self
-            filterCollectionView.dataSource = self
-            filterCollectionView.showsVerticalScrollIndicator = false
-            filterCollectionView.showsHorizontalScrollIndicator = false
-        }
-    }
     @IBOutlet weak var switchGradientView: UIView!
-    @IBOutlet weak var searchButton: UIButton!
     // MARK: - Properties
     
     //    var container: NSPersistentContainer!
@@ -109,6 +116,16 @@ class HotelResultVC: BaseVC {
     var toastDidClose : (() -> Void)?
     var aerinFilterUndoCompletion : (() -> Void)?
     weak var hotelsGroupExpendedVC: HotelsGroupExpendedVC?
+    var displayingHotelLocation: CLLocationCoordinate2D? {
+        didSet {
+            if let oLoc = oldValue, displayingHotelLocation != nil {
+                self.updateMarker(atLocation: oLoc, isSelected: false)
+            }
+            if let loc = displayingHotelLocation {
+                self.updateMarker(atLocation: loc)
+            }
+        }
+    }
     
     var visibleMapHeightInVerticalMode: CGFloat = 160.0
     var oldScrollPosition: CGPoint = CGPoint.zero
@@ -118,7 +135,20 @@ class HotelResultVC: BaseVC {
     var floatingViewInitialConstraint : CGFloat = 0.0
     
     var oldOffset: CGPoint = .zero //used in colletion view scrolling for map re-focus
+    var isCollectionScrollingInc: Bool = false
+    var isHidingOnMapTap: Bool = false
     
+    //Map Related
+    var clusterManager: GMUClusterManager!
+    let useGoogleCluster: Bool = false
+    var mapView: GMSMapView?
+    let minZoomLabel: Float = 1.0
+    let maxZoomLabel: Float = 30.0
+    let defaultZoomLabel: Float = 15.0
+    let extraZoomLabelForMapView: Float = 1.0
+    let thresholdZoomLabel: Float = 12.0
+    var prevZoomLabel: Float = 1.0
+    var markersOnLocations: JSONDictionary = JSONDictionary()
     var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
     
     // fetch result controller
@@ -198,7 +228,9 @@ class HotelResultVC: BaseVC {
         self.view.layoutIfNeeded()
         
         self.filterButton.isEnabled = false
-//        self.mapButton.isEnabled = false
+        self.mapButton.isEnabled = false
+        self.mapView?.isMyLocationEnabled = false
+        self.animateCollectionView(isHidden: true, animated: false)
         self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
         
         self.view.backgroundColor = AppColors.themeWhite
@@ -236,6 +268,7 @@ class HotelResultVC: BaseVC {
         self.aerinFilterUndoCompletion = {
             printDebug("Undo Button tapped")
         }
+        self.cardGradientView.isHidden = true
         //call API to get vcode, sid
         if AppGlobals.shared.isNetworkRechable() {
             self.viewModel.hotelListOnPreferencesApi()
@@ -248,9 +281,11 @@ class HotelResultVC: BaseVC {
         self.getPinnedHotelTemplate()
         searchBar.setTextField(color: UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
-//        self.cardGradientView.backgroundColor = AppColors.clear
-//        self.cardGradientView.addGredient(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeWhite.withAlphaComponent(0.01),AppColors.themeWhite.withAlphaComponent(1.0)])
+        self.cardGradientView.backgroundColor = AppColors.clear
+        self.cardGradientView.addGredient(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeWhite.withAlphaComponent(0.01),AppColors.themeWhite.withAlphaComponent(1.0)])
         
+        self.additionalSafeAreaInsets = .zero
+        self.configureCollectionViewLayoutItemSize()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -282,9 +317,6 @@ class HotelResultVC: BaseVC {
     
     deinit {
         CoreDataManager.shared.deleteData("HotelSearched")
-        ImageCache.default.clearMemoryCache()
-        ImageCache.default.clearDiskCache()
-        ImageCache.default.cleanExpiredDiskCache()
         printDebug("HotelResultVC deinit")
     }
     
@@ -307,7 +339,7 @@ class HotelResultVC: BaseVC {
             //updateFavOnList(forIndexPath: selectedIndexPath)
             // manage favourite switch buttons
             self.getFavouriteHotels(shouldReloadData: true)
-//            self.updateMarkers()
+            self.updateMarkers()
 //            updateFavouriteSuccess(isHotelFavourite: true)
         }
         else if let _ = note.object as? HCDataSelectionVC {
@@ -360,7 +392,6 @@ class HotelResultVC: BaseVC {
     func initialSetups() {
         self.addShimmerGradient()
         self.setUpFloatingView()
-        self.setupTableHeader()
         self.searchBar.delegate = self
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.searchIntitialFrame = self.searchBarContainerView.frame
@@ -395,7 +426,6 @@ class HotelResultVC: BaseVC {
         self.switchGradientView.backgroundColor = AppColors.clear
         self.switchGradientView.addGrayShadow(ofColor: AppColors.themeBlack.withAlphaComponent(0.2), radius: 18, offset: .zero, opacity: 2, cornerRadius: 100)
         self.manageFloatingView(isHidden: true)
-        self.searchBarContainerView.isHidden = true
     }
     
     override func setupFonts() {
@@ -417,12 +447,14 @@ class HotelResultVC: BaseVC {
     }
     
     private func registerXib() {
+        self.collectionView.register(UINib(nibName: "SectionHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
+        self.collectionView.register(UINib(nibName: "SectionFooter", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "SectionFooter")
         self.hotelSearchTableView.register(UINib(nibName: self.hotelResultCellIdentifier, bundle: nil), forCellReuseIdentifier: self.hotelResultCellIdentifier)
     }
     
     private func addShimmerGradient() {
-//        self.shimmerGradientView.backgroundColor = AppColors.clear
-//        self.shimmerGradientView.addGredient(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeWhite.withAlphaComponent(0.001), AppColors.themeWhite])
+        self.shimmerGradientView.backgroundColor = AppColors.clear
+        self.shimmerGradientView.addGredient(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeWhite.withAlphaComponent(0.001), AppColors.themeWhite])
     }
     
     private func presentEmailVC() {
@@ -445,14 +477,10 @@ class HotelResultVC: BaseVC {
     }
     
     func manageShimmer(isHidden: Bool) {
-        self.shimmerView.isHidden = isHidden
-        self.tableViewVertical.isHidden = !isHidden
-        if isHidden {
-            self.view.sendSubviewToBack(self.shimmerView)
-        }
-        else {
+
+        self.collectionView.isHidden = !isHidden
+        if !isHidden {
             self.manageSwitchContainer(isHidden: true)
-            self.view.bringSubviewToFront(self.shimmerView)
         }
     }
     
@@ -555,6 +583,7 @@ class HotelResultVC: BaseVC {
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
+        backButton.alpha = 1
         self.searchedHotels.removeAll()
         self.fetchRequestType = .normal
         
@@ -570,11 +599,8 @@ class HotelResultVC: BaseVC {
     }
     
     @IBAction func currentLocationButtonAction(_ sender: UIButton) {
-        
-    }
-    
-    @IBAction func searchBtnTapped(_ sender: Any) {
-        self.showSearchAnimation()
+        self.moveMapToCurrentCity()
+        self.mapView?.animate(toZoom: self.defaultZoomLabel + 5.0)
     }
     
     @objc func longPress(_ gesture: UILongPressGestureRecognizer) {
@@ -602,20 +628,7 @@ class HotelResultVC: BaseVC {
         }
     }
     
-    // added tap gesture to handle the tap on mapview when vertical tableview is visible
-//    @objc func tableTapped(tap:UITapGestureRecognizer) {
-//        let location = tap.location(in: self.tableViewVertical)
-//        let path = self.tableViewVertical.indexPathForRow(at: location)
-//        if let indexPathForRow = path {
-//            self.tableView(self.tableViewVertical, didSelectRowAt: indexPathForRow)
-//        } else {
-//            // handle tap on empty space below existing rows however you want
-//            printDebug("tapped at empty space of table view")
-//            self.mapButtonAction(self.mapButton ?? UIButton())
-//        }
-//    }
     
     
     
 }
-

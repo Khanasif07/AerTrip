@@ -433,16 +433,17 @@ extension AppFlowManager {
         }
     }
     
-    func presentHotelDetailsVC(_ vc: HotelResultVC, hotelInfo: HotelSearched, sourceView: UIView, sid: String, hotelSearchRequest: HotelSearchRequestModel?, onCloseHandler: (() -> Void)? = nil) {
+    func presentHotelDetailsVC(_ vc: BaseVC, hotelInfo: HotelSearched, sourceView: UIView, sid: String, hotelSearchRequest: HotelSearchRequestModel?, onCloseHandler: (() -> Void)? = nil) {
         if let topVC = UIApplication.topViewController() {
             let ob = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
             ob.viewModel.hotelInfo = hotelInfo
-            ob.delegate = vc
+            ob.delegate = vc as? HotelDetailsVCDelegate
             ob.viewModel.hotelSearchRequest = hotelSearchRequest
             ob.onCloseHandler = onCloseHandler
             ob.show(onViewController: topVC, sourceView: sourceView, animated: true)
         }
     }
+    
     // presentHotelDetailsVCOverExpendCard
     func presentHotelDetailsVCOverExpendCard(_ vc: HotelsGroupExpendedVC, hotelInfo: HotelSearched, sourceView: UIView, sid: String, hotelSearchRequest: HotelSearchRequestModel?, onCloseHandler: (() -> Void)? = nil) {
         if let topVC = UIApplication.topViewController() {
@@ -508,10 +509,10 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func showFilterVC(_ vc: HotelResultVC) {
+    func showFilterVC(_ vc: BaseVC) {
         if let obj = UIApplication.topViewController() {
             let ob = HotelFilterVC.instantiate(fromAppStoryboard: .Filter)
-            ob.delegate = vc
+            ob.delegate = vc as? HotelFilteVCDelegate
             obj.add(childViewController: ob)
         }
     }
