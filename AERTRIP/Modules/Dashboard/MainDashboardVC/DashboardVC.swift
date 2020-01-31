@@ -72,12 +72,12 @@ class DashboardVC: BaseVC {
     var visualEffectView : UIVisualEffectView!
     var backView : UIView!
     var isLaunchThroughSplash = false
+    private var isScrollHeightSet = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         resetItems()
         headerTopConstraint.constant = UIApplication.shared.statusBarFrame.height
-//        segmentCenterYConstraint.constant = -5.0
         aerinView.transform = .identity
         aerinView.alpha = 1.0
         // nitin change
@@ -109,7 +109,11 @@ class DashboardVC: BaseVC {
         let fullHeight = UIScreen.main.bounds.size.height
         
         let temp = UIScreen.main.bounds.size.height - (fullHeight - guideHeight) - segmentContainerView.bounds.height + headerTopConstraint.constant
-        innerScrollViewHeightConstraint.constant = temp
+        if !isScrollHeightSet {
+            isScrollHeightSet = true
+            let extraHeightForSafeArea: CGFloat = UIApplication.shared.statusBarFrame.height > 20 ? 26 : 0
+            innerScrollViewHeightConstraint.constant = temp + extraHeightForSafeArea
+        }
         self.profileButton.cornerRadius = self.profileButton.height/2
     }
     
@@ -142,7 +146,7 @@ class DashboardVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-        printDebug("data changed notfication received")
+//        printDebug("data changed notfication received")
         //        resetItems()
         updateProfileButton()
     }
@@ -351,22 +355,25 @@ extension DashboardVC  {
                 self.homeAertripLogoImageView.alpha = 1
             }
             
-            printDebug("current progress \(progress)")
+//            printDebug("current progress \(progress)")
             if scrollView.contentOffset.y - mainScrollViewOffset.y > 0 {
                 let valueMoved = scrollView.contentOffset.y - mainScrollViewOffset.y
                 let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
                 updateUpLabels(with: headerValueMoved)
                 //transform = 1.0 - headerValueMoved/4.0 - 0.08
                 transform = 1.0 - headerValueMoved/4.0
+                if offset.y == 80 {
+                    updateUpLabels(with: 1)
+                }
                 userDidScrollUp = true
-                printDebug("Scrolling up \(transform)")
+//                printDebug("Scrolling up \(transform)")
             }else{
                 let valueMoved = mainScrollViewOffset.y - scrollView.contentOffset.y
                 let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
                 updateDownLabels(with: headerValueMoved)
                 transform = 1.0 + headerValueMoved/4.0
                 userDidScrollUp = false
-                 printDebug("Scrolling down \(transform)")
+//                 printDebug("Scrolling down \(transform)")
             }
             updateSegmentYPosition(for: scrollView.contentOffset.y)
             updateSegmentTop(for: scrollView.contentOffset.y)
@@ -431,7 +438,7 @@ extension DashboardVC  {
         let ratio = valueToBe / (headerTopConstraint.constant + headerView.height)
         
         segmentCenterYConstraint.constant = ratio * scrolledY
-        printDebug("segment y pos:  \(segmentCenterYConstraint.constant)")
+//        printDebug("segment y pos:  \(segmentCenterYConstraint.constant)")
     }
     
     private func updateInnerScrollTop(for scrolledY: CGFloat) {
@@ -442,7 +449,7 @@ extension DashboardVC  {
             innerScrollView.transform = CGAffineTransform.identity
         }
         else {
-            printDebug("final value is \(final)")
+//            printDebug("final value is \(final)")
              //innerScrollView.transform = CGAffineTransform(translationX: 0, y: -(final))
              innerScrollView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
         }
@@ -483,22 +490,26 @@ extension DashboardVC  {
     
     private func updateUpLabels(with alpha : CGFloat){
         
+        let extraAlpha: CGFloat = UIApplication.shared.statusBarFrame.height > 20 ? 0 : 0
+        
         headerView.alpha = max(headerView.alpha - alpha, 0.0)
         
-        aerinLabel.alpha = max(aerinLabel.alpha - alpha, 0.0)
-        flightsLabel.alpha = max(flightsLabel.alpha - alpha, 0.0)
-        hotelsLabel.alpha = max(hotelsLabel.alpha - alpha, 0.0)
-        tripsLabel.alpha = max(tripsLabel.alpha - alpha, 0.0)
+        aerinLabel.alpha = max(aerinLabel.alpha - (alpha + extraAlpha), 0.0)
+        flightsLabel.alpha = max(flightsLabel.alpha - (alpha + extraAlpha), 0.0)
+        hotelsLabel.alpha = max(hotelsLabel.alpha - (alpha + extraAlpha), 0.0)
+        tripsLabel.alpha = max(tripsLabel.alpha - (alpha + extraAlpha), 0.0)
     }
     
     private func updateDownLabels(with alpha : CGFloat){
         
+        let extraAlpha: CGFloat = UIApplication.shared.statusBarFrame.height > 20 ? 0 : 0
+        
         headerView.alpha = min(headerView.alpha + alpha, 1.0)
         
-        aerinLabel.alpha = min(aerinLabel.alpha + alpha, 1.0)
-        flightsLabel.alpha = min(flightsLabel.alpha + alpha, 1.0)
-        hotelsLabel.alpha = min(hotelsLabel.alpha + alpha, 1.0)
-        tripsLabel.alpha = min(tripsLabel.alpha + alpha, 1.0)
+        aerinLabel.alpha = min(aerinLabel.alpha + (alpha + extraAlpha), 1.0)
+        flightsLabel.alpha = min(flightsLabel.alpha + (alpha + extraAlpha), 1.0)
+        hotelsLabel.alpha = min(hotelsLabel.alpha + (alpha + extraAlpha), 1.0)
+        tripsLabel.alpha = min(tripsLabel.alpha + (alpha + extraAlpha), 1.0)
     }
     
     private func viewFor(option: SelectedOption) -> UIView {
