@@ -351,6 +351,9 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             //guest user
             switch indexPath.row {
                 
+            case 0:
+                break
+                
             case 5:
                 //settings
                 AppFlowManager.default.moveToSettingsVC()

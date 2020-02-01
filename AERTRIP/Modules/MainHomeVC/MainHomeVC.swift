@@ -256,7 +256,7 @@ class MainHomeVC: BaseVC {
     }
     
     private func pushProfileAnimation() {
-
+        self.statusBarStyle = .lightContent
         let pushPoint = CGPoint(x: UIDevice.screenWidth, y: 0.0)
         viewProfileVC?.profileImageHeaderView?.profileImageView.isHidden = true
         let toAddImgView = UIImageView()
@@ -294,7 +294,7 @@ class MainHomeVC: BaseVC {
     }
     
     private func popProfileAnimation() {
-
+        self.statusBarStyle = .default
         let popPoint = CGPoint(x: 0.0, y: 0.0)
         
         viewProfileVC?.profileImageHeaderView?.profileImageView.isHidden = true
