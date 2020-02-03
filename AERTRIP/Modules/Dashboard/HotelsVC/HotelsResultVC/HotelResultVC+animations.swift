@@ -16,30 +16,42 @@ extension HotelResultVC {
     }
     
     func showSearchAnimation() {
-        self.filterButton.isHidden = true
+//        self.filterButton.isHidden = true
 //        self.mapButton.isHidden = true
-        self.cancelButton.alpha = 1
-        self.backButton.alpha = 0
-        self.searchButton.alpha = 0
+        
         self.searchBarContainerView.isHidden = false
-        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-            self.searchBarContainerView.frame = self.searchBarFrame(isInSearchMode: true)
-            self.view.layoutIfNeeded()
+        self.searchBarContainerView.alpha = 0.0
+        self.titleLabel.isHidden = true
+        self.descriptionLabel.isHidden = true
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: { [weak self] in
+            self?.searchBarContainerView.alpha = 1.0
+            self?.cancelButton.alpha = 1
+            self?.backButton.alpha = 0
+            self?.searchButton.alpha = 0
         }, completion: nil)
     }
     
     func hideSearchAnimation() {
-        self.filterButton.isHidden = false
+//        self.filterButton.isHidden = false
 //        self.mapButton.isHidden = false
-        self.searchBarContainerView.isHidden = false
-        self.searchButton.alpha = 1
-        self.cancelButton.alpha = 0
+        
+        
+        self.titleLabel.isHidden = false
+        self.descriptionLabel.isHidden = false
+        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: { [weak self] in
+            self?.searchButton.alpha = 1
+            self?.cancelButton.alpha = 0
+            self?.backButton.alpha = 1
+        }, completion: nil)
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations:{ [weak self] in
-                self?.searchBarContainerView.backgroundColor = AppColors.clear
+                self?.searchButton.alpha = 1
+                self?.cancelButton.alpha = 0
+                self?.backButton.alpha = 1
+                self?.searchBarContainerView.alpha = 0.0
+                //self?.searchBarContainerView.backgroundColor = AppColors.clear
             }) { [weak self] (done)  in
                 if done {
-                    self?.backButton.alpha = 1
-                    self?.searchBarContainerView.backgroundColor = AppColors.clear
+                  self?.searchBarContainerView.isHidden = true
                 }
             }
         

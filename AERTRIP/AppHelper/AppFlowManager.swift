@@ -344,6 +344,12 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
+    func moveToHotelsResultMapVC(viewModel: HotelsResultVM) {
+        let obj = HotelsMapVC.instantiate(fromAppStoryboard: .HotelsSearch)
+        obj.viewModel = viewModel
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
     func showBulkBookingVC(withOldData: HotelFormPreviosSearchData) {
         if let mVC = self.mainHomeVC {
             let ob = BulkBookingVC.instantiate(fromAppStoryboard: .HotelsSearch)

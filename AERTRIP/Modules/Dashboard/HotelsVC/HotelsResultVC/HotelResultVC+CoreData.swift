@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-extension HotelResultVC: NSFetchedResultsControllerDelegate {
+extension HotelsResultVM: NSFetchedResultsControllerDelegate {
     // Load Save Data from core data
     func getSearchTextPredicate() -> NSCompoundPredicate {
         //        if self.searchTextStr.count >= AppConstants.kSearchTextLimit {
@@ -47,7 +47,7 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
             }
             
             //if switch is on then all the operations must be only on fav data
-            if self.switchView.on {
+            if self.isFavouriteOn {
                 let favPred = NSPredicate(format: "fav == '1'")
                 if let oldPred = finalPredicate {
                     finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [oldPred, favPred])
@@ -66,7 +66,7 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
                 finalPred = orPredicate
             }
             
-            if self.switchView.on {
+            if self.isFavouriteOn {
                 //if switch is on then all the operations must be only on fav data
                 let favPred = NSPredicate(format: "fav == '1'")
                 finalPred = NSCompoundPredicate(andPredicateWithSubpredicates: [favPred, finalPred])
@@ -80,7 +80,7 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
                 self.searchedHotels.removeAll()
             }
             
-            if self.switchView.on {
+            if self.isFavouriteOn {
                 //if switch is on then all the operations must be only on fav data
                 let favPred = NSPredicate(format: "fav == '1'")
                 finalPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [favPred])
@@ -247,16 +247,17 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
     func fetchDataFromCoreData(isUpdatingFav: Bool = false,finalPredicate: NSPredicate? = nil) {
         do {
             try self.fetchedResultsController.performFetch()
-            self.getHotelsCount()
+            self.delegate?.getHotelsCount()
             if !self.searchTextStr.isEmpty {
                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
-                self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
+                //TO DO
+               // self.hotelSearchTableView.backgroundColor = self.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
             }
             
-            self.viewModel.fetchHotelsDataForCollectionView(fromController: self.fetchedResultsController)
+            self.fetchHotelsDataForCollectionView(fromController: self.fetchedResultsController)
             
             if !isUpdatingFav {
-                self.reloadHotelList()
+                self.delegate?.reloadHotelList(isUpdatingFav: isUpdatingFav)
             }
             
             self.getFavouriteHotels(shouldReloadData: false,finalPredicate: finalPredicate)
@@ -277,10 +278,10 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
         if let allFavs = CoreDataManager.shared.fetchData("HotelSearched", nsPredicate: pred)  as? [HotelSearched] {
             self.isLoadingListAfterUpdatingAllFav = false
             var turnOffFilter = true
-            if self.fetchRequestType  == .FilterApplied, self.switchView.on  {
+            if self.fetchRequestType  == .FilterApplied, self.isFavouriteOn  {
                 turnOffFilter = false
             }
-            self.manageSwitchContainer(isHidden: allFavs.isEmpty, shouldOff: turnOffFilter)
+            self.delegate?.manageSwitchContainer(isHidden: allFavs.isEmpty, shouldOff: turnOffFilter)
             self.favouriteHotels = allFavs
             
             if shouldReloadData {
@@ -292,7 +293,7 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
                     }
                 }
                 else {
-                    self.updateFavOnList(forIndexPath: self.selectedIndexPath)
+                    self.delegate?.updateFavOnList()
                 }
             }
         }
@@ -311,10 +312,10 @@ extension HotelResultVC: NSFetchedResultsControllerDelegate {
         //            }
         case .delete:
             
-            if self.switchView.on, let indexPath = indexPath {
-                tableViewVertical.deleteRows(at: [indexPath], with: .fade)
+            if self.isFavouriteOn, let indexPath = indexPath {
+                self.delegate?.deleteRow(index: indexPath)
                 if let hotel = anObject as? HotelSearched {
-                    self.viewModel.deleteHotelsDataForCollectionView(hotel: hotel)
+                    self.deleteHotelsDataForCollectionView(hotel: hotel)
                 }
             }
             //        case .update:

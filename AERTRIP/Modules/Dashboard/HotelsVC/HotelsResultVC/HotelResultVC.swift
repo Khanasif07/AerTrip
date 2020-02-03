@@ -38,7 +38,7 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var filterButton: UIButton!
-//    @IBOutlet weak var mapButton: UIButton!
+    @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var searchBar: ATSearchBar!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var progressView: UIProgressView!
@@ -77,7 +77,6 @@ class HotelResultVC: BaseVC {
     }
     
     @IBOutlet weak var hotelSearchTableView: ATTableView!
-    @IBOutlet weak var currentLocationButton: UIButton!
     @IBOutlet weak var floatingViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var floatingButtonBackView: UIView!
     @IBOutlet weak var switchContainerView: UIView!
@@ -99,7 +98,7 @@ class HotelResultVC: BaseVC {
     // MARK: - Properties
     
     //    var container: NSPersistentContainer!
-    var searchTextStr: String = ""
+    
     var time: Float = 0.0
     var timer: Timer?
     var isAboveTwentyKm: Bool = false
@@ -118,32 +117,7 @@ class HotelResultVC: BaseVC {
     var floatingViewInitialConstraint : CGFloat = 0.0
     
     var oldOffset: CGPoint = .zero //used in colletion view scrolling for map re-focus
-    
-    var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
-    
-    // fetch result controller
-    lazy var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
-        
-        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bc", ascending: true)]
-        
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-        
-        //        do {
-        //            try fetchedResultsController.performFetch()
-        //        } catch {
-        //            printDebug("Error in performFetch: \(error) at line \(#line) in file \(#file)")
-        //        }
-        fetchedResultsController.delegate = self
-        return fetchedResultsController
-    }()
-    
-    // Request and View Type
-    var isLoadingListAfterUpdatingAllFav: Bool = false
-    var fetchRequestType: FetchRequestType = .normal
-    var favouriteHotels: [HotelSearched] = []
     let hotelResultCellIdentifier = "HotelSearchTableViewCell"
-    var searchedHotels: [HotelSearched] = []
-    var andPredicate : NSCompoundPredicate?
     
     var visualEffectView : UIVisualEffectView!
     var backView : UIView!
@@ -176,9 +150,7 @@ class HotelResultVC: BaseVC {
     // MARK: - Private
     
     let viewModel = HotelsResultVM()
-    var locManager = CLLocationManager()
-    var currentLocation: CLLocation?
-    var filterApplied: UserInfo.HotelFilter = UserInfo.HotelFilter()
+    
     var hideSection = 0
     var footeSection = 1
     let defaultDuration: CGFloat = 1.2
@@ -197,9 +169,10 @@ class HotelResultVC: BaseVC {
     override func initialSetup() {
         self.view.layoutIfNeeded()
         
+        self.filterCollectionView.isUserInteractionEnabled = false
         self.filterButton.isEnabled = false
-//        self.mapButton.isEnabled = false
-        self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
+        self.mapButton.isEnabled = false
+        //self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
         
         self.view.backgroundColor = AppColors.themeWhite
         
@@ -211,7 +184,7 @@ class HotelResultVC: BaseVC {
             self?.applyButtonTapped = true
             
             UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
-            self?.fetchRequestType = .FilterApplied
+            self?.viewModel.fetchRequestType = .FilterApplied
             if let old = UserInfo.hotelFilter {
                 HotelFilterVM.shared.setData(from: old)
             }
@@ -248,8 +221,8 @@ class HotelResultVC: BaseVC {
         self.getPinnedHotelTemplate()
         searchBar.setTextField(color: UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
-//        self.cardGradientView.backgroundColor = AppColors.clear
-//        self.cardGradientView.addGredient(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeWhite.withAlphaComponent(0.01),AppColors.themeWhite.withAlphaComponent(1.0)])
+        self.mapButton.backgroundColor = AppColors.themeWhite
+        self.mapButton.roundCorners(corners: [.allCorners], radius: self.mapButton.height/2)
         
     }
     
@@ -289,7 +262,7 @@ class HotelResultVC: BaseVC {
     }
     
     override func keyboardWillHide(notification: Notification) {
-        if let _ = self.view.window, self.searchedHotels.isEmpty {
+        if let _ = self.view.window, self.viewModel.searchedHotels.isEmpty {
             //checking if the screen in window only then this method should call
             // self.cancelButtonTapped(self.cancelButton)
         }
@@ -306,7 +279,7 @@ class HotelResultVC: BaseVC {
             //fav updated from hotel details
             //updateFavOnList(forIndexPath: selectedIndexPath)
             // manage favourite switch buttons
-            self.getFavouriteHotels(shouldReloadData: true)
+            self.viewModel.getFavouriteHotels(shouldReloadData: true)
 //            self.updateMarkers()
 //            updateFavouriteSuccess(isHotelFavourite: true)
         }
@@ -358,7 +331,6 @@ class HotelResultVC: BaseVC {
     }
     
     func initialSetups() {
-        self.addShimmerGradient()
         self.setUpFloatingView()
         self.setupTableHeader()
         self.searchBar.delegate = self
@@ -372,7 +344,7 @@ class HotelResultVC: BaseVC {
         self.hotelSearchTableView.dataSource = self
         
         self.completion = { [weak self] in
-            self?.loadSaveData()
+            self?.viewModel.loadSaveData()
         }
         
         self.hotelSearchTableView.backgroundView = noResultemptyView
@@ -393,7 +365,8 @@ class HotelResultVC: BaseVC {
         self.switchView.selectedImage = #imageLiteral(resourceName: "switch_fav_on")
         self.switchView.isBackgroundBlurry = true
         self.switchGradientView.backgroundColor = AppColors.clear
-        self.switchGradientView.addGrayShadow(ofColor: AppColors.themeBlack.withAlphaComponent(0.2), radius: 18, offset: .zero, opacity: 2, cornerRadius: 100)
+        self.switchGradientView.isHidden = true
+       // self.switchGradientView.addGrayShadow(ofColor: AppColors.themeBlack.withAlphaComponent(0.2), radius: 18, offset: .zero, opacity: 2, cornerRadius: 100)
         self.manageFloatingView(isHidden: true)
         self.searchBarContainerView.isHidden = true
     }
@@ -420,19 +393,15 @@ class HotelResultVC: BaseVC {
         self.hotelSearchTableView.register(UINib(nibName: self.hotelResultCellIdentifier, bundle: nil), forCellReuseIdentifier: self.hotelResultCellIdentifier)
     }
     
-    private func addShimmerGradient() {
-//        self.shimmerGradientView.backgroundColor = AppColors.clear
-//        self.shimmerGradientView.addGredient(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeWhite.withAlphaComponent(0.001), AppColors.themeWhite])
-    }
     
     private func presentEmailVC() {
         
         func showEmailComposer() {
-            self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels) { [weak self] (status) in
+            self.viewModel.getPinnedTemplate(hotels: self.viewModel.favouriteHotels) { [weak self] (status) in
                 guard let strongSelf = self else {return}
                 if status {
                     // url fetched
-                    AppFlowManager.default.presentMailComposerVC(strongSelf.favouriteHotels, strongSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), strongSelf.viewModel.shortUrl)
+                    AppFlowManager.default.presentMailComposerVC(strongSelf.viewModel.favouriteHotels, strongSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), strongSelf.viewModel.shortUrl)
                     AppFlowManager.default.removeLoginConfirmationScreenFromStack()
                 }
             }
@@ -475,53 +444,7 @@ class HotelResultVC: BaseVC {
     }
     
     @IBAction func mapButtonAction(_ sender: Any) {
-        /*
-        self.hideFavsButtons()
-        self.backButton.isHidden = false
-        self.cardGradientView.isHidden = true
-        self.mapButton.isUserInteractionEnabled = false
-        if self.hoteResultViewType == .ListView {
-            self.mapButton.isSelected = true
-            self.currentLocationButton.isHidden = false
-            self.hoteResultViewType = .MapView
-            self.animateHeaderToMapView()
-            self.convertToMapView { [weak self] (isConverted) in
-                if isConverted {
-                    //self?.switchView.setOn(isOn: self?.switchView.on ?? false)
-                    self?.mapButton.isUserInteractionEnabled = true
-                }
-            }
-            self.cardGradientView.isHidden = true
-            self.collectionView.setContentOffset(.zero, animated: false)
-            delay(seconds: 1.2) { [weak self] in
-                guard let strongSelf = self else {return}
-                let indexOfMajorCell = strongSelf.indexOfMajorCell()
-                strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
-            }
-            self.adjustMapPadding()
-        } else {
-            self.currentLocationButton.isHidden = true
-            self.hoteResultViewType = .ListView
-            self.mapButton.isSelected = false
-            self.animateHeaderToListView()
-            self.convertToListView { [weak self] (isConverted) in
-                if isConverted {
-                   // self?.switchView.setOn(isOn: self?.switchView.on ?? false)
-                    self?.mapButton.isUserInteractionEnabled = true
-                }
-            }
-            self.cardGradientView.isHidden = false
-            self.tableViewVertical.setContentOffset(.zero, animated: false)
-            delay(seconds: 1.2) { [weak self] in
-                guard let strongSelf = self else {return}
-                let indexOfMajorCell = strongSelf.indexOfMajorCell()
-                strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
-            }
-            self.adjustMapPadding()
-        }
-        
-        self.reloadHotelList()
- */
+        AppFlowManager.default.moveToHotelsResultMapVC(viewModel: self.viewModel)
     }
     
     @IBAction func unPinAllFavouriteButtonTapped(_ sender: Any) {
@@ -555,16 +478,16 @@ class HotelResultVC: BaseVC {
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
-        self.searchedHotels.removeAll()
-        self.fetchRequestType = .normal
+        self.viewModel.searchedHotels.removeAll()
+        self.viewModel.fetchRequestType = .normal
         
         self.hideSearchAnimation()
         self.view.endEditing(true)
         self.searchBar.text = ""
-        self.searchTextStr = ""
+        self.viewModel.searchTextStr = ""
         self.reloadHotelList()
         delay(seconds: 0.1) { [weak self] in
-            self?.loadSaveData()
+            self?.viewModel.loadSaveData()
         }
   // nitin       self.getFavouriteHotels(shouldReloadData: false)
     }

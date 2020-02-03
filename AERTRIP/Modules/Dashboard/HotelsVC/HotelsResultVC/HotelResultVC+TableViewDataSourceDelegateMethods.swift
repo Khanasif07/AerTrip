@@ -15,27 +15,27 @@ import Foundation
 extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     func manageViewForSearchAndFilterMode() {
         
-        let count = self.fetchedResultsController.fetchedObjects?.count ?? 0
-        if (self.fetchRequestType == .FilterApplied), count <= 0 {
+        let count = self.viewModel.fetchedResultsController.fetchedObjects?.count ?? 0
+        if (self.viewModel.fetchRequestType == .FilterApplied), count <= 0 {
             self.hotelSearchView.isHidden = false
             self.hotelSearchTableView.backgroundView = noHotelFoundOnFilterEmptyView
             self.noHotelFoundOnFilter()
             self.manageFloatingView(isHidden: true)
         }
-        else if (self.fetchRequestType == .Searching) {
+        else if (self.viewModel.fetchRequestType == .Searching) {
             self.manageFloatingView(isHidden: true)
             self.hotelSearchView.isHidden = false
             self.hotelSearchTableView.backgroundView = self.noResultemptyView
-            if !self.searchedHotels.isEmpty {
+            if !self.viewModel.searchedHotels.isEmpty {
                 self.hotelSearchTableView.backgroundView?.isHidden = true
             }
             else {
-                self.hotelSearchTableView.backgroundView?.isHidden = (self.searchTextStr.isEmpty && self.searchedHotels.isEmpty)
+                self.hotelSearchTableView.backgroundView?.isHidden = (self.viewModel.searchTextStr.isEmpty && self.viewModel.searchedHotels.isEmpty)
             }
             manageFloatingView(isHidden: true)
         }
-        else if (self.fetchRequestType == .normalInSearching) {
-            self.searchedHotels.removeAll()
+        else if (self.viewModel.fetchRequestType == .normalInSearching) {
+            self.viewModel.searchedHotels.removeAll()
             self.hotelSearchView.isHidden = false
             hotelSearchTableView.backgroundColor = AppColors.clear
             self.hotelSearchTableView.backgroundView?.isHidden = true
@@ -50,19 +50,19 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         manageViewForSearchAndFilterMode()
         if tableView === hotelSearchTableView {
-            searchBar.enablesReturnKeyAutomatically = self.searchedHotels.count < 0
+            searchBar.enablesReturnKeyAutomatically = self.viewModel.searchedHotels.count < 0
             return 1
         }
         else {
-            return self.fetchedResultsController.sections?.count ?? 0
+            return self.viewModel.fetchedResultsController.sections?.count ?? 0
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView === hotelSearchTableView {
-            return self.searchedHotels.count
+            return self.viewModel.searchedHotels.count
         } else {
-            guard let sections = self.fetchedResultsController.sections else {
+            guard let sections = self.viewModel.fetchedResultsController.sections else {
                 printDebug("No sections in fetchedResultsController")
                 return 0
             }
@@ -100,7 +100,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func getSectionTitle(forSection section: Int) -> String {
-        guard let allSections = self.fetchedResultsController.sections else {
+        guard let allSections = self.viewModel.fetchedResultsController.sections else {
             return ""
         }
         
@@ -111,7 +111,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             let title = allSections[section].name
             if title.contains("to") {
                 var titleArr = allSections[section].name.components(separatedBy: "to")
-                titleArr[1] = " \(Int((self.filterApplied.distanceRange < 1.0) ? 1.0 : self.filterApplied.distanceRange))"
+                titleArr[1] = " \(Int((self.viewModel.filterApplied.distanceRange < 1.0) ? 1.0 : self.viewModel.filterApplied.distanceRange))"
                 
                 finalText = titleArr.joined(separator: "to")
             }
@@ -154,9 +154,9 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
                 printDebug("HotelSearchTableViewCell not found")
                 return UITableViewCell()
             }
-            cell.searchText = self.searchTextStr
-            if self.searchedHotels.count > 0 {
-                cell.hotelData = self.searchedHotels[indexPath.row]
+            cell.searchText = self.viewModel.searchTextStr
+            if self.viewModel.searchedHotels.count > 0 {
+                cell.hotelData = self.viewModel.searchedHotels[indexPath.row]
             }
             return cell
         } else {
@@ -164,7 +164,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
                 fatalError("HotelCardTableViewCell not found")
             }
             
-            let hData = fetchedResultsController.object(at: indexPath)
+            let hData = viewModel.fetchedResultsController.object(at: indexPath)
             self.isAboveTwentyKm = hData.isHotelBeyondTwentyKm
             self.isFotterVisible = self.isAboveTwentyKm
             cell.hotelListData = hData
@@ -179,7 +179,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         self.view.endEditing(true)
         self.selectedIndexPath = indexPath
         if tableView === hotelSearchTableView {
-            let hData = self.searchedHotels[indexPath.row]
+            let hData = self.viewModel.searchedHotels[indexPath.row]
             if let cell = tableView.cellForRow(at: indexPath) {
                 AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: hData, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest){
                     self.statusBarColor = AppColors.themeWhite
@@ -187,7 +187,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
                 self.selectedIndexPath = indexPath
             }
         } else {
-            let hData = fetchedResultsController.object(at: indexPath)
+            let hData = viewModel.fetchedResultsController.object(at: indexPath)
             if let cell = tableView.cellForRow(at: indexPath) as? HotelCardTableViewCell {
                 AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: hData, sourceView: cell.collectionView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest){
                     self.statusBarColor = AppColors.themeWhite

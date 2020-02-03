@@ -35,14 +35,14 @@ extension HotelResultVC {
             HotelFilterVM.shared.resetToDefault()
             return
         }
-        self.fetchRequestType = .FilterApplied
-        self.filterApplied = filter
+        self.viewModel.fetchRequestType = .FilterApplied
+        self.viewModel.filterApplied = filter
     }
     
     func applyPreviousFilter() {
-        let starStar = self.getStarString(fromArr: self.filterApplied.ratingCount, maxCount: 5)
+        let starStar = self.getStarString(fromArr: self.viewModel.filterApplied.ratingCount, maxCount: 5)
         
-        let distanceStr = self.filterApplied.distanceRange > 20 ? "beyond \(self.filterApplied.distanceRange.toInt) " : " within \(self.filterApplied.distanceRange.toInt) "
+        let distanceStr = self.viewModel.filterApplied.distanceRange > 20 ? "beyond \(self.viewModel.filterApplied.distanceRange.toInt) " : " within \(self.viewModel.filterApplied.distanceRange.toInt) "
         
         let finalStr = LocalizedString.ApplyPreviousFilter.localized + starStar + distanceStr.appending(LocalizedString.Kms.localized) + AppConstants.kEllipses
         
@@ -50,7 +50,7 @@ extension HotelResultVC {
     }
     
     func getPinnedHotelTemplate() {
-        if !self.favouriteHotels.isEmpty {
+        if !self.viewModel.favouriteHotels.isEmpty {
             // self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         }
     }
@@ -91,7 +91,7 @@ extension HotelResultVC {
         self.manageSwitchContainer(isHidden: true)
         self.viewModel.isUnpinHotelTapped = true
         self.selectedIndexPath = nil
-        self.viewModel.updateFavourite(forHotels: self.favouriteHotels, isUnpinHotels: true)
+        self.viewModel.updateFavourite(forHotels: self.viewModel.favouriteHotels, isUnpinHotels: true)
     }
     
     func expandGroup(_ hotels: [HotelSearched]) {
@@ -121,7 +121,7 @@ extension HotelResultVC {
     func updateFavOnList(forIndexPath: IndexPath?) {
         //update the current opened list as user make fav/unfav
         if let indexPath = forIndexPath {
-            if self.fetchRequestType == .Searching {
+            if self.viewModel.fetchRequestType == .Searching {
                 self.hotelSearchTableView.reloadRow(at: indexPath, with: .none)
             }
             else {
@@ -131,11 +131,11 @@ extension HotelResultVC {
             selectedIndexPath = nil
         }
         else {
-            if self.fetchRequestType == .Searching {
+            if self.viewModel.fetchRequestType == .Searching {
                 self.hotelSearchTableView.reloadData()
             }
             else {
-                    self.fetchDataFromCoreData(isUpdatingFav: true)
+                self.viewModel.fetchDataFromCoreData(isUpdatingFav: true)
                     self.tableViewVertical.reloadData()
                 
             }
@@ -151,19 +151,11 @@ extension HotelResultVC {
         }
     }
     
-    func relocateCurrentLocationButton(shouldMoveUp: Bool, animated: Bool) {
-        let trans = shouldMoveUp ? CGAffineTransform.identity : CGAffineTransform(translationX: 0.0, y: 30.0)
-        
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0) { [weak self] in
-            self?.currentLocationButton.transform = trans
-            self?.view.layoutIfNeeded()
-        }
-    }
     
     
     
     func getHotelsCount() {
-        HotelFilterVM.shared.filterHotelCount = self.fetchedResultsController.fetchedObjects?.count ?? 0
+        HotelFilterVM.shared.filterHotelCount = self.viewModel.fetchedResultsController.fetchedObjects?.count ?? 0
     }
     
     func setupTableHeader() {
@@ -192,8 +184,8 @@ extension HotelResultVC {
         
     }
     
-    func reloadHotelList(isUpdatingFav: Bool = false,drawMarkers: Bool = true) {
-        if let section = self.fetchedResultsController.sections, !section.isEmpty {
+    func reloadHotelList(isUpdatingFav: Bool = false) {
+        if let section = self.viewModel.fetchedResultsController.sections, !section.isEmpty {
             self.tableViewVertical.isHidden = false
         }
         
@@ -213,10 +205,10 @@ extension HotelResultVC {
     }
     
     private func searchHotels(forText: String) {
-        self.fetchRequestType = .Searching
+        self.viewModel.fetchRequestType = .Searching
         printDebug("searching text is \(forText)")
-        self.searchTextStr = forText
-        self.loadSaveData()
+        self.viewModel.searchTextStr = forText
+        self.viewModel.loadSaveData()
         self.reloadHotelList()
     }
     
@@ -233,8 +225,6 @@ extension HotelResultVC {
     
     func manageSwitchContainer(isHidden: Bool, shouldOff: Bool = true) {
             manageFloatingView(isHidden: false)
-            self.currentLocationButton.isHidden = true
-        
         
         if !isHidden {
             self.switchContainerView.isHidden = false
@@ -265,7 +255,6 @@ extension HotelResultVC {
     }
     
     func manageFloatingView(isHidden: Bool) {
-        self.currentLocationButton.isHidden = isHidden
         self.switchContainerView.isHidden = isHidden
         self.floatingButtonBackView.isHidden = isHidden
     }
@@ -296,13 +285,13 @@ extension HotelResultVC {
     
     // Disable mapButton and search bar when no data found on filter
     func noHotelFoundOnFilter() {
-//        self.mapButton.isUserInteractionEnabled = false
+        self.mapButton.isUserInteractionEnabled = false
         self.searchBar.isUserInteractionEnabled = false
     }
     
     // enable mapButton and search bar when no data found on filter
     func dataFounOnFilter() {
-//        self.mapButton.isUserInteractionEnabled = true
+        self.mapButton.isUserInteractionEnabled = true
         self.searchBar.isUserInteractionEnabled = true
     }
 }

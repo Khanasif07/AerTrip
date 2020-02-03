@@ -17,17 +17,6 @@ extension HotelsMapVC {
         self.shareButton.isHidden = true
     }
     
-    func startProgress() {
-        // Invalid timer if it is valid
-        if self.timer?.isValid == true {
-            self.timer?.invalidate()
-        }
-        
-        self.time = 0.0
-        self.progressView.setProgress(0.0, animated: false)
-        
-        self.timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
-    }
     
     func getSavedFilter() {
         guard let filter = UserInfo.hotelFilter else {
@@ -35,19 +24,10 @@ extension HotelsMapVC {
             HotelFilterVM.shared.resetToDefault()
             return
         }
-        self.fetchRequestType = .FilterApplied
-        self.filterApplied = filter
+        self.viewModel.fetchRequestType = .FilterApplied
+        self.viewModel.filterApplied = filter
     }
     
-    func applyPreviousFilter() {
-        let starStar = self.getStarString(fromArr: self.filterApplied.ratingCount, maxCount: 5)
-        
-        let distanceStr = self.filterApplied.distanceRange > 20 ? "beyond \(self.filterApplied.distanceRange.toInt) " : " within \(self.filterApplied.distanceRange.toInt) "
-        
-        let finalStr = LocalizedString.ApplyPreviousFilter.localized + starStar + distanceStr.appending(LocalizedString.Kms.localized) + AppConstants.kEllipses
-        
-        AppToast.default.showToastMessage(message: finalStr, onViewController: self, duration: 5.0, buttonTitle: LocalizedString.apply.localized, buttonAction: self.completion, toastDidClose: self.toastDidClose)
-    }
     
     func convertToMapView(completion: ((Bool) -> Void)?) {
         //        self.animateCollectionView(isHidden: false, animated: true)
@@ -66,35 +46,12 @@ extension HotelsMapVC {
     
     
     func getPinnedHotelTemplate() {
-        if !self.favouriteHotels.isEmpty {
+        if !self.viewModel.favouriteHotels.isEmpty {
             // self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         }
     }
     
     // MARK: Show progress
-    
-    @objc func setProgress() {
-        self.time += 1.0
-        self.progressView?.setProgress(self.time / 10, animated: true)
-        
-        if self.time == 8 {
-            self.timer?.invalidate()
-            return
-        }
-        if self.time == 2 {
-            self.timer!.invalidate()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
-                self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
-            }
-        }
-        
-        if self.time >= 10 {
-            self.timer!.invalidate()
-            delay(seconds: 0.8) {
-                self.progressView?.isHidden = true
-            }
-        }
-    }
     
     func openSharingSheet() {
         guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
@@ -107,7 +64,7 @@ extension HotelsMapVC {
         self.manageSwitchContainer(isHidden: true)
         self.viewModel.isUnpinHotelTapped = true
         self.selectedIndexPath = nil
-        self.viewModel.updateFavourite(forHotels: self.favouriteHotels, isUnpinHotels: true)
+        self.viewModel.updateFavourite(forHotels: self.viewModel.favouriteHotels, isUnpinHotels: true)
     }
     
     func expandGroup(_ hotels: [HotelSearched]) {
@@ -137,7 +94,7 @@ extension HotelsMapVC {
     func updateFavOnList(forIndexPath: IndexPath?) {
         //update the current opened list as user make fav/unfav
         if let indexPath = forIndexPath {
-            if self.fetchRequestType == .Searching {
+            if self.viewModel.fetchRequestType == .Searching {
                 self.hotelSearchTableView.reloadRow(at: indexPath, with: .none)
             }
             else {
@@ -146,12 +103,12 @@ extension HotelsMapVC {
             selectedIndexPath = nil
         }
         else {
-            if self.fetchRequestType == .Searching {
+            if self.viewModel.fetchRequestType == .Searching {
                 self.hotelSearchTableView.reloadData()
             }
             else {
                 
-                    self.fetchDataFromCoreData(isUpdatingFav: true)
+                self.viewModel.fetchDataFromCoreData(isUpdatingFav: true)
                     self.collectionView.reloadData()
             }
         }
@@ -188,7 +145,7 @@ extension HotelsMapVC {
     }
     
     func getHotelsCount() {
-        HotelFilterVM.shared.filterHotelCount = self.fetchedResultsController.fetchedObjects?.count ?? 0
+        HotelFilterVM.shared.filterHotelCount = self.viewModel.fetchedResultsController.fetchedObjects?.count ?? 0
     }
     
     
@@ -227,10 +184,10 @@ extension HotelsMapVC {
     }
     
     private func searchHotels(forText: String) {
-        self.fetchRequestType = .Searching
+        self.viewModel.fetchRequestType = .Searching
         printDebug("searching text is \(forText)")
         self.searchTextStr = forText
-        self.loadSaveData()
+        self.viewModel.loadSaveData()
         self.reloadHotelList()
     }
     

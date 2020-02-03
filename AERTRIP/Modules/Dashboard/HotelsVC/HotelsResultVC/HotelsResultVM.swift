@@ -26,6 +26,12 @@ protocol HotelResultDelegate: class {
     
     func callShareTextSuccess()
     func callShareTextfail(errors:ErrorCodes)
+    
+    func reloadHotelList(isUpdatingFav: Bool)
+    func manageSwitchContainer(isHidden: Bool, shouldOff: Bool)
+    func getHotelsCount()
+    func deleteRow(index: IndexPath)
+    func updateFavOnList()
 }
 
 class HotelsResultVM: NSObject {
@@ -48,6 +54,37 @@ class HotelsResultVM: NSObject {
         }
         return nil
     }
+    
+    
+    var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
+    
+    // fetch result controller
+    lazy var fetchedResultsController: NSFetchedResultsController<HotelSearched> = {
+        
+        self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bc", ascending: true)]
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        //        do {
+        //            try fetchedResultsController.performFetch()
+        //        } catch {
+        //            printDebug("Error in performFetch: \(error) at line \(#line) in file \(#file)")
+        //        }
+        fetchedResultsController.delegate = self
+        return fetchedResultsController
+    }()
+    
+    // Request and View Type
+    var isLoadingListAfterUpdatingAllFav: Bool = false
+    var fetchRequestType: FetchRequestType = .normal
+    var favouriteHotels: [HotelSearched] = []
+    var searchedHotels: [HotelSearched] = []
+    var andPredicate : NSCompoundPredicate?
+    var searchTextStr: String = ""
+    var filterApplied: UserInfo.HotelFilter = UserInfo.HotelFilter()
+    var isFilterApplied: Bool = false
+    var isFavouriteOn: Bool = false
+
     
     func searchHotel(forText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)

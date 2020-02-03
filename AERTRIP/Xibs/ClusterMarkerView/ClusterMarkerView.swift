@@ -14,13 +14,17 @@ class ClusterMarkerView: UIView {
     //================
     @IBOutlet weak var countLabel: UILabel!
     
-    var items: [ATClusterItem] = [] {
+    var items: [ATClusterItem]? {
         didSet {
             self.configureUI()
         }
     }
     
-    var hotelTtems: [HotelSearched] = [] {
+    deinit {
+        printDebug("deinit ClusterMarkerView")
+    }
+    
+    var hotelTtems: [HotelSearched]? {
         didSet {
             self.isForHotel = true
             self.configureUIForHotelItems()
@@ -70,18 +74,19 @@ class ClusterMarkerView: UIView {
 
     ///ConfigureUI
     private func configureUI() {
+        guard let value = items else {return}
         self.isFavourite = false
         
         countLabel.font = AppFonts.SemiBold.withSize(14.0)
         
-        if items.count > maxItemCount {
+        if value.count > maxItemCount {
             countLabel.text = "\(maxItemCount)+"
         }
         else {
-            countLabel.text = "\(items.count)"
+            countLabel.text = "\(value.count)"
         }
         
-        for item in items {
+        for item in value {
             if let hotel = item.hotelDetails, (hotel.fav ?? "0") == "1" {
                 self.isFavourite = true
                 break
@@ -90,18 +95,19 @@ class ClusterMarkerView: UIView {
     }
     
     private func configureUIForHotelItems() {
+        guard let value = hotelTtems else {return}
         self.isFavourite = false
         
         countLabel.font = AppFonts.SemiBold.withSize(14.0)
         
-        if hotelTtems.count > maxItemCount {
+        if value.count > maxItemCount {
             countLabel.text = "\(maxItemCount)+"
         }
         else {
-            countLabel.text = "\(hotelTtems.count)"
+            countLabel.text = "\(value.count)"
         }
         
-        for hotel in hotelTtems {
+        for hotel in value {
             if (hotel.fav ?? "0") == "1" {
                 self.isFavourite = true
                 break
