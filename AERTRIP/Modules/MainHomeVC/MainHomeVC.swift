@@ -256,7 +256,7 @@ class MainHomeVC: BaseVC {
     }
     
     private func pushProfileAnimation() {
-
+        self.statusBarStyle = .lightContent
         let pushPoint = CGPoint(x: UIDevice.screenWidth, y: 0.0)
         viewProfileVC?.profileImageHeaderView?.profileImageView.isHidden = true
         let toAddImgView = UIImageView()
@@ -294,7 +294,7 @@ class MainHomeVC: BaseVC {
     }
     
     private func popProfileAnimation() {
-
+        self.statusBarStyle = .default
         let popPoint = CGPoint(x: 0.0, y: 0.0)
         
         viewProfileVC?.profileImageHeaderView?.profileImageView.isHidden = true
@@ -335,8 +335,8 @@ class MainHomeVC: BaseVC {
         self.logoView = sideMenu.getAppLogoView()
         self.logoView?.currentlyUsingFor = .sideMenu
         self.logoView?.isHidden = true
-        
-        self.logoView?.frame.origin = CGPoint(x: self.sideMenuController?.visibleSpace ?? 0.0, y: 30.0)
+        self.logoView?.messageLabel.isHidden = true
+        self.logoView?.frame.origin = CGPoint(x: (sideMenuVC?.view.frame.origin.x ?? 0) - 5, y: 30.0)
 //        self.logoView?.alpha = 0.6
         self.mainContainerView.addSubview(self.logoView!)
         
@@ -348,9 +348,12 @@ class MainHomeVC: BaseVC {
         
         let pushPoint = CGPoint(x: UIDevice.screenWidth, y: 0.0)
         logoViewOriginalFrame?.origin.y = -(self.sideMenuVC?.sideMenuTableView.contentOffset.y ?? 0)
-        self.socialLoginVC?.logoContainerView.isHidden = true
+//        self.socialLoginVC?.logoContainerView.isHidden = true
+        
+        toggleSocialLoginLogoViewHidden(true)
         self.logoView?.isHidden = false
-        self.sideMenuVC?.logoContainerView.isHidden = true
+        self.sideMenuVC?.logoContainerView.logoImageView.isHidden = true
+        self.sideMenuVC?.logoContainerView.logoTextView.isHidden = true
         self.socialLoginVC?.topNavView.leftButton.isHidden = true
         let finalFrame = self.socialLoginVC?.logoContainerView.frame ?? CGRect(x: (UIDevice.screenWidth * 0.125), y: 80.0, width: UIDevice.screenWidth * 0.75, height: self.sideMenuVC?.logoContainerView?.height ?? 179.0)
         
@@ -366,18 +369,29 @@ class MainHomeVC: BaseVC {
             self.socialLoginVC?.topNavView.leftButton.isHidden = false
             self.socialLoginVC?.logoContainerView.isHidden = false
             self.logoView?.isHidden = true
-            self.sideMenuVC?.logoContainerView.isHidden = true
+//            self.sideMenuVC?.logoContainerView.isHidden = true
+            self.toggleSocialLoginLogoViewHidden(false)
         })
+    }
+    
+    private func toggleSocialLoginLogoViewHidden(_ isHidden: Bool) {
+        if let logoContView = self.socialLoginVC?.logoContainerView {
+            logoContView.subviews.forEach { (subView) in
+                if let logoSubView = subView as? SideMenuLogoView {
+                    logoSubView.logoImageView.isHidden = isHidden
+                    logoSubView.logoTextView.isHidden = isHidden
+                }
+            }
+        }
     }
     
     private func popLogoAnimation() {
         
         let popPoint = CGPoint(x: 0.0, y: 0.0)
         self.socialLoginVC?.topNavView.leftButton.isHidden = true
-        self.socialLoginVC?.logoContainerView.isHidden = true
         self.logoView?.isHidden = false
-        self.sideMenuVC?.logoContainerView.isHidden = true
         self.socialLoginVC?.animateContentOnPop()
+        self.toggleSocialLoginLogoViewHidden(true)
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.scrollView.contentOffset = popPoint
             self.logoView?.frame = self.logoViewOriginalFrame!
@@ -386,9 +400,10 @@ class MainHomeVC: BaseVC {
             
         }, completion: { (isDone) in
             
-            self.socialLoginVC?.logoContainerView.isHidden = false
+            self.toggleSocialLoginLogoViewHidden(false)
             self.logoView?.isHidden = true
-            self.sideMenuVC?.logoContainerView.isHidden = false
+            self.sideMenuVC?.logoContainerView.logoImageView.isHidden = false
+            self.sideMenuVC?.logoContainerView.logoTextView.isHidden = false
         })
     }
     
