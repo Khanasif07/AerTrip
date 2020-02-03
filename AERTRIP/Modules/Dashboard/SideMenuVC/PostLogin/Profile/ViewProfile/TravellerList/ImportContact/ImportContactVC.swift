@@ -47,7 +47,7 @@ class ImportContactVC: BaseVC {
     private let allTabsStr: [String] = [LocalizedString.Contacts.localized, LocalizedString.Facebook.localized, LocalizedString.Google.localized]
 
 
-    private var allChildVCs: [ContactListVC] = [ContactListVC]()
+    var allChildVCs: [ContactListVC] = [ContactListVC]()
     
     //MARK:- ViewLifeCycle
     //MARK:-

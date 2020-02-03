@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import PKCategoryView
+import Parchment
 
 protocol HotelFilteVCDelegate: class {
     func doneButtonTapped()
@@ -18,6 +18,7 @@ protocol HotelFilteVCDelegate: class {
 class HotelFilterVC: BaseVC {
     // MARK:- IB Outlets
     
+    @IBOutlet weak var isFilterAppliedBtn: UIButton!
     @IBOutlet weak var clearAllButton: UIButton!
     @IBOutlet weak var navigationTitleLabel: UILabel!
     
@@ -38,39 +39,27 @@ class HotelFilterVC: BaseVC {
         }
     }
     
-    //    fileprivate weak var categoryView: PKCategoryView!
-    fileprivate weak var categoryView: ATCategoryView!
+    // Parchment View
+    fileprivate var parchmentView : PagingViewController<MenuItem>?
+    
     
     
     // MARK: - Variables
+    var filtersTabs =  [MenuItem]()
+    var selectedIndex: Int = 0
+    var isFilterApplied:Bool = false
     
-    private let allTabsStr: [String] = [LocalizedString.Sort.localized, LocalizedString.Range.localized, LocalizedString.Price.localized, LocalizedString.Ratings.localized, LocalizedString.Amenities.localized,LocalizedString.Room.localized]
-    //    private var allTabs: [PKCategoryItem] {
-    //        var temp = [PKCategoryItem]()
-    //        for title in self.allTabsStr {
-    //            let obj = PKCategoryItem(title: title, normalImage: nil, selectedImage: nil)
-    //            temp.append(obj)
-    //        }
-    //
-    //        return temp
-    //    }
-    private var allTabs: [ATCategoryItem] {
-        var temp = [ATCategoryItem]()
-        for title in self.allTabsStr {
-            let obj = ATCategoryItem(title: title, normalImage: nil, selectedImage: nil)
-            temp.append(obj)
-        }
-        return temp
-    }
     
-    private var allChildVCs: [UIViewController] = [UIViewController]()
+    let allTabsStr: [String] = [LocalizedString.Sort.localized, LocalizedString.Range.localized, LocalizedString.Price.localized, LocalizedString.Ratings.localized, LocalizedString.Amenities.localized,LocalizedString.Room.localized]
+    
+    
+    var allChildVCs: [UIViewController] = [UIViewController]()
     weak var delegate : HotelFilteVCDelegate?
     
     // MARK: - View Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.layoutIfNeeded()
         self.dataContainerView.layoutIfNeeded()
         self.initialSetups()
@@ -80,21 +69,15 @@ class HotelFilterVC: BaseVC {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
-        self.categoryView?.frame = self.dataContainerView.bounds
-        self.categoryView?.layoutIfNeeded()
-        self.categoryView?.layoutSubviews()
-        self.categoryView?.navBar?.layoutSubviews()
+        self.parchmentView?.view.frame = self.dataContainerView.bounds
+        self.parchmentView?.loadViewIfNeeded()
     }
     
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        self.categoryView?.frame = self.dataContainerView.bounds
-        self.categoryView?.layoutIfNeeded()
-        self.categoryView?.layoutSubviews()
-        self.categoryView?.navBar?.layoutSubviews()
+        self.parchmentView?.view.frame = self.dataContainerView.bounds
+        self.parchmentView?.loadViewIfNeeded()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -137,16 +120,27 @@ class HotelFilterVC: BaseVC {
     
     private func initialSetups() {
         self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
-        
-        
         let height = UIApplication.shared.statusBarFrame.height
         self.navigationViewTopConstraint.constant = CGFloat(height)
+        setFilterButton()
         self.setupPagerView()
-        //        self.categoryView.selectTab(atIndex: HotelFilterVM.shared.lastSelectedIndex)
         self.hide(animated: false)
         delay(seconds: 0.01) { [weak self] in
             //  self?.show(animated: true)
             self?.mainContainerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
+        }
+    }
+    
+    private func  setFilterButton() {
+        HotelFilterVM.shared.isSortingApplied = isFilterApplied
+        self.isFilterAppliedBtn.setImage(isFilterApplied  ? #imageLiteral(resourceName: "ic_hotel_filter_applied") : #imageLiteral(resourceName: "ic_hotel_filter"), for: .normal)
+    }
+    
+    private func initiateFilterTabs() {
+        filtersTabs.removeAll()
+        for title in self.allTabsStr {
+            let obj = MenuItem(title: "", index: 0, isSelected: true)
+            filtersTabs.append(obj)
         }
     }
     
@@ -170,47 +164,8 @@ class HotelFilterVC: BaseVC {
     
     
     private func setupPagerView() {
-        
-        //        var style = PKCategoryViewConfiguration()
-        //        style.navBarHeight = 50.0
-        //        style.interItemSpace = 5.0
-        //        style.itemPadding = 8.0
-        //        style.isNavBarScrollEnabled = true
-        //        style.isEmbeddedToView = true
-        //        style.showBottomSeparator = true
-        //        style.bottomSeparatorColor = AppColors.themeGray20
-        //        style.defaultFont = AppFonts.Regular.withSize(16.0)
-        //        style.selectedFont = AppFonts.SemiBold.withSize(16.0)
-        //        style.indicatorColor = AppColors.themeGreen
-        //        style.indicatorHeight = 2.0
-        //
-        //        style.normalColor = AppColors.textFieldTextColor51
-        //        style.selectedColor = AppColors.themeBlack
-        //
-        //        style.badgeDotSize = CGSize(width: 4.0, height: 4.0)
-        //        style.badgeBackgroundColor = AppColors.themeGreen
-        //        style.badgeBorderColor = AppColors.clear
-        //        style.badgeBorderWidth = 0.0
-        var style = ATCategoryNavBarStyle()
-        style.height = 50.0
-        style.interItemSpace = 5.0
-        style.itemPadding = 8.0
-        style.isScrollable = true
-//        style.layoutAlignment = .center
-        style.isEmbeddedToView = true
-        style.showBottomSeparator = true
-        style.bottomSeparatorColor = AppColors.themeGray20
-        style.defaultFont = AppFonts.Regular.withSize(16.0)
-        style.selectedFont = AppFonts.SemiBold.withSize(16.0)
-        style.indicatorColor = AppColors.themeGreen
-        style.indicatorHeight = 2.0
-        style.normalColor = AppColors.textFieldTextColor51
-        style.selectedColor = AppColors.themeBlack
-        style.badgeDotSize = CGSize(width: 4.0, height: 4.0)
-        style.badgeBackgroundColor = AppColors.themeGreen
-        style.badgeBorderColor = AppColors.clear
-        style.badgeBorderWidth = 0.0
-        
+        self.allChildVCs.removeAll()
+        self.selectedIndex = HotelFilterVM.shared.lastSelectedIndex
         
         for i in 0..<self.allTabsStr.count {
             if i == 1 {
@@ -233,49 +188,73 @@ class HotelFilterVC: BaseVC {
                 self.allChildVCs.append(vc)
             }
         }
-        if let _ = self.categoryView {
-            self.categoryView.removeFromSuperview()
-            self.categoryView = nil
-        }
-        //        let categoryView = PKCategoryView(frame: self.dataContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, configuration: style, parentVC: self)
-        //        categoryView.delegate = self
-        //        self.dataContainerView.addSubview(categoryView)
-        //        self.categoryView = categoryView
-        
-        let categoryView = ATCategoryView(frame: self.dataContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
-        categoryView.navBar.internalDelegate = self
-        self.dataContainerView.addSubview(categoryView)
-        self.categoryView = categoryView
-        // Set last Selected Index on Nav bar
-        //                categoryView.select(HotelFilterVM.shared.lastSelectedIndex)
-        delay(seconds: 0.1) {
-            //            self.categoryView.selectTab(atIndex: HotelFilterVM.shared.lastSelectedIndex)
-            self.categoryView.select(at: HotelFilterVM.shared.lastSelectedIndex)
+        self.view.layoutIfNeeded()
+        if let _ = self.parchmentView{
+            self.parchmentView?.view.removeFromSuperview()
+            self.parchmentView = nil
         }
         self.setBadgesOnAllCategories()
+        setupParchmentPageController()
+        
     }
+    
+    // Added to replace the existing page controller, added Hitesh Soni, 28-29Jan'2020
+    private func setupParchmentPageController(){
+        
+        self.parchmentView = PagingViewController<MenuItem>()
+        self.parchmentView?.menuItemSpacing = 20.0
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 67.0, bottom: 0.0, right: 16.0)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 52)
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
+        self.parchmentView?.borderOptions = PagingBorderOptions.visible(
+            height: 0.5,
+            zIndex: Int.max - 1,
+            insets: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
+        self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
+        self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
+        self.parchmentView?.indicatorColor = AppColors.themeGreen
+        self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
+        self.parchmentView?.menuItemSource = PagingMenuItemSource.nib(nib: nib)
+        
+        self.dataContainerView.addSubview(self.parchmentView!.view)
+        self.parchmentView?.dataSource = self
+        self.parchmentView?.delegate = self
+        self.parchmentView?.select(index: selectedIndex)
+        
+        self.parchmentView?.reloadData()
+        self.parchmentView?.reloadMenu()
+    }
+    
     
     private func setBadgesOnAllCategories() {
         
+        initiateFilterTabs()
         for (idx,tab) in self.allTabsStr.enumerated() {
             
-            var badgeCount = 0
+            _ = 0
             switch tab.lowercased() {
             case LocalizedString.Sort.localized.lowercased():
-                badgeCount = (HotelFilterVM.shared.sortUsing == HotelFilterVM.shared.defaultSortUsing) ? 0 : 1
+                filtersTabs[idx].isSelected = (HotelFilterVM.shared.sortUsing == HotelFilterVM.shared.defaultSortUsing) ? true : false
+                
+                self.isFilterApplied = !filtersTabs[idx].isSelected
                 
             case LocalizedString.Range.localized.lowercased():
-                badgeCount = (HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange) ? 0 : 1
+                filtersTabs[idx].isSelected  = (HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange) ? true : false
+                self.isFilterApplied = !filtersTabs[idx].isSelected
                 
             case LocalizedString.Price.localized.lowercased():
                 if HotelFilterVM.shared.leftRangePrice != HotelFilterVM.shared.defaultLeftRangePrice {
-                    badgeCount = 1
+                    filtersTabs[idx].isSelected =  false
+                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
                 else if HotelFilterVM.shared.rightRangePrice != HotelFilterVM.shared.defaultRightRangePrice {
-                    badgeCount = 1
+                    filtersTabs[idx].isSelected =  false
+                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
                 else if HotelFilterVM.shared.priceType != HotelFilterVM.shared.defaultPriceType {
-                    badgeCount = 1
+                    filtersTabs[idx].isSelected =  false
+                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
                 
             case LocalizedString.Ratings.localized.lowercased():
@@ -283,37 +262,42 @@ class HotelFilterVC: BaseVC {
                 
                 let diff = HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount)
                 if 1...4 ~= diff.count {
-                    badgeCount = 1
+                    filtersTabs[idx].isSelected =  false
+                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
                 else if !HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty {
-                    badgeCount = 1
+                    filtersTabs[idx].isSelected =  false
+                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
                 else if HotelFilterVM.shared.isIncludeUnrated != HotelFilterVM.shared.defaultIsIncludeUnrated {
-                    badgeCount = 1
+                    filtersTabs[idx].isSelected =  false
+                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
             case LocalizedString.Amenities.localized.lowercased():
                 if !HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty {
-                    badgeCount = 1
+                    filtersTabs[idx].isSelected =  false
+                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
                 
             case LocalizedString.Room.localized.lowercased():
                 if !HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty {
-                    badgeCount = 1
+                    filtersTabs[idx].isSelected =  false
+                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
                 else if !HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty {
-                    badgeCount = 1
+                    filtersTabs[idx].isSelected =  false
+                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
                 else if !HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty {
-                    badgeCount = 1
+                    filtersTabs[idx].isSelected =  false
+                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
                 
             default:
                 printDebug("not useable case")
             }
-            
-            //            self.categoryView?.setBadge(count: badgeCount, atIndex: idx)
-            self.categoryView?.setBadge(atIndex: idx, badgeNumber: badgeCount)
         }
+        self.setFilterButton()
     }
     
     private func setupGesture() {
@@ -348,19 +332,6 @@ class HotelFilterVC: BaseVC {
     
 }
 
-// MARK: - PKCategoryViewDelegate
-
-//extension HotelFilterVC: PKCategoryViewDelegate {
-//    func categoryView(_ view: PKCategoryView, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
-//        printDebug("Manage will switch to next index ")
-//    }
-//
-//    func categoryView(_ view: PKCategoryView, didSwitchIndexTo toIndex: Int) {
-//        self.currentIndex = toIndex
-//        HotelFilterVM.shared.lastSelectedIndex = toIndex
-//    }
-//
-//}
 
 extension HotelFilterVC: ATCategoryNavBarDelegate {
     

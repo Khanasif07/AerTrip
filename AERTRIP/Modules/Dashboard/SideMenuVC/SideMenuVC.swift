@@ -356,7 +356,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 AppFlowManager.default.moveToSettingsVC()
                 
             default:
-                AppGlobals.shared.showUnderDevelopment()
+                print("DO Nothing")
             }
         }
     }

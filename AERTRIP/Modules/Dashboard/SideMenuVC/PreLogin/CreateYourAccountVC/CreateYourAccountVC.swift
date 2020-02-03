@@ -41,11 +41,12 @@ class CreateYourAccountVC: BaseVC {
     
     override func initialSetup() {
         
-        self.setupInitialAnimation()
-        self.setupViewDidLoadAnimation()
-        
+       // self.setupInitialAnimation()
+//        self.setupViewDidLoadAnimation()
+        self.emailTextField.becomeFirstResponder()
+        self.viewModel.isFirstTime = false
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
-        topNavBar.leftButton.isHidden = true
+        topNavBar.leftButton.isHidden = false
         topNavBar.delegate = self
         self.emailTextField.titleYPadding = 12.0
         self.emailTextField.hintYPadding = 12.0

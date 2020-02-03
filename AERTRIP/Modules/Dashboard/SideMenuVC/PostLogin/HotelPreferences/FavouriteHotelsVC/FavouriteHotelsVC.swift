@@ -31,22 +31,11 @@ class FavouriteHotelsVC: BaseVC {
     fileprivate var parchmentView : PagingViewController<PagingIndexItem>?
     
     
-    
-    //==============
-    
-    var tabs:[FavouriteHotelsListVC] = []
-    
     private lazy var emptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
         newEmptyView.vType = .hotelPreferences
         return newEmptyView
     }()
-    
-    //fileprivate weak var categoryView: PKCategoryView!
-    
-    
-    
-    
     
     internal var allChildVCs: [FavouriteHotelsListVC] = [FavouriteHotelsListVC]()
     
