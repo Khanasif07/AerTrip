@@ -36,7 +36,7 @@ class MainHomeVC: BaseVC {
     var isLaunchThroughSplash = false
     
     private var logoViewOriginalFrame: CGRect?
-    private var profileViewOriginalFrame: CGRect?
+    private var profileImgViewOriginalFrame: CGRect?
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -236,9 +236,6 @@ class MainHomeVC: BaseVC {
         
         self.profileView?.isHidden = true
         self.mainContainerView.addSubview(self.profileView!)
-        
-        profileViewOriginalFrame = profileView?.frame
-        profileViewOriginalFrame?.origin.x = (sideMenuVC?.view.frame.origin.x ?? 0) - 5
     }
     
     private func setUserDataOnProfileHeader() {
@@ -259,90 +256,75 @@ class MainHomeVC: BaseVC {
     }
     
     private func pushProfileAnimation() {
-
-        let pushPoint = CGPoint(x: UIDevice.screenWidth, y: 0.0)
-        
-        self.viewProfileVC?.profileImageHeaderView?.isHidden = true
-        profileViewOriginalFrame?.origin.y = -(self.sideMenuVC?.sideMenuTableView.contentOffset.y ?? 0)
-        self.profileView?.isHidden = false
-        self.sideMenuVC?.profileSuperView.isHidden = true
-        
-        let newH = (self.viewProfileVC?.profileImageHeaderView?.height ?? UIDevice.screenHeight*0.45) + UIApplication.shared.statusBarFrame.height
-        let finalFrame = CGRect(x: 0.0, y: -(UIApplication.shared.statusBarFrame.height), width: UIDevice.screenWidth, height: newH)
-        
-        self.profileView?.emailIdLabel.isHidden = false
-        self.profileView?.mobileNumberLabel.isHidden = false
-        self.profileView?.backgroundImageView.isHidden = false
-        self.profileView?.dividerView.isHidden = false
-        self.profileView?.gradientView.isHidden = false
-        
-        self.viewProfileVC?.viewModel.webserviceForGetTravelDetail()
-
         self.statusBarStyle = .lightContent
-
+        let pushPoint = CGPoint(x: UIDevice.screenWidth, y: 0.0)
+        viewProfileVC?.profileImageHeaderView?.profileImageView.isHidden = true
+        let toAddImgView = UIImageView()
+        if let imgCell = sideMenuVC?.sideMenuTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? SideMenuProfileImageCell, let imgView = imgCell.profileImageView {
+            let imgViewFrameWRTSuperview = imgCell.convert(imgView.frame, to: view)
+            toAddImgView.frame = CGRect(x: imgViewFrameWRTSuperview.origin.x, y: imgView.y + UIApplication.shared.statusBarFrame.height - (self.sideMenuVC?.sideMenuTableView.contentOffset.y ?? 0), width: imgView.width, height: imgView.width)
+            imgView.isHidden = true
+        }
+        toAddImgView.layer.cornerRadius = (toAddImgView.frame.size.width ) / 2
+        toAddImgView.clipsToBounds = true
+        toAddImgView.layer.borderWidth = 2.5
+        toAddImgView.layer.borderColor = AppColors.themeGray20.cgColor
+        toAddImgView.image = self.profileView?.profileImageView.image
+        view.addSubview(toAddImgView)
+        view.bringSubviewToFront(toAddImgView)
+        profileImgViewOriginalFrame = toAddImgView.frame
         let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
-            
             self.scrollView.contentOffset = pushPoint
-            self.profileView?.frame = finalFrame
-            self.profileView?.emailIdLabel.alpha = 1.0
-            self.profileView?.mobileNumberLabel.alpha = 1.0
-            self.profileView?.backgroundImageView.alpha = 1.0
-            self.profileView?.dividerView.alpha = 1.0
-            self.profileView?.gradientView.alpha = 1.0
-            self.profileView?.currentlyUsingAs = .viewProfile
-            self.profileView?.layoutIfNeeded()
-//            self.profileView?.center.x = (self.viewProfileVC?.profileImageHeaderView?.center.x)!
-//            self.profileView?.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            toAddImgView.layoutIfNeeded()
+            if let profileImage = self.viewProfileVC?.profileImageHeaderView?.profileImageView {
+                toAddImgView.frame.size = profileImage.frame.size
+                toAddImgView.center.x = self.view.center.x
+                toAddImgView.center.y = profileImage.center.y
+                toAddImgView.layer.cornerRadius = (toAddImgView.frame.size.width ) / 2
+            }
         }
-        
+
         animator.addCompletion { (position) in
-            self.viewProfileVC?.profileImageHeaderView?.isHidden = false
-            self.profileView?.isHidden = true
-            self.sideMenuVC?.profileSuperView.isHidden = true
+            toAddImgView.removeFromSuperview()
+            self.viewProfileVC?.profileImageHeaderView?.profileImageView.isHidden = false
+            
         }
-        
+
         animator.startAnimation()
     }
     
     private func popProfileAnimation() {
-
-        let popPoint = CGPoint(x: 0.0, y: 0.0)
-
-        self.viewProfileVC?.profileImageHeaderView?.isHidden = true
-        self.profileView?.isHidden = false
-        self.sideMenuVC?.profileSuperView.isHidden = true
-
-        let newFrame = self.sideMenuVC?.profileSuperView?.convert(self.sideMenuVC?.profileSuperView?.frame ?? .zero, to: self.mainContainerView) ?? .zero
-        let finalFrame = CGRect(x: self.sideMenuController?.visibleSpace ?? 120.0, y: newFrame.origin.y, width: newFrame.size.width, height: newFrame.size.height)
-        
         self.statusBarStyle = .default
-        self.profileView?.gradientView.isHidden = true
+        let popPoint = CGPoint(x: 0.0, y: 0.0)
+        
+        viewProfileVC?.profileImageHeaderView?.profileImageView.isHidden = true
+        let toAddImgView = UIImageView()
+        if let imgView = viewProfileVC?.profileImageHeaderView?.profileImageView {
+            toAddImgView.frame = CGRect(x: imgView.x, y: imgView.y, width: imgView.width, height: imgView.width)
+        }
+        toAddImgView.layer.cornerRadius = (toAddImgView.frame.size.width ) / 2
+        toAddImgView.clipsToBounds = true
+        toAddImgView.layer.borderWidth = 2.5
+        toAddImgView.layer.borderColor = AppColors.themeGray20.cgColor
+        toAddImgView.image = viewProfileVC?.profileImageHeaderView?.profileImageView.image
+        view.addSubview(toAddImgView)
+        view.bringSubviewToFront(toAddImgView)
         let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
             self.scrollView.contentOffset = popPoint
-            self.profileView?.frame = finalFrame
-            
-            self.profileView?.emailIdLabel.alpha = 0.0
-            self.profileView?.mobileNumberLabel.alpha = 0.0
-            self.profileView?.backgroundImageView.alpha = 0.0
-            self.profileView?.dividerView.alpha = 0.0
-            self.profileView?.gradientView.alpha = 0.0
-            
-            self.profileView?.currentlyUsingAs = .sideMenu
+            toAddImgView.layoutIfNeeded()
+            if let profileFrame = self.profileImgViewOriginalFrame {
+                toAddImgView.frame = profileFrame
+                toAddImgView.layer.cornerRadius = (toAddImgView.frame.size.width ) / 2
+            }
         }
         
         animator.addCompletion { (position) in
+            if let imgCell = self.sideMenuVC?.sideMenuTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? SideMenuProfileImageCell, let imgView = imgCell.profileImageView {
+                imgView.isHidden = false
+            }
             
-            self.profileView?.gradientView.isHidden = true
-
-            self.profileView?.emailIdLabel.isHidden = true
-            self.profileView?.mobileNumberLabel.isHidden = true
-
-            self.profileView?.backgroundImageView.isHidden = true
-            self.profileView?.dividerView.isHidden = true
-
-            self.viewProfileVC?.profileImageHeaderView?.isHidden = true
-            self.profileView?.isHidden = true
-            self.sideMenuVC?.profileSuperView.isHidden = false
+            toAddImgView.removeFromSuperview()
+            
         }
         
         animator.startAnimation()
@@ -353,8 +335,8 @@ class MainHomeVC: BaseVC {
         self.logoView = sideMenu.getAppLogoView()
         self.logoView?.currentlyUsingFor = .sideMenu
         self.logoView?.isHidden = true
-        
-        self.logoView?.frame.origin = CGPoint(x: self.sideMenuController?.visibleSpace ?? 0.0, y: 30.0)
+        self.logoView?.messageLabel.isHidden = true
+        self.logoView?.frame.origin = CGPoint(x: (sideMenuVC?.view.frame.origin.x ?? 0) - 5, y: 30.0)
 //        self.logoView?.alpha = 0.6
         self.mainContainerView.addSubview(self.logoView!)
         
@@ -366,9 +348,12 @@ class MainHomeVC: BaseVC {
         
         let pushPoint = CGPoint(x: UIDevice.screenWidth, y: 0.0)
         logoViewOriginalFrame?.origin.y = -(self.sideMenuVC?.sideMenuTableView.contentOffset.y ?? 0)
-        self.socialLoginVC?.logoContainerView.isHidden = true
+//        self.socialLoginVC?.logoContainerView.isHidden = true
+        
+        toggleSocialLoginLogoViewHidden(true)
         self.logoView?.isHidden = false
-        self.sideMenuVC?.logoContainerView.isHidden = true
+        self.sideMenuVC?.logoContainerView.logoImageView.isHidden = true
+        self.sideMenuVC?.logoContainerView.logoTextView.isHidden = true
         self.socialLoginVC?.topNavView.leftButton.isHidden = true
         let finalFrame = self.socialLoginVC?.logoContainerView.frame ?? CGRect(x: (UIDevice.screenWidth * 0.125), y: 80.0, width: UIDevice.screenWidth * 0.75, height: self.sideMenuVC?.logoContainerView?.height ?? 179.0)
         
@@ -384,18 +369,29 @@ class MainHomeVC: BaseVC {
             self.socialLoginVC?.topNavView.leftButton.isHidden = false
             self.socialLoginVC?.logoContainerView.isHidden = false
             self.logoView?.isHidden = true
-            self.sideMenuVC?.logoContainerView.isHidden = true
+//            self.sideMenuVC?.logoContainerView.isHidden = true
+            self.toggleSocialLoginLogoViewHidden(false)
         })
+    }
+    
+    private func toggleSocialLoginLogoViewHidden(_ isHidden: Bool) {
+        if let logoContView = self.socialLoginVC?.logoContainerView {
+            logoContView.subviews.forEach { (subView) in
+                if let logoSubView = subView as? SideMenuLogoView {
+                    logoSubView.logoImageView.isHidden = isHidden
+                    logoSubView.logoTextView.isHidden = isHidden
+                }
+            }
+        }
     }
     
     private func popLogoAnimation() {
         
         let popPoint = CGPoint(x: 0.0, y: 0.0)
         self.socialLoginVC?.topNavView.leftButton.isHidden = true
-        self.socialLoginVC?.logoContainerView.isHidden = true
         self.logoView?.isHidden = false
-        self.sideMenuVC?.logoContainerView.isHidden = true
         self.socialLoginVC?.animateContentOnPop()
+        self.toggleSocialLoginLogoViewHidden(true)
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.scrollView.contentOffset = popPoint
             self.logoView?.frame = self.logoViewOriginalFrame!
@@ -404,9 +400,10 @@ class MainHomeVC: BaseVC {
             
         }, completion: { (isDone) in
             
-            self.socialLoginVC?.logoContainerView.isHidden = false
+            self.toggleSocialLoginLogoViewHidden(false)
             self.logoView?.isHidden = true
-            self.sideMenuVC?.logoContainerView.isHidden = false
+            self.sideMenuVC?.logoContainerView.logoImageView.isHidden = false
+            self.sideMenuVC?.logoContainerView.logoTextView.isHidden = false
         })
     }
     
@@ -470,7 +467,7 @@ extension MainHomeVC {
                 
                 let popPoint = CGPoint(x: 0.0, y: 0.0)
                 
-                self.viewProfileVC?.profileImageHeaderView?.isHidden = true
+                self.viewProfileVC?.profileImageHeaderView?.profileImageView.isHidden = true
                 self.profileView?.isHidden = false
                 self.sideMenuVC?.profileContainerView.isHidden = true
                 
@@ -554,7 +551,7 @@ extension MainHomeVC {
                 self.profileView?.backgroundImageView.isHidden = true
                 self.profileView?.dividerView.isHidden = true
                 
-                self.viewProfileVC?.profileImageHeaderView?.isHidden = true
+                self.viewProfileVC?.profileImageHeaderView?.profileImageView.isHidden = true
                 self.profileView?.isHidden = true
                 self.sideMenuVC?.profileContainerView.isHidden = false
             }

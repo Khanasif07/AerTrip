@@ -68,7 +68,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>34</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>CLIENT_ID</key>
 	<string>175392921069-agcdbrcffqcbhl1cbeatvjafd35335gm.apps.googleusercontent.com</string>
 	<key>Fabric</key>
@@ -106,6 +106,13 @@
 	<false/>
 	<key>LIAppId</key>
 	<string>12426494</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -135,12 +142,12 @@
 	<string>This app will need the access to your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app will need the access to your location</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app will need the access to Microphone</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app will need the access to photo library.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>This app will need the access to speech recognition</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>This app will need the access to Microphone</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>REVERSED_CLIENT_ID</key>
@@ -186,12 +193,5 @@
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-api</string>
-		<string>fbauth2</string>
-		<string>fbshareextension</string>
-	</array>
 </dict>
 </plist>

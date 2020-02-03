@@ -215,6 +215,7 @@ class TravellerListVC: BaseVC {
     }
     
     func doneButtonTapped() {
+        shouldHitAPI = true
         setTravellerMode()
     }
     
@@ -691,6 +692,7 @@ extension TravellerListVC: TravellerListVMDelegate {
                 CoreDataManager.shared.deleteData("TravellerData", predicate: "id == '\(id)'")
             }
         }
+        shouldHitAPI = true
         selectedTravller.removeAll()
         loadSavedData()
     }
@@ -702,6 +704,7 @@ extension TravellerListVC: TravellerListVMDelegate {
         updateNavView()
         selectedTravller.removeAll()
         AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+        shouldHitAPI = true
     }
     
     func searchTravellerFail(errors: ErrorCodes) {

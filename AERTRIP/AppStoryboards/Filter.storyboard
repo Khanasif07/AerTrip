@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -91,6 +91,35 @@
                                     <constraint firstAttribute="trailing" secondItem="e2I-lS-6Bs" secondAttribute="trailing" id="iUm-d1-jzQ"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SM2-wX-DbY">
+                                <rect key="frame" x="0.0" y="64" width="45" height="52"/>
+                                <subviews>
+                                    <view alpha="0.14999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HBR-m0-LGF">
+                                        <rect key="frame" x="0.0" y="51.666666666666671" width="45" height="0.3333333333333357"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="NKp-vP-Pst"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="HBR-m0-LGF" secondAttribute="trailing" id="5CU-qn-gLv"/>
+                                    <constraint firstAttribute="height" constant="52" id="Pag-2k-1ZD"/>
+                                    <constraint firstAttribute="width" constant="45" id="Qmf-wy-WhB"/>
+                                    <constraint firstAttribute="bottom" secondItem="HBR-m0-LGF" secondAttribute="bottom" id="fHk-Kf-4QD"/>
+                                    <constraint firstItem="HBR-m0-LGF" firstAttribute="leading" secondItem="SM2-wX-DbY" secondAttribute="leading" id="ota-8x-wmb"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ipg-zr-qoG">
+                                <rect key="frame" x="9" y="73.666666666666671" width="27" height="33"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="33" id="Y9V-Wy-W3U"/>
+                                    <constraint firstAttribute="width" constant="27" id="hjN-bb-t2r"/>
+                                </constraints>
+                                <state key="normal" image="bookingFilterIcon"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
@@ -101,8 +130,12 @@
                             <constraint firstItem="dxU-Fm-YZC" firstAttribute="trailing" secondItem="TYJ-ic-F1i" secondAttribute="trailing" id="YmA-2G-lqp"/>
                             <constraint firstItem="TYJ-ic-F1i" firstAttribute="top" secondItem="dxU-Fm-YZC" secondAttribute="top" id="a2E-2L-Dot"/>
                             <constraint firstItem="4cd-5g-yVs" firstAttribute="centerX" secondItem="dxU-Fm-YZC" secondAttribute="centerX" id="aSq-3M-tDY"/>
+                            <constraint firstItem="ipg-zr-qoG" firstAttribute="centerY" secondItem="SM2-wX-DbY" secondAttribute="centerY" id="lAr-xG-f8g"/>
+                            <constraint firstItem="ipg-zr-qoG" firstAttribute="leading" secondItem="SM2-wX-DbY" secondAttribute="leading" constant="9" id="lzN-it-iXz"/>
                             <constraint firstItem="dxU-Fm-YZC" firstAttribute="bottom" secondItem="TYJ-ic-F1i" secondAttribute="bottom" id="oAd-cG-5Wp"/>
+                            <constraint firstItem="SM2-wX-DbY" firstAttribute="leading" secondItem="e2I-lS-6Bs" secondAttribute="leading" id="oRs-ys-VSM"/>
                             <constraint firstItem="TYJ-ic-F1i" firstAttribute="leading" secondItem="dxU-Fm-YZC" secondAttribute="leading" id="pfW-E5-EJh"/>
+                            <constraint firstItem="SM2-wX-DbY" firstAttribute="top" secondItem="e2I-lS-6Bs" secondAttribute="top" id="wEJ-47-V5Y"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dxU-Fm-YZC"/>
                     </view>
@@ -110,6 +143,7 @@
                         <outlet property="clearAllButton" destination="ni6-VP-icC" id="RSJ-5A-uDC"/>
                         <outlet property="dataContainerView" destination="e2I-lS-6Bs" id="sf8-ve-iAc"/>
                         <outlet property="doneButton" destination="yTY-5z-BDT" id="DEe-1n-vdp"/>
+                        <outlet property="isFilterAppliedBtn" destination="ipg-zr-qoG" id="3dx-9d-ctJ"/>
                         <outlet property="mainBackView" destination="TYJ-ic-F1i" id="xdd-2L-JGX"/>
                         <outlet property="mainContainerView" destination="4cd-5g-yVs" id="Xhf-70-lDO"/>
                         <outlet property="mainContainerViewTopConstraint" destination="V6S-9b-TaK" id="hDy-Xg-Igy"/>
@@ -161,7 +195,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search Results Range" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DxM-Qk-1fu">
-                                <rect key="frame" x="16" y="12" width="142.66666666666666" height="20.666666666666671"/>
+                                <rect key="frame" x="16" y="12.000000000000002" width="142.66666666666666" height="20.666666666666671"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -258,7 +292,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price per night" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G55-eL-34U">
-                                <rect key="frame" x="16.000000000000007" y="12" width="97.666666666666686" height="20.666666666666671"/>
+                                <rect key="frame" x="16.000000000000007" y="12.000000000000002" width="97.666666666666686" height="20.666666666666671"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <color key="textColor" red="0.79607843137254897" green="0.79607843137254897" blue="0.79607843137254897" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -814,6 +848,7 @@
     </scenes>
     <resources>
         <image name="UnselectedStar" width="30" height="30"/>
+        <image name="bookingFilterIcon" width="27" height="27"/>
         <image name="deselectedAdvisorRating" width="30" height="30"/>
         <image name="selectedAdvisorRating" width="31" height="30"/>
         <image name="starRatingFilled" width="30" height="30"/>

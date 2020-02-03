@@ -30,6 +30,7 @@ class ViewProfileVC: BaseVC {
     private var isNavBarHidden:Bool = true
     private let headerHeightToAnimate: CGFloat = 30.0
     private var isHeaderAnimating: Bool = false
+    private var isBackBtnTapped = false
     
     weak var delegate: ViewProfileVCDelegate?
     let cellIdentifier = "ViewProfileTableViewCell"
@@ -102,9 +103,7 @@ class ViewProfileVC: BaseVC {
         }
         self.topNavView.configureFirstRightButton( normalTitle: LocalizedString.Edit.localized, selectedTitle: LocalizedString.Edit.localized, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
         
-        
     }
-    
     
     
     override func bindViewModel() {
@@ -209,6 +208,7 @@ class ViewProfileVC: BaseVC {
 
 extension ViewProfileVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+        isBackBtnTapped = true
         self.delegate?.backButtonAction(sender)
         self.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
         
@@ -419,7 +419,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
             }
         } else {
             
-            self.statusBarStyle = .lightContent
+            self.statusBarStyle = isBackBtnTapped ? .default : .lightContent
             
             self.topNavView.animateBackView(isHidden: true) { [weak self](isDone) in
                 
