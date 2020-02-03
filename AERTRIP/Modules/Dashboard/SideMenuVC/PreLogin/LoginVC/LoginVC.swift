@@ -41,11 +41,9 @@ class LoginVC: BaseVC {
         
         // Do any additional setup after loading the view.
         self.initialSetups()
-        
-        if self.viewModel.isFirstTime {
-            self.setupInitialAnimation()
-            self.setupViewDidLoadAnimation()
-        }
+        self.emailTextField.becomeFirstResponder()
+        self.viewModel.isFirstTime = false
+
     }
     
     override func viewWillLayoutSubviews() {
@@ -74,8 +72,11 @@ class LoginVC: BaseVC {
         self.registerHereLabel.text = currentlyUsingFrom == .loginVerificationForCheckout ? "\(LocalizedString.SkipSignIn.localized)?" : LocalizedString.Not_ye_registered.localized
         
         self.forgotPasswordButton.setTitle(LocalizedString.Forgot_Password.localized, for: .normal)
-        self.emailTextField.setupTextField(placehoder: LocalizedString.Email_ID.localized,with: AppConstants.kAsteriskSymbol, keyboardType: .emailAddress, returnType: .next, isSecureText: false)
-        self.passwordTextField.setupTextField(placehoder: LocalizedString.Password.localized,with: AppConstants.kAsteriskSymbol, keyboardType: .default, returnType: .done, isSecureText: true)
+        self.emailTextField.setupTextField(placehoder: LocalizedString.Email_ID.localized,with: "", keyboardType: .emailAddress, returnType: .next, isSecureText: false)
+        self.passwordTextField.setupTextField(placehoder: LocalizedString.Password.localized,with: "", keyboardType: .default, returnType: .done, isSecureText: true)
+        self.emailTextField.font = AppFonts.Regular.withSize(18)
+        self.passwordTextField.font = AppFonts.Regular.withSize(18)
+        
     }
     
     override func setupColors() {
@@ -205,7 +206,7 @@ private extension LoginVC {
         
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         self.topNavBar.delegate = self
-        self.topNavBar.leftButton.isHidden = true
+        self.topNavBar.leftButton.isHidden = false
         //self.loginButton.layer.masksToBounds = true
         self.loginButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
         self.loginButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
