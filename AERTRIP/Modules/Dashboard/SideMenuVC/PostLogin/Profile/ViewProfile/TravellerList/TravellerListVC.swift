@@ -91,7 +91,6 @@ class TravellerListVC: BaseVC {
         }
     }
     
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
@@ -155,9 +154,9 @@ class TravellerListVC: BaseVC {
     
     private func updateNavView() {
         if isSelectMode {
-            var title = "Select Traveller"
+            var title = "Select Travellers"
             if selectedTravller.count == 0 {
-                title = "Select Traveller"
+                title = "Select Travellers"
             } else {
                 title = selectedTravller.count > 1 ? "\(selectedTravller.count) travellers selected" : "\(selectedTravller.count) traveller selected"
             }
@@ -276,6 +275,10 @@ class TravellerListVC: BaseVC {
         travellerListHeaderView = TravellerListHeaderView.instanceFromNib()
         travellerListHeaderView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 44)
         travellerListHeaderView.delegate = self
+        guard let sections = self.fetchedResultsController.sections else {
+            fatalError("No sections in fetchedResultsController")
+        }
+        travellerListHeaderView.bottomView.isHidden = sections.count == 0 ? false : true
         tableView.tableHeaderView = travellerListHeaderView
         bottomView.isHidden = true
         deleteButton.setTitle(LocalizedString.Delete.localized, for: .normal)
@@ -311,6 +314,10 @@ class TravellerListVC: BaseVC {
         } else {
             travellerListHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
         }
+        guard let sections = self.fetchedResultsController.sections else {
+            fatalError("No sections in fetchedResultsController")
+        }
+        travellerListHeaderView.bottomView.isHidden = sections.count == 0 ? false : true
     }
     
     private func getAttributedBoldText(text: String, boldText: String,color: UIColor = AppColors.themeBlack) -> NSMutableAttributedString {

@@ -96,6 +96,7 @@ class CreateProfileVC: BaseVC {
         self.setupTextFieldColorTextAndFont()
         self.letsStartedButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.letsStartedButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+        self.letsStartedButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
 
     }
     

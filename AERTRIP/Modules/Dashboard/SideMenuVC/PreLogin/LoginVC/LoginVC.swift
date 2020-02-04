@@ -60,7 +60,9 @@ class LoginVC: BaseVC {
         self.forgotPasswordButton.titleLabel?.font = AppFonts.SemiBold.withSize(16)
         self.registerHereButton.titleLabel?.font = AppFonts.SemiBold.withSize(16)
         self.registerHereLabel.font = AppFonts.Regular.withSize(16)
-        self.loginButton.titleLabel?.font = AppFonts.SemiBold.withSize(17)
+        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
+        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
+        self.loginButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
     }
     
     override func setupTexts() {
@@ -84,7 +86,6 @@ class LoginVC: BaseVC {
         self.welcomeLabel.textColor = AppColors.themeBlack
         self.forgotPasswordButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.registerHereButton.setTitleColor(AppColors.themeGreen, for: .normal)
-        
     }
     
     override func bindViewModel() {

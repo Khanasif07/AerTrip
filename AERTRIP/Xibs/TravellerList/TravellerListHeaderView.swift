@@ -18,6 +18,7 @@ class TravellerListHeaderView: UIView {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userTypeLbel: UILabel!
+    @IBOutlet weak var bottomView: UIView!
     
     
     // MARK: - Variables

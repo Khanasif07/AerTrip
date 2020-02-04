@@ -44,7 +44,7 @@ class EditProfileImageHeaderView: UIView {
         super.awakeFromNib()
         
         editButton.setTitle(LocalizedString.Edit.rawValue.localizedLowercase, for: .normal)
-//        salutaionLabel.text = LocalizedString.Title.rawValue
+        //        salutaionLabel.text = LocalizedString.Title.rawValue
         self.setUpUnicodeSwitch()
         firstNameTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.FirstName.localized)
         lastNameTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.LastName.localized)
@@ -54,8 +54,10 @@ class EditProfileImageHeaderView: UIView {
         genderTitleLabel.text = LocalizedString.Gender.localized
         genderTitleLabel.font = AppFonts.Regular.withSize(17.0)
         genderTitleLabel.textColor = AppColors.themeBlack
+        firstNameTextField.returnKeyType = .next
+        lastNameTextField.returnKeyType = .done
         
-
+        
         
         let selectGrouptap = UITapGestureRecognizer(target: self, action: #selector(selectGroupTapped(_:)))
         selectGroupView.isUserInteractionEnabled = true
@@ -114,7 +116,7 @@ class EditProfileImageHeaderView: UIView {
             unicodeSwitch.titleRight = "🙍🏻‍♀️"
             unicodeSwitch.titleLeft = "🙋🏻‍♂️"
             delegate?.salutationViewTapped(title: "Male")
-
+            
         }
         
     }
@@ -150,7 +152,17 @@ extension EditProfileImageHeaderView: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        
+        if textField === self.firstNameTextField {
+            
+            self.firstNameTextField.resignFirstResponder()
+            self.lastNameTextField.becomeFirstResponder()
+            
+        } else {
+            self.lastNameTextField.resignFirstResponder()
+            self.unicodeSwitch.becomeFirstResponder()
+        }
+        
         return true
     }
 }

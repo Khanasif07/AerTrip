@@ -353,7 +353,8 @@ extension EmptyScreenView {
     }
     
     private func setUpNoResult() {
-        self.containerViewCenterYConstraint.constant = -125
+        //self.containerViewCenterYConstraint.constant = -125
+        self.containerView.center = self.contentView.center
         self.messageLabelTopConstraint.constant = 33
         self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
         self.backgroundColor = .blue

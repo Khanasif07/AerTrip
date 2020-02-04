@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -21,6 +21,13 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="254"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ycJ-AK-oMp" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="253" width="375" height="1"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="bd3-nQ-oMo"/>
+                    </constraints>
+                </view>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="group4" translatesAutoresizingMaskIntoConstraints="NO" id="Ojo-QA-iad">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="254"/>
                 </imageView>
@@ -29,10 +36,10 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="cbl-xr-PpX">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="253.5"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="254"/>
                     <subviews>
                         <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profilePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="ARz-1y-xpA">
-                            <rect key="frame" x="124" y="0.5" width="127" height="127"/>
+                            <rect key="frame" x="124" y="1" width="127" height="127"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="127" id="OzQ-d3-XDb"/>
                                 <constraint firstAttribute="width" secondItem="ARz-1y-xpA" secondAttribute="height" multiplier="1:1" id="ZV6-Kq-kGB"/>
@@ -40,7 +47,7 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggie Fletcher" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAE-bT-BMd">
-                            <rect key="frame" x="10" y="144.5" width="355" height="33"/>
+                            <rect key="frame" x="10" y="145" width="355" height="33"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="33" id="XlT-Ft-NH1"/>
                             </constraints>
@@ -49,7 +56,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="LRw-xr-uiF">
-                            <rect key="frame" x="20" y="187.5" width="335" height="37"/>
+                            <rect key="frame" x="20" y="188" width="335" height="37"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggiefleture@gmail.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95a-79-0je">
                                     <rect key="frame" x="0.0" y="0.0" width="335" height="18"/>
@@ -72,7 +79,7 @@
                             </subviews>
                         </stackView>
                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="aaY-3S-c6N">
-                            <rect key="frame" x="177.5" y="60.5" width="20" height="20"/>
+                            <rect key="frame" x="177.5" y="61" width="20" height="20"/>
                         </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -87,13 +94,6 @@
                         <constraint firstItem="aaY-3S-c6N" firstAttribute="centerY" secondItem="ARz-1y-xpA" secondAttribute="centerY" multiplier="1.1" id="i8W-8z-T5J"/>
                         <constraint firstItem="aaY-3S-c6N" firstAttribute="centerX" secondItem="ARz-1y-xpA" secondAttribute="centerX" id="ilh-5h-Qut"/>
                         <constraint firstItem="eAE-bT-BMd" firstAttribute="leading" secondItem="cbl-xr-PpX" secondAttribute="leading" constant="10" id="y1k-TL-sBw"/>
-                    </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ycJ-AK-oMp" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="253.5" width="375" height="0.5"/>
-                    <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="0.5" id="bd3-nQ-oMo"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgB-ko-N2g">
@@ -111,13 +111,13 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="ycJ-AK-oMp" firstAttribute="top" secondItem="cbl-xr-PpX" secondAttribute="bottom" id="2CZ-T1-zTe"/>
                 <constraint firstItem="x2n-dX-FxW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="9ws-vz-w8g"/>
                 <constraint firstAttribute="bottom" secondItem="ycJ-AK-oMp" secondAttribute="bottom" id="9zN-a6-9wk"/>
                 <constraint firstItem="ycJ-AK-oMp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Bmw-WN-UKN"/>
                 <constraint firstAttribute="trailing" secondItem="cbl-xr-PpX" secondAttribute="trailing" id="Chh-L4-S5X"/>
                 <constraint firstAttribute="trailing" secondItem="ycJ-AK-oMp" secondAttribute="trailing" id="Hy3-e0-bE4"/>
                 <constraint firstItem="pgB-ko-N2g" firstAttribute="centerX" secondItem="cbl-xr-PpX" secondAttribute="centerX" id="OP8-Bs-m11"/>
+                <constraint firstItem="cbl-xr-PpX" firstAttribute="bottom" secondItem="Ojo-QA-iad" secondAttribute="bottom" id="V9A-sv-AAF"/>
                 <constraint firstItem="Ojo-QA-iad" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="bbK-0v-AkW"/>
                 <constraint firstAttribute="bottom" secondItem="pgB-ko-N2g" secondAttribute="bottom" constant="24" id="cCi-95-C6C"/>
                 <constraint firstItem="Ojo-QA-iad" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="eG1-bH-VIx"/>

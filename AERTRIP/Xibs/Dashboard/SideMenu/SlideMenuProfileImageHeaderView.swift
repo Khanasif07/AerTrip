@@ -134,7 +134,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     }
     
     // MARK: - Helper Method
-    private func setupDefaultData() {
+    public func setupDefaultData() {
         self.profileImageView.image = AppGlobals.shared.getImageFor(firstName: nil, lastName: nil, offSet: CGPoint(x: 0.0, y: 9.0))
         self.userNameLabel.text = ""
         self.emailIdLabel.text = ""
@@ -150,7 +150,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
         profileImageView.clipsToBounds = true
         profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
-        profileImageView.layer.borderWidth = 2.5
+        profileImageView.layer.borderWidth = 4.0
         profileImageView.layer.masksToBounds = true
     }
     
@@ -160,7 +160,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         self.userNameHeightLabel.constant = 33.0
         self.emailAndContactBottomConstraint.constant = 28.0
         
-        profileImageView.layer.borderWidth = 2.5
+        profileImageView.layer.borderWidth = 4.0
        
        
         
@@ -184,7 +184,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         self.userNameHeightLabel.constant = 25.0
         self.emailAndContactBottomConstraint.constant = -10.0
         
-        profileImageView.layer.borderWidth = 2.5
+        profileImageView.layer.borderWidth = 4.0
         
         self.userNameLabel.font = AppFonts.Regular.withSize(20.0)
         
@@ -204,7 +204,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         self.emailAndContactBottomConstraint.constant = 55.0
         self.familyButtonBottomConstraint.constant = 26.0
         
-        profileImageView.layer.borderWidth = 2.5
+        profileImageView.layer.borderWidth = 4.0
         
         self.userNameLabel.font = AppFonts.Regular.withSize(26.0)
         
@@ -213,7 +213,6 @@ class SlideMenuProfileImageHeaderView: UIView {
         self.emailIdLabel.isHidden = true
         self.mobileNumberLabel.isHidden = true
         self.familyButton.isHidden = false
-        
         self.layoutIfNeeded()
         
         self.makeImageCircular()

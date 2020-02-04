@@ -254,7 +254,7 @@
                                             <constraint firstAttribute="trailing" secondItem="3PJ-0G-3hV" secondAttribute="trailing" constant="8" id="y3Z-WS-2Xr"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H8I-bD-LCw" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H8I-bD-LCw" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="132" y="288" width="150" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="H8I-bD-LCw" secondAttribute="height" multiplier="3:1" id="cf6-HM-VQi"/>

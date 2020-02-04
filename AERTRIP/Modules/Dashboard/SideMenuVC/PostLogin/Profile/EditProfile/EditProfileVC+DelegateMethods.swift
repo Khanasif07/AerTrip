@@ -503,10 +503,12 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         dismissKeyboard()
         printDebug("select group tapped")
         pickerType = .groups
-        if let labels = UserInfo.loggedInUser?.generalPref?.labels {
+        if let labels = UserInfo.loggedInUser?.generalPref?.labels,!labels.isEmpty {
             pickerData = labels
             let selectedString = self.viewModel.travelData?.label ?? ""
             openPicker(withSelection: selectedString)
+        } else {
+            AppToast.default.showToastMessage(message: "there are no groups")
         }
     }
     
