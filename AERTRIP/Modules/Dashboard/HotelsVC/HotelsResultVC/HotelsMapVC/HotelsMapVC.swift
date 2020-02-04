@@ -198,7 +198,7 @@ class HotelsMapVC: BaseVC {
         self.mapButton.isEnabled = false
         self.mapView?.isMyLocationEnabled = false
         // self.animateCollectionView(isHidden: true, animated: false)
-        // self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
+         self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
         
         self.view.backgroundColor = AppColors.themeWhite
         
@@ -212,8 +212,11 @@ class HotelsMapVC: BaseVC {
         self.cardGradientView.isHidden = true
         //call API to get vcode, sid
         
-        
-        self.manageSwitchContainer(isHidden: self.viewModel.isFavouriteOn, shouldOff: self.viewModel.isFavouriteOn)
+        self.switchContainerView.isHidden = !self.viewModel.isFavouriteOn
+        self.floatingButtonOnMapView.isHidden = !self.viewModel.isFavouriteOn
+        self.switchView.setOn(isOn: self.viewModel.isFavouriteOn, animated: false, shouldNotify: false)
+        self.animateMapToFirstHotelInMapMode()
+        self.filterButton.isSelected = self.viewModel.isFilterApplied
         searchBar.setTextField(color: UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
         self.cardGradientView.backgroundColor = AppColors.clear
@@ -230,11 +233,6 @@ class HotelsMapVC: BaseVC {
                 guard let strongSelf = self else {return}
                 strongSelf.mapView?.delegate = self
                 strongSelf.loadFinalDataOnScreen()
-            }
-            delay(seconds: 2.2) { [weak self] in
-                guard let strongSelf = self else {return}
-                let indexOfMajorCell = strongSelf.indexOfMajorCell()
-                strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
             }
         } else {
             self.noHotelFound()

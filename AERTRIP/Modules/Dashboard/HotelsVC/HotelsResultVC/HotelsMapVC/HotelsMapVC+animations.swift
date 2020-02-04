@@ -191,7 +191,7 @@ extension HotelsMapVC {
     
     // Animate button on List View
     
-    private func animateFloatingButtonOnListView() {
+     func animateFloatingButtonOnListView() {
         UIView.animate(withDuration: TimeInterval(self.defaultDuration),
                        delay: 0,
                        usingSpringWithDamping: self.defaultDamping,
