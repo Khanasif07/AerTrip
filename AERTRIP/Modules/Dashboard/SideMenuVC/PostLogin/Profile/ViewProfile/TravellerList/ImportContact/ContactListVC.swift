@@ -30,6 +30,7 @@ class ContactListVC: BaseVC {
     //MARK:- Public
     var currentlyUsingFor = UsingFor.contacts
     let viewModel = ImportContactVM.shared
+    let serialQueue = DispatchQueue(label: "serialQueue")
     
     //MARK:- Private
     lazy var allowEmptyView: EmptyScreenView = {
@@ -67,11 +68,11 @@ class ContactListVC: BaseVC {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-//        if UIDevice.bottomPaddingFromSafeArea > 0.0 {
-//            self.selectAllbtnBtmConstraint.constant = 0
-//        } else {
-//            self.selectAllbtnBtmConstraint.constant = 34.0
-//        }
+        //        if UIDevice.bottomPaddingFromSafeArea > 0.0 {
+        //            self.selectAllbtnBtmConstraint.constant = 0
+        //        } else {
+        //            self.selectAllbtnBtmConstraint.constant = 34.0
+        //        }
         //        self.containerBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
     }
     
@@ -125,38 +126,40 @@ class ContactListVC: BaseVC {
     func checkForCheckAllState() {
         if self.currentlyUsingFor == .contacts {
             guard !self.viewModel.selectedPhoneContacts.isEmpty else {return}
-//            DispatchQueue.backgroundAsync {
+            serialQueue.async {
                 var totalCount = 0
                 var contactMatched = 0
-                for section in self.viewModel.sections {
-                    if !self.viewModel.selectedPhoneContacts.isEmpty {
-                    for contact in section.cnContacts {
-                        if self.viewModel.selectedPhoneContacts.contains(contact) {
-                            contactMatched += 1
+                let tempSelectedPhoneArray = self.viewModel.selectedPhoneContacts
+                self.viewModel.sections.forEach { (section) in
+                    if !tempSelectedPhoneArray.isEmpty {
+                        for contact in section.cnContacts {
+                            if tempSelectedPhoneArray.contains(contact) {
+                                contactMatched += 1
+                            }
                         }
-                    }
                     }
                     totalCount += section.cnContacts.count
                 }
-//                DispatchQueue.mainAsync {
+                DispatchQueue.mainAsync {
                     self.selectAllButton.isSelected = totalCount == contactMatched
-//                }
-//            }
+                }
+            }
             
         }else if self.currentlyUsingFor == .facebook {
             guard !self.viewModel.selectedFacebookContacts.isEmpty else {return}
-            DispatchQueue.backgroundAsync {
+            serialQueue.async {
                 var totalCount = 0
                 var contactMatched = 0
-                for section in self.viewModel.facebookSection {
-                    if !self.viewModel.selectedFacebookContacts.isEmpty {
-                    for contact in section.contacts {
-                        if self.viewModel.selectedFacebookContacts.contains(where: { (model) -> Bool in
-                            return contact.id == model.id
-                        }) {
-                            contactMatched += 1
+                let tempSelectedFacebookArray = self.viewModel.selectedFacebookContacts
+                self.viewModel.facebookSection.forEach { (section) in
+                    if !tempSelectedFacebookArray.isEmpty {
+                        for contact in section.contacts {
+                            if tempSelectedFacebookArray.contains(where: { (model) -> Bool in
+                                return contact.id == model.id
+                            }) {
+                                contactMatched += 1
+                            }
                         }
-                    }
                     }
                     totalCount += section.contacts.count
                 }
@@ -167,18 +170,19 @@ class ContactListVC: BaseVC {
         }
         else if self.currentlyUsingFor == .google {
             guard !self.viewModel.selectedGoogleContacts.isEmpty else {return}
-            DispatchQueue.backgroundAsync {
+            serialQueue.async {
                 var totalCount = 0
                 var contactMatched = 0
-                for section in self.viewModel.googleSection {
-                    if !self.viewModel.selectedGoogleContacts.isEmpty {
-                    for contact in section.contacts {
-                        if self.viewModel.selectedGoogleContacts.contains(where: { (model) -> Bool in
-                            return contact.id == model.id
-                        }) {
-                            contactMatched += 1
+                let tempSelectedGoogleArray = self.viewModel.selectedGoogleContacts
+                self.viewModel.googleSection.forEach { (section) in
+                    if !tempSelectedGoogleArray.isEmpty {
+                        for contact in section.contacts {
+                            if tempSelectedGoogleArray.contains(where: { (model) -> Bool in
+                                return contact.id == model.id
+                            }) {
+                                contactMatched += 1
+                            }
                         }
-                    }
                     }
                     totalCount += section.contacts.count
                 }
