@@ -16,6 +16,7 @@ protocol ViewProfileVCDelegate: class {
 class ViewProfileVC: BaseVC {
     // MARK: - IB Outlets
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var tableView: ATTableView!
     @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
@@ -126,6 +127,8 @@ class ViewProfileVC: BaseVC {
     
     func doInitialSetup() {
         
+        self.activityIndicator.color = AppColors.themeGreen
+        self.activityIndicator.isHidden = true
         self.view.backgroundColor = AppColors.themeWhite
         self.topNavView.backgroundColor = AppColors.clear
         self.headerViewHeightConstraint.constant = headerViewHeight
@@ -215,15 +218,21 @@ extension ViewProfileVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.activityIndicator.isHidden = false
+        self.topNavView.firstRightButton.isHidden = true
+        self.activityIndicator.startAnimating()
         if self.viewModel.travelData == nil {
             self.viewModel.travelData = UserInfo.loggedInUser?.travellerDetailModel
         }
-        self.topNavView.configureFirstRightButton( normalTitle: "", selectedTitle: "")
-        self.topNavView.isToShowIndicatorView = true
-        self.topNavView.startActivityIndicaorLoading()
+//        self.topNavView.configureFirstRightButton( normalTitle: "", selectedTitle: "")
+//        self.topNavView.isToShowIndicatorView = true
+//        self.topNavView.startActivityIndicaorLoading()
         AppFlowManager.default.moveToEditProfileVC(travelData: self.viewModel.travelData, usingFor: .viewProfile)
         delay(seconds: 0.5) { [weak self] in
-            self?.topNavView.stopActivityIndicaorLoading()
+            self?.activityIndicator.isHidden = true
+            self?.activityIndicator.stopAnimating()
+            self?.topNavView.firstRightButton.isHidden = false
+           // self?.topNavView.stopActivityIndicaorLoading()
         }
     }
 }

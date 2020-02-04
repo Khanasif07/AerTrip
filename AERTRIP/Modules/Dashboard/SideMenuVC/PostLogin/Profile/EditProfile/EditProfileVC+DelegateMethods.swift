@@ -18,7 +18,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if sections[indexPath.section] == LocalizedString.Address.localized, indexPath.row != self.viewModel.addresses.count {
-            return 270.0
+            return 264.0
         } else
             if sections[indexPath.section] == LocalizedString.MoreInformation.localized, indexPath.row == 2 {
                 return UITableView.automaticDimension
@@ -292,7 +292,8 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if sections[section].localized == LocalizedString.SocialAccounts.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.EmailAddress.localized {
+        if sections[section].localized == LocalizedString.SocialAccounts.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.EmailAddress.localized 
+         {
             return 60.0
         } else {
             return 40.0

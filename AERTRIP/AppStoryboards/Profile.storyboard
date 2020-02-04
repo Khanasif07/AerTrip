@@ -30,10 +30,17 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fov-BW-QqB" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="lkA-OT-sZE">
+                                        <rect key="frame" x="335" y="14" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="65" id="zPa-le-v5r"/>
+                                    <constraint firstAttribute="bottom" secondItem="lkA-OT-sZE" secondAttribute="bottom" constant="10" id="9Lx-uP-rNz"/>
+                                    <constraint firstAttribute="trailing" secondItem="lkA-OT-sZE" secondAttribute="trailing" constant="20" id="JMB-Kb-L1b"/>
+                                    <constraint firstAttribute="height" constant="44" id="zPa-le-v5r"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -50,6 +57,7 @@
                         <viewLayoutGuide key="safeArea" id="yuL-bN-VZw"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="lkA-OT-sZE" id="ROW-dO-B6w"/>
                         <outlet property="headerViewHeightConstraint" destination="zPa-le-v5r" id="BZ1-dB-qC3"/>
                         <outlet property="tableView" destination="mGw-tj-9MG" id="LxS-ol-Iir"/>
                         <outlet property="topNavView" destination="fov-BW-QqB" id="8fo-61-wPL"/>

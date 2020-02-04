@@ -216,6 +216,10 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         tableView.separatorStyle = .none
         tableView.tableHeaderView = editProfileImageHeaderView
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.width, height: 0.5))
+        footerView.backgroundColor = UIColor.clear
+        tableView.tableFooterView = footerView
+        tableView.sectionFooterHeight = CGFloat.leastNormalMagnitude
     }
     
     func setupPickers() {
