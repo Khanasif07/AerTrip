@@ -31,6 +31,7 @@ class ContactListVC: BaseVC {
     var currentlyUsingFor = UsingFor.contacts
     let viewModel = ImportContactVM.shared
     let serialQueue = DispatchQueue(label: "serialQueue")
+    private var workItem: DispatchWorkItem?
     
     //MARK:- Private
     lazy var allowEmptyView: EmptyScreenView = {
@@ -290,16 +291,16 @@ class ContactListVC: BaseVC {
     
     @IBAction func selectAllButtonAction(_ sender: UIButton) {
         self.showLoaderOnView(view: sender, show: true, backgroundColor: AppColors.themeWhite)
-        
+        workItem?.cancel()
         //        sender.disable(forSeconds: 0.6)
         if self.currentlyUsingFor == .contacts {
             if sender.isSelected {
                 //remove all
                 if !self.viewModel.selectedPhoneContacts.isEmpty  {
                     var isContactRemoved = false
-                    DispatchQueue.backgroundAsync {
-                        for section in self.viewModel.sections {
-                            for contact in section.cnContacts {
+                    workItem = DispatchWorkItem(block: {
+                        self.viewModel.sections.forEach { (section) in
+                            section.cnContacts.forEach { (contact) in
                                 if let contactIndex = self.viewModel.selectedPhoneContacts.firstIndex(of: contact) {
                                     self.viewModel.selectedPhoneContacts.remove(at: contactIndex)
                                     isContactRemoved = true
@@ -312,6 +313,9 @@ class ContactListVC: BaseVC {
                             }
                             self.hideSelectAllLoader()
                         }
+                    })
+                    if let item = workItem {
+                        DispatchQueue.global().async(execute: item)
                     }
                 } else {
                     self.hideSelectAllLoader()
@@ -329,9 +333,9 @@ class ContactListVC: BaseVC {
                 
                 if !self.viewModel.selectedPhoneContacts.isEmpty  {
                     var isContactAdded = false
-                    DispatchQueue.backgroundAsync {
-                        for section in self.viewModel.sections {
-                            for contact in section.cnContacts {
+                    workItem = DispatchWorkItem(block: {
+                        self.viewModel.sections.forEach { (section) in
+                            section.cnContacts.forEach { (contact) in
                                 let contactIndex = self.viewModel.selectedPhoneContacts.firstIndex(of: contact)
                                 if  contactIndex == nil {
                                     self.viewModel.selectedPhoneContacts.append(contact)
@@ -346,6 +350,9 @@ class ContactListVC: BaseVC {
                             self.hideSelectAllLoader()
                         }
                         
+                    })
+                    if let item = workItem {
+                        DispatchQueue.global().async(execute: item)
                     }
                     
                 }else {
@@ -370,9 +377,9 @@ class ContactListVC: BaseVC {
                 //remove all
                 if !self.viewModel.selectedFacebookContacts.isEmpty  {
                     var isContactRemoved = false
-                    DispatchQueue.backgroundAsync {
-                        for section in self.viewModel.facebookSection {
-                            for contact in section.contacts {
+                    workItem = DispatchWorkItem(block: {
+                        self.viewModel.facebookSection.forEach { (section) in
+                            section.contacts.forEach { (contact) in
                                 if let contactIndex = self.viewModel.selectedFacebookContacts.firstIndex(where: { (model) -> Bool in
                                     contact.id == model.id
                                 }) {
@@ -388,6 +395,9 @@ class ContactListVC: BaseVC {
                             }
                             self.hideSelectAllLoader()
                         }
+                    })
+                    if let item = workItem {
+                        DispatchQueue.global().async(execute: item)
                     }
                 } else {
                     self.hideSelectAllLoader()
@@ -408,9 +418,9 @@ class ContactListVC: BaseVC {
                 
                 if !self.viewModel.selectedFacebookContacts.isEmpty  {
                     var isContactAdded = false
-                    DispatchQueue.backgroundAsync {
-                        for section in self.viewModel.facebookSection {
-                            for contact in section.contacts {
+                    workItem = DispatchWorkItem(block: {
+                        self.viewModel.facebookSection.forEach { (section) in
+                            section.contacts.forEach { (contact) in
                                 let contactIndex = self.viewModel.selectedFacebookContacts.firstIndex(of: contact)
                                 if  contactIndex == nil {
                                     self.viewModel.selectedFacebookContacts.append(contact)
@@ -424,6 +434,9 @@ class ContactListVC: BaseVC {
                             }
                             self.self.hideSelectAllLoader()
                         }
+                    })
+                    if let item = workItem {
+                        DispatchQueue.global().async(execute: item)
                     }
                     
                 }else {
@@ -440,9 +453,9 @@ class ContactListVC: BaseVC {
                 //remove all
                 if !self.viewModel.selectedGoogleContacts.isEmpty  {
                     var isContactRemoved = false
-                    DispatchQueue.backgroundAsync {
-                        for section in self.viewModel.googleSection {
-                            for contact in section.contacts {
+                    workItem = DispatchWorkItem(block: {
+                        self.viewModel.googleSection.forEach { (section) in
+                            section.contacts.forEach { (contact) in
                                 if let contactIndex = self.viewModel.selectedGoogleContacts.firstIndex(where: { (model) -> Bool in
                                     contact.id == model.id
                                 }) {
@@ -457,6 +470,9 @@ class ContactListVC: BaseVC {
                             }
                             self.hideSelectAllLoader()
                         }
+                    })
+                    if let item = workItem {
+                        DispatchQueue.global().async(execute: item)
                     }
                 } else {
                     self.hideSelectAllLoader()
@@ -472,9 +488,9 @@ class ContactListVC: BaseVC {
                 //                }
                 if !self.viewModel.selectedGoogleContacts.isEmpty  {
                     var isContactAdded = false
-                    DispatchQueue.backgroundAsync {
-                        for section in self.viewModel.googleSection {
-                            for contact in section.contacts {
+                    workItem = DispatchWorkItem(block: {
+                        self.viewModel.googleSection.forEach { (section) in
+                            section.contacts.forEach { (contact) in
                                 let contactIndex = self.viewModel.selectedGoogleContacts.firstIndex(of: contact)
                                 if  contactIndex == nil {
                                     self.viewModel.selectedGoogleContacts.append(contact)
@@ -488,9 +504,10 @@ class ContactListVC: BaseVC {
                             }
                             self.self.hideSelectAllLoader()
                         }
+                    })
+                    if let item = workItem {
+                        DispatchQueue.global().async(execute: item)
                     }
-                    
-                    
                 }
                     
                 else {
@@ -582,6 +599,7 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        AppGlobals.shared.startLoading()
         if self.currentlyUsingFor == .contacts {
             if let index = self.viewModel.selectedPhoneContacts.firstIndex(where: { (contact) -> Bool in
                 contact.id == self.viewModel.sections[indexPath.section].cnContacts[indexPath.row].id
@@ -625,6 +643,7 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
                 // self.selectAllButton.isSelected = self.viewModel.selectedGoogleContacts.count >= self.viewModel.googleSection.count
             }
         }
+        AppGlobals.shared.stopLoading()
     }
     
     // Return section Index For titles

@@ -35,6 +35,11 @@ class TravellerListVC: BaseVC {
         newEmptyView.delegate = self
         return newEmptyView
     }()
+    private lazy var noResultemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noResult
+        return newEmptyView
+    }()
     
     private var shouldHitAPI: Bool = true
     var travellerListHeaderView: TravellerListHeaderView = TravellerListHeaderView()
@@ -76,6 +81,7 @@ class TravellerListVC: BaseVC {
         tableView.backgroundView?.isHidden = true
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = AppColors.blueGray
+        noResultemptyView.mainImageViewTopConstraint.constant = tableView.height/2
         loadSavedData()
         doInitialSetUp()
         registerXib()
@@ -413,6 +419,7 @@ class TravellerListVC: BaseVC {
         printDebug("searching text is \(forText)")
         predicateStr = forText
         loadSavedData()
+        noResultemptyView.messageLabel.text = "\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(forText)'"
     }
     
     func addFooterView() {
@@ -428,6 +435,7 @@ class TravellerListVC: BaseVC {
         topNavView.leftButton.isSelected = false
         selectedTravller.removeAll()
         updateNavView()
+        
     }
     
     func setSelectMode() {
@@ -731,9 +739,11 @@ extension TravellerListVC: TravellerListVMDelegate {
 extension TravellerListVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
+            tableView.backgroundView = noTravEmptyView
             predicateStr = ""
             loadSavedData()
         } else {
+            tableView.backgroundView = noResultemptyView
             searchTraveller(forText: searchText)
         }
         if !didTapCrossKey, searchText.isEmpty {
