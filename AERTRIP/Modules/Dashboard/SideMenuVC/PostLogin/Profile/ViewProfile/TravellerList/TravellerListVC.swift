@@ -484,7 +484,9 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         guard let sections = self.fetchedResultsController.sections else {
             fatalError("No sections in fetchedResultsController")
         }
-        
+        if isSelectMode {
+            bottomView.isHidden = sections.isEmpty
+        }
         tableView.backgroundView?.isHidden = !sections.isEmpty
         tableView.isScrollEnabled = !sections.isEmpty
         return sections.count
@@ -595,7 +597,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
                 return []
             }
             
-            let all = ["#", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+            let all = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"]
             return sections.isEmpty ? [] : all
         }
     }
