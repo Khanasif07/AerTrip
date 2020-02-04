@@ -247,7 +247,9 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
     func fetchDataFromCoreData(isUpdatingFav: Bool = false,finalPredicate: NSPredicate? = nil) {
         do {
             try self.fetchedResultsController.performFetch()
-            self.delegate?.getHotelsCount()
+            self.hotelResultDelegate?.getHotelsCount()
+            self.hotelMapDelegate?.getHotelsCount()
+
             if !self.searchTextStr.isEmpty {
                 self.searchedHotels = self.fetchedResultsController.fetchedObjects ?? []
                 //TO DO
@@ -257,7 +259,8 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
             self.fetchHotelsDataForCollectionView(fromController: self.fetchedResultsController)
             
             if !isUpdatingFav {
-                self.delegate?.reloadHotelList(isUpdatingFav: isUpdatingFav)
+                self.hotelResultDelegate?.reloadHotelList(isUpdatingFav: isUpdatingFav)
+                self.hotelMapDelegate?.reloadHotelList(isUpdatingFav: isUpdatingFav)
             }
             
             self.getFavouriteHotels(shouldReloadData: false,finalPredicate: finalPredicate)
@@ -281,7 +284,8 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
             if self.fetchRequestType  == .FilterApplied, self.isFavouriteOn  {
                 turnOffFilter = false
             }
-            self.delegate?.manageSwitchContainer(isHidden: allFavs.isEmpty, shouldOff: turnOffFilter)
+            self.hotelResultDelegate?.manageSwitchContainer(isHidden: allFavs.isEmpty, shouldOff: turnOffFilter)
+            self.hotelMapDelegate?.manageSwitchContainer(isHidden: allFavs.isEmpty, shouldOff: turnOffFilter)
             self.favouriteHotels = allFavs
             
             if shouldReloadData {
@@ -293,7 +297,8 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
                     }
                 }
                 else {
-                    self.delegate?.updateFavOnList()
+                    self.hotelResultDelegate?.updateFavOnList()
+                    self.hotelMapDelegate?.updateFavOnList()
                 }
             }
         }
@@ -313,7 +318,8 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
         case .delete:
             
             if self.isFavouriteOn, let indexPath = indexPath {
-                self.delegate?.deleteRow(index: indexPath)
+                self.hotelResultDelegate?.deleteRow(index: indexPath)
+                self.hotelMapDelegate?.deleteRow(index: indexPath)
                 if let hotel = anObject as? HotelSearched {
                     self.deleteHotelsDataForCollectionView(hotel: hotel)
                 }

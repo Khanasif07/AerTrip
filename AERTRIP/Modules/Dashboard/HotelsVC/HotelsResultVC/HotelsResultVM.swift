@@ -46,8 +46,9 @@ class HotelsResultVM: NSObject {
     private(set) var collectionViewLocArr: [String] = []
     let filterArray: [String] = [LocalizedString.Sort.localized, LocalizedString.Range.localized, LocalizedString.Price.localized, LocalizedString.Ratings.localized, LocalizedString.Amenities.localized,LocalizedString.Room.localized]
     
-    weak var delegate: HotelResultDelegate?
-    
+    weak var hotelResultDelegate: HotelResultDelegate?
+    weak var hotelMapDelegate: HotelResultDelegate?
+
     var searchedCityLocation: CLLocationCoordinate2D? {
         if let lat = self.hotelSearchRequest?.requestParameters.latitude.toDouble, let long = self.hotelSearchRequest?.requestParameters.longitude.toDouble {
             return CLLocationCoordinate2D(latitude: lat, longitude: long)
@@ -97,7 +98,8 @@ class HotelsResultVM: NSObject {
     
     func hotelListOnPreferenceResult() {
         let params: JSONDictionary = [APIKeys.vcodes.rawValue: self.hotelSearchRequest?.vcodes.first ?? "", APIKeys.sid.rawValue: self.hotelSearchRequest?.sid ?? ""]
-        self.delegate?.willGetAllHotel()
+        self.hotelResultDelegate?.willGetAllHotel()
+        self.hotelMapDelegate?.willGetAllHotel()
         APICaller.shared.getHotelsListOnPreferenceResult(params: params) { [weak self] success, errors, hotels, isDone in
             guard let sSelf = self else { return }
             if success {
@@ -106,12 +108,13 @@ class HotelsResultVM: NSObject {
                 for hotel in hotels {
                     _ = HotelSearched.insert(dataDict: hotel.jsonDict)
                 }
-                
-                sSelf.delegate?.getAllHotelsListResultSuccess(isDone)
+                sSelf.hotelResultDelegate?.getAllHotelsListResultSuccess(isDone)
+                sSelf.hotelMapDelegate?.getAllHotelsListResultSuccess(isDone)
             } else {
                 printDebug(errors)
                 // AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelSearch)
-                sSelf.delegate?.getAllHotelsListResultFail(errors: errors)
+                sSelf.hotelResultDelegate?.getAllHotelsListResultFail(errors: errors)
+                sSelf.hotelMapDelegate?.getAllHotelsListResultFail(errors: errors)
             }
         }
     }
@@ -184,13 +187,16 @@ class HotelsResultVM: NSObject {
             _ = hotel.afterUpdate
         }
         
-        self.delegate?.willUpdateFavourite()
+        self.hotelResultDelegate?.willUpdateFavourite()
+        self.hotelMapDelegate?.willUpdateFavourite()
+
         APICaller.shared.callUpdateFavouriteAPI(params: param) { isSuccess,errors, successMessage in
             if isSuccess {
                 if isUnpinHotels {
                     AppToast.default.showToastMessage(message: successMessage)
                 }
-                self.delegate?.updateFavouriteSuccess(isHotelFavourite: isHotelFavourite)
+                self.hotelResultDelegate?.updateFavouriteSuccess(isHotelFavourite: isHotelFavourite)
+                self.hotelMapDelegate?.updateFavouriteSuccess(isHotelFavourite: isHotelFavourite)
             } else {
                 
                 if let _ = UserInfo.loggedInUserId {
@@ -249,7 +255,8 @@ class HotelsResultVM: NSObject {
                         _ = hotel.afterUpdate
                     }
                 }
-                self.delegate?.updateFavouriteFail(errors: errors, isHotelFavourite: isHotelFavourite)
+                self.hotelResultDelegate?.updateFavouriteFail(errors: errors, isHotelFavourite: isHotelFavourite)
+                self.hotelMapDelegate?.updateFavouriteFail(errors: errors, isHotelFavourite: isHotelFavourite)
             }
         }
     }
@@ -261,14 +268,18 @@ class HotelsResultVM: NSObject {
         }
         param[APIKeys.sid.rawValue] = self.hotelSearchRequest?.sid
         
-        self.delegate?.willGetPinnedTemplate()
+        self.hotelResultDelegate?.willGetPinnedTemplate()
+        self.hotelMapDelegate?.willGetPinnedTemplate()
         APICaller.shared.getPinnedTemplateAPI(params: param) { isSuccess, _, shortTemplateUrl in
             if isSuccess {
-                self.delegate?.getPinnedTemplateSuccess()
+                self.hotelResultDelegate?.getPinnedTemplateSuccess()
+                self.hotelMapDelegate?.getPinnedTemplateSuccess()
+
                 self.shortUrl = shortTemplateUrl
                 completionBlock(true)
             } else {
-                self.delegate?.getPinnedTemplateFail()
+                self.hotelResultDelegate?.getPinnedTemplateFail()
+                self.hotelMapDelegate?.getPinnedTemplateFail()
                 completionBlock(false)
             }
         }
@@ -284,10 +295,12 @@ class HotelsResultVM: NSObject {
                 for hotel in hotels {
                     _ = HotelSearched.insert(dataDict: hotel.jsonDict)
                 }
-                sSelf.delegate?.getAllHotelsOnResultFallbackSuccess(isDone)
+                sSelf.hotelResultDelegate?.getAllHotelsOnResultFallbackSuccess(isDone)
+                sSelf.hotelMapDelegate?.getAllHotelsOnResultFallbackSuccess(isDone)
             } else {
                 printDebug(errors)
-                sSelf.delegate?.getAllHotelsOnResultFallbackFail(errors: errors)
+                sSelf.hotelResultDelegate?.getAllHotelsOnResultFallbackFail(errors: errors)
+                sSelf.hotelMapDelegate?.getAllHotelsOnResultFallbackFail(errors: errors)
             }
         }
     }
@@ -337,9 +350,11 @@ class HotelsResultVM: NSObject {
         APICaller.shared.callShareTextAPI(params: params) { [weak self ] (success, error, message,shareText) in
             if success {
                 self?.shareText = shareText
-                self?.delegate?.callShareTextSuccess()
+                self?.hotelResultDelegate?.callShareTextSuccess()
+                self?.hotelMapDelegate?.callShareTextSuccess()
             } else {
-                self?.delegate?.callShareTextfail(errors: error)
+                self?.hotelResultDelegate?.callShareTextfail(errors: error)
+                self?.hotelMapDelegate?.callShareTextfail(errors: error)
             }
         }
     }
@@ -393,11 +408,13 @@ extension HotelsResultVM {
             guard let sSelf = self else { return }
             if success {
                 sSelf.hotelSearchRequest = searhRequest
-                sSelf.delegate?.getAllHotelsOnPreferenceSuccess()
+                sSelf.hotelResultDelegate?.getAllHotelsOnPreferenceSuccess()
+                sSelf.hotelMapDelegate?.getAllHotelsOnPreferenceSuccess()
             } else {
                 printDebug(errors)
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
-                sSelf.delegate?.getAllHotelsOnPreferenceFail()
+                sSelf.hotelResultDelegate?.getAllHotelsOnPreferenceFail()
+                sSelf.hotelMapDelegate?.getAllHotelsOnPreferenceFail()
             }
         }
     }

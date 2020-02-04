@@ -262,7 +262,7 @@ class HotelsMapVC: BaseVC {
     
     
     override func bindViewModel() {
-        self.viewModel.delegate = self
+        self.viewModel.hotelMapDelegate = self
     }
     
     override func viewDidLayoutSubviews() {

@@ -57,8 +57,8 @@ class HotelResultVC: BaseVC {
             self.tableViewVertical.separatorStyle = .none
             self.tableViewVertical.showsVerticalScrollIndicator = false
             self.tableViewVertical.showsHorizontalScrollIndicator = false
-//            let tap = UITapGestureRecognizer(target: self, action: #selector(tableTapped))
-//            self.tableViewVertical.addGestureRecognizer(tap)
+            //            let tap = UITapGestureRecognizer(target: self, action: #selector(tableTapped))
+            //            self.tableViewVertical.addGestureRecognizer(tap)
         }
     }
     
@@ -81,8 +81,8 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var floatingButtonBackView: UIView!
     @IBOutlet weak var switchContainerView: UIView!
     @IBOutlet weak var searchBarContainerView: UIView!
-//    @IBOutlet weak var cardGradientView: UIView!
-//    @IBOutlet weak var shimmerGradientView: UIView!
+    //    @IBOutlet weak var cardGradientView: UIView!
+    //    @IBOutlet weak var shimmerGradientView: UIView!
     @IBOutlet weak var filterView: UIView!
     
     @IBOutlet weak var filterCollectionView: UICollectionView! {
@@ -223,6 +223,7 @@ class HotelResultVC: BaseVC {
         self.setUpLongPressOnFilterButton()
         self.mapButton.backgroundColor = AppColors.themeWhite
         self.mapButton.roundCorners(corners: [.allCorners], radius: self.mapButton.height/2)
+        self.mapButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.2)
         
     }
     
@@ -245,19 +246,19 @@ class HotelResultVC: BaseVC {
     
     
     override func bindViewModel() {
-        self.viewModel.delegate = self
+        self.viewModel.hotelResultDelegate = self
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-//        self.configureCollectionViewLayoutItemSize()
+        //        self.configureCollectionViewLayoutItemSize()
     }
     
     deinit {
         CoreDataManager.shared.deleteData("HotelSearched")
-        ImageCache.default.clearMemoryCache()
-        ImageCache.default.clearDiskCache()
-        ImageCache.default.cleanExpiredDiskCache()
+        //        ImageCache.default.clearMemoryCache()
+        //        ImageCache.default.clearDiskCache()
+        //        ImageCache.default.cleanExpiredDiskCache()
         printDebug("HotelResultVC deinit")
     }
     
@@ -280,8 +281,8 @@ class HotelResultVC: BaseVC {
             //updateFavOnList(forIndexPath: selectedIndexPath)
             // manage favourite switch buttons
             self.viewModel.getFavouriteHotels(shouldReloadData: true)
-//            self.updateMarkers()
-//            updateFavouriteSuccess(isHotelFavourite: true)
+            //            self.updateMarkers()
+            //            updateFavouriteSuccess(isHotelFavourite: true)
         }
         else if let _ = note.object as? HCDataSelectionVC {
             updateFavOnList(forIndexPath: selectedIndexPath)
@@ -366,7 +367,7 @@ class HotelResultVC: BaseVC {
         self.switchView.isBackgroundBlurry = true
         self.switchGradientView.backgroundColor = AppColors.clear
         self.switchGradientView.isHidden = true
-       // self.switchGradientView.addGrayShadow(ofColor: AppColors.themeBlack.withAlphaComponent(0.2), radius: 18, offset: .zero, opacity: 2, cornerRadius: 100)
+        // self.switchGradientView.addGrayShadow(ofColor: AppColors.themeBlack.withAlphaComponent(0.2), radius: 18, offset: .zero, opacity: 2, cornerRadius: 100)
         self.manageFloatingView(isHidden: true)
         self.searchBarContainerView.isHidden = true
     }
@@ -489,12 +490,9 @@ class HotelResultVC: BaseVC {
         delay(seconds: 0.1) { [weak self] in
             self?.viewModel.loadSaveData()
         }
-  // nitin       self.getFavouriteHotels(shouldReloadData: false)
+        // nitin       self.getFavouriteHotels(shouldReloadData: false)
     }
-    
-    @IBAction func currentLocationButtonAction(_ sender: UIButton) {
-        
-    }
+
     
     @IBAction func searchBtnTapped(_ sender: Any) {
         self.showSearchAnimation()
@@ -526,17 +524,17 @@ class HotelResultVC: BaseVC {
     }
     
     // added tap gesture to handle the tap on mapview when vertical tableview is visible
-//    @objc func tableTapped(tap:UITapGestureRecognizer) {
-//        let location = tap.location(in: self.tableViewVertical)
-//        let path = self.tableViewVertical.indexPathForRow(at: location)
-//        if let indexPathForRow = path {
-//            self.tableView(self.tableViewVertical, didSelectRowAt: indexPathForRow)
-//        } else {
-//            // handle tap on empty space below existing rows however you want
-//            printDebug("tapped at empty space of table view")
-//            self.mapButtonAction(self.mapButton ?? UIButton())
-//        }
-//    }
+    //    @objc func tableTapped(tap:UITapGestureRecognizer) {
+    //        let location = tap.location(in: self.tableViewVertical)
+    //        let path = self.tableViewVertical.indexPathForRow(at: location)
+    //        if let indexPathForRow = path {
+    //            self.tableView(self.tableViewVertical, didSelectRowAt: indexPathForRow)
+    //        } else {
+    //            // handle tap on empty space below existing rows however you want
+    //            printDebug("tapped at empty space of table view")
+    //            self.mapButtonAction(self.mapButton ?? UIButton())
+    //        }
+    //    }
     
     
     
