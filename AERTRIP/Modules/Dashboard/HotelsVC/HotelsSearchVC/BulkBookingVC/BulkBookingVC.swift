@@ -18,6 +18,7 @@ class BulkBookingVC: BaseVC {
         return UserInfo.loggedInUserId
     }
     
+    
     //MARK:- IBOutlets
     //MARK:-
     @IBOutlet weak var mainContainerView: UIView!
@@ -29,7 +30,6 @@ class BulkBookingVC: BaseVC {
     @IBOutlet weak var datePickerView: UIView!
     @IBOutlet weak var bulkBookingView: UIView!
     @IBOutlet weak var dateInfoView : UIView!
-    @IBOutlet weak var starView: UIView!
     @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var whereBtnOutlet: UIButton!
     @IBOutlet weak var cityNameLabel: UILabel!
@@ -38,15 +38,6 @@ class BulkBookingVC: BaseVC {
     @IBOutlet weak var secondLineView: ATDividerView!
     @IBOutlet weak var thirdLineView: ATDividerView!
     @IBOutlet weak var fourthLineView: ATDividerView!
-    @IBOutlet weak var fifthLineView: ATDividerView!
-    @IBOutlet weak var starRatingLabel: UILabel!
-    @IBOutlet weak var allStarLabel: UILabel!
-    @IBOutlet weak var oneStarLabel: UILabel!
-    @IBOutlet weak var twoStarLabel: UILabel!
-    @IBOutlet weak var threeStarLabel: UILabel!
-    @IBOutlet weak var fourStarLabel: UILabel!
-    @IBOutlet weak var fiveStarLabel: UILabel!
-    @IBOutlet var starButtonsOutlet: [UIButton]!
     @IBOutlet weak var searchButtonOutlet: ATButton!
     @IBOutlet weak var bulkBookingLabel: UILabel!
     @IBOutlet weak var roomCountLabel: UILabel!
@@ -132,13 +123,6 @@ class BulkBookingVC: BaseVC {
     }
     
     override func setupFonts() {
-        self.starRatingLabel.font = AppFonts.Regular.withSize(16.0)
-        self.allStarLabel.font = AppFonts.Regular.withSize(14.0)
-        self.oneStarLabel.font = AppFonts.Regular.withSize(16.0)
-        self.twoStarLabel.font = AppFonts.Regular.withSize(16.0)
-        self.threeStarLabel.font = AppFonts.Regular.withSize(16.0)
-        self.fourStarLabel.font = AppFonts.Regular.withSize(16.0)
-        self.fiveStarLabel.font = AppFonts.Regular.withSize(16.0)
         self.bulkBookingLabel.font = AppFonts.Regular.withSize(16.0)
         self.preferredHotelsLabel.font = AppFonts.Regular.withSize(16.0)
         self.specialReqLabel.font = AppFonts.Regular.withSize(16.0)
@@ -151,7 +135,7 @@ class BulkBookingVC: BaseVC {
     
     override func setupTexts() {
         self.whereLabel.text = LocalizedString.WhereButton.localized
-        self.starRatingLabel.text = LocalizedString.StarRating.localized
+
         if let _ = self.returnUserId {
             self.searchButtonOutlet.setTitle(LocalizedString.Submit.localized, for: .normal)
         } else {
@@ -168,18 +152,15 @@ class BulkBookingVC: BaseVC {
         self.whereLabel.textColor = AppColors.themeGray40
         self.cityNameLabel.textColor = AppColors.textFieldTextColor51
         self.stateNameLabel.textColor = AppColors.textFieldTextColor51
-        self.starRatingLabel.textColor = AppColors.themeGray40
-        self.allStarLabel.textColor = AppColors.themeGray40
-        self.oneStarLabel.textColor = AppColors.themeGray40
-        self.twoStarLabel.textColor = AppColors.themeGray40
-        self.threeStarLabel.textColor = AppColors.themeGray40
-        self.fourStarLabel.textColor = AppColors.themeGray40
-        self.fiveStarLabel.textColor = AppColors.themeGray40
         self.bulkBookingLabel.textColor = AppColors.themeGray40
         self.preferredHotelsLabel.textColor = AppColors.themeGray40
         self.specialReqLabel.textColor = AppColors.themeGray40
         self.specialReqTextView.textColor = AppColors.textFieldTextColor51
         let regularFontSize16 = AppFonts.Regular.withSize(16.0)
+        
+        
+        self.searchButtonOutlet.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.searchButtonOutlet.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         
         self.specialReqTextView.attributedPlaceholder = NSMutableAttributedString(string: LocalizedString.IfAny.localized, attributes: [NSAttributedString.Key.foregroundColor: AppColors.themeGray20,NSAttributedString.Key.font: regularFontSize16])
         self.specialReqTextView.textAlignment = .center
@@ -201,14 +182,9 @@ class BulkBookingVC: BaseVC {
         self.topNavView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         self.searchButtonOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.searchButtonOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+        self.searchButtonOutlet.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
+        
         self.searchButtonOutlet.layer.cornerRadius = 25.0
-        for btn in self.starButtonsOutlet {
-            btn.adjustsImageWhenHighlighted = false
-            btn.isSelected = false
-            btn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
-            btn.setImage(nil, for: .selected)
-            btn.setImage(nil, for: .highlighted)
-        }
         //self.rectangleView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
         self.rectangleView.cornerRadius = 15.0
         self.rectangleView.layer.masksToBounds = true
@@ -250,9 +226,7 @@ class BulkBookingVC: BaseVC {
         for star in oldData.ratingCount {
             self.updateStarButtonState(forStar: star)
         }
-        
-        self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.ratingCount, maxCount: 5)
-        
+    
     }
     
     private func setWhere(cityName: String, stateName: String) {
@@ -338,29 +312,9 @@ class BulkBookingVC: BaseVC {
         
         if self.viewModel.ratingCount.isEmpty || self.viewModel.ratingCount.count == 5 {
             self.viewModel.ratingCount.removeAll()
-            for starBtn in self.starButtonsOutlet {
-                starBtn.isSelected = false
-                starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
-            }
         }
         else {
             
-            for starBtn in self.starButtonsOutlet {
-                
-                if starBtn.tag == forStar {
-                    starBtn.isSelected = isSettingFirstTime ? true : !starBtn.isSelected
-                    let img = starBtn.isSelected ? #imageLiteral(resourceName: "starRatingFilled") : #imageLiteral(resourceName: "starRatingUnfill")
-                    starBtn.setImage(img, for: starBtn.isSelected ? .selected : .normal)
-                }
-                else if self.viewModel.ratingCount.contains(starBtn.tag) {
-                    starBtn.isSelected = true
-                    starBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .selected)
-                }
-                else {
-                    starBtn.isSelected = false
-                    starBtn.setImage(#imageLiteral(resourceName: "starRatingUnfill"), for: .normal)
-                }
-            }
         }
     }
     
@@ -455,7 +409,6 @@ class BulkBookingVC: BaseVC {
     //MARK:- Action
     @IBAction func starButtonsAction(_ sender: UIButton) {
         self.updateStarButtonState(forStar: sender.tag)
-        self.allStarLabel.text = self.getStarString(fromArr: self.viewModel.ratingCount, maxCount: 5)
     }
     
     @IBAction func bulkBookingPopUpAction(_ sender: Any) {

@@ -688,7 +688,7 @@ on Christmas”</string>
                                                         <constraint firstAttribute="height" constant="179" id="TG3-rV-XsM"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yod-Cf-DnY" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yod-Cf-DnY" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
                                                     <rect key="frame" x="71.5" y="174.5" width="232.5" height="50"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
@@ -745,7 +745,7 @@ on Christmas”</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZt-tb-ePj">
-                                                            <rect key="frame" x="1" y="14" width="100" height="44"/>
+                                                            <rect key="frame" x="0.0" y="14" width="100" height="44"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="FQa-U9-jkR"/>
                                                                 <constraint firstAttribute="width" constant="100" id="kc3-uS-s2O"/>
@@ -780,7 +780,7 @@ on Christmas”</string>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="z3B-zb-52K" secondAttribute="trailing" id="06I-dq-kwi"/>
-                                                        <constraint firstItem="KZt-tb-ePj" firstAttribute="leading" secondItem="UTm-27-Lt8" secondAttribute="leading" constant="1" id="GQ2-Fy-b0h"/>
+                                                        <constraint firstItem="KZt-tb-ePj" firstAttribute="leading" secondItem="UTm-27-Lt8" secondAttribute="leading" id="GQ2-Fy-b0h"/>
                                                         <constraint firstItem="z3B-zb-52K" firstAttribute="leading" secondItem="UTm-27-Lt8" secondAttribute="trailing" constant="10" id="HMM-7h-dhQ"/>
                                                         <constraint firstItem="UTm-27-Lt8" firstAttribute="centerY" secondItem="PGv-f2-KsG" secondAttribute="centerY" constant="-12" id="KI5-6u-qnD"/>
                                                         <constraint firstItem="KZt-tb-ePj" firstAttribute="top" secondItem="UTm-27-Lt8" secondAttribute="bottom" constant="-15" id="YxI-Pb-iXV"/>
@@ -835,43 +835,43 @@ on Christmas”</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Uw-n8-tVE" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mEQ-BN-39k">
-                    <rect key="frame" x="0.0" y="0.0" width="266" height="45"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleAspectFill" distribution="fillEqually" spacing="-36" translatesAutoresizingMaskIntoConstraints="NO" id="xO9-mQ-wya">
-                            <rect key="frame" x="17" y="4" width="233" height="45"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="sET-rL-PFF">
+                            <rect key="frame" x="50" y="6" width="275" height="45"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vU4-Hb-QUb">
-                                    <rect key="frame" x="0.0" y="0.0" width="101.5" height="45"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f17-II-i8y">
+                                    <rect key="frame" x="0.0" y="0.0" width="68.5" height="45"/>
                                     <state key="normal" image="fbIcon"/>
                                     <connections>
-                                        <action selector="fbLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="ImB-qA-BLZ"/>
+                                        <action selector="linkedLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="TDz-uR-0R0"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C3X-Wc-eN0">
-                                    <rect key="frame" x="65.5" y="0.0" width="102" height="45"/>
+                                    <rect key="frame" x="103.5" y="0.0" width="68" height="45"/>
                                     <state key="normal" image="googleIcon"/>
                                     <connections>
                                         <action selector="googleLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="Hkv-dh-xZh"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f17-II-i8y">
-                                    <rect key="frame" x="131.5" y="0.0" width="101.5" height="45"/>
-                                    <state key="normal" image="twiterIcon"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vU4-Hb-QUb">
+                                    <rect key="frame" x="206.5" y="0.0" width="68.5" height="45"/>
+                                    <state key="normal" image="twitterIcon"/>
                                     <connections>
-                                        <action selector="linkedLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="TDz-uR-0R0"/>
+                                        <action selector="fbLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="ImB-qA-BLZ"/>
                                     </connections>
                                 </button>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="height" constant="45" id="gm2-AK-ohk"/>
+                                <constraint firstAttribute="height" constant="45" id="CEl-Fw-Vcq"/>
                             </constraints>
                         </stackView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="xO9-mQ-wya" firstAttribute="top" secondItem="mEQ-BN-39k" secondAttribute="top" constant="4" id="dMh-nZ-aZ1"/>
-                        <constraint firstAttribute="trailing" secondItem="xO9-mQ-wya" secondAttribute="trailing" constant="16" id="pcd-TZ-GJ5"/>
-                        <constraint firstItem="xO9-mQ-wya" firstAttribute="leading" secondItem="mEQ-BN-39k" secondAttribute="leading" constant="17" id="qi5-sY-oAs"/>
+                        <constraint firstItem="MMV-HB-2Nf" firstAttribute="trailing" secondItem="sET-rL-PFF" secondAttribute="trailing" constant="50" id="aqS-kM-rpe"/>
+                        <constraint firstItem="sET-rL-PFF" firstAttribute="top" secondItem="MMV-HB-2Nf" secondAttribute="top" constant="6" id="gyg-XB-Ve0"/>
+                        <constraint firstItem="sET-rL-PFF" firstAttribute="leading" secondItem="MMV-HB-2Nf" secondAttribute="leading" constant="50" id="jgC-G7-a01"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="MMV-HB-2Nf"/>
                 </view>
@@ -1473,7 +1473,7 @@ on Christmas”</string>
         <image name="logoTitleWhite" width="161" height="20"/>
         <image name="splashBackground" width="202" height="359.5"/>
         <image name="trips" width="43" height="32"/>
-        <image name="twiterIcon" width="24" height="24"/>
+        <image name="twitterIcon" width="24" height="24"/>
         <image name="userPlaceholder" width="16.5" height="20.5"/>
     </resources>
 </document>

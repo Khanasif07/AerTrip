@@ -91,9 +91,16 @@ class SocialLoginVC: BaseVC {
     }
     
     override func setupFonts() {
-        self.fbButton.titleLabel?.font = AppFonts.Regular.withSize(16)
-        self.googleButton.titleLabel?.font = AppFonts.Regular.withSize(16)
-        self.linkedInButton.titleLabel?.font = AppFonts.Regular.withSize(16)
+         self.fbButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .highlighted)
+         self.googleButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .highlighted)
+         self.linkedInButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .highlighted)
+        self.fbButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .normal)
+        self.googleButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .normal)
+        self.linkedInButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .normal)
+        self.fbButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .selected)
+        self.googleButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .selected)
+        self.linkedInButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .selected)
+        
     }
     
     override func setupColors() {
@@ -144,6 +151,18 @@ class SocialLoginVC: BaseVC {
         self.fbButton.setImage(AppImage.facebookLogoImage, for: .normal)
         self.googleButton.setImage(AppImage.googleLogoImage, for: .normal)
         self.linkedInButton.setImage(AppImage.linkedInLogoImage, for: .normal)
+        self.setUpSocialBtnInset(button: fbButton)
+        self.setUpSocialBtnInset(button: googleButton)
+        self.setUpSocialBtnInset(button: linkedInButton)
+    }
+    
+    func setUpSocialBtnInset(button: UIButton) {
+            var imgInset = button.imageEdgeInsets
+            var titleInset = button.titleEdgeInsets
+            titleInset.left = titleInset.left + 2.5
+            button.titleEdgeInsets = titleInset
+            imgInset.left =  imgInset.left + 10
+            button.imageEdgeInsets = imgInset
     }
     
     override func bindViewModel() {

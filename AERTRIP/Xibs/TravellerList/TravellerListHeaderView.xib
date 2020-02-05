@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -46,17 +44,27 @@
                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <view alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kUv-aL-vXD">
+                            <rect key="frame" x="0.0" y="43.5" width="375" height="0.5"/>
+                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="Q1e-4W-HLl"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <gestureRecognizers/>
                     <constraints>
+                        <constraint firstItem="kUv-aL-vXD" firstAttribute="leading" secondItem="mnu-CP-o4A" secondAttribute="leading" id="1un-DI-YAB"/>
                         <constraint firstItem="gAP-JF-PeG" firstAttribute="leading" secondItem="F5x-Tb-XGw" secondAttribute="trailing" constant="16" id="6et-G0-wOI"/>
                         <constraint firstItem="qEB-Pr-RQX" firstAttribute="centerY" secondItem="gAP-JF-PeG" secondAttribute="centerY" id="ARx-pl-O6R"/>
                         <constraint firstAttribute="height" constant="44" id="H3S-fK-fZK"/>
                         <constraint firstItem="qEB-Pr-RQX" firstAttribute="leading" secondItem="gAP-JF-PeG" secondAttribute="trailing" constant="5" id="IUU-WX-ndV"/>
                         <constraint firstAttribute="trailing" secondItem="qEB-Pr-RQX" secondAttribute="trailing" constant="16" id="Knu-uC-hq2"/>
                         <constraint firstItem="gAP-JF-PeG" firstAttribute="centerY" secondItem="mnu-CP-o4A" secondAttribute="centerY" id="Va7-bz-7RM"/>
+                        <constraint firstAttribute="bottom" secondItem="kUv-aL-vXD" secondAttribute="bottom" id="XWK-vn-KTe"/>
                         <constraint firstItem="F5x-Tb-XGw" firstAttribute="leading" secondItem="mnu-CP-o4A" secondAttribute="leading" constant="16" id="aFn-Dp-rVM"/>
+                        <constraint firstAttribute="trailing" secondItem="kUv-aL-vXD" secondAttribute="trailing" id="ed1-GN-Kmm"/>
                         <constraint firstItem="F5x-Tb-XGw" firstAttribute="top" secondItem="mnu-CP-o4A" secondAttribute="top" constant="12" id="oM5-42-YQs"/>
                     </constraints>
                     <connections>
@@ -74,6 +82,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="bottomView" destination="kUv-aL-vXD" id="Omv-FX-Yfx"/>
                 <outlet property="profileImageView" destination="F5x-Tb-XGw" id="cZC-Wl-PFS"/>
                 <outlet property="userNameLabel" destination="gAP-JF-PeG" id="bn9-Za-x8e"/>
                 <outlet property="userTypeLbel" destination="qEB-Pr-RQX" id="UTr-eh-xKK"/>
