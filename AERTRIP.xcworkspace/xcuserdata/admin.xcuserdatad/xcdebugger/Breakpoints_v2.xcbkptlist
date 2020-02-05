@@ -283,14 +283,14 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "F7E7F11F-67E6-476F-99F8-FEAC64F3185D - 730c2c7855b32a7f"
+                  uuid = "F7E7F11F-67E6-476F-99F8-FEAC64F3185D - 2dfe65c839058849"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 (AERTRIP.JSON) -&gt; () in AERTRIP.APICaller.callSaveProfileAPI(params: Swift.Dictionary&lt;Swift.String, Any&gt;, filePath: Swift.String, loader: Swift.Bool, completionBlock: (Swift.Bool, Swift.Array&lt;Swift.Int&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "AERTRIP"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Desktop/AerTrip/AERTRIP/Network/APICaller/APICaller+EditProfile.swift"
+                  urlString = "file:///Users/admin/Developer/Aertrip/AERTRIP/Network/APICaller/APICaller+EditProfile.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "189"
@@ -298,14 +298,14 @@
                   offsetFromSymbolStart = "416">
                </Location>
                <Location
-                  uuid = "F7E7F11F-67E6-476F-99F8-FEAC64F3185D - e6d0cf44614f800f"
+                  uuid = "F7E7F11F-67E6-476F-99F8-FEAC64F3185D - b82286f40df92239"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 (Swift.Bool, AERTRIP.JSON) -&gt; () in closure #1 (AERTRIP.JSON) -&gt; () in AERTRIP.APICaller.callSaveProfileAPI(params: Swift.Dictionary&lt;Swift.String, Any&gt;, filePath: Swift.String, loader: Swift.Bool, completionBlock: (Swift.Bool, Swift.Array&lt;Swift.Int&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "AERTRIP"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Desktop/AerTrip/AERTRIP/Network/APICaller/APICaller+EditProfile.swift"
+                  urlString = "file:///Users/admin/Developer/Aertrip/AERTRIP/Network/APICaller/APICaller+EditProfile.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "190"
@@ -376,38 +376,6 @@
             startingLineNumber = "804"
             endingLineNumber = "804"
             landmarkName = "getFail(errors:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E7B89AD7-1F0B-4B15-BFAB-AD0DBB364B47"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/AppHelper/AppGlobals.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "showErrorOnToastView(withErrors:fromModule:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "41544E7B-186B-4363-A3F7-2C12536E3A40"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/AppHelper/AppGlobals.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
-            landmarkName = "showErrorOnToastView(withErrors:fromModule:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

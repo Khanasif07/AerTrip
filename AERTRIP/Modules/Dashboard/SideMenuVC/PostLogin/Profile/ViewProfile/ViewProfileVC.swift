@@ -38,11 +38,7 @@ class ViewProfileVC: BaseVC {
     var details = [LocalizedString.TravellerList.localized, LocalizedString.HotelPreferences.localized, LocalizedString.QuickPay.localized, LocalizedString.LinkedAccounts.localized, LocalizedString.NewsLetters.localized]
     var accounts = [LocalizedString.Settings, LocalizedString.Notification]
     var logOut = [LocalizedString.LogOut]
-    var profileImageHeaderView: SlideMenuProfileImageHeaderView? {
-        didSet {
-            self.profileImageHeaderView?.delegate = self
-        }
-    }
+    var profileImageHeaderView: SlideMenuProfileImageHeaderView?
     
     var maxValue: CGFloat = 1.0
     var minValue: CGFloat = 0.0
@@ -93,6 +89,7 @@ class ViewProfileVC: BaseVC {
         
         self.profileImageHeaderView?.delegate = self
         self.profileImageHeaderView?.isHidden = false
+        profileImageHeaderView?.makeImageCircular()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -151,15 +148,14 @@ class ViewProfileVC: BaseVC {
         
         self.profileImageHeaderView?.delegate = self
         self.setupParallaxHeader()
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 60.0))
-        tableView.tableFooterView = footerView
+        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 60.0))
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        self.tableView.bounces = true
     }
     
     func setupParallaxHeader() {
-        let parallexHeaderHeight = CGFloat(304.0)//CGFloat(UIDevice.screenHeight * 0.45)
-        
+        let parallexHeaderHeight = CGFloat(304.0)
         let parallexHeaderMinHeight = self.navigationController?.navigationBar.bounds.height ?? 74
         if !self.currentProgress.isZero {
             CGAffineTransform(scaleX: (CGFloat(self.currentProgress)) , y: (CGFloat(currentProgress))).translatedBy(x: 0, y: CGFloat(2200 * (Float(currentProgressIntValue) / 1000)))
@@ -378,10 +374,9 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
 
             self.currentProgressIntValue = intValue
             self.currentProgress = newProgress.toCGFloat
-            self.profileImageHeaderView?.profileImageView.transform = CGAffineTransform(scaleX: (CGFloat(newProgress)) , y: (CGFloat(newProgress))).translatedBy(x: 0, y: CGFloat(2200 * (Float(intValue) / 1000)))
-
-
-
+//            self.profileImageHeaderView?.profileImageView.transform = CGAffineTransform(scaleX: (CGFloat(newProgress)) , y: (CGFloat(newProgress))).translatedBy(x: 0, y: CGFloat(2200 * (Float(intValue) / 1000)))
+            
+            print("HEADER VIEW FRAME IS: \(self.profileImageHeaderView?.frame.size)")
         }
 //
         if prallexProgress  <= 0.7 {
@@ -444,6 +439,10 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updateForParallexProgress()
+
+        // Nimish
+        profileImageHeaderView!.profileImageView.layer.cornerRadius = profileImageHeaderView!.profileImageView.frame.size.width / 2
+        // Nimish
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(self.updateForParallexProgress), with: nil, afterDelay: 0.05)
         //        self.updateForParallexProgress()
