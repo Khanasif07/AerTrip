@@ -465,21 +465,6 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         perform(#selector(self.updateForParallexProgress), with: nil, afterDelay: 0.05)
         //        self.updateForParallexProgress()
     }
-    
-    //    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-    //        self.updateForParallexProgress()
-    //        delay(seconds: 0.3) { [weak self] in
-    //            self?.updateForParallexProgress()
-    //        }
-    //    }
-    
-    //    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-    //        self.updateForParallexProgress()
-    //    }
-    //
-    //    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-    //        self.updateForParallexProgress()
-    //    }
 }
 
 // MARK: - Profile Header view Delegate methods
