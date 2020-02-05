@@ -161,9 +161,9 @@ class ViewProfileVC: BaseVC {
     }
     
     func setupParallaxHeader() {
-        let parallexHeaderHeight = CGFloat(304.0)//CGFloat(UIDevice.screenHeight * 0.45)
+        let parallexHeaderHeight = CGFloat(301.0)//CGFloat(UIDevice.screenHeight * 0.45)
         
-        let parallexHeaderMinHeight = self.navigationController?.navigationBar.bounds.height ?? 74
+        let parallexHeaderMinHeight = self.navigationController?.navigationBar.bounds.height ?? 65
         if !self.currentProgress.isZero {
             CGAffineTransform(scaleX: (CGFloat(self.currentProgress)) , y: (CGFloat(currentProgress))).translatedBy(x: 0, y: CGFloat(2200 * (Float(currentProgressIntValue) / 1000)))
             
@@ -178,7 +178,7 @@ class ViewProfileVC: BaseVC {
         self.profileImageHeaderView?.widthAnchor.constraint(equalToConstant: tableView?.width ?? 0.0).isActive = true
         self.tableView.parallaxHeader.delegate = self
         self.updateUserData()
-       // self.view.bringSubviewToFront(self.topNavView)
+        // self.view.bringSubviewToFront(self.topNavView)
     }
     
     func updateUserData() {
@@ -224,15 +224,15 @@ extension ViewProfileVC: TopNavigationViewDelegate {
         if self.viewModel.travelData == nil {
             self.viewModel.travelData = UserInfo.loggedInUser?.travellerDetailModel
         }
-//        self.topNavView.configureFirstRightButton( normalTitle: "", selectedTitle: "")
-//        self.topNavView.isToShowIndicatorView = true
-//        self.topNavView.startActivityIndicaorLoading()
+        //        self.topNavView.configureFirstRightButton( normalTitle: "", selectedTitle: "")
+        //        self.topNavView.isToShowIndicatorView = true
+        //        self.topNavView.startActivityIndicaorLoading()
         AppFlowManager.default.moveToEditProfileVC(travelData: self.viewModel.travelData, usingFor: .viewProfile)
         delay(seconds: 0.5) { [weak self] in
             self?.activityIndicator.isHidden = true
             self?.activityIndicator.stopAnimating()
             self?.topNavView.firstRightButton.isHidden = false
-           // self?.topNavView.stopActivityIndicaorLoading()
+            // self?.topNavView.stopActivityIndicaorLoading()
         }
     }
 }
@@ -259,12 +259,13 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
             return 80.0
-        }
-        else if indexPath.row == 1 {
-            return 47.0
+        } else if indexPath.row == self.details.count - 1 && indexPath.section == 0 {
+            return 80.0
+        } else if indexPath.row == self.accounts.count - 1 && indexPath.section == 1{
+            return 80.0
         }
         else {
-            return 65.0
+            return 61.0
         }
     }
     
@@ -272,15 +273,21 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ViewProfileTableViewCell else {
             fatalError("ViewProfileTableViewCell not found")
         }
-        
+        if indexPath.row != 0 {
+            cell.topViewHeightConst.constant = 18
+        } else {
+            cell.topViewHeightConst.constant = 36
+        }
         switch self.sections[indexPath.section] {
         case "details":
+            cell.bottomViewHeightConst.constant =  indexPath.row == self.details.count - 1 ? 36 : 18
             cell.separatorView.isHidden = true
             cell.menuOptionLabel.isHidden = false
             cell.configureCell(self.details[indexPath.row])
             
             return cell
         case "accounts":
+            cell.bottomViewHeightConst.constant =  indexPath.row == self.accounts.count - 1 ? 36 : 18
             if self.accounts[indexPath.row].rawValue == "Settings" {
                 cell.separatorView.isHidden = false
             } else {
@@ -289,6 +296,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             cell.configureCell(self.accounts[indexPath.row].rawValue)
             return cell
         case "logOut":
+            cell.bottomViewHeightConst.constant = 18
             cell.separatorView.isHidden = false
             cell.configureCell(self.logOut[indexPath.row].rawValue)
             return cell
@@ -371,28 +379,28 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
             isScrollingFirstTime = false
             printDebug("minvalue \(minValue) and maxValue \(maxValue)")
         }
-//
-//
+        //
+        //
         if minValue...maxValue ~= prallexProgress {
             printDebug("progress value \(prallexProgress)")
             let intValue =  finalMaxValue - Int(prallexProgress * 100)
-
+            
             printDebug(" int value \(intValue)")
             let newProgress: Float = (Float(1) - (Float(1.3)  * (Float(intValue) / 100)))
-
+            
             printDebug("new progress value \(newProgress)")
-
-
+            
+            
             printDebug("CGFloat progress  Value is \(newProgress.toCGFloat.roundTo(places: 3))")
-
+            
             self.currentProgressIntValue = intValue
             self.currentProgress = newProgress.toCGFloat
             self.profileImageHeaderView?.profileImageView.transform = CGAffineTransform(scaleX: (CGFloat(newProgress)) , y: (CGFloat(newProgress))).translatedBy(x: 0, y: CGFloat(2200 * (Float(intValue) / 1000)))
-
-
-
+            
+            
+            
         }
-//
+        //
         if prallexProgress  <= 0.7 {
             if isNavBarHidden {
                 self.statusBarStyle = .lightContent

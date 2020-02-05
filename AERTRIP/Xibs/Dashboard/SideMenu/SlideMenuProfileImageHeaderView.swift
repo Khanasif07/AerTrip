@@ -161,14 +161,15 @@ class SlideMenuProfileImageHeaderView: UIView {
         self.emailAndContactBottomConstraint.constant = 28.0
         
         profileImageView.layer.borderWidth = 4.0
-       
-       
+        
+        
         
         self.userNameLabel.font = AppFonts.Regular.withSize(26.0)
         
         self.emailIdLabel.font = AppFonts.Regular.withSize(14.0)
         self.mobileNumberLabel.font = AppFonts.Regular.withSize(14.0)
-        
+        self.dividerView.backgroundColor = AppColors.themeGray20
+        self.dividerView.isHidden = false
         self.emailIdLabel.isHidden = false
         self.mobileNumberLabel.isHidden = false
         self.familyButton.isHidden = true
@@ -190,6 +191,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         
         self.emailIdLabel.isHidden = true
         self.mobileNumberLabel.isHidden = true
+        self.dividerView.isHidden = true
         self.familyButton.isHidden = true
         
         self.layoutIfNeeded()
@@ -207,6 +209,7 @@ class SlideMenuProfileImageHeaderView: UIView {
         profileImageView.layer.borderWidth = 4.0
         
         self.userNameLabel.font = AppFonts.Regular.withSize(26.0)
+        self.dividerView.isHidden = true
         
         self.emailIdLabel.text = ""
         self.mobileNumberLabel.text = ""

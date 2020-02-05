@@ -48,6 +48,9 @@ class MenuItemCollectionCell: PagingCell {
          if let item = pagingItem as? MenuItem{
             self.title.text = item.title
             self.dotView.isHidden = item.isSelected ? true : false
+            options.selectedFont = AppFonts.SemiBold.withSize(16.0)
+            options.font = AppFonts.Regular.withSize(16.0)
+            
         }
      }
 }

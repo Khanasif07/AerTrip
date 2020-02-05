@@ -9,6 +9,7 @@
 import UIKit
 
 protocol AddNotesTableViewCellDelegate: class {
+   // func textViewWillBecomeActive(_ textView: UITextView)
     func textViewText(_ textView: UITextView)
 }
 
@@ -56,6 +57,7 @@ class AddNotesTableViewCell: UITableViewCell {
 }
 
 extension AddNotesTableViewCell: UITextViewDelegate {
+    
     func textViewDidChange(_ textView: UITextView) {
         delegate?.textViewText(textView)
     }

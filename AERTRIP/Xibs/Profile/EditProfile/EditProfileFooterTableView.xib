@@ -11,11 +11,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="Iac-o7-gnF" customClass="EditProfileFooterTableView" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="369" height="112"/>
+            <rect key="frame" x="0.0" y="0.0" width="369" height="80"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cmh-gm-TT8">
-                    <rect key="frame" x="0.0" y="0.0" width="369" height="112"/>
+                    <rect key="frame" x="0.0" y="0.0" width="369" height="80"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Iwn-kw-Gv6">
                             <rect key="frame" x="0.0" y="0.0" width="369" height="80"/>
@@ -75,19 +75,18 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="Iwn-kw-Gv6" secondAttribute="trailing" id="CZh-hq-2s0"/>
-                        <constraint firstItem="Iwn-kw-Gv6" firstAttribute="top" secondItem="Cmh-gm-TT8" secondAttribute="top" id="EvI-Zn-5tL"/>
-                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Iwn-kw-Gv6" secondAttribute="bottom" id="P23-2s-Ygb"/>
-                        <constraint firstItem="Iwn-kw-Gv6" firstAttribute="leading" secondItem="Cmh-gm-TT8" secondAttribute="leading" id="Yis-qc-Yax"/>
+                        <constraint firstItem="Iwn-kw-Gv6" firstAttribute="leading" secondItem="Cmh-gm-TT8" secondAttribute="leading" id="3cQ-Tm-QAy"/>
+                        <constraint firstItem="Iwn-kw-Gv6" firstAttribute="top" secondItem="Cmh-gm-TT8" secondAttribute="top" id="7bd-pU-Z5w"/>
+                        <constraint firstAttribute="trailing" secondItem="Iwn-kw-Gv6" secondAttribute="trailing" id="OGU-js-Mwn"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="Cmh-gm-TT8" secondAttribute="trailing" id="7RR-hP-MZI"/>
-                <constraint firstItem="Cmh-gm-TT8" firstAttribute="leading" secondItem="Iac-o7-gnF" secondAttribute="leading" id="E8I-K6-IAz"/>
-                <constraint firstAttribute="bottom" secondItem="Cmh-gm-TT8" secondAttribute="bottom" id="rDO-gk-41z"/>
-                <constraint firstItem="Cmh-gm-TT8" firstAttribute="top" secondItem="Iac-o7-gnF" secondAttribute="top" id="xhh-h6-3We"/>
+                <constraint firstItem="fde-gz-WBo" firstAttribute="bottom" secondItem="Cmh-gm-TT8" secondAttribute="bottom" id="5uC-Vr-8nW"/>
+                <constraint firstItem="Cmh-gm-TT8" firstAttribute="leading" secondItem="fde-gz-WBo" secondAttribute="leading" id="AOO-Pn-8aq"/>
+                <constraint firstItem="Cmh-gm-TT8" firstAttribute="top" secondItem="fde-gz-WBo" secondAttribute="top" id="Dx9-XN-Jz0"/>
+                <constraint firstItem="fde-gz-WBo" firstAttribute="trailing" secondItem="Cmh-gm-TT8" secondAttribute="trailing" id="zey-In-1Ok"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="fde-gz-WBo"/>
