@@ -1122,6 +1122,14 @@ extension EditProfileVC: AddAddressTableViewCellDelegate {
 }
 
 extension EditProfileVC: AddNotesTableViewCellDelegate {
+    func textViewWillBecomeActive(_ textView: UITextView) {
+        guard  let cell = textView.tableViewCell as? AddNotesTableViewCell  else {
+            return
+        }
+        guard let indexPath = self.tableView.indexPath(for: cell) else {return}
+        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
+    
     func textViewText(_ textView: UITextView) {
         
         if textView.numberOfLines >= 10 {

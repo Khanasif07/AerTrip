@@ -154,7 +154,7 @@ class ViewProfileVC: BaseVC {
         
         self.profileImageHeaderView?.delegate = self
         self.setupParallaxHeader()
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 60.0))
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 17.0))
         tableView.tableFooterView = footerView
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -163,7 +163,7 @@ class ViewProfileVC: BaseVC {
     func setupParallaxHeader() {
         let parallexHeaderHeight = CGFloat(301.0)//CGFloat(UIDevice.screenHeight * 0.45)
         
-        let parallexHeaderMinHeight = self.navigationController?.navigationBar.bounds.height ?? 65
+        let parallexHeaderMinHeight = self.navigationController?.navigationBar.bounds.height ?? 74
         if !self.currentProgress.isZero {
             CGAffineTransform(scaleX: (CGFloat(self.currentProgress)) , y: (CGFloat(currentProgress))).translatedBy(x: 0, y: CGFloat(2200 * (Float(currentProgressIntValue) / 1000)))
             

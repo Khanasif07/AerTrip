@@ -247,7 +247,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "189"
                   endingLineNumber = "189"
-                  offsetFromSymbolStart = "416">
+                  offsetFromSymbolStart = "368">
                </Location>
                <Location
                   uuid = "F7E7F11F-67E6-476F-99F8-FEAC64F3185D - e6d0cf44614f800f"
@@ -262,7 +262,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "190"
                   endingLineNumber = "190"
-                  offsetFromSymbolStart = "49">
+                  offsetFromSymbolStart = "152">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -329,6 +329,86 @@
             endingLineNumber = "807"
             landmarkName = "EditProfileVC"
             landmarkType = "21">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "68DE9878-7E36-46A9-86F0-1F67EC0D4BBD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Xibs/Profile/EditProfile/TextEditableTableViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "configureCell(_:_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8F09330F-6407-4DC8-B69D-D310F08DBFE2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Profile/EditProfile/EditProfileVC+DelegateMethods.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "825"
+            endingLineNumber = "825"
+            landmarkName = "getSuccess(_:_:_:_:_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EF462CC5-8AB8-45E1-89CB-B01A4C2E65E9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Profile/ViewProfile/TravellerList/TravellerListVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "596"
+            endingLineNumber = "596"
+            landmarkName = "tableView(_:commit:forRowAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "EF462CC5-8AB8-45E1-89CB-B01A4C2E65E9 - 32ea4882d80d213a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AERTRIP.TravellerListVC.tableView(_: __C.UITableView, commit: __C.UITableViewCellEditingStyle, forRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Desktop/AerTrip/AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Profile/ViewProfile/TravellerList/TravellerListVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "596"
+                  endingLineNumber = "596"
+                  offsetFromSymbolStart = "628">
+               </Location>
+               <Location
+                  uuid = "EF462CC5-8AB8-45E1-89CB-B01A4C2E65E9 - 92be2ee6dfd3addd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.UIAlertAction, Swift.Int) -&gt; () in AERTRIP.TravellerListVC.tableView(_: __C.UITableView, commit: __C.UITableViewCellEditingStyle, forRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "AERTRIP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Desktop/AerTrip/AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Profile/ViewProfile/TravellerList/TravellerListVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "596"
+                  endingLineNumber = "596"
+                  offsetFromSymbolStart = "108">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
