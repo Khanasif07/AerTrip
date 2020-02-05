@@ -148,18 +148,6 @@ extension HotelsMapVC {
         HotelFilterVM.shared.filterHotelCount = self.viewModel.fetchedResultsController.fetchedObjects?.count ?? 0
     }
     
-    
-    
-    func setupNavigationTitleLabelText() {
-        
-        self.titleLabel.text = self.viewModel.searchedFormData.cityName
-        let checkIn = Date.getDateFromString(stringDate: self.viewModel.searchedFormData.checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
-        let checkOut = Date.getDateFromString(stringDate: self.viewModel.searchedFormData.checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
-        let numberOfRoom = self.viewModel.searchedFormData.adultsCount.count
-        self.descriptionLabel.text = "\(checkIn) - \(checkOut) • \(numberOfRoom) Rooms"
-        
-    }
-    
     func reloadHotelList(isUpdatingFav: Bool = false,drawMarkers: Bool = true) {
         
         self.hotelSearchTableView.reloadData()
@@ -337,44 +325,44 @@ extension HotelsMapVC {
     
     
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        //        self.manageMapViewOnScroll(scrollView)
-        // self.manageFloatingButtonOnPaginationScroll(scrollView)
-        
-        //for map re-focusing
-        let currentX = scrollView.contentOffset.x
-        guard currentX > 0 else {
-            return
-        }
-        if currentX > self.oldOffset.x {
-            self.isCollectionScrollingInc = true
-        }
-        else if currentX < self.oldOffset.x {
-            self.isCollectionScrollingInc = false
-        }
-        self.oldOffset = scrollView.contentOffset
-    }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        //        self.manageMapViewOnScroll(scrollView)
+//        // self.manageFloatingButtonOnPaginationScroll(scrollView)
+//
+//        //for map re-focusing
+//        let currentX = scrollView.contentOffset.x
+//        guard currentX > 0 else {
+//            return
+//        }
+//        if currentX > self.oldOffset.x {
+//            self.isCollectionScrollingInc = true
+//        }
+//        else if currentX < self.oldOffset.x {
+//            self.isCollectionScrollingInc = false
+//        }
+//        self.oldOffset = scrollView.contentOffset
+//    }
     
-    func showHeaderIfHiddenOnTopAfterEndScrolling(_ scrollView: UIScrollView) {
-        let yPosition = scrollView.contentOffset.y
-        if yPosition >= 0 {
-            if 0...140.0 ~= yPosition {
-                let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration*0.5, curve: .linear) { [weak self] in
-                    self?.headerContainerViewTopConstraint.constant = 0.0
-                    self?.view.layoutIfNeeded()
-                }
-                animator.startAnimation()
-            }
-        }
-    }
+//    func showHeaderIfHiddenOnTopAfterEndScrolling(_ scrollView: UIScrollView) {
+//        let yPosition = scrollView.contentOffset.y
+//        if yPosition >= 0 {
+//            if 0...140.0 ~= yPosition {
+//                let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration*0.5, curve: .linear) { [weak self] in
+//                    self?.headerContainerViewTopConstraint.constant = 0.0
+//                    self?.view.layoutIfNeeded()
+//                }
+//                animator.startAnimation()
+//            }
+//        }
+//    }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        showHeaderIfHiddenOnTopAfterEndScrolling(scrollView)
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        showHeaderIfHiddenOnTopAfterEndScrolling(scrollView)
-    }
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        showHeaderIfHiddenOnTopAfterEndScrolling(scrollView)
+//    }
+//
+//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        showHeaderIfHiddenOnTopAfterEndScrolling(scrollView)
+//    }
     
     func manageForCollectionView(atIndex: Int) {
         
@@ -389,13 +377,11 @@ extension HotelsMapVC {
     
     // Disable mapButton and search bar when no data found on filter
     func noHotelFoundOnFilter() {
-        self.mapButton.isUserInteractionEnabled = false
         self.searchBar.isUserInteractionEnabled = false
     }
     
     // enable mapButton and search bar when no data found on filter
     func dataFounOnFilter() {
-        self.mapButton.isUserInteractionEnabled = true
         self.searchBar.isUserInteractionEnabled = true
     }
 }
@@ -457,8 +443,8 @@ extension HotelsMapVC {
             indexOfMajorCell = max(0,indexOfMajorCell)
             indexOfMajorCell = min(indexOfMajorCell,numberOfItemInCollection)
         }
-        let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
-        collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+//        let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
+       // collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         
         self.manageForCollectionView(atIndex: indexOfMajorCell)
     }

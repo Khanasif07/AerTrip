@@ -51,7 +51,6 @@ extension HotelsMapVC {
     }
     
     func updateMarkers() {
-        self.addCityLocation()
         self.drawMarkers(atZoomLabel: self.mapView?.camera.zoom ?? self.defaultZoomLabel)
     }
     
@@ -114,6 +113,7 @@ extension HotelsMapVC {
         
         if !didChange {
             self.removeAllMerkers()
+            self.addCityLocation()
             self.drawAllCustomMarkers()
         }
         

@@ -185,6 +185,9 @@ extension HotelResultVC {
     }
     
     func reloadHotelList(isUpdatingFav: Bool = false) {
+        if !self.viewModel.searchTextStr.isEmpty {
+            self.hotelSearchTableView.backgroundColor = self.viewModel.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
+        }
         if let section = self.viewModel.fetchedResultsController.sections, !section.isEmpty {
             self.tableViewVertical.isHidden = false
         }

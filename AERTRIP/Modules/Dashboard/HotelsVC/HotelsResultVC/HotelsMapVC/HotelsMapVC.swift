@@ -38,17 +38,14 @@ class MapContainerView: UIView {
 }
 
 class HotelsMapVC: BaseVC {
-    // MARK: - IBOutlets
     
+    // MARK: - IBOutlets
     // MARK: -
     
     @IBOutlet weak var headerContainerView: UIView!
     @IBOutlet weak var navContainerView: UIView!
     @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var filterButton: UIButton!
-    @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var searchBar: ATSearchBar!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var progressView: UIProgressView!
@@ -195,7 +192,6 @@ class HotelsMapVC: BaseVC {
     override func initialSetup() {
         self.view.layoutIfNeeded()
         self.filterButton.isEnabled = false
-        self.mapButton.isEnabled = false
         self.mapView?.isMyLocationEnabled = false
         // self.animateCollectionView(isHidden: true, animated: false)
          self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
@@ -211,11 +207,12 @@ class HotelsMapVC: BaseVC {
         }
         self.cardGradientView.isHidden = true
         //call API to get vcode, sid
-        
-        self.switchContainerView.isHidden = !self.viewModel.isFavouriteOn
+        animateHeaderToMapView()
+        animateFloatingButtonOnMapView()
+        self.switchContainerView.isHidden = self.viewModel.favouriteHotels.isEmpty
         self.floatingButtonOnMapView.isHidden = !self.viewModel.isFavouriteOn
         self.switchView.setOn(isOn: self.viewModel.isFavouriteOn, animated: false, shouldNotify: false)
-        self.animateMapToFirstHotelInMapMode()
+//        self.animateMapToFirstHotelInMapMode()
         self.filterButton.isSelected = self.viewModel.isFilterApplied
         searchBar.setTextField(color: UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
@@ -269,7 +266,7 @@ class HotelsMapVC: BaseVC {
     }
     
     deinit {
-        CoreDataManager.shared.deleteData("HotelSearched")
+//        CoreDataManager.shared.deleteData("HotelSearched")
         printDebug("HotelResultVC deinit")
     }
     
@@ -377,20 +374,15 @@ class HotelsMapVC: BaseVC {
     }
     
     override func setupFonts() {
-        self.titleLabel.font = AppFonts.SemiBold.withSize(18.0)
-        self.descriptionLabel.font = AppFonts.Regular.withSize(13.0)
         self.cancelButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
     }
     
     override func setupTexts() {
         self.searchBar.placeholder = LocalizedString.SearchHotelsOrLandmark.localized
         self.cancelButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
-        self.setupNavigationTitleLabelText()
     }
     
     override func setupColors() {
-        self.titleLabel.textColor = AppColors.themeBlack
-        self.descriptionLabel.textColor = AppColors.themeBlack
         self.cancelButton.setTitleColor(AppColors.themeGreen, for: .normal)
     }
     
@@ -446,55 +438,6 @@ class HotelsMapVC: BaseVC {
         AppFlowManager.default.showFilterVC(self)
     }
     
-    @IBAction func mapButtonAction(_ sender: Any) {
-        /*
-         self.hideFavsButtons()
-         self.backButton.isHidden = false
-         self.cardGradientView.isHidden = true
-         self.mapButton.isUserInteractionEnabled = false
-         if self.hoteResultViewType == .ListView {
-         self.mapButton.isSelected = true
-         self.currentLocationButton.isHidden = false
-         self.hoteResultViewType = .MapView
-         self.animateHeaderToMapView()
-         self.convertToMapView { [weak self] (isConverted) in
-         if isConverted {
-         //self?.switchView.setOn(isOn: self?.switchView.on ?? false)
-         self?.mapButton.isUserInteractionEnabled = true
-         }
-         }
-         self.cardGradientView.isHidden = true
-         self.collectionView.setContentOffset(.zero, animated: false)
-         delay(seconds: 1.2) { [weak self] in
-         guard let strongSelf = self else {return}
-         let indexOfMajorCell = strongSelf.indexOfMajorCell()
-         strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
-         }
-         self.adjustMapPadding()
-         } else {
-         self.currentLocationButton.isHidden = true
-         self.hoteResultViewType = .ListView
-         self.mapButton.isSelected = false
-         self.animateHeaderToListView()
-         self.convertToListView { [weak self] (isConverted) in
-         if isConverted {
-         // self?.switchView.setOn(isOn: self?.switchView.on ?? false)
-         self?.mapButton.isUserInteractionEnabled = true
-         }
-         }
-         self.cardGradientView.isHidden = false
-         self.tableViewVertical.setContentOffset(.zero, animated: false)
-         delay(seconds: 1.2) { [weak self] in
-         guard let strongSelf = self else {return}
-         let indexOfMajorCell = strongSelf.indexOfMajorCell()
-         strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
-         }
-         self.adjustMapPadding()
-         }
-         
-         self.reloadHotelList()
-         */
-    }
     
     @IBAction func unPinAllFavouriteButtonTapped(_ sender: Any) {
         self.removeAllFavouritesHotels()

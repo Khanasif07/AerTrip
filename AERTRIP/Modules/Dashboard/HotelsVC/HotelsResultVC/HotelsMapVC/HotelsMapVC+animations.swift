@@ -20,8 +20,6 @@ extension HotelsMapVC {
             sSelf.headerContainerViewTopConstraint.constant = 0.0
             sSelf.searchBarContainerView.backgroundColor = AppColors.themeWhite
             sSelf.searchBarContainerView.frame = sSelf.searchIntitialFrame
-            sSelf.titleLabel.transform = .identity
-            sSelf.descriptionLabel.transform = .identity
             sSelf.mapContainerView.layoutSubviews()
             sSelf.view.layoutIfNeeded()
         }
@@ -53,12 +51,8 @@ extension HotelsMapVC {
             sSelf.headerContainerViewTopConstraint.constant = 0.0
             sSelf.searchBarContainerView.translatesAutoresizingMaskIntoConstraints = true
             sSelf.searchBarContainerView.backgroundColor = AppColors.clear
-            
             sSelf.searchBarContainerView.frame = sSelf.searchBarFrame(isInSearchMode: false)
-            sSelf.titleLabel.transform = CGAffineTransform(translationX: 0, y: -60)
-            sSelf.descriptionLabel.transform = CGAffineTransform(translationX: 0, y: -60)
             sSelf.mapContainerView.layoutSubviews()
-
             sSelf.view.layoutIfNeeded()
         }
         
@@ -83,13 +77,14 @@ extension HotelsMapVC {
     }
     
     func searchBarFrame(isInSearchMode: Bool) -> CGRect {
+//        return CGRect(x: isInSearchMode ? self.searchIntitialFrame.origin.x  - 2 :   self.searchIntitialFrame.origin.x + 20
+//            , y: self.searchIntitialFrame.origin.y, width: self.searchIntitialFrame.width - (isInSearchMode ? 64.0 : 100.0), height: 50)
         return CGRect(x: isInSearchMode ? self.searchIntitialFrame.origin.x  - 2 :   self.searchIntitialFrame.origin.x + 20
-            , y: self.searchIntitialFrame.origin.y - 45, width: self.searchIntitialFrame.width - (isInSearchMode ? 64.0 : 100.0), height: 50)
+        , y: self.searchIntitialFrame.origin.y, width: self.searchIntitialFrame.width - (20), height: 50)
     }
     
     func showSearchAnimation() {
         self.filterButton.isHidden = true
-        self.mapButton.isHidden = true
         self.cancelButton.alpha = 1
         self.backButton.alpha = 0
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
@@ -100,7 +95,6 @@ extension HotelsMapVC {
     
     func hideSearchAnimation() {
         self.filterButton.isHidden = false
-        self.mapButton.isHidden = false
         self.cancelButton.alpha = 0
         
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations:  { [weak self] in
@@ -212,7 +206,7 @@ extension HotelsMapVC {
     
     // Animate Button on map View
     
-    private func animateFloatingButtonOnMapView() {
+    func animateFloatingButtonOnMapView() {
         UIView.animate(withDuration: TimeInterval(self.defaultDuration),
                        delay: 0,
                        usingSpringWithDamping: self.defaultDamping,

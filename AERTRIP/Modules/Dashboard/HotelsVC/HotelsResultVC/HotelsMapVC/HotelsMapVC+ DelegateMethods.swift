@@ -66,6 +66,7 @@ extension HotelsMapVC: UISearchBarDelegate {
 
 extension HotelsMapVC: ATSwitcherChangeValueDelegate {
     func switcherDidChangeValue(switcher: ATSwitcher, value: Bool) {
+        self.viewModel.isFavouriteOn = value
         self.viewModel.loadSaveData()
         if value {
                 self.floatingButtonOnMapView.isHidden = false
@@ -162,7 +163,6 @@ extension HotelsMapVC: HotelResultDelegate {
     
     func loadFinalDataOnScreen() {
         self.filterButton.isEnabled = true
-        self.mapButton.isEnabled = true
         self.addMapView()
         self.reloadHotelList()
         delay(seconds: 0.4) { [weak self] in
