@@ -52,6 +52,14 @@ class RoomVC: UIViewController {
         tableView.reloadData()
         if #available(iOS 13.0, *) {
             roomSegmentedControl.selectedSegmentTintColor = AppColors.themeGreen
+            roomSegmentedControl.tintColor = AppColors.themeWhite
+            roomSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeWhite], for: UIControl.State.selected)
+                
+            roomSegmentedControl.layer.borderColor = AppColors.themeGreen.cgColor
+            roomSegmentedControl.layer.borderWidth = 2.0
+            roomSegmentedControl.layer.cornerRadius = 2.0
+            roomSegmentedControl.layer.masksToBounds = true
+            roomSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGreen], for: UIControl.State.normal)
         } else {
             // Fallback on earlier versions
         }

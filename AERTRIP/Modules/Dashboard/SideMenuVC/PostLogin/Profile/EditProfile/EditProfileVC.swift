@@ -439,8 +439,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     private func setUpForNewTraveller() {
-        sections.append(contentsOf: [LocalizedString.PassportDetails.localized, LocalizedString.SocialAccounts.localized, LocalizedString.FlightPreferences.localized])
-        
+//        sections.append(contentsOf: [LocalizedString.PassportDetails.localized, LocalizedString.SocialAccounts.localized, LocalizedString.FlightPreferences.localized])
+        sections.append(contentsOf: [LocalizedString.SocialAccounts.localized, LocalizedString.PassportDetails.localized, LocalizedString.FlightPreferences.localized])
         viewModel.passportNumber = ""
         viewModel.passportCountryName = LocalizedString.selectedCountry.localized
         
