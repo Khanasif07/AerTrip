@@ -35,7 +35,7 @@ public class TravellerData: NSManagedObject {
         }
         
         if let obj = dataDict[APIKeys.firstName.rawValue] as? String {
-            userData!.firstName = "\(obj.capitalizedFirst())".removeNull
+            userData!.firstName = "\(obj.capitalizedFirst())".removeNull.removeLeadingTrailingWhitespaces
             
             let firstChar = "\(userData!.firstName?.firstCharacter ?? "N")".uppercased()
             let alphaArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -65,7 +65,7 @@ public class TravellerData: NSManagedObject {
             }
         }
         if let obj = dataDict[APIKeys.lastName.rawValue] as? String {
-            userData!.lastName = "\(obj)".removeNull
+            userData!.lastName = "\(obj)".removeNull.removeLeadingTrailingWhitespaces
             userData!.lastNameFirstChar = "\(userData!.lastName?.firstCharacter ?? "N")"
         }
         
@@ -92,6 +92,10 @@ public class TravellerData: NSManagedObject {
     class func insert(dataDictArray: [TravellerModel], completionBlock: @escaping ([TravellerData]) -> Void) {
         
         for dataDict in dataDictArray {
+            guard let id = dataDict.jsonDict[APIKeys.id.rawValue], let logedinUserId = UserInfo.loggedInUserId, logedinUserId != "\(id)".removeNull.removeNull else {
+                // checking if loged in user is comming then don't add
+                continue
+            }
             let _ = TravellerData.insert(dataDict: dataDict.jsonDict)
         }
         completionBlock([])
