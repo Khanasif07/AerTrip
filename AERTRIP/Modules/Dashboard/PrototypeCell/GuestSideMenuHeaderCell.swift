@@ -22,6 +22,9 @@ class GuestSideMenuHeaderCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.loginAndRegisterButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
+        self.loginAndRegisterButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+        self.loginAndRegisterButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
         self.initialSetups()
     }
     
@@ -49,9 +52,6 @@ private extension GuestSideMenuHeaderCell {
     }
     
     func setupFontColorAndText() {
-      
-        self.loginAndRegisterButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
-        self.loginAndRegisterButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
         self.loginAndRegisterButton.layer.cornerRadius = self.loginAndRegisterButton.height/2
         self.loginAndRegisterButton.setTitle(LocalizedString.LoginOrRegister.localized, for: .normal)
         self.loginAndRegisterButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)

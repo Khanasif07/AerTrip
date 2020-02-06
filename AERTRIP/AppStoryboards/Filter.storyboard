@@ -94,9 +94,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SM2-wX-DbY">
                                 <rect key="frame" x="0.0" y="64" width="45" height="52"/>
                                 <subviews>
-                                    <view alpha="0.14999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HBR-m0-LGF">
+                                    <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HBR-m0-LGF">
                                         <rect key="frame" x="0.0" y="51.666666666666671" width="45" height="0.3333333333333357"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="NKp-vP-Pst"/>
                                         </constraints>

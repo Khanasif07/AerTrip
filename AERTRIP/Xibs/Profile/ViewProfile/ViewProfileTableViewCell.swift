@@ -14,7 +14,9 @@ class ViewProfileTableViewCell: UITableViewCell {
     @IBOutlet weak var menuOptionLabel: UILabel!
     @IBOutlet weak var separatorView: ATDividerView!
     
-
+    @IBOutlet weak var bottomViewHeightConst: NSLayoutConstraint!
+    @IBOutlet weak var topViewHeightConst: NSLayoutConstraint!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
          self.menuOptionLabel.font = AppFonts.Regular.withSize(20.0)

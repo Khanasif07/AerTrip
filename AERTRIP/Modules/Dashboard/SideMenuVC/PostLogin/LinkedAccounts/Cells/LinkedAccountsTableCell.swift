@@ -85,6 +85,8 @@ class LinkedAccountsTableCell: UITableViewCell {
         
         self.connectButton.addTarget(self, action: #selector(connectButtonAction(_:)), for: .touchUpInside)
         self.connectButton.fontForTitle = AppFonts.Regular.withSize(16.0)
+        self.connectButton.setTitleFont(font: AppFonts.Regular.withSize(16.0), for: .highlighted)
+         self.connectButton.setTitleFont(font: AppFonts.Regular.withSize(16.0), for: .selected)
     }
     
     private func configureData() {

@@ -97,11 +97,11 @@ class TravellerListVC: BaseVC {
         }
     }
     
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
         statusBarStyle = .default
+        self.view.endEditing(true)
 
 
         if  self.isMovingFromParent {
@@ -161,9 +161,9 @@ class TravellerListVC: BaseVC {
     
     private func updateNavView() {
         if isSelectMode {
-            var title = "Select Traveller"
+            var title = "Select Travellers"
             if selectedTravller.count == 0 {
-                title = "Select Traveller"
+                title = "Select Travellers"
             } else {
                 title = selectedTravller.count > 1 ? "\(selectedTravller.count) travellers selected" : "\(selectedTravller.count) traveller selected"
             }
@@ -282,6 +282,10 @@ class TravellerListVC: BaseVC {
         travellerListHeaderView = TravellerListHeaderView.instanceFromNib()
         travellerListHeaderView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 44)
         travellerListHeaderView.delegate = self
+        travellerListHeaderView.bottomView.isHidden = true
+        if let sections = self.fetchedResultsController.sections {
+         travellerListHeaderView.bottomView.isHidden = sections.count == 0 ? false : true
+        }
         tableView.tableHeaderView = travellerListHeaderView
         bottomView.isHidden = true
         deleteButton.setTitle(LocalizedString.Delete.localized, for: .normal)
@@ -316,6 +320,9 @@ class TravellerListVC: BaseVC {
             travellerListHeaderView.profileImageView.kf.setImage(with: URL(string: UserInfo.loggedInUser?.profileImage ?? ""))
         } else {
             travellerListHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
+        }
+        if let sections =  self.fetchedResultsController.sections {
+         travellerListHeaderView.bottomView.isHidden = sections.count == 0 ? false : true
         }
     }
     
@@ -495,6 +502,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         if isSelectMode {
             bottomView.isHidden = sections.isEmpty
         }
+        travellerListHeaderView.bottomView.isHidden = !sections.isEmpty
         tableView.backgroundView?.isHidden = !sections.isEmpty
         tableView.isScrollEnabled = !sections.isEmpty
         return sections.count
@@ -605,7 +613,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
                 return []
             }
             
-            let all = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"]
+            let all = ["#","A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
             return sections.isEmpty ? [] : all
         }
     }
@@ -633,6 +641,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         dismissKeyboard()
+        self.view.endEditing(true)
         if isSelectMode {
             tableView.separatorStyle = .singleLine
             let current = fetchedResultsController.object(at: indexPath)

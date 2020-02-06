@@ -60,6 +60,8 @@ class CreateYourAccountVC: BaseVC {
         self.registerButton.isEnabled = self.viewModel.isEnableRegisterButton
         self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+        self.registerButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
+
         self.linkSetupForTermsAndCondition(withLabel: self.privacyPolicyLabel)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
     }
@@ -205,6 +207,7 @@ extension CreateYourAccountVC {
         self.registerButtonAction(self.registerButton)
         return true
     }
+    
 }
 
 //MARK:- Extension UITextFieldDelegate

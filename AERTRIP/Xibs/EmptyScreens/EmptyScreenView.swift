@@ -279,7 +279,7 @@ extension EmptyScreenView {
         self.messageLabel.textColor = AppColors.themeGray40
         self.mainImageViewLeadingConstraint.constant = 54.0
         self.mainImageViewTrainlingConstraint.constant = 74.0
-        self.messageLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "Tap ", image: #imageLiteral(resourceName: "favIconGray"), endText: " to add a hotel to favorite list", font: AppFonts.Regular.withSize(17.0))//"Tap   to add a hotel to favorite list"
+        self.messageLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "Tap  ", image: #imageLiteral(resourceName: "emptyHotelIcon"), endText: "  to add a hotel to favorite list", font: AppFonts.Regular.withSize(17.0))//"Tap   to add a hotel to favorite list"
     }
     
     private func setupForImportPhoneContacts() {
@@ -353,7 +353,8 @@ extension EmptyScreenView {
     }
     
     private func setUpNoResult() {
-        self.containerViewCenterYConstraint.constant = -125
+        //self.containerViewCenterYConstraint.constant = -125
+        self.containerView.center = self.contentView.center
         self.messageLabelTopConstraint.constant = 33
         self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
         self.backgroundColor = .blue

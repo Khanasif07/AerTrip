@@ -102,7 +102,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "789"
             endingLineNumber = "789"
-            landmarkName = "cancelTapped()"
+            landmarkName = "checkForAllSelected()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -205,11 +205,11 @@ class HotelFilterVC: BaseVC {
         self.parchmentView?.menuItemSpacing = 20.0
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 67.0, bottom: 0.0, right: 16.0)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 52)
-        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets(top: 0, left: 7.5, bottom: 0, right: 7.5), insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
             zIndex: Int.max - 1,
-            insets: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
+            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
