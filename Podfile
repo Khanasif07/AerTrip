@@ -18,7 +18,7 @@ target 'AERTRIP' do
   pod 'Firebase/Core'
   pod 'Firebase/DynamicLinks'
   pod 'MXParallaxHeader'
-  pod 'PhoneNumberKit', '~> 2.5'
+  pod 'PhoneNumberKit', '~> 3.1'
   pod 'IQKeyboardManager'
   pod 'Fabric'
   pod 'Crashlytics'
