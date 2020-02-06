@@ -34,19 +34,68 @@ public class TravellerData: NSManagedObject {
             userData!.dob = "\(obj)".removeNull
         }
         
-        if let obj = dataDict[APIKeys.firstName.rawValue] as? String {
-            userData!.firstName = "\(obj.capitalizedFirst())".removeNull.removeLeadingTrailingWhitespaces
-            
-            let firstChar = "\(userData!.firstName?.firstCharacter ?? "N")".uppercased()
-            let alphaArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-            
-            if alphaArr.contains(firstChar) {
-                userData!.firstNameFirstChar = firstChar
+        if let firstname = dataDict[APIKeys.firstName.rawValue] as? String, let lastname = dataDict[APIKeys.lastName.rawValue] as? String {
+            let firstName = "\(firstname)".removeNull.removeLeadingTrailingWhitespaces
+            let lastName = "\(lastname)".removeNull.removeLeadingTrailingWhitespaces
+
+            userData!.firstName = "\(firstName.capitalizedFirst())"
+            // keys for sorting purpose
+            userData!.firstNameSorting = firstName
+            userData!.lastNameSorting = lastName
+
+            if !lastName.isEmpty {
+                userData!.lastName = lastName
+            }else {
+                userData!.lastNameSorting = firstName
+            }
+                    
+        let firstNameFirstChar = firstName.firstCharacter.uppercased()
+        let lastNameFirstChar = lastName.firstCharacter.uppercased()
+
+        let alphaArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+        
+            printDebug("firstName: \(firstName)")
+            printDebug("lastName: \(lastName)")
+
+        if (firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && (lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
+            userData!.firstNameFirstChar = "#"
+            userData!.lastNameFirstChar = "#"
+        } else if !(firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && !(lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
+            if alphaArr.contains(firstNameFirstChar) {
+                userData!.firstNameFirstChar = firstNameFirstChar
             }
             else {
                 userData!.firstNameFirstChar = "#"
             }
+            if alphaArr.contains(lastNameFirstChar) {
+                userData!.lastNameFirstChar = lastNameFirstChar
+            }
+            else {
+                userData!.lastNameFirstChar = "#"
+            }
+        }else if !(firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && (lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
+            if alphaArr.contains(firstNameFirstChar) {
+                userData!.firstNameFirstChar = firstNameFirstChar
+                userData!.lastNameFirstChar = firstNameFirstChar
+            }
+            else {
+                userData!.firstNameFirstChar = "#"
+                userData!.lastNameFirstChar = "#"
+            }
+        }else if (firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && !(lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
+            if alphaArr.contains(lastNameFirstChar) {
+                userData!.firstNameFirstChar = lastNameFirstChar
+                userData!.lastNameFirstChar = lastNameFirstChar
+            }
+            else {
+                userData!.firstNameFirstChar = "#"
+                userData!.lastNameFirstChar = "#"
+            }
         }
+            printDebug("firstNameFirstChar: \(userData!.firstNameFirstChar)")
+            printDebug("lastNameFirstChar: \(userData!.lastNameFirstChar)")
+        }
+        
         
         if let obj = dataDict[APIKeys.label.rawValue] as? String {
             let defaultLabel = "Others"
@@ -63,10 +112,6 @@ public class TravellerData: NSManagedObject {
                 userData!.label = defaultLabel
                 userData!.labelLocPrio = Int16(prio)
             }
-        }
-        if let obj = dataDict[APIKeys.lastName.rawValue] as? String {
-            userData!.lastName = "\(obj)".removeNull.removeLeadingTrailingWhitespaces
-            userData!.lastNameFirstChar = "\(userData!.lastName?.firstCharacter ?? "N")"
         }
         
         if let obj = dataDict[APIKeys.salutation.rawValue] {

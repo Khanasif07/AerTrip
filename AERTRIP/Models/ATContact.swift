@@ -291,6 +291,10 @@ extension CNContact {
 //                return arr[1]
 //            }
 //        }
+        // sending space because backend is not accepting the
+        if self.familyName.isEmpty {
+            return " "
+        }
         return self.familyName
     }
     
