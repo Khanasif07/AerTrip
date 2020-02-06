@@ -65,7 +65,7 @@ class TravellerListVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        CoreDataManager.shared.deleteData("TravellerData")
         container = NSPersistentContainer(name: "AERTRIP")
         
         container.loadPersistentStores { _, error in
@@ -356,21 +356,23 @@ class TravellerListVC: BaseVC {
             var sortDes = [NSSortDescriptor(key: "labelLocPrio", ascending: true)]
             
             if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
-                sortDes.append(NSSortDescriptor(key: "firstName", ascending: false))
+                sortDes.append(NSSortDescriptor(key: "firstNameSorting", ascending: false))
                 
             } else {
-                sortDes.append(NSSortDescriptor(key: "firstName", ascending: true))
+                sortDes.append(NSSortDescriptor(key: "firstNameSorting", ascending: true))
             }
             fetchRequest.sortDescriptors = sortDes
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "labelLocPrio", cacheName: nil)
         } else {
             if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
-                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstName", ascending: false)]
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "lastNameSorting", ascending: true)]
+                fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "lastNameFirstChar", cacheName: nil)
             } else {
-                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstName", ascending: true)]
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameSorting", ascending: true)]
+                fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "firstNameFirstChar", cacheName: nil)
+
             }
             
-            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "firstNameFirstChar", cacheName: nil)
         }
         fetchedResultsController.delegate = self
         
@@ -547,9 +549,11 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         // get attributed date str
         let attributedDateStr = AppGlobals.shared.getAttributedBoldText(text: dateStr, boldText: dateStr,color: AppColors.themeGray40)
         
-        guard  let firstName = travellerData?.firstName, let lastName = travellerData?.lastName else {
-            return
-        }
+        let firstName = travellerData?.firstName ?? ""
+        let lastName = travellerData?.lastName ?? ""
+//        guard  let firstName = travellerData?.firstName, let lastName = travellerData?.lastName else {
+//            return
+//        }
         
         // add a UILabel for Age string
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 45, height: 30))
@@ -557,15 +561,16 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         label.attributedText = attributedDateStr
         cell.accessoryView = label
         
+        let lastNameToBold = lastName.isEmpty ? firstName : lastName
         
         if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
-            let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
+            let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastNameToBold)" : "\(firstName)"
             let  boldTextAttributed = getAttributedBoldText(text: "\(lastName) \(firstName)", boldText: boldText)
             
             cell.textLabel?.attributedText = boldTextAttributed
             
         } else {
-            let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
+            let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastNameToBold)" : "\(firstName)"
             let boldTextAttributed = getAttributedBoldText(text: "\(firstName) \(lastName)", boldText: boldText)
             cell.textLabel?.attributedText = boldTextAttributed
         }
@@ -680,7 +685,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        printDebug("content scroll offset \(scrollView.contentOffset.y)")
+        //printDebug("content scroll offset \(scrollView.contentOffset.y)")
         headerDividerView.isHidden = scrollView.contentOffset.y >= 44.0
     }
 }

@@ -258,15 +258,16 @@ extension ATContact: Equatable {
 extension CNContact {
     var firstName: String {
         var fName = ""
-        if self.givenName.contains(" ") {
-            let arr = self.givenName.components(separatedBy: " ")
-            if arr.count > 1 {
-                fName = arr[0]
-            }
-            else if arr.count == 1{
-                fName = arr[0]
-            }
-        }
+        // commenting because to match with contact appp we have to remove this logic
+//        if self.givenName.contains(" ") {
+//            let arr = self.givenName.components(separatedBy: " ")
+//            if arr.count > 1 {
+//                fName = arr[0]
+//            }
+//            else if arr.count == 1{
+//                fName = arr[0]
+//            }
+//        }
         fName = self.givenName
         
         //if name is empty then set email's first char as name
@@ -283,11 +284,16 @@ extension CNContact {
     }
     
     var lastName: String {
-        if self.givenName.contains(" ") {
-            let arr = self.givenName.components(separatedBy: " ")
-            if arr.count > 1 {
-                return arr[1]
-            }
+        // commenting because to match with contact appp we have to remove this logic
+//        if self.givenName.contains(" ") {
+//            let arr = self.givenName.components(separatedBy: " ")
+//            if arr.count > 1 {
+//                return arr[1]
+//            }
+//        }
+        // sending space because backend is not accepting the
+        if self.familyName.isEmpty {
+            return " "
         }
         return self.familyName
     }

@@ -22,10 +22,12 @@ class SearchFavouriteHotelsVM: NSObject {
     
     weak var delegate: SearchFavouriteHotelsVMDelegate?
     var hotels: [HotelsModel] = []
+    var searchText: String = ""
     
     //MARK:- Hotel Search API
     //MARK:-
     func searchHotel(forText: String) {
+        self.searchText = forText
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(callSearchHotelAPI(_:)), with: forText, afterDelay: 0.5)
     }
@@ -37,7 +39,7 @@ class SearchFavouriteHotelsVM: NSObject {
         self.delegate?.willSearchForHotels()
         APICaller.shared.callSearchHotelsAPI(params: param) { (isSuccess, errors, hotels) in
             if isSuccess {
-                self.hotels = hotels
+                self.hotels = self.searchText.isEmpty ? [] : hotels
                 self.delegate?.searchHotelsSuccess()
             }
             else {

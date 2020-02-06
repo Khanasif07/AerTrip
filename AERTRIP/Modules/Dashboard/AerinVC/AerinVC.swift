@@ -17,6 +17,8 @@ class AerinVC: BaseVC {
     
     // MARK: -
     
+    
+    @IBOutlet weak var containerScrollView: UIScrollView!
     @IBOutlet weak var greetingLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var aerinButton: UIButton!
@@ -42,6 +44,7 @@ class AerinVC: BaseVC {
         
         
         // Do any additional setup after loading the view.
+        containerScrollView.alwaysBounceVertical = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
