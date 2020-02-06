@@ -23,10 +23,15 @@ class HotelDetailsImgSlideCell: UITableViewCell {
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var imageCollectionView: UICollectionView! {
+        //--------------------------- Golu Change ---------------------
         didSet {
-            self.imageCollectionView.delegate = self
-            self.imageCollectionView.dataSource = self
+            delay(seconds: 0.005) {
+                self.imageCollectionView.delegate = self
+                self.imageCollectionView.dataSource = self
+            }
+            
         }
+         //--------------------------- End ---------------------
     }
     @IBOutlet weak var pageControl: ISPageControl! {
         didSet {

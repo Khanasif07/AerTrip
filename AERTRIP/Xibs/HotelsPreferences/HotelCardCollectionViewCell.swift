@@ -14,8 +14,8 @@ protocol HotelCardCollectionViewCellDelegate: class {
     func saveButtonActionFromLocalStorage(_ sender:UIButton,forHotel : HotelSearched)
     func pagingScrollEnable(_ indexPath: IndexPath, _ scrollView: UIScrollView)
 }
-
-class HotelCardCollectionViewCell: UICollectionViewCell {
+//Extened class to highlight on tap
+class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var hotelImageView: UIImageView!
     @IBOutlet weak var saveButton: UIButton!

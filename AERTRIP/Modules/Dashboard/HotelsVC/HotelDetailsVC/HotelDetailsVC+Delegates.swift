@@ -335,7 +335,15 @@ extension HotelDetailsVC {
         _ = scrollView.contentOffset.y
         if (scrollView.isTracking && scrollView.contentOffset.y < 0) {
             //close
-            self.hideOnScroll()
+             //--------------------------- Golu Change ---------------------
+            if self.isAddingChild{
+                self.hideOnScroll()
+            }else{
+                draggingDownToDismiss = true
+                hotelTableView.contentOffset = .zero
+                scrollView.showsVerticalScrollIndicator = !draggingDownToDismiss
+            }
+             //--------------------------- End ---------------------
         }
     }
     
@@ -371,7 +379,11 @@ extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
     }
     
     func willShowImage(at index: Int, image: UIImage?) {
-        self.imageView.image = image
+         //--------------------------- Golu Change ---------------------
+        if self.isAddingChild{
+            self.imageView.image = image
+        }
+         //--------------------------- End ---------------------
     }
 }
 
