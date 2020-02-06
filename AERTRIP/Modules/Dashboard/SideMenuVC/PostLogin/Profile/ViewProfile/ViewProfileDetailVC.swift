@@ -54,6 +54,7 @@ class ViewProfileDetailVC: BaseVC {
         profileImageHeaderView?.currentlyUsingAs = .profileDetails
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
+            self?.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(35.0))
             self?.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 127.0
             self?.profileImageHeaderView?.layoutIfNeeded()
             self?.view.alpha = 1.0

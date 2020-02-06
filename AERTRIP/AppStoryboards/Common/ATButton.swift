@@ -245,7 +245,7 @@ class ATButton: UIButton {
             self.loaderContainer.isHidden = true
             self.loaderGradientLayer = self.getGradientLayer()
             self.loaderContainer.layer.addSublayer(self.loaderGradientLayer)
-            
+            self.loaderContainer.autoresizingMask = [.flexibleWidth,.flexibleHeight]
             let size = min(self.frame.size.width, self.frame.size.height)
             self.loaderIndicator = UIActivityIndicatorView(frame: CGRect(x: (self.frame.size.width - size) / 2.0, y: 0.0, width: size, height: size))
             self.loaderIndicator.style = .white
@@ -276,6 +276,7 @@ class ATButton: UIButton {
         self.loaderIndicator.isHidden = false
         self.loaderIndicator.startAnimating()
         self.isUserInteractionEnabled = false
+        self.loaderIndicator.center = self.loaderContainer.center
         self.bringSubviewToFront(self.loaderContainer)
     }
     

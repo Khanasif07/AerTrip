@@ -65,7 +65,7 @@ class TravellerListVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        CoreDataManager.shared.deleteData("TravellerData")
         container = NSPersistentContainer(name: "AERTRIP")
         
         container.loadPersistentStores { _, error in
@@ -97,11 +97,11 @@ class TravellerListVC: BaseVC {
         }
     }
     
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
         statusBarStyle = .default
+        self.view.endEditing(true)
 
 
         if  self.isMovingFromParent {
@@ -161,9 +161,9 @@ class TravellerListVC: BaseVC {
     
     private func updateNavView() {
         if isSelectMode {
-            var title = "Select Traveller"
+            var title = "Select Travellers"
             if selectedTravller.count == 0 {
-                title = "Select Traveller"
+                title = "Select Travellers"
             } else {
                 title = selectedTravller.count > 1 ? "\(selectedTravller.count) travellers selected" : "\(selectedTravller.count) traveller selected"
             }
@@ -282,6 +282,10 @@ class TravellerListVC: BaseVC {
         travellerListHeaderView = TravellerListHeaderView.instanceFromNib()
         travellerListHeaderView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 44)
         travellerListHeaderView.delegate = self
+        travellerListHeaderView.bottomView.isHidden = true
+        if let sections = self.fetchedResultsController.sections {
+         travellerListHeaderView.bottomView.isHidden = sections.count == 0 ? false : true
+        }
         tableView.tableHeaderView = travellerListHeaderView
         bottomView.isHidden = true
         deleteButton.setTitle(LocalizedString.Delete.localized, for: .normal)
@@ -317,6 +321,9 @@ class TravellerListVC: BaseVC {
         } else {
             travellerListHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
         }
+        if let sections =  self.fetchedResultsController.sections {
+         travellerListHeaderView.bottomView.isHidden = sections.count == 0 ? false : true
+        }
     }
     
     private func getAttributedBoldText(text: String, boldText: String,color: UIColor = AppColors.themeBlack) -> NSMutableAttributedString {
@@ -349,21 +356,23 @@ class TravellerListVC: BaseVC {
             var sortDes = [NSSortDescriptor(key: "labelLocPrio", ascending: true)]
             
             if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
-                sortDes.append(NSSortDescriptor(key: "firstName", ascending: false))
+                sortDes.append(NSSortDescriptor(key: "firstNameSorting", ascending: false))
                 
             } else {
-                sortDes.append(NSSortDescriptor(key: "firstName", ascending: true))
+                sortDes.append(NSSortDescriptor(key: "firstNameSorting", ascending: true))
             }
             fetchRequest.sortDescriptors = sortDes
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "labelLocPrio", cacheName: nil)
         } else {
             if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
-                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstName", ascending: false)]
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "lastNameSorting", ascending: true)]
+                fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "lastNameFirstChar", cacheName: nil)
             } else {
-                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstName", ascending: true)]
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameSorting", ascending: true)]
+                fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "firstNameFirstChar", cacheName: nil)
+
             }
             
-            fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "firstNameFirstChar", cacheName: nil)
         }
         fetchedResultsController.delegate = self
         
@@ -495,6 +504,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         if isSelectMode {
             bottomView.isHidden = sections.isEmpty
         }
+        travellerListHeaderView.bottomView.isHidden = !sections.isEmpty
         tableView.backgroundView?.isHidden = !sections.isEmpty
         tableView.isScrollEnabled = !sections.isEmpty
         return sections.count
@@ -539,9 +549,11 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         // get attributed date str
         let attributedDateStr = AppGlobals.shared.getAttributedBoldText(text: dateStr, boldText: dateStr,color: AppColors.themeGray40)
         
-        guard  let firstName = travellerData?.firstName, let lastName = travellerData?.lastName else {
-            return
-        }
+        let firstName = travellerData?.firstName ?? ""
+        let lastName = travellerData?.lastName ?? ""
+//        guard  let firstName = travellerData?.firstName, let lastName = travellerData?.lastName else {
+//            return
+//        }
         
         // add a UILabel for Age string
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 45, height: 30))
@@ -549,15 +561,16 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         label.attributedText = attributedDateStr
         cell.accessoryView = label
         
+        let lastNameToBold = lastName.isEmpty ? firstName : lastName
         
         if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
-            let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
+            let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastNameToBold)" : "\(firstName)"
             let  boldTextAttributed = getAttributedBoldText(text: "\(lastName) \(firstName)", boldText: boldText)
             
             cell.textLabel?.attributedText = boldTextAttributed
             
         } else {
-            let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
+            let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastNameToBold)" : "\(firstName)"
             let boldTextAttributed = getAttributedBoldText(text: "\(firstName) \(lastName)", boldText: boldText)
             cell.textLabel?.attributedText = boldTextAttributed
         }
@@ -605,7 +618,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
                 return []
             }
             
-            let all = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"]
+            let all = ["#","A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
             return sections.isEmpty ? [] : all
         }
     }
@@ -633,6 +646,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         dismissKeyboard()
+        self.view.endEditing(true)
         if isSelectMode {
             tableView.separatorStyle = .singleLine
             let current = fetchedResultsController.object(at: indexPath)
@@ -671,7 +685,7 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        printDebug("content scroll offset \(scrollView.contentOffset.y)")
+        //printDebug("content scroll offset \(scrollView.contentOffset.y)")
         headerDividerView.isHidden = scrollView.contentOffset.y >= 44.0
     }
 }

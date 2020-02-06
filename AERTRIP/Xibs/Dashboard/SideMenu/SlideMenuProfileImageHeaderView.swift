@@ -134,7 +134,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     }
     
     // MARK: - Helper Method
-    private func setupDefaultData() {
+    public func setupDefaultData() {
         self.profileImageView.image = AppGlobals.shared.getImageFor(firstName: nil, lastName: nil, offSet: CGPoint(x: 0.0, y: 9.0))
         self.userNameLabel.text = ""
         self.emailIdLabel.text = ""
@@ -150,25 +150,27 @@ class SlideMenuProfileImageHeaderView: UIView {
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
         profileImageView.clipsToBounds = true
         profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
-        profileImageView.layer.borderWidth = 2.5
+        profileImageView.layer.borderWidth = 4.0
         profileImageView.layer.masksToBounds = true
     }
     
     private func setupForViewProfile() {
+        
         self.profileImageViewHeightConstraint.constant = 127.0
         self.profileImageAndNameSpace.constant = 21.0
         self.userNameHeightLabel.constant = 33.0
         self.emailAndContactBottomConstraint.constant = 28.0
         
-        profileImageView.layer.borderWidth = 2.5
-       
-       
+        profileImageView.layer.borderWidth = 4.0
+        
+        
         
         self.userNameLabel.font = AppFonts.Regular.withSize(26.0)
         
         self.emailIdLabel.font = AppFonts.Regular.withSize(14.0)
         self.mobileNumberLabel.font = AppFonts.Regular.withSize(14.0)
-        
+        self.dividerView.backgroundColor = AppColors.themeGray20
+        self.dividerView.isHidden = false
         self.emailIdLabel.isHidden = false
         self.mobileNumberLabel.isHidden = false
         self.familyButton.isHidden = true
@@ -184,12 +186,13 @@ class SlideMenuProfileImageHeaderView: UIView {
         self.userNameHeightLabel.constant = 25.0
         self.emailAndContactBottomConstraint.constant = -10.0
         
-        profileImageView.layer.borderWidth = 2.5
+        profileImageView.layer.borderWidth = 4.0
         
         self.userNameLabel.font = AppFonts.Regular.withSize(20.0)
         
         self.emailIdLabel.isHidden = true
         self.mobileNumberLabel.isHidden = true
+        self.dividerView.isHidden = true
         self.familyButton.isHidden = true
         
         self.layoutIfNeeded()
@@ -204,16 +207,16 @@ class SlideMenuProfileImageHeaderView: UIView {
         self.emailAndContactBottomConstraint.constant = 55.0
         self.familyButtonBottomConstraint.constant = 26.0
         
-        profileImageView.layer.borderWidth = 2.5
+        profileImageView.layer.borderWidth = 4.0
         
         self.userNameLabel.font = AppFonts.Regular.withSize(26.0)
+        self.dividerView.isHidden = true
         
         self.emailIdLabel.text = ""
         self.mobileNumberLabel.text = ""
         self.emailIdLabel.isHidden = true
         self.mobileNumberLabel.isHidden = true
         self.familyButton.isHidden = false
-        
         self.layoutIfNeeded()
         
         self.makeImageCircular()

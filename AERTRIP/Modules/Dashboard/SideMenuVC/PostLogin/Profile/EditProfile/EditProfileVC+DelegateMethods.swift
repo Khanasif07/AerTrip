@@ -18,7 +18,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if sections[indexPath.section] == LocalizedString.Address.localized, indexPath.row != self.viewModel.addresses.count {
-            return 270.0
+            return 264.0
         } else
             if sections[indexPath.section] == LocalizedString.MoreInformation.localized, indexPath.row == 2 {
                 return UITableView.automaticDimension
@@ -292,7 +292,8 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if sections[section].localized == LocalizedString.SocialAccounts.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.EmailAddress.localized {
+        if sections[section].localized == LocalizedString.SocialAccounts.localized || sections[section].localized == LocalizedString.FlightPreferences.localized || sections[section].localized == LocalizedString.EmailAddress.localized 
+         {
             return 60.0
         } else {
             return 40.0
@@ -503,10 +504,12 @@ extension EditProfileVC: EditProfileImageHeaderViewDelegate {
         dismissKeyboard()
         printDebug("select group tapped")
         pickerType = .groups
-        if let labels = UserInfo.loggedInUser?.generalPref?.labels {
+        if let labels = UserInfo.loggedInUser?.generalPref?.labels,!labels.isEmpty {
             pickerData = labels
             let selectedString = self.viewModel.travelData?.label ?? ""
             openPicker(withSelection: selectedString)
+        } else {
+            AppToast.default.showToastMessage(message: "there are no groups")
         }
     }
     
@@ -1119,6 +1122,14 @@ extension EditProfileVC: AddAddressTableViewCellDelegate {
 }
 
 extension EditProfileVC: AddNotesTableViewCellDelegate {
+    func textViewWillBecomeActive(_ textView: UITextView) {
+        guard  let cell = textView.tableViewCell as? AddNotesTableViewCell  else {
+            return
+        }
+        guard let indexPath = self.tableView.indexPath(for: cell) else {return}
+        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
+    
     func textViewText(_ textView: UITextView) {
         
         if textView.numberOfLines >= 10 {

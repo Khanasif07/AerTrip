@@ -163,6 +163,7 @@ extension UIViewController{
         let authStatus: AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         if authStatus == AVAuthorizationStatus.authorized {
             let image_picker = UIImagePickerController()
+            image_picker.modalPresentationStyle = .fullScreen
             image_picker.delegate = delegate
             let sourceType: UIImagePickerController.SourceType = UIImagePickerController.SourceType.camera
             
@@ -191,6 +192,7 @@ extension UIViewController{
                 AVCaptureDevice.requestAccess(for: AVMediaType.video, completionHandler: {(granted: Bool) in                DispatchQueue.main.async(execute: {                    if granted {
                     let image_picker = UIImagePickerController()
                     image_picker.delegate = delegate
+                    image_picker.modalPresentationStyle = .fullScreen
                     let sourceType: UIImagePickerController.SourceType = UIImagePickerController.SourceType.camera
                     if UIImagePickerController.isSourceTypeAvailable(sourceType) {
                         image_picker.sourceType = sourceType
@@ -248,6 +250,7 @@ extension UIViewController{
             
             let image_picker = UIImagePickerController()
             image_picker.delegate = delegate
+            image_picker.modalPresentationStyle = .fullScreen
             let sourceType: UIImagePickerController.SourceType = UIImagePickerController.SourceType.photoLibrary
             image_picker.sourceType = sourceType
             image_picker.allowsEditing=true

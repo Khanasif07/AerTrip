@@ -57,6 +57,7 @@ class ForgotPasswordVC: BaseVC {
         self.intructionLabel.font    = AppFonts.Regular.withSize(16)
         self.continueButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.continueButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+        self.continueButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
 
         
     }
@@ -133,6 +134,13 @@ extension ForgotPasswordVC {
         
         self.viewModel.email = textField.text ?? ""
         self.continueButton.isEnabled = self.viewModel.isValidateForContinueButtonSelection
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        //for verify the data
+        if textField === self.emailTextField {
+            self.emailTextField.isError = self.viewModel.email.checkInvalidity(.Email)
+        }
     }
     
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {

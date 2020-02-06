@@ -1876,7 +1876,7 @@ with us!</string>
                                             <constraint firstItem="RBZ-l1-Yj7" firstAttribute="leading" secondItem="6qR-dD-Z17" secondAttribute="trailing" constant="10" id="wGn-Zy-n81"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g8v-7A-Rws" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g8v-7A-Rws" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44" width="375" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="9Nx-yl-zzB"/>
@@ -2212,7 +2212,7 @@ with us!</string>
                                     <constraint firstAttribute="trailing" secondItem="YaB-tc-gqJ" secondAttribute="trailing" id="wV1-Re-rIJ"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQY-E1-Dg9" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQY-E1-Dg9" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Aok-Gl-Vi9"/>
