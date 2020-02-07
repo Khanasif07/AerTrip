@@ -433,7 +433,8 @@ extension HotelResultVC: HotelFilteVCDelegate {
         else {
             self.manageSwitchContainer(isHidden: true, shouldOff: false)
         }
-        self.filterButton.isSelected =  !(HotelFilterVM.shared.isSortingApplied || self.isFilterApplied) ? false : true
+       self.filterButton.isSelected = HotelFilterVM.shared.isFilterApplied
+//       self.filterButton.isSelected =  !(HotelFilterVM.shared.isSortingApplied || self.isFilterApplied) ? false : true
     }
 }
 

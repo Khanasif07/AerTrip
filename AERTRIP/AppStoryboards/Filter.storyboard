@@ -806,15 +806,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="ulD-C2-1Kj">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="ulD-C2-1Kj">
                                 <rect key="frame" x="16" y="16" width="382" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Lj5-u8-RsA"/>
                                 </constraints>
                                 <segments>
-                                    <segment title="Meal" width="93"/>
-                                    <segment title="Cancellation Policy" width="152"/>
-                                    <segment title="Others" width="95"/>
+                                    <segment title="Meal"/>
+                                    <segment title="Cancellation Policy"/>
+                                    <segment title="Others"/>
                                 </segments>
                                 <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="selectedSegmentTintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -826,12 +826,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ulD-C2-1Kj" firstAttribute="leading" secondItem="WJY-o5-RkH" secondAttribute="leading" constant="16" id="3gZ-gu-Cfo"/>
+                            <constraint firstItem="ulD-C2-1Kj" firstAttribute="centerX" secondItem="WJY-o5-RkH" secondAttribute="centerX" id="6nQ-ak-xrY"/>
+                            <constraint firstItem="WJY-o5-RkH" firstAttribute="trailing" secondItem="ulD-C2-1Kj" secondAttribute="trailing" constant="16" id="CC7-Y6-H55"/>
                             <constraint firstItem="ulD-C2-1Kj" firstAttribute="top" secondItem="WJY-o5-RkH" secondAttribute="top" constant="16" id="EEQ-i6-txS"/>
                             <constraint firstItem="Gjc-BT-nEO" firstAttribute="leading" secondItem="WJY-o5-RkH" secondAttribute="leading" id="M1f-Gf-w3y"/>
-                            <constraint firstItem="WJY-o5-RkH" firstAttribute="trailing" secondItem="ulD-C2-1Kj" secondAttribute="trailing" constant="16" id="MAQ-SA-vYd"/>
                             <constraint firstItem="WJY-o5-RkH" firstAttribute="bottom" secondItem="Gjc-BT-nEO" secondAttribute="bottom" id="NmK-ln-U6m"/>
                             <constraint firstItem="Gjc-BT-nEO" firstAttribute="top" secondItem="ulD-C2-1Kj" secondAttribute="bottom" constant="10" id="SYJ-nG-e5K"/>
+                            <constraint firstItem="ulD-C2-1Kj" firstAttribute="leading" secondItem="WJY-o5-RkH" secondAttribute="leading" constant="16" id="dwI-X3-W4b"/>
                             <constraint firstItem="WJY-o5-RkH" firstAttribute="trailing" secondItem="Gjc-BT-nEO" secondAttribute="trailing" id="rJF-H3-2dS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WJY-o5-RkH"/>

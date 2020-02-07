@@ -132,15 +132,15 @@ extension YouAreAllDoneVC {
                 cell.descriptionLabel.text = ""
                 cell.clipsToBounds = true
                 cell.allDetailsLabel.isHidden = false
-                cell.moreInfoContainerView.isHidden = true
+               // cell.moreInfoContainerView.isHidden = true
                 cell.allDetailsLabel.attributedText = cell.fullHCNotesDetails(notesInclusion: notesInclusion).trimWhiteSpace()
-                cell.moreBtnOutlet.isHidden = true
+              //  cell.moreBtnOutlet.isHidden = true
             }
             else {
-                cell.moreInfoContainerView.isHidden = false
+              //  cell.moreInfoContainerView.isHidden = false
                 cell.allDetailsLabel.isHidden = true
                 cell.allDetailsLabel.attributedText = nil
-                cell.moreBtnOutlet.isHidden = false
+              //  cell.moreBtnOutlet.isHidden = false
             }
             return cell
         }

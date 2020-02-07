@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="SourceSansPro-Regular.ttf">
-            <string>SourceSansPro-Regular</string>
-        </array>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -20,29 +13,23 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="36.5"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YSe-Qp-Mzz" id="jBB-Yr-9h9">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="36.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G3S-Vl-9TH">
-                        <rect key="frame" x="16" y="0.0" width="343" height="36"/>
+                        <rect key="frame" x="16" y="0.0" width="343" height="36.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xFu-Vn-lNe">
-                                <rect key="frame" x="0.0" y="0.0" width="343" height="36"/>
+                                <rect key="frame" x="0.0" y="0.0" width="343" height="36.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inclusions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="liU-Nv-gBW">
-                                        <rect key="frame" x="16" y="8" width="311" height="17.5"/>
-                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="udg-8m-1K1">
-                                        <rect key="frame" x="16" y="27.5" width="311" height="0.0"/>
+                                        <rect key="frame" x="16" y="12" width="311" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRI-of-TNH" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="35.5" width="311" height="0.5"/>
+                                        <rect key="frame" x="16" y="36" width="311" height="0.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="6xN-lX-rMY"/>
@@ -52,15 +39,12 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="cRI-of-TNH" secondAttribute="bottom" id="1gJ-6F-wOe"/>
+                                    <constraint firstItem="udg-8m-1K1" firstAttribute="top" secondItem="xFu-Vn-lNe" secondAttribute="top" constant="12" id="7iF-1Y-iZ3"/>
                                     <constraint firstItem="cRI-of-TNH" firstAttribute="top" secondItem="udg-8m-1K1" secondAttribute="bottom" constant="8" id="HgV-wi-jmQ"/>
                                     <constraint firstItem="cRI-of-TNH" firstAttribute="leading" secondItem="xFu-Vn-lNe" secondAttribute="leading" constant="16" id="IEk-l3-REr"/>
                                     <constraint firstAttribute="trailing" secondItem="udg-8m-1K1" secondAttribute="trailing" constant="16" id="Yl2-MK-iGt"/>
-                                    <constraint firstAttribute="trailing" secondItem="liU-Nv-gBW" secondAttribute="trailing" constant="16" id="bLz-tG-8gK"/>
-                                    <constraint firstItem="udg-8m-1K1" firstAttribute="top" secondItem="liU-Nv-gBW" secondAttribute="bottom" constant="2" id="f5J-Oi-REv"/>
                                     <constraint firstItem="udg-8m-1K1" firstAttribute="leading" secondItem="xFu-Vn-lNe" secondAttribute="leading" constant="16" id="k7Q-aN-mNJ"/>
                                     <constraint firstAttribute="trailing" secondItem="cRI-of-TNH" secondAttribute="trailing" constant="16" id="pzJ-X9-xOF"/>
-                                    <constraint firstItem="liU-Nv-gBW" firstAttribute="leading" secondItem="xFu-Vn-lNe" secondAttribute="leading" constant="16" id="v3e-pz-A5y"/>
-                                    <constraint firstItem="liU-Nv-gBW" firstAttribute="top" secondItem="xFu-Vn-lNe" secondAttribute="top" constant="8" id="vS1-LS-Pdl"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -83,8 +67,6 @@
             <connections>
                 <outlet property="containerView" destination="xFu-Vn-lNe" id="JRK-HP-WwB"/>
                 <outlet property="dividerView" destination="cRI-of-TNH" id="ceZ-v3-ocg"/>
-                <outlet property="inclusionLabel" destination="liU-Nv-gBW" id="FRF-cm-CDx"/>
-                <outlet property="inclusionLabelBottomConstraints" destination="f5J-Oi-REv" id="keS-wz-jle"/>
                 <outlet property="inclusionTypeLabel" destination="udg-8m-1K1" id="EHj-ni-1fN"/>
                 <outlet property="inclusionTypeLabelBottomConstraints" destination="HgV-wi-jmQ" id="f7N-s1-t9D"/>
                 <outlet property="shadowView" destination="G3S-Vl-9TH" id="pAf-gb-tmX"/>
