@@ -84,7 +84,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        gradient.frame = gradientView.bounds
+//        gradient.frame = gradientView.bounds
         self.backgroundImageView.frame = self.bounds
     }
     
@@ -128,9 +128,9 @@ class SlideMenuProfileImageHeaderView: UIView {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        gradient.frame = gradientView.bounds
-        gradient.colors = [AppColors.viewProfileTopGradient.color.cgColor, AppColors.themeWhite]
-        gradientView.layer.insertSublayer(gradient, at: 0)
+//        gradient.frame = gradientView.bounds
+//        gradient.colors = [AppColors.viewProfileTopGradient.color.cgColor, AppColors.themeWhite]
+//        gradientView.layer.insertSublayer(gradient, at: 0)
     }
     
     // MARK: - Helper Method

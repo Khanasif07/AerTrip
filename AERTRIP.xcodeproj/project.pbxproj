@@ -703,6 +703,7 @@
 		8477755D2265C51400EAB8B0 /* AccountDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477755C2265C51400EAB8B0 /* AccountDetailsVC.swift */; };
 		8477755F2265DE7100EAB8B0 /* AccountDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477755E2265DE7100EAB8B0 /* AccountDetailsVM.swift */; };
 		847775632265EB2800EAB8B0 /* AccountDetailsVC+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847775622265EB2800EAB8B0 /* AccountDetailsVC+Delegates.swift */; };
+		847790C023ED70A6004EBC45 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847790BF23ED70A6004EBC45 /* GradientView.swift */; };
 		84791ED5228195FF00472E54 /* AccountLadgerDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84791ED4228195FE00472E54 /* AccountLadgerDetailsVC.swift */; };
 		84791ED722819FE700472E54 /* AccountLadgerDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84791ED622819FE700472E54 /* AccountLadgerDetailsVM.swift */; };
 		84791ED92281A04900472E54 /* AccountLadgerDetailsVC+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84791ED82281A04900472E54 /* AccountLadgerDetailsVC+Delegate.swift */; };
@@ -1723,6 +1724,7 @@
 		8477755C2265C51400EAB8B0 /* AccountDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsVC.swift; sourceTree = "<group>"; };
 		8477755E2265DE7100EAB8B0 /* AccountDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsVM.swift; sourceTree = "<group>"; };
 		847775622265EB2800EAB8B0 /* AccountDetailsVC+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountDetailsVC+Delegates.swift"; sourceTree = "<group>"; };
+		847790BF23ED70A6004EBC45 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = SOURCE_ROOT; };
 		84791ED4228195FE00472E54 /* AccountLadgerDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountLadgerDetailsVC.swift; sourceTree = "<group>"; };
 		84791ED622819FE700472E54 /* AccountLadgerDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLadgerDetailsVM.swift; sourceTree = "<group>"; };
 		84791ED82281A04900472E54 /* AccountLadgerDetailsVC+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountLadgerDetailsVC+Delegate.swift"; sourceTree = "<group>"; };
@@ -5164,6 +5166,7 @@
 		84F9838421B51A070018DFED /* AppHelper */ = {
 			isa = PBXGroup;
 			children = (
+				847790BF23ED70A6004EBC45 /* GradientView.swift */,
 				84F9EADD226EDCD7005A1B8B /* AppBeautifier.swift */,
 				1851A75B21C3E051008DF03F /* AppUserDefaults.swift */,
 				84F9838521B51A070018DFED /* LanguageEnum.swift */,
@@ -5911,6 +5914,7 @@
 				0CAD5FE32338B32D0086F58D /* UILabel+Extension.swift in Sources */,
 				84085D1321F59C0E00F1E844 /* TravellerListVC.swift in Sources */,
 				182EB21322856DC7001BFB20 /* FareInfoHeaderView.swift in Sources */,
+				847790C023ED70A6004EBC45 /* GradientView.swift in Sources */,
 				187684B022845A44009637D6 /* NightStateTableViewCell.swift in Sources */,
 				1820F0E8228D43240019B8BB /* BookingRequestNoteTableViewCell.swift in Sources */,
 				84F2DC9B2264736E00212F05 /* EventTypeVC.swift in Sources */,
