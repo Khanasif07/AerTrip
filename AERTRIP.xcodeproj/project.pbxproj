@@ -4211,9 +4211,9 @@
 		8472F1FF23E3FDF300993B08 /* HotelsMapVC */ = {
 			isa = PBXGroup;
 			children = (
-				8472F21823E41DF900993B08 /* HotelsMapVC+TableViewDataSourceDelegateMethods.swift */,
 				8472F21623E4161C00993B08 /* HotelsMapVC+CoreData.swift */,
 				8472F20823E4078100993B08 /* HotelsMapVC+ DelegateMethods.swift */,
+				8472F21823E41DF900993B08 /* HotelsMapVC+TableViewDataSourceDelegateMethods.swift */,
 				8472F20623E4078100993B08 /* HotelsMapVC+animations.swift */,
 				8472F20723E4078100993B08 /* HotelsMapVC+HelperMethods.swift */,
 				8472F20223E4064C00993B08 /* HotelsMapVC+CollectionViewDataSourceDelegateMethods.swift */,

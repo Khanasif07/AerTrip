@@ -108,6 +108,18 @@ extension HotelResultVC: PKBottomSheetDelegate {
 // MARK: - HotelResultVM Delegate methods
 
 extension HotelResultVC: HotelResultDelegate {
+    
+    func updateFavouriteAndFilterView() {
+        self.unPinAllFavouriteButton.isHidden = !self.viewModel.isFavouriteOn
+        self.emailButton.isHidden = !self.viewModel.isFavouriteOn
+        self.shareButton.isHidden = !self.viewModel.isFavouriteOn
+        self.animateFloatingButtonOnListView(isAnimated: false)
+        self.filterButton.isSelected = self.viewModel.isFilterApplied
+        self.switchContainerView.isHidden = self.viewModel.favouriteHotels.isEmpty
+        self.floatingButtonOnMapView.isHidden = !self.viewModel.isFavouriteOn
+        self.switchView.setOn(isOn: self.viewModel.isFavouriteOn, animated: false, shouldNotify: false)
+    }
+    
     func updateFavOnList() {
         updateFavOnList(forIndexPath: self.selectedIndexPath)
     }
@@ -321,6 +333,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
     func clearAllButtonTapped() {
         self.viewModel.fetchRequestType = .normal
         self.filterButton.isSelected = false
+        self.viewModel.isFilterApplied = false
         HotelFilterVM.shared.isSortingApplied = false
         UserInfo.hotelFilter = nil
         HotelFilterVM.shared.resetToDefault()
@@ -353,7 +366,7 @@ extension HotelResultVC: HotelFilteVCDelegate {
         else {
             self.manageSwitchContainer(isHidden: true, shouldOff: false)
         }
-        self.filterButton.isSelected =  !(HotelFilterVM.shared.isSortingApplied || self.isFilterApplied) ? false : true
+        self.filterButton.isSelected =  !(HotelFilterVM.shared.isSortingApplied || self.viewModel.isFilterApplied) ? false : true
     }
 }
 

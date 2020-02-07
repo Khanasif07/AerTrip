@@ -26,6 +26,7 @@ extension HotelsMapVC {
         }
         self.viewModel.fetchRequestType = .FilterApplied
         self.viewModel.filterApplied = filter
+        self.viewModel.isFilterApplied = true
     }
     
     
@@ -213,6 +214,7 @@ extension HotelsMapVC {
         if isHidden, shouldOff {
             //if switch is hidden then it must be off, otherwise it should be as it is.
             self.switchView.setOn(isOn: false, animated: false, shouldNotify: false)
+            self.viewModel.isFavouriteOn = false
             self.hideFavsButtons()
         }
     }
@@ -220,7 +222,7 @@ extension HotelsMapVC {
     func manageFloatingView(isHidden: Bool) {
         self.currentLocationButton.isHidden = isHidden
         self.switchContainerView.isHidden = isHidden
-        self.floatingButtonBackView.isHidden = isHidden
+       // self.floatingButtonBackView.isHidden = isHidden
     }
     
     // MARK: - Manage Header animation
@@ -444,7 +446,7 @@ extension HotelsMapVC {
             indexOfMajorCell = min(indexOfMajorCell,numberOfItemInCollection)
         }
 //        let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
-       // collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+//        collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         
         self.manageForCollectionView(atIndex: indexOfMajorCell)
     }

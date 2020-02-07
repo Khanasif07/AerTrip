@@ -18,9 +18,9 @@ extension HotelResultVC {
     func showSearchAnimation() {
 //        self.filterButton.isHidden = true
 //        self.mapButton.isHidden = true
-        
-        self.searchBarContainerView.isHidden = false
+        self.searchBar.becomeFirstResponder()
         self.searchBarContainerView.alpha = 0.0
+        self.searchBarContainerView.isHidden = false
         self.titleLabel.isHidden = true
         self.descriptionLabel.isHidden = true
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: { [weak self] in
@@ -28,7 +28,11 @@ extension HotelResultVC {
             self?.cancelButton.alpha = 1
             self?.backButton.alpha = 0
             self?.searchButton.alpha = 0
-        }, completion: nil)
+        }, completion: { [weak self] (done)  in
+            if done {
+            }
+        })
+        
     }
     
     func hideSearchAnimation() {
@@ -60,7 +64,8 @@ extension HotelResultVC {
     
     // Animate button on List View
     
-    func animateFloatingButtonOnListView() {
+    func animateFloatingButtonOnListView(isAnimated: Bool = true) {
+        if isAnimated {
         UIView.animate(withDuration: TimeInterval(self.defaultDuration),
                        delay: 0,
                        usingSpringWithDamping: self.defaultDamping,
@@ -77,23 +82,31 @@ extension HotelResultVC {
                        completion: { _ in
                            printDebug("Animation finished")
         })
+        } else {
+            self.unPinAllFavouriteButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            self.emailButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            self.shareButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            self.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 54, y: 0)
+            self.emailButton.transform = CGAffineTransform(translationX: 108, y: 0)
+            self.shareButton.transform = CGAffineTransform(translationX: 162, y: 0)
+        }
     }
     
     // Animate Button on map View
     
-    private func animateFloatingButtonOnMapView() {
-        UIView.animate(withDuration: TimeInterval(self.defaultDuration),
-                       delay: 0,
-                       usingSpringWithDamping: self.defaultDamping,
-                       initialSpringVelocity: self.defaultVelocity,
-                       options: .allowUserInteraction,
-                       animations: { [weak self] in
-                        self?.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 55, y: 0)
-                       },
-                       completion: { _ in
-                           printDebug("Animation finished")
-        })
-    }
+//    private func animateFloatingButtonOnMapView() {
+//        UIView.animate(withDuration: TimeInterval(self.defaultDuration),
+//                       delay: 0,
+//                       usingSpringWithDamping: self.defaultDamping,
+//                       initialSpringVelocity: self.defaultVelocity,
+//                       options: .allowUserInteraction,
+//                       animations: { [weak self] in
+//                        self?.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 55, y: 0)
+//                       },
+//                       completion: { _ in
+//                           printDebug("Animation finished")
+//        })
+//    }
     
     func animateButton() {
             self.animateFloatingButtonOnListView()

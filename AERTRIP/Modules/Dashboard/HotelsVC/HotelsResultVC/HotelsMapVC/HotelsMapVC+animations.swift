@@ -126,7 +126,7 @@ extension HotelsMapVC {
 //            sSelf.mapView?.frame = sSelf.mapContainerView.bounds
             
             // vertical list animation
-            sSelf.collectionViewLeadingConstraint.constant = isHidden ? -((hiddenFrame.width)) : 0.0
+//            sSelf.collectionViewLeadingConstraint.constant = isHidden ? -((hiddenFrame.width)) : 0.0
             sSelf.collectionView.alpha = isHidden ? 0.0 : 1.0
             sSelf.floatingViewInitialConstraint = isHidden ? 10.0 : (hiddenFrame.height)
             // floating buttons animation
@@ -206,7 +206,8 @@ extension HotelsMapVC {
     
     // Animate Button on map View
     
-    func animateFloatingButtonOnMapView() {
+    func animateFloatingButtonOnMapView(isAnimated: Bool = true) {
+        if isAnimated {
         UIView.animate(withDuration: TimeInterval(self.defaultDuration),
                        delay: 0,
                        usingSpringWithDamping: self.defaultDamping,
@@ -218,6 +219,9 @@ extension HotelsMapVC {
                        completion: { _ in
                            printDebug("Animation finished")
         })
+        } else {
+            self.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 55, y: 0)
+        }
     }
     
     func animateButton() {

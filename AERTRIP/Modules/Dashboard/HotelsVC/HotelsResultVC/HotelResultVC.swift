@@ -57,8 +57,7 @@ class HotelResultVC: BaseVC {
             self.tableViewVertical.separatorStyle = .none
             self.tableViewVertical.showsVerticalScrollIndicator = false
             self.tableViewVertical.showsHorizontalScrollIndicator = false
-            //            let tap = UITapGestureRecognizer(target: self, action: #selector(tableTapped))
-            //            self.tableViewVertical.addGestureRecognizer(tap)
+            self.tableViewVertical.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
         }
     }
     
@@ -157,7 +156,6 @@ class HotelResultVC: BaseVC {
     let defaultDamping: CGFloat = 0.70
     let defaultVelocity: CGFloat = 15.0
     var applyButtonTapped: Bool = false
-    var isFilterApplied: Bool = false
     
     //used for making collection view centerlized
     var indexOfCellBeforeDragging = 0
@@ -221,9 +219,6 @@ class HotelResultVC: BaseVC {
         self.getPinnedHotelTemplate()
         searchBar.setTextField(color: UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
-        self.mapButton.backgroundColor = AppColors.themeWhite
-        self.mapButton.roundCorners(corners: [.allCorners], radius: self.mapButton.height/2)
-        self.mapButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.2)
         
     }
     
@@ -522,21 +517,6 @@ class HotelResultVC: BaseVC {
             print("Reachable")
         }
     }
-    
-    // added tap gesture to handle the tap on mapview when vertical tableview is visible
-    //    @objc func tableTapped(tap:UITapGestureRecognizer) {
-    //        let location = tap.location(in: self.tableViewVertical)
-    //        let path = self.tableViewVertical.indexPathForRow(at: location)
-    //        if let indexPathForRow = path {
-    //            self.tableView(self.tableViewVertical, didSelectRowAt: indexPathForRow)
-    //        } else {
-    //            // handle tap on empty space below existing rows however you want
-    //            printDebug("tapped at empty space of table view")
-    //            self.mapButtonAction(self.mapButton ?? UIButton())
-    //        }
-    //    }
-    
-    
     
 }
 

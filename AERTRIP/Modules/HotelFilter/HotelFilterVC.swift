@@ -46,7 +46,7 @@ class HotelFilterVC: BaseVC {
     
     // MARK: - Variables
     var filtersTabs =  [MenuItem]()
-    var selectedIndex: Int = 0
+    var selectedIndex: Int = HotelFilterVM.shared.lastSelectedIndex
     var isFilterApplied:Bool = false
     
     
@@ -165,7 +165,7 @@ class HotelFilterVC: BaseVC {
     
     private func setupPagerView() {
         self.allChildVCs.removeAll()
-        self.selectedIndex = HotelFilterVM.shared.lastSelectedIndex
+//        self.selectedIndex = HotelFilterVM.shared.lastSelectedIndex
         
         for i in 0..<self.allTabsStr.count {
             if i == 1 {

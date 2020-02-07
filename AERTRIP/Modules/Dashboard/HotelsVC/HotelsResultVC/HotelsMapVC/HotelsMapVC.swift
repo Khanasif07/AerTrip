@@ -208,7 +208,7 @@ class HotelsMapVC: BaseVC {
         self.cardGradientView.isHidden = true
         //call API to get vcode, sid
         animateHeaderToMapView()
-        animateFloatingButtonOnMapView()
+        animateFloatingButtonOnMapView(isAnimated: false)
         self.switchContainerView.isHidden = self.viewModel.favouriteHotels.isEmpty
         self.floatingButtonOnMapView.isHidden = !self.viewModel.isFavouriteOn
         self.switchView.setOn(isOn: self.viewModel.isFavouriteOn, animated: false, shouldNotify: false)
@@ -430,6 +430,7 @@ class HotelsMapVC: BaseVC {
     // MARK: - Action
     
     @IBAction func backButtonAction(_ sender: UIButton) {
+        self.viewModel.hotelResultDelegate?.updateFavouriteAndFilterView()
         self.statusBarStyle = .lightContent
         AppFlowManager.default.popViewController(animated: true)
     }

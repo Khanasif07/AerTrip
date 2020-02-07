@@ -563,20 +563,15 @@ extension HotelsMapVC: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        //        if let clusterItem = marker.userData as? ATClusterItem, let data = clusterItem.hotelDetails {
-        //            if let lat = data.lat, let long = data.long, let index = Array(self.viewModel.collectionViewList.keys).index(of: "\(lat),\(long)") {
-        //                self.selectedIndexPath = IndexPath(item: index, section: 0)
-        //            }
-        //            AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: data, sourceView: self.collectionView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
-        //        }
-        
-        if let markerView = marker.iconView as? CustomMarker, let data = markerView.hotel {
-            movetoDetailPage(data: data)
-        }
-        else if let markerView = marker.iconView as? CustomDotMarker, let data = markerView.hotel {
-            movetoDetailPage(data: data)
-        }else if let markerView = marker.iconView as? ClusterMarkerView, let data = markerView.hotelTtems?.first {
-            movetoDetailPage(data: data)
+        guard let hotelMarker = marker as? HotelMarker else { return  true}
+        if hotelMarker.markerType == .customMarker || hotelMarker.markerType == .dotMarker {
+            if let data = hotelMarker.hotel {
+                movetoDetailPage(data: data)
+            }
+        } else if hotelMarker.markerType == .clusterMarker {
+            if let data = hotelMarker.hotelTtems?.first {
+                movetoDetailPage(data: data)
+            }
         }
         
         return true

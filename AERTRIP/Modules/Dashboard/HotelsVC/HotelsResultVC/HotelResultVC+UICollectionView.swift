@@ -34,7 +34,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let text = self.viewModel.filterArray[indexPath.item]
         let font = AppFonts.SemiBold.withSize(16.0)
-        let width = text.widthOfString(usingFont: font) + 8
+        let width = text.widthOfString(usingFont: font) + (indexPath.item == 0 ? 30 : 34)// temporary
         return CGSize(width: width, height: collectionView.height)
     }
     
@@ -46,7 +46,7 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        AppFlowManager.default.showFilterVC(self)
+        AppFlowManager.default.showFilterVC(self, index: indexPath.item)
     }
     
 }

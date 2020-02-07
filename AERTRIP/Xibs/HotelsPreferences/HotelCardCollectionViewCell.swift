@@ -61,7 +61,6 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.gradientView.bounds
         let gradientColor = AppColors.themeBlack
@@ -80,6 +79,7 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         self.hotelImageView.cornerRadius = 10.0
         self.scrollView.cornerRadius = 10.0
         self.gradientView.cornerRadius = 10.0
+        
     }
     
     override func layoutSubviews() {
@@ -96,7 +96,7 @@ class HotelCardCollectionViewCell: UICollectionViewCell {
         self.pageControl.numberOfPages = thumbnail.count
         self.scrollView.delegate = self
         self.scrollView.isPagingEnabled = (thumbnail.count < 1)
-        self.scrollView.isUserInteractionEnabled = (thumbnail.count > 1)
+        self.scrollView.isUserInteractionEnabled = false//(thumbnail.count > 1)
         self.scrollView.contentSize = CGSize(width: self.scrollSize * CGFloat(thumbnail.count), height: self.hotelImageView.frame.size.height)
         
         printDebug("thumbnail count is \(thumbnail.count)")

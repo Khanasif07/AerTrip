@@ -113,6 +113,10 @@ extension HotelsMapVC: PKBottomSheetDelegate {
 // MARK: - HotelResultVM Delegate methods
 
 extension HotelsMapVC: HotelResultDelegate {
+    func updateFavouriteAndFilterView() {
+        // do nothing for map view
+    }
+    
     func deleteRow(index: IndexPath) {
         
     }
@@ -339,6 +343,7 @@ extension HotelsMapVC: HotelFilteVCDelegate {
     func clearAllButtonTapped() {
         self.viewModel.fetchRequestType = .normal
         self.filterButton.isSelected = false
+        self.viewModel.isFilterApplied = false
         HotelFilterVM.shared.isSortingApplied = false
         UserInfo.hotelFilter = nil
         HotelFilterVM.shared.resetToDefault()

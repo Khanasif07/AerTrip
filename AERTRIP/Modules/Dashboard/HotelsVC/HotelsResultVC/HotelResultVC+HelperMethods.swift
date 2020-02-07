@@ -253,6 +253,7 @@ extension HotelResultVC {
         if isHidden, shouldOff {
             //if switch is hidden then it must be off, otherwise it should be as it is.
             self.switchView.setOn(isOn: false, animated: false, shouldNotify: false)
+            self.viewModel.isFavouriteOn = false
             self.hideFavsButtons()
         }
     }

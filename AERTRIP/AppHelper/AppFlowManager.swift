@@ -515,10 +515,11 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func showFilterVC(_ vc: BaseVC) {
+    func showFilterVC(_ vc: BaseVC, index: Int = 0) {
         if let obj = UIApplication.topViewController() {
             let ob = HotelFilterVC.instantiate(fromAppStoryboard: .Filter)
             ob.delegate = vc as? HotelFilteVCDelegate
+            ob.selectedIndex = index
             obj.add(childViewController: ob)
         }
     }

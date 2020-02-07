@@ -32,6 +32,8 @@ protocol HotelResultDelegate: class {
     func getHotelsCount()
     func deleteRow(index: IndexPath)
     func updateFavOnList()
+    func updateFavouriteAndFilterView()
+
 }
 
 class HotelsResultVM: NSObject {
@@ -255,8 +257,8 @@ class HotelsResultVM: NSObject {
                         _ = hotel.afterUpdate
                     }
                 }
-                self.hotelResultDelegate?.updateFavouriteFail(errors: errors, isHotelFavourite: isHotelFavourite)
                 self.hotelMapDelegate?.updateFavouriteFail(errors: errors, isHotelFavourite: isHotelFavourite)
+                self.hotelResultDelegate?.updateFavouriteFail(errors: errors, isHotelFavourite: isHotelFavourite)
             }
         }
     }
