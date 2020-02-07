@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -94,7 +92,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="tDp-RO-5Yk">
-                                        <rect key="frame" x="16" y="175" width="171" height="22"/>
+                                        <rect key="frame" x="16" y="175" width="176" height="22"/>
                                         <subviews>
                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cFg-Ie-cCS" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="2" width="68" height="18"/>
@@ -115,7 +113,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ejh-Kx-nB1">
-                                                <rect key="frame" x="72" y="0.0" width="99" height="22"/>
+                                                <rect key="frame" x="72" y="0.0" width="104" height="22"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="uMf-Wb-8gZ">
                                                         <rect key="frame" x="0.0" y="-10" width="43" height="24"/>
@@ -124,11 +122,11 @@
                                                         </constraints>
                                                     </imageView>
                                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HXO-c6-lmM" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="38" y="2" width="68" height="18"/>
+                                                        <rect key="frame" x="43" y="2" width="61" height="18"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="PE5-tf-aPM"/>
-                                                            <constraint firstAttribute="width" constant="68" id="pj6-wk-rzH"/>
+                                                            <constraint firstAttribute="width" constant="61" id="pj6-wk-rzH"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilledShadow"/>
@@ -139,6 +137,9 @@
                                                             <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
                                                                 <integer key="value" value="5"/>
                                                             </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="size" keyPath="minImageSize">
+                                                                <size key="value" width="17" height="17"/>
+                                                            </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
@@ -146,7 +147,7 @@
                                                     <constraint firstItem="uMf-Wb-8gZ" firstAttribute="top" secondItem="ejh-Kx-nB1" secondAttribute="top" constant="-10" id="72X-oZ-oIw"/>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="93" id="BHx-Kk-dob"/>
                                                     <constraint firstAttribute="trailing" secondItem="HXO-c6-lmM" secondAttribute="trailing" priority="900" id="Fpx-E8-3tk"/>
-                                                    <constraint firstItem="HXO-c6-lmM" firstAttribute="leading" secondItem="uMf-Wb-8gZ" secondAttribute="trailing" constant="-5" id="Hkw-F8-PbS"/>
+                                                    <constraint firstItem="HXO-c6-lmM" firstAttribute="leading" secondItem="uMf-Wb-8gZ" secondAttribute="trailing" id="Hkw-F8-PbS"/>
                                                     <constraint firstItem="uMf-Wb-8gZ" firstAttribute="leading" secondItem="ejh-Kx-nB1" secondAttribute="leading" id="Qly-cc-QSF"/>
                                                     <constraint firstItem="HXO-c6-lmM" firstAttribute="centerY" secondItem="ejh-Kx-nB1" secondAttribute="centerY" id="aDa-KY-3m3"/>
                                                 </constraints>
@@ -154,7 +155,7 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="1jk-AT-Zik"/>
-                                            <constraint firstAttribute="width" constant="171" id="fqv-zN-J93"/>
+                                            <constraint firstAttribute="width" constant="176" id="fqv-zN-J93"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
@@ -239,13 +240,13 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="combinedShapeFillShadow" width="30" height="42"/>
-        <image name="combinedShapeUnfilledShadow" width="30" height="42"/>
+        <image name="combinedShapeFillShadow" width="12" height="16"/>
+        <image name="combinedShapeUnfilledShadow" width="12" height="16"/>
         <image name="hotelCardPlaceHolder" width="359" height="193"/>
         <image name="saveHotels" width="27" height="27"/>
         <image name="saveHotelsSelected" width="27" height="27"/>
-        <image name="starRatingFilledShadow" width="30" height="42"/>
-        <image name="starRatingUnfillShadow" width="30" height="42"/>
+        <image name="starRatingFilledShadow" width="16" height="20"/>
+        <image name="starRatingUnfillShadow" width="16" height="20"/>
         <image name="tripAdviser" width="32" height="24"/>
     </resources>
 </document>

@@ -36,8 +36,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     @IBOutlet weak var tableView: ATTableView!
     @IBOutlet weak var topNavView: TopNavigationView!
-//    @IBOutlet weak var deleteTravellerView: UIView!
-//    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     // MARK: - Variables

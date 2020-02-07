@@ -1383,30 +1383,18 @@ Incomplete</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dgG-hf-niu">
                                 <rect key="frame" x="0.0" y="44" width="375" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter a Coupon Code" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f71-Kl-Zdi">
-                                        <rect key="frame" x="16" y="6" width="343" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a Coupon Code" minimumFontSize="16" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4sX-zf-2aM" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="8" width="343" height="46"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="46" id="CIM-28-ABw"/>
-                                        </constraints>
+                                        <rect key="frame" x="16" y="0.0" width="343" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                                     </textField>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="f71-Kl-Zdi" firstAttribute="top" secondItem="dgG-hf-niu" secondAttribute="top" constant="6" id="8R3-ZF-3Pk"/>
+                                    <constraint firstItem="4sX-zf-2aM" firstAttribute="leading" secondItem="dgG-hf-niu" secondAttribute="leading" constant="16" id="6kX-1X-aSG"/>
                                     <constraint firstAttribute="height" constant="60" id="DLx-FG-S8T"/>
-                                    <constraint firstItem="f71-Kl-Zdi" firstAttribute="leading" secondItem="dgG-hf-niu" secondAttribute="leading" constant="16" id="KVM-0F-In8"/>
-                                    <constraint firstAttribute="trailing" secondItem="f71-Kl-Zdi" secondAttribute="trailing" constant="16" id="T4A-Kp-TV2"/>
-                                    <constraint firstItem="4sX-zf-2aM" firstAttribute="leading" secondItem="f71-Kl-Zdi" secondAttribute="leading" id="XLS-iY-siM"/>
-                                    <constraint firstItem="4sX-zf-2aM" firstAttribute="top" secondItem="f71-Kl-Zdi" secondAttribute="bottom" constant="2" id="bRb-69-vRk"/>
-                                    <constraint firstItem="4sX-zf-2aM" firstAttribute="trailing" secondItem="f71-Kl-Zdi" secondAttribute="trailing" id="eLy-Oe-G0t"/>
-                                    <constraint firstAttribute="bottom" secondItem="4sX-zf-2aM" secondAttribute="bottom" constant="6" id="fBT-Q0-8NN"/>
+                                    <constraint firstAttribute="trailing" secondItem="4sX-zf-2aM" secondAttribute="trailing" constant="16" id="Kk3-7X-YDI"/>
+                                    <constraint firstAttribute="bottom" secondItem="4sX-zf-2aM" secondAttribute="bottom" id="fBT-Q0-8NN"/>
+                                    <constraint firstItem="4sX-zf-2aM" firstAttribute="top" secondItem="dgG-hf-niu" secondAttribute="top" id="uLi-iM-hIu"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9uT-Oo-DUc" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
@@ -1573,7 +1561,6 @@ Incomplete</string>
                         <outlet property="dividerView" destination="y9i-B2-tEL" id="d8t-UD-gvZ"/>
                         <outlet property="emptyStateImageView" destination="ude-fc-wVN" id="I4s-K6-hCa"/>
                         <outlet property="emptyStateView" destination="ZMg-6h-E0A" id="eAh-jb-hba"/>
-                        <outlet property="enterCouponLabel" destination="f71-Kl-Zdi" id="9oj-iM-zv2"/>
                         <outlet property="noCouponsReqLabel" destination="lld-jP-V4u" id="6bL-z0-rZm"/>
                         <outlet property="offerTermsView" destination="Dlw-EG-3em" id="8Za-4r-XLZ"/>
                         <outlet property="offerTermsViewHeightConstraints" destination="bXs-rX-n45" id="7RX-7m-aKD"/>
@@ -1581,7 +1568,7 @@ Incomplete</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XwL-zj-2KD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="183" y="958"/>
+            <point key="canvasLocation" x="181.59999999999999" y="957.57121439280365"/>
         </scene>
         <!--Special RequestsVC-->
         <scene sceneID="vcM-1i-Cap">
