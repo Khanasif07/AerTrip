@@ -132,13 +132,11 @@ class LoginVC: BaseVC {
         self.passwordTextField.isSecureTextEntry = !self.passwordTextField.isSecureTextEntry
         
         if self.passwordTextField.isSecureTextEntry {
-            
-            let image = UIImage(named: "showPassword")
-            sender.setImage(image, for: .normal)
+            self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 4, right: 0)
+            sender.setImage(#imageLiteral(resourceName: "showPassword"), for: .normal)
         } else {
-            
-            let image = UIImage(named: "hidePassword")
-            sender.setImage(image, for: .normal)
+            self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 1, bottom: -1, right: 0)
+            sender.setImage(#imageLiteral(resourceName: "hidePassword"), for: .normal)
         }
     }
  

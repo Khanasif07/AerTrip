@@ -154,6 +154,16 @@ extension SearchFavouriteHotelsVC: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.zero
     }
+    
+    func searchTextAfterSuccess(forText: String) {
+        if forText.isEmpty {
+            self.viewModel.hotels.removeAll()
+            self.collectionView.backgroundView = self.emptyView
+        } else {
+             self.collectionView.backgroundView = self.noResultemptyView
+        }
+         self.collectionView.reloadData()
+    }
 }
 
 extension SearchFavouriteHotelsVC: HotelCardCollectionViewCellDelegate {
@@ -186,6 +196,7 @@ extension SearchFavouriteHotelsVC: SearchFavouriteHotelsVMDelegate {
     
     func updateFavouriteFail() {
         self.stopLoading()
+        self.collectionView.reloadData()
     }
     
     func willSearchForHotels() {
@@ -194,18 +205,19 @@ extension SearchFavouriteHotelsVC: SearchFavouriteHotelsVMDelegate {
     
     func searchHotelsSuccess() {
         self.stopLoading()
-        self.collectionView.backgroundView = noResultemptyView
-        self.collectionView.reloadData()
+        self.searchTextAfterSuccess(forText: self.viewModel.searchText)
     }
     
     func searchHotelsFail() {
         self.stopLoading()
+        self.searchTextAfterSuccess(forText: self.viewModel.searchText)
     }
 }
 
 extension SearchFavouriteHotelsVC: UISearchBarDelegate {
     func search(forText: String) {
         if forText.isEmpty {
+            self.viewModel.searchText = forText
             self.viewModel.hotels.removeAll()
             self.collectionView.backgroundView = self.emptyView
             self.collectionView.reloadData()
