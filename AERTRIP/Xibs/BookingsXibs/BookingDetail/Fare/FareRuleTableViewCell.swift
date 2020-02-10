@@ -65,20 +65,46 @@ extension FareRuleTableViewCell: WKUIDelegate {
 
 
 extension FareRuleTableViewCell: WKNavigationDelegate {
-    func webViewDidFinishLoad(webView: UIWebView) {
-        //webview height
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         webView.frame.size.height = 1
         webView.frame.size = webView.sizeThatFits(.zero)
         webView.scrollView.isScrollEnabled = false
-        let height = webView.stringByEvaluatingJavaScript(from: "document.body.scrollHeight")
-        if let height = height {
-            if let heightInt = Int(height) {
-                let heightFloat = Float(heightInt)
-                
-                webViewHeightConstraint.constant = CGFloat(heightFloat)
+        webView.evaluateJavaScript("document.body.scrollHeight") { (height, error) in
+            if error != nil {
+                if let height = height {
+                    printDebug(height)
+//                    if let heightInt = Int(height) {
+//                        let heightFloat = Float(heightInt)
+//
+//                        webViewHeightConstraint.constant = CGFloat(heightFloat)
+//                    }
+                }
             }
         }
-        webView.scalesPageToFit = true
+//        let height = webView.stringByEvaluatingJavaScript(from: "document.body.scrollHeight")
+//        if let height = height {
+//            if let heightInt = Int(height) {
+//                let heightFloat = Float(heightInt)
+//
+//                webViewHeightConstraint.constant = CGFloat(heightFloat)
+//            }
+//        }
+        //webView.scalesPageToFit = true
     }
+//    func webViewDidFinishLoad(webView: UIWebView) {
+//        //webview height
+//        webView.frame.size.height = 1
+//        webView.frame.size = webView.sizeThatFits(.zero)
+//        webView.scrollView.isScrollEnabled = false
+//        let height = webView.stringByEvaluatingJavaScript(from: "document.body.scrollHeight")
+//        if let height = height {
+//            if let heightInt = Int(height) {
+//                let heightFloat = Float(heightInt)
+//
+//                webViewHeightConstraint.constant = CGFloat(heightFloat)
+//            }
+//        }
+//        webView.scalesPageToFit = true
+//    }
     
 }

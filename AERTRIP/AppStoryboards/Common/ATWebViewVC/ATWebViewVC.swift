@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 
 class ATWebViewVC: BaseVC {
     
@@ -15,7 +16,8 @@ class ATWebViewVC: BaseVC {
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var webViewContainer: UIView! {
         didSet {
-            webView = UIWebView(frame: webViewContainer.bounds)
+            let webConfiguration = WKWebViewConfiguration()
+            webView = WKWebView(frame: .zero, configuration: webConfiguration)
             webViewContainer.addSubview(webView)
         }
     }
@@ -30,7 +32,7 @@ class ATWebViewVC: BaseVC {
     var navTitle: String = AppConstants.kAppName
     
     //MARK:- Private
-    private var webView: UIWebView!
+    private var webView: WKWebView!
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -41,7 +43,7 @@ class ATWebViewVC: BaseVC {
         
         //create webView
         self.loadUrl()
-        webView.delegate = self
+        webView.navigationDelegate = self
     }
     
     override func viewDidLayoutSubviews() {
@@ -57,7 +59,7 @@ class ATWebViewVC: BaseVC {
             fatalError("There is not url to load")
         }
         
-        webView.loadRequest(URLRequest(url: url))
+        webView.load(URLRequest(url: url))
     }
     
     //MARK:- Public
@@ -73,18 +75,18 @@ extension ATWebViewVC: TopNavigationViewDelegate {
 }
 
 
-extension ATWebViewVC: UIWebViewDelegate {
-    func webViewDidStartLoad(_ webView: UIWebView) {
+extension ATWebViewVC: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         self.activityIndicatorView.isHidden = false
         self.activityIndicatorView.startAnimating()
     }
     
-    func webViewDidFinishLoad(_ webView: UIWebView) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         self.activityIndicatorView.stopAnimating()
         self.activityIndicatorView.isHidden = true
     }
     
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         self.activityIndicatorView.stopAnimating()
         self.activityIndicatorView.isHidden = true
     }
