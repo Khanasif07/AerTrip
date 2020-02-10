@@ -170,7 +170,7 @@ extension HotelDetailsVC {
             if self.allIndexPath.contains(indexPath) {
                 cell.allDetailsLabel.isHidden = false
                 cell.allDetailsLabel.attributedText = cell.fullPenaltyDetails(ratesData: ratesData)?.trimWhiteSpace()
-                cell.infoBtnOutlet.isHidden = true
+                cell.infoBtnOutlet.isHidden = false
             }
             else {
                 cell.allDetailsLabel.isHidden = true
@@ -208,14 +208,14 @@ extension HotelDetailsVC {
             cell.allDetailsLabel.isHidden = true
             cell.descriptionLabel.lineBreakMode = .byWordWrapping
             if self.allIndexPath.contains(indexPath) {
-                cell.moreInfoContainerView.isHidden = true
+               // cell.moreInfoContainerView.isHidden = true
                 cell.descriptionLabel.numberOfLines = 0
-                cell.moreBtnOutlet.isHidden = true
+               // cell.moreBtnOutlet.isHidden = true
             }
             else {
-                cell.moreInfoContainerView.isHidden = false
-                cell.descriptionLabel.numberOfLines = 1
-                cell.moreBtnOutlet.isHidden = false
+               // cell.moreInfoContainerView.isHidden = false
+                cell.descriptionLabel.numberOfLines = 0
+               // cell.moreBtnOutlet.isHidden = false
             }
             cell.clipsToBounds = true
             return cell

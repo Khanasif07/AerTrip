@@ -177,14 +177,14 @@ extension HotelCheckOutDetailsVIew {
             cell.descriptionLabel.lineBreakMode = .byWordWrapping
             cell.descriptionLabel.attributedText = cell.fullNotesDetails(ratesData: ratesData)?.trimWhiteSpace()
             if self.allIndexPath.contains(indexPath) {
-                cell.moreInfoContainerView.isHidden = true
+               // cell.moreInfoContainerView.isHidden = true
                 cell.descriptionLabel.numberOfLines = 0
-                cell.moreBtnOutlet.isHidden = true
+               // cell.moreBtnOutlet.isHidden = true
             }
             else {
-                cell.moreInfoContainerView.isHidden = false
+               // cell.moreInfoContainerView.isHidden = false
                 cell.descriptionLabel.numberOfLines = 1
-                cell.moreBtnOutlet.isHidden = false
+               // cell.moreBtnOutlet.isHidden = false
             }
             cell.shadowViewBottomConstraints.constant = 26.0
             cell.clipsToBounds = true

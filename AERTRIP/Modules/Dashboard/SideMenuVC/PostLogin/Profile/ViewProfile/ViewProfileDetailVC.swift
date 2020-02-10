@@ -98,6 +98,7 @@ class ViewProfileDetailVC: BaseVC {
     
     func doInitialSetUp() {
         tableView.separatorStyle = .none
+        tableView.bounces = true
         tableView.register(UINib(nibName: tableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: tableViewHeaderViewIdentifier)
         
         self.headerViewHeightConstraint.constant = headerViewHeight
@@ -167,7 +168,7 @@ class ViewProfileDetailVC: BaseVC {
         
         placeImage = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, font: AppConstants.profileViewBackgroundNameIntialsFont)
         if travel.profileImage != "" {
-            profileImageHeaderView?.profileImageView.setImageWithUrl(travel.profileImage, placeholder: placeImage, showIndicator: false)
+//            profileImageHeaderView?.profileImageView.setImageWithUrl(travel.profileImage, placeholder: placeImage, showIndicator: false)
             profileImageHeaderView?.backgroundImageView.setImageWithUrl(travel.profileImage, placeholder: placeImage, showIndicator: false)
             profileImageHeaderView?.blurEffectView.alpha = 1.0
         } else {

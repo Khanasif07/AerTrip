@@ -16,10 +16,8 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var inclusionLabel: UILabel!
     @IBOutlet weak var inclusionTypeLabel: UILabel!
     @IBOutlet weak var shadowView: UIView!
-    @IBOutlet weak var inclusionLabelBottomConstraints: NSLayoutConstraint!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var inclusionTypeLabelBottomConstraints: NSLayoutConstraint!
     @IBOutlet weak var shadowViewLeadingConstraints: NSLayoutConstraint!
@@ -36,16 +34,16 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
     //==============
     ///Configure UI
     private func configureUI() {
+       // self.inclusionLabel.isHidden = true
         self.dividerView.isHidden = true
         self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.5, shadowRadius: 6.0)
         //Color
         self.backgroundColor = AppColors.screensBackground.color
-        self.inclusionLabel.textColor = AppColors.themeGray40
-        self.inclusionTypeLabel.textColor = AppColors.textFieldTextColor51
+        //self.inclusionLabel.textColor = AppColors.themeGray40
+        self.inclusionTypeLabel.textColor = AppColors.themeBlack
         
         //Font
-        self.inclusionLabel.font = AppFonts.Regular.withSize(14.0)
-        self.inclusionTypeLabel.font = AppFonts.Regular.withSize(18.0)
+        self.inclusionTypeLabel.font = AppFonts.Regular.withSize(16.0)
         
         //Text
         
@@ -57,16 +55,16 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
         self.shadowViewTrailingConstraints.constant = 0.0
         if isWebsiteCell {
             self.dividerView.isHidden = false
-            self.inclusionLabelBottomConstraints.constant = 6.0
+          //  self.inclusionLabelBottomConstraints.constant = 6.0
             self.inclusionTypeLabelBottomConstraints.constant = 21.0
-            self.inclusionLabel.font = AppFonts.SemiBold.withSize(16.0)
-            self.inclusionLabel.textColor = AppColors.themeBlack
+           // self.inclusionLabel.font = AppFonts.SemiBold.withSize(16.0)
+           // self.inclusionLabel.textColor = AppColors.themeBlack
         } else {
             self.dividerView.isHidden = true
-            self.inclusionLabelBottomConstraints.constant = 4.0
+           // self.inclusionLabelBottomConstraints.constant = 4.0
             self.inclusionTypeLabelBottomConstraints.constant = 9.0
-            self.inclusionLabel.font = AppFonts.Regular.withSize(14.0)
-            self.inclusionLabel.textColor = AppColors.themeGray40
+            //self.inclusionLabel.font = AppFonts.Regular.withSize(14.0)
+           // self.inclusionLabel.textColor = AppColors.themeGray40
         }
     }
     
@@ -85,34 +83,34 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
     }
     
     internal func configureCell(ratesData: Rates) {
-        self.inclusionLabel.text = LocalizedString.Inclusion.localized
+       // self.inclusionLabel.text = LocalizedString.Inclusion.localized
         let inclusionText = self.getAllInclusion(ratesData: ratesData)
         self.inclusionTypeLabel.text = inclusionText.joined(separator: ", ")
     }
     
     
     internal func configureOtherInclusionCell(otherInclusion: [String]) {
-        self.inclusionLabel.text = LocalizedString.OtherInclusions.localized
+       // self.inclusionLabel.text = LocalizedString.OtherInclusions.localized
         self.inclusionTypeLabel.text = otherInclusion.joined(separator: ", ")
     }
     
     internal func configureWebsiteCell(website: String) {
         self.hcConstraintsAndDataSetUp(isWebsiteCell: true)
-        self.inclusionLabel.text = LocalizedString.Website.localized
+        //self.inclusionLabel.text = LocalizedString.Website.localized
         self.inclusionTypeLabel.text = website
     }
     
     ///Config HCBeds Cell
     internal func configHCBedsCell(bedDetails: String) {
         self.hcConstraintsAndDataSetUp(isWebsiteCell: false)
-        self.inclusionLabel.text = LocalizedString.Beds.localized
+       // self.inclusionLabel.text = LocalizedString.Beds.localized
         self.inclusionTypeLabel.text = bedDetails
     }
     
     ///Config HCInclusion Cell
     internal func configHCInclusionCell(roomInclusions: JSONDictionary) {
         self.hcConstraintsAndDataSetUp(isWebsiteCell: false)
-        self.inclusionLabel.text = LocalizedString.Inclusion.localized
+      //  self.inclusionLabel.text = LocalizedString.Inclusion.localized
         var inclusionText: [String] = []
 //        var internetText: [String] = []
         if let inclusionData =  roomInclusions[APIKeys.Inclusions.rawValue] as? [String], !inclusionData.isEmpty {
@@ -129,7 +127,7 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
     ///Config HCOtherInlusion Cell
     internal func configHCOtherInlusionCell(roomInclusions: JSONDictionary) {
         self.hcConstraintsAndDataSetUp(isWebsiteCell: false)
-        self.inclusionLabel.text = LocalizedString.OtherInclusions.localized
+       // self.inclusionLabel.text = LocalizedString.OtherInclusions.localized
         var otherInclusionText : [String] = []
         if let otherInclusionData =  roomInclusions[APIKeys.other_inclusions.rawValue] as? [String], !otherInclusionData.isEmpty {
             otherInclusionText = otherInclusionData

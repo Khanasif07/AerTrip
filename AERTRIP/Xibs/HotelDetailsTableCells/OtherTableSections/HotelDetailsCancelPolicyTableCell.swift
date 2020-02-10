@@ -22,16 +22,9 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var allDetailsLabel: UILabel!
     @IBOutlet weak var infoBtnOutlet: UIButton!
-    @IBOutlet weak var moreInfoContainerView: UIView! {
-        didSet {
-            self.moreInfoContainerView.addGradientWithColor(color: AppColors.themeWhite)
-        }
-    }
-    @IBOutlet weak var moreBtnOutlet: UIButton!
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var shadowViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var shadowViewTrailingConstraint: NSLayoutConstraint!
@@ -54,17 +47,15 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         //UIColor
         self.backgroundColor = AppColors.screensBackground.color
         ///Font
-        self.titleLabel.font = AppFonts.Regular.withSize(14.0)
-        self.descriptionLabel.font = AppFonts.Regular.withSize(18.0)
+        self.descriptionLabel.font = AppFonts.Regular.withSize(16.0)
         self.infoBtnOutlet.titleLabel?.font = AppFonts.Regular.withSize(14.0)
-        self.moreBtnOutlet.titleLabel?.font = AppFonts.Regular.withSize(14.0)
+        //self.moreBtnOutlet.titleLabel?.font = AppFonts.Regular.withSize(14.0)
         ///TextColor
-        self.titleLabel.textColor = AppColors.themeGray40
-        self.descriptionLabel.textColor = AppColors.textFieldTextColor51
+        self.descriptionLabel.textColor = AppColors.themeBlack
         self.infoBtnOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
-        self.moreBtnOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
+       // self.moreBtnOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
         //Text
-        self.moreBtnOutlet.setTitle(LocalizedString.More.localized, for: .normal)
+       // self.moreBtnOutlet.setTitle(LocalizedString.More.localized, for: .normal)
     }
     
     
@@ -202,11 +193,9 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     
     ///Configure Cancellation Cell
     internal func configureCancellationCell(ratesData: Rates , isHotelDetailsScreen: Bool) {
-        self.titleLabel.numberOfLines = 0
         self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
-        self.moreInfoContainerView.isHidden = true
+//        self.moreInfoContainerView.isHidden = true
         self.infoBtnOutlet.isHidden = false
-        self.titleLabel.text = LocalizedString.CancellationPolicy.localized
         if let cancellationInfo = ratesData.cancellation_penalty, cancellationInfo.is_refundable {
             if let firstRefundableData = ratesData.penalty_array?.first {
                 self.attributeLabelSetUp(roomPrice: ratesData.price , toDate: firstRefundableData.to, fromDate: firstRefundableData.from, penalty: firstRefundableData.penalty)
@@ -218,18 +207,17 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     
     ///Text SetUp For Cancellation
     private func textSetUpForCancellation(text: String) {
-        self.descriptionLabel.font = AppFonts.Regular.withSize(18.0)
-        self.descriptionLabel.textColor = AppColors.textFieldTextColor51
+        self.descriptionLabel.font = AppFonts.Regular.withSize(16.0)
+        self.descriptionLabel.textColor = text.contains("Free-cancellation") ? AppColors.themeOrange : AppColors.themeBlack
         self.descriptionLabel.text = text
     }
     
     
     ///Configure Payment Cell
     internal func configurePaymentCell(ratesData: Rates, isHotelDetailsScreen: Bool) {
-        self.titleLabel.numberOfLines = 1
         self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
-        self.moreInfoContainerView.isHidden = true
-        self.titleLabel.text = LocalizedString.PaymentPolicy.localized
+//        self.moreInfoContainerView.isHidden = true
+
         if !ratesData.payment_info.isEmpty && ratesData.payment_info != "payment_now" {
             self.infoBtnOutlet.isHidden = true
             let paymentAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray60]
@@ -237,21 +225,18 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
             self.descriptionLabel.attributedText = paymentAttributedString
         } else {
             self.infoBtnOutlet.isHidden = false
-            self.descriptionLabel.font = AppFonts.Regular.withSize(18.0)
-            self.descriptionLabel.textColor = AppColors.textFieldTextColor51
+            self.descriptionLabel.font = AppFonts.Regular.withSize(16.0)
+            self.descriptionLabel.textColor = AppColors.themeBlack
             self.descriptionLabel.text = LocalizedString.FullPaymentNow.localized
         }
     }
     
     ///Configure Notes Cell
     internal func configureNotesCell(ratesData: Rates, isHotelDetailsScreen: Bool) {
-        self.titleLabel.numberOfLines = 1
         self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
         if let notesInclusion =  ratesData.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [String] {
             self.infoBtnOutlet.isHidden = true
-            self.moreInfoContainerView.isHidden = false
-            self.titleLabel.text = LocalizedString.Notes.localized
-            self.titleLabel.font = AppFonts.Regular.withSize(14.0)
+//            self.moreInfoContainerView.isHidden = false
             self.descriptionLabel.textColor = AppColors.themeBlack
             let attributedString = NSMutableAttributedString()
             let dotAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(13.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack]
@@ -266,12 +251,8 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     
     ///Configure Notes Cell
     internal func configureHCNotesCell(notesInclusion: [String], isHotelDetailsScreen: Bool) {
-        self.titleLabel.numberOfLines = 1
         self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
         self.infoBtnOutlet.isHidden = true
-        self.moreInfoContainerView.isHidden = false
-        self.titleLabel.text = LocalizedString.Notes.localized
-        self.titleLabel.font = AppFonts.Regular.withSize(14.0)
         self.descriptionLabel.textColor = AppColors.themeBlack
         let attributedString = NSMutableAttributedString()
         let dotAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(13.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack]
@@ -285,7 +266,6 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     
     ///Full Notes Details
     internal func fullHCNotesDetails(notesInclusion: [String]) -> NSMutableAttributedString {
-        self.titleLabel.numberOfLines = 1
         let attributesDictionary = [NSAttributedString.Key.font : AppFonts.Regular.withSize(14.0)]
         let fullAttributedString = NSMutableAttributedString()
         for (note) in notesInclusion {
@@ -301,23 +281,19 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     ///Configure Payment Cell
     internal func configureHCPaymentCell(isHotelDetailsScreen: Bool) {
         self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
-        self.moreInfoContainerView.isHidden = true
-        self.titleLabel.text = LocalizedString.PaymentPolicy.localized
+//        self.moreInfoContainerView.isHidden = true
         self.infoBtnOutlet.isHidden = true
         self.allDetailsLabel.isHidden = true
-        self.descriptionLabel.font = AppFonts.Regular.withSize(18.0)
+        self.descriptionLabel.font = AppFonts.Regular.withSize(16.0)
         self.descriptionLabel.textColor = AppColors.textFieldTextColor51
         self.descriptionLabel.text = LocalizedString.FullPaymentNow.localized
     }
     
     ///Full Penalty Details
     internal func fullHCPenaltyDetails(isRefundable: Bool, isHotelDetailsScreen: Bool) {
-        self.titleLabel.numberOfLines = 1
         self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
-        self.moreInfoContainerView.isHidden = true
-        self.moreBtnOutlet.isHidden = true
-        self.titleLabel.font = AppFonts.Regular.withSize(14.0)
-        self.titleLabel.text = LocalizedString.CancellationPolicy.localized
+//        self.moreInfoContainerView.isHidden = true
+//        self.moreBtnOutlet.isHidden = true
         let attributedString = NSMutableAttributedString()
         let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.textFieldTextColor51] as [NSAttributedString.Key : Any]
         var blackAttributedString: NSAttributedString
@@ -332,7 +308,6 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
 
     ///Full Penalty Details
     internal func HCPenaltyDetailsExplanation(canclNotes: String) -> NSMutableAttributedString {
-        self.titleLabel.numberOfLines = 1
         let attributedString = NSMutableAttributedString()
         let blackAttribute =  [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray60]
         let blackAttributedString = NSAttributedString(string: canclNotes, attributes: blackAttribute)

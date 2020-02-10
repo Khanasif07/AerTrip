@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -18,28 +19,32 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" customClass="SlideMenuProfileImageHeaderView" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="254"/>
+            <rect key="frame" x="0.0" y="0.0" width="360" height="290"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="group4" translatesAutoresizingMaskIntoConstraints="NO" id="Ojo-QA-iad">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="254"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_no_traveller" translatesAutoresizingMaskIntoConstraints="NO" id="Ojo-QA-iad">
+                    <rect key="frame" x="0.0" y="0.0" width="360" height="290"/>
                 </imageView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x2n-dX-FxW">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="254"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x2n-dX-FxW" customClass="GradientView" customModule="AERTRIP" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="360" height="290"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VSZ-Bx-vbm" customClass="GradientView" customModule="AERTRIP" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="360" height="290"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="cbl-xr-PpX">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="253.5"/>
+                    <rect key="frame" x="0.0" y="0.0" width="360" height="289.5"/>
                     <subviews>
                         <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profilePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="ARz-1y-xpA">
-                            <rect key="frame" x="135.5" y="23.5" width="104" height="104"/>
+                            <rect key="frame" x="120.5" y="44.5" width="119" height="119"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="ARz-1y-xpA" secondAttribute="height" multiplier="1:1" id="ZV6-Kq-kGB"/>
                                 <constraint firstAttribute="height" priority="999" constant="127" id="pms-Kr-etU"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggie Fletcher" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAE-bT-BMd">
-                            <rect key="frame" x="10" y="144.5" width="355" height="33"/>
+                            <rect key="frame" x="10" y="180.5" width="340" height="33"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="33" id="XlT-Ft-NH1"/>
                             </constraints>
@@ -48,10 +53,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="LRw-xr-uiF">
-                            <rect key="frame" x="20" y="187.5" width="335" height="37"/>
+                            <rect key="frame" x="20" y="223.5" width="320" height="37"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggiefleture@gmail.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95a-79-0je">
-                                    <rect key="frame" x="0.0" y="0.0" width="335" height="18"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="18"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="18" id="Bmj-uE-WfO"/>
                                     </constraints>
@@ -60,7 +65,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+91 97827328723" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqV-cI-FPs">
-                                    <rect key="frame" x="0.0" y="19" width="335" height="18"/>
+                                    <rect key="frame" x="0.0" y="19" width="320" height="18"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="18" id="WHq-Vd-F3o"/>
                                     </constraints>
@@ -71,7 +76,7 @@
                             </subviews>
                         </stackView>
                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="aaY-3S-c6N">
-                            <rect key="frame" x="177.5" y="73" width="20" height="20"/>
+                            <rect key="frame" x="170" y="104.5" width="20" height="20"/>
                         </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -89,14 +94,14 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ycJ-AK-oMp" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="253.5" width="375" height="0.5"/>
+                    <rect key="frame" x="0.0" y="289.5" width="360" height="0.5"/>
                     <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="0.5" id="bd3-nQ-oMo"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgB-ko-N2g">
-                    <rect key="frame" x="146.5" y="205" width="82" height="25"/>
+                    <rect key="frame" x="139" y="241" width="82" height="25"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="Zvf-8u-c8g"/>
@@ -110,12 +115,16 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="VSZ-Bx-vbm" firstAttribute="height" secondItem="Ojo-QA-iad" secondAttribute="height" id="19i-Q9-0Gu"/>
                 <constraint firstItem="ycJ-AK-oMp" firstAttribute="top" secondItem="cbl-xr-PpX" secondAttribute="bottom" id="2CZ-T1-zTe"/>
+                <constraint firstItem="VSZ-Bx-vbm" firstAttribute="trailing" secondItem="Ojo-QA-iad" secondAttribute="trailing" id="6U2-Cm-Qxb"/>
+                <constraint firstItem="VSZ-Bx-vbm" firstAttribute="bottom" secondItem="Ojo-QA-iad" secondAttribute="bottom" id="6bF-I4-5Ea"/>
                 <constraint firstItem="x2n-dX-FxW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="9ws-vz-w8g"/>
                 <constraint firstAttribute="bottom" secondItem="ycJ-AK-oMp" secondAttribute="bottom" id="9zN-a6-9wk"/>
                 <constraint firstItem="ycJ-AK-oMp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Bmw-WN-UKN"/>
                 <constraint firstAttribute="trailing" secondItem="cbl-xr-PpX" secondAttribute="trailing" id="Chh-L4-S5X"/>
                 <constraint firstAttribute="trailing" secondItem="ycJ-AK-oMp" secondAttribute="trailing" id="Hy3-e0-bE4"/>
+                <constraint firstItem="VSZ-Bx-vbm" firstAttribute="leading" secondItem="Ojo-QA-iad" secondAttribute="leading" id="LZR-Qq-UFv"/>
                 <constraint firstItem="ARz-1y-xpA" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.41" id="Lb6-hJ-Mha"/>
                 <constraint firstItem="pgB-ko-N2g" firstAttribute="centerX" secondItem="cbl-xr-PpX" secondAttribute="centerX" id="OP8-Bs-m11"/>
                 <constraint firstItem="Ojo-QA-iad" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="bbK-0v-AkW"/>
@@ -130,6 +139,12 @@
                 <constraint firstItem="x2n-dX-FxW" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="wCJ-bF-R1h"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="aK8-JN-AwY"/>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="VSZ-Bx-vbm"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="activityIndicatorView" destination="aaY-3S-c6N" id="hK7-Ml-PAs"/>
                 <outlet property="backgroundImageView" destination="Ojo-QA-iad" id="76G-qQ-HcJ"/>
@@ -148,11 +163,11 @@
                 <outlet property="userNameHeightLabel" destination="XlT-Ft-NH1" id="AYy-xU-6bI"/>
                 <outlet property="userNameLabel" destination="eAE-bT-BMd" id="23o-EQ-Rd9"/>
             </connections>
-            <point key="canvasLocation" x="263.19999999999999" y="115.14242878560721"/>
+            <point key="canvasLocation" x="251.19999999999999" y="131.33433283358323"/>
         </view>
     </objects>
     <resources>
-        <image name="group4" width="375" height="319"/>
+        <image name="ic_no_traveller" width="335" height="240"/>
         <image name="profilePlaceholder" width="64" height="64"/>
     </resources>
 </document>

@@ -33,7 +33,6 @@ class HCCouponCodeVC: BaseVC {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var applyButton: UIButton!
     @IBOutlet weak var couponLabel: UILabel!
-    @IBOutlet weak var enterCouponLabel: UILabel!
     @IBOutlet weak var couponTextField: PKFloatLabelTextField! {
         didSet {
             self.couponTextField.delegate = self
@@ -70,7 +69,6 @@ class HCCouponCodeVC: BaseVC {
     override func initialSetup() {
         self.statusBarStyle = .default
         self.viewModel.getCouponsDetailsApi()
-        self.enterCouponLabel.isHidden = true
         self.emptyStateImageView.image = #imageLiteral(resourceName: "emptyStateCoupon")
         self.offerTermsView.roundTopCorners(cornerRadius: 10.0)
         self.offerTermsViewSetUp()
@@ -78,6 +76,8 @@ class HCCouponCodeVC: BaseVC {
     }
     
     override func setupFonts() {
+        self.couponTextField.titleYPadding = 12.0
+        self.couponTextField.hintYPadding = 12.0
         self.couponLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.applyButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
         self.cancelButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
@@ -91,7 +91,6 @@ class HCCouponCodeVC: BaseVC {
         self.couponLabel.text = LocalizedString.Coupons.localized
         self.applyButton.setTitle(LocalizedString.apply.localized, for: .normal)
         self.cancelButton.setTitle(LocalizedString.Cancel.localized, for: .normal)
-        self.enterCouponLabel.text = LocalizedString.EnterCouponCode.localized
         self.noCouponsReqLabel.text = LocalizedString.NoCouponRequired.localized
         self.bestPriceLabel.text = LocalizedString.YouAlreadyHaveBestPrice.localized
         self.applyCouponButton.setTitle(LocalizedString.ApplyCoupon.localized, for: .normal)
@@ -107,7 +106,7 @@ class HCCouponCodeVC: BaseVC {
         self.noCouponsReqLabel.textColor = AppColors.themeBlack
         self.bestPriceLabel.textColor = AppColors.themeGray60
         self.backGroundView.backgroundColor = AppColors.themeGray60.withAlphaComponent(0.6)
-        self.couponValidationTextSetUp(isCouponValid: true)
+        //self.couponValidationTextSetUp(isCouponValid: true)
         self.applyCouponButton.setTitleColor(AppColors.themeGreen, for: .normal)
     }
     
@@ -127,15 +126,15 @@ class HCCouponCodeVC: BaseVC {
         self.couponTableView.reloadData()
     }
     
-    private func couponValidationTextSetUp(isCouponValid: Bool) {
-        if isCouponValid {
-            self.enterCouponLabel.font = AppFonts.Regular.withSize(14.0)
-            self.enterCouponLabel.textColor = AppColors.themeGreen
-        } else {
-            self.enterCouponLabel.font = AppFonts.SemiBold.withSize(14.0)
-            self.enterCouponLabel.textColor = AppColors.themeRed
-        }
-    }
+//    private func couponValidationTextSetUp(isCouponValid: Bool) {
+//        if isCouponValid {
+//            self.enterCouponLabel.font = AppFonts.Regular.withSize(14.0)
+//            self.enterCouponLabel.textColor = AppColors.themeGreen
+//        } else {
+//            self.enterCouponLabel.font = AppFonts.SemiBold.withSize(14.0)
+//            self.enterCouponLabel.textColor = AppColors.themeRed
+//        }
+//    }
     
     private func offerTermsViewSetUp() {
         self.couponInfoTextView.textColor = AppColors.textFieldTextColor51
@@ -192,7 +191,7 @@ class HCCouponCodeVC: BaseVC {
             self.viewModel.applyCouponCode()
         } else {
             //            self.enterCouponLabel.isHidden = false
-            self.couponValidationTextSetUp(isCouponValid: false)
+            //self.couponValidationTextSetUp(isCouponValid: false)
             self.view.endEditing(true)
             AppToast.default.showToastMessage(message: LocalizedString.InvalidCouponCodeText.localized)
             printDebug("Enter a Valid code")
@@ -230,7 +229,7 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
             cell.checkMarkImageView.image = (selectedIndexPath == indexPath) ? #imageLiteral(resourceName: "tick") : #imageLiteral(resourceName: "untick")
             self.viewModel.couponCode = self.viewModel.couponsData[selectedIndexPath.row].couponCode
             self.couponTextField.text = self.viewModel.couponsData[selectedIndexPath.row].couponCode
-            self.couponValidationTextSetUp(isCouponValid: true)
+           // self.couponValidationTextSetUp(isCouponValid: true)
             self.couponTextField.becomeFirstResponder()
         } else {
             cell.checkMarkImageView.image = #imageLiteral(resourceName: "untick")
@@ -246,14 +245,14 @@ extension HCCouponCodeVC {
         //        self.enterCouponLabel.isHidden = true
         self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
         self.selectedIndexPath = nil
-        self.couponValidationTextSetUp(isCouponValid: true)
+       // self.couponValidationTextSetUp(isCouponValid: true)
         self.viewModel.couponCode = ""
         self.couponTableView.reloadData()
         return true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.couponValidationTextSetUp(isCouponValid: true)
+       // self.couponValidationTextSetUp(isCouponValid: true)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -307,7 +306,7 @@ extension HCCouponCodeVC: PassSelectedCoupon {
         if self.selectedIndexPath == indexPath {
             self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
             self.selectedIndexPath = nil
-            self.couponValidationTextSetUp(isCouponValid: true)
+            //self.couponValidationTextSetUp(isCouponValid: true)
             self.couponTextField.text = ""
             self.viewModel.couponCode = ""
         } else {

@@ -132,14 +132,19 @@ class HotelFilterVC: BaseVC {
     }
     
     private func  setFilterButton() {
-        HotelFilterVM.shared.isSortingApplied = isFilterApplied
+        filtersTabs.forEach { (Item) in
+            if Item.isSelected == false {
+                self.isFilterApplied = true
+            }
+        }
         self.isFilterAppliedBtn.setImage(isFilterApplied  ? #imageLiteral(resourceName: "ic_hotel_filter_applied") : #imageLiteral(resourceName: "ic_hotel_filter"), for: .normal)
+        self.isFilterAppliedBtn.setImage(isFilterApplied  ? #imageLiteral(resourceName: "ic_hotel_filter_applied") : #imageLiteral(resourceName: "ic_hotel_filter"), for: .selected)
     }
     
     private func initiateFilterTabs() {
         filtersTabs.removeAll()
-        for title in self.allTabsStr {
-            let obj = MenuItem(title: "", index: 0, isSelected: true)
+        for i in 0..<(self.allTabsStr.count){
+            let obj = MenuItem(title: allTabsStr[i], index: i, isSelected: true)
             filtersTabs.append(obj)
         }
     }
@@ -202,21 +207,20 @@ class HotelFilterVC: BaseVC {
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController<MenuItem>()
-        self.parchmentView?.menuItemSpacing = 20.0
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 67.0, bottom: 0.0, right: 16.0)
+        self.parchmentView?.menuItemSpacing = 10.0
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 51.0, bottom: 0.0, right: 0.0)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 52)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets(top: 0, left: 7.5, bottom: 0, right: 7.5), insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
             zIndex: Int.max - 1,
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
+        self.parchmentView?.menuItemSource = PagingMenuItemSource.nib(nib: nib)
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
         self.parchmentView?.selectedTextColor = AppColors.themeBlack
-        let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
-        self.parchmentView?.menuItemSource = PagingMenuItemSource.nib(nib: nib)
-        
         self.dataContainerView.addSubview(self.parchmentView!.view)
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
@@ -232,29 +236,22 @@ class HotelFilterVC: BaseVC {
         initiateFilterTabs()
         for (idx,tab) in self.allTabsStr.enumerated() {
             
-            _ = 0
             switch tab.lowercased() {
             case LocalizedString.Sort.localized.lowercased():
                 filtersTabs[idx].isSelected = (HotelFilterVM.shared.sortUsing == HotelFilterVM.shared.defaultSortUsing) ? true : false
                 
-                self.isFilterApplied = !filtersTabs[idx].isSelected
-                
             case LocalizedString.Range.localized.lowercased():
                 filtersTabs[idx].isSelected  = (HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange) ? true : false
-                self.isFilterApplied = !filtersTabs[idx].isSelected
                 
             case LocalizedString.Price.localized.lowercased():
                 if HotelFilterVM.shared.leftRangePrice != HotelFilterVM.shared.defaultLeftRangePrice {
                     filtersTabs[idx].isSelected =  false
-                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
                 else if HotelFilterVM.shared.rightRangePrice != HotelFilterVM.shared.defaultRightRangePrice {
                     filtersTabs[idx].isSelected =  false
-                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
                 else if HotelFilterVM.shared.priceType != HotelFilterVM.shared.defaultPriceType {
                     filtersTabs[idx].isSelected =  false
-                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
                 
             case LocalizedString.Ratings.localized.lowercased():
@@ -263,34 +260,27 @@ class HotelFilterVC: BaseVC {
                 let diff = HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount)
                 if 1...4 ~= diff.count {
                     filtersTabs[idx].isSelected =  false
-                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
                 else if !HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty {
                     filtersTabs[idx].isSelected =  false
-                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
                 else if HotelFilterVM.shared.isIncludeUnrated != HotelFilterVM.shared.defaultIsIncludeUnrated {
                     filtersTabs[idx].isSelected =  false
-                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
             case LocalizedString.Amenities.localized.lowercased():
                 if !HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty {
                     filtersTabs[idx].isSelected =  false
-                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
                 
             case LocalizedString.Room.localized.lowercased():
                 if !HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty {
                     filtersTabs[idx].isSelected =  false
-                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
                 else if !HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty {
                     filtersTabs[idx].isSelected =  false
-                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
                 else if !HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty {
                     filtersTabs[idx].isSelected =  false
-                    self.isFilterApplied = !filtersTabs[idx].isSelected
                 }
                 
             default:

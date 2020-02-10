@@ -36,8 +36,6 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     
     @IBOutlet weak var tableView: ATTableView!
     @IBOutlet weak var topNavView: TopNavigationView!
-//    @IBOutlet weak var deleteTravellerView: UIView!
-//    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     // MARK: - Variables
@@ -439,8 +437,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     private func setUpForNewTraveller() {
-        sections.append(contentsOf: [LocalizedString.PassportDetails.localized, LocalizedString.SocialAccounts.localized, LocalizedString.FlightPreferences.localized])
-        
+//        sections.append(contentsOf: [LocalizedString.PassportDetails.localized, LocalizedString.SocialAccounts.localized, LocalizedString.FlightPreferences.localized])
+        sections.append(contentsOf: [LocalizedString.SocialAccounts.localized, LocalizedString.PassportDetails.localized, LocalizedString.FlightPreferences.localized])
         viewModel.passportNumber = ""
         viewModel.passportCountryName = LocalizedString.selectedCountry.localized
         

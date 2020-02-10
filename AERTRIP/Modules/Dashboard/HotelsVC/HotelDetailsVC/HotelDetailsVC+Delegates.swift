@@ -74,10 +74,10 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                 if let cell = self.getCancellationCell(indexPath: indexPath, ratesData: self.viewModel.ratesData[indexPath.section - 2]) {
                     return cell
                 }
-            case .paymentPolicyCell:
-                if let cell = self.getPaymentInfoCell(indexPath: indexPath, ratesData: self.viewModel.ratesData[indexPath.section - 2]) {
-                    return cell
-                }
+//            case .paymentPolicyCell:
+//                if let cell = self.getPaymentInfoCell(indexPath: indexPath, ratesData: self.viewModel.ratesData[indexPath.section - 2]) {
+//                    return cell
+//                }
             case .notesCell:
                 if let cell = self.getNotesCell(indexPath: indexPath, ratesData: self.viewModel.ratesData[indexPath.section - 2]) {
                     return cell
@@ -429,6 +429,11 @@ extension HotelDetailsVC: GetFullInfoDelegate {
         if !allIndexPath.contains(indexPath) {
             self.allIndexPath.append(indexPath)
             self.hotelTableView.reloadData()
+        } else {
+            if let index = self.allIndexPath.firstIndex(of: indexPath){
+                self.allIndexPath.remove(at: index)
+                self.hotelTableView.reloadData()
+            }
         }
     }
 }
