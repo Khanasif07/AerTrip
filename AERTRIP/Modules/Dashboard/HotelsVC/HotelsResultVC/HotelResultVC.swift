@@ -306,8 +306,8 @@ class HotelResultVC: BaseVC {
         backVisualEfectView.effect = UIBlurEffect(style: .prominent)
         backVisualEfectView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         
-        backContainerView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
-        backContainerView.addSubview(backVisualEfectView)
+        backContainerView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
+        //backContainerView.addSubview(backVisualEfectView)
         
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)

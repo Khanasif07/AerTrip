@@ -181,7 +181,7 @@ class HotelsMapVC: BaseVC {
     let defaultDamping: CGFloat = 0.70
     let defaultVelocity: CGFloat = 15.0
     var applyButtonTapped: Bool = false
-    
+    private var gradientLayer: CAGradientLayer?
     //used for making collection view centerlized
     var indexOfCellBeforeDragging = 0
     
@@ -197,7 +197,6 @@ class HotelsMapVC: BaseVC {
         self.filterButton.isEnabled = false
         self.mapView?.isMyLocationEnabled = false
         // self.animateCollectionView(isHidden: true, animated: false)
-         self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
         
         self.view.backgroundColor = AppColors.themeWhite
         
@@ -208,7 +207,8 @@ class HotelsMapVC: BaseVC {
         self.aerinFilterUndoCompletion = {
             printDebug("Undo Button tapped")
         }
-        self.cardGradientView.isHidden = true
+        self.cardGradientView.isHidden = false
+        
         //call API to get vcode, sid
         animateHeaderToMapView()
         animateFloatingButtonOnMapView(isAnimated: false)
@@ -219,9 +219,15 @@ class HotelsMapVC: BaseVC {
         self.filterButton.isSelected = self.viewModel.isFilterApplied
         searchBar.setTextField(color: UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
-        self.cardGradientView.backgroundColor = AppColors.clear
-        self.cardGradientView.addGredient(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeWhite.withAlphaComponent(0.01),AppColors.themeWhite.withAlphaComponent(1.0)])
         
+        self.gradientLayer = CAGradientLayer()
+        self.gradientLayer?.frame = self.cardGradientView.bounds
+        let gradientColor = AppColors.themeWhite
+        self.gradientLayer?.colors =
+            [gradientColor.withAlphaComponent(0.0).cgColor, gradientColor.withAlphaComponent(0.5).cgColor, gradientColor.withAlphaComponent(1.0).cgColor]
+        self.gradientLayer?.locations = [0.0, 0.5, 1.0]
+        self.cardGradientView.layer.addSublayer(self.gradientLayer!)
+        self.cardGradientView.backgroundColor = AppColors.clear
         self.additionalSafeAreaInsets = .zero
         self.configureCollectionViewLayoutItemSize()
         delay(seconds: 1.0) {
@@ -265,6 +271,8 @@ class HotelsMapVC: BaseVC {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        self.gradientLayer?.frame = self.cardGradientView.bounds
+
         //        self.configureCollectionViewLayoutItemSize()
     }
     
@@ -318,8 +326,8 @@ class HotelsMapVC: BaseVC {
         backVisualEfectView.effect = UIBlurEffect(style: .prominent)
         backVisualEfectView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         
-        backContainerView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
-        backContainerView.addSubview(backVisualEfectView)
+        backContainerView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
+        //backContainerView.addSubview(backVisualEfectView)
         
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)

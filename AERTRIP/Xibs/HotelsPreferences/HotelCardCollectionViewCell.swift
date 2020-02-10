@@ -68,7 +68,7 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
         gradientLayer.frame = self.gradientView.bounds
         let gradientColor = AppColors.themeBlack
         self.gradientLayer.colors =
-            [gradientColor.withAlphaComponent(0.0).cgColor, gradientColor.withAlphaComponent(0.3).cgColor, gradientColor.withAlphaComponent(0.4).cgColor]
+            [gradientColor.withAlphaComponent(0.0).cgColor, gradientColor.withAlphaComponent(0.20).cgColor, gradientColor.withAlphaComponent(0.40).cgColor]
         self.gradientLayer.locations = [0.0, 0.5, 1.0]
         gradientView.layer.addSublayer(gradientLayer)
         gradientView.backgroundColor = AppColors.clear
@@ -186,12 +186,19 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
         self.pageControl.isHidden = !self.shouldShowMultiPhotos
     }
     
+    
     @objc func saveButtonTapped(_ sender: UIButton) {
         if let hotel = self.hotelData {
             self.delegate?.saveButtonAction(sender, forHotel: hotel)
         } else if let hotel = self.hotelListData {
               self.delegate?.saveButtonActionFromLocalStorage(sender, forHotel: hotel)
         }
+    }
+    
+    func updateConstraintForHotelResultMap() {
+        self.containerTopConstraint.constant = 10
+        self.containerBottomConstraint.constant = 8
+        self.contentView.layoutIfNeeded()
     }
 }
 

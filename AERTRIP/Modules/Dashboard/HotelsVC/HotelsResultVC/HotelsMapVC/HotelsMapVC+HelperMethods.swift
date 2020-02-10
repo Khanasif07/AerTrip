@@ -401,7 +401,7 @@ extension HotelsMapVC {
         let inset: CGFloat = calculateSectionInset() // This inset calculation is some magic so the next and the previous cells will peek from the sides. Don't worry about it
         collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
         
-        collectionViewLayout.itemSize = CGSize(width: UIDevice.screenWidth - (inset * 2), height: 192.0)
+        collectionViewLayout.itemSize = CGSize(width: UIDevice.screenWidth - (inset * 2), height: 203.0)
     }
     
     func indexOfMajorCell() -> Int {

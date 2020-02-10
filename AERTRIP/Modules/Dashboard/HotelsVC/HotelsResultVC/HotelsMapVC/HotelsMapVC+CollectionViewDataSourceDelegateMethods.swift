@@ -64,7 +64,7 @@ extension HotelsMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
             cell.hotelListData = hData.first
             cell.delegate = self
             cell.shouldShowMultiPhotos = false
-            
+            cell.updateConstraintForHotelResultMap()
             return cell
         }
         

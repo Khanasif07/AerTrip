@@ -506,7 +506,7 @@ extension HotelsMapVC: GMSMapViewDelegate {
                     guard let sSelf = self else {return}
                     sSelf.collectionViewBottomConstraint.constant = 0.0
                     sSelf.floatingViewBottomConstraint.constant = sSelf.floatingViewInitialConstraint
-                    sSelf.mapContainerViewBottomConstraint.constant = 230.0
+                    sSelf.mapContainerViewBottomConstraint.constant = 203.0
                     sSelf.headerContainerViewTopConstraint.constant = 0.0
                     sSelf.mapContainerTopConstraint.constant = 50.0
                     sSelf.mapContainerView.layoutSubviews()
