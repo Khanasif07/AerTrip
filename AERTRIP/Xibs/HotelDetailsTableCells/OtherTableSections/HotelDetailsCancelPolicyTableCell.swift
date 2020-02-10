@@ -63,8 +63,8 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     ///AttributeLabelSetup
     private func attributeLabelSetUp( roomPrice: Double , toDate: String, fromDate: String, penalty: Int) {
         let attributedString = NSMutableAttributedString()
-        let greenAtrribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeGreen]
-        let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
+        let orangeAtrribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(16.0), NSAttributedString.Key.foregroundColor: AppColors.themeOrange]
+        let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(16.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
         var startingDate: String = ""
         var endingDate: String = ""
         if !toDate.isEmpty {
@@ -75,22 +75,23 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         }
         if !toDate.isEmpty && fromDate.isEmpty && penalty == 0 {
             let cancelDesc: String = Date.getDateFromString(stringDate: toDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "dd MMM’ yy") ?? ""
-            let greenAttributedString = NSAttributedString(string: LocalizedString.FreeCancellation.localized, attributes: greenAtrribute)
+            let greenAttributedString = NSAttributedString(string: LocalizedString.FreeCancellation.localized, attributes: orangeAtrribute)
             let blackAttributedString = NSAttributedString(string: " by " + cancelDesc , attributes: blackAttribute)
             attributedString.append(greenAttributedString)
             attributedString.append(blackAttributedString)
         } else if !toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
-            let greenAttributedString = NSAttributedString(string: "Cancellation fee of \(LocalizedString.rupeesText.localized) ", attributes: greenAtrribute)
+            let greenAttributedString = NSAttributedString(string: "Cancellation fee of \(LocalizedString.rupeesText.localized) ", attributes: orangeAtrribute)
             let blackAttributedString = NSAttributedString(string: "\(penalty) will be charged if you cancel from \(startingDate) to \(endingDate)\n" + endingDate, attributes: blackAttribute)
             attributedString.append(greenAttributedString)
             attributedString.append(blackAttributedString)
         } else if toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
-            let greenAttributedString = NSAttributedString(string: "Cancellation fee of \(LocalizedString.rupeesText.localized) ", attributes: greenAtrribute)
+            let greenAttributedString = NSAttributedString(string: "Cancellation fee of \(LocalizedString.rupeesText.localized) ", attributes: orangeAtrribute)
             let blackAttributedString = NSAttributedString(string: "\(penalty) will be charged if you cancel on \(startingDate) or later\n" + endingDate, attributes: blackAttribute)
             attributedString.append(greenAttributedString)
             attributedString.append(blackAttributedString)
         }
         self.descriptionLabel.attributedText = attributedString
+       // self.descriptionLabel.textAlignment = .left
     }
     
     private func constraintSetUp(isHotelDetailsScreen: Bool) {
@@ -108,14 +109,14 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     internal func fullPenaltyDetails(ratesData: Rates) -> NSMutableAttributedString? {
         if let cancellationInfo = ratesData.cancellation_penalty {
             if cancellationInfo.is_refundable {
-                let attributesDictionary = [NSAttributedString.Key.font : AppFonts.Regular.withSize(14.0)]
+                let attributesDictionary = [NSAttributedString.Key.font : AppFonts.Regular.withSize(14.0),NSAttributedString.Key.foregroundColor: AppColors.themeGray60] as [NSAttributedString.Key : Any]
                 let fullAttributedString = NSMutableAttributedString()
                 for penaltyData in ratesData.penalty_array! {
                     let string = self.attributedPenaltyString(roomPrice: ratesData.price, isRefundable: penaltyData.is_refundable, toDate: penaltyData.to, fromDate: penaltyData.from, penalty: penaltyData.penalty)
                     //\u{2022}
-                    let formattedString: String = "●  \(string)\n"
+                    let formattedString: String = "\(string)\n"
                     let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
-                    let paragraphStyle = AppGlobals.shared.createParagraphAttribute()
+                    let paragraphStyle = AppGlobals.shared.createParagraphAttribute(isForNotes: false)
                     attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
                     fullAttributedString.append(attributedString)
                 }
@@ -182,7 +183,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
             for (note) in notesInclusion {
                 let formattedString: String = "●  \(note)\n"
                 let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
-                let paragraphStyle = AppGlobals.shared.createParagraphAttribute()
+                let paragraphStyle = AppGlobals.shared.createParagraphAttribute(isForNotes: true)
                 attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
                 fullAttributedString.append(attributedString)
             }
@@ -208,7 +209,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     ///Text SetUp For Cancellation
     private func textSetUpForCancellation(text: String) {
         self.descriptionLabel.font = AppFonts.Regular.withSize(16.0)
-        self.descriptionLabel.textColor = text.contains("Free-cancellation") ? AppColors.themeOrange : AppColors.themeBlack
+        self.descriptionLabel.textColor =  AppColors.themeBlack
         self.descriptionLabel.text = text
     }
     
@@ -226,7 +227,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         } else {
             self.infoBtnOutlet.isHidden = false
             self.descriptionLabel.font = AppFonts.Regular.withSize(16.0)
-            self.descriptionLabel.textColor = AppColors.themeBlack
+            self.descriptionLabel.textColor = AppColors.themeGray60
             self.descriptionLabel.text = LocalizedString.FullPaymentNow.localized
         }
     }
@@ -235,17 +236,30 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     internal func configureNotesCell(ratesData: Rates, isHotelDetailsScreen: Bool) {
         self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
         if let notesInclusion =  ratesData.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [String] {
+            
             self.infoBtnOutlet.isHidden = true
-//            self.moreInfoContainerView.isHidden = false
+            //            self.moreInfoContainerView.isHidden = false
             self.descriptionLabel.textColor = AppColors.themeBlack
-            let attributedString = NSMutableAttributedString()
-            let dotAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(13.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack]
-            let dotAttributedString = NSAttributedString(string: "●  ", attributes: dotAttributes)
-            attributedString.append(dotAttributedString)
-            let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
-            let blackAttributedString = NSAttributedString(string: notesInclusion.first ?? "", attributes: blackAttribute)
-            attributedString.append(blackAttributedString)
-            self.descriptionLabel.attributedText = attributedString
+            //let attributedString = NSMutableAttributedString()
+            //
+            let attributesDictionary = [NSAttributedString.Key.font : AppFonts.Regular.withSize(14.0)]
+            let fullAttributedString = NSMutableAttributedString()
+            for (note) in notesInclusion {
+                let formattedString: String = "●  \(note)\n"
+                let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
+                let paragraphStyle = AppGlobals.shared.createParagraphAttribute(isForNotes: true)
+                attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
+                fullAttributedString.append(attributedString)
+            }
+            // fullAttributedString.append(attributedString)
+            //
+            //            let dotAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(13.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack]
+            //            let dotAttributedString = NSAttributedString(string: "●  ", attributes: dotAttributes)
+            //            attributedString.append(dotAttributedString)
+            //            let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
+            //            let blackAttributedString = NSAttributedString(string: notesInclusion.first ?? "", attributes: blackAttribute)
+            //            attributedString.append(blackAttributedString)
+            self.descriptionLabel.attributedText = fullAttributedString
         }
     }
     
@@ -271,7 +285,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         for (note) in notesInclusion {
             let formattedString: String = "●  \(note)\n"
             let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
-            let paragraphStyle = AppGlobals.shared.createParagraphAttribute()
+            let paragraphStyle = AppGlobals.shared.createParagraphAttribute(isForNotes: true)
             attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
             fullAttributedString.append(attributedString)
         }
@@ -287,6 +301,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         self.descriptionLabel.font = AppFonts.Regular.withSize(16.0)
         self.descriptionLabel.textColor = AppColors.textFieldTextColor51
         self.descriptionLabel.text = LocalizedString.FullPaymentNow.localized
+        self.allDetailsLabel.textAlignment = .left
     }
     
     ///Full Penalty Details

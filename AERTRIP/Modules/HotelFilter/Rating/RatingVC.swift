@@ -125,6 +125,7 @@ class RatingVC: BaseVC {
         
         if HotelFilterVM.shared.ratingCount.isEmpty || HotelFilterVM.shared.ratingCount.count == 5 {
             HotelFilterVM.shared.ratingCount.removeAll()
+           // HotelFilterVM.shared.ratingCount = HotelFilterVM.shared.defaultRatingCount
             for starBtn in self.starButtonsOutlet {
                 starBtn.isSelected = false
                 starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
