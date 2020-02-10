@@ -156,6 +156,15 @@
 		182EB22722859EF6001BFB20 /* FlightTimeLocationInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182EB22522859EF6001BFB20 /* FlightTimeLocationInfoTableViewCell.xib */; };
 		182EB22A2285B444001BFB20 /* AmentityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182EB2282285B444001BFB20 /* AmentityTableViewCell.swift */; };
 		182EB22B2285B444001BFB20 /* AmentityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 182EB2292285B444001BFB20 /* AmentityTableViewCell.xib */; };
+		1835E50123EAC1CD00F6EEA1 /* PresentCardAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1835E4FD23EAC1CC00F6EEA1 /* PresentCardAnimator.swift */; };
+		1835E50223EAC1CD00F6EEA1 /* CardTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1835E4FE23EAC1CC00F6EEA1 /* CardTransition.swift */; };
+		1835E50323EAC1CD00F6EEA1 /* DismissCardAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1835E4FF23EAC1CC00F6EEA1 /* DismissCardAnimator.swift */; };
+		1835E50423EAC1CD00F6EEA1 /* CardPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1835E50023EAC1CC00F6EEA1 /* CardPresentationController.swift */; };
+		1835E50A23EAC1F000F6EEA1 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1835E50623EAC1EE00F6EEA1 /* GlobalConstants.swift */; };
+		1835E50B23EAC1F100F6EEA1 /* UIView+AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1835E50723EAC1EF00F6EEA1 /* UIView+AutoLayout.swift */; };
+		1835E50C23EAC1F100F6EEA1 /* StatusBarAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1835E50823EAC1F000F6EEA1 /* StatusBarAnimatable.swift */; };
+		1835E50D23EAC1F100F6EEA1 /* StatusBarAnimatableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1835E50923EAC1F000F6EEA1 /* StatusBarAnimatableViewController.swift */; };
+		1835E50F23EAE3E900F6EEA1 /* AppStoreAnimationCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1835E50E23EAE3E900F6EEA1 /* AppStoreAnimationCollectionCell.swift */; };
 		1838557D229BE93F00D59A4E /* BookingData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838557B229BE93F00D59A4E /* BookingData+CoreDataClass.swift */; };
 		1838557E229BE93F00D59A4E /* BookingData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838557C229BE93F00D59A4E /* BookingData+CoreDataProperties.swift */; };
 		183B71982289480800A75B7F /* FareRulesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B71972289480800A75B7F /* FareRulesVC.swift */; };
@@ -1145,6 +1154,15 @@
 		182EB22522859EF6001BFB20 /* FlightTimeLocationInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlightTimeLocationInfoTableViewCell.xib; sourceTree = "<group>"; };
 		182EB2282285B444001BFB20 /* AmentityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmentityTableViewCell.swift; sourceTree = "<group>"; };
 		182EB2292285B444001BFB20 /* AmentityTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmentityTableViewCell.xib; sourceTree = "<group>"; };
+		1835E4FD23EAC1CC00F6EEA1 /* PresentCardAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentCardAnimator.swift; sourceTree = "<group>"; };
+		1835E4FE23EAC1CC00F6EEA1 /* CardTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTransition.swift; sourceTree = "<group>"; };
+		1835E4FF23EAC1CC00F6EEA1 /* DismissCardAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissCardAnimator.swift; sourceTree = "<group>"; };
+		1835E50023EAC1CC00F6EEA1 /* CardPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardPresentationController.swift; sourceTree = "<group>"; };
+		1835E50623EAC1EE00F6EEA1 /* GlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
+		1835E50723EAC1EF00F6EEA1 /* UIView+AutoLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+AutoLayout.swift"; sourceTree = "<group>"; };
+		1835E50823EAC1F000F6EEA1 /* StatusBarAnimatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarAnimatable.swift; sourceTree = "<group>"; };
+		1835E50923EAC1F000F6EEA1 /* StatusBarAnimatableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarAnimatableViewController.swift; sourceTree = "<group>"; };
+		1835E50E23EAE3E900F6EEA1 /* AppStoreAnimationCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppStoreAnimationCollectionCell.swift; path = AERTRIP/AppHelper/PresetationTransition/AppStoreAnimationCollectionCell.swift; sourceTree = SOURCE_ROOT; };
 		1838557B229BE93F00D59A4E /* BookingData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookingData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1838557C229BE93F00D59A4E /* BookingData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookingData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		183B71972289480800A75B7F /* FareRulesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FareRulesVC.swift; sourceTree = "<group>"; };
@@ -2425,6 +2443,30 @@
 				182EB20E22855F27001BFB20 /* BaggageInfoTableViewCell.xib */,
 			);
 			path = BaggageInfo;
+			sourceTree = "<group>";
+		};
+		1835E4FC23EAC11300F6EEA1 /* PresetationTransition */ = {
+			isa = PBXGroup;
+			children = (
+				1835E50523EAC1D600F6EEA1 /* Misc */,
+				1835E50023EAC1CC00F6EEA1 /* CardPresentationController.swift */,
+				1835E4FE23EAC1CC00F6EEA1 /* CardTransition.swift */,
+				1835E4FF23EAC1CC00F6EEA1 /* DismissCardAnimator.swift */,
+				1835E4FD23EAC1CC00F6EEA1 /* PresentCardAnimator.swift */,
+			);
+			path = PresetationTransition;
+			sourceTree = "<group>";
+		};
+		1835E50523EAC1D600F6EEA1 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				1835E50623EAC1EE00F6EEA1 /* GlobalConstants.swift */,
+				1835E50823EAC1F000F6EEA1 /* StatusBarAnimatable.swift */,
+				1835E50923EAC1F000F6EEA1 /* StatusBarAnimatableViewController.swift */,
+				1835E50723EAC1EF00F6EEA1 /* UIView+AutoLayout.swift */,
+				1835E50E23EAE3E900F6EEA1 /* AppStoreAnimationCollectionCell.swift */,
+			);
+			path = Misc;
 			sourceTree = "<group>";
 		};
 		183B7196228947E900A75B7F /* Fare */ = {
@@ -5212,6 +5254,7 @@
 			isa = PBXGroup;
 			children = (
 				847790BF23ED70A6004EBC45 /* GradientView.swift */,
+				1835E4FC23EAC11300F6EEA1 /* PresetationTransition */,
 				84F9EADD226EDCD7005A1B8B /* AppBeautifier.swift */,
 				1851A75B21C3E051008DF03F /* AppUserDefaults.swift */,
 				84F9838521B51A070018DFED /* LanguageEnum.swift */,
@@ -5855,6 +5898,7 @@
 				841DD1EA2202DC690055FEBB /* BulkBookingVM.swift in Sources */,
 				18D88BFA22C39A700089755D /* BookingConfirmationMailVM.swift in Sources */,
 				84085D0E21F59C0E00F1E844 /* ContactDetailsTableCell.swift in Sources */,
+				1835E50423EAC1CD00F6EEA1 /* CardPresentationController.swift in Sources */,
 				1819D3D621FF4900006A367E /* CustomView.swift in Sources */,
 				187684A322844C1B009637D6 /* BookingInfoEmptyFooterView.swift in Sources */,
 				848B993621DF6559009A4772 /* EmptyScreenView.swift in Sources */,
@@ -5900,6 +5944,7 @@
 				840494FC2253AA5200983F5E /* HotelCheckOutDetailsVIew+Delegates.swift in Sources */,
 				18020AFD228296B500DE5FE0 /* InternationalRetunFlightResultTableViewCell.swift in Sources */,
 				18EF5E7B221D261B00EFFA6E /* GMUPolygon.m in Sources */,
+				1835E50F23EAE3E900F6EEA1 /* AppStoreAnimationCollectionCell.swift in Sources */,
 				8426D8B022AE6B9D0081C9D8 /* DoubleExtension.swift in Sources */,
 				84247F8A22A5308200A0FEB7 /* CompletedVC+CoreData.swift in Sources */,
 				1807F001223F8DF60092E127 /* HotelResultVC+CoreData.swift in Sources */,
@@ -6003,6 +6048,7 @@
 				842EDE802238E7D600E99409 /* SelectTripVC.swift in Sources */,
 				84247F8B22A5308200A0FEB7 /* CompletedVC.swift in Sources */,
 				843A26E222B8EABF00651D8E /* FareInfoVM.swift in Sources */,
+				1835E50123EAC1CD00F6EEA1 /* PresentCardAnimator.swift in Sources */,
 				18E09F9F22EB089E0065CEB2 /* PKCategoryButton.swift in Sources */,
 				18FD917622968CF300D005E9 /* BookingSchedulingPassengerDetailTableViewCell.swift in Sources */,
 				1870AD1D220C769400FB32C8 /* TravellerData+CoreDataClass.swift in Sources */,
@@ -6065,6 +6111,7 @@
 				842EDE94223931FD00E99409 /* HCCouponModel.swift in Sources */,
 				842EDE812238E7D600E99409 /* SelectTripVM.swift in Sources */,
 				84BBEEAE2214261E00844034 /* HotelDetailsCancelPolicyTableCell.swift in Sources */,
+				1835E50C23EAC1F100F6EEA1 /* StatusBarAnimatable.swift in Sources */,
 				84085D1521F59C0E00F1E844 /* SideMenuVM.swift in Sources */,
 				84B6DEA0228018DC0042D902 /* SpecialAccountDetailsVM.swift in Sources */,
 				84EAABED21DA0A96006B757F /* SideMenuLogoView.swift in Sources */,
@@ -6115,6 +6162,7 @@
 				8472F21223E4160E00993B08 /* MailComposerVC.swift in Sources */,
 				84DD24532265A2FF0013F77E /* UpcomingBookingsVC.swift in Sources */,
 				18B435642202C9D9000C5E31 /* HotelFilterVC.swift in Sources */,
+				1835E50B23EAC1F100F6EEA1 /* UIView+AutoLayout.swift in Sources */,
 				18E797022248ED6500A7AC8B /* FareSectionHeader.swift in Sources */,
 				8460C0C621F34D56007768CC /* ATCollectionView.swift in Sources */,
 				849EC9E6223A56F300B217D4 /* ItineraryData.swift in Sources */,
@@ -6145,6 +6193,7 @@
 				84F983E621B51A070018DFED /* AppConstants.swift in Sources */,
 				84D5F22522A63FF300824A9F /* HotlelBookingsDetailsVM.swift in Sources */,
 				843ACE4621F8994500D87BA8 /* APICaller+HotelsSearch.swift in Sources */,
+				1835E50323EAC1CD00F6EEA1 /* DismissCardAnimator.swift in Sources */,
 				84534E9A2248A16D009FF536 /* HCBookingDetailsTableViewHeaderFooterView.swift in Sources */,
 				84271E852237A13F00C1A70D /* HCDataSelectionVM.swift in Sources */,
 				84E4CC7521E389E20015C306 /* HotelsRemoveAllCollectionViewCell.swift in Sources */,
@@ -6316,6 +6365,8 @@
 				84254F48223A917400E3D120 /* HCEmailItinerariesVM.swift in Sources */,
 				180632A322521D60008B1F32 /* FinalCheckOutVC+DelegateMethods.swift in Sources */,
 				182D483E228AA544004796A2 /* BookingHotelDetailVC.swift in Sources */,
+				1807EFFB223F7FF70092E127 /* HotelResultVC+MapDelegate.swift in Sources */,
+				1835E50A23EAC1F000F6EEA1 /* GlobalConstants.swift in Sources */,
 				840C6FE7221DED7D008EE73C /* AmenitiesCollectionCell.swift in Sources */,
 				8472F21423E4160E00993B08 /* HotelsGroupExtendedVM.swift in Sources */,
 				1808EC6E21DCD3A0006858D6 /* APICaller+Hotels.swift in Sources */,
@@ -6435,6 +6486,7 @@
 				84F983E821B51A070018DFED /* AppFonts.swift in Sources */,
 				84085CDE21F59C0E00F1E844 /* FlightsVC.swift in Sources */,
 				182D4864228B03F2004796A2 /* BookingCheckinCheckOutTableViewCell.swift in Sources */,
+				1835E50D23EAC1F100F6EEA1 /* StatusBarAnimatableViewController.swift in Sources */,
 				180A3D8421C1098E001A1E6A /* ToastView.swift in Sources */,
 				84AFF97622A78C4B00E91F14 /* RequestReschedulingVC+TableCells.swift in Sources */,
 				8474CC31222713E700C4F076 /* HotelDetailsCheckOutTableViewCell.swift in Sources */,
@@ -6478,6 +6530,7 @@
 				84F2DCA8226477E700212F05 /* MyBookingFilterVM.swift in Sources */,
 				18D4C41D220ACD06005E1E37 /* RoomTableViewCell.swift in Sources */,
 				8477163F22844AC0000E1BB6 /* PeriodicStatementVM.swift in Sources */,
+				1835E50223EAC1CD00F6EEA1 /* CardTransition.swift in Sources */,
 				84E4BC7F22A1441000B72306 /* WeatherInfoTableViewCell.swift in Sources */,
 				8480683522099CC800CBF362 /* BulkRoomSelectionVM.swift in Sources */,
 				8477163622843546000E1BB6 /* OnAccountDetailVC+Delegates.swift in Sources */,

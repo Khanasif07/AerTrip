@@ -16,7 +16,8 @@ protocol HotelCardTableViewCellDelegate: class {
     func pagingScrollEnable(_ indexPath: IndexPath, _ scrollView: UIScrollView)
 }
 
-class HotelCardTableViewCell: UITableViewCell {
+class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
+    
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var hotelNameLabel: UILabel!
@@ -54,7 +55,9 @@ class HotelCardTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
+        //-------------------------- Golu Change ---------------------
+        self.disabledHighlightedAnimation = false
+        //-------------------------- End ---------------------
         self.gradientLayer = CAGradientLayer()
         self.gradientLayer.frame = self.gradientView.bounds
         let gradientColor = AppColors.themeBlack
@@ -121,6 +124,7 @@ class HotelCardTableViewCell: UITableViewCell {
 //            self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: true)
 //        }
     }
+    
     
     private func populateHotelData() {
         guard let hotel = self.hotelListData else {
