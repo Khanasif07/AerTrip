@@ -62,7 +62,7 @@ class FareInfoNoteTableViewCell: UITableViewCell {
     private func bulletedNotesDetails(notes: [String]) -> NSMutableAttributedString {
         let attributesDictionary = [NSAttributedString.Key.font : isForBookingPolicyCell ? AppFonts.Regular.withSize(18.0) : AppFonts.Regular.withSize(14.0) , NSAttributedString.Key.foregroundColor : isForBookingPolicyCell ? AppColors.themeBlack : AppColors.themeGray60]
         let fullAttributedString = NSMutableAttributedString()
-        let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore:  0.0)
+        let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore:  0.0, isForNotes: true)
         for text in notes {
             let bulletedString = NSMutableAttributedString()
             let bulletedAttributedString: NSMutableAttributedString = NSMutableAttributedString(string: "●  ", attributes: attributesDictionary)

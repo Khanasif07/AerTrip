@@ -77,7 +77,7 @@ class CouponCodeTableViewCell: UITableViewCell {
     private func bulletedCouponsDetails(discountDetails: [String], instantCashBack: Double, walletCashBack: Double) -> NSMutableAttributedString {
         let attributesDictionary = [NSAttributedString.Key.font : AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor : AppColors.textFieldTextColor51]
         let fullAttributedString = NSMutableAttributedString()
-        let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore:  0.0)
+        let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore:  0.0,isForNotes: true)
         for (index,text) in discountDetails.enumerated() {
             let bulletedString = NSMutableAttributedString()
             let bulletedAttributedString: NSMutableAttributedString = NSMutableAttributedString(string: "●  ", attributes: attributesDictionary)
