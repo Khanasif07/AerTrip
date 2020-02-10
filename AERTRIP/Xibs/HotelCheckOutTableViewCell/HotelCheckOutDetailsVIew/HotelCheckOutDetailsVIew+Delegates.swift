@@ -65,10 +65,10 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
             if let cell = self.getCancellationCell(indexPath: indexPath, ratesData: rates) {
                 return cell
             }
-        case .paymentPolicyCell:
-            if let cell = self.getPaymentInfoCell(indexPath: indexPath, ratesData: rates) {
-                return cell
-            }
+//        case .paymentPolicyCell:
+//            if let cell = self.getPaymentInfoCell(indexPath: indexPath, ratesData: rates) {
+//                return cell
+//            }
         case .notesCell:
             if let cell = self.getNotesCell(indexPath: indexPath, ratesData: rates) {
                 return cell
@@ -99,13 +99,19 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0, indexPath.row == 2 {
-            if let hotelData = self.viewModel {
-                let text = hotelData.address + "Maps   "
-                let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
-                return size.height + 46.5
-                    + 21.0 + 2.0 // y of textview 46.5 + bottom space 14.0 + 7.0
+        if let hotelData = self.viewModel {
+            let sectionData = self.sectionData[indexPath.section]
+            if sectionData[indexPath.row] == .paymentPolicyCell {
+                return 0.0
+            } else {
+                if indexPath.section == 0, indexPath.row == 2 {
+                        let text = hotelData.address + "Maps   "
+                        let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+                        return size.height + 46.5
+                            + 21.0 + 2.0 // y of textview 46.5 + bottom space 14.0 + 7.0
+                }
             }
+            
         }
         return UITableView.automaticDimension
     }
@@ -115,6 +121,11 @@ extension HotelCheckOutDetailsVIew: GetFullInfoDelegate {
     func expandCell(expandHeight: CGFloat, indexPath: IndexPath) {
         if !allIndexPath.contains(indexPath) {
             self.allIndexPath.append(indexPath)
+            self.hotelDetailsTableView.reloadData()
+        } else {
+            if let index = self.allIndexPath.index(of: indexPath){
+                self.allIndexPath.remove(at: index)
+            }
             self.hotelDetailsTableView.reloadData()
         }
         printDebug(indexPath)

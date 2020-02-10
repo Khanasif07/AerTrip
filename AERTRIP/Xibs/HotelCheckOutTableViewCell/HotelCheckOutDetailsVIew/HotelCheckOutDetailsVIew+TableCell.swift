@@ -134,9 +134,10 @@ extension HotelCheckOutDetailsVIew {
             if self.allIndexPath.contains(indexPath) {
                 cell.allDetailsLabel.isHidden = false
                 cell.allDetailsLabel.attributedText = cell.fullPenaltyDetails(ratesData: ratesData)?.trimWhiteSpace()
-                cell.infoBtnOutlet.isHidden = true
+                cell.infoBtnOutlet.isHidden = false
             }
             else {
+                cell.infoBtnOutlet.isHidden = false
                 cell.allDetailsLabel.isHidden = true
                 cell.allDetailsLabel.attributedText = nil
             }
@@ -183,7 +184,7 @@ extension HotelCheckOutDetailsVIew {
             }
             else {
                // cell.moreInfoContainerView.isHidden = false
-                cell.descriptionLabel.numberOfLines = 1
+                cell.descriptionLabel.numberOfLines = 0
                // cell.moreBtnOutlet.isHidden = false
             }
             cell.shadowViewBottomConstraints.constant = 26.0
