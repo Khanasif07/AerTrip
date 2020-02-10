@@ -12,7 +12,7 @@ protocol HotelDetailsVCDelegate : class {
     func hotelFavouriteUpdated()
 }
 
-class HotelDetailsVC: BaseVC {
+class HotelDetailsVC: StatusBarAnimatableViewController {
     
     //Mark:- Variables
     //================
@@ -37,6 +37,32 @@ class HotelDetailsVC: BaseVC {
     var onCloseHandler: (() -> Void)? = nil
     // manage wheter to hide with animate or note
     var isHideWithAnimation: Bool = true
+    
+    //------------------------ Golu Change --------------------
+    var interactiveStartingPoint: CGPoint?
+    var dismissalAnimator: UIViewPropertyAnimator?
+    var backImage:UIImage? = UIImage()
+    var isAddingChild = false
+    var draggingDownToDismiss = false
+    
+    final class DismissalPanGesture: UIPanGestureRecognizer {}
+    final class DismissalScreenEdgePanGesture: UIScreenEdgePanGestureRecognizer {}
+    
+    fileprivate lazy var dismissalPanGesture: DismissalPanGesture = {
+        let pan = DismissalPanGesture()
+        pan.maximumNumberOfTouches = 1
+        return pan
+    }()
+    
+    fileprivate lazy var dismissalScreenEdgePanGesture: DismissalScreenEdgePanGesture = {
+        let pan = DismissalScreenEdgePanGesture()
+        pan.edges = .left
+        return pan
+    }()
+    
+    @IBOutlet weak var heightOfHeader: NSLayoutConstraint!
+    
+    //------------------------ End --------------------
     
     @IBOutlet weak var footerViewHeightConstraint: NSLayoutConstraint!
     //Mark:- IBOutlets
@@ -71,12 +97,17 @@ class HotelDetailsVC: BaseVC {
     //Mark:- LifeCycle
     //================
     override func viewDidLoad() {
+        //------------------------ Golu Change --------------------
         super.viewDidLoad()
-        
-        let panGes = UIPanGestureRecognizer(target: self, action: #selector(self.panHandler(_:)))
-         panGes.delegate = self
-       // self.view.addGestureRecognizer(panGes)
-        
+        if self.isAddingChild{
+            let panGes = UIPanGestureRecognizer(target: self, action: #selector(self.panHandler(_:)))
+            panGes.delegate = self
+            // self.view.addGestureRecognizer(panGes)
+        }else{
+            setPanGesture()
+            
+        }
+        //------------------------ End --------------------
     }
     
     @objc func panHandler(_ sender: UIPanGestureRecognizer) {
@@ -156,7 +187,12 @@ class HotelDetailsVC: BaseVC {
     override func bindViewModel() {
         self.viewModel.delegate = self
     }
-    
+    //------------------------ Golu Change --------------------
+    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
+        return StatusBarAnimatableConfig(prefersHidden: true,
+        animation: .slide)
+    }
+    //------------------------ End --------------------
     override func dataChanged(_ note: Notification) {
         if let _ = note.object as? HCDataSelectionVC {
             delay(seconds: 1.0) { [weak self] in
@@ -233,6 +269,7 @@ class HotelDetailsVC: BaseVC {
     }
     
     func show(onViewController: UIViewController, sourceView: UIView, animated: Bool) {
+        self.isAddingChild = true
         self.parentVC = onViewController
         self.sourceView = sourceView
         onViewController.add(childViewController: self)
@@ -385,8 +422,12 @@ class HotelDetailsVC: BaseVC {
         // setting to make Close button pixel perfect
         self.headerView.firstRightButtonTrailingConstraint.constant = -3
         self.hotelTableView.roundTopCorners(cornerRadius: 10.0)
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.panGestureRecognizerHandler))
-        self.view.addGestureRecognizer(panGesture)
+        //------------------------ Golu Change --------------------
+        if self.isAddingChild{
+            let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.panGestureRecognizerHandler))
+            self.view.addGestureRecognizer(panGesture)
+        }
+        //------------------------ End --------------------
     }
     
     private func registerNibs() {
@@ -537,9 +578,21 @@ class HotelDetailsVC: BaseVC {
     //Mark:- IBOActions
     //=================
     @IBAction func cancelButtonAction (_ sender: UIButton) {
-        self.headerView.isHidden = true
-        self.smallLineView.alpha = 0
-        self.hide(animated: isHideWithAnimation)
+        //------------------------ Golu Change --------------------
+        if self.isAddingChild{
+            self.headerView.isHidden = true
+            self.smallLineView.alpha = 0
+            self.hide(animated: isHideWithAnimation)
+        }else{
+            if let cell = self.hotelTableView.cellForRow(at: [0,0]) as? HotelDetailsImgSlideCell{
+                cell.imageCollectionView.scrollToItem(at: [0,0], at: .left, animated: true)
+            }
+            self.hotelTableView.showsVerticalScrollIndicator = false
+            self.imageView.image = backImage
+            self.dismiss(animated: true)
+            
+        }
+        //------------------------ End --------------------
     }
     
     @IBAction func fevButtonAction(_ sender: UIButton) {
@@ -565,4 +618,128 @@ class HotelDetailsVC: BaseVC {
 }
 
 
+//------------------------ Golu Change --------------------
+extension HotelDetailsVC{
+    
+    func setPanGesture(){
+        hotelTableView.contentInsetAdjustmentBehavior = .never
+        
+        dismissalPanGesture.addTarget(self, action: #selector(handleDismissalPan(gesture:)))
+        dismissalPanGesture.delegate = self
+        
+        dismissalScreenEdgePanGesture.addTarget(self, action: #selector(handleDismissalPan(gesture:)))
+        dismissalScreenEdgePanGesture.delegate = self
+        
+        // Make drag down/scroll pan gesture waits til screen edge pan to fail first to begin
+        dismissalPanGesture.require(toFail: dismissalScreenEdgePanGesture)
+        hotelTableView.panGestureRecognizer.require(toFail: dismissalScreenEdgePanGesture)
+        
+        loadViewIfNeeded()
+        view.addGestureRecognizer(dismissalPanGesture)
+        view.addGestureRecognizer(dismissalScreenEdgePanGesture)
+    }
+       
+       func didSuccessfullyDragDownToDismiss() {
+           dismiss(animated: true)
+           
+       }
+       func userWillCancelDissmissalByDraggingToTop(velocityY: CGFloat) {}
+       
+       func didCancelDismissalTransition() {
+           // Clean up
+           interactiveStartingPoint = nil
+           dismissalAnimator = nil
+           draggingDownToDismiss = false
+        self.headerView.isHidden = false
+        self.hotelTableView.showsVerticalScrollIndicator = true
+       }
+       
+       // This handles both screen edge and dragdown pan. As screen edge pan is a subclass of pan gesture, this input param works.
+       @objc func handleDismissalPan(gesture: UIPanGestureRecognizer) {
+           
+           let isScreenEdgePan = gesture.isKind(of: DismissalScreenEdgePanGesture.self)
+           let canStartDragDownToDismissPan = !isScreenEdgePan && !draggingDownToDismiss
+           
+           // Don't do anything when it's not in the drag down mode
+           if canStartDragDownToDismissPan { return }
+           
+           let targetAnimatedView = gesture.view!
+           let startingPoint: CGPoint
+           
+           if let p = interactiveStartingPoint {
+               startingPoint = p
+           } else {
+               // Initial location
+               startingPoint = gesture.location(in: nil)
+               interactiveStartingPoint = startingPoint
+           }
+           
+           let currentLocation = gesture.location(in: nil)
+           let progress = isScreenEdgePan ? (gesture.translation(in: targetAnimatedView).x / 100) : (currentLocation.y - startingPoint.y) / 100
+           let targetShrinkScale: CGFloat = 0.84
+           let targetCornerRadius: CGFloat = GlobalConstants.cardCornerRadius
+           
+           func createInteractiveDismissalAnimatorIfNeeded() -> UIViewPropertyAnimator {
+               if let animator = dismissalAnimator {
+                   return animator
+               } else {
+                   let animator = UIViewPropertyAnimator(duration: 0, curve: .linear, animations: {
+                       targetAnimatedView.transform = .init(scaleX: targetShrinkScale, y: targetShrinkScale)
+                       targetAnimatedView.layer.cornerRadius = targetCornerRadius
+                   })
+                   animator.isReversed = false
+                   animator.pauseAnimation()
+                   animator.fractionComplete = progress
+                   return animator
+               }
+           }
+           
+           switch gesture.state {
+           case .began:
+               dismissalAnimator = createInteractiveDismissalAnimatorIfNeeded()
+               self.headerView.isHidden = true
+               
+           case .changed:
+               dismissalAnimator = createInteractiveDismissalAnimatorIfNeeded()
+               
+               let actualProgress = progress
+               let isDismissalSuccess = actualProgress >= 1.0
+               
+               dismissalAnimator!.fractionComplete = actualProgress
+               self.headerView.isHidden = true
+               if isDismissalSuccess {
+                   dismissalAnimator!.stopAnimation(false)
+                   dismissalAnimator!.addCompletion { [unowned self] (pos) in
+                       switch pos {
+                       case .end:
+                           self.didSuccessfullyDragDownToDismiss()
+                       default:
+                           fatalError("Must finish dismissal at end!")
+                       }
+                   }
+                   dismissalAnimator!.finishAnimation(at: .end)
+               }
+               
+           case .ended, .cancelled:
+               if dismissalAnimator == nil {
+                   // Gesture's too quick that it doesn't have dismissalAnimator!
+                   print("Too quick there's no animator!")
+                   didCancelDismissalTransition()
+                   return
+               }
 
+               dismissalAnimator!.pauseAnimation()
+               dismissalAnimator!.isReversed = true
+               
+               // Disable gesture until reverse closing animation finishes.
+               gesture.isEnabled = false
+               dismissalAnimator!.addCompletion { [unowned self] (pos) in
+                   self.didCancelDismissalTransition()
+                   gesture.isEnabled = true
+               }
+               dismissalAnimator!.startAnimation()
+           default:
+               fatalError("Impossible gesture state? \(gesture.state.rawValue)")
+           }
+       }
+}

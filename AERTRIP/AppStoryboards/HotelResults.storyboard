@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -668,7 +668,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sfE-Rv-Uym">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sfE-Rv-Uym">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -677,13 +677,13 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zkk-es-ieH">
-                                <rect key="frame" x="0.0" y="44" width="414" height="128"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="211"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="Ssh-mI-bcZ"/>
+                                    <constraint firstAttribute="height" constant="211" id="Ssh-mI-bcZ"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ANB-l9-Z0x" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="52" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="G9S-91-MVA"/>
@@ -704,7 +704,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jTV-wO-rS4">
-                                <rect key="frame" x="189" y="58" width="36" height="4"/>
+                                <rect key="frame" x="189" y="50" width="36" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="4" id="2nz-0m-sax"/>
@@ -728,7 +728,7 @@
                             <constraint firstAttribute="bottom" secondItem="vo7-sE-vfA" secondAttribute="bottom" id="MIt-7a-YrQ"/>
                             <constraint firstItem="eae-Cy-l88" firstAttribute="trailing" secondItem="vo7-sE-vfA" secondAttribute="trailing" id="NUh-QN-STC"/>
                             <constraint firstItem="sfE-Rv-Uym" firstAttribute="leading" secondItem="eae-Cy-l88" secondAttribute="leading" id="dtC-rZ-QlJ"/>
-                            <constraint firstItem="ANB-l9-Z0x" firstAttribute="top" secondItem="eae-Cy-l88" secondAttribute="top" constant="8" id="duB-Ks-NmL"/>
+                            <constraint firstItem="ANB-l9-Z0x" firstAttribute="top" secondItem="eae-Cy-l88" secondAttribute="top" id="duB-Ks-NmL"/>
                             <constraint firstItem="ANB-l9-Z0x" firstAttribute="leading" secondItem="eae-Cy-l88" secondAttribute="leading" id="fcb-dj-yxK"/>
                             <constraint firstItem="sfE-Rv-Uym" firstAttribute="top" secondItem="eae-Cy-l88" secondAttribute="top" id="hoi-rI-rDs"/>
                             <constraint firstItem="eae-Cy-l88" firstAttribute="trailing" secondItem="sfE-Rv-Uym" secondAttribute="trailing" id="ohy-pY-dus"/>
@@ -744,6 +744,7 @@
                         <outlet property="footerViewHeightConstraint" destination="8R1-ZL-HgQ" id="o55-uD-EKD"/>
                         <outlet property="headerTopConstraint" destination="duB-Ks-NmL" id="siX-bn-BTn"/>
                         <outlet property="headerView" destination="ANB-l9-Z0x" id="UEO-vn-rBE"/>
+                        <outlet property="heightOfHeader" destination="G9S-91-MVA" id="O0K-Nf-m8c"/>
                         <outlet property="hotelTableView" destination="Imk-Nt-2ie" id="F4B-L3-9fw"/>
                         <outlet property="imageView" destination="Zkk-es-ieH" id="b5s-TO-sUD"/>
                         <outlet property="mainView" destination="sfE-Rv-Uym" id="Q86-au-Sbe"/>

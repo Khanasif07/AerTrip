@@ -251,6 +251,9 @@ class HotelResultVC: BaseVC {
     //used for making collection view centerlized
     var indexOfCellBeforeDragging = 0
     
+    //Manage Transition Created by golu
+     internal var transition: CardTransition?
+     
     // MARK: - ViewLifeCycle
     
     // MARK: -
