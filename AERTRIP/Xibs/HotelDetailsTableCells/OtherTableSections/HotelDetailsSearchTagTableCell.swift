@@ -24,7 +24,8 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
         }
     }
     var allTagsForFilteration: [String] = []
-    var initialTagsForFiltration: [String] = ["Breakfast","Refundable"]
+//    var initialTagsForFiltration: [String] = ["Breakfast","Refundable"]
+    var initialTagsForFiltration: [String] = ["Breakfast","Free Cancellation"]
     
     //Mark:- IBOutlets
     //================
