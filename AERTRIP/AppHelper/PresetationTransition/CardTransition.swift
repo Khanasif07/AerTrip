@@ -12,7 +12,7 @@ final class CardTransition: NSObject, UIViewControllerTransitioningDelegate {
     struct Params {
         let fromCardFrame: CGRect
         let fromCardFrameWithoutTransform: CGRect
-        let fromCell: AppStoreAnimationCollectionCell
+        let fromCell: TransitionCellTypeDelegate
         let img:UIImage?
     }
 
@@ -54,4 +54,31 @@ final class CardTransition: NSObject, UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         return CardPresentationController(presentedViewController: presented, presenting: presenting)
     }
+}
+
+protocol  TransitionCellTypeDelegate where Self:UIView {
+    
+    var disabledHighlightedAnimation:Bool! { get set }
+    var selfImage:UIImage?{ get set }
+    func resetTransform()
+    func freezeAnimations()
+    func unfreezeAnimations()
+    
+}
+
+extension TransitionCellTypeDelegate{
+    
+    func resetTransform() {
+        transform = .identity
+    }
+    
+    func freezeAnimations() {
+        disabledHighlightedAnimation = true
+        layer.removeAllAnimations()
+    }
+    
+    func unfreezeAnimations() {
+        disabledHighlightedAnimation = false
+    }
+    
 }

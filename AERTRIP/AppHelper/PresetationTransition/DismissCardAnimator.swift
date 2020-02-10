@@ -13,7 +13,7 @@ final class DismissCardAnimator: NSObject, UIViewControllerAnimatedTransitioning
     struct Params {
         let fromCardFrame: CGRect
         let fromCardFrameWithoutTransform: CGRect
-        let fromCell: AppStoreAnimationCollectionCell
+        let fromCell: TransitionCellTypeDelegate
         let img:UIImage?
     }
 
@@ -36,15 +36,16 @@ final class DismissCardAnimator: NSObject, UIViewControllerAnimatedTransitioning
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let ctx = transitionContext
         let container = ctx.containerView
+        
+        let toVC = ctx.viewController(forKey: .to)!.children.first(where: {$0.isKind(of: HotelResultVC.self)}) as? HotelResultVC
+        
         let screens: (cardDetail: HotelDetailsVC, home: HotelResultVC?) = (
             ctx.viewController(forKey: .from)! as! HotelDetailsVC,
-            ctx.viewController(forKey: .to)! as? HotelResultVC
+            (toVC == nil) ? ctx.viewController(forKey: .to) as? HotelResultVC : toVC
         )
-        var hideCell  = false
+        var isCellHidden  = false
         let cardDetailView = ctx.view(forKey: .from)!
         cardDetailView.backgroundColor = UIColor.clear
-        
-        let snap = params.fromCell.snapshotView(afterScreenUpdates: false) ?? UIView()
 
         let animatedContainerView = UIView()
         if GlobalConstants.isEnabledDebugAnimatingViews {
@@ -74,6 +75,23 @@ final class DismissCardAnimator: NSObject, UIViewControllerAnimatedTransitioning
 
         let stretchCardToFillBottom = screens.cardDetail.imageView.bottomAnchor.constraint(equalTo: cardDetailView.bottomAnchor)
 
+        func setupForDismiss(){
+            screens.cardDetail.headerView.firstRightButton.isHidden = true
+            screens.cardDetail.headerView.leftButton.isHidden = true
+            screens.cardDetail.headerView.isHidden = true
+            screens.cardDetail.footerView.isHidden = true
+            screens.cardDetail.imageView.isHidden = false
+            screens.cardDetail.imageView.layer.cornerRadius = 10
+            screens.cardDetail.imageView.clipsToBounds = true
+            screens.cardDetail.imageView.contentMode = .scaleAspectFill
+            
+            if let vc = toVC{
+                vc.switchContainerView.layer.opacity = 0
+                
+            }
+        }
+        
+        
         func animateCardViewBackToPlace() {
             stretchCardToFillBottom.isActive = true
             cardDetailView.transform = CGAffineTransform.identity
@@ -81,7 +99,7 @@ final class DismissCardAnimator: NSObject, UIViewControllerAnimatedTransitioning
             animatedContainerWidthConstraint.constant = self.params.fromCardFrameWithoutTransform.width
             animatedContainerHeightConstraint.constant = self.params.fromCardFrameWithoutTransform.height
             container.layoutIfNeeded()
-            if !hideCell{
+            if !isCellHidden{
                 screens.cardDetail.hotelTableView.isHidden = true
             }
         }
@@ -93,6 +111,11 @@ final class DismissCardAnimator: NSObject, UIViewControllerAnimatedTransitioning
             if success {
                 cardDetailView.removeFromSuperview()
                 self.params.fromCell.isHidden = false
+                if let vc = toVC{
+                    UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
+                        vc.switchContainerView.layer.opacity = 1
+                    }, completion: nil)
+                }
             } else {
                 topTemporaryFix.isActive = false
                 stretchCardToFillBottom.isActive = false
@@ -107,20 +130,16 @@ final class DismissCardAnimator: NSObject, UIViewControllerAnimatedTransitioning
         if let cell = screens.cardDetail.hotelTableView.cellForRow(at: [0,0]) as? HotelDetailsImgSlideCell{
             cell.contentView.isHidden = true
             cell.isHidden = true
-            hideCell  = true
+            isCellHidden  = true
             cell.alpha = 0.0
         }
+        
+//        fadeInWithAnimation(layer: screens.cardDetail.imageView.layer, duration: 1.5, from: 1, to: 0)
+        
         screens.cardDetail.imageView.image = self.params.img
         
         UIView.animate(withDuration: transitionDuration(using: ctx), delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0, options: [], animations: {
-            screens.cardDetail.headerView.firstRightButton.isHidden = true
-            screens.cardDetail.headerView.leftButton.isHidden = true
-            screens.cardDetail.headerView.isHidden = true
-            screens.cardDetail.footerView.isHidden = true
-            screens.cardDetail.imageView.isHidden = false
-            screens.cardDetail.imageView.layer.cornerRadius = 10
-            screens.cardDetail.imageView.clipsToBounds = true
-            screens.cardDetail.imageView.contentMode = .scaleAspectFill
+            setupForDismiss()
             animateCardViewBackToPlace()
         }) { (finished) in
             completeEverything()
@@ -130,6 +149,27 @@ final class DismissCardAnimator: NSObject, UIViewControllerAnimatedTransitioning
             screens.cardDetail.hotelTableView.contentOffset = .zero
         }
     }
+    
+    func fadeInWithAnimation(layer:CALayer, duration:Double,from:Any, to: Any){
+        let animation = CABasicAnimation(keyPath: "opacity")
+        animation.fromValue = from
+        animation.toValue = to
+        animation.repeatCount = 0
+        animation.autoreverses = false
+        animation.duration = duration
+        layer.add(animation, forKey: nil)
+    }
+    
+//    func animatedSwitch(layer:CALayer){
+//        let animation = CABasicAnimation(keyPath: "position")
+//        animation.fromValue = [-layer.bounds.maxX, layer.bounds.minY]
+//        animation.toValue = [0,layer.bounds.minY]
+//        animation.repeatCount = 0
+//        animation.duration = 1.4
+//        animation.autoreverses = false
+//        layer.add(animation, forKey: nil)
+//    }
+    
 }
 
 

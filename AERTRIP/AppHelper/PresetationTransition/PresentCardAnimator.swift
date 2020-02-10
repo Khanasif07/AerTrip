@@ -14,7 +14,7 @@ final class PresentCardAnimator: NSObject, UIViewControllerAnimatedTransitioning
 
     struct Params {
         let fromCardFrame: CGRect
-        let fromCell: AppStoreAnimationCollectionCell
+        let fromCell: TransitionCellTypeDelegate
         let img:UIImage?
     }
 
@@ -176,8 +176,8 @@ final class PresentCardTransitionDriver {
             cardWidthConstraint.constant = animatedContainerView.bounds.width
             cardHeightConstraint.constant = animatedContainerView.bounds.height
             cardDetailView.layer.cornerRadius = 0
-            screens.cardDetail.imageView.isHidden = true
-            screens.cardDetail.imageView.image = params.img
+//            screens.cardDetail.imageView.isHidden = true
+//            screens.cardDetail.imageView.image = params.img
             setupHeader()
             container.layoutIfNeeded()
         }
@@ -199,6 +199,8 @@ final class PresentCardTransitionDriver {
 
             // No longer need the bottom constraint that pins bottom of card content to its root.
 //            screens.cardDetail.cardBottomToRootBottomConstraint.isActive = false
+            screens.cardDetail.imageView.isHidden = true
+            screens.cardDetail.imageView.image = params.img
             screens.cardDetail.hotelTableView.isScrollEnabled = true
             let success = !ctx.transitionWasCancelled
             ctx.completeTransition(success)

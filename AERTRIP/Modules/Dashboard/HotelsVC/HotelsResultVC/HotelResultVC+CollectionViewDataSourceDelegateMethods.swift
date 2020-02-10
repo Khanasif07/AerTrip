@@ -88,13 +88,16 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     
     
      //--------------------------- Golu Change ---------------------
-    func presentController(cell:AppStoreAnimationCollectionCell, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
+    func presentController(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
         
         let vc = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
         vc.viewModel.hotelInfo = hotelInfo
         vc.delegate = self
         vc.viewModel.hotelSearchRequest = hotelSearchRequest
-        let img = cell.selfImage
+        var img = cell.selfImage
+        if cell.selfImage == nil{
+           img = cell.viewScreenShot()
+        }
         vc.backImage = img
         cell.freezeAnimations()
         let currentCellFrame = cell.layer.presentation()!.frame

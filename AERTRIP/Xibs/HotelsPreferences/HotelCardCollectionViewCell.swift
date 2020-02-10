@@ -61,7 +61,9 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
+        //-------------------------- Golu Change ---------------------
+        self.disabledHighlightedAnimation = false
+        //-------------------------- End ---------------------
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.gradientView.bounds
         let gradientColor = AppColors.themeBlack
