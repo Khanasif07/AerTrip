@@ -136,7 +136,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         if tableView === hotelSearchTableView {
             return 110.0
         } else {
-            return 203.0
+            return 209.0
         }
     }
     
@@ -144,7 +144,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         if tableView === hotelSearchTableView {
             return 110.0
         } else {
-            return 203.0
+            return 209.0
         }
     }
     

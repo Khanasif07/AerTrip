@@ -445,8 +445,8 @@ extension HotelsMapVC {
             indexOfMajorCell = max(0,indexOfMajorCell)
             indexOfMajorCell = min(indexOfMajorCell,numberOfItemInCollection)
         }
-//        let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
-//        collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
+        collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         
         self.manageForCollectionView(atIndex: indexOfMajorCell)
     }

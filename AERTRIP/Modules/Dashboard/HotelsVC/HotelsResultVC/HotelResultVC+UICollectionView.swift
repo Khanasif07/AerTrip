@@ -18,7 +18,7 @@ class FilterCollectionViewCell: UICollectionViewCell {
     }
     
     private func initialSetup() {
-        titleLabel.font = AppFonts.SemiBold.withSize(16)
+        titleLabel.font = AppFonts.Regular.withSize(16)
         titleLabel.textColor = AppColors.themeTextColor
     }
 }
@@ -33,9 +33,18 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let text = self.viewModel.filterArray[indexPath.item]
-        let font = AppFonts.SemiBold.withSize(16.0)
-        let width = text.widthOfString(usingFont: font) + (indexPath.item == 0 ? 30 : 34)// temporary
+        let font = AppFonts.Regular.withSize(16.0)
+        let width = text.widthOfString(usingFont: font) + 26// temporary
         return CGSize(width: width, height: collectionView.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+
+        return UIEdgeInsets.zero
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

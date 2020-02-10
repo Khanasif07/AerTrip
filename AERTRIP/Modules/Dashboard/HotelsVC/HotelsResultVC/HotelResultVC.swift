@@ -90,6 +90,7 @@ class HotelResultVC: BaseVC {
             filterCollectionView.dataSource = self
             filterCollectionView.showsVerticalScrollIndicator = false
             filterCollectionView.showsHorizontalScrollIndicator = false
+            filterCollectionView.contentInset = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 0)
         }
     }
     @IBOutlet weak var switchGradientView: UIView!
