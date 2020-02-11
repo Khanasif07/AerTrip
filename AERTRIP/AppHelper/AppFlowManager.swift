@@ -167,6 +167,7 @@ class AppFlowManager: NSObject {
             }
             
             self.mainNavigationController.pushViewController(socialVC, animated: true)
+            AppGlobals.shared.stopLoading()
         }
     }
 }

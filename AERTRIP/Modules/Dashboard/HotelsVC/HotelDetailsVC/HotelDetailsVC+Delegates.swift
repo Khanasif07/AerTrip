@@ -120,7 +120,7 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
             }
         }
         else if let _ = tableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell {
-            AppGlobals.shared.startLoading()
+            AppGlobals.shared.startLoading(loaderBgColor: .clear)
             delay(seconds: 0.1) {
                 AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForCheckout) { [weak self](isGuest) in
                 guard let sSelf = self else {return}

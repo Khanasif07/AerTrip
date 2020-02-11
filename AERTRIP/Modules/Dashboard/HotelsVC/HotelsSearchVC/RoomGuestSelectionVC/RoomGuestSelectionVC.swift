@@ -123,7 +123,7 @@ class RoomGuestSelectionVC: BaseVC {
         
         self.setOldAges()
         self.hide(animated: false)
-        delay(seconds: 0.1) { [weak self] in
+        delay(seconds: 0.0) { [weak self] in
             self?.show(animated: true)
         }
         
@@ -155,7 +155,7 @@ class RoomGuestSelectionVC: BaseVC {
         }
         
         if animated {
-            UIView.animate(withDuration: animated ? 0.3 : 0.0, animations: {
+            UIView.animate(withDuration: animated ? 0.4 : 0.0, animations: {
                 setValue()
             }, completion: { (isDone) in
             })
