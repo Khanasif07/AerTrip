@@ -17,8 +17,8 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         
         let count = self.viewModel.fetchedResultsController.fetchedObjects?.count ?? 0
         if (self.viewModel.fetchRequestType == .FilterApplied), count <= 0 {
-            self.hotelSearchView.isHidden = false
-            self.hotelSearchTableView.backgroundView = noHotelFoundOnFilterEmptyView
+            //self.hotelSearchView.isHidden = false
+            self.tableViewVertical.backgroundView = noHotelFoundOnFilterEmptyView
             self.noHotelFoundOnFilter()
             self.manageFloatingView(isHidden: true)
         }
@@ -44,6 +44,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         else {
             self.dataFounOnFilter()
             self.hotelSearchView.isHidden = true
+            self.tableViewVertical.backgroundView = nil
         }
     }
     

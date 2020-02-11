@@ -887,7 +887,7 @@ been sent</string>
                                                                         <rect key="frame" x="0.0" y="55" width="112.5" height="60.5"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4l-qf-vJb">
-                                                                                <rect key="frame" x="25.5" y="-27.5" width="62" height="116"/>
+                                                                                <rect key="frame" x="41" y="1.5" width="31" height="58"/>
                                                                                 <state key="normal" image="rooms_white_icon"/>
                                                                             </button>
                                                                         </subviews>
@@ -973,7 +973,7 @@ been sent</string>
                                                                         <rect key="frame" x="0.0" y="57" width="113" height="59"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XBn-d3-Nmd">
-                                                                                <rect key="frame" x="8.5" y="-18.5" width="96" height="96"/>
+                                                                                <rect key="frame" x="32.5" y="5.5" width="48" height="48"/>
                                                                                 <state key="normal" image="adult_icon_bulk"/>
                                                                             </button>
                                                                         </subviews>
@@ -1050,7 +1050,7 @@ been sent</string>
                                                                 <rect key="frame" x="0.0" y="62.5" width="100" height="58"/>
                                                                 <subviews>
                                                                     <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JKq-Tl-RDH">
-                                                                        <rect key="frame" x="2" y="-19" width="96" height="96"/>
+                                                                        <rect key="frame" x="26" y="5" width="48" height="48"/>
                                                                         <state key="normal" image="child_icon_bulk"/>
                                                                         <state key="selected" image="child_selected"/>
                                                                     </button>
@@ -1209,7 +1209,7 @@ been sent</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aM9-4Q-rjl" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="144" width="414" height="752"/>
+                                <rect key="frame" x="0.0" y="140" width="414" height="756"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHc-Vi-zSn">
@@ -1327,7 +1327,7 @@ been sent</string>
                                     <constraint firstItem="Pv9-Pq-S7S" firstAttribute="top" secondItem="aHc-Vi-zSn" secondAttribute="top" id="uAj-dc-Qgz"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V4z-cq-RyF">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V4z-cq-RyF">
                                 <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VFS-Xf-tG2">
@@ -1443,6 +1443,14 @@ been sent</string>
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1jI-45-jGr">
+                                                                    <rect key="frame" x="48" y="22.5" width="4" height="4"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="4" id="PV4-rc-7ya"/>
+                                                                        <constraint firstAttribute="width" constant="4" id="ZjE-gw-a9c"/>
+                                                                    </constraints>
+                                                                </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y23-C3-I8m">
                                                                     <rect key="frame" x="4" y="15" width="42" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1452,12 +1460,15 @@ been sent</string>
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
+                                                                <constraint firstItem="1jI-45-jGr" firstAttribute="top" secondItem="Y23-C3-I8m" secondAttribute="top" constant="7.5" id="FHq-fN-ofp"/>
+                                                                <constraint firstItem="1jI-45-jGr" firstAttribute="leading" secondItem="Y23-C3-I8m" secondAttribute="trailing" constant="2" id="Zvq-Sr-H2f"/>
                                                                 <constraint firstItem="Y23-C3-I8m" firstAttribute="centerY" secondItem="zZ2-xT-ji6" secondAttribute="centerY" id="m1K-jV-VLD"/>
                                                                 <constraint firstItem="Y23-C3-I8m" firstAttribute="centerX" secondItem="zZ2-xT-ji6" secondAttribute="centerX" id="xX8-Wm-ZRK"/>
                                                             </constraints>
                                                         </collectionViewCellContentView>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <connections>
+                                                            <outlet property="dotView" destination="1jI-45-jGr" id="Sby-rf-4k5"/>
                                                             <outlet property="titleLabel" destination="Y23-C3-I8m" id="RT8-3n-mJJ"/>
                                                         </connections>
                                                     </collectionViewCell>
@@ -2202,7 +2213,7 @@ been sent</string>
                             <constraint firstAttribute="trailing" secondItem="aHc-Vi-zSn" secondAttribute="trailing" id="aky-3u-626"/>
                             <constraint firstItem="aM9-4Q-rjl" firstAttribute="bottom" secondItem="He0-20-oIc" secondAttribute="bottom" id="bIF-38-3c7"/>
                             <constraint firstItem="QAK-AD-OFu" firstAttribute="leading" secondItem="b4p-u6-PAq" secondAttribute="leading" id="sct-fe-fKG"/>
-                            <constraint firstItem="aM9-4Q-rjl" firstAttribute="top" secondItem="b4p-u6-PAq" secondAttribute="top" constant="100" id="thm-7z-N56"/>
+                            <constraint firstItem="aM9-4Q-rjl" firstAttribute="top" secondItem="b4p-u6-PAq" secondAttribute="top" constant="96" id="thm-7z-N56"/>
                             <constraint firstItem="V4z-cq-RyF" firstAttribute="leading" secondItem="b4p-u6-PAq" secondAttribute="leading" id="yhN-7V-y4Y"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="b4p-u6-PAq"/>
@@ -2516,6 +2527,13 @@ been sent</string>
                                 <rect key="frame" x="0.0" y="144" width="414" height="549"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OA5-Cf-ZLd">
+                                <rect key="frame" x="0.0" y="599" width="414" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="1nn-HN-kxH"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Obe-xJ-dgb">
                                 <rect key="frame" x="0.0" y="583" width="414" height="76"/>
                                 <subviews>
@@ -2632,13 +2650,6 @@ been sent</string>
                                     <constraint firstAttribute="bottom" secondItem="rTh-83-qZU" secondAttribute="bottom" id="mB9-Gk-vYe"/>
                                     <constraint firstItem="rTh-83-qZU" firstAttribute="top" secondItem="Obe-xJ-dgb" secondAttribute="top" id="q9w-hM-vZg"/>
                                     <constraint firstItem="Trc-5D-qRh" firstAttribute="top" secondItem="Obe-xJ-dgb" secondAttribute="top" id="wlJ-FU-8ed"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OA5-Cf-ZLd">
-                                <rect key="frame" x="0.0" y="599" width="414" height="60"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="1nn-HN-kxH"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgj-JY-aNo">
@@ -2964,17 +2975,17 @@ been sent</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="tBG-IN-gE6">
-                                                        <rect key="frame" x="122.5" y="44.5" width="169.5" height="22"/>
+                                                        <rect key="frame" x="149" y="44.5" width="116.5" height="22"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="cf3-u0-DbH">
-                                                                <rect key="frame" x="0.0" y="0.0" width="37.5" height="22"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="26.5" height="22"/>
                                                                 <subviews>
                                                                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cdH-XM-Lcq">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="11" height="22"/>
                                                                         <state key="normal" image="hotel_room"/>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ks-AH-FDy">
-                                                                        <rect key="frame" x="27" y="0.0" width="10.5" height="22"/>
+                                                                        <rect key="frame" x="16" y="0.0" width="10.5" height="22"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -2982,14 +2993,14 @@ been sent</string>
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="-6" translatesAutoresizingMaskIntoConstraints="NO" id="PDH-I7-fqI">
-                                                                <rect key="frame" x="53.5" y="0.0" width="53.5" height="22"/>
+                                                                <rect key="frame" x="42.5" y="0.0" width="32.5" height="22"/>
                                                                 <subviews>
                                                                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQK-th-W5M">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="42" height="22"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="21" height="22"/>
                                                                         <state key="normal" image="adult_icon"/>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ka-Su-2SG">
-                                                                        <rect key="frame" x="36" y="0.0" width="17.5" height="22"/>
+                                                                        <rect key="frame" x="15" y="0.0" width="17.5" height="22"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -2997,14 +3008,14 @@ been sent</string>
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="-6" translatesAutoresizingMaskIntoConstraints="NO" id="rz2-eO-ZU2">
-                                                                <rect key="frame" x="123" y="0.0" width="46.5" height="22"/>
+                                                                <rect key="frame" x="91" y="0.0" width="25.5" height="22"/>
                                                                 <subviews>
                                                                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k0B-Ea-fsk">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="42" height="22"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="21" height="22"/>
                                                                         <state key="normal" image="child_icon"/>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0cU-3z-YhA">
-                                                                        <rect key="frame" x="36" y="0.0" width="10.5" height="22"/>
+                                                                        <rect key="frame" x="15" y="0.0" width="10.5" height="22"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>

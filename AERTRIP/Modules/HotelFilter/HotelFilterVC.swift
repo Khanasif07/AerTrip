@@ -49,10 +49,6 @@ class HotelFilterVC: BaseVC {
     var selectedIndex: Int = HotelFilterVM.shared.lastSelectedIndex
     var isFilterApplied:Bool = false
     
-    
-    let allTabsStr: [String] = [LocalizedString.Sort.localized, LocalizedString.Range.localized, LocalizedString.Price.localized, LocalizedString.Ratings.localized, LocalizedString.Amenities.localized,LocalizedString.Room.localized]
-    
-    
     var allChildVCs: [UIViewController] = [UIViewController]()
     weak var delegate : HotelFilteVCDelegate?
     
@@ -143,8 +139,8 @@ class HotelFilterVC: BaseVC {
     
     private func initiateFilterTabs() {
         filtersTabs.removeAll()
-        for i in 0..<(self.allTabsStr.count){
-            let obj = MenuItem(title: allTabsStr[i], index: i, isSelected: true)
+        for i in 0..<(HotelFilterVM.shared.allTabsStr.count){
+            let obj = MenuItem(title: HotelFilterVM.shared.allTabsStr[i], index: i, isSelected: true)
             filtersTabs.append(obj)
         }
     }
@@ -172,7 +168,7 @@ class HotelFilterVC: BaseVC {
         self.allChildVCs.removeAll()
 //        self.selectedIndex = HotelFilterVM.shared.lastSelectedIndex
         
-        for i in 0..<self.allTabsStr.count {
+        for i in 0..<HotelFilterVM.shared.allTabsStr.count {
             if i == 1 {
                 let vc = RangeVC.instantiate(fromAppStoryboard: .Filter)
                 self.allChildVCs.append(vc)
@@ -234,7 +230,7 @@ class HotelFilterVC: BaseVC {
     private func setBadgesOnAllCategories() {
         
         initiateFilterTabs()
-        for (idx,tab) in self.allTabsStr.enumerated() {
+        for (idx,tab) in HotelFilterVM.shared.allTabsStr.enumerated() {
             
             switch tab.lowercased() {
             case LocalizedString.Sort.localized.lowercased():

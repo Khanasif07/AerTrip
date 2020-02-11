@@ -14,7 +14,7 @@ import UIKit
 extension HotelResultVC: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        return !((viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty)
+        return true//!((viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty)
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -67,10 +67,10 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
         self.viewModel.isFavouriteOn = value
         self.viewModel.loadSaveData()
         if value {
-
-                self.unPinAllFavouriteButton.isHidden = false
-                self.emailButton.isHidden = false
-                self.shareButton.isHidden = false
+            
+            self.unPinAllFavouriteButton.isHidden = false
+            self.emailButton.isHidden = false
+            self.shareButton.isHidden = false
             self.animateButton()
             // nitin self.getFavouriteHotels(shouldReloadData: false)
             //self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
@@ -79,7 +79,7 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
             self.hideFavsButtons()
         }
         
-            
+        
         
     }
 }
@@ -88,8 +88,8 @@ extension HotelResultVC: PKBottomSheetDelegate {
     func updateNavWhileInMapMode(isHidden: Bool) {
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.headerContatinerViewHeightConstraint.constant = isHidden ? 0.0 : 50.0
-//            self?.tableViewTopConstraint.constant = isHidden ? 0.0 : 50.0
-//            self?.mapContainerTopConstraint.constant = isHidden ? 0.0 : 50.0
+            //            self?.tableViewTopConstraint.constant = isHidden ? 0.0 : 50.0
+            //            self?.mapContainerTopConstraint.constant = isHidden ? 0.0 : 50.0
             self?.progressView.isHidden = true
             self?.view.layoutIfNeeded()
         }
@@ -118,6 +118,7 @@ extension HotelResultVC: HotelResultDelegate {
         self.switchContainerView.isHidden = self.viewModel.favouriteHotels.isEmpty
         self.floatingButtonOnMapView.isHidden = !self.viewModel.isFavouriteOn
         self.switchView.setOn(isOn: self.viewModel.isFavouriteOn, animated: false, shouldNotify: false)
+        self.filterCollectionView.reloadData()
     }
     
     func updateFavOnList() {
@@ -337,8 +338,9 @@ extension HotelResultVC: HotelFilteVCDelegate {
         HotelFilterVM.shared.isSortingApplied = false
         UserInfo.hotelFilter = nil
         HotelFilterVM.shared.resetToDefault()
+        self.viewModel.filterApplied = UserInfo.HotelFilter()
         self.viewModel.loadSaveData()
-        
+        self.filterCollectionView.reloadData()
         //manage switch button when clear all filters
         // nitin self.getFavouriteHotels(shouldReloadData: false)
     }
@@ -366,9 +368,9 @@ extension HotelResultVC: HotelFilteVCDelegate {
         else {
             self.manageSwitchContainer(isHidden: true, shouldOff: false)
         }
-       // self.filterButton.isSelected =  !(HotelFilterVM.shared.isSortingApplied || self.viewModel.isFilterApplied) ? false : true
-       self.filterButton.isSelected = HotelFilterVM.shared.isFilterApplied
-
+        // self.filterButton.isSelected =  !(HotelFilterVM.shared.isSortingApplied || self.viewModel.isFilterApplied) ? false : true
+        self.filterButton.isSelected = HotelFilterVM.shared.isFilterApplied
+        self.filterCollectionView.reloadData()
     }
 }
 

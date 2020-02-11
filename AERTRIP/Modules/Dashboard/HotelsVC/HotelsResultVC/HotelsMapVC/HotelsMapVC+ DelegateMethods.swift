@@ -14,7 +14,7 @@ import UIKit
 extension HotelsMapVC: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        return !((viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty)
+        return true //!((viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty)
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {

@@ -10,6 +10,7 @@ import Foundation
 
 class FilterCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var dotView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     
     override func awakeFromNib() {
@@ -20,7 +21,12 @@ class FilterCollectionViewCell: UICollectionViewCell {
     private func initialSetup() {
         titleLabel.font = AppFonts.Regular.withSize(16)
         titleLabel.textColor = AppColors.themeBlack
+        dotView.backgroundColor = AppColors.themeGreen
+        dotView.roundCorners(corners: [.allCorners], radius: dotView.height)
     }
+    
+    
+    
 }
 
 
@@ -28,11 +34,11 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel.filterArray.count
+        return HotelFilterVM.shared.allTabsStr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let text = self.viewModel.filterArray[indexPath.item]
+        let text = HotelFilterVM.shared.allTabsStr[indexPath.item]
         let font = AppFonts.Regular.withSize(16.0)
         let width = text.widthOfString(usingFont: font) + 35// temporary
         return CGSize(width: width, height: collectionView.height)
@@ -43,16 +49,18 @@ extension HotelResultVC: UICollectionViewDataSource, UICollectionViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-
+        
         return UIEdgeInsets.zero
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCollectionViewCell", for: indexPath) as? FilterCollectionViewCell else { fatalError("FilterCollectionViewCell not found")}
-        cell.titleLabel.text = self.viewModel.filterArray[indexPath.item]
+        let filterText = HotelFilterVM.shared.allTabsStr[indexPath.item]
+        cell.titleLabel.text = filterText
+        cell.dotView.isHidden = !HotelFilterVM.shared.filterAppliedFor(filterName: filterText, appliedFilter: self.viewModel.filterApplied)
         return cell
     }
-
+    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         AppFlowManager.default.showFilterVC(self, index: indexPath.item)

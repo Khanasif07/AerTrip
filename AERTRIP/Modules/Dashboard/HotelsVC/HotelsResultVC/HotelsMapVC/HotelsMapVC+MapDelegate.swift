@@ -25,7 +25,7 @@ extension HotelsMapVC {
             mapView = mapV
             mapContainerView.mapView = mapView
             
-//            mapView?.delegate = self
+            //            mapView?.delegate = self
             mapView?.isMyLocationEnabled = true
             mapView?.settings.myLocationButton = false
             mapView?.setMinZoom(self.minZoomLabel, maxZoom: self.maxZoomLabel)
@@ -72,10 +72,10 @@ extension HotelsMapVC {
         }
     }
     func focusMarker(coordinates: CLLocationCoordinate2D) {
-            CATransaction.begin()
-            CATransaction.setValue(AppConstants.kAnimationDuration, forKey: kCATransactionAnimationDuration)
-            self.mapView?.animate(toLocation: coordinates)
-            CATransaction.commit()
+        CATransaction.begin()
+        CATransaction.setValue(AppConstants.kAnimationDuration, forKey: kCATransactionAnimationDuration)
+        self.mapView?.animate(toLocation: coordinates)
+        CATransaction.commit()
     }
     
     func animateZoomLabel() {
@@ -89,7 +89,7 @@ extension HotelsMapVC {
     }
     
     func adjustMapPadding() {
-            self.mapView?.padding = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        self.mapView?.padding = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     }
     
     func updateMarker(atIndex: Int) {
@@ -128,9 +128,9 @@ extension HotelsMapVC {
             // draw markers as dot marker
             //self.drawAllDotMarkers(showFirstMarker: hoteResultViewType != .MapView)
             //            self.drawAllCustomMarkers(showFirstMarker: hoteResultViewType != .MapView)
-//            if didChange {
-                updateMarkerViewForZoomInState(forZoomInState: false)
-//            }
+            //            if didChange {
+            updateMarkerViewForZoomInState(forZoomInState: false)
+            //            }
         }
         
     }
@@ -234,9 +234,9 @@ extension HotelsMapVC {
                 }
             }
         }
-                
-    }
         
+    }
+    
     func isMarkerWithinScreen(markerPosition: CLLocationCoordinate2D) -> Bool {
         guard let region = self.mapView?.projection.visibleRegion() else {return false}
         
@@ -257,32 +257,32 @@ extension HotelsMapVC {
     }
     
     func drawAllCustomMarkers(showAccordingToMap: Bool = false) {
-            var counter = 0
-            self.viewModel.collectionViewList.keys.forEach { (locStr) in
-                if let location = self.getLocationObject(fromLocation: locStr), let allHotels = self.viewModel.collectionViewList[locStr] as? [HotelSearched] {
-                    if counter < maxVisblePriceMarker {
-                        if allHotels.count > 1 {
-                            // create cluster marker
-                            self.addClusterMarker(forHotels: allHotels, atLocation: location)
-                        }
-                        else if allHotels.count == 1 {
-                            // create custom marker
-                            self.addCustomMarker(forHotel: allHotels.first!, atLocation: location, showHotelPrice: false)
-                            counter += 1
-                        }
-                    } else {
-                        if allHotels.count > 1 {
-                            // create cluster marker
-                            self.addClusterMarker(forHotels: allHotels, atLocation: location)
-                        }
-                        else if allHotels.count == 1 {
-                            // create dot marker
-                            self.addDotMarker(forHotel: allHotels.first!, atLocation: location)
-                            
-                        }
+        var counter = 0
+        self.viewModel.collectionViewList.keys.forEach { (locStr) in
+            if let location = self.getLocationObject(fromLocation: locStr), let allHotels = self.viewModel.collectionViewList[locStr] as? [HotelSearched] {
+                if counter < maxVisblePriceMarker {
+                    if allHotels.count > 1 {
+                        // create cluster marker
+                        self.addClusterMarker(forHotels: allHotels, atLocation: location)
+                    }
+                    else if allHotels.count == 1 {
+                        // create custom marker
+                        self.addCustomMarker(forHotel: allHotels.first!, atLocation: location, showHotelPrice: false)
+                        counter += 1
+                    }
+                } else {
+                    if allHotels.count > 1 {
+                        // create cluster marker
+                        self.addClusterMarker(forHotels: allHotels, atLocation: location)
+                    }
+                    else if allHotels.count == 1 {
+                        // create dot marker
+                        self.addDotMarker(forHotel: allHotels.first!, atLocation: location)
+                        
                     }
                 }
             }
+        }
     }
     
     func drawAllDotMarkers(showFirstMarker: Bool = false) {
@@ -480,71 +480,76 @@ extension HotelsMapVC: GMSMapViewDelegate {
         guard let current = self.mapView?.camera.zoom else {return}
         printDebug("mapViewChanged \(current)")
         
-//        if hoteResultViewType == .MapView {
-            //            if !self.useGoogleCluster {
-            //                if current > self.prevZoomLabel, ((self.prevZoomLabel...current) ~= self.thresholdZoomLabel) {
-            //                    self.drawMarkers(atZoomLabel: current)
-            //                }
-            //                else if current < self.prevZoomLabel, ((current...self.prevZoomLabel) ~= self.thresholdZoomLabel) {
-            //                    self.drawMarkers(atZoomLabel: current)
-            //                } else if current >= self.thresholdZoomLabel {
-            //                    self.drawMarkers(atZoomLabel: current,didChange: true)
-            //                }
-            //            }
-            self.drawMarkers(atZoomLabel: current,didChange: true)
-//        }
+        //        if hoteResultViewType == .MapView {
+        //            if !self.useGoogleCluster {
+        //                if current > self.prevZoomLabel, ((self.prevZoomLabel...current) ~= self.thresholdZoomLabel) {
+        //                    self.drawMarkers(atZoomLabel: current)
+        //                }
+        //                else if current < self.prevZoomLabel, ((current...self.prevZoomLabel) ~= self.thresholdZoomLabel) {
+        //                    self.drawMarkers(atZoomLabel: current)
+        //                } else if current >= self.thresholdZoomLabel {
+        //                    self.drawMarkers(atZoomLabel: current,didChange: true)
+        //                }
+        //            }
+        self.drawMarkers(atZoomLabel: current,didChange: true)
+        //        }
         self.prevZoomLabel = current
         
     }
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-            if self.isMapInFullView {
-                //show collection view list
-                self.isHidingOnMapTap = true
-                self.isMapInFullView = false
-                self.currentLocationButton.isHidden = false
-                let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
-                    guard let sSelf = self else {return}
-                    sSelf.collectionViewBottomConstraint.constant = 0.0
-                    sSelf.floatingViewBottomConstraint.constant = sSelf.floatingViewInitialConstraint
-                    sSelf.mapContainerViewBottomConstraint.constant = 203.0
-                    sSelf.headerContainerViewTopConstraint.constant = 0.0
-                    sSelf.mapContainerTopConstraint.constant = 50.0
-                    sSelf.mapContainerView.layoutSubviews()
-                    //sSelf.view.layoutIfNeeded()
-                }
-                
-                animator.addCompletion { [weak self](pos) in
-                    self?.isHidingOnMapTap = false
-                    if let loc = self?.displayingHotelLocation {
-                        self?.updateMarker(atLocation: loc)
-                    }
-                }
-                animator.startAnimation()
+        if self.isMapInFullView {
+            //show collection view list
+            self.isHidingOnMapTap = true
+            self.isMapInFullView = false
+            self.currentLocationButton.isHidden = false
+            let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                guard let sSelf = self else {return}
+                sSelf.collectionViewBottomConstraint.constant = 0.0
+                sSelf.floatingViewBottomConstraint.constant = sSelf.floatingViewInitialConstraint
+                sSelf.mapContainerViewBottomConstraint.constant = 203.0
+                sSelf.headerContainerViewTopConstraint.constant = 0.0
+                sSelf.mapContainerTopConstraint.constant = 50.0
+                sSelf.mapContainerView.layoutSubviews()
+                //sSelf.view.layoutIfNeeded()
             }
-            else {
-                //hide collection view list
-                self.isHidingOnMapTap = true
-                self.isMapInFullView = true
-                self.currentLocationButton.isHidden = true
-                if let loc = displayingHotelLocation {
-                    self.updateMarker(atLocation: loc,isSelected: false)
+            
+            animator.addCompletion { [weak self](pos) in
+                self?.isHidingOnMapTap = false
+                if let loc = self?.displayingHotelLocation {
+                    self?.updateMarker(atLocation: loc)
                 }
-                let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
-                    guard let sSelf = self else {return}
-                    sSelf.collectionViewBottomConstraint.constant = -300.0
-                    sSelf.mapContainerViewBottomConstraint.constant = 0.0
-                    sSelf.floatingViewBottomConstraint.constant = 0.0
-                    sSelf.headerContainerViewTopConstraint.constant = -300.0
-                    sSelf.mapContainerTopConstraint.constant = 0.0
-                    sSelf.mapContainerView.layoutSubviews()
-                    sSelf.view.layoutIfNeeded()
-                }
-                
-                animator.addCompletion { [weak self](pos) in
-                    self?.isHidingOnMapTap = false
-                }
-                animator.startAnimation()
             }
+            animator.startAnimation()
+//            delay(seconds: AppConstants.kAnimationDuration) { [weak self] in
+//                guard let strongSelf = self else {return}
+                let indexOfMajorCell = self.indexOfMajorCell()
+                self.manageForCollectionView(atIndex: indexOfMajorCell)
+//            }
+        }
+        else {
+            //hide collection view list
+            self.isHidingOnMapTap = true
+            self.isMapInFullView = true
+            self.currentLocationButton.isHidden = true
+            if let loc = displayingHotelLocation {
+                self.updateMarker(atLocation: loc,isSelected: false)
+            }
+            let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
+                guard let sSelf = self else {return}
+                sSelf.collectionViewBottomConstraint.constant = -300.0
+                sSelf.mapContainerViewBottomConstraint.constant = 0.0
+                sSelf.floatingViewBottomConstraint.constant = 0.0
+                sSelf.headerContainerViewTopConstraint.constant = -300.0
+                sSelf.mapContainerTopConstraint.constant = 0.0
+                sSelf.mapContainerView.layoutSubviews()
+                sSelf.view.layoutIfNeeded()
+            }
+            
+            animator.addCompletion { [weak self](pos) in
+                self?.isHidingOnMapTap = false
+            }
+            animator.startAnimation()
+        }
         printDebug("Coordinate on tapped")
     }
     

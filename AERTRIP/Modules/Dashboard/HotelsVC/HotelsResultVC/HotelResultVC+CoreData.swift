@@ -150,6 +150,8 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
         }
         if self.filterApplied.isIncludeUnrated {
             self.filterApplied.ratingCount.append(0)
+        } else {
+            self.filterApplied.ratingCount.remove(object: 0)
         }
         
         if let amentitiesPredicate = amentitiesPredicate() {
@@ -282,7 +284,7 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
             self.isLoadingListAfterUpdatingAllFav = false
             var turnOffFilter = true
             if self.fetchRequestType  == .FilterApplied, self.isFavouriteOn  {
-                turnOffFilter = false
+                turnOffFilter = allFavs.isEmpty ? true : false
             }
             self.hotelResultDelegate?.manageSwitchContainer(isHidden: allFavs.isEmpty, shouldOff: turnOffFilter)
             self.hotelMapDelegate?.manageSwitchContainer(isHidden: allFavs.isEmpty, shouldOff: turnOffFilter)

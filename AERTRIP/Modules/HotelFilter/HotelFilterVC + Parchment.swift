@@ -14,7 +14,7 @@ extension HotelFilterVC: PagingViewControllerDataSource {
 
     func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemForIndex index: Int) -> T {
         
-        return MenuItem(title: self.allTabsStr[index], index: index, isSelected: filtersTabs[index].isSelected ) as! T
+        return MenuItem(title: HotelFilterVM.shared.allTabsStr[index], index: index, isSelected: filtersTabs[index].isSelected ) as! T
     }
 
     func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, viewControllerForIndex index: Int) -> UIViewController where T : PagingItem, T : Comparable, T : Hashable {
@@ -22,7 +22,7 @@ extension HotelFilterVC: PagingViewControllerDataSource {
         return self.allChildVCs[index]
     }
     func numberOfViewControllers<T>(in pagingViewController: PagingViewController<T>) -> Int where T : PagingItem, T : Comparable, T : Hashable {
-        return self.allTabsStr.count
+        return HotelFilterVM.shared.allTabsStr.count
     }
 }
 

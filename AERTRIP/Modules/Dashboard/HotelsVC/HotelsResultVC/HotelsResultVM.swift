@@ -46,7 +46,6 @@ class HotelsResultVM: NSObject {
     var shareText: String = ""
     private(set) var collectionViewList: [String: Any] = [String: Any]()
     private(set) var collectionViewLocArr: [String] = []
-    let filterArray: [String] = [LocalizedString.Sort.localized, LocalizedString.Range.localized, LocalizedString.Price.localized, LocalizedString.Ratings.localized, LocalizedString.Amenities.localized,LocalizedString.Room.localized]
     
     weak var hotelResultDelegate: HotelResultDelegate?
     weak var hotelMapDelegate: HotelResultDelegate?

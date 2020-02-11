@@ -42,6 +42,7 @@ class MenuItemCollectionCell: PagingCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.dotView.layer.cornerRadius = 2.0
+        self.dotView.backgroundColor = AppColors.themeGreen
     }
     
     open override func setPagingItem(_ pagingItem: PagingItem, selected: Bool, options: PagingOptions) {

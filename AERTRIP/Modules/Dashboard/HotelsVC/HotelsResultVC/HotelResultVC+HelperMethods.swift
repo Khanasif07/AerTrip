@@ -40,13 +40,35 @@ extension HotelResultVC {
     }
     
     func applyPreviousFilter() {
-        let starStar = self.getStarString(fromArr: self.viewModel.filterApplied.ratingCount, maxCount: 5)
         
-        let distanceStr = self.viewModel.filterApplied.distanceRange > 20 ? "beyond \(self.viewModel.filterApplied.distanceRange.toInt) " : " within \(self.viewModel.filterApplied.distanceRange.toInt) "
+        let isRangeFilterApplied = HotelFilterVM.shared.filterAppliedFor(filterName: LocalizedString.Range.localized, appliedFilter: self.viewModel.filterApplied)
+        let isStarFilterApplied = HotelFilterVM.shared.filterAppliedFor(filterName: LocalizedString.Ratings.localized, appliedFilter: self.viewModel.filterApplied)
         
-        let finalStr = LocalizedString.ApplyPreviousFilter.localized + starStar + distanceStr.appending(LocalizedString.Kms.localized) + AppConstants.kEllipses
+        var starStar = ""
+        var distanceStr = ""
+        if isStarFilterApplied {
+            if !self.viewModel.filterApplied.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty {
+                starStar = self.getStarString(fromArr: self.viewModel.filterApplied.tripAdvisorRatingCount, maxCount: 5, isTripRating: true)
+
+            } else {
+                starStar = self.getStarString(fromArr: self.viewModel.filterApplied.ratingCount, maxCount: 5, isTripRating: false)
+            }
+        }
         
-        AppToast.default.showToastMessage(message: finalStr, onViewController: self, duration: 5.0, buttonTitle: LocalizedString.apply.localized, buttonAction: self.completion, toastDidClose: self.toastDidClose)
+        if isRangeFilterApplied {
+         distanceStr = self.viewModel.filterApplied.distanceRange > 20 ? "beyond \(self.viewModel.filterApplied.distanceRange.toInt) " : " within \(self.viewModel.filterApplied.distanceRange.toInt) "
+            distanceStr = distanceStr.appending(LocalizedString.Kms.localized)
+        }
+        
+        var finalStr = LocalizedString.ApplyPreviousFilter.localized + distanceStr + (starStar.isEmpty ? starStar : " \(starStar)") + AppConstants.kEllipses
+        finalStr = finalStr.replacingOccurrences(of: "  ", with: "")
+        printDebug(finalStr)
+        
+        
+        if isRangeFilterApplied || isStarFilterApplied {
+            AppToast.default.showToastMessage(message: finalStr, onViewController: self, duration: 5.0, buttonTitle: LocalizedString.apply.localized, buttonAction: self.completion, toastDidClose: self.toastDidClose)
+            
+        }
     }
     
     func getPinnedHotelTemplate() {
@@ -291,12 +313,14 @@ extension HotelResultVC {
     func noHotelFoundOnFilter() {
         self.mapButton.isUserInteractionEnabled = false
         self.searchBar.isUserInteractionEnabled = false
+        self.mapButton.isHidden = true
     }
     
     // enable mapButton and search bar when no data found on filter
     func dataFounOnFilter() {
         self.mapButton.isUserInteractionEnabled = true
         self.searchBar.isUserInteractionEnabled = true
+        self.mapButton.isHidden = false
     }
 }
 
@@ -305,7 +329,7 @@ extension HotelResultVC {
 extension HotelResultVC {
     
     /// Get Star Rating
-    private func getStarString(fromArr: [Int], maxCount: Int) -> String {
+    private func getStarString(fromArr: [Int], maxCount: Int, isTripRating: Bool) -> String {
         var arr = Array(Set(fromArr))
         arr.sort()
         var final = ""
@@ -313,8 +337,10 @@ extension HotelResultVC {
         var end: Int?
         var prev: Int?
         
+        let starText = isTripRating ? LocalizedString.TripRating.localized : LocalizedString.stars.localized
+        
         if arr.isEmpty || arr.count == maxCount {
-            final = "All \(LocalizedString.stars.localized)" // "0 \(LocalizedString.stars.localized)"
+            final = "All \(starText)" // "0 \(LocalizedString.stars.localized)"
             return final
         }
             //        else if arr.count == maxCount {
@@ -322,7 +348,7 @@ extension HotelResultVC {
             //            return final
             //        }
         else if arr.count == 1 {
-            final = "\(arr[0]) \((arr[0] == 1) ? "\(LocalizedString.star.localized)" : "\(LocalizedString.stars.localized)")"
+            final = "\(arr[0]) \((arr[0] == 1) ? "\(starText)" : "\(starText)")"
             return final
         }
         
@@ -371,7 +397,7 @@ extension HotelResultVC {
             end = nil
         }
         final.removeLast(2)
-        return final + " \(LocalizedString.stars.localized)"
+        return final + " \(starText)"
     }
     
     // show toast when come from Aerin Text Speech Controller
