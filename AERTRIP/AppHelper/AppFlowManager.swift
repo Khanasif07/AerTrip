@@ -167,6 +167,7 @@ class AppFlowManager: NSObject {
             }
             
             self.mainNavigationController.pushViewController(socialVC, animated: true)
+            AppGlobals.shared.stopLoading()
         }
     }
 }
@@ -446,6 +447,7 @@ extension AppFlowManager {
             ob.delegate = vc as? HotelDetailsVCDelegate
             ob.viewModel.hotelSearchRequest = hotelSearchRequest
             ob.onCloseHandler = onCloseHandler
+            ob.modalPresentationStyle = .fullScreen
             ob.show(onViewController: topVC, sourceView: sourceView, animated: true)
         }
     }

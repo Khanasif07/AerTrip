@@ -102,7 +102,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "789"
             endingLineNumber = "789"
-            landmarkName = "cancelTapped()"
+            landmarkName = "checkForAllSelected()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -295,7 +295,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "189"
                   endingLineNumber = "189"
-                  offsetFromSymbolStart = "416">
+                  offsetFromSymbolStart = "368">
                </Location>
                <Location
                   uuid = "F7E7F11F-67E6-476F-99F8-FEAC64F3185D - e6d0cf44614f800f"
@@ -310,7 +310,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "190"
                   endingLineNumber = "190"
-                  offsetFromSymbolStart = "49">
+                  offsetFromSymbolStart = "152">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -382,33 +382,37 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E7B89AD7-1F0B-4B15-BFAB-AD0DBB364B47"
+            uuid = "4A20C722-825A-4195-B1D9-43BC70B0A455"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/AppHelper/AppGlobals.swift"
+            filePath = "AERTRIP/Modules/Dashboard/SideMenuVC/PostLogin/Profile/ViewProfile/TravellerList/ImportContact/ImportContactVM.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "showErrorOnToastView(withErrors:fromModule:)"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
+            landmarkName = "callSearch(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            uuid = "41544E7B-186B-4363-A3F7-2C12536E3A40"
+            uuid = "E7ACE6C1-4040-42D1-B503-AE1CB0EEE59D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
+            condition = "All"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/AppHelper/AppGlobals.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
-            landmarkName = "showErrorOnToastView(withErrors:fromModule:)"
-            landmarkType = "7">
+            scope = "1"
+            stopOnStyle = "0">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
+                  <ActionContent
+                     consoleCommand = "">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -252,13 +252,13 @@ private extension SocialLoginVC {
             socialAndLogoSpace.constant = 89.0
         }
         else {
-            logoView?.messageLabel.font = AppFonts.Bold.withSize(38.0)
+            logoView?.messageLabel.font = AppFonts.c.withSize(38.0)
             logoView?.messageLabel.text = LocalizedString.PleaseSignInToContinue.localized
             logoView?.isAppNameHidden = true
-            logoView?.logoImageView.image = #imageLiteral(resourceName: "logoImage")
-            
-            socialButtosCenterConstraint.constant = -44.0
-            socialAndLogoSpace.constant = 63.0
+            logoView?.logoImageView.image = #imageLiteral(resourceName: "upwardAertripLogo")
+            logoView?.logoImageTopContraint.constant = 55
+            //socialButtosCenterConstraint.constant = 0.0
+            socialAndLogoSpace.constant = 135.0
         }
     }
     

@@ -254,7 +254,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
             // fullAttributedString.append(attributedString)
             //
             //            let dotAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(13.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack]
-            //            let dotAttributedString = NSAttributedString(string: "●  ", attributes: dotAttributes)
+            //            let dotAttributedString = NSAttributedString(string: "  ", attributes: dotAttributes)
             //            attributedString.append(dotAttributedString)
             //            let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
             //            let blackAttributedString = NSAttributedString(string: notesInclusion.first ?? "", attributes: blackAttribute)
@@ -269,7 +269,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         self.infoBtnOutlet.isHidden = true
         self.descriptionLabel.textColor = AppColors.themeBlack
         let attributedString = NSMutableAttributedString()
-        let dotAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(13.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack]
+        let dotAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(10.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack]
         let dotAttributedString = NSAttributedString(string: "●  ", attributes: dotAttributes)
         attributedString.append(dotAttributedString)
         let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]

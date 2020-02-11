@@ -1,7 +1,7 @@
 //
 //  HotelFilterResultsVC.swift
 //  AERTRIP
-//
+// AppGlobals.shared.startLoading()
 //  Created by Admin on 08/02/19.
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //

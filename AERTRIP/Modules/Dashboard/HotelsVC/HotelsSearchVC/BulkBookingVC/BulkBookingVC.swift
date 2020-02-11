@@ -442,7 +442,8 @@ class BulkBookingVC: BaseVC {
                         AppFlowManager.default.popToViewController(vc, animated: true)
                     }
                     sSelf.searchButtonOutlet.setTitle(LocalizedString.Submit.localized, for: .normal)
-                    sender.isLoading = true
+                    sender.isLoading = false
+                    self?.searchButtonAction(sSelf.searchButtonOutlet)
                     
                 }
             }

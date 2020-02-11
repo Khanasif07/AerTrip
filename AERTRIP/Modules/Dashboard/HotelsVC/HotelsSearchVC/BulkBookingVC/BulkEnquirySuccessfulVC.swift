@@ -83,7 +83,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
     }
     
     override func setupFonts() {
-        self.mainTitleLabel.font = AppFonts.Bold.withSize(31.0)
+        self.mainTitleLabel.font = AppFonts.c.withSize(32.0)
         self.subTitleLabel.font = AppFonts.Regular.withSize(16.0)
         self.doneBtnOutlet.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
     }

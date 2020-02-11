@@ -227,6 +227,14 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
             cell.canShowSalutationError = GuestDetailsVM.shared.canShowSalutationError
             printDebug("=====guest==== \(indexPath.section) \(indexPath.row)\(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
             cell.guestDetail = GuestDetailsVM.shared.guests[indexPath.section][indexPath.row]
+            if indexPath.row ==  GuestDetailsVM.shared.guests[indexPath.section].count - 1{
+                cell.firstNameTextField.isHiddenBottomLine = true
+                cell.lastNameTextField.isHiddenBottomLine = true
+            }
+            if indexPath.section ==  GuestDetailsVM.shared.guests[indexPath.section].count - 1  {
+                cell.firstNameTextField.isHiddenBottomLine = false
+                cell.lastNameTextField.isHiddenBottomLine = false
+            }
             return cell
         } else {
             guard let cell = travellersTableView.dequeueReusableCell(withIdentifier: TravellerListTableViewCell.reusableIdentifier, for: indexPath) as? TravellerListTableViewCell else {

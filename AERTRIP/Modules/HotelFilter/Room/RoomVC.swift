@@ -53,12 +53,18 @@ class RoomVC: UIViewController {
         if #available(iOS 13.0, *) {
             roomSegmentedControl.selectedSegmentTintColor = AppColors.themeGreen
             roomSegmentedControl.tintColor = AppColors.themeWhite
-            roomSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeWhite], for: UIControl.State.selected)
-                
+            roomSegmentedControl.setWidth(95, forSegmentAt: 0)
+            roomSegmentedControl.setWidth(95, forSegmentAt: 2)
+            roomSegmentedControl.apportionsSegmentWidthsByContent = true
+          roomSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeWhite], for: UIControl.State.selected)
+            
+            let font: [AnyHashable : Any] = [NSAttributedString.Key.font : AppFonts.SemiBold.withSize(14)]
+            roomSegmentedControl.setTitleTextAttributes(font as! [NSAttributedString.Key : Any], for: .normal)
             roomSegmentedControl.layer.borderColor = AppColors.themeGreen.cgColor
             roomSegmentedControl.layer.borderWidth = 2.0
             roomSegmentedControl.layer.cornerRadius = 2.0
             roomSegmentedControl.layer.masksToBounds = true
+            
             roomSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGreen], for: UIControl.State.normal)
         } else {
             // Fallback on earlier versions

@@ -666,9 +666,9 @@ been sent</string>
                                                     <action selector="cancelButtonAction:" destination="ZWw-dZ-KR8" eventType="touchUpInside" id="Do1-We-FSW"/>
                                                 </connections>
                                             </button>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MCD-s8-G7E">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MCD-s8-G7E" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="68.5" width="414" height="0.5"/>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="jjc-X8-75T"/>
                                                 </constraints>
@@ -859,10 +859,10 @@ been sent</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="112.5" height="266"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="19.5" translatesAutoresizingMaskIntoConstraints="NO" id="5Nc-t2-hZo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="112.5" height="266"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="112.5" height="263.5"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="lUb-4B-UGW">
-                                                                <rect key="frame" x="0.0" y="0.0" width="112.5" height="115.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="112.5" height="113"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="627-JL-ot9">
                                                                         <rect key="frame" x="0.0" y="0.0" width="112.5" height="43"/>
@@ -884,10 +884,10 @@ been sent</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFd-nY-Rus">
-                                                                        <rect key="frame" x="0.0" y="55" width="112.5" height="60.5"/>
+                                                                        <rect key="frame" x="0.0" y="55" width="112.5" height="58"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4l-qf-vJb">
-                                                                                <rect key="frame" x="41" y="1.5" width="31" height="58"/>
+                                                                                <rect key="frame" x="41" y="0.0" width="31" height="58"/>
                                                                                 <state key="normal" image="rooms_white_icon"/>
                                                                             </button>
                                                                         </subviews>
@@ -904,7 +904,7 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="klb-yY-qLX">
-                                                                <rect key="frame" x="0.0" y="135" width="112.5" height="131"/>
+                                                                <rect key="frame" x="0.0" y="132.5" width="112.5" height="131"/>
                                                                 <subviews>
                                                                     <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2S-NB-xYW">
                                                                         <rect key="frame" x="0.0" y="0.0" width="112.5" height="131"/>
@@ -1198,7 +1198,7 @@ been sent</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i0y-pP-iG0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4048.8000000000002" y="450.22488755622192"/>
+            <point key="canvasLocation" x="4259" y="1419"/>
         </scene>
         <!--Hotel ResultVC-->
         <scene sceneID="bax-Fu-FV9">
@@ -2254,7 +2254,7 @@ been sent</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKJ-fV-GuR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3053.5999999999999" y="1404.6476761619192"/>
+            <point key="canvasLocation" x="2697" y="1405"/>
         </scene>
         <!--Hotels SearchVC-->
         <scene sceneID="ZLQ-hj-H4b">
@@ -2400,7 +2400,7 @@ been sent</string>
                                                         <attributedString key="attributedText">
                                                             <fragment content="Want more rooms? Request bulk booking">
                                                                 <attributes>
-                                                                    <font key="NSFont" metaFont="menu" size="14"/>
+                                                                    <font key="NSFont" metaFont="menuBar"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                 </attributes>
                                                             </fragment>
@@ -2855,7 +2855,7 @@ been sent</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7QP-p9-Tcr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3671" y="1405"/>
+            <point key="canvasLocation" x="3439" y="1405"/>
         </scene>
         <!--Bulk BookingVC-->
         <scene sceneID="ONM-Bf-hcE">
