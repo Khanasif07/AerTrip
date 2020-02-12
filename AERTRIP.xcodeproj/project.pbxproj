@@ -297,6 +297,7 @@
 		18999D9F21E4DA5000E66072 /* APICaller+TravellerPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18999D9E21E4DA5000E66072 /* APICaller+TravellerPreferences.swift */; };
 		189EF58822B7B7C600D5E055 /* AdditionalInformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189EF58722B7B7C600D5E055 /* AdditionalInformationModel.swift */; };
 		18A62BE222C38375008D000C /* BookingAddOnRequestVC+Delegatemethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A62BE122C38375008D000C /* BookingAddOnRequestVC+Delegatemethods.swift */; };
+		18A793DD23F3E9FB008A40F4 /* UPCarouselFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A793DC23F3E9FA008A40F4 /* UPCarouselFlowLayout.swift */; };
 		18A8814B21C7CF0A00864077 /* SlideMenuProfileImageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A8814A21C7CF0A00864077 /* SlideMenuProfileImageHeaderView.swift */; };
 		18A8814D21C7CF3600864077 /* SlideMenuProfileImageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A8814C21C7CF3600864077 /* SlideMenuProfileImageHeaderView.xib */; };
 		18A90192229FB29D004EAEC3 /* BlurLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A90191229FB29D004EAEC3 /* BlurLoader.swift */; };
@@ -1292,6 +1293,7 @@
 		189EF58722B7B7C600D5E055 /* AdditionalInformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInformationModel.swift; sourceTree = "<group>"; };
 		18A01E4521CA765D0071E772 /* AERTRIP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AERTRIP.entitlements; sourceTree = "<group>"; };
 		18A62BE122C38375008D000C /* BookingAddOnRequestVC+Delegatemethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookingAddOnRequestVC+Delegatemethods.swift"; sourceTree = "<group>"; };
+		18A793DC23F3E9FA008A40F4 /* UPCarouselFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPCarouselFlowLayout.swift; sourceTree = "<group>"; };
 		18A8814A21C7CF0A00864077 /* SlideMenuProfileImageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideMenuProfileImageHeaderView.swift; sourceTree = "<group>"; };
 		18A8814C21C7CF3600864077 /* SlideMenuProfileImageHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SlideMenuProfileImageHeaderView.xib; sourceTree = "<group>"; };
 		18A90191229FB29D004EAEC3 /* BlurLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurLoader.swift; sourceTree = "<group>"; };
@@ -2448,6 +2450,7 @@
 		1835E4FC23EAC11300F6EEA1 /* PresetationTransition */ = {
 			isa = PBXGroup;
 			children = (
+				18A793DC23F3E9FA008A40F4 /* UPCarouselFlowLayout.swift */,
 				1835E50523EAC1D600F6EEA1 /* Misc */,
 				1835E50023EAC1CC00F6EEA1 /* CardPresentationController.swift */,
 				1835E4FE23EAC1CC00F6EEA1 /* CardTransition.swift */,
@@ -6365,7 +6368,6 @@
 				84254F48223A917400E3D120 /* HCEmailItinerariesVM.swift in Sources */,
 				180632A322521D60008B1F32 /* FinalCheckOutVC+DelegateMethods.swift in Sources */,
 				182D483E228AA544004796A2 /* BookingHotelDetailVC.swift in Sources */,
-				1807EFFB223F7FF70092E127 /* HotelResultVC+MapDelegate.swift in Sources */,
 				1835E50A23EAC1F000F6EEA1 /* GlobalConstants.swift in Sources */,
 				840C6FE7221DED7D008EE73C /* AmenitiesCollectionCell.swift in Sources */,
 				8472F21423E4160E00993B08 /* HotelsGroupExtendedVM.swift in Sources */,
@@ -6453,6 +6455,7 @@
 				842EDE7D2238E7D600E99409 /* HotelDetailsOverviewVC.swift in Sources */,
 				84F4DB8F226DCC0500B68171 /* ADEventFilterVC.swift in Sources */,
 				84F983E721B51A070018DFED /* AppGlobals.swift in Sources */,
+				18A793DD23F3E9FB008A40F4 /* UPCarouselFlowLayout.swift in Sources */,
 				18AE8F5A22A4F4E8009D625E /* BookingReviewCancellationVC.swift in Sources */,
 				1853A37222975BD600891E53 /* BookingReschedulingPassengerAccordionTableViewCell.swift in Sources */,
 				84F983D921B51A070018DFED /* Extensions.swift in Sources */,

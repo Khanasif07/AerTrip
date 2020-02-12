@@ -585,7 +585,7 @@ extension HotelsMapVC: GMSMapViewDelegate {
             if hData.count > 1 {
                 self.expandGroup((self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[index.row]] as? [HotelSearched]) ?? [])
             } else {
-                AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: data, sourceView: self.collectionView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+                AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: data, sourceView: self.hotelsMapCV, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
             }
         }
     }

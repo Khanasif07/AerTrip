@@ -99,7 +99,7 @@ extension HotelsMapVC {
                 self.hotelSearchTableView.reloadRow(at: indexPath, with: .none)
             }
             else {
-                    self.collectionView.reloadItems(at: indexPath)
+                    self.hotelsMapCV.reloadItems(at: indexPath)
             }
             selectedIndexPath = nil
         }
@@ -110,7 +110,7 @@ extension HotelsMapVC {
             else {
                 
                 self.viewModel.fetchDataFromCoreData(isUpdatingFav: true)
-                    self.collectionView.reloadData()
+                    self.hotelsMapCV.reloadData()
             }
         }
     }
@@ -152,7 +152,7 @@ extension HotelsMapVC {
     func reloadHotelList(isUpdatingFav: Bool = false,drawMarkers: Bool = true) {
         
         self.hotelSearchTableView.reloadData()
-        self.collectionView.reloadData()
+        self.hotelsMapCV.reloadData()
         
         if drawMarkers {
             updateMarkers()
@@ -228,7 +228,7 @@ extension HotelsMapVC {
     // MARK: - Manage Header animation
     
     func manageFloatingButtonOnPaginationScroll(_ scrollView: UIScrollView) {
-        guard scrollView === collectionView else {
+        guard scrollView === hotelsMapCV else {
             return
         }
         
@@ -241,7 +241,7 @@ extension HotelsMapVC {
         
         let currentPoint = CGPoint(x: decimal * UIDevice.screenWidth, y: scrollView.contentOffset.y)
         guard 0.01...0.99 ~= progress else {
-            if self.collectionView.indexPathForItem(at: currentPoint) != nil {
+            if self.hotelsMapCV.indexPathForItem(at: currentPoint) != nil {
                 // current grouped cell
                 self.relocateSwitchButton(shouldMoveUp: true, animated: true)
                 self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
@@ -259,9 +259,9 @@ extension HotelsMapVC {
         if xPos > self.oldScrollPosition.x {
             // forward
             printDebug("forward, \(fractional)")
-            if self.collectionView.indexPathForItem(at: currentPoint) != nil {
+            if self.hotelsMapCV.indexPathForItem(at: currentPoint) != nil {
                 // current grouped cell
-                if self.collectionView.indexPathForItem(at: nextPoint) != nil {
+                if self.hotelsMapCV.indexPathForItem(at: nextPoint) != nil {
                     // next grouped cell
                     self.relocateSwitchButton(shouldMoveUp: true, animated: true)
                     self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
@@ -275,7 +275,7 @@ extension HotelsMapVC {
                 }
             } else {
                 // current normal cell
-                if self.collectionView.indexPathForItem(at: nextPoint) != nil {
+                if self.hotelsMapCV.indexPathForItem(at: nextPoint) != nil {
                     // next grouped cell
                     if progress < 0.5 {
                         self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
@@ -292,9 +292,9 @@ extension HotelsMapVC {
             // backward
             printDebug("backward, \(fractional)")
             
-            if self.collectionView.indexPathForItem(at: currentPoint) != nil {
+            if self.hotelsMapCV.indexPathForItem(at: currentPoint) != nil {
                 // current grouped cell
-                if self.collectionView.indexPathForItem(at: prevPoint) != nil {
+                if self.hotelsMapCV.indexPathForItem(at: prevPoint) != nil {
                     // prev grouped cell
                     self.relocateSwitchButton(shouldMoveUp: true, animated: true)
                     self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
@@ -308,7 +308,7 @@ extension HotelsMapVC {
                 }
             } else {
                 // current normal cell
-                if self.collectionView.indexPathForItem(at: prevPoint) != nil {
+                if self.hotelsMapCV.indexPathForItem(at: prevPoint) != nil {
                     // prev grouped cell
                     if progress < 0.5 {
                         self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
@@ -392,21 +392,33 @@ extension HotelsMapVC {
 //MARK:- Make colection view item in center
 extension HotelsMapVC {
     
+    var pageSize: CGSize {
+        let layout = self.hotelsMapCV.collectionViewLayout as! UPCarouselFlowLayout
+        var pageSize = layout.itemSize
+        if layout.scrollDirection == .horizontal {
+            pageSize.width += layout.minimumLineSpacing
+        } else {
+            pageSize.height += layout.minimumLineSpacing
+        }
+        return pageSize
+    }
+    
+    
     func calculateSectionInset() -> CGFloat {
         return CGFloat(16.0)
     }
     
     func configureCollectionViewLayoutItemSize() {
-        //call this methods in viewDidLayoutSubviews
-        let inset: CGFloat = calculateSectionInset() // This inset calculation is some magic so the next and the previous cells will peek from the sides. Don't worry about it
-        collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
-        
-        collectionViewLayout.itemSize = CGSize(width: UIDevice.screenWidth - (inset * 2), height: 192.0)
+//        //call this methods in viewDidLayoutSubviews
+//        let inset: CGFloat = calculateSectionInset() // This inset calculation is some magic so the next and the previous cells will peek from the sides. Don't worry about it
+//        collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+//        
+//        collectionViewLayout.itemSize = CGSize(width: UIDevice.screenWidth - (inset * 2), height: 192.0)
     }
     
     func indexOfMajorCell() -> Int {
-        let itemWidth = collectionViewLayout.itemSize.width
-        let proportionalOffset = collectionViewLayout.collectionView!.contentOffset.x / itemWidth
+        let itemWidth =  UIDevice.screenWidth - (calculateSectionInset() * 2)//collectionViewLayout.itemSize.width
+        let proportionalOffset = self.hotelsMapCV.contentOffset.x / itemWidth
         let index = Int(round(proportionalOffset))
         let numberOfItemInCollection = self.viewModel.collectionViewLocArr.count - 1
         let safeIndex = max(0, min(numberOfItemInCollection, index))
@@ -420,35 +432,48 @@ extension HotelsMapVC {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
-        guard scrollView === self.collectionView else {return}
         
-        let numberOfItemInCollection = self.viewModel.collectionViewLocArr.count - 1
         
-        // Stop scrollView sliding:
-        targetContentOffset.pointee = scrollView.contentOffset
+//        guard scrollView === self.collectionView else {return}
+//        
+//        let numberOfItemInCollection = self.viewModel.collectionViewLocArr.count - 1
+//        
+//        // Stop scrollView sliding:
+//        targetContentOffset.pointee = scrollView.contentOffset
+//        
+//        // calculate where scrollView should snap to:
+//        var indexOfMajorCell = self.indexOfMajorCell()
+//        
+//        // calculate conditions:
+//        let swipeVelocityThresholdToMove: CGFloat = 1.0
+//        
+//        let absVelocity = abs(velocity.x)
+//        if absVelocity >= swipeVelocityThresholdToMove {
+//            if velocity.x < 0 {
+//                indexOfMajorCell -= 1
+//            }
+//            else {
+//                indexOfMajorCell += 1
+//            }
+//            
+//            indexOfMajorCell = max(0,indexOfMajorCell)
+//            indexOfMajorCell = min(indexOfMajorCell,numberOfItemInCollection)
+//        }
+//        let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
+//        collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+//        
+//        self.manageForCollectionView(atIndex: indexOfMajorCell)
         
-        // calculate where scrollView should snap to:
-        var indexOfMajorCell = self.indexOfMajorCell()
         
-        // calculate conditions:
-        let swipeVelocityThresholdToMove: CGFloat = 1.0
         
-        let absVelocity = abs(velocity.x)
-        if absVelocity >= swipeVelocityThresholdToMove {
-            if velocity.x < 0 {
-                indexOfMajorCell -= 1
-            }
-            else {
-                indexOfMajorCell += 1
-            }
-            
-            indexOfMajorCell = max(0,indexOfMajorCell)
-            indexOfMajorCell = min(indexOfMajorCell,numberOfItemInCollection)
-        }
-        let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
-        collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        let pageSide =  self.pageSize.width
+        let offset =  hotelsMapCV.contentOffset.x
+        let currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
+//        DispatchQueue.main.async {
+        self.manageForCollectionView(atIndex: currentPage)
+
+//        }
         
-        self.manageForCollectionView(atIndex: indexOfMajorCell)
     }
     
     /// Get Star Rating

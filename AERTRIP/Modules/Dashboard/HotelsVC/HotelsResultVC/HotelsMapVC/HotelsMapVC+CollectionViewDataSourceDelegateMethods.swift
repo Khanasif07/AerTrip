@@ -14,30 +14,9 @@ extension HotelsMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.collectionView.isHidden = self.viewModel.collectionViewLocArr.count == 0
+        self.hotelsMapCV.isHidden = self.viewModel.collectionViewLocArr.count == 0
         return self.viewModel.collectionViewLocArr.count
     }
-    
-    
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        guard let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.item]] as? [HotelSearched] else {
-//            printDebug("hotel data not fouond")
-//            return
-//        }
-//
-//        let hiddenFrame: CGRect = CGRect(x: collectionView.width, y: (UIDevice.screenHeight - collectionView.height), width: collectionView.width, height: collectionView.height)
-//        var floatingBottomConstraint =  hiddenFrame.height
-//        if hData.count > 1 {
-//            floatingBottomConstraint = hiddenFrame.height + 10
-//        } else {
-//            floatingBottomConstraint = hiddenFrame.height - 20
-//        }
-//
-//        UIView.animate(withDuration: 0.1) { [weak self] in
-//            self?.floatingViewBottomConstraint.constant = floatingBottomConstraint
-//        }
-//    }
-    
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -83,7 +62,7 @@ extension HotelsMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
             presentController(cell: cell, hotelInfo: data, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
         }
          //--------------------------- End ---------------------
-        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+//        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
     }
     
     
@@ -128,4 +107,3 @@ extension HotelsMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
 }
- //--------------------------- End ---------------------

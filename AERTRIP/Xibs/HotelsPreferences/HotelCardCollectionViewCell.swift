@@ -63,6 +63,7 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
         // Initialization code
         //-------------------------- Golu Change ---------------------
         self.disabledHighlightedAnimation = false
+        self.scrollView.isScrollEnabled = false
         //-------------------------- End ---------------------
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = self.gradientView.bounds
