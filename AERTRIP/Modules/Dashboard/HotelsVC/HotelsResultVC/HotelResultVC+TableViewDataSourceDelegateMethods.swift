@@ -143,7 +143,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView === hotelSearchTableView {
-            return 110.0
+            return indexPath.row == 0 ? 115.0 : 110.0
         } else {
             return 209.0
         }
@@ -156,6 +156,8 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
             }
             cell.searchText = self.viewModel.searchTextStr
+            cell.topDividerView.isHidden = indexPath.row == 0 ? false : true
+            cell.topConstraintDividerView.constant = indexPath.row == 0 ? 5 : 0
             if self.viewModel.searchedHotels.count > 0 {
                 cell.hotelData = self.viewModel.searchedHotels[indexPath.row]
             }
