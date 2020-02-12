@@ -312,7 +312,7 @@ extension HotelResultVC {
     // Disable mapButton and search bar when no data found on filter
     func noHotelFoundOnFilter() {
         self.mapButton.isUserInteractionEnabled = false
-        self.searchBar.isUserInteractionEnabled = false
+        //self.searchBar.isUserInteractionEnabled = false
         self.mapButton.isHidden = true
     }
     

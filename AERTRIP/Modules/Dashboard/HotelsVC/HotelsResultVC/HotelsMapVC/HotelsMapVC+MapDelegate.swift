@@ -101,6 +101,14 @@ extension HotelsMapVC {
             }
         }
     }
+    
+    func sowHotelOnMap(duration: Double, index: Int? = nil) {
+        delay(seconds: duration) { [weak self] in
+            guard let strongSelf = self else {return}
+            let indexOfMajorCell = index ?? strongSelf.indexOfMajorCell()
+            strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
+        }
+    }
 }
 
 // MARK: - Methods for Marker Ploating
@@ -505,12 +513,12 @@ extension HotelsMapVC: GMSMapViewDelegate {
             let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
                 guard let sSelf = self else {return}
                 sSelf.collectionViewBottomConstraint.constant = 0.0
-                sSelf.floatingViewBottomConstraint.constant = sSelf.floatingViewInitialConstraint
+                sSelf.floatingViewBottomConstraint.constant = 203.0
                 sSelf.mapContainerViewBottomConstraint.constant = 203.0
                 sSelf.headerContainerViewTopConstraint.constant = 0.0
                 sSelf.mapContainerTopConstraint.constant = 50.0
                 sSelf.mapContainerView.layoutSubviews()
-                //sSelf.view.layoutIfNeeded()
+                sSelf.view.layoutIfNeeded()
             }
             
             animator.addCompletion { [weak self](pos) in
@@ -520,11 +528,7 @@ extension HotelsMapVC: GMSMapViewDelegate {
                 }
             }
             animator.startAnimation()
-//            delay(seconds: AppConstants.kAnimationDuration) { [weak self] in
-//                guard let strongSelf = self else {return}
-                let indexOfMajorCell = self.indexOfMajorCell()
-                self.manageForCollectionView(atIndex: indexOfMajorCell)
-//            }
+            self.sowHotelOnMap(duration: 0.4)
         }
         else {
             //hide collection view list

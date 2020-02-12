@@ -272,6 +272,8 @@ extension HotelResultVC: HotelResultDelegate {
     func getAllHotelsListResultFail(errors: ErrorCodes) {
         if errors.contains(array: [37]) {
             self.viewModel.hotelListOnResultFallback()
+        } else if errors.contains(ATErrorManager.LocalError.requestTimeOut.rawValue) {
+            self.noHotelFound()
         } else if errors.isEmpty {
             self.noHotelFound()
         }

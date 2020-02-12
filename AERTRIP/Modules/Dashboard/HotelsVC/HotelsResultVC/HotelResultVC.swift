@@ -261,13 +261,6 @@ class HotelResultVC: BaseVC {
         printDebug("HotelResultVC deinit")
     }
     
-    override func keyboardWillHide(notification: Notification) {
-        if let _ = self.view.window, self.viewModel.searchedHotels.isEmpty {
-            //checking if the screen in window only then this method should call
-            // self.cancelButtonTapped(self.cancelButton)
-        }
-    }
-    
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification, noti == .GRNSessionExpired {
             //re-hit the search API
@@ -327,6 +320,12 @@ class HotelResultVC: BaseVC {
             printDebug("notification: Keyboard will show")
             let footerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: keyboardSize.height))
             self.hotelSearchTableView.tableFooterView = footerView
+        }
+    }
+    override func keyboardWillHide(notification: Notification) {
+        if let _ = self.view.window, self.viewModel.searchedHotels.isEmpty {
+            //checking if the screen in window only then this method should call
+            self.hotelSearchTableView.tableFooterView = nil
         }
     }
     

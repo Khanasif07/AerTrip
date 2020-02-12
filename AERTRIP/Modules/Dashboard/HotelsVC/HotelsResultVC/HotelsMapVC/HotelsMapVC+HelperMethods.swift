@@ -150,15 +150,16 @@ extension HotelsMapVC {
     }
     
     func reloadHotelList(isUpdatingFav: Bool = false,drawMarkers: Bool = true) {
-        
+        if !self.viewModel.searchTextStr.isEmpty {
+            self.hotelSearchTableView.backgroundColor = self.viewModel.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
+        }
         self.hotelSearchTableView.reloadData()
         self.collectionView.reloadData()
         
         if drawMarkers {
             updateMarkers()
         }
-            let indexOfMajorCell = self.indexOfMajorCell()
-            self.manageForCollectionView(atIndex: indexOfMajorCell)
+            self.sowHotelOnMap(duration: 0)
     }
     
     func searchForText(_ searchText: String, shouldPerformAction: Bool = true) {
@@ -175,7 +176,7 @@ extension HotelsMapVC {
     private func searchHotels(forText: String) {
         self.viewModel.fetchRequestType = .Searching
         printDebug("searching text is \(forText)")
-        self.searchTextStr = forText
+        self.viewModel.searchTextStr = forText
         self.viewModel.loadSaveData()
         self.reloadHotelList()
     }

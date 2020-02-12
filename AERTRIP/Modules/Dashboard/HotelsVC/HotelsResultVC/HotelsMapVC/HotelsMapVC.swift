@@ -102,7 +102,6 @@ class HotelsMapVC: BaseVC {
     // MARK: - Properties
     
     //    var container: NSPersistentContainer!
-    var searchTextStr: String = ""
     var isAboveTwentyKm: Bool = false
     var isFotterVisible: Bool = false
     var searchIntitialFrame: CGRect = .zero
@@ -281,13 +280,6 @@ class HotelsMapVC: BaseVC {
         printDebug("HotelResultVC deinit")
     }
     
-    override func keyboardWillHide(notification: Notification) {
-        if let _ = self.view.window, self.viewModel.searchedHotels.isEmpty {
-            //checking if the screen in window only then this method should call
-            // self.cancelButtonTapped(self.cancelButton)
-        }
-    }
-    
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification, noti == .GRNSessionExpired {
             //re-hit the search API
@@ -301,6 +293,7 @@ class HotelsMapVC: BaseVC {
             // manage favourite switch buttons
             self.viewModel.getFavouriteHotels(shouldReloadData: true)
             self.updateMarkers()
+            self.sowHotelOnMap(duration: 0.4)
             //            updateFavouriteSuccess(isHotelFavourite: true)
         }
         else if let _ = note.object as? HCDataSelectionVC {
@@ -347,6 +340,12 @@ class HotelsMapVC: BaseVC {
             printDebug("notification: Keyboard will show")
             let footerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: keyboardSize.height))
             self.hotelSearchTableView.tableFooterView = footerView
+        }
+    }
+    override func keyboardWillHide(notification: Notification) {
+        if let _ = self.view.window, self.viewModel.searchedHotels.isEmpty {
+            //checking if the screen in window only then this method should call
+            self.hotelSearchTableView.tableFooterView = nil
         }
     }
     
@@ -489,7 +488,7 @@ class HotelsMapVC: BaseVC {
         self.hideSearchAnimation()
         self.view.endEditing(true)
         self.searchBar.text = ""
-        self.searchTextStr = ""
+        self.viewModel.searchTextStr = ""
         self.reloadHotelList()
         delay(seconds: 0.1) { [weak self] in
             self?.viewModel.loadSaveData()

@@ -14,8 +14,10 @@ protocol HotelCardCollectionViewCellDelegate: class {
     func saveButtonActionFromLocalStorage(_ sender:UIButton,forHotel : HotelSearched)
     func pagingScrollEnable(_ indexPath: IndexPath, _ scrollView: UIScrollView)
 }
+
 //Extened class to highlight on tap
 class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
+    
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var hotelImageView: UIImageView!
     @IBOutlet weak var saveButton: UIButton!
@@ -31,14 +33,14 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
     @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var ratingContainerLeadingConstraint: NSLayoutConstraint!
-
+    
     
     weak var delegate: HotelCardCollectionViewCellDelegate?
     
     private var gradientLayer: CAGradientLayer!
     var scrollSize: CGFloat = 0.0
     let numberOfPage: Int = 100
-
+    
     var shouldShowMultiPhotos: Bool = true {
         didSet {
             self.updateMutiPhotos()
@@ -78,16 +80,24 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
         self.setupPageControl()
         self.scrollSize = self.hotelImageView.frame.size.width
         
-       self.bgView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.6), offset: CGSize.zero, opacity: 0.4, shadowRadius: 4.0)
+        self.bgView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.6), offset: CGSize.zero, opacity: 0.4, shadowRadius: 4.0)
         self.hotelImageView.cornerRadius = 10.0
         self.scrollView.cornerRadius = 10.0
         self.gradientView.cornerRadius = 10.0
-        
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         self.gradientLayer.frame = self.gradientView.bounds
+        self.scrollSize = self.hotelImageView.frame.size.width
+        self.scrollView.layoutIfNeeded()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        scrollView.subviews.forEach { (view) in
+            view.removeFromSuperview()
+        }
     }
     
     private func setUpInstagramDotGalleryView() {
@@ -107,6 +117,7 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
         for index in 0..<thumbnail.count {
             let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: self.hotelImageView.frame.origin.y, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
             view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: false)
+            view.autoresizingMask = [.flexibleHeight,.flexibleWidth]
             scrollView.addSubview(view)
         }
     }
@@ -118,7 +129,7 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
     
     private func populateData() {
         self.hotelNameLabel.text = self.hotelData?.name ?? LocalizedString.na.localized
-
+        
         self.starRatingView.isHidden = true
         self.ratingContainerLeadingConstraint.constant = -10.0
         if let hotel = self.hotelData, hotel.stars > 0.0 {
@@ -129,24 +140,24 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
         
         self.greenCircleRatingView.isHidden = true
         self.tripLogoImage.isHidden = true
-//        if let hotel = self.hotelData, hotel.rating > 0.0 {
-//            self.greenCircleRatingView.isHidden = false
-//            self.tripLogoImage.isHidden = false
-//            self.greenCircleRatingView.rating = hotel.rating
-//        }
+        //        if let hotel = self.hotelData, hotel.rating > 0.0 {
+        //            self.greenCircleRatingView.isHidden = false
+        //            self.tripLogoImage.isHidden = false
+        //            self.greenCircleRatingView.rating = hotel.rating
+        //        }
         if let hotel = self.hotelData, hotel.taRating > 0.0 {
             self.greenCircleRatingView.isHidden = false
             self.tripLogoImage.isHidden = false
             self.greenCircleRatingView.rating = hotel.taRating
         }
-
+        
         self.saveButton.isSelected = self.hotelData?.isFavourite ?? false
         
         if let image = UIImage(named: "hotelCardPlaceHolder") {
             self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: false)
         }
     }
-
+    
     private func populateHotelData() {
         self.hotelNameLabel.text = self.hotelListData?.hotelName ?? LocalizedString.na.localized
         
@@ -165,7 +176,7 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
             self.tripLogoImage.isHidden = false
             self.greenCircleRatingView.rating = hotel.rating
         }
-
+        
         
         self.actualPriceLabel.text = self.hotelListData?.listPrice == 0 ? "" : "\(String(describing: self.hotelListData?.listPrice ?? 0.0))"
         var price : Double = self.hotelListData?.price ?? 0.0
@@ -182,7 +193,7 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
     }
     
     private func updateMutiPhotos() {
-        self.scrollView.isHidden = self.shouldShowMultiPhotos
+        self.scrollView.isHidden = !self.shouldShowMultiPhotos
         self.pageControl.isHidden = !self.shouldShowMultiPhotos
     }
     
@@ -191,7 +202,7 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
         if let hotel = self.hotelData {
             self.delegate?.saveButtonAction(sender, forHotel: hotel)
         } else if let hotel = self.hotelListData {
-              self.delegate?.saveButtonActionFromLocalStorage(sender, forHotel: hotel)
+            self.delegate?.saveButtonActionFromLocalStorage(sender, forHotel: hotel)
         }
     }
     
