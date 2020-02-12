@@ -221,10 +221,10 @@ extension GuestDetailTableViewCell: UITextFieldDelegate {
         }
         switch textField {
         case self.firstNameTextField:
-            self.firstNameTextField.isHiddenBottomLine = false
+            //self.firstNameTextField.isHiddenBottomLine = false
             self.delegate?.textFieldWhileEditing(firstNameTextField)
         case self.lastNameTextField:
-            self.lastNameTextField.isHiddenBottomLine = false
+           // self.lastNameTextField.isHiddenBottomLine = false
             self.delegate?.textFieldWhileEditing(lastNameTextField)
         default:
             break

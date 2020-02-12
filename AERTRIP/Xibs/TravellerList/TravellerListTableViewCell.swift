@@ -24,6 +24,11 @@ class TravellerListTableViewCell: UITableViewCell {
         // Initialization code
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        searchedText = ""
+    }
+    
     var travellerData: TravellerData? {
         didSet {
             configureCell()
@@ -35,6 +40,7 @@ class TravellerListTableViewCell: UITableViewCell {
             configureCellForTraveller()
         }
     }
+    var searchedText = ""
     
     // MARK: - Helper methods
     
@@ -68,6 +74,7 @@ class TravellerListTableViewCell: UITableViewCell {
         if !age.isEmpty {
             self.userNameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
         }
+        self.userNameLabel.AttributedFontForText(text: searchedText, textFont: AppFonts.SemiBold.withSize(18.0))
     }
     
     private func getAttributedBoldText(text: String, boldText: String) -> NSMutableAttributedString {
