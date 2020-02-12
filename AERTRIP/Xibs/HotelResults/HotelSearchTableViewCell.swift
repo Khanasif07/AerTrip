@@ -12,6 +12,8 @@ class HotelSearchTableViewCell: UITableViewCell {
     
     // MARK: - IB Outlets
     
+    @IBOutlet weak var topConstraintDividerView: NSLayoutConstraint!
+    @IBOutlet weak var topDividerView: ATDividerView!
     @IBOutlet weak var hotelNameLabel : UILabel!
     @IBOutlet weak var favouriteStatusImageView: UIImageView!
     @IBOutlet weak var hotelPriceLabel : UILabel!

@@ -342,12 +342,12 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
 
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = item
             self.selectNextGuest()
-            self.selectedContactsCollectionView.performBatchUpdates({
-                self.selectedContactsCollectionView.insertItems(at: [idx])
-            }, completion: { (isDone) in
+//            self.selectedContactsCollectionView.performBatchUpdates({
+//                self.selectedContactsCollectionView.insertItems(at: [idx])
+//            }, completion: { (isDone) in
                 self.selectedContactsCollectionView.reloadData()
                 self.scrollCollectionToEnd()
-            })
+//            })
         }
     }
     
