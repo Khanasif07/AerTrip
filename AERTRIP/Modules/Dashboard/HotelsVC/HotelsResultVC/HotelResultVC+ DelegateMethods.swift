@@ -162,6 +162,7 @@ extension HotelResultVC: HotelResultDelegate {
         self.progressView?.removeFromSuperview()
         self.manageShimmer(isHidden: true)
         self.hotelSearchTableView.backgroundView = noHotelFoundEmptyView
+        self.searchButton.isUserInteractionEnabled = false
     }
     
     func loadFinalDataOnScreen() {

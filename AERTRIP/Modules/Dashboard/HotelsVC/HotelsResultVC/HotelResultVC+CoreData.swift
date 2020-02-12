@@ -259,10 +259,10 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
             }
             
             self.fetchHotelsDataForCollectionView(fromController: self.fetchedResultsController)
-            
+            self.hotelMapDelegate?.reloadHotelList(isUpdatingFav: isUpdatingFav)
+
             if !isUpdatingFav {
                 self.hotelResultDelegate?.reloadHotelList(isUpdatingFav: isUpdatingFav)
-                self.hotelMapDelegate?.reloadHotelList(isUpdatingFav: isUpdatingFav)
             }
             
             self.getFavouriteHotels(shouldReloadData: false,finalPredicate: finalPredicate)

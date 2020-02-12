@@ -60,15 +60,16 @@ extension HotelResultVC {
             distanceStr = distanceStr.appending(LocalizedString.Kms.localized)
         }
         
-        var finalStr = LocalizedString.ApplyPreviousFilter.localized + distanceStr + (starStar.isEmpty ? starStar : " \(starStar)") + AppConstants.kEllipses
-        finalStr = finalStr.replacingOccurrences(of: "  ", with: "")
-        printDebug(finalStr)
+        var finalStr = LocalizedString.ApplyPreviousFilter.localized
         
         
         if isRangeFilterApplied || isStarFilterApplied {
-            AppToast.default.showToastMessage(message: finalStr, onViewController: self, duration: 5.0, buttonTitle: LocalizedString.apply.localized, buttonAction: self.completion, toastDidClose: self.toastDidClose)
-            
+            finalStr = LocalizedString.ApplyPreviousFilter.localized + distanceStr + (starStar.isEmpty ? starStar : " \(starStar)") + AppConstants.kEllipses
+            finalStr = finalStr.replacingOccurrences(of: "  ", with: "")
         }
+        printDebug(finalStr)
+        AppToast.default.showToastMessage(message: finalStr, onViewController: self, duration: 5.0, buttonTitle: LocalizedString.apply.localized, buttonAction: self.completion, toastDidClose: self.toastDidClose)
+
     }
     
     func getPinnedHotelTemplate() {
@@ -158,7 +159,7 @@ extension HotelResultVC {
             }
             else {
                 self.viewModel.fetchDataFromCoreData(isUpdatingFav: true)
-                    self.tableViewVertical.reloadData()
+                self.tableViewVertical.reloadData()
                 
             }
         }

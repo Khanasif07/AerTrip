@@ -291,6 +291,7 @@ class HotelsMapVC: BaseVC {
             //fav updated from hotel details
             //updateFavOnList(forIndexPath: selectedIndexPath)
             // manage favourite switch buttons
+            self.selectedIndexPath = nil
             self.viewModel.getFavouriteHotels(shouldReloadData: true)
             self.updateMarkers()
             self.sowHotelOnMap(duration: 0.4)
@@ -343,7 +344,7 @@ class HotelsMapVC: BaseVC {
         }
     }
     override func keyboardWillHide(notification: Notification) {
-        if let _ = self.view.window, self.viewModel.searchedHotels.isEmpty {
+        if let _ = self.view.window {
             //checking if the screen in window only then this method should call
             self.hotelSearchTableView.tableFooterView = nil
         }
