@@ -2400,7 +2400,7 @@ been sent</string>
                                                         <attributedString key="attributedText">
                                                             <fragment content="Want more rooms? Request bulk booking">
                                                                 <attributes>
-                                                                    <font key="NSFont" metaFont="menu" size="14"/>
+                                                                    <font key="NSFont" metaFont="system" size="14"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                 </attributes>
                                                             </fragment>

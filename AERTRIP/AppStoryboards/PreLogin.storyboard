@@ -650,11 +650,10 @@ activation link on</string>
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUd-Ow-hk8">
-                                <rect key="frame" x="327" y="248.5" width="35" height="27"/>
+                                <rect key="frame" x="335" y="252.5" width="27" height="27"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="ITd-R7-rC7"/>
-                                    <constraint firstAttribute="width" constant="35" id="JvJ-Fh-klf"/>
                                 </constraints>
                                 <state key="normal" image="showPassword"/>
                                 <connections>
@@ -784,7 +783,7 @@ activation link on</string>
                             <constraint firstItem="1Jo-vX-IHw" firstAttribute="trailing" secondItem="UhF-6b-ikZ" secondAttribute="trailing" id="Pc3-tZ-SDp"/>
                             <constraint firstItem="R1S-Mx-17e" firstAttribute="centerX" secondItem="1Jo-vX-IHw" secondAttribute="centerX" id="Pvk-9f-LRz"/>
                             <constraint firstItem="EoD-cQ-G3e" firstAttribute="top" secondItem="rwZ-rV-NrL" secondAttribute="bottom" constant="11" id="Vre-XZ-PHB"/>
-                            <constraint firstItem="VUd-Ow-hk8" firstAttribute="bottom" secondItem="mNt-bY-Y2Q" secondAttribute="bottom" constant="-4" id="WNO-ha-XLR"/>
+                            <constraint firstItem="VUd-Ow-hk8" firstAttribute="bottom" secondItem="mNt-bY-Y2Q" secondAttribute="bottom" id="WNO-ha-XLR"/>
                             <constraint firstItem="UhF-6b-ikZ" firstAttribute="leading" secondItem="1Jo-vX-IHw" secondAttribute="leading" id="bHY-5d-gyK"/>
                             <constraint firstItem="1Jo-vX-IHw" firstAttribute="trailing" secondItem="EoD-cQ-G3e" secondAttribute="trailing" constant="8" id="fkm-Bq-htM"/>
                             <constraint firstItem="rwZ-rV-NrL" firstAttribute="top" secondItem="mNt-bY-Y2Q" secondAttribute="bottom" constant="19" id="i0L-S5-3Zh"/>
