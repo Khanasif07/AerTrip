@@ -192,10 +192,12 @@ extension HotelsMapVC {
             if  let filter = UserInfo.hotelFilter, filter.priceType == .PerNight {
                 showPerNightPrice = true
             }
-            let isDistanceFilterApplied = self.viewModel.filterApplied.sortUsing == .DistanceNearestFirst
+//            let isDistanceFilterApplied = self.viewModel.filterApplied.sortUsing == .DistanceNearestFirst
+            let sortingApplied = self.viewModel.filterApplied.sortUsing
+
             
             visibleMarkerList.sort { [weak self] (marker1, marker2) -> Bool in
-                guard let strongSelf = self else {return false}
+//                guard let strongSelf = self else {return false}
                 //                printDebug("hotel price")
                 //                printDebug(showPerNightPrice ? marker1.hotel?.perNightPrice : marker1.hotel?.price)
                 //                printDebug(showPerNightPrice ? marker2.hotel?.perNightPrice : marker2.hotel?.price)
@@ -205,24 +207,55 @@ extension HotelsMapVC {
                 if marker1.markerType == .clusterMarker || marker2.markerType == .clusterMarker {
                     return true
                 }
-                if isDistanceFilterApplied {
-                    return (marker1.hotel?.distance ?? 0.0) < (marker2.hotel?.distance ?? 0.0)
-                } else {
+                switch sortingApplied {
+                case .PriceLowToHigh:
                     let m1Price = showPerNightPrice ? (marker1.hotel?.perNightPrice ?? 0.0) : (marker1.hotel?.price ?? 0.0)
                     let m2Price = showPerNightPrice ? (marker2.hotel?.perNightPrice ?? 0.0) : (marker2.hotel?.price ?? 0.0)
                     return m1Price < m2Price
+                case .BestSellers:
+                    return (marker1.hotel?.bc ?? "") < (marker2.hotel?.bc ?? "")
+                case .StartRatingHighToLow:
+                    return (marker1.hotel?.star ?? 0.0) > (marker2.hotel?.star ?? 0.0)
+                case .TripAdvisorRatingHighToLow:
+                    return (marker1.hotel?.rating ?? 0.0) > (marker2.hotel?.rating ?? 0.0)
+                case .DistanceNearestFirst:
+                    return (marker1.hotel?.distance ?? 0.0) < (marker2.hotel?.distance ?? 0.0)
                 }
+//                if isDistanceFilterApplied {
+//                    return (marker1.hotel?.distance ?? 0.0) < (marker2.hotel?.distance ?? 0.0)
+//                } else {
+//                    let m1Price = showPerNightPrice ? (marker1.hotel?.perNightPrice ?? 0.0) : (marker1.hotel?.price ?? 0.0)
+//                    let m2Price = showPerNightPrice ? (marker2.hotel?.perNightPrice ?? 0.0) : (marker2.hotel?.price ?? 0.0)
+//                    return m1Price < m2Price
+//                }
             }
             
             visibleMarkerList.forEach { [weak self] (marker) in
                 guard let strongSelf = self else {return}
-                if isDistanceFilterApplied {
-                    printDebug("distance after sorting")
-                    printDebug((marker.hotel?.distance ?? 0.0))
-                } else {
-                    printDebug("Price after sorting")
+                switch sortingApplied {
+                case .PriceLowToHigh:
+                    printDebug("PriceLowToHigh after sorting")
                     printDebug(showPerNightPrice ? marker.hotel?.perNightPrice : marker.hotel?.price)
+                case .BestSellers:
+                    printDebug("BestSellers after sorting")
+                    printDebug((marker.hotel?.bc ?? ""))
+                case .StartRatingHighToLow:
+                    printDebug("StartRatingHighToLow after sorting")
+                    printDebug((marker.hotel?.star ?? 0.0))
+                case .TripAdvisorRatingHighToLow:
+                    printDebug("TripAdvisorRatingHighToLow after sorting")
+                    printDebug((marker.hotel?.rating ?? 0.0))
+                case .DistanceNearestFirst:
+                    printDebug("DistanceNearestFirst after sorting")
+                    printDebug((marker.hotel?.distance ?? 0.0))
                 }
+//                if isDistanceFilterApplied {
+//                    printDebug("distance after sorting")
+//                    printDebug((marker.hotel?.distance ?? 0.0))
+//                } else {
+//                    printDebug("Price after sorting")
+//                    printDebug(showPerNightPrice ? marker.hotel?.perNightPrice : marker.hotel?.price)
+//                }
                 
                 if counter < maxVisblePriceMarker {
                     if marker.markerType == .dotMarker {

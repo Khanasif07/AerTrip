@@ -443,7 +443,9 @@ class HotelResultVC: BaseVC {
     }
     
     @IBAction func mapButtonAction(_ sender: Any) {
-        AppFlowManager.default.moveToHotelsResultMapVC(viewModel: self.viewModel)
+        delay(seconds: 0.1) {
+            AppFlowManager.default.moveToHotelsResultMapVC(viewModel: self.viewModel)
+        }
     }
     
     @IBAction func unPinAllFavouriteButtonTapped(_ sender: Any) {

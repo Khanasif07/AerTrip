@@ -2213,7 +2213,7 @@ been sent</string>
                             <constraint firstAttribute="trailing" secondItem="aHc-Vi-zSn" secondAttribute="trailing" id="aky-3u-626"/>
                             <constraint firstItem="aM9-4Q-rjl" firstAttribute="bottom" secondItem="He0-20-oIc" secondAttribute="bottom" id="bIF-38-3c7"/>
                             <constraint firstItem="QAK-AD-OFu" firstAttribute="leading" secondItem="b4p-u6-PAq" secondAttribute="leading" id="sct-fe-fKG"/>
-                            <constraint firstItem="aM9-4Q-rjl" firstAttribute="top" secondItem="b4p-u6-PAq" secondAttribute="top" constant="96" id="thm-7z-N56"/>
+                            <constraint firstItem="aM9-4Q-rjl" firstAttribute="top" secondItem="V4z-cq-RyF" secondAttribute="bottom" id="xee-cO-ofd"/>
                             <constraint firstItem="V4z-cq-RyF" firstAttribute="leading" secondItem="b4p-u6-PAq" secondAttribute="leading" id="yhN-7V-y4Y"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="b4p-u6-PAq"/>

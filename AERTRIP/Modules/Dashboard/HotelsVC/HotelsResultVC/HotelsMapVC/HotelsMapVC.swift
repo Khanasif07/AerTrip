@@ -61,8 +61,8 @@ class HotelsMapVC: BaseVC {
             self.collectionView.registerCell(nibName: HotelCardCollectionViewCell.reusableIdentifier)
             self.collectionView.registerCell(nibName: HotelGroupCardCollectionViewCell.reusableIdentifier)
             self.collectionView.isPagingEnabled = true
-            self.collectionView.delegate = self
-            self.collectionView.dataSource = self
+//            self.collectionView.delegate = self
+//            self.collectionView.dataSource = self
             self.collectionView.showsVerticalScrollIndicator = false
             self.collectionView.showsHorizontalScrollIndicator = false
         }
@@ -229,13 +229,13 @@ class HotelsMapVC: BaseVC {
         self.cardGradientView.backgroundColor = AppColors.clear
         self.additionalSafeAreaInsets = .zero
         self.configureCollectionViewLayoutItemSize()
-        delay(seconds: 1.0) {
+//        delay(seconds: 1.0) {
             self.addMapView()
-        }
+//        }
         if AppGlobals.shared.isNetworkRechable() {
-            self.collectionView.reloadData()
-            delay(seconds: 2) { [weak self] in
+            delay(seconds: 0.2) { [weak self] in
                 guard let strongSelf = self else {return}
+//                strongSelf.addMapView()
                 strongSelf.mapView?.delegate = self
                 strongSelf.loadFinalDataOnScreen()
             }

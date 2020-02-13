@@ -166,10 +166,11 @@ extension HotelsMapVC: HotelResultDelegate {
     }
     
     func loadFinalDataOnScreen() {
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
         self.filterButton.isEnabled = true
         self.addMapView()
         self.reloadHotelList()
-        self.sowHotelOnMap(duration: 0.4)
         delay(seconds: 0.4) { [weak self] in
             self?.adjustMapPadding()
         }
