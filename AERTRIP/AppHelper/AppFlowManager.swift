@@ -335,6 +335,7 @@ extension AppFlowManager {
             let ob = SelectDestinationVC.instantiate(fromAppStoryboard: .HotelsSearch)
             ob.currentlyUsingFor = currentlyUsingFor
             ob.delegate = delegate
+            ob.modalPresentationStyle = .fullScreen
             mVC.add(childViewController: ob)
         }
     }
@@ -478,7 +479,7 @@ extension AppFlowManager {
         let ob = SearchHotelTagVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.delegate = superView
         ob.tagButtons = tagButtons
-        ob.modalPresentationStyle = .fullScreen
+        ob.modalPresentationStyle = .overFullScreen
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
@@ -486,21 +487,21 @@ extension AppFlowManager {
         let ob = HotelDetailsAmenitiesVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.amenitiesGroups = amenitiesGroups
         ob.viewModel.amenities = amentites
-        ob.modalPresentationStyle = .fullScreen
+        ob.modalPresentationStyle = .overFullScreen
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
     func presentHotelDetailsOverViewVC(overViewInfo: String) {
         let ob = HotelDetailsOverviewVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.overViewInfo = overViewInfo
-        ob.modalPresentationStyle = .fullScreen
+        ob.modalPresentationStyle = .overFullScreen
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
     func presentHotelDetailsTripAdvisorVC(hotelId: String) {
         let ob = HotelDetailsReviewsVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.hotelId = hotelId
-        ob.modalPresentationStyle = .fullScreen
+        ob.modalPresentationStyle = .overFullScreen
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
@@ -558,6 +559,7 @@ extension AppFlowManager {
         obj.viewModel.other = other
         obj.viewModel.specialRequest = specialRequest
         obj.viewModel.selectedRequestsName = selectedRequestNames
+        obj.modalPresentationStyle = .fullScreen
         self.mainNavigationController.present(obj, animated: true)
     }
     

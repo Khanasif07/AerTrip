@@ -131,6 +131,7 @@ class SelectDestinationVC: BaseVC {
         tableView.register(UINib(nibName: headerCellId, bundle: nil), forHeaderFooterViewReuseIdentifier: headerCellId)
     }
     
+    //Handle Swipe Gesture
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
         let touchPoint = sender.location(in: self.mainContainerView?.window)
         let velocity = sender.velocity(in: self.mainContainerView)

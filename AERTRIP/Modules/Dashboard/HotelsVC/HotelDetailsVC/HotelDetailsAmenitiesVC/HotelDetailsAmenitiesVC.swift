@@ -67,7 +67,7 @@ class HotelDetailsAmenitiesVC: BaseVC {
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         mainContainerView.isUserInteractionEnabled = true
         swipeGesture.delegate = self
-        self.mainContainerView.addGestureRecognizer(swipeGesture)
+        self.view.addGestureRecognizer(swipeGesture)
         
         self.dividerView.isHidden = true
         self.registerNibs()
@@ -200,115 +200,60 @@ extension HotelDetailsAmenitiesVC {
         printDebug("scrollViewDidScroll")
     }
     
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        self.manageHeaderView(scrollView)
-//        printDebug("scrollViewDidEndDecelerating")
-//    }
-//
-//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        self.manageHeaderView(scrollView)
-//        printDebug("scrollViewDidEndDragging")
-//    }
-//
-//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-//        self.manageHeaderView(scrollView)
-//        printDebug("scrollViewDidEndScrollingAnimation")
-//    }
+    //    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    //        self.manageHeaderView(scrollView)
+    //        printDebug("scrollViewDidEndDecelerating")
+    //    }
+    //
+    //    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    //        self.manageHeaderView(scrollView)
+    //        printDebug("scrollViewDidEndDragging")
+    //    }
+    //
+    //    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    //        self.manageHeaderView(scrollView)
+    //        printDebug("scrollViewDidEndScrollingAnimation")
+    //    }
 }
 
 extension HotelDetailsAmenitiesVC {
+    
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-        let touchPoint = sender.location(in: self.mainContainerView?.window)
-        let velocity = sender.velocity(in: self.mainContainerView)
-        print(velocity)
+        let touchPoint = sender.location(in: view?.window)
+        var initialTouchPoint = CGPoint.zero
+        
         switch sender.state {
-        case .possible:
-            print(sender.state)
         case .began:
-            self.initialTouchPoint = touchPoint
+            initialTouchPoint = touchPoint
         case .changed:
-            let touchPointDiffY = initialTouchPoint.y - touchPoint.y
-            print(touchPointDiffY)
-            if  touchPoint.y > 62.0 {
-                if touchPointDiffY > 0 {
-                    self.mainContainerBottomConst.constant = -( UIScreen.main.bounds.height - 62.0) + (68.0) + touchPointDiffY
-                }
-                else if touchPointDiffY < -68.0 {
-                    self.mainContainerBottomConst.constant = touchPointDiffY
-                }
+            if touchPoint.y > initialTouchPoint.y {
+                view.frame.origin.y = touchPoint.y - initialTouchPoint.y
             }
-        case .cancelled:
-            print(sender.state)
-        case .ended:
-            print(sender.state)
-            panGestureFinalAnimation(velocity: velocity,touchPoint: touchPoint)
-            
-        case .failed:
-            print(sender.state)
-            
+        case .ended, .cancelled:
+            if touchPoint.y - initialTouchPoint.y > 200 {
+                dismiss(animated: true, completion: nil)
+            } else {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.view.frame = CGRect(x: 0,
+                                             y: 0,
+                                             width: self.view.frame.size.width,
+                                             height: self.view.frame.size.height)
+                })
+            }
+        case .failed, .possible:
+            break
         }
     }
     
-    ///Call to use Pan Gesture Final Animation
-     private func panGestureFinalAnimation(velocity: CGPoint,touchPoint: CGPoint) {
-         //Down Direction
-         if velocity.y < 0 {
-             if velocity.y < -300 {
-                self.openSheet()
-             } else {
-                 if touchPoint.y <= (UIScreen.main.bounds.height)/2 {
-                    self.openSheet()
-                 } else {
-                     self.closeSheet()
-                 }
-             }
-         }
-             //Up Direction
-         else {
-             if velocity.y > 300 {
-                 self.closeSheet()
-             } else {
-                 if touchPoint.y <= (UIScreen.main.bounds.height)/2 {
-                    self.openSheet()
-                 } else {
-                     self.closeSheet()
-                 }
-             }
-         }
-         print(velocity.y)
-     }
-    
-    func openSheet() {
-        self.view.layoutIfNeeded()
-        UIView.animate(withDuration: 0.5) {
-            self.mainContainerBottomConst.constant = 0.0
-            self.view.layoutIfNeeded()
-        }
-    }
-    
-    func closeSheet() {
-        func setValue() {
-            self.mainContainerBottomConst.constant = -(self.mainContainerView.height + 100)
-            self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
-            self.view.layoutIfNeeded()
-            self.dismiss(animated: true, completion: nil)
-        }
-        let animater = UIViewPropertyAnimator(duration: 0.2, curve: .linear) {
-            setValue()
-        }
-        animater.addCompletion { (position) in
-        }
-        animater.startAnimation()
-    }
     
     func setValue() {
-           let toDeduct = (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
-           let finalValue =  (self.view.height - toDeduct)
-           self.mainContainerBottomConst.constant = 0.0
-           self.mainContainerHeightConst.constant = finalValue
-           self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
-           self.view.layoutIfNeeded()
-           
-       }
+        let toDeduct = (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
+        let finalValue =  (self.view.height - toDeduct)
+        self.mainContainerBottomConst.constant = 0.0
+        self.mainContainerHeightConst.constant = finalValue
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
+        self.view.layoutIfNeeded()
+        
+    }
     
 }
