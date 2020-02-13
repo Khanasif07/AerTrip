@@ -4,7 +4,8 @@
 //
 //  Created by Aakash Srivastav on 06/12/18.
 //  Copyright © 2018 Pramod Kumar. All rights reserved.
-//
+// self.emailTextField.titleYPadding = 12.0
+//       self.emailTextField.hintYPadding = 12.0
 
 import UIKit
 
@@ -120,19 +121,16 @@ class SecureYourAccountVC: BaseVC {
     //MARK:-
     
     @IBAction func showPasswordButtonAction(_ sender: UIButton) {
-        
         self.passwordTextField.isSecureTextEntry = !self.passwordTextField.isSecureTextEntry
-        if self.passwordTextField.isSecureTextEntry {
-            
-            let image = UIImage(named: "showPassword")
-            sender.setImage(image, for: .normal)
-        } else {
-            
-            let image = UIImage(named: "hidePassword")
-            sender.setImage(image, for: .normal)
-        }
+            if self.passwordTextField.isSecureTextEntry {
+                self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 4, right: 1.5)
+                sender.setImage(#imageLiteral(resourceName: "showPassword"), for: .normal)
+            } else {
+                self.showPasswordButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 1, bottom: -1, right: 1.5)
+                sender.setImage(#imageLiteral(resourceName: "hidePassword"), for: .normal)
+            }
     }
-    
+        
     @IBAction func nextButtonAction(_ sender: ATButton) {
         
         self.view.endEditing(true)
