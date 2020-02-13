@@ -13,7 +13,8 @@ extension FinalCheckOutVC: RazorpayPaymentCompletionProtocolWithData {
     
     func initializePayment(withOptions options: JSONDictionary) {
         let razorpay: Razorpay = Razorpay.initWithKey(AppConstants.kRazorpayPublicKey, andDelegateWithData: self)
-        razorpay.open(options)
+        //razorpay.open(options)
+        razorpay.open(options, display: self)
     }
     func onPaymentError(_ code: Int32, description str: String, andData response: [AnyHashable : Any]?) {
         AppToast.default.showToastMessage(message: "Sorry! payment was faild.\nPlease try again.")

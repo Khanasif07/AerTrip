@@ -97,10 +97,12 @@ extension HotelsMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         let params = CardTransition.Params(fromCardFrame: cardFrame, fromCardFrameWithoutTransform: frameWithoutTransform, fromCell: cell, img: img)
         self.transition = CardTransition(params: params)
         
-        vc.transitioningDelegate = transition
-        vc.modalPresentationCapturesStatusBarAppearance = true
-        vc.modalPresentationStyle = .custom
-        self.present(vc, animated: true, completion: {
+        let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)//UINavigationController(rootViewController: vc)
+        
+        nav.transitioningDelegate = transition
+        nav.modalPresentationCapturesStatusBarAppearance = true
+        nav.modalPresentationStyle = .custom
+        self.present(nav, animated: true, completion: {
             cell.unfreezeAnimations()
         })
         

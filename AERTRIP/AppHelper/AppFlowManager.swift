@@ -54,6 +54,10 @@ class AppFlowManager: NSObject {
         }
     }
     
+    var currentNavigation:SwipeNavigationController?{
+        return UIApplication.topViewController()?.navigationController as? SwipeNavigationController
+    }
+    
     private var currentTabbarNavigationController = UINavigationController() {
         didSet {
             self.currentTabbarNavigationController.isNavigationBarHidden = true
@@ -166,7 +170,7 @@ class AppFlowManager: NSObject {
                 socialVC?.animateContentOnLoad()
             }
             
-            self.mainNavigationController.pushViewController(socialVC, animated: true)
+            self.currentNavigation?.pushViewController(socialVC, animated: true)
         }
     }
 }
@@ -188,14 +192,14 @@ extension AppFlowManager {
         let ob = LoginVC.instantiate(fromAppStoryboard: .PreLogin)
         ob.viewModel.email = email
         ob.currentlyUsingFrom = usingFor
-        self.mainNavigationController.pushViewController(ob, animated: true)
+        self.currentNavigation?.pushViewController(ob, animated: true)
     }
     
     func moveToCreateYourAccountVC(email: String, usingFor: LoginFlowUsingFor = .loginProcess) {
         let ob = CreateYourAccountVC.instantiate(fromAppStoryboard: .PreLogin)
         ob.viewModel.email = email
         ob.currentlyUsingFrom = usingFor
-        self.mainNavigationController.pushViewController(ob, animated: true)
+        self.currentNavigation?.pushViewController(ob, animated: true)
     }
     
     func moveToRegistrationSuccefullyVC(type: ThankYouRegistrationVM.VerifyRegistrasion, email: String, refId: String = "", token: String = "") {
@@ -204,7 +208,7 @@ extension AppFlowManager {
         ob.viewModel.email = email
         ob.viewModel.refId = refId
         ob.viewModel.token = token
-        self.mainNavigationController.pushViewController(ob, animated: true)
+        self.currentNavigation?.pushViewController(ob, animated: true)
     }
     
     func deeplinkToRegistrationSuccefullyVC(type: ThankYouRegistrationVM.VerifyRegistrasion, email: String, refId: String = "", token: String = "") {
@@ -249,7 +253,7 @@ extension AppFlowManager {
     func moveToForgotPasswordVC(email: String) {
         let ob = ForgotPasswordVC.instantiate(fromAppStoryboard: .PreLogin)
         ob.viewModel.email = email
-        self.mainNavigationController.pushViewController(ob, animated: true)
+        self.currentNavigation?.pushViewController(ob, animated: true)
     }
     
     func moveResetSuccessFullyPopup(vc: UIViewController) {
@@ -467,7 +471,7 @@ extension AppFlowManager {
         if let topVC = UIApplication.topViewController() {
             let ob = HCSelectGuestsVC.instantiate(fromAppStoryboard: .HotelCheckout)
             ob.delegate = delegate
-            ob.modalPresentationStyle = .fullScreen
+            ob.modalPresentationStyle = .overFullScreen
             topVC.present(ob, animated: true, completion: nil)
         }
     }
@@ -476,7 +480,7 @@ extension AppFlowManager {
         let ob = SearchHotelTagVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.delegate = superView
         ob.tagButtons = tagButtons
-        ob.modalPresentationStyle = .fullScreen
+        ob.modalPresentationStyle = .overFullScreen
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
@@ -484,21 +488,21 @@ extension AppFlowManager {
         let ob = HotelDetailsAmenitiesVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.amenitiesGroups = amenitiesGroups
         ob.viewModel.amenities = amentites
-        ob.modalPresentationStyle = .fullScreen
+        ob.modalPresentationStyle = .overFullScreen
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
     func presentHotelDetailsOverViewVC(overViewInfo: String) {
         let ob = HotelDetailsOverviewVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.overViewInfo = overViewInfo
-        ob.modalPresentationStyle = .fullScreen
+        ob.modalPresentationStyle = .overFullScreen
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
     func presentHotelDetailsTripAdvisorVC(hotelId: String) {
         let ob = HotelDetailsReviewsVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.hotelId = hotelId
-        ob.modalPresentationStyle = .fullScreen
+        ob.modalPresentationStyle = .overFullScreen
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
@@ -506,7 +510,7 @@ extension AppFlowManager {
         let ob = AssignGroupVC.instantiate(fromAppStoryboard: .TravellerList)
         ob.viewModel.paxIds = selectedTraveller
         ob.delegate = vc
-        ob.modalPresentationStyle = .fullScreen
+        ob.modalPresentationStyle = .overFullScreen
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
     
@@ -537,7 +541,7 @@ extension AppFlowManager {
         obj.viewModel.placeModel = placeModel
         obj.viewModel.hotelSearchRequest = hotelSearchRequest
         obj.viewModel.hotelInfo = hotelInfo
-        self.mainNavigationController.pushViewController(obj, animated: true)
+        self.currentNavigation?.pushViewController(obj, animated: true)
     }
     
     func presentHCCouponCodeVC(itineraryId: String, vc: FinalCheckOutVC, couponCode: String) {
@@ -545,7 +549,7 @@ extension AppFlowManager {
         obj.delegate = vc
         obj.viewModel.itineraryId = itineraryId
         obj.viewModel.couponCode = couponCode
-        self.mainNavigationController.present(obj, animated: true)
+        self.currentNavigation?.present(obj, animated: true)
     }
     
     func presentHCSpecialRequestsVC(specialRequests: [SpecialRequest], selectedRequestIds: [Int],selectedRequestNames: [String],other: String,specialRequest: String,  delegate: HCSpecialRequestsDelegate) {
@@ -556,7 +560,7 @@ extension AppFlowManager {
         obj.viewModel.other = other
         obj.viewModel.specialRequest = specialRequest
         obj.viewModel.selectedRequestsName = selectedRequestNames
-        self.mainNavigationController.present(obj, animated: true)
+        self.currentNavigation?.present(obj, animated: true)
     }
     
     func presentHCEmailItinerariesVC(forBookingId bId: String, travellers: [TravellersList]) {
@@ -573,7 +577,7 @@ extension AppFlowManager {
         obj.viewModel.cId = cid
         obj.viewModel.originLat = originLat
         obj.viewModel.originLong = originLong
-        self.mainNavigationController.pushViewController(obj, animated: true)
+        self.currentNavigation?.pushViewController(obj, animated: true)
     }
     
     // Mail Composer
@@ -606,7 +610,7 @@ extension AppFlowManager {
             oVC.present(obj, animated: true)
         }
         else {
-            self.mainNavigationController.present(obj, animated: true)
+            self.currentNavigation?.present(obj, animated: true)
         }
     }
     
@@ -614,7 +618,7 @@ extension AppFlowManager {
         let obj = GuestDetailsVC.instantiate(fromAppStoryboard: .HotelCheckout)
         obj.vcDelegate = delegate
         obj.viewModel.selectedIndexPath = indexPath
-        self.mainNavigationController.pushViewController(obj, animated: true)
+        self.currentNavigation?.pushViewController(obj, animated: true)
     }
     
     func moveToFinalCheckoutVC(delegate: FinalCheckOutVCDelegate, _ itinaryData: ItineraryData? = ItineraryData(), _ itinaryPriceDetail: ItenaryModel? = ItenaryModel(), originLat: String, originLong: String) {
@@ -624,7 +628,7 @@ extension AppFlowManager {
         obj.viewModel.originLat = originLat
         obj.viewModel.originLong = originLong
         obj.viewModel.itinaryPriceDetail = itinaryPriceDetail
-        self.mainNavigationController.pushViewController(obj, animated: true)
+        self.currentNavigation?.pushViewController(obj, animated: true)
     }
     
     func moveToBookingIncompleteVC() {
@@ -1036,7 +1040,7 @@ extension AppFlowManager {
             obj.selectionComplition = complition
             obj.viewModel.allTrips = trips
             obj.viewModel.tripDetails = tripDetails
-            self.mainNavigationController.present(obj, animated: true)
+            self.currentNavigation?.present(obj, animated: true)
         }
         
         if let detail = tripDetails {
@@ -1068,8 +1072,8 @@ extension AppFlowManager {
             guard let _ = self else { return }
             
             // after going to the Data selection screen remove login screen from navigation stack
-            var updatedNavStack = AppFlowManager.default.mainNavigationController.viewControllers
-            let navStack = AppFlowManager.default.mainNavigationController.viewControllers
+            var updatedNavStack = AppFlowManager.default.currentNavigation?.viewControllers ?? []
+            let navStack = AppFlowManager.default.currentNavigation?.viewControllers ?? []
             var isSocialFound = false, isLoginFound = false
             for (idx, obj) in navStack.enumerated() {
                 if let _ = obj as? SocialLoginVC {
@@ -1082,7 +1086,7 @@ extension AppFlowManager {
                 }
                 
                 if idx == (navStack.count - 1), (isSocialFound || isLoginFound) {
-                    AppFlowManager.default.mainNavigationController.viewControllers = updatedNavStack
+                    AppFlowManager.default.currentNavigation?.viewControllers = updatedNavStack
                 }
             }
         })
@@ -1110,15 +1114,15 @@ extension AppFlowManager: UIDocumentInteractionControllerDelegate {
 
 extension AppFlowManager {
     func popViewController(animated: Bool) {
-        self.mainNavigationController.popViewController(animated: animated)
+        self.currentNavigation?.popViewController(animated: animated)
     }
     
     func popToViewController(_ viewController: UIViewController, animated: Bool) {
-        self.mainNavigationController.popToViewController(viewController, animated: animated)
+        self.currentNavigation?.popToViewController(viewController, animated: animated)
     }
     
     func popToRootViewController(animated: Bool) {
-        self.mainNavigationController.popToRootViewController(animated: animated)
+        self.currentNavigation?.popToRootViewController(animated: animated)
     }
 }
 
