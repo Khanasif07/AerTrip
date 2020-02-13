@@ -166,8 +166,8 @@ extension HotelsMapVC: HotelResultDelegate {
     }
     
     func loadFinalDataOnScreen() {
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
+        self.hotelsMapCV.delegate = self
+        self.hotelsMapCV.dataSource = self
         self.filterButton.isEnabled = true
         self.addMapView()
         self.reloadHotelList()
@@ -209,7 +209,7 @@ extension HotelsMapVC: HotelResultDelegate {
             if let indexPath = self.selectedIndexPath, self.viewModel.collectionViewLocArr.indices.contains(indexPath.item),let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.item]] as? [HotelSearched], let hotel = hData.first  {
                 let locStr = self.viewModel.collectionViewLocArr[indexPath.item]
                 self.viewModel.deleteHotelsDataForCollectionView(hotel: hotel)
-                self.collectionView.reloadData()
+                self.hotelsMapCV.reloadData()
                 if let loc = self.getLocationObject(fromLocation: locStr) {
                     self.deleteMarker(atLocation: loc)
                     if let selectedLocation = self.displayingHotelLocation, selectedLocation == loc {
@@ -237,7 +237,7 @@ extension HotelsMapVC: HotelResultDelegate {
             if let indexPath = self.selectedIndexPath, self.viewModel.collectionViewLocArr.indices.contains(indexPath.item),let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.item]] as? [HotelSearched], let hotel = hData.first  {
                 let locStr = self.viewModel.collectionViewLocArr[indexPath.item]
                 self.viewModel.deleteHotelsDataForCollectionView(hotel: hotel)
-                self.collectionView.reloadData()
+                self.hotelsMapCV.reloadData()
                 if let loc = self.getLocationObject(fromLocation: locStr) {
                     self.deleteMarker(atLocation: loc)
                     if let selectedLocation = self.displayingHotelLocation, selectedLocation == loc {
@@ -286,9 +286,9 @@ extension HotelsMapVC: HotelResultDelegate {
 extension HotelsMapVC: HotelCardCollectionViewCellDelegate {
     func saveButtonActionFromLocalStorage(_ sender: UIButton, forHotel: HotelSearched) {
         guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
-        if let indexPath = self.collectionView.indexPath(forItem: sender) {
+        if let indexPath = self.hotelsMapCV.indexPath(forItem: sender) {
             self.selectedIndexPath = indexPath
-            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+            hotelsMapCV.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
         }
         //self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)

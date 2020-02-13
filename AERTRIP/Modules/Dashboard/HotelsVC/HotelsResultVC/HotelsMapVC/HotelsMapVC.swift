@@ -53,18 +53,17 @@ class HotelsMapVC: BaseVC {
     @IBOutlet weak var emailButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var switchView: ATSwitcher!
-    @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     
     @IBOutlet weak var backContainerView: UIView!
-    @IBOutlet weak var collectionView: UICollectionView! {
+    @IBOutlet weak var hotelsMapCV: UICollectionView! {
         didSet {
-            self.collectionView.registerCell(nibName: HotelCardCollectionViewCell.reusableIdentifier)
-            self.collectionView.registerCell(nibName: HotelGroupCardCollectionViewCell.reusableIdentifier)
-            self.collectionView.isPagingEnabled = true
-//            self.collectionView.delegate = self
-//            self.collectionView.dataSource = self
-            self.collectionView.showsVerticalScrollIndicator = false
-            self.collectionView.showsHorizontalScrollIndicator = false
+            self.hotelsMapCV.registerCell(nibName: HotelCardCollectionViewCell.reusableIdentifier)
+            self.hotelsMapCV.registerCell(nibName: HotelGroupCardCollectionViewCell.reusableIdentifier)
+//            self.hotelsMapCV.isPagingEnabled = true
+//            self.hotelsMapCV.delegate = self
+//            self.hotelsMapCV.dataSource = self
+            self.hotelsMapCV.showsVerticalScrollIndicator = false
+            self.hotelsMapCV.showsHorizontalScrollIndicator = false
         }
     }
     
@@ -243,7 +242,7 @@ class HotelsMapVC: BaseVC {
             self.noHotelFound()
             AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
         }
-        
+        setupCollection()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -332,6 +331,15 @@ class HotelsMapVC: BaseVC {
         self.navigationItem.leftBarButtonItem=nil
         
     }
+    
+    func setupCollection() {
+        let layout = self.hotelsMapCV.collectionViewLayout as! UPCarouselFlowLayout
+        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: -5)
+        layout.scrollDirection = .horizontal
+        layout.sideItemScale = 0.92
+        layout.sideItemAlpha = 1.0
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 32, height: 190)
+    }
     // MARK: - Methods
     
     // MARK: - Private
@@ -398,8 +406,8 @@ class HotelsMapVC: BaseVC {
     }
     
     private func registerXib() {
-        self.collectionView.register(UINib(nibName: "SectionHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
-        self.collectionView.register(UINib(nibName: "SectionFooter", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "SectionFooter")
+        self.hotelsMapCV.register(UINib(nibName: "SectionHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
+        self.hotelsMapCV.register(UINib(nibName: "SectionFooter", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "SectionFooter")
         self.hotelSearchTableView.register(UINib(nibName: self.hotelResultCellIdentifier, bundle: nil), forCellReuseIdentifier: self.hotelResultCellIdentifier)
     }
     
@@ -424,8 +432,7 @@ class HotelsMapVC: BaseVC {
     }
     
     func manageShimmer(isHidden: Bool) {
-        
-        self.collectionView.isHidden = !isHidden
+        self.hotelsMapCV.isHidden = !isHidden
         if !isHidden {
             self.manageSwitchContainer(isHidden: true)
         }

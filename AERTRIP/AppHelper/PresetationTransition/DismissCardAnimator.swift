@@ -39,12 +39,14 @@ final class DismissCardAnimator: NSObject, UIViewControllerAnimatedTransitioning
         
         let toVC = ctx.viewController(forKey: .to)!.children.first(where: {$0.isKind(of: HotelResultVC.self)}) as? HotelResultVC
         
+        var fromVC = ctx.viewController(forKey: .from) as? HotelDetailsVC
+        
         let screens: (cardDetail: HotelDetailsVC, home: HotelResultVC?) = (
-            ctx.viewController(forKey: .from)! as! HotelDetailsVC,
+            (fromVC != nil) ? fromVC! : ctx.viewController(forKey: .from)?.children.first as! HotelDetailsVC ,
             (toVC == nil) ? ctx.viewController(forKey: .to) as? HotelResultVC : toVC
         )
         var isCellHidden  = false
-        let cardDetailView = ctx.view(forKey: .from)!
+        let cardDetailView = (fromVC != nil) ? ctx.view(forKey: .from)! : screens.cardDetail.view!
         cardDetailView.backgroundColor = UIColor.clear
 
         let animatedContainerView = UIView()

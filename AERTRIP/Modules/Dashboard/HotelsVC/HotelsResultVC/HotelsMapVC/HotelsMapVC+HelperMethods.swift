@@ -99,7 +99,7 @@ extension HotelsMapVC {
                 self.hotelSearchTableView.reloadRow(at: indexPath, with: .none)
             }
             else {
-                    self.collectionView.reloadItems(at: indexPath)
+                    self.hotelsMapCV.reloadItems(at: indexPath)
             }
             selectedIndexPath = nil
         }
@@ -110,7 +110,7 @@ extension HotelsMapVC {
             else {
                 
                 self.viewModel.fetchDataFromCoreData(isUpdatingFav: true)
-                    self.collectionView.reloadData()
+                    self.hotelsMapCV.reloadData()
             }
         }
     }
@@ -154,7 +154,7 @@ extension HotelsMapVC {
             self.hotelSearchTableView.backgroundColor = self.viewModel.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
         }
         self.hotelSearchTableView.reloadData()
-        self.collectionView.reloadData()
+        self.hotelsMapCV.reloadData()
         
         if drawMarkers {
             updateMarkers()
@@ -295,21 +295,32 @@ extension HotelsMapVC {
 //MARK:- Make colection view item in center
 extension HotelsMapVC {
     
+    var pageSize: CGSize {
+        let layout = self.hotelsMapCV.collectionViewLayout as! UPCarouselFlowLayout
+        var pageSize = layout.itemSize
+        if layout.scrollDirection == .horizontal {
+            pageSize.width += layout.minimumLineSpacing
+        } else {
+            pageSize.height += layout.minimumLineSpacing
+        }
+        return pageSize
+    }
+    
     func calculateSectionInset() -> CGFloat {
         return CGFloat(16.0)
     }
     
     func configureCollectionViewLayoutItemSize() {
-        //call this methods in viewDidLayoutSubviews
-        let inset: CGFloat = calculateSectionInset() // This inset calculation is some magic so the next and the previous cells will peek from the sides. Don't worry about it
-        collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
-        
-        collectionViewLayout.itemSize = CGSize(width: UIDevice.screenWidth - (inset * 2), height: 203.0)
-    }
+    //        //call this methods in viewDidLayoutSubviews
+    //        let inset: CGFloat = calculateSectionInset() // This inset calculation is some magic so the next and the previous cells will peek from the sides. Don't worry about it
+    //        collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+    //
+    //        collectionViewLayout.itemSize = CGSize(width: UIDevice.screenWidth - (inset * 2), height: 192.0)
+        }
     
     func indexOfMajorCell() -> Int {
-        let itemWidth = collectionViewLayout.itemSize.width
-        let proportionalOffset = collectionViewLayout.collectionView!.contentOffset.x / itemWidth
+        let itemWidth =  UIDevice.screenWidth - (calculateSectionInset() * 2)//collectionViewLayout.itemSize.width
+        let proportionalOffset = self.hotelsMapCV.contentOffset.x / itemWidth
         let index = Int(round(proportionalOffset))
         let numberOfItemInCollection = self.viewModel.collectionViewLocArr.count - 1
         let safeIndex = max(0, min(numberOfItemInCollection, index))
@@ -322,37 +333,50 @@ extension HotelsMapVC {
     //    }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
-        guard scrollView === self.collectionView else {return}
-        
-        let numberOfItemInCollection = self.viewModel.collectionViewLocArr.count - 1
-        
-        // Stop scrollView sliding:
-        targetContentOffset.pointee = scrollView.contentOffset
-        
-        // calculate where scrollView should snap to:
-        var indexOfMajorCell = self.indexOfMajorCell()
-        
-        // calculate conditions:
-        let swipeVelocityThresholdToMove: CGFloat = 1.0
-        
-        let absVelocity = abs(velocity.x)
-        if absVelocity >= swipeVelocityThresholdToMove {
-            if velocity.x < 0 {
-                indexOfMajorCell -= 1
-            }
-            else {
-                indexOfMajorCell += 1
-            }
             
-            indexOfMajorCell = max(0,indexOfMajorCell)
-            indexOfMajorCell = min(indexOfMajorCell,numberOfItemInCollection)
+            
+            
+    //        guard scrollView === self.collectionView else {return}
+    //
+    //        let numberOfItemInCollection = self.viewModel.collectionViewLocArr.count - 1
+    //
+    //        // Stop scrollView sliding:
+    //        targetContentOffset.pointee = scrollView.contentOffset
+    //
+    //        // calculate where scrollView should snap to:
+    //        var indexOfMajorCell = self.indexOfMajorCell()
+    //
+    //        // calculate conditions:
+    //        let swipeVelocityThresholdToMove: CGFloat = 1.0
+    //
+    //        let absVelocity = abs(velocity.x)
+    //        if absVelocity >= swipeVelocityThresholdToMove {
+    //            if velocity.x < 0 {
+    //                indexOfMajorCell -= 1
+    //            }
+    //            else {
+    //                indexOfMajorCell += 1
+    //            }
+    //
+    //            indexOfMajorCell = max(0,indexOfMajorCell)
+    //            indexOfMajorCell = min(indexOfMajorCell,numberOfItemInCollection)
+    //        }
+    //        let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
+    //        collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    //
+    //        self.manageForCollectionView(atIndex: indexOfMajorCell)
+            
+            
+            
+            let pageSide =  self.pageSize.width
+            let offset =  hotelsMapCV.contentOffset.x
+            let currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
+    //        DispatchQueue.main.async {
+            self.manageForCollectionView(atIndex: currentPage)
+
+    //        }
+            
         }
-        let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
-        collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        
-        self.manageForCollectionView(atIndex: indexOfMajorCell)
-    }
     
     /// Get Star Rating
     private func getStarString(fromArr: [Int], maxCount: Int) -> String {
