@@ -65,6 +65,7 @@ class BulkBookingVC: BaseVC {
     //MARK:- Properties
     //MARK:- Public
     let viewModel = BulkBookingVM()
+    var initialTouchPoint: CGPoint = CGPoint(x: 0.0, y: 0.0)
     
     //MARK:- Private
     
@@ -171,10 +172,17 @@ class BulkBookingVC: BaseVC {
     //MARK:- Private
     ///InitialSetUp
     private func initialSetups() {
+        
+        //AddGesture:-
+        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        mainContainerView.isUserInteractionEnabled = true
+        swipeGesture.delegate = self
+        self.topNavView.addGestureRecognizer(swipeGesture)
+               
+        
         self.view.alpha = 1.0
         self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
         self.bottomViewHeightConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
-        
         self.mainContainerView.roundTopCorners(cornerRadius: 15.0)
 
         self.topNavView.delegate = self
@@ -601,4 +609,91 @@ extension BulkBookingVC: CalendarDataHandler {
         printDebug(isHotelCalendar)
         printDebug(isReturn)
     }
+}
+
+extension BulkBookingVC {
+    //Handle Swipe Gesture
+      @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+          let touchPoint = sender.location(in: self.topNavView?.window)
+          let velocity = sender.velocity(in: self.topNavView)
+          print(velocity)
+          switch sender.state {
+          case .possible:
+              print(sender.state)
+          case .began:
+              self.initialTouchPoint = touchPoint
+          case .changed:
+              let touchPointDiffY = initialTouchPoint.y - touchPoint.y
+              print(touchPointDiffY)
+              if  touchPoint.y > 62.0 {
+                  if touchPointDiffY > 0 {
+                      self.mainCintainerBottomConstraint.constant = -( UIScreen.main.bounds.height - 62.0) + (68.0) + touchPointDiffY
+                  }
+                  else if touchPointDiffY < -68.0 {
+                      self.mainCintainerBottomConstraint.constant = touchPointDiffY
+                  }
+              }
+          case .cancelled:
+              print(sender.state)
+          case .ended:
+              print(sender.state)
+              panGestureFinalAnimation(velocity: velocity,touchPoint: touchPoint)
+          case .failed:
+              print(sender.state)
+              
+          }
+      }
+      
+      
+      ///Call to use Pan Gesture Final Animation
+      private func panGestureFinalAnimation(velocity: CGPoint,touchPoint: CGPoint) {
+          //Down Direction
+          if velocity.y < 0 {
+              if velocity.y < -300 {
+                  self.openBottomSheet()
+              } else {
+                  if touchPoint.y <= (UIScreen.main.bounds.height)/2 {
+                      self.openBottomSheet()
+                  } else {
+                      self.closeBottomSheet()
+                  }
+              }
+          }
+              //Up Direction
+          else {
+              if velocity.y > 300 {
+                  self.closeBottomSheet()
+              } else {
+                  if touchPoint.y <= (UIScreen.main.bounds.height)/2 {
+                      self.openBottomSheet()
+                  } else {
+                      self.closeBottomSheet()
+                  }
+              }
+          }
+          print(velocity.y)
+      }
+      
+      func openBottomSheet() {
+          self.view.layoutIfNeeded()
+          UIView.animate(withDuration: 0.4) {
+              self.mainCintainerBottomConstraint.constant = 0.0
+              self.view.layoutIfNeeded()
+          }
+      }
+      
+      func closeBottomSheet() {
+          func setValue() {
+              self.mainCintainerBottomConstraint.constant = -(self.mainContainerView.height)
+              self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
+              self.view.layoutIfNeeded()
+          }
+          let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+              setValue()
+          }
+          animater.addCompletion { (position) in
+              self.removeFromParentVC
+          }
+          animater.startAnimation()
+      }
 }
