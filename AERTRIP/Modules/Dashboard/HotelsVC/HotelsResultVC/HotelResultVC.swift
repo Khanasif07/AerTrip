@@ -174,6 +174,7 @@ class HotelResultVC: BaseVC {
         self.filterCollectionView.isUserInteractionEnabled = false
         self.filterButton.isEnabled = false
         self.mapButton.isEnabled = false
+        self.searchButton.isEnabled = false
         //self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
         
         self.view.backgroundColor = AppColors.themeWhite

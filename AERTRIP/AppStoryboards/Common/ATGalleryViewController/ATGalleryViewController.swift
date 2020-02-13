@@ -79,6 +79,8 @@ class ATGalleryViewController: UIViewController {
         self.setupPageDots()
         
         self.addTapGesture()
+        self.closeButtonTopConstraint.constant = (UIDevice.topPaddingFromSafeArea > 0 ? UIDevice.topPaddingFromSafeArea : UIDevice.topPaddingFromSafeArea + 20)
+
     }
     
     private func addTapGesture() {
@@ -308,10 +310,9 @@ class ATGalleryViewController: UIViewController {
             
             guard let sSelf = self else {return}
             
-            sSelf.closeButtonTopConstraint.constant = isHidden ? -70.0 : 20.0
+            sSelf.closeButtonTopConstraint.constant = isHidden ? -70.0 : (UIDevice.topPaddingFromSafeArea > 0 ? UIDevice.topPaddingFromSafeArea : UIDevice.topPaddingFromSafeArea + 20)
             sSelf.pageControllerBottomConstraint.constant = isHidden ? -70.0 : 20.0
             sSelf.modeChangeButtonTraillingConstraint.constant = isHidden ? -70.0 : 15.0
-            
             sSelf.view.layoutIfNeeded()
             
             }, completion: { (isDone) in

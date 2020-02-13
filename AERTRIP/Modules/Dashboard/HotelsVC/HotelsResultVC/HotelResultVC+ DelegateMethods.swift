@@ -169,7 +169,8 @@ extension HotelResultVC: HotelResultDelegate {
         self.filterCollectionView.isUserInteractionEnabled = true
         self.filterButton.isEnabled = true
         self.mapButton.isEnabled = true
-        
+        self.searchButton.isEnabled = true
+
         if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
             delay(seconds: 1.0) { [weak self] in
                 HotelFilterVM.shared.ratingCount = HotelsSearchVM.hotelFormData.ratingCount

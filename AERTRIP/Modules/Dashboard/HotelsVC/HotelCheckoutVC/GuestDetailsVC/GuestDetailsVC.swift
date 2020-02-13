@@ -47,11 +47,9 @@ class GuestDetailsVC: BaseVC {
         
         self.registerXib()
         self.doInitialSetup()
-        self.addFooterViewToGuestDetailTableView()
+        //self.addFooterViewToGuestDetailTableView()
         self.getRoomDetails()
         self.addFooterViewToTravellerTableView()
-        
-        
       
         self.viewModel.webserviceForGetSalutations()
     }
@@ -59,9 +57,9 @@ class GuestDetailsVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        delay(seconds: 1.3) { [weak self] in
-              self?.makeTableViewIndexSelectable()
-        }
+//        delay(seconds: 1.3) { [weak self] in
+//              self?.makeTableViewIndexSelectable()
+//        }
         
         IQKeyboardManager.shared().isEnabled = false
       
@@ -98,7 +96,7 @@ class GuestDetailsVC: BaseVC {
         self.guestDetailTableView.isScrollEnabled = true
         self.travellersTableView.isHidden = true
         self.setUpNavigationView()
-        self.travellers = self.viewModel.travellerList
+        self.travellers = []//self.viewModel.travellerList
     }
     
     // configure navigation View
@@ -142,7 +140,8 @@ class GuestDetailsVC: BaseVC {
     
     override func keyboardWillHide(notification: Notification) {
         self.guestDetailTableView.isScrollEnabled = true
-        self.travellers = self.viewModel.travellerList
+        self.travellers = []//self.viewModel.travellerList
+        self.travellersTableView.isHidden = self.travellers.count == 0
     }
     
     // Make table view particular index selectable or Editable
@@ -326,7 +325,7 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
             self.travellers = self.viewModel.travellerList.filter({ $0.firstName.lowercased().contains(textField.text?.lowercased() ?? "") })
             
         } else {
-            self.travellers = self.viewModel.travellerList
+            self.travellers = []//self.viewModel.travellerList
             self.searchText  = ""
         }
         self.travellersTableView.isHidden = self.travellers.count == 0

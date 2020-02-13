@@ -123,7 +123,12 @@ class GuestDetailTableViewCell: UITableViewCell {
         }
         
         if let type = self.guestDetail?.passengerType, let number = self.guestDetail?.numberInRoom, number >= 0 {
-            self.guestTitleLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)(\(self.guestDetail?.age ?? 0))"
+            let ageText = "(\(self.guestDetail?.age ?? 0)y)"
+            let adultText = "\(LocalizedString.Adult.localized) \(number)"
+            let childText = "\(LocalizedString.Child.localized) \(number) \(ageText)"
+
+            self.guestTitleLabel.text = (type == PassengersType.Adult) ? adultText : childText
+            self.guestTitleLabel.AttributedFontColorForText(text: ageText, textColor: AppColors.themeGray40)
         }        
         
     }
