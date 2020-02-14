@@ -723,10 +723,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DeF-PF-r5i">
-                                <rect key="frame" x="10" y="44" width="355" height="150"/>
+                                <rect key="frame" x="3" y="44" width="372" height="150"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DZr-3p-gGY">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="150"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="372" height="150"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yxK-Eg-DBG">
                                             <size key="itemSize" width="134" height="122"/>
@@ -859,10 +859,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nEl-0z-3ye">
-                                <rect key="frame" x="10" y="194" width="355" height="56"/>
+                                <rect key="frame" x="3" y="194" width="372" height="56"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="JEh-49-fzM" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="56"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="372" height="56"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                 </subviews>
@@ -879,17 +879,18 @@
                                 <rect key="frame" x="0.0" y="250" width="375" height="417"/>
                             </view>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="nEl-0z-3ye" firstAttribute="top" secondItem="DeF-PF-r5i" secondAttribute="bottom" id="0To-ry-RoN"/>
                             <constraint firstItem="7Og-LG-RhV" firstAttribute="leading" secondItem="WTL-bK-gFr" secondAttribute="leading" id="42k-2o-w2h"/>
-                            <constraint firstItem="DeF-PF-r5i" firstAttribute="leading" secondItem="WTL-bK-gFr" secondAttribute="leading" constant="10" id="6Ft-EE-taO"/>
+                            <constraint firstItem="DeF-PF-r5i" firstAttribute="leading" secondItem="WTL-bK-gFr" secondAttribute="leading" constant="3" id="6Ft-EE-taO"/>
                             <constraint firstItem="pA8-KE-Hsr" firstAttribute="trailing" secondItem="WTL-bK-gFr" secondAttribute="trailing" id="RRj-FN-Q3e"/>
-                            <constraint firstItem="nEl-0z-3ye" firstAttribute="trailing" secondItem="DeF-PF-r5i" secondAttribute="trailing" id="XEM-4Y-L18"/>
                             <constraint firstItem="DeF-PF-r5i" firstAttribute="top" secondItem="pA8-KE-Hsr" secondAttribute="bottom" id="Zlz-ZT-Q3d"/>
                             <constraint firstItem="nEl-0z-3ye" firstAttribute="leading" secondItem="DeF-PF-r5i" secondAttribute="leading" id="d6U-rU-rFl"/>
                             <constraint firstItem="WTL-bK-gFr" firstAttribute="trailing" secondItem="7Og-LG-RhV" secondAttribute="trailing" id="dJ3-Kq-mSb"/>
-                            <constraint firstItem="WTL-bK-gFr" firstAttribute="trailing" secondItem="DeF-PF-r5i" secondAttribute="trailing" constant="10" id="dK4-uS-BO0"/>
+                            <constraint firstItem="WTL-bK-gFr" firstAttribute="trailing" secondItem="DeF-PF-r5i" secondAttribute="trailing" id="dK4-uS-BO0"/>
                             <constraint firstItem="pA8-KE-Hsr" firstAttribute="leading" secondItem="WTL-bK-gFr" secondAttribute="leading" id="fFM-4n-aEx"/>
+                            <constraint firstItem="WTL-bK-gFr" firstAttribute="trailing" secondItem="nEl-0z-3ye" secondAttribute="trailing" id="gzg-w6-2AZ"/>
                             <constraint firstItem="pA8-KE-Hsr" firstAttribute="top" secondItem="WTL-bK-gFr" secondAttribute="top" id="hjb-9k-On7"/>
                             <constraint firstItem="7Og-LG-RhV" firstAttribute="top" secondItem="nEl-0z-3ye" secondAttribute="bottom" id="lFy-Or-FyH"/>
                             <constraint firstAttribute="bottom" secondItem="7Og-LG-RhV" secondAttribute="bottom" id="lkW-xU-3ed"/>

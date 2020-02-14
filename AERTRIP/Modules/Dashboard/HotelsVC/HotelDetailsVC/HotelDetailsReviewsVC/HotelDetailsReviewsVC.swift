@@ -348,7 +348,7 @@ extension HotelDetailsReviewsVC {
                 view.frame.origin.y = touchPoint.y - initialTouchPoint.y
             }
         case .ended, .cancelled:
-            if touchPoint.y - initialTouchPoint.y > 200 {
+            if touchPoint.y - initialTouchPoint.y > 300 {
                 dismiss(animated: true, completion: nil)
             } else {
                 UIView.animate(withDuration: 0.2, animations: {

@@ -206,7 +206,7 @@ class RoomGuestSelectionVC: BaseVC {
             button.isSelected = button.tag <= self.viewModel.selectedAdults
             
             if oldState != button.isSelected {
-                button.isSelected ? button.selectedState(selectedImage: #imageLiteral(resourceName: "adult_selected")) : button.deselectedState()
+                button.isSelected ? animateWithKeyFrames(button: button) : animateWithKeyFrames(button: button)
             }
         }
         
@@ -216,13 +216,34 @@ class RoomGuestSelectionVC: BaseVC {
             button.isSelected = button.tag <= self.viewModel.selectedChilds
             
             if oldState != button.isSelected {
-                button.isSelected ? button.selectedState(selectedImage: #imageLiteral(resourceName: "child_selected")) : button.deselectedState()
+                button.isSelected ? self.animateWithKeyFrames(button: button) : animateWithKeyFrames(button: button)
             }
         }
         
         self.guestSelectionLabel.text = self.viewModel.selectionString
         self.messageLabel.isHidden = (self.viewModel.selectedAdults + self.viewModel.selectedChilds) <= 3
     }
+    
+    func animateWithKeyFrames(button: UIButton){
+           //Total animation duration is 1.0 seconds - This time is inside the
+           UIView.animateKeyframes(withDuration: 1.0, delay: 0.0, options: [], animations: {
+               UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.33, animations: {
+                   //1.Expansion + button label alpha
+                   button.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
+               })
+               UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.33, animations: {
+                   //2.Shrink
+                button.transform = CGAffineTransform(scaleX: 0.85, y: 0.85)
+               })
+               UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.33, animations: {
+                   //4.Move out of screen and reduce alpha to 0
+                button.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+               })
+           }) { (completed) in
+               //Completion of whole animation sequence
+           }
+       }
+
     
     private func enableAgePicker() {
         for picker in self.agePickers {
