@@ -861,4 +861,7 @@ extension String {
         self.insert(contentsOf: string, at:self.index(self.startIndex, offsetBy: ind) )
     }
   
+    var alphanumeric: String {
+        return self.components(separatedBy: CharacterSet.alphanumerics.inverted).joined().lowercased()
+    }
 }
