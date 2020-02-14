@@ -183,10 +183,11 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         self.selectedIndexPath = indexPath
         if tableView === hotelSearchTableView {
             let hData = self.viewModel.searchedHotels[indexPath.row]
-            if let cell = tableView.cellForRow(at: indexPath) {
-                AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: hData, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest){
-                    self.statusBarColor = AppColors.themeWhite
-                }
+            if let cell = tableView.cellForRow(at: indexPath) as? HotelSearchTableViewCell {
+//                AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: hData, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest){
+//                    self.statusBarColor = AppColors.themeWhite
+//                }
+                self.presentController(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
                 self.selectedIndexPath = indexPath
             }
         } else {
@@ -232,7 +233,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         
         let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
         nav.transitioningDelegate = transition
-        nav.modalPresentationCapturesStatusBarAppearance = true
+//        nav.modalPresentationCapturesStatusBarAppearance = true
         nav.modalPresentationStyle = .custom
         self.present(nav, animated: true, completion: {
             cell.unfreezeAnimations()

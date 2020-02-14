@@ -12,7 +12,7 @@ protocol HotelDetailsVCDelegate : class {
     func hotelFavouriteUpdated()
 }
 
-class HotelDetailsVC: StatusBarAnimatableViewController {
+class HotelDetailsVC: BaseVC {
     
     //Mark:- Variables
     //================
@@ -178,7 +178,9 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
             self?.hotelTableView.reloadData()
             self?.viewModel.getHotelInfoApi()
         }
-        self.viewModel.getHotelInfoApi()
+        if self.isAddingChild{
+            self.viewModel.getHotelInfoApi()
+        }
         self.smallLineView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.hotelTableView.bounces = true
         self.view.backgroundColor = .clear
@@ -188,10 +190,10 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
         self.viewModel.delegate = self
     }
     //------------------------ Golu Change --------------------
-    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
-        return StatusBarAnimatableConfig(prefersHidden: true,
-        animation: .slide)
-    }
+//    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
+//        return StatusBarAnimatableConfig(prefersHidden: true,
+//        animation: .slide)
+//    }
     //------------------------ End --------------------
     override func dataChanged(_ note: Notification) {
         if let _ = note.object as? HCDataSelectionVC {
@@ -497,10 +499,21 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
             else if indexPath.section == 0, indexPath.row == 3 {
                 //overview cell
                 if let hotelData = self.viewModel.hotelData {
+                    
+                    let textView = UITextView()
+                    textView.frame.size = CGSize(width: UIDevice.screenWidth - 32.0, height: 100.0)
+                    textView.font = AppFonts.Regular.withSize(18)
+                    textView.text = hotelData.info
+                    if textView.numberOfLines >= 3{
+                        if let lineHeight = textView.font?.lineHeight{
+                            return ((3 * lineHeight) + 70)
+                        }
+                    }else{
                     let text = hotelData.address + "Maps    "
                     let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
                     return size.height + 46.5
                         + 21.0  + 2.0//y of textview 46.5 + bottom space 14.0 + 7.0
+                    }
                 }
                 else {
                     return (UIDevice.screenHeight - UIApplication.shared.statusBarFrame.height) - (211.0 + 126.5)

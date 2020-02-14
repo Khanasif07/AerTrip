@@ -336,9 +336,9 @@ class HotelsMapVC: BaseVC {
         let layout = self.hotelsMapCV.collectionViewLayout as! UPCarouselFlowLayout
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: -5)
         layout.scrollDirection = .horizontal
-        layout.sideItemScale = 0.92
+        layout.sideItemScale = 1.0
         layout.sideItemAlpha = 1.0
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 32, height: 190)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 32, height: 192)
     }
     // MARK: - Methods
     

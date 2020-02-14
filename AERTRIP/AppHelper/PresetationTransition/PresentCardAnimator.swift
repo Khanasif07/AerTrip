@@ -195,6 +195,7 @@ final class PresentCardTransitionDriver {
             screens.cardDetail.imageView.image = params.img
             screens.cardDetail.hotelTableView.isScrollEnabled = true
             let success = !ctx.transitionWasCancelled
+            screens.cardDetail.viewModel.getHotelInfoApi()
             ctx.completeTransition(success)
         }
 

@@ -100,7 +100,7 @@ extension HotelsMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)//UINavigationController(rootViewController: vc)
         
         nav.transitioningDelegate = transition
-        nav.modalPresentationCapturesStatusBarAppearance = true
+//        nav.modalPresentationCapturesStatusBarAppearance = true
         nav.modalPresentationStyle = .custom
         self.present(nav, animated: true, completion: {
             cell.unfreezeAnimations()

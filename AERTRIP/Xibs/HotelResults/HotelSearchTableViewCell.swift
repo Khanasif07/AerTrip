@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HotelSearchTableViewCell: UITableViewCell {
+class HotelSearchTableViewCell: AppStoreAnimationTableViewCell {
     
     // MARK: - IB Outlets
     
@@ -37,7 +37,9 @@ class HotelSearchTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        //-------------------------- Golu Change ---------------------
+           self.disabledHighlightedAnimation = false
+           //-------------------------- End ---------------------
         self.setUpFonts()
         self.setUpColor()
         
