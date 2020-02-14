@@ -148,8 +148,8 @@ class ImportContactVC: BaseVC {
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController<PagingIndexItem>()
-        self.parchmentView?.menuItemSpacing = 60.0
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 33.0, bottom: 0.0, right: 33.0)
+        self.parchmentView?.menuItemSpacing = (self.view.width - 246.0) / 2
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 32.0, bottom: 0.0, right: 38.0)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 51)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(

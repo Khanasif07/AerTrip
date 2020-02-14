@@ -2254,7 +2254,7 @@ been sent</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKJ-fV-GuR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2697" y="1405"/>
+            <point key="canvasLocation" x="2678" y="1380"/>
         </scene>
         <!--Hotels SearchVC-->
         <scene sceneID="ZLQ-hj-H4b">

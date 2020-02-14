@@ -33,7 +33,7 @@ class SearchHotelTagVC: BaseVC {
     @IBOutlet weak var cancelBtnOutlet: UIButton!
     @IBOutlet weak var dividerView: ATDividerView! {
         didSet {
-            self.dividerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
+//            self.dividerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
         }
     }
     

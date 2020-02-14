@@ -53,7 +53,7 @@ class ContactTableCell: UITableViewCell {
     private func configUI() {
         titleLabel.font = AppFonts.Regular.withSize(14.0)
         titleLabel.textColor = AppColors.themeGray40
-        titleLabel.text = LocalizedString.Country.localized
+        titleLabel.text = LocalizedString.Mobile.localized
         
         countryCodeLabel.font = AppFonts.Regular.withSize(18.0)
         countryCodeLabel.textColor = AppColors.themeBlack
