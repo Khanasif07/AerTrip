@@ -125,12 +125,13 @@ extension HotelDetailsOverviewVC {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         manageHeaderView(scrollView)
-        printDebug("scrollViewDidScroll")
+       // printDebug("scrollViewDidScroll")
     }
     
    @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
         let touchPoint = sender.location(in: view?.window)
         var initialTouchPoint = CGPoint.zero
+        print(touchPoint)
 
         switch sender.state {
         case .began:
@@ -140,7 +141,7 @@ extension HotelDetailsOverviewVC {
                 view.frame.origin.y = touchPoint.y - initialTouchPoint.y
             }
         case .ended, .cancelled:
-            if touchPoint.y - initialTouchPoint.y > 200 {
+            if touchPoint.y - initialTouchPoint.y > 300 {
                 dismiss(animated: true, completion: nil)
             } else {
                 UIView.animate(withDuration: 0.2, animations: {

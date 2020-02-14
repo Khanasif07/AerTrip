@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parchment
 
 protocol HCSelectGuestsVCDelegate: class {
     func didAddedContacts()
@@ -32,7 +33,10 @@ class HCSelectGuestsVC: BaseVC {
     
     //MARK:- Private
     private let collectionLayout: ContactListCollectionFlowLayout = ContactListCollectionFlowLayout()
-    fileprivate weak var categoryView: ATCategoryView!
+//    fileprivate weak var categoryView: ATCategoryView!
+    
+    // Parchment View
+    fileprivate var parchmentView : PagingViewController<PagingIndexItem>?
     
     private(set) var viewModel = HCSelectGuestsVM.shared
     private var currentIndex: Int = 0 {
@@ -41,17 +45,17 @@ class HCSelectGuestsVC: BaseVC {
     }
     
     private var allTabsStr: [HCGuestListVC.UsingFor] = []
-    private var allTabs: [ATCategoryItem] {
-        var temp = [ATCategoryItem]()
-        
-        for item in allTabsStr {
-            var obj = ATCategoryItem()
-            obj.title = item.title
-            temp.append(obj)
-        }
-        
-        return temp
-    }
+//    private var allTabs: [ATCategoryItem] {
+//        var temp = [ATCategoryItem]()
+//
+//        for item in allTabsStr {
+//            var obj = ATCategoryItem()
+//            obj.title = item.title
+//            temp.append(obj)
+//        }
+//
+//        return temp
+//    }
     
     private var allChildVCs: [HCGuestListVC] = [HCGuestListVC]()
     
@@ -100,12 +104,19 @@ class HCSelectGuestsVC: BaseVC {
             }
         }
     }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.parchmentView?.view.frame = self.listContainerView.bounds
+        self.parchmentView?.loadViewIfNeeded()
+    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.categoryView?.frame = self.listContainerView.bounds
-        self.categoryView?.layoutIfNeeded()
+        self.parchmentView?.view.frame = self.listContainerView.bounds
+        self.parchmentView?.loadViewIfNeeded()
+//        self.categoryView?.frame = self.listContainerView.bounds
+//        self.categoryView?.layoutIfNeeded()
     }
     
     deinit {
@@ -146,12 +157,12 @@ class HCSelectGuestsVC: BaseVC {
             allTabsStr = [HCGuestListVC.UsingFor.contacts, HCGuestListVC.UsingFor.facebook, HCGuestListVC.UsingFor.google]
         }
         
-        for item in allTabsStr {
-            let vc = HCGuestListVC.instantiate(fromAppStoryboard: .HotelCheckout)
-            vc.currentlyUsingFor = item
-            self.allChildVCs.append(vc)
-        }
-        
+//        for item in allTabsStr {
+//            let vc = HCGuestListVC.instantiate(fromAppStoryboard: .HotelCheckout)
+//            vc.currentlyUsingFor = item
+//            self.allChildVCs.append(vc)
+//        }
+
         self.setupPagerView()
 
         self.selectedContactsSetHidden(isHidden: false, animated: false)
@@ -159,27 +170,46 @@ class HCSelectGuestsVC: BaseVC {
     
     
     private func setupPagerView() {
+        self.currentIndex = 0
+        self.allChildVCs.removeAll()
+        for idx in 0..<allTabsStr.count {
+            let vc = HCGuestListVC.instantiate(fromAppStoryboard: .HotelCheckout)
+            vc.currentlyUsingFor = allTabsStr[idx]
+            self.allChildVCs.append(vc)
+        }
+        self.view.layoutIfNeeded()
+        if let _ = self.parchmentView{
+            self.parchmentView?.view.removeFromSuperview()
+            self.parchmentView = nil
+        }
+        setupParchmentPageController()
+    }
+    
+    // Added to replace the existing page controller, added Asif Khan, 28-29Jan'2020
+    private func setupParchmentPageController(){
         
-        var style = ATCategoryNavBarStyle()
-        style.height = 45.0
-        style.interItemSpace = 5.0
-        style.itemPadding = 8.0
-        style.isScrollable = false
-        style.layoutAlignment = .center
-        style.isEmbeddedToView = true
-        style.showBottomSeparator = true
-        style.bottomSeparatorColor = AppColors.themeGray40
-        style.defaultFont = AppFonts.Regular.withSize(16.0)
-        style.selectedFont = AppFonts.Regular.withSize(16.0)
-        style.indicatorColor = AppColors.themeGreen
-        style.normalColor = AppColors.themeBlack
-        style.selectedColor = AppColors.themeBlack
+        self.parchmentView = PagingViewController<PagingIndexItem>()
+        self.parchmentView?.menuItemSpacing = 33.0
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 51)
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
+        self.parchmentView?.borderOptions = PagingBorderOptions.visible(
+            height: 0.5,
+            zIndex: Int.max - 1,
+            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
+        self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
+        self.parchmentView?.indicatorColor = AppColors.themeGreen
+        self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        self.listContainerView.addSubview(self.parchmentView!.view)
         
-        let categoryView = ATCategoryView(frame: self.listContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
-        categoryView.interControllerSpacing = 0.0
-        categoryView.navBar.internalDelegate = self
-        self.listContainerView.addSubview(categoryView)
-        self.categoryView = categoryView
+        self.parchmentView?.dataSource = self
+        self.parchmentView?.delegate = self
+        self.parchmentView?.select(index: 0)
+        
+        self.parchmentView?.reloadData()
+        self.parchmentView?.reloadMenu()
     }
     
     private func selectedContactsSetHidden(isHidden: Bool, animated: Bool) {
@@ -536,4 +566,39 @@ extension HCSelectGuestsVC: SelectedContactCollectionCellDelegate {
         }
     }
 }
+
+
+extension HCSelectGuestsVC: PagingViewControllerDataSource , PagingViewControllerDelegate {
+    func numberOfViewControllers<T>(in pagingViewController: PagingViewController<T>) -> Int where T : PagingItem, T : Comparable, T : Hashable {
+         self.allTabsStr.count
+    }
+    
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, viewControllerForIndex index: Int) -> UIViewController where T : PagingItem, T : Comparable, T : Hashable {
+         return self.allChildVCs[index]
+    }
+    
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemForIndex index: Int) -> T where T : PagingItem, T : Comparable, T : Hashable {
+        return PagingIndexItem(index: index, title:  self.allTabsStr[index].title) as! T
+    }
+    
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
+
+        // depending onthe text size, give the width of the menu item
+        if let pagingIndexItem = pagingItem as? PagingIndexItem{
+            let text = pagingIndexItem.title
+            
+            let font = AppFonts.SemiBold.withSize(16.0)
+            return text.widthOfString(usingFont: font)
+        }
+        
+        return 100.0
+    }
+    
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+           
+           let pagingIndexItem = pagingItem as! PagingIndexItem
+           self.currentIndex = pagingIndexItem.index
+       }
+}
+
 
