@@ -372,7 +372,7 @@ extension HotelsMapVC {
             let locStr = self.viewModel.collectionViewLocArr[atIndex]
             if let loc = self.getLocationObject(fromLocation: locStr) {
                 self.displayingHotelLocation = loc
-                focusMarker(coordinates: loc)
+//                focusMarker(coordinates: loc)
             }
         }
     }
@@ -424,56 +424,12 @@ extension HotelsMapVC {
         let safeIndex = max(0, min(numberOfItemInCollection, index))
         return safeIndex
     }
-    
-    //ScrollView Delegate methods
-    //    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-    //        indexOfCellBeforeDragging = indexOfMajorCell()
-    //    }
-    
+
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
-        
-        
-//        guard scrollView === self.collectionView else {return}
-//        
-//        let numberOfItemInCollection = self.viewModel.collectionViewLocArr.count - 1
-//        
-//        // Stop scrollView sliding:
-//        targetContentOffset.pointee = scrollView.contentOffset
-//        
-//        // calculate where scrollView should snap to:
-//        var indexOfMajorCell = self.indexOfMajorCell()
-//        
-//        // calculate conditions:
-//        let swipeVelocityThresholdToMove: CGFloat = 1.0
-//        
-//        let absVelocity = abs(velocity.x)
-//        if absVelocity >= swipeVelocityThresholdToMove {
-//            if velocity.x < 0 {
-//                indexOfMajorCell -= 1
-//            }
-//            else {
-//                indexOfMajorCell += 1
-//            }
-//            
-//            indexOfMajorCell = max(0,indexOfMajorCell)
-//            indexOfMajorCell = min(indexOfMajorCell,numberOfItemInCollection)
-//        }
-//        let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
-//        collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-//        
-//        self.manageForCollectionView(atIndex: indexOfMajorCell)
-        
-        
-        
         let pageSide =  self.pageSize.width
         let offset =  hotelsMapCV.contentOffset.x
         let currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
-//        DispatchQueue.main.async {
         self.manageForCollectionView(atIndex: currentPage)
-
-//        }
-        
     }
     
     /// Get Star Rating

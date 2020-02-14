@@ -109,10 +109,10 @@ class HotelsMapVC: BaseVC {
     var displayingHotelLocation: CLLocationCoordinate2D? {
         didSet {
             if let oLoc = oldValue, displayingHotelLocation != nil {
-                self.updateMarker(atLocation: oLoc, isSelected: false)
+//                self.updateMarker(atLocation: oLoc, isSelected: false)
             }
             if let loc = displayingHotelLocation {
-                self.updateMarker(atLocation: loc)
+//                self.updateMarker(atLocation: loc)
             }
         }
     }
