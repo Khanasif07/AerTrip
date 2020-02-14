@@ -207,9 +207,9 @@ class HCSelectGuestsVC: BaseVC {
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
         self.parchmentView?.select(index: 0)
-        
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
+
     }
     
     private func selectedContactsSetHidden(isHidden: Bool, animated: Bool) {
