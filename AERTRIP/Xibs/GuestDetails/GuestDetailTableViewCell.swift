@@ -123,7 +123,12 @@ class GuestDetailTableViewCell: UITableViewCell {
         }
         
         if let type = self.guestDetail?.passengerType, let number = self.guestDetail?.numberInRoom, number >= 0 {
-            self.guestTitleLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)(\(self.guestDetail?.age ?? 0))"
+            let ageText = "(\(self.guestDetail?.age ?? 0)y)"
+            let adultText = "\(LocalizedString.Adult.localized) \(number)"
+            let childText = "\(LocalizedString.Child.localized) \(number) \(ageText)"
+
+            self.guestTitleLabel.text = (type == PassengersType.Adult) ? adultText : childText
+            self.guestTitleLabel.AttributedFontColorForText(text: ageText, textColor: AppColors.themeGray40)
         }        
         
     }
@@ -221,10 +226,10 @@ extension GuestDetailTableViewCell: UITextFieldDelegate {
         }
         switch textField {
         case self.firstNameTextField:
-            self.firstNameTextField.isHiddenBottomLine = false
+            //self.firstNameTextField.isHiddenBottomLine = false
             self.delegate?.textFieldWhileEditing(firstNameTextField)
         case self.lastNameTextField:
-            self.lastNameTextField.isHiddenBottomLine = false
+           // self.lastNameTextField.isHiddenBottomLine = false
             self.delegate?.textFieldWhileEditing(lastNameTextField)
         default:
             break

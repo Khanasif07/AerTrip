@@ -43,7 +43,7 @@ class ATGuestButton: UIButton {
         guard !self.isStateAnimating else {return}
         
         self.isStateAnimating = true
-        self.placeholderImage.image = selectedImage
+       // self.placeholderImage.image = selectedImage
         let trans80 = CGAffineTransform(scaleX: 0.8, y: 0.8)
         UIView.animate(withDuration: AppConstants.kAnimationDuration,
                        delay: 0,

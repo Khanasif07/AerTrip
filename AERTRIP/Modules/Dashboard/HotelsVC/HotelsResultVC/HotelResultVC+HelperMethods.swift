@@ -40,13 +40,37 @@ extension HotelResultVC {
     }
     
     func applyPreviousFilter() {
-        let starStar = self.getStarString(fromArr: self.viewModel.filterApplied.ratingCount, maxCount: 5)
         
-        let distanceStr = self.viewModel.filterApplied.distanceRange > 20 ? "beyond \(self.viewModel.filterApplied.distanceRange.toInt) " : " within \(self.viewModel.filterApplied.distanceRange.toInt) "
+        let isRangeFilterApplied = HotelFilterVM.shared.filterAppliedFor(filterName: LocalizedString.Range.localized, appliedFilter: self.viewModel.filterApplied)
+        let isStarFilterApplied = HotelFilterVM.shared.filterAppliedFor(filterName: LocalizedString.Ratings.localized, appliedFilter: self.viewModel.filterApplied)
         
-        let finalStr = LocalizedString.ApplyPreviousFilter.localized + starStar + distanceStr.appending(LocalizedString.Kms.localized) + AppConstants.kEllipses
+        var starStar = ""
+        var distanceStr = ""
+        if isStarFilterApplied {
+            if !self.viewModel.filterApplied.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty {
+                starStar = self.getStarString(fromArr: self.viewModel.filterApplied.tripAdvisorRatingCount, maxCount: 5, isTripRating: true)
+                
+            } else {
+                starStar = self.getStarString(fromArr: self.viewModel.filterApplied.ratingCount, maxCount: 5, isTripRating: false)
+            }
+        }
         
+        if isRangeFilterApplied {
+            distanceStr = self.viewModel.filterApplied.distanceRange > 20 ? "beyond \(self.viewModel.filterApplied.distanceRange.toInt) " : " within \(self.viewModel.filterApplied.distanceRange.toInt) "
+            distanceStr = distanceStr.appending(LocalizedString.Kms.localized)
+        }
+        
+        var finalStr = LocalizedString.ApplyPreviousFilter.localized
+        
+        
+        if isRangeFilterApplied || isStarFilterApplied {
+            finalStr = LocalizedString.ApplyPreviousFilter.localized + distanceStr + (starStar.isEmpty ? starStar : " \(starStar)") + AppConstants.kEllipses
+            finalStr = finalStr.replacingOccurrences(of: "  ", with: "")
+        }
+        finalStr = finalStr.removeLeadingTrailingWhitespaces
+        printDebug(finalStr)
         AppToast.default.showToastMessage(message: finalStr, onViewController: self, duration: 5.0, buttonTitle: LocalizedString.apply.localized, buttonAction: self.completion, toastDidClose: self.toastDidClose)
+        
     }
     
     func getPinnedHotelTemplate() {
@@ -125,7 +149,7 @@ extension HotelResultVC {
                 self.hotelSearchTableView.reloadRow(at: indexPath, with: .none)
             }
             else {
-                    self.tableViewVertical.reloadRow(at: indexPath, with: .none)
+                self.tableViewVertical.reloadRow(at: indexPath, with: .none)
                 
             }
             selectedIndexPath = nil
@@ -136,7 +160,7 @@ extension HotelResultVC {
             }
             else {
                 self.viewModel.fetchDataFromCoreData(isUpdatingFav: true)
-                    self.tableViewVertical.reloadData()
+                self.tableViewVertical.reloadData()
                 
             }
         }
@@ -216,18 +240,18 @@ extension HotelResultVC {
     }
     
     func hideFavsButtons() {
-            self.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 0, y: 0)
-            self.emailButton.transform = CGAffineTransform(translationX: 0, y: 0)
-            self.shareButton.transform = CGAffineTransform(translationX: 0, y: 0)
-            self.unPinAllFavouriteButton.isHidden = true
-            self.emailButton.isHidden = true
-            self.shareButton.isHidden = true
+        self.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 0, y: 0)
+        self.emailButton.transform = CGAffineTransform(translationX: 0, y: 0)
+        self.shareButton.transform = CGAffineTransform(translationX: 0, y: 0)
+        self.unPinAllFavouriteButton.isHidden = true
+        self.emailButton.isHidden = true
+        self.shareButton.isHidden = true
         
     }
     
     
     func manageSwitchContainer(isHidden: Bool, shouldOff: Bool = true) {
-            manageFloatingView(isHidden: false)
+        manageFloatingView(isHidden: false)
         
         if !isHidden {
             self.switchContainerView.isHidden = false
@@ -263,13 +287,34 @@ extension HotelResultVC {
         self.floatingButtonBackView.isHidden = isHidden
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView === tableViewVertical else {
+            return
+        }
+        
+//        updateHeaderView(scrollView)
+        
+    }
+    
+    //    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    //        self.manageTopHeader(scrollView)
+    //        self.oldScrollPosition = scrollView.contentOffset
+    //
+    //        indexOfCellBeforeDragging = indexOfMajorCell()
+    //    }
+    //
+    //    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    //        self.manageTopHeader(scrollView)
+    //    }
+    
+    
     
     // MARK: - Manage Header animation
     
     func showHeaderIfHiddenOnTopAfterEndScrolling(_ scrollView: UIScrollView) {
         let yPosition = scrollView.contentOffset.y
         if yPosition >= 0 {
-            if 0...140.0 ~= yPosition {
+            if 0...96.0 ~= yPosition {
                 let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration*0.5, curve: .linear) { [weak self] in
                     self?.headerContainerViewTopConstraint.constant = 0.0
                     self?.view.layoutIfNeeded()
@@ -290,13 +335,42 @@ extension HotelResultVC {
     // Disable mapButton and search bar when no data found on filter
     func noHotelFoundOnFilter() {
         self.mapButton.isUserInteractionEnabled = false
-        self.searchBar.isUserInteractionEnabled = false
+        //self.searchBar.isUserInteractionEnabled = false
+        self.mapButton.isHidden = true
     }
     
     // enable mapButton and search bar when no data found on filter
     func dataFounOnFilter() {
         self.mapButton.isUserInteractionEnabled = true
         self.searchBar.isUserInteractionEnabled = true
+        self.mapButton.isHidden = false
+    }
+    
+    func updateHeaderView(_ scrollView: UIScrollView) {
+        let yPosition = scrollView.contentOffset.y
+        let maxBound = scrollView.contentSize.height - scrollView.height
+        
+        //        print(scrollView.panGestureRecognizer.velocity(in: self.view))
+        
+        if 0.5 < abs(yPosition), abs(yPosition) < abs(maxBound) {
+            //show with progress after header height scrolled up
+            let newProg = self.oldScrollPosition.y - yPosition
+            let headrC = min(0,max(-96.0, (self.headerContainerViewTopConstraint.constant + newProg)))
+            if headrC != self.headerContainerViewTopConstraint.constant {
+                self.headerContainerViewTopConstraint.constant = headrC
+            }
+            
+            //            let finalPos = 100.0 + headrC
+            //            if finalPos != self.tableViewTopConstraint.constant {
+            //                self.tableViewTopConstraint.constant = finalPos
+            //                self.mapContainerTopConstraint.constant = finalPos
+            //            }
+            
+            //            }
+        }
+        
+        
+        self.oldScrollPosition = scrollView.contentOffset
     }
 }
 
@@ -305,7 +379,7 @@ extension HotelResultVC {
 extension HotelResultVC {
     
     /// Get Star Rating
-    private func getStarString(fromArr: [Int], maxCount: Int) -> String {
+    private func getStarString(fromArr: [Int], maxCount: Int, isTripRating: Bool) -> String {
         var arr = Array(Set(fromArr))
         arr.sort()
         var final = ""
@@ -313,8 +387,10 @@ extension HotelResultVC {
         var end: Int?
         var prev: Int?
         
+        let starText = isTripRating ? LocalizedString.TripRating.localized : LocalizedString.stars.localized
+        
         if arr.isEmpty || arr.count == maxCount {
-            final = "All \(LocalizedString.stars.localized)" // "0 \(LocalizedString.stars.localized)"
+            final = "All \(starText)" // "0 \(LocalizedString.stars.localized)"
             return final
         }
             //        else if arr.count == maxCount {
@@ -322,7 +398,7 @@ extension HotelResultVC {
             //            return final
             //        }
         else if arr.count == 1 {
-            final = "\(arr[0]) \((arr[0] == 1) ? "\(LocalizedString.star.localized)" : "\(LocalizedString.stars.localized)")"
+            final = "\(arr[0]) \((arr[0] == 1) ? "\(starText)" : "\(starText)")"
             return final
         }
         
@@ -371,7 +447,7 @@ extension HotelResultVC {
             end = nil
         }
         final.removeLast(2)
-        return final + " \(LocalizedString.stars.localized)"
+        return final + " \(starText)"
     }
     
     // show toast when come from Aerin Text Speech Controller

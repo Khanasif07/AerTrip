@@ -26,7 +26,7 @@ class AddRoomPictureCell: UICollectionViewCell {
     @IBOutlet weak var cancelBtnOutlet: UIButton!
     @IBOutlet weak var lineView: ATDividerView! {
         didSet {
-            self.lineView.alpha = 0.6
+            self.lineView.alpha = 1.0
         }
     }
     @IBOutlet weak var childPopUpBtn: UIButton!

@@ -13,9 +13,13 @@ class HotelDetailsAmenitiesVC: BaseVC {
     //================
     private(set) var viewModel = HotelDetailsAmenitiesVM()
     private let maxHeaderHeight: CGFloat = 58.0
+    var initialTouchPoint: CGPoint = CGPoint(x: 0.0, y: 0.0)
     
     // Mark:- IBOutlets
     //================
+    @IBOutlet weak var mainContainerHeightConst: NSLayoutConstraint!
+    @IBOutlet weak var mainContainerBottomConst: NSLayoutConstraint!
+    @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet weak var headerContainerView: UIView!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var containerViewHeigthConstraint: NSLayoutConstraint!
@@ -39,6 +43,7 @@ class HotelDetailsAmenitiesVC: BaseVC {
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setValue() 
     }
     
     override func setupColors() {
@@ -58,6 +63,12 @@ class HotelDetailsAmenitiesVC: BaseVC {
     }
     
     override func initialSetup() {
+        
+        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        mainContainerView.isUserInteractionEnabled = true
+        swipeGesture.delegate = self
+        self.view.addGestureRecognizer(swipeGesture)
+        
         self.dividerView.isHidden = true
         self.registerNibs()
         self.viewModel.getAmenitiesSections()
@@ -189,18 +200,60 @@ extension HotelDetailsAmenitiesVC {
         printDebug("scrollViewDidScroll")
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.manageHeaderView(scrollView)
-        printDebug("scrollViewDidEndDecelerating")
+    //    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    //        self.manageHeaderView(scrollView)
+    //        printDebug("scrollViewDidEndDecelerating")
+    //    }
+    //
+    //    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    //        self.manageHeaderView(scrollView)
+    //        printDebug("scrollViewDidEndDragging")
+    //    }
+    //
+    //    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    //        self.manageHeaderView(scrollView)
+    //        printDebug("scrollViewDidEndScrollingAnimation")
+    //    }
+}
+
+extension HotelDetailsAmenitiesVC {
+    
+    @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+        let touchPoint = sender.location(in: view?.window)
+        var initialTouchPoint = CGPoint.zero
+        
+        switch sender.state {
+        case .began:
+            initialTouchPoint = touchPoint
+        case .changed:
+            if touchPoint.y > initialTouchPoint.y {
+                view.frame.origin.y = touchPoint.y - initialTouchPoint.y
+            }
+        case .ended, .cancelled:
+            if touchPoint.y - initialTouchPoint.y > 200 {
+                dismiss(animated: true, completion: nil)
+            } else {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.view.frame = CGRect(x: 0,
+                                             y: 0,
+                                             width: self.view.frame.size.width,
+                                             height: self.view.frame.size.height)
+                })
+            }
+        case .failed, .possible:
+            break
+        }
     }
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        self.manageHeaderView(scrollView)
-        printDebug("scrollViewDidEndDragging")
+    
+    func setValue() {
+        let toDeduct = (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
+        let finalValue =  (self.view.height - toDeduct)
+        self.mainContainerBottomConst.constant = 0.0
+        self.mainContainerHeightConst.constant = finalValue
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
+        self.view.layoutIfNeeded()
+        
     }
     
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        self.manageHeaderView(scrollView)
-        printDebug("scrollViewDidEndScrollingAnimation")
-    }
 }

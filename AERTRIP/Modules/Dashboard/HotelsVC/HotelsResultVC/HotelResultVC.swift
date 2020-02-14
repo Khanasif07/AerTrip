@@ -174,6 +174,7 @@ class HotelResultVC: BaseVC {
         self.filterCollectionView.isUserInteractionEnabled = false
         self.filterButton.isEnabled = false
         self.mapButton.isEnabled = false
+        self.searchButton.isEnabled = false
         //self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
         
         self.view.backgroundColor = AppColors.themeWhite
@@ -261,13 +262,6 @@ class HotelResultVC: BaseVC {
         printDebug("HotelResultVC deinit")
     }
     
-    override func keyboardWillHide(notification: Notification) {
-        if let _ = self.view.window, self.viewModel.searchedHotels.isEmpty {
-            //checking if the screen in window only then this method should call
-            // self.cancelButtonTapped(self.cancelButton)
-        }
-    }
-    
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification, noti == .GRNSessionExpired {
             //re-hit the search API
@@ -306,8 +300,8 @@ class HotelResultVC: BaseVC {
         backVisualEfectView.effect = UIBlurEffect(style: .prominent)
         backVisualEfectView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         
-        backContainerView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
-        backContainerView.addSubview(backVisualEfectView)
+        backContainerView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
+        //backContainerView.addSubview(backVisualEfectView)
         
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -327,6 +321,12 @@ class HotelResultVC: BaseVC {
             printDebug("notification: Keyboard will show")
             let footerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: keyboardSize.height))
             self.hotelSearchTableView.tableFooterView = footerView
+        }
+    }
+    override func keyboardWillHide(notification: Notification) {
+        if let _ = self.view.window {
+            //checking if the screen in window only then this method should call
+            self.hotelSearchTableView.tableFooterView = nil
         }
     }
     
@@ -444,7 +444,9 @@ class HotelResultVC: BaseVC {
     }
     
     @IBAction func mapButtonAction(_ sender: Any) {
-        AppFlowManager.default.moveToHotelsResultMapVC(viewModel: self.viewModel)
+        delay(seconds: 0.1) {
+            AppFlowManager.default.moveToHotelsResultMapVC(viewModel: self.viewModel)
+        }
     }
     
     @IBAction func unPinAllFavouriteButtonTapped(_ sender: Any) {

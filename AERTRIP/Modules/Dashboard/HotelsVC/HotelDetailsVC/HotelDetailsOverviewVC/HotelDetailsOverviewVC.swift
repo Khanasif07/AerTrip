@@ -16,9 +16,13 @@ class HotelDetailsOverviewVC: BaseVC {
     let overViewText: String = ""
     let viewModel = HotelDetailsOverviewVM()
     private let maxHeaderHeight: CGFloat = 58.0
+    var initialTouchPoint: CGPoint = CGPoint(x: 0.0, y: 0.0)
 
     //Mark:- IBOutlets
     //================
+    @IBOutlet weak var mainContainerView: UIView!
+    @IBOutlet weak var mainContainerBottomConst: NSLayoutConstraint!
+    @IBOutlet weak var mainContainerViewHeightConst: NSLayoutConstraint!
     @IBOutlet weak var overViewTextViewOutlet: UITextView! {
         didSet {
             self.overViewTextViewOutlet.contentInset = UIEdgeInsets(top: 10.0, left: 4.0, bottom: 20.0, right: 4.0)
@@ -37,6 +41,7 @@ class HotelDetailsOverviewVC: BaseVC {
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setValue()
     }
     
     override func setupColors() {
@@ -56,6 +61,13 @@ class HotelDetailsOverviewVC: BaseVC {
     }
     
     override func initialSetup() {
+        
+        
+        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        mainContainerView.isUserInteractionEnabled = true
+        swipeGesture.delegate = self
+        self.view.addGestureRecognizer(swipeGesture)
+        
         self.dividerView.isHidden = true
         self.overViewTextViewOutlet.attributedText = self.viewModel.overViewInfo.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.rawValue, fontColor: AppColors.themeBlack)
         //Heading
@@ -81,6 +93,15 @@ class HotelDetailsOverviewVC: BaseVC {
 
 extension HotelDetailsOverviewVC {
     
+    func setValue() {
+        let toDeduct = (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
+        let finalValue =  (self.view.height - toDeduct)
+        self.mainContainerBottomConst.constant = 0.0
+        self.mainContainerViewHeightConst.constant = finalValue
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
+        self.view.layoutIfNeeded()
+        
+    }
     func manageHeaderView(_ scrollView: UIScrollView) {
         
         let yOffset = (scrollView.contentOffset.y > headerContainerView.height) ? headerContainerView.height : scrollView.contentOffset.y
@@ -107,18 +128,45 @@ extension HotelDetailsOverviewVC {
         printDebug("scrollViewDidScroll")
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        manageHeaderView(scrollView)
-        printDebug("scrollViewDidEndDecelerating")
+   @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+        let touchPoint = sender.location(in: view?.window)
+        var initialTouchPoint = CGPoint.zero
+
+        switch sender.state {
+        case .began:
+            initialTouchPoint = touchPoint
+        case .changed:
+            if touchPoint.y > initialTouchPoint.y {
+                view.frame.origin.y = touchPoint.y - initialTouchPoint.y
+            }
+        case .ended, .cancelled:
+            if touchPoint.y - initialTouchPoint.y > 200 {
+                dismiss(animated: true, completion: nil)
+            } else {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.view.frame = CGRect(x: 0,
+                                             y: 0,
+                                             width: self.view.frame.size.width,
+                                             height: self.view.frame.size.height)
+                })
+            }
+        case .failed, .possible:
+            break
+        }
     }
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        manageHeaderView(scrollView)
-        printDebug("scrollViewDidEndDragging")
-    }
-    
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        manageHeaderView(scrollView)
-        printDebug("scrollViewDidEndScrollingAnimation")
-    }
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        manageHeaderView(scrollView)
+//        printDebug("scrollViewDidEndDecelerating")
+//    }
+//
+//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        manageHeaderView(scrollView)
+//        printDebug("scrollViewDidEndDragging")
+//    }
+//    
+//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+//        manageHeaderView(scrollView)
+//        printDebug("scrollViewDidEndScrollingAnimation")
+//    }
 }

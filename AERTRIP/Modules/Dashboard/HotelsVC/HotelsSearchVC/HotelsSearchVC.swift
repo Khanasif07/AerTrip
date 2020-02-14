@@ -563,16 +563,17 @@ class HotelsSearchVC: BaseVC {
                     CoreDataManager.shared.deleteData("HotelSearched")
                     HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
                     
-                    if 1...4 ~= self.viewModel.searchedFormData.ratingCount.count {
-                        var filter = UserInfo.HotelFilter()
-                        filter.ratingCount = self.viewModel.searchedFormData.ratingCount
-                        UserInfo.hotelFilterApplied = filter
-                        UserDefaults.setObject(true, forKey: "shouldApplyFormStars")
-                    }
-                    else {
-                        UserInfo.hotelFilterApplied = nil
-                        UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
-                    }
+                    // commenting this code because we have removed the stars from form screen
+//                    if 1...4 ~= self.viewModel.searchedFormData.ratingCount.count {
+//                        var filter = UserInfo.HotelFilter()
+//                        filter.ratingCount = self.viewModel.searchedFormData.ratingCount
+//                        UserInfo.hotelFilterApplied = filter
+//                        UserDefaults.setObject(true, forKey: "shouldApplyFormStars")
+//                    }
+//                    else {
+//                        UserInfo.hotelFilterApplied = nil
+//                        UserDefaults.setObject(false, forKey: "shouldApplyFormStars")
+//                    }
                     if AppGlobals.shared.isNetworkRechable() {
                         AppFlowManager.default.moveToHotelsResultVc(withFormData: HotelsSearchVM.hotelFormData)
                     }

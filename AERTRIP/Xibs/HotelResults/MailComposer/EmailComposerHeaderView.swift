@@ -17,6 +17,7 @@ protocol EmailComposeerHeaderViewDelegate: class {
 class EmailComposerHeaderView: UIView {
     // MARK: - IB Outlets
     
+    @IBOutlet weak var aertripLogo: UIImageView!
     @IBOutlet weak var toEmailTextView: ATEmailSelectorTextView!
     @IBOutlet weak var messageSubjectTextView: UITextView!
     @IBOutlet weak var toLabel: UILabel!
@@ -59,6 +60,7 @@ class EmailComposerHeaderView: UIView {
     // MARK: - Helper methods
     
     private func doInitialSeup() {
+        aertripLogo.transform = CGAffineTransform(rotationAngle: 3/2*CGFloat.pi)
         self.firstDotedView.makeDottedLine()
         self.secondDotedView.makeDottedLine()
         self.messageSubjectTextView.text = LocalizedString.CheckoutMyFavouriteHotels.localized

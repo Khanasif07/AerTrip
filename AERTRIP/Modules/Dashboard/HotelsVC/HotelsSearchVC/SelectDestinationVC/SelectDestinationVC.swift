@@ -19,6 +19,7 @@ class SelectDestinationVC: BaseVC {
     }
     
     var currentlyUsingFor: CurrentlyUsingFor = .hotelForm
+    var initialTouchPoint : CGPoint = CGPoint(x: 0.0, y: 0.0)
     
     //MARK:- IBOutlets
     //MARK:-
@@ -41,10 +42,12 @@ class SelectDestinationVC: BaseVC {
     @IBOutlet weak var rectangleView: UIView!
     @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainContainerViewHeightConstraint: NSLayoutConstraint!
-
+    
     
     
     //MARK:- Properties
+    
+    
     //MARK:- Public
     private(set) var viewModel = SelectDestinationVM()
     weak var delegate: SelectDestinationVCDelegate?
@@ -100,10 +103,16 @@ class SelectDestinationVC: BaseVC {
     private func initialSetups() {
         registerXib()
         
+        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        mainContainerView.isUserInteractionEnabled = true
+        swipeGesture.delegate = self
+        self.mainContainerView.addGestureRecognizer(swipeGesture)
+        
+        
         self.view.alpha = 1.0
         self.view.backgroundColor = AppColors.clear//AppColors.themeBlack.withAlphaComponent(0.3)
         self.bottomViewHeightConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
-
+        
         //self.headerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
         self.rectangleView.cornerRadius = 15.0
         self.rectangleView.layer.masksToBounds = true
@@ -120,6 +129,92 @@ class SelectDestinationVC: BaseVC {
     private func registerXib() {
         
         tableView.register(UINib(nibName: headerCellId, bundle: nil), forHeaderFooterViewReuseIdentifier: headerCellId)
+    }
+    
+    //Handle Swipe Gesture
+    @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+        let touchPoint = sender.location(in: self.mainContainerView?.window)
+        let velocity = sender.velocity(in: self.mainContainerView)
+        print(velocity)
+        switch sender.state {
+        case .possible:
+            print(sender.state)
+        case .began:
+            self.initialTouchPoint = touchPoint
+        case .changed:
+            let touchPointDiffY = initialTouchPoint.y - touchPoint.y
+            print(touchPointDiffY)
+            if  touchPoint.y > 62.0 {
+                if touchPointDiffY > 0 {
+                    self.mainCintainerBottomConstraint.constant = -( UIScreen.main.bounds.height - 62.0) + (68.0) + touchPointDiffY
+                }
+                else if touchPointDiffY < -68.0 {
+                    self.mainCintainerBottomConstraint.constant = touchPointDiffY
+                }
+            }
+        case .cancelled:
+            print(sender.state)
+        case .ended:
+            print(sender.state)
+            panGestureFinalAnimation(velocity: velocity,touchPoint: touchPoint)
+            
+        case .failed:
+            print(sender.state)
+            
+        }
+    }
+    
+    
+    ///Call to use Pan Gesture Final Animation
+    private func panGestureFinalAnimation(velocity: CGPoint,touchPoint: CGPoint) {
+        //Down Direction
+        if velocity.y < 0 {
+            if velocity.y < -300 {
+                self.openBottomSheet()
+            } else {
+                if touchPoint.y <= (UIScreen.main.bounds.height - 62.0)/2 {
+                    self.openBottomSheet()
+                } else {
+                    self.closeBottomSheet()
+                }
+            }
+        }
+            //Up Direction
+        else {
+            if velocity.y > 300 {
+                self.closeBottomSheet()
+            } else {
+                if touchPoint.y <= (UIScreen.main.bounds.height - 62.0)/2 {
+                    self.openBottomSheet()
+                } else {
+                    self.closeBottomSheet()
+                }
+            }
+        }
+        print(velocity.y)
+    }
+    
+    func openBottomSheet() {
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.5) {
+            self.mainCintainerBottomConstraint.constant = 0.0
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func closeBottomSheet() {
+        func setValue() {
+            self.mainCintainerBottomConstraint.constant = -(self.mainContainerView.height + 100)
+            self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
+            self.view.layoutIfNeeded()
+        }
+        let animater = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
+            setValue()
+        }
+        animater.addCompletion { (position) in
+            self.removeFromParentVC
+        }
+        animater.startAnimation()
     }
     
     private func show(animated: Bool) {
@@ -169,7 +264,6 @@ class SelectDestinationVC: BaseVC {
                     self.removeFromParentVC
                 }
             }
-            
             animater.startAnimation()
         }
         else {
@@ -294,8 +388,8 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
                 } else {
                     return 0
                 }
-               
-                //popular destination
+                
+            //popular destination
             case 2:
                 return 28.0
             default:
@@ -347,11 +441,11 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
                 
             case 1:
                 //recent search
-//                if let userId = UserInfo.loggedInUser?.userId , !userId.isEmpty {
-                      return 65.0
-//                } else {
-//                    return 0
-//                }
+                //                if let userId = UserInfo.loggedInUser?.userId , !userId.isEmpty {
+                return 65.0
+                //                } else {
+                //                    return 0
+            //                }
             case 2: // popular destination
                 return 65.0
                 

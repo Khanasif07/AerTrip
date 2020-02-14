@@ -28,7 +28,7 @@ protocol HotelFilterVMDelegate: class {
 class HotelFilterVM {
     static let shared = HotelFilterVM()
     
-    var defaultRatingCount: [Int] = [1,2,3,4,5]
+    var defaultRatingCount: [Int] = [0,1,2,3,4,5]
     var defaultTripAdvisorRatingCount: [Int] = [1,2,3,4,5]
     var defaultIsIncludeUnrated: Bool = true
     var defaultDistanceRange: Double = 20
@@ -59,7 +59,8 @@ class HotelFilterVM {
     var filterHotelCount: Int = 0
     var lastSelectedIndex: Int = 0
     var isSortingApplied: Bool = false
-    
+    let allTabsStr: [String] = [LocalizedString.Sort.localized, LocalizedString.Range.localized, LocalizedString.Price.localized, LocalizedString.Ratings.localized, LocalizedString.Amenities.localized,LocalizedString.Room.localized]
+
     weak var delegate: HotelFilterVMDelegate?
     
     var isFilterApplied: Bool {
@@ -136,6 +137,64 @@ class HotelFilterVM {
     
     private init() {
         resetToDefault()
+    }
+    
+    func filterAppliedFor(filterName: String, appliedFilter:  UserInfo.HotelFilter) -> Bool {
+        
+        switch filterName.lowercased() {
+        case LocalizedString.Sort.localized.lowercased():
+            return (appliedFilter.sortUsing == HotelFilterVM.shared.defaultSortUsing) ? false : true
+            
+        case LocalizedString.Range.localized.lowercased():
+            return (appliedFilter.distanceRange == HotelFilterVM.shared.defaultDistanceRange) ? false : true
+            
+        case LocalizedString.Price.localized.lowercased():
+            if appliedFilter.rightRangePrice <= 0 {
+                return  false
+            }else if appliedFilter.leftRangePrice != HotelFilterVM.shared.defaultLeftRangePrice {
+                return true
+            }
+            else if appliedFilter.rightRangePrice != HotelFilterVM.shared.defaultRightRangePrice {
+                return  true
+            }
+            else if appliedFilter.priceType != HotelFilterVM.shared.defaultPriceType {
+                return  true
+            }
+            return  false
+        case LocalizedString.Ratings.localized.lowercased():
+            
+            
+            let diff = appliedFilter.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount)
+            if 1...4 ~= diff.count {
+                return true
+            }
+            else if !appliedFilter.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty {
+                return true
+            }
+            else if appliedFilter.isIncludeUnrated != HotelFilterVM.shared.defaultIsIncludeUnrated {
+                return  true
+            }
+            return  false
+        case LocalizedString.Amenities.localized.lowercased():
+            if !appliedFilter.amentities.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty {
+                return  true
+            }
+            return  false
+        case LocalizedString.Room.localized.lowercased():
+            if !appliedFilter.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty {
+                return  true
+            }
+            else if !appliedFilter.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty {
+                return  true
+            }
+            else if !appliedFilter.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty {
+                return  true
+            }
+            return  false
+        default:
+            printDebug("not useable case")
+            return false
+        }
     }
 }
 

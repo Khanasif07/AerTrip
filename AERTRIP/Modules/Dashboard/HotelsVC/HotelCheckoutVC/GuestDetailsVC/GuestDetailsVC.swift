@@ -34,6 +34,7 @@ class GuestDetailsVC: BaseVC {
     let viewModel = GuestDetailsVM.shared
     var indexPath: IndexPath?
     weak var vcDelegate: GuestDetailsVCDelegate?
+    var searchText: String = ""
     
     // travellers for managing on table view
     var travellers: [TravellerModel] = []
@@ -46,11 +47,9 @@ class GuestDetailsVC: BaseVC {
         
         self.registerXib()
         self.doInitialSetup()
-        self.addFooterViewToGuestDetailTableView()
+        //self.addFooterViewToGuestDetailTableView()
         self.getRoomDetails()
         self.addFooterViewToTravellerTableView()
-        
-        
       
         self.viewModel.webserviceForGetSalutations()
     }
@@ -58,9 +57,9 @@ class GuestDetailsVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        delay(seconds: 1.3) { [weak self] in
-              self?.makeTableViewIndexSelectable()
-        }
+//        delay(seconds: 1.3) { [weak self] in
+//              self?.makeTableViewIndexSelectable()
+//        }
         
         IQKeyboardManager.shared().isEnabled = false
       
@@ -97,7 +96,7 @@ class GuestDetailsVC: BaseVC {
         self.guestDetailTableView.isScrollEnabled = true
         self.travellersTableView.isHidden = true
         self.setUpNavigationView()
-        self.travellers = self.viewModel.travellerList
+        self.travellers = []//self.viewModel.travellerList
     }
     
     // configure navigation View
@@ -141,7 +140,8 @@ class GuestDetailsVC: BaseVC {
     
     override func keyboardWillHide(notification: Notification) {
         self.guestDetailTableView.isScrollEnabled = true
-        self.travellers = self.viewModel.travellerList
+        self.travellers = []//self.viewModel.travellerList
+        self.travellersTableView.isHidden = self.travellers.count == 0
     }
     
     // Make table view particular index selectable or Editable
@@ -227,6 +227,19 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
             cell.canShowSalutationError = GuestDetailsVM.shared.canShowSalutationError
             printDebug("=====guest==== \(indexPath.section) \(indexPath.row)\(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
             cell.guestDetail = GuestDetailsVM.shared.guests[indexPath.section][indexPath.row]
+            if indexPath.section ==  GuestDetailsVM.shared.guests[indexPath.section].count - 1  {
+                cell.firstNameTextField.isHiddenBottomLine = false
+                cell.lastNameTextField.isHiddenBottomLine = false
+            }
+            if indexPath.row ==  GuestDetailsVM.shared.guests[indexPath.section].count - 1{
+                cell.firstNameTextField.isHiddenBottomLine = true
+                cell.lastNameTextField.isHiddenBottomLine = true
+            }
+            if indexPath.section == GuestDetailsVM.shared.guests.count - 1 {
+                cell.firstNameTextField.isHiddenBottomLine = false
+                cell.lastNameTextField.isHiddenBottomLine = false
+            }
+    
             return cell
         } else {
             guard let cell = travellersTableView.dequeueReusableCell(withIdentifier: TravellerListTableViewCell.reusableIdentifier, for: indexPath) as? TravellerListTableViewCell else {
@@ -234,6 +247,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
             }
             cell.separatorView.isHidden = indexPath.row == 0
+            cell.searchedText = self.searchText
             cell.travellerModelData = self.travellers[indexPath.row]
             return cell
         }
@@ -285,6 +299,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
             self.travellers = self.viewModel.travellerList
         }
     }
+
 }
 
 // MARK: - Top NavigationView Delegate methods
@@ -306,10 +321,12 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
     func textFieldWhileEditing(_ textField: UITextField) {
         self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
         if textField.text != "" {
+            self.searchText = textField.text ?? ""
             self.travellers = self.viewModel.travellerList.filter({ $0.firstName.lowercased().contains(textField.text?.lowercased() ?? "") })
             
         } else {
-            self.travellers = self.viewModel.travellerList
+            self.travellers = []//self.viewModel.travellerList
+            self.searchText  = ""
         }
         self.travellersTableView.isHidden = self.travellers.count == 0
         self.travellersTableView.reloadData()
@@ -367,6 +384,7 @@ extension GuestDetailsVC: GuestDetailsVMDelegate {
     func getFail(errors: ErrorCodes) {
         printDebug(errors)
     }
+    
     
     func getSalutationResponse(salutations: [String]) {
         //

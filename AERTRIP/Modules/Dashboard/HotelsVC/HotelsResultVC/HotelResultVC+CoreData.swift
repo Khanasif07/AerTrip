@@ -150,6 +150,8 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
         }
         if self.filterApplied.isIncludeUnrated {
             self.filterApplied.ratingCount.append(0)
+        } else {
+            self.filterApplied.ratingCount.remove(object: 0)
         }
         
         if let amentitiesPredicate = amentitiesPredicate() {
@@ -257,10 +259,10 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
             }
             
             self.fetchHotelsDataForCollectionView(fromController: self.fetchedResultsController)
-            
+            self.hotelMapDelegate?.reloadHotelList(isUpdatingFav: isUpdatingFav)
+
             if !isUpdatingFav {
                 self.hotelResultDelegate?.reloadHotelList(isUpdatingFav: isUpdatingFav)
-                self.hotelMapDelegate?.reloadHotelList(isUpdatingFav: isUpdatingFav)
             }
             
             self.getFavouriteHotels(shouldReloadData: false,finalPredicate: finalPredicate)
@@ -282,7 +284,7 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
             self.isLoadingListAfterUpdatingAllFav = false
             var turnOffFilter = true
             if self.fetchRequestType  == .FilterApplied, self.isFavouriteOn  {
-                turnOffFilter = false
+                turnOffFilter = allFavs.isEmpty ? true : false
             }
             self.hotelResultDelegate?.manageSwitchContainer(isHidden: allFavs.isEmpty, shouldOff: turnOffFilter)
             self.hotelMapDelegate?.manageSwitchContainer(isHidden: allFavs.isEmpty, shouldOff: turnOffFilter)

@@ -150,15 +150,16 @@ extension HotelsMapVC {
     }
     
     func reloadHotelList(isUpdatingFav: Bool = false,drawMarkers: Bool = true) {
-        
+        if !self.viewModel.searchTextStr.isEmpty {
+            self.hotelSearchTableView.backgroundColor = self.viewModel.searchedHotels.count > 0 ? AppColors.themeWhite : AppColors.clear
+        }
         self.hotelSearchTableView.reloadData()
         self.hotelsMapCV.reloadData()
         
         if drawMarkers {
             updateMarkers()
         }
-            let indexOfMajorCell = self.indexOfMajorCell()
-            self.manageForCollectionView(atIndex: indexOfMajorCell)
+            self.sowHotelOnMap(duration: 0)
     }
     
     func searchForText(_ searchText: String, shouldPerformAction: Bool = true) {
@@ -175,7 +176,7 @@ extension HotelsMapVC {
     private func searchHotels(forText: String) {
         self.viewModel.fetchRequestType = .Searching
         printDebug("searching text is \(forText)")
-        self.searchTextStr = forText
+        self.viewModel.searchTextStr = forText
         self.viewModel.loadSaveData()
         self.reloadHotelList()
     }
@@ -227,104 +228,6 @@ extension HotelsMapVC {
     
     // MARK: - Manage Header animation
     
-    func manageFloatingButtonOnPaginationScroll(_ scrollView: UIScrollView) {
-        guard scrollView === hotelsMapCV else {
-            return
-        }
-        
-        
-        let xPos = scrollView.contentOffset.x
-        
-        let fractional: CGFloat = xPos / UIDevice.screenWidth
-        let decimal: CGFloat = floor(fractional)
-        let progress = fractional - decimal
-        
-        let currentPoint = CGPoint(x: decimal * UIDevice.screenWidth, y: scrollView.contentOffset.y)
-        guard 0.01...0.99 ~= progress else {
-            if self.hotelsMapCV.indexPathForItem(at: currentPoint) != nil {
-                // current grouped cell
-                self.relocateSwitchButton(shouldMoveUp: true, animated: true)
-                self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
-            } else {
-                // current normal cell
-                self.relocateSwitchButton(shouldMoveUp: false, animated: true)
-                self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
-            }
-            return
-        }
-        
-        let nextPoint = CGPoint(x: (decimal + 1) * UIDevice.screenWidth, y: scrollView.contentOffset.y)
-        let prevPoint = CGPoint(x: (decimal - 1) * UIDevice.screenWidth, y: scrollView.contentOffset.y)
-        
-        if xPos > self.oldScrollPosition.x {
-            // forward
-            printDebug("forward, \(fractional)")
-            if self.hotelsMapCV.indexPathForItem(at: currentPoint) != nil {
-                // current grouped cell
-                if self.hotelsMapCV.indexPathForItem(at: nextPoint) != nil {
-                    // next grouped cell
-                    self.relocateSwitchButton(shouldMoveUp: true, animated: true)
-                    self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
-                } else {
-                    // next normal cell
-                    if progress < 0.5 {
-                        self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
-                    } else {
-                        self.relocateSwitchButton(shouldMoveUp: false, animated: true)
-                    }
-                }
-            } else {
-                // current normal cell
-                if self.hotelsMapCV.indexPathForItem(at: nextPoint) != nil {
-                    // next grouped cell
-                    if progress < 0.5 {
-                        self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
-                    } else {
-                        self.relocateSwitchButton(shouldMoveUp: true, animated: true)
-                    }
-                } else {
-                    // next normal cell
-                    self.relocateSwitchButton(shouldMoveUp: false, animated: true)
-                    self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
-                }
-            }
-        } else {
-            // backward
-            printDebug("backward, \(fractional)")
-            
-            if self.hotelsMapCV.indexPathForItem(at: currentPoint) != nil {
-                // current grouped cell
-                if self.hotelsMapCV.indexPathForItem(at: prevPoint) != nil {
-                    // prev grouped cell
-                    self.relocateSwitchButton(shouldMoveUp: true, animated: true)
-                    self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
-                } else {
-                    // prev normal cell
-                    if progress < 0.5 {
-                        self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
-                    } else {
-                        self.relocateSwitchButton(shouldMoveUp: false, animated: true)
-                    }
-                }
-            } else {
-                // current normal cell
-                if self.hotelsMapCV.indexPathForItem(at: prevPoint) != nil {
-                    // prev grouped cell
-                    if progress < 0.5 {
-                        self.relocateCurrentLocationButton(shouldMoveUp: true, animated: true)
-                    } else {
-                        self.relocateSwitchButton(shouldMoveUp: true, animated: true)
-                    }
-                } else {
-                    // prev normal cell
-                    self.relocateSwitchButton(shouldMoveUp: false, animated: true)
-                    self.relocateCurrentLocationButton(shouldMoveUp: false, animated: true)
-                }
-            }
-        }
-        self.oldScrollPosition = scrollView.contentOffset
-    }
-    
     
     
 //    func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -372,7 +275,7 @@ extension HotelsMapVC {
             let locStr = self.viewModel.collectionViewLocArr[atIndex]
             if let loc = self.getLocationObject(fromLocation: locStr) {
                 self.displayingHotelLocation = loc
-//                focusMarker(coordinates: loc)
+                focusMarker(coordinates: loc)
             }
         }
     }
@@ -403,18 +306,17 @@ extension HotelsMapVC {
         return pageSize
     }
     
-    
     func calculateSectionInset() -> CGFloat {
         return CGFloat(16.0)
     }
     
     func configureCollectionViewLayoutItemSize() {
-//        //call this methods in viewDidLayoutSubviews
-//        let inset: CGFloat = calculateSectionInset() // This inset calculation is some magic so the next and the previous cells will peek from the sides. Don't worry about it
-//        collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
-//        
-//        collectionViewLayout.itemSize = CGSize(width: UIDevice.screenWidth - (inset * 2), height: 192.0)
-    }
+    //        //call this methods in viewDidLayoutSubviews
+    //        let inset: CGFloat = calculateSectionInset() // This inset calculation is some magic so the next and the previous cells will peek from the sides. Don't worry about it
+    //        collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+    //
+    //        collectionViewLayout.itemSize = CGSize(width: UIDevice.screenWidth - (inset * 2), height: 192.0)
+        }
     
     func indexOfMajorCell() -> Int {
         let itemWidth =  UIDevice.screenWidth - (calculateSectionInset() * 2)//collectionViewLayout.itemSize.width
@@ -424,13 +326,57 @@ extension HotelsMapVC {
         let safeIndex = max(0, min(numberOfItemInCollection, index))
         return safeIndex
     }
-
+    
+    //ScrollView Delegate methods
+    //    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    //        indexOfCellBeforeDragging = indexOfMajorCell()
+    //    }
+    
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let pageSide =  self.pageSize.width
-        let offset =  hotelsMapCV.contentOffset.x
-        let currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
-        self.manageForCollectionView(atIndex: currentPage)
-    }
+            
+            
+            
+    //        guard scrollView === self.collectionView else {return}
+    //
+    //        let numberOfItemInCollection = self.viewModel.collectionViewLocArr.count - 1
+    //
+    //        // Stop scrollView sliding:
+    //        targetContentOffset.pointee = scrollView.contentOffset
+    //
+    //        // calculate where scrollView should snap to:
+    //        var indexOfMajorCell = self.indexOfMajorCell()
+    //
+    //        // calculate conditions:
+    //        let swipeVelocityThresholdToMove: CGFloat = 1.0
+    //
+    //        let absVelocity = abs(velocity.x)
+    //        if absVelocity >= swipeVelocityThresholdToMove {
+    //            if velocity.x < 0 {
+    //                indexOfMajorCell -= 1
+    //            }
+    //            else {
+    //                indexOfMajorCell += 1
+    //            }
+    //
+    //            indexOfMajorCell = max(0,indexOfMajorCell)
+    //            indexOfMajorCell = min(indexOfMajorCell,numberOfItemInCollection)
+    //        }
+    //        let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
+    //        collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    //
+    //        self.manageForCollectionView(atIndex: indexOfMajorCell)
+            
+            
+            
+            let pageSide =  self.pageSize.width
+            let offset =  hotelsMapCV.contentOffset.x
+            let currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
+    //        DispatchQueue.main.async {
+            self.manageForCollectionView(atIndex: currentPage)
+
+    //        }
+            
+        }
     
     /// Get Star Rating
     private func getStarString(fromArr: [Int], maxCount: Int) -> String {

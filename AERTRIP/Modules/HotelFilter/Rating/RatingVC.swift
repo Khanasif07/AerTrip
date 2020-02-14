@@ -175,7 +175,7 @@ class RatingVC: BaseVC {
             return final
         }
         
-        for (idx,value) in arr.enumerated() {
+        for (idx,value) in arr.sorted().enumerated() {
             let diff = value - (prev ?? 0)
             if diff == 1 {
                 //number is successor
@@ -221,7 +221,9 @@ class RatingVC: BaseVC {
             start = nil
             end = nil
         }
-        final.removeLast(2)
+        if !final.isEmpty {
+            final.removeLast(2)
+        }
         return final + " \(LocalizedString.Ratings.localized)"
         
     }

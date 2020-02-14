@@ -53,15 +53,16 @@ class HotelsMapVC: BaseVC {
     @IBOutlet weak var emailButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var switchView: ATSwitcher!
-//    @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     
     @IBOutlet weak var backContainerView: UIView!
     @IBOutlet weak var hotelsMapCV: UICollectionView! {
         didSet {
             self.hotelsMapCV.registerCell(nibName: HotelCardCollectionViewCell.reusableIdentifier)
             self.hotelsMapCV.registerCell(nibName: HotelGroupCardCollectionViewCell.reusableIdentifier)
-            self.hotelsMapCV.delegate = self
-            self.hotelsMapCV.dataSource = self
+//            self.hotelsMapCV.isPagingEnabled = true
+//            self.hotelsMapCV.delegate = self
+//            self.hotelsMapCV.dataSource = self
+            self.hotelsMapCV.showsVerticalScrollIndicator = false
             self.hotelsMapCV.showsHorizontalScrollIndicator = false
         }
     }
@@ -100,7 +101,6 @@ class HotelsMapVC: BaseVC {
     // MARK: - Properties
     
     //    var container: NSPersistentContainer!
-    var searchTextStr: String = ""
     var isAboveTwentyKm: Bool = false
     var isFotterVisible: Bool = false
     var searchIntitialFrame: CGRect = .zero
@@ -179,7 +179,7 @@ class HotelsMapVC: BaseVC {
     let defaultDamping: CGFloat = 0.70
     let defaultVelocity: CGFloat = 15.0
     var applyButtonTapped: Bool = false
-    
+    private var gradientLayer: CAGradientLayer?
     //used for making collection view centerlized
     var indexOfCellBeforeDragging = 0
     
@@ -195,7 +195,6 @@ class HotelsMapVC: BaseVC {
         self.filterButton.isEnabled = false
         self.mapView?.isMyLocationEnabled = false
         // self.animateCollectionView(isHidden: true, animated: false)
-         self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
         
         self.view.backgroundColor = AppColors.themeWhite
         
@@ -206,7 +205,8 @@ class HotelsMapVC: BaseVC {
         self.aerinFilterUndoCompletion = {
             printDebug("Undo Button tapped")
         }
-        self.cardGradientView.isHidden = true
+        self.cardGradientView.isHidden = false
+        
         //call API to get vcode, sid
         animateHeaderToMapView()
         animateFloatingButtonOnMapView(isAnimated: false)
@@ -217,18 +217,24 @@ class HotelsMapVC: BaseVC {
         self.filterButton.isSelected = self.viewModel.isFilterApplied
         searchBar.setTextField(color: UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
-        self.cardGradientView.backgroundColor = AppColors.clear
-        self.cardGradientView.addGredient(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeWhite.withAlphaComponent(0.01),AppColors.themeWhite.withAlphaComponent(1.0)])
         
+        self.gradientLayer = CAGradientLayer()
+        self.gradientLayer?.frame = self.cardGradientView.bounds
+        let gradientColor = AppColors.themeWhite
+        self.gradientLayer?.colors =
+            [gradientColor.withAlphaComponent(0.0).cgColor, gradientColor.withAlphaComponent(0.5).cgColor, gradientColor.withAlphaComponent(1.0).cgColor]
+        self.gradientLayer?.locations = [0.0, 0.5, 1.0]
+        self.cardGradientView.layer.addSublayer(self.gradientLayer!)
+        self.cardGradientView.backgroundColor = AppColors.clear
         self.additionalSafeAreaInsets = .zero
         self.configureCollectionViewLayoutItemSize()
-        delay(seconds: 1.0) {
+//        delay(seconds: 1.0) {
             self.addMapView()
-        }
+//        }
         if AppGlobals.shared.isNetworkRechable() {
-            self.hotelsMapCV.reloadData()
-            delay(seconds: 2) { [weak self] in
+            delay(seconds: 0.2) { [weak self] in
                 guard let strongSelf = self else {return}
+//                strongSelf.addMapView()
                 strongSelf.mapView?.delegate = self
                 strongSelf.loadFinalDataOnScreen()
             }
@@ -263,19 +269,14 @@ class HotelsMapVC: BaseVC {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        self.gradientLayer?.frame = self.cardGradientView.bounds
+
         //        self.configureCollectionViewLayoutItemSize()
     }
     
     deinit {
 //        CoreDataManager.shared.deleteData("HotelSearched")
         printDebug("HotelResultVC deinit")
-    }
-    
-    override func keyboardWillHide(notification: Notification) {
-        if let _ = self.view.window, self.viewModel.searchedHotels.isEmpty {
-            //checking if the screen in window only then this method should call
-            // self.cancelButtonTapped(self.cancelButton)
-        }
     }
     
     override func dataChanged(_ note: Notification) {
@@ -289,8 +290,10 @@ class HotelsMapVC: BaseVC {
             //fav updated from hotel details
             //updateFavOnList(forIndexPath: selectedIndexPath)
             // manage favourite switch buttons
+            self.selectedIndexPath = nil
             self.viewModel.getFavouriteHotels(shouldReloadData: true)
             self.updateMarkers()
+            self.sowHotelOnMap(duration: 0.4)
             //            updateFavouriteSuccess(isHotelFavourite: true)
         }
         else if let _ = note.object as? HCDataSelectionVC {
@@ -301,15 +304,6 @@ class HotelsMapVC: BaseVC {
         } else if let _ = note.object as? HotelsGroupExpendedVC {
             
         }
-    }
-    
-     func setupCollection() {
-        let layout = self.hotelsMapCV.collectionViewLayout as! UPCarouselFlowLayout
-        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: -5)
-        layout.scrollDirection = .horizontal
-        layout.sideItemScale = 0.92
-        layout.sideItemAlpha = 1.0
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 32, height: 190)
     }
     
     func addCustomBackgroundBlurView(){
@@ -325,8 +319,8 @@ class HotelsMapVC: BaseVC {
         backVisualEfectView.effect = UIBlurEffect(style: .prominent)
         backVisualEfectView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         
-        backContainerView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
-        backContainerView.addSubview(backVisualEfectView)
+        backContainerView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
+        //backContainerView.addSubview(backVisualEfectView)
         
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -337,14 +331,30 @@ class HotelsMapVC: BaseVC {
         self.navigationItem.leftBarButtonItem=nil
         
     }
+    
+    func setupCollection() {
+        let layout = self.hotelsMapCV.collectionViewLayout as! UPCarouselFlowLayout
+        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: -5)
+        layout.scrollDirection = .horizontal
+        layout.sideItemScale = 0.92
+        layout.sideItemAlpha = 1.0
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 32, height: 190)
+    }
     // MARK: - Methods
     
     // MARK: - Private
+    
     override func keyboardWillShow(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             printDebug("notification: Keyboard will show")
             let footerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: keyboardSize.height))
             self.hotelSearchTableView.tableFooterView = footerView
+        }
+    }
+    override func keyboardWillHide(notification: Notification) {
+        if let _ = self.view.window {
+            //checking if the screen in window only then this method should call
+            self.hotelSearchTableView.tableFooterView = nil
         }
     }
     
@@ -422,7 +432,6 @@ class HotelsMapVC: BaseVC {
     }
     
     func manageShimmer(isHidden: Bool) {
-        
         self.hotelsMapCV.isHidden = !isHidden
         if !isHidden {
             self.manageSwitchContainer(isHidden: true)
@@ -487,7 +496,7 @@ class HotelsMapVC: BaseVC {
         self.hideSearchAnimation()
         self.view.endEditing(true)
         self.searchBar.text = ""
-        self.searchTextStr = ""
+        self.viewModel.searchTextStr = ""
         self.reloadHotelList()
         delay(seconds: 0.1) { [weak self] in
             self?.viewModel.loadSaveData()

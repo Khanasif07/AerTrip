@@ -30,7 +30,7 @@ extension HotelsMapVC: UITableViewDataSource, UITableViewDelegate {
                 self.hotelSearchTableView.backgroundView?.isHidden = true
             }
             else {
-                self.hotelSearchTableView.backgroundView?.isHidden = (self.searchTextStr.isEmpty && self.viewModel.searchedHotels.isEmpty)
+                self.hotelSearchTableView.backgroundView?.isHidden = (self.viewModel.searchTextStr.isEmpty && self.viewModel.searchedHotels.isEmpty)
             }
             manageFloatingView(isHidden: true)
         }
@@ -76,7 +76,7 @@ extension HotelsMapVC: UITableViewDataSource, UITableViewDelegate {
                 printDebug("HotelSearchTableViewCell not found")
                 return UITableViewCell()
             }
-            cell.searchText = self.searchTextStr
+            cell.searchText = self.viewModel.searchTextStr
         if self.viewModel.searchedHotels.count > 0 {
             cell.hotelData = self.viewModel.searchedHotels[indexPath.row]
             }

@@ -271,9 +271,10 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
             
             if let year = self.contact?.age, year > 0 {
                 ageLabel.text = "(\(year)y)"
-                ageLabel.isHidden = false
-                lastNameAgeContainer.isHidden = false
+                
             }
+            ageLabel.isHidden = false
+            lastNameAgeContainer.isHidden = false
             firstNameLabel.text = finalText
         }
         

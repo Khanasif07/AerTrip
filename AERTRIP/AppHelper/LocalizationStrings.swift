@@ -521,7 +521,8 @@ enum LocalizedString: String {
     case HideHotelBeyond = "HideHotelsBeyond"
     case Choose_App
     case GMap
-    
+    case TripRating
+
     // MARK: - Hotel Result VC
     
     case RemoveFromFavourites

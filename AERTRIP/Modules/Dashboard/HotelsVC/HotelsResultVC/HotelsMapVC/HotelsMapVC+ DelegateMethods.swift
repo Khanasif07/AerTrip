@@ -14,7 +14,7 @@ import UIKit
 extension HotelsMapVC: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        return !((viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty)
+        return true //!((viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty)
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -31,7 +31,7 @@ extension HotelsMapVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.viewModel.fetchRequestType = .Searching
         if searchText.isEmpty {
-            self.searchTextStr = ""
+            self.viewModel.searchTextStr = ""
             
             self.viewModel.fetchRequestType = self.filterButton.isSelected ? .FilterApplied : .normalInSearching //for getting all the data in search mode when the search text is blank
             self.viewModel.loadSaveData()
@@ -41,7 +41,7 @@ extension HotelsMapVC: UISearchBarDelegate {
         } else if searchText.count >= AppConstants.kSearchTextLimit {
             noResultemptyView.searchTextLabel.isHidden = false
             noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
-            self.searchTextStr = searchBar.text ?? ""
+            self.viewModel.searchTextStr = searchBar.text ?? ""
             self.searchForText(searchText)
         }
     }
@@ -166,11 +166,12 @@ extension HotelsMapVC: HotelResultDelegate {
     }
     
     func loadFinalDataOnScreen() {
+        self.hotelsMapCV.delegate = self
+        self.hotelsMapCV.dataSource = self
         self.filterButton.isEnabled = true
         self.addMapView()
         self.reloadHotelList()
         delay(seconds: 0.4) { [weak self] in
-            self?.manageForCollectionView(atIndex: 0)
             self?.adjustMapPadding()
         }
     }
@@ -226,12 +227,8 @@ extension HotelsMapVC: HotelResultDelegate {
         } else {
             self.updateFavOnList(forIndexPath: self.selectedIndexPath)
         }
+        self.sowHotelOnMap(duration: 0.4)
         
-        delay(seconds: 0.4) { [weak self] in
-            guard let strongSelf = self else {return}
-            let indexOfMajorCell = strongSelf.indexOfMajorCell()
-            strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
-        }
     }
     
     func updateFavouriteFail(errors: ErrorCodes, isHotelFavourite: Bool) {
@@ -264,11 +261,7 @@ extension HotelsMapVC: HotelResultDelegate {
             }
         }
         
-        delay(seconds: 0.4) { [weak self] in
-            guard let strongSelf = self else {return}
-            let indexOfMajorCell = strongSelf.indexOfMajorCell()
-            strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
-        }
+        self.sowHotelOnMap(duration: 0.4)
     }
     
     func getAllHotelsListResultSuccess(_ isDone: Bool) {
