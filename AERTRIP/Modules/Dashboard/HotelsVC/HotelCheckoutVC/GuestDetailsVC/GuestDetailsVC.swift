@@ -142,6 +142,7 @@ class GuestDetailsVC: BaseVC {
     override func keyboardWillHide(notification: Notification) {
         self.guestDetailTableView.isScrollEnabled = true
         self.travellers = []//self.viewModel.travellerList
+        self.travellersTableView.reloadData()
         self.travellersTableView.isHidden = self.travellers.count == 0
     }
     

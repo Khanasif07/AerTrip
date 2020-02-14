@@ -31,6 +31,8 @@ class ContactListVC: BaseVC {
     var currentlyUsingFor = UsingFor.contacts
     let viewModel = ImportContactVM.shared
     let serialQueue = DispatchQueue(label: "serialQueue")
+    let selectDeselectQueue = DispatchQueue(label: "selectDeselectQueue")
+
     private var workItem: DispatchWorkItem?
     
     //MARK:- Private
@@ -295,6 +297,7 @@ class ContactListVC: BaseVC {
         //        sender.disable(forSeconds: 0.6)
         if self.currentlyUsingFor == .contacts {
             if sender.isSelected {
+                printDebug("isSelected true")
                 //remove all
                 if !self.viewModel.selectedPhoneContacts.isEmpty  {
                     var isContactRemoved = false
@@ -315,7 +318,7 @@ class ContactListVC: BaseVC {
                         }
                     })
                     if let item = workItem {
-                        DispatchQueue.global().async(execute: item)
+                        selectDeselectQueue.async(execute: item)
                     }
                 } else {
                     self.hideSelectAllLoader()
@@ -323,6 +326,7 @@ class ContactListVC: BaseVC {
                 
             }
             else {
+                printDebug("isSelected false")
                 //remove all preselected items
                 
                 //                for contact in self.viewModel.selectedPhoneContacts {
@@ -334,6 +338,7 @@ class ContactListVC: BaseVC {
                 if !self.viewModel.selectedPhoneContacts.isEmpty  {
                     var isContactAdded = false
                     workItem = DispatchWorkItem(block: {
+                        printDebug("DispatchWorkItem")
                         self.viewModel.sections.forEach { (section) in
                             section.cnContacts.forEach { (contact) in
                                 let contactIndex = self.viewModel.selectedPhoneContacts.firstIndex(of: contact)
@@ -352,7 +357,7 @@ class ContactListVC: BaseVC {
                         
                     })
                     if let item = workItem {
-                        DispatchQueue.global().async(execute: item)
+                        selectDeselectQueue.async(execute: item)
                     }
                     
                 }else {
@@ -397,7 +402,7 @@ class ContactListVC: BaseVC {
                         }
                     })
                     if let item = workItem {
-                        DispatchQueue.global().async(execute: item)
+                        selectDeselectQueue.async(execute: item)
                     }
                 } else {
                     self.hideSelectAllLoader()
@@ -436,7 +441,7 @@ class ContactListVC: BaseVC {
                         }
                     })
                     if let item = workItem {
-                        DispatchQueue.global().async(execute: item)
+                        selectDeselectQueue.async(execute: item)
                     }
                     
                 }else {
@@ -472,7 +477,7 @@ class ContactListVC: BaseVC {
                         }
                     })
                     if let item = workItem {
-                        DispatchQueue.global().async(execute: item)
+                        selectDeselectQueue.async(execute: item)
                     }
                 } else {
                     self.hideSelectAllLoader()
@@ -506,7 +511,7 @@ class ContactListVC: BaseVC {
                         }
                     })
                     if let item = workItem {
-                        DispatchQueue.global().async(execute: item)
+                        selectDeselectQueue.async(execute: item)
                     }
                 }
                     
