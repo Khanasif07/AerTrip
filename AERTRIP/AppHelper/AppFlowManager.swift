@@ -485,6 +485,8 @@ extension AppFlowManager {
         ob.delegate = superView
         ob.tagButtons = tagButtons
         ob.modalPresentationStyle = .overFullScreen
+        ob.modalPresentationCapturesStatusBarAppearance = true
+        ob.statusBarColor = AppColors.themeWhite
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
@@ -493,6 +495,8 @@ extension AppFlowManager {
         ob.viewModel.amenitiesGroups = amenitiesGroups
         ob.viewModel.amenities = amentites
         ob.modalPresentationStyle = .overFullScreen
+        ob.modalPresentationCapturesStatusBarAppearance = true
+        ob.statusBarColor = AppColors.themeWhite
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
@@ -500,6 +504,8 @@ extension AppFlowManager {
         let ob = HotelDetailsOverviewVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.overViewInfo = overViewInfo
         ob.modalPresentationStyle = .overFullScreen
+        ob.modalPresentationCapturesStatusBarAppearance = true
+        ob.statusBarColor = AppColors.themeWhite
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
@@ -507,6 +513,8 @@ extension AppFlowManager {
         let ob = HotelDetailsReviewsVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.hotelId = hotelId
         ob.modalPresentationStyle = .overFullScreen
+        ob.modalPresentationCapturesStatusBarAppearance = true
+        ob.statusBarColor = AppColors.themeWhite
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
@@ -553,6 +561,7 @@ extension AppFlowManager {
         obj.delegate = vc
         obj.viewModel.itineraryId = itineraryId
         obj.viewModel.couponCode = couponCode
+        obj.modalPresentationStyle = .overFullScreen
         self.currentNavigation?.present(obj, animated: true)
     }
     
@@ -604,12 +613,13 @@ extension AppFlowManager {
         obj.viewModel.allTrips = allTrips
         obj.viewModel.tripInfo = tripInfo
         obj.delegate = delegate
-        self.mainNavigationController.present(obj, animated: true)
+        obj.modalPresentationStyle = .overFullScreen
+        self.currentNavigation?.present(obj, animated: true)
     }
     
     func presentCreateNewTripVC(delegate: CreateNewTripVCDelegate, onViewController: UIViewController? = nil) {
         let obj = CreateNewTripVC.instantiate(fromAppStoryboard: .HotelResults)
-        obj.modalPresentationStyle = .overCurrentContext
+        obj.modalPresentationStyle = .overFullScreen
         obj.delegate = delegate
         if let oVC = onViewController {
             oVC.present(obj, animated: true)
@@ -1045,6 +1055,9 @@ extension AppFlowManager {
             obj.selectionComplition = complition
             obj.viewModel.allTrips = trips
             obj.viewModel.tripDetails = tripDetails
+            obj.modalPresentationStyle = .overFullScreen
+            obj.modalPresentationCapturesStatusBarAppearance = true
+            obj.statusBarColor = AppColors.themeWhite
             self.currentNavigation?.present(obj, animated: true)
         }
         

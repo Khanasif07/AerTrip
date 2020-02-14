@@ -183,9 +183,9 @@ class HCSelectGuestsVC: BaseVC {
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController<PagingIndexItem>()
-        self.parchmentView?.menuItemSpacing = 33.0
+        self.parchmentView?.menuItemSpacing = allTabsStr.count == 4 ? (self.view.width - 274.0) / 3 : (self.view.width - 208.0) / 2
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 51)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 100, height: 50)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,

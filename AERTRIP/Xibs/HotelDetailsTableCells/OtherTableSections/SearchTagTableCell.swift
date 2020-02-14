@@ -29,6 +29,5 @@ class SearchTagTableCell: UITableViewCell {
     private func configUI() {
         self.hotelTagName.font = AppFonts.Regular.withSize(18.0)
         self.hotelTagName.textColor = AppColors.textFieldTextColor51
-        self.dividerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
     }
 }
