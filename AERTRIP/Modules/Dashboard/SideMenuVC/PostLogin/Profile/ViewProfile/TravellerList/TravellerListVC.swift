@@ -370,7 +370,6 @@ class TravellerListVC: BaseVC {
             } else {
                 fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameSorting", ascending: true)]
                 fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "firstNameFirstChar", cacheName: nil)
-
             }
             
         }

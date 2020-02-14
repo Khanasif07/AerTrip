@@ -40,60 +40,72 @@ public class TravellerData: NSManagedObject {
 
             userData!.firstName = "\(firstName.capitalizedFirst())"
             // keys for sorting purpose
-            userData!.firstNameSorting = firstName
-            userData!.lastNameSorting = lastName
-
+            userData!.firstNameSorting = firstName.alphanumeric.lowercased()
+            userData!.lastNameSorting = lastName.lowercased()
+            if firstName == "(Basecamp)" {
+                printDebug("Contact found")
+            }
             if !lastName.isEmpty {
                 userData!.lastName = lastName
+                if firstName.isEmpty {
+                    userData!.firstNameSorting = lastName.alphanumeric.lowercased()
+                }
             }else {
-                userData!.lastNameSorting = firstName
+                userData!.lastNameSorting = firstName.alphanumeric.lowercased()
             }
-                    
-        let firstNameFirstChar = firstName.firstCharacter.uppercased()
-        let lastNameFirstChar = lastName.firstCharacter.uppercased()
+            
+        let firstNameFirstChar = firstName.alphanumeric.firstCharacter.uppercased()
+        let lastNameFirstChar = lastName.alphanumeric.firstCharacter.uppercased()
 
         let alphaArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
         
             printDebug("firstName: \(firstName)")
             printDebug("lastName: \(lastName)")
+            printDebug("firstNameSorting: \(userData!.firstNameSorting)")
+            printDebug("lastNameSorting: \(userData!.lastNameSorting)")
+            
+            
+            
 
         if (firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && (lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
-            userData!.firstNameFirstChar = "#"
-            userData!.lastNameFirstChar = "#"
+            userData!.firstNameFirstChar = "#".uppercased()
+            userData!.lastNameFirstChar = "#".uppercased()
         } else if !(firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && !(lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
             if alphaArr.contains(firstNameFirstChar) {
-                userData!.firstNameFirstChar = firstNameFirstChar
+                userData!.firstNameFirstChar = firstNameFirstChar.lowercased()
             }
             else {
-                userData!.firstNameFirstChar = "#"
+                userData!.firstNameFirstChar = "#".uppercased()
             }
             if alphaArr.contains(lastNameFirstChar) {
-                userData!.lastNameFirstChar = lastNameFirstChar
+                userData!.lastNameFirstChar = lastNameFirstChar.lowercased()
             }
             else {
-                userData!.lastNameFirstChar = "#"
+                userData!.lastNameFirstChar = "#".uppercased()
             }
         }else if !(firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && (lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
             if alphaArr.contains(firstNameFirstChar) {
-                userData!.firstNameFirstChar = firstNameFirstChar
-                userData!.lastNameFirstChar = firstNameFirstChar
+                userData!.firstNameFirstChar = firstNameFirstChar.lowercased()
+                userData!.lastNameFirstChar = firstNameFirstChar.lowercased()
             }
             else {
-                userData!.firstNameFirstChar = "#"
-                userData!.lastNameFirstChar = "#"
+                userData!.firstNameFirstChar = "#".uppercased()
+                userData!.lastNameFirstChar = "#".uppercased()
             }
         }else if (firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && !(lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
             if alphaArr.contains(lastNameFirstChar) {
-                userData!.firstNameFirstChar = lastNameFirstChar
-                userData!.lastNameFirstChar = lastNameFirstChar
+                userData!.firstNameFirstChar = lastNameFirstChar.lowercased()
+                userData!.lastNameFirstChar = lastNameFirstChar.lowercased()
             }
             else {
-                userData!.firstNameFirstChar = "#"
-                userData!.lastNameFirstChar = "#"
+                userData!.firstNameFirstChar = "#".uppercased()
+                userData!.lastNameFirstChar = "#".uppercased()
             }
         }
             printDebug("firstNameFirstChar: \(userData!.firstNameFirstChar)")
             printDebug("lastNameFirstChar: \(userData!.lastNameFirstChar)")
+        } else {
+            printDebug("First Name not found")
         }
         
         
