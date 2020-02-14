@@ -57,6 +57,7 @@ class TopNavigationView: UIView {
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var firstRightButtonTrailingConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var firstLeftButtonLeadingConst: NSLayoutConstraint!
     var isToShowIndicatorView: Bool = false {
         didSet {
             self.activityIndicatorView.color = AppColors.themeGreen

@@ -31,6 +31,7 @@
                 <outlet property="backViewHeightConstraint" destination="NE8-n0-naW" id="K7l-gh-9Yg"/>
                 <outlet property="containerView" destination="5iQ-SE-VF1" id="Wuj-Tf-miD"/>
                 <outlet property="dividerView" destination="5XU-ZY-yPU" id="x2D-y5-ZIJ"/>
+                <outlet property="firstLeftButtonLeadingConst" destination="Oux-Ju-zAo" id="ILF-bJ-eof"/>
                 <outlet property="firstRightButton" destination="D4F-Bu-HSK" id="vsM-71-Qeo"/>
                 <outlet property="firstRightButtonTrailingConstraint" destination="N9p-Mc-gep" id="JO4-UQ-b4v"/>
                 <outlet property="leftButton" destination="DSO-Ke-hNP" id="tYM-tv-4kU"/>
@@ -65,7 +66,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DSO-Ke-hNP">
-                    <rect key="frame" x="4" y="17.5" width="43" height="27"/>
+                    <rect key="frame" x="0.0" y="17.5" width="43" height="27"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
                     <state key="normal" image="backGreen"/>
@@ -116,7 +117,7 @@
                 <constraint firstItem="zxX-KT-F33" firstAttribute="trailing" secondItem="5XU-ZY-yPU" secondAttribute="trailing" id="Jkc-Vl-wAB"/>
                 <constraint firstItem="5XU-ZY-yPU" firstAttribute="top" secondItem="QfJ-5x-W3u" secondAttribute="bottom" constant="20.5" id="LsP-Ow-HRf"/>
                 <constraint firstItem="zxX-KT-F33" firstAttribute="trailing" secondItem="D4F-Bu-HSK" secondAttribute="trailing" constant="6" id="N9p-Mc-gep"/>
-                <constraint firstItem="DSO-Ke-hNP" firstAttribute="leading" secondItem="zxX-KT-F33" secondAttribute="leading" constant="4" id="Oux-Ju-zAo"/>
+                <constraint firstItem="DSO-Ke-hNP" firstAttribute="leading" secondItem="zxX-KT-F33" secondAttribute="leading" id="Oux-Ju-zAo"/>
                 <constraint firstItem="7uz-9U-A8C" firstAttribute="centerY" secondItem="zxX-KT-F33" secondAttribute="centerY" id="ShQ-2l-S3C"/>
                 <constraint firstItem="Wb6-dI-jbo" firstAttribute="top" secondItem="zxX-KT-F33" secondAttribute="top" id="VQA-Gm-bb7"/>
                 <constraint firstItem="5XU-ZY-yPU" firstAttribute="bottom" secondItem="zxX-KT-F33" secondAttribute="bottom" id="YiK-BG-t9c"/>

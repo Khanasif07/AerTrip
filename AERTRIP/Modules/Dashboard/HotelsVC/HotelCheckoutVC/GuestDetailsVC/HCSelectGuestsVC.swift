@@ -115,8 +115,6 @@ class HCSelectGuestsVC: BaseVC {
         
         self.parchmentView?.view.frame = self.listContainerView.bounds
         self.parchmentView?.loadViewIfNeeded()
-//        self.categoryView?.frame = self.listContainerView.bounds
-//        self.categoryView?.layoutIfNeeded()
     }
     
     deinit {
@@ -131,6 +129,7 @@ class HCSelectGuestsVC: BaseVC {
         selectedContactsCollectionView.setCollectionViewLayout(self.collectionLayout, animated: false)
         
         self.topNavView.delegate = self
+        self.topNavView.firstLeftButtonLeadingConst.constant = 5.0
         self.topNavView.configureNavBar(title: LocalizedString.SelectGuests.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Add.rawValue, selectedTitle: LocalizedString.Add.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
@@ -156,16 +155,11 @@ class HCSelectGuestsVC: BaseVC {
         else {
             allTabsStr = [HCGuestListVC.UsingFor.contacts, HCGuestListVC.UsingFor.facebook, HCGuestListVC.UsingFor.google]
         }
-        
-//        for item in allTabsStr {
-//            let vc = HCGuestListVC.instantiate(fromAppStoryboard: .HotelCheckout)
-//            vc.currentlyUsingFor = item
-//            self.allChildVCs.append(vc)
-//        }
 
         self.setupPagerView()
 
         self.selectedContactsSetHidden(isHidden: false, animated: false)
+        self.selectedContactsCollectionView.reloadData()
     }
     
     
@@ -215,7 +209,7 @@ class HCSelectGuestsVC: BaseVC {
     private func selectedContactsSetHidden(isHidden: Bool, animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             self?.selectedContactsContainerHeightConstraint.constant = isHidden ? 0.0 : 120.0
-            //self?.view.layoutIfNeeded()
+            self?.view.layoutIfNeeded()
         }) { (isCompleted) in
         }
     }
