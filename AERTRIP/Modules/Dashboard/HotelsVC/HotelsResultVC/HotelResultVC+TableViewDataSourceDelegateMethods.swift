@@ -193,11 +193,11 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             let hData = viewModel.fetchedResultsController.object(at: indexPath)
             if let cell = tableView.cellForRow(at: indexPath) as? HotelCardTableViewCell {
                 
-//                self.presentController(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+                self.presentController(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
  
-                AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: hData, sourceView: cell.collectionView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest){
-                    self.statusBarColor = AppColors.themeWhite
-                }
+//                AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: hData, sourceView: cell.collectionView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest){
+//                    self.statusBarColor = AppColors.themeWhite
+//                }
             }
         }
     }

@@ -180,6 +180,7 @@ class HCSelectGuestsVC: BaseVC {
         categoryView.navBar.internalDelegate = self
         self.listContainerView.addSubview(categoryView)
         self.categoryView = categoryView
+        self.view.backgroundColor = UIColor.white
     }
     
     private func selectedContactsSetHidden(isHidden: Bool, animated: Bool) {
