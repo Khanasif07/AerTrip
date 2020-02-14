@@ -85,15 +85,15 @@ class SocialLoginVC: BaseVC {
         self.fbButton.layer.cornerRadius = self.fbButton.height / 2
         self.googleButton.layer.cornerRadius = self.googleButton.height / 2
         self.linkedInButton.layer.cornerRadius = self.linkedInButton.height / 2
-//        self.fbButton.layer.masksToBounds = true
-//        self.googleButton.layer.masksToBounds = true
-//        self.linkedInButton.layer.masksToBounds = true
+        //        self.fbButton.layer.masksToBounds = true
+        //        self.googleButton.layer.masksToBounds = true
+        //        self.linkedInButton.layer.masksToBounds = true
     }
     
     override func setupFonts() {
-         self.fbButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .highlighted)
-         self.googleButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .highlighted)
-         self.linkedInButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .highlighted)
+        self.fbButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .highlighted)
+        self.googleButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .highlighted)
+        self.linkedInButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .highlighted)
         self.fbButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .normal)
         self.googleButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .normal)
         self.linkedInButton.setTitleFont(font: AppFonts.Regular.withSize(16), for: .normal)
@@ -104,27 +104,27 @@ class SocialLoginVC: BaseVC {
     }
     
     override func setupColors() {
-    
+        
         self.fbButton.gradientColors = [AppColors.fbButtonBackgroundColor, AppColors.fbButtonBackgroundColor]
         self.googleButton.gradientColors = [AppColors.themeWhite, AppColors.themeWhite]
         self.linkedInButton.gradientColors = [AppColors.linkedinButtonBackgroundColor, AppColors.linkedinButtonBackgroundColor]
         
         self.fbButton.isSocial = true
-      
-//        self.fbButton.shadowColor = AppColors.themeBlack
+        
+        //        self.fbButton.shadowColor = AppColors.themeBlack
         
         self.googleButton.isSocial = true
-//        self.googleButton.shadowColor = AppColors.themeGray20
+        //        self.googleButton.shadowColor = AppColors.themeGray20
         
         self.fbButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         
         self.googleButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
-//
+        //
         self.linkedInButton.isSocial = true
         
         self.linkedInButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
         
-     //   self.linkedInButton.shadowColor = AppColors.themeBlack
+        //   self.linkedInButton.shadowColor = AppColors.themeBlack
     }
     
     override func setupTexts() {
@@ -132,22 +132,22 @@ class SocialLoginVC: BaseVC {
         self.googleButton.setTitle(LocalizedString.Continue_with_Google.localized, for: .normal)
         self.linkedInButton.setTitle(LocalizedString.Continue_with_Linkedin.localized, for: .normal)
         
-//        self.fbButton.shadowColor = AppColors.themeBlack
-//        self.view.backgroundColor = AppColors.clear
+        //        self.fbButton.shadowColor = AppColors.themeBlack
+        //        self.view.backgroundColor = AppColors.clear
         self.fbButton.isSocial = false
         self.googleButton.isSocial = false
         self.linkedInButton.isSocial = false
         self.googleButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
         self.fbButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
         self.linkedInButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
-
+        
         delay(seconds: 0.4) {
             self.fbButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
             self.googleButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
             self.linkedInButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
-
+            
         }
-
+        
         self.fbButton.setImage(AppImage.facebookLogoImage, for: .normal)
         self.googleButton.setImage(AppImage.googleLogoImage, for: .normal)
         self.linkedInButton.setImage(AppImage.linkedInLogoImage, for: .normal)
@@ -157,12 +157,12 @@ class SocialLoginVC: BaseVC {
     }
     
     func setUpSocialBtnInset(button: UIButton) {
-            var imgInset = button.imageEdgeInsets
-            var titleInset = button.titleEdgeInsets
-            titleInset.left = titleInset.left + 2.5
-            button.titleEdgeInsets = titleInset
-            imgInset.left =  imgInset.left + 10
-            button.imageEdgeInsets = imgInset
+        var imgInset = button.imageEdgeInsets
+        var titleInset = button.titleEdgeInsets
+        titleInset.left = titleInset.left + 2.5
+        button.titleEdgeInsets = titleInset
+        imgInset.left =  imgInset.left + 10
+        button.imageEdgeInsets = imgInset
     }
     
     override func bindViewModel() {
@@ -201,11 +201,11 @@ class SocialLoginVC: BaseVC {
     
     private func popIfUsingFromCheckOut() {
         self.sendDataChangedNotification(data: ATNotification.userAsGuest)
-//        if let obj = AppFlowManager.default.mainNavigationController.viewControllers.first(where: { (vc) -> Bool in
-//            return vc.isKind(of: HotelResultVC.self)
-//        }) {
-//            AppFlowManager.default.popToViewController(obj, animated: true)
-//        }
+        //        if let obj = AppFlowManager.default.mainNavigationController.viewControllers.first(where: { (vc) -> Bool in
+        //            return vc.isKind(of: HotelResultVC.self)
+        //        }) {
+        //            AppFlowManager.default.popToViewController(obj, animated: true)
+        //        }
     }
 }
 
@@ -250,6 +250,17 @@ private extension SocialLoginVC {
             logoView?.isAppNameHidden = false
             socialButtosCenterConstraint.constant = 0.0
             socialAndLogoSpace.constant = 89.0
+        } else if  currentlyUsingFrom == .loginVerificationForBulkbooking {
+            logoView?.messageLabel.font = AppFonts.c.withSize(38.0)
+            logoView?.messageLabel.text = LocalizedString.PleaseSignInToContinue.localized
+            logoView?.isAppNameHidden = true
+            logoView?.logoImageView.image = #imageLiteral(resourceName: "upwardAertripLogo")
+            logoView?.logoImageTopContraint.constant = 40
+            logoView?.logoImageAndNameConstraint.constant = 0
+            logoView?.messageLabelTopConstraint.constant = -3
+            
+            socialButtosCenterConstraint.constant = -42.0
+            socialAndLogoSpace.constant = 93.0
         }
         else {
             logoView?.messageLabel.font = AppFonts.c.withSize(38.0)
@@ -269,7 +280,7 @@ private extension SocialLoginVC {
             let attributedString = NSMutableAttributedString(string: finalStr, attributes: [
                 .font: AppFonts.Regular.withSize(14.0),
                 .foregroundColor: UIColor.black
-                ])
+            ])
             attributedString.addAttribute(.font, value: AppFonts.SemiBold.withSize(18.0), range: (finalStr as NSString).range(of: LocalizedString.SkipSignIn.localized))
             self.newRegisterLabel.attributedText = attributedString
         }
@@ -277,7 +288,7 @@ private extension SocialLoginVC {
             let attributedString = NSMutableAttributedString(string: LocalizedString.I_am_new_register.localized, attributes: [
                 .font: AppFonts.Regular.withSize(14.0),
                 .foregroundColor: UIColor.black
-                ])
+            ])
             attributedString.addAttribute(.font, value: AppFonts.SemiBold.withSize(18.0), range: NSRange(location: 0, length: 7))
             self.newRegisterLabel.attributedText = attributedString
         }
@@ -285,7 +296,7 @@ private extension SocialLoginVC {
         let existingUserString = NSMutableAttributedString(string: LocalizedString.Existing_User_Sign.localized, attributes: [
             .font: AppFonts.SemiBold.withSize(18.0),
             .foregroundColor: UIColor.black
-            ])
+        ])
         existingUserString.addAttribute(.font, value: AppFonts.Regular.withSize(14.0), range: NSRange(location: 14, length: 7))
         self.existingUserLabel.attributedText = existingUserString
     }
@@ -349,7 +360,7 @@ extension SocialLoginVC: SocialLoginVMDelegate {
 // MARK: -
 
 extension SocialLoginVC {
-
+    
     func kickContentOutToScreen() {
         self.fbButton.transform          = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
         self.googleButton.transform      = CGAffineTransform(translationX: UIDevice.screenWidth, y: 0)
@@ -402,7 +413,7 @@ extension SocialLoginVC {
     }
     
     func animateContentOnPop() {
-       
+        
         let rDuration = 1.0 / 4.0
         UIView.animateKeyframes(withDuration: AppConstants.kAnimationDuration, delay: 0.0, options: .calculationModeLinear, animations: {
             

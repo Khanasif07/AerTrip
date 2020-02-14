@@ -31,7 +31,7 @@ extension HotelsMapVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.viewModel.fetchRequestType = .Searching
         if searchText.isEmpty {
-            self.searchTextStr = ""
+            self.viewModel.searchTextStr = ""
             
             self.viewModel.fetchRequestType = self.filterButton.isSelected ? .FilterApplied : .normalInSearching //for getting all the data in search mode when the search text is blank
             self.viewModel.loadSaveData()
@@ -41,7 +41,7 @@ extension HotelsMapVC: UISearchBarDelegate {
         } else if searchText.count >= AppConstants.kSearchTextLimit {
             noResultemptyView.searchTextLabel.isHidden = false
             noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
-            self.searchTextStr = searchBar.text ?? ""
+            self.viewModel.searchTextStr = searchBar.text ?? ""
             self.searchForText(searchText)
         }
     }
@@ -166,11 +166,12 @@ extension HotelsMapVC: HotelResultDelegate {
     }
     
     func loadFinalDataOnScreen() {
+        self.hotelsMapCV.delegate = self
+        self.hotelsMapCV.dataSource = self
         self.filterButton.isEnabled = true
         self.addMapView()
         self.reloadHotelList()
         delay(seconds: 0.4) { [weak self] in
-            self?.manageForCollectionView(atIndex: 0)
             self?.adjustMapPadding()
         }
     }
@@ -208,7 +209,7 @@ extension HotelsMapVC: HotelResultDelegate {
             if let indexPath = self.selectedIndexPath, self.viewModel.collectionViewLocArr.indices.contains(indexPath.item),let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.item]] as? [HotelSearched], let hotel = hData.first  {
                 let locStr = self.viewModel.collectionViewLocArr[indexPath.item]
                 self.viewModel.deleteHotelsDataForCollectionView(hotel: hotel)
-                self.collectionView.reloadData()
+                self.hotelsMapCV.reloadData()
                 if let loc = self.getLocationObject(fromLocation: locStr) {
                     self.deleteMarker(atLocation: loc)
                     if let selectedLocation = self.displayingHotelLocation, selectedLocation == loc {
@@ -226,12 +227,8 @@ extension HotelsMapVC: HotelResultDelegate {
         } else {
             self.updateFavOnList(forIndexPath: self.selectedIndexPath)
         }
+        self.sowHotelOnMap(duration: 0.4)
         
-        delay(seconds: 0.4) { [weak self] in
-            guard let strongSelf = self else {return}
-            let indexOfMajorCell = strongSelf.indexOfMajorCell()
-            strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
-        }
     }
     
     func updateFavouriteFail(errors: ErrorCodes, isHotelFavourite: Bool) {
@@ -240,7 +237,7 @@ extension HotelsMapVC: HotelResultDelegate {
             if let indexPath = self.selectedIndexPath, self.viewModel.collectionViewLocArr.indices.contains(indexPath.item),let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.item]] as? [HotelSearched], let hotel = hData.first  {
                 let locStr = self.viewModel.collectionViewLocArr[indexPath.item]
                 self.viewModel.deleteHotelsDataForCollectionView(hotel: hotel)
-                self.collectionView.reloadData()
+                self.hotelsMapCV.reloadData()
                 if let loc = self.getLocationObject(fromLocation: locStr) {
                     self.deleteMarker(atLocation: loc)
                     if let selectedLocation = self.displayingHotelLocation, selectedLocation == loc {
@@ -264,11 +261,7 @@ extension HotelsMapVC: HotelResultDelegate {
             }
         }
         
-        delay(seconds: 0.4) { [weak self] in
-            guard let strongSelf = self else {return}
-            let indexOfMajorCell = strongSelf.indexOfMajorCell()
-            strongSelf.manageForCollectionView(atIndex: indexOfMajorCell)
-        }
+        self.sowHotelOnMap(duration: 0.4)
     }
     
     func getAllHotelsListResultSuccess(_ isDone: Bool) {
@@ -293,9 +286,9 @@ extension HotelsMapVC: HotelResultDelegate {
 extension HotelsMapVC: HotelCardCollectionViewCellDelegate {
     func saveButtonActionFromLocalStorage(_ sender: UIButton, forHotel: HotelSearched) {
         guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
-        if let indexPath = self.collectionView.indexPath(forItem: sender) {
+        if let indexPath = self.hotelsMapCV.indexPath(forItem: sender) {
             self.selectedIndexPath = indexPath
-            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+            hotelsMapCV.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
         }
         //self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         self.viewModel.updateFavourite(forHotels: [forHotel], isUnpinHotels: false)

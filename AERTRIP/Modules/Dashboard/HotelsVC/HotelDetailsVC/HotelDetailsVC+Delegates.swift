@@ -271,68 +271,11 @@ extension HotelDetailsVC {
                     guard let `self` = self else {return}
                     self.stickyBottomConstraint.constant = (self.hotelTableView.contentOffset.y > self.initialStickyPosition) ? -(self.footerView.height + AppFlowManager.default.safeAreaInsets.bottom) : 0.0
                 }.startAnimation()
-                
-                //                let bottomCons = (self.hotelTableView.contentOffset.y - (self.initialStickyPosition + self.footerView.height))
-                //                if self.hotelTableView.contentOffset.y > self.initialStickyPosition {
-                //                    //hide
-                //                    UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
-                //                        guard let `self` = self else {return}
-                //                        self.stickyBottomConstraint.constant = -(self.footerView.height + AppFlowManager.default.safeAreaInsets.bottom)
-                //                    }.startAnimation()
-                //                }
-                //                else {
-                //                    //show
-                //                    UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
-                //                        guard let `self` = self else {return}
-                //                        self.stickyBottomConstraint.constant = 0
-                //                        }.startAnimation()
-                //                }
-                //                if (self.hotelTableView.contentSize.height - self.hotelTableView.height) <= self.hotelTableView.contentOffset.y {
-                //                    //if table view scrolled till end then hide sticky view
-                //                    self.stickyBottomConstraint.constant = -(self.footerView.height + AppFlowManager.default.safeAreaInsets.bottom)
-                //                }
-                //                else if 0...self.footerView.height ~= bottomCons {
-                //                    //hiding
-                //                    self.stickyBottomConstraint.constant = -(bottomCons + AppFlowManager.default.safeAreaInsets.bottom)
-                //                }
-                //                else if self.initialStickyPosition <= 0.0 {
-                //                    //shown
-                //                    self.stickyBottomConstraint.constant = 0.0
-                //                }
-                //                else if (self.initialStickyPosition + self.footerView.height) < finalY {
-                //                    //hidden
-                //                    self.stickyBottomConstraint.constant = 0
-                ////                    self.tableFooterView?.isHidden = true
-                ////                    self.hotelTableView.tableFooterView?.isHidden = true
-                ////                    self.hotelTableView.tableFooterView = UIView(frame: CGRect.zero)
-                //                    self.footerViewHeightConstraint.constant = 0
-                //
-                //                }
             }
         }
         else {
             self.stickyBottomConstraint.constant = 0.0
-            //            self.tableFooterView?.isHidden = true
-            //            self.tableFooterView?.backgroundView?.backgroundColor = AppColors.themeRed
         }
-        //        self.oldScrollPosition = self.hotelTableView.contentOffset
-        //        printDebug(" scroll to top \(hotelTableView.contentOffset)")
-        //        if hotelTableView.contentOffset == .zero {
-        //            printDebug("scroll to top ")
-        ////             self.tableFooterView?.isHidden = false
-        //             self.footerView.isHidden = false
-        ////            if let tableFooterView = self.tableFooterView {
-        ////                tableFooterView.containerView.backgroundColor = AppColors.themeGreen
-        ////                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
-        ////                tableFooterView.noRoomsAvailable.isHidden = true
-        ////                tableFooterView.fromLabel.isHidden = false
-        ////                tableFooterView.hotelFeesLabel.isHidden = false
-        ////                tableFooterView.selectRoomLabel.isHidden = false
-        ////
-        //////                self.hotelTableView.tableFooterView = tableFooterView
-        ////            }
-        //             self.footerViewSetUp()
-        //        }
     }
     
     private func closeOnScroll(_ scrollView: UIScrollView) {
@@ -416,12 +359,14 @@ extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
     
     func bookMarkButtonAction(sender: HotelDetailsBedsTableViewCell) {
         AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { [weak self](isGuest) in
-            
             guard let sSelf = self else {return}
-            if let vc = sSelf.parent {
-                AppFlowManager.default.popToViewController(vc, animated: true)
+            if sSelf.isAddingChild{
+                if let vc = sSelf.parent {
+                    AppFlowManager.default.popToViewController(vc, animated: true)
+                }
+            }else {
+                AppFlowManager.default.popToViewController(sSelf, animated: true)
             }
-            
             AppFlowManager.default.selectTrip(nil) { (trip, details)  in
                 delay(seconds: 0.3, completion: { [weak self] in
                     guard let sSelf = self else {return}
@@ -429,7 +374,6 @@ extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
                     if let indexPath = sSelf.hotelTableView.indexPath(for: sender) {
                         let currentRatesData = sSelf.viewModel.ratesData[indexPath.section - 2]
                         let currentRoomData = sSelf.viewModel.roomRates[indexPath.section - 2]
-                        
                         sSelf.viewModel.saveHotelWithTrip(toTrip: trip, forRate: currentRatesData, forRoomRate: Array(currentRoomData.keys)[indexPath.row])
                     }
                 })

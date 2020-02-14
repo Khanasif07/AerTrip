@@ -203,44 +203,45 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     //--------------------------- Golu Change ---------------------
-       func presentController(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
-           
-           let vc = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
-           vc.viewModel.hotelInfo = hotelInfo
-           vc.delegate = self
-           vc.viewModel.hotelSearchRequest = hotelSearchRequest
-           var img = cell.selfImage
-           if cell.selfImage == nil{
-              img = cell.viewScreenShot()
-           }
-           vc.backImage = img
-           cell.freezeAnimations()
-           let currentCellFrame = cell.layer.presentation()!.frame
-           let cardFrame = cell.superview!.convert(currentCellFrame, to: nil)
-           vc.modalPresentationStyle = .custom
-           let frameWithoutTransform = { () -> CGRect in
-               let center = cell.center
-               let size = cell.bounds.size
-               let r = CGRect(
-                   x: center.x - size.width / 2,
-                   y: center.y - size.height / 2,
-                   width: size.width,
-                   height: size.height
-               )
-               return cell.superview!.convert(r, to: nil)
-           }()
-           
-           let params = CardTransition.Params(fromCardFrame: cardFrame, fromCardFrameWithoutTransform: frameWithoutTransform, fromCell: cell, img: img)
-           self.transition = CardTransition(params: params)
-           
-           vc.transitioningDelegate = transition
-           vc.modalPresentationCapturesStatusBarAppearance = true
-           vc.modalPresentationStyle = .custom
-           self.present(vc, animated: true, completion: {
-               cell.unfreezeAnimations()
-           })
-           
-       }
+    func presentController(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
+        
+        let vc = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
+        vc.viewModel.hotelInfo = hotelInfo
+        vc.delegate = self
+        vc.viewModel.hotelSearchRequest = hotelSearchRequest
+        var img = cell.selfImage
+        if cell.selfImage == nil{
+            img = cell.viewScreenShot()
+        }
+        vc.backImage = img
+        cell.freezeAnimations()
+        let currentCellFrame = cell.layer.presentation()!.frame
+        let cardFrame = cell.superview!.convert(currentCellFrame, to: nil)
+        vc.modalPresentationStyle = .custom
+        let frameWithoutTransform = { () -> CGRect in
+            let center = cell.center
+            let size = cell.bounds.size
+            let r = CGRect(
+                x: center.x - size.width / 2,
+                y: center.y - size.height / 2,
+                width: size.width,
+                height: size.height
+            )
+            return cell.superview!.convert(r, to: nil)
+        }()
+        
+        let params = CardTransition.Params(fromCardFrame: cardFrame, fromCardFrameWithoutTransform: frameWithoutTransform, fromCell: cell, img: img)
+        self.transition = CardTransition(params: params)
+        
+        let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
+        nav.transitioningDelegate = transition
+        nav.modalPresentationCapturesStatusBarAppearance = true
+        nav.modalPresentationStyle = .custom
+        self.present(nav, animated: true, completion: {
+            cell.unfreezeAnimations()
+        })
+        
+    }
 }
 
 

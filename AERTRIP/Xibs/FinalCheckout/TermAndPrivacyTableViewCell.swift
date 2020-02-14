@@ -86,7 +86,8 @@ extension TermAndPrivacyTableViewCell {
                 
                 guard let url = URL(string: AppConstants.fareRules) else { return }
                 let safariVC = SFSafariViewController(url: url)
-                AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
+                safariVC.modalPresentationStyle = .overFullScreen
+                AppFlowManager.default.currentNavigation?.present(safariVC, animated: true, completion: nil)
                 safariVC.delegate = self
             }
             
@@ -94,7 +95,8 @@ extension TermAndPrivacyTableViewCell {
                 
                 guard let url = URL(string: AppConstants.privacyPolicy) else { return }
                 let safariVC = SFSafariViewController(url: url)
-                AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
+                safariVC.modalPresentationStyle = .overFullScreen
+                AppFlowManager.default.currentNavigation?.present(safariVC, animated: true, completion: nil)
                 safariVC.delegate = self
             }
             
@@ -102,7 +104,8 @@ extension TermAndPrivacyTableViewCell {
                 
                 guard let url = URL(string: AppConstants.termsOfUse) else { return }
                 let safariVC = SFSafariViewController(url: url)
-                AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
+                safariVC.modalPresentationStyle = .overFullScreen
+                AppFlowManager.default.currentNavigation?.present(safariVC, animated: true, completion: nil)
                 safariVC.delegate = self
             }
         }
@@ -111,6 +114,6 @@ extension TermAndPrivacyTableViewCell {
 
 extension TermAndPrivacyTableViewCell: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        AppFlowManager.default.mainNavigationController.dismiss(animated: true, completion: nil)
+        AppFlowManager.default.currentNavigation?.dismiss(animated: true, completion: nil)
     }
 }

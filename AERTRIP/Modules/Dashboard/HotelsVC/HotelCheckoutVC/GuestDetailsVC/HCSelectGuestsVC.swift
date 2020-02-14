@@ -340,7 +340,16 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
 
         if let idx = getCollectionIndexPath(forContact: item) {
 
+            let oldValue = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item]
+
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = item
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].numberInRoom = oldValue.numberInRoom
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].passengerType = oldValue.passengerType
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].age = oldValue.age
+
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].age = oldValue.age
+
+
             self.selectNextGuest()
 //            self.selectedContactsCollectionView.performBatchUpdates({
 //                self.selectedContactsCollectionView.insertItems(at: [idx])

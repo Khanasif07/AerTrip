@@ -53,18 +53,17 @@ class HotelsMapVC: BaseVC {
     @IBOutlet weak var emailButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var switchView: ATSwitcher!
-    @IBOutlet weak var collectionViewLayout: UICollectionViewFlowLayout!
     
     @IBOutlet weak var backContainerView: UIView!
-    @IBOutlet weak var collectionView: UICollectionView! {
+    @IBOutlet weak var hotelsMapCV: UICollectionView! {
         didSet {
-            self.collectionView.registerCell(nibName: HotelCardCollectionViewCell.reusableIdentifier)
-            self.collectionView.registerCell(nibName: HotelGroupCardCollectionViewCell.reusableIdentifier)
-            self.collectionView.isPagingEnabled = true
-            self.collectionView.delegate = self
-            self.collectionView.dataSource = self
-            self.collectionView.showsVerticalScrollIndicator = false
-            self.collectionView.showsHorizontalScrollIndicator = false
+            self.hotelsMapCV.registerCell(nibName: HotelCardCollectionViewCell.reusableIdentifier)
+            self.hotelsMapCV.registerCell(nibName: HotelGroupCardCollectionViewCell.reusableIdentifier)
+//            self.hotelsMapCV.isPagingEnabled = true
+//            self.hotelsMapCV.delegate = self
+//            self.hotelsMapCV.dataSource = self
+            self.hotelsMapCV.showsVerticalScrollIndicator = false
+            self.hotelsMapCV.showsHorizontalScrollIndicator = false
         }
     }
     
@@ -102,7 +101,6 @@ class HotelsMapVC: BaseVC {
     // MARK: - Properties
     
     //    var container: NSPersistentContainer!
-    var searchTextStr: String = ""
     var isAboveTwentyKm: Bool = false
     var isFotterVisible: Bool = false
     var searchIntitialFrame: CGRect = .zero
@@ -230,13 +228,13 @@ class HotelsMapVC: BaseVC {
         self.cardGradientView.backgroundColor = AppColors.clear
         self.additionalSafeAreaInsets = .zero
         self.configureCollectionViewLayoutItemSize()
-        delay(seconds: 1.0) {
+//        delay(seconds: 1.0) {
             self.addMapView()
-        }
+//        }
         if AppGlobals.shared.isNetworkRechable() {
-            self.collectionView.reloadData()
-            delay(seconds: 2) { [weak self] in
+            delay(seconds: 0.2) { [weak self] in
                 guard let strongSelf = self else {return}
+//                strongSelf.addMapView()
                 strongSelf.mapView?.delegate = self
                 strongSelf.loadFinalDataOnScreen()
             }
@@ -244,7 +242,7 @@ class HotelsMapVC: BaseVC {
             self.noHotelFound()
             AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
         }
-        
+        setupCollection()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -281,13 +279,6 @@ class HotelsMapVC: BaseVC {
         printDebug("HotelResultVC deinit")
     }
     
-    override func keyboardWillHide(notification: Notification) {
-        if let _ = self.view.window, self.viewModel.searchedHotels.isEmpty {
-            //checking if the screen in window only then this method should call
-            // self.cancelButtonTapped(self.cancelButton)
-        }
-    }
-    
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification, noti == .GRNSessionExpired {
             //re-hit the search API
@@ -299,8 +290,10 @@ class HotelsMapVC: BaseVC {
             //fav updated from hotel details
             //updateFavOnList(forIndexPath: selectedIndexPath)
             // manage favourite switch buttons
+            self.selectedIndexPath = nil
             self.viewModel.getFavouriteHotels(shouldReloadData: true)
             self.updateMarkers()
+            self.sowHotelOnMap(duration: 0.4)
             //            updateFavouriteSuccess(isHotelFavourite: true)
         }
         else if let _ = note.object as? HCDataSelectionVC {
@@ -338,6 +331,15 @@ class HotelsMapVC: BaseVC {
         self.navigationItem.leftBarButtonItem=nil
         
     }
+    
+    func setupCollection() {
+        let layout = self.hotelsMapCV.collectionViewLayout as! UPCarouselFlowLayout
+        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: -5)
+        layout.scrollDirection = .horizontal
+        layout.sideItemScale = 0.92
+        layout.sideItemAlpha = 1.0
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 32, height: 190)
+    }
     // MARK: - Methods
     
     // MARK: - Private
@@ -347,6 +349,12 @@ class HotelsMapVC: BaseVC {
             printDebug("notification: Keyboard will show")
             let footerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: keyboardSize.height))
             self.hotelSearchTableView.tableFooterView = footerView
+        }
+    }
+    override func keyboardWillHide(notification: Notification) {
+        if let _ = self.view.window {
+            //checking if the screen in window only then this method should call
+            self.hotelSearchTableView.tableFooterView = nil
         }
     }
     
@@ -398,8 +406,8 @@ class HotelsMapVC: BaseVC {
     }
     
     private func registerXib() {
-        self.collectionView.register(UINib(nibName: "SectionHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
-        self.collectionView.register(UINib(nibName: "SectionFooter", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "SectionFooter")
+        self.hotelsMapCV.register(UINib(nibName: "SectionHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
+        self.hotelsMapCV.register(UINib(nibName: "SectionFooter", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "SectionFooter")
         self.hotelSearchTableView.register(UINib(nibName: self.hotelResultCellIdentifier, bundle: nil), forCellReuseIdentifier: self.hotelResultCellIdentifier)
     }
     
@@ -424,8 +432,7 @@ class HotelsMapVC: BaseVC {
     }
     
     func manageShimmer(isHidden: Bool) {
-        
-        self.collectionView.isHidden = !isHidden
+        self.hotelsMapCV.isHidden = !isHidden
         if !isHidden {
             self.manageSwitchContainer(isHidden: true)
         }
@@ -489,7 +496,7 @@ class HotelsMapVC: BaseVC {
         self.hideSearchAnimation()
         self.view.endEditing(true)
         self.searchBar.text = ""
-        self.searchTextStr = ""
+        self.viewModel.searchTextStr = ""
         self.reloadHotelList()
         delay(seconds: 0.1) { [weak self] in
             self?.viewModel.loadSaveData()

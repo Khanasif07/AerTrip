@@ -196,8 +196,9 @@ class HotelsResultVM: NSObject {
                 if isUnpinHotels {
                     AppToast.default.showToastMessage(message: successMessage)
                 }
-                self.hotelResultDelegate?.updateFavouriteSuccess(isHotelFavourite: isHotelFavourite)
                 self.hotelMapDelegate?.updateFavouriteSuccess(isHotelFavourite: isHotelFavourite)
+                self.hotelResultDelegate?.updateFavouriteSuccess(isHotelFavourite: isHotelFavourite)
+
             } else {
                 
                 if let _ = UserInfo.loggedInUserId {

@@ -2213,7 +2213,7 @@ been sent</string>
                             <constraint firstAttribute="trailing" secondItem="aHc-Vi-zSn" secondAttribute="trailing" id="aky-3u-626"/>
                             <constraint firstItem="aM9-4Q-rjl" firstAttribute="bottom" secondItem="He0-20-oIc" secondAttribute="bottom" id="bIF-38-3c7"/>
                             <constraint firstItem="QAK-AD-OFu" firstAttribute="leading" secondItem="b4p-u6-PAq" secondAttribute="leading" id="sct-fe-fKG"/>
-                            <constraint firstItem="aM9-4Q-rjl" firstAttribute="top" secondItem="b4p-u6-PAq" secondAttribute="top" constant="96" id="thm-7z-N56"/>
+                            <constraint firstItem="aM9-4Q-rjl" firstAttribute="top" secondItem="V4z-cq-RyF" secondAttribute="bottom" id="xee-cO-ofd"/>
                             <constraint firstItem="V4z-cq-RyF" firstAttribute="leading" secondItem="b4p-u6-PAq" secondAttribute="leading" id="yhN-7V-y4Y"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="b4p-u6-PAq"/>
@@ -2400,7 +2400,7 @@ been sent</string>
                                                         <attributedString key="attributedText">
                                                             <fragment content="Want more rooms? Request bulk booking">
                                                                 <attributes>
-                                                                    <font key="NSFont" metaFont="system" size="14"/>
+                                                                    <font key="NSFont" metaFont="menu" size="14"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                 </attributes>
                                                             </fragment>
@@ -2658,12 +2658,7 @@ been sent</string>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="203" id="kmw-ab-qqc"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="U1Z-Lg-4bL" customClass="CarouselLayout" customModule="AERTRIP" customModuleProvider="target">
-                                    <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
+                                <collectionViewLayout key="collectionViewLayout" id="QGz-nf-UEH" customClass="UPCarouselFlowLayout" customModule="AERTRIP" customModuleProvider="target"/>
                                 <cells/>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mtp-E5-grj">
@@ -2823,9 +2818,7 @@ been sent</string>
                         <outlet property="backContainerView" destination="ljB-dC-jm5" id="Aj4-Sg-flg"/>
                         <outlet property="cancelButton" destination="qkT-Oz-5hd" id="9Wp-FT-ePR"/>
                         <outlet property="cardGradientView" destination="OA5-Cf-ZLd" id="aUe-3r-BUP"/>
-                        <outlet property="collectionView" destination="sgj-JY-aNo" id="Yf9-QN-d82"/>
                         <outlet property="collectionViewBottomConstraint" destination="FxD-UT-UFf" id="Lhs-Zx-hpg"/>
-                        <outlet property="collectionViewLayout" destination="U1Z-Lg-4bL" id="gjH-Mg-1sE"/>
                         <outlet property="collectionViewLeadingConstraint" destination="HuO-qt-hmk" id="OY6-oE-uQc"/>
                         <outlet property="currentLocationButton" destination="yPD-bI-EE3" id="pnh-08-ygr"/>
                         <outlet property="dividerView" destination="nzP-hO-r2Z" id="GCF-Y2-LZf"/>
@@ -2839,6 +2832,7 @@ been sent</string>
                         <outlet property="headerContatinerViewHeightConstraint" destination="IP6-Vq-6Nv" id="h06-3h-72A"/>
                         <outlet property="hotelSearchTableView" destination="w4K-G9-A54" id="pGI-ou-ogY"/>
                         <outlet property="hotelSearchView" destination="mtp-E5-grj" id="mjF-nj-rBd"/>
+                        <outlet property="hotelsMapCV" destination="sgj-JY-aNo" id="VQZ-yL-pqG"/>
                         <outlet property="mapContainerTopConstraint" destination="MyI-15-Vyh" id="uAy-bq-51B"/>
                         <outlet property="mapContainerView" destination="pVy-WI-Bou" id="rnc-S1-mNp"/>
                         <outlet property="mapContainerViewBottomConstraint" destination="uyz-Wh-KF1" id="Kna-ha-EMB"/>

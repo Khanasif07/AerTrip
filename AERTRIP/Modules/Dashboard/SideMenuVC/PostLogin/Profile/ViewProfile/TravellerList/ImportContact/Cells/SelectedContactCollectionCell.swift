@@ -108,16 +108,20 @@ class SelectedContactCollectionCell: UICollectionViewCell {
                 self.crossButton.isHidden = true
                 self.nameLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)"
                 
-                if let year = self.contact?.age, year > 0 {
-                    ageLabel.text = "(\(year)y)"
-                    ageLabel.isHidden = false
-                }
+//                if let year = self.contact?.age, year > 0 {
+//                    ageLabel.text = "(\(year)y)"
+//                    ageLabel.isHidden = false
+//                }
                 
                 
             }
             if let lName = self.contact?.lastName, !lName.isEmpty {
                 lastNameLabel.text = lName
                 lastNameLabel.isHidden = false
+            }
+            if let year = self.contact?.age, year > 0 {
+                ageLabel.text = "(\(year)y)"
+                ageLabel.isHidden = false
             }
             if let type = self.contact?.passengerType, let number = self.contact?.numberInRoom, number >= 0 {
                 if type == PassengersType.Adult, number == 1, roomNo > 0 {

@@ -162,13 +162,15 @@ extension HotelResultVC: HotelResultDelegate {
         self.progressView?.removeFromSuperview()
         self.manageShimmer(isHidden: true)
         self.hotelSearchTableView.backgroundView = noHotelFoundEmptyView
+        self.searchButton.isUserInteractionEnabled = false
     }
     
     func loadFinalDataOnScreen() {
         self.filterCollectionView.isUserInteractionEnabled = true
         self.filterButton.isEnabled = true
         self.mapButton.isEnabled = true
-        
+        self.searchButton.isEnabled = true
+
         if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
             delay(seconds: 1.0) { [weak self] in
                 HotelFilterVM.shared.ratingCount = HotelsSearchVM.hotelFormData.ratingCount
@@ -272,6 +274,8 @@ extension HotelResultVC: HotelResultDelegate {
     func getAllHotelsListResultFail(errors: ErrorCodes) {
         if errors.contains(array: [37]) {
             self.viewModel.hotelListOnResultFallback()
+        } else if errors.contains(ATErrorManager.LocalError.requestTimeOut.rawValue) {
+            self.noHotelFound()
         } else if errors.isEmpty {
             self.noHotelFound()
         }

@@ -107,11 +107,11 @@ extension HotelsMapVC {
     
     func animateCollectionView(isHidden: Bool, animated: Bool, completion: ((Bool) -> Void)? = nil) {
 //        self.collectionView.translatesAutoresizingMaskIntoConstraints = true
-        let hiddenFrame: CGRect = CGRect(x: collectionView.width, y: (UIDevice.screenHeight - collectionView.height), width: collectionView.width, height: collectionView.height)
+        let hiddenFrame: CGRect = CGRect(x: hotelsMapCV.width, y: (UIDevice.screenHeight - hotelsMapCV.height), width: hotelsMapCV.width, height: hotelsMapCV.height)
 //        let shownFrame: CGRect = CGRect(x: 0.0, y: (UIDevice.screenHeight - (collectionView.height + AppFlowManager.default.safeAreaInsets.bottom)), width: collectionView.width, height: collectionView.height)
         
         if !isHidden {
-            self.collectionView.isHidden = false
+            self.hotelsMapCV.isHidden = false
             self.floatingButtonBackView.isHidden = false
         }
         
@@ -127,7 +127,7 @@ extension HotelsMapVC {
             
             // vertical list animation
 //            sSelf.collectionViewLeadingConstraint.constant = isHidden ? -((hiddenFrame.width)) : 0.0
-            sSelf.collectionView.alpha = isHidden ? 0.0 : 1.0
+            sSelf.hotelsMapCV.alpha = isHidden ? 0.0 : 1.0
             sSelf.floatingViewInitialConstraint = isHidden ? 10.0 : (hiddenFrame.height)
             // floating buttons animation
             sSelf.floatingViewBottomConstraint.constant = isHidden ? 10.0 : (hiddenFrame.height)
@@ -145,7 +145,7 @@ extension HotelsMapVC {
             guard let sSelf = self else {return}
             if isHidden {
                 sSelf.floatingButtonBackView.isHidden = true
-                sSelf.collectionView.isHidden = true
+                sSelf.hotelsMapCV.isHidden = true
                 sSelf.relocateSwitchButton(shouldMoveUp: true, animated: true)
             }
             completion?(true)

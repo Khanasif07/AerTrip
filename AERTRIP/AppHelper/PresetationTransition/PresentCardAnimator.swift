@@ -75,9 +75,10 @@ final class PresentCardTransitionDriver {
     init(params: PresentCardAnimator.Params, transitionContext: UIViewControllerContextTransitioning, baseAnimator: UIViewPropertyAnimator) {
         let ctx = transitionContext
         let container = ctx.containerView
+        var cardVC = ctx.viewController(forKey: .to) as? HotelDetailsVC
         let screens: (home: HotelResultVC?, cardDetail: HotelDetailsVC) = (
             ctx.viewController(forKey: .from)! as? HotelResultVC,
-            ctx.viewController(forKey: .to)! as! HotelDetailsVC
+            (cardVC != nil) ? cardVC! :ctx.viewController(forKey: .to)?.children.first as! HotelDetailsVC
         )
         
         let cardDetailView = ctx.view(forKey: .to)!
@@ -129,7 +130,7 @@ final class PresentCardTransitionDriver {
                     return cardDetailView.centerYAnchor.constraint(equalTo: animatedContainerView.centerYAnchor)
                 case .fromTop:
 
-                    return cardDetailView.topAnchor.constraint(equalTo: animatedContainerView.topAnchor, constant: -1)
+                    return cardDetailView.topAnchor.constraint(equalTo: animatedContainerView.topAnchor, constant: 0.2)
                 }
             }()
             let cardConstraints = [
@@ -150,22 +151,15 @@ final class PresentCardTransitionDriver {
         params.fromCell.isHidden = true
         params.fromCell.resetTransform()
         let topTemporaryFix = screens.cardDetail.imageView.topAnchor.constraint(equalTo: cardDetailView.topAnchor, constant: 0)
-        topTemporaryFix.isActive = GlobalConstants.isEnabledWeirdTopInsetsFix
+//        topTemporaryFix.isActive = GlobalConstants.isEnabledWeirdTopInsetsFix
 
         container.layoutIfNeeded()
 
-        // ------------------------------
-        // 1. Animate container bouncing up
-        // ------------------------------
         func animateContainerBouncingUp() {
             animatedContainerVerticalConstraint.constant = 0
             container.layoutIfNeeded()
         }
 
-        // ------------------------------
-        // 2. Animate cardDetail filling up the container
-        // ------------------------------
-        
         func setupHeader(){
             let height = AppFlowManager.default.safeAreaInsets.bottom
             guard height > 0.0 else {return}
@@ -176,8 +170,6 @@ final class PresentCardTransitionDriver {
             cardWidthConstraint.constant = animatedContainerView.bounds.width
             cardHeightConstraint.constant = animatedContainerView.bounds.height
             cardDetailView.layer.cornerRadius = 0
-//            screens.cardDetail.imageView.isHidden = true
-//            screens.cardDetail.imageView.image = params.img
             setupHeader()
             container.layoutIfNeeded()
         }
@@ -195,7 +187,7 @@ final class PresentCardTransitionDriver {
             cardDetailView.removeConstraints([topTemporaryFix, cardWidthConstraint, cardHeightConstraint])
 
             // Keep -1 to be consistent with the weird bug above.
-            cardDetailView.edges(to: container, top: -1)
+            cardDetailView.edges(to: container, top: 0.2)
 
             // No longer need the bottom constraint that pins bottom of card content to its root.
 //            screens.cardDetail.cardBottomToRootBottomConstraint.isActive = false
