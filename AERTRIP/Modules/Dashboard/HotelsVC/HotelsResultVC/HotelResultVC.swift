@@ -27,7 +27,7 @@ let visualEffectViewHeight =  CGFloat(20)//CGFloat(200.0)
 
 
 
-class HotelResultVC: BaseVC {
+class HotelResultVC: StatusBarAnimatableViewController {
     
     // MARK: - IBOutlets
     // MARK: -
@@ -121,7 +121,9 @@ class HotelResultVC: BaseVC {
     
     var visualEffectView : UIVisualEffectView!
     var backView : UIView!
-    
+    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
+        return StatusBarAnimatableConfig(prefersHidden: false, animation: .slide)
+    }
     
     // Empty State view
     

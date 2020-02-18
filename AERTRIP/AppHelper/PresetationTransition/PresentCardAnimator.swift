@@ -129,7 +129,7 @@ final class PresentCardTransitionDriver {
                 case .fromCenter:
                     return cardDetailView.centerYAnchor.constraint(equalTo: animatedContainerView.centerYAnchor)
                 case .fromTop:
-
+                    // Keep -1 to be consistent with the weird bug above.
                     return cardDetailView.topAnchor.constraint(equalTo: animatedContainerView.topAnchor, constant: 0.2)
                 }
             }()

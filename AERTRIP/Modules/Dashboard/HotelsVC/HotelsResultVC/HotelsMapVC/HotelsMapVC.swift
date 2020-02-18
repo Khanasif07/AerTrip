@@ -37,7 +37,7 @@ class MapContainerView: UIView {
     }
 }
 
-class HotelsMapVC: BaseVC {
+class HotelsMapVC: StatusBarAnimatableViewController {
     
     // MARK: - IBOutlets
     // MARK: -
@@ -185,6 +185,9 @@ class HotelsMapVC: BaseVC {
     
     //Manage Transition Created by golu
     internal var transition: CardTransition?
+    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
+        return StatusBarAnimatableConfig(prefersHidden: false, animation: .slide)
+    }
     
     // MARK: - ViewLifeCycle
     

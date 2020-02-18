@@ -162,15 +162,6 @@ final class DismissCardAnimator: NSObject, UIViewControllerAnimatedTransitioning
         layer.add(animation, forKey: nil)
     }
     
-//    func animatedSwitch(layer:CALayer){
-//        let animation = CABasicAnimation(keyPath: "position")
-//        animation.fromValue = [-layer.bounds.maxX, layer.bounds.minY]
-//        animation.toValue = [0,layer.bounds.minY]
-//        animation.repeatCount = 0
-//        animation.duration = 1.4
-//        animation.autoreverses = false
-//        layer.add(animation, forKey: nil)
-//    }
     
 }
 
