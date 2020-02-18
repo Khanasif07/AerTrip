@@ -601,6 +601,7 @@ extension AppFlowManager {
         obj.viewModel.favouriteHotels = favouriteHotels
         obj.viewModel.u = pinnedTemplateUrl
         obj.viewModel.hotelSearchRequest = hotelSearchRequest
+        obj.modalPresentationStyle = .overFullScreen
         self.mainNavigationController.present(obj, animated: true)
     }
     
@@ -1089,6 +1090,7 @@ extension AppFlowManager {
         delay(seconds: 0.5, completion: { [weak self] in
             guard let _ = self else { return }
             
+            // for currentNavigation controller
             // after going to the Data selection screen remove login screen from navigation stack
             var updatedNavStack = AppFlowManager.default.currentNavigation?.viewControllers ?? []
             let navStack = AppFlowManager.default.currentNavigation?.viewControllers ?? []
@@ -1102,9 +1104,29 @@ extension AppFlowManager {
                     updatedNavStack.removeObject(obj)
                     isLoginFound = true
                 }
-                
+
                 if idx == (navStack.count - 1), (isSocialFound || isLoginFound) {
                     AppFlowManager.default.currentNavigation?.viewControllers = updatedNavStack
+                }
+            }
+            
+            // for mainnavigation controller
+            // after going to the Data selection screen remove login screen from navigation stack
+            var updatedNavStack2 = AppFlowManager.default.mainNavigationController?.viewControllers ?? []
+            let navStack2 = AppFlowManager.default.mainNavigationController?.viewControllers ?? []
+            var isSocialFound2 = false, isLoginFound2 = false
+            for (idx, obj) in navStack2.enumerated() {
+                if let _ = obj as? SocialLoginVC {
+                    updatedNavStack2.removeObject(obj)
+                    isSocialFound2 = true
+                }
+                else if let _ = obj as? LoginVC {
+                    updatedNavStack2.removeObject(obj)
+                    isLoginFound2 = true
+                }
+                
+                if idx == (navStack2.count - 1), (isSocialFound2 || isLoginFound2) {
+                    AppFlowManager.default.mainNavigationController?.viewControllers = updatedNavStack2
                 }
             }
         })
