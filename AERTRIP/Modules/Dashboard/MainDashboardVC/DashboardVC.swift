@@ -356,7 +356,8 @@ extension DashboardVC  {
             }
             
 //            printDebug("current progress \(progress)")
-            if scrollView.contentOffset.y - mainScrollViewOffset.y > 0 {
+//            Asif change, InnerCollView top Const is given 5 pixel ======================
+            if scrollView.contentOffset.y - mainScrollViewOffset.y >= 0 {
                 let valueMoved = scrollView.contentOffset.y - mainScrollViewOffset.y
                 let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
                 updateUpLabels(with: headerValueMoved)
@@ -561,7 +562,7 @@ extension DashboardVC  {
                 aerinView.alpha = max(aerinView.alpha - moved, 0.5)
                 flightsView.alpha = min(flightsView.alpha + moved, 1.0)
                 
-                if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height{
+                if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 5.0 {
                     checkAndApplyTransform(aerinView, transformValue: decreaseSize, scrolledUp: isForward)
                     checkAndApplyTransform(flightsView, transformValue: increaseSize, scrolledUp: isForward)
                 }
@@ -569,14 +570,14 @@ extension DashboardVC  {
             case .flight:
                 flightsView.alpha = max(flightsView.alpha - moved, 0.5)
                 hotelsView.alpha = min(hotelsView.alpha + moved, 1.0)
-                if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height{
+                if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 5.0 {
                     checkAndApplyTransform(flightsView, transformValue: decreaseSize, scrolledUp: isForward)
                     checkAndApplyTransform(hotelsView, transformValue: increaseSize, scrolledUp: isForward)
                 }
             case .hotels:
                 hotelsView.alpha = max(hotelsView.alpha - moved, 0.5)
                 tripsView.alpha = min(tripsView.alpha + moved, 1.0)
-                if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height{
+                if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 5.0 {
                     checkAndApplyTransform(hotelsView, transformValue: decreaseSize, scrolledUp: isForward)
                     checkAndApplyTransform(tripsView, transformValue: increaseSize, scrolledUp: isForward)
                 }
@@ -589,7 +590,7 @@ extension DashboardVC  {
                 flightsView.alpha = max(flightsView.alpha - moved, 0.5)
                 aerinView.alpha = min(aerinView.alpha + moved, 1.0)
                 
-                if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height{
+                if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 5.0 {
                     checkAndApplyTransform(flightsView, transformValue: decreaseSize, scrolledUp: isForward)
                     checkAndApplyTransform(aerinView, transformValue: increaseSize, scrolledUp: isForward)
                 }
@@ -597,8 +598,8 @@ extension DashboardVC  {
             case .flight:
                 hotelsView.alpha = max(hotelsView.alpha - moved, 0.5)
                 flightsView.alpha = min(flightsView.alpha + moved, 1.0)
-                
-                if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height{
+                // Asif Change ====================== ======================  ======================
+                if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height - 5.0 {
                     checkAndApplyTransform(hotelsView, transformValue: decreaseSize, scrolledUp: isForward)
                     checkAndApplyTransform(flightsView, transformValue: increaseSize, scrolledUp: isForward)
                 }
@@ -607,7 +608,7 @@ extension DashboardVC  {
                 tripsView.alpha = max(tripsView.alpha - moved, 0.5)
                 hotelsView.alpha = min(hotelsView.alpha + moved, 1.0)
                 
-                if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height{
+                if mainScrollView.contentOffset.y + mainScrollView.height < mainScrollView.contentSize.height -  5.0 {
                     checkAndApplyTransform(tripsView, transformValue: decreaseSize, scrolledUp: isForward)
                     checkAndApplyTransform(hotelsView, transformValue: increaseSize, scrolledUp: isForward)
                 }

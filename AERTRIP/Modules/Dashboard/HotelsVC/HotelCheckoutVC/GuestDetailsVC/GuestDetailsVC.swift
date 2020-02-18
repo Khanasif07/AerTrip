@@ -249,7 +249,9 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
             }
             cell.separatorView.isHidden = indexPath.row == 0
             cell.searchedText = self.searchText
+            if indexPath.row < self.travellers.count {
             cell.travellerModelData = self.travellers[indexPath.row]
+            }
             return cell
         }
     }
