@@ -727,7 +727,7 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QX9-ZE-4k9" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="J2y-mg-Iln"/>
@@ -748,7 +748,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s5X-Tk-Zas">
-                                <rect key="frame" x="189" y="50" width="36" height="4"/>
+                                <rect key="frame" x="189" y="6" width="36" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="36" id="4nX-1D-x63"/>
@@ -763,7 +763,7 @@
                             <constraint firstItem="0z1-4n-pet" firstAttribute="trailing" secondItem="ATu-nW-Keb" secondAttribute="trailing" id="3zk-f5-EvV"/>
                             <constraint firstItem="0z1-4n-pet" firstAttribute="trailing" secondItem="QX9-ZE-4k9" secondAttribute="trailing" id="6In-qN-aG7"/>
                             <constraint firstItem="0z1-4n-pet" firstAttribute="bottom" secondItem="U1u-Kv-brt" secondAttribute="bottom" id="BoR-KJ-znY"/>
-                            <constraint firstItem="QX9-ZE-4k9" firstAttribute="top" secondItem="0z1-4n-pet" secondAttribute="top" id="DIt-Dd-6yd"/>
+                            <constraint firstItem="QX9-ZE-4k9" firstAttribute="top" secondItem="Xxf-m8-3Kt" secondAttribute="top" id="DIt-Dd-6yd"/>
                             <constraint firstItem="dk1-hr-5ri" firstAttribute="trailing" secondItem="z5I-1I-YSb" secondAttribute="trailing" id="Iwc-dt-kYr"/>
                             <constraint firstItem="0z1-4n-pet" firstAttribute="bottom" secondItem="sFr-ut-Ggi" secondAttribute="bottom" id="KgX-Xt-hMY"/>
                             <constraint firstItem="z5I-1I-YSb" firstAttribute="leading" secondItem="0z1-4n-pet" secondAttribute="leading" id="O0o-uH-Ykb"/>

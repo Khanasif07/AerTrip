@@ -622,14 +622,22 @@ extension HotelsMapVC: GMSMapViewDelegate {
     }
     
     private func movetoDetailPage(data: HotelSearched) {
-        if let lat = data.lat, let long = data.long, let index = Array(self.viewModel.collectionViewList.keys).firstIndex(of: "\(lat),\(long)") {
+        if let lat = data.lat, let long = data.long, let index = Array(self.viewModel.collectionViewList.keys).firstIndex(of: "\(lat),\(long)") , let scrollIndex = self.viewModel.collectionViewLocArr.firstIndex(of: "\(lat),\(long)"){
             let index = IndexPath(item: index, section: 0)
             self.selectedIndexPath = index
             guard let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[index.item]] as? [HotelSearched] else {return}
+            self.hotelsMapCV.scrollToItem(at: IndexPath(item: scrollIndex, section: 0), at: .centeredHorizontally, animated: false)
+            self.hotelsMapCV.setNeedsDisplay()
             if hData.count > 1 {
                 self.expandGroup((self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[index.row]] as? [HotelSearched]) ?? [])
             } else {
-                AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: data, sourceView: self.hotelsMapCV, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+                delay(seconds: 0.2) {
+                    if let cell = self.hotelsMapCV.cellForItem(at: IndexPath(item: scrollIndex, section: 0)) as? HotelCardCollectionViewCell{
+                        self.presentController(cell: cell, hotelInfo: data, sid:  self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+                    }
+                }
+                
+//                AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: data, sourceView: self.hotelsMapCV, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
             }
         }
     }
