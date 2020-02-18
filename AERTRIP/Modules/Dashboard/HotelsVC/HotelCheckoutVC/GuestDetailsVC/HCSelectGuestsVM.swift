@@ -244,12 +244,16 @@ class HCSelectGuestsVM: NSObject {
     //MARK:-
     func search(forText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        perform(#selector(self.callSearch(_:)), with: forText, afterDelay: 0.5)        
+        if !_phoneContacts.isEmpty || !_googleContacts.isEmpty || !_facebookContacts.isEmpty || !self._travellerContacts.isEmpty {
+            perform(#selector(callSearch(_:)), with: forText, afterDelay: 0.5)
+        }
     }
+
     
     @objc private func callSearch(_ forText: String) {
         printDebug("search text: \(forText)")
         if let obj = self.delegateCollection as? BaseVC {
+            
             guard !forText.isEmpty else {
                 self.travellerContacts = self._travellerContacts
                 self.phoneContacts = self._phoneContacts
@@ -274,3 +278,4 @@ class HCSelectGuestsVM: NSObject {
         }
     }
 }
+
