@@ -12,7 +12,7 @@ protocol HotelDetailsVCDelegate : class {
     func hotelFavouriteUpdated()
 }
 
-class HotelDetailsVC: BaseVC {
+class HotelDetailsVC: StatusBarAnimatableViewController {
     
     //Mark:- Variables
     //================
@@ -190,10 +190,10 @@ class HotelDetailsVC: BaseVC {
         self.viewModel.delegate = self
     }
     //------------------------ Golu Change --------------------
-//    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
-//        return StatusBarAnimatableConfig(prefersHidden: true,
-//        animation: .slide)
-//    }
+    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
+        return StatusBarAnimatableConfig(prefersHidden: true,
+        animation: .slide)
+    }
     //------------------------ End --------------------
     override func dataChanged(_ note: Notification) {
         if let _ = note.object as? HCDataSelectionVC {
@@ -666,6 +666,7 @@ extension HotelDetailsVC{
            draggingDownToDismiss = false
         self.headerView.isHidden = false
         self.hotelTableView.showsVerticalScrollIndicator = true
+//        self.view.setNeedsDisplay()
        }
        
        // This handles both screen edge and dragdown pan. As screen edge pan is a subclass of pan gesture, this input param works.

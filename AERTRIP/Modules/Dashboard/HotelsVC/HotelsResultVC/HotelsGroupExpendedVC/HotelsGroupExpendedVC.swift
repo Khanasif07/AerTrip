@@ -156,8 +156,9 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        AppFlowManager.default.presentHotelDetailsVCOverExpendCard(self,hotelInfo: self.viewModel.samePlaceHotels[indexPath.item], sourceView: self.view, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest){
-            self.statusBarColor = AppColors.themeWhite
+        AppFlowManager.default.presentHotelDetailsVCOverExpendCard(self,hotelInfo: self.viewModel.samePlaceHotels[indexPath.item], sourceView: self.view, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest){[weak self] in
+            guard let self = self else {return}
+//            self.statusBarColor = AppColors.themeWhite
             self.selectedIndexPath = indexPath
         }
     }

@@ -45,6 +45,7 @@
 		18020B0A2282A74500DE5FE0 /* InternationalOneWayCardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18020B082282A74500DE5FE0 /* InternationalOneWayCardTableViewCell.xib */; };
 		18020B0D2282E1F200DE5FE0 /* AerinChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18020B0B2282E1F200DE5FE0 /* AerinChatTableViewCell.swift */; };
 		18020B0E2282E1F200DE5FE0 /* AerinChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18020B0C2282E1F200DE5FE0 /* AerinChatTableViewCell.xib */; };
+		18032DC223FA816A000B6A2F /* PassThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18032DC123FA816A000B6A2F /* PassThroughView.swift */; };
 		18038CF0226D90C000A4D1DD /* Aerin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18038CEF226D90C000A4D1DD /* Aerin.storyboard */; };
 		18038D13226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18038D11226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift */; };
 		18038D14226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18038D12226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.xib */; };
@@ -1043,6 +1044,7 @@
 		18020B082282A74500DE5FE0 /* InternationalOneWayCardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InternationalOneWayCardTableViewCell.xib; sourceTree = "<group>"; };
 		18020B0B2282E1F200DE5FE0 /* AerinChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerinChatTableViewCell.swift; sourceTree = "<group>"; };
 		18020B0C2282E1F200DE5FE0 /* AerinChatTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AerinChatTableViewCell.xib; sourceTree = "<group>"; };
+		18032DC123FA816A000B6A2F /* PassThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassThroughView.swift; sourceTree = "<group>"; };
 		18038CEF226D90C000A4D1DD /* Aerin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Aerin.storyboard; sourceTree = "<group>"; };
 		18038D11226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AerinSuggestionCollectionViewCell.swift; sourceTree = "<group>"; };
 		18038D12226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AerinSuggestionCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -2456,6 +2458,7 @@
 				1835E4FE23EAC1CC00F6EEA1 /* CardTransition.swift */,
 				1835E4FF23EAC1CC00F6EEA1 /* DismissCardAnimator.swift */,
 				1835E4FD23EAC1CC00F6EEA1 /* PresentCardAnimator.swift */,
+				18032DC123FA816A000B6A2F /* PassThroughView.swift */,
 			);
 			path = PresetationTransition;
 			sourceTree = "<group>";
@@ -5992,6 +5995,7 @@
 				842EDE892238E86C00E99409 /* HCCouponCodeVC.swift in Sources */,
 				841E75C82282E6BA003CE1CF /* AccountOutstandingLadgerVC+Delegates.swift in Sources */,
 				8445B52522A5299400DDBC7F /* SelectDateTableViewCell.swift in Sources */,
+				18032DC223FA816A000B6A2F /* PassThroughView.swift in Sources */,
 				84E4BC22229BA21100B72306 /* FlightBookingsDetailsVC.swift in Sources */,
 				18D4C412220AB572005E1E37 /* AmenitiesTableViewCell.swift in Sources */,
 				841DD1E72202DC690055FEBB /* DestinationMyLocationTableCell.swift in Sources */,
