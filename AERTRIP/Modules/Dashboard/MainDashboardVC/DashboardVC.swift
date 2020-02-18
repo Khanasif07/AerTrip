@@ -77,6 +77,7 @@ class DashboardVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         resetItems()
+        self.innerScrollView.isScrollEnabled = true
         headerTopConstraint.constant = UIApplication.shared.statusBarFrame.height
         aerinView.transform = .identity
         aerinView.alpha = 1.0
