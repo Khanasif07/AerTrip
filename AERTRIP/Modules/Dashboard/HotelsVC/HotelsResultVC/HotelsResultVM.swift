@@ -375,6 +375,7 @@ extension HotelsResultVM {
         let _adultsCount = self.searchedFormData.adultsCount
         let _starRating = self.searchedFormData.ratingCount
         let _chidrenAge = self.searchedFormData.childrenAge
+        let _chidrenCount = self.searchedFormData.childrenCounts
         params[APIKeys.check_in.rawValue] = self.searchedFormData.checkInDate
         params[APIKeys.check_out.rawValue] = self.searchedFormData.checkOutDate
         params[APIKeys.dest_id.rawValue] = self.searchedFormData.destId
@@ -382,6 +383,9 @@ extension HotelsResultVM {
         params[APIKeys.dest_name.rawValue] = self.searchedFormData.destName
         params[APIKeys.isPageRefereshed.rawValue] = true
         
+        params[APIKeys.lat.rawValue] = self.searchedFormData.lat
+        params[APIKeys.lng.rawValue] = self.searchedFormData.lng
+
         for (_ , data ) in _starRating.enumerated() {
             //            params["filter[star][\(idx)star]"] = true
             params["filter[star][\(data)star]"] = true
@@ -392,10 +396,17 @@ extension HotelsResultVM {
             params["r[\(idx)][a]"] = data
         }
         
+        printDebug(_chidrenCount)
+
         for (idx , dataX) in _chidrenAge.enumerated() {
+            let numberOfChildInRoom  = _chidrenCount[idx]
             for (idy , dataY) in dataX.enumerated() {
-                if dataY != 0 {
+                
+                if idy < numberOfChildInRoom {
+                
+//                if dataY != 0 {
                     params["r[\(idx)][c][\(idy)]"] = dataY
+//                }
                 }
             }
         }

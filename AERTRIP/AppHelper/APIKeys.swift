@@ -140,6 +140,7 @@ enum APIKeys: String {
     case long = "long"
     case amenities = "amenities"
     case title = "title"
+    case lng = "lng"
     
     //BulkBookings
     case source = "source"

@@ -102,7 +102,7 @@ extension HotelsMapVC {
         }
     }
     
-    func sowHotelOnMap(duration: Double, index: Int? = nil) {
+    func showHotelOnMap(duration: Double, index: Int? = nil) {
         delay(seconds: duration) { [weak self] in
             guard let strongSelf = self else {return}
             let indexOfMajorCell = index ?? strongSelf.indexOfMajorCell()
@@ -147,7 +147,9 @@ extension HotelsMapVC {
         var counter = 0
         var visibleMarkerList: [HotelMarker] = []
         
-        self.markersOnLocations.keys.forEach { [weak self] (locStr) in
+//        self.markersOnLocations.keys.forEach { [weak self] (locStr) in
+        self.viewModel.collectionViewLocArr.forEach { [weak self] (locStr) in
+
             guard let strongSelf = self else {return}
             if let marker = strongSelf.markersOnLocations[locStr] as? HotelMarker {
                 if strongSelf.isMarkerWithinScreen(markerPosition: marker.position) {
@@ -196,39 +198,39 @@ extension HotelsMapVC {
             let sortingApplied = self.viewModel.filterApplied.sortUsing
 
             
-            visibleMarkerList.sort { [weak self] (marker1, marker2) -> Bool in
-//                guard let strongSelf = self else {return false}
-                //                printDebug("hotel price")
-                //                printDebug(showPerNightPrice ? marker1.hotel?.perNightPrice : marker1.hotel?.price)
-                //                printDebug(showPerNightPrice ? marker2.hotel?.perNightPrice : marker2.hotel?.price)
-                //                printDebug("hotel distance")
-                //                printDebug((marker1.hotel?.distance ?? 0.0))
-                //                printDebug((marker2.hotel?.distance ?? 0.0))
-                if marker1.markerType == .clusterMarker || marker2.markerType == .clusterMarker {
-                    return true
-                }
-                switch sortingApplied {
-                case .PriceLowToHigh:
-                    let m1Price = showPerNightPrice ? (marker1.hotel?.perNightPrice ?? 0.0) : (marker1.hotel?.price ?? 0.0)
-                    let m2Price = showPerNightPrice ? (marker2.hotel?.perNightPrice ?? 0.0) : (marker2.hotel?.price ?? 0.0)
-                    return m1Price < m2Price
-                case .BestSellers:
-                    return (marker1.hotel?.bc ?? "") < (marker2.hotel?.bc ?? "")
-                case .StartRatingHighToLow:
-                    return (marker1.hotel?.star ?? 0.0) > (marker2.hotel?.star ?? 0.0)
-                case .TripAdvisorRatingHighToLow:
-                    return (marker1.hotel?.rating ?? 0.0) > (marker2.hotel?.rating ?? 0.0)
-                case .DistanceNearestFirst:
-                    return (marker1.hotel?.distance ?? 0.0) < (marker2.hotel?.distance ?? 0.0)
-                }
-//                if isDistanceFilterApplied {
-//                    return (marker1.hotel?.distance ?? 0.0) < (marker2.hotel?.distance ?? 0.0)
-//                } else {
+//            visibleMarkerList.sort { [weak self] (marker1, marker2) -> Bool in
+////                guard let strongSelf = self else {return false}
+//                //                printDebug("hotel price")
+//                //                printDebug(showPerNightPrice ? marker1.hotel?.perNightPrice : marker1.hotel?.price)
+//                //                printDebug(showPerNightPrice ? marker2.hotel?.perNightPrice : marker2.hotel?.price)
+//                //                printDebug("hotel distance")
+//                //                printDebug((marker1.hotel?.distance ?? 0.0))
+//                //                printDebug((marker2.hotel?.distance ?? 0.0))
+//                if marker1.markerType == .clusterMarker || marker2.markerType == .clusterMarker {
+//                    return true
+//                }
+//                switch sortingApplied {
+//                case .PriceLowToHigh:
 //                    let m1Price = showPerNightPrice ? (marker1.hotel?.perNightPrice ?? 0.0) : (marker1.hotel?.price ?? 0.0)
 //                    let m2Price = showPerNightPrice ? (marker2.hotel?.perNightPrice ?? 0.0) : (marker2.hotel?.price ?? 0.0)
 //                    return m1Price < m2Price
+//                case .BestSellers:
+//                    return (marker1.hotel?.bc ?? "") < (marker2.hotel?.bc ?? "")
+//                case .StartRatingHighToLow:
+//                    return (marker1.hotel?.star ?? 0.0) > (marker2.hotel?.star ?? 0.0)
+//                case .TripAdvisorRatingHighToLow:
+//                    return (marker1.hotel?.rating ?? 0.0) > (marker2.hotel?.rating ?? 0.0)
+//                case .DistanceNearestFirst:
+//                    return (marker1.hotel?.distance ?? 0.0) < (marker2.hotel?.distance ?? 0.0)
 //                }
-            }
+////                if isDistanceFilterApplied {
+////                    return (marker1.hotel?.distance ?? 0.0) < (marker2.hotel?.distance ?? 0.0)
+////                } else {
+////                    let m1Price = showPerNightPrice ? (marker1.hotel?.perNightPrice ?? 0.0) : (marker1.hotel?.price ?? 0.0)
+////                    let m2Price = showPerNightPrice ? (marker2.hotel?.perNightPrice ?? 0.0) : (marker2.hotel?.price ?? 0.0)
+////                    return m1Price < m2Price
+////                }
+//            }
             
             visibleMarkerList.forEach { [weak self] (marker) in
                 guard let strongSelf = self else {return}
@@ -561,7 +563,7 @@ extension HotelsMapVC: GMSMapViewDelegate {
                 }
             }
             animator.startAnimation()
-            self.sowHotelOnMap(duration: 0.4)
+            self.showHotelOnMap(duration: 0.4)
         }
         else {
             //hide collection view list

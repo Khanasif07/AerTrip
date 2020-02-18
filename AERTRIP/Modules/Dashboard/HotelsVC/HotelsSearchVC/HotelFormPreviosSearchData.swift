@@ -20,6 +20,8 @@ struct HotelFormPreviosSearchData: Codable {
     var destType: String = ""
     var stateName: String = ""
     var cityName: String = ""
+    var lat: String = ""
+    var lng: String = ""
     var ratingCount: [Int] = []
     var totalGuestCount: Int {
         let totalAd = adultsCount.reduce(0) { $0 + $1 }
@@ -53,6 +55,8 @@ struct HotelFormPreviosSearchData: Codable {
         self.destName       = ""
         self.stateName      = ""
         self.cityName       = ""
+        self.lat            = ""
+        self.lng            = ""
         self.ratingCount    = [1,2,3,4,5]
     }
     
@@ -69,6 +73,9 @@ struct HotelFormPreviosSearchData: Codable {
         case stateName
         case cityName
         case ratingCount
+        case lat
+        case lng
+
     }
     
     init(from decoder: Decoder) throws {
@@ -87,6 +94,9 @@ struct HotelFormPreviosSearchData: Codable {
         stateName = try values.decode(String.self, forKey: .stateName)
         cityName = try values.decode(String.self, forKey: .cityName)
         ratingCount = try values.decode([Int].self, forKey: .ratingCount)
+        lat = try values.decode(String.self, forKey: .lat)
+        lng = try values.decode(String.self, forKey: .lng)
+
     }
     
     func encode(to encoder: Encoder) throws {
@@ -103,5 +113,9 @@ struct HotelFormPreviosSearchData: Codable {
         try container.encode(stateName, forKey: .stateName)
         try container.encode(cityName, forKey: .cityName)
         try container.encode(ratingCount, forKey: .ratingCount)
+        try container.encode(lat, forKey: .lat)
+        try container.encode(lng, forKey: .lng)
+
     }
 }
+

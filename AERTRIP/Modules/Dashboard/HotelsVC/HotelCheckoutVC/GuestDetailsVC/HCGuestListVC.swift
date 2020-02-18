@@ -367,7 +367,6 @@ extension HCGuestListVC: EmptyScreenViewDelegate {
             sender.isLoading = true
             self.viewModel.fetchGoogleContacts(forVC: self, sender: sender)
         }
-        
     }
 }
 

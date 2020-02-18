@@ -159,7 +159,7 @@ extension HotelsMapVC {
         if drawMarkers {
             updateMarkers()
         }
-            self.sowHotelOnMap(duration: 0)
+            self.showHotelOnMap(duration: 0)
     }
     
     func searchForText(_ searchText: String, shouldPerformAction: Bool = true) {

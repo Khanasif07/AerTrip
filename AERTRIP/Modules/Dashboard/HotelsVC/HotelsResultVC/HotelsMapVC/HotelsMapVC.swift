@@ -293,7 +293,7 @@ class HotelsMapVC: BaseVC {
             self.selectedIndexPath = nil
             self.viewModel.getFavouriteHotels(shouldReloadData: true)
             self.updateMarkers()
-            self.sowHotelOnMap(duration: 0.4)
+            self.showHotelOnMap(duration: 0.4)
             //            updateFavouriteSuccess(isHotelFavourite: true)
         }
         else if let _ = note.object as? HCDataSelectionVC {

@@ -36,7 +36,9 @@ struct RecentSearchesModel {
     var filter: RecentSearchesFilter?
     var added_on:Int64 = 0
     var time_ago: String = ""
-    
+    var lat: String = ""
+    var lng: String = ""
+
     //Mark:- Initialization
     //=====================
     init() {
@@ -92,6 +94,14 @@ struct RecentSearchesModel {
                 if let dest_name = placeData[APIKeys.dest_name.rawValue] {
                     self.dest_name = "\(dest_name)".removeNull
                 }
+
+            }
+            
+            if let lat = obj[APIKeys.lat.rawValue] {
+                self.lat = "\(lat)".removeNull
+            }
+            if let lng = obj[APIKeys.lng.rawValue] {
+                self.lng = "\(lng)".removeNull
             }
             
             if let checkInDateData = obj[APIKeys.checkInDate.rawValue] as? JSONDictionary {

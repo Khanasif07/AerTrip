@@ -50,15 +50,16 @@ extension HotelsMapVC: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if viewModel.searchedHotels.count > 0 {
-            self.viewModel.fetchRequestType = .normal
-            self.animateHeaderToMapView()
-            self.hideSearchAnimation()
-            self.view.endEditing(true)
-            self.reloadHotelList()
-        } else {
-            return
-        }
+        self.view.endEditing(true)
+//        if viewModel.searchedHotels.count > 0 {
+//            self.viewModel.fetchRequestType = .normal
+//            self.animateHeaderToMapView()
+//            self.hideSearchAnimation()
+//            self.view.endEditing(true)
+//            self.reloadHotelList()
+//        } else {
+//            return
+//        }
     }
 }
 
@@ -227,7 +228,7 @@ extension HotelsMapVC: HotelResultDelegate {
         } else {
             self.updateFavOnList(forIndexPath: self.selectedIndexPath)
         }
-        self.sowHotelOnMap(duration: 0.4)
+        self.showHotelOnMap(duration: 0.4)
         
     }
     
@@ -261,7 +262,7 @@ extension HotelsMapVC: HotelResultDelegate {
             }
         }
         
-        self.sowHotelOnMap(duration: 0.4)
+        self.showHotelOnMap(duration: 0.4)
     }
     
     func getAllHotelsListResultSuccess(_ isDone: Bool) {

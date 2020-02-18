@@ -68,8 +68,6 @@ class HCDataSelectionVC: BaseVC {
     // MARK: -
     
     override func initialSetup() {
-        registerXIBs()
-        
         setupNavView()
         setUpIndicatorView()
         
@@ -90,6 +88,7 @@ class HCDataSelectionVC: BaseVC {
         setUpUserEmailMobile()
         
         setupGuestArray()
+        registerXIBs()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -684,7 +683,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 cell.editableTextField.isEnabled = UserInfo.loggedInUserId == nil
                 cell.editableTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.Email_ID.localized)
                 cell.delegate = self
-                cell.editableTextField.text = UserInfo.loggedInUser?.email
+                cell.editableTextField.text = viewModel.email
                 cell.editableTextField.font = AppFonts.Regular.withSize(18.0)
                 cell.editableTextField.textColor = UserInfo.loggedInUserId == nil ? AppColors.themeBlack : AppColors.themeGray40
                 cell.editableTextField.keyboardType = .emailAddress
@@ -772,6 +771,6 @@ extension HCDataSelectionVC: ContactTableCellDelegate {
     }
     
     func textFieldText(_ textField: UITextField) {
-        viewModel.mobileNumber = textField.text ?? ""
+        viewModel.mobileNumber = (textField.text ?? "").alphanumeric
     }
 }
