@@ -57,30 +57,30 @@ class HCSelectGuestsVM: NSObject {
     
     var phoneContacts: [ATContact] = [] {
         didSet {
-            phoneContacts.sort { (ct1, ct2) -> Bool in
-                ct1.fullName < ct2.fullName
-            }
+//            phoneContacts.sort { (ct1, ct2) -> Bool in
+//                ct1.fullName < ct2.fullName
+//            }
         }
     }
     var facebookContacts: [ATContact] = []{
         didSet {
-            facebookContacts.sort { (ct1, ct2) -> Bool in
-                ct1.fullName < ct2.fullName
-            }
+//            facebookContacts.sort { (ct1, ct2) -> Bool in
+//                ct1.fullName < ct2.fullName
+//            }
         }
     }
     var googleContacts: [ATContact] = []{
         didSet {
-            googleContacts.sort { (ct1, ct2) -> Bool in
-                ct1.fullName < ct2.fullName
-            }
+//            googleContacts.sort { (ct1, ct2) -> Bool in
+//                ct1.fullName < ct2.fullName
+//            }
         }
     }
     var travellerContacts: [ATContact] = []{
         didSet {
-            travellerContacts.sort { (ct1, ct2) -> Bool in
-                ct1.fullName < ct2.fullName
-            }
+//            travellerContacts.sort { (ct1, ct2) -> Bool in
+//                ct1.fullName < ct2.fullName
+//            }
         }
     }
     
@@ -244,10 +244,11 @@ class HCSelectGuestsVM: NSObject {
     //MARK:-
     func search(forText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        perform(#selector(callSearch(_:)), with: forText, afterDelay: 0.5)        
+        perform(#selector(self.callSearch(_:)), with: forText, afterDelay: 0.5)        
     }
     
     @objc private func callSearch(_ forText: String) {
+        printDebug("search text: \(forText)")
         if let obj = self.delegateCollection as? BaseVC {
             guard !forText.isEmpty else {
                 self.travellerContacts = self._travellerContacts
@@ -258,16 +259,16 @@ class HCSelectGuestsVM: NSObject {
                 return
             }
             self.travellerContacts = self._travellerContacts.filter({ (contact) -> Bool in
-                contact.fullName.contains(forText)
+                contact.fullName.lowercased().contains(forText.lowercased())
             })
             self.phoneContacts = self._phoneContacts.filter({ (contact) -> Bool in
-                contact.fullName.contains(forText)
+                contact.fullName.lowercased().contains(forText.lowercased())
             })
             self.facebookContacts = self._facebookContacts.filter({ (contact) -> Bool in
-                contact.fullName.contains(forText)
+                contact.fullName.lowercased().contains(forText.lowercased())
             })
             self.googleContacts = self._googleContacts.filter({ (contact) -> Bool in
-                contact.fullName.contains(forText)
+                contact.fullName.lowercased().contains(forText.lowercased())
             })
             obj.sendDataChangedNotification(data: Notification.searchDone)
         }

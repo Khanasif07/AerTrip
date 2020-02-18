@@ -141,6 +141,7 @@ class HCSelectGuestsVC: BaseVC {
 //        self.viewModel.selectedFacebookContacts.removeAll()
 //        self.viewModel.selectedGoogleContacts.removeAll()
         
+        self.searchBar.searchBarStyle = .default
         self.searchBar.delegate = self
         self.searchBar.placeholder = LocalizedString.search.localized
         
@@ -281,8 +282,9 @@ extension HCSelectGuestsVC: ATCategoryNavBarDelegate {
 
 extension HCSelectGuestsVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.viewModel.search(forText: searchText)
+        printDebug("textDidChange \(searchBar.text ?? "")")
         self.viewModel.searchText = searchBar.text ?? ""
+        self.viewModel.search(forText: searchText)
     }
 }
 

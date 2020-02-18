@@ -132,21 +132,18 @@ struct ATContact {
         }
         
         self.dob = contact.dob
-        var closureSelf = self
-        DispatchQueue.backgroundAsync {
             if let phone = contact.phoneNumbers.first {
-                closureSelf.contact = phone.value.stringValue
+                self.contact = phone.value.stringValue
                 do {
-                    let temp = try PhoneNumberKit().parse(closureSelf.contact)
-                    closureSelf.contact = "\(temp.nationalNumber)"
-                    closureSelf.isd = "+\(temp.countryCode)"
+                    let temp = try PhoneNumberKit().parse(self.contact)
+                    self.contact = "\(temp.nationalNumber)"
+                    self.isd = "+\(temp.countryCode)"
                 }
                 catch {
                     printDebug("not able to parse the number")
-                    closureSelf.contact = ""
+                    self.contact = ""
                 }
             }
-        }
         
         self.imageData = contact.imageData
     }
