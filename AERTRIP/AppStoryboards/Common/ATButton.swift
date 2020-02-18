@@ -206,7 +206,9 @@ class ATButton: UIButton {
     override func setImage(_ image: UIImage?, for state: UIControl.State) {
         super.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
         super.setImage(image?.withRenderingMode(.alwaysOriginal), for: .highlighted)
-        self.bringSubviewToFront(self.imageView!)
+        if !self.isLoading {
+            self.bringSubviewToFront(self.imageView!)
+        }
     }
     
     override func setTitleColor(_ color: UIColor?, for state: UIControl.State) {
@@ -278,12 +280,18 @@ class ATButton: UIButton {
         self.isUserInteractionEnabled = false
         self.loaderIndicator.center = self.loaderContainer.center
         self.bringSubviewToFront(self.loaderContainer)
+        if let imageView = self.imageView {
+            self.sendSubviewToBack(imageView)
+        }
     }
     
     private func stopLoading() {
         self.loaderContainer.isHidden = true
         self.isUserInteractionEnabled = true
         self.loaderIndicator.stopAnimating()
+        if let imageView = self.imageView {
+            self.bringSubviewToFront(imageView)
+        }
     }
     
     // decreased animation duration so that there  is  feel of pressed and released state .
