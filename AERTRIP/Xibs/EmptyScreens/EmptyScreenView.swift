@@ -354,9 +354,14 @@ extension EmptyScreenView {
     
     private func setUpNoResult() {
         //self.containerViewCenterYConstraint.constant = -125
-        self.containerView.center = self.contentView.center
+        //self.containerView.center = self.contentView.center
+        self.mainImageViewTopConstraint.constant = 35
         self.messageLabelTopConstraint.constant = 33
+        self.firstButtonTopConstraint.constant = 0
+        self.firstbuttonHeightConstraint.constant  = 0.0
+        self.firstButton.isHidden = true
         self.mainImageView.image = #imageLiteral(resourceName: "frequentFlyerEmpty")
+        self.firstButtonContainerView.isHidden = true
         self.backgroundColor = .blue
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.themeBlack

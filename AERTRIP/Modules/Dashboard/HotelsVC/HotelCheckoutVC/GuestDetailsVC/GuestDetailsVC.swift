@@ -267,7 +267,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView === self.guestDetailTableView {
-            return 95.0
+            return 95.5
         } else {
             return 44.0
         }

@@ -244,11 +244,15 @@ class HCSelectGuestsVM: NSObject {
     //MARK:-
     func search(forText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        perform(#selector(callSearch(_:)), with: forText, afterDelay: 0.5)        
+        if !_phoneContacts.isEmpty || !_googleContacts.isEmpty || !_facebookContacts.isEmpty || !self._travellerContacts.isEmpty {
+            perform(#selector(callSearch(_:)), with: forText, afterDelay: 0.5)
+        }
     }
+
     
     @objc private func callSearch(_ forText: String) {
         if let obj = self.delegateCollection as? BaseVC {
+            
             guard !forText.isEmpty else {
                 self.travellerContacts = self._travellerContacts
                 self.phoneContacts = self._phoneContacts
@@ -257,19 +261,30 @@ class HCSelectGuestsVM: NSObject {
                 obj.sendDataChangedNotification(data: Notification.searchDone)
                 return
             }
-            self.travellerContacts = self._travellerContacts.filter({ (contact) -> Bool in
-                contact.fullName.contains(forText)
-            })
-            self.phoneContacts = self._phoneContacts.filter({ (contact) -> Bool in
-                contact.fullName.contains(forText)
-            })
-            self.facebookContacts = self._facebookContacts.filter({ (contact) -> Bool in
-                contact.fullName.contains(forText)
-            })
-            self.googleContacts = self._googleContacts.filter({ (contact) -> Bool in
-                contact.fullName.contains(forText)
-            })
+            if !self._travellerContacts.isEmpty {
+                self.travellerContacts = self._travellerContacts.filter({ (contact) -> Bool in
+                    contact.fullName.contains(forText)
+                })
+            }
+            if !self._phoneContacts.isEmpty {
+                self.phoneContacts = self._phoneContacts.filter({ (contact) -> Bool in
+                    contact.fullName.contains(forText)
+                })
+            }
+            if !self._facebookContacts.isEmpty{
+                self.facebookContacts = self._facebookContacts.filter({ (contact) -> Bool in
+                    contact.fullName.contains(forText)
+                })
+                
+            }
+            if !self._googleContacts.isEmpty{
+                self.googleContacts = self._googleContacts.filter({ (contact) -> Bool in
+                    contact.fullName.contains(forText)
+                })
+            }
+           
             obj.sendDataChangedNotification(data: Notification.searchDone)
         }
     }
 }
+
