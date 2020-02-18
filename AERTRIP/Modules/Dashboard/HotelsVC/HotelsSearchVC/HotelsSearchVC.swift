@@ -740,11 +740,15 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
         if !hotel.city.isEmpty {
             self.cityNameLabel.text = hotel.city
             self.viewModel.searchedFormData.cityName = hotel.city
+            self.viewModel.searchedFormData.lat = hotel.latitude
+            self.viewModel.searchedFormData.lng = hotel.longitude
         } else {
             let newValue = hotel.value.components(separatedBy: ",")
             printDebug(newValue.first)
             self.cityNameLabel.text = newValue.first ?? ""
             self.viewModel.searchedFormData.cityName = newValue.first ?? ""
+            self.viewModel.searchedFormData.lat = hotel.latitude
+            self.viewModel.searchedFormData.lng = hotel.longitude
         }
         //Logic for after string
         var splittedStringArray = hotel.value.components(separatedBy: ",")
@@ -827,6 +831,9 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
         let stateName = splittedStringArray.joined(separator: ",")
         self.viewModel.searchedFormData.stateName = stateName
         printDebug("searching again for \(recentSearch.dest_name)")
+        self.viewModel.searchedFormData.lat = recentSearch.lat
+        self.viewModel.searchedFormData.lng = recentSearch.lng
+
         self.setDataFromPreviousSearch(olddata: self.viewModel.searchedFormData, isSettingForFirstTime: true)
         self.searchButtonAction(nil)
         //        HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData

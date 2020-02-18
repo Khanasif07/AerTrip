@@ -159,7 +159,7 @@ extension HotelsMapVC {
         if drawMarkers {
             updateMarkers()
         }
-            self.sowHotelOnMap(duration: 0)
+            self.showHotelOnMap(duration: 0)
     }
     
     func searchForText(_ searchText: String, shouldPerformAction: Bool = true) {
@@ -368,15 +368,22 @@ extension HotelsMapVC {
             
             
             
-            let pageSide =  self.pageSize.width
-            let offset =  hotelsMapCV.contentOffset.x
-            let currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
-    //        DispatchQueue.main.async {
-            self.manageForCollectionView(atIndex: currentPage)
+//            let pageSide =  self.pageSize.width
+//            let offset =  hotelsMapCV.contentOffset.x
+//            let currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
+//    //        DispatchQueue.main.async {
+//            self.manageForCollectionView(atIndex: currentPage)
 
     //        }
             
         }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView === self.hotelsMapCV else {return}
+          let pageSide =  self.pageSize.width
+                  let offset =  hotelsMapCV.contentOffset.x
+                  let currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
+                  self.manageForCollectionView(atIndex: currentPage)
+    }
     
     /// Get Star Rating
     private func getStarString(fromArr: [Int], maxCount: Int) -> String {

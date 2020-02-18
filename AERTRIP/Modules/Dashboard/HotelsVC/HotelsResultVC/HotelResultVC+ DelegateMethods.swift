@@ -49,14 +49,15 @@ extension HotelResultVC: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if viewModel.searchedHotels.count > 0 {
-            self.viewModel.fetchRequestType = .normal
-            self.hideSearchAnimation()
-            self.view.endEditing(true)
-            self.reloadHotelList()
-        } else {
-            return
-        }
+        self.view.endEditing(true)
+//        if viewModel.searchedHotels.count > 0 {
+//            self.viewModel.fetchRequestType = .normal
+//            self.hideSearchAnimation()
+//            self.view.endEditing(true)
+//            self.reloadHotelList()
+//        } else {
+//            return
+//        }
     }
 }
 

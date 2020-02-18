@@ -243,7 +243,8 @@ class HCSelectGuestsVC: BaseVC {
         var idxPath: IndexPath?
         for (section, roomGuest) in GuestDetailsVM.shared.guests.enumerated() {
             for (item, guest) in roomGuest.enumerated() {
-                if guest.firstName.isEmpty {
+                // guest.firstName.isEmpty change for issue http://gitlab.appinvent.in/aertrip/iOS/issues/1302
+                if guest.id.isEmpty {
                     idxPath = IndexPath(item: item, section: section)
                     break
                 }
