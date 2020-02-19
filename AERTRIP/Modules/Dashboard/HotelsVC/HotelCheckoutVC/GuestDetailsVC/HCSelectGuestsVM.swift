@@ -57,30 +57,30 @@ class HCSelectGuestsVM: NSObject {
     
     var phoneContacts: [ATContact] = [] {
         didSet {
-//            phoneContacts.sort { (ct1, ct2) -> Bool in
-//                ct1.fullName < ct2.fullName
-//            }
+            phoneContacts.sort { (ct1, ct2) -> Bool in
+                ct1.fullName < ct2.fullName
+            }
         }
     }
     var facebookContacts: [ATContact] = []{
         didSet {
-//            facebookContacts.sort { (ct1, ct2) -> Bool in
-//                ct1.fullName < ct2.fullName
-//            }
+            facebookContacts.sort { (ct1, ct2) -> Bool in
+                ct1.fullName < ct2.fullName
+            }
         }
     }
     var googleContacts: [ATContact] = []{
         didSet {
-//            googleContacts.sort { (ct1, ct2) -> Bool in
-//                ct1.fullName < ct2.fullName
-//            }
+            googleContacts.sort { (ct1, ct2) -> Bool in
+                ct1.fullName < ct2.fullName
+            }
         }
     }
     var travellerContacts: [ATContact] = []{
         didSet {
-//            travellerContacts.sort { (ct1, ct2) -> Bool in
-//                ct1.fullName < ct2.fullName
-//            }
+            travellerContacts.sort { (ct1, ct2) -> Bool in
+                ct1.fullName < ct2.fullName
+            }
         }
     }
     
