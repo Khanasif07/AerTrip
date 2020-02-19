@@ -16,6 +16,7 @@ protocol GuestDetailTableViewCellDelegate: class {
 class GuestDetailTableViewCell: UITableViewCell {
     // MARK: - IB Outlets
     
+    @IBOutlet weak var titleBottomConst: NSLayoutConstraint!
     @IBOutlet weak var guestTitleLabel: UILabel!
     @IBOutlet weak var firstNameTextField: PKFloatLabelTextField!
     @IBOutlet weak var lastNameTextField: PKFloatLabelTextField!

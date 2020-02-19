@@ -354,8 +354,8 @@ extension EmptyScreenView {
     
     private func setUpNoResult() {
         //self.containerViewCenterYConstraint.constant = -125
-        //self.containerView.center = self.contentView.center
-        self.mainImageViewTopConstraint.constant = 35
+        self.containerView.center = self.contentView.center
+        self.mainImageViewTopConstraint.constant = -25
         self.messageLabelTopConstraint.constant = 33
         self.firstButtonTopConstraint.constant = 0
         self.firstbuttonHeightConstraint.constant  = 0.0

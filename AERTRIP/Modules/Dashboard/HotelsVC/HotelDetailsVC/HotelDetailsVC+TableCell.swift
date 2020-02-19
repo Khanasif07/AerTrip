@@ -174,6 +174,7 @@ extension HotelDetailsVC {
             }
             else {
                 cell.allDetailsLabel.isHidden = true
+                cell.infoBtnOutlet.isHidden = false
                 cell.allDetailsLabel.attributedText = nil
             }
             cell.clipsToBounds = true

@@ -307,7 +307,7 @@ class AppGlobals {
         return blurEffectView
     }
     
-    func createParagraphAttribute(paragraphSpacingBefore: CGFloat = -2.5,isForNotes: Bool ) -> NSParagraphStyle {
+    func createParagraphAttribute(paragraphSpacingBefore: CGFloat = -2.5,isForNotes: Bool,lineSpacing : CGFloat =  0.0) -> NSParagraphStyle {
         var paragraphStyle: NSMutableParagraphStyle
         paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         paragraphStyle.tabStops = [NSTextTab(textAlignment: .left, location: 15, options: NSDictionary() as! [NSTextTab.OptionKey: Any])]
@@ -317,6 +317,7 @@ class AppGlobals {
         paragraphStyle.firstLineHeadIndent = 0
         paragraphStyle.headIndent = isForNotes ? 15 : 0
         paragraphStyle.alignment = .left
+        paragraphStyle.lineSpacing = lineSpacing
         paragraphStyle.paragraphSpacingBefore = paragraphSpacingBefore
         paragraphStyle.paragraphSpacing = paragraphStyle.paragraphSpacingBefore + 0.0
         return paragraphStyle
