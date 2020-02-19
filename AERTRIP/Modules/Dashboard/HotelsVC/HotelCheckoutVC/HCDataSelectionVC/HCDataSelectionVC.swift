@@ -592,7 +592,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 3:
                 // contact details text
-                return 54.0
+                return 37.0
                 
             case 4:
                 // mobile number
@@ -600,7 +600,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 5:
                 // email
-                return 60.0
+                return 61.0
                 
             case 6:
                 //text message
@@ -653,7 +653,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                     return UITableViewCell()
                 }
                 
-                cell.titleLabel.font = AppFonts.SemiBold.withSize(18.0)
+                cell.titleLabel.font = AppFonts.SemiBold.withSize(16.0)
                 cell.titleLabel.textColor = AppColors.themeBlack
                 cell.titleLabel.text = "Contact Details"
                 cell.topConstraint.constant = 16.0
