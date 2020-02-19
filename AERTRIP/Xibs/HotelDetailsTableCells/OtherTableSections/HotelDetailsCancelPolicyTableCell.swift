@@ -211,6 +211,8 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
             self.descriptionLabel.text = ""
             if let firstRefundableData = ratesData.penalty_array?.first {
                 self.attributeLabelSetUp(roomPrice: ratesData.price , toDate: firstRefundableData.to, fromDate: firstRefundableData.from, penalty: firstRefundableData.penalty)
+            } else {
+                self.infoBtnOutlet.isHidden = true
             }
         } else {
             self.textSetUpForCancellation(text: LocalizedString.NonRefundable.localized)
