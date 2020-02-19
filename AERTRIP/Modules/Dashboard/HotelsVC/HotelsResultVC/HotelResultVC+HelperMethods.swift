@@ -292,7 +292,7 @@ extension HotelResultVC {
             return
         }
         
-//        updateHeaderView(scrollView)
+       // updateHeaderView(scrollView)
         
     }
     
@@ -351,14 +351,23 @@ extension HotelResultVC {
         let maxBound = scrollView.contentSize.height - scrollView.height
         
         //        print(scrollView.panGestureRecognizer.velocity(in: self.view))
-        
+        if scrollView.contentSize.height <  scrollView.height {
+            self.headerContainerViewTopConstraint.constant = 0.0
+            return
+        }
         if 0.5 < abs(yPosition), abs(yPosition) < abs(maxBound) {
             //show with progress after header height scrolled up
             let newProg = self.oldScrollPosition.y - yPosition
-            let headrC = min(0,max(-96.0, (self.headerContainerViewTopConstraint.constant + newProg)))
+            var headrC = min(0,max(-140.0, (self.headerContainerViewTopConstraint.constant + newProg)))
+            if yPosition <= 100.0 {
+                headrC = 0.0
+            }
+            printDebug("header height: \(headrC)")
+            printDebug("headerContainerViewTopConstraint.constant: \(self.headerContainerViewTopConstraint.constant)")
             if headrC != self.headerContainerViewTopConstraint.constant {
                 self.headerContainerViewTopConstraint.constant = headrC
             }
+            
             
             //            let finalPos = 100.0 + headrC
             //            if finalPos != self.tableViewTopConstraint.constant {
