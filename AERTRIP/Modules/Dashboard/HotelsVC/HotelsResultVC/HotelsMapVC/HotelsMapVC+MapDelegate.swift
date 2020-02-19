@@ -548,8 +548,8 @@ extension HotelsMapVC: GMSMapViewDelegate {
             let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
                 guard let sSelf = self else {return}
                 sSelf.collectionViewBottomConstraint.constant = 0.0
-                sSelf.floatingViewBottomConstraint.constant = 203.0
-                sSelf.mapContainerViewBottomConstraint.constant = 203.0
+                sSelf.floatingViewBottomConstraint.constant = 183.0
+                sSelf.mapContainerViewBottomConstraint.constant = 183.0
                 sSelf.headerContainerViewTopConstraint.constant = 0.0
                 sSelf.mapContainerTopConstraint.constant = 50.0
                 sSelf.mapContainerView.layoutSubviews()
