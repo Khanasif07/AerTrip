@@ -122,10 +122,10 @@ class HCGuestListVC: BaseVC {
                 self.reloadList()
             }
             else if obj == .searchDone {
-                delay(seconds: 0.3) { [weak self] in
-                    guard let `self` = self else {
-                        return
-                    }
+//                delay(seconds: 0.3) { [weak self] in
+//                    guard let `self` = self else {
+//                        return
+//                    }
                     self.noResultemptyView.messageLabel.isHidden = false
                     self.noResultemptyView.messageLabel.text = "\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(self.viewModel.searchText)'"
                     self.noResultemptyView.messageLabel.numberOfLines = 0
@@ -145,7 +145,7 @@ class HCGuestListVC: BaseVC {
                         self.tableView?.backgroundView = self.noResultemptyView
                     }
                     self.reloadList()
-                }
+//                }
                
               
             }

@@ -250,7 +250,9 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
             }
             cell.separatorView.isHidden = indexPath.row == 0
             cell.searchedText = self.searchText
+            if indexPath.row < self.travellers.count {
             cell.travellerModelData = self.travellers[indexPath.row]
+            }
             return cell
         }
     }
@@ -265,7 +267,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView === self.guestDetailTableView {
-            return 95.0
+            return 95.5
         } else {
             return 44.0
         }

@@ -369,7 +369,7 @@ extension HotelsMapVC {
             marker.map = self.mapView
             marker.isFlat = true
             marker.tracksViewChanges = false
-            
+            marker.zIndex = 0
             self.markersOnLocations[self.getString(fromLocation: atLocation)] = marker
         }
     }
@@ -398,7 +398,7 @@ extension HotelsMapVC {
         marker.isFlat = true
         marker.tracksViewChanges = false
         marker.showHotelPrice = showHotelPrice
-        marker.zIndex = isSelected ? 1000 : 500
+        marker.zIndex = isSelected ? 1000 : 0
         self.markersOnLocations[self.getString(fromLocation: atLocation)] = marker
     }
     

@@ -72,7 +72,7 @@
                                                                         </constraints>
                                                                     </imageView>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_icon" translatesAutoresizingMaskIntoConstraints="NO" id="LF4-O1-qkJ">
-                                                                        <rect key="frame" x="58" y="53" width="22" height="22"/>
+                                                                        <rect key="frame" x="36" y="31" width="44" height="44"/>
                                                                     </imageView>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yiK-Nf-EB8">
                                                                         <rect key="frame" x="3" y="74" width="85" height="21"/>
@@ -165,16 +165,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_preferences" translatesAutoresizingMaskIntoConstraints="NO" id="TqL-5U-cR2">
-                                                    <rect key="frame" x="16" y="26.5" width="36" height="37"/>
+                                                    <rect key="frame" x="16" y="8" width="72" height="74"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZEv-u6-Ltz">
-                                                    <rect key="frame" x="68" y="25" width="262" height="20.5"/>
+                                                    <rect key="frame" x="104" y="25" width="186" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="251" text="Optionsl" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rn0-d3-WHq">
-                                                    <rect key="frame" x="68" y="45.5" width="262" height="20"/>
+                                                    <rect key="frame" x="104" y="45.5" width="186" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="rIH-8y-xoq"/>
                                                     </constraints>
@@ -183,7 +183,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightArrow" translatesAutoresizingMaskIntoConstraints="NO" id="haj-h5-8Cz">
-                                                    <rect key="frame" x="330" y="23" width="40" height="44"/>
+                                                    <rect key="frame" x="290" y="1" width="80" height="88"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -861,18 +861,18 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nEl-0z-3ye">
                                 <rect key="frame" x="3" y="194" width="372" height="56"/>
                                 <subviews>
-                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="JEh-49-fzM" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
+                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="2D9-P6-vGv" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="372" height="56"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="JEh-49-fzM" firstAttribute="top" secondItem="nEl-0z-3ye" secondAttribute="top" id="c3b-Z5-UAe"/>
-                                    <constraint firstItem="JEh-49-fzM" firstAttribute="leading" secondItem="nEl-0z-3ye" secondAttribute="leading" id="gos-jZ-Adf"/>
+                                    <constraint firstItem="2D9-P6-vGv" firstAttribute="leading" secondItem="nEl-0z-3ye" secondAttribute="leading" symbolic="YES" id="P22-Uh-cac"/>
+                                    <constraint firstItem="2D9-P6-vGv" firstAttribute="top" secondItem="nEl-0z-3ye" secondAttribute="top" symbolic="YES" id="RRw-MV-Mmx"/>
+                                    <constraint firstAttribute="bottom" secondItem="2D9-P6-vGv" secondAttribute="bottom" symbolic="YES" id="bIi-uk-9jV"/>
                                     <constraint firstAttribute="height" constant="56" id="nwb-rh-SPE"/>
-                                    <constraint firstAttribute="trailing" secondItem="JEh-49-fzM" secondAttribute="trailing" id="sII-Zo-Jdm"/>
-                                    <constraint firstAttribute="bottom" secondItem="JEh-49-fzM" secondAttribute="bottom" id="vIQ-1x-oUr"/>
+                                    <constraint firstAttribute="trailing" secondItem="2D9-P6-vGv" secondAttribute="trailing" symbolic="YES" id="zsm-oP-qhy"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Og-LG-RhV">
@@ -899,7 +899,7 @@
                     </view>
                     <connections>
                         <outlet property="listContainerView" destination="7Og-LG-RhV" id="tQb-Yj-a3V"/>
-                        <outlet property="searchBar" destination="JEh-49-fzM" id="Gac-1C-Bfk"/>
+                        <outlet property="searchBar" destination="2D9-P6-vGv" id="Vtt-kf-unl"/>
                         <outlet property="selectedContactsCollectionView" destination="DZr-3p-gGY" id="5WT-Z7-FNA"/>
                         <outlet property="selectedContactsContainerHeightConstraint" destination="T3m-yD-Z0i" id="XUa-be-BsR"/>
                         <outlet property="selectedContactsContainerView" destination="DeF-PF-r5i" id="uP3-fr-OFF"/>
