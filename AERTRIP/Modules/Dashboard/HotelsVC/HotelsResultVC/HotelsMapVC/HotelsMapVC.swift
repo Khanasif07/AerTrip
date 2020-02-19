@@ -341,7 +341,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         layout.scrollDirection = .horizontal
         layout.sideItemScale = 1.0
         layout.sideItemAlpha = 1.0
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 32, height: 192)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 20, height: 201)
     }
     // MARK: - Methods
     

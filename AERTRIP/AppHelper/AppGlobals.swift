@@ -277,11 +277,28 @@ class AppGlobals {
     func shareWithActivityViewController(VC: UIViewController, shareData: Any) {
         var sharingData = [Any]()
         sharingData.append(shareData)
+//        let activityViewController = UIActivityViewController(activityItems: sharingData, applicationActivities: nil)
+//        activityViewController.popoverPresentationController?.sourceView = VC.view
+//        UIApplication.shared.keyWindow?.tintColor = AppColors.themeGreen
+//        VC.present(activityViewController, animated: true, completion: nil)
+        
         let activityViewController = UIActivityViewController(activityItems: sharingData, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = VC.view
-        UIApplication.shared.keyWindow?.tintColor = AppColors.themeGreen
-        VC.present(activityViewController, animated: true, completion: nil)
-        printDebug(sharingData)
+        
+        let fakeViewController = UIViewController()
+        fakeViewController.modalPresentationStyle = .overFullScreen
+
+        activityViewController.completionWithItemsHandler = { [weak fakeViewController] _, _, _, _ in
+            if let presentingViewController = fakeViewController?.presentingViewController {
+                presentingViewController.dismiss(animated: false, completion: nil)
+            } else {
+                fakeViewController?.dismiss(animated: false, completion: nil)
+            }
+        }
+        VC.present(fakeViewController, animated: true) { [weak fakeViewController] in
+            fakeViewController?.present(activityViewController, animated: true, completion: nil)
+        }
+        
+    
     }
     
     ///GET TEXT SIZE
