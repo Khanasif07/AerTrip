@@ -1,5 +1,5 @@
 //
-//  HotelResultVC+CoreData.swift
+//  HotelsResultVM+CoreData.swift
 //  AERTRIP
 //
 //  Created by apple on 18/03/19.
