@@ -490,7 +490,7 @@ extension HotelsMapVC: GMSMapViewDelegate {
         guard let lat = mapView.myLocation?.coordinate.latitude,
             let lng = mapView.myLocation?.coordinate.longitude else { return false }
         
-        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lng, zoom: 20)
+        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lng, zoom: self.mapView?.camera.zoom ?? 20)
         mapView.animate(to: camera)
         
         return true
@@ -544,15 +544,16 @@ extension HotelsMapVC: GMSMapViewDelegate {
             //show collection view list
             self.isHidingOnMapTap = true
             self.isMapInFullView = false
-            self.currentLocationButton.isHidden = false
+            //self.currentLocationButton.isHidden = false
             let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
                 guard let sSelf = self else {return}
                 sSelf.collectionViewBottomConstraint.constant = 0.0
                 sSelf.floatingViewBottomConstraint.constant = 183.0
-                sSelf.mapContainerViewBottomConstraint.constant = 183.0
+                sSelf.mapContainerViewBottomConstraint.constant = 203.0
                 sSelf.headerContainerViewTopConstraint.constant = 0.0
                 sSelf.mapContainerTopConstraint.constant = 50.0
                 sSelf.mapContainerView.layoutSubviews()
+                sSelf.hotelsMapCV.backgroundColor = AppColors.clear
                 sSelf.view.layoutIfNeeded()
             }
             
@@ -569,7 +570,7 @@ extension HotelsMapVC: GMSMapViewDelegate {
             //hide collection view list
             self.isHidingOnMapTap = true
             self.isMapInFullView = true
-            self.currentLocationButton.isHidden = true
+            //self.currentLocationButton.isHidden = true
             if let loc = displayingHotelLocation {
                 self.updateMarker(atLocation: loc,isSelected: false)
             }
@@ -581,6 +582,7 @@ extension HotelsMapVC: GMSMapViewDelegate {
                 sSelf.headerContainerViewTopConstraint.constant = -300.0
                 sSelf.mapContainerTopConstraint.constant = 0.0
                 sSelf.mapContainerView.layoutSubviews()
+                sSelf.hotelsMapCV.backgroundColor = AppColors.themeWhite
                 sSelf.view.layoutIfNeeded()
             }
             
