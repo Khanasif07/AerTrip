@@ -602,7 +602,7 @@ extension AppFlowManager {
         obj.viewModel.u = pinnedTemplateUrl
         obj.viewModel.hotelSearchRequest = hotelSearchRequest
         obj.modalPresentationStyle = .overFullScreen
-        self.mainNavigationController.present(obj, animated: true)
+        self.currentNavigation?.present(obj, animated: true)
     }
     
     func presentSelectTripVC(delegate: SelectTripVCDelegate, usingFor: TripUsingFor = .hotel,allTrips: [TripModel] = [],tripInfo: TripInfo = TripInfo()) {
