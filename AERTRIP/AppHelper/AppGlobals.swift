@@ -14,7 +14,13 @@ import UIKit
 import EventKit
 
 func printDebug<T>(_ obj: T) {
-    print(obj)
+    if AppConstants.isReleasingToClient {
+        if UIDevice.isSimulator {
+            print(obj)
+        }
+    } else {
+        print(obj)
+    }
 }
 
 func + (left: NSAttributedString, right: NSAttributedString) -> NSAttributedString
