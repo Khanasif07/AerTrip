@@ -79,8 +79,12 @@ extension HotelsMapVC {
     func searchBarFrame(isInSearchMode: Bool) -> CGRect {
 //        return CGRect(x: isInSearchMode ? self.searchIntitialFrame.origin.x  - 2 :   self.searchIntitialFrame.origin.x + 20
 //            , y: self.searchIntitialFrame.origin.y, width: self.searchIntitialFrame.width - (isInSearchMode ? 64.0 : 100.0), height: 50)
-        return CGRect(x: isInSearchMode ? self.searchIntitialFrame.origin.x  - 2 :   self.searchIntitialFrame.origin.x + 20
-        , y: self.searchIntitialFrame.origin.y, width: self.searchIntitialFrame.width - (20), height: 50)
+//        return CGRect(x: isInSearchMode ? self.searchIntitialFrame.origin.x  - 2 :   self.searchIntitialFrame.origin.x + 20
+//        , y: self.searchIntitialFrame.origin.y, width: self.searchIntitialFrame.width - (20), height: 50)
+        //Golu Change
+        return CGRect(x: isInSearchMode ? self.searchIntitialFrame.origin.x + 3 :   self.searchIntitialFrame.origin.x + 25
+        , y: self.searchIntitialFrame.origin.y - 2, width: self.searchIntitialFrame.width - (20), height: 50)
+        
     }
     
     func showSearchAnimation() {

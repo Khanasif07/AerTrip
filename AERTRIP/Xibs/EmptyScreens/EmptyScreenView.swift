@@ -356,7 +356,7 @@ extension EmptyScreenView {
         //self.containerViewCenterYConstraint.constant = -125
         self.containerView.center = self.contentView.center
         self.mainImageViewTopConstraint.constant = -25
-        self.messageLabelTopConstraint.constant = 33
+        self.messageLabelTopConstraint.constant = 39
         self.firstButtonTopConstraint.constant = 0
         self.firstbuttonHeightConstraint.constant  = 0.0
         self.firstButton.isHidden = true
