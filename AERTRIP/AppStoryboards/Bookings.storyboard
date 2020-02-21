@@ -116,24 +116,6 @@ with us!</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upcoming_emptystate" translatesAutoresizingMaskIntoConstraints="NO" id="ClA-V5-sy2">
-                                <rect key="frame" x="20" y="30" width="335" height="295"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="295" id="8J2-I8-KEJ"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no upcoming bookings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rcw-m7-Ivf">
-                                <rect key="frame" x="40" y="328" width="297" height="28"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New destinations are awaiting " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKW-QK-qii">
-                                <rect key="frame" x="52" y="362" width="271" height="23"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="RQQ-OT-0Mc" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -150,26 +132,14 @@ with us!</string>
                             <constraint firstItem="RQQ-OT-0Mc" firstAttribute="top" secondItem="2RR-RX-Udd" secondAttribute="top" id="2YW-gA-fDu"/>
                             <constraint firstItem="yJB-4e-z2V" firstAttribute="top" secondItem="RQQ-OT-0Mc" secondAttribute="bottom" id="6YI-2s-Hpz"/>
                             <constraint firstItem="RQQ-OT-0Mc" firstAttribute="trailing" secondItem="xaN-iU-Qc4" secondAttribute="trailing" id="OqZ-Ny-vX2"/>
-                            <constraint firstItem="ClA-V5-sy2" firstAttribute="top" secondItem="xaN-iU-Qc4" secondAttribute="top" constant="30" id="PTF-P5-OXb"/>
-                            <constraint firstItem="dKW-QK-qii" firstAttribute="top" secondItem="rcw-m7-Ivf" secondAttribute="bottom" constant="6" id="YEN-JY-hmo"/>
-                            <constraint firstItem="xaN-iU-Qc4" firstAttribute="trailing" secondItem="rcw-m7-Ivf" secondAttribute="trailing" constant="38" id="ak0-XZ-77a"/>
                             <constraint firstItem="yJB-4e-z2V" firstAttribute="leading" secondItem="xaN-iU-Qc4" secondAttribute="leading" id="cEp-0d-Lbc"/>
-                            <constraint firstItem="xaN-iU-Qc4" firstAttribute="trailing" secondItem="ClA-V5-sy2" secondAttribute="trailing" constant="20" id="d3l-Q7-hbt"/>
-                            <constraint firstItem="rcw-m7-Ivf" firstAttribute="leading" secondItem="xaN-iU-Qc4" secondAttribute="leading" constant="40" id="fV5-yJ-S0f"/>
-                            <constraint firstItem="dKW-QK-qii" firstAttribute="leading" secondItem="xaN-iU-Qc4" secondAttribute="leading" constant="52" id="lSr-tW-jjK"/>
-                            <constraint firstItem="xaN-iU-Qc4" firstAttribute="trailing" secondItem="dKW-QK-qii" secondAttribute="trailing" constant="52" id="m1n-z4-bCz"/>
                             <constraint firstItem="xaN-iU-Qc4" firstAttribute="bottom" secondItem="yJB-4e-z2V" secondAttribute="bottom" id="tc3-Pi-kgL"/>
-                            <constraint firstItem="ClA-V5-sy2" firstAttribute="leading" secondItem="xaN-iU-Qc4" secondAttribute="leading" constant="20" id="uJN-1z-UF4"/>
-                            <constraint firstItem="rcw-m7-Ivf" firstAttribute="top" secondItem="ClA-V5-sy2" secondAttribute="bottom" constant="3" id="uh8-qW-ctQ"/>
                             <constraint firstItem="RQQ-OT-0Mc" firstAttribute="leading" secondItem="xaN-iU-Qc4" secondAttribute="leading" id="wAL-oV-bha"/>
                             <constraint firstItem="xaN-iU-Qc4" firstAttribute="trailing" secondItem="yJB-4e-z2V" secondAttribute="trailing" id="zlU-DH-akn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xaN-iU-Qc4"/>
                     </view>
                     <connections>
-                        <outlet property="emptyStateImageView" destination="ClA-V5-sy2" id="yAA-k8-5Kq"/>
-                        <outlet property="emptyStateSubTitleLabel" destination="dKW-QK-qii" id="oTp-ZG-b2J"/>
-                        <outlet property="emptyStateTitleLabel" destination="rcw-m7-Ivf" id="dma-ST-3Eo"/>
                         <outlet property="footerHeightConstraint" destination="Odz-xm-XTx" id="D3d-ZR-6ys"/>
                         <outlet property="footerView" destination="yJB-4e-z2V" id="uTD-aJ-ahT"/>
                         <outlet property="upcomingBookingsTableView" destination="RQQ-OT-0Mc" id="3SP-o8-154"/>
@@ -959,24 +929,6 @@ with us!</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="booking_Emptystate" translatesAutoresizingMaskIntoConstraints="NO" id="t65-YV-zCP">
-                                <rect key="frame" x="20" y="30" width="335" height="295"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="295" id="Cn4-GQ-YeU"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no upcoming bookings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hvt-dm-F92">
-                                <rect key="frame" x="16" y="328" width="343" height="28"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New destinations are awaiting " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVj-hn-MK3">
-                                <rect key="frame" x="52" y="362" width="271" height="23"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="wk4-Oa-osq" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -991,29 +943,17 @@ with us!</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="UJl-PL-qc9" firstAttribute="bottom" secondItem="Juw-B5-Gbd" secondAttribute="bottom" id="APy-bq-snr"/>
-                            <constraint firstItem="UJl-PL-qc9" firstAttribute="trailing" secondItem="Hvt-dm-F92" secondAttribute="trailing" constant="16" id="AoC-qf-GVJ"/>
-                            <constraint firstItem="Hvt-dm-F92" firstAttribute="leading" secondItem="UJl-PL-qc9" secondAttribute="leading" constant="16" id="DfO-tS-Pmj"/>
-                            <constraint firstItem="t65-YV-zCP" firstAttribute="top" secondItem="UJl-PL-qc9" secondAttribute="top" constant="30" id="Gkq-XE-oOj"/>
                             <constraint firstItem="Juw-B5-Gbd" firstAttribute="top" secondItem="wk4-Oa-osq" secondAttribute="bottom" id="MYd-J2-wW8"/>
                             <constraint firstItem="wk4-Oa-osq" firstAttribute="top" secondItem="XM9-zn-vyq" secondAttribute="top" id="Z7N-fV-3sF"/>
-                            <constraint firstItem="UJl-PL-qc9" firstAttribute="trailing" secondItem="PVj-hn-MK3" secondAttribute="trailing" constant="52" id="eb1-iE-Fve"/>
                             <constraint firstItem="wk4-Oa-osq" firstAttribute="trailing" secondItem="UJl-PL-qc9" secondAttribute="trailing" id="f5u-sj-XdG"/>
-                            <constraint firstItem="Hvt-dm-F92" firstAttribute="top" secondItem="t65-YV-zCP" secondAttribute="bottom" constant="3" id="g4J-8Y-I25"/>
                             <constraint firstItem="wk4-Oa-osq" firstAttribute="leading" secondItem="UJl-PL-qc9" secondAttribute="leading" id="hum-5Z-VFL"/>
-                            <constraint firstItem="UJl-PL-qc9" firstAttribute="trailing" secondItem="t65-YV-zCP" secondAttribute="trailing" constant="20" id="jzg-tp-111"/>
                             <constraint firstItem="Juw-B5-Gbd" firstAttribute="leading" secondItem="UJl-PL-qc9" secondAttribute="leading" id="ofq-Xj-Vi0"/>
-                            <constraint firstItem="t65-YV-zCP" firstAttribute="leading" secondItem="UJl-PL-qc9" secondAttribute="leading" constant="20" id="q4W-Gu-bpm"/>
-                            <constraint firstItem="PVj-hn-MK3" firstAttribute="top" secondItem="Hvt-dm-F92" secondAttribute="bottom" constant="6" id="saJ-Ol-rgd"/>
                             <constraint firstItem="UJl-PL-qc9" firstAttribute="trailing" secondItem="Juw-B5-Gbd" secondAttribute="trailing" id="ux5-vx-hkt"/>
-                            <constraint firstItem="PVj-hn-MK3" firstAttribute="leading" secondItem="UJl-PL-qc9" secondAttribute="leading" constant="52" id="wg2-N2-fBk"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UJl-PL-qc9"/>
                     </view>
                     <connections>
                         <outlet property="completedBookingsTableView" destination="wk4-Oa-osq" id="wGk-tI-tgS"/>
-                        <outlet property="emptyStateImageView" destination="t65-YV-zCP" id="IGA-Ad-wbT"/>
-                        <outlet property="emptyStateSubTitleLabel" destination="PVj-hn-MK3" id="5Mz-US-A8C"/>
-                        <outlet property="emptyStateTitleLabel" destination="Hvt-dm-F92" id="OZo-fO-I1X"/>
                         <outlet property="footerHeightConstraint" destination="DlL-zj-3mf" id="7VA-G2-kAg"/>
                         <outlet property="footerView" destination="Juw-B5-Gbd" id="f1e-bD-Kmi"/>
                     </connections>
@@ -1030,24 +970,6 @@ with us!</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="booking_Emptystate" translatesAutoresizingMaskIntoConstraints="NO" id="5hb-iD-4pJ">
-                                <rect key="frame" x="20" y="30" width="335" height="295"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="295" id="ZcD-cP-vc9"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no upcoming bookings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LKL-iS-CZy">
-                                <rect key="frame" x="40" y="328" width="297" height="28"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New destinations are awaiting " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWI-Gk-Xcg">
-                                <rect key="frame" x="52" y="362" width="271" height="23"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="5Hn-Yh-dpb" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1065,26 +987,14 @@ with us!</string>
                             <constraint firstItem="7fh-Fm-4L9" firstAttribute="leading" secondItem="eap-pT-189" secondAttribute="leading" id="3pb-me-nAE"/>
                             <constraint firstItem="5Hn-Yh-dpb" firstAttribute="leading" secondItem="eap-pT-189" secondAttribute="leading" id="59x-0c-xdm"/>
                             <constraint firstItem="eap-pT-189" firstAttribute="bottom" secondItem="7fh-Fm-4L9" secondAttribute="bottom" id="BTn-Zu-M6j"/>
-                            <constraint firstItem="xWI-Gk-Xcg" firstAttribute="leading" secondItem="eap-pT-189" secondAttribute="leading" constant="52" id="M0E-d5-HG0"/>
                             <constraint firstItem="5Hn-Yh-dpb" firstAttribute="top" secondItem="OgQ-nb-cxN" secondAttribute="top" id="REP-Jo-gjg"/>
-                            <constraint firstItem="LKL-iS-CZy" firstAttribute="leading" secondItem="eap-pT-189" secondAttribute="leading" constant="40" id="aZK-J5-dap"/>
-                            <constraint firstItem="eap-pT-189" firstAttribute="trailing" secondItem="xWI-Gk-Xcg" secondAttribute="trailing" constant="52" id="alS-Qv-bza"/>
-                            <constraint firstItem="5hb-iD-4pJ" firstAttribute="leading" secondItem="eap-pT-189" secondAttribute="leading" constant="20" id="cMO-9y-yWr"/>
-                            <constraint firstItem="LKL-iS-CZy" firstAttribute="top" secondItem="5hb-iD-4pJ" secondAttribute="bottom" constant="3" id="fCX-IU-Zju"/>
                             <constraint firstItem="7fh-Fm-4L9" firstAttribute="top" secondItem="5Hn-Yh-dpb" secondAttribute="bottom" id="j5x-2e-P2d"/>
-                            <constraint firstItem="eap-pT-189" firstAttribute="trailing" secondItem="LKL-iS-CZy" secondAttribute="trailing" constant="38" id="l1T-m5-2dl"/>
-                            <constraint firstItem="5hb-iD-4pJ" firstAttribute="top" secondItem="eap-pT-189" secondAttribute="top" constant="30" id="m74-C9-H2k"/>
-                            <constraint firstItem="xWI-Gk-Xcg" firstAttribute="top" secondItem="LKL-iS-CZy" secondAttribute="bottom" constant="6" id="nNf-RK-rRs"/>
                             <constraint firstItem="eap-pT-189" firstAttribute="trailing" secondItem="7fh-Fm-4L9" secondAttribute="trailing" id="r6R-rv-xUL"/>
-                            <constraint firstItem="eap-pT-189" firstAttribute="trailing" secondItem="5hb-iD-4pJ" secondAttribute="trailing" constant="20" id="sHr-FQ-Dd0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eap-pT-189"/>
                     </view>
                     <connections>
                         <outlet property="cancelledBookingsTableView" destination="5Hn-Yh-dpb" id="MzE-Uo-2TD"/>
-                        <outlet property="emptyStateImageView" destination="5hb-iD-4pJ" id="497-EW-NPm"/>
-                        <outlet property="emptyStateSubTitleLabel" destination="xWI-Gk-Xcg" id="TN0-Cd-WUU"/>
-                        <outlet property="emptyStateTitleLabel" destination="LKL-iS-CZy" id="Nbd-iW-DpL"/>
                         <outlet property="footerHeightConstraint" destination="h2D-qZ-1bB" id="rnk-1h-zhb"/>
                         <outlet property="footerView" destination="7fh-Fm-4L9" id="hKD-mJ-nVv"/>
                     </connections>
@@ -2477,6 +2387,5 @@ with us!</string>
         <image name="blackDownArrow" width="9" height="6"/>
         <image name="booking_Emptystate" width="337" height="287"/>
         <image name="greenCircleButton" width="22" height="22"/>
-        <image name="upcoming_emptystate" width="335" height="295"/>
     </resources>
 </document>

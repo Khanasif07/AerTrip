@@ -16,9 +16,6 @@ class CancelledVC: BaseVC {
     
     // Mark:- IBOutlets
     //================
-    @IBOutlet weak var emptyStateImageView: UIImageView!
-    @IBOutlet weak var emptyStateTitleLabel: UILabel!
-    @IBOutlet weak var emptyStateSubTitleLabel: UILabel!
     @IBOutlet weak var cancelledBookingsTableView: UITableView! {
         didSet {
             self.cancelledBookingsTableView.delegate = self
@@ -50,6 +47,29 @@ class CancelledVC: BaseVC {
         return fetchedResultsController
     }()
     
+    // Empty State view
+    // No Result Found empty View
+    lazy var noCanceledBookingResultemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noCanceledBooking
+        return newEmptyView
+    }()
+    
+    // No Pending Found empty View
+    lazy var noPendingActionmFoundEmptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noPendingAction
+        return newEmptyView
+    }()
+    
+    
+    // Not Search Found Empty View
+    lazy var noResultemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noResult
+        return newEmptyView
+    }()
+    
     // Mark:- LifeCycle
     //================
     override func viewDidLoad() {
@@ -57,30 +77,9 @@ class CancelledVC: BaseVC {
     }
     
     override func initialSetup() {
-        self.emptyStateImageView.isUserInteractionEnabled = false
-        self.emptyStateTitleLabel.isUserInteractionEnabled = false
-        self.emptyStateSubTitleLabel.isUserInteractionEnabled = false
-        
         self.registerXibs()
         self.loadSaveData(isForFirstTime: MyBookingFilterVM.shared.searchText.isEmpty)
 //        self.reloadList(isFirstTimeLoading: true)
-    }
-    
-    override func setupTexts() {
-        self.emptyStateImageView.image = #imageLiteral(resourceName: "upcoming_emptystate")
-        self.emptyStateTitleLabel.text = LocalizedString.YouHaveNoCancelledBookings.localized
-        self.emptyStateSubTitleLabel.text = LocalizedString.NewDestinationsAreAwaiting.localized
-    }
-    
-    override func setupFonts() {
-        self.emptyStateTitleLabel.font = AppFonts.Regular.withSize(22.0)
-        self.emptyStateSubTitleLabel.font = AppFonts.Regular.withSize(18.0)
-    }
-    
-    override func setupColors() {
-        self.emptyStateTitleLabel.textColor = AppColors.themeBlack
-        self.emptyStateSubTitleLabel.textColor = AppColors.themeGray60
-        self.cancelledBookingsTableView.backgroundColor = AppColors.themeWhite
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -127,18 +126,22 @@ class CancelledVC: BaseVC {
     }
     
     private func emptyStateSetUp() {
-        self.emptyStateTitleLabel?.text = self.isOnlyPendingAction ? LocalizedString.YouHaveNoPendingAction.localized : LocalizedString.YouHaveNoCancelledBookings.localized
         if let sections = self.fetchedResultsController.sections, !sections.isEmpty {
-            self.emptyStateImageView?.isHidden = true
-            self.emptyStateTitleLabel?.isHidden = true
-            self.emptyStateSubTitleLabel?.isHidden = true
-            self.cancelledBookingsTableView?.isHidden = false
-        }
-        else {
-            self.emptyStateImageView?.isHidden = false
-            self.emptyStateTitleLabel?.isHidden = false
-            self.emptyStateSubTitleLabel?.isHidden = false
-            self.cancelledBookingsTableView?.isHidden = true
+            self.cancelledBookingsTableView.backgroundView = nil
+        } else {
+            let emptyView: UIView?
+            if MyBookingFilterVM.shared.searchText.isEmpty {
+                if self.isOnlyPendingAction {
+                    emptyView = noPendingActionmFoundEmptyView
+                } else {
+                    emptyView = noCanceledBookingResultemptyView
+                }
+            } else {
+                noResultemptyView.searchTextLabel.isHidden = false
+                noResultemptyView.searchTextLabel.text = "for \(MyBookingFilterVM.shared.searchText.quoted)"
+                emptyView = noResultemptyView
+            }
+            self.cancelledBookingsTableView.backgroundView = emptyView
         }
     }
     

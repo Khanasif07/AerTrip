@@ -33,6 +33,11 @@ class EmptyScreenView: UIView {
         case noAccountTransection
         case noStatementGenrated
         case noAccountResult
+        case noUpCommingBooking
+        case noPendingAction
+        case noCompletedBooking
+        case noCanceledBooking
+        
     }
     
     //MARK:- properties -
@@ -173,7 +178,20 @@ extension EmptyScreenView {
             
         case .noAccountResult :
             self.setupForNoAccountResult()
+            
+        case .noUpCommingBooking :
+            self.setUpNoUpCommingBooking()
+            
+        case .noPendingAction:
+            self.setUpNoPendingAction()
+            
+        case .noCompletedBooking:
+            self.setUpNoCompletedBooking()
+            
+        case .noCanceledBooking:
+            self.setUpNoCanceledBooking()
         }
+        
     }
     
     private func hideFirstButton(isHidden: Bool) {
@@ -235,7 +253,7 @@ extension EmptyScreenView {
     
     private func setupForNoTraveller() {
         self.hideFirstButton(isHidden: true)
-
+        
         self.mainImageView.image = #imageLiteral(resourceName: "ic_no_traveller")
         
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
@@ -250,7 +268,7 @@ extension EmptyScreenView {
     
     private func setupForNoTravellerWithAddButton() {
         self.hideFirstButton(isHidden: true)
-
+        
         self.mainImageView.image = #imageLiteral(resourceName: "ic_no_traveller")
         
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
@@ -284,7 +302,7 @@ extension EmptyScreenView {
     
     private func setupForImportPhoneContacts() {
         self.hideFirstButton(isHidden: false)
-
+        
         
         self.firstButton.setTitle(LocalizedString.AllowContacts.localized, for: .normal)
         self.firstButton.setTitle(LocalizedString.AllowContacts.localized, for: .selected)
@@ -335,15 +353,15 @@ extension EmptyScreenView {
         self.firstButton.setTitleColor(AppColors.themeBlack, for: .normal)
         self.firstButton.setTitleColor(AppColors.themeBlack, for: .selected)
         
-              self.firstButton.setTitleFont(font: AppFonts.Regular.withSize(16.0), for: .normal)
+        self.firstButton.setTitleFont(font: AppFonts.Regular.withSize(16.0), for: .normal)
         
         self.firstButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .normal)
         self.firstButton.setImage(#imageLiteral(resourceName: "google").withRenderingMode(.alwaysOriginal), for: .selected)
         self.firstButton.layer.cornerRadius = self.firstButton.height / 2.0
         self.firstButton.shadowColor = AppColors.clear
         self.firstButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
-       
-
+        
+        
         self.firstButton.isSocial = true
         
         self.mainImageView.image = #imageLiteral(resourceName: "googleEmpty")
@@ -376,7 +394,7 @@ extension EmptyScreenView {
         self.messageLabel.font = AppFonts.Regular.withSize(22.0)
         self.messageLabel.textColor = AppColors.themeBlack
         self.messageLabel.attributedText = getAttributedBoldText(text: LocalizedString.NoHotelFound.localized, boldText: LocalizedString.NoHotelFoundMessage.localized)
-       
+        
     }
     
     private func setUpNoHotelFoundOnFilter() {
@@ -395,7 +413,81 @@ extension EmptyScreenView {
         attString.addAttributes([
             .font: AppFonts.Regular.withSize(18.0),
             .foregroundColor: AppColors.themeGray60
-            ], range:(text as NSString).range(of: boldText))
+        ], range:(text as NSString).range(of: boldText))
         return attString
     }
+    
+    private func setUpNoUpCommingBooking() {
+        //self.containerViewCenterYConstraint.constant = -125
+        self.containerView.center = self.contentView.center
+        self.mainImageViewTopConstraint.constant = -25
+        self.messageLabelTopConstraint.constant = 39
+        self.firstButtonTopConstraint.constant = 0
+        self.firstbuttonHeightConstraint.constant  = 0.0
+        self.firstButton.isHidden = true
+        self.mainImageView.image = #imageLiteral(resourceName: "upcoming_emptystate")
+        self.firstButtonContainerView.isHidden = true
+        self.backgroundColor = .blue
+        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+        self.messageLabel.textColor = AppColors.themeBlack
+        let message = LocalizedString.YouHaveNoUpcomingBookings.localized + "\n" + LocalizedString.NewDestinationsAreAwaiting.localized
+        self.messageLabel.text = message
+        self.messageLabel.AttributedFontAndColorForText(atributedText: LocalizedString.NewDestinationsAreAwaiting.localized, textFont: AppFonts.Regular.withSize(18.0), textColor: AppColors.themeGray60)
+    }
+    
+    private func setUpNoPendingAction() {
+        //self.containerViewCenterYConstraint.constant = -125
+        self.containerView.center = self.contentView.center
+        self.mainImageViewTopConstraint.constant = -25
+        self.messageLabelTopConstraint.constant = 39
+        self.firstButtonTopConstraint.constant = 0
+        self.firstbuttonHeightConstraint.constant  = 0.0
+        self.firstButton.isHidden = true
+        self.mainImageView.image = #imageLiteral(resourceName: "upcoming_emptystate")
+        self.firstButtonContainerView.isHidden = true
+        self.backgroundColor = .blue
+        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+        self.messageLabel.textColor = AppColors.themeBlack
+        let message = LocalizedString.YouHaveNoPendingAction.localized + "\n" + LocalizedString.NewDestinationsAreAwaiting.localized
+        self.messageLabel.text = message
+        self.messageLabel.AttributedFontAndColorForText(atributedText: LocalizedString.NewDestinationsAreAwaiting.localized, textFont: AppFonts.Regular.withSize(18.0), textColor: AppColors.themeGray60)
+    }
+    
+    private func setUpNoCompletedBooking() {
+        //self.containerViewCenterYConstraint.constant = -125
+        self.containerView.center = self.contentView.center
+        self.mainImageViewTopConstraint.constant = -25
+        self.messageLabelTopConstraint.constant = 39
+        self.firstButtonTopConstraint.constant = 0
+        self.firstbuttonHeightConstraint.constant  = 0.0
+        self.firstButton.isHidden = true
+        self.mainImageView.image = #imageLiteral(resourceName: "upcoming_emptystate")
+        self.firstButtonContainerView.isHidden = true
+        self.backgroundColor = .blue
+        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+        self.messageLabel.textColor = AppColors.themeBlack
+        let message = LocalizedString.YouHaveNoCompletedBookings.localized + "\n" + LocalizedString.NewDestinationsAreAwaiting.localized
+        self.messageLabel.text = message
+        self.messageLabel.AttributedFontAndColorForText(atributedText: LocalizedString.NewDestinationsAreAwaiting.localized, textFont: AppFonts.Regular.withSize(18.0), textColor: AppColors.themeGray60)
+    }
+    
+    private func setUpNoCanceledBooking() {
+        //self.containerViewCenterYConstraint.constant = -125
+        self.containerView.center = self.contentView.center
+        self.mainImageViewTopConstraint.constant = -25
+        self.messageLabelTopConstraint.constant = 39
+        self.firstButtonTopConstraint.constant = 0
+        self.firstbuttonHeightConstraint.constant  = 0.0
+        self.firstButton.isHidden = true
+        self.mainImageView.image = #imageLiteral(resourceName: "upcoming_emptystate")
+        self.firstButtonContainerView.isHidden = true
+        self.backgroundColor = .blue
+        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+        self.messageLabel.textColor = AppColors.themeBlack
+        let message = LocalizedString.YouHaveNoCancelledBookings.localized + "\n" + LocalizedString.NewDestinationsAreAwaiting.localized
+        self.messageLabel.text = message
+        self.messageLabel.AttributedFontAndColorForText(atributedText: LocalizedString.NewDestinationsAreAwaiting.localized, textFont: AppFonts.Regular.withSize(18.0), textColor: AppColors.themeGray60)
+    }
 }
+
+

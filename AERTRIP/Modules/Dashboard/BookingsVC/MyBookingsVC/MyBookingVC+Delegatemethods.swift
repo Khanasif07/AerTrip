@@ -17,8 +17,8 @@ extension MyBookingsVC: UISearchBarDelegate {
     
     @objc private func search(_ forText: String) {
         printDebug(forText)
+        MyBookingFilterVM.shared.searchText = forText.removeLeadingTrailingWhitespaces
         self.sendDataChangedNotification(data: ATNotification.myBookingSearching)
-        MyBookingFilterVM.shared.searchText = forText
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

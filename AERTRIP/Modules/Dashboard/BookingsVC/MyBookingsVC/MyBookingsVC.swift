@@ -20,7 +20,7 @@ class MyBookingsVC: BaseVC {
     private var allChildVCs :[UIViewController] = []
     
     private var previousOffset = CGPoint.zero
-    
+    private var isBookingApiRunned = false
     // Mark:- IBOutlets
     //================
     @IBOutlet weak var topNavBar: TopNavigationView! {
@@ -83,7 +83,11 @@ class MyBookingsVC: BaseVC {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        MyBookingsVM.shared.getBookings()
+        super.viewDidAppear(animated)
+        if !isBookingApiRunned {
+            isBookingApiRunned = true
+            MyBookingsVM.shared.getBookings()
+        }
     }
     override func setupFonts() {
         self.topNavBar.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)

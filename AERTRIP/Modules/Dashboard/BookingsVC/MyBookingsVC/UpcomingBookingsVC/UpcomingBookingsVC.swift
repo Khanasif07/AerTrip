@@ -15,13 +15,10 @@ class UpcomingBookingsVC: BaseVC {
     //================
     let viewModel = UpcomingBookingsVM()
     var subpredicates: [NSPredicate] = []
-
+    
     
     //Mark:- IBOutlets
     //================
-    @IBOutlet weak var emptyStateImageView: UIImageView!
-    @IBOutlet weak var emptyStateTitleLabel: UILabel!
-    @IBOutlet weak var emptyStateSubTitleLabel: UILabel!
     @IBOutlet weak var upcomingBookingsTableView: UITableView! {
         didSet {
             self.upcomingBookingsTableView.delegate = self
@@ -50,40 +47,39 @@ class UpcomingBookingsVC: BaseVC {
         self.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "dateHeader", ascending: true), NSSortDescriptor(key: "bookingProductType", ascending: false), NSSortDescriptor(key: "bookingId", ascending: true)]
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "dateHeader", cacheName: nil)
-
+        
         return fetchedResultsController
     }()
     
+    // Empty State view
+    // No Result Found empty View
+    lazy var noUpCommingBookingResultemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noUpCommingBooking
+        return newEmptyView
+    }()
+    
+    // No Pending Found empty View
+    lazy var noPendingActionmFoundEmptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noPendingAction
+        return newEmptyView
+    }()
+    
+    
+    // Not Search Found Empty View
+    lazy var noResultemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noResult
+        return newEmptyView
+    }()
     
     //Mark:- LifeCycle
     //================
-   
+    
     override func initialSetup() {
-        
-        self.emptyStateImageView.isUserInteractionEnabled = false
-        self.emptyStateTitleLabel.isUserInteractionEnabled = false
-        self.emptyStateSubTitleLabel.isUserInteractionEnabled = false
-        
         self.registerXibs()
         self.loadSaveData(isForFirstTime: MyBookingFilterVM.shared.searchText.isEmpty)
-//        self.reloadList(isFirstTimeLoading: true)
-    }
-    
-    override func setupTexts() {
-        self.emptyStateImageView.image = #imageLiteral(resourceName: "upcoming_emptystate")
-        self.emptyStateTitleLabel.text = LocalizedString.YouHaveNoUpcomingBookings.localized
-        self.emptyStateSubTitleLabel.text = LocalizedString.NewDestinationsAreAwaiting.localized
-    }
-    
-    override func setupFonts() {
-        self.emptyStateTitleLabel.font = AppFonts.Regular.withSize(22.0)
-        self.emptyStateSubTitleLabel.font = AppFonts.Regular.withSize(18.0)
-    }
-    
-    override func setupColors() {
-        self.emptyStateTitleLabel.textColor = AppColors.themeBlack
-        self.emptyStateSubTitleLabel.textColor = AppColors.themeGray60
-        self.upcomingBookingsTableView.backgroundColor = AppColors.themeWhite
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -106,22 +102,22 @@ class UpcomingBookingsVC: BaseVC {
         self.emptyStateSetUp()
     }
     
-//    func reloadTable() {
-//        delay(seconds: 0.2) { [weak self] in
-//              self?.reloadAndScrollToTop()
-//        }
-//    }
+    //    func reloadTable() {
+    //        delay(seconds: 0.2) { [weak self] in
+    //              self?.reloadAndScrollToTop()
+    //        }
+    //    }
     
     func reloadTable() {
         self.upcomingBookingsTableView?.reloadData()
     }
     
-//    func reloadAndScrollToTop() {
-//        self.upcomingBookingsTableView.reloadData()
-//        self.upcomingBookingsTableView.layoutIfNeeded()
-//        self.upcomingBookingsTableView.setContentOffset(.zero, animated: false)
-//
-//    }
+    //    func reloadAndScrollToTop() {
+    //        self.upcomingBookingsTableView.reloadData()
+    //        self.upcomingBookingsTableView.layoutIfNeeded()
+    //        self.upcomingBookingsTableView.setContentOffset(.zero, animated: false)
+    //
+    //    }
     
     private func registerXibs() {
         self.upcomingBookingsTableView.registerCell(nibName: OthersBookingTableViewCell.reusableIdentifier)
@@ -130,18 +126,25 @@ class UpcomingBookingsVC: BaseVC {
         self.upcomingBookingsTableView.register(DateTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "DateTableHeaderView")
     }
     
-     func emptyStateSetUp() {
-        self.emptyStateTitleLabel?.text = self.isOnlyPendingAction ? LocalizedString.YouHaveNoPendingAction.localized : LocalizedString.YouHaveNoUpcomingBookings.localized
+    func emptyStateSetUp() {
         if let sections = self.fetchedResultsController.sections, !sections.isEmpty {
-            self.emptyStateImageView?.isHidden = true
-            self.emptyStateTitleLabel?.isHidden = true
-            self.emptyStateSubTitleLabel?.isHidden = true
-            self.upcomingBookingsTableView?.isHidden = false
+            self.upcomingBookingsTableView.backgroundView = nil
+            //            self.upcomingBookingsTableView?.isHidden = false
         } else {
-            self.emptyStateImageView?.isHidden = false
-            self.emptyStateTitleLabel?.isHidden = false
-            self.emptyStateSubTitleLabel?.isHidden = false
-            self.upcomingBookingsTableView?.isHidden = true
+            let emptyView: UIView?
+            if MyBookingFilterVM.shared.searchText.isEmpty {
+                if self.isOnlyPendingAction {
+                    emptyView = noPendingActionmFoundEmptyView
+                } else {
+                    emptyView = noUpCommingBookingResultemptyView
+                }
+            } else {
+                noResultemptyView.searchTextLabel.isHidden = false
+                noResultemptyView.searchTextLabel.text = "for \(MyBookingFilterVM.shared.searchText.quoted)"
+                emptyView = noResultemptyView
+            }
+            self.upcomingBookingsTableView.backgroundView = emptyView
+            //            self.upcomingBookingsTableView?.isHidden = true
         }
     }
     
@@ -166,7 +169,7 @@ class UpcomingBookingsVC: BaseVC {
 
 
 extension UpcomingBookingsVC {
-
+    
     internal func getSpaceCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SpaceTableViewCell.reusableIdentifier, for: indexPath) as? SpaceTableViewCell else { return UITableViewCell() }
         cell.backgroundColor = AppColors.themeWhite

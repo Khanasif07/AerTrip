@@ -17,9 +17,6 @@ class CompletedVC: BaseVC {
     
     //Mark:- IBOutlets
     //================
-    @IBOutlet weak var emptyStateImageView: UIImageView!
-    @IBOutlet weak var emptyStateTitleLabel: UILabel!
-    @IBOutlet weak var emptyStateSubTitleLabel: UILabel!
     @IBOutlet weak var completedBookingsTableView: UITableView! {
         didSet {
             self.completedBookingsTableView.delegate = self
@@ -37,51 +34,31 @@ class CompletedVC: BaseVC {
         }
     }
     @IBOutlet weak var footerHeightConstraint: NSLayoutConstraint!
-
     
-    //Mark:- LifeCycle
-    //================
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
+    // Empty State view
+    // No Result Found empty View
+    lazy var noCompletedBookingResultemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noCompletedBooking
+        return newEmptyView
+    }()
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
+    // No Pending Found empty View
+    lazy var noPendingActionmFoundEmptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noPendingAction
+        return newEmptyView
+    }()
     
-    override func initialSetup() {
-        
-        self.emptyStateImageView.isUserInteractionEnabled = false
-        self.emptyStateTitleLabel.isUserInteractionEnabled = false
-        self.emptyStateSubTitleLabel.isUserInteractionEnabled = false
-        
-        self.registerXibs()
-        self.loadSaveData(isForFirstTime: MyBookingFilterVM.shared.searchText.isEmpty)
-//        self.reloadList(isFirstTimeLoading: true)
-    }
     
-    override func setupTexts() {
-        self.emptyStateImageView.image = #imageLiteral(resourceName: "upcoming_emptystate")
-        self.emptyStateTitleLabel.text = LocalizedString.YouHaveNoCompletedBookings.localized
-        self.emptyStateSubTitleLabel.text = LocalizedString.NewDestinationsAreAwaiting.localized
-    }
+    // Not Search Found Empty View
+    lazy var noResultemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noResult
+        return newEmptyView
+    }()
     
-    override func setupFonts() {
-        self.emptyStateTitleLabel.font = AppFonts.Regular.withSize(22.0)
-        self.emptyStateSubTitleLabel.font = AppFonts.Regular.withSize(18.0)
-    }
     
-    override func setupColors() {
-        self.emptyStateTitleLabel.textColor = AppColors.themeBlack
-        self.emptyStateSubTitleLabel.textColor = AppColors.themeGray60
-        self.completedBookingsTableView.backgroundColor = AppColors.themeWhite
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        
-        self.dismissKeyboard()
-    }
     
     var isOnlyPendingAction: Bool = false
     
@@ -94,6 +71,28 @@ class CompletedVC: BaseVC {
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: self.fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "dateHeader", cacheName: nil)
         return fetchedResultsController
     }()
+    
+    //Mark:- LifeCycle
+        //================
+        override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+            super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            super.init(coder: aDecoder)
+        }
+        
+        override func initialSetup() {
+            self.registerXibs()
+            self.loadSaveData(isForFirstTime: MyBookingFilterVM.shared.searchText.isEmpty)
+    //        self.reloadList(isFirstTimeLoading: true)
+        }
+        
+        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            super.touchesBegan(touches, with: event)
+            
+            self.dismissKeyboard()
+        }
     
     //Mark:- Functions
     //================
@@ -134,23 +133,24 @@ class CompletedVC: BaseVC {
     }
     
     private func emptyStateSetUp() {
-        self.emptyStateTitleLabel?.text = self.isOnlyPendingAction ? LocalizedString.YouHaveNoPendingAction.localized : LocalizedString.YouHaveNoCompletedBookings.localized
         if let sections = self.fetchedResultsController.sections, !sections.isEmpty {
-            self.emptyStateImageView?.isHidden = true
-            self.emptyStateTitleLabel?.isHidden = true
-            self.emptyStateSubTitleLabel?.isHidden = true
-            self.completedBookingsTableView?.isHidden = false
+            self.completedBookingsTableView.backgroundView = nil
+        } else {
+            let emptyView: UIView?
+            if MyBookingFilterVM.shared.searchText.isEmpty {
+                if self.isOnlyPendingAction {
+                    emptyView = noPendingActionmFoundEmptyView
+                } else {
+                    emptyView = noCompletedBookingResultemptyView
+                }
+            } else {
+                noResultemptyView.searchTextLabel.isHidden = false
+                noResultemptyView.searchTextLabel.text = "for \(MyBookingFilterVM.shared.searchText.quoted)"
+                emptyView = noResultemptyView
+            }
+            self.completedBookingsTableView.backgroundView = emptyView
         }
-        else {
-            self.emptyStateImageView?.isHidden = false
-            self.emptyStateTitleLabel?.isHidden = false
-            self.emptyStateSubTitleLabel?.isHidden = false
-            self.completedBookingsTableView?.isHidden = true
-        }
-        
-    
     }
-    
     
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
