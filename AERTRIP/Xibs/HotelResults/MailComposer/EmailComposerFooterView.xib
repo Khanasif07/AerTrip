@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,20 +27,20 @@
                             </state>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7io-eN-eus" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="67" width="375" height="0.5"/>
+                            <rect key="frame" x="0.0" y="69" width="375" height="0.5"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="0.5" id="ljp-sP-m1r"/>
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Fx-JZ-fqP">
-                            <rect key="frame" x="16" y="91.5" width="343" height="20.5"/>
+                            <rect key="frame" x="16" y="95.5" width="343" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fJb-Cm-eXE">
-                            <rect key="frame" x="143" y="136" width="88" height="25"/>
+                            <rect key="frame" x="143" y="140" width="88" height="24.5"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mri-tp-2dc">
                                     <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
@@ -59,7 +57,7 @@
                             </subviews>
                         </stackView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQU-Se-DTN">
-                            <rect key="frame" x="16" y="191" width="343" height="20.5"/>
+                            <rect key="frame" x="16" y="186.5" width="343" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -75,14 +73,14 @@
                         <constraint firstItem="YU8-2B-ElD" firstAttribute="top" secondItem="gI7-8o-Pk3" secondAttribute="top" constant="8" id="OMj-TN-68K"/>
                         <constraint firstItem="fJb-Cm-eXE" firstAttribute="leading" secondItem="gI7-8o-Pk3" secondAttribute="leading" constant="143" id="TfM-4D-I8G"/>
                         <constraint firstItem="7Fx-JZ-fqP" firstAttribute="leading" secondItem="gI7-8o-Pk3" secondAttribute="leading" constant="16" id="YM6-KZ-Lis"/>
-                        <constraint firstItem="7Fx-JZ-fqP" firstAttribute="top" secondItem="7io-eN-eus" secondAttribute="bottom" constant="24" id="gwM-Wf-zsK"/>
-                        <constraint firstItem="7io-eN-eus" firstAttribute="top" secondItem="YU8-2B-ElD" secondAttribute="bottom" constant="24" id="hn3-az-PBJ"/>
+                        <constraint firstItem="7Fx-JZ-fqP" firstAttribute="top" secondItem="7io-eN-eus" secondAttribute="bottom" constant="26" id="gwM-Wf-zsK"/>
+                        <constraint firstItem="7io-eN-eus" firstAttribute="top" secondItem="YU8-2B-ElD" secondAttribute="bottom" constant="26" id="hn3-az-PBJ"/>
                         <constraint firstItem="hQU-Se-DTN" firstAttribute="leading" secondItem="gI7-8o-Pk3" secondAttribute="leading" constant="16" id="lZx-8O-4Lp"/>
                         <constraint firstAttribute="trailing" secondItem="hQU-Se-DTN" secondAttribute="trailing" constant="16" id="mrX-oT-a16"/>
                         <constraint firstAttribute="trailing" secondItem="YU8-2B-ElD" secondAttribute="trailing" constant="138" id="o4E-CW-7p5"/>
                         <constraint firstAttribute="trailing" secondItem="7io-eN-eus" secondAttribute="trailing" id="rAe-MH-a3f"/>
-                        <constraint firstAttribute="bottom" secondItem="hQU-Se-DTN" secondAttribute="bottom" constant="20.5" id="wUE-5d-vjE"/>
-                        <constraint firstItem="hQU-Se-DTN" firstAttribute="top" secondItem="fJb-Cm-eXE" secondAttribute="bottom" constant="30" id="yUy-Tm-eMY"/>
+                        <constraint firstAttribute="bottom" secondItem="hQU-Se-DTN" secondAttribute="bottom" constant="25" id="wUE-5d-vjE"/>
+                        <constraint firstItem="hQU-Se-DTN" firstAttribute="top" secondItem="fJb-Cm-eXE" secondAttribute="bottom" constant="22" id="yUy-Tm-eMY"/>
                     </constraints>
                 </view>
             </subviews>
@@ -101,6 +99,7 @@
                 <outlet property="seeRatesButton" destination="YU8-2B-ElD" id="7Yz-Xp-gtd"/>
                 <outlet property="socialIconStackView" destination="fJb-Cm-eXE" id="83p-Ok-IWm"/>
             </connections>
+            <point key="canvasLocation" x="140" y="154"/>
         </view>
     </objects>
     <resources>

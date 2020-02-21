@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,20 +14,20 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="421"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="420.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="421"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BRm-VW-OrK">
-                        <rect key="frame" x="10" y="0.0" width="300" height="394.5"/>
+                        <rect key="frame" x="16" y="0.0" width="288" height="395"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotelCardPlaceHolder" translatesAutoresizingMaskIntoConstraints="NO" id="sho-Ja-Zl8">
-                                <rect key="frame" x="0.0" y="0.0" width="300" height="228"/>
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="228"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="228" id="xGY-Ot-ghr"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PCv-vO-xhG">
-                                <rect key="frame" x="10" y="238" width="280" height="146.5"/>
+                                <rect key="frame" x="16" y="237" width="256" height="142"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62p-l1-YzI">
                                         <rect key="frame" x="0.0" y="0.0" width="42" height="20.5"/>
@@ -38,16 +36,16 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pPQ-Dl-3nm">
-                                        <rect key="frame" x="238" y="0.0" width="42" height="20.5"/>
+                                        <rect key="frame" x="214" y="0.0" width="42" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Xsx-nE-5ll">
-                                        <rect key="frame" x="0.0" y="32.5" width="280" height="114"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Xsx-nE-5ll">
+                                        <rect key="frame" x="0.0" y="31.5" width="256" height="110.5"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="k6G-BN-gkM">
-                                                <rect key="frame" x="0.0" y="0.0" width="280" height="22"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="k6G-BN-gkM">
+                                                <rect key="frame" x="0.0" y="0.0" width="256" height="22"/>
                                                 <subviews>
                                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BXB-AQ-gpl" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="2" width="85" height="18"/>
@@ -68,12 +66,12 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GgV-4W-z1p">
-                                                        <rect key="frame" x="89" y="0.0" width="191" height="22"/>
+                                                        <rect key="frame" x="103" y="0.0" width="153" height="22"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="tQF-hM-iNe">
-                                                                <rect key="frame" x="0.0" y="-10" width="43" height="24"/>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviserBig" translatesAutoresizingMaskIntoConstraints="NO" id="tQF-hM-iNe">
+                                                                <rect key="frame" x="0.0" y="-11" width="38" height="18"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="43" id="g22-ZO-ztT"/>
+                                                                    <constraint firstAttribute="width" constant="38" id="g22-ZO-ztT"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="quK-2T-AN4" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
@@ -96,8 +94,8 @@
                                                             </view>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstItem="tQF-hM-iNe" firstAttribute="top" secondItem="GgV-4W-z1p" secondAttribute="top" constant="-10" id="3Mi-iU-UCU"/>
-                                                            <constraint firstItem="quK-2T-AN4" firstAttribute="leading" secondItem="tQF-hM-iNe" secondAttribute="trailing" constant="-5" id="3x4-S3-7LO"/>
+                                                            <constraint firstItem="tQF-hM-iNe" firstAttribute="top" secondItem="GgV-4W-z1p" secondAttribute="top" constant="-11" id="3Mi-iU-UCU"/>
+                                                            <constraint firstItem="quK-2T-AN4" firstAttribute="leading" secondItem="tQF-hM-iNe" secondAttribute="trailing" id="3x4-S3-7LO"/>
                                                             <constraint firstItem="quK-2T-AN4" firstAttribute="centerY" secondItem="GgV-4W-z1p" secondAttribute="centerY" id="TM4-yu-Kwd"/>
                                                             <constraint firstAttribute="trailing" secondItem="quK-2T-AN4" secondAttribute="trailing" priority="900" id="hUV-3F-tVw"/>
                                                             <constraint firstItem="tQF-hM-iNe" firstAttribute="leading" secondItem="GgV-4W-z1p" secondAttribute="leading" id="y9u-lh-1LT"/>
@@ -108,8 +106,8 @@
                                                     <constraint firstAttribute="height" constant="22" id="e2D-hV-eat"/>
                                                 </constraints>
                                             </stackView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label dhjfg vjadgvj kdga jvgdaj vgjhasdg cjshadg vhjsag vjhsadg vjsag dvjhsagd vjhsagd vjhgsa djvhg sajdgvsad" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Mk-mm-kdb">
-                                                <rect key="frame" x="0.0" y="22" width="280" height="92"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label dhjfg vjadgvj kdga jvgdaj vgjhasdg cjshadg vhjsag vjhsadg vjsag dvjhsagd vjhsagd vjhgsa djvhg sajdgvsad" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Mk-mm-kdb">
+                                                <rect key="frame" x="0.0" y="37" width="256" height="73.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -133,25 +131,25 @@
                                     <constraint firstItem="pPQ-Dl-3nm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="62p-l1-YzI" secondAttribute="trailing" constant="10" id="aQo-fx-ZKe"/>
                                     <constraint firstItem="62p-l1-YzI" firstAttribute="top" secondItem="PCv-vO-xhG" secondAttribute="top" id="k5x-EY-nuN"/>
                                     <constraint firstItem="62p-l1-YzI" firstAttribute="centerY" secondItem="pPQ-Dl-3nm" secondAttribute="centerY" id="nqG-or-wXO"/>
-                                    <constraint firstItem="Xsx-nE-5ll" firstAttribute="top" secondItem="62p-l1-YzI" secondAttribute="bottom" constant="12" id="vqR-kq-osc"/>
+                                    <constraint firstItem="Xsx-nE-5ll" firstAttribute="top" secondItem="62p-l1-YzI" secondAttribute="bottom" constant="11" id="vqR-kq-osc"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="PCv-vO-xhG" firstAttribute="top" secondItem="sho-Ja-Zl8" secondAttribute="bottom" constant="10" id="1e9-ep-CVt"/>
+                            <constraint firstItem="PCv-vO-xhG" firstAttribute="top" secondItem="sho-Ja-Zl8" secondAttribute="bottom" constant="9" id="1e9-ep-CVt"/>
                             <constraint firstItem="sho-Ja-Zl8" firstAttribute="leading" secondItem="BRm-VW-OrK" secondAttribute="leading" id="3RE-5P-Pil"/>
                             <constraint firstItem="sho-Ja-Zl8" firstAttribute="top" secondItem="BRm-VW-OrK" secondAttribute="top" id="OK5-Op-x3a"/>
-                            <constraint firstAttribute="trailing" secondItem="PCv-vO-xhG" secondAttribute="trailing" constant="10" id="h4d-DT-zpN"/>
+                            <constraint firstAttribute="trailing" secondItem="PCv-vO-xhG" secondAttribute="trailing" constant="16" id="h4d-DT-zpN"/>
                             <constraint firstAttribute="trailing" secondItem="sho-Ja-Zl8" secondAttribute="trailing" id="oAh-04-Jvd"/>
-                            <constraint firstAttribute="bottom" secondItem="PCv-vO-xhG" secondAttribute="bottom" constant="10" id="oNw-o2-GJv"/>
-                            <constraint firstItem="PCv-vO-xhG" firstAttribute="leading" secondItem="BRm-VW-OrK" secondAttribute="leading" constant="10" id="yWO-3C-RNj"/>
+                            <constraint firstAttribute="bottom" secondItem="PCv-vO-xhG" secondAttribute="bottom" constant="16" id="oNw-o2-GJv"/>
+                            <constraint firstItem="PCv-vO-xhG" firstAttribute="leading" secondItem="BRm-VW-OrK" secondAttribute="leading" constant="16" id="yWO-3C-RNj"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="BRm-VW-OrK" secondAttribute="trailing" constant="10" id="KPo-LK-EaB"/>
-                    <constraint firstItem="BRm-VW-OrK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="PgA-qF-i7z"/>
+                    <constraint firstAttribute="trailing" secondItem="BRm-VW-OrK" secondAttribute="trailing" constant="16" id="KPo-LK-EaB"/>
+                    <constraint firstItem="BRm-VW-OrK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="PgA-qF-i7z"/>
                     <constraint firstItem="BRm-VW-OrK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Ufc-vY-fEU"/>
                     <constraint firstAttribute="bottom" secondItem="BRm-VW-OrK" secondAttribute="bottom" constant="26" id="d1k-V6-cV6"/>
                 </constraints>
@@ -178,6 +176,6 @@
         <image name="hotelCardPlaceHolder" width="359" height="193"/>
         <image name="starRatingFilled" width="30" height="30"/>
         <image name="starRatingUnfill" width="30" height="30"/>
-        <image name="tripAdviser" width="32" height="24"/>
+        <image name="tripAdviserBig" width="32" height="18"/>
     </resources>
 </document>

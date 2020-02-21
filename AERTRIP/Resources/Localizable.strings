@@ -453,7 +453,7 @@
 "To" = "To";
 "Message" = "Message";
 "SeeRates" = "See Rates";
-"SharedMessage" = "shared his  favorite  hotels with you…";
+"SharedMessage" = "shared his favorite hotels with you…";
 "CheckOutMessage" = "Checkout my favorite hotels on Aertrip!";
 "HotelResultFor" = "Hotel results for…";
 "NoHotelFound" = "No Hotel Found\nChoose another date for this location and try again.";
@@ -464,14 +464,14 @@
 
 
 "ContactUsAertrip" = "Have a question? Contact us : support@aertrip.com";
-"CopyrightAertrip" = "2012 Aertrip. All Rights Reserved.";
+//"CopyrightAertrip" = "2012 Aertrip. All Rights Reserved.";
 "TripRating" = "Trip Rating";
 
 //Select Trip Screen
 "SelectTrip" = "Select Trip";
 "CreateNewTrip" = "Create New Trip";
 "NameYourTrip" = "Name Your Trip";
-"CopyrightAertrip" = "  2012 Aertrip. All Rights Reserved.";
+"CopyrightAertrip" = " 2012 Aertrip. All Rights Reserved.";
 "WriteYourOwnReview" = "Write your own Review";
 "ReadAll" = "Read all";
 "Excellent"  =  "Excellent";
