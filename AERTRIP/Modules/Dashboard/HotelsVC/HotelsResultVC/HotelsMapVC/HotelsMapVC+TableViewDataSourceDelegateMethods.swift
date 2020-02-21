@@ -80,6 +80,7 @@ extension HotelsMapVC: UITableViewDataSource, UITableViewDelegate {
         if self.viewModel.searchedHotels.count > 0 {
             cell.hotelData = self.viewModel.searchedHotels[indexPath.row]
             }
+         cell.topDividerView.isHidden = indexPath.row == 0 ? false : true
             return cell
     }
     

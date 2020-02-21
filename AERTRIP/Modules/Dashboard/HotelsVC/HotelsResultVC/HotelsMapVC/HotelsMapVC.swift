@@ -334,7 +334,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     
     func setupCollection() {
         let layout = self.hotelsMapCV.collectionViewLayout as! UPCarouselFlowLayout
-        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: -5)
+        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: -7)
         layout.scrollDirection = .horizontal
         layout.sideItemScale = 1.0
         layout.sideItemAlpha = 1.0
