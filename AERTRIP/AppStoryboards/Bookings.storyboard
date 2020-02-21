@@ -67,78 +67,7 @@ with us!</string>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JWb-C2-3xC">
                                 <rect key="frame" x="0.0" y="96" width="375" height="571"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fLC-O8-F0h">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="pAh-Ev-8X4">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxJ-rh-8kM" customClass="PKCategoryButton" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="125" height="50"/>
-                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <connections>
-                                                            <action selector="upcomingButtonAction:" destination="EeN-Il-o6A" eventType="touchUpInside" id="boS-bO-VwT"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEf-Ls-0Oi" customClass="PKCategoryButton" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="125" y="0.0" width="125" height="50"/>
-                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <connections>
-                                                            <action selector="completedButtonAction:" destination="EeN-Il-o6A" eventType="touchUpInside" id="YAP-8h-bC7"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9BY-9D-qNb" customClass="PKCategoryButton" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="250" y="0.0" width="125" height="50"/>
-                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <connections>
-                                                            <action selector="cancelledButtonAction:" destination="EeN-Il-o6A" eventType="touchUpInside" id="nO0-iK-eda"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iGf-ai-w7F" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="49.5" width="375" height="0.5"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="0.5" id="Z0f-gD-ZJt"/>
-                                                </constraints>
-                                            </view>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gJf-RK-0q8">
-                                                <rect key="frame" x="0.0" y="48" width="125" height="2"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="iGf-ai-w7F" secondAttribute="trailing" id="1hB-HK-lCw"/>
-                                            <constraint firstItem="iGf-ai-w7F" firstAttribute="leading" secondItem="fLC-O8-F0h" secondAttribute="leading" id="7Qi-a1-3BT"/>
-                                            <constraint firstAttribute="bottom" secondItem="iGf-ai-w7F" secondAttribute="bottom" id="Gho-3P-yza"/>
-                                            <constraint firstAttribute="trailing" secondItem="pAh-Ev-8X4" secondAttribute="trailing" id="KOB-Xb-kiP"/>
-                                            <constraint firstItem="pAh-Ev-8X4" firstAttribute="top" secondItem="fLC-O8-F0h" secondAttribute="top" id="bdR-W6-LY2"/>
-                                            <constraint firstAttribute="height" constant="50" id="e3W-PP-i8Y"/>
-                                            <constraint firstAttribute="bottom" secondItem="pAh-Ev-8X4" secondAttribute="bottom" id="jYv-7R-wf3"/>
-                                            <constraint firstItem="pAh-Ev-8X4" firstAttribute="leading" secondItem="fLC-O8-F0h" secondAttribute="leading" id="sPc-Ug-j9E"/>
-                                        </constraints>
-                                    </view>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H5G-XU-bew">
-                                        <rect key="frame" x="0.0" y="50" width="375" height="521"/>
-                                    </scrollView>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="H5G-XU-bew" secondAttribute="trailing" id="Jhu-qV-RP9"/>
-                                    <constraint firstAttribute="trailing" secondItem="fLC-O8-F0h" secondAttribute="trailing" id="KCc-P6-4sD"/>
-                                    <constraint firstItem="fLC-O8-F0h" firstAttribute="top" secondItem="JWb-C2-3xC" secondAttribute="top" id="Mdf-i5-rdu"/>
-                                    <constraint firstAttribute="bottom" secondItem="H5G-XU-bew" secondAttribute="bottom" id="gu7-z0-snP"/>
-                                    <constraint firstItem="fLC-O8-F0h" firstAttribute="leading" secondItem="JWb-C2-3xC" secondAttribute="leading" id="iQd-RO-8sp"/>
-                                    <constraint firstItem="H5G-XU-bew" firstAttribute="leading" secondItem="JWb-C2-3xC" secondAttribute="leading" id="qlI-3e-osM"/>
-                                    <constraint firstItem="H5G-XU-bew" firstAttribute="top" secondItem="fLC-O8-F0h" secondAttribute="bottom" id="zsN-u2-E7b"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -166,20 +95,13 @@ with us!</string>
                         <viewLayoutGuide key="safeArea" id="Hnr-2M-F8B"/>
                     </view>
                     <connections>
-                        <outlet property="allTabDetailConatinerView" destination="H5G-XU-bew" id="HcF-jX-UFl"/>
-                        <outlet property="allTabTitleContainerView" destination="fLC-O8-F0h" id="r1R-eI-w5r"/>
-                        <outlet property="allTabsTitleContainerHeightConstraint" destination="e3W-PP-i8Y" id="c6y-MU-WML"/>
-                        <outlet property="cancelledButton" destination="9BY-9D-qNb" id="7An-r6-6hU"/>
                         <outlet property="childContainerView" destination="JWb-C2-3xC" id="r9H-l0-cJJ"/>
-                        <outlet property="completedButton" destination="AEf-Ls-0Oi" id="LAu-YC-y52"/>
                         <outlet property="emptyStateImageView" destination="vbn-S9-1fG" id="wAh-oZ-PQK"/>
                         <outlet property="emptyStateSubTitleLabel" destination="r5R-Jl-udX" id="Odi-WU-w6W"/>
                         <outlet property="emptyStateTitleLabel" destination="cfv-Kb-Z8G" id="uCa-5e-1bG"/>
                         <outlet property="searchBar" destination="HXO-eV-1lH" id="DOr-Hv-yOi"/>
                         <outlet property="searchBarContainerView" destination="uXe-VR-jq5" id="TOR-kX-aW8"/>
-                        <outlet property="tabSelectionIndicatorView" destination="gJf-RK-0q8" id="yXc-Q7-l7m"/>
                         <outlet property="topNavBar" destination="Nlo-zj-iHg" id="eg6-et-n5y"/>
-                        <outlet property="upcomingButton" destination="cxJ-rh-8kM" id="M7W-4s-GCv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BKR-qq-0uB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -194,24 +116,6 @@ with us!</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upcoming_emptystate" translatesAutoresizingMaskIntoConstraints="NO" id="ClA-V5-sy2">
-                                <rect key="frame" x="20" y="30" width="335" height="295"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="295" id="8J2-I8-KEJ"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no upcoming bookings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rcw-m7-Ivf">
-                                <rect key="frame" x="40" y="328" width="297" height="28"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New destinations are awaiting " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKW-QK-qii">
-                                <rect key="frame" x="52" y="362" width="271" height="23"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="RQQ-OT-0Mc" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -228,26 +132,14 @@ with us!</string>
                             <constraint firstItem="RQQ-OT-0Mc" firstAttribute="top" secondItem="2RR-RX-Udd" secondAttribute="top" id="2YW-gA-fDu"/>
                             <constraint firstItem="yJB-4e-z2V" firstAttribute="top" secondItem="RQQ-OT-0Mc" secondAttribute="bottom" id="6YI-2s-Hpz"/>
                             <constraint firstItem="RQQ-OT-0Mc" firstAttribute="trailing" secondItem="xaN-iU-Qc4" secondAttribute="trailing" id="OqZ-Ny-vX2"/>
-                            <constraint firstItem="ClA-V5-sy2" firstAttribute="top" secondItem="xaN-iU-Qc4" secondAttribute="top" constant="30" id="PTF-P5-OXb"/>
-                            <constraint firstItem="dKW-QK-qii" firstAttribute="top" secondItem="rcw-m7-Ivf" secondAttribute="bottom" constant="6" id="YEN-JY-hmo"/>
-                            <constraint firstItem="xaN-iU-Qc4" firstAttribute="trailing" secondItem="rcw-m7-Ivf" secondAttribute="trailing" constant="38" id="ak0-XZ-77a"/>
                             <constraint firstItem="yJB-4e-z2V" firstAttribute="leading" secondItem="xaN-iU-Qc4" secondAttribute="leading" id="cEp-0d-Lbc"/>
-                            <constraint firstItem="xaN-iU-Qc4" firstAttribute="trailing" secondItem="ClA-V5-sy2" secondAttribute="trailing" constant="20" id="d3l-Q7-hbt"/>
-                            <constraint firstItem="rcw-m7-Ivf" firstAttribute="leading" secondItem="xaN-iU-Qc4" secondAttribute="leading" constant="40" id="fV5-yJ-S0f"/>
-                            <constraint firstItem="dKW-QK-qii" firstAttribute="leading" secondItem="xaN-iU-Qc4" secondAttribute="leading" constant="52" id="lSr-tW-jjK"/>
-                            <constraint firstItem="xaN-iU-Qc4" firstAttribute="trailing" secondItem="dKW-QK-qii" secondAttribute="trailing" constant="52" id="m1n-z4-bCz"/>
                             <constraint firstItem="xaN-iU-Qc4" firstAttribute="bottom" secondItem="yJB-4e-z2V" secondAttribute="bottom" id="tc3-Pi-kgL"/>
-                            <constraint firstItem="ClA-V5-sy2" firstAttribute="leading" secondItem="xaN-iU-Qc4" secondAttribute="leading" constant="20" id="uJN-1z-UF4"/>
-                            <constraint firstItem="rcw-m7-Ivf" firstAttribute="top" secondItem="ClA-V5-sy2" secondAttribute="bottom" constant="3" id="uh8-qW-ctQ"/>
                             <constraint firstItem="RQQ-OT-0Mc" firstAttribute="leading" secondItem="xaN-iU-Qc4" secondAttribute="leading" id="wAL-oV-bha"/>
                             <constraint firstItem="xaN-iU-Qc4" firstAttribute="trailing" secondItem="yJB-4e-z2V" secondAttribute="trailing" id="zlU-DH-akn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xaN-iU-Qc4"/>
                     </view>
                     <connections>
-                        <outlet property="emptyStateImageView" destination="ClA-V5-sy2" id="yAA-k8-5Kq"/>
-                        <outlet property="emptyStateSubTitleLabel" destination="dKW-QK-qii" id="oTp-ZG-b2J"/>
-                        <outlet property="emptyStateTitleLabel" destination="rcw-m7-Ivf" id="dma-ST-3Eo"/>
                         <outlet property="footerHeightConstraint" destination="Odz-xm-XTx" id="D3d-ZR-6ys"/>
                         <outlet property="footerView" destination="yJB-4e-z2V" id="uTD-aJ-ahT"/>
                         <outlet property="upcomingBookingsTableView" destination="RQQ-OT-0Mc" id="3SP-o8-154"/>
@@ -311,79 +203,7 @@ with us!</string>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U6q-2H-Zqs">
                                         <rect key="frame" x="0.0" y="64" width="375" height="356"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4gG-qg-r8T">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
-                                                <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="e9b-IE-J4f">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Yw-IB-lmm" customClass="PKCategoryButton" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="125" height="50"/>
-                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <state key="normal" title="Button"/>
-                                                                <connections>
-                                                                    <action selector="travelDateButtonAction:" destination="eO9-Zy-OYZ" eventType="touchUpInside" id="0j4-tN-uby"/>
-                                                                </connections>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZV-W4-wXX" customClass="PKCategoryButton" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="125" y="0.0" width="125" height="50"/>
-                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <state key="normal" title="Button"/>
-                                                                <connections>
-                                                                    <action selector="eventTypeButtonAction:" destination="eO9-Zy-OYZ" eventType="touchUpInside" id="cHU-5s-Txn"/>
-                                                                </connections>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SWh-JH-qbS" customClass="PKCategoryButton" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="250" y="0.0" width="125" height="50"/>
-                                                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <state key="normal" title="Button"/>
-                                                                <connections>
-                                                                    <action selector="bookingDateButtonAction:" destination="eO9-Zy-OYZ" eventType="touchUpInside" id="kHS-Wa-fEd"/>
-                                                                </connections>
-                                                            </button>
-                                                        </subviews>
-                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </stackView>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gCG-if-kpA" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="49.5" width="375" height="0.5"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="0.5" id="uJV-9Q-Mxh"/>
-                                                        </constraints>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gko-71-ebH">
-                                                        <rect key="frame" x="0.0" y="48" width="125" height="2"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstItem="gCG-if-kpA" firstAttribute="leading" secondItem="4gG-qg-r8T" secondAttribute="leading" id="5I4-zJ-PUO"/>
-                                                    <constraint firstItem="e9b-IE-J4f" firstAttribute="top" secondItem="4gG-qg-r8T" secondAttribute="top" id="AhV-LJ-zx6"/>
-                                                    <constraint firstItem="e9b-IE-J4f" firstAttribute="leading" secondItem="4gG-qg-r8T" secondAttribute="leading" id="Fiz-xz-klW"/>
-                                                    <constraint firstAttribute="trailing" secondItem="e9b-IE-J4f" secondAttribute="trailing" id="Lvm-oG-N4V"/>
-                                                    <constraint firstAttribute="height" constant="50" id="NVk-ht-Nxj"/>
-                                                    <constraint firstAttribute="bottom" secondItem="e9b-IE-J4f" secondAttribute="bottom" id="REV-CG-k4u"/>
-                                                    <constraint firstAttribute="bottom" secondItem="gCG-if-kpA" secondAttribute="bottom" id="cAS-3P-P5Z"/>
-                                                    <constraint firstAttribute="trailing" secondItem="gCG-if-kpA" secondAttribute="trailing" id="qiN-dc-nwc"/>
-                                                </constraints>
-                                            </view>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kxg-nl-UPb">
-                                                <rect key="frame" x="0.0" y="50" width="375" height="306"/>
-                                            </scrollView>
-                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="kxg-nl-UPb" secondAttribute="trailing" id="9Yd-vi-Sjw"/>
-                                            <constraint firstAttribute="bottom" secondItem="kxg-nl-UPb" secondAttribute="bottom" id="Fd5-gc-oYn"/>
-                                            <constraint firstItem="kxg-nl-UPb" firstAttribute="top" secondItem="4gG-qg-r8T" secondAttribute="bottom" id="LeE-8K-q1m"/>
-                                            <constraint firstAttribute="trailing" secondItem="4gG-qg-r8T" secondAttribute="trailing" id="c4J-9M-BXM"/>
-                                            <constraint firstItem="4gG-qg-r8T" firstAttribute="leading" secondItem="U6q-2H-Zqs" secondAttribute="leading" id="cAK-RA-73i"/>
-                                            <constraint firstItem="kxg-nl-UPb" firstAttribute="leading" secondItem="U6q-2H-Zqs" secondAttribute="leading" id="qVn-ZF-YGh"/>
-                                            <constraint firstItem="4gG-qg-r8T" firstAttribute="top" secondItem="U6q-2H-Zqs" secondAttribute="top" id="whF-FK-0HH"/>
-                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -414,18 +234,12 @@ with us!</string>
                         <viewLayoutGuide key="safeArea" id="0Ms-f8-FPE"/>
                     </view>
                     <connections>
-                        <outlet property="allTabDetailConatinerView" destination="kxg-nl-UPb" id="8CM-AQ-SL6"/>
-                        <outlet property="allTabTitleContainerView" destination="4gG-qg-r8T" id="KRj-p6-78M"/>
-                        <outlet property="bookingDateButton" destination="SWh-JH-qbS" id="TG7-0F-P4u"/>
                         <outlet property="childContainerView" destination="U6q-2H-Zqs" id="0mI-zQ-6lv"/>
-                        <outlet property="eventTypeButton" destination="AZV-W4-wXX" id="N3L-b3-yW2"/>
                         <outlet property="mainBackView" destination="rJG-zF-i8u" id="p4i-8k-42A"/>
                         <outlet property="mainContainerView" destination="0Gr-iF-j8Y" id="prj-jR-cjF"/>
                         <outlet property="mainContainerViewTopConstraint" destination="T8O-bS-olg" id="amn-48-gMN"/>
                         <outlet property="navigationViewTopConstraint" destination="AkR-Yk-FJ1" id="MiE-vB-2sH"/>
-                        <outlet property="tabSelectionIndicatorView" destination="Gko-71-ebH" id="oVV-Jd-mhd"/>
                         <outlet property="topNavBar" destination="Lcv-wN-0WB" id="5Ea-94-gwo"/>
-                        <outlet property="travelDateButton" destination="5Yw-IB-lmm" id="Ho4-Fc-BQm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JCm-Cs-Xmo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1115,24 +929,6 @@ with us!</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="booking_Emptystate" translatesAutoresizingMaskIntoConstraints="NO" id="t65-YV-zCP">
-                                <rect key="frame" x="20" y="30" width="335" height="295"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="295" id="Cn4-GQ-YeU"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no upcoming bookings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hvt-dm-F92">
-                                <rect key="frame" x="16" y="328" width="343" height="28"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New destinations are awaiting " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVj-hn-MK3">
-                                <rect key="frame" x="52" y="362" width="271" height="23"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="wk4-Oa-osq" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1147,29 +943,17 @@ with us!</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="UJl-PL-qc9" firstAttribute="bottom" secondItem="Juw-B5-Gbd" secondAttribute="bottom" id="APy-bq-snr"/>
-                            <constraint firstItem="UJl-PL-qc9" firstAttribute="trailing" secondItem="Hvt-dm-F92" secondAttribute="trailing" constant="16" id="AoC-qf-GVJ"/>
-                            <constraint firstItem="Hvt-dm-F92" firstAttribute="leading" secondItem="UJl-PL-qc9" secondAttribute="leading" constant="16" id="DfO-tS-Pmj"/>
-                            <constraint firstItem="t65-YV-zCP" firstAttribute="top" secondItem="UJl-PL-qc9" secondAttribute="top" constant="30" id="Gkq-XE-oOj"/>
                             <constraint firstItem="Juw-B5-Gbd" firstAttribute="top" secondItem="wk4-Oa-osq" secondAttribute="bottom" id="MYd-J2-wW8"/>
                             <constraint firstItem="wk4-Oa-osq" firstAttribute="top" secondItem="XM9-zn-vyq" secondAttribute="top" id="Z7N-fV-3sF"/>
-                            <constraint firstItem="UJl-PL-qc9" firstAttribute="trailing" secondItem="PVj-hn-MK3" secondAttribute="trailing" constant="52" id="eb1-iE-Fve"/>
                             <constraint firstItem="wk4-Oa-osq" firstAttribute="trailing" secondItem="UJl-PL-qc9" secondAttribute="trailing" id="f5u-sj-XdG"/>
-                            <constraint firstItem="Hvt-dm-F92" firstAttribute="top" secondItem="t65-YV-zCP" secondAttribute="bottom" constant="3" id="g4J-8Y-I25"/>
                             <constraint firstItem="wk4-Oa-osq" firstAttribute="leading" secondItem="UJl-PL-qc9" secondAttribute="leading" id="hum-5Z-VFL"/>
-                            <constraint firstItem="UJl-PL-qc9" firstAttribute="trailing" secondItem="t65-YV-zCP" secondAttribute="trailing" constant="20" id="jzg-tp-111"/>
                             <constraint firstItem="Juw-B5-Gbd" firstAttribute="leading" secondItem="UJl-PL-qc9" secondAttribute="leading" id="ofq-Xj-Vi0"/>
-                            <constraint firstItem="t65-YV-zCP" firstAttribute="leading" secondItem="UJl-PL-qc9" secondAttribute="leading" constant="20" id="q4W-Gu-bpm"/>
-                            <constraint firstItem="PVj-hn-MK3" firstAttribute="top" secondItem="Hvt-dm-F92" secondAttribute="bottom" constant="6" id="saJ-Ol-rgd"/>
                             <constraint firstItem="UJl-PL-qc9" firstAttribute="trailing" secondItem="Juw-B5-Gbd" secondAttribute="trailing" id="ux5-vx-hkt"/>
-                            <constraint firstItem="PVj-hn-MK3" firstAttribute="leading" secondItem="UJl-PL-qc9" secondAttribute="leading" constant="52" id="wg2-N2-fBk"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UJl-PL-qc9"/>
                     </view>
                     <connections>
                         <outlet property="completedBookingsTableView" destination="wk4-Oa-osq" id="wGk-tI-tgS"/>
-                        <outlet property="emptyStateImageView" destination="t65-YV-zCP" id="IGA-Ad-wbT"/>
-                        <outlet property="emptyStateSubTitleLabel" destination="PVj-hn-MK3" id="5Mz-US-A8C"/>
-                        <outlet property="emptyStateTitleLabel" destination="Hvt-dm-F92" id="OZo-fO-I1X"/>
                         <outlet property="footerHeightConstraint" destination="DlL-zj-3mf" id="7VA-G2-kAg"/>
                         <outlet property="footerView" destination="Juw-B5-Gbd" id="f1e-bD-Kmi"/>
                     </connections>
@@ -1186,24 +970,6 @@ with us!</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="booking_Emptystate" translatesAutoresizingMaskIntoConstraints="NO" id="5hb-iD-4pJ">
-                                <rect key="frame" x="20" y="30" width="335" height="295"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="295" id="ZcD-cP-vc9"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no upcoming bookings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LKL-iS-CZy">
-                                <rect key="frame" x="40" y="328" width="297" height="28"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New destinations are awaiting " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWI-Gk-Xcg">
-                                <rect key="frame" x="52" y="362" width="271" height="23"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="5Hn-Yh-dpb" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1221,26 +987,14 @@ with us!</string>
                             <constraint firstItem="7fh-Fm-4L9" firstAttribute="leading" secondItem="eap-pT-189" secondAttribute="leading" id="3pb-me-nAE"/>
                             <constraint firstItem="5Hn-Yh-dpb" firstAttribute="leading" secondItem="eap-pT-189" secondAttribute="leading" id="59x-0c-xdm"/>
                             <constraint firstItem="eap-pT-189" firstAttribute="bottom" secondItem="7fh-Fm-4L9" secondAttribute="bottom" id="BTn-Zu-M6j"/>
-                            <constraint firstItem="xWI-Gk-Xcg" firstAttribute="leading" secondItem="eap-pT-189" secondAttribute="leading" constant="52" id="M0E-d5-HG0"/>
                             <constraint firstItem="5Hn-Yh-dpb" firstAttribute="top" secondItem="OgQ-nb-cxN" secondAttribute="top" id="REP-Jo-gjg"/>
-                            <constraint firstItem="LKL-iS-CZy" firstAttribute="leading" secondItem="eap-pT-189" secondAttribute="leading" constant="40" id="aZK-J5-dap"/>
-                            <constraint firstItem="eap-pT-189" firstAttribute="trailing" secondItem="xWI-Gk-Xcg" secondAttribute="trailing" constant="52" id="alS-Qv-bza"/>
-                            <constraint firstItem="5hb-iD-4pJ" firstAttribute="leading" secondItem="eap-pT-189" secondAttribute="leading" constant="20" id="cMO-9y-yWr"/>
-                            <constraint firstItem="LKL-iS-CZy" firstAttribute="top" secondItem="5hb-iD-4pJ" secondAttribute="bottom" constant="3" id="fCX-IU-Zju"/>
                             <constraint firstItem="7fh-Fm-4L9" firstAttribute="top" secondItem="5Hn-Yh-dpb" secondAttribute="bottom" id="j5x-2e-P2d"/>
-                            <constraint firstItem="eap-pT-189" firstAttribute="trailing" secondItem="LKL-iS-CZy" secondAttribute="trailing" constant="38" id="l1T-m5-2dl"/>
-                            <constraint firstItem="5hb-iD-4pJ" firstAttribute="top" secondItem="eap-pT-189" secondAttribute="top" constant="30" id="m74-C9-H2k"/>
-                            <constraint firstItem="xWI-Gk-Xcg" firstAttribute="top" secondItem="LKL-iS-CZy" secondAttribute="bottom" constant="6" id="nNf-RK-rRs"/>
                             <constraint firstItem="eap-pT-189" firstAttribute="trailing" secondItem="7fh-Fm-4L9" secondAttribute="trailing" id="r6R-rv-xUL"/>
-                            <constraint firstItem="eap-pT-189" firstAttribute="trailing" secondItem="5hb-iD-4pJ" secondAttribute="trailing" constant="20" id="sHr-FQ-Dd0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eap-pT-189"/>
                     </view>
                     <connections>
                         <outlet property="cancelledBookingsTableView" destination="5Hn-Yh-dpb" id="MzE-Uo-2TD"/>
-                        <outlet property="emptyStateImageView" destination="5hb-iD-4pJ" id="497-EW-NPm"/>
-                        <outlet property="emptyStateSubTitleLabel" destination="xWI-Gk-Xcg" id="TN0-Cd-WUU"/>
-                        <outlet property="emptyStateTitleLabel" destination="LKL-iS-CZy" id="Nbd-iW-DpL"/>
                         <outlet property="footerHeightConstraint" destination="h2D-qZ-1bB" id="rnk-1h-zhb"/>
                         <outlet property="footerView" destination="7fh-Fm-4L9" id="hKD-mJ-nVv"/>
                     </connections>
@@ -2633,6 +2387,5 @@ with us!</string>
         <image name="blackDownArrow" width="9" height="6"/>
         <image name="booking_Emptystate" width="337" height="287"/>
         <image name="greenCircleButton" width="22" height="22"/>
-        <image name="upcoming_emptystate" width="335" height="295"/>
     </resources>
 </document>

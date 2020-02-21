@@ -5,8 +5,9 @@
 //  Created by Admin on 15/04/19.
 //  Copyright © 2019 Pramod Kumar. All rights reserved.
 //
-
+// Asif Change =================
 import UIKit
+import Parchment
 
 class MyBookingFilterVC: BaseVC {
     
@@ -14,15 +15,15 @@ class MyBookingFilterVC: BaseVC {
     //MARK:- Private
     private var currentIndex: Int = 0
     private let allTabsStr: [String] = [LocalizedString.TravelDate.localized, LocalizedString.EventType.localized, LocalizedString.BookingDate.localized]
-    private var allTabButtons: [PKCategoryButton] {
-        return [travelDateButton, eventTypeButton, bookingDateButton]
-    }
-
-    private var minDate: Date?
+    //    private var allTabButtons: [PKCategoryButton] {
+    //        return [travelDateButton, eventTypeButton, bookingDateButton]
+    //    }
     
-    private var travelDateVC: TravelDateVC?
-    private var eventTypeVC: EventTypeVC?
-    private var bookingDateVC: TravelDateVC?
+    private var minDate: Date?
+    // Parchment View
+    fileprivate var parchmentView : PagingViewController<MenuItem>?
+    private var allChildVCs :[UIViewController] = []
+    private var isFilterArray:[Bool] = [true,true,true]
     private var previousOffset = CGPoint.zero
     
     //MARK:- IBOutlets
@@ -38,13 +39,7 @@ class MyBookingFilterVC: BaseVC {
     
     @IBOutlet weak var mainBackView: UIView!
     
-    @IBOutlet weak var allTabTitleContainerView: UIView!
-    @IBOutlet weak var travelDateButton: PKCategoryButton!
-    @IBOutlet weak var eventTypeButton: PKCategoryButton!
-    @IBOutlet weak var bookingDateButton: PKCategoryButton!
-    @IBOutlet weak var tabSelectionIndicatorView: UIView!
-    @IBOutlet weak var allTabDetailConatinerView: UIScrollView!
-    
+ 
     //MARK:- LifeCycle
     override func initialSetup() {
         
@@ -52,7 +47,7 @@ class MyBookingFilterVC: BaseVC {
         self.setCounts()
         
         self.topNavBar.configureNavBar(title: "\(MyBookingFilterVM.shared.filteredResultCount) of \(MyBookingFilterVM.shared.totalResultCount) Results", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .clear)
-        
+        self.topNavBar.firstRightBtnTrailingConst.constant = 0.0
         let clearStr = "  \(LocalizedString.ClearAll.localized)"
         let doneStr = "\(LocalizedString.Done.localized)  "
         self.topNavBar.configureLeftButton(normalTitle: clearStr, selectedTitle: clearStr, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
@@ -60,18 +55,19 @@ class MyBookingFilterVC: BaseVC {
         
         self.mainContainerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
         self.edgesForExtendedLayout = UIRectEdge(rawValue: 4)
-
+        
         let height = UIApplication.shared.statusBarFrame.height
         self.navigationViewTopConstraint.constant = CGFloat(height)
-
-        self.configureTabBar()
+        
         self.hide(animated: false)
         delay(seconds: 0.01) { [weak self] in
             self?.show(animated: true)
         }
         self.setupGesture()
+        self.setUpViewPager()
+        self.setBadge()
     }
-
+    
     override func setupTexts() {
     }
     
@@ -81,6 +77,12 @@ class MyBookingFilterVC: BaseVC {
     
     override func setupColors() {
         self.topNavBar.navTitleLabel.textColor = AppColors.themeGray40
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        printDebug("viewDidLayoutSubviews")
+        self.parchmentView?.view.frame = self.childContainerView.bounds
+        self.parchmentView?.loadViewIfNeeded()
     }
     
     //MARK:- Functions
@@ -118,15 +120,15 @@ class MyBookingFilterVC: BaseVC {
             self.mainContainerViewTopConstraint.constant = 0.0
             self.view.layoutIfNeeded()
         }) { (isDone) in
-            self.allTabDetailConatinerView.delegate = self
+            //            self.allTabDetailConatinerView.delegate = self
         }
     }
     
     private func cancelAllOperation() {
         //cancel all the operation if user trying to close the filter screen
-//        for obj in self.allChildVCs {
-//            NSObject.cancelPreviousPerformRequests(withTarget: obj)
-//        }
+        //        for obj in self.allChildVCs {
+        //            NSObject.cancelPreviousPerformRequests(withTarget: obj)
+        //        }
         NSObject.cancelPreviousPerformRequests(withTarget: self)
     }
     
@@ -150,22 +152,53 @@ class MyBookingFilterVC: BaseVC {
         self.mainBackView.addGestureRecognizer(gestureRecognizer)
     }
     
+    private func setUpViewPager() {
+        self.currentIndex = 0
+        self.allChildVCs.removeAll()
+        self.allChildVCs.append(self.setUPTravelDateVC())
+        self.allChildVCs.append(self.setUpEventTypeVC())
+        self.allChildVCs.append(self.setUpBookingVC())
+        self.view.layoutIfNeeded()
+        if let _ = self.parchmentView{
+            self.parchmentView?.view.removeFromSuperview()
+            self.parchmentView = nil
+        }
+        setupParchmentPageController()
+    }
+    
+    // Added to replace the existing page controller, added Hitesh Soni, 28-29Jan'2020
+    private func setupParchmentPageController(){
+        
+        self.parchmentView = PagingViewController<MenuItem>()
+        self.parchmentView?.menuItemSpacing = (UIDevice.screenWidth - 330) / 2
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 13.0, bottom: 0.0, right: 11.0)
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets(top: 0, left: 10.0, bottom: 0, right: 10.0), insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 50)
+        self.parchmentView?.borderOptions = PagingBorderOptions.visible(
+            height: 0.5,
+            zIndex: Int.max - 1,
+            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
+        self.parchmentView?.menuItemSource = PagingMenuItemSource.nib(nib: nib)
+        self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
+        self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
+        self.parchmentView?.indicatorColor = AppColors.themeGreen
+        self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        self.childContainerView.addSubview(self.parchmentView!.view)
+        
+        self.parchmentView?.dataSource = self
+        self.parchmentView?.delegate = self
+        self.parchmentView?.select(index: 0)
+        
+        self.parchmentView?.reloadData()
+        self.parchmentView?.reloadMenu()
+    }
+    
     //MARK:- IBActions
     @objc func  outsideAreaTapped() {
         self.cancelAllOperation()
         self.hide(animated: true, shouldRemove: true)
-    }
-    
-    @IBAction func travelDateButtonAction(_ sender: PKCategoryButton) {
-        self.selectTab(atIndex: 0.0, animated: true)
-    }
-    
-    @IBAction func eventTypeButtonAction(_ sender: PKCategoryButton) {
-        self.selectTab(atIndex: 1.0, animated: true)
-    }
-    
-    @IBAction func bookingDateButtonAction(_ sender: PKCategoryButton) {
-        self.selectTab(atIndex: 2.0, animated: true)
     }
 }
 
@@ -184,18 +217,8 @@ extension MyBookingFilterVC: TopNavigationViewDelegate {
     }
 }
 
-// MARK: - ATCategoryNavBarDelegate
-
-extension MyBookingFilterVC: ATCategoryNavBarDelegate {
-    func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
-        self.currentIndex = toIndex
-        MyBookingFilterVM.shared.lastSelectedIndex = toIndex
-    }
-}
-
-
-
 extension MyBookingFilterVC: EventTypeVCDelegate {
+    
     func didSelectEventTypes(selection: [Int]) {
         MyBookingFilterVM.shared.isFirstTime = false
         MyBookingFilterVM.shared.eventType = selection
@@ -227,231 +250,90 @@ extension MyBookingFilterVC: TravelDateVCDelegate {
 
 extension MyBookingFilterVC {
     
-    var totalTabs: Int {
-        return self.allTabsStr.count
+   
+    //  Asif Change
+    func setUpBookingVC() -> UIViewController {
+        let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
+        vc.delegate = self
+        vc.minFromDate = minDate
+        vc.oldFromDate = MyBookingFilterVM.shared.bookingFromDate
+        vc.oldToDate = MyBookingFilterVM.shared.bookingToDate
+        vc.currentlyUsingAs = .bookingDate
+        return vc
     }
     
-    var oneTabWidth: CGFloat {
-        return allTabTitleContainerView.width / CGFloat(totalTabs)
-    }
-    
-    private func configureTabBar() {
-        self.configureTabButtons()
-        self.configureSelectionIndicator()
-        self.configureScrollView()
-        
-        self.selectTab(atIndex: CGFloat(MyBookingFilterVM.shared.lastSelectedIndex), animated: false)
-        self.setBadge()
-    }
-    
-    private func configureTabButtons() {
-        func configure(button: PKCategoryButton, title: String) {
-
-            button.setTitle(title, for: .normal)
-            button.setTitle(title, for: .selected)
-            
-            button.setTitleColor(AppColors.textFieldTextColor51, for: .normal)
-            button.setTitleColor(AppColors.themeBlack, for: .selected)
-            
-            button.setTitleFont(font: AppFonts.Regular.withSize(16.0), for: .normal)
-            button.setTitleFont(font: AppFonts.SemiBold.withSize(16.0), for: .selected)
-            
-            button.isSelected = false
-            button.tintColor = AppColors.clear
+    func setUpEventTypeVC() -> UIViewController{
+        let vc = EventTypeVC.instantiate(fromAppStoryboard: .Bookings)
+        vc.delegate = self
+        if MyBookingFilterVM.shared.isFirstTime {
+            vc.oldSelection = []
+        } else {
+            vc.oldSelection = MyBookingFilterVM.shared.eventType
         }
-
-        //Travel Date button
-        configure(button: self.travelDateButton, title: LocalizedString.TravelDate.localized)
-        
-        //Event Type button
-        configure(button: self.eventTypeButton, title: LocalizedString.EventType.localized)
-        
-        //Booking Date button
-        configure(button: self.bookingDateButton, title: LocalizedString.BookingDate.localized)
-        
-        self.tabSelectionIndicatorView.translatesAutoresizingMaskIntoConstraints = true
+        return vc
     }
     
-    private func configureSelectionIndicator() {
-        self.tabSelectionIndicatorView.backgroundColor = AppColors.themeGreen
+    func setUPTravelDateVC() -> UIViewController {
+        let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
+        vc.delegate = self
+        vc.minFromDate = minDate
+        vc.oldFromDate = MyBookingFilterVM.shared.travelFromDate
+        vc.oldToDate = MyBookingFilterVM.shared.travelToDate
+        vc.currentlyUsingAs = .travelDate
+        return vc
     }
     
-    private func configureScrollView() {
-        self.allTabDetailConatinerView.contentSize = CGSize(width: self.allTabDetailConatinerView.width * CGFloat(totalTabs), height: self.allTabDetailConatinerView.height)
-        self.allTabDetailConatinerView.isPagingEnabled = true
-        self.allTabDetailConatinerView.showsVerticalScrollIndicator = false
-        self.allTabDetailConatinerView.showsHorizontalScrollIndicator = false
-        
-        //Travel Date
-        if self.travelDateVC == nil {
-            let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
-            vc.delegate = self
-            vc.minFromDate = minDate
-            vc.oldFromDate = MyBookingFilterVM.shared.travelFromDate
-            vc.oldToDate = MyBookingFilterVM.shared.travelToDate
-            vc.currentlyUsingAs = .travelDate
-            
-            self.travelDateVC = vc
-            
-            self.allTabDetailConatinerView.addSubview(vc.view)
-        }
-        self.travelDateVC?.view.frame = CGRect(x: (self.allTabDetailConatinerView.width * 0.0), y: 0.0, width: self.allTabDetailConatinerView.width, height: self.allTabDetailConatinerView.height)
-        
-        
-        //Event Type
-        if self.eventTypeVC == nil {
-            let vc = EventTypeVC.instantiate(fromAppStoryboard: .Bookings)
-            vc.delegate = self
-            if MyBookingFilterVM.shared.isFirstTime {
-                vc.oldSelection = []
-            } else {
-                vc.oldSelection = MyBookingFilterVM.shared.eventType
-            }
-            //if all event types wan to show as deselected by-default
-            //vc.oldSelection = MyBookingFilterVM.shared.eventType //if all event types wan to show as selected by-default
-            
-            self.eventTypeVC = vc
-            
-            self.allTabDetailConatinerView.addSubview(vc.view)
-        }
-        self.eventTypeVC?.view.frame = CGRect(x: (self.allTabDetailConatinerView.width * 1.0), y: 0.0, width: self.allTabDetailConatinerView.width, height: self.allTabDetailConatinerView.height)
-        
-        //Booking Date
-        if self.bookingDateVC == nil {
-            let vc = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
-            vc.delegate = self
-            vc.minFromDate = minDate
-            vc.oldFromDate = MyBookingFilterVM.shared.bookingFromDate
-            vc.oldToDate = MyBookingFilterVM.shared.bookingToDate
-            vc.currentlyUsingAs = .bookingDate
-            
-            self.bookingDateVC = vc
-            
-            self.allTabDetailConatinerView.addSubview(vc.view)
-        }
-        self.bookingDateVC?.view.frame = CGRect(x: (self.allTabDetailConatinerView.width * 2.0), y: 0.0, width: self.allTabDetailConatinerView.width, height: self.allTabDetailConatinerView.height)
-    }
     
     private func setBadge() {
-        
+      
         for tab in self.allTabsStr {
-            
             switch tab.lowercased() {
             case LocalizedString.TravelDate.localized.lowercased():
-                let badgeCount = (MyBookingFilterVM.shared.travelToDate != nil || MyBookingFilterVM.shared.travelFromDate != nil) ? 1 : 0
-                self.allTabButtons[0].badgeCount = badgeCount
-                
+                self.isFilterArray[0] = (MyBookingFilterVM.shared.travelToDate != nil || MyBookingFilterVM.shared.travelFromDate != nil) ? false : true
             case LocalizedString.EventType.localized.lowercased():
-                let badgeCount = MyBookingFilterVM.shared.eventType.isEmpty ? 0 : 1
-                self.allTabButtons[1].badgeCount = badgeCount
-                
+                self.isFilterArray[1] = MyBookingFilterVM.shared.eventType.isEmpty ? true : false
             case LocalizedString.BookingDate.localized.lowercased():
-                let badgeCount = (MyBookingFilterVM.shared.bookingToDate != nil || MyBookingFilterVM.shared.bookingFromDate != nil) ? 1 : 0
-                self.allTabButtons[2].badgeCount = badgeCount
-                
+                self.isFilterArray[2] = (MyBookingFilterVM.shared.bookingToDate != nil || MyBookingFilterVM.shared.bookingFromDate != nil) ? false : true
             default:
                 printDebug("not useable case")
             }
         }
+          self.parchmentView?.reloadMenu()
     }
 }
 
-extension MyBookingFilterVC {
-    private func selectTab(atIndex: CGFloat, animated: Bool) {
-        let point = CGPoint(x: self.allTabDetailConatinerView.width * atIndex, y: 0.0)
-        self.allTabDetailConatinerView.setContentOffset(point, animated: animated)
-        
-        for (idx, btn) in allTabButtons.enumerated() {
-            btn.isSelected = (idx == Int(atIndex))
-        }
-        self.moveIndicator(fromIndex: Int(atIndex), toIndex: Int(atIndex), progress: 1.0, animated: animated)
+extension MyBookingFilterVC: PagingViewControllerDataSource , PagingViewControllerDelegate {
+    func numberOfViewControllers<T>(in pagingViewController: PagingViewController<T>) -> Int where T : PagingItem, T : Comparable, T : Hashable {
+        self.allTabsStr.count
     }
     
-    private func moveIndicator(fromIndex: Int, toIndex: Int, progress: CGFloat, animated: Bool) {
-        
-//        print("fromIndex: \(fromIndex), toIndex: \(toIndex), progress: \(progress)")
-        
-        let buttonWidth = oneTabWidth
-        let indicatorWidth = self.allTabsStr[Int(toIndex)].sizeCount(withFont: AppFonts.SemiBold.withSize(16.0), bundingSize: CGSize(width: 10000.0, height: self.allTabTitleContainerView.height)).width + 10.0
-        let indicatorHeight: CGFloat = 2.0
-        
-        func xFor(index: Int) -> CGFloat {
-            return (((buttonWidth - indicatorWidth) / 2.0) + (buttonWidth * CGFloat(index)))
-        }
-        
-        var newX: CGFloat = 0.0
-        if fromIndex > toIndex {
-            //back
-            newX = xFor(index: fromIndex) - (buttonWidth * (1.0 - progress))
-        }
-        else if fromIndex < toIndex {
-            //forward
-            newX = xFor(index: fromIndex) + (buttonWidth * progress)
-        }
-        else {
-            //select any page
-            newX = xFor(index: fromIndex)
-        }
-        
-        let indicatorFrame = CGRect(x: newX, y: self.allTabTitleContainerView.height - indicatorHeight, width: indicatorWidth, height: indicatorHeight)
-        
-        self.tabSelectionIndicatorView.frame = indicatorFrame
-        
-        if animated {
-            UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
-                self?.tabSelectionIndicatorView.layoutIfNeeded()
-            }
-        }
-        
-        MyBookingFilterVM.shared.lastSelectedIndex = toIndex
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, viewControllerForIndex index: Int) -> UIViewController where T : PagingItem, T : Comparable, T : Hashable {
+        return self.allChildVCs[index]
     }
     
-    private func onScrollEnding(_ scrollView: UIScrollView) {
-        let page = CGFloat(Int(scrollView.contentOffset.x / scrollView.bounds.width))
-        self.selectTab(atIndex: page, animated: true)
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemForIndex index: Int) -> T where T : PagingItem, T : Comparable, T : Hashable {
+        return MenuItem(title: self.allTabsStr[index], index: index, isSelected: isFilterArray[index] ) as! T
     }
     
-    private func movePage(from: Int, to: Int, pregress: CGFloat) {
-        if pregress >= 1.0 {
-            self.selectTab(atIndex: CGFloat(to), animated: false)
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
+        
+        // depending onthe text size, give the width of the menu item
+        if let pagingIndexItem = pagingItem as? MenuItem {
+            let text = pagingIndexItem.title
+            
+            let font = AppFonts.SemiBold.withSize(16.0)
+            return text.widthOfString(usingFont: font) + 20.0
         }
-        else {
-            self.moveIndicator(fromIndex: from, toIndex: to, progress: pregress, animated: false)
-        }
+        
+        return 100.0
     }
     
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        self.onScrollEnding(scrollView)
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.onScrollEnding(scrollView)
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
         
-        let offset = scrollView.contentOffset
-        
-        let upperBound = scrollView.contentSize.width - scrollView.bounds.width
-        guard 0...upperBound ~= offset.x else {
-            return
-        }
-        
-        let progress: CGFloat = offset.x.truncatingRemainder(dividingBy: scrollView.bounds.width) / scrollView.bounds.width
-
-        if offset.x > previousOffset.x {
-            //increase
-            let fromPage = Int((offset.x - 1) / scrollView.bounds.width)
-            let toPage = fromPage + 1
-            self.movePage(from: fromPage, to: toPage, pregress: progress)
-        }
-        else if offset.x < previousOffset.x {
-            //decrease
-            let fromPage = Int((offset.x + scrollView.bounds.width) / scrollView.bounds.width)
-            let toPage = fromPage - 1
-            self.movePage(from: fromPage, to: toPage, pregress: progress)
-        }
-        
-        previousOffset = scrollView.contentOffset
+        let pagingIndexItem = pagingItem as! MenuItem
+        self.currentIndex = pagingIndexItem.index
+        MyBookingFilterVM.shared.lastSelectedIndex =  self.currentIndex
     }
 }
+
+
