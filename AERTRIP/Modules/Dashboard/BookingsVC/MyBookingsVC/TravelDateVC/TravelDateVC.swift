@@ -174,7 +174,8 @@ class TravelDateVC: BaseVC {
 //                self.closeBothPicker(animated: false)
 //            }
             
-            self.fromDatePicker.minimumDate = self.minFromDate
+//            self.fromDatePicker.minimumDate = self.minFromDate
+            self.fromDatePicker.minimumDate = Date()
             self.fromDatePicker.maximumDate = Date().add(years: 2)
             
             self.toDatePicker.minimumDate = self.minFromDate
@@ -197,7 +198,8 @@ class TravelDateVC: BaseVC {
 //                self.closeBothPicker(animated: false)
 //            }
             
-            self.fromDatePicker.minimumDate = self.minFromDate
+//            self.fromDatePicker.minimumDate = self.minFromDate
+            self.fromDatePicker.minimumDate = Date()
             self.fromDatePicker.maximumDate = Date()
             
             self.toDatePicker.minimumDate = self.minFromDate

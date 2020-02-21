@@ -49,6 +49,7 @@ class MyBookingsVC: BaseVC {
     override func initialSetup() {
         self.topNavBar.configureNavBar(title: LocalizedString.MyBookings.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "bookingFilterIcon"), selectedImage: #imageLiteral(resourceName: "bookingFilterIconSelected"))
+        self.topNavBar.firstRightBtnTrailingConst.constant = 3.0
         //        self.topNavBar.configureSecondRightButton(normalImage: #imageLiteral(resourceName: "swipeArrow"), selectedImage: #imageLiteral(resourceName: "swipeArrow"))
         self.searchBar.cornerRadius = 10.0
         self.searchBar.clipsToBounds = true
@@ -191,6 +192,7 @@ class MyBookingsVC: BaseVC {
             self.childContainerView.isHidden = false
             self.searchBarContainerView.isHidden = false
             self.instantiateChildVC()
+            self.setUpViewPager()
         }
     }
     
@@ -213,18 +215,6 @@ class MyBookingsVC: BaseVC {
             self.allTabsStr.append(LocalizedString.Cancelled.localized)
         }
         
-        if self.allTabsStr.count == 1 {
-            //            self.allTabTitleContainerView.isHidden = true
-            //            self.allTabsTitleContainerHeightConstraint.constant = 0.0
-        }
-        else {
-            //            self.allTabTitleContainerView.isHidden = false
-            //            self.allTabsTitleContainerHeightConstraint.constant = 50.0
-        }
-        
-        //        if self.upcomingVC == nil {
-        //            self.configureTabBar()
-        //        }
     }
     
     private func hideAllData() {

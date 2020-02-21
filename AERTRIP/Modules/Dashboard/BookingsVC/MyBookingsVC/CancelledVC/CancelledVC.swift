@@ -14,6 +14,7 @@ class CancelledVC: BaseVC {
     //================
     let viewModel = UpcomingBookingsVM()
     
+    
     // Mark:- IBOutlets
     //================
     @IBOutlet weak var emptyStateImageView: UIImageView!

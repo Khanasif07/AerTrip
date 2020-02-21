@@ -42,6 +42,7 @@ class UpcomingBookingsVC: BaseVC {
     
     
     var isOnlyPendingAction: Bool = false
+    var isComingFromFilter: Bool = false
     var fetchRequest: NSFetchRequest<BookingData> = BookingData.fetchRequest()
     
     // fetch result controller
@@ -73,6 +74,7 @@ class UpcomingBookingsVC: BaseVC {
         self.emptyStateImageView.image = #imageLiteral(resourceName: "upcoming_emptystate")
         self.emptyStateTitleLabel.text = LocalizedString.YouHaveNoUpcomingBookings.localized
         self.emptyStateSubTitleLabel.text = LocalizedString.NewDestinationsAreAwaiting.localized
+        
     }
     
     override func setupFonts() {
@@ -138,6 +140,10 @@ class UpcomingBookingsVC: BaseVC {
             self.emptyStateSubTitleLabel?.isHidden = true
             self.upcomingBookingsTableView?.isHidden = false
         } else {
+            if !isComingFromFilter {
+                self.emptyStateTitleLabel?.text = " No Bookings Available. We couldn’t find bookings to match your filters."
+                self.emptyStateSubTitleLabel?.text = " Try changing the filters, or reset them."
+            }
             self.emptyStateImageView?.isHidden = false
             self.emptyStateTitleLabel?.isHidden = false
             self.emptyStateSubTitleLabel?.isHidden = false
@@ -150,6 +156,7 @@ class UpcomingBookingsVC: BaseVC {
             //refresh the data with filters
             
             if (noti == .myBookingFilterApplied || noti == .myBookingFilterCleared) {
+                self.isComingFromFilter = false
                 self.loadSaveData()
                 self.reloadTable()
             }

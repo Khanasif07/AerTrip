@@ -14,6 +14,7 @@ class CompletedVC: BaseVC {
     //Mark:- Variables
     //================
     let viewModel = UpcomingBookingsVM()
+    var isComingFromFilter: Bool = false
     
     //Mark:- IBOutlets
     //================
@@ -142,6 +143,10 @@ class CompletedVC: BaseVC {
             self.completedBookingsTableView?.isHidden = false
         }
         else {
+            if !isComingFromFilter {
+                self.emptyStateTitleLabel?.text = " No Bookings Available. We couldn’t find bookings to match your filters."
+                self.emptyStateSubTitleLabel?.text = " Try changing the filters, or reset them."
+            }
             self.emptyStateImageView?.isHidden = false
             self.emptyStateTitleLabel?.isHidden = false
             self.emptyStateSubTitleLabel?.isHidden = false
@@ -157,6 +162,7 @@ class CompletedVC: BaseVC {
             //refresh the data with filters
             
             if (noti == .myBookingFilterApplied || noti == .myBookingFilterCleared) {
+                self.isComingFromFilter  = false
                 self.loadSaveData()
                 self.reloadTable()
             }
