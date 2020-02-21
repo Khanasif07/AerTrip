@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parchment
 
 struct AccountSelectedFilter {
     var fromDate: Date? = nil
@@ -42,17 +43,20 @@ class ADEventFilterVC: BaseVC {
     //MARK:- Private
     private var selectedFilter: AccountSelectedFilter = AccountSelectedFilter()
     private var currentIndex: Int = 0
-    fileprivate weak var categoryView: ATCategoryView!
+//    fileprivate weak var categoryView: ATCategoryView!
+    
+    // Parchment View
+    private var parchmentView : PagingViewController<PagingIndexItem>?
     private let allTabsStr: [String] = [LocalizedString.DateSpan.localized, LocalizedString.VoucherType.localized]
-    private var allTabs: [ATCategoryItem] {
-        var temp = [ATCategoryItem]()
-        for title in self.allTabsStr {
-            var obj = ATCategoryItem()
-            obj.title = title
-            temp.append(obj)
-        }
-        return temp
-    }
+//    private var allTabs: [ATCategoryItem] {
+//        var temp = [ATCategoryItem]()
+//        for title in self.allTabsStr {
+//            var obj = ATCategoryItem()
+//            obj.title = title
+//            temp.append(obj)
+//        }
+//        return temp
+//    }
     private var allChildVCs: [UIViewController] = [UIViewController(), UIViewController()]
     
     private var travelDateVC = TravelDateVC.instantiate(fromAppStoryboard: .Bookings)
@@ -111,7 +115,7 @@ class ADEventFilterVC: BaseVC {
 
         self.hide(animated: false)
         delay(seconds: 0.01) { [weak self] in
-            self?.setupPagerView()
+            self?.setUpViewPager()
         }
         self.setupGesture()
     }
@@ -124,8 +128,8 @@ class ADEventFilterVC: BaseVC {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.categoryView?.frame = self.childContainerView.bounds
-        self.categoryView?.layoutIfNeeded()
+        self.parchmentView?.view.frame = self.childContainerView.bounds
+        self.parchmentView?.loadViewIfNeeded()
     }
     
     override func setupTexts() {
@@ -160,37 +164,77 @@ class ADEventFilterVC: BaseVC {
     }
     
     
-    private func setupPagerView() {
-        var style = ATCategoryNavBarStyle()
-        style.height = 50.0
-        style.interItemSpace = (self.allTabsStr.count > 2) ? 50.0 : 55.0
-        style.itemPadding = (self.allTabsStr.count > 2) ? 25.0 : 28.0
-        style.isScrollable = false
-        style.layoutAlignment = .left
-        style.isEmbeddedToView = true
-        style.showBottomSeparator = true
-        style.bottomSeparatorColor = AppColors.themeGray40
-        style.defaultFont = AppFonts.Regular.withSize(16.0)
-        style.selectedFont = AppFonts.SemiBold.withSize(16.0)
-        style.indicatorColor = AppColors.themeGreen
-        style.normalColor = AppColors.textFieldTextColor51
-        style.selectedColor = AppColors.themeBlack
-        style.badgeDotSize = CGSize(width: 4.0, height: 4.0)
-        style.badgeBackgroundColor = AppColors.themeGreen
-        style.badgeBorderColor = AppColors.clear
-        style.badgeBorderWidth = 0.0
-
-        
-        let categoryView = ATCategoryView(frame: self.childContainerView.bounds, categories: self.allTabs, childVCs: [travelDateVC, adVoucherTypeVC], parentVC: self, barStyle: style)
-        categoryView.interControllerSpacing = 0.0
-        categoryView.navBar.internalDelegate = self
-        self.childContainerView.addSubview(categoryView)
-        self.categoryView = categoryView
-        
-        // Set last Selected Index on Nav bar
-        self.categoryView.select(at: 0)
-        self.setBadgesOnAllCategories()
+    private func setUpViewPager() {
+        self.currentIndex = 0
+        self.allChildVCs.removeAll()
+        self.allChildVCs.append(travelDateVC)
+        self.allChildVCs.append(adVoucherTypeVC)
+        self.view.layoutIfNeeded()
+        if let _ = self.parchmentView{
+            self.parchmentView?.view.removeFromSuperview()
+            self.parchmentView = nil
+        }
+        setupParchmentPageController()
     }
+    
+      // Added to replace the existing page controller, added Asif Khan
+      private func setupParchmentPageController(){
+          
+        self.parchmentView = PagingViewController<PagingIndexItem>()
+        self.parchmentView?.menuItemSpacing = (UIDevice.screenWidth - 268.0)
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 59.0, bottom: 0.0, right: 46.0)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 50.0)
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
+        self.parchmentView?.borderOptions = PagingBorderOptions.visible(
+            height: 0.5,
+            zIndex: Int.max - 1,
+            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
+        self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
+        self.parchmentView?.indicatorColor = AppColors.themeGreen
+        self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        self.childContainerView.addSubview(self.parchmentView!.view)
+        
+        self.parchmentView?.dataSource = self
+        self.parchmentView?.delegate = self
+        self.parchmentView?.select(index: 0)
+        
+        self.parchmentView?.reloadData()
+        self.parchmentView?.reloadMenu()
+      }
+    
+//    private func setupPagerView() {
+//        var style = ATCategoryNavBarStyle()
+//        style.height = 50.0
+//        style.interItemSpace = (self.allTabsStr.count > 2) ? 50.0 : 55.0
+//        style.itemPadding = (self.allTabsStr.count > 2) ? 25.0 : 28.0
+//        style.isScrollable = false
+//        style.layoutAlignment = .left
+//        style.isEmbeddedToView = true
+//        style.showBottomSeparator = true
+//        style.bottomSeparatorColor = AppColors.themeGray40
+//        style.defaultFont = AppFonts.Regular.withSize(16.0)
+//        style.selectedFont = AppFonts.SemiBold.withSize(16.0)
+//        style.indicatorColor = AppColors.themeGreen
+//        style.normalColor = AppColors.textFieldTextColor51
+//        style.selectedColor = AppColors.themeBlack
+//        style.badgeDotSize = CGSize(width: 4.0, height: 4.0)
+//        style.badgeBackgroundColor = AppColors.themeGreen
+//        style.badgeBorderColor = AppColors.clear
+//        style.badgeBorderWidth = 0.0
+//
+//
+//        let categoryView = ATCategoryView(frame: self.childContainerView.bounds, categories: self.allTabs, childVCs: [travelDateVC, adVoucherTypeVC], parentVC: self, barStyle: style)
+//        categoryView.interControllerSpacing = 0.0
+//        categoryView.navBar.internalDelegate = self
+//        self.childContainerView.addSubview(categoryView)
+//        self.categoryView = categoryView
+//
+//        // Set last Selected Index on Nav bar
+//        self.categoryView.select(at: 0)
+//        self.setBadgesOnAllCategories()
+//    }
     
     private func setBadgesOnAllCategories() {
     }
@@ -263,3 +307,38 @@ extension ADEventFilterVC: ADVoucherTypeVCDelegate, TravelDateVCDelegate {
         self.selectedFilter.fromDate = fromDate
     }
 }
+
+extension ADEventFilterVC : PagingViewControllerDataSource , PagingViewControllerDelegate {
+    func numberOfViewControllers<T>(in pagingViewController: PagingViewController<T>) -> Int where T : PagingItem, T : Comparable, T : Hashable {
+        self.allTabsStr.count
+    }
+    
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, viewControllerForIndex index: Int) -> UIViewController where T : PagingItem, T : Comparable, T : Hashable {
+        return self.allChildVCs[index]
+    }
+    
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemForIndex index: Int) -> T where T : PagingItem, T : Comparable, T : Hashable {
+        return PagingIndexItem(index: index, title:  self.allTabsStr[index]) as! T
+    }
+    
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
+        
+        // depending onthe text size, give the width of the menu item
+        if let pagingIndexItem = pagingItem as? PagingIndexItem{
+            let text = pagingIndexItem.title
+            
+            let font = AppFonts.SemiBold.withSize(16.0)
+            return text.widthOfString(usingFont: font)
+        }
+        
+        return 100.0
+    }
+    
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+        
+        let pagingIndexItem = pagingItem as! PagingIndexItem
+        self.currentIndex = pagingIndexItem.index
+    }
+}
+
+

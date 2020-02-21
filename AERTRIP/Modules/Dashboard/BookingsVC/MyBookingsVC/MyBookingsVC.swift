@@ -7,20 +7,18 @@
 //
 
 import UIKit
+import Parchment
 
 class MyBookingsVC: BaseVC {
     // Mark:- Variables
     //================
     private var selectedButton: Int = 0
     private var currentIndex: Int = 0
-    fileprivate weak var categoryView: ATCategoryView!
     private var allTabsStr: [String] = []
+    // Parchment View
+    fileprivate var parchmentView : PagingViewController<PagingIndexItem>?
+    private var allChildVCs :[UIViewController] = []
     
-    private var allTabButtons: [PKCategoryButton] = []
-
-    private var upcomingVC: UpcomingBookingsVC?
-    private var completedVC: CompletedVC?
-    private var cancelledVC: CancelledVC?
     private var previousOffset = CGPoint.zero
     
     // Mark:- IBOutlets
@@ -32,16 +30,6 @@ class MyBookingsVC: BaseVC {
     }
     
     @IBOutlet weak var childContainerView: UIView!
-    
-    
-    @IBOutlet weak var allTabsTitleContainerHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var allTabTitleContainerView: UIView!
-    @IBOutlet weak var upcomingButton: PKCategoryButton!
-    @IBOutlet weak var completedButton: PKCategoryButton!
-    @IBOutlet weak var cancelledButton: PKCategoryButton!
-    @IBOutlet weak var tabSelectionIndicatorView: UIView!
-    @IBOutlet weak var allTabDetailConatinerView: UIScrollView!
-    
     @IBOutlet weak var searchBarContainerView: UIView!
     @IBOutlet weak var searchBar: ATSearchBar! {
         didSet {
@@ -54,7 +42,7 @@ class MyBookingsVC: BaseVC {
     @IBOutlet weak var emptyStateImageView: UIImageView!
     @IBOutlet weak var emptyStateTitleLabel: UILabel!
     @IBOutlet weak var emptyStateSubTitleLabel: UILabel!
- 
+    
     
     // Mark:- LifeCycle
     
@@ -65,8 +53,7 @@ class MyBookingsVC: BaseVC {
         self.searchBar.cornerRadius = 10.0
         self.searchBar.clipsToBounds = true
         self.hideAllData()
-        MyBookingsVM.shared.delgate = self
-        MyBookingsVM.shared.getBookings()
+        
     }
     override func dataChanged(_ note: Notification) {
         if let noti = note.object as? ATNotification {
@@ -84,6 +71,10 @@ class MyBookingsVC: BaseVC {
     }
     
     // MARK:- Override methods
+    override func viewDidLayoutSubviews() {
+        self.parchmentView?.view.frame = self.childContainerView.bounds
+        self.parchmentView?.loadViewIfNeeded()
+    }
     
     override func setupTexts() {
         self.emptyStateImageView.image = #imageLiteral(resourceName: "booking_Emptystate")
@@ -91,6 +82,9 @@ class MyBookingsVC: BaseVC {
         self.emptyStateSubTitleLabel.text = LocalizedString.StartYourWanderlustJourneyWithUs.localized
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        MyBookingsVM.shared.getBookings()
+    }
     override func setupFonts() {
         self.topNavBar.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.emptyStateTitleLabel.font = AppFonts.Regular.withSize(22.0)
@@ -104,10 +98,58 @@ class MyBookingsVC: BaseVC {
     }
     
     override func bindViewModel() {
-        
         MyBookingsVM.shared.delgate = self
     }
+    // Asif Change
+    public func setUpViewPager() {
+        self.currentIndex = 0
+        self.allChildVCs.removeAll()
+        if allTabsStr.contains("Upcoming"){
+            let upcomingVC = UpcomingBookingsVC.instantiate(fromAppStoryboard: .Bookings)
+            self.allChildVCs.append(upcomingVC)
+        }
+        if  allTabsStr.contains("Completed"){
+            let completedVC = CompletedVC.instantiate(fromAppStoryboard: .Bookings)
+            self.allChildVCs.append(completedVC)
+        }
+        if  allTabsStr.contains("Cancelled"){
+            let cancelledVC = CancelledVC.instantiate(fromAppStoryboard: .Bookings)
+            self.allChildVCs.append(cancelledVC)
+        }
+        self.view.layoutIfNeeded()
+        if let _ = self.parchmentView{
+            self.parchmentView?.view.removeFromSuperview()
+            self.parchmentView = nil
+        }
+        setupParchmentPageController()
+    }
     
+    // Added to replace the existing page controller, added Asif Khan
+    private func setupParchmentPageController(){
+        
+        self.parchmentView = PagingViewController<PagingIndexItem>()
+        self.parchmentView?.menuItemSpacing =  self.allTabsStr.count == 2 ? (UIDevice.screenWidth - 269.0) : (UIDevice.screenWidth - 269.0)/2
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: self.allTabsStr.count == 2 ? 59.0 : 28.0, bottom: 0.0, right:  self.allTabsStr.count == 2 ? 64.0 : 29.0)
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0), insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 50)
+        self.parchmentView?.borderOptions = PagingBorderOptions.visible(
+            height: 0.5,
+            zIndex: Int.max - 1,
+            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
+        self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
+        self.parchmentView?.indicatorColor = AppColors.themeGreen
+        self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        self.childContainerView.addSubview(self.parchmentView!.view)
+        
+        self.parchmentView?.dataSource = self
+        self.parchmentView?.delegate = self
+        self.parchmentView?.select(index: 0)
+        
+        self.parchmentView?.reloadData()
+        self.parchmentView?.reloadMenu()
+    }
     
     
     // MARK:- Functions
@@ -135,7 +177,7 @@ class MyBookingsVC: BaseVC {
     }
     
     func emptyStateSetUp() {
-
+        
         if MyBookingsVM.shared.allTabTypes.isEmpty {
             self.emptyStateImageView.isHidden = false
             self.emptyStateTitleLabel.isHidden = false
@@ -164,7 +206,7 @@ class MyBookingsVC: BaseVC {
                 self.allTabsStr.append(LocalizedString.Upcoming.localized)
                 self.allTabsStr.append(LocalizedString.Completed.localized)
             } else {
-               self.allTabsStr.append(LocalizedString.Completed.localized)
+                self.allTabsStr.append(LocalizedString.Completed.localized)
             }
         }
         if MyBookingsVM.shared.allTabTypes.contains(Int16(BookingTabCategory.cancelled.rawValue)) {
@@ -172,17 +214,17 @@ class MyBookingsVC: BaseVC {
         }
         
         if self.allTabsStr.count == 1 {
-            self.allTabTitleContainerView.isHidden = true
-            self.allTabsTitleContainerHeightConstraint.constant = 0.0
+            //            self.allTabTitleContainerView.isHidden = true
+            //            self.allTabsTitleContainerHeightConstraint.constant = 0.0
         }
         else {
-            self.allTabTitleContainerView.isHidden = false
-            self.allTabsTitleContainerHeightConstraint.constant = 50.0
+            //            self.allTabTitleContainerView.isHidden = false
+            //            self.allTabsTitleContainerHeightConstraint.constant = 50.0
         }
-
-        if self.upcomingVC == nil {
-            self.configureTabBar()
-        }
+        
+        //        if self.upcomingVC == nil {
+        //            self.configureTabBar()
+        //        }
     }
     
     private func hideAllData() {
@@ -192,28 +234,8 @@ class MyBookingsVC: BaseVC {
         self.childContainerView.isHidden = true
         self.searchBarContainerView.isHidden = true
     }
-    
-    
-    // MARK: - IB Action
-   
-    @IBAction func upcomingButtonAction(_ sender: PKCategoryButton) {
-        if let idx = self.allTabButtons.firstIndex(of: sender) {
-            self.selectTab(atIndex: CGFloat(idx), animated: true)
-        }
-    }
-    
-    @IBAction func completedButtonAction(_ sender: PKCategoryButton) {
-        if let idx = self.allTabButtons.firstIndex(of: sender) {
-            self.selectTab(atIndex: CGFloat(idx), animated: true)
-        }
-    }
-    
-    @IBAction func cancelledButtonAction(_ sender: PKCategoryButton) {
-        if let idx = self.allTabButtons.firstIndex(of: sender) {
-            self.selectTab(atIndex: CGFloat(idx), animated: true)
-        }
-    }
 }
+
 
 // Mark:- Extensions
 //=================
@@ -237,214 +259,44 @@ extension MyBookingsVC: TopNavigationViewDelegate {
     }
 }
 
-// MARK: - ATCategoryNavBarDelegate
-
-extension MyBookingsVC: ATCategoryNavBarDelegate {
-    func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
-        self.currentIndex = toIndex
-        MyBookingFilterVM.shared.lastSelectedIndex = toIndex
-    }
-}
 
 // MARK: - MyBookingFooterViewDelegate
 
 // MARK:- Custom Tab bar
 
-extension MyBookingsVC {
-    
-    var totalTabs: Int {
-        return self.allTabsStr.count
-    }
-    
-    var oneTabWidth: CGFloat {
-        return allTabTitleContainerView.width / CGFloat(totalTabs)
-    }
-    
-    private func configureTabBar() {
-        self.configureTabButtons()
-        self.configureSelectionIndicator()
-        self.configureScrollView()
-        
-        self.selectTab(atIndex: CGFloat(MyBookingFilterVM.shared.lastSelectedIndex), animated: false)
-    }
-    
-    private func configureTabButtons() {
-        func configure(button: PKCategoryButton, title: String) {
-            
-            button.setTitle(title, for: .normal)
-            button.setTitle(title, for: .selected)
-            
-            button.setTitleColor(AppColors.textFieldTextColor51, for: .normal)
-            button.setTitleColor(AppColors.themeBlack, for: .selected)
-            
-            button.setTitleFont(font: AppFonts.Regular.withSize(16.0), for: .normal)
-            button.setTitleFont(font: AppFonts.SemiBold.withSize(16.0), for: .selected)
-            
-            button.isSelected = false
-            button.tintColor = AppColors.themeWhite.withAlphaComponent(0.1)
-        }
-        
-        //upcoming  button
-        configure(button: self.upcomingButton, title: LocalizedString.Upcoming.localized)
-        
-        //completed Type button
-        configure(button: self.completedButton, title: LocalizedString.Completed.localized)
-        
-        //cancelled Date button
-        configure(button: self.cancelledButton, title: LocalizedString.Cancelled.localized)
-        
-        self.tabSelectionIndicatorView.translatesAutoresizingMaskIntoConstraints = true
-    }
-    
-    private func configureSelectionIndicator() {
-        self.tabSelectionIndicatorView.backgroundColor = AppColors.themeGreen
-    }
-    
-    private func configureScrollView() {
-        self.allTabDetailConatinerView.contentSize = CGSize(width: self.allTabDetailConatinerView.width * CGFloat(totalTabs), height: self.allTabDetailConatinerView.height)
-        self.allTabDetailConatinerView.delegate = self
-        self.allTabDetailConatinerView.isPagingEnabled = true
-        self.allTabDetailConatinerView.showsVerticalScrollIndicator = false
-        self.allTabDetailConatinerView.showsHorizontalScrollIndicator = false
-        
-        //Travel Date
-        self.upcomingButton.isHidden = true
-        if self.upcomingVC == nil, self.allTabsStr.contains(LocalizedString.Upcoming.localized) {
-            
-            self.upcomingVC = UpcomingBookingsVC.instantiate(fromAppStoryboard: .Bookings)
-            
-            self.allTabDetailConatinerView.addSubview(self.upcomingVC!.view)
-            self.upcomingButton.isHidden = false
-            self.allTabButtons.append(self.upcomingButton)
-        }
-        self.upcomingVC?.view.frame = CGRect(x: (self.allTabDetailConatinerView.width * 0.0), y: 0.0, width: self.allTabDetailConatinerView.width, height: self.allTabDetailConatinerView.height)
-        
-        
-        //completed Type
-        self.completedButton.isHidden = true
-        if self.completedVC == nil, self.allTabsStr.contains(LocalizedString.Completed.localized) {
 
-            self.completedVC = CompletedVC.instantiate(fromAppStoryboard: .Bookings)
-
-            self.allTabDetailConatinerView.addSubview(completedVC!.view)
-            self.completedButton.isHidden = false
-            self.allTabButtons.append(self.completedButton)
-        }
-        self.completedVC?.view.frame = CGRect(x: (self.allTabDetailConatinerView.width * 1.0), y: 0.0, width: self.allTabDetailConatinerView.width, height: self.allTabDetailConatinerView.height)
+extension MyBookingsVC : PagingViewControllerDataSource , PagingViewControllerDelegate {
+    
+    func numberOfViewControllers<T>(in pagingViewController: PagingViewController<T>) -> Int where T : PagingItem, T : Comparable, T : Hashable {
+        self.allTabsStr.count
+    }
+    
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, viewControllerForIndex index: Int) -> UIViewController where T : PagingItem, T : Comparable, T : Hashable {
+        return self.allChildVCs[index]
+    }
+    
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemForIndex index: Int) -> T where T : PagingItem, T : Comparable, T : Hashable {
+        return PagingIndexItem(index: index, title:  self.allTabsStr[index]) as! T
+    }
+    
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
         
-        //cancelled Date
-        self.cancelledButton.isHidden = true
-        if self.cancelledVC == nil, self.allTabsStr.contains(LocalizedString.Cancelled.localized) {
+        // depending onthe text size, give the width of the menu item
+        if let pagingIndexItem = pagingItem as? PagingIndexItem{
+            let text = pagingIndexItem.title
             
-            self.cancelledVC = CancelledVC.instantiate(fromAppStoryboard: .Bookings)
-            self.allTabDetailConatinerView.addSubview(cancelledVC!.view)
-            self.cancelledButton.isHidden = false
-            self.allTabButtons.append(self.cancelledButton)
+            let font = AppFonts.SemiBold.withSize(16.0)
+            return text.widthOfString(usingFont: font)
         }
-        let spaceIndex: CGFloat = self.completedVC == nil ? 1.0 : 2.0
-        self.cancelledVC?.view.frame = CGRect(x: (self.allTabDetailConatinerView.width * spaceIndex), y: 0.0, width: self.allTabDetailConatinerView.width, height: self.allTabDetailConatinerView.height)
+        
+        return 100.0
+    }
+    
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+        
+        let pagingIndexItem = pagingItem as! PagingIndexItem
+        self.currentIndex = pagingIndexItem.index
     }
 }
 
-extension MyBookingsVC {
-    private func selectTab(atIndex: CGFloat, animated: Bool) {
-        let point = CGPoint(x: self.allTabDetailConatinerView.width * atIndex, y: 0.0)
-        self.allTabDetailConatinerView.setContentOffset(point, animated: animated)
-        
-        for (idx, btn) in allTabButtons.enumerated() {
-            btn.isSelected = (idx == Int(atIndex))
-        }
-        
-        self.moveIndicator(fromIndex: Int(atIndex), toIndex: Int(atIndex), progress: 1.0, animated: animated)
-    }
-    
-    private func moveIndicator(fromIndex: Int, toIndex: Int, progress: CGFloat, animated: Bool) {
-        
-        //        print("fromIndex: \(fromIndex), toIndex: \(toIndex), progress: \(progress)")
-        
-        let buttonWidth = oneTabWidth
-        let indicatorWidth = self.allTabsStr[Int(toIndex)].sizeCount(withFont: AppFonts.SemiBold.withSize(16.0), bundingSize: CGSize(width: 10000.0, height: self.allTabTitleContainerView.height)).width + 10.0
-        let indicatorHeight: CGFloat = 2.0
-        
-        func xFor(index: Int) -> CGFloat {
-            return (((buttonWidth - indicatorWidth) / 2.0) + (buttonWidth * CGFloat(index)))
-        }
-        
-        var newX: CGFloat = 0.0
-        if fromIndex > toIndex {
-            //back
-            newX = xFor(index: fromIndex) - (buttonWidth * (1.0 - progress))
-        }
-        else if fromIndex < toIndex {
-            //forward
-            newX = xFor(index: fromIndex) + (buttonWidth * progress)
-        }
-        else {
-            //select any page
-            newX = xFor(index: fromIndex)
-        }
-        
-        //        print("fromIndex: \(newX)")
-        let indicatorFrame = CGRect(x: newX, y: self.allTabTitleContainerView.height - indicatorHeight, width: indicatorWidth, height: indicatorHeight)
-        
-        self.tabSelectionIndicatorView.frame = indicatorFrame
-        
-        if animated {
-            UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
-                self?.tabSelectionIndicatorView.layoutIfNeeded()
-            }
-        }
-        
-        MyBookingFilterVM.shared.lastSelectedIndex = toIndex
-    }
-    
-    private func onScrollEnding(_ scrollView: UIScrollView) {
-        let page = CGFloat(Int(scrollView.contentOffset.x / scrollView.bounds.width))
-        self.selectTab(atIndex: page, animated: true)
-    }
-    
-    private func movePage(from: Int, to: Int, pregress: CGFloat) {
-        if pregress >= 1.0 {
-            self.selectTab(atIndex: CGFloat(to), animated: false)
-        }
-        else {
-            self.moveIndicator(fromIndex: from, toIndex: to, progress: pregress, animated: false)
-        }
-    }
-    
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        self.onScrollEnding(scrollView)
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.onScrollEnding(scrollView)
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        let offset = scrollView.contentOffset
-        
-        let upperBound = scrollView.contentSize.width - scrollView.bounds.width
-        guard 0...upperBound ~= offset.x else {
-            return
-        }
-        
-        let progress: CGFloat = offset.x.truncatingRemainder(dividingBy: scrollView.bounds.width) / scrollView.bounds.width
-        
-        if offset.x > previousOffset.x {
-            //increase
-            let fromPage = Int((offset.x - 1) / scrollView.bounds.width)
-            let toPage = fromPage + 1
-            self.movePage(from: fromPage, to: toPage, pregress: progress)
-        }
-        else if offset.x < previousOffset.x {
-            //decrease
-            let fromPage = Int((offset.x + scrollView.bounds.width) / scrollView.bounds.width)
-            let toPage = fromPage - 1
-            self.movePage(from: fromPage, to: toPage, pregress: progress)
-        }
-        
-        previousOffset = scrollView.contentOffset
-    }
-}
 

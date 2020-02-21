@@ -30,7 +30,7 @@ class PriceVC: BaseVC {
     let horizontalMultiSlider = MultiSlider()
     var filterApplied: UserInfo.HotelFilter = UserInfo.HotelFilter()
     private let titles: [String] = [LocalizedString.PerNight.localized, LocalizedString.Total.localized]
-    
+    private let priceTitles: [Price] = [.PerNight,.Total]
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -130,16 +130,24 @@ extension PriceVC: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SortTableViewCell.reusableIdentifier, for: indexPath) as? SortTableViewCell else {
             return UITableViewCell()
         }
-        cell.tintColor = AppColors.themeGreen
-        if indexPath.row == 0,  HotelFilterVM.shared.priceType == .PerNight {
-            cell.accessoryType = .checkmark
-            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
+//        cell.tintColor = AppColors.themeGreen
+        if priceTitles[indexPath.row] ==  HotelFilterVM.shared.priceType {
+            cell.accessoryView = setCheckBox()
             cell.leftTitleLabel.textColor = AppColors.themeGreen
-        } else if indexPath.row == 1, HotelFilterVM.shared.priceType == .Total {
-            cell.accessoryType = .checkmark
-            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
-            cell.leftTitleLabel.textColor =  AppColors.themeGreen
+        } else {
+            cell.accessoryView = nil
+            cell.leftTitleLabel.textColor = AppColors.themeBlack
+            
         }
+//        if indexPath.row == 0,  HotelFilterVM.shared.priceType == .PerNight {
+//            cell.accessoryType = .checkmark
+//            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
+//
+//        } else if indexPath.row == 1, HotelFilterVM.shared.priceType == .Total {
+//            cell.accessoryType = .checkmark
+//            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
+//            cell.leftTitleLabel.textColor =  AppColors.themeGreen
+//        }
       
         cell.configureCell(leftTitle: titles[indexPath.row], rightTitle: "")
         return cell
@@ -147,9 +155,9 @@ extension PriceVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? SortTableViewCell{
-            cell.tintColor = AppColors.themeGreen
-            cell.accessoryType = .checkmark
-            cell.leftTitleLabel.textColor = AppColors.themeGreen
+//            cell.tintColor = AppColors.themeGreen
+//            cell.accessoryType = .checkmark
+//            cell.leftTitleLabel.textColor = AppColors.themeGreen
             switch indexPath.row {
             case 0:
                 HotelFilterVM.shared.priceType = .PerNight
@@ -158,7 +166,14 @@ extension PriceVC: UITableViewDataSource, UITableViewDelegate {
             default:
                 return
             }
+            self.tableView.reloadData()
         }
+    }
+    
+    func setCheckBox() -> UIImageView {
+        let checkMarkView = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: 20.0, height: 20.0))
+        checkMarkView.setImageWithUrl("", placeholder: #imageLiteral(resourceName: "checkIcon"), showIndicator: false)
+        return checkMarkView
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

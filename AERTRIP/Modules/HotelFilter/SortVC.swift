@@ -16,8 +16,11 @@ class SortVC: UIViewController {
     // MARK: - Variables
     
     let cellIdentifier = "SortTableViewCell"
+
+    private let sortTitle : [SortUsing] = [.BestSellers,.PriceLowToHigh,.TripAdvisorRatingHighToLow,.StartRatingHighToLow,.DistanceNearestFirst]
     private let titles: [String] = [LocalizedString.BestSellers.localized, LocalizedString.Price.localized, LocalizedString.TripAdvisor.localized, LocalizedString.StarRating.localized, LocalizedString.Distance.localized]
     private let subTitles: [String] = [LocalizedString.Recommended.localized, LocalizedString.LowToHigh.localized, LocalizedString.FiveToOne.localized, LocalizedString.FiveToOne.localized, LocalizedString.NearestFirst.localized]
+    
     
     // MARK: - View Life cycle
     
@@ -39,6 +42,8 @@ class SortVC: UIViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
     }
+    
+    
 }
 
 // MARK: - UITableViewCellDataSource and UITableViewCellDelegateMethods
@@ -57,44 +62,61 @@ extension SortVC: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         cell.tintColor = AppColors.themeGreen
-        if indexPath.row == 0, HotelFilterVM.shared.sortUsing == .BestSellers {
-            cell.accessoryType = .checkmark
+        if sortTitle[indexPath.row] == HotelFilterVM.shared.sortUsing {
+            cell.accessoryView = setCheckBox()
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
             cell.leftTitleLabel.textColor = AppColors.themeGreen
             cell.rightTitleLabel.textColor = AppColors.themeGreen
-        } else if indexPath.row == 1, HotelFilterVM.shared.sortUsing == .PriceLowToHigh {
-            cell.accessoryType = .checkmark
-            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
-            cell.leftTitleLabel.textColor = AppColors.themeGreen
-            cell.rightTitleLabel.textColor = AppColors.themeGreen
-        } else if indexPath.row == 2, HotelFilterVM.shared.sortUsing == .TripAdvisorRatingHighToLow {
-            cell.accessoryType = .checkmark
-            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
-            cell.leftTitleLabel.textColor = AppColors.themeGreen
-            cell.rightTitleLabel.textColor = AppColors.themeGreen
-            
-        } else if indexPath.row == 3, HotelFilterVM.shared.sortUsing == .StartRatingHighToLow {
-            cell.accessoryType = .checkmark
-            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
-            cell.leftTitleLabel.textColor = AppColors.themeGreen
-            cell.rightTitleLabel.textColor = AppColors.themeGreen
-        } else if indexPath.row == 4, HotelFilterVM.shared.sortUsing == .DistanceNearestFirst {
-            cell.accessoryType = .checkmark
-            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
-            cell.leftTitleLabel.textColor = AppColors.themeGreen
-            cell.rightTitleLabel.textColor = AppColors.themeGreen
+        } else {
+            cell.accessoryView = nil
+            cell.leftTitleLabel.textColor = AppColors.themeBlack
+            cell.rightTitleLabel.textColor = AppColors.themeBlack
         }
+//        if indexPath.row == 0, HotelFilterVM.shared.sortUsing == .BestSellers {
+////            cell.accessoryType = .checkmark
+//            cell.accessoryView = setCheckBox()
+//            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
+//            cell.leftTitleLabel.textColor = AppColors.themeGreen
+//            cell.rightTitleLabel.textColor = AppColors.themeGreen
+//        } else if indexPath.row == 1, HotelFilterVM.shared.sortUsing == .PriceLowToHigh {
+//            cell.accessoryType = .checkmark
+//            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
+//            cell.leftTitleLabel.textColor = AppColors.themeGreen
+//            cell.rightTitleLabel.textColor = AppColors.themeGreen
+//        } else if indexPath.row == 2, HotelFilterVM.shared.sortUsing == .TripAdvisorRatingHighToLow {
+//            cell.accessoryType = .checkmark
+//            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
+//            cell.leftTitleLabel.textColor = AppColors.themeGreen
+//            cell.rightTitleLabel.textColor = AppColors.themeGreen
+//
+//        } else if indexPath.row == 3, HotelFilterVM.shared.sortUsing == .StartRatingHighToLow {
+//            cell.accessoryType = .checkmark
+//            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
+//            cell.leftTitleLabel.textColor = AppColors.themeGreen
+//            cell.rightTitleLabel.textColor = AppColors.themeGreen
+//        } else if indexPath.row == 4, HotelFilterVM.shared.sortUsing == .DistanceNearestFirst {
+//            cell.accessoryType = .checkmark
+//            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
+//            cell.leftTitleLabel.textColor = AppColors.themeGreen
+//            cell.rightTitleLabel.textColor = AppColors.themeGreen
+//        }
         cell.configureCell(leftTitle: titles[indexPath.row], rightTitle: subTitles[indexPath.row])
         return cell
+    }
+    func setCheckBox() -> UIImageView {
+        let checkMarkView = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: 20.0, height: 20.0))
+        checkMarkView.setImageWithUrl("", placeholder: #imageLiteral(resourceName: "checkIcon"), showIndicator: false)
+        return checkMarkView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         HotelFilterVM.shared.isSortingApplied = true
         if let cell = tableView.cellForRow(at: indexPath) as? SortTableViewCell {
             cell.tintColor = AppColors.themeGreen
-            cell.accessoryType = .checkmark
-            cell.leftTitleLabel.textColor = AppColors.themeGreen
-            cell.rightTitleLabel.textColor = AppColors.themeGreen
+//            cell.accessoryType = .checkmark
+//            cell.accessoryView = setCheckBox()
+//            cell.leftTitleLabel.textColor = AppColors.themeGreen
+//            cell.rightTitleLabel.textColor = AppColors.themeGreen
             switch indexPath.row {
             case 0:
                 HotelFilterVM.shared.sortUsing = .BestSellers
@@ -109,6 +131,7 @@ extension SortVC: UITableViewDataSource, UITableViewDelegate {
             default:
                 return
             }
+            self.tableView.reloadData()
         }
     }
     
