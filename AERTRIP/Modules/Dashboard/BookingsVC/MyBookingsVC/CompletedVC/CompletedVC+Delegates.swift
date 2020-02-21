@@ -102,6 +102,7 @@ extension CompletedVC {
 extension CompletedVC: MyBookingFooterViewDelegate {
     func myBookingFooterView(_ sender: MyBookingFooterView, didChangedPendingActionSwitch isOn: Bool) {
         self.isOnlyPendingAction = isOn
+        self.isComingFromFilter = true
         self.loadSaveData()
         self.reloadTable()
     }

@@ -14,6 +14,7 @@ class CompletedVC: BaseVC {
     //Mark:- Variables
     //================
     let viewModel = UpcomingBookingsVM()
+    var isComingFromFilter: Bool = false
     
     //Mark:- IBOutlets
     //================
@@ -157,6 +158,7 @@ class CompletedVC: BaseVC {
             //refresh the data with filters
             
             if (noti == .myBookingFilterApplied || noti == .myBookingFilterCleared) {
+                self.isComingFromFilter  = false
                 self.loadSaveData()
                 self.reloadTable()
             }

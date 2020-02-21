@@ -39,6 +39,7 @@ class UpcomingBookingsVC: BaseVC {
     
     
     var isOnlyPendingAction: Bool = false
+    var isComingFromFilter: Bool = false
     var fetchRequest: NSFetchRequest<BookingData> = BookingData.fetchRequest()
     
     // fetch result controller
@@ -153,6 +154,7 @@ class UpcomingBookingsVC: BaseVC {
             //refresh the data with filters
             
             if (noti == .myBookingFilterApplied || noti == .myBookingFilterCleared) {
+                self.isComingFromFilter = false
                 self.loadSaveData()
                 self.reloadTable()
             }
