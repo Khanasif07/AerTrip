@@ -183,7 +183,7 @@ class BulkBookingVC: BaseVC {
         self.view.alpha = 1.0
         self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
         self.bottomViewHeightConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
-        self.mainContainerView.roundTopCorners(cornerRadius: 15.0)
+        self.mainContainerView.roundTopCorners(cornerRadius: 10.0)
 
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.BulkBooking.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)

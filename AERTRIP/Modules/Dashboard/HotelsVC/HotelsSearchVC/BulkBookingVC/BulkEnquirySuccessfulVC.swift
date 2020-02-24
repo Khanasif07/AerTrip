@@ -108,6 +108,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
             self.searchButtonWidthConstraint.constant = 150.0
             self.mainContainerViewHeightConstraint.constant = self.view.height - (AppFlowManager.default.safeAreaInsets.top)
             self.containerView.roundTopCorners(cornerRadius: 15.0)
+            self.mainTitleLabel.font = AppFonts.c.withSize(31.0)
         case .accountDeposit:
             self.mainTitleLabel.text = LocalizedString.PaymentRegisteredSuccesfully.localized
             self.subTitleLabel.text = LocalizedString.WeShallCreditYourAccount.localized
@@ -200,7 +201,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
     private func setupViewForSuccessAnimation() {
         self.searchBtnOutlet.setTitle(nil, for: .normal)
         self.searchBtnOutlet.setImage(nil, for: .normal)
-        let reScaleFrame = CGRect(x: (self.containerView.width - 74.0) / 2.0, y: self.searchBtnOutlet.y, width: 74.0, height: 74.0)
+        let reScaleFrame = CGRect(x: (self.containerView.width - 62.0) / 2.0, y: self.searchBtnOutlet.y, width: 62.0, height: 62.0)
         self.searchBtnOutlet.translatesAutoresizingMaskIntoConstraints = true
         
         UIView.animate(withDuration: AppConstants.kAnimationDuration / 4.0, animations: {
@@ -210,7 +211,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
             
         }) { (isCompleted) in
             self.searchBtnOutlet.layer.cornerRadius = reScaleFrame.height / 2.0
-            let yPerSafeArea = self.mainTitleLabel.frame.origin.y + self.view.safeAreaInsets.bottom //+ 26.0
+            let yPerSafeArea = self.mainTitleLabel.frame.origin.y + self.view.safeAreaInsets.bottom + 26.0 + 5
             let tY: CGFloat
             if UIDevice.isIPhoneX {
                 tY = (((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y)
@@ -225,9 +226,9 @@ class BulkEnquirySuccessfulVC: BaseVC {
                 self.searchBtnOutlet.transform = t
                 self.containerView.alpha = 1.0
             }) { (isCompleted) in
-                self.mainTitleLabel.bottom = self.searchBtnOutlet.bottom + 26.0
-                self.subTitleLabel.bottom = self.mainTitleLabel.bottom + 16.0
-                self.doneBtnOutlet.bottom = self.subTitleLabel.bottom + 120.0
+//                self.mainTitleLabel.bottom = self.searchBtnOutlet.bottom + 26.0
+//                self.subTitleLabel.bottom = self.mainTitleLabel.bottom + 16.0
+//                self.doneBtnOutlet.bottom = self.subTitleLabel.bottom + 120.0
                 self.animatingCheckMark()
                 delay(seconds: AppConstants.kAnimationDuration + 0.1, completion: {
                     self.finalTransFormation(tY: tY - yPerSafeArea)
@@ -249,9 +250,9 @@ class BulkEnquirySuccessfulVC: BaseVC {
             self.updateTickPath()
             self.searchBtnOutlet.myCornerRadius = newReScaleFrame.height / 2.0
             self.searchBtnOutlet.transform = t
-            self.mainTitleLabel.bottom = self.bulkLabelBottom
-            self.subTitleLabel.bottom = self.customerLabelBottom
-            self.doneBtnOutlet.bottom = self.doneBtnBottom
+//            self.mainTitleLabel.bottom = self.bulkLabelBottom
+//            self.subTitleLabel.bottom = self.customerLabelBottom
+//            self.doneBtnOutlet.bottom = self.doneBtnBottom
             self.mainTitleLabel.alpha = 1.0
             self.subTitleLabel.alpha = 1.0
             self.doneBtnOutlet.alpha = 1.0
