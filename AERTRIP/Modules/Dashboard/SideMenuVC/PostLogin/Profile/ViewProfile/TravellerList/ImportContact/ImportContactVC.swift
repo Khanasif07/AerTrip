@@ -231,9 +231,6 @@ extension ImportContactVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.viewModel.search(forText: searchText)
     }
-    
-    
-    
 }
 
 extension ImportContactVC: TopNavigationViewDelegate {
@@ -316,15 +313,7 @@ extension ImportContactVC: ImportContactVMDelegate {
         case .google:
             item = self.viewModel.selectedGoogleContacts.count
             section = 2
-        default:
-            item = 0
         }
-        //        self.selectedContactsCollectionView.performBatchUpdates({
-        //            self.selectedContactsCollectionView.insertItems(at: [IndexPath(item: item, section: usingFor.rawValue)])
-        //            self.itemsCounts[usingFor.rawValue] += 1
-        //        }, completion: { (isDone) in
-        //                self.scrollCollectionToEnd()
-        //        })
         self.itemsCounts[usingFor.rawValue] = item
         self.selectionDidChanged()
         delay(seconds: 0.2) { [weak self] in
@@ -334,15 +323,8 @@ extension ImportContactVC: ImportContactVMDelegate {
         //self.scrollCollectionToEnd()
         
     }
-    
+
     func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor) {
-        
-        //        self.selectedContactsCollectionView.performBatchUpdates({
-        //            self.selectedContactsCollectionView.deleteItems(at: [IndexPath(item: fromIndex, section: usingFor.rawValue)])
-        //            self.itemsCounts[usingFor.rawValue] -= 1
-        //        }, completion: { (isDone) in
-        //            self.selectionDidChanged()
-        //        })
         self.itemsCounts[usingFor.rawValue] -= 1
         self.selectedContactsCollectionView.reloadData()
         self.selectionDidChanged()
@@ -359,15 +341,7 @@ extension ImportContactVC: ImportContactVMDelegate {
         case .google:
             item = self.viewModel.selectedGoogleContacts.count
             
-        default:
-            item = 0
         }
-        //        self.selectedContactsCollectionView.performBatchUpdates({
-        //            self.selectedContactsCollectionView.insertItems(at: [IndexPath(item: item, section: usingFor.rawValue)])
-        //            self.itemsCounts[usingFor.rawValue] += 1
-        //        }, completion: { (isDone) in
-        //                self.scrollCollectionToEnd()
-        //        })
         self.itemsCounts[usingFor.rawValue] = item
         self.selectionDidChanged()
         self.selectedContactsCollectionView.reloadData()
@@ -386,29 +360,10 @@ extension ImportContactVC: ImportContactVMDelegate {
         case .google:
             item = self.viewModel.selectedGoogleContacts.count
             
-        default:
-            item = 0
         }
-        
-        /*
-         if self.itemsCounts[usingFor.rawValue] > 0 {
-         for idx in 0..<self.itemsCounts[usingFor.rawValue] {
-         self.remove(fromIndex: idx, for: usingFor)
-         }
-         }
-         
-         
-         self.selectedContactsCollectionView.performBatchUpdates({
-         for idx in 0..<item {
-         self.selectedContactsCollectionView.insertItems(at: [IndexPath(item: idx, section: usingFor.rawValue)])
-         self.itemsCounts[usingFor.rawValue] += 1
-         }
-         }, completion: nil)
-         */
         self.itemsCounts[usingFor.rawValue] = item
         self.selectionDidChanged()
         self.selectedContactsCollectionView.reloadData()
-        
         
     }
     
@@ -426,19 +381,7 @@ extension ImportContactVC: ImportContactVMDelegate {
             item = self.viewModel.selectedGoogleContacts.count
             
         }
-        
-        /*
-         self.selectedContactsCollectionView.performBatchUpdates({
-         for idx in 0..<item {
-         self.selectedContactsCollectionView.deleteItems(at: [IndexPath(item: idx, section: usingFor.rawValue)])
-         self.itemsCounts[usingFor.rawValue] -= 1
-         }
-         }, completion: { (isDone) in
-         self.itemsCounts[usingFor.rawValue] = 0
-         self.selectedContactsCollectionView.reloadData()
-         self.selectionDidChanged()
-         })
-         */
+
         self.itemsCounts[usingFor.rawValue] = item
         self.selectionDidChanged()
         self.selectedContactsCollectionView.reloadData()
