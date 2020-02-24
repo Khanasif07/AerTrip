@@ -31,7 +31,7 @@ class ContactListVC: BaseVC {
     var currentlyUsingFor = UsingFor.contacts
     let viewModel = ImportContactVM.shared
     let serialQueue = DispatchQueue(label: "serialQueue")
-    let selectDeselectQueue = DispatchQueue(label: "selectDeselectQueue")
+    let selectDeselectQueue = DispatchQueue(label: "selectDeselectQueue", target: .main)
 
     private var workItem: DispatchWorkItem?
     
@@ -216,6 +216,15 @@ class ContactListVC: BaseVC {
         
     }
     
+    func reloadVisibleCells() {
+        guard let visibleRowsIndexs = tableView.indexPathsForVisibleRows else {return}
+        visibleRowsIndexs.forEach { indexPath in
+            let cell = tableView.cellForRow(at: indexPath) as! ContactDetailsTableCell
+            populateData(in: cell, indexPath: indexPath)
+        }
+    }
+    
+    
     private func hideSelectAllButton(isHidden: Bool = true) {
         self.bottomHeaderTopDiverView.isHidden = isHidden
         self.selectAllButton.isHidden = isHidden
@@ -292,6 +301,7 @@ class ContactListVC: BaseVC {
     }
     
     @IBAction func selectAllButtonAction(_ sender: UIButton) {
+        
         self.showLoaderOnView(view: sender, show: true, backgroundColor: AppColors.themeWhite)
         workItem?.cancel()
         //        sender.disable(forSeconds: 0.6)
@@ -324,17 +334,9 @@ class ContactListVC: BaseVC {
                     self.hideSelectAllLoader()
                 }
                 
-            }
-            else {
+            } else {
                 printDebug("isSelected false")
                 //remove all preselected items
-                
-                //                for contact in self.viewModel.selectedPhoneContacts {
-                //                    if let index = self.getIndexPath(contact: contact) {
-                //                        self.tableView(self.tableView, didSelectRowAt: index)
-                //                    }
-                //                }
-                
                 if !self.viewModel.selectedPhoneContacts.isEmpty  {
                     var isContactAdded = false
                     workItem = DispatchWorkItem(block: {
@@ -367,14 +369,6 @@ class ContactListVC: BaseVC {
                     }
                     
                 }
-                
-                //                self.viewModel.selectedPhoneContacts = self.viewModel.phoneContacts
-                //                //add all
-                //                //                DispatchQueue.backgroundAsync {
-                //                //                    DispatchQueue.mainSync({
-                //                self.viewModel.addAll(for: .contacts)
-                //                    })
-                //                }
             }
         }
         else if self.currentlyUsingFor == .facebook {
@@ -574,12 +568,16 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ContactDetailsTableCell") as? ContactDetailsTableCell else {
-            return UITableViewCell()
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ContactDetailsTableCell", for: indexPath) as! ContactDetailsTableCell
+        return populateData(in: cell, indexPath: indexPath)
+
+    }
+    
+    @discardableResult
+    func populateData(in cell: ContactDetailsTableCell, indexPath: IndexPath) -> ContactDetailsTableCell {
         if self.currentlyUsingFor == .contacts {
             cell.contact = ATContact(contact: self.viewModel.sections[indexPath.section].cnContacts[indexPath.row])
-            cell.selectionButton.isSelected = self.viewModel.selectedPhoneContacts.contains(where: { (contact) -> Bool in
+            cell.selectionButton.isSelected = self.viewModel.selectedPhoneContacts.contains(where: { contact in
                 contact.id == self.viewModel.sections[indexPath.section].cnContacts[indexPath.row].id
             })
             cell.dividerView.isHidden = indexPath.row == (self.viewModel.sections[indexPath.section].cnContacts.count - 1)
@@ -597,9 +595,7 @@ extension ContactListVC: UITableViewDelegate, UITableViewDataSource {
                 contact.id == self.viewModel.googleSection[indexPath.section].contacts[indexPath.row].id
             })
             cell.dividerView.isHidden = indexPath.row == (self.viewModel.googleSection[indexPath.section].contacts.count - 1)
-            
         }
-        
         return cell
     }
     
@@ -707,7 +703,8 @@ extension ContactListVC: EmptyScreenViewDelegate {
 //MARK:-
 extension ContactListVC: ImportContactVMDelegate {
     func remove(for usingFor: ContactListVC.UsingFor) {
-        self.reloadList()
+//        self.reloadList()
+         reloadVisibleCells()
     }
     
     func showLoader() {
@@ -717,19 +714,23 @@ extension ContactListVC: ImportContactVMDelegate {
     }
     
     func add(for usingFor: ContactListVC.UsingFor) {
-        self.reloadList()
+//        self.reloadList()
+        reloadVisibleCells()
     }
     
     func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor) {
-        self.reloadList()
+//        self.reloadList()
+        reloadVisibleCells()
     }
     
     func addAll(for usingFor: ContactListVC.UsingFor) {
-        self.reloadList()
+//        self.reloadList()
+        reloadVisibleCells()
     }
     
     func removeAll(for usingFor: ContactListVC.UsingFor) {
-        self.reloadList()
+//        self.reloadList()
+        reloadVisibleCells()
     }
     
     func willSaveContacts() {
