@@ -58,9 +58,11 @@ class ImportContactVM: NSObject {
     
     var phoneContacts: [CNContact] = [] {
         didSet {
-            phoneContacts.sort { (ct1, ct2) -> Bool in
-                ct1.fullName < ct2.fullName
-            }
+            // Nimish Sharma
+            phoneContacts = phoneContacts.lazy.sorted(by: {$0.fullName < $1.fullName})
+            //.sort { (ct1, ct2) -> Bool in
+//                ct1.fullName < ct2.fullName
+//            }
         }
     }
     var facebookContacts: [ATContact] = []{
