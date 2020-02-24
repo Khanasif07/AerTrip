@@ -170,10 +170,11 @@ extension HotelDetailsVC {
             if self.allIndexPath.contains(indexPath) {
                 cell.allDetailsLabel.isHidden = false
                 cell.allDetailsLabel.attributedText = cell.fullPenaltyDetails(ratesData: ratesData)?.trimWhiteSpace()
-                cell.infoBtnOutlet.isHidden = false
+//                cell.infoBtnOutlet.isHidden = false
             }
             else {
                 cell.allDetailsLabel.isHidden = true
+               // cell.infoBtnOutlet.isHidden = false
                 cell.allDetailsLabel.attributedText = nil
             }
             cell.clipsToBounds = true

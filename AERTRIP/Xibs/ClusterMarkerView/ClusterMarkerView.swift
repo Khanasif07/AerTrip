@@ -74,6 +74,7 @@ class ClusterMarkerView: UIView {
 
     ///ConfigureUI
     private func configureUI() {
+        self.layoutIfNeeded()
         guard let value = items else {return}
         self.isFavourite = false
         
@@ -95,6 +96,7 @@ class ClusterMarkerView: UIView {
     }
     
     private func configureUIForHotelItems() {
+        self.layoutIfNeeded()
         guard let value = hotelTtems else {return}
         self.isFavourite = false
         

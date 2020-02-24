@@ -65,7 +65,7 @@ class SelectTripVC: BaseVC {
         if viewModel.usingFor == .bookingTripChange {
             btnTitle = LocalizedString.Move.localized
         } else {
-            btnTitle = viewModel.tripDetails == nil ? LocalizedString.Add.localized : LocalizedString.Move.localized
+            btnTitle = viewModel.tripDetails == nil ? LocalizedString.Save.localized : LocalizedString.Move.localized
         }
         
         topNavView.configureFirstRightButton(normalTitle: btnTitle, normalColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
@@ -191,7 +191,7 @@ extension SelectTripVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 45.0
+        return 44.0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

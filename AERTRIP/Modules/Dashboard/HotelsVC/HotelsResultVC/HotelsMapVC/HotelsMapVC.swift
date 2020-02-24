@@ -59,11 +59,12 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         didSet {
             self.hotelsMapCV.registerCell(nibName: HotelCardCollectionViewCell.reusableIdentifier)
             self.hotelsMapCV.registerCell(nibName: HotelGroupCardCollectionViewCell.reusableIdentifier)
-//            self.hotelsMapCV.isPagingEnabled = true
-//            self.hotelsMapCV.delegate = self
-//            self.hotelsMapCV.dataSource = self
+            //            self.hotelsMapCV.isPagingEnabled = true
+            //            self.hotelsMapCV.delegate = self
+            //            self.hotelsMapCV.dataSource = self
             self.hotelsMapCV.showsVerticalScrollIndicator = false
             self.hotelsMapCV.showsHorizontalScrollIndicator = false
+            self.hotelsMapCV.backgroundColor = AppColors.clear
         }
     }
     
@@ -210,13 +211,13 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         }
         self.cardGradientView.isHidden = false
         
-        //call API to get vcode, sid
+        self.currentLocationButton.isHidden = false
         animateHeaderToMapView()
         animateFloatingButtonOnMapView(isAnimated: false)
         self.switchContainerView.isHidden = self.viewModel.favouriteHotels.isEmpty
         self.floatingButtonOnMapView.isHidden = !self.viewModel.isFavouriteOn
         self.switchView.setOn(isOn: self.viewModel.isFavouriteOn, animated: false, shouldNotify: false)
-//        self.animateMapToFirstHotelInMapMode()
+        //        self.animateMapToFirstHotelInMapMode()
         self.filterButton.isSelected = self.viewModel.isFilterApplied
         searchBar.setTextField(color: UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
@@ -230,14 +231,10 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.cardGradientView.layer.addSublayer(self.gradientLayer!)
         self.cardGradientView.backgroundColor = AppColors.clear
         self.additionalSafeAreaInsets = .zero
-        self.configureCollectionViewLayoutItemSize()
-//        delay(seconds: 1.0) {
-            self.addMapView()
-//        }
+        self.addMapView()
         if AppGlobals.shared.isNetworkRechable() {
             delay(seconds: 0.2) { [weak self] in
                 guard let strongSelf = self else {return}
-//                strongSelf.addMapView()
                 strongSelf.mapView?.delegate = self
                 strongSelf.loadFinalDataOnScreen()
             }
@@ -273,12 +270,12 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.gradientLayer?.frame = self.cardGradientView.bounds
-
+        
         //        self.configureCollectionViewLayoutItemSize()
     }
     
     deinit {
-//        CoreDataManager.shared.deleteData("HotelSearched")
+        //        CoreDataManager.shared.deleteData("HotelSearched")
         printDebug("HotelResultVC deinit")
     }
     
@@ -337,11 +334,11 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     
     func setupCollection() {
         let layout = self.hotelsMapCV.collectionViewLayout as! UPCarouselFlowLayout
-        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: -5)
+        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: -7)
         layout.scrollDirection = .horizontal
         layout.sideItemScale = 1.0
         layout.sideItemAlpha = 1.0
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 32, height: 192)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 20, height: 201)
     }
     // MARK: - Methods
     
@@ -392,7 +389,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.switchView.isBackgroundBlurry = true
         self.switchGradientView.backgroundColor = AppColors.clear
         self.switchGradientView.addGrayShadow(ofColor: AppColors.themeBlack.withAlphaComponent(0.2), radius: 18, offset: .zero, opacity: 2, cornerRadius: 100)
-        self.manageFloatingView(isHidden: true)
+        // self.manageFloatingView(isHidden: true)
     }
     
     override func setupFonts() {
@@ -509,7 +506,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     
     @IBAction func currentLocationButtonAction(_ sender: UIButton) {
         self.moveMapToCurrentCity()
-        self.mapView?.animate(toZoom: self.defaultZoomLabel + 5.0)
+        self.mapView?.animate(toZoom: self.mapView?.camera.zoom ?? (self.defaultZoomLabel + 5.0))
     }
     
     @objc func longPress(_ gesture: UILongPressGestureRecognizer) {

@@ -51,6 +51,7 @@
                                     <constraint firstAttribute="width" secondItem="BRR-oj-BBD" secondAttribute="height" multiplier="1:1" id="aOy-vu-DtN"/>
                                     <constraint firstAttribute="height" constant="44" id="aXS-6Q-RzL"/>
                                 </constraints>
+                                <inset key="imageEdgeInsets" minX="3" minY="3" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" image="saveHotels"/>
                                 <state key="selected" image="saveHotelsSelected"/>
                             </button>

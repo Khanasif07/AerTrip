@@ -44,6 +44,7 @@ class TopNavigationView: UIView {
     
     //MARK:- IBOutlets
     //MARK:-
+    @IBOutlet weak var firstRightBtnTrailingConst: NSLayoutConstraint!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var navTitleLabel: UILabel!

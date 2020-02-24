@@ -32,6 +32,7 @@
                 <outlet property="containerView" destination="5iQ-SE-VF1" id="Wuj-Tf-miD"/>
                 <outlet property="dividerView" destination="5XU-ZY-yPU" id="x2D-y5-ZIJ"/>
                 <outlet property="firstLeftButtonLeadingConst" destination="Oux-Ju-zAo" id="ILF-bJ-eof"/>
+                <outlet property="firstRightBtnTrailingConst" destination="N9p-Mc-gep" id="ZVP-1b-yMB"/>
                 <outlet property="firstRightButton" destination="D4F-Bu-HSK" id="vsM-71-Qeo"/>
                 <outlet property="firstRightButtonTrailingConstraint" destination="N9p-Mc-gep" id="JO4-UQ-b4v"/>
                 <outlet property="leftButton" destination="DSO-Ke-hNP" id="tYM-tv-4kU"/>

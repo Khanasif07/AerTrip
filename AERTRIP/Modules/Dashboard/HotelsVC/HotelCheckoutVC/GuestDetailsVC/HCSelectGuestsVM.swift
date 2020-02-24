@@ -16,7 +16,7 @@ protocol HCSelectGuestsVMDelegate: class {
     func add(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor)
     func remove(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor)
     
-   // func reloadTable(for usingFor: HCGuestListVC.UsingFor)
+    // func reloadTable(for usingFor: HCGuestListVC.UsingFor)
 }
 
 class HCSelectGuestsVM: NSObject {
@@ -57,30 +57,30 @@ class HCSelectGuestsVM: NSObject {
     
     var phoneContacts: [ATContact] = [] {
         didSet {
-//            phoneContacts.sort { (ct1, ct2) -> Bool in
-//                ct1.fullName < ct2.fullName
-//            }
+            phoneContacts.sort { (ct1, ct2) -> Bool in
+                ct1.fullName < ct2.fullName
+            }
         }
     }
     var facebookContacts: [ATContact] = []{
         didSet {
-//            facebookContacts.sort { (ct1, ct2) -> Bool in
-//                ct1.fullName < ct2.fullName
-//            }
+            facebookContacts.sort { (ct1, ct2) -> Bool in
+                ct1.fullName < ct2.fullName
+            }
         }
     }
     var googleContacts: [ATContact] = []{
         didSet {
-//            googleContacts.sort { (ct1, ct2) -> Bool in
-//                ct1.fullName < ct2.fullName
-//            }
+            googleContacts.sort { (ct1, ct2) -> Bool in
+                ct1.fullName < ct2.fullName
+            }
         }
     }
     var travellerContacts: [ATContact] = []{
         didSet {
-//            travellerContacts.sort { (ct1, ct2) -> Bool in
-//                ct1.fullName < ct2.fullName
-//            }
+            travellerContacts.sort { (ct1, ct2) -> Bool in
+                ct1.fullName < ct2.fullName
+            }
         }
     }
     
@@ -89,11 +89,11 @@ class HCSelectGuestsVM: NSObject {
     var isGoogleContactsAllowed: Bool = false
     
     var selectedPhoneContacts: [ATContact] = []
-
+    
     var selectedFacebookContacts: [ATContact] = []
-
+    
     var selectedGoogleContacts: [ATContact] = []
-
+    
     var selectedTravellerContacts: [ATContact] = []
     
     weak var delegateList: HCSelectGuestsVMDelegate?
@@ -111,6 +111,10 @@ class HCSelectGuestsVM: NSObject {
     }
     
     func clearAllSelection() {
+        self.travellerContacts = self._travellerContacts
+        self.phoneContacts = self._phoneContacts
+        self.facebookContacts = self._facebookContacts
+        self.googleContacts = self._googleContacts
         self.selectedTravellerContacts.removeAll()
         self.selectedPhoneContacts.removeAll()
         self.selectedFacebookContacts.removeAll()
@@ -167,7 +171,7 @@ class HCSelectGuestsVM: NSObject {
         
         return index
     }
-
+    
     //MARK:- Fetch Phone Contacts
     //MARK:-
     func fetchTravellersContact() {
@@ -183,7 +187,7 @@ class HCSelectGuestsVM: NSObject {
     func fetchPhoneContacts(forVC: UIViewController,sender: ATButton? = nil, cancled: (()->Void)? = nil) {
         self.delegateList?.willFetchPhoneContacts()
         self.delegateCollection?.willFetchPhoneContacts()
-      
+        
         
         forVC.fetchContacts(complition: { [weak self] (contacts) in
             DispatchQueue.mainAsync {
@@ -194,7 +198,7 @@ class HCSelectGuestsVM: NSObject {
                 self?._phoneContacts = ATContact.fetchModels(phoneContactsArr: contacts)
             }
         }) {
-             cancled?()
+            cancled?()
         }
     }
     
@@ -248,7 +252,7 @@ class HCSelectGuestsVM: NSObject {
             perform(#selector(callSearch(_:)), with: forText, afterDelay: 0.5)
         }
     }
-
+    
     
     @objc private func callSearch(_ forText: String) {
         printDebug("search text: \(forText)")
@@ -274,7 +278,7 @@ class HCSelectGuestsVM: NSObject {
             self.googleContacts = self._googleContacts.filter({ (contact) -> Bool in
                 contact.fullName.lowercased().contains(forText.lowercased())
             })
-
+            
             obj.sendDataChangedNotification(data: Notification.searchDone)
         }
     }

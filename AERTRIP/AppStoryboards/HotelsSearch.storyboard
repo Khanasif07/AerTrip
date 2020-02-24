@@ -2535,7 +2535,7 @@ been sent</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Obe-xJ-dgb">
-                                <rect key="frame" x="0.0" y="583" width="414" height="76"/>
+                                <rect key="frame" x="0.0" y="603" width="414" height="76"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rTh-83-qZU">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="76"/>
@@ -2630,6 +2630,7 @@ been sent</string>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="yPD-bI-EE3" secondAttribute="height" multiplier="1:1" id="Szn-ru-4uH"/>
                                         </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="5"/>
                                         <state key="normal" image="setCurrentLocationIcon"/>
                                         <connections>
                                             <action selector="currentLocationButtonAction:" destination="HGv-J4-Vol" eventType="touchUpInside" id="cO7-Ha-f8h"/>
@@ -2806,7 +2807,7 @@ been sent</string>
                             <constraint firstItem="OA5-Cf-ZLd" firstAttribute="leading" secondItem="55t-Kb-uh2" secondAttribute="leading" id="WM8-j3-PDP"/>
                             <constraint firstItem="pVy-WI-Bou" firstAttribute="leading" secondItem="55t-Kb-uh2" secondAttribute="leading" id="XEG-Bd-TCP"/>
                             <constraint firstAttribute="trailing" secondItem="Obe-xJ-dgb" secondAttribute="trailing" id="cgF-Ku-Ekl"/>
-                            <constraint firstItem="55t-Kb-uh2" firstAttribute="bottom" secondItem="Obe-xJ-dgb" secondAttribute="bottom" constant="203" id="rO3-0F-KGh"/>
+                            <constraint firstItem="55t-Kb-uh2" firstAttribute="bottom" secondItem="Obe-xJ-dgb" secondAttribute="bottom" constant="183" id="rO3-0F-KGh"/>
                             <constraint firstAttribute="bottom" secondItem="pVy-WI-Bou" secondAttribute="bottom" constant="203" id="uyz-Wh-KF1"/>
                             <constraint firstItem="mtp-E5-grj" firstAttribute="leading" secondItem="55t-Kb-uh2" secondAttribute="leading" id="wYI-0m-PRf"/>
                             <constraint firstItem="sgj-JY-aNo" firstAttribute="top" secondItem="OA5-Cf-ZLd" secondAttribute="bottom" id="xJ4-8I-DTh"/>

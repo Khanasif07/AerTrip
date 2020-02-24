@@ -577,8 +577,8 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
         if newRow < 0 {
             // room data cell
             let totalCount = hotelFormData.adultsCount[indexPath.row] + hotelFormData.childrenCounts[indexPath.row]
-            let constantHeight = ((135/375) * self.view.width)
-            return constantHeight * ((totalCount <= 4) ? 1.0 : 2.0) + 25.0
+            let constantHeight = ((148/375) * self.view.width)
+            return constantHeight * ((totalCount <= 4) ? 1.0 : 2.0) + 0.0
         }
         else {
             switch newRow {
@@ -592,7 +592,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 3:
                 // contact details text
-                return 54.0
+                return 37.0
                 
             case 4:
                 // mobile number
@@ -600,7 +600,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 5:
                 // email
-                return 60.0
+                return 61.0
                 
             case 6:
                 //text message
@@ -653,7 +653,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                     return UITableViewCell()
                 }
                 
-                cell.titleLabel.font = AppFonts.SemiBold.withSize(18.0)
+                cell.titleLabel.font = AppFonts.SemiBold.withSize(16.0)
                 cell.titleLabel.textColor = AppColors.themeBlack
                 cell.titleLabel.text = "Contact Details"
                 cell.topConstraint.constant = 16.0
@@ -697,7 +697,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                     return UITableViewCell()
                 }
                 
-                cell.topConstraint.constant = 6.0
+                cell.topConstraint.constant = 0.0
                 cell.configUI()
                 
                 return cell

@@ -48,7 +48,7 @@ class MenuItemCollectionCell: PagingCell {
     open override func setPagingItem(_ pagingItem: PagingItem, selected: Bool, options: PagingOptions) {
          if let item = pagingItem as? MenuItem {
             self.title.text = item.title
-            self.dotView.isHidden = item.isSelected ? true : false
+            self.dotView.isHidden = item.isSelected
             self.title.font = selected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
         }
      }

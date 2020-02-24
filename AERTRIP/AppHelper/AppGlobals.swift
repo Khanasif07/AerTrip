@@ -14,7 +14,13 @@ import UIKit
 import EventKit
 
 func printDebug<T>(_ obj: T) {
-    print(obj)
+    if AppConstants.isReleasingToClient {
+        if UIDevice.isSimulator {
+            print(obj)
+        }
+    } else {
+        print(obj)
+    }
 }
 
 func + (left: NSAttributedString, right: NSAttributedString) -> NSAttributedString
@@ -277,11 +283,28 @@ class AppGlobals {
     func shareWithActivityViewController(VC: UIViewController, shareData: Any) {
         var sharingData = [Any]()
         sharingData.append(shareData)
+//        let activityViewController = UIActivityViewController(activityItems: sharingData, applicationActivities: nil)
+//        activityViewController.popoverPresentationController?.sourceView = VC.view
+//        UIApplication.shared.keyWindow?.tintColor = AppColors.themeGreen
+//        VC.present(activityViewController, animated: true, completion: nil)
+        
         let activityViewController = UIActivityViewController(activityItems: sharingData, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = VC.view
-        UIApplication.shared.keyWindow?.tintColor = AppColors.themeGreen
-        VC.present(activityViewController, animated: true, completion: nil)
-        printDebug(sharingData)
+        
+        let fakeViewController = UIViewController()
+        fakeViewController.modalPresentationStyle = .overFullScreen
+
+        activityViewController.completionWithItemsHandler = { [weak fakeViewController] _, _, _, _ in
+            if let presentingViewController = fakeViewController?.presentingViewController {
+                presentingViewController.dismiss(animated: false, completion: nil)
+            } else {
+                fakeViewController?.dismiss(animated: false, completion: nil)
+            }
+        }
+        VC.present(fakeViewController, animated: true) { [weak fakeViewController] in
+            fakeViewController?.present(activityViewController, animated: true, completion: nil)
+        }
+        
+    
     }
     
     ///GET TEXT SIZE
@@ -307,7 +330,7 @@ class AppGlobals {
         return blurEffectView
     }
     
-    func createParagraphAttribute(paragraphSpacingBefore: CGFloat = -2.5,isForNotes: Bool ) -> NSParagraphStyle {
+    func createParagraphAttribute(paragraphSpacingBefore: CGFloat = -2.5,isForNotes: Bool,lineSpacing : CGFloat =  0.0) -> NSParagraphStyle {
         var paragraphStyle: NSMutableParagraphStyle
         paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         paragraphStyle.tabStops = [NSTextTab(textAlignment: .left, location: 15, options: NSDictionary() as! [NSTextTab.OptionKey: Any])]
@@ -317,6 +340,7 @@ class AppGlobals {
         paragraphStyle.firstLineHeadIndent = 0
         paragraphStyle.headIndent = isForNotes ? 15 : 0
         paragraphStyle.alignment = .left
+        paragraphStyle.lineSpacing = lineSpacing
         paragraphStyle.paragraphSpacingBefore = paragraphSpacingBefore
         paragraphStyle.paragraphSpacing = paragraphStyle.paragraphSpacingBefore + 0.0
         return paragraphStyle
