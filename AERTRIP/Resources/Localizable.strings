@@ -323,7 +323,7 @@
 //MARK:- Bulk Booking
 "BulkBooking" = "Bulk Booking";
 "PreferredHotels" = "Preferred Hotels";
-"SpecialRequest" = "Special Request";
+"SpecialRequest" = "Special Requests";
 "IfAny" = "(If Any)";
 "Rooms" = "Rooms";
 "BulkEnquirySent" = "Bulk enquiry has been sent";

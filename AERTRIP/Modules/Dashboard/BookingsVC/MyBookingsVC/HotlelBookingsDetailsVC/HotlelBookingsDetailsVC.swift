@@ -37,6 +37,8 @@ class HotlelBookingsDetailsVC: BaseVC {
         didSet {
             self.bookingDetailsTableView.estimatedRowHeight = 100.0
             self.bookingDetailsTableView.rowHeight = UITableView.automaticDimension
+            self.bookingDetailsTableView.estimatedSectionHeaderHeight = 0
+            self.bookingDetailsTableView.sectionHeaderHeight = 0
         }
     }
     
@@ -49,11 +51,11 @@ class HotlelBookingsDetailsVC: BaseVC {
     }
     
     override func initialSetup() {
-        self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
         self.topNavBarHeightConstraint.constant = self.navBarHeight
-        self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
+        self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: true, isDivider: false, backgroundType:.color(color: .white))
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
+        self.headerView = OtherBookingDetailsHeaderView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 147.0))
         self.configureTableHeaderView()
         self.setupParallaxHeader()
         self.registerNibs()
@@ -115,7 +117,7 @@ class HotlelBookingsDetailsVC: BaseVC {
             }
         }
     }
-    
+   
     private func setupParallaxHeader() {
         let parallexHeaderHeight = CGFloat(147.0)
         let parallexHeaderMinHeight = CGFloat(0.0)//(navigationController?.navigationBar.bounds.height ?? 74) - 2
