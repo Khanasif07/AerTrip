@@ -31,7 +31,7 @@ class ContactListVC: BaseVC {
     var currentlyUsingFor = UsingFor.contacts
     let viewModel = ImportContactVM.shared
     let serialQueue = DispatchQueue(label: "serialQueue")
-    let selectDeselectQueue = DispatchQueue(label: "selectDeselectQueue", target: .main)
+    let selectDeselectQueue = DispatchQueue(label: "selectDeselectQueue", qos: .userInteractive, target: .main)
 
     private var workItem: DispatchWorkItem?
     
@@ -304,64 +304,50 @@ class ContactListVC: BaseVC {
         
         self.showLoaderOnView(view: sender, show: true, backgroundColor: AppColors.themeWhite)
         workItem?.cancel()
-        //        sender.disable(forSeconds: 0.6)
         if self.currentlyUsingFor == .contacts {
             if sender.isSelected {
                 printDebug("isSelected true")
                 //remove all
                 if !self.viewModel.selectedPhoneContacts.isEmpty  {
-                    var isContactRemoved = false
                     workItem = DispatchWorkItem(block: {
-                        self.viewModel.sections.forEach { (section) in
-                            section.cnContacts.forEach { (contact) in
-                                if let contactIndex = self.viewModel.selectedPhoneContacts.firstIndex(of: contact) {
-                                    self.viewModel.selectedPhoneContacts.remove(at: contactIndex)
-                                    isContactRemoved = true
-                                }
-                            }
+                        printDebug("Operation Started At: \(Date().timeIntervalSince1970)")
+                        let allContacts = self.viewModel.sections.reduce([]) { result, section in
+                            result + section.cnContacts
                         }
-                        DispatchQueue.mainAsync {
-                            if isContactRemoved {
-                                self.viewModel.remove(for: .contacts)
-                            }
-                            self.hideSelectAllLoader()
-                        }
+                        self.viewModel.selectedPhoneContacts.removeObjects(array: allContacts)
                     })
-                    if let item = workItem {
-                        selectDeselectQueue.async(execute: item)
+                    workItem!.notify(queue: .main) {
+                        DispatchQueue.mainAsync {
+                            self.viewModel.remove(for: .contacts)
+                            self.hideSelectAllLoader()
+                            printDebug("Operation Completed At: \(Date().timeIntervalSince1970)")
+                        }
                     }
+                    selectDeselectQueue.async(execute: workItem!)
                 } else {
                     self.hideSelectAllLoader()
                 }
                 
             } else {
                 printDebug("isSelected false")
-                //remove all preselected items
                 if !self.viewModel.selectedPhoneContacts.isEmpty  {
-                    var isContactAdded = false
                     workItem = DispatchWorkItem(block: {
-                        printDebug("DispatchWorkItem")
-                        self.viewModel.sections.forEach { (section) in
-                            section.cnContacts.forEach { (contact) in
-                                let contactIndex = self.viewModel.selectedPhoneContacts.firstIndex(of: contact)
-                                if  contactIndex == nil {
-                                    self.viewModel.selectedPhoneContacts.append(contact)
-                                    isContactAdded = true
-                                }
-                            }
+                        printDebug("Operation Started At: \(Date().timeIntervalSince1970)")
+                        var allContacts = self.viewModel.sections.reduce([]) { result, section in
+                            result + section.cnContacts
                         }
-                        DispatchQueue.mainAsync {
-                            if isContactAdded {
-                                self.viewModel.add(for: .contacts)
-                            }
-                            self.hideSelectAllLoader()
-                        }
-                        
+                        allContacts.removeObjects(array: self.viewModel.selectedPhoneContacts)
+                        self.viewModel.selectedPhoneContacts.append(contentsOf: allContacts)
                     })
-                    if let item = workItem {
-                        selectDeselectQueue.async(execute: item)
-                    }
                     
+                    workItem!.notify(queue: .main) {
+                        DispatchQueue.mainAsync {
+                            self.viewModel.add(for: .contacts)
+                            self.hideSelectAllLoader()
+                            printDebug("Operation Completed At: \(Date().timeIntervalSince1970)")
+                        }
+                    }
+                    selectDeselectQueue.async(execute: workItem!)
                 }else {
                     self.viewModel.selectedPhoneContacts = self.viewModel.phoneContacts
                     DispatchQueue.mainAsync {
@@ -789,3 +775,63 @@ extension ContactListVC: ImportContactVMDelegate {
         self.reloadList()
     }
 }
+/*
+ {
+     if sender.isSelected {
+         printDebug("isSelected true")
+         //remove all
+         if !self.viewModel.selectedPhoneContacts.isEmpty  {
+             workItem = DispatchWorkItem(block: {
+                 printDebug("Operation Started At: \(Date().timeIntervalSince1970)")
+                 self.viewModel.selectedPhoneContacts.removeAll { contact in
+                     self.viewModel.sections.contains { section in
+                         section.cnContacts.contains { $0 == contact }
+                     }
+                 }
+             })
+             workItem!.notify(queue: .main) {
+                 DispatchQueue.mainAsync {
+                     self.viewModel.remove(for: .contacts)
+                     self.hideSelectAllLoader()
+                     printDebug("Operation Completed At: \(Date().timeIntervalSince1970)")
+                 }
+             }
+             selectDeselectQueue.async(execute: workItem!)
+         } else {
+             self.hideSelectAllLoader()
+         }
+         
+     } else {
+         printDebug("isSelected false")
+         if !self.viewModel.selectedPhoneContacts.isEmpty  {
+             workItem = DispatchWorkItem(block: {
+                 printDebug("Operation Started At: \(Date().timeIntervalSince1970)")
+                 let allContacts = self.viewModel.sections.reduce([]) { result, section in
+                     result + section.cnContacts
+                 }
+                 let allContactsToAppend = allContacts.filter {
+                     !self.viewModel.selectedPhoneContacts.contains($0)
+                 }
+                 self.viewModel.selectedPhoneContacts.append(contentsOf: allContactsToAppend)
+             })
+             
+             workItem!.notify(queue: .main) {
+                 DispatchQueue.mainAsync {
+                     self.viewModel.add(for: .contacts)
+                     self.hideSelectAllLoader()
+                     printDebug("Operation Completed At: \(Date().timeIntervalSince1970)")
+                 }
+             }
+             selectDeselectQueue.async(execute: workItem!)
+             
+             
+         }else {
+             self.viewModel.selectedPhoneContacts = self.viewModel.phoneContacts
+             DispatchQueue.mainAsync {
+                 self.viewModel.addAll(for: .contacts)
+             }
+             
+         }
+     }
+ }
+ */
