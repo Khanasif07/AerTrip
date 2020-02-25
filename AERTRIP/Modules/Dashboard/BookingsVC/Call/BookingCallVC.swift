@@ -62,6 +62,7 @@ class BookingCallVC: BaseVC {
         }
         
         bookingCell.dividerView.isHidden = self.viewModel.aertripData.count - 1 == indexPath.row
+        
         return bookingCell
     }
     
@@ -108,6 +109,8 @@ class BookingCallVC: BaseVC {
             bookingCell.airportCodeLabelLeadingConstraint.constant = 0
             bookingCell.configureCell(code: "", title: self.viewModel.hotelName, phoneLabel: self.viewModel.hotelData[indexPath.row].phone, cellType: .none)
             bookingCell.dividerView.isHidden = self.viewModel.hotelData.count - 1 == indexPath.row
+            bookingCell.dividerView.isHidden = indexPath.section == self.viewModel.section.count - 1 ? false : true
+            bookingCell.dividerViewLeadingConst.constant = indexPath.section == self.viewModel.section.count - 1 ? 0.0 : 43.0
             return bookingCell
         }
     }

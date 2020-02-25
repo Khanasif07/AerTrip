@@ -12,6 +12,7 @@ class HotelsSearchVC: BaseVC {
     
     //MARK:- Properties
     //=================
+    @IBOutlet weak var footerView: UIView!
     internal var checkInOutView: CheckInOutView?
     internal var recentSearchesView: RecentHotelSearcheView?
     private var previousOffSet = CGPoint.zero
@@ -108,6 +109,7 @@ class HotelsSearchVC: BaseVC {
         //            btn.setImage(nil, for: .highlighted)
         //        }
         // call this method after all setup
+        self.footerViewSetUp ()
         self.setDataFromPreviousSearch()
     }
     
@@ -533,6 +535,10 @@ class HotelsSearchVC: BaseVC {
         }
         
         return flag
+    }
+    
+    private func footerViewSetUp() {
+        self.footerView.backgroundColor = .clear
     }
     
     //MARK:- Public

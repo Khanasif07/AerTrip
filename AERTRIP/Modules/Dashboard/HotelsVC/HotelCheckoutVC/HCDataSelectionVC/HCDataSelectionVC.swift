@@ -766,8 +766,14 @@ extension HCDataSelectionVC: HotelCheckOutDetailsVIewDelegate {
 }
 
 extension HCDataSelectionVC: ContactTableCellDelegate {
-    func setIsdCode(_ country: PKCountryModel) {
+    func setIsdCode(_ country: PKCountryModel,_ sender: UIButton) {
         viewModel.mobileIsd = country.countryCode
+        guard  let cell = sender.tableViewCell as? ContactTableCell  else {
+            return
+        }
+        guard let indexPath = self.tableView.indexPath(for: cell) else {return}
+        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        
     }
     
     func textFieldText(_ textField: UITextField) {

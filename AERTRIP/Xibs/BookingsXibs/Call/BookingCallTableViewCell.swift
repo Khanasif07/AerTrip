@@ -19,6 +19,7 @@ enum CallCellType {
 class BookingCallTableViewCell: ATTableViewCell {
     // MARK: - IBOutlet
     
+    @IBOutlet weak var dividerViewLeadingConst: NSLayoutConstraint!
     @IBOutlet weak var cellImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
@@ -52,25 +53,25 @@ class BookingCallTableViewCell: ATTableViewCell {
         case .none:
             self.cellImageView.image = #imageLiteral(resourceName: "aertripGreenLogo")
             self.titleLabel.text = title
-            self.phoneLabel.text = phoneLabel
+            self.phoneLabel.text = phoneLabel.count == 14 ?  phoneLabel.prefix(9) + " " + phoneLabel.suffix(5) : phoneLabel
         case .email:
             self.cellImageView.image = #imageLiteral(resourceName: "headPhoneIcon")
             let fullText: String = title + "\n" + email
             self.titleLabel.attributedText = self.getAttributedBoldText(text: fullText, boldText: email)
-            self.phoneLabel.text = phoneLabel
+            self.phoneLabel.text = phoneLabel.count == 14 ?  phoneLabel.prefix(9) + " " + phoneLabel.suffix(5) : phoneLabel
         case .airlines:
             if !code.isEmpty {
                 let imageUrl = AppGlobals.shared.getAirlineCodeImageUrl(code: code)
                 self.cellImageView.setImageWithUrl(imageUrl, placeholder: AppPlaceholderImage.default, showIndicator: true)
             }
             self.titleLabel.text = title
-            self.phoneLabel.text = phoneLabel
+            self.phoneLabel.text = phoneLabel.count == 14 ?  phoneLabel.prefix(9) + " " + phoneLabel.suffix(5) : phoneLabel
         case .airports:
             self.airportCodeLabel.isHidden = false
             self.cellImageView.isHidden = true
             self.airportCodeLabel.text = code
             self.titleLabel.text = title
-            self.phoneLabel.text = phoneLabel
+            self.phoneLabel.text = phoneLabel.count == 14 ?  phoneLabel.prefix(9) + " " + phoneLabel.suffix(5) : phoneLabel
         default:
             break
         }

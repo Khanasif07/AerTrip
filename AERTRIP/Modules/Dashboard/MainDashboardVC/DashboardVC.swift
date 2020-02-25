@@ -12,6 +12,7 @@ import UIKit
 
 class DashboardVC: BaseVC {
     
+    @IBOutlet weak var innerScrollTopConst: NSLayoutConstraint!
     @IBOutlet weak var headerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var innerScrollView: UIScrollView!
     @IBOutlet weak var innerScrollViewHeightConstraint: NSLayoutConstraint!
@@ -368,6 +369,7 @@ extension DashboardVC  {
                     updateUpLabels(with: 1)
                 }
                 userDidScrollUp = true
+                self.innerScrollTopConst.constant = 19.0
 //                printDebug("Scrolling up \(transform)")
             }else{
                 let valueMoved = mainScrollViewOffset.y - scrollView.contentOffset.y
@@ -375,6 +377,7 @@ extension DashboardVC  {
                 updateDownLabels(with: headerValueMoved)
                 transform = 1.0 + headerValueMoved/4.0
                 userDidScrollUp = false
+                self.innerScrollTopConst.constant = 0.0
 //                 printDebug("Scrolling down \(transform)")
             }
             updateSegmentYPosition(for: scrollView.contentOffset.y)
@@ -448,11 +451,13 @@ extension DashboardVC  {
         let ratio = valueToDecrease / (headerTopConstraint.constant + headerView.height)
         let final = (ratio * scrolledY)
         if final == 0 {
+            self.innerScrollTopConst.constant = 0.0
             innerScrollView.transform = CGAffineTransform.identity
         }
         else {
 //            printDebug("final value is \(final)")
              //innerScrollView.transform = CGAffineTransform(translationX: 0, y: -(final))
+             self.innerScrollTopConst.constant = final
              innerScrollView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
         }
     }
@@ -462,9 +467,11 @@ extension DashboardVC  {
         let ratio = valueToDecrease / (headerTopConstraint.constant + headerView.height)
         let final = (ratio * scrolledY)
         if final == 0 {
+            self.innerScrollTopConst.constant = 0.0
             segmentContainerView.transform = CGAffineTransform.identity
         }
         else {
+            self.innerScrollTopConst.constant = final
            // segmentContainerView.transform = CGAffineTransform(translationX: -(final - 4), y: -(final - 0.3))
             segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
         }
