@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,24 +13,24 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="124"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AY4-3b-EgW" id="ZW6-Ac-RL0">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="123.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="124"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2wt-mY-hTS">
-                        <rect key="frame" x="16" y="8" width="343" height="115.5"/>
+                        <rect key="frame" x="16" y="8" width="343" height="116"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iIk-Fh-H5s">
-                                <rect key="frame" x="0.0" y="0.0" width="343" height="115.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="343" height="116"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="Odl-Oi-vuI">
-                                        <rect key="frame" x="16" y="10" width="317" height="95"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Odl-Oi-vuI">
+                                        <rect key="frame" x="16" y="9" width="317" height="96.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="D1T-BP-kur">
                                                 <rect key="frame" x="0.0" y="0.0" width="317" height="27"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Premier King Bed Ocean View" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tOv-NG-Uk5">
-                                                        <rect key="frame" x="0.0" y="3" width="280" height="21.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <rect key="frame" x="0.0" y="5" width="280" height="17"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -50,16 +48,16 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 Twin Beds, Business Lounge Access, City View Business Lounge Access, City View" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58a-yz-cEV">
-                                                <rect key="frame" x="0.0" y="34" width="317" height="33.5"/>
+                                                <rect key="frame" x="0.0" y="33" width="317" height="33.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="OtQ-BV-2ab">
-                                                <rect key="frame" x="0.0" y="74.5" width="317" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="72.5" width="317" height="24"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beds" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bd-4s-xuT">
-                                                        <rect key="frame" x="0.0" y="0.5" width="50" height="19.5"/>
+                                                        <rect key="frame" x="0.0" y="2.5" width="50" height="19.5"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="50" id="MVf-0l-NvK"/>
                                                         </constraints>
@@ -68,8 +66,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vvK-iQ-UYY">
-                                                        <rect key="frame" x="50" y="0.0" width="267" height="20.5"/>
-                                                        <nil key="textColor"/>
+                                                        <rect key="frame" x="50" y="0.0" width="267" height="24"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
@@ -78,7 +75,7 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="58d-HN-F5u" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="115" width="327" height="0.5"/>
+                                        <rect key="frame" x="8" y="115.5" width="327" height="0.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="25F-Q3-Z3Z"/>
@@ -87,7 +84,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="Odl-Oi-vuI" firstAttribute="top" secondItem="iIk-Fh-H5s" secondAttribute="top" constant="10" id="IAn-s4-MwN"/>
+                                    <constraint firstItem="Odl-Oi-vuI" firstAttribute="top" secondItem="iIk-Fh-H5s" secondAttribute="top" constant="9" id="IAn-s4-MwN"/>
                                     <constraint firstAttribute="bottom" secondItem="58d-HN-F5u" secondAttribute="bottom" id="NBr-G1-rqQ"/>
                                     <constraint firstItem="58d-HN-F5u" firstAttribute="top" secondItem="Odl-Oi-vuI" secondAttribute="bottom" constant="10" id="cJ1-Ge-L8p"/>
                                     <constraint firstAttribute="trailing" secondItem="58d-HN-F5u" secondAttribute="trailing" constant="8" id="kgb-2i-wKu"/>
@@ -127,6 +124,7 @@
                 <outlet property="dropDownTextField" destination="vvK-iQ-UYY" id="iw7-0K-7C1"/>
                 <outlet property="shadowView" destination="2wt-mY-hTS" id="k5o-Zw-qnR"/>
             </connections>
+            <point key="canvasLocation" x="138" y="154"/>
         </tableViewCell>
     </objects>
     <resources>

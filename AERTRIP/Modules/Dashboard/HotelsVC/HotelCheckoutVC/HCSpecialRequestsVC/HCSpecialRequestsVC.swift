@@ -19,6 +19,7 @@ class HCSpecialRequestsVC: BaseVC {
     internal let viewModel = HCSpecialRequestsVM()
     internal weak var delegate: HCSpecialRequestsDelegate?
     private let textFieldPlaceHolder: [String] = [LocalizedString.AirlineNameFlightNumberArrivalTime.localized,LocalizedString.SpecialRequestIfAny.localized]
+    var footerView: UIView?
     
     //Mark:- IBOutlets
     //================
@@ -41,6 +42,7 @@ class HCSpecialRequestsVC: BaseVC {
     
     override func initialSetup() {
         self.headerViewSetUp()
+        self.footerViewSetUp()
         self.registerNibs()
     }
     
@@ -58,6 +60,11 @@ class HCSpecialRequestsVC: BaseVC {
     
     //Mark:- Functions
     //================
+    private func footerViewSetUp() {
+        self.footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 35.0))
+        self.specialReqTableView.tableFooterView = self.footerView
+    }
+    
     private func headerViewSetUp() {
         self.headerView.delegate = self
         self.headerView.firstLeftButtonLeadingConst.constant = 5

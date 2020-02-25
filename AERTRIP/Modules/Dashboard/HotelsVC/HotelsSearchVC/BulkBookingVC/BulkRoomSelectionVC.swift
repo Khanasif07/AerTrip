@@ -31,8 +31,10 @@ class BulkRoomSelectionVC: BaseVC {
     @IBOutlet weak var adultAgeLabel: UILabel!
     @IBOutlet weak var childLabel: UILabel!
     @IBOutlet weak var childAgeLabel: UILabel!
-    @IBOutlet weak var firstLineView: UIView!
-    @IBOutlet weak var secondLineView: UIView!
+  
+    @IBOutlet weak var firstLineView: ATDividerView!
+  
+    @IBOutlet weak var secondLineView: ATDividerView!
     @IBOutlet weak var roomsPicker: UIPickerView! {
         didSet {
             self.roomsPicker.delegate = self
@@ -93,8 +95,8 @@ class BulkRoomSelectionVC: BaseVC {
         self.adultAgeLabel.textColor = AppColors.themeGray40
         self.childLabel.textColor = AppColors.themeBlack
         self.childAgeLabel.textColor = AppColors.themeGray40
-        self.firstLineView.backgroundColor = AppColors.themeGray10
-        self.secondLineView.backgroundColor = AppColors.themeGray10
+//        self.firstLineView.backgroundColor = AppColors.themeGray10
+//        self.secondLineView.backgroundColor = AppColors.themeGray10
     }
     
     //Mark:- Methods

@@ -14,6 +14,7 @@ class HotelInfoAddressCell: UITableViewCell {
     
     // Mark:- IBOutlets
     //================
+    @IBOutlet weak var addressLblTopConst: NSLayoutConstraint!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var addressInfoTextView: PKTapAndCopyUITextView! {

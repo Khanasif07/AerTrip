@@ -64,8 +64,8 @@ class HotelDetailsReviewsVC: BaseVC {
     }
     
     override func setupTexts() {
-        self.reviewsLabel.text = LocalizedString.Reviews.localized
-        self.stickyTitleLabel.text = LocalizedString.Reviews.localized
+        self.reviewsLabel.text = "TripAdvisor Rating"
+        self.stickyTitleLabel.text = "TripAdvisor Rating"
     }
     
     override func initialSetup() {
@@ -227,7 +227,7 @@ extension HotelDetailsReviewsVC {
     
     internal func getTripAdvisorTravelerRatingCell(_ tableView: UITableView, indexPath: IndexPath,tripAdviserDetails: HotelDetailsReviewsModel) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TripAdvisorTravelerRatingTableViewCell", for: indexPath) as? TripAdvisorTravelerRatingTableViewCell else { return UITableViewCell() }
-        cell.configCell(reviewsLabel: "\(tripAdviserDetails.numReviews.toDouble?.delimiterWithSymbolTill2Places ?? "") \(LocalizedString.Reviews.localized)", tripAdvisorRating: Double(tripAdviserDetails.rating) ?? 0.0, ranking: tripAdviserDetails.rankingData?.rankingString ?? "")
+        cell.configCell(reviewsLabel: "\(String(describing: tripAdviserDetails.numReviews.toDouble ?? 0.0)) \(LocalizedString.Reviews.localized)", tripAdvisorRating: Double(tripAdviserDetails.rating) ?? 0.0, ranking: tripAdviserDetails.rankingData?.rankingString ?? "")
         return cell
     }
     

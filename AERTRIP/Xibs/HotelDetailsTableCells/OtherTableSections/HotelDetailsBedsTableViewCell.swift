@@ -64,7 +64,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         self.bedsLabel.textColor = AppColors.themeBlack
         self.dropDownTextField.textColor = AppColors.themeGreen
         //Size
-        self.bedTypeLabel.font = AppFonts.SemiBold.withSize(18.0)
+        self.bedTypeLabel.font = AppFonts.SemiBold.withSize(14.0)
         self.bedsLabel.font = AppFonts.Regular.withSize(16.0)
         self.dropDownTextField.font = AppFonts.SemiBold.withSize(16.0)
         self.bedSelectionTitleImgSetUp()
@@ -120,8 +120,8 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
             self.bedTypeLabel.text = roomData.name
             self.bedDiscriptionLabel.text = roomData.desc
             self.dropDownStackView.isHidden = roomData.desc.isEmpty
-            self.bedDiscriptionLabel.font = AppFonts.Regular.withSize(14.0)
-            self.bedTypeLabel.font = AppFonts.SemiBold.withSize(18.0)
+            self.bedDiscriptionLabel.font = AppFonts.SemiBold.withSize(18.0)
+            self.bedTypeLabel.font = AppFonts.SemiBold.withSize(14.0)
             self.deviderView.isHidden = false
         } else {
             self.bedTypeLabel.text = "No. of rooms : \(numberOfRooms)"
