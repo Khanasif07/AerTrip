@@ -108,6 +108,7 @@
             <connections>
                 <outlet property="addressInfoTextView" destination="KCf-ml-acK" id="ZKD-1I-tcH"/>
                 <outlet property="addressLabel" destination="NmD-Tk-S8D" id="eri-bL-iZN"/>
+                <outlet property="addressLblTopConst" destination="1sx-m3-DpS" id="QfU-mC-F7G"/>
                 <outlet property="containerView" destination="ehA-12-5xn" id="OKf-oi-y3m"/>
                 <outlet property="deviderView" destination="iwB-o5-ujX" id="KeD-lx-OP8"/>
                 <outlet property="gradientView" destination="OwF-Et-57A" id="YL0-Pb-Dxf"/>

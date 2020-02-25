@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,11 +22,11 @@
             <objects>
                 <viewController storyboardIdentifier="HotelsGroupExpendedVC" id="201-FS-5is" customClass="HotelsGroupExpendedVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XTt-JS-AuY">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jdg-bw-y5F" customClass="ATCollectionView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ZbT-5D-Ght">
                                     <size key="itemSize" width="50" height="50"/>
@@ -79,23 +79,23 @@
             <objects>
                 <viewController storyboardIdentifier="HotelsSearchVCfdsafjas" id="SRf-bJ-nyN" customClass="HotelsSearchVCfdsafds" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gi3-pC-T6M">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hotels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qha-hg-Avg">
-                                <rect key="frame" x="180.5" y="440.5" width="53.5" height="25.5"/>
+                                <rect key="frame" x="161" y="321" width="53.5" height="25.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqe-Xh-64F">
-                                <rect key="frame" x="130" y="481" width="154" height="21.5"/>
+                                <rect key="frame" x="110.5" y="361.5" width="154" height="21.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q1E-7a-WYU">
-                                <rect key="frame" x="157" y="430.5" width="100" height="45"/>
+                                <rect key="frame" x="137.5" y="311" width="100" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="Sg3-w7-5wM"/>
                                     <constraint firstAttribute="height" constant="45" id="uMF-Sa-Mbb"/>
@@ -106,7 +106,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pOB-hl-Qmd">
-                                <rect key="frame" x="10" y="591" width="394" height="35"/>
+                                <rect key="frame" x="10" y="396" width="355" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Hotel Filters"/>
                                 <connections>
@@ -143,14 +143,14 @@
             <objects>
                 <viewController storyboardIdentifier="RoomGuestSelectionVC" id="THA-37-E0N" customClass="RoomGuestSelectionVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="R83-dL-GtX">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bvJ-X6-lVo">
-                                <rect key="frame" x="0.0" y="476" width="414" height="420"/>
+                                <rect key="frame" x="0.0" y="247" width="375" height="420"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yB5-84-0cM">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Room 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yu8-mz-10K">
                                                 <rect key="frame" x="16" y="4" width="65" height="46"/>
@@ -162,13 +162,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPj-b8-en3">
-                                                <rect key="frame" x="81" y="19.5" width="317" height="20.5"/>
+                                                <rect key="frame" x="81" y="19.5" width="278" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZkD-n9-dha">
-                                                <rect key="frame" x="16" y="45" width="382" height="25"/>
+                                                <rect key="frame" x="16" y="45" width="343" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="25" id="prw-BF-VtC"/>
                                                 </constraints>
@@ -192,13 +192,13 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z0V-XO-8Qo">
-                                        <rect key="frame" x="0.0" y="82" width="414" height="120"/>
+                                        <rect key="frame" x="0.0" y="82" width="375" height="120"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="NMs-qa-EvL">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="G8Z-zN-VfV">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="46"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14v-vi-IDr">
                                                                 <rect key="frame" x="0.0" y="0.0" width="97.5" height="46"/>
@@ -228,10 +228,10 @@
                                                                 </constraints>
                                                             </view>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="GCx-ah-PTY">
-                                                                <rect key="frame" x="97.5" y="0.0" width="316.5" height="46"/>
+                                                                <rect key="frame" x="97.5" y="0.0" width="277.5" height="46"/>
                                                                 <subviews>
                                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DbH-T6-BdS" customClass="ATGuestButton" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="79" height="46"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="69.5" height="46"/>
                                                                         <state key="normal" image="adult_deSelected"/>
                                                                         <state key="selected" image="adult_selected"/>
                                                                         <connections>
@@ -239,7 +239,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQH-Kk-g5g" customClass="ATGuestButton" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="79" y="0.0" width="79.5" height="46"/>
+                                                                        <rect key="frame" x="69.5" y="0.0" width="69.5" height="46"/>
                                                                         <state key="normal" image="adult_deSelected"/>
                                                                         <state key="selected" image="adult_selected"/>
                                                                         <connections>
@@ -247,7 +247,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fZG-pS-dRa" customClass="ATGuestButton" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="158.5" y="0.0" width="79" height="46"/>
+                                                                        <rect key="frame" x="139" y="0.0" width="69" height="46"/>
                                                                         <state key="normal" image="adult_deSelected"/>
                                                                         <state key="selected" image="adult_selected"/>
                                                                         <connections>
@@ -255,7 +255,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fht-By-L11" customClass="ATGuestButton" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="237.5" y="0.0" width="79" height="46"/>
+                                                                        <rect key="frame" x="208" y="0.0" width="69.5" height="46"/>
                                                                         <state key="normal" image="adult_deSelected"/>
                                                                         <state key="selected" image="adult_selected"/>
                                                                         <connections>
@@ -267,7 +267,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zGD-YW-Yvw">
-                                                        <rect key="frame" x="0.0" y="74" width="414" height="46"/>
+                                                        <rect key="frame" x="0.0" y="74" width="375" height="46"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o72-Mn-ydc">
                                                                 <rect key="frame" x="0.0" y="0.0" width="97.5" height="46"/>
@@ -297,10 +297,10 @@
                                                                 </constraints>
                                                             </view>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="hmm-DS-epV">
-                                                                <rect key="frame" x="97.5" y="0.0" width="316.5" height="46"/>
+                                                                <rect key="frame" x="97.5" y="0.0" width="277.5" height="46"/>
                                                                 <subviews>
                                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DuZ-nD-BtQ" customClass="ATGuestButton" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="79" height="46"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="69.5" height="46"/>
                                                                         <state key="normal" image="child_deSelected"/>
                                                                         <state key="selected" image="child_selected"/>
                                                                         <connections>
@@ -308,7 +308,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X8b-8C-ABA" customClass="ATGuestButton" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="79" y="0.0" width="79.5" height="46"/>
+                                                                        <rect key="frame" x="69.5" y="0.0" width="69.5" height="46"/>
                                                                         <state key="normal" image="child_deSelected"/>
                                                                         <state key="selected" image="child_selected"/>
                                                                         <connections>
@@ -316,7 +316,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nI5-GZ-M82" customClass="ATGuestButton" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="158.5" y="0.0" width="79" height="46"/>
+                                                                        <rect key="frame" x="139" y="0.0" width="69" height="46"/>
                                                                         <state key="normal" image="child_deSelected"/>
                                                                         <state key="selected" image="child_selected"/>
                                                                         <connections>
@@ -324,7 +324,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ff5-a7-Srs" customClass="ATGuestButton" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="237.5" y="0.0" width="79" height="46"/>
+                                                                        <rect key="frame" x="208" y="0.0" width="69.5" height="46"/>
                                                                         <state key="normal" image="child_deSelected"/>
                                                                         <state key="selected" image="child_selected"/>
                                                                         <connections>
@@ -348,7 +348,7 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="02d-r4-SGK">
-                                        <rect key="frame" x="0.0" y="217" width="414" height="142.5"/>
+                                        <rect key="frame" x="0.0" y="217" width="375" height="142.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPG-wx-r3d">
                                                 <rect key="frame" x="0.0" y="0.0" width="93" height="142.5"/>
@@ -369,13 +369,13 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Gmk-T6-Nzw">
-                                                <rect key="frame" x="103" y="0.0" width="311" height="142.5"/>
+                                                <rect key="frame" x="103" y="0.0" width="272" height="142.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2eG-YQ-NyC">
-                                                        <rect key="frame" x="0.0" y="0.0" width="70.5" height="142.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="60.5" height="142.5"/>
                                                         <subviews>
                                                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HIo-10-Ias">
-                                                                <rect key="frame" x="0.0" y="0.0" width="70.5" height="142.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="60.5" height="142.5"/>
                                                             </pickerView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -387,10 +387,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sw1-CR-UHu">
-                                                        <rect key="frame" x="80.5" y="0.0" width="70" height="142.5"/>
+                                                        <rect key="frame" x="70.5" y="0.0" width="60.5" height="142.5"/>
                                                         <subviews>
                                                             <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CEQ-Fo-Ppa">
-                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="142.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="60.5" height="142.5"/>
                                                             </pickerView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -402,10 +402,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LER-5a-mXi">
-                                                        <rect key="frame" x="160.5" y="0.0" width="70.5" height="142.5"/>
+                                                        <rect key="frame" x="141" y="0.0" width="60.5" height="142.5"/>
                                                         <subviews>
                                                             <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IQ0-6x-ZzO">
-                                                                <rect key="frame" x="0.0" y="0.0" width="70.5" height="142.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="60.5" height="142.5"/>
                                                             </pickerView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -417,10 +417,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8oX-tL-k46">
-                                                        <rect key="frame" x="241" y="0.0" width="70" height="142.5"/>
+                                                        <rect key="frame" x="211.5" y="0.0" width="60.5" height="142.5"/>
                                                         <subviews>
                                                             <pickerView tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPt-nO-zur">
-                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="142.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="60.5" height="142.5"/>
                                                             </pickerView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -435,29 +435,29 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KXl-rh-TQG">
-                                        <rect key="frame" x="0.0" y="269" width="414" height="1"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KXl-rh-TQG" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="269" width="375" height="0.5"/>
                                         <color key="backgroundColor" red="0.80392156859999997" green="0.80392156859999997" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="9gb-2K-Szg"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="9gb-2K-Szg"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJ4-2s-W61">
-                                        <rect key="frame" x="0.0" y="306.5" width="414" height="1"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJ4-2s-W61" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="306" width="375" height="0.5"/>
                                         <color key="backgroundColor" red="0.80392156859999997" green="0.80392156859999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="Nj1-UC-h4d"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="Nj1-UC-h4d"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0DW-gc-R0u" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="369.5" width="414" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="369.5" width="375" height="0.5"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="YFE-yt-bzx"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F2a-tj-c9A">
-                                        <rect key="frame" x="0.0" y="370" width="414" height="50"/>
+                                        <rect key="frame" x="0.0" y="370" width="375" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="DxW-7p-agn"/>
@@ -514,7 +514,7 @@
                         <outlet property="childTitleLabel" destination="iOp-J4-gRG" id="cNN-Xd-WKP"/>
                         <outlet property="doneButton" destination="F2a-tj-c9A" id="9wD-on-Zdc"/>
                         <outlet property="doneButtonBottomConstraint" destination="e0w-aH-pcZ" id="uI4-gf-pRh"/>
-                        <outlet property="firstLineView" destination="KXl-rh-TQG" id="xWl-rI-e2a"/>
+                        <outlet property="firstLineView" destination="KXl-rh-TQG" id="ztG-Bv-fyE"/>
                         <outlet property="guestSelectionLabel" destination="GPj-b8-en3" id="bsC-kU-o9Z"/>
                         <outlet property="headerView" destination="yB5-84-0cM" id="AD0-gQ-BfK"/>
                         <outlet property="mainContainerBottomConstraints" destination="CY6-Sc-16A" id="otU-ps-de4"/>
@@ -522,7 +522,7 @@
                         <outlet property="mainContainerView" destination="bvJ-X6-lVo" id="g4V-bh-OuE"/>
                         <outlet property="messageLabel" destination="ZkD-n9-dha" id="SkB-cT-y0G"/>
                         <outlet property="roomNumberLabel" destination="yu8-mz-10K" id="Si6-FO-DwI"/>
-                        <outlet property="secondLineView" destination="rJ4-2s-W61" id="hVh-nB-pvl"/>
+                        <outlet property="secondLineView" destination="rJ4-2s-W61" id="CcU-cn-Bcj"/>
                         <outletCollection property="adultsButtons" destination="DbH-T6-BdS" collectionClass="NSMutableArray" id="rFV-Un-vz0"/>
                         <outletCollection property="adultsButtons" destination="fZG-pS-dRa" collectionClass="NSMutableArray" id="OKj-qu-5WP"/>
                         <outletCollection property="adultsButtons" destination="Fht-By-L11" collectionClass="NSMutableArray" id="7TR-0g-l0P"/>
@@ -546,14 +546,14 @@
             <objects>
                 <viewController storyboardIdentifier="BulkEnquirySuccessfulVC" id="81H-2p-dT5" customClass="BulkEnquirySuccessfulVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="t4W-xe-8Pk">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9FW-MM-6cL">
-                                <rect key="frame" x="0.0" y="249" width="414" height="647"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8dt-Lv-VS0">
-                                        <rect key="frame" x="34" y="216" width="346" height="74"/>
+                                        <rect key="frame" x="34" y="216" width="307" height="74"/>
                                         <string key="text">Bulk enquiry has
 been sent</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="31"/>
@@ -561,13 +561,13 @@ been sent</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our Customer service team shall contact you soon regarding this enquiry." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9SZ-mV-NbB">
-                                        <rect key="frame" x="34" y="307" width="346" height="36"/>
+                                        <rect key="frame" x="34" y="307" width="307" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jsa-B4-bs8">
-                                        <rect key="frame" x="182" y="460" width="50" height="36"/>
+                                        <rect key="frame" x="162.5" y="460" width="50" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="hLh-on-oWF"/>
                                             <constraint firstAttribute="height" constant="36" id="nHW-co-NWh"/>
@@ -579,7 +579,7 @@ been sent</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UW3-qM-cup" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="132" y="574.5" width="150" height="50"/>
+                                        <rect key="frame" x="112.5" y="574.5" width="150" height="50"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="IWD-zh-eUI"/>
@@ -635,39 +635,39 @@ been sent</string>
             <objects>
                 <viewController storyboardIdentifier="SelectDestinationVC" id="ZWw-dZ-KR8" customClass="SelectDestinationVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="azI-Fo-Xle">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7MJ-DW-e1y">
-                                <rect key="frame" x="0.0" y="856" width="414" height="40"/>
+                                <rect key="frame" x="0.0" y="627" width="375" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="3XI-p2-dTT"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DVC-UG-bE1">
-                                <rect key="frame" x="0.0" y="215" width="414" height="647"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1RF-2K-JtQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="647"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xee-TG-VUX">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="69"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
                                         <subviews>
                                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="EbN-QB-Hvy" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="5" width="350" height="59"/>
+                                                <rect key="frame" x="0.0" y="5" width="311" height="59"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </searchBar>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLr-Lb-Qik">
-                                                <rect key="frame" x="350" y="0.0" width="48" height="69"/>
+                                                <rect key="frame" x="311" y="0.0" width="48" height="69"/>
                                                 <state key="normal" title="Cancel"/>
                                                 <connections>
                                                     <action selector="cancelButtonAction:" destination="ZWw-dZ-KR8" eventType="touchUpInside" id="Do1-We-FSW"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MCD-s8-G7E" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="68.5" width="414" height="0.5"/>
+                                                <rect key="frame" x="0.0" y="68.5" width="375" height="0.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="jjc-X8-75T"/>
@@ -690,24 +690,24 @@ been sent</string>
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lzl-jz-Vhz" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="69" width="414" height="578"/>
+                                        <rect key="frame" x="0.0" y="69" width="375" height="578"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DestinationMyLocationTableCell" rowHeight="55" id="lqc-d4-5nd" customClass="DestinationMyLocationTableCell" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="414" height="55"/>
+                                                <rect key="frame" x="0.0" y="28" width="375" height="55"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lqc-d4-5nd" id="fq8-cv-7Tn">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o8U-Gh-wXg">
-                                                            <rect key="frame" x="16" y="0.0" width="327" height="55"/>
+                                                            <rect key="frame" x="16" y="0.0" width="288" height="55"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dD-KY-m9s">
-                                                            <rect key="frame" x="343" y="0.0" width="55" height="55"/>
+                                                            <rect key="frame" x="304" y="0.0" width="55" height="55"/>
                                                             <accessibility key="accessibilityConfiguration">
                                                                 <accessibilityTraits key="traits" button="YES" notEnabled="YES"/>
                                                             </accessibility>
@@ -733,23 +733,23 @@ been sent</string>
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DestinationSearchedTableCell" rowHeight="94" id="3Pj-hN-WPo" customClass="DestinationSearchedTableCell" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="83" width="414" height="94"/>
+                                                <rect key="frame" x="0.0" y="83" width="375" height="94"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Pj-hN-WPo" id="KWp-GO-aMk">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="94"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="94"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="kd6-Rz-f0E">
-                                                            <rect key="frame" x="16" y="26" width="382" height="42"/>
+                                                            <rect key="frame" x="16" y="26" width="343" height="42"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WU9-Mx-swg">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Rk-Gx-itF">
-                                                                    <rect key="frame" x="0.0" y="21.5" width="382" height="20.5"/>
+                                                                    <rect key="frame" x="0.0" y="21.5" width="343" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -757,7 +757,7 @@ been sent</string>
                                                             </subviews>
                                                         </stackView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="11m-k5-6Lg" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                            <rect key="frame" x="16" y="93.5" width="398" height="0.5"/>
+                                                            <rect key="frame" x="16" y="93.5" width="359" height="0.5"/>
                                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="0.5" id="qxI-Qq-kAG"/>
@@ -832,43 +832,43 @@ been sent</string>
             <objects>
                 <viewController storyboardIdentifier="BulkRoomSelectionVC" id="8uL-mk-w3j" customClass="BulkRoomSelectionVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dgz-69-bDh">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8xo-TT-LKD">
-                                <rect key="frame" x="0.0" y="688" width="414" height="208"/>
+                                <rect key="frame" x="0.0" y="459" width="375" height="208"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="208" id="p8l-pp-Dqr"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vpe-Ts-42g">
-                                <rect key="frame" x="0.0" y="854" width="414" height="42"/>
+                                <rect key="frame" x="0.0" y="625" width="375" height="42"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="PYc-bU-iLT"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pbf-dV-N1m">
-                                <rect key="frame" x="0.0" y="507" width="414" height="355"/>
+                                <rect key="frame" x="0.0" y="312" width="375" height="355"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gGR-oK-1oI">
-                                        <rect key="frame" x="38" y="17" width="338" height="266"/>
+                                        <rect key="frame" x="38" y="17" width="299" height="266"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bbQ-CW-0Rv">
-                                                <rect key="frame" x="0.0" y="0.0" width="112.5" height="266"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="266"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="19.5" translatesAutoresizingMaskIntoConstraints="NO" id="5Nc-t2-hZo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="112.5" height="266"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="266"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="lUb-4B-UGW">
-                                                                <rect key="frame" x="0.0" y="0.0" width="112.5" height="114"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="114"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="627-JL-ot9">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="112.5" height="43"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="43"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rooms" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQ4-Rr-9MZ">
-                                                                                <rect key="frame" x="0.0" y="5" width="112.5" height="19.5"/>
+                                                                                <rect key="frame" x="0.0" y="5" width="99.5" height="19.5"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -884,10 +884,10 @@ been sent</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFd-nY-Rus">
-                                                                        <rect key="frame" x="0.0" y="55" width="112.5" height="59"/>
+                                                                        <rect key="frame" x="0.0" y="55" width="99.5" height="59"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4l-qf-vJb">
-                                                                                <rect key="frame" x="41" y="0.5" width="31" height="58"/>
+                                                                                <rect key="frame" x="34.5" y="0.5" width="31" height="58"/>
                                                                                 <state key="normal" image="rooms_white_icon"/>
                                                                             </button>
                                                                         </subviews>
@@ -904,10 +904,10 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="klb-yY-qLX">
-                                                                <rect key="frame" x="0.0" y="133.5" width="112.5" height="132.5"/>
+                                                                <rect key="frame" x="0.0" y="133.5" width="99.5" height="132.5"/>
                                                                 <subviews>
                                                                     <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2S-NB-xYW">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="112.5" height="132.5"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="99.5" height="132.5"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -933,25 +933,25 @@ been sent</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSf-Lz-PeC">
-                                                <rect key="frame" x="112.5" y="0.0" width="113" height="266"/>
+                                                <rect key="frame" x="99.5" y="0.0" width="100" height="266"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="19.5" translatesAutoresizingMaskIntoConstraints="NO" id="wVg-xb-02g">
-                                                        <rect key="frame" x="0.0" y="0.0" width="113" height="266"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="266"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="8sd-hy-MIr">
-                                                                <rect key="frame" x="0.0" y="0.0" width="113" height="116"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="115.5"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxk-PK-7qo">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="113" height="45"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="45"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adults" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f1P-RP-Eqz">
-                                                                                <rect key="frame" x="0.0" y="5" width="113" height="20.5"/>
+                                                                                <rect key="frame" x="0.0" y="5" width="100" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ages 12+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zHN-8r-IcP">
-                                                                                <rect key="frame" x="0.0" y="25.5" width="113" height="20.5"/>
+                                                                                <rect key="frame" x="0.0" y="25.5" width="100" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -970,10 +970,10 @@ been sent</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EmB-dd-HPg">
-                                                                        <rect key="frame" x="0.0" y="57" width="113" height="59"/>
+                                                                        <rect key="frame" x="0.0" y="57" width="100" height="58.5"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XBn-d3-Nmd">
-                                                                                <rect key="frame" x="32.5" y="5.5" width="48" height="48"/>
+                                                                                <rect key="frame" x="26" y="5.5" width="48" height="48"/>
                                                                                 <state key="normal" image="adult_icon_bulk"/>
                                                                             </button>
                                                                         </subviews>
@@ -987,10 +987,10 @@ been sent</string>
                                                                 </subviews>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WoY-az-onx">
-                                                                <rect key="frame" x="0.0" y="135.5" width="113" height="130.5"/>
+                                                                <rect key="frame" x="0.0" y="135" width="100" height="131"/>
                                                                 <subviews>
                                                                     <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DEo-vf-mkT">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="113" height="130.5"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="131"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1013,7 +1013,7 @@ been sent</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xbo-Hd-rsR">
-                                                <rect key="frame" x="225.5" y="0.0" width="100" height="266"/>
+                                                <rect key="frame" x="199.5" y="0.0" width="100" height="266"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="12.5" translatesAutoresizingMaskIntoConstraints="NO" id="pK7-Yp-wzS">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="248"/>
@@ -1108,29 +1108,29 @@ been sent</string>
                                             <constraint firstItem="Xbo-Hd-rsR" firstAttribute="leading" secondItem="gSf-Lz-PeC" secondAttribute="trailing" id="kwd-CW-iTc"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="etP-is-AM4" userLabel="firstLineView">
-                                        <rect key="frame" x="0.0" y="198.5" width="414" height="1"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="etP-is-AM4" userLabel="firstLineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="198.5" width="375" height="1"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="TPg-ax-5bD"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GEZ-9m-jJg" userLabel="secondLineView">
-                                        <rect key="frame" x="0.0" y="234.5" width="414" height="1"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GEZ-9m-jJg" userLabel="secondLineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="234.5" width="375" height="1"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="Z4H-WS-doQ"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s9M-NB-ug2" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="304.5" width="414" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="304.5" width="375" height="0.5"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="1Yr-Lm-ssT"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XpF-Cy-DU8">
-                                        <rect key="frame" x="0.0" y="305" width="414" height="50"/>
+                                        <rect key="frame" x="0.0" y="305" width="375" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="BvX-os-S5Q"/>
@@ -1186,41 +1186,41 @@ been sent</string>
                         <outlet property="childLabel" destination="4Sw-4i-o5H" id="gmr-bQ-sCW"/>
                         <outlet property="childrenPicker" destination="9Kp-MU-TGO" id="pEA-1b-WSR"/>
                         <outlet property="doneButton" destination="XpF-Cy-DU8" id="Omr-om-3XQ"/>
-                        <outlet property="firstLineView" destination="etP-is-AM4" id="EZw-Dn-FXA"/>
+                        <outlet property="firstLineView" destination="etP-is-AM4" id="ALm-Jd-eAg"/>
                         <outlet property="headerView" destination="8xo-TT-LKD" id="Ezm-98-9f0"/>
                         <outlet property="mainContainerBottomConstraint" destination="pnY-sf-ewH" id="Lae-ez-ogc"/>
                         <outlet property="mainContainerView" destination="pbf-dV-N1m" id="xLi-5c-ApV"/>
                         <outlet property="roomLabel" destination="LQ4-Rr-9MZ" id="Xx9-7T-8JJ"/>
                         <outlet property="roomsPicker" destination="g2S-NB-xYW" id="PJy-c3-H0s"/>
                         <outlet property="safeAreaBackView" destination="vpe-Ts-42g" id="hyf-5h-hyf"/>
-                        <outlet property="secondLineView" destination="GEZ-9m-jJg" id="yOt-jy-xem"/>
+                        <outlet property="secondLineView" destination="GEZ-9m-jJg" id="zON-IL-07h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i0y-pP-iG0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4259" y="1419"/>
+            <point key="canvasLocation" x="4193" y="1405"/>
         </scene>
         <!--Hotel ResultVC-->
         <scene sceneID="bax-Fu-FV9">
             <objects>
                 <viewController storyboardIdentifier="HotelResultVC" id="Nrz-rD-ver" customClass="HotelResultVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="He0-20-oIc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aM9-4Q-rjl" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="140" width="414" height="756"/>
+                                <rect key="frame" x="0.0" y="96" width="375" height="571"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHc-Vi-zSn" customClass="PassthroughView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="785" width="414" height="76"/>
+                                <rect key="frame" x="0.0" y="590" width="375" height="76"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pv9-Pq-S7S" customClass="PassthroughView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="76"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QEv-AK-2AZ" customClass="PassthroughView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="328" height="76"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="289" height="76"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uBY-DA-URP">
                                                 <rect key="frame" x="3" y="0.0" width="76" height="76"/>
@@ -1304,7 +1304,7 @@ been sent</string>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qCE-3h-xC4">
-                                        <rect key="frame" x="332" y="0.0" width="78" height="76"/>
+                                        <rect key="frame" x="293" y="0.0" width="78" height="76"/>
                                         <state key="normal" backgroundImage="greenMap"/>
                                         <connections>
                                             <action selector="mapButtonAction:" destination="Nrz-rD-ver" eventType="touchUpInside" id="pHr-yc-Lp4"/>
@@ -1328,14 +1328,14 @@ been sent</string>
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V4z-cq-RyF">
-                                <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VFS-Xf-tG2">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dci-Q6-szv">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZMo-hF-ekJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
@@ -1348,13 +1348,13 @@ been sent</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v2H-kc-cV8">
-                                                <rect key="frame" x="97" y="0.0" width="220" height="26"/>
+                                                <rect key="frame" x="97" y="0.0" width="181" height="26"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3A-mR-AwX">
-                                                <rect key="frame" x="97" y="22" width="220" height="20"/>
+                                                <rect key="frame" x="97" y="22" width="181" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="ony-ya-M5Z"/>
                                                 </constraints>
@@ -1363,7 +1363,7 @@ been sent</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rLI-7S-jmG">
-                                                <rect key="frame" x="366" y="0.0" width="44" height="44"/>
+                                                <rect key="frame" x="327" y="0.0" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="rLI-7S-jmG" secondAttribute="height" multiplier="1:1" id="nkp-j0-vOb"/>
                                                 </constraints>
@@ -1374,7 +1374,7 @@ been sent</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yZE-ic-PI4">
-                                                <rect key="frame" x="359" y="0.0" width="39" height="44"/>
+                                                <rect key="frame" x="320" y="0.0" width="39" height="44"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Canel"/>
                                                 <connections>
@@ -1382,10 +1382,10 @@ been sent</string>
                                                 </connections>
                                             </button>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eOs-Fb-lel">
-                                                <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                                 <subviews>
                                                     <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Ebv-Er-a4m" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </searchBar>
@@ -1424,10 +1424,10 @@ been sent</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MSO-ga-pbi" userLabel="FilterView">
-                                        <rect key="frame" x="0.0" y="44" width="414" height="52"/>
+                                        <rect key="frame" x="0.0" y="44" width="375" height="52"/>
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CU0-px-0eH">
-                                                <rect key="frame" x="44" y="0.0" width="370" height="52"/>
+                                                <rect key="frame" x="44" y="0.0" width="331" height="52"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="lg8-li-Ovj">
                                                     <size key="itemSize" width="50" height="50"/>
@@ -1498,14 +1498,14 @@ been sent</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Tu-mg-zuM">
-                                        <rect key="frame" x="0.0" y="95.5" width="414" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="95.5" width="375" height="0.5"/>
                                         <color key="backgroundColor" red="0.81960784310000001" green="0.81960784310000001" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="O9k-H8-wcr"/>
                                         </constraints>
                                     </view>
                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cYF-2F-5gQ">
-                                        <rect key="frame" x="0.0" y="93.5" width="414" height="2"/>
+                                        <rect key="frame" x="0.0" y="93.5" width="375" height="2"/>
                                         <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="bco-IS-v2a"/>
@@ -1537,10 +1537,10 @@ been sent</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0o3-aH-xeT">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hxb-Wz-HC6" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
                                 </subviews>
@@ -1553,16 +1553,16 @@ been sent</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QAK-AD-OFu">
-                                <rect key="frame" x="0.0" y="140" width="414" height="768"/>
+                                <rect key="frame" x="0.0" y="96" width="375" height="768"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="8Gg-mF-c01">
-                                        <rect key="frame" x="8" y="16" width="398" height="1029"/>
+                                        <rect key="frame" x="8" y="16" width="359" height="1029"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vZb-jF-UOb" customClass="CustomView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="398" height="193"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="359" height="193"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PMo-bq-XPg">
-                                                        <rect key="frame" x="16" y="11" width="366" height="166"/>
+                                                        <rect key="frame" x="16" y="11" width="327" height="166"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPm-ud-Pk8" customClass="ButtonShimmer" customModule="AERTRIP" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="18" height="22"/>
@@ -1570,10 +1570,10 @@ been sent</string>
                                                                 <state key="selected" image="saveHotelsSelected"/>
                                                             </button>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="npF-Ps-ULj">
-                                                                <rect key="frame" x="0.0" y="124" width="231" height="12"/>
+                                                                <rect key="frame" x="0.0" y="124" width="192" height="12"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EOH-8q-bfu" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="12"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="12"/>
                                                                         <color key="backgroundColor" red="0.97254901959999995" green="0.72549019609999998" blue="0.031372549020000001" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1582,7 +1582,7 @@ been sent</string>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5gV-L6-mV3" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="130" y="0.0" width="101" height="12"/>
+                                                                        <rect key="frame" x="115" y="0.0" width="77" height="12"/>
                                                                         <color key="backgroundColor" red="0.60784313729999995" green="0.91372549020000005" blue="0.83529411760000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1596,7 +1596,7 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BRt-h4-7Kq" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="311" y="126" width="55" height="8"/>
+                                                                <rect key="frame" x="272" y="126" width="55" height="8"/>
                                                                 <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="8" id="YwM-nF-eW8"/>
@@ -1609,10 +1609,10 @@ been sent</string>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="UDn-v3-CH5">
-                                                                <rect key="frame" x="0.0" y="151" width="366" height="15"/>
+                                                                <rect key="frame" x="0.0" y="151" width="327" height="15"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fOi-Fy-gyl" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="15"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="217" height="15"/>
                                                                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1621,7 +1621,7 @@ been sent</string>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="srt-P0-YY3" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="296" y="0.0" width="70" height="15"/>
+                                                                        <rect key="frame" x="257" y="0.0" width="70" height="15"/>
                                                                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="70" id="MEV-Bg-ZTB"/>
@@ -1684,10 +1684,10 @@ been sent</string>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="URP-vB-7Hr" customClass="CustomView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="209" width="398" height="193"/>
+                                                <rect key="frame" x="0.0" y="209" width="359" height="193"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icy-s8-IQb">
-                                                        <rect key="frame" x="16" y="11" width="366" height="166"/>
+                                                        <rect key="frame" x="16" y="11" width="327" height="166"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qel-LB-3do" customClass="ButtonShimmer" customModule="AERTRIP" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="18" height="22"/>
@@ -1695,10 +1695,10 @@ been sent</string>
                                                                 <state key="selected" image="saveHotelsSelected"/>
                                                             </button>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="Vdl-Lg-7fz">
-                                                                <rect key="frame" x="0.0" y="124" width="231" height="12"/>
+                                                                <rect key="frame" x="0.0" y="124" width="192" height="12"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tG7-4c-xi0" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="12"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="12"/>
                                                                         <color key="backgroundColor" red="0.97254901959999995" green="0.72549019609999998" blue="0.031372549020000001" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1707,7 +1707,7 @@ been sent</string>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GJl-RM-svd" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="130" y="0.0" width="101" height="12"/>
+                                                                        <rect key="frame" x="115" y="0.0" width="77" height="12"/>
                                                                         <color key="backgroundColor" red="0.60784313729999995" green="0.91372549020000005" blue="0.83529411760000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1721,7 +1721,7 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yIY-au-asz" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="311" y="126" width="55" height="8"/>
+                                                                <rect key="frame" x="272" y="126" width="55" height="8"/>
                                                                 <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="55" id="QLE-3H-Xk4"/>
@@ -1734,10 +1734,10 @@ been sent</string>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="RuT-1d-Uy1">
-                                                                <rect key="frame" x="0.0" y="151" width="366" height="15"/>
+                                                                <rect key="frame" x="0.0" y="151" width="327" height="15"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fie-0L-vhw" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="15"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="217" height="15"/>
                                                                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1746,7 +1746,7 @@ been sent</string>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WeH-Ps-fht" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="296" y="0.0" width="70" height="15"/>
+                                                                        <rect key="frame" x="257" y="0.0" width="70" height="15"/>
                                                                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="70" id="zUl-G8-pCD"/>
@@ -1808,10 +1808,10 @@ been sent</string>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mp2-O4-aIF" customClass="CustomView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="418" width="398" height="193"/>
+                                                <rect key="frame" x="0.0" y="418" width="359" height="193"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HqQ-7K-7bx">
-                                                        <rect key="frame" x="16" y="11" width="366" height="166"/>
+                                                        <rect key="frame" x="16" y="11" width="327" height="166"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FC3-aC-6VJ" customClass="ButtonShimmer" customModule="AERTRIP" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="18" height="22"/>
@@ -1819,10 +1819,10 @@ been sent</string>
                                                                 <state key="selected" image="saveHotelsSelected"/>
                                                             </button>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="rtB-cV-bXw">
-                                                                <rect key="frame" x="0.0" y="124" width="231" height="12"/>
+                                                                <rect key="frame" x="0.0" y="124" width="192" height="12"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MEe-RF-BcL" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="12"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="12"/>
                                                                         <color key="backgroundColor" red="0.97254901959999995" green="0.72549019609999998" blue="0.031372549020000001" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1831,7 +1831,7 @@ been sent</string>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5kl-aN-brz" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="130" y="0.0" width="101" height="12"/>
+                                                                        <rect key="frame" x="115" y="0.0" width="77" height="12"/>
                                                                         <color key="backgroundColor" red="0.60784313729999995" green="0.91372549020000005" blue="0.83529411760000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1845,7 +1845,7 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BOd-mk-5sK" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="311" y="126" width="55" height="8"/>
+                                                                <rect key="frame" x="272" y="126" width="55" height="8"/>
                                                                 <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="55" id="1ez-cw-OzM"/>
@@ -1858,10 +1858,10 @@ been sent</string>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="TaM-za-Ee7">
-                                                                <rect key="frame" x="0.0" y="151" width="366" height="15"/>
+                                                                <rect key="frame" x="0.0" y="151" width="327" height="15"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0F4-d2-kdk" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="15"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="217" height="15"/>
                                                                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1870,7 +1870,7 @@ been sent</string>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gRc-S8-vd4" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="296" y="0.0" width="70" height="15"/>
+                                                                        <rect key="frame" x="257" y="0.0" width="70" height="15"/>
                                                                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="70" id="MZf-3M-XQJ"/>
@@ -1932,10 +1932,10 @@ been sent</string>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qi7-dR-we9" customClass="CustomView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="627" width="398" height="193"/>
+                                                <rect key="frame" x="0.0" y="627" width="359" height="193"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U8y-0w-xzl">
-                                                        <rect key="frame" x="16" y="11" width="366" height="166"/>
+                                                        <rect key="frame" x="16" y="11" width="327" height="166"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0CX-g1-dk1" customClass="ButtonShimmer" customModule="AERTRIP" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="18" height="22"/>
@@ -1943,10 +1943,10 @@ been sent</string>
                                                                 <state key="selected" image="saveHotelsSelected"/>
                                                             </button>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="e3B-0Z-SZO">
-                                                                <rect key="frame" x="0.0" y="124" width="231" height="12"/>
+                                                                <rect key="frame" x="0.0" y="124" width="192" height="12"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JCG-Bl-VgW" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="12"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="12"/>
                                                                         <color key="backgroundColor" red="0.97254901959999995" green="0.72549019609999998" blue="0.031372549020000001" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1955,7 +1955,7 @@ been sent</string>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1TP-BV-4qw" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="130" y="0.0" width="101" height="12"/>
+                                                                        <rect key="frame" x="115" y="0.0" width="77" height="12"/>
                                                                         <color key="backgroundColor" red="0.60784313729999995" green="0.91372549020000005" blue="0.83529411760000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1969,7 +1969,7 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f80-c7-Ssr" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="311" y="126" width="55" height="8"/>
+                                                                <rect key="frame" x="272" y="126" width="55" height="8"/>
                                                                 <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="55" id="NAq-Lk-DZx"/>
@@ -1982,10 +1982,10 @@ been sent</string>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="GyM-cN-46l">
-                                                                <rect key="frame" x="0.0" y="151" width="366" height="15"/>
+                                                                <rect key="frame" x="0.0" y="151" width="327" height="15"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBF-SS-gkJ" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="15"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="217" height="15"/>
                                                                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1994,7 +1994,7 @@ been sent</string>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ctk-RM-bJv" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="296" y="0.0" width="70" height="15"/>
+                                                                        <rect key="frame" x="257" y="0.0" width="70" height="15"/>
                                                                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="70" id="t1W-os-noI"/>
@@ -2056,10 +2056,10 @@ been sent</string>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Evt-7r-YM0" customClass="CustomView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="836" width="398" height="193"/>
+                                                <rect key="frame" x="0.0" y="836" width="359" height="193"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EHg-Hn-MSJ">
-                                                        <rect key="frame" x="16" y="11" width="366" height="166"/>
+                                                        <rect key="frame" x="16" y="11" width="327" height="166"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FuY-f3-cYF" customClass="ButtonShimmer" customModule="AERTRIP" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="18" height="22"/>
@@ -2067,10 +2067,10 @@ been sent</string>
                                                                 <state key="selected" image="saveHotelsSelected"/>
                                                             </button>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="aUo-fS-0LI">
-                                                                <rect key="frame" x="0.0" y="124" width="231" height="12"/>
+                                                                <rect key="frame" x="0.0" y="124" width="192" height="12"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dPT-kf-LgB" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="12"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="12"/>
                                                                         <color key="backgroundColor" red="0.97254901959999995" green="0.72549019609999998" blue="0.031372549020000001" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -2079,7 +2079,7 @@ been sent</string>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="URr-tV-scv" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="130" y="0.0" width="101" height="12"/>
+                                                                        <rect key="frame" x="115" y="0.0" width="77" height="12"/>
                                                                         <color key="backgroundColor" red="0.60784313729999995" green="0.91372549020000005" blue="0.83529411760000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -2093,7 +2093,7 @@ been sent</string>
                                                                 </constraints>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RHM-yv-2FS" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="311" y="126" width="55" height="8"/>
+                                                                <rect key="frame" x="272" y="126" width="55" height="8"/>
                                                                 <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="55" id="1bb-eM-PsL"/>
@@ -2106,10 +2106,10 @@ been sent</string>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="Hd1-XC-lH8">
-                                                                <rect key="frame" x="0.0" y="151" width="366" height="15"/>
+                                                                <rect key="frame" x="0.0" y="151" width="327" height="15"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gmR-vI-Ed9" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="15"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="217" height="15"/>
                                                                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -2118,7 +2118,7 @@ been sent</string>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g6c-yl-1ZV" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="296" y="0.0" width="70" height="15"/>
+                                                                        <rect key="frame" x="257" y="0.0" width="70" height="15"/>
                                                                         <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="70" id="ixE-yV-Q5T"/>
@@ -2261,35 +2261,35 @@ been sent</string>
             <objects>
                 <viewController storyboardIdentifier="HotelsSearchVC" id="QBR-Sl-oIR" customClass="HotelsSearchVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bO9-1p-K6j">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S4V-Pr-uJm">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9hv-hc-Uss">
-                                        <rect key="frame" x="13" y="5" width="388" height="424"/>
+                                        <rect key="frame" x="13" y="5" width="349" height="424"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ca-Ra-QVb">
-                                                <rect key="frame" x="0.0" y="0.0" width="388" height="103.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="349" height="103.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3bk-9C-U9E">
-                                                        <rect key="frame" x="16" y="16" width="356" height="71.5"/>
+                                                        <rect key="frame" x="16" y="16" width="317" height="71.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7kg-I6-m1r">
-                                                                <rect key="frame" x="0.0" y="0.0" width="356" height="20.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="317" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JjH-GE-00O">
-                                                                <rect key="frame" x="0.0" y="20.5" width="356" height="50"/>
+                                                                <rect key="frame" x="0.0" y="20.5" width="317" height="50"/>
                                                                 <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="26"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G41-lp-eEx">
-                                                                <rect key="frame" x="0.0" y="70.5" width="356" height="1"/>
+                                                                <rect key="frame" x="0.0" y="70.5" width="317" height="1"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -2305,7 +2305,7 @@ been sent</string>
                                                         </constraints>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j3Y-9d-A76">
-                                                        <rect key="frame" x="0.0" y="0.0" width="388" height="103.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="349" height="103.5"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <connections>
                                                             <action selector="whereButtonAction:" destination="QBR-Sl-oIR" eventType="touchUpInside" id="1Pu-MZ-jzG"/>
@@ -2326,31 +2326,31 @@ been sent</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J0h-3z-R7q" userLabel="First Line View" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="103.5" width="356" height="0.5"/>
+                                                <rect key="frame" x="16" y="103.5" width="317" height="0.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="kBh-Cc-nfn"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="18c-nv-DJD">
-                                                <rect key="frame" x="0.0" y="104" width="388" height="103.5"/>
+                                                <rect key="frame" x="0.0" y="104" width="349" height="103.5"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="103.5" id="MhP-OY-iU1"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="frZ-3f-7r9" userLabel="Second Line View" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="207.5" width="356" height="0.5"/>
+                                                <rect key="frame" x="16" y="207.5" width="317" height="0.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="7yd-Kn-RpS"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j5z-sY-chK">
-                                                <rect key="frame" x="0.0" y="208" width="388" height="86.5"/>
+                                                <rect key="frame" x="0.0" y="208" width="349" height="86.5"/>
                                                 <subviews>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zOR-la-hRi">
-                                                        <rect key="frame" x="0.0" y="0.0" width="388" height="86.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="349" height="86.5"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="wmB-er-6A8">
                                                             <size key="itemSize" width="50" height="50"/>
@@ -2370,17 +2370,17 @@ been sent</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZa-vI-wrJ" userLabel="Third Line View" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="294.5" width="356" height="0.5"/>
+                                                <rect key="frame" x="16" y="294.5" width="317" height="0.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="dR0-tP-NK3"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UZh-dq-5ov">
-                                                <rect key="frame" x="0.0" y="295" width="388" height="129"/>
+                                                <rect key="frame" x="0.0" y="295" width="349" height="129"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ct5-jG-4BW" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="119" y="20" width="150" height="50"/>
+                                                        <rect key="frame" x="99.5" y="20" width="150" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="150" id="o7w-Ui-DjJ"/>
                                                             <constraint firstAttribute="height" constant="50" id="zg7-zH-yLR"/>
@@ -2392,7 +2392,7 @@ been sent</string>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="j5u-Gg-roB">
-                                                        <rect key="frame" x="41" y="90" width="291" height="17"/>
+                                                        <rect key="frame" x="41" y="90" width="252" height="17"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17" id="lL9-f0-Hxv"/>
@@ -2447,10 +2447,10 @@ been sent</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OIM-MI-8Ps">
-                                        <rect key="frame" x="0.0" y="429" width="414" height="194"/>
+                                        <rect key="frame" x="0.0" y="429" width="375" height="194"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fik-P3-SWM">
-                                                <rect key="frame" x="0.0" y="40" width="414" height="154"/>
+                                                <rect key="frame" x="0.0" y="40" width="375" height="154"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="154" id="UJu-55-Pqb"/>
@@ -2520,29 +2520,29 @@ been sent</string>
             <objects>
                 <viewController storyboardIdentifier="HotelsMapVC" id="HGv-J4-Vol" customClass="HotelsMapVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fwd-g3-uly">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pVy-WI-Bou" customClass="MapContainerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="144" width="414" height="549"/>
+                                <rect key="frame" x="0.0" y="100" width="375" height="364"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OA5-Cf-ZLd">
-                                <rect key="frame" x="0.0" y="599" width="414" height="60"/>
+                                <rect key="frame" x="0.0" y="404" width="375" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="1nn-HN-kxH"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Obe-xJ-dgb">
-                                <rect key="frame" x="0.0" y="603" width="414" height="76"/>
+                                <rect key="frame" x="0.0" y="408" width="375" height="76"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rTh-83-qZU">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="76"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Trc-5D-qRh">
-                                        <rect key="frame" x="0.0" y="0.0" width="333" height="76"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="294" height="76"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLH-Nn-NGJ">
                                                 <rect key="frame" x="3.5" y="0.0" width="76" height="76"/>
@@ -2626,7 +2626,7 @@ been sent</string>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yPD-bI-EE3">
-                                        <rect key="frame" x="338" y="0.0" width="76" height="76"/>
+                                        <rect key="frame" x="299" y="0.0" width="76" height="76"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="yPD-bI-EE3" secondAttribute="height" multiplier="1:1" id="Szn-ru-4uH"/>
                                         </constraints>
@@ -2654,7 +2654,7 @@ been sent</string>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgj-JY-aNo">
-                                <rect key="frame" x="0.0" y="659" width="414" height="203"/>
+                                <rect key="frame" x="0.0" y="464" width="375" height="203"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="203" id="kmw-ab-qqc"/>
@@ -2663,10 +2663,10 @@ been sent</string>
                                 <cells/>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mtp-E5-grj">
-                                <rect key="frame" x="0.0" y="88.5" width="414" height="807.5"/>
+                                <rect key="frame" x="0.0" y="44.5" width="375" height="622.5"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4K-G9-A54" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="807.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="622.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
                                 </subviews>
@@ -2679,14 +2679,14 @@ been sent</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="USC-9O-p0Q">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ljB-dC-jm5">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="msE-VN-eXX">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bQr-hS-pIA">
                                                 <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
@@ -2699,7 +2699,7 @@ been sent</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efk-uH-r2e">
-                                                <rect key="frame" x="366" y="0.0" width="44" height="44"/>
+                                                <rect key="frame" x="327" y="0.0" width="44" height="44"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="efk-uH-r2e" secondAttribute="height" multiplier="1:1" id="fbq-WQ-PQD"/>
@@ -2711,7 +2711,7 @@ been sent</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qkT-Oz-5hd">
-                                                <rect key="frame" x="359" y="7" width="39" height="30"/>
+                                                <rect key="frame" x="320" y="7" width="39" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Canel"/>
                                                 <connections>
@@ -2719,10 +2719,10 @@ been sent</string>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eYb-s5-s4d">
-                                                <rect key="frame" x="0.0" y="0.0" width="366" height="44"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="327" height="44"/>
                                                 <subviews>
                                                     <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="DgE-Wc-wuE" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="366" height="44"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="327" height="44"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </searchBar>
@@ -2754,14 +2754,14 @@ been sent</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nzP-hO-r2Z">
-                                        <rect key="frame" x="0.0" y="44" width="414" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="44" width="375" height="0.5"/>
                                         <color key="backgroundColor" red="0.81960784310000001" green="0.81960784310000001" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="FIA-Hg-Kyx"/>
                                         </constraints>
                                     </view>
                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Bhs-V6-TwJ">
-                                        <rect key="frame" x="0.0" y="42" width="414" height="2"/>
+                                        <rect key="frame" x="0.0" y="42" width="375" height="2"/>
                                         <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="jRE-ZM-Sy9"/>
@@ -2857,53 +2857,53 @@ been sent</string>
             <objects>
                 <viewController storyboardIdentifier="BulkBookingVC" id="b63-fg-CnL" customClass="BulkBookingVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="82A-Ay-XxX">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TcU-SE-WgD">
-                                <rect key="frame" x="0.0" y="856" width="414" height="40"/>
+                                <rect key="frame" x="0.0" y="627" width="375" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="ox3-0d-yX8"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qKC-mr-SmC">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uzb-xT-rbV">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DMi-d4-w7l" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="56" id="0Db-Dn-QYb"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V3L-g1-Sj7">
-                                        <rect key="frame" x="0.0" y="56" width="414" height="762"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="611"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kJP-WF-r96">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="104"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="104"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="g3P-sa-YZM">
-                                                        <rect key="frame" x="16" y="15" width="382" height="74"/>
+                                                        <rect key="frame" x="16" y="15" width="343" height="74"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cBh-lx-1zP">
-                                                                <rect key="frame" x="0.0" y="0.0" width="382" height="24.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="343" height="24.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q24-cv-ygW">
-                                                                <rect key="frame" x="0.0" y="24.5" width="382" height="25"/>
+                                                                <rect key="frame" x="0.0" y="24.5" width="343" height="25"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GP6-tk-ZeC">
-                                                                <rect key="frame" x="0.0" y="49.5" width="382" height="24.5"/>
+                                                                <rect key="frame" x="0.0" y="49.5" width="343" height="24.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -2919,7 +2919,7 @@ been sent</string>
                                                         </constraints>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDN-ih-OKJ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="104"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="104"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <connections>
                                                             <action selector="whereButtonAction:" destination="b63-fg-CnL" eventType="touchUpInside" id="XRL-0h-dkq"/>
@@ -2940,37 +2940,37 @@ been sent</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i1l-b5-KtU" userLabel="First Line View" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="104" width="382" height="0.5"/>
+                                                <rect key="frame" x="16" y="104" width="343" height="0.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="lup-wG-JmW"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eff-Oh-6ZH">
-                                                <rect key="frame" x="0.0" y="104.5" width="414" height="104"/>
+                                                <rect key="frame" x="0.0" y="104.5" width="375" height="104"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="104" id="ddQ-PA-qCN"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6TH-Cg-Vbg" userLabel="Second Line View" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="208.5" width="382" height="0.5"/>
+                                                <rect key="frame" x="16" y="208.5" width="343" height="0.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="FGn-Sd-LZX"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vRr-9A-BpD">
-                                                <rect key="frame" x="0.0" y="209" width="414" height="86"/>
+                                                <rect key="frame" x="0.0" y="209" width="375" height="86"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guests" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SkB-2O-Zle">
-                                                        <rect key="frame" x="10" y="15.5" width="394" height="19.5"/>
+                                                        <rect key="frame" x="10" y="15.5" width="355" height="19.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="tBG-IN-gE6">
-                                                        <rect key="frame" x="149" y="44.5" width="116.5" height="22"/>
+                                                        <rect key="frame" x="129.5" y="44.5" width="116.5" height="22"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="cf3-u0-DbH">
                                                                 <rect key="frame" x="0.0" y="0.0" width="26.5" height="22"/>
@@ -3023,7 +3023,7 @@ been sent</string>
                                                         </constraints>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0L1-CP-TvG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="86"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="86"/>
                                                         <connections>
                                                             <action selector="bulkBookingPopUpAction:" destination="b63-fg-CnL" eventType="touchUpInside" id="h0G-CO-M2t"/>
                                                         </connections>
@@ -3044,26 +3044,26 @@ been sent</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mrm-vd-wv4" userLabel="Third Line View" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="295" width="382" height="0.5"/>
+                                                <rect key="frame" x="16" y="295" width="343" height="0.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="tJN-uK-ETU"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8zo-5k-mHD">
-                                                <rect key="frame" x="0.0" y="295.5" width="414" height="86"/>
+                                                <rect key="frame" x="0.0" y="295.5" width="375" height="86"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UQ9-cn-Xqf">
-                                                        <rect key="frame" x="0.0" y="0.0" width="207" height="86"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="86"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preferred Hotels" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AHi-Mc-mZj">
-                                                                <rect key="frame" x="20" y="15" width="167" height="19.5"/>
+                                                                <rect key="frame" x="20" y="15" width="147.5" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X0z-hI-thM">
-                                                                <rect key="frame" x="20" y="48.5" width="167" height="24"/>
+                                                                <rect key="frame" x="20" y="48.5" width="147.5" height="24"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="24" id="xrL-xf-zdd"/>
                                                                 </constraints>
@@ -3083,16 +3083,16 @@ been sent</string>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dJF-ir-boG">
-                                                        <rect key="frame" x="207" y="0.0" width="207" height="86"/>
+                                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="86"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Special Request" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N1s-3d-ueJ">
-                                                                <rect key="frame" x="20" y="15" width="167" height="19.5"/>
+                                                                <rect key="frame" x="20" y="15" width="147.5" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7xi-9h-M8v" customClass="PKTextField" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="20" y="48.5" width="167" height="27"/>
+                                                                <rect key="frame" x="20" y="48.5" width="147.5" height="27"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="27" id="fXT-Qo-YLG"/>
@@ -3124,17 +3124,17 @@ been sent</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q1b-ss-wKd" userLabel="Fourth Line View" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="381.5" width="382" height="0.5"/>
+                                                <rect key="frame" x="16" y="381.5" width="343" height="0.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="g3l-r1-MNl"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Om-nh-L7r">
-                                                <rect key="frame" x="0.0" y="382" width="414" height="380"/>
+                                                <rect key="frame" x="0.0" y="382" width="375" height="229"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vdG-IM-Tuq" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="132" y="20" width="150" height="50"/>
+                                                        <rect key="frame" x="112.5" y="20" width="150" height="50"/>
                                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="2BW-IX-8nf"/>

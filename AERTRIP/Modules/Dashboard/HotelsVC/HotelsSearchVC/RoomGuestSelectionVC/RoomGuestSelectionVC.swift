@@ -34,8 +34,9 @@ class RoomGuestSelectionVC: BaseVC {
     @IBOutlet var agePickers: [UIPickerView]!
     @IBOutlet weak var agesContainerView: UIStackView!
     @IBOutlet weak var mainContainerHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var firstLineView: UIView!
-    @IBOutlet weak var secondLineView: UIView!
+    
+    @IBOutlet weak var firstLineView: ATDividerView!
+    @IBOutlet weak var secondLineView: ATDividerView!
     @IBOutlet weak var doneButtonBottomConstraint: NSLayoutConstraint!
     
     

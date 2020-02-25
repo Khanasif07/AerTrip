@@ -140,15 +140,21 @@ class CompletedVC: BaseVC {
             let emptyView: UIView?
             if MyBookingFilterVM.shared.searchText.isEmpty {
                 if self.isOnlyPendingAction {
-                    emptyView = noPendingActionmFoundEmptyView
+                        emptyView = noPendingActionmFoundEmptyView
+                    } else if self.isComingFromFilter {
+                        noResultemptyView.searchTextLabel.isHidden = false
+                        noResultemptyView.messageLabel.isHidden = true
+                        noResultemptyView.searchTextLabel.text = "No Bookings Available. We couldn’t find bookings to match your filters. Try changing the filters, or reset them."
+                        emptyView = noResultemptyView
+                    }
+                    else {
+                         emptyView = noCompletedBookingResultemptyView
+                    }
                 } else {
-                    emptyView = noCompletedBookingResultemptyView
+                    noResultemptyView.searchTextLabel.isHidden = false
+                    noResultemptyView.searchTextLabel.text = "for \(MyBookingFilterVM.shared.searchText.quoted)"
+                    emptyView = noResultemptyView
                 }
-            } else {
-                noResultemptyView.searchTextLabel.isHidden = false
-                noResultemptyView.searchTextLabel.text = "for \(MyBookingFilterVM.shared.searchText.quoted)"
-                emptyView = noResultemptyView
-            }
             self.completedBookingsTableView.backgroundView = emptyView
         }
     }
@@ -158,7 +164,7 @@ class CompletedVC: BaseVC {
             //refresh the data with filters
             
             if (noti == .myBookingFilterApplied || noti == .myBookingFilterCleared) {
-                self.isComingFromFilter  = false
+                self.isComingFromFilter  = true
                 self.loadSaveData()
                 self.reloadTable()
             }

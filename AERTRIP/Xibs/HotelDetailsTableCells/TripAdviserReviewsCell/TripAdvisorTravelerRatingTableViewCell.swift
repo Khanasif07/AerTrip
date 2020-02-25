@@ -12,7 +12,7 @@ class TripAdvisorTravelerRatingTableViewCell: UITableViewCell {
 
     //Mark:- IBOutlets
     //================
-    @IBOutlet weak var titleLabel: UILabel!
+//    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tripAdviserImageView: UIImageView!
     @IBOutlet weak var tripAdviserRatingView: FloatRatingView!
     @IBOutlet weak var reviewsLabel: UILabel!
@@ -26,11 +26,11 @@ class TripAdvisorTravelerRatingTableViewCell: UITableViewCell {
     }
     
     private func configureUI() {
-        self.titleLabel.font = AppFonts.SemiBold.withSize(16.0)
+//        self.titleLabel.font = AppFonts.SemiBold.withSize(16.0)
         self.reviewsLabel.font = AppFonts.Regular.withSize(16.0)
         self.hotelNumberLabel.font = AppFonts.Regular.withSize(18.0)
         //Color
-        self.titleLabel.textColor = AppColors.themeBlack
+//        self.titleLabel.textColor = AppColors.themeBlack
         self.reviewsLabel.textColor = AppColors.themeGreen
         self.hotelNumberLabel.textColor = AppColors.themeBlack
     }

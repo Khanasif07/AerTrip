@@ -13,6 +13,7 @@ class CancelledVC: BaseVC {
     // Mark:- Variables
     //================
     let viewModel = UpcomingBookingsVM()
+    var isComingFromFilter:Bool = false
     
     
     // Mark:- IBOutlets
@@ -134,7 +135,13 @@ class CancelledVC: BaseVC {
             if MyBookingFilterVM.shared.searchText.isEmpty {
                 if self.isOnlyPendingAction {
                     emptyView = noPendingActionmFoundEmptyView
-                } else {
+                } else if self.isComingFromFilter {
+                    noResultemptyView.searchTextLabel.isHidden = false
+                    noResultemptyView.messageLabel.isHidden = true
+                    noResultemptyView.searchTextLabel.text = "No Bookings Available. We couldn’t find bookings to match your filters. Try changing the filters, or reset them."
+                    emptyView = noResultemptyView
+                }
+                else {
                     emptyView = noCanceledBookingResultemptyView
                 }
             } else {
@@ -151,6 +158,7 @@ class CancelledVC: BaseVC {
             // refresh the data with filters
             
             if noti == .myBookingFilterApplied || noti == .myBookingFilterCleared {
+                self.isComingFromFilter = true
                 self.loadSaveData()
                 self.reloadTable()
             }

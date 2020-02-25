@@ -338,7 +338,10 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 email.label = label
                 self.viewModel.email.append(email)
-                tableView.reloadData()
+                self.tableView.insertRows(at: [indexPath], with: .bottom)
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+//                tableView.reloadData()
             }
             
         case LocalizedString.SocialAccounts.localized:
@@ -347,7 +350,10 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 var social = Social()
                 social.label = LocalizedString.Facebook.localized
                 self.viewModel.social.append(social)
-                tableView.reloadData()
+                self.tableView.insertRows(at: [indexPath], with: .bottom)
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+//                tableView.reloadData()
             }
             
         case LocalizedString.Address.localized:
@@ -358,7 +364,10 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 address.country = LocalizedString.SelectedCountrySymbol.localized
                 address.countryName = LocalizedString.selectedCountry.localized
                 self.viewModel.addresses.append(address)
-                tableView.reloadSection(section: indexPath.section, with: .none)
+                self.tableView.insertRows(at: [indexPath], with: .bottom)
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+//                tableView.reloadSection(section: indexPath.section, with: .none)
             }
             
         case LocalizedString.MoreInformation.localized:
@@ -373,7 +382,10 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 mobile.type = "mobile"
                 mobile.isd = "+91"
                 self.viewModel.mobile.append(mobile)
-                tableView.reloadData()
+                self.tableView.insertRows(at: [indexPath], with: .bottom)
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+//                tableView.reloadData()
             }
             
             break
@@ -388,7 +400,10 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 var frequentFlyer = FrequentFlyer()
                 frequentFlyer.airlineName = LocalizedString.SelectAirline.localized
                 self.viewModel.frequentFlyer.append(frequentFlyer)
-                tableView.reloadData()
+                self.tableView.insertRows(at: [indexPath], with: .bottom)
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
+//                tableView.reloadData()
             }
             
         default:

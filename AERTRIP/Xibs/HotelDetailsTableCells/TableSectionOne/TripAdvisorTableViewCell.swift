@@ -32,9 +32,9 @@ class TripAdvisorTableViewCell: UITableViewCell {
     //Mark:- Functions
     //================
     private func initialSetUps() {
-        self.checkTripAdvisorLabel.text = LocalizedString.CheckTripAdvisor.localized
-        self.checkTripAdvisorLabel.font = AppFonts.Regular.withSize(18.0)
-        self.checkTripAdvisorLabel.textColor = AppColors.themeGreen
+        self.checkTripAdvisorLabel.text = "TripAdvisor Rating"
+        self.checkTripAdvisorLabel.font = AppFonts.SemiBold.withSize(16.0)
+        self.checkTripAdvisorLabel.textColor = AppColors.themeBlack
     }
 
     

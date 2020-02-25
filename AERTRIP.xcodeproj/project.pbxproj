@@ -7175,7 +7175,7 @@
 				8469FEA321B513FF0027BB2E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		8469FEA421B513FF0027BB2E /* Build configuration list for PBXNativeTarget "AERTRIP" */ = {
 			isa = XCConfigurationList;
@@ -7184,7 +7184,7 @@
 				8469FEA621B513FF0027BB2E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 
