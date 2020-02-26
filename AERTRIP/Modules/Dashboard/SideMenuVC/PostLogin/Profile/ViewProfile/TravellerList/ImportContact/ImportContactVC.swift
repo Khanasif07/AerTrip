@@ -35,7 +35,7 @@ class ImportContactVC: BaseVC {
     private var itemsCounts: [Int] = [0, 0, 0]
     
     // Parchment View
-    fileprivate var parchmentView : PagingViewController<PagingIndexItem>?
+    fileprivate var parchmentView : PagingViewController?
     
     private(set) var viewModel = ImportContactVM.shared
     private var currentIndex: Int = 0 {
@@ -147,7 +147,7 @@ class ImportContactVC: BaseVC {
     // Added to replace the existing page controller, added Hitesh Soni, 28-29Jan'2020
     private func setupParchmentPageController(){
         
-        self.parchmentView = PagingViewController<PagingIndexItem>()
+        self.parchmentView = PagingViewController()
         self.parchmentView?.menuItemSpacing = (self.view.width - 246.0) / 2
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 33.0, bottom: 0.0, right: 38.0)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 51)
@@ -553,19 +553,19 @@ class ContactListCollectionFlowLayout: UICollectionViewFlowLayout {
 }
 
 extension ImportContactVC: PagingViewControllerDataSource , PagingViewControllerDelegate {
-    func numberOfViewControllers<T>(in pagingViewController: PagingViewController<T>) -> Int where T : PagingItem, T : Comparable, T : Hashable {
+    func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
         self.allTabsStr.count
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, viewControllerForIndex index: Int) -> UIViewController where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
         return self.allChildVCs[index]
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemForIndex index: Int) -> T where T : PagingItem, T : Comparable, T : Hashable {
-        return PagingIndexItem(index: index, title:  self.allTabsStr[index]) as! T
+    func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
+        return PagingIndexItem(index: index, title:  self.allTabsStr[index])
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController<T>(_ pagingViewController: PagingViewController, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
         
         // depending onthe text size, give the width of the menu item
         if let pagingIndexItem = pagingItem as? PagingIndexItem{
@@ -578,7 +578,7 @@ extension ImportContactVC: PagingViewControllerDataSource , PagingViewController
         return 100.0
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController<T>(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
         
         let pagingIndexItem = pagingItem as! PagingIndexItem
         self.currentIndex = pagingIndexItem.index

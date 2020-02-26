@@ -118,11 +118,12 @@ extension GoogleLoginController {
             
             printDebug(GIDSignIn.sharedInstance().scopes)
             
-            let request = Alamofire.request(urlString, method: .get)
+            let request = AF.request(urlString, method: .get)
             request.responseString { (data) in
                     printDebug(data)
             }
-            request.responseData { (response:DataResponse<Data>) in
+            
+            request.responseData { (response:DataResponse) in
                 
                 switch(response.result) {
                     

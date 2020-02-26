@@ -28,7 +28,7 @@ class MyViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        Alamofire.request(url).responseJSON { response in
+        AF.request(url).responseJSON { response in
             if let data = response.data {
                 if let json = try? JSON(data: data) {
                     for item in json["books"].arrayValue {

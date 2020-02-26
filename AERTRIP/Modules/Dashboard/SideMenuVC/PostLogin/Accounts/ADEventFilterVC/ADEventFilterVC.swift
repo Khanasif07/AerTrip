@@ -46,7 +46,7 @@ class ADEventFilterVC: BaseVC {
 //    fileprivate weak var categoryView: ATCategoryView!
     
     // Parchment View
-    private var parchmentView : PagingViewController<PagingIndexItem>?
+    private var parchmentView : PagingViewController?
     private let allTabsStr: [String] = [LocalizedString.DateSpan.localized, LocalizedString.VoucherType.localized]
 //    private var allTabs: [ATCategoryItem] {
 //        var temp = [ATCategoryItem]()
@@ -180,7 +180,7 @@ class ADEventFilterVC: BaseVC {
       // Added to replace the existing page controller, added Asif Khan
       private func setupParchmentPageController(){
           
-        self.parchmentView = PagingViewController<PagingIndexItem>()
+        self.parchmentView = PagingViewController()
         self.parchmentView?.menuItemSpacing = (UIDevice.screenWidth - 268.0)
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 59.0, bottom: 0.0, right: 46.0)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 50.0)
@@ -309,19 +309,19 @@ extension ADEventFilterVC: ADVoucherTypeVCDelegate, TravelDateVCDelegate {
 }
 
 extension ADEventFilterVC : PagingViewControllerDataSource , PagingViewControllerDelegate {
-    func numberOfViewControllers<T>(in pagingViewController: PagingViewController<T>) -> Int where T : PagingItem, T : Comparable, T : Hashable {
+    func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
         self.allTabsStr.count
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, viewControllerForIndex index: Int) -> UIViewController where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController  {
         return self.allChildVCs[index]
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemForIndex index: Int) -> T where T : PagingItem, T : Comparable, T : Hashable {
-        return PagingIndexItem(index: index, title:  self.allTabsStr[index]) as! T
+    func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
+        return PagingIndexItem(index: index, title:  self.allTabsStr[index])
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_ pagingViewController: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat?{
         
         // depending onthe text size, give the width of the menu item
         if let pagingIndexItem = pagingItem as? PagingIndexItem{
@@ -334,7 +334,7 @@ extension ADEventFilterVC : PagingViewControllerDataSource , PagingViewControlle
         return 100.0
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController<T>(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
         
         let pagingIndexItem = pagingItem as! PagingIndexItem
         self.currentIndex = pagingIndexItem.index

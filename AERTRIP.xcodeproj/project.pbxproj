@@ -494,6 +494,11 @@
 		84085D1621F59C0E00F1E844 /* SideMenuViewAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CD321F59C0D00F1E844 /* SideMenuViewAccountCell.swift */; };
 		84085D1721F59C0E00F1E844 /* GuestSideMenuHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085CD421F59C0D00F1E844 /* GuestSideMenuHeaderCell.swift */; };
 		84085D2721F5AD2B00F1E844 /* ATDividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84085D2621F5AD2B00F1E844 /* ATDividerView.swift */; };
+		8408D1CF2406ADB300432A2C /* MulticityCalendarVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8408D1C52406ADB200432A2C /* MulticityCalendarVM.m */; };
+		8408D1D02406ADB300432A2C /* CalendarVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8408D1C62406ADB200432A2C /* CalendarVM.m */; };
+		8408D1D12406ADB300432A2C /* AertripCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8408D1CA2406ADB300432A2C /* AertripCalendarViewController.m */; };
+		8408D1D22406ADB300432A2C /* AertripCalendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8408D1CC2406ADB300432A2C /* AertripCalendar.storyboard */; };
+		8408D1D32406ADB300432A2C /* DIYCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8408D1CE2406ADB300432A2C /* DIYCalendarCell.m */; };
 		840A84202229B9B70040EB99 /* HotelTagCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 840A841F2229B9B70040EB99 /* HotelTagCollectionCell.xib */; };
 		840A84222229BA890040EB99 /* HotelTagCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A84212229BA890040EB99 /* HotelTagCollectionCell.swift */; };
 		840BE9ED2254DD430025A867 /* FinalCheckOutVC+Razorpay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840BE9EC2254DD430025A867 /* FinalCheckOutVC+Razorpay.swift */; };
@@ -1531,6 +1536,18 @@
 		84085CD321F59C0D00F1E844 /* SideMenuViewAccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewAccountCell.swift; sourceTree = "<group>"; };
 		84085CD421F59C0D00F1E844 /* GuestSideMenuHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestSideMenuHeaderCell.swift; sourceTree = "<group>"; };
 		84085D2621F5AD2B00F1E844 /* ATDividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATDividerView.swift; sourceTree = "<group>"; };
+		8408D1C22406ADB200432A2C /* CalendarVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarVM.h; sourceTree = "<group>"; };
+		8408D1C32406ADB200432A2C /* CalendarDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDataModel.h; sourceTree = "<group>"; };
+		8408D1C42406ADB200432A2C /* CalendarDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDataHandler.h; sourceTree = "<group>"; };
+		8408D1C52406ADB200432A2C /* MulticityCalendarVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MulticityCalendarVM.m; sourceTree = "<group>"; };
+		8408D1C62406ADB200432A2C /* CalendarVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarVM.m; sourceTree = "<group>"; };
+		8408D1C72406ADB200432A2C /* MulticityCalendarVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MulticityCalendarVM.h; sourceTree = "<group>"; };
+		8408D1C92406ADB300432A2C /* AertripCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AertripCalendar.h; sourceTree = "<group>"; };
+		8408D1CA2406ADB300432A2C /* AertripCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AertripCalendarViewController.m; sourceTree = "<group>"; };
+		8408D1CB2406ADB300432A2C /* DIYCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYCalendarCell.h; sourceTree = "<group>"; };
+		8408D1CC2406ADB300432A2C /* AertripCalendar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AertripCalendar.storyboard; sourceTree = "<group>"; };
+		8408D1CD2406ADB300432A2C /* AertripCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AertripCalendarViewController.h; sourceTree = "<group>"; };
+		8408D1CE2406ADB300432A2C /* DIYCalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIYCalendarCell.m; sourceTree = "<group>"; };
 		840A841F2229B9B70040EB99 /* HotelTagCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelTagCollectionCell.xib; sourceTree = "<group>"; };
 		840A84212229BA890040EB99 /* HotelTagCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelTagCollectionCell.swift; sourceTree = "<group>"; };
 		840BE9EC2254DD430025A867 /* FinalCheckOutVC+Razorpay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FinalCheckOutVC+Razorpay.swift"; sourceTree = "<group>"; };
@@ -3556,6 +3573,32 @@
 			path = PrototypeCell;
 			sourceTree = "<group>";
 		};
+		8408D1C12406ADB200432A2C /* CalendarDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				8408D1C22406ADB200432A2C /* CalendarVM.h */,
+				8408D1C32406ADB200432A2C /* CalendarDataModel.h */,
+				8408D1C42406ADB200432A2C /* CalendarDataHandler.h */,
+				8408D1C52406ADB200432A2C /* MulticityCalendarVM.m */,
+				8408D1C62406ADB200432A2C /* CalendarVM.m */,
+				8408D1C72406ADB200432A2C /* MulticityCalendarVM.h */,
+			);
+			path = CalendarDataModel;
+			sourceTree = "<group>";
+		};
+		8408D1C82406ADB300432A2C /* AertripCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				8408D1C92406ADB300432A2C /* AertripCalendar.h */,
+				8408D1CA2406ADB300432A2C /* AertripCalendarViewController.m */,
+				8408D1CB2406ADB300432A2C /* DIYCalendarCell.h */,
+				8408D1CC2406ADB300432A2C /* AertripCalendar.storyboard */,
+				8408D1CD2406ADB300432A2C /* AertripCalendarViewController.h */,
+				8408D1CE2406ADB300432A2C /* DIYCalendarCell.m */,
+			);
+			path = AertripCalendar;
+			sourceTree = "<group>";
+		};
 		840DDE8E220D77AA00F8BA92 /* HotelDetailsTableCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -5218,6 +5261,8 @@
 		84F9838121B51A070018DFED /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				8408D1C82406ADB300432A2C /* AertripCalendar */,
+				8408D1C12406ADB200432A2C /* CalendarDataModel */,
 				84EEA5D623E1BC1B008B95CD /* ALToast */,
 				0CD644B5234B0AC200D71709 /* ATUnicodeSwitch */,
 				188DFC832318FC530060F9D1 /* PKTapAndCopyUITextView */,
@@ -5513,6 +5558,7 @@
 				187684AD228456F4009637D6 /* BookingInfoCommonCell.xib in Resources */,
 				183B71B32289990B00A75B7F /* BookingTravellerTableViewCell.xib in Resources */,
 				1879C4982292B44F00897CED /* BookingDateVoucherTableViewCell.xib in Resources */,
+				8408D1D22406ADB300432A2C /* AertripCalendar.storyboard in Resources */,
 				846856B12233C1E1001B9E13 /* TripAdvisorReviewsHeaderView.xib in Resources */,
 				1804888A21CA59A000437C81 /* ViewProfileDetailTableViewSectionView.xib in Resources */,
 				183B71A7228984C600A75B7F /* RouteFareInfoTableViewCell.xib in Resources */,
@@ -5937,6 +5983,7 @@
 				1871B67822084B580066636E /* PriceVC.swift in Sources */,
 				18B57A1122AF523A00269410 /* BookingTravellerAddOnsTableViewCell.swift in Sources */,
 				18F7493721D1070E0051FE6F /* EditProfileThreePartTableViewCell.swift in Sources */,
+				8408D1D02406ADB300432A2C /* CalendarVM.m in Sources */,
 				18E796FF2248E53B00A7AC8B /* FinalAmountTableViewCell.swift in Sources */,
 				84F983DF21B51A070018DFED /* StringExtension.swift in Sources */,
 				8472F20A23E4078100993B08 /* HotelsMapVC+HelperMethods.swift in Sources */,
@@ -6058,6 +6105,7 @@
 				18E09F9F22EB089E0065CEB2 /* PKCategoryButton.swift in Sources */,
 				18FD917622968CF300D005E9 /* BookingSchedulingPassengerDetailTableViewCell.swift in Sources */,
 				1870AD1D220C769400FB32C8 /* TravellerData+CoreDataClass.swift in Sources */,
+				8408D1D32406ADB300432A2C /* DIYCalendarCell.m in Sources */,
 				840DDE91220D7C0800F8BA92 /* HotelDetailsImageCollectionCell.swift in Sources */,
 				180A3D7221C0DA53001A1E6A /* SideMenuOptionsLabelCell.swift in Sources */,
 				84F983D521B51A070018DFED /* UIApplicationExtension.swift in Sources */,
@@ -6071,6 +6119,7 @@
 				182EB20F22855F27001BFB20 /* BaggageInfoTableViewCell.swift in Sources */,
 				84D2FB8121BE351E00011000 /* PKCountryPicker.swift in Sources */,
 				18FD915E229575A700D005E9 /* BookingRequestAddOnsFFVM.swift in Sources */,
+				8408D1CF2406ADB300432A2C /* MulticityCalendarVM.m in Sources */,
 				84DD249A226734D80013F77E /* BookingPaymentDetailsTableViewCell.swift in Sources */,
 				8422728422118C6C00D4F065 /* ATGalleryViewController.swift in Sources */,
 				180F9BDC222D055100518D3B /* HotelResultVC+ DelegateMethods.swift in Sources */,
@@ -6502,6 +6551,7 @@
 				1820F0EC228D46CD0019B8BB /* BookingRequestAddOnTableViewCell.swift in Sources */,
 				84D2FB8221BE351E00011000 /* PKCountryModel.swift in Sources */,
 				84F983F721B53F6C0018DFED /* AppNetworking.swift in Sources */,
+				8408D1D12406ADB300432A2C /* AertripCalendarViewController.m in Sources */,
 				84F983DC21B51A070018DFED /* UIDeviceExtension.swift in Sources */,
 				84247F9222A53D6D00A0FEB7 /* CancelledVC+CoreData.swift in Sources */,
 				18F181E0223BC92A00323775 /* TermAndPrivacyTableViewCell.swift in Sources */,
@@ -6589,6 +6639,7 @@
 /* Begin XCBuildConfiguration section */
 		8469FEA221B513FF0027BB2E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A32CCFDD5FC3FF76B0C3A7E3 /* Pods-AERTRIP.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -6638,7 +6689,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -6651,6 +6702,7 @@
 		};
 		8469FEA321B513FF0027BB2E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF51AF8DA3B028B5717D763C /* Pods-AERTRIP.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -6694,7 +6746,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -6715,7 +6767,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -6723,8 +6775,6 @@
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/ActiveLabel\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/AertripCalendar\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/AertripCalendarDataModel\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AvailableHapticFeedback\"",
@@ -6735,7 +6785,6 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreDiagnostics\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseDynamicLinks\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInstanceID\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FlexiblePageControl\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMAppAuth\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMSessionFetcher\"",
@@ -6784,10 +6833,6 @@
 					"-framework",
 					"\"ActiveLabel\"",
 					"-framework",
-					"\"AertripCalendar\"",
-					"-framework",
-					"\"AertripCalendarDataModel\"",
-					"-framework",
 					"\"Alamofire\"",
 					"-framework",
 					"\"AssetsLibrary\"",
@@ -6827,8 +6872,6 @@
 					"\"FirebaseCoreDiagnostics\"",
 					"-framework",
 					"\"FirebaseDynamicLinks\"",
-					"-framework",
-					"\"FirebaseInstanceID\"",
 					"-framework",
 					"\"FlexiblePageControl\"",
 					"-framework",
@@ -6945,7 +6988,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -6953,8 +6996,6 @@
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/ActiveLabel\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/AertripCalendar\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/AertripCalendarDataModel\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AvailableHapticFeedback\"",
@@ -6964,7 +7005,6 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreDiagnostics\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseDynamicLinks\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInstanceID\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FlexiblePageControl\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMAppAuth\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMSessionFetcher\"",
@@ -7014,10 +7054,6 @@
 					"-framework",
 					"\"ActiveLabel\"",
 					"-framework",
-					"\"AertripCalendar\"",
-					"-framework",
-					"\"AertripCalendarDataModel\"",
-					"-framework",
 					"\"Alamofire\"",
 					"-framework",
 					"\"AssetsLibrary\"",
@@ -7057,8 +7093,6 @@
 					"\"FirebaseCoreDiagnostics\"",
 					"-framework",
 					"\"FirebaseDynamicLinks\"",
-					"-framework",
-					"\"FirebaseInstanceID\"",
 					"-framework",
 					"\"FlexiblePageControl\"",
 					"-framework",

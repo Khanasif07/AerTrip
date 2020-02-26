@@ -28,7 +28,7 @@ class FavouriteHotelsVC: BaseVC {
     
     //==============
     // Parchment View
-    fileprivate var parchmentView : PagingViewController<PagingIndexItem>?
+    fileprivate var parchmentView : PagingViewController?
     
     
     private lazy var emptyView: EmptyScreenView = {
@@ -104,7 +104,7 @@ class FavouriteHotelsVC: BaseVC {
     // Added to replace the existing page controller, added Hitesh Soni, 28-29Jan'2020
        private func setupParchmentPageController(){
            
-           self.parchmentView = PagingViewController<PagingIndexItem>()
+        self.parchmentView = PagingViewController()
            self.parchmentView?.menuItemSpacing = 40.0
            self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
            self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 51)

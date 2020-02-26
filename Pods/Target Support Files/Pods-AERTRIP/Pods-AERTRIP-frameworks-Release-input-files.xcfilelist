@@ -1,8 +1,6 @@
 ${PODS_ROOT}/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework
 ${BUILT_PRODUCTS_DIR}/ActiveLabel/ActiveLabel.framework
-${BUILT_PRODUCTS_DIR}/AertripCalendar/AertripCalendar.framework
-${BUILT_PRODUCTS_DIR}/AertripCalendarDataModel/AertripCalendarDataModel.framework
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
 ${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework
 ${BUILT_PRODUCTS_DIR}/AvailableHapticFeedback/AvailableHapticFeedback.framework
@@ -23,6 +21,7 @@ ${BUILT_PRODUCTS_DIR}/PKCategoryView/PKCategoryView.framework
 ${BUILT_PRODUCTS_DIR}/PKLoader/PKLoader.framework
 ${BUILT_PRODUCTS_DIR}/Parchment/Parchment.framework
 ${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework
+${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework
 ${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework
 ${BUILT_PRODUCTS_DIR}/TransitionButton/TransitionButton.framework
 ${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework

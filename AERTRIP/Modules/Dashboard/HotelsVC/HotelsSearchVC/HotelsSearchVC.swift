@@ -854,12 +854,12 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
 extension HotelsSearchVC: CheckInOutViewDelegate {
     
     func selectCheckInDate(_ sender: UIButton) {
-        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self)
+        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self, isStartDateSelection: true)
     }
     
     func selectCheckOutDate(_ sender: UIButton) {
         
-        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self) }
+        AppFlowManager.default.moveHotelCalenderVC(isHotelCalendar: true,checkInDate: self.viewModel.searchedFormData.checkInDate.toDate(dateFormat: "yyyy-MM-dd") ?? Date(), checkOutDate: self.viewModel.searchedFormData.checkOutDate.toDate(dateFormat: "yyyy-MM-dd"), delegate: self, isStartDateSelection: false) }
 }
 
 extension HotelsSearchVC: CalendarDataHandler {
