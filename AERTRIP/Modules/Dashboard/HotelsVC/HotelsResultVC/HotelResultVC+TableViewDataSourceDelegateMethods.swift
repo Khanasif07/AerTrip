@@ -173,7 +173,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             cell.hotelListData = hData
             cell.delegate = self
             cell.contentView.backgroundColor = AppColors.themeWhite
-            
+//            cell.isLastCellInSection =  indexPath.item ==  viewModel.fetchedResultsController.ob
             return cell
         }
     }
