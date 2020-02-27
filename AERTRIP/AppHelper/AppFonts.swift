@@ -33,7 +33,6 @@ enum DeviceType {
 extension AppFonts{
     
     func withSize(_ fontSize: CGFloat) -> UIFont {
-        
         return UIFont(name: self.rawValue, size: fontSize) ?? UIFont.systemFont(ofSize: fontSize)
 
 //        switch UIDevice.screenWidth {
@@ -71,7 +70,7 @@ extension AppFonts{
 //        default :
 //            let iPadMini = calculateSize(fontSize, .iPadMini)
 //            return UIFont(name: self.rawValue, size: iPadMini) ?? UIFont.systemFont(ofSize: iPadMini)
-//        }
+        }
     }
     
     
@@ -81,24 +80,24 @@ extension AppFonts{
 //    }
     
     
-    private func calculateSize(_ fontSize:CGFloat, _ deviceType: DeviceType) -> CGFloat {
-        
-        switch deviceType {
-        case .iPhone5:
-            return fontSize * CGFloat(0.94)
-        case .iPhone6:
-            return fontSize
-        case .iPhonePlusSize:
-            return fontSize + CGFloat(2)
-        case .iPadMini:
-            return fontSize + fontSize * CGFloat(0.5)
-        case .iPad_10inch:
-            return fontSize + fontSize * CGFloat(0.6)
-        case .iPad_12inch:
-            return fontSize + fontSize
-        }
-    }
-}
+//    private func calculateSize(_ fontSize:CGFloat, _ deviceType: DeviceType) -> CGFloat {
+//
+//        switch deviceType {
+//        case .iPhone5:
+//            return fontSize * CGFloat(0.94)
+//        case .iPhone6:
+//            return fontSize
+//        case .iPhonePlusSize:
+//            return fontSize + CGFloat(2)
+//        case .iPadMini:
+//            return fontSize + fontSize * CGFloat(0.5)
+//        case .iPad_10inch:
+//            return fontSize + fontSize * CGFloat(0.6)
+//        case .iPad_12inch:
+//            return fontSize + fontSize
+//        }
+//    }
+//}
 
 // USAGE : let font = AppFonts.Helvetica.withSize(13.0)
 // USAGE : let font = AppFonts.Helvetica.withDefaultSize()
