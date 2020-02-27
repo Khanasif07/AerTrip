@@ -397,7 +397,9 @@ class MainHomeVC: BaseVC {
         let popPoint = CGPoint(x: 0.0, y: 0.0)
         self.socialLoginVC?.topNavView.leftButton.isHidden = true
         self.logoView?.isHidden = false
-        self.logoView?.messageLabel.isHidden = true
+        self.socialLoginVC?.logoContainerView.isHidden = true
+        self.sideMenuVC?.logoContainerView.messageLabel.isHidden = true
+        self.logoView?.messageLabel.isHidden = false
         self.socialLoginVC?.animateContentOnPop()
         self.toggleSocialLoginLogoViewHidden(true)
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
@@ -410,6 +412,7 @@ class MainHomeVC: BaseVC {
             
             self.toggleSocialLoginLogoViewHidden(false)
             self.logoView?.isHidden = true
+            self.sideMenuVC?.logoContainerView.messageLabel.isHidden = false
             self.sideMenuVC?.logoContainerView.logoImageView.isHidden = false
             self.sideMenuVC?.logoContainerView.logoTextView.isHidden = false
         })
