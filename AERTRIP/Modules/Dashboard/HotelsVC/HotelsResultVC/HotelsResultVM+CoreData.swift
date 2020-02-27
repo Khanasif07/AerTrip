@@ -286,6 +286,9 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
             if self.fetchRequestType  == .FilterApplied, self.isFavouriteOn  {
                 turnOffFilter = allFavs.isEmpty ? true : false
             }
+            if (self.isFavouriteOn && allFavs.isEmpty){
+                self.isResetAnnotation =  true
+            }
             self.hotelResultDelegate?.manageSwitchContainer(isHidden: allFavs.isEmpty, shouldOff: turnOffFilter)
             self.hotelMapDelegate?.manageSwitchContainer(isHidden: allFavs.isEmpty, shouldOff: turnOffFilter)
             self.favouriteHotels = allFavs

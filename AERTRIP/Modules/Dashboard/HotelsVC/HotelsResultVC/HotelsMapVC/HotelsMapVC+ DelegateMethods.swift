@@ -80,6 +80,9 @@ extension HotelsMapVC: ATSwitcherChangeValueDelegate {
         }
         //self.updateMarkers()
             //if user in map view then update map focus as fav switch changed.
+        self.appleMap.removeAnnotations(self.appleMap.annotations)
+        self.detailsShownMarkers = []
+        self.addAllMarker()
             delay(seconds: 0.4) { [weak self] in
                 guard let strongSelf = self else {return}
                 //                let indexOfMajorCell = strongSelf.indexOfMajorCell()
@@ -170,8 +173,9 @@ extension HotelsMapVC: HotelResultDelegate {
         self.hotelsMapCV.delegate = self
         self.hotelsMapCV.dataSource = self
         self.filterButton.isEnabled = true
-        self.addMapView()
+//        self.addMapView()
         self.reloadHotelList()
+        self.addAllMarker()
         delay(seconds: 0.4) { [weak self] in
             self?.adjustMapPadding()
         }
@@ -228,7 +232,8 @@ extension HotelsMapVC: HotelResultDelegate {
         } else {
             self.updateFavOnList(forIndexPath: self.selectedIndexPath)
         }
-        self.showHotelOnMap(duration: 0.4)
+        self.updateFavouriteAnnotationDetail(duration: 0.4)
+//        self.showHotelOnMap(duration: 0.4)
         
     }
     
@@ -262,7 +267,8 @@ extension HotelsMapVC: HotelResultDelegate {
             }
         }
         
-        self.showHotelOnMap(duration: 0.4)
+        self.updateFavouriteAnnotationDetail(duration: 0.4)
+//        self.showHotelOnMap(duration: 0.4)
     }
     
     func getAllHotelsListResultSuccess(_ isDone: Bool) {
@@ -342,6 +348,8 @@ extension HotelsMapVC: HotelFilteVCDelegate {
         UserInfo.hotelFilter = nil
         HotelFilterVM.shared.resetToDefault()
         self.viewModel.loadSaveData()
+        self.appleMap.removeAnnotations(self.appleMap.annotations)
+        self.addAllMarker()
         
         //manage switch button when clear all filters
         // nitin self.getFavouriteHotels(shouldReloadData: false)
@@ -371,6 +379,10 @@ extension HotelsMapVC: HotelFilteVCDelegate {
             self.manageSwitchContainer(isHidden: true, shouldOff: false)
         }
         self.filterButton.isSelected =  !(HotelFilterVM.shared.isSortingApplied || self.viewModel.isFilterApplied) ? false : true
+        self.appleMap.removeAnnotations(self.appleMap.annotations)
+        self.addAllMarker()
+        
+        
     }
 }
 

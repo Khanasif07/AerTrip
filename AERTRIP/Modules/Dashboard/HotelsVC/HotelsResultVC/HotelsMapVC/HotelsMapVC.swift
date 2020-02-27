@@ -10,6 +10,7 @@ import CoreData
 import GoogleMaps
 import UIKit
 import Kingfisher
+import MapKit
 
 class MapContainerView: UIView {
     weak var mapView: GMSMapView? {
@@ -99,6 +100,9 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     @IBOutlet weak var cardGradientView: UIView!
     
     @IBOutlet weak var switchGradientView: UIView!
+    @IBOutlet weak var appleMap: MKMapView!
+    
+    
     // MARK: - Properties
     
     //    var container: NSPersistentContainer!
@@ -185,6 +189,8 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     var indexOfCellBeforeDragging = 0
     
     //Manage Transition Created by golu
+    var detailsShownMarkers = [MyAnnotation]()
+    var currentMapSpan = MKCoordinateSpan(latitudeDelta: 0.025, longitudeDelta:  0.035)
     internal var transition: CardTransition?
     override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
         return StatusBarAnimatableConfig(prefersHidden: false, animation: .slide)
@@ -231,11 +237,13 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.cardGradientView.layer.addSublayer(self.gradientLayer!)
         self.cardGradientView.backgroundColor = AppColors.clear
         self.additionalSafeAreaInsets = .zero
-        self.addMapView()
+//        self.addMapView()
+        self.appleMap.delegate = self
+        self.addGestureRecognizerForTap()
         if AppGlobals.shared.isNetworkRechable() {
             delay(seconds: 0.2) { [weak self] in
                 guard let strongSelf = self else {return}
-                strongSelf.mapView?.delegate = self
+               // strongSelf.mapView?.delegate = self
                 strongSelf.loadFinalDataOnScreen()
             }
         } else {
@@ -293,7 +301,8 @@ class HotelsMapVC: StatusBarAnimatableViewController {
             self.selectedIndexPath = nil
             self.viewModel.getFavouriteHotels(shouldReloadData: true)
             self.updateMarkers()
-            self.showHotelOnMap(duration: 0.4)
+//            self.showHotelOnMap(duration: 0.4)
+            self.updateFavouriteAnnotationDetail(duration: 0.4)
             //            updateFavouriteSuccess(isHotelFavourite: true)
         }
         else if let _ = note.object as? HCDataSelectionVC {
@@ -505,8 +514,15 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     }
     
     @IBAction func currentLocationButtonAction(_ sender: UIButton) {
-        self.moveMapToCurrentCity()
-        self.mapView?.animate(toZoom: self.mapView?.camera.zoom ?? (self.defaultZoomLabel + 5.0))
+        guard let loc = self.viewModel.searchedCityLocation else{return}
+//            self.setRegionToShow(location: loc)
+        MKMapView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 10, options: .curveEaseInOut, animations: {
+        self.appleMap.setRegion(MKCoordinateRegion(center: loc, span: self.currentMapSpan), animated: true)
+        }, completion: nil)
+        
+        
+//        self.moveMapToCurrentCity()
+//        self.mapView?.animate(toZoom: self.mapView?.camera.zoom ?? (self.defaultZoomLabel + 5.0))
     }
     
     @objc func longPress(_ gesture: UILongPressGestureRecognizer) {

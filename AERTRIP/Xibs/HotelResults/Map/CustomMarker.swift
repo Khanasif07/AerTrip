@@ -38,6 +38,8 @@ class CustomMarker: UIView {
         }
     }
     
+    var isDetailsShown = false
+    
     class func instanceFromNib() -> CustomMarker {
         return UINib(nibName: "CustomMarker", bundle: nil).instantiate(withOwner: nil, options: nil).first as! CustomMarker
     }

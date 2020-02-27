@@ -57,7 +57,7 @@ class HotelsResultVM: NSObject {
         return nil
     }
     
-    
+    var isResetAnnotation = false
     var fetchRequest: NSFetchRequest<HotelSearched> = HotelSearched.fetchRequest()
     
     // fetch result controller

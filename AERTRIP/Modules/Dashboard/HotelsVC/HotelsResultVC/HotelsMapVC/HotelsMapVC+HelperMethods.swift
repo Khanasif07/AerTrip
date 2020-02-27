@@ -275,7 +275,8 @@ extension HotelsMapVC {
             let locStr = self.viewModel.collectionViewLocArr[atIndex]
             if let loc = self.getLocationObject(fromLocation: locStr) {
                 self.displayingHotelLocation = loc
-                focusMarker(coordinates: loc)
+//                focusMarker(coordinates: loc)
+                selecteMarkerOnScrollCollection(location: loc)
             }
         }
     }
@@ -378,12 +379,24 @@ extension HotelsMapVC {
             
         }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView === self.hotelsMapCV else {return}
-          let pageSide =  self.pageSize.width
-                  let offset =  hotelsMapCV.contentOffset.x
-                  let currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
-                  self.manageForCollectionView(atIndex: currentPage)
+//        guard scrollView === self.hotelsMapCV else {return}
+//          let pageSide =  self.pageSize.width
+//                  let offset =  hotelsMapCV.contentOffset.x
+//                  let currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
+//                  self.manageForCollectionView(atIndex: currentPage)
     }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        guard scrollView === self.hotelsMapCV else {return}
+        self.manageForCollectionView(atIndex: getCurrentCollectionIndex())
+    }
+    
+    func getCurrentCollectionIndex()->Int{
+        let pageSide =  self.pageSize.width
+        let offset =  hotelsMapCV.contentOffset.x
+        return Int(floor((offset - pageSide / 2) / pageSide) + 1)
+    }
+    
     
     /// Get Star Rating
     private func getStarString(fromArr: [Int], maxCount: Int) -> String {

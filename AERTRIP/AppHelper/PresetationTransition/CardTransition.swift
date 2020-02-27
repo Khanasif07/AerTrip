@@ -63,6 +63,7 @@ protocol  TransitionCellTypeDelegate where Self:UIView {
     func resetTransform()
     func freezeAnimations()
     func unfreezeAnimations()
+    func disApprearPresetedView()
     
 }
 
@@ -80,5 +81,7 @@ extension TransitionCellTypeDelegate{
     func unfreezeAnimations() {
         disabledHighlightedAnimation = false
     }
+    
+    func disApprearPresetedView(){}
     
 }

@@ -212,6 +212,15 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
         self.containerBottomConstraint.constant = 8
         self.contentView.layoutIfNeeded()
     }
+    
+    override func disApprearPresetedView(){
+        if let vc = self.viewContainingController as? HotelsMapVC{
+            vc.appleMap.selectedAnnotations.forEach { annotation in
+                vc.appleMap.deselectAnnotation(annotation, animated: false)
+            }
+        }
+    }
+    
 }
 
 extension HotelCardCollectionViewCell: UIScrollViewDelegate {

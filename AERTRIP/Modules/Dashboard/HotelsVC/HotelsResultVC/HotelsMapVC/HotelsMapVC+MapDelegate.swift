@@ -40,14 +40,14 @@ extension HotelsMapVC {
     }
     
     private func addCityLocation() {
-        if let loc = self.viewModel.searchedCityLocation {
-            let cityMarker = GMSMarker()
-            
-            let iconView = CityMarkerView(frame: CGRect(x: 0.0, y: 0.0, width: 62.0, height: 62.0), shouldAddRippel: false)
-            cityMarker.iconView = iconView
-            cityMarker.position = loc
-            cityMarker.map = self.mapView
-        }
+//        if let loc = self.viewModel.searchedCityLocation {
+//            let cityMarker = GMSMarker()
+//            
+//            let iconView = CityMarkerView(frame: CGRect(x: 0.0, y: 0.0, width: 62.0, height: 62.0), shouldAddRippel: false)
+//            cityMarker.iconView = iconView
+//            cityMarker.position = loc
+//            cityMarker.map = self.mapView
+//        }
     }
     
     func updateMarkers() {
@@ -300,35 +300,35 @@ extension HotelsMapVC {
     }
     
     func drawAllCustomMarkers(showAccordingToMap: Bool = false) {
-        var counter = 0
-        self.viewModel.collectionViewList.keys.forEach { (locStr) in
-            if let location = self.getLocationObject(fromLocation: locStr), let allHotels = self.viewModel.collectionViewList[locStr] as? [HotelSearched] {
-                if counter < maxVisblePriceMarker {
-                    if allHotels.count > 1 {
-                        // create cluster marker
-                        self.addClusterMarker(forHotels: allHotels, atLocation: location)
-                    }
-                    else if allHotels.count == 1 {
-                        // create custom marker
-                        self.addCustomMarker(forHotel: allHotels.first!, atLocation: location, showHotelPrice: false)
-                        counter += 1
-                    }
-                } else {
-                    if allHotels.count > 1 {
-                        // create cluster marker
-                        self.addClusterMarker(forHotels: allHotels, atLocation: location)
-                    }
-                    else if allHotels.count == 1 {
-                        // create dot marker
-                        self.addDotMarker(forHotel: allHotels.first!, atLocation: location)
-                        
-                    }
-                }
-            }
-        }
+//        var counter = 0
+//        self.viewModel.collectionViewList.keys.forEach { (locStr) in
+//            if let location = self.getLocationObject(fromLocation: locStr), let allHotels = self.viewModel.collectionViewList[locStr] as? [HotelSearched] {
+//                if counter < maxVisblePriceMarker {
+//                    if allHotels.count > 1 {
+//                        // create cluster marker
+//                        self.addClusterMarker(forHotels: allHotels, atLocation: location)
+//                    }
+//                    else if allHotels.count == 1 {
+//                        // create custom marker
+//                        self.addCustomMarker(forHotel: allHotels.first!, atLocation: location, showHotelPrice: false)
+//                        counter += 1
+//                    }
+//                } else {
+//                    if allHotels.count > 1 {
+//                        // create cluster marker
+//                        self.addClusterMarker(forHotels: allHotels, atLocation: location)
+//                    }
+//                    else if allHotels.count == 1 {
+//                        // create dot marker
+//                        self.addDotMarker(forHotel: allHotels.first!, atLocation: location)
+//                        
+//                    }
+//                }
+//            }
+//        }
     }
     
-//    func drawAllDotMarkers(showFirstMarker: Bool = false) {
+    func drawAllDotMarkers(showFirstMarker: Bool = false) {
 //        if showFirstMarker {
 //            if let firstLoc = self.viewModel.collectionViewLocArr.first,let location = self.getLocationObject(fromLocation: firstLoc), let allHotels = self.viewModel.collectionViewList[firstLoc] as? [HotelSearched] {
 //                self.addDotMarker(forHotel: allHotels.first!, atLocation: location)
@@ -349,76 +349,76 @@ extension HotelsMapVC {
 //                }
 //            }
 //        }
-//    }
+    }
     
     func addDotMarker(forHotel: HotelSearched, atLocation: CLLocationCoordinate2D) {
-        if let selected = self.displayingHotelLocation, atLocation.latitude == selected.latitude, atLocation.longitude == selected.longitude {
-            // add custom marker
-            self.addCustomMarker(forHotel: forHotel, atLocation: atLocation)
-        }
-        else {
-            let marker = HotelMarker(position: atLocation)
-            
-            let dotView = CustomDotMarker.instanceFromNib()
-            dotView.hotel = forHotel
-            
-            //            marker.iconView = dotView
-            marker .icon = dotView.asImage()
-            marker.markerType = .dotMarker
-            marker.hotel = forHotel
-            marker.map = self.mapView
-            marker.isFlat = true
-            marker.tracksViewChanges = false
-            marker.zIndex = 0
-            self.markersOnLocations[self.getString(fromLocation: atLocation)] = marker
-        }
+//        if let selected = self.displayingHotelLocation, atLocation.latitude == selected.latitude, atLocation.longitude == selected.longitude {
+//            // add custom marker
+//            self.addCustomMarker(forHotel: forHotel, atLocation: atLocation)
+//        }
+//        else {
+//            let marker = HotelMarker(position: atLocation)
+//
+//            let dotView = CustomDotMarker.instanceFromNib()
+//            dotView.hotel = forHotel
+//
+//            //            marker.iconView = dotView
+//            marker .icon = dotView.asImage()
+//            marker.markerType = .dotMarker
+//            marker.hotel = forHotel
+//            marker.map = self.mapView
+//            marker.isFlat = true
+//            marker.tracksViewChanges = false
+//            marker.zIndex = 0
+//            self.markersOnLocations[self.getString(fromLocation: atLocation)] = marker
+//        }
     }
     
     func addCustomMarker(forHotel: HotelSearched, atLocation: CLLocationCoordinate2D, isSelected: Bool = false, showHotelPrice: Bool = false ) {
-        let marker = HotelMarker(position: atLocation)
-        
-        let customMarkerView = CustomMarker.instanceFromNib()
-        customMarkerView.hotel = forHotel
-        
-        if let loc = self.displayingHotelLocation, marker.position.latitude == loc.latitude, marker.position.longitude == loc.longitude {
-            if isMapInFullView {
-                customMarkerView.isSelected = false
-            }else {
-                customMarkerView.isSelected = true
-            }
-        }
-        else {
-            customMarkerView.isSelected = isSelected
-        }
-        //        marker.iconView = customMarkerView
-        marker.icon = customMarkerView.asImage()
-        marker.markerType = .customMarker
-        marker.hotel = forHotel
-        marker.map = self.mapView
-        marker.isFlat = true
-        marker.tracksViewChanges = false
-        marker.showHotelPrice = showHotelPrice
-        marker.zIndex = isSelected ? 1000 : 0
-        self.markersOnLocations[self.getString(fromLocation: atLocation)] = marker
+//        let marker = HotelMarker(position: atLocation)
+//
+//        let customMarkerView = CustomMarker.instanceFromNib()
+//        customMarkerView.hotel = forHotel
+//
+//        if let loc = self.displayingHotelLocation, marker.position.latitude == loc.latitude, marker.position.longitude == loc.longitude {
+//            if isMapInFullView {
+//                customMarkerView.isSelected = false
+//            }else {
+//                customMarkerView.isSelected = true
+//            }
+//        }
+//        else {
+//            customMarkerView.isSelected = isSelected
+//        }
+//        //        marker.iconView = customMarkerView
+//        marker.icon = customMarkerView.asImage()
+//        marker.markerType = .customMarker
+//        marker.hotel = forHotel
+//        marker.map = self.mapView
+//        marker.isFlat = true
+//        marker.tracksViewChanges = false
+//        marker.showHotelPrice = showHotelPrice
+//        marker.zIndex = isSelected ? 1000 : 0
+//        self.markersOnLocations[self.getString(fromLocation: atLocation)] = marker
     }
     
     func addClusterMarker(forHotels: [HotelSearched], atLocation: CLLocationCoordinate2D, isSelected: Bool = false) {
-        let marker = HotelMarker(position: atLocation)
-        
-        let markerView = ClusterMarkerView(frame: CGRect(x: 0.0, y: 0.0, width: 35.0, height: 35.0))
-        
-        markerView.hotelTtems = forHotels
-        markerView.isSelected = isSelected
-        //        marker.iconView = markerView
-        marker.icon = markerView.asImage()
-        marker.iconView?.contentMode = .scaleAspectFill
-        marker.markerType = .clusterMarker
-        marker.hotelTtems = forHotels
-        marker.map = self.mapView
-        marker.isFlat = true
-        marker.tracksViewChanges = false
-        marker.zIndex = isSelected ? 1000 : 0
-        self.markersOnLocations[self.getString(fromLocation: atLocation)] = marker
+//        let marker = HotelMarker(position: atLocation)
+//
+//        let markerView = ClusterMarkerView(frame: CGRect(x: 0.0, y: 0.0, width: 35.0, height: 35.0))
+//
+//        markerView.hotelTtems = forHotels
+//        markerView.isSelected = isSelected
+//        //        marker.iconView = markerView
+//        marker.icon = markerView.asImage()
+//        marker.iconView?.contentMode = .scaleAspectFill
+//        marker.markerType = .clusterMarker
+//        marker.hotelTtems = forHotels
+//        marker.map = self.mapView
+//        marker.isFlat = true
+//        marker.tracksViewChanges = false
+//        marker.zIndex = isSelected ? 1000 : 0
+//        self.markersOnLocations[self.getString(fromLocation: atLocation)] = marker
     }
     
     func updateMarker(atLocation: CLLocationCoordinate2D, isSelected: Bool = true) {
@@ -540,6 +540,12 @@ extension HotelsMapVC: GMSMapViewDelegate {
         
     }
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        self.updateFullMarkerView()
+        printDebug("Coordinate on tapped")
+    }
+    
+    func updateFullMarkerView(){
+        
         if self.isMapInFullView {
             //show collection view list
             self.isHidingOnMapTap = true
@@ -594,6 +600,8 @@ extension HotelsMapVC: GMSMapViewDelegate {
         printDebug("Coordinate on tapped")
     }
     
+    
+    
     // MARK: - GMSMarker Dragging
     
     func mapView(_ mapView: GMSMapView, didBeginDragging marker: GMSMarker) {
@@ -623,7 +631,7 @@ extension HotelsMapVC: GMSMapViewDelegate {
         return true
     }
     
-    private func movetoDetailPage(data: HotelSearched) {
+     func movetoDetailPage(data: HotelSearched) {
         if let lat = data.lat, let long = data.long, let index = Array(self.viewModel.collectionViewList.keys).firstIndex(of: "\(lat),\(long)") , let scrollIndex = self.viewModel.collectionViewLocArr.firstIndex(of: "\(lat),\(long)"){
             let index = IndexPath(item: index, section: 0)
             self.selectedIndexPath = index
