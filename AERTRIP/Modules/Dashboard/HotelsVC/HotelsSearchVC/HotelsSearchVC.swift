@@ -16,8 +16,8 @@ class HotelsSearchVC: BaseVC {
     internal var checkInOutView: CheckInOutView?
     internal var recentSearchesView: RecentHotelSearcheView?
     private var previousOffSet = CGPoint.zero
-    private var collectionViewHeight: CGFloat = 85.5
-    private var containerViewHeight: CGFloat = 424.0
+    private var collectionViewHeight: CGFloat = 85.0
+    private var containerViewHeight: CGFloat = 429.0
     private var scrollViewContentSize: CGSize = CGSize.zero
     private var recentSearchHeight: CGFloat = 194.0
     private var addRoomPicIndex: IndexPath?

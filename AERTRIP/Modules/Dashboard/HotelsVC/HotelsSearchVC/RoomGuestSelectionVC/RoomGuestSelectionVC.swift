@@ -43,6 +43,7 @@ class RoomGuestSelectionVC: BaseVC {
     //MARK:- Properties
     //================
     private(set) var viewModel = RoomGuestSelectionVM()
+    var initialTouchPoint: CGPoint = CGPoint.zero
     weak var delegate: RoomGuestSelectionVCDelegate?
     private var containerHeight: CGFloat {
         return 420.0 + AppFlowManager.default.safeAreaInsets.bottom
@@ -54,6 +55,9 @@ class RoomGuestSelectionVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetups()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     override func setupFonts() {
@@ -114,6 +118,11 @@ class RoomGuestSelectionVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
+        //AddGesture:-
+        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        mainContainerView.isUserInteractionEnabled = true
+        swipeGesture.delegate = self
+        self.headerView.addGestureRecognizer(swipeGesture)
         
         //background view
         self.backgroundView.alpha = 1.0
@@ -207,7 +216,7 @@ class RoomGuestSelectionVC: BaseVC {
             button.isSelected = button.tag <= self.viewModel.selectedAdults
             
             if oldState != button.isSelected {
-                button.isSelected ? animateWithKeyFrames(button: button) : animateWithKeyFrames(button: button)
+               if button.isSelected == true { self.animateWithKeyFrames(button: button,isFirstTime: animated)}
             }
         }
         
@@ -217,7 +226,7 @@ class RoomGuestSelectionVC: BaseVC {
             button.isSelected = button.tag <= self.viewModel.selectedChilds
             
             if oldState != button.isSelected {
-                button.isSelected ? self.animateWithKeyFrames(button: button) : animateWithKeyFrames(button: button)
+               if button.isSelected == true  { self.animateWithKeyFrames(button: button,isFirstTime: animated) }
             }
         }
         
@@ -225,8 +234,9 @@ class RoomGuestSelectionVC: BaseVC {
         self.messageLabel.isHidden = (self.viewModel.selectedAdults + self.viewModel.selectedChilds) <= 3
     }
     
-    func animateWithKeyFrames(button: UIButton){
+    func animateWithKeyFrames(button: UIButton,isFirstTime: Bool = false){
            //Total animation duration is 1.0 seconds - This time is inside the
+        if isFirstTime {
            UIView.animateKeyframes(withDuration: 1.0, delay: 0.0, options: [], animations: {
                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.33, animations: {
                    //1.Expansion + button label alpha
@@ -243,6 +253,7 @@ class RoomGuestSelectionVC: BaseVC {
            }) { (completed) in
                //Completion of whole animation sequence
            }
+        }
        }
 
     
@@ -392,3 +403,74 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 
+extension RoomGuestSelectionVC {
+    //Handle Swipe Gesture
+    @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+        let touchPoint = sender.location(in: self.headerView?.window)
+        let velocity = sender.velocity(in: self.headerView)
+        print(velocity)
+        switch sender.state {
+        case .possible:
+            print(sender.state)
+        case .began:
+            self.initialTouchPoint = touchPoint
+        case .changed:
+            let touchPointDiffY = initialTouchPoint.y - touchPoint.y
+            print(touchPointDiffY)
+            if  touchPoint.y > 0.0 {
+                if touchPointDiffY > 0 {
+                    self.mainContainerBottomConstraints.constant = -( UIScreen.main.bounds.height) + touchPointDiffY
+                }
+                else {
+                    self.mainContainerBottomConstraints.constant = touchPointDiffY
+                }
+            }
+        case .cancelled:
+            print(sender.state)
+        case .ended:
+            print(sender.state)
+            panGestureFinalAnimation(velocity: velocity,touchPoint: touchPoint)
+        case .failed:
+            print(sender.state)
+            
+        }
+    }
+    
+    
+    ///Call to use Pan Gesture Final Animation
+    private func panGestureFinalAnimation(velocity: CGPoint,touchPoint: CGPoint) {
+        //Down Direction
+        if velocity.y < 0 {
+            if velocity.y < -300 {
+                self.openBottomSheet()
+            } else {
+                if touchPoint.y <= (UIScreen.main.bounds.height)/2 {
+                    self.openBottomSheet()
+                } else {
+                    self.closeBottomSheet()
+                }
+            }
+        }
+            //Up Direction
+        else {
+            if velocity.y > 300 {
+                self.closeBottomSheet()
+            } else {
+                if touchPoint.y >= (UIScreen.main.bounds.height + (-self.mainContainerHeightConstraint.constant/2)){
+                    self.closeBottomSheet()
+                } else {
+                    self.openBottomSheet()
+                }
+            }
+        }
+        print(velocity.y)
+    }
+    
+    func openBottomSheet() {
+        self.show(animated: true)
+    }
+    
+    func closeBottomSheet() {
+        self.hide(animated: true, shouldRemove: true)
+    }
+}

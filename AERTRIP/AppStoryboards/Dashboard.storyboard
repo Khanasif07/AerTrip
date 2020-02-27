@@ -755,7 +755,7 @@ on Christmas”</string>
                                                     <rect key="frame" x="10" y="0.0" width="350" height="62"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount Due" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UTm-27-Lt8">
-                                                            <rect key="frame" x="0.0" y="9" width="242.5" height="20"/>
+                                                            <rect key="frame" x="0.0" y="8" width="242.5" height="20"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                             <nil key="textColor"/>
@@ -799,8 +799,8 @@ on Christmas”</string>
                                                         <constraint firstAttribute="trailing" secondItem="z3B-zb-52K" secondAttribute="trailing" id="06I-dq-kwi"/>
                                                         <constraint firstItem="KZt-tb-ePj" firstAttribute="leading" secondItem="UTm-27-Lt8" secondAttribute="leading" id="GQ2-Fy-b0h"/>
                                                         <constraint firstItem="z3B-zb-52K" firstAttribute="leading" secondItem="UTm-27-Lt8" secondAttribute="trailing" constant="10" id="HMM-7h-dhQ"/>
-                                                        <constraint firstItem="UTm-27-Lt8" firstAttribute="centerY" secondItem="PGv-f2-KsG" secondAttribute="centerY" constant="-12" id="KI5-6u-qnD"/>
-                                                        <constraint firstItem="KZt-tb-ePj" firstAttribute="top" secondItem="UTm-27-Lt8" secondAttribute="bottom" constant="-15" id="YxI-Pb-iXV"/>
+                                                        <constraint firstItem="UTm-27-Lt8" firstAttribute="centerY" secondItem="PGv-f2-KsG" secondAttribute="centerY" constant="-13" id="KI5-6u-qnD"/>
+                                                        <constraint firstItem="KZt-tb-ePj" firstAttribute="top" secondItem="UTm-27-Lt8" secondAttribute="bottom" constant="-14" id="YxI-Pb-iXV"/>
                                                         <constraint firstItem="UTm-27-Lt8" firstAttribute="leading" secondItem="PGv-f2-KsG" secondAttribute="leading" id="iEF-75-ktl"/>
                                                     </constraints>
                                                 </view>
@@ -893,7 +893,7 @@ on Christmas”</string>
                     <viewLayoutGuide key="safeArea" id="MMV-HB-2Nf"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="648.79999999999995" y="165.06746626686657"/>
+            <point key="canvasLocation" x="548" y="160"/>
         </scene>
         <!--Main HomeVC-->
         <scene sceneID="LiC-vf-QgS">
