@@ -350,10 +350,10 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 var social = Social()
                 social.label = LocalizedString.Facebook.localized
                 self.viewModel.social.append(social)
-                self.tableView.insertRows(at: [indexPath], with: .bottom)
-                self.tableView.beginUpdates()
-                self.tableView.endUpdates()
-//                tableView.reloadData()
+//                self.tableView.insertRows(at: [indexPath], with: .bottom)
+//                self.tableView.beginUpdates()
+//                self.tableView.endUpdates()
+                tableView.reloadData()
             }
             
         case LocalizedString.Address.localized:
