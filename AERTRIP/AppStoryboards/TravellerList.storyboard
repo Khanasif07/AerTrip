@@ -40,7 +40,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="X8Q-9M-K7z" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="100.5" width="375" height="566.5"/>
+                                <rect key="frame" x="0.0" y="100.5" width="375" height="522.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Leo-FO-KYr" id="wks-Wy-Gtx"/>
@@ -77,12 +77,21 @@
                                             <action selector="deleteTravellerTapped:" destination="Leo-FO-KYr" eventType="touchUpInside" id="G9K-ul-pym"/>
                                         </connections>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wYe-a2-mjF" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="43.5" width="375" height="0.5"/>
+                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="PPr-le-rty"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Uph-Q1-i0h" secondAttribute="trailing" id="34D-Lb-kvJ"/>
                                     <constraint firstItem="lF6-ol-Nff" firstAttribute="top" secondItem="ayy-IG-Mnv" secondAttribute="top" constant="10" id="7Sj-ff-Rm6"/>
                                     <constraint firstAttribute="height" constant="44" id="GIN-4j-yIM"/>
+                                    <constraint firstItem="wYe-a2-mjF" firstAttribute="leading" secondItem="ayy-IG-Mnv" secondAttribute="leading" id="GrN-jb-iUE"/>
+                                    <constraint firstAttribute="trailing" secondItem="wYe-a2-mjF" secondAttribute="trailing" id="IuR-KJ-2e6"/>
                                     <constraint firstAttribute="trailing" secondItem="lF6-ol-Nff" secondAttribute="trailing" constant="16" id="JZA-CX-l6K"/>
                                     <constraint firstItem="fdo-f8-8XG" firstAttribute="leading" secondItem="ayy-IG-Mnv" secondAttribute="leading" constant="16" id="SVY-gA-ger"/>
                                     <constraint firstItem="Uph-Q1-i0h" firstAttribute="top" secondItem="ayy-IG-Mnv" secondAttribute="top" id="Vv2-ln-d2C"/>
@@ -95,18 +104,19 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="lLE-bn-tID" firstAttribute="bottom" secondItem="wYe-a2-mjF" secondAttribute="bottom" id="4df-wN-Lww"/>
                             <constraint firstItem="fap-KZ-xGW" firstAttribute="top" secondItem="lLE-bn-tID" secondAttribute="top" id="5Pw-M1-DVO"/>
                             <constraint firstItem="Dd0-fb-cBb" firstAttribute="top" secondItem="O3S-Ag-QUk" secondAttribute="bottom" id="5p8-tg-kBt"/>
                             <constraint firstItem="ayy-IG-Mnv" firstAttribute="leading" secondItem="lLE-bn-tID" secondAttribute="leading" id="8Wf-ym-GxW"/>
                             <constraint firstItem="fap-KZ-xGW" firstAttribute="leading" secondItem="lLE-bn-tID" secondAttribute="leading" id="97A-yi-4c0"/>
                             <constraint firstItem="lLE-bn-tID" firstAttribute="trailing" secondItem="X8Q-9M-K7z" secondAttribute="trailing" id="BOl-vO-shZ"/>
+                            <constraint firstItem="ayy-IG-Mnv" firstAttribute="top" secondItem="X8Q-9M-K7z" secondAttribute="bottom" id="CEb-sP-ici"/>
                             <constraint firstItem="O3S-Ag-QUk" firstAttribute="top" secondItem="fap-KZ-xGW" secondAttribute="bottom" id="GKI-FF-yvb"/>
                             <constraint firstItem="O3S-Ag-QUk" firstAttribute="leading" secondItem="lLE-bn-tID" secondAttribute="leading" id="HT3-KF-2fP"/>
-                            <constraint firstAttribute="bottom" secondItem="ayy-IG-Mnv" secondAttribute="bottom" id="KGA-fW-bvb"/>
+                            <constraint firstItem="lLE-bn-tID" firstAttribute="bottom" secondItem="ayy-IG-Mnv" secondAttribute="bottom" id="KGA-fW-bvb"/>
                             <constraint firstItem="Dd0-fb-cBb" firstAttribute="leading" secondItem="foV-YG-f1J" secondAttribute="leading" id="V09-d1-R5W"/>
                             <constraint firstItem="lLE-bn-tID" firstAttribute="trailing" secondItem="ayy-IG-Mnv" secondAttribute="trailing" id="Vvb-rf-f28"/>
                             <constraint firstAttribute="trailing" secondItem="Dd0-fb-cBb" secondAttribute="trailing" id="cgT-X6-Caq"/>
-                            <constraint firstAttribute="bottom" secondItem="X8Q-9M-K7z" secondAttribute="bottom" id="cwL-FR-XVr"/>
                             <constraint firstItem="X8Q-9M-K7z" firstAttribute="top" secondItem="Dd0-fb-cBb" secondAttribute="bottom" id="gbB-ep-uTk"/>
                             <constraint firstItem="O3S-Ag-QUk" firstAttribute="trailing" secondItem="lLE-bn-tID" secondAttribute="trailing" id="ijs-1I-y9R"/>
                             <constraint firstAttribute="trailing" secondItem="fap-KZ-xGW" secondAttribute="trailing" id="nlz-PB-waf"/>
