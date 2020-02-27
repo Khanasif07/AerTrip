@@ -417,6 +417,8 @@ class AppGlobals {
             eventStore.requestAccess(to: EKEntityType.event, completion: { granted, error in
                 
                 if granted, (error == nil) {
+                    DispatchQueue.mainAsync {
+                    let eventStore = EKEventStore()
                     let event = EKEvent(eventStore: eventStore)
                     
                     event.title = title
@@ -424,7 +426,6 @@ class AppGlobals {
                     event.endDate = endDate
                     event.notes = notes
                     event.calendar = eventStore.defaultCalendarForNewEvents
-                    DispatchQueue.mainAsync {
                         do {
                             try eventStore.save(event, span: .thisEvent)
                             AppToast.default.showToastMessage(message: LocalizedString.EventAddedToCalander.localized)

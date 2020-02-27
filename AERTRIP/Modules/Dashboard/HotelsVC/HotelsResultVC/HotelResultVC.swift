@@ -222,8 +222,6 @@ class HotelResultVC: StatusBarAnimatableViewController {
             AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
         }
         
-        
-        self.getPinnedHotelTemplate()
         searchBar.setTextField(color: UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
         

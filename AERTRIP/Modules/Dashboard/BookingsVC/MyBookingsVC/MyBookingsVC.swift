@@ -16,7 +16,7 @@ class MyBookingsVC: BaseVC {
     private var currentIndex: Int = 0
     private var allTabsStr: [String] = []
     // Parchment View
-    fileprivate var parchmentView : PagingViewController<PagingIndexItem>?
+    fileprivate var parchmentView : PagingViewController?
     private var allChildVCs :[UIViewController] = []
     
     private var previousOffset = CGPoint.zero
@@ -132,7 +132,7 @@ class MyBookingsVC: BaseVC {
     // Added to replace the existing page controller, added Asif Khan
     private func setupParchmentPageController(){
         
-        self.parchmentView = PagingViewController<PagingIndexItem>()
+        self.parchmentView = PagingViewController()
         self.parchmentView?.menuItemSpacing =  self.allTabsStr.count == 2 ? (UIDevice.screenWidth - 269.0) : (UIDevice.screenWidth - 269.0)/2
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: self.allTabsStr.count == 2 ? 59.0 : 28.0, bottom: 0.0, right:  self.allTabsStr.count == 2 ? 64.0 : 29.0)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0), insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
@@ -150,6 +150,7 @@ class MyBookingsVC: BaseVC {
         
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
+        self.parchmentView?.sizeDelegate = self
         self.parchmentView?.select(index: 0)
         
         self.parchmentView?.reloadData()
@@ -259,21 +260,21 @@ extension MyBookingsVC: TopNavigationViewDelegate {
 // MARK:- Custom Tab bar
 
 
-extension MyBookingsVC : PagingViewControllerDataSource , PagingViewControllerDelegate {
+extension MyBookingsVC : PagingViewControllerDataSource , PagingViewControllerDelegate, PagingViewControllerSizeDelegate {
     
-    func numberOfViewControllers<T>(in pagingViewController: PagingViewController<T>) -> Int where T : PagingItem, T : Comparable, T : Hashable {
+    func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int{
         self.allTabsStr.count
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, viewControllerForIndex index: Int) -> UIViewController where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
         return self.allChildVCs[index]
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemForIndex index: Int) -> T where T : PagingItem, T : Comparable, T : Hashable {
-        return PagingIndexItem(index: index, title:  self.allTabsStr[index]) as! T
+    func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
+        return PagingIndexItem(index: index, title:  self.allTabsStr[index])
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         
         // depending onthe text size, give the width of the menu item
         if let pagingIndexItem = pagingItem as? PagingIndexItem{
@@ -286,7 +287,7 @@ extension MyBookingsVC : PagingViewControllerDataSource , PagingViewControllerDe
         return 100.0
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController<T>(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
         
         let pagingIndexItem = pagingItem as! PagingIndexItem
         self.currentIndex = pagingIndexItem.index

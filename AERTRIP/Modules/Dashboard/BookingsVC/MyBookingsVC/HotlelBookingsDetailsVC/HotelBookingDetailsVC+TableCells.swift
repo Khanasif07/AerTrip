@@ -273,7 +273,12 @@ extension HotlelBookingsDetailsVC {
     
     func getMobileCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleWithSubTitleTableViewCell.reusableIdentifier, for: indexPath) as? TitleWithSubTitleTableViewCell else { return UITableViewCell() }
-        cell.configCell(title: "Mobile", titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: self.viewModel.bookingDetail?.billingInfo?.communicationNumber ?? LocalizedString.na.localized, subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
+        if let contactNumber = self.viewModel.bookingDetail?.billingInfo?.communicationNumber {
+            cell.configCell(title: "Mobile", titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: contactNumber.prefix(9) + " " + contactNumber.suffix(5) , subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
+        } else {
+            let contactNumber = LocalizedString.na.localized
+            cell.configCell(title: "Mobile", titleFont: AppFonts.Regular.withSize(14.0), titleColor: AppColors.themeGray40, subTitle: contactNumber, subTitleFont: AppFonts.Regular.withSize(18.0), subTitleColor: AppColors.textFieldTextColor51)
+        }
         cell.containerView.backgroundColor = AppColors.screensBackground.color
         cell.titleLabelBottomConstraint.constant = 2.0
         cell.subtitleLabelBottomConstraint.constant = 9.0

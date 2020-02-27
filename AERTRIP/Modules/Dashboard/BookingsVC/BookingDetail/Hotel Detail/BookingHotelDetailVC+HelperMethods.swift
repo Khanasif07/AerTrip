@@ -40,6 +40,8 @@ extension BookingHotelDetailVC {
             guard let hotelNameCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelNameRatingTableViewCell", for: indexPath) as? HotelNameRatingTableViewCell else {
                 fatalError("HotelNameRatingTableViewCell not found ")
             }
+            hotelNameCell.starRatingViewLeadingConst.constant = 0
+            hotelNameCell.mainStackBtmConst.constant = 20.0
             hotelNameCell.configureCell(hoteName: self.viewModel.bookingDetail?.bookingDetail?.hotelName ?? "", starRating: self.viewModel.bookingDetail?.bookingDetail?.hotelStarRating ?? 0.0, tripRating: self.viewModel.bookingDetail?.bookingDetail?.taRating ?? 0.0)
             
             return hotelNameCell
@@ -111,6 +113,7 @@ extension BookingHotelDetailVC {
             // Address Cell
             guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
             cell.deviderView.isHidden = true
+            cell.addressLblTopConst.constant = 10.5
             cell.configureAddressCell(isForBooking: true, address: self.viewModel.bookingDetail?.bookingDetail?.hotelAddressDetail ?? "")
             return cell
             
@@ -146,11 +149,14 @@ extension BookingHotelDetailVC {
     }
     
     func getHeightForRowFirstSection(_ indexPath: IndexPath) -> CGFloat {
-        return [220.5, 101, UITableView.automaticDimension, 138][indexPath.row]
+        return [220.5, 109, UITableView.automaticDimension, 145.0][indexPath.row]
     }
     
     func getHeightForRoomSection(_ indexPath: IndexPath) -> CGFloat {
-        return [60, 60, 60, (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.notes ?? []).isEmpty ? 0 : UITableView.automaticDimension, 200][indexPath.row]
+        let inclusionCellHeight:CGFloat = (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.inclusionString == "-") ? 0.0 : 60.0
+        let otherInclusionCellHeight:CGFloat =  (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.otherInclsionString == "-"  ) ? 0.0 : 60.0
+       
+        return [60, inclusionCellHeight, otherInclusionCellHeight, (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.notes ?? []).isEmpty ? 0 : UITableView.automaticDimension, 200][indexPath.row]
     }
     
     func getHeightForLastSection(_ indexPath: IndexPath) -> CGFloat {
@@ -167,9 +173,9 @@ extension BookingHotelDetailVC {
         case 3:// overview
             return (self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "").isEmpty ? 0 : UITableView.automaticDimension
         case 4: // amentities
-             return (self.viewModel.bookingDetail?.bookingDetail?.amenities == nil) ? 0 : UITableView.automaticDimension
+            return (self.viewModel.bookingDetail?.bookingDetail?.amenities == nil) ? 0 : 132.0
         case 5:
-             return (self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? false) ? 0 : UITableView.automaticDimension
+            return (self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? false) ? 0 : 46.0
         default:
             return UITableView.automaticDimension
         }

@@ -96,12 +96,12 @@ class AddRoomPictureCell: UICollectionViewCell {
             //self.stackViewTrailingConstraint.constant = 22.5
         } else{
             if idxPath.item % 2 == 0 {
-               // self.stackViewTrailingConstraint.constant = 15.0
+                self.stackViewTrailingConstraint.constant = 25.5
                 self.stackViewLeadingConstraint.constant = 20.0
 
             } else {
-                self.stackViewLeadingConstraint.constant = 20.0
-               // self.stackViewTrailingConstraint.constant = 22.5
+                self.stackViewLeadingConstraint.constant = 28.0
+                self.stackViewTrailingConstraint.constant = 14.5
             }
             if idxPath.item == 0 || idxPath.item == 1 {
                 self.lineView.isHidden = false

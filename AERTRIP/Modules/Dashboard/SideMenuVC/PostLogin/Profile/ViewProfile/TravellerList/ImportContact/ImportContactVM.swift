@@ -58,9 +58,11 @@ class ImportContactVM: NSObject {
     
     var phoneContacts: [CNContact] = [] {
         didSet {
-            phoneContacts.sort { (ct1, ct2) -> Bool in
-                ct1.fullName < ct2.fullName
-            }
+            // Nimish Sharma
+            phoneContacts = phoneContacts.lazy.sorted(by: {$0.fullName < $1.fullName})
+            //.sort { (ct1, ct2) -> Bool in
+//                ct1.fullName < ct2.fullName
+//            }
         }
     }
     var facebookContacts: [ATContact] = []{
@@ -88,9 +90,7 @@ class ImportContactVM: NSObject {
     var selectedFacebookContacts: [ATContact] = []
     
     var selectedGoogleContacts: [ATContact] = []
-    
-    var selectedTrContacts: [ATContact] = []
-    
+
     var totalSelectedContacts: Int {
         return (self.selectedPhoneContacts.count + self.selectedFacebookContacts.count + self.selectedGoogleContacts.count)
     }
@@ -98,15 +98,11 @@ class ImportContactVM: NSObject {
     weak var delegateList: ImportContactVMDelegate?
     weak var delegateCollection: ImportContactVMDelegate?
     
-    // section array  for Making header wise list
+    // section array for Making header wise list
     var sections = [Section]()
     var facebookSection = [Section]()
     var googleSection = [Section]()
-    
-//    private(set) var contactListWithHeaderForPhone: [String: Any] = [String: Any]()
-//    private(set) var contactListWithHeaderForFacebook: [String: Any] = [String: Any]()
-//    private(set) var contactListWithHeaderForGoogle: [String: Any] = [String: Any]()
-    
+
 
     
     //MARK:- Methods

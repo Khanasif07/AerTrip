@@ -36,7 +36,7 @@ class HCSelectGuestsVC: BaseVC {
 //    fileprivate weak var categoryView: ATCategoryView!
     
     // Parchment View
-    fileprivate var parchmentView : PagingViewController<PagingIndexItem>?
+    fileprivate var parchmentView : PagingViewController?
     
     private(set) var viewModel = HCSelectGuestsVM.shared
     private var currentIndex: Int = 0 {
@@ -183,7 +183,7 @@ class HCSelectGuestsVC: BaseVC {
     // Added to replace the existing page controller, added Asif Khan, 28-29Jan'2020
     private func setupParchmentPageController(){
         
-        self.parchmentView = PagingViewController<PagingIndexItem>()
+        self.parchmentView = PagingViewController()
         self.parchmentView?.menuItemSpacing = allTabsStr.count == 4 ? (self.view.width - 274.0) / 3 : (self.view.width - 208.0) / 2
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 100, height: 50)
@@ -201,6 +201,7 @@ class HCSelectGuestsVC: BaseVC {
         
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
+        self.parchmentView?.sizeDelegate = self
         self.parchmentView?.select(index: 0)
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
@@ -365,7 +366,7 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
         
         self.selectedContactsCollectionView.reloadData()
 
-        if let idx = getCollectionIndexPath(forContact: item) {
+        if getCollectionIndexPath(forContact: item) != nil {
 
             let oldValue = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item]
 
@@ -565,20 +566,20 @@ extension HCSelectGuestsVC: SelectedContactCollectionCellDelegate {
 }
 
 
-extension HCSelectGuestsVC: PagingViewControllerDataSource , PagingViewControllerDelegate {
-    func numberOfViewControllers<T>(in pagingViewController: PagingViewController<T>) -> Int where T : PagingItem, T : Comparable, T : Hashable {
+extension HCSelectGuestsVC: PagingViewControllerDataSource , PagingViewControllerDelegate, PagingViewControllerSizeDelegate {
+    func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
+        return PagingIndexItem(index: index, title:  self.allTabsStr[index].title)
+    }
+    
+    func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
          self.allTabsStr.count
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, viewControllerForIndex index: Int) -> UIViewController where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController  {
          return self.allChildVCs[index]
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemForIndex index: Int) -> T where T : PagingItem, T : Comparable, T : Hashable {
-        return PagingIndexItem(index: index, title:  self.allTabsStr[index].title) as! T
-    }
-    
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
 
         // depending onthe text size, give the width of the menu item
         if let pagingIndexItem = pagingItem as? PagingIndexItem{
@@ -591,7 +592,7 @@ extension HCSelectGuestsVC: PagingViewControllerDataSource , PagingViewControlle
         return 100.0
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController<T>(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
            
            let pagingIndexItem = pagingItem as! PagingIndexItem
            self.currentIndex = pagingIndexItem.index

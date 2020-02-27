@@ -160,36 +160,70 @@ enum AppNetworking {
                                  success : @escaping (JSON) -> Void,
                                  failure : @escaping (NSError) -> Void) {
         
-        let destination: DownloadRequest.DownloadFileDestination = { _, _  in
+        
+        let destination: DownloadRequest.Destination = { _, _  in
             return (destinationUrl, [.removePreviousFile, .createIntermediateDirectories])
         }
         
         if loader { showLoader() }
-        
-        let downloadRequest = Alamofire.download(URLString, method: httpMethod, parameters: parameters, encoding: encoding, headers: headers, to: destination).response { (response) in
-            
-            if loader { showLoader() }
-            
-            if response.error != nil {
-                printDebug("===================== FAILURE =======================")
-                let e = response.error!
-                printDebug(e.localizedDescription)
-                
-                if (e as NSError).code == NSURLErrorNotConnectedToInternet {
-                    printDebug("response: \(e)\nresponse url: \(URLString)")
-                }
-                failure(e as NSError)
-                
-            } else {
-                printDebug("===================== RESPONSE =======================")
-                guard response.error == nil else { return }
-                
-                
-                success(JSON.init([:]))
+        let encoding: ParameterEncoder = {
+            switch httpMethod {
+            case .get:
+                return URLEncodedFormParameterEncoder.default
+            default:
+                return JSONParameterEncoder.default
             }
-            }.downloadProgress { (progress) in
-                progressUpdate(progress.fractionCompleted)
+        }()
+        let downloadRequest = AF.download(URLString, method: httpMethod, parameters: parameters, headers: headers, to: destination).response { (response) in
+        
+        if loader { showLoader() }
+        
+        if response.error != nil {
+            printDebug("===================== FAILURE =======================")
+            let e = response.error!
+            printDebug(e.localizedDescription)
+            
+            if (e as NSError).code == NSURLErrorNotConnectedToInternet {
+                printDebug("response: \(e)\nresponse url: \(URLString)")
+            }
+            failure(e as NSError)
+            
+        } else {
+            printDebug("===================== RESPONSE =======================")
+            guard response.error == nil else { return }
+            
+            
+            success(JSON.init([:]))
         }
+        }.downloadProgress { (progress) in
+        progressUpdate(progress.fractionCompleted)
+        }
+        
+//
+//        let downloadRequest = Alamofire.SessionManager.download(URLString, method: httpMethod, parameters: parameters, encoding: encoding, headers: headers, to: destination).response { (response) in
+//
+//            if loader { showLoader() }
+//
+//            if response.error != nil {
+//                printDebug("===================== FAILURE =======================")
+//                let e = response.error!
+//                printDebug(e.localizedDescription)
+//
+//                if (e as NSError).code == NSURLErrorNotConnectedToInternet {
+//                    printDebug("response: \(e)\nresponse url: \(URLString)")
+//                }
+//                failure(e as NSError)
+//
+//            } else {
+//                printDebug("===================== RESPONSE =======================")
+//                guard response.error == nil else { return }
+//
+//
+//                success(JSON.init([:]))
+//            }
+//            }.downloadProgress { (progress) in
+//                progressUpdate(progress.fractionCompleted)
+//        }
         requestHandler(downloadRequest)
     }
     
@@ -227,8 +261,9 @@ enum AppNetworking {
                 printDebug("Api-Key: \(APIEndPoint.apiKey.rawValue)")
             }
             
-            for (key, value) in headers {
-                header[key] = value
+            
+            for head in headers {
+                header[head.name] = head.value
             }
         }
         else{
@@ -245,7 +280,7 @@ enum AppNetworking {
             header["X-Auth-Token"] = xToken
         }
         
-       let request = Alamofire.request(URLString,
+       let request = AF.request(URLString,
                           method: httpMethod,
                           parameters: isLocalServerUrl ? addMandatoryParams(toExistingParams: parameters):parameters,
                           encoding: encoding,
@@ -257,7 +292,7 @@ enum AppNetworking {
         
         self.addCookies(forUrl: request.request?.url)
         
-        request.responseData { (response:DataResponse<Data>) in
+        request.responseData { (response:DataResponse) in
                             
                             printDebug(headers)
             
@@ -301,6 +336,7 @@ enum AppNetworking {
     }
     
     //Multipart
+    
     private static func upload(URLString : String,
                                httpMethod : HTTPMethod,
                                parameters : JSONDictionary = [:],
@@ -339,8 +375,8 @@ enum AppNetworking {
             printDebug("Api-Key: \(APIEndPoint.apiKey.rawValue)")
         }
         
-        for (key, value) in headers {
-            header[key] = value
+        for head in headers {
+            header[head.name] = head.value
         }
         
         //add the X-Auth-Token for the security perpose as discussed with aertrip backend
@@ -356,90 +392,159 @@ enum AppNetworking {
         }
         
         self.addCookies(forUrl: url.url)
-        Alamofire.upload(multipartFormData: { (multipartFormData) in
-            
-            if let mltiprtData = multipartData {
+        
+        
+
+            AF.upload(multipartFormData: { (multipartFormData) in
                 
-                for (key, filePath, fileExtention, fileType) in mltiprtData {
-                    if !filePath.isEmpty {
-                        let mimeType = "\(fileType.rawValue)/\(fileExtention)"
-                        var fileUrl: URL?
-                        if filePath.hasPrefix("file:/") {
-                            fileUrl = URL(string: filePath)
-                        }
-                        else {
-                            fileUrl = URL(fileURLWithPath: filePath)
-                        }
-                        if let url = fileUrl{
-                            do{
-                                let data = try Data(contentsOf: url, options: NSData.ReadingOptions.alwaysMapped)
-                                multipartFormData.append(data, withName: key, fileName: "\(UUID().uuidString).\(fileExtention)", mimeType: mimeType)
-                                
+                if let mltiprtData = multipartData {
+                    
+                    for (key, filePath, fileExtention, fileType) in mltiprtData {
+                        if !filePath.isEmpty {
+                            let mimeType = "\(fileType.rawValue)/\(fileExtention)"
+                            var fileUrl: URL?
+                            if filePath.hasPrefix("file:/") {
+                                fileUrl = URL(string: filePath)
                             }
-                            catch let error{
-                                printDebug(error)
+                            else {
+                                fileUrl = URL(fileURLWithPath: filePath)
+                            }
+                            if let url = fileUrl{
+                                do{
+                                    let data = try Data(contentsOf: url, options: NSData.ReadingOptions.alwaysMapped)
+                                    multipartFormData.append(data, withName: key, fileName: "\(UUID().uuidString).\(fileExtention)", mimeType: mimeType)
+                                    
+                                }
+                                catch let error{
+                                    printDebug(error)
+                                }
                             }
                         }
                     }
                 }
+                
+                for (ky , value) in addMandatoryParams(toExistingParams: parameters){
+                    multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: ky)
+                }
+            },to: URLString, usingThreshold: UInt64.init(),
+              method: httpMethod,
+              headers: header).response{ response in
+                
+                AppNetworking.saveCookies(fromUrl: response.response?.url)
+                switch response.result{
+                    
+                case .success(let value):
+                    if loader {
+                        if loader { hideLoader() }
+                    }
+                    
+                    printDebug("response: \(String(describing: value))\nresponse url: \(URLString)")
+                    success(JSON(value))
+                    
+                case .failure(let e):
+                    if loader {
+                        if loader { hideLoader() }
+                    }
+                    
+                    if (e as NSError).code == NSURLErrorNotConnectedToInternet {
+                        printDebug("response: \(e)\nresponse url: \(URLString)")
+                    }
+                    else{
+                        printDebug("response: some error occured\nresponse url: \(URLString)")
+                    }
+                    failure(e as NSError)
+                }
+                
             }
-            
-            for (ky , value) in addMandatoryParams(toExistingParams: parameters){
-                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: ky)
-            }
-        },
-                         with: url, encodingCompletion: { encodingResult in
-                            
-                            switch encodingResult{
-                            case .success(request: let upload, streamingFromDisk: _, streamFileURL: _):
-                                
-                                upload.uploadProgress(closure: { (prgrss) in
-                                    progress(prgrss.fractionCompleted)
-                                })
-                                
-                                upload.responseData(completionHandler: { (response:DataResponse<Data>) in
-                                    
-                                    AppNetworking.saveCookies(fromUrl: response.response?.url)
-                                    switch response.result{
-                                        
-                                    case .success(let value):
-                                        if loader {
-                                            if loader { hideLoader() }
-                                        }
-                                        
-                                        printDebug("response: \(value)\nresponse url: \(URLString)")
-                                        success(JSON(value))
-                                        
-                                    case .failure(let e):
-                                        if loader {
-                                            if loader { hideLoader() }
-                                        }
-                                        
-                                        if (e as NSError).code == NSURLErrorNotConnectedToInternet {
-                                            printDebug("response: \(e)\nresponse url: \(URLString)")
-                                        }
-                                        else{
-                                            printDebug("response: some error occured\nresponse url: \(URLString)")
-                                        }
-                                        failure(e as NSError)
-                                    }
-                                })
-                                
-                            case .failure(let e):
-                                if loader {
-                                    if loader { hideLoader() }
-                                }
-                                
-                                
-                                if (e as NSError).code == NSURLErrorNotConnectedToInternet {
-                                    printDebug("response: \(e)\nresponse url: \(URLString)")
-                                }
-                                else{
-                                    printDebug("response: some error occured\nresponse url: \(URLString)")
-                                }
-                                failure(e as NSError)
-                            }
-        })
+        
+        
+        
+        
+        
+//        AF.upload(multipartFormData: { (multipartFormData) in
+//
+//            if let mltiprtData = multipartData {
+//
+//                for (key, filePath, fileExtention, fileType) in mltiprtData {
+//                    if !filePath.isEmpty {
+//                        let mimeType = "\(fileType.rawValue)/\(fileExtention)"
+//                        var fileUrl: URL?
+//                        if filePath.hasPrefix("file:/") {
+//                            fileUrl = URL(string: filePath)
+//                        }
+//                        else {
+//                            fileUrl = URL(fileURLWithPath: filePath)
+//                        }
+//                        if let url = fileUrl{
+//                            do{
+//                                let data = try Data(contentsOf: url, options: NSData.ReadingOptions.alwaysMapped)
+//                                multipartFormData.append(data, withName: key, fileName: "\(UUID().uuidString).\(fileExtention)", mimeType: mimeType)
+//
+//                            }
+//                            catch let error{
+//                                printDebug(error)
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//
+//            for (ky , value) in addMandatoryParams(toExistingParams: parameters){
+//                multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: ky)
+//            }
+//        },
+//                         with: url, encodingCompletion: { encodingResult in
+//
+//                            switch encodingResult{
+//                            case .success(request: let upload, streamingFromDisk: _, streamFileURL: _):
+//
+//                                upload.uploadProgress(closure: { (prgrss) in
+//                                    progress(prgrss.fractionCompleted)
+//                                })
+//
+//                                upload.responseData(completionHandler: { (response:DataResponse<Data>) in
+//
+//                                    AppNetworking.saveCookies(fromUrl: response.response?.url)
+//                                    switch response.result{
+//
+//                                    case .success(let value):
+//                                        if loader {
+//                                            if loader { hideLoader() }
+//                                        }
+//
+//                                        printDebug("response: \(value)\nresponse url: \(URLString)")
+//                                        success(JSON(value))
+//
+//                                    case .failure(let e):
+//                                        if loader {
+//                                            if loader { hideLoader() }
+//                                        }
+//
+//                                        if (e as NSError).code == NSURLErrorNotConnectedToInternet {
+//                                            printDebug("response: \(e)\nresponse url: \(URLString)")
+//                                        }
+//                                        else{
+//                                            printDebug("response: some error occured\nresponse url: \(URLString)")
+//                                        }
+//                                        failure(e as NSError)
+//                                    }
+//                                })
+//
+//                            case .failure(let e):
+//                                if loader {
+//                                    if loader { hideLoader() }
+//                                }
+//
+//
+//                                if (e as NSError).code == NSURLErrorNotConnectedToInternet {
+//                                    printDebug("response: \(e)\nresponse url: \(URLString)")
+//                                }
+//                                else{
+//                                    printDebug("response: some error occured\nresponse url: \(URLString)")
+//                                }
+//                                failure(e as NSError)
+//                            }
+//        })
     }
 }
 

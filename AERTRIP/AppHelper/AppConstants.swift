@@ -10,7 +10,7 @@ import Foundation
 
 enum AppConstants {
     
-    static let isReleasingToClient: Bool = false
+    static let isReleasingToClient: Bool = true
     
     static let kCurrency = ""
     
