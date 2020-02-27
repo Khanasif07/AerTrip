@@ -59,7 +59,7 @@ class CreateProfileVC: BaseVC {
         super.viewWillAppear(animated)
         
         if self.viewModel.isFirstTime {
-            self.setupInitialAnimation()
+//            self.setupInitialAnimation()
         }
     }
     
@@ -67,7 +67,7 @@ class CreateProfileVC: BaseVC {
         super.viewDidAppear(animated)
         
         if self.viewModel.isFirstTime {
-            self.setupViewDidLoadAnimation()
+//            self.setupViewDidLoadAnimation()
         }
     }
     
@@ -217,8 +217,8 @@ private extension CreateProfileVC {
         self.nameTitleTextField.delegate = self
         self.nameTitleTextField.isEnabled = false
         self.nameTitleTextField.setupTextField(placehoder: LocalizedString.Title.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .done, isSecureText: false)
-        self.firstNameTextField.setupTextField(placehoder: LocalizedString.First_Name.localized,with: "*",textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
-        self.lastNameTextField.setupTextField(placehoder: LocalizedString.Last_Name.localized,with: "*",textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
+        self.firstNameTextField.setupTextField(placehoder: LocalizedString.First_Name.localized,with: "",textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
+        self.lastNameTextField.setupTextField(placehoder: LocalizedString.Last_Name.localized,with: "",textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
         self.countryTextField.setupTextField(placehoder: LocalizedString.Country.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
         self.mobileNumberTextField.setupTextField(placehoder: LocalizedString.Mobile_Number.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .numberPad, returnType: .done, isSecureText: false)
         self.countryCodeTextField.setupTextField(placehoder:"",textColor: AppColors.textFieldTextColor51, keyboardType: .numberPad, returnType: .done, isSecureText: false)

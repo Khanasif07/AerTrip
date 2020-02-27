@@ -18,6 +18,7 @@ class BulkRoomSelectionVC: BaseVC {
     //================
     weak var delegate: BulkRoomSelectionVCDelegate?
     private(set) var viewModel = BulkRoomSelectionVM()
+    var initialTouchPoint: CGPoint = CGPoint.zero
 
     //Mark:- IBOutlets
     //================
@@ -104,6 +105,14 @@ class BulkRoomSelectionVC: BaseVC {
     
     //MARK:- Private
     private func initialSetUp() {
+        
+        
+        //AddGesture:-
+        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        mainContainerView.isUserInteractionEnabled = true
+        swipeGesture.delegate = self
+        self.mainContainerView.addGestureRecognizer(swipeGesture)
+        
         self.backgroundView.alpha = 1.0
         self.backgroundView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
         //self.headerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
@@ -213,5 +222,77 @@ extension BulkRoomSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
         default:
             self.viewModel.childrenCounts = row + 0
         }
+    }
+}
+
+extension BulkRoomSelectionVC {
+    //Handle Swipe Gesture
+    @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+        let touchPoint = sender.location(in: self.mainContainerView?.window)
+        let velocity = sender.velocity(in: self.mainContainerView)
+        print(velocity)
+        switch sender.state {
+        case .possible:
+            print(sender.state)
+        case .began:
+            self.initialTouchPoint = touchPoint
+        case .changed:
+            let touchPointDiffY = initialTouchPoint.y - touchPoint.y
+            print(touchPointDiffY)
+            if  touchPoint.y > 0.0 {
+                if touchPointDiffY > 0 {
+                    self.mainContainerBottomConstraint.constant = -( UIScreen.main.bounds.height) + touchPointDiffY
+                }
+                else {
+                    self.mainContainerBottomConstraint.constant = touchPointDiffY
+                }
+            }
+        case .cancelled:
+            print(sender.state)
+        case .ended:
+            print(sender.state)
+            panGestureFinalAnimation(velocity: velocity,touchPoint: touchPoint)
+        case .failed:
+            print(sender.state)
+            
+        }
+    }
+    
+    
+    ///Call to use Pan Gesture Final Animation
+    private func panGestureFinalAnimation(velocity: CGPoint,touchPoint: CGPoint) {
+        //Down Direction
+        if velocity.y < 0 {
+            if velocity.y < -300 {
+                self.openBottomSheet()
+            } else {
+                if touchPoint.y <= (UIScreen.main.bounds.height)/2 {
+                    self.openBottomSheet()
+                } else {
+                    self.closeBottomSheet()
+                }
+            }
+        }
+            //Up Direction
+        else {
+            if velocity.y > 300 {
+                self.closeBottomSheet()
+            } else {
+                if touchPoint.y >= (UIScreen.main.bounds.height + (-self.mainContainerView.frame.size.height/2)){
+                    self.closeBottomSheet()
+                } else {
+                    self.openBottomSheet()
+                }
+            }
+        }
+        print(velocity.y)
+    }
+    
+    func openBottomSheet() {
+        self.show(animated: true)
+    }
+    
+    func closeBottomSheet() {
+        self.hide(animated: true, shouldRemove: true)
     }
 }
