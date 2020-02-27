@@ -10,6 +10,7 @@ import UIKit
 import Contacts
 import PhoneNumberKit
 
+
 struct ATContact {
     
     enum Label: String {
@@ -132,19 +133,20 @@ struct ATContact {
         }
         
         self.dob = contact.dob
+        /*
+        DispatchQueue.global(qos: .utility).async {
             if let phone = contact.phoneNumbers.first {
                 self.contact = phone.value.stringValue
                 do {
                     let temp = try PhoneNumberKit().parse(self.contact)
                     self.contact = "\(temp.nationalNumber)"
                     self.isd = "+\(temp.countryCode)"
-                }
-                catch {
+                } catch {
                     printDebug("not able to parse the number")
                     self.contact = ""
                 }
             }
-        
+        }*/
         self.imageData = contact.imageData
     }
     

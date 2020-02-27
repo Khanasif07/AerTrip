@@ -26,7 +26,12 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
              Open your info.plist and insert a new key named "View controller-based status bar appearance" to NO
             */
             UIApplication.shared.statusBarStyle = statusBarStyle
+            setNeedsStatusBarAppearanceUpdate()
         }
+    }
+    
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return self.statusBarStyle
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -85,7 +90,6 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(checkForReachability(_:)), name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
-        
     }
 
     override func viewWillLayoutSubviews() {

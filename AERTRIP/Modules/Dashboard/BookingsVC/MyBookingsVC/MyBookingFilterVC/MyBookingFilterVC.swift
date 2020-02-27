@@ -21,7 +21,7 @@ class MyBookingFilterVC: BaseVC {
     
     private var minDate: Date?
     // Parchment View
-    fileprivate var parchmentView : PagingViewController<MenuItem>?
+    fileprivate var parchmentView : PagingViewController?
     private var allChildVCs :[UIViewController] = []
     private var isFilterArray:[Bool] = [true,true,true]
     private var previousOffset = CGPoint.zero
@@ -169,7 +169,7 @@ class MyBookingFilterVC: BaseVC {
     // Added to replace the existing page controller, added Hitesh Soni, 28-29Jan'2020
     private func setupParchmentPageController(){
         
-        self.parchmentView = PagingViewController<MenuItem>()
+        self.parchmentView = PagingViewController()
         self.parchmentView?.menuItemSpacing = (UIDevice.screenWidth - 330) / 2
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 13.0, bottom: 0.0, right: 11.0)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets(top: 0, left: 10.0, bottom: 0, right: 10.0), insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
@@ -179,7 +179,8 @@ class MyBookingFilterVC: BaseVC {
             zIndex: Int.max - 1,
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
-        self.parchmentView?.menuItemSource = PagingMenuItemSource.nib(nib: nib)
+//        self.parchmentView?.menuItemSource = PagingMenuItemSource.nib(nib: nib)
+        self.parchmentView?.register(nib, for: MenuItem.self)
         self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
@@ -189,6 +190,7 @@ class MyBookingFilterVC: BaseVC {
         
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
+        self.parchmentView?.sizeDelegate = self
         self.parchmentView?.select(index: 0)
         
         self.parchmentView?.reloadData()
@@ -302,21 +304,8 @@ extension MyBookingFilterVC {
     }
 }
 
-extension MyBookingFilterVC: PagingViewControllerDataSource , PagingViewControllerDelegate {
-    func numberOfViewControllers<T>(in pagingViewController: PagingViewController<T>) -> Int where T : PagingItem, T : Comparable, T : Hashable {
-        self.allTabsStr.count
-    }
-    
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, viewControllerForIndex index: Int) -> UIViewController where T : PagingItem, T : Comparable, T : Hashable {
-        return self.allChildVCs[index]
-    }
-    
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemForIndex index: Int) -> T where T : PagingItem, T : Comparable, T : Hashable {
-        return MenuItem(title: self.allTabsStr[index], index: index, isSelected: isFilterArray[index] ) as! T
-    }
-    
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
-        
+extension MyBookingFilterVC: PagingViewControllerDataSource , PagingViewControllerDelegate, PagingViewControllerSizeDelegate {
+    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         // depending onthe text size, give the width of the menu item
         if let pagingIndexItem = pagingItem as? MenuItem {
             let text = pagingIndexItem.title
@@ -328,7 +317,19 @@ extension MyBookingFilterVC: PagingViewControllerDataSource , PagingViewControll
         return 100.0
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+    func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
+        self.allTabsStr.count
+    }
+    
+    func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
+        return self.allChildVCs[index]
+    }
+    
+    func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
+        return MenuItem(title: self.allTabsStr[index], index: index, isSelected: isFilterArray[index] )
+    }
+    
+    func pagingViewController<T>(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
         
         let pagingIndexItem = pagingItem as! MenuItem
         self.currentIndex = pagingIndexItem.index

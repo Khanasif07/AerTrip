@@ -12,6 +12,8 @@ class HotelNameRatingTableViewCell: ATTableViewCell {
     
     // MARK: - IBOutlet
     
+    @IBOutlet weak var starRatingViewLeadingConst: NSLayoutConstraint!
+    @IBOutlet weak var mainStackBtmConst: NSLayoutConstraint!
     @IBOutlet weak var hotelNameLabel: UILabel!
     @IBOutlet weak var starRatingContatinerView: UIStackView!
     @IBOutlet weak var starRatingView: FloatRatingView!

@@ -378,7 +378,7 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
             switch section {
             case 0:
                 //my location
-                return 0
+                return CGFloat.leastNonzeroMagnitude
                 
             case 1:
                 //recent search,
@@ -386,14 +386,14 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
                 {
                     return 28.0
                 } else {
-                    return 0
+                    return CGFloat.leastNonzeroMagnitude
                 }
                 
             //popular destination
             case 2:
                 return 28.0
             default:
-                return 0
+                return CGFloat.leastNonzeroMagnitude
             }
         }
     }

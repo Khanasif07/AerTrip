@@ -27,17 +27,19 @@ open class PagingTitleCell: PagingCell {
   }
   
   open override func setPagingItem(_ pagingItem: PagingItem, selected: Bool, options: PagingOptions) {
-    if let titleItem = pagingItem as? PagingTitleItem {
+    if let titleItem = pagingItem as? PagingIndexItem {
       viewModel = PagingTitleCellViewModel(
         title: titleItem.title,
         selected: selected,
         options: options)
     }
     configureTitleLabel()
+    configureAccessibility()
   }
   
   open func configure() {
     contentView.addSubview(titleLabel)
+    contentView.isAccessibilityElement = true
   }
   
   open override func layoutSubviews() {
@@ -60,6 +62,11 @@ open class PagingTitleCell: PagingCell {
       backgroundColor = viewModel.backgroundColor
     }
   }
+
+  open func configureAccessibility() {
+    contentView.accessibilityLabel = viewModel?.title
+    contentView.accessibilityTraits = viewModel?.selected ?? false ? .selected : .none
+  }
   
   open override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
     super.apply(layoutAttributes)
@@ -76,5 +83,4 @@ open class PagingTitleCell: PagingCell {
         with: attributes.progress)
     }
   }
-  
 }

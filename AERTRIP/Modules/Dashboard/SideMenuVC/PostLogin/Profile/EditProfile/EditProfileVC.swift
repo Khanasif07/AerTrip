@@ -461,7 +461,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
             mobile.isd = isd
         }
         viewModel.mobile.append(mobile)
-        
+
         var social = Social()
         social.type = "Facebook"
         social.label = "Facebook"

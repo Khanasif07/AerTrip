@@ -25,7 +25,7 @@ class MainHomeVC: BaseVC {
     
     //MARK:- Private
     private weak var profileView: SlideMenuProfileImageHeaderView?
-    private weak var logoView: SideMenuLogoView?
+    private var logoView: SideMenuLogoView?
     
     var transitionAnimator: UIViewPropertyAnimator?
     var animationProgress: CGFloat = 0
@@ -351,9 +351,16 @@ class MainHomeVC: BaseVC {
 //        self.socialLoginVC?.logoContainerView.isHidden = true
         
         toggleSocialLoginLogoViewHidden(true)
+        if let logoViewFrame = logoViewOriginalFrame {
+            self.logoView?.frame = logoViewFrame
+            self.logoView?.layoutIfNeeded()
+        }
         self.logoView?.isHidden = false
+        self.logoView?.messageLabel.isHidden = false
         self.sideMenuVC?.logoContainerView.logoImageView.isHidden = true
         self.sideMenuVC?.logoContainerView.logoTextView.isHidden = true
+        self.socialLoginVC?.logoContainerView?.isHidden = true
+        self.sideMenuVC?.logoContainerView.messageLabel.isHidden = true
         self.socialLoginVC?.topNavView.leftButton.isHidden = true
         let finalFrame = self.socialLoginVC?.logoContainerView.frame ?? CGRect(x: (UIDevice.screenWidth * 0.125), y: 80.0, width: UIDevice.screenWidth * 0.75, height: self.sideMenuVC?.logoContainerView?.height ?? 179.0)
         
@@ -368,8 +375,8 @@ class MainHomeVC: BaseVC {
         }, completion: { (isDone) in
             self.socialLoginVC?.topNavView.leftButton.isHidden = false
             self.socialLoginVC?.logoContainerView.isHidden = false
+            self.sideMenuVC?.logoContainerView.messageLabel.isHidden = false
             self.logoView?.isHidden = true
-//            self.sideMenuVC?.logoContainerView.isHidden = true
             self.toggleSocialLoginLogoViewHidden(false)
         })
     }
@@ -390,6 +397,9 @@ class MainHomeVC: BaseVC {
         let popPoint = CGPoint(x: 0.0, y: 0.0)
         self.socialLoginVC?.topNavView.leftButton.isHidden = true
         self.logoView?.isHidden = false
+        self.socialLoginVC?.logoContainerView.isHidden = true
+        self.sideMenuVC?.logoContainerView.messageLabel.isHidden = true
+        self.logoView?.messageLabel.isHidden = false
         self.socialLoginVC?.animateContentOnPop()
         self.toggleSocialLoginLogoViewHidden(true)
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
@@ -402,6 +412,7 @@ class MainHomeVC: BaseVC {
             
             self.toggleSocialLoginLogoViewHidden(false)
             self.logoView?.isHidden = true
+            self.sideMenuVC?.logoContainerView.messageLabel.isHidden = false
             self.sideMenuVC?.logoContainerView.logoImageView.isHidden = false
             self.sideMenuVC?.logoContainerView.logoTextView.isHidden = false
         })

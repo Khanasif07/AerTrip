@@ -40,7 +40,7 @@ class HotelFilterVC: BaseVC {
     }
     
     // Parchment View
-    fileprivate var parchmentView : PagingViewController<MenuItem>?
+    fileprivate var parchmentView : PagingViewController?
     
     
     
@@ -202,7 +202,7 @@ class HotelFilterVC: BaseVC {
     // Added to replace the existing page controller, added Hitesh Soni, 28-29Jan'2020
     private func setupParchmentPageController(){
         
-        self.parchmentView = PagingViewController<MenuItem>()
+        self.parchmentView = PagingViewController()
         self.parchmentView?.menuItemSpacing = 10.0
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 51.0, bottom: 0.0, right: 0.0)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 52)
@@ -212,7 +212,8 @@ class HotelFilterVC: BaseVC {
             zIndex: Int.max - 1,
             insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
-        self.parchmentView?.menuItemSource = PagingMenuItemSource.nib(nib: nib)
+//        self.parchmentView?.menuItemSource = PagingMenuItemSource.nib(nib: nib)
+        self.parchmentView?.register(nib, for: MenuItem.self)
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
         self.parchmentView?.indicatorColor = AppColors.themeGreen
@@ -220,6 +221,7 @@ class HotelFilterVC: BaseVC {
         self.dataContainerView.addSubview(self.parchmentView!.view)
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
+        self.parchmentView?.sizeDelegate = self
         self.parchmentView?.select(index: selectedIndex)
         
         self.parchmentView?.reloadData()

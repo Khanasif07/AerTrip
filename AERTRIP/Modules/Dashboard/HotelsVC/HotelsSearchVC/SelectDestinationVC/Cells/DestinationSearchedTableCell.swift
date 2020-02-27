@@ -43,7 +43,7 @@ class DestinationSearchedTableCell: UITableViewCell {
         } else {
             let newValue = data.value.components(separatedBy: ",")
             printDebug(newValue.first)
-            self.titleLabel.text = newValue.first ?? ""
+            self.titleLabel.attributedText = self.getAttributedBoldText(text: newValue.first ?? "", boldText: forText, fullTextColor: AppColors.themeBlack)
         }
         //Logic for after string
         var splittedStringArray = data.value.components(separatedBy: ",")

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -435,18 +435,18 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KXl-rh-TQG">
-                                        <rect key="frame" x="0.0" y="269" width="414" height="1"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KXl-rh-TQG" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="269" width="414" height="0.5"/>
                                         <color key="backgroundColor" red="0.80392156859999997" green="0.80392156859999997" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="9gb-2K-Szg"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="9gb-2K-Szg"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJ4-2s-W61">
-                                        <rect key="frame" x="0.0" y="306.5" width="414" height="1"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJ4-2s-W61" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="306" width="414" height="0.5"/>
                                         <color key="backgroundColor" red="0.80392156859999997" green="0.80392156859999997" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="Nj1-UC-h4d"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="Nj1-UC-h4d"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0DW-gc-R0u" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
@@ -553,21 +553,21 @@
                                 <rect key="frame" x="0.0" y="249" width="414" height="647"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8dt-Lv-VS0">
-                                        <rect key="frame" x="34" y="216" width="346" height="74"/>
+                                        <rect key="frame" x="34" y="203" width="346" height="74"/>
                                         <string key="text">Bulk enquiry has
 been sent</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="31"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Our Customer service team shall contact you soon regarding this enquiry." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9SZ-mV-NbB">
-                                        <rect key="frame" x="34" y="307" width="346" height="36"/>
+                                        <rect key="frame" x="34" y="291" width="346" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jsa-B4-bs8">
-                                        <rect key="frame" x="182" y="460" width="50" height="36"/>
+                                        <rect key="frame" x="182" y="440" width="50" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="hLh-on-oWF"/>
                                             <constraint firstAttribute="height" constant="36" id="nHW-co-NWh"/>
@@ -596,11 +596,11 @@ been sent</string>
                                     <constraint firstAttribute="trailing" secondItem="8dt-Lv-VS0" secondAttribute="trailing" constant="34" id="7lO-kN-1j2"/>
                                     <constraint firstAttribute="trailing" secondItem="9SZ-mV-NbB" secondAttribute="trailing" constant="34" id="8OQ-Zb-Jg4"/>
                                     <constraint firstAttribute="bottom" secondItem="UW3-qM-cup" secondAttribute="bottom" constant="22.5" id="FBM-9j-1f9"/>
-                                    <constraint firstItem="9SZ-mV-NbB" firstAttribute="top" secondItem="8dt-Lv-VS0" secondAttribute="bottom" constant="17" id="J2S-zh-z1A"/>
+                                    <constraint firstItem="9SZ-mV-NbB" firstAttribute="top" secondItem="8dt-Lv-VS0" secondAttribute="bottom" constant="14" id="J2S-zh-z1A"/>
                                     <constraint firstItem="Jsa-B4-bs8" firstAttribute="centerX" secondItem="9SZ-mV-NbB" secondAttribute="centerX" id="Rqa-y8-aBA"/>
-                                    <constraint firstItem="Jsa-B4-bs8" firstAttribute="top" secondItem="9SZ-mV-NbB" secondAttribute="bottom" constant="117" id="U6Z-zs-2Ck"/>
+                                    <constraint firstItem="Jsa-B4-bs8" firstAttribute="top" secondItem="9SZ-mV-NbB" secondAttribute="bottom" constant="113" id="U6Z-zs-2Ck"/>
                                     <constraint firstItem="8dt-Lv-VS0" firstAttribute="leading" secondItem="9FW-MM-6cL" secondAttribute="leading" constant="34" id="i08-0O-fok"/>
-                                    <constraint firstItem="8dt-Lv-VS0" firstAttribute="top" secondItem="9FW-MM-6cL" secondAttribute="top" constant="216" id="jaz-Kk-8l2"/>
+                                    <constraint firstItem="8dt-Lv-VS0" firstAttribute="top" secondItem="9FW-MM-6cL" secondAttribute="top" constant="203" id="jaz-Kk-8l2"/>
                                     <constraint firstItem="9SZ-mV-NbB" firstAttribute="leading" secondItem="9FW-MM-6cL" secondAttribute="leading" constant="34" id="z4Q-sF-Ksh"/>
                                 </constraints>
                             </view>
@@ -1108,18 +1108,18 @@ been sent</string>
                                             <constraint firstItem="Xbo-Hd-rsR" firstAttribute="leading" secondItem="gSf-Lz-PeC" secondAttribute="trailing" id="kwd-CW-iTc"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="etP-is-AM4" userLabel="firstLineView">
-                                        <rect key="frame" x="0.0" y="198.5" width="414" height="1"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="etP-is-AM4" userLabel="firstLineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="199.5" width="414" height="0.5"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="TPg-ax-5bD"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="TPg-ax-5bD"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GEZ-9m-jJg" userLabel="secondLineView">
-                                        <rect key="frame" x="0.0" y="234.5" width="414" height="1"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GEZ-9m-jJg" userLabel="secondLineView" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="235" width="414" height="0.5"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="Z4H-WS-doQ"/>
+                                            <constraint firstAttribute="height" constant="0.5" id="Z4H-WS-doQ"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s9M-NB-ug2" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
@@ -2268,7 +2268,7 @@ been sent</string>
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9hv-hc-Uss">
-                                        <rect key="frame" x="13" y="5" width="388" height="424"/>
+                                        <rect key="frame" x="13" y="5" width="388" height="427.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ca-Ra-QVb">
                                                 <rect key="frame" x="0.0" y="0.0" width="388" height="103.5"/>
@@ -2333,24 +2333,24 @@ been sent</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="18c-nv-DJD">
-                                                <rect key="frame" x="0.0" y="104" width="388" height="103.5"/>
+                                                <rect key="frame" x="0.0" y="104" width="388" height="103"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="103.5" id="MhP-OY-iU1"/>
+                                                    <constraint firstAttribute="height" constant="103" id="MhP-OY-iU1"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="frZ-3f-7r9" userLabel="Second Line View" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="207.5" width="356" height="0.5"/>
+                                                <rect key="frame" x="16" y="207" width="356" height="0.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="7yd-Kn-RpS"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j5z-sY-chK">
-                                                <rect key="frame" x="0.0" y="208" width="388" height="86.5"/>
+                                                <rect key="frame" x="0.0" y="207.5" width="388" height="85"/>
                                                 <subviews>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zOR-la-hRi">
-                                                        <rect key="frame" x="0.0" y="0.0" width="388" height="86.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="388" height="85"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="wmB-er-6A8">
                                                             <size key="itemSize" width="50" height="50"/>
@@ -2370,17 +2370,17 @@ been sent</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZa-vI-wrJ" userLabel="Third Line View" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="294.5" width="356" height="0.5"/>
+                                                <rect key="frame" x="16" y="292.5" width="356" height="0.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="dR0-tP-NK3"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UZh-dq-5ov">
-                                                <rect key="frame" x="0.0" y="295" width="388" height="129"/>
+                                                <rect key="frame" x="0.0" y="293" width="388" height="134.5"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ct5-jG-4BW" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
-                                                        <rect key="frame" x="119" y="20" width="150" height="50"/>
+                                                        <rect key="frame" x="119" y="25" width="150" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="150" id="o7w-Ui-DjJ"/>
                                                             <constraint firstAttribute="height" constant="50" id="zg7-zH-yLR"/>
@@ -2392,13 +2392,13 @@ been sent</string>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="j5u-Gg-roB">
-                                                        <rect key="frame" x="41" y="90" width="291" height="17"/>
+                                                        <rect key="frame" x="41" y="95" width="291" height="17"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17" id="lL9-f0-Hxv"/>
                                                         </constraints>
                                                         <attributedString key="attributedText">
-                                                            <fragment content="Want more rooms? Request bulk booking">
+                                                            <fragment content="Want more rooms?  Request bulk booking">
                                                                 <attributes>
                                                                     <font key="NSFont" metaFont="menu" size="14"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
@@ -2414,8 +2414,8 @@ been sent</string>
                                                     <constraint firstAttribute="trailing" secondItem="j5u-Gg-roB" secondAttribute="trailing" constant="56" id="PNn-f3-Fco"/>
                                                     <constraint firstItem="j5u-Gg-roB" firstAttribute="top" secondItem="Ct5-jG-4BW" secondAttribute="bottom" constant="20" id="Rcc-cM-xDF"/>
                                                     <constraint firstItem="Ct5-jG-4BW" firstAttribute="centerX" secondItem="UZh-dq-5ov" secondAttribute="centerX" id="bgG-gX-x3y"/>
-                                                    <constraint firstItem="Ct5-jG-4BW" firstAttribute="top" secondItem="UZh-dq-5ov" secondAttribute="top" constant="20" id="rO1-y9-Im8"/>
-                                                    <constraint firstAttribute="height" constant="129" id="waw-1O-fvH"/>
+                                                    <constraint firstItem="Ct5-jG-4BW" firstAttribute="top" secondItem="UZh-dq-5ov" secondAttribute="top" constant="25" id="rO1-y9-Im8"/>
+                                                    <constraint firstAttribute="height" constant="134.5" id="waw-1O-fvH"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -2441,13 +2441,13 @@ been sent</string>
                                             <constraint firstItem="frZ-3f-7r9" firstAttribute="top" secondItem="18c-nv-DJD" secondAttribute="bottom" id="sSm-mP-olJ"/>
                                             <constraint firstAttribute="trailing" secondItem="0ca-Ra-QVb" secondAttribute="trailing" id="uB0-Ec-l2X"/>
                                             <constraint firstItem="UZh-dq-5ov" firstAttribute="top" secondItem="hZa-vI-wrJ" secondAttribute="bottom" id="uMx-oT-D6m"/>
-                                            <constraint firstAttribute="height" constant="424" id="ua2-gL-eS5"/>
+                                            <constraint firstAttribute="height" constant="427.5" id="ua2-gL-eS5"/>
                                             <constraint firstItem="18c-nv-DJD" firstAttribute="top" secondItem="J0h-3z-R7q" secondAttribute="bottom" id="vgl-g3-KxL"/>
                                             <constraint firstAttribute="trailing" secondItem="frZ-3f-7r9" secondAttribute="trailing" constant="16" id="xaG-3z-zpd"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OIM-MI-8Ps">
-                                        <rect key="frame" x="0.0" y="429" width="414" height="194"/>
+                                        <rect key="frame" x="0.0" y="432.5" width="414" height="194"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fik-P3-SWM">
                                                 <rect key="frame" x="0.0" y="40" width="414" height="154"/>
@@ -2478,9 +2478,19 @@ been sent</string>
                                     <constraint firstItem="9hv-hc-Uss" firstAttribute="centerX" secondItem="S4V-Pr-uJm" secondAttribute="centerX" id="wfw-ws-kZO"/>
                                 </constraints>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="udP-E9-YBa">
+                                <rect key="frame" x="0.0" y="861" width="414" height="35"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="kX8-wC-i0d"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="udP-E9-YBa" firstAttribute="bottom" secondItem="S4V-Pr-uJm" secondAttribute="bottom" id="Blp-H4-s1M"/>
+                            <constraint firstItem="udP-E9-YBa" firstAttribute="leading" secondItem="5Gs-Lq-YSd" secondAttribute="leading" id="CGt-F1-7oU"/>
+                            <constraint firstItem="5Gs-Lq-YSd" firstAttribute="trailing" secondItem="udP-E9-YBa" secondAttribute="trailing" id="Znj-Jn-clz"/>
                             <constraint firstItem="S4V-Pr-uJm" firstAttribute="top" secondItem="bO9-1p-K6j" secondAttribute="top" id="gmn-b2-gEC"/>
                             <constraint firstItem="S4V-Pr-uJm" firstAttribute="leading" secondItem="bO9-1p-K6j" secondAttribute="leading" id="h6G-6d-6da"/>
                             <constraint firstAttribute="trailing" secondItem="S4V-Pr-uJm" secondAttribute="trailing" id="prx-io-vCj"/>
@@ -2497,6 +2507,7 @@ been sent</string>
                         <outlet property="containerViewHeightConstraint" destination="ua2-gL-eS5" id="PP0-pf-5iV"/>
                         <outlet property="datePickerView" destination="18c-nv-DJD" id="RpG-sv-iJ9"/>
                         <outlet property="firstLineView" destination="J0h-3z-R7q" id="OMB-wW-ncr"/>
+                        <outlet property="footerView" destination="udP-E9-YBa" id="XIq-NB-vmx"/>
                         <outlet property="recentContainerHeightConstraint" destination="XyU-E7-PUy" id="gyc-dl-Vym"/>
                         <outlet property="recentContainerParentView" destination="OIM-MI-8Ps" id="VUi-4u-3vM"/>
                         <outlet property="recentSearchesContainerView" destination="Fik-P3-SWM" id="dah-3s-HOm"/>
@@ -2895,7 +2906,7 @@ been sent</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kJP-WF-r96">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="104"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="g3P-sa-YZM">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="g3P-sa-YZM">
                                                         <rect key="frame" x="16" y="15" width="382" height="74"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cBh-lx-1zP">
@@ -2948,28 +2959,28 @@ been sent</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i1l-b5-KtU" userLabel="First Line View" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="104" width="382" height="0.5"/>
+                                                <rect key="frame" x="16" y="103.5" width="382" height="0.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="lup-wG-JmW"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eff-Oh-6ZH">
-                                                <rect key="frame" x="0.0" y="104.5" width="414" height="104"/>
+                                                <rect key="frame" x="0.0" y="104" width="414" height="104"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="104" id="ddQ-PA-qCN"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6TH-Cg-Vbg" userLabel="Second Line View" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="208.5" width="382" height="0.5"/>
+                                                <rect key="frame" x="16" y="207.5" width="382" height="0.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="FGn-Sd-LZX"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vRr-9A-BpD">
-                                                <rect key="frame" x="0.0" y="209" width="414" height="86"/>
+                                                <rect key="frame" x="0.0" y="208" width="414" height="86"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guests" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SkB-2O-Zle">
                                                         <rect key="frame" x="10" y="15.5" width="394" height="19.5"/>
@@ -3052,14 +3063,14 @@ been sent</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mrm-vd-wv4" userLabel="Third Line View" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="295" width="382" height="0.5"/>
+                                                <rect key="frame" x="16" y="293.5" width="382" height="0.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="tJN-uK-ETU"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8zo-5k-mHD">
-                                                <rect key="frame" x="0.0" y="295.5" width="414" height="86"/>
+                                                <rect key="frame" x="0.0" y="294" width="414" height="86"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UQ9-cn-Xqf">
                                                         <rect key="frame" x="0.0" y="0.0" width="207" height="86"/>
@@ -3094,13 +3105,13 @@ been sent</string>
                                                         <rect key="frame" x="207" y="0.0" width="207" height="86"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Special Request" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N1s-3d-ueJ">
-                                                                <rect key="frame" x="20" y="15" width="167" height="19.5"/>
+                                                                <rect key="frame" x="24" y="15" width="163" height="19.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7xi-9h-M8v" customClass="PKTextField" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="20" y="48.5" width="167" height="27"/>
+                                                                <rect key="frame" x="24" y="48.5" width="163" height="27"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="27" id="fXT-Qo-YLG"/>
@@ -3109,7 +3120,7 @@ been sent</string>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstItem="N1s-3d-ueJ" firstAttribute="leading" secondItem="dJF-ir-boG" secondAttribute="leading" constant="20" id="9sz-8Y-uHc"/>
+                                                            <constraint firstItem="N1s-3d-ueJ" firstAttribute="leading" secondItem="dJF-ir-boG" secondAttribute="leading" constant="24" id="9sz-8Y-uHc"/>
                                                             <constraint firstItem="7xi-9h-M8v" firstAttribute="leading" secondItem="N1s-3d-ueJ" secondAttribute="leading" id="HoX-Qy-zxi"/>
                                                             <constraint firstItem="N1s-3d-ueJ" firstAttribute="centerY" secondItem="dJF-ir-boG" secondAttribute="centerY" multiplier="0.57" id="jUe-3I-4ZI"/>
                                                             <constraint firstAttribute="trailing" secondItem="N1s-3d-ueJ" secondAttribute="trailing" constant="20" id="kM6-kC-Inp"/>
@@ -3132,14 +3143,14 @@ been sent</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q1b-ss-wKd" userLabel="Fourth Line View" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="381.5" width="382" height="0.5"/>
+                                                <rect key="frame" x="16" y="379.5" width="382" height="0.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="0.5" id="g3l-r1-MNl"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Om-nh-L7r">
-                                                <rect key="frame" x="0.0" y="382" width="414" height="380"/>
+                                                <rect key="frame" x="0.0" y="380" width="414" height="382"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vdG-IM-Tuq" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
                                                         <rect key="frame" x="132" y="20" width="150" height="50"/>
@@ -3179,21 +3190,21 @@ been sent</string>
                                             <constraint firstItem="kJP-WF-r96" firstAttribute="top" secondItem="V3L-g1-Sj7" secondAttribute="top" id="NGC-V7-MId"/>
                                             <constraint firstItem="8zo-5k-mHD" firstAttribute="leading" secondItem="V3L-g1-Sj7" secondAttribute="leading" id="Oqk-oj-0wl"/>
                                             <constraint firstItem="7Om-nh-L7r" firstAttribute="top" secondItem="Q1b-ss-wKd" secondAttribute="bottom" id="QM0-uo-uIS"/>
-                                            <constraint firstItem="Mrm-vd-wv4" firstAttribute="top" secondItem="vRr-9A-BpD" secondAttribute="bottom" id="Qda-GX-IEI"/>
+                                            <constraint firstItem="8zo-5k-mHD" firstAttribute="top" secondItem="vRr-9A-BpD" secondAttribute="bottom" id="Qda-GX-IEI"/>
                                             <constraint firstItem="7Om-nh-L7r" firstAttribute="leading" secondItem="V3L-g1-Sj7" secondAttribute="leading" id="VSk-nZ-73h"/>
                                             <constraint firstItem="vRr-9A-BpD" firstAttribute="leading" secondItem="V3L-g1-Sj7" secondAttribute="leading" id="b6d-5e-taS"/>
-                                            <constraint firstItem="Q1b-ss-wKd" firstAttribute="top" secondItem="8zo-5k-mHD" secondAttribute="bottom" id="bdv-Mm-8Sa"/>
+                                            <constraint firstItem="7Om-nh-L7r" firstAttribute="top" secondItem="8zo-5k-mHD" secondAttribute="bottom" id="bdv-Mm-8Sa"/>
                                             <constraint firstAttribute="trailing" secondItem="vRr-9A-BpD" secondAttribute="trailing" id="csX-Xe-LQU"/>
                                             <constraint firstItem="kJP-WF-r96" firstAttribute="leading" secondItem="V3L-g1-Sj7" secondAttribute="leading" id="dGz-Fv-P7t"/>
                                             <constraint firstAttribute="trailing" secondItem="7Om-nh-L7r" secondAttribute="trailing" id="dTP-HN-Jum"/>
-                                            <constraint firstItem="i1l-b5-KtU" firstAttribute="top" secondItem="kJP-WF-r96" secondAttribute="bottom" id="fBz-vh-zPW"/>
+                                            <constraint firstItem="Eff-Oh-6ZH" firstAttribute="top" secondItem="kJP-WF-r96" secondAttribute="bottom" id="fBz-vh-zPW"/>
                                             <constraint firstAttribute="trailing" secondItem="i1l-b5-KtU" secondAttribute="trailing" constant="16" id="g9W-DB-qVg"/>
                                             <constraint firstAttribute="trailing" secondItem="kJP-WF-r96" secondAttribute="trailing" id="gMg-IR-nBp"/>
                                             <constraint firstItem="i1l-b5-KtU" firstAttribute="leading" secondItem="V3L-g1-Sj7" secondAttribute="leading" constant="16" id="jWe-c1-cWt"/>
                                             <constraint firstItem="8zo-5k-mHD" firstAttribute="top" secondItem="Mrm-vd-wv4" secondAttribute="bottom" id="jm9-JO-L3i"/>
                                             <constraint firstItem="Q1b-ss-wKd" firstAttribute="leading" secondItem="V3L-g1-Sj7" secondAttribute="leading" constant="16" id="oct-si-axB"/>
                                             <constraint firstAttribute="bottom" secondItem="7Om-nh-L7r" secondAttribute="bottom" id="xSK-jI-mDq"/>
-                                            <constraint firstItem="6TH-Cg-Vbg" firstAttribute="top" secondItem="Eff-Oh-6ZH" secondAttribute="bottom" id="z09-mf-OT3"/>
+                                            <constraint firstItem="vRr-9A-BpD" firstAttribute="top" secondItem="Eff-Oh-6ZH" secondAttribute="bottom" id="z09-mf-OT3"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">

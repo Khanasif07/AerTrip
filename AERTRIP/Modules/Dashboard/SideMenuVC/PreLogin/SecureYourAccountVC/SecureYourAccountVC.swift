@@ -209,49 +209,45 @@ extension SecureYourAccountVC {
     func setupValidation() {
         
         if self.viewModel.password.containsNumbers() {
-            
-            self.numberLabel.isEnabled  = false
-            self.oneLabel.isEnabled    = false
+            self.numberLabel.textColor = AppColors.themeGray20
+            self.oneLabel.textColor = AppColors.themeGray20
         } else {
-            
-            self.numberLabel.isEnabled = true
-            self.oneLabel.isEnabled   = true
+            self.numberLabel.textColor = AppColors.themeGray60
+            self.oneLabel.textColor = AppColors.themeGray60
         }
         
         if self.viewModel.password.containsLowerCase() {
-            self.smallALabel.isEnabled  = false
-            self.lowerCaseLabel.isEnabled    = false
-        } else {
+            self.smallALabel.textColor = AppColors.themeGray20
+            self.lowerCaseLabel.textColor = AppColors.themeGray20
             
-            self.smallALabel.isEnabled = true
-            self.lowerCaseLabel.isEnabled   = true
+        } else {
+            self.smallALabel.textColor = AppColors.themeGray60
+            self.lowerCaseLabel.textColor = AppColors.themeGray60
         }
         
         if self.viewModel.password.containsUpperCase() {
-            self.capsALabel.isEnabled  = false
-            self.upperCaseLabel.isEnabled    = false
+            self.capsALabel.textColor = AppColors.themeGray20
+            self.upperCaseLabel.textColor = AppColors.themeGray20
         } else {
-            
-            self.capsALabel.isEnabled = true
-            self.upperCaseLabel.isEnabled   = true
+            self.capsALabel.textColor = AppColors.themeGray60
+            self.upperCaseLabel.textColor = AppColors.themeGray60
         }
         
         if self.viewModel.password.containsSpecialCharacters() {
             
             UIView.transition(with: self.view, duration: 1, options: .curveEaseIn, animations: {
-                self.atLabel.isEnabled  = false
-                self.specialLabel.isEnabled  = false
+                self.atLabel.textColor = AppColors.themeGray20
+                self.specialLabel.textColor = AppColors.themeGray20
             }, completion: nil)
             
         } else {
-            
-            self.atLabel.isEnabled = true
-            self.specialLabel.isEnabled = true
+            self.atLabel.textColor = AppColors.themeGray60
+            self.specialLabel.textColor = AppColors.themeGray60
         }
         
         if self.viewModel.password.count >= 8 {
-            self.eightPlusLabel.isEnabled  = false
-            self.charactersLabel.isEnabled = false
+            self.eightPlusLabel.textColor = AppColors.themeGray20
+            self.charactersLabel.textColor = AppColors.themeGray20
             if self.viewModel.password.checkValidity(.Password) {
                 
                 let animation = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut, animations: { [weak self] in
@@ -297,9 +293,9 @@ extension SecureYourAccountVC {
         } else {
             
             let animation = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut, animations: { [weak self] in
-                
                 guard let strongSelf = self else {return}
-                
+                self?.eightPlusLabel.textColor = AppColors.themeGray60
+                self?.charactersLabel.textColor = AppColors.themeGray60
                 strongSelf.nextButtonTopConstraint.constant = 146.5
                 strongSelf.view.layoutIfNeeded()
             })

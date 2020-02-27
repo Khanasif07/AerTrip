@@ -19,6 +19,7 @@ class HCSpecialRequestsVC: BaseVC {
     internal let viewModel = HCSpecialRequestsVM()
     internal weak var delegate: HCSpecialRequestsDelegate?
     private let textFieldPlaceHolder: [String] = [LocalizedString.AirlineNameFlightNumberArrivalTime.localized,LocalizedString.SpecialRequestIfAny.localized]
+    var footerView: UIView?
     
     //Mark:- IBOutlets
     //================
@@ -41,6 +42,7 @@ class HCSpecialRequestsVC: BaseVC {
     
     override func initialSetup() {
         self.headerViewSetUp()
+        self.footerViewSetUp()
         self.registerNibs()
     }
     
@@ -58,9 +60,14 @@ class HCSpecialRequestsVC: BaseVC {
     
     //Mark:- Functions
     //================
+    private func footerViewSetUp() {
+        self.footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 35.0))
+        self.specialReqTableView.tableFooterView = self.footerView
+    }
+    
     private func headerViewSetUp() {
         self.headerView.delegate = self
-        self.headerView.firstLeftButtonLeadingConst.constant = 5
+        self.headerView.firstLeftButtonLeadingConst.constant = 7.0
         self.headerView.configureNavBar(title: LocalizedString.SpecialRequest.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
         self.headerView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.localized, selectedTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         self.headerView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Done.localized, selectedTitle: LocalizedString.Done.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))

@@ -47,6 +47,8 @@ class TravellersDetailsTableViewCell: UITableViewCell {
         self.dividerView.isHidden = true
         self.travellerName.font = AppFonts.Regular.withSize(16.0)
         self.travellerName.textColor = AppColors.themeBlack
+        
+        self.travellerProfileImage.makeCircular(borderWidth: 1.0, borderColor: AppColors.themeGray20)
     }
     
     internal func configCell(travellersImage: String, travellerName: String,firstName: String,lastName: String, isLastTravellerInRoom: Bool, isLastTraveller: Bool, isOtherBookingData: Bool = false, dob: String, salutation: String, age: String, congigureForHotelDetail: Bool ) {
@@ -60,7 +62,6 @@ class TravellersDetailsTableViewCell: UITableViewCell {
             self.travellerProfileImage.setImageWithUrl(travellersImage, placeholder: #imageLiteral(resourceName: "profilePlaceholder"), showIndicator: true)
             self.travellerProfileImage.contentMode = .scaleAspectFit
         } else {
-            self.travellerProfileImage.makeCircular(borderWidth: 1.0, borderColor: AppColors.themeGray20)
             //self.travellerProfileImage.image = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName, font: AppFonts.Regular.withSize(35.0))
             if congigureForHotelDetail {
                 self.travellerProfileImage.image = AppGlobals.shared.getEmojiIconFromAge(ageString: age, salutation: salutation)

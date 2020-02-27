@@ -35,7 +35,7 @@ class ImportContactVC: BaseVC {
     private var itemsCounts: [Int] = [0, 0, 0]
     
     // Parchment View
-    fileprivate var parchmentView : PagingViewController<PagingIndexItem>?
+    fileprivate var parchmentView : PagingViewController?
     
     private(set) var viewModel = ImportContactVM.shared
     private var currentIndex: Int = 0 {
@@ -147,7 +147,7 @@ class ImportContactVC: BaseVC {
     // Added to replace the existing page controller, added Hitesh Soni, 28-29Jan'2020
     private func setupParchmentPageController(){
         
-        self.parchmentView = PagingViewController<PagingIndexItem>()
+        self.parchmentView = PagingViewController()
         self.parchmentView?.menuItemSpacing = (self.view.width - 246.0) / 2
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 33.0, bottom: 0.0, right: 38.0)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 51)
@@ -165,6 +165,7 @@ class ImportContactVC: BaseVC {
         
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
+        self.parchmentView?.sizeDelegate = self
         self.parchmentView?.select(index: 0)
         
         self.parchmentView?.reloadData()
@@ -231,9 +232,6 @@ extension ImportContactVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.viewModel.search(forText: searchText)
     }
-    
-    
-    
 }
 
 extension ImportContactVC: TopNavigationViewDelegate {
@@ -316,15 +314,7 @@ extension ImportContactVC: ImportContactVMDelegate {
         case .google:
             item = self.viewModel.selectedGoogleContacts.count
             section = 2
-        default:
-            item = 0
         }
-        //        self.selectedContactsCollectionView.performBatchUpdates({
-        //            self.selectedContactsCollectionView.insertItems(at: [IndexPath(item: item, section: usingFor.rawValue)])
-        //            self.itemsCounts[usingFor.rawValue] += 1
-        //        }, completion: { (isDone) in
-        //                self.scrollCollectionToEnd()
-        //        })
         self.itemsCounts[usingFor.rawValue] = item
         self.selectionDidChanged()
         delay(seconds: 0.2) { [weak self] in
@@ -334,15 +324,8 @@ extension ImportContactVC: ImportContactVMDelegate {
         //self.scrollCollectionToEnd()
         
     }
-    
+
     func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor) {
-        
-        //        self.selectedContactsCollectionView.performBatchUpdates({
-        //            self.selectedContactsCollectionView.deleteItems(at: [IndexPath(item: fromIndex, section: usingFor.rawValue)])
-        //            self.itemsCounts[usingFor.rawValue] -= 1
-        //        }, completion: { (isDone) in
-        //            self.selectionDidChanged()
-        //        })
         self.itemsCounts[usingFor.rawValue] -= 1
         self.selectedContactsCollectionView.reloadData()
         self.selectionDidChanged()
@@ -359,15 +342,7 @@ extension ImportContactVC: ImportContactVMDelegate {
         case .google:
             item = self.viewModel.selectedGoogleContacts.count
             
-        default:
-            item = 0
         }
-        //        self.selectedContactsCollectionView.performBatchUpdates({
-        //            self.selectedContactsCollectionView.insertItems(at: [IndexPath(item: item, section: usingFor.rawValue)])
-        //            self.itemsCounts[usingFor.rawValue] += 1
-        //        }, completion: { (isDone) in
-        //                self.scrollCollectionToEnd()
-        //        })
         self.itemsCounts[usingFor.rawValue] = item
         self.selectionDidChanged()
         self.selectedContactsCollectionView.reloadData()
@@ -386,29 +361,10 @@ extension ImportContactVC: ImportContactVMDelegate {
         case .google:
             item = self.viewModel.selectedGoogleContacts.count
             
-        default:
-            item = 0
         }
-        
-        /*
-         if self.itemsCounts[usingFor.rawValue] > 0 {
-         for idx in 0..<self.itemsCounts[usingFor.rawValue] {
-         self.remove(fromIndex: idx, for: usingFor)
-         }
-         }
-         
-         
-         self.selectedContactsCollectionView.performBatchUpdates({
-         for idx in 0..<item {
-         self.selectedContactsCollectionView.insertItems(at: [IndexPath(item: idx, section: usingFor.rawValue)])
-         self.itemsCounts[usingFor.rawValue] += 1
-         }
-         }, completion: nil)
-         */
         self.itemsCounts[usingFor.rawValue] = item
         self.selectionDidChanged()
         self.selectedContactsCollectionView.reloadData()
-        
         
     }
     
@@ -426,19 +382,7 @@ extension ImportContactVC: ImportContactVMDelegate {
             item = self.viewModel.selectedGoogleContacts.count
             
         }
-        
-        /*
-         self.selectedContactsCollectionView.performBatchUpdates({
-         for idx in 0..<item {
-         self.selectedContactsCollectionView.deleteItems(at: [IndexPath(item: idx, section: usingFor.rawValue)])
-         self.itemsCounts[usingFor.rawValue] -= 1
-         }
-         }, completion: { (isDone) in
-         self.itemsCounts[usingFor.rawValue] = 0
-         self.selectedContactsCollectionView.reloadData()
-         self.selectionDidChanged()
-         })
-         */
+
         self.itemsCounts[usingFor.rawValue] = item
         self.selectionDidChanged()
         self.selectedContactsCollectionView.reloadData()
@@ -609,20 +553,20 @@ class ContactListCollectionFlowLayout: UICollectionViewFlowLayout {
     }
 }
 
-extension ImportContactVC: PagingViewControllerDataSource , PagingViewControllerDelegate {
-    func numberOfViewControllers<T>(in pagingViewController: PagingViewController<T>) -> Int where T : PagingItem, T : Comparable, T : Hashable {
+extension ImportContactVC: PagingViewControllerDataSource , PagingViewControllerDelegate, PagingViewControllerSizeDelegate {
+    func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
         self.allTabsStr.count
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, viewControllerForIndex index: Int) -> UIViewController where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
         return self.allChildVCs[index]
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemForIndex index: Int) -> T where T : PagingItem, T : Comparable, T : Hashable {
-        return PagingIndexItem(index: index, title:  self.allTabsStr[index]) as! T
+    func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
+        return PagingIndexItem(index: index, title:  self.allTabsStr[index])
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         
         // depending onthe text size, give the width of the menu item
         if let pagingIndexItem = pagingItem as? PagingIndexItem{
@@ -635,7 +579,7 @@ extension ImportContactVC: PagingViewControllerDataSource , PagingViewController
         return 100.0
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
         
         let pagingIndexItem = pagingItem as! PagingIndexItem
         self.currentIndex = pagingIndexItem.index

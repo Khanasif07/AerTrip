@@ -12,25 +12,23 @@ import Parchment
 // To display the view controllers, and how they traverse from one page to another
 extension HotelFilterVC: PagingViewControllerDataSource {
 
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, pagingItemForIndex index: Int) -> T {
+    func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
         
-        return MenuItem(title: HotelFilterVM.shared.allTabsStr[index], index: index, isSelected: filtersTabs[index].isSelected ) as! T
+        return MenuItem(title: HotelFilterVM.shared.allTabsStr[index], index: index, isSelected: filtersTabs[index].isSelected )
     }
 
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, viewControllerForIndex index: Int) -> UIViewController where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
       
         return self.allChildVCs[index]
     }
-    func numberOfViewControllers<T>(in pagingViewController: PagingViewController<T>) -> Int where T : PagingItem, T : Comparable, T : Hashable {
+    func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
         return HotelFilterVM.shared.allTabsStr.count
     }
 }
 
 // To handle the page view object properties, and how they look in the view.
-extension HotelFilterVC : PagingViewControllerDelegate{
-    
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
-
+extension HotelFilterVC : PagingViewControllerDelegate, PagingViewControllerSizeDelegate{
+    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         // depending onthe text size, give the width of the menu item
         if let pagingIndexItem = pagingItem as? MenuItem {
             let text = pagingIndexItem.title
@@ -42,7 +40,7 @@ extension HotelFilterVC : PagingViewControllerDelegate{
         return 100.0
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
         
         let pagingIndexItem = pagingItem as! MenuItem
         HotelFilterVM.shared.lastSelectedIndex = pagingIndexItem.index

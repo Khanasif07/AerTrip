@@ -73,12 +73,6 @@ extension HotelResultVC {
         
     }
     
-    func getPinnedHotelTemplate() {
-        if !self.viewModel.favouriteHotels.isEmpty {
-            // self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
-        }
-    }
-    
     // MARK: Show progress
     
     @objc func setProgress() {
@@ -291,22 +285,9 @@ extension HotelResultVC {
         guard scrollView === tableViewVertical else {
             return
         }
-        
-       // updateHeaderView(scrollView)
+        updateHeaderView(scrollView)
         
     }
-    
-    //    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-    //        self.manageTopHeader(scrollView)
-    //        self.oldScrollPosition = scrollView.contentOffset
-    //
-    //        indexOfCellBeforeDragging = indexOfMajorCell()
-    //    }
-    //
-    //    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-    //        self.manageTopHeader(scrollView)
-    //    }
-    
     
     
     // MARK: - Manage Header animation
