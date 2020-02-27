@@ -24,9 +24,9 @@ extension FavouriteHotelsVC: PagingViewControllerDataSource {
 }
 
 // To handle the page view object properties, and how they look in the view.
-extension FavouriteHotelsVC : PagingViewControllerDelegate{
+extension FavouriteHotelsVC : PagingViewControllerDelegate, PagingViewControllerSizeDelegate{
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController, widthFogingItem pagingItem: T, isSelected: Bool) -> CGFloat? {
+    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
 
         // depending onthe text size, give the width of the menu item
         if let pagingIndexItem = pagingItem as? PagingIndexItem{

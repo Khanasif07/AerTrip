@@ -221,6 +221,7 @@ class HotelFilterVC: BaseVC {
         self.dataContainerView.addSubview(self.parchmentView!.view)
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
+        self.parchmentView?.sizeDelegate = self
         self.parchmentView?.select(index: selectedIndex)
         
         self.parchmentView?.reloadData()

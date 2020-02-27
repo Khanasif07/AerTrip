@@ -121,6 +121,7 @@ class FavouriteHotelsVC: BaseVC {
            
            self.parchmentView?.dataSource = self
            self.parchmentView?.delegate = self
+           self.parchmentView?.sizeDelegate = self
            self.parchmentView?.select(index: 0)
            
            self.parchmentView?.reloadData()

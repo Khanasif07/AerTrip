@@ -27,10 +27,8 @@ extension HotelFilterVC: PagingViewControllerDataSource {
 }
 
 // To handle the page view object properties, and how they look in the view.
-extension HotelFilterVC : PagingViewControllerDelegate{
-    
-    func pagingViewController<T>(_ pagingViewController: PagingViewController, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
-
+extension HotelFilterVC : PagingViewControllerDelegate, PagingViewControllerSizeDelegate{
+    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         // depending onthe text size, give the width of the menu item
         if let pagingIndexItem = pagingItem as? MenuItem {
             let text = pagingIndexItem.title
@@ -42,7 +40,7 @@ extension HotelFilterVC : PagingViewControllerDelegate{
         return 100.0
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
         
         let pagingIndexItem = pagingItem as! MenuItem
         HotelFilterVM.shared.lastSelectedIndex = pagingIndexItem.index

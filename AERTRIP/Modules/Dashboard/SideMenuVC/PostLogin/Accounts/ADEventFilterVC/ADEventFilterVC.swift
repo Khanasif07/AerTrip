@@ -198,6 +198,7 @@ class ADEventFilterVC: BaseVC {
         
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
+        self.parchmentView?.sizeDelegate = self
         self.parchmentView?.select(index: 0)
         
         self.parchmentView?.reloadData()
@@ -308,7 +309,7 @@ extension ADEventFilterVC: ADVoucherTypeVCDelegate, TravelDateVCDelegate {
     }
 }
 
-extension ADEventFilterVC : PagingViewControllerDataSource , PagingViewControllerDelegate {
+extension ADEventFilterVC : PagingViewControllerDataSource , PagingViewControllerDelegate, PagingViewControllerSizeDelegate {
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
         self.allTabsStr.count
     }
@@ -321,7 +322,7 @@ extension ADEventFilterVC : PagingViewControllerDataSource , PagingViewControlle
         return PagingIndexItem(index: index, title:  self.allTabsStr[index])
     }
     
-    func pagingViewController(_ pagingViewController: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat?{
+    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         
         // depending onthe text size, give the width of the menu item
         if let pagingIndexItem = pagingItem as? PagingIndexItem{

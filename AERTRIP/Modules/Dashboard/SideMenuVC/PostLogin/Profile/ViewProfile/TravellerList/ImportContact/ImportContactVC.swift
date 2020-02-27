@@ -165,6 +165,7 @@ class ImportContactVC: BaseVC {
         
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
+        self.parchmentView?.sizeDelegate = self
         self.parchmentView?.select(index: 0)
         
         self.parchmentView?.reloadData()
@@ -552,7 +553,7 @@ class ContactListCollectionFlowLayout: UICollectionViewFlowLayout {
     }
 }
 
-extension ImportContactVC: PagingViewControllerDataSource , PagingViewControllerDelegate {
+extension ImportContactVC: PagingViewControllerDataSource , PagingViewControllerDelegate, PagingViewControllerSizeDelegate {
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
         self.allTabsStr.count
     }
@@ -565,7 +566,7 @@ extension ImportContactVC: PagingViewControllerDataSource , PagingViewController
         return PagingIndexItem(index: index, title:  self.allTabsStr[index])
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         
         // depending onthe text size, give the width of the menu item
         if let pagingIndexItem = pagingItem as? PagingIndexItem{
@@ -578,7 +579,7 @@ extension ImportContactVC: PagingViewControllerDataSource , PagingViewController
         return 100.0
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
         
         let pagingIndexItem = pagingItem as! PagingIndexItem
         self.currentIndex = pagingIndexItem.index

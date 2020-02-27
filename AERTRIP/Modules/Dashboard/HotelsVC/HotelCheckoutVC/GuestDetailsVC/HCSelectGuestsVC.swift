@@ -201,6 +201,7 @@ class HCSelectGuestsVC: BaseVC {
         
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
+        self.parchmentView?.sizeDelegate = self
         self.parchmentView?.select(index: 0)
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
@@ -565,7 +566,7 @@ extension HCSelectGuestsVC: SelectedContactCollectionCellDelegate {
 }
 
 
-extension HCSelectGuestsVC: PagingViewControllerDataSource , PagingViewControllerDelegate {
+extension HCSelectGuestsVC: PagingViewControllerDataSource , PagingViewControllerDelegate, PagingViewControllerSizeDelegate {
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
         return PagingIndexItem(index: index, title:  self.allTabsStr[index].title)
     }
@@ -578,11 +579,7 @@ extension HCSelectGuestsVC: PagingViewControllerDataSource , PagingViewControlle
          return self.allChildVCs[index]
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController, pagingItemForIndex index: Int) -> T where T : PagingItem, T : Comparable, T : Hashable {
-        return PagingIndexItem(index: index, title:  self.allTabsStr[index].title) as! T
-    }
-    
-    func pagingViewController<T>(_ pagingViewController: PagingViewController, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
+    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
 
         // depending onthe text size, give the width of the menu item
         if let pagingIndexItem = pagingItem as? PagingIndexItem{

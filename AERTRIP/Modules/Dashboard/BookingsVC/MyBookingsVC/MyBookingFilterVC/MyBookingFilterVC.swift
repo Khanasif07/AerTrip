@@ -190,6 +190,7 @@ class MyBookingFilterVC: BaseVC {
         
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
+        self.parchmentView?.sizeDelegate = self
         self.parchmentView?.select(index: 0)
         
         self.parchmentView?.reloadData()
@@ -303,7 +304,19 @@ extension MyBookingFilterVC {
     }
 }
 
-extension MyBookingFilterVC: PagingViewControllerDataSource , PagingViewControllerDelegate {
+extension MyBookingFilterVC: PagingViewControllerDataSource , PagingViewControllerDelegate, PagingViewControllerSizeDelegate {
+    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
+        // depending onthe text size, give the width of the menu item
+        if let pagingIndexItem = pagingItem as? MenuItem {
+            let text = pagingIndexItem.title
+            
+            let font = AppFonts.SemiBold.withSize(16.0)
+            return text.widthOfString(usingFont: font) + 20.0
+        }
+        
+        return 100.0
+    }
+    
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
         self.allTabsStr.count
     }
@@ -314,19 +327,6 @@ extension MyBookingFilterVC: PagingViewControllerDataSource , PagingViewControll
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
         return MenuItem(title: self.allTabsStr[index], index: index, isSelected: isFilterArray[index] )
-    }
-    
-    func pagingViewController<T>(_ pagingViewController: PagingViewController, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat?{
-        
-        // depending onthe text size, give the width of the menu item
-        if let pagingIndexItem = pagingItem as? MenuItem {
-            let text = pagingIndexItem.title
-            
-            let font = AppFonts.SemiBold.withSize(16.0)
-            return text.widthOfString(usingFont: font) + 20.0
-        }
-        
-        return 100.0
     }
     
     func pagingViewController<T>(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
