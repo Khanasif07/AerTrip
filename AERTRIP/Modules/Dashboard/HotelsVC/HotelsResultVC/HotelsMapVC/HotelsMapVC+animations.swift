@@ -25,19 +25,6 @@ extension HotelsMapVC {
         }
 
         animator.startAnimation()
-        
-//        self.headerContatinerViewHeightConstraint.constant = 100
-//        self.tableViewTopConstraint.constant = 100
-//        self.mapContainerTopConstraint.constant = 100
-//        self.searchBarContainerView.backgroundColor = AppColors.themeWhite
-//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: { [weak self] in
-//            guard let sSelf = self else {return}
-//            sSelf.searchBarContainerView.frame = sSelf.searchIntitialFrame
-//            sSelf.titleLabel.transform = .identity
-//            sSelf.descriptionLabel.transform = .identity
-//            sSelf.mapContainerView.layoutSubviews()
-//            sSelf.view.layoutIfNeeded()
-//        })
     }
     
     func animateHeaderToMapView() {
@@ -62,26 +49,9 @@ extension HotelsMapVC {
         }
         
         animator.startAnimation()
-        
-//        UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: { [weak self] in
-//            guard let sSelf = self else {return}
-//            sSelf.searchBarContainerView.frame = sSelf.searchBarFrame(isInSearchMode: (sSelf.hoteResultViewType == .ListView))
-//            sSelf.titleLabel.transform = CGAffineTransform(translationX: 0, y: -60)
-//            sSelf.descriptionLabel.transform = CGAffineTransform(translationX: 0, y: -60)
-//            sSelf.mapContainerView.layoutSubviews()
-//            sSelf.view.layoutIfNeeded()
-//        }, completion: { [weak self](isDone) in
-//            guard let sSelf = self else {return}
-//            sSelf.view.bringSubviewToFront(sSelf.searchBarContainerView)
-//        })
     }
     
     func searchBarFrame(isInSearchMode: Bool) -> CGRect {
-//        return CGRect(x: isInSearchMode ? self.searchIntitialFrame.origin.x  - 2 :   self.searchIntitialFrame.origin.x + 20
-//            , y: self.searchIntitialFrame.origin.y, width: self.searchIntitialFrame.width - (isInSearchMode ? 64.0 : 100.0), height: 50)
-//        return CGRect(x: isInSearchMode ? self.searchIntitialFrame.origin.x  - 2 :   self.searchIntitialFrame.origin.x + 20
-//        , y: self.searchIntitialFrame.origin.y, width: self.searchIntitialFrame.width - (20), height: 50)
-        //Golu Change
         return CGRect(x: isInSearchMode ? self.searchIntitialFrame.origin.x + 3 :   self.searchIntitialFrame.origin.x + 25
         , y: self.searchIntitialFrame.origin.y - 2, width: self.searchIntitialFrame.width - (20), height: 50)
         
@@ -110,10 +80,7 @@ extension HotelsMapVC {
     }
     
     func animateCollectionView(isHidden: Bool, animated: Bool, completion: ((Bool) -> Void)? = nil) {
-//        self.collectionView.translatesAutoresizingMaskIntoConstraints = true
         let hiddenFrame: CGRect = CGRect(x: hotelsMapCV.width, y: (UIDevice.screenHeight - hotelsMapCV.height), width: hotelsMapCV.width, height: hotelsMapCV.height)
-//        let shownFrame: CGRect = CGRect(x: 0.0, y: (UIDevice.screenHeight - (collectionView.height + AppFlowManager.default.safeAreaInsets.bottom)), width: collectionView.width, height: collectionView.height)
-        
         if !isHidden {
             self.hotelsMapCV.isHidden = false
             self.floatingButtonBackView.isHidden = false
@@ -126,20 +93,11 @@ extension HotelsMapVC {
         let animator = UIViewPropertyAnimator(duration: animated ? AppConstants.kAnimationDuration : 0.0, curve: .easeInOut) {[weak self] in
             
             guard let sSelf = self else {return}
-            // map resize animation
-//            sSelf.mapView?.frame = sSelf.mapContainerView.bounds
-            
-            // vertical list animation
-//            sSelf.collectionViewLeadingConstraint.constant = isHidden ? -((hiddenFrame.width)) : 0.0
             sSelf.hotelsMapCV.alpha = isHidden ? 0.0 : 1.0
             sSelf.floatingViewInitialConstraint = isHidden ? 10.0 : (hiddenFrame.height)
             // floating buttons animation
             sSelf.floatingViewBottomConstraint.constant = isHidden ? 10.0 : (hiddenFrame.height)
             sSelf.floatingButtonBackView.alpha = isHidden ? 0.0 : 1.0
-            
-            // horizontal list animation
-//            sSelf.tableViewTopConstraint.constant = isHidden ? 100.0 : UIDevice.screenHeight
-//            sSelf.tableViewVertical.alpha = isHidden ? 1.0 : 0.0
             sSelf.cardGradientView.alpha = isHidden ? 0.0 : 1.0
             sSelf.collectionViewBottomConstraint.constant = 0.0
             sSelf.view.layoutIfNeeded()
@@ -158,33 +116,6 @@ extension HotelsMapVC {
         }
         
         animator.startAnimation()
-        
-//        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
-//            // map resize animation
-//            self.mapView?.frame = mapFrame
-//
-//            // vertical list animation
-//            self.collectionView.frame = isHidden ? hiddenFrame : shownFrame
-//            self.collectionView.alpha = isHidden ? 0.0 : 1.0
-//            self.floatingViewInitialConstraint = isHidden ? 10.0 : (hiddenFrame.height)
-//            // floating buttons animation
-//            self.floatingViewBottomConstraint.constant = isHidden ? 10.0 : (hiddenFrame.height)
-//            self.floatingButtonBackView.alpha = isHidden ? 0.0 : 1.0
-//
-//            // horizontal list animation
-//            self.tableViewTopConstraint.constant = isHidden ? 100.0 : UIDevice.screenHeight
-//            self.tableViewVertical.alpha = isHidden ? 1.0 : 0.0
-//
-//            self.view.layoutIfNeeded()
-//        }, completion: { _ in
-//            if isHidden {
-//                self.floatingButtonBackView.isHidden = true
-//                self.collectionView.isHidden = true
-//                self.relocateSwitchButton(shouldMoveUp: true, animated: true)
-//                self.cardGradientView.isHidden = true
-//            }
-//            self.view.bringSubviewToFront(self.collectionView)
-//        })
     }
     
     // Animate button on List View

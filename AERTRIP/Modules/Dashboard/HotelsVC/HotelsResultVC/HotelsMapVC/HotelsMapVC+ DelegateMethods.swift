@@ -19,10 +19,7 @@ extension HotelsMapVC: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         animateHeaderToMapView()
-        //self.predicateStr = searchBar.text ?? ""
         self.viewModel.fetchRequestType = .Searching
-        //        self.searchForText(searchBar.text ?? "")
-        //        self.loadSaveData()
         self.hotelSearchTableView.backgroundView = nil
         self.showSearchAnimation()
         self.reloadHotelList()
@@ -72,8 +69,6 @@ extension HotelsMapVC: ATSwitcherChangeValueDelegate {
         if value {
                 self.floatingButtonOnMapView.isHidden = false
             self.animateButton()
-            // nitin self.getFavouriteHotels(shouldReloadData: false)
-            //self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         }
         else {
             self.hideFavsButtons()
@@ -96,9 +91,6 @@ extension HotelsMapVC: ATSwitcherChangeValueDelegate {
 extension HotelsMapVC: PKBottomSheetDelegate {
     func updateNavWhileInMapMode(isHidden: Bool) {
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
-//            self?.headerContatinerViewHeightConstraint.constant = isHidden ? 0.0 : 50.0
-//            self?.tableViewTopConstraint.constant = isHidden ? 0.0 : 50.0
-//            self?.mapContainerTopConstraint.constant = isHidden ? 0.0 : 50.0
             self?.progressView.isHidden = true
             self?.view.layoutIfNeeded()
         }
@@ -216,7 +208,7 @@ extension HotelsMapVC: HotelResultDelegate {
                 self.viewModel.deleteHotelsDataForCollectionView(hotel: hotel)
                 self.hotelsMapCV.reloadData()
                 if let loc = self.getLocationObject(fromLocation: locStr) {
-                    self.deleteMarker(atLocation: loc)
+//                    self.deleteMarker(atLocation: loc)
                     if let selectedLocation = self.displayingHotelLocation, selectedLocation == loc {
                         self.displayingHotelLocation = nil
                     }
@@ -226,30 +218,16 @@ extension HotelsMapVC: HotelResultDelegate {
         } else {
             self.viewModel.getFavouriteHotels(shouldReloadData: false)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
         }
-        if self.viewModel.isUnpinHotelTapped {
-            self.reloadHotelList()
-            self.viewModel.isUnpinHotelTapped = false
-        } else {
-            self.updateFavOnList(forIndexPath: self.selectedIndexPath)
-        }
         self.updateFavouriteAnnotationDetail(duration: 0.4)
-//        self.showHotelOnMap(duration: 0.4)
-        
     }
     
     func updateFavouriteFail(errors: ErrorCodes, isHotelFavourite: Bool) {
         if self.switchView.on, !isHotelFavourite  {
             //self.loadSaveData()
             if let indexPath = self.selectedIndexPath, self.viewModel.collectionViewLocArr.indices.contains(indexPath.item),let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.item]] as? [HotelSearched], let hotel = hData.first  {
-                let locStr = self.viewModel.collectionViewLocArr[indexPath.item]
+//                let locStr = self.viewModel.collectionViewLocArr[indexPath.item]
                 self.viewModel.deleteHotelsDataForCollectionView(hotel: hotel)
                 self.hotelsMapCV.reloadData()
-                if let loc = self.getLocationObject(fromLocation: locStr) {
-                    self.deleteMarker(atLocation: loc)
-                    if let selectedLocation = self.displayingHotelLocation, selectedLocation == loc {
-                        self.displayingHotelLocation = nil
-                    }
-                }
             }
             self.viewModel.getFavouriteHotels(shouldReloadData: true)
         }else {
@@ -349,7 +327,7 @@ extension HotelsMapVC: HotelFilteVCDelegate {
         HotelFilterVM.shared.resetToDefault()
         self.viewModel.loadSaveData()
         self.appleMap.removeAnnotations(self.appleMap.annotations)
-        self.addAllMarker()
+        self.addMakerToMap()
         
         //manage switch button when clear all filters
         // nitin self.getFavouriteHotels(shouldReloadData: false)
@@ -380,7 +358,7 @@ extension HotelsMapVC: HotelFilteVCDelegate {
         }
         self.filterButton.isSelected =  !(HotelFilterVM.shared.isSortingApplied || self.viewModel.isFilterApplied) ? false : true
         self.appleMap.removeAnnotations(self.appleMap.annotations)
-        self.addAllMarker()
+        self.addMakerToMap()
         
         
     }

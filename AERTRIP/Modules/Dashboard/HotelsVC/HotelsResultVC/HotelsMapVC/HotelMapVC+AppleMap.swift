@@ -58,11 +58,14 @@ extension HotelsMapVC : MKMapViewDelegate{
     }
     
     func addAllMarker() {
-        
-        if self.viewModel.collectionViewList.keys.count != 0{
-            guard let location = self.getLocationObject(fromLocation: self.viewModel.collectionViewList.keys.first!) else{return}
+        if self.viewModel.collectionViewLocArr.count != 0{
+            guard let location = self.getLocationObject(fromLocation: self.viewModel.collectionViewLocArr.first!) else{return}
             self.setRegionToShow(location: location)
         }
+        self.addMakerToMap()
+    }
+    
+    func addMakerToMap(){
         self.addCityLocationMarker()
         self.viewModel.collectionViewList.keys.forEach { (locStr) in
             if let location = self.getLocationObject(fromLocation: locStr), let allHotels = self.viewModel.collectionViewList[locStr] as? [HotelSearched] {
@@ -84,6 +87,7 @@ extension HotelsMapVC : MKMapViewDelegate{
                 self.appleMap.addAnnotation(marker)
             }
         }
+        
     }
     
     
@@ -139,30 +143,28 @@ extension HotelsMapVC : MKMapViewDelegate{
     
     func updateSelectedMarker(_ annotation: MKAnnotation?, isTappedMarker:Bool = true){
         self.removePreviouseSelected()
-        if let anno = annotation as? MyAnnotation{
-            self.updateMarkerImageFor(annotation: anno, isSelected: true, isDetaisShow: true)
-            if !self.detailsShownMarkers.contains(anno){
-                detailsShownMarkers.forEach { annotation in
-                    self.updateMarkerImageFor(annotation: annotation, isSelected: false, isDetaisShow: false)
-                }
-                detailsShownMarkers = []
-                detailsShownMarkers.append(anno)
+        guard  let anno = annotation as? MyAnnotation else {return}
+        self.updateMarkerImageFor(annotation: anno, isSelected: true, isDetaisShow: true)
+        if !self.detailsShownMarkers.contains(anno){
+            detailsShownMarkers.forEach { annotation in
+                self.updateMarkerImageFor(annotation: annotation, isSelected: false, isDetaisShow: false)
             }
-            
+            detailsShownMarkers = []
+            detailsShownMarkers.append(anno)
         }
+        self.setRegionToShow(location: anno.coordinate)
         updateRegionMarker()
-
-        guard let hotelMarker = annotation as? MyAnnotation, isTappedMarker else { return}
-        if hotelMarker.markerType == .customMarker{
-            if let data = hotelMarker.hotel {
-                movetoDetailPage(data: data)
-            }
-        } else if hotelMarker.markerType == .clusterMarker {
-            if let data = hotelMarker.hotelTtems?.first {
-                movetoDetailPage(data: data)
+        if isTappedMarker{
+            if anno.markerType == .customMarker{
+                if let data = anno.hotel {
+                    movetoDetailPage(data: data)
+                }
+            } else if anno.markerType == .clusterMarker {
+                if let data = anno.hotelTtems?.first {
+                    movetoDetailPage(data: data)
+                }
             }
         }
-        
     }
     
     
@@ -170,7 +172,7 @@ extension HotelsMapVC : MKMapViewDelegate{
     
     func removePreviouseSelected(){
         var selectedAnnotation = MyAnnotation(coordinate: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0))
-        if let index = self.detailsShownMarkers.firstIndex(where: {$0.markerImageView.isSelected || $0.clusterView.isSelected}){
+        if let index = self.detailsShownMarkers.firstIndex(where: {($0.markerImageView?.isSelected ?? false)||( $0.clusterView?.isSelected ?? false)}){
             selectedAnnotation = self.detailsShownMarkers[index]
         }
         
@@ -178,14 +180,14 @@ extension HotelsMapVC : MKMapViewDelegate{
             self.updateMarkerImageFor(annotation: anno, isSelected: false, isDetaisShow: false)
         }
         self.detailsShownMarkers = []
-        if selectedAnnotation.markerImageView.connectorView != nil{
-            selectedAnnotation.markerImageView.isSelected = true
-            appleMap.view(for: selectedAnnotation)?.image = selectedAnnotation.markerImageView.asImage()
+        if selectedAnnotation.markerImageView?.connectorView != nil{
+            selectedAnnotation.markerImageView?.isSelected = true
+            appleMap.view(for: selectedAnnotation)?.image = selectedAnnotation.markerImageView?.asImage() ?? UIImage()
             selectedAnnotation.isSelected = true
             self.detailsShownMarkers.append(selectedAnnotation)
-        }else if selectedAnnotation.clusterView.hotelTtems != nil{
-            selectedAnnotation.clusterView.isSelected = true
-            appleMap.view(for: selectedAnnotation)?.image = selectedAnnotation.clusterView.asImage()
+        }else if selectedAnnotation.clusterView?.hotelTtems != nil{
+            selectedAnnotation.clusterView?.isSelected = true
+            appleMap.view(for: selectedAnnotation)?.image = selectedAnnotation.clusterView?.asImage() ?? UIImage()
             selectedAnnotation.isSelected = true
             self.detailsShownMarkers.append(selectedAnnotation)
         }
@@ -198,27 +200,40 @@ extension HotelsMapVC : MKMapViewDelegate{
     func updateFavouriteAnnotationDetail(duration: Double, index: Int? = nil, isSwitchOn:Bool = false){
         delay(seconds: duration) { [weak self] in
             guard let self = self else {return}
-            let indexOfMajorCell = index ?? self.indexOfMajorCell()
-            if self.viewModel.collectionViewLocArr.indices.contains(indexOfMajorCell) {
-                let locStr = self.viewModel.collectionViewLocArr[indexOfMajorCell]
-                if let loc = self.getLocationObject(fromLocation: locStr) {
-                    self.displayingHotelLocation = loc
-                    guard let currentAnnotation = self.appleMap.annotations.first(where: {self.compareTwoCoordinate($0.coordinate, loc)}) as? MyAnnotation, let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexOfMajorCell]] as? [HotelSearched] else {return}
-                    let switchOn = (!isSwitchOn) ? self.switchView.on : isSwitchOn
-                    
-                    if currentAnnotation.markerType == .clusterMarker{
-                        self.updateMarkerImageForFavourite(annotation: currentAnnotation, allHotel: hData, isSwitchOn: switchOn)
-                    }else{
-                        self.updateMarkerImageForFavourite(annotation: currentAnnotation,hotel: hData.first, isSwitchOn: switchOn)
-                    }
-                   
+            let index = index ?? self.getCurrentCollectionIndex()
+            if self.viewModel.collectionViewLocArr.indices.contains(index) {
+                let locStr = self.viewModel.collectionViewLocArr[index]
+                guard let loc = self.getLocationObject(fromLocation: locStr) else{return}
+                self.displayingHotelLocation = loc
+                guard let currentAnnotation = self.appleMap.annotations.first(where: {self.compareTwoCoordinate($0.coordinate, loc)}) as? MyAnnotation,
+                    let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[index]] as? [HotelSearched] else {
+                        if self.appleMap.annotations.count == 2{ self.updateSeletedUnfavouriteAll() }
+                        return
+                }
+                let switchOn = (!isSwitchOn) ? self.switchView.on : isSwitchOn
+                if self.appleMap.annotations.count == 2{
+                    self.updateSeletedUnfavouriteAll()
+                }else if currentAnnotation.markerType == .clusterMarker{
+                    self.updateMarkerImageForFavourite(annotation: currentAnnotation, allHotel: hData, isSwitchOn: switchOn)
+                }else{
+                    self.updateMarkerImageForFavourite(annotation: currentAnnotation,hotel: hData.first, isSwitchOn: switchOn)
                 }
             }
         }
+        
+    }
+    
+    func updateSeletedUnfavouriteAll(){
+        self.appleMap.removeAnnotations(self.appleMap.annotations)
+        self.addAllMarker()
+        guard self.viewModel.collectionViewLocArr.count != 0,
+            let location = self.getLocationObject(fromLocation: self.viewModel.collectionViewLocArr.first!),
+            let anno = self.appleMap.annotations.first(where: {self.compareTwoCoordinate($0.coordinate, location)})else{return}
+        self.updateSelectedMarker(anno,isTappedMarker: false)
+        
     }
     
     func updateMarkerImageForFavourite(annotation: MyAnnotation,hotel:HotelSearched? = nil, allHotel:[HotelSearched] = [], isSwitchOn:Bool){
-        
         if isSwitchOn{
             for annot in self.appleMap.annotations{
                 let coord = "\(annot.coordinate.latitude),\(annot.coordinate.longitude)"
@@ -227,24 +242,23 @@ extension HotelsMapVC : MKMapViewDelegate{
                     return
                 }
             }
-        }else if self.viewModel.isResetAnnotation{
-            self.appleMap.removeAnnotations(self.appleMap.annotations)
-            self.addAllMarker()
-            self.viewModel.isResetAnnotation = false
-            if let str = self.viewModel.collectionViewLocArr.first, let loc = self.getLocationObject(fromLocation: str){
-                self.selecteMarkerOnScrollCollection(location: loc)
-            }
         }
         else{
             if let hotel = hotel{
-                let isShown = annotation.markerImageView.isDetailsShown
+                guard let markerView = annotation.markerImageView else {return}
+                let isShown = markerView.isDetailsShown
                 annotation.hotel = hotel
-                annotation.markerImageView.hotel = hotel
+                markerView.hotel = hotel
                 self.updateMarkerImageFor(annotation: annotation, isSelected: annotation.isSelected, isDetaisShow: isShown)
             }else{
+                guard let markerView = annotation.clusterView else {return}
                 annotation.hotelTtems = allHotel
-                annotation.clusterView.hotelTtems = allHotel
+                markerView.hotelTtems = allHotel
                 self.updateMarkerImageFor(annotation: annotation, isSelected: annotation.isSelected, isDetaisShow: true)
+            }
+            if self.appleMap.annotations.count == 2{
+                self.appleMap.removeAnnotations(self.appleMap.annotations)
+                self.addAllMarker()
             }
         }
     }
@@ -263,7 +277,7 @@ extension HotelsMapVC : MKMapViewDelegate{
         switch annotation.markerType{
         case .clusterMarker:
             let view = annotation.clusterView
-            return view.asImage()
+            return view?.asImage() ?? UIImage()
         case .city:
             if  let view = annotation.cityMarkerView{
                 let img = view.asImage()
@@ -271,10 +285,10 @@ extension HotelsMapVC : MKMapViewDelegate{
             }
             return UIImage()
         default:
-            if  annotation.markerImageView.isDetailsShown || annotation.markerImageView.isSelected{
+            guard let markerView = annotation.markerImageView else {return UIImage()}
+            if  markerView.isDetailsShown || markerView.isSelected{
                 detailsShownMarkers.append(annotation)
-                let view = annotation.markerImageView
-                return view.asImage()
+                return markerView.asImage()
             }else {
                 return UIImage(named: "clusterSmallTag") ?? UIImage()
             }
@@ -288,18 +302,20 @@ extension HotelsMapVC : MKMapViewDelegate{
         switch annotation.markerType{
             
         case .clusterMarker:
-            annotation.clusterView.isSelected = isSelected
-            let img = annotation.clusterView.asImage()
+            guard let markerView =  annotation.clusterView else {return}
+            markerView.isSelected = isSelected
+            let img = markerView.asImage()
             self.appleMap.view(for: annotation)?.image = img
         case .city:break;
         default:
-            annotation.markerImageView.isDetailsShown = isDetaisShow
-            if annotation.markerImageView.connectorView != nil {
-                annotation.markerImageView.isSelected = isSelected
+            guard let markerView =  annotation.markerImageView else {return}
+                markerView.isDetailsShown = isDetaisShow
+            if markerView.connectorView != nil {
+                markerView.isSelected = isSelected
             }
-            if  annotation.markerImageView.isDetailsShown || annotation.markerImageView.isSelected{
-                let view = annotation.markerImageView
-                self.appleMap.view(for: annotation)?.image = view.asImage()
+            if  markerView.isDetailsShown || markerView.isSelected{
+
+                self.appleMap.view(for: annotation)?.image = markerView.asImage()
             }else {
                 self.appleMap.view(for: annotation)?.image = UIImage(named: "clusterSmallTag") ?? UIImage()
             }
@@ -307,19 +323,14 @@ extension HotelsMapVC : MKMapViewDelegate{
     }
 
     func compareTwoCoordinate(_ first:CLLocationCoordinate2D, _ second: CLLocationCoordinate2D)-> Bool{
-        
         return (first.latitude == second.latitude && first.longitude == second.longitude)
-        
     }
     
     func setRegionToShow(location: CLLocationCoordinate2D){
-        
         self.appleMap.setRegion(MKCoordinateRegion(center: location, span: self.currentMapSpan), animated: true)
-        
     }
     
 }
-
 
 class MyAnnotation: NSObject, MKAnnotation {
     dynamic var coordinate: CLLocationCoordinate2D
@@ -337,8 +348,8 @@ class MyAnnotation: NSObject, MKAnnotation {
     var hotel: HotelSearched?
     var hotelTtems: [HotelSearched]?
     var markerType:TypeOfMarker = .none
-    var markerImageView = CustomMarker()
-    var clusterView = ClusterMarkerView()
+    var markerImageView:CustomMarker?
+    var clusterView:ClusterMarkerView?
     var cityMarkerView:NewCityMarkerView?
     init(coordinate: CLLocationCoordinate2D, title: String? = nil, subtitle: String? = nil) {
         self.coordinate = coordinate
@@ -349,11 +360,9 @@ class MyAnnotation: NSObject, MKAnnotation {
     }
 }
 
-
-let mercatorRadiu = 85445659.44705395
-let maxZoomLevel = 20.0
-
 extension MKMapView {
+    private var mercatorRadiu:Double{return 85445659.44705395}
+    private var maxZoomLevel:Double{return 20.0}
     func getZoomLevel() -> Double {
         let longitudeDelta = region.span.longitudeDelta
         let mapWidthInPixels = bounds.size.width
@@ -362,7 +371,6 @@ extension MKMapView {
         if zoomer < 0 {
             zoomer = 0
         }
-        //  zoomer = round(zoomer);
         return zoomer
     }
 }

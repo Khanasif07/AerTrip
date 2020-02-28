@@ -88,10 +88,9 @@ extension HotelsMapVC: UITableViewDataSource, UITableViewDelegate {
         self.view.endEditing(true)
         self.selectedIndexPath = indexPath
         let hData = self.viewModel.searchedHotels[indexPath.row]
+        self.seletedIndexForSearchTable = self.viewModel.collectionViewLocArr.firstIndex(of: ("\(hData.lat ?? ""),\(hData.long ?? "")"))
             if let cell = tableView.cellForRow(at: indexPath) as? HotelSearchTableViewCell{
-//                AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: hData, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest){
-//                    self.statusBarColor = AppColors.themeWhite
-//                }
+
             presentController(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
                 self.selectedIndexPath = indexPath
             }

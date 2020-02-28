@@ -60,9 +60,6 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         didSet {
             self.hotelsMapCV.registerCell(nibName: HotelCardCollectionViewCell.reusableIdentifier)
             self.hotelsMapCV.registerCell(nibName: HotelGroupCardCollectionViewCell.reusableIdentifier)
-            //            self.hotelsMapCV.isPagingEnabled = true
-            //            self.hotelsMapCV.delegate = self
-            //            self.hotelsMapCV.dataSource = self
             self.hotelsMapCV.showsVerticalScrollIndicator = false
             self.hotelsMapCV.showsHorizontalScrollIndicator = false
             self.hotelsMapCV.backgroundColor = AppColors.clear
@@ -111,16 +108,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     var searchIntitialFrame: CGRect = .zero
     var aerinFilterUndoCompletion : (() -> Void)?
     weak var hotelsGroupExpendedVC: HotelsGroupExpendedVC?
-    var displayingHotelLocation: CLLocationCoordinate2D? {
-        didSet {
-            if let oLoc = oldValue, displayingHotelLocation != nil {
-                self.updateMarker(atLocation: oLoc, isSelected: false)
-            }
-            if let loc = displayingHotelLocation {
-                self.updateMarker(atLocation: loc)
-            }
-        }
-    }
+    var displayingHotelLocation: CLLocationCoordinate2D?
     
     var visibleMapHeightInVerticalMode: CGFloat = 160.0
     var oldScrollPosition: CGPoint = CGPoint.zero
@@ -190,6 +178,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     
     //Manage Transition Created by golu
     var detailsShownMarkers = [MyAnnotation]()
+    var seletedIndexForSearchTable:Int?
     var currentMapSpan = MKCoordinateSpan(latitudeDelta: 0.025, longitudeDelta:  0.035)
     internal var transition: CardTransition?
     override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
@@ -265,9 +254,6 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         super.viewWillDisappear(animated)
         self.statusBarColor = AppColors.clear
         backView.removeFromSuperview()
-        //        if  self.isMovingFromParent {
-        //            backView.removeFromSuperview()
-        //        }
     }
     
     
@@ -278,12 +264,9 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.gradientLayer?.frame = self.cardGradientView.bounds
-        
-        //        self.configureCollectionViewLayoutItemSize()
     }
     
     deinit {
-        //        CoreDataManager.shared.deleteData("HotelSearched")
         printDebug("HotelResultVC deinit")
     }
     
@@ -295,15 +278,18 @@ class HotelsMapVC: StatusBarAnimatableViewController {
             self.viewModel.hotelListOnPreferencesApi()
         }
         else if let _ = note.object as? HotelDetailsVC {
-            //fav updated from hotel details
-            //updateFavOnList(forIndexPath: selectedIndexPath)
-            // manage favourite switch buttons
             self.selectedIndexPath = nil
+            
             self.viewModel.getFavouriteHotels(shouldReloadData: true)
-            self.updateMarkers()
+//            self.updateMarkers()
 //            self.showHotelOnMap(duration: 0.4)
-            self.updateFavouriteAnnotationDetail(duration: 0.4)
-            //            updateFavouriteSuccess(isHotelFavourite: true)
+            if let index = self.seletedIndexForSearchTable{
+                self.updateFavouriteAnnotationDetail(duration: 0.4, index: index)
+            }else{
+                self.updateFavouriteAnnotationDetail(duration: 0.4)
+            }
+            
+            
         }
         else if let _ = note.object as? HCDataSelectionVC {
             updateFavOnList(forIndexPath: selectedIndexPath)
@@ -507,22 +493,23 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.searchBar.text = ""
         self.viewModel.searchTextStr = ""
         self.reloadHotelList()
-        delay(seconds: 0.1) { [weak self] in
-            self?.viewModel.loadSaveData()
+//        delay(seconds: 0.1) { [weak self] in
+//            guard let self = self else {return}
+        self.viewModel.loadSaveData()
+        if self.viewModel.isResetAnnotation{
+            self.appleMap.removeAnnotations(self.appleMap.annotations)
+            self.addAllMarker()
+            self.viewModel.isResetAnnotation = false
         }
+//        }
         // nitin       self.getFavouriteHotels(shouldReloadData: false)
     }
     
     @IBAction func currentLocationButtonAction(_ sender: UIButton) {
         guard let loc = self.viewModel.searchedCityLocation else{return}
-//            self.setRegionToShow(location: loc)
         MKMapView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 10, options: .curveEaseInOut, animations: {
         self.appleMap.setRegion(MKCoordinateRegion(center: loc, span: self.currentMapSpan), animated: true)
         }, completion: nil)
-        
-        
-//        self.moveMapToCurrentCity()
-//        self.mapView?.animate(toZoom: self.mapView?.camera.zoom ?? (self.defaultZoomLabel + 5.0))
     }
     
     @objc func longPress(_ gesture: UILongPressGestureRecognizer) {
@@ -549,8 +536,4 @@ class HotelsMapVC: StatusBarAnimatableViewController {
             print("Reachable")
         }
     }
-    
-    
-    
-    
 }

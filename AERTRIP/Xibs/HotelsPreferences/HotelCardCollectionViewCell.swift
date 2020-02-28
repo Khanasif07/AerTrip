@@ -218,6 +218,7 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
             vc.appleMap.selectedAnnotations.forEach { annotation in
                 vc.appleMap.deselectAnnotation(annotation, animated: false)
             }
+            vc.seletedIndexForSearchTable = nil
         }
     }
     

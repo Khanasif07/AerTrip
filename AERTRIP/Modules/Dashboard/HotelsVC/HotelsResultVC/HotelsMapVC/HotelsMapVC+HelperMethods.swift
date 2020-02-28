@@ -134,15 +134,15 @@ extension HotelsMapVC {
     }
     
     func moveMapToCurrentCity() {
-        if let loc = self.viewModel.searchedCityLocation {
-            self.focusMarker(coordinates: loc)
-        }
+//        if let loc = self.viewModel.searchedCityLocation {
+//            self.focusMarker(coordinates: loc)
+//        }
     }
     
     func animateMapToFirstHotelInMapMode() {
-        if let locStr = self.viewModel.collectionViewLocArr.first, let loc = self.getLocationObject(fromLocation: locStr) {
-            self.focusMarker(coordinates: loc)
-        }
+//        if let locStr = self.viewModel.collectionViewLocArr.first, let loc = self.getLocationObject(fromLocation: locStr) {
+//            self.focusMarker(coordinates: loc)
+//        }
     }
     
     func getHotelsCount() {
@@ -156,9 +156,9 @@ extension HotelsMapVC {
         self.hotelSearchTableView.reloadData()
         self.hotelsMapCV.reloadData()
         
-        if drawMarkers {
-            updateMarkers()
-        }
+//        if drawMarkers {
+//            updateMarkers()
+//        }
             self.showHotelOnMap(duration: 0)
     }
     
@@ -228,47 +228,6 @@ extension HotelsMapVC {
     
     // MARK: - Manage Header animation
     
-    
-    
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        //        self.manageMapViewOnScroll(scrollView)
-//        // self.manageFloatingButtonOnPaginationScroll(scrollView)
-//
-//        //for map re-focusing
-//        let currentX = scrollView.contentOffset.x
-//        guard currentX > 0 else {
-//            return
-//        }
-//        if currentX > self.oldOffset.x {
-//            self.isCollectionScrollingInc = true
-//        }
-//        else if currentX < self.oldOffset.x {
-//            self.isCollectionScrollingInc = false
-//        }
-//        self.oldOffset = scrollView.contentOffset
-//    }
-    
-//    func showHeaderIfHiddenOnTopAfterEndScrolling(_ scrollView: UIScrollView) {
-//        let yPosition = scrollView.contentOffset.y
-//        if yPosition >= 0 {
-//            if 0...140.0 ~= yPosition {
-//                let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration*0.5, curve: .linear) { [weak self] in
-//                    self?.headerContainerViewTopConstraint.constant = 0.0
-//                    self?.view.layoutIfNeeded()
-//                }
-//                animator.startAnimation()
-//            }
-//        }
-//    }
-    
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        showHeaderIfHiddenOnTopAfterEndScrolling(scrollView)
-//    }
-//
-//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        showHeaderIfHiddenOnTopAfterEndScrolling(scrollView)
-//    }
-    
     func manageForCollectionView(atIndex: Int) {
         
         if self.viewModel.collectionViewLocArr.indices.contains(atIndex) {
@@ -311,79 +270,7 @@ extension HotelsMapVC {
         return CGFloat(16.0)
     }
     
-    func configureCollectionViewLayoutItemSize() {
-    //        //call this methods in viewDidLayoutSubviews
-    //        let inset: CGFloat = calculateSectionInset() // This inset calculation is some magic so the next and the previous cells will peek from the sides. Don't worry about it
-    //        collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
-    //
-    //        collectionViewLayout.itemSize = CGSize(width: UIDevice.screenWidth - (inset * 2), height: 192.0)
-        }
-    
-    func indexOfMajorCell() -> Int {
-        let itemWidth =  UIDevice.screenWidth - (calculateSectionInset() * 2)//collectionViewLayout.itemSize.width
-        let proportionalOffset = self.hotelsMapCV.contentOffset.x / itemWidth
-        let index = Int(round(proportionalOffset))
-        let numberOfItemInCollection = self.viewModel.collectionViewLocArr.count - 1
-        let safeIndex = max(0, min(numberOfItemInCollection, index))
-        return safeIndex
-    }
-    
-    //ScrollView Delegate methods
-    //    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-    //        indexOfCellBeforeDragging = indexOfMajorCell()
-    //    }
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-            
-            
-            
-    //        guard scrollView === self.collectionView else {return}
-    //
-    //        let numberOfItemInCollection = self.viewModel.collectionViewLocArr.count - 1
-    //
-    //        // Stop scrollView sliding:
-    //        targetContentOffset.pointee = scrollView.contentOffset
-    //
-    //        // calculate where scrollView should snap to:
-    //        var indexOfMajorCell = self.indexOfMajorCell()
-    //
-    //        // calculate conditions:
-    //        let swipeVelocityThresholdToMove: CGFloat = 1.0
-    //
-    //        let absVelocity = abs(velocity.x)
-    //        if absVelocity >= swipeVelocityThresholdToMove {
-    //            if velocity.x < 0 {
-    //                indexOfMajorCell -= 1
-    //            }
-    //            else {
-    //                indexOfMajorCell += 1
-    //            }
-    //
-    //            indexOfMajorCell = max(0,indexOfMajorCell)
-    //            indexOfMajorCell = min(indexOfMajorCell,numberOfItemInCollection)
-    //        }
-    //        let indexPath = IndexPath(row: indexOfMajorCell, section: 0)
-    //        collectionViewLayout.collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-    //
-    //        self.manageForCollectionView(atIndex: indexOfMajorCell)
-            
-            
-            
-//            let pageSide =  self.pageSize.width
-//            let offset =  hotelsMapCV.contentOffset.x
-//            let currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
-//    //        DispatchQueue.main.async {
-//            self.manageForCollectionView(atIndex: currentPage)
-
-    //        }
-            
-        }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        guard scrollView === self.hotelsMapCV else {return}
-//          let pageSide =  self.pageSize.width
-//                  let offset =  hotelsMapCV.contentOffset.x
-//                  let currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
-//                  self.manageForCollectionView(atIndex: currentPage)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
