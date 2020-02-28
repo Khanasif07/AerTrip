@@ -13,6 +13,8 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
     
     // MARK: - IB Outlets
     
+    @IBOutlet weak var firstTitleBtmConst: NSLayoutConstraint!
+    @IBOutlet weak var secondTitleTrailingConst: NSLayoutConstraint!
     @IBOutlet weak var firstTitleLabel: UILabel!
     @IBOutlet weak var firstTitleLabelHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var firstSubtTitleLabel: UILabel!
@@ -39,6 +41,7 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
     func cofigureCell(_ issueDate:String,_ expiryDate:String) {
         self.firstTitleLabel.text = LocalizedString.IssueDate.localized
         self.secondTitleLabel.text = LocalizedString.ExpiryDate.localized
+        self.secondSubTitleLabel.textAlignment = .left
         self.firstSubtTitleLabel.text = issueDate
         self.secondSubTitleLabel.text = expiryDate
         self.contentStackView.spacing = 0.0
@@ -55,10 +58,15 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
         self.contentStackView.spacing = -20.0
         if indexPath.row == 2 {
             firstTitleLabel.isHidden = false
+            self.firstTitleBtmConst.constant = 15.0
+            self.firstSubtTitleLabel.isHidden = true
+            self.secondTitleTrailingConst.constant = 16.0
             firstTitleLabel.text = LocalizedString.FrequentFlyer.localized
-            firstTitleLabelHeightConstraint.constant = 20.0
+//            firstTitleLabelHeightConstraint.constant = 18.0
         } else {
             firstTitleLabel.isHidden = true
+            self.firstTitleBtmConst.constant = 0.0
+            self.secondTitleTrailingConst.constant = 16.0
             firstTitleLabelHeightConstraint.constant = 0
         }
         

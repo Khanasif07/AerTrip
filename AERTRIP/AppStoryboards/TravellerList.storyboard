@@ -40,7 +40,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="X8Q-9M-K7z" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="100.5" width="375" height="522.5"/>
+                                <rect key="frame" x="0.0" y="100.5" width="375" height="566.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Leo-FO-KYr" id="wks-Wy-Gtx"/>
@@ -110,7 +110,6 @@
                             <constraint firstItem="ayy-IG-Mnv" firstAttribute="leading" secondItem="lLE-bn-tID" secondAttribute="leading" id="8Wf-ym-GxW"/>
                             <constraint firstItem="fap-KZ-xGW" firstAttribute="leading" secondItem="lLE-bn-tID" secondAttribute="leading" id="97A-yi-4c0"/>
                             <constraint firstItem="lLE-bn-tID" firstAttribute="trailing" secondItem="X8Q-9M-K7z" secondAttribute="trailing" id="BOl-vO-shZ"/>
-                            <constraint firstItem="ayy-IG-Mnv" firstAttribute="top" secondItem="X8Q-9M-K7z" secondAttribute="bottom" id="CEb-sP-ici"/>
                             <constraint firstItem="O3S-Ag-QUk" firstAttribute="top" secondItem="fap-KZ-xGW" secondAttribute="bottom" id="GKI-FF-yvb"/>
                             <constraint firstItem="O3S-Ag-QUk" firstAttribute="leading" secondItem="lLE-bn-tID" secondAttribute="leading" id="HT3-KF-2fP"/>
                             <constraint firstItem="lLE-bn-tID" firstAttribute="bottom" secondItem="ayy-IG-Mnv" secondAttribute="bottom" id="KGA-fW-bvb"/>
@@ -118,6 +117,7 @@
                             <constraint firstItem="lLE-bn-tID" firstAttribute="trailing" secondItem="ayy-IG-Mnv" secondAttribute="trailing" id="Vvb-rf-f28"/>
                             <constraint firstAttribute="trailing" secondItem="Dd0-fb-cBb" secondAttribute="trailing" id="cgT-X6-Caq"/>
                             <constraint firstItem="X8Q-9M-K7z" firstAttribute="top" secondItem="Dd0-fb-cBb" secondAttribute="bottom" id="gbB-ep-uTk"/>
+                            <constraint firstItem="lLE-bn-tID" firstAttribute="bottom" secondItem="X8Q-9M-K7z" secondAttribute="bottom" id="htB-KO-jua"/>
                             <constraint firstItem="O3S-Ag-QUk" firstAttribute="trailing" secondItem="lLE-bn-tID" secondAttribute="trailing" id="ijs-1I-y9R"/>
                             <constraint firstAttribute="trailing" secondItem="fap-KZ-xGW" secondAttribute="trailing" id="nlz-PB-waf"/>
                             <constraint firstItem="X8Q-9M-K7z" firstAttribute="leading" secondItem="lLE-bn-tID" secondAttribute="leading" id="oTC-sf-XEg"/>
@@ -439,7 +439,7 @@
                                             <action selector="selectAllButtonAction:" destination="bR1-4V-F5i" eventType="touchUpInside" id="rXU-4o-q6W"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ke5-wp-NRF" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ke5-wp-NRF" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="667" width="375" height="0.5"/>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>

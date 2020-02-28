@@ -237,6 +237,7 @@ class ATButton: UIButton {
         self.addTarget(self, action: #selector(buttonPressed(_:)), for: UIControl.Event.touchDown)
         self.addTarget(self, action: #selector(buttonReleased(_:)), for: UIControl.Event.touchUpInside)
         self.addTarget(self, action: #selector(buttonReleased(_:)), for: UIControl.Event.touchUpOutside)
+        self.addTarget(self, action: #selector(buttonReleased(_:)), for: .touchCancel)
     }
     
     private func setupLoader() {
