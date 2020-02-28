@@ -130,6 +130,10 @@ class HotelsSearchVC: BaseVC {
             self.updateCollectionViewFrame()
         }
         self.shadowSetUp()
+        self.firstLineView.height = 0.5
+        self.secondLineView.height = 0.5
+        self.thirdLineView.height = 0.5
+
     }
     
     override func bindViewModel() {

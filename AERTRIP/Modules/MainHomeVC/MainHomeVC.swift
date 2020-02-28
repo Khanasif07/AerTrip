@@ -209,9 +209,6 @@ class MainHomeVC: BaseVC {
     private func createSocialLoginVC() -> SocialLoginVC {
         let obj = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
         obj.delegate = self
-     
-
-        
         obj.view.backgroundColor = AppColors.clear
         self.socialLoginVC = obj
         self.socialLoginVC?.fbButton.isSocial = true
@@ -259,6 +256,7 @@ class MainHomeVC: BaseVC {
         self.statusBarStyle = .lightContent
         let pushPoint = CGPoint(x: UIDevice.screenWidth, y: 0.0)
         viewProfileVC?.profileImageHeaderView?.profileImageView.isHidden = true
+        viewProfileVC?.updateProfileImageViewFrame()
         let toAddImgView = UIImageView()
         if let imgCell = sideMenuVC?.sideMenuTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? SideMenuProfileImageCell, let imgView = imgCell.profileImageView {
             let imgViewFrameWRTSuperview = imgCell.convert(imgView.frame, to: view)

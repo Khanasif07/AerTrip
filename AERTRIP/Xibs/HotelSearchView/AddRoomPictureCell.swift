@@ -42,6 +42,10 @@ class AddRoomPictureCell: UICollectionViewCell {
         self.configureUI()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+    
     //Mark:- IBActions
     //================
     @IBAction func cancelBtnAction(_ sender: UIButton) {
@@ -61,7 +65,7 @@ class AddRoomPictureCell: UICollectionViewCell {
     ///Configure UI
     private func configureUI() {
         self.stackViewLeadingConstraint.constant = 16.5
-        self.lineView.backgroundColor = AppColors.divider.color
+//        self.lineView.backgroundColor = AppColors.divider.color
         self.lineView.isHidden = true
         let regularFontSize16 = AppFonts.Regular.withSize(16.0)
         self.roomCountLabel.font = regularFontSize16
@@ -74,6 +78,7 @@ class AddRoomPictureCell: UICollectionViewCell {
         self.childPopUpBtn.setTitleColor(AppColors.textFieldTextColor51, for: .normal)
         self.adultPopUpBtn.isUserInteractionEnabled = false
         self.childPopUpBtn.isUserInteractionEnabled = false
+
     }
     
     ///Configure Cell
@@ -86,7 +91,7 @@ class AddRoomPictureCell: UICollectionViewCell {
     internal func configureCell(for indexPath: IndexPath, viewModel: HotelsSearchVM) {
         let idxPath = indexPath
             //?? IndexPath(item: 0, section: 0)
-        self.lineView.backgroundColor = AppColors.divider.color
+//        self.lineView.backgroundColor = AppColors.divider.color
         self.roomCountLabel.text = "\(LocalizedString.Room.localized) \(idxPath.item + 1)"
         if viewModel.searchedFormData.adultsCount.count == 1 {
             self.hideCrossButton(isHidden: true, animated: true)

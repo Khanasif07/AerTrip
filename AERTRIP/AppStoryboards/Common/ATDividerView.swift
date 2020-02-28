@@ -24,11 +24,17 @@ open class ATDividerView: UIView {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-       // self.updatedFrame()
+        if !isFrameUpdated {
+            self.updatedFrame()
+            isFrameUpdated = true
+        } else {
+            isFrameUpdated = false
+        }
     }
     
     //MARK:- Properties
     //MARK:- Private
+    private var isFrameUpdated = false
     
     //MARK:- Public
     var defaultHeight: CGFloat = 0.5 {
