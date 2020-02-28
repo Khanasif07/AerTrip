@@ -149,6 +149,7 @@ class SlideMenuProfileImageHeaderView: UIView {
     func makeImageCircular() {
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
         profileImageView.clipsToBounds = true
+        profileImageView.contentMode = .scaleAspectFill
         profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
         profileImageView.layer.borderWidth = 4.0
         profileImageView.layer.masksToBounds = true
