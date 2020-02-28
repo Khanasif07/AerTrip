@@ -36,6 +36,7 @@ class PreferencesVC: BaseVC {
     var keyboardHeight : CGFloat = 0.0
     var isKeyboardOpen: Bool = false
     var labelsCountDict: [JSONDictionary] = []
+    var footerView: UIView?
     
     // MARK: - View LifeCycle
     
@@ -56,6 +57,7 @@ class PreferencesVC: BaseVC {
         tableView.separatorStyle = .none
         
         topNavView.delegate = self
+        topNavView.firstLeftButtonLeadingConst.constant = 7.0
         topNavView.configureNavBar(title: LocalizedString.Preferences.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false)
         topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
         topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Done.rawValue, selectedTitle: LocalizedString.Done.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
@@ -66,7 +68,7 @@ class PreferencesVC: BaseVC {
         tableView.isEditing = true
         tableView.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
         indicatorView.color = AppColors.themeGreen
-        tableView.tableFooterView = nil
+        self.tableFooterView()
         stopLoading()
        // self.view.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
     }
@@ -78,6 +80,12 @@ class PreferencesVC: BaseVC {
         tableView.register(UINib(nibName: emptyCellIdentifier, bundle: nil), forCellReuseIdentifier: emptyCellIdentifier)
         tableView.register(UINib(nibName: groupCellIdentifier, bundle: nil), forCellReuseIdentifier: groupCellIdentifier)
         tableView.register(UINib(nibName: addActionCellIdentifier, bundle: nil), forCellReuseIdentifier: addActionCellIdentifier)
+    }
+    func tableFooterView() {
+        self.footerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 35.0))
+        self.footerView?.backgroundColor = .clear
+        self.tableView.tableFooterView = footerView
+        
     }
     
     func addNewGroupAlertController() {
