@@ -100,6 +100,7 @@ class ImportContactVC: BaseVC {
         selectedContactsCollectionView.setCollectionViewLayout(self.collectionLayout, animated: false)
         
         self.topNavView.delegate = self
+        self.topNavView.firstLeftButtonLeadingConst.constant = 7.0
         self.topNavView.configureNavBar(title: LocalizedString.AllowContacts.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false,backgroundType: .color(color: AppColors.themeWhite))
         self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Import.rawValue, selectedTitle: LocalizedString.Import.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
@@ -148,9 +149,9 @@ class ImportContactVC: BaseVC {
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing = (self.view.width - 246.0) / 2
+        self.parchmentView?.menuItemSpacing = (self.view.width - 251.5) / 2
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 33.0, bottom: 0.0, right: 38.0)
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 51)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 40)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
@@ -186,7 +187,7 @@ class ImportContactVC: BaseVC {
             
         }
     }
-    
+   
     private func updateNavTitle() {
         
         if self.viewModel.totalSelectedContacts <= 0 {
@@ -553,7 +554,20 @@ class ContactListCollectionFlowLayout: UICollectionViewFlowLayout {
     }
 }
 
-extension ImportContactVC: PagingViewControllerDataSource , PagingViewControllerDelegate, PagingViewControllerSizeDelegate {
+extension ImportContactVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
+    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
+       
+               if let pagingIndexItem = pagingItem as? PagingIndexItem{
+                   let text = pagingIndexItem.title
+                   
+                   let font = AppFonts.SemiBold.withSize(16.0)
+                return text.widthOfString(usingFont: font) + 2.5
+               }
+               
+               return 100.0
+    }
+    
+    
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
         self.allTabsStr.count
     }
@@ -564,19 +578,6 @@ extension ImportContactVC: PagingViewControllerDataSource , PagingViewController
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
         return PagingIndexItem(index: index, title:  self.allTabsStr[index])
-    }
-    
-    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
-        
-        // depending onthe text size, give the width of the menu item
-        if let pagingIndexItem = pagingItem as? PagingIndexItem{
-            let text = pagingIndexItem.title
-            
-            let font = AppFonts.SemiBold.withSize(16.0)
-            return text.widthOfString(usingFont: font)
-        }
-        
-        return 100.0
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {

@@ -33,17 +33,17 @@ extension FavouriteHotelsVC : PagingViewControllerDelegate, PagingViewController
             let text = pagingIndexItem.title
             
             let font = AppFonts.SemiBold.withSize(16.0)
-            return text.widthOfString(usingFont: font)
+            return text.widthOfString(usingFont: font) + 5.0
         }
         
         return 100.0
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
-        
-        let pagingIndexItem = pagingItem as! PagingIndexItem
-        self.currentIndex = pagingIndexItem.index
-    }
+    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
+           
+           let pagingIndexItem = pagingItem as! PagingIndexItem
+           self.currentIndex = pagingIndexItem.index
+       }
 }
 
 extension String {

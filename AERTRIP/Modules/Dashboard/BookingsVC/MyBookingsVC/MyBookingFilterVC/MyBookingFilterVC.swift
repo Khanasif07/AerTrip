@@ -170,7 +170,7 @@ class MyBookingFilterVC: BaseVC {
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing = (UIDevice.screenWidth - 330) / 2
+        self.parchmentView?.menuItemSpacing = (UIDevice.screenWidth - 335.5) / 2
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 13.0, bottom: 0.0, right: 11.0)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets(top: 0, left: 10.0, bottom: 0, right: 10.0), insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 50)
@@ -311,7 +311,7 @@ extension MyBookingFilterVC: PagingViewControllerDataSource , PagingViewControll
             let text = pagingIndexItem.title
             
             let font = AppFonts.SemiBold.withSize(16.0)
-            return text.widthOfString(usingFont: font) + 20.0
+            return text.widthOfString(usingFont: font) + 22.5
         }
         
         return 100.0

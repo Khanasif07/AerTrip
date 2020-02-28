@@ -58,7 +58,7 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
         self.contentStackView.spacing = -20.0
         if indexPath.row == 2 {
             firstTitleLabel.isHidden = false
-            self.firstTitleBtmConst.constant = 15.0
+            self.firstTitleBtmConst.constant = 0.0
             self.firstSubtTitleLabel.isHidden = true
             self.secondTitleTrailingConst.constant = 16.0
             firstTitleLabel.text = LocalizedString.FrequentFlyer.localized
