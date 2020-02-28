@@ -143,11 +143,6 @@ class ViewProfileDetailVC: BaseVC {
         tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.profileImageHeaderView?.widthAnchor.constraint(equalToConstant: tableView?.width ?? 0.0).isActive = true
         tableView.parallaxHeader.delegate = self
-        
-        
-        //  profileImageHeaderView.dividerView.isHidden = true
-        
-       // self.view.bringSubviewToFront(self.topNavView)
     }
     
     private func setUpDataFromApi() {
@@ -412,7 +407,12 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
                 
                 viewProfileMultiDetailcell.separatorLeadingConstraint.constant = (indexPath.row < (flightDetails.count + frequentFlyer.count)) ? 16.0 : 0
                 viewProfileMultiDetailcell.separatorTrailingConstraint.constant = (indexPath.row < (flightDetails.count + frequentFlyer.count)) ? 16.0 : 0
-                viewProfileMultiDetailcell.separatorView.isHidden = (indexPath.row == (flightDetails.count + frequentFlyer.count) - 1) ? true : false
+                viewProfileMultiDetailcell.separatorView.isHidden = (indexPath.row == (flightDetails.count + frequentFlyer.count) - 1) ? false : false
+                
+                if  indexPath.row == (frequentFlyer.count + flightDetails.count) - 1 {
+                    viewProfileMultiDetailcell.separatorLeadingConstraint.constant = 0.0
+                    viewProfileMultiDetailcell.separatorTrailingConstraint.constant = 0.0
+                }
                 return viewProfileMultiDetailcell
                 
             }
@@ -425,7 +425,7 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60.0
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: tableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
             fatalError("ViewProfileDetailTableViewSectionView not found")
@@ -448,7 +448,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
         if 0.6...1.0 ~= prallexProgress {
             profileImageHeaderView?.profileImageViewHeightConstraint.constant = 127.0 * prallexProgress
         }
-        
+
         if prallexProgress <= 0.7 {
             if isNavBarHidden {
                        self.statusBarStyle = .lightContent

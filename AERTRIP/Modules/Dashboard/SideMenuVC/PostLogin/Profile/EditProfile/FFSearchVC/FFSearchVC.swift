@@ -71,6 +71,7 @@ class FFSearchVC: BaseVC {
     func doInitialSetUp() {
         
         self.topNavView.delegate = self
+        self.topNavView.firstLeftButtonLeadingConst.constant = 7.0
         self.topNavView.configureNavBar(title: LocalizedString.FrequentFlyer.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
         self.topNavView.configureLeftButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen)
         searchData = defaultAirlines

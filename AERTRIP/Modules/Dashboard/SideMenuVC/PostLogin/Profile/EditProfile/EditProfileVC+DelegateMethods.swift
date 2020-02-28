@@ -269,7 +269,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                     //                    cell.leftSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
                     //                    cell.rightSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
                     
-                    cell.deleteButton.isHidden = self.viewModel.frequentFlyer.count <= 1
+                    cell.deleteButton.isHidden = self.viewModel.frequentFlyer.count == 1 ?  true : false
                     cell.isFFTitleHidden = !(indexPath.row == 2)
                     
                     return cell
@@ -338,10 +338,10 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 email.label = label
                 self.viewModel.email.append(email)
-                self.tableView.insertRows(at: [indexPath], with: .bottom)
-                self.tableView.beginUpdates()
-                self.tableView.endUpdates()
-//                tableView.reloadData()
+//                self.tableView.insertRows(at: [indexPath], with: .bottom)
+//                self.tableView.beginUpdates()
+//                self.tableView.endUpdates()
+                tableView.reloadData()
             }
             
         case LocalizedString.SocialAccounts.localized:
@@ -364,10 +364,10 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 address.country = LocalizedString.SelectedCountrySymbol.localized
                 address.countryName = LocalizedString.selectedCountry.localized
                 self.viewModel.addresses.append(address)
-                self.tableView.insertRows(at: [indexPath], with: .bottom)
-                self.tableView.beginUpdates()
-                self.tableView.endUpdates()
-//                tableView.reloadSection(section: indexPath.section, with: .none)
+//                self.tableView.insertRows(at: [indexPath], with: .bottom)
+//                self.tableView.beginUpdates()
+//                self.tableView.endUpdates()
+                tableView.reloadSection(section: indexPath.section, with: .none)
             }
             
         case LocalizedString.MoreInformation.localized:
@@ -382,10 +382,10 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 mobile.type = "mobile"
                 mobile.isd = "+91"
                 self.viewModel.mobile.append(mobile)
-                self.tableView.insertRows(at: [indexPath], with: .bottom)
-                self.tableView.beginUpdates()
-                self.tableView.endUpdates()
-//                tableView.reloadData()
+//                self.tableView.insertRows(at: [indexPath], with: .bottom)
+//                self.tableView.beginUpdates()
+//                self.tableView.endUpdates()
+                tableView.reloadData()
             }
             
             break
@@ -400,10 +400,10 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                 var frequentFlyer = FrequentFlyer()
                 frequentFlyer.airlineName = LocalizedString.SelectAirline.localized
                 self.viewModel.frequentFlyer.append(frequentFlyer)
-                self.tableView.insertRows(at: [indexPath], with: .bottom)
-                self.tableView.beginUpdates()
-                self.tableView.endUpdates()
-//                tableView.reloadData()
+//                self.tableView.insertRows(at: [indexPath], with: .bottom)
+//                self.tableView.beginUpdates()
+//                self.tableView.endUpdates()
+                tableView.reloadData()
             }
             
         default:
@@ -416,17 +416,24 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             switch sections[indexPath.section] {
             case LocalizedString.EmailAddress.localized:
                 self.viewModel.email.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
+//                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.reloadData()
             case LocalizedString.SocialAccounts.localized:
                 self.viewModel.social.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
+//                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.reloadData()
                 
             case LocalizedString.ContactNumber.localized:
                 self.viewModel.mobile.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
+//                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.reloadData()
             case LocalizedString.FlightPreferences.localized:
                 self.viewModel.frequentFlyer.remove(at: indexPath.row - 2)
-                tableView.deleteRows(at: [indexPath], with: .fade)
+//                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.reloadData()
+//            case LocalizedString.Address.localized:
+//                 self.viewModel.addresses.remove(at: indexPath.row)
+//                 tableView.reloadData()
                 
             default:
                 break
@@ -437,15 +444,21 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         switch sections[indexPath.section] {
         case LocalizedString.EmailAddress.localized:
-            return !((indexPath.row == 0 && self.viewModel.currentlyUsinfFor == .viewProfile) || indexPath.row == self.viewModel.email.count)
+            return !((indexPath.row == 0) || indexPath.row == self.viewModel.email.count)
         case LocalizedString.ContactNumber.localized:
-            return !((indexPath.row == 0 && self.viewModel.currentlyUsinfFor == .viewProfile) || (indexPath.row == 0 && self.viewModel.currentlyUsinfFor == .travellerList) || (indexPath.row == 0 && self.viewModel.currentlyUsinfFor == .addNewTravellerList)) || (indexPath.row == self.viewModel.mobile.count)
+            return !(indexPath.row == 0  || indexPath.row == self.viewModel.mobile.count)
+//        case LocalizedString.ContactNumber.localized:
+//            return !((indexPath.row == 0 && self.viewModel.currentlyUsinfFor == .viewProfile) || (indexPath.row == 0 && self.viewModel.currentlyUsinfFor == .travellerList) || (indexPath.row == 0 && self.viewModel.currentlyUsinfFor == .addNewTravellerList)) || (indexPath.row == self.viewModel.mobile.count)
         case LocalizedString.SocialAccounts.localized:
             return !(indexPath.row == self.viewModel.social.count || self.viewModel.social.count == 1)
         case LocalizedString.FlightPreferences.localized:
             return !((indexPath.row < 2) || (indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 1)) || (self.viewModel.frequentFlyer.count <= 1))
         case LocalizedString.Address.localized:
-            return !(indexPath.row == self.viewModel.addresses.count || self.viewModel.addresses.count <= 1)
+            return false
+        case LocalizedString.PassportDetails.localized:
+            return false
+        case LocalizedString.MoreInformation.localized:
+            return false
         default: break
         }
         return true
