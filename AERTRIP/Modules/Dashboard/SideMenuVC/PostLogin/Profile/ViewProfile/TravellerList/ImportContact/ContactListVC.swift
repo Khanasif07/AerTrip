@@ -219,7 +219,7 @@ class ContactListVC: BaseVC {
     func reloadVisibleCells() {
         guard let visibleRowsIndexs = tableView.indexPathsForVisibleRows else {return}
         visibleRowsIndexs.forEach { indexPath in
-            let cell = tableView.cellForRow(at: indexPath) as! ContactDetailsTableCell
+            guard  let cell = tableView.cellForRow(at: indexPath) as? ContactDetailsTableCell else {return}
             populateData(in: cell, indexPath: indexPath)
         }
     }
@@ -302,7 +302,7 @@ class ContactListVC: BaseVC {
     
     @IBAction func selectAllButtonAction(_ sender: UIButton) {
         
-        self.showLoaderOnView(view: sender, show: true, backgroundColor: AppColors.themeWhite)
+        self.showLoaderOnView(view: sender, show: true, backgroundColor: AppColors.themeWhite,padding:  UIEdgeInsets(top: 2.0, left: 35.0, bottom: 2.0, right: 1.0))
         workItem?.cancel()
         if self.currentlyUsingFor == .contacts {
             if sender.isSelected {
@@ -327,7 +327,7 @@ class ContactListVC: BaseVC {
                 } else {
                     self.hideSelectAllLoader()
                 }
-                
+
             } else {
                 printDebug("isSelected false")
                 if !self.viewModel.selectedPhoneContacts.isEmpty  {
@@ -339,7 +339,7 @@ class ContactListVC: BaseVC {
                         allContacts.removeObjects(array: self.viewModel.selectedPhoneContacts)
                         self.viewModel.selectedPhoneContacts.append(contentsOf: allContacts)
                     })
-                    
+
                     workItem!.notify(queue: .main) {
                         DispatchQueue.mainAsync {
                             self.viewModel.add(for: .contacts)
@@ -353,7 +353,7 @@ class ContactListVC: BaseVC {
                     DispatchQueue.mainAsync {
                         self.viewModel.addAll(for: .contacts)
                     }
-                    
+
                 }
             }
         }
@@ -370,7 +370,7 @@ class ContactListVC: BaseVC {
                                 }) {
                                     self.viewModel.selectedFacebookContacts.remove(at: contactIndex)
                                     isContactRemoved = true
-                                    
+
                                 }
                             }
                         }
@@ -387,7 +387,7 @@ class ContactListVC: BaseVC {
                 } else {
                     self.hideSelectAllLoader()
                 }
-                
+
             }
             else {
                 // remove all preselected facebook Items
@@ -396,11 +396,11 @@ class ContactListVC: BaseVC {
                 //                        self.tableView(self.tableView, didSelectRowAt: index)
                 //                    }
                 //                }
-                
+
                 //                self.viewModel.selectedFacebookContacts = self.viewModel.facebookContacts
                 //                //add all
                 //                self.viewModel.addAll(for: .facebook)
-                
+
                 if !self.viewModel.selectedFacebookContacts.isEmpty  {
                     var isContactAdded = false
                     workItem = DispatchWorkItem(block: {
@@ -423,7 +423,7 @@ class ContactListVC: BaseVC {
                     if let item = workItem {
                         selectDeselectQueue.async(execute: item)
                     }
-                    
+
                 }else {
                     self.viewModel.selectedFacebookContacts = self.viewModel.facebookContacts
                     DispatchQueue.mainAsync {
@@ -462,7 +462,7 @@ class ContactListVC: BaseVC {
                 } else {
                     self.hideSelectAllLoader()
                 }
-                
+
             }
             else {
                 // remove all preselected google Contacts Items
@@ -494,7 +494,7 @@ class ContactListVC: BaseVC {
                         selectDeselectQueue.async(execute: item)
                     }
                 }
-                    
+
                 else {
                     self.viewModel.selectedGoogleContacts = self.viewModel.googleContacts
                     //add all
@@ -503,7 +503,7 @@ class ContactListVC: BaseVC {
                         self.hideSelectAllLoader()
                     }
                 }
-                
+
             }
         }
         sender.isSelected = !sender.isSelected
