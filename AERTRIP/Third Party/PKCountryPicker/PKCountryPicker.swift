@@ -106,6 +106,12 @@ open class PKCountryPicker: UIView {
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(pickerDoneButtonTapped))
         
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action:nil)
+        // Adding top divider in country Picker
+//        let topBorder = CALayer()
+//        topBorder.frame = CGRect(x: 0.0, y: 0.0, width: PKCountryPickerSettings.pickerSize.width, height: 0.5)
+//        topBorder.backgroundColor = AppColors.themeGray20.cgColor
+//        toolbar.layer.addSublayer(topBorder)
+//
         
         if PKCountryPickerSettings.appearance == .dark {
             //toolbar.barTintColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
@@ -129,6 +135,7 @@ open class PKCountryPicker: UIView {
         self.backgroundColor = AppColors.quaternarySystemFillColor
         // nitin change
         //self.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
+        toolbar.clipsToBounds = true
         self.addSubview(toolbar)
     }
     

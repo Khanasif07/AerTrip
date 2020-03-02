@@ -179,7 +179,7 @@ class ImportContactVC: BaseVC {
         if newValue == value {
             return
         }
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
+        UIView.animate(withDuration: animated ? 0.0 : 0.0, animations: { [weak self] in
             guard let selff = self else { return }
             selff.selectedContactsContainerHeightConstraint.constant = newValue
             selff.selectedContactsCollectionView.layoutIfNeeded()
