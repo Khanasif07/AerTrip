@@ -75,6 +75,16 @@ class SelectDestinationVC: BaseVC {
         self.initialSetups()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.keyboardManagerVisible(false)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.keyboardManagerVisible(true)
+    }
+    
     override func setupFonts() {
         cancelButton.titleLabel?.font = AppFonts.Regular.withSize(18.0)
     }
@@ -414,8 +424,11 @@ extension SelectDestinationVC: UITableViewDelegate, UITableViewDataSource {
             if section == 0 {
                 return nil
             }
-            else if (self.viewModel.recentSearchLimit > 0), (section == 1) {
+            else if (section == 1) {
                 titleText = LocalizedString.RecentlySearchedDestinations.localized
+                if self.viewModel.recentSearchLimit <= 0 {
+                    return nil
+                }
             }
             else {
                 titleText = LocalizedString.PopularDestinations.localized
