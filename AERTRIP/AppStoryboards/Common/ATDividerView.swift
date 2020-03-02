@@ -63,6 +63,7 @@ open class ATDividerView: UIView {
     }
     
     private func updatedFrame() {
-        self.frame = CGRect(x: self.x, y: self.y, width: self.width, height: defaultHeight)
+        let height = (1.0 / self.contentScaleFactor)
+        self.frame = CGRect(x: self.x, y: self.y, width: self.width, height: height)
     }
 }
