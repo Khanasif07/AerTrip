@@ -71,6 +71,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -258,7 +259,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
             self.doneBtnOutlet.alpha = 1.0
             self.view.layoutIfNeeded()
         }, completion: { (isCompleted) in
-            self.tickLayer.frame = CGRect(x: (self.searchBtnOutlet.frame.width - self.tickImageSize.width) / 2.0, y: ((self.searchBtnOutlet.frame.height - self.tickImageSize.height) / 2.0), width: self.tickImageSize.width, height: self.tickImageSize.height)
+            self.tickLayer.frame = CGRect(x: (self.searchBtnOutlet.frame.width - self.tickImageSize.width) / 2.0, y: ((self.searchBtnOutlet.frame.height - self.tickImageSize.height) / 2.0) + 2, width: self.tickImageSize.width, height: self.tickImageSize.height)
         })
     }
     
@@ -288,7 +289,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
     }
     
     func updateTickPath() {
-        self.tickLayer.frame = CGRect(x: (self.searchBtnOutlet.frame.width - tickImageSize.width) / 2.0, y: (self.searchBtnOutlet.frame.height - tickImageSize.height) / 2.0, width: tickImageSize.width, height: tickImageSize.height)
+        self.tickLayer.frame = CGRect(x: (self.searchBtnOutlet.frame.width - tickImageSize.width) / 2.0, y: ((self.searchBtnOutlet.frame.height - tickImageSize.height) / 2.0) + 2, width: tickImageSize.width, height: tickImageSize.height)
     }
     
     private func getTickMarkPath() -> CGPath {

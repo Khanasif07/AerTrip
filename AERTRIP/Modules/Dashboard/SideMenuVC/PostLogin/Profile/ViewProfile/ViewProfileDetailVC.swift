@@ -406,8 +406,8 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
             }
             else {
                 if (flightDetails.count == 1 && indexPath.row == 1) || (flightDetails.count == 2 && indexPath.row == 2) {
-                    guard let viewProfileDetailFrequentcell = tableView.dequeueReusableCell(withIdentifier: "ViewProfileDetailFrequentCell", for: indexPath) as? ViewProfileDetailFrequentCell else {
-                        fatalError("ViewProfileDetailFrequentCell not found")
+                    guard let viewProfileDetailFrequentcell = tableView.dequeueReusableCell(withIdentifier: multipleDetailCellIdentifier, for: indexPath) as? ViewProfileMultiDetailTableViewCell else {
+                    fatalError("ViewProfileMultiDetailTableViewCell not found")
                     }
                     viewProfileDetailFrequentcell.configureCellForFrequentFlyer(indexPath, frequentFlyer[indexPath.row - flightDetails.count].logoUrl, frequentFlyer[indexPath.row - flightDetails.count].airlineName, frequentFlyer[indexPath.row - flightDetails.count].number,flightDetails.count)
                     return viewProfileDetailFrequentcell
