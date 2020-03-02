@@ -619,6 +619,8 @@
 		843C48072248E9FC00E71887 /* HCRefundRequestedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C48062248E9FC00E71887 /* HCRefundRequestedVC.swift */; };
 		843D17192208268D00072BAE /* SwipeNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843D17182208268D00072BAE /* SwipeNavigationController.swift */; };
 		843E63202292782F00A04248 /* DepositItinerary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E631F2292782F00A04248 /* DepositItinerary.swift */; };
+		843FF9CF240D216300CBE5EC /* ViewProfileDetailFrequentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF9CD240D216300CBE5EC /* ViewProfileDetailFrequentCell.swift */; };
+		843FF9D0240D216300CBE5EC /* ViewProfileDetailFrequentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF9CE240D216300CBE5EC /* ViewProfileDetailFrequentCell.xib */; };
 		84409E5E2266F969005A5487 /* CustomDotMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84409E5C2266F969005A5487 /* CustomDotMarker.swift */; };
 		84409E5F2266F969005A5487 /* CustomDotMarker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84409E5D2266F969005A5487 /* CustomDotMarker.xib */; };
 		8441BFAC22AA6E7A0046830B /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441BFAB22AA6E7A0046830B /* MyViewController.swift */; };
@@ -1668,6 +1670,8 @@
 		843C48062248E9FC00E71887 /* HCRefundRequestedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCRefundRequestedVC.swift; sourceTree = "<group>"; };
 		843D17182208268D00072BAE /* SwipeNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeNavigationController.swift; sourceTree = "<group>"; };
 		843E631F2292782F00A04248 /* DepositItinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositItinerary.swift; sourceTree = "<group>"; };
+		843FF9CD240D216300CBE5EC /* ViewProfileDetailFrequentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileDetailFrequentCell.swift; sourceTree = "<group>"; };
+		843FF9CE240D216300CBE5EC /* ViewProfileDetailFrequentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewProfileDetailFrequentCell.xib; sourceTree = "<group>"; };
 		84409E5C2266F969005A5487 /* CustomDotMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDotMarker.swift; sourceTree = "<group>"; };
 		84409E5D2266F969005A5487 /* CustomDotMarker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomDotMarker.xib; sourceTree = "<group>"; };
 		8441BFAB22AA6E7A0046830B /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
@@ -3510,6 +3514,8 @@
 				84085CBF21F59C0D00F1E844 /* ViewProfileDetailVC.swift */,
 				84085CC021F59C0D00F1E844 /* TravellerList */,
 				84085CD021F59C0D00F1E844 /* ViewProfileDetailVM.swift */,
+				843FF9CD240D216300CBE5EC /* ViewProfileDetailFrequentCell.swift */,
+				843FF9CE240D216300CBE5EC /* ViewProfileDetailFrequentCell.xib */,
 			);
 			path = ViewProfile;
 			sourceTree = "<group>";
@@ -5691,6 +5697,7 @@
 				84504D592212F382002C1374 /* AmenitiesDescriptionHeaderView.xib in Resources */,
 				84DD24602265A9B50013F77E /* OthersBookingTableViewCell.xib in Resources */,
 				84B1406422A16E1A00EAA5D2 /* FlightBookingsRequestTitleTableViewCell.xib in Resources */,
+				843FF9D0240D216300CBE5EC /* ViewProfileDetailFrequentCell.xib in Resources */,
 				84534EAA2248BE61009FF536 /* HCCheckInOutTableViewCell.xib in Resources */,
 				18930A2A21D36761005442C8 /* TextEditableTableViewCell.xib in Resources */,
 				84BF46C32211E611000AA6E3 /* HotelDetailAmenitiesCell.xib in Resources */,
@@ -6347,6 +6354,7 @@
 				18FAA502220DB907001454DE /* SectionHeader.swift in Sources */,
 				8472F20B23E4078100993B08 /* HotelsMapVC+ DelegateMethods.swift in Sources */,
 				84100A9022391B60006A05EC /* ContactTableCell.swift in Sources */,
+				843FF9CF240D216300CBE5EC /* ViewProfileDetailFrequentCell.swift in Sources */,
 				846856AC2233A482001B9E13 /* AdvisorRatingTableViewCell.swift in Sources */,
 				18999D9221E48DCE00E66072 /* CategorisedByGroupsTableViewCell.swift in Sources */,
 				18EF5E7D221D261B00EFFA6E /* GMUGroundOverlay.m in Sources */,

@@ -10,23 +10,22 @@ import UIKit
 
 class ViewProfileDetailFrequentCell: UITableViewCell {
     
-    
-    
     @IBOutlet weak var frequentRightSubTitle: UILabel!
     @IBOutlet weak var frequentSubTitle: UILabel!
-    @IBOutlet weak var frequentImage: UIImageView!
+    @IBOutlet weak var frequentImageView: UIImageView!
     @IBOutlet weak var frequentTitle: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.selectionStyle = .none
-        self.backgroundColor = .red
         // Initialization code
     }
     func configureCellForFrequentFlyer(_ indexPath:IndexPath,_ logoUrl:String,_ flightName:String,_ flightNo:String,_ flightDetailCount: Int) {
-        self.frequentImage.setImageWithUrl(logoUrl, placeholder: AppPlaceholderImage.frequentFlyer, showIndicator: true)
+        //  self.frequentFlyerImageView.kf.setImage(with: URL(string: logoUrl))
+        self.frequentImageView.setImageWithUrl(logoUrl, placeholder: AppPlaceholderImage.frequentFlyer, showIndicator: true)
+        self.frequentSubTitle.text = flightName
         self.frequentTitle.text = LocalizedString.FrequentFlyer.localized
         self.frequentRightSubTitle.text = flightNo
-        self.frequentSubTitle.text = flightName
+        //        self.conte
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -34,6 +33,5 @@ class ViewProfileDetailFrequentCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
-    
     
 }
