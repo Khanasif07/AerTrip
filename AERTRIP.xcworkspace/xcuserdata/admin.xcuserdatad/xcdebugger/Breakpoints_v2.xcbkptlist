@@ -267,14 +267,14 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "F7E7F11F-67E6-476F-99F8-FEAC64F3185D - 2dfe65c839058849"
+                  uuid = "F7E7F11F-67E6-476F-99F8-FEAC64F3185D - d937aade16363160"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 (AERTRIP.JSON) -&gt; () in AERTRIP.APICaller.callSaveProfileAPI(params: Swift.Dictionary&lt;Swift.String, Any&gt;, filePath: Swift.String, loader: Swift.Bool, completionBlock: (Swift.Bool, Swift.Array&lt;Swift.Int&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "AERTRIP"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Developer/Aertrip/AERTRIP/Network/APICaller/APICaller+EditProfile.swift"
+                  urlString = "file:///Users/admin/Documents/Project/Aertrip/AERTRIP/Network/APICaller/APICaller+EditProfile.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "189"
@@ -282,14 +282,14 @@
                   offsetFromSymbolStart = "416">
                </Location>
                <Location
-                  uuid = "F7E7F11F-67E6-476F-99F8-FEAC64F3185D - b82286f40df92239"
+                  uuid = "F7E7F11F-67E6-476F-99F8-FEAC64F3185D - 4ceb49e222ca9b10"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 (Swift.Bool, AERTRIP.JSON) -&gt; () in closure #1 (AERTRIP.JSON) -&gt; () in AERTRIP.APICaller.callSaveProfileAPI(params: Swift.Dictionary&lt;Swift.String, Any&gt;, filePath: Swift.String, loader: Swift.Bool, completionBlock: (Swift.Bool, Swift.Array&lt;Swift.Int&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "AERTRIP"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/admin/Developer/Aertrip/AERTRIP/Network/APICaller/APICaller+EditProfile.swift"
+                  urlString = "file:///Users/admin/Documents/Project/Aertrip/AERTRIP/Network/APICaller/APICaller+EditProfile.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "190"
@@ -405,6 +405,54 @@
             continueAfterRunningActions = "No"
             scope = "1"
             stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BEFA9E1E-9237-447D-AFDC-9CA32718F66C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsSearchVC/BulkBookingVC/BulkEnquirySuccessfulVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
+            landmarkName = "setupViewForSuccessAnimation()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "075D4E98-F812-400B-A3EA-F35BC0B3ED97"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsSearchVC/BulkBookingVC/BulkEnquirySuccessfulVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
+            landmarkName = "setupViewForSuccessAnimation()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7DD9C355-43D1-45D1-859C-DB55695E55CD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Dashboard/HotelsVC/HotelsResultVC/HotelResultVC+TableViewDataSourceDelegateMethods.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
