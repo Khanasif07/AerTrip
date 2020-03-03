@@ -343,6 +343,8 @@ extension HotelResultVC {
             if yPosition <= 100.0 {
                 headrC = 0.0
             }
+            printDebug("ScrollView ContentOffset  Y: \(yPosition)")
+            printDebug("ScrollView previous ContentOffset Y: \( self.oldScrollPosition.y)")
             printDebug("header height: \(headrC)")
             printDebug("headerContainerViewTopConstraint.constant: \(self.headerContainerViewTopConstraint.constant)")
             if headrC != self.headerContainerViewTopConstraint.constant {
