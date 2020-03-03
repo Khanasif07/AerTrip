@@ -212,7 +212,6 @@ extension ViewProfileVC: TopNavigationViewDelegate {
         isBackBtnTapped = true
         self.delegate?.backButtonAction(sender)
         self.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
-        
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
@@ -455,11 +454,14 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
         self.updateForParallexProgress()
 
         // Nimish
-        profileImageHeaderView!.profileImageView.layer.cornerRadius = profileImageHeaderView!.profileImageView.frame.size.width / 2
+        updateProfileImageViewFrame()
         // Nimish
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(self.updateForParallexProgress), with: nil, afterDelay: 0.05)
         //        self.updateForParallexProgress()
+    }
+    func updateProfileImageViewFrame(){
+        profileImageHeaderView!.profileImageView.layer.cornerRadius = profileImageHeaderView!.profileImageView.frame.size.width / 2
     }
     
 }

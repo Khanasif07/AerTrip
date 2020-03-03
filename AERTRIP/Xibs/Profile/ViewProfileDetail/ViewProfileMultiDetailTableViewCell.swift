@@ -48,27 +48,16 @@ class ViewProfileMultiDetailTableViewCell: UITableViewCell {
     }
     
     
-    func configureCellForFrequentFlyer(_ indexPath:IndexPath,_ logoUrl:String,_ flightName:String,_ flightNo:String) {
+    func configureCellForFrequentFlyer(_ indexPath:IndexPath,_ logoUrl:String,_ flightName:String,_ flightNo:String,_ flightDetailCount: Int) {
         //  self.frequentFlyerImageView.kf.setImage(with: URL(string: logoUrl))
         self.frequentFlyerImageView.setImageWithUrl(logoUrl, placeholder: AppPlaceholderImage.frequentFlyer, showIndicator: true)
         self.frequentFlyerLabel.text = flightName
-        
         self.secondSubTitleLabel.text = flightNo
-        
-        self.contentStackView.spacing = -20.0
-        if indexPath.row == 2 {
-            firstTitleLabel.isHidden = false
-            self.firstTitleBtmConst.constant = 15.0
-            self.firstSubtTitleLabel.isHidden = true
-            self.secondTitleTrailingConst.constant = 16.0
-            firstTitleLabel.text = LocalizedString.FrequentFlyer.localized
-//            firstTitleLabelHeightConstraint.constant = 18.0
-        } else {
-            firstTitleLabel.isHidden = true
-            self.firstTitleBtmConst.constant = 0.0
-            self.secondTitleTrailingConst.constant = 16.0
-            firstTitleLabelHeightConstraint.constant = 0
-        }
+//        self.contentStackView.spacing = -20.0
+        firstTitleLabel.isHidden = true
+        self.firstTitleBtmConst.constant = 0.0
+        self.secondTitleTrailingConst.constant = 16.0
+        firstTitleLabelHeightConstraint.constant = 0.0
         
     }
 }

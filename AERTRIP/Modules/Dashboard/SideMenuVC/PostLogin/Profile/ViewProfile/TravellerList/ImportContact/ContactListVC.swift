@@ -19,6 +19,7 @@ class ContactListVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-
+    @IBOutlet weak var bottomBackgroundView: UIView!
     @IBOutlet weak var tableView: ATTableView!
     @IBOutlet weak var selectAllButton: UIButton!
     @IBOutlet weak var containerBottomConstraint: NSLayoutConstraint!
@@ -81,6 +82,8 @@ class ContactListVC: BaseVC {
     
     override func setupColors() {
         self.selectAllButton.tintColor = AppColors.clear
+        self.bottomBackgroundView.backgroundColor = AppColors.themeGray04
+        self.bottomBackgroundView.isHidden = true
         self.selectAllButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.selectAllButton.setTitleColor(AppColors.themeGreen, for: .selected)
     }
@@ -228,6 +231,7 @@ class ContactListVC: BaseVC {
     private func hideSelectAllButton(isHidden: Bool = true) {
         self.bottomHeaderTopDiverView.isHidden = isHidden
         self.selectAllButton.isHidden = isHidden
+        self.bottomBackgroundView.isHidden = isHidden
         tableView.backgroundView?.isHidden = !isHidden
     }
     

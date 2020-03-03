@@ -281,6 +281,10 @@ extension BaseVC {
     
     @objc func keyboardWillHide(notification: Notification) {
     }
+    
+    func keyboardManagerVisible(_ state: Bool) {
+        IQKeyboardManager.shared().isEnableAutoToolbar = state
+    }
 }
 
 extension BaseVC {

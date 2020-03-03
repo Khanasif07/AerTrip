@@ -53,6 +53,7 @@ class FavouriteHotelsVC: BaseVC {
         super.viewWillLayoutSubviews()
         self.parchmentView?.view.frame = self.dataContainerView.bounds
         self.parchmentView?.loadViewIfNeeded()
+        self.shimmerView.frame = self.dataContainerView.bounds
     }
     
     override func bindViewModel() {

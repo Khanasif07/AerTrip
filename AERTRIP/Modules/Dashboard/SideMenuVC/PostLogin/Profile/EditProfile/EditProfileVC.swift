@@ -504,6 +504,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         datePickerView?.backgroundColor = AppColors.quaternarySystemFillColor
         
      //   datePickerView?.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
+        toolbar.clipsToBounds = true
         datePickerView?.addSubview(toolbar)
     }
     
@@ -526,6 +527,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         toolbar.setItems(array, animated: true)
         genericPickerView?.backgroundColor = AppColors.quaternarySystemFillColor
        // genericPickerView?.addBlurEffect(backgroundColor: AppColors.quaternarySystemFillColor, style: .dark, alpha: 1.0)
+        toolbar.clipsToBounds = true
         genericPickerView?.addSubview(toolbar)
     }
     

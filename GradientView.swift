@@ -9,10 +9,7 @@ import UIKit
 
 class GradientView: UIView {
     
-    var colors: [UIColor] = [UIColor.black.withAlphaComponent(0),
-                             UIColor.black.withAlphaComponent(0.1),
-                             UIColor.white.withAlphaComponent(0.4),
-                             UIColor.white.withAlphaComponent(0.9),
+    var colors: [UIColor] = [UIColor.black.withAlphaComponent(0.35),
                              UIColor.white] { didSet { self.setNeedsDisplay()} }
     
     private var gradientLayer: CAGradientLayer!

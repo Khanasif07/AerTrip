@@ -133,7 +133,7 @@ class MyBookingsVC: BaseVC {
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing =  self.allTabsStr.count == 2 ? (UIDevice.screenWidth - 269.0) : (UIDevice.screenWidth - 269.0)/2
+        self.parchmentView?.menuItemSpacing =  self.allTabsStr.count == 2 ? (UIDevice.screenWidth - 273.0) : (UIDevice.screenWidth - 273.0)/2
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: self.allTabsStr.count == 2 ? 59.0 : 28.0, bottom: 0.0, right:  self.allTabsStr.count == 2 ? 64.0 : 29.0)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0), insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 50)
@@ -281,7 +281,7 @@ extension MyBookingsVC : PagingViewControllerDataSource , PagingViewControllerDe
             let text = pagingIndexItem.title
             
             let font = AppFonts.SemiBold.withSize(16.0)
-            return text.widthOfString(usingFont: font)
+            return text.widthOfString(usingFont: font) + 2.5
         }
         
         return 100.0
