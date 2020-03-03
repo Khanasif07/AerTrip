@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -468,7 +468,7 @@
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="trailing" secondItem="ffZ-xz-8YE" secondAttribute="trailing" id="MyW-Re-Wik"/>
                             <constraint firstItem="ppY-MC-9bt" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="Nhf-aN-4ut"/>
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="trailing" secondItem="ppY-MC-9bt" secondAttribute="trailing" id="OjW-l4-mgK"/>
-                            <constraint firstItem="qGC-DP-rgu" firstAttribute="bottom" secondItem="zMl-TE-dRQ" secondAttribute="bottom" id="RCf-rf-KB5"/>
+                            <constraint firstAttribute="bottom" secondItem="zMl-TE-dRQ" secondAttribute="bottom" id="RCf-rf-KB5"/>
                             <constraint firstItem="zMl-TE-dRQ" firstAttribute="top" secondItem="ppY-MC-9bt" secondAttribute="bottom" id="UVz-Jr-Qoz"/>
                             <constraint firstItem="pDs-Hh-dQp" firstAttribute="top" secondItem="ffZ-xz-8YE" secondAttribute="bottom" id="VbY-KC-ZB0"/>
                             <constraint firstItem="cUJ-iR-Ql8" firstAttribute="top" secondItem="pDs-Hh-dQp" secondAttribute="top" id="cyD-jk-S7l"/>

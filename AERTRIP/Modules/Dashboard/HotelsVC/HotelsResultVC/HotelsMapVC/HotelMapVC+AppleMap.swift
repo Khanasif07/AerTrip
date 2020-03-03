@@ -60,7 +60,7 @@ extension HotelsMapVC : MKMapViewDelegate{
     func addAllMarker() {
         if self.viewModel.collectionViewLocArr.count != 0{
             guard let location = self.getLocationObject(fromLocation: self.viewModel.collectionViewLocArr.first!) else{return}
-            self.setRegionToShow(location: location)
+            self.setInitailRegionToShow(location: location)
         }
         self.addMakerToMap()
     }
@@ -107,6 +107,7 @@ extension HotelsMapVC : MKMapViewDelegate{
     func updateRegionMarker(){
         if self.appleMap.annotations.count != 0{
             self.currentMapSpan = self.appleMap.region.span
+            isMapZoomNeedToSet = true
         }
         var visibleAnnotation = appleMap.annotations(in: self.appleMap.visibleMapRect).compactMap{$0 as! MyAnnotation}
         print( appleMap.getZoomLevel())
@@ -327,9 +328,14 @@ extension HotelsMapVC : MKMapViewDelegate{
     }
     
     func setRegionToShow(location: CLLocationCoordinate2D){
-        self.appleMap.setRegion(MKCoordinateRegion(center: location, span: self.currentMapSpan), animated: true)
+        if isMapZoomNeedToSet{
+            self.appleMap.setRegion(MKCoordinateRegion(center: location, span: self.currentMapSpan), animated: true)
+        }
     }
     
+    func setInitailRegionToShow(location: CLLocationCoordinate2D){
+        self.appleMap.setRegion(MKCoordinateRegion(center: location, latitudinalMeters: 6000, longitudinalMeters: 6000), animated: true)
+    }
 }
 
 class MyAnnotation: NSObject, MKAnnotation {

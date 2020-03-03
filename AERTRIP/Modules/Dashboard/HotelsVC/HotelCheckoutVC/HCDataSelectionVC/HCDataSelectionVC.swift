@@ -361,10 +361,10 @@ class HCDataSelectionVC: BaseVC {
             hotelCheckOutDetailsContainerVIew.isHidden = false
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
                 if self.fareDetailContainerView.isHidden {
-                    self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (UIDevice.isIPhoneX   ?  self.hotelDetailsParentContainerView.height +  AppFlowManager.default.safeAreaInsets.top - 5 :  self.hotelDetailsParentContainerView.height + 3)
+                    self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (UIDevice.isIPhoneX   ?  self.hotelDetailsParentContainerView.height /*+  AppFlowManager.default.safeAreaInsets.top - 5 */:  self.hotelDetailsParentContainerView.height + 3)
                 }
                 else {
-                    self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + self.fareDetailContainerView.height + AppFlowManager.default.safeAreaInsets.top)
+                    self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + self.fareDetailContainerView.height/* + AppFlowManager.default.safeAreaInsets.top */)
                 }
                 self.view.layoutIfNeeded()
             }, completion: { [weak self] _ in

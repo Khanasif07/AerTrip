@@ -184,6 +184,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
         return StatusBarAnimatableConfig(prefersHidden: false, animation: .slide)
     }
+    var isMapZoomNeedToSet = false
     
     // MARK: - ViewLifeCycle
     
@@ -493,15 +494,15 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.searchBar.text = ""
         self.viewModel.searchTextStr = ""
         self.reloadHotelList()
-//        delay(seconds: 0.1) { [weak self] in
-//            guard let self = self else {return}
-        self.viewModel.loadSaveData()
-        if self.viewModel.isResetAnnotation{
-            self.appleMap.removeAnnotations(self.appleMap.annotations)
-            self.addAllMarker()
-            self.viewModel.isResetAnnotation = false
+        delay(seconds: 0.1) { [weak self] in
+            guard let self = self else {return}
+            self.viewModel.loadSaveData()
+            if self.viewModel.isResetAnnotation{
+                self.appleMap.removeAnnotations(self.appleMap.annotations)
+                self.addAllMarker()
+                self.viewModel.isResetAnnotation = false
+            }
         }
-//        }
         // nitin       self.getFavouriteHotels(shouldReloadData: false)
     }
     

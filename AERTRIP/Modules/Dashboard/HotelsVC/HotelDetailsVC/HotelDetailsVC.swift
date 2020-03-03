@@ -44,6 +44,16 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
     var backImage:UIImage? = UIImage()
     var isAddingChild = false
     var draggingDownToDismiss = false
+    var needToChnageNavigationY = false
+    var currentViewHeight = CGFloat()
+    var statusBarHeight:CGFloat{
+//        if AppFlowManager.default.safeAreaInsets.bottom == 0{
+//            return 44.0
+//        }else{
+        return UIApplication.shared.statusBarFrame.size.height
+//        }
+        
+    }
     
     final class DismissalPanGesture: UIPanGestureRecognizer {}
     final class DismissalScreenEdgePanGesture: UIScreenEdgePanGestureRecognizer {}
@@ -112,17 +122,6 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
     
     @objc func panHandler(_ sender: UIPanGestureRecognizer) {
         
-        //        let translation = sender.translation(in: self.view)
-        //
-        //        if sender.state == .began {
-        //            self.startPanPoint = translation
-        //        }
-        //        else if sender.state == .changed {
-        //
-        //            let moved = translation.y - self.startPanPoint.y
-        //
-        //            print(moved)
-        //        }
         
         let progress = sender.translation(in: self.view).y / self.hotelTableView.height
         print(progress)
@@ -156,15 +155,24 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.statusBarStyle = .default
-//        self.hotelTableView.reloadRow(at: IndexPath(row: 0, section: 0), with: .none)
-        self.statusBarColor = AppColors.themeBlack.withAlphaComponent(0.4)
+        if needToChnageNavigationY{
+            self.navigationController?.view?.subviews.first?.frame.size.height = self.currentViewHeight
+            self.navigationController?.view?.subviews.first?.frame.origin.y = -1
+            self.navigationController?.view.setNeedsDisplay()
+            needToChnageNavigationY = false
+            
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.statusBarColor = AppColors.clear
+        self.currentViewHeight = self.navigationController?.view.height ?? 0.0
+        self.navigationController?.view?.subviews.first?.frame.size.height = self.currentViewHeight - self.statusBarHeight
+        self.navigationController?.view?.subviews.first?.frame.origin.y = self.statusBarHeight
+        self.navigationController?.view.setNeedsDisplay()
+        self.needToChnageNavigationY = true
+        
     }
     
     override func initialSetup() {
@@ -238,16 +246,6 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
                 stickyView.hotelFeesLabel.isHidden = true
                 stickyView.selectRoomLabel.isHidden = true
             }
-            
-//            if let tableFooterView = self.tableFooterView {
-//                tableFooterView.containerView.backgroundColor = AppColors.noRoomsAvailableFooterColor
-//                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.noRoomsAvailableFooterShadow, AppColors.noRoomsAvailableFooterColor])
-//                tableFooterView.noRoomsAvailable.isHidden = false
-//                tableFooterView.fromLabel.isHidden = true
-//                tableFooterView.hotelFeesLabel.isHidden = true
-//                tableFooterView.selectRoomLabel.isHidden = true
-//            }
-//            self.hotelTableView.tableFooterView?.isHidden = true
         } else {
 //            self.hotelTableView.tableFooterView?.isHidden = false
             if let stickyView = self.stickyView {
@@ -258,15 +256,6 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
                 stickyView.hotelFeesLabel.isHidden = false
                 stickyView.selectRoomLabel.isHidden = false
             }
-            
-//            if let tableFooterView = self.tableFooterView {
-//                tableFooterView.containerView.backgroundColor = AppColors.themeGreen
-//                tableFooterView.containerView.addGredient(isVertical: false, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
-//                tableFooterView.noRoomsAvailable.isHidden = true
-//                tableFooterView.fromLabel.isHidden = false
-//                tableFooterView.hotelFeesLabel.isHidden = false
-//                tableFooterView.selectRoomLabel.isHidden = false
-//            }
         }
     }
     
@@ -312,19 +301,6 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
             setValue()
             manageOnComplition()
         }
-        
-//        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
-//            guard let sSelf = self else {return}
-//            sSelf.imageView.frame = newImageFrame
-//            sSelf.hotelTableView.frame = newTableFrame
-//            sSelf.hotelTableView.alpha = 1.0
-//            }, completion: { [weak self](isDone) in
-//                guard let sSelf = self else {return}
-//                sSelf.imageView.isHidden = true
-//                sSelf.footerView.isHidden = false
-//                sSelf.headerView.isHidden = false
-//                sSelf.smallLineView?.alpha = 1
-//        })
     }
     
     func hideOnScroll() {
@@ -366,18 +342,6 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
             manageOnComplition()
         }
         
-//        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
-//            guard let sSelf = self else {return}
-//            sSelf.imageView.frame = sSelf.sourceFrame
-//            sSelf.hotelTableView.alpha = 0.0
-////            sSelf.mainView.alpha = 0
-//            sSelf.hotelTableView.frame = sSelf.tableFrameHidden
-//            }, completion: { [weak self](isDone) in
-//                guard let sSelf = self else {return}
-//
-//                sSelf.removeFromParentVC
-//                sSelf.headerView.isHidden = false
-//        })
     }
     
      func footerViewSetUp() {
@@ -386,12 +350,6 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
             stickyView.frame = self.footerView.bounds
             self.footerView.addSubview(stickyView)
         }
-        
-//        self.tableFooterView = getStickyFooter()
-//        if let footerView = self.tableFooterView {
-//            footerView.frame = self.footerView.bounds
-////            self.hotelTableView.tableFooterView = footerView
-//        }
     }
     
     private func setupBeforeAnimation() {
