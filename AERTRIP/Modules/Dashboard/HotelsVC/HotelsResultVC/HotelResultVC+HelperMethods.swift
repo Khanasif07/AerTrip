@@ -285,8 +285,20 @@ extension HotelResultVC {
         guard scrollView === tableViewVertical else {
             return
         }
-        updateHeaderView(scrollView)
-        
+        //        updateHeaderView(scrollView)
+        var yPosition = CGFloat()
+        if(scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0) {
+            yPosition = 0
+        }
+        else {
+            yPosition = -120
+        }
+        if self.isViewDidAppear {
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0, options: .curveEaseInOut, animations: {
+                self.headerContainerViewTopConstraint.constant = yPosition
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
     }
     
     
@@ -306,11 +318,11 @@ extension HotelResultVC {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        showHeaderIfHiddenOnTopAfterEndScrolling(scrollView)
+        //showHeaderIfHiddenOnTopAfterEndScrolling(scrollView)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        showHeaderIfHiddenOnTopAfterEndScrolling(scrollView)
+        //showHeaderIfHiddenOnTopAfterEndScrolling(scrollView)
     }
     
     // Disable mapButton and search bar when no data found on filter

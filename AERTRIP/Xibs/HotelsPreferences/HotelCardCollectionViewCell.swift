@@ -195,7 +195,7 @@ class HotelCardCollectionViewCell: AppStoreAnimationCollectionCell {
     
     private func updateMutiPhotos() {
         self.scrollView.isHidden = !self.shouldShowMultiPhotos
-        self.pageControl.isHidden = !self.shouldShowMultiPhotos
+        //self.pageControl.isHidden = !self.shouldShowMultiPhotos
     }
     
     

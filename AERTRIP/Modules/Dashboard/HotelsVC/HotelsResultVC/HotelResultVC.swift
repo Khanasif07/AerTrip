@@ -113,7 +113,6 @@ class HotelResultVC: StatusBarAnimatableViewController {
     var oldScrollPosition: CGPoint = CGPoint.zero
     var selectedIndexPath: IndexPath?
     var selectedIndexPathForHotelSearch: IndexPath?
-    var isMapInFullView: Bool = false
     var floatingViewInitialConstraint : CGFloat = 0.0
     
     var oldOffset: CGPoint = .zero //used in colletion view scrolling for map re-focus
@@ -159,6 +158,7 @@ class HotelResultVC: StatusBarAnimatableViewController {
     let defaultDamping: CGFloat = 0.70
     let defaultVelocity: CGFloat = 15.0
     var applyButtonTapped: Bool = false
+    var isViewDidAppear = false
     
     //used for making collection view centerlized
     var indexOfCellBeforeDragging = 0
@@ -227,9 +227,14 @@ class HotelResultVC: StatusBarAnimatableViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.isViewDidAppear = true
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.statusBarColor = AppColors.clear
+        self.statusBarColor = AppColors.themeWhite
         self.statusBarStyle = .default
         
         addCustomBackgroundBlurView()

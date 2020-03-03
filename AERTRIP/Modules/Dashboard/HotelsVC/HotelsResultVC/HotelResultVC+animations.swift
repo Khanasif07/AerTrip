@@ -51,18 +51,13 @@ extension HotelResultVC {
             self?.backButton.alpha = 1
             self?.titleLabel.alpha = 1
             self?.descriptionLabel.alpha = 1
-        }, completion: nil)
-            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations:{ [weak self] in
-                self?.searchButton.alpha = 1
-                self?.cancelButton.alpha = 0
-                self?.backButton.alpha = 1
-                self?.searchBarContainerView.alpha = 0.0
-                //self?.searchBarContainerView.backgroundColor = AppColors.clear
-            }) { [weak self] (done)  in
-                if done {
-                  self?.searchBarContainerView.isHidden = true
-                }
+            self?.searchBarContainerView.alpha = 0.0
+        }, completion: { [weak self] (done)  in
+            if done {
+                self?.searchBarContainerView.isHidden = true
             }
+        })
+
         
     }
     
