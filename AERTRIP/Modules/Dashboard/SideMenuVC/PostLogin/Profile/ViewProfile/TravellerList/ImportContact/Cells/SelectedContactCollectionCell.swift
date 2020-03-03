@@ -290,7 +290,13 @@ class SelectedContactImportCollectionCell: UICollectionViewCell {
             
         }
         else {
-            self.nameLabel.text = self.contact?.firstName ?? ""
+            if let firstName = self.contact?.firstName, !firstName.isEmpty {
+                self.nameLabel.text = firstName
+            } else if let lastName = self.contact?.lastName , !lastName.isEmpty {
+                self.nameLabel.text = lastName
+            } else {
+                self.nameLabel.text = ""
+            }
             
             let placeholder = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
             self.profileImageView.image = placeholder

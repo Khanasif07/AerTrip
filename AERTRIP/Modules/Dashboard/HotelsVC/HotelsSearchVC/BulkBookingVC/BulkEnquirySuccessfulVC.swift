@@ -67,6 +67,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
     
     var currentUsingAs = UsingFor.bulkBooking
     var searchButtonConfiguration: ButtonConfiguration = ButtonConfiguration()
+  
     //Mark:- LifeCycle
     //================
     override func viewDidLoad() {
@@ -84,7 +85,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
     }
     
     override func setupFonts() {
-        self.mainTitleLabel.font = AppFonts.c.withSize(32.0)
+        self.mainTitleLabel.font = AppFonts.c.withSize(31.0)
         self.subTitleLabel.font = AppFonts.Regular.withSize(16.0)
         self.doneBtnOutlet.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
     }
@@ -213,12 +214,13 @@ class BulkEnquirySuccessfulVC: BaseVC {
         }) { (isCompleted) in
             self.searchBtnOutlet.layer.cornerRadius = reScaleFrame.height / 2.0
             let yPerSafeArea = self.mainTitleLabel.frame.origin.y + self.view.safeAreaInsets.bottom + 26.0 + 5
+            let y = self.containerView.height - 115 - 62 - 11
             let tY: CGFloat
-            if UIDevice.isIPhoneX {
-                tY = (((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y)
-            } else {
+//            if UIDevice.isIPhoneX {
+//                tY = (((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y)
+//            } else {
                 tY = (((self.view.frame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y + 15.0)
-            }
+//            }
             //- yPerSafeArea
             //            let tY = ((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y //- yPerSafeArea
             var t = CGAffineTransform.identity
@@ -232,7 +234,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
 //                self.doneBtnOutlet.bottom = self.subTitleLabel.bottom + 120.0
                 self.animatingCheckMark()
                 delay(seconds: AppConstants.kAnimationDuration + 0.1, completion: {
-                    self.finalTransFormation(tY: tY - yPerSafeArea)
+                    self.finalTransFormation(tY: -y)
                 })
             }
         }

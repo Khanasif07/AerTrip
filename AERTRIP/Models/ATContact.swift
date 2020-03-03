@@ -27,16 +27,17 @@ struct ATContact {
     var lastName: String
     var image: String
     var imageData: Data?
-    var contact: String{
-        didSet {
-            if !contact.isEmpty, self.firstName.isEmpty {
-                self.firstName = contact
-            }
-        }
-    }
+    var contact: String
+//    {
+//        didSet {
+//            if !contact.isEmpty, self.firstName.isEmpty {
+//              self.firstName = contact
+//            }
+//        }
+//    }
     var email: String {
         didSet {
-            if !email.isEmpty, self.firstName.isEmpty {
+            if !email.isEmpty, self.firstName.isEmpty{
                 self.firstName = email.capitalizedFirst()
             }
         }
@@ -81,7 +82,11 @@ struct ATContact {
             let final = "\(self.firstName) \(self.lastName)"
             // add Email when first aname and last name empty
             if final.removeAllWhiteSpacesAndNewLines.isEmpty {
-                return self.email.removeAllWhiteSpacesAndNewLines
+                if self.contact.removeLeadingTrailingWhitespaces.isEmpty {
+                    return self.email.removeAllWhiteSpacesAndNewLines
+                } else {
+                    return self.contact.removeAllWhiteSpacesAndNewLines
+                }
             }
             else {
                 return final
@@ -133,6 +138,9 @@ struct ATContact {
         }
         
         self.dob = contact.dob
+        if let phone = contact.phoneNumbers.first {
+        self.contact = phone.value.stringValue
+        }
         /*
         DispatchQueue.global(qos: .utility).async {
             if let phone = contact.phoneNumbers.first {
@@ -270,14 +278,14 @@ extension CNContact {
         fName = self.givenName
         
         //if name is empty then set email's first char as name
-        if fName.isEmpty {
-            fName = self.email.capitalizedFirst()
-        }
+//        if fName.isEmpty {
+//            fName = self.email.capitalizedFirst()
+//        }
         
         //if name is empty then set email's first char as name
-        if fName.isEmpty {
-            fName = self.fullContact.contact
-        }
+//        if fName.isEmpty {
+//            fName = self.fullContact.contact
+//        }
         
         return fName
     }
