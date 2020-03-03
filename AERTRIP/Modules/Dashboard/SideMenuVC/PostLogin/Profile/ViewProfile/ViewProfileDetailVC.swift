@@ -30,7 +30,7 @@ class ViewProfileDetailVC: BaseVC {
     var frequentFlyer: [FrequentFlyer] = []
     var informations: [String] = []
     let passportDetaitTitle: [String] = [LocalizedString.passportNo.rawValue, LocalizedString.issueCountry.rawValue]
-    let flightPreferencesTitle: [String] = [LocalizedString.seatPreference.rawValue, LocalizedString.mealPreference.rawValue]
+    var flightPreferencesTitle: [String] = [LocalizedString.seatPreference.rawValue, LocalizedString.mealPreference.rawValue]
     var passportDetails: [String] = []
     var flightDetails: [String] = []
     let tableViewHeaderViewIdentifier = "ViewProfileDetailTableViewSectionView"
@@ -124,6 +124,7 @@ class ViewProfileDetailVC: BaseVC {
         
         setupParallaxHeader()
         tableView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellReuseIdentifier: cellIdentifier)
+        tableView.register(UINib(nibName: "ViewProfileDetailFrequentCell",bundle: nil), forCellReuseIdentifier: "ViewProfileDetailFrequentCell")
         tableView.register(UINib(nibName: multipleDetailCellIdentifier, bundle: nil), forCellReuseIdentifier: multipleDetailCellIdentifier)
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: footterHeight))
         tableView.tableFooterView = footerView
@@ -245,6 +246,8 @@ class ViewProfileDetailVC: BaseVC {
         flightDetails.removeAll()
         if !travel.preferences.seat.value.isEmpty {
             flightDetails.append(travel.preferences.seat.value)
+            flightPreferencesTitle.insert(LocalizedString.seatPreference.rawValue, at: 0)
+//            flightDetails.append(travel.preferences.seat.value)
             sections.append(LocalizedString.FlightPreferences.localized)
         }
         
@@ -252,6 +255,9 @@ class ViewProfileDetailVC: BaseVC {
             flightDetails.append(travel.preferences.meal.value)
             if !sections.contains(LocalizedString.FlightPreferences.localized) {
                 sections.append(LocalizedString.FlightPreferences.localized)
+                flightPreferencesTitle.insert(LocalizedString.mealPreference.rawValue, at: 0)
+            } else {
+                flightPreferencesTitle.insert(LocalizedString.mealPreference.rawValue, at: 1)
             }
         }
         
@@ -399,21 +405,30 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
             else {
-                guard let viewProfileMultiDetailcell = tableView.dequeueReusableCell(withIdentifier: multipleDetailCellIdentifier, for: indexPath) as? ViewProfileMultiDetailTableViewCell else {
+                if (flightDetails.count == 1 && indexPath.row == 1) || (flightDetails.count == 2 && indexPath.row == 2) {
+                    guard let viewProfileDetailFrequentcell = tableView.dequeueReusableCell(withIdentifier: multipleDetailCellIdentifier, for: indexPath) as? ViewProfileMultiDetailTableViewCell else {
                     fatalError("ViewProfileMultiDetailTableViewCell not found")
+                    }
+                    viewProfileDetailFrequentcell.configureCellForFrequentFlyer(indexPath, frequentFlyer[indexPath.row - flightDetails.count].logoUrl, frequentFlyer[indexPath.row - flightDetails.count].airlineName, frequentFlyer[indexPath.row - flightDetails.count].number,flightDetails.count)
+                    return viewProfileDetailFrequentcell
+                } else {
+                    guard let viewProfileMultiDetailcell = tableView.dequeueReusableCell(withIdentifier: multipleDetailCellIdentifier, for: indexPath) as? ViewProfileMultiDetailTableViewCell else {
+                        fatalError("ViewProfileMultiDetailTableViewCell not found")
+                    }
+                    viewProfileMultiDetailcell.secondTitleLabel.isHidden = true
+                    viewProfileMultiDetailcell.configureCellForFrequentFlyer(indexPath, frequentFlyer[indexPath.row - flightDetails.count].logoUrl, frequentFlyer[indexPath.row - flightDetails.count].airlineName, frequentFlyer[indexPath.row - flightDetails.count].number,flightDetails.count)
+                    
+                    viewProfileMultiDetailcell.separatorLeadingConstraint.constant = (indexPath.row < (flightDetails.count + frequentFlyer.count)) ? 16.0 : 0
+                    viewProfileMultiDetailcell.separatorTrailingConstraint.constant = (indexPath.row < (flightDetails.count + frequentFlyer.count)) ? 16.0 : 0
+                    viewProfileMultiDetailcell.separatorView.isHidden = (indexPath.row == (flightDetails.count + frequentFlyer.count) - 1) ? false : false
+                    
+                    if  indexPath.row == (frequentFlyer.count + flightDetails.count) - 1 {
+                        viewProfileMultiDetailcell.separatorLeadingConstraint.constant = 0.0
+                        viewProfileMultiDetailcell.separatorTrailingConstraint.constant = 0.0
+                    }
+                    return viewProfileMultiDetailcell
+                    
                 }
-                viewProfileMultiDetailcell.secondTitleLabel.isHidden = true
-                viewProfileMultiDetailcell.configureCellForFrequentFlyer(indexPath, frequentFlyer[indexPath.row - flightDetails.count].logoUrl, frequentFlyer[indexPath.row - flightDetails.count].airlineName, frequentFlyer[indexPath.row - flightDetails.count].number)
-                
-                viewProfileMultiDetailcell.separatorLeadingConstraint.constant = (indexPath.row < (flightDetails.count + frequentFlyer.count)) ? 16.0 : 0
-                viewProfileMultiDetailcell.separatorTrailingConstraint.constant = (indexPath.row < (flightDetails.count + frequentFlyer.count)) ? 16.0 : 0
-                viewProfileMultiDetailcell.separatorView.isHidden = (indexPath.row == (flightDetails.count + frequentFlyer.count) - 1) ? false : false
-                
-                if  indexPath.row == (frequentFlyer.count + flightDetails.count) - 1 {
-                    viewProfileMultiDetailcell.separatorLeadingConstraint.constant = 0.0
-                    viewProfileMultiDetailcell.separatorTrailingConstraint.constant = 0.0
-                }
-                return viewProfileMultiDetailcell
                 
             }
             

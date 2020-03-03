@@ -51,6 +51,11 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
             self.setUpInstagramDotGalleryView()
         }
     }
+    var isLastCellInSection: Bool = false {
+        didSet {
+            updateBottomConstraint()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -165,6 +170,10 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
     private func setupPageControl() {
         self.pageControl.pageIndicatorTintColor = AppColors.themeGray220
         self.pageControl.currentPageIndicatorTintColor = AppColors.themeWhite
+    }
+    
+    private func updateBottomConstraint() {
+        self.containerBottomConstraint.constant = isLastCellInSection ? 0 : 16
     }
     
     @objc func saveButtonTapped(_ sender: UIButton) {

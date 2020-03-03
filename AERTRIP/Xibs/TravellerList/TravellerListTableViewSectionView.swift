@@ -10,7 +10,13 @@ import UIKit
 
 class TravellerListTableViewSectionView: UITableViewHeaderFooterView {
     @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak var topSepratorView: ATDividerView!
+    @IBOutlet weak var bottomSepratorView: ATDividerView!
 
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
     func configureCell(_ title: String) {
         headerLabel.text = title.capitalizedFirst()
     }

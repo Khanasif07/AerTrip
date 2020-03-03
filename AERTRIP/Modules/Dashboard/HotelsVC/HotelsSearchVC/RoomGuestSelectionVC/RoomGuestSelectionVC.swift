@@ -216,7 +216,10 @@ class RoomGuestSelectionVC: BaseVC {
             button.isSelected = button.tag <= self.viewModel.selectedAdults
             
             if oldState != button.isSelected {
-               if button.isSelected == true { self.animateWithKeyFrames(button: button,isFirstTime: animated)}
+                if button.isSelected == true { self.selectButtonAnimation(button: button,isFirstTime: animated)
+                } else {
+                    self.deselectButtonAnimation(button: button,isFirstTime: animated)
+                }
             }
         }
         
@@ -226,7 +229,10 @@ class RoomGuestSelectionVC: BaseVC {
             button.isSelected = button.tag <= self.viewModel.selectedChilds
             
             if oldState != button.isSelected {
-               if button.isSelected == true  { self.animateWithKeyFrames(button: button,isFirstTime: animated) }
+                if button.isSelected == true  { self.selectButtonAnimation(button: button,isFirstTime: animated)
+                } else {
+                    self.deselectButtonAnimation(button: button,isFirstTime: animated)
+                }
             }
         }
         
@@ -234,28 +240,50 @@ class RoomGuestSelectionVC: BaseVC {
         self.messageLabel.isHidden = (self.viewModel.selectedAdults + self.viewModel.selectedChilds) <= 3
     }
     
-    func animateWithKeyFrames(button: UIButton,isFirstTime: Bool = false){
-           //Total animation duration is 1.0 seconds - This time is inside the
+    func selectButtonAnimation(button: UIButton,isFirstTime: Bool = false){
+        //Total animation duration is 1.0 seconds - This time is inside the
         if isFirstTime {
-           UIView.animateKeyframes(withDuration: 1.0, delay: 0.0, options: [], animations: {
-               UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.33, animations: {
-                   //1.Expansion + button label alpha
-                   button.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
-               })
-               UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.33, animations: {
-                   //2.Shrink
-                button.transform = CGAffineTransform(scaleX: 0.85, y: 0.85)
-               })
-               UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.33, animations: {
-                   //4.Move out of screen and reduce alpha to 0
-                button.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-               })
-           }) { (completed) in
-               //Completion of whole animation sequence
-           }
+            UIView.animateKeyframes(withDuration: 1.0, delay: 0.0, options: [], animations: {
+                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.33, animations: {
+                    //1.Expansion + button label alpha
+                    button.transform = CGAffineTransform(scaleX: 1.15, y: 1.15)
+                })
+                UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.33, animations: {
+                    //2.Shrink
+                    button.transform = CGAffineTransform(scaleX: 0.85, y: 0.85)
+                })
+                UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.33, animations: {
+                    //4.Move out of screen and reduce alpha to 0
+                    button.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                })
+            }) { (completed) in
+                //Completion of whole animation sequence
+            }
         }
-       }
-
+    }
+    
+    func deselectButtonAnimation(button: UIButton,isFirstTime: Bool = false){
+        //Total animation duration is 1.0 seconds - This time is inside the
+//        if isFirstTime {
+//            UIView.animateKeyframes(withDuration: 1.0, delay: 0.0, options: [], animations: {
+//                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.33, animations: {
+//                    //1.Expansion + button label alpha
+//                    button.imageView?.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+//                })
+//                UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.33, animations: {
+//                    //2.Shrink
+//                    button.imageView?.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+//                })
+//                UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.33, animations: {
+//                    //4.Move out of screen and reduce alpha to 0
+//                    button.imageView?.transform = CGAffineTransform(scaleX: 0.25, y: 0.25)
+//                })
+//            }) { (completed) in
+//                //Completion of whole animation sequence
+//                button.imageView?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+//            }
+//        }
+    }
     
     private func enableAgePicker() {
         for picker in self.agePickers {
