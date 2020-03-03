@@ -7,32 +7,15 @@
 //
 
 import CoreData
-import GoogleMaps
 import UIKit
 import Kingfisher
 import MapKit
 
 class MapContainerView: UIView {
-    weak var mapView: GMSMapView? {
-        didSet {
-            if let vw = mapView {
-                self.addSubview(vw)
-                vw.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-            }
-        }
-    }
-    
-    
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        //  self.mapView?.frame = self.bounds
-        
         self.backgroundColor = AppColors.clear
-        self.mapView?.backgroundColor = AppColors.themeGreen
-        
     }
-    
     deinit {
         printDebug("MapContainerView deinit")
     }
@@ -227,7 +210,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.cardGradientView.layer.addSublayer(self.gradientLayer!)
         self.cardGradientView.backgroundColor = AppColors.clear
         self.additionalSafeAreaInsets = .zero
-//        self.addMapView()
+        self.addMapView()
         self.appleMap.delegate = self
         self.addGestureRecognizerForTap()
         if AppGlobals.shared.isNetworkRechable() {
@@ -282,15 +265,8 @@ class HotelsMapVC: StatusBarAnimatableViewController {
             self.selectedIndexPath = nil
             
             self.viewModel.getFavouriteHotels(shouldReloadData: true)
-//            self.updateMarkers()
-//            self.showHotelOnMap(duration: 0.4)
-            if let index = self.seletedIndexForSearchTable{
-                self.updateFavouriteAnnotationDetail(duration: 0.4, index: index)
-            }else{
-                self.updateFavouriteAnnotationDetail(duration: 0.4)
-            }
-            
-            
+            //            self.updateMarkers()
+            //            self.showHotelOnMap(duration: 0.4)
         }
         else if let _ = note.object as? HCDataSelectionVC {
             updateFavOnList(forIndexPath: selectedIndexPath)
@@ -299,6 +275,13 @@ class HotelsMapVC: StatusBarAnimatableViewController {
             updateFavOnList(forIndexPath: selectedIndexPath)
         } else if let _ = note.object as? HotelsGroupExpendedVC {
             
+        }
+        
+        if let index = self.seletedIndexForSearchTable{
+            self.updateFavouriteAnnotationDetail(duration: 0.4, index: index)
+            self.seletedIndexForSearchTable = nil
+        }else{
+            self.updateFavouriteAnnotationDetail(duration: 0.4)
         }
     }
     
