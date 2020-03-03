@@ -431,6 +431,18 @@ class BulkBookingVC: BaseVC {
     }
     
     @IBAction func searchButtonAction(_ sender: ATButton) {
+        
+        var config = BulkEnquirySuccessfulVC.ButtonConfiguration()
+        config.text = LocalizedString.Submit.localized
+        config.cornerRadius = 25.0
+        if let font = self.searchButtonOutlet.titleLabel?.font {
+            config.textFont = font
+        }
+        config.width = self.searchButtonOutlet.width
+        AppFlowManager.default.showBulkEnquiryVC(buttonConfig: config)
+        
+        return
+        
         if let _ = self.returnUserId  {
             if self.viewModel.isValidateData() {
                sender.isLoading = true

@@ -21,15 +21,18 @@ extension HotelResultVC {
         self.searchBar.becomeFirstResponder()
         self.searchBarContainerView.alpha = 0.0
         self.searchBarContainerView.isHidden = false
-        self.titleLabel.isHidden = true
-        self.descriptionLabel.isHidden = true
+        
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: { [weak self] in
             self?.searchBarContainerView.alpha = 1.0
             self?.cancelButton.alpha = 1
             self?.backButton.alpha = 0
             self?.searchButton.alpha = 0
+            self?.titleLabel.alpha = 0
+            self?.descriptionLabel.alpha = 0
         }, completion: { [weak self] (done)  in
             if done {
+                self?.titleLabel.isHidden = true
+                self?.descriptionLabel.isHidden = true
             }
         })
         
@@ -46,6 +49,8 @@ extension HotelResultVC {
             self?.searchButton.alpha = 1
             self?.cancelButton.alpha = 0
             self?.backButton.alpha = 1
+            self?.titleLabel.alpha = 1
+            self?.descriptionLabel.alpha = 1
         }, completion: nil)
             UIView.animate(withDuration: AppConstants.kAnimationDuration, animations:{ [weak self] in
                 self?.searchButton.alpha = 1

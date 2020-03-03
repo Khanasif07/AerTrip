@@ -95,7 +95,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             }
             
             hView.titleLabel.text = self.getSectionTitle(forSection: section)
-            hView.titleLabelWidthConstraint.constant = hView.titleLabel.intrinsicContentSize.width + 9
+            hView.titleLabelWidthConstraint.constant = hView.titleLabel.intrinsicContentSize.width + 16
             return hView
         }
     }
@@ -175,7 +175,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             cell.contentView.backgroundColor = AppColors.themeWhite
             if  let sections = self.viewModel.fetchedResultsController.sections {
                 let sectionInfo = sections[indexPath.section]
-                cell.isLastCellInSection =  indexPath.item ==  sectionInfo.numberOfObjects
+                cell.isLastCellInSection =  indexPath.item ==  (sectionInfo.numberOfObjects - 1)
             } else {
                 cell.isLastCellInSection = false
             }
