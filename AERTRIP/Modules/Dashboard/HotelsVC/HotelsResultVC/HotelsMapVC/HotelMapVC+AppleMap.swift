@@ -55,6 +55,22 @@ extension HotelsMapVC : MKMapViewDelegate{
     
     @objc func tapOnMAp(_ gesture: UITapGestureRecognizer){
         self.updateFullMarkerView()
+        self.updateAnnotationOnMapTap()
+    }
+    func updateAnnotationOnMapTap(){
+        if !self.isMapInFullView {
+            let index = self.getCurrentCollectionIndex()
+            if self.viewModel.collectionViewLocArr.indices.contains(index) {
+                let locStr = self.viewModel.collectionViewLocArr[index]
+                guard let loc = self.getLocationObject(fromLocation: locStr) else{return}
+                guard let currentAnnotation = self.appleMap.annotations.first(where: {self.compareTwoCoordinate($0.coordinate, loc)}) as? MyAnnotation else{ return}
+                self.updateMarkerImageFor(annotation: currentAnnotation, isSelected: true, isDetaisShow: true)
+            }
+        }else{
+            guard  let selectedAnnotation = self.detailsShownMarkers.first(where: {($0.markerImageView?.isSelected ?? false)||( $0.clusterView?.isSelected ?? false)}) else {return}
+            self.updateMarkerImageFor(annotation: selectedAnnotation, isSelected: false, isDetaisShow: true)
+        }
+        
     }
     
     func addAllMarker() {
@@ -145,7 +161,7 @@ extension HotelsMapVC : MKMapViewDelegate{
     func updateSelectedMarker(_ annotation: MKAnnotation?, isTappedMarker:Bool = true){
         self.removePreviouseSelected()
         guard  let anno = annotation as? MyAnnotation else {return}
-        self.updateMarkerImageFor(annotation: anno, isSelected: true, isDetaisShow: true)
+        self.updateMarkerImageFor(annotation: anno, isSelected: !self.isMapInFullView, isDetaisShow: true)
         if !self.detailsShownMarkers.contains(anno){
             detailsShownMarkers.forEach { annotation in
                 self.updateMarkerImageFor(annotation: annotation, isSelected: false, isDetaisShow: false)
