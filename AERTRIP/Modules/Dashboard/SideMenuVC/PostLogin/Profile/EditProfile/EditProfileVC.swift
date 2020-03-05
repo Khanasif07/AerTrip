@@ -452,8 +452,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         viewModel.doa = LocalizedString.SelectDate.localized
         viewModel.notes = ""
         
-        viewModel.seat = LocalizedString.SelectSeatPreference.localized
-        viewModel.meal = LocalizedString.SelectMealPreference.localized
+        viewModel.seat = LocalizedString.Select.localized
+        viewModel.meal = LocalizedString.Select.localized
         
         var email = Email()
         email.type = "Email"
@@ -636,15 +636,26 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         case .seatPreference:
             if let indexPath = self.indexPath {
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
-                cell.editableTextField.text = pickerTitle
-                viewModel.seat = pickerTitle
+                if LocalizedString.Select.localized == pickerTitle {
+                    cell.editableTextField.text = LocalizedString.Select.localized
+                    viewModel.seat = LocalizedString.Select.localized
+                } else {
+                    cell.editableTextField.text = pickerTitle
+                    viewModel.seat = pickerTitle
+                }
             }
             
         case .mealPreference:
             if let indexPath = self.indexPath {
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
-                cell.editableTextField.text = pickerTitle
-                viewModel.meal = pickerTitle
+                if LocalizedString.Select.localized == pickerTitle {
+                    cell.editableTextField.text = LocalizedString.Select.localized
+                    viewModel.meal = LocalizedString.Select.localized
+                } else {
+                    cell.editableTextField.text = pickerTitle
+                    viewModel.meal = pickerTitle
+                }
+                
             }
             
         case .country:
@@ -746,14 +757,16 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         case 0:
             if viewModel.seatPreferences.count > 0 {
                 pickerType = .seatPreference
-                let seatPreferences = Array(viewModel.seatPreferences.values)
+                var seatPreferences = Array(viewModel.seatPreferences.values)
+                seatPreferences.insert(LocalizedString.Select.localized, at: 0)
                 pickerData = seatPreferences
                 openPicker(withSelection: viewModel.seat)
             }
         case 1:
             if viewModel.mealPreferences.count > 0 {
                 pickerType = .mealPreference
-                let mealPreferences = Array(viewModel.mealPreferences.values)
+                var mealPreferences = Array(viewModel.mealPreferences.values)
+                mealPreferences.insert(LocalizedString.Select.localized, at: 0)
                 pickerData = mealPreferences
                 openPicker(withSelection: viewModel.meal)
             }

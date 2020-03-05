@@ -73,7 +73,7 @@ class ViewProfileVC: BaseVC {
         super.viewWillAppear(animated)
         
         if let main = AppFlowManager.default.mainHomeVC, main.isPushedToNext {
-            self.statusBarStyle = topNavView.backView.isHidden ? .lightContent : .default
+            self.statusBarStyle = topNavView.backView.isHidden ? .default : .lightContent
         }
         else if let sideMenu = AppFlowManager.default.sideMenuController, !sideMenu.isOpen {
             self.statusBarStyle = .lightContent
