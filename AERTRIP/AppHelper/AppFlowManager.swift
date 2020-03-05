@@ -301,7 +301,7 @@ extension AppFlowManager {
     
     func moveToTravellerListVC() {
         let ob = TravellerListVC.instantiate(fromAppStoryboard: .TravellerList)
-        self.mainNavigationController.pushViewController(ob, animated: true)
+        self.mainNavigationController.pushViewController(ob, animated: false)
     }
     
     func moveToPreferencesVC(_ delegate: PreferencesVCDelegate) {

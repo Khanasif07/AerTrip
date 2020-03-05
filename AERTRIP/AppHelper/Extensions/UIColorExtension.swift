@@ -33,7 +33,7 @@ extension UIColor{
     ///Returns the color based on the given R,G,B and alpha values
     class func colorRGB(r:Int, g:Int, b:Int, alpha:CGFloat = 1)->UIColor{
         
-        return UIColor(red: CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: alpha)
+        return UIColor(displayP3Red: CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: alpha)
     }
     
     ///Returns the color based on the given hex string

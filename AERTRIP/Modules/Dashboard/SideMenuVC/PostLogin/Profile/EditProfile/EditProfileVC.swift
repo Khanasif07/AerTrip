@@ -223,11 +223,11 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     func setupPickers() {
         
         datePickerView?.frame = CGRect(x: (UIScreen.main.bounds.size.width - PKCountryPickerSettings.pickerSize.width) / 2.0, y: UIScreen.main.bounds.size.height, width: PKCountryPickerSettings.pickerSize.width, height: (PKCountryPickerSettings.pickerSize.height + PKCountryPickerSettings.toolbarHeight))
-       // datePickerView?.backgroundColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
+       // datePickerView?.backgroundColor = UIColor(displayP3Red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
         
         // Generic Picker View
         //genericPickerView?.frame = CGRect(x: (UIScreen.main.bounds.size.width - PKCountryPickerSettings.pickerSize.width) / 2.0, y: UIScreen.main.bounds.size.height, width: PKCountryPickerSettings.pickerSize.width, height: (PKCountryPickerSettings.pickerSize.height + PKCountryPickerSettings.toolbarHeight))
-       // genericPickerView?.backgroundColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
+       // genericPickerView?.backgroundColor = UIColor(displayP3Red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
         
         pickerView?.frame = CGRect(x: 0.0, y: 0, width: pickerSize.width, height: pickerSize.height)
         pickerView?.selectRow(0, inComponent: 0, animated: true)
@@ -241,9 +241,9 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         datePicker?.addTarget(self, action: #selector(valueChangedDatePicker), for: .valueChanged)
         pickerView?.delegate = self
         pickerView?.dataSource = self
-       // datePicker?.backgroundColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+       // datePicker?.backgroundColor = UIColor(displayP3Red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         
-        pickerView?.setValue(#colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1), forKey: "textColor")
+        pickerView?.setValue(UIColor(displayP3Red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1), forKey: "textColor")
         setupToolBar()
         setUpToolBarForGenericPickerView()
     }
@@ -386,6 +386,12 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         let imageFromText: UIImage = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
         viewModel.frequentFlyer = travel.frequestFlyer
+        
+        if viewModel.frequentFlyer.isEmpty {
+        var emptyFF = FrequentFlyer(json: [:])
+        emptyFF.airlineName = LocalizedString.SelectAirline.localized
+        viewModel.frequentFlyer.append(emptyFF)
+        }
         ffExtraCount = viewModel.frequentFlyer.isEmpty ? 4 : 3
         
         if travel.profileImage != "" {
@@ -446,8 +452,8 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         viewModel.doa = LocalizedString.SelectDate.localized
         viewModel.notes = ""
         
-        viewModel.seat = LocalizedString.SelectSeatPreference.localized
-        viewModel.meal = LocalizedString.SelectMealPreference.localized
+        viewModel.seat = LocalizedString.Select.localized
+        viewModel.meal = LocalizedString.Select.localized
         
         var email = Email()
         email.type = "Email"
@@ -630,15 +636,26 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         case .seatPreference:
             if let indexPath = self.indexPath {
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
-                cell.editableTextField.text = pickerTitle
-                viewModel.seat = pickerTitle
+                if LocalizedString.Select.localized == pickerTitle {
+                    cell.editableTextField.text = LocalizedString.Select.localized
+                    viewModel.seat = LocalizedString.Select.localized
+                } else {
+                    cell.editableTextField.text = pickerTitle
+                    viewModel.seat = pickerTitle
+                }
             }
             
         case .mealPreference:
             if let indexPath = self.indexPath {
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? TextEditableTableViewCell else { fatalError("TextEditableTableViewCell not found") }
-                cell.editableTextField.text = pickerTitle
-                viewModel.meal = pickerTitle
+                if LocalizedString.Select.localized == pickerTitle {
+                    cell.editableTextField.text = LocalizedString.Select.localized
+                    viewModel.meal = LocalizedString.Select.localized
+                } else {
+                    cell.editableTextField.text = pickerTitle
+                    viewModel.meal = pickerTitle
+                }
+                
             }
             
         case .country:
@@ -740,14 +757,16 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         case 0:
             if viewModel.seatPreferences.count > 0 {
                 pickerType = .seatPreference
-                let seatPreferences = Array(viewModel.seatPreferences.values)
+                var seatPreferences = Array(viewModel.seatPreferences.values)
+                seatPreferences.insert(LocalizedString.Select.localized, at: 0)
                 pickerData = seatPreferences
                 openPicker(withSelection: viewModel.seat)
             }
         case 1:
             if viewModel.mealPreferences.count > 0 {
                 pickerType = .mealPreference
-                let mealPreferences = Array(viewModel.mealPreferences.values)
+                var mealPreferences = Array(viewModel.mealPreferences.values)
+                mealPreferences.insert(LocalizedString.Select.localized, at: 0)
                 pickerData = mealPreferences
                 openPicker(withSelection: viewModel.meal)
             }

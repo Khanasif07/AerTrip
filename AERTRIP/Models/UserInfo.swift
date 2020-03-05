@@ -170,6 +170,10 @@ class UserInfo {
                 self.labels.append(newLabel)
                 labelsWithPriority[newLabel] = idx + 5
             }
+            if !self.labels.contains("Others") {
+                self.labels.append("Others")
+                labelsWithPriority["Others"] = newList.count + 5
+            }
         }
     }
     

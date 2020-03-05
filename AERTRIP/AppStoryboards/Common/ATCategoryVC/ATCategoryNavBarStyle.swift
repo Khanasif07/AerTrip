@@ -35,10 +35,10 @@ public struct ATCategoryNavBarStyle {
     
     
     /// ATCategoryItem normal color. Use RGB channels!!!
-    public var normalColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+    public var normalColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
     
     /// ATCategoryItem selected color. Use RGB channels!!!
-    public var selectedColor = UIColor(red: 244.0/255.0, green: 173.0/255.0, blue: 98.0/255.0, alpha: 1.0)
+    public var selectedColor = UIColor(displayP3Red: 244.0/255.0, green: 173.0/255.0, blue: 98.0/255.0, alpha: 1.0)
     
     /// The space between each ATCategoryItem
     public var interItemSpace: CGFloat = 20.0
@@ -52,7 +52,7 @@ public struct ATCategoryNavBarStyle {
     
     public var indicatorHeight:CGFloat = 2.0
     public var indicatorCornerRadius:CGFloat = 1.0
-    public var indicatorColor:UIColor = UIColor(red: 244.0/255.0, green: 173.0/255.0, blue: 98.0/255.0, alpha: 1.0)
+    public var indicatorColor:UIColor = UIColor(displayP3Red: 244.0/255.0, green: 173.0/255.0, blue: 98.0/255.0, alpha: 1.0)
     
     
     //###### ATCategoryItems Background Mask Related

@@ -306,11 +306,11 @@ class EditProfileVM {
             }
         }
         
-        if !seat.isEmpty, seat != LocalizedString.SelectSeatPreference.localized {
+        if !seat.isEmpty, seat != LocalizedString.Select.localized {
             params[APIKeys.seatPreference.rawValue] = seat
         }
 
-        if !meal.isEmpty, meal != LocalizedString.SelectMealPreference.localized {
+        if !meal.isEmpty, meal != LocalizedString.Select.localized {
             params[APIKeys.mealPreference.rawValue] = meal
         }
         params[APIKeys.notes.rawValue] = notes

@@ -297,15 +297,34 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             
             if let _ = UserInfo.loggedInUserId {
                 let title = self.viewModel.cellForLoginUser[indexPath.row - 2]
-                if indexPath.row == 6 || indexPath.row == 5 || indexPath.row == 4 {
-                    cell.displayTextLabelTopConstraint.constant = -4.0
-                } else {
+                switch indexPath.row{
+                case 2:
+                    cell.displayTextLabelTopConstraint.constant = 18.0
+                case 3:
+                    cell.displayTextLabelTopConstraint.constant = 13.0
+                case 4:
+                    cell.displayTextLabelTopConstraint.constant = 11.0
+                case 6:
+                    cell.displayTextLabelTopConstraint.constant = -6.0
+                default:
                     cell.displayTextLabelTopConstraint.constant = 0.0
                 }
                 cell.populateData(text: title)
                 cell.sepratorView.isHidden = !title.isEmpty
                 
             } else {
+                
+                switch indexPath.row{
+                case 2:
+                    cell.displayTextLabelTopConstraint.constant = 2.0
+                case 4:
+                    cell.displayTextLabelTopConstraint.constant = -2.0
+                case 5:
+                    cell.displayTextLabelTopConstraint.constant = -4.0
+                default:
+                    cell.displayTextLabelTopConstraint.constant = 0.0
+                }
+                
                 cell.populateData(text: self.viewModel.displayCellsForGuest[indexPath.row - 1])
             }
             

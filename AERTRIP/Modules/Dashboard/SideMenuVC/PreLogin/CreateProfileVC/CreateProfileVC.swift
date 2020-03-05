@@ -27,7 +27,7 @@ class CreateProfileVC: BaseVC {
     @IBOutlet weak var firstNameTextField: PKFloatLabelTextField!
     @IBOutlet weak var lastNameTextField: PKFloatLabelTextField!
     @IBOutlet weak var countryTextField: PKFloatLabelTextField!
-    @IBOutlet weak var mobileNumberTextField: PKFloatLabelTextField!
+    @IBOutlet weak var mobileNumberTextField: UITextField!
     @IBOutlet weak var letsStartedButton: ATButton!
     @IBOutlet weak var countryCodeTextField: PKFloatLabelTextField!
     @IBOutlet weak var countryCodeLabel: UILabel!
@@ -181,6 +181,8 @@ private extension CreateProfileVC {
         self.firstNameTextField.hintYPadding = 12.0
         self.lastNameTextField.hintYPadding = 12.0
         self.lastNameTextField.titleYPadding = 12.0
+        self.countryTextField.titleYPadding = 2.0
+
         //self.countryTextField.lineViewBottomSpace = 4.0
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         self.topNavBar.delegate = self
@@ -197,7 +199,6 @@ private extension CreateProfileVC {
         if let currentCountry = PKCountryPicker.default.getCurrentLocalCountryData() {
             self.setupData(forCountry: currentCountry)
         }
-        
     }
     
     private func setupData(forCountry: PKCountryModel) {
@@ -220,7 +221,8 @@ private extension CreateProfileVC {
         self.firstNameTextField.setupTextField(placehoder: LocalizedString.First_Name.localized,with: "",textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
         self.lastNameTextField.setupTextField(placehoder: LocalizedString.Last_Name.localized,with: "",textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
         self.countryTextField.setupTextField(placehoder: LocalizedString.Country.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .next, isSecureText: false)
-        self.mobileNumberTextField.setupTextField(placehoder: LocalizedString.Mobile_Number.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .numberPad, returnType: .done, isSecureText: false)
+//        self.mobileNumberTextField.setupTextField(placehoder: LocalizedString.Mobile_Number.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .numberPad, returnType: .done, isSecureText: false)
+        self.mobileNumberTextField.setUpTextField(placehoder: LocalizedString.Mobile_Number.localized,textColor: AppColors.textFieldTextColor51, keyboardType: .numberPad, returnType: .done, isSecureText: false)
         self.countryCodeTextField.setupTextField(placehoder:"",textColor: AppColors.textFieldTextColor51, keyboardType: .numberPad, returnType: .done, isSecureText: false)
         
         salutationPicker.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
@@ -244,7 +246,7 @@ private extension CreateProfileVC {
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor(red:14.0/255, green:122.0/255, blue:254.0/255, alpha: 1)
+        toolBar.tintColor = UIColor(displayP3Red:14.0/255, green:122.0/255, blue:254.0/255, alpha: 1)
         toolBar.sizeToFit()
         // TODO need to update actions for all buttons
         let cancelButton = UIBarButtonItem(title: LocalizedString.Cancel.localized, style: UIBarButtonItem.Style.plain, target: self, action: nil)

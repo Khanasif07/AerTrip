@@ -19,11 +19,12 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if sections[indexPath.section] == LocalizedString.Address.localized, indexPath.row != self.viewModel.addresses.count {
             return 264.0
-        } else
-            if sections[indexPath.section] == LocalizedString.MoreInformation.localized, indexPath.row == 2 {
+        } else{
+//            if sections[indexPath.section] == LocalizedString.MoreInformation.localized, indexPath.row == 2 {
+//                return UITableView.automaticDimension
+//            } else {
                 return UITableView.automaticDimension
-            } else {
-                return UITableView.automaticDimension
+//        }
         }
     }
     
@@ -263,7 +264,6 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                         frequentFlyer.airlineName = LocalizedString.SelectAirline.localized
                         cell.ffData = frequentFlyer
                     }
-                    cell.deleteButton.isHidden = false
                     cell.hideSeperator = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
                     //                    cell.rightTitleLabel.isHidden = true
                     //                    cell.leftSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)

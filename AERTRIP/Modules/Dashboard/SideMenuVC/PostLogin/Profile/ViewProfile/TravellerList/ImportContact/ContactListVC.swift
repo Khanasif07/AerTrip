@@ -306,7 +306,7 @@ class ContactListVC: BaseVC {
     
     @IBAction func selectAllButtonAction(_ sender: UIButton) {
         
-        self.showLoaderOnView(view: sender, show: true, backgroundColor: AppColors.themeWhite,padding:  UIEdgeInsets(top: 2.0, left: 35.0, bottom: 2.0, right: 1.0))
+        self.showLoaderOnView(view: sender, show: true, backgroundColor: AppColors.themeGray04,padding:  UIEdgeInsets(top: 2.0, left: 35.0, bottom: 2.0, right: 1.0))
         workItem?.cancel()
         if self.currentlyUsingFor == .contacts {
             if sender.isSelected {
