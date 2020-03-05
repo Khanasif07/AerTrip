@@ -114,15 +114,15 @@ open class PKCountryPicker: UIView {
 //
         
         if PKCountryPickerSettings.appearance == .dark {
-            //toolbar.barTintColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+            //toolbar.barTintColor = UIColor(displayP3Red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
             toolbar.backgroundColor = .clear
             toolbar.barTintColor = AppColors.secondarySystemFillColor
-            cancelButton.tintColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
-            doneButton.tintColor = #colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+            cancelButton.tintColor = UIColor(displayP3Red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
+            doneButton.tintColor = UIColor(displayP3Red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1)
         }
         else {
 //            toolbar.backgroundColor = AppColors.themeGray40
-//            toolbar.barTintColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
+//            toolbar.barTintColor = UIColor(displayP3Red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
             toolbar.backgroundColor = .clear
             toolbar.barTintColor = AppColors.secondarySystemFillColor
             cancelButton.tintColor = AppColors.themeGreen
@@ -142,12 +142,12 @@ open class PKCountryPicker: UIView {
     private func setupAppearance() {
         // nitin change
         //        if PKCountryPickerSettings.appearance == .dark {
-        //            self.pickerView.backgroundColor = #colorLiteral(red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
-        //            self.pickerView.setValue(#colorLiteral(red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1), forKey: "textColor")
+        //            self.pickerView.backgroundColor = UIColor(displayP3Red: 0.137254902, green: 0.137254902, blue: 0.137254902, alpha: 1)
+        //            self.pickerView.setValue(UIColor(displayP3Red: 0.9803921569, green: 0.9803921569, blue: 0.9803921569, alpha: 1), forKey: "textColor")
         //        }
         //        else {
-        //self.pickerView.backgroundColor = #colorLiteral(red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
-        self.pickerView.setValue(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), forKey: "textColor")
+        //self.pickerView.backgroundColor = UIColor(displayP3Red: 0.9921568627, green: 0.9921568627, blue: 0.9921568627, alpha: 1)
+        self.pickerView.setValue(UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 1), forKey: "textColor")
         //        }
     }
     

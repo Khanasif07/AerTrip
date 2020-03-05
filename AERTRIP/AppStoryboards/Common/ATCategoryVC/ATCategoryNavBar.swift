@@ -581,13 +581,13 @@ extension ATCategoryNavBar: ATCategoryContainerDelegate {
         let fromRed = fromColorComp.0 - redDiff
         let fromGreen = fromColorComp.1 - greenDiff
         let fromBlue = fromColorComp.2 - blueDiff
-        let fromColor = UIColor(red: fromRed, green: fromGreen, blue: fromBlue, alpha: 1.0)
+        let fromColor = UIColor(displayP3Red: fromRed, green: fromGreen, blue: fromBlue, alpha: 1.0)
         
         let toColorComp = barStyle.normalColor.getRGBComponents()
         let toRed = toColorComp.0 + redDiff
         let toGreen = toColorComp.1 + greenDiff
         let toBlue = toColorComp.2 + blueDiff
-        let toColor = UIColor(red: toRed, green: toGreen, blue: toBlue, alpha: 1.0)
+        let toColor = UIColor(displayP3Red: toRed, green: toGreen, blue: toBlue, alpha: 1.0)
         
         fromBtn.setTitleColor(fromColor, for: .normal)
         toBtn.setTitleColor(toColor, for: .normal)

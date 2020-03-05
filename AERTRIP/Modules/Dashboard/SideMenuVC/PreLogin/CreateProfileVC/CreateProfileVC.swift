@@ -246,7 +246,7 @@ private extension CreateProfileVC {
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor(red:14.0/255, green:122.0/255, blue:254.0/255, alpha: 1)
+        toolBar.tintColor = UIColor(displayP3Red:14.0/255, green:122.0/255, blue:254.0/255, alpha: 1)
         toolBar.sizeToFit()
         // TODO need to update actions for all buttons
         let cancelButton = UIBarButtonItem(title: LocalizedString.Cancel.localized, style: UIBarButtonItem.Style.plain, target: self, action: nil)

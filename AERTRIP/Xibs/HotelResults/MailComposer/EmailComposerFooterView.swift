@@ -50,14 +50,14 @@ class EmailComposerFooterView: UIView {
     private func setUpFont() {
         self.seeRatesButton.titleLabel?.font = AppFonts.Regular.withSize(16.0)
         self.contactUsLabel.font = AppFonts.Regular.withSize(14.0)
-        self.licenseLabel.font = AppFonts.Regular.withSize(14.0)
+//        self.licenseLabel.font = AppFonts.Regular.withSize(14.0)
     }
     
     private func getAttributeBoldTextForHotelName(text: String, boldText: String) -> NSMutableAttributedString {
-        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.SemiBold.withSize(14.0), .foregroundColor: UIColor.black])
+        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), .foregroundColor: UIColor.black])
         
         attString.addAttributes([
-            .font: AppFonts.SemiBold.withSize(18.0),
+            .font: AppFonts.Regular.withSize(18.0),
             .foregroundColor: AppColors.themeGreen
         ], range: (text as NSString).range(of: boldText))
         return attString

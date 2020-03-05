@@ -66,11 +66,11 @@ class PreferencesVC: BaseVC {
         tableView.dataSource = self
         tableView.allowsSelectionDuringEditing = true
         tableView.isEditing = true
-        tableView.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
+        tableView.backgroundColor = UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
         indicatorView.color = AppColors.themeGreen
         self.tableFooterView()
         stopLoading()
-       // self.view.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
+       // self.view.backgroundColor = UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
     }
     
     func registerXib() {
@@ -462,7 +462,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         switch sections[section] {
         case LocalizedString.Groups:
             let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.width, height: 35))
-            footerView.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
+            footerView.backgroundColor = UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
             return footerView
         default:
             return nil

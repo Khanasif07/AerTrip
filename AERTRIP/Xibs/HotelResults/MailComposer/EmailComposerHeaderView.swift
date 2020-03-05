@@ -38,6 +38,9 @@ class EmailComposerHeaderView: UIView {
     @IBOutlet weak var emailHeightConatraint: NSLayoutConstraint!
     @IBOutlet weak var subjectHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var checkInTitleLable: UILabel!
+    @IBOutlet weak var checkOutTitleLable: UILabel!
+    
     // MARK: - Properties
     
     weak var delegate: EmailComposeerHeaderViewDelegate?
@@ -101,6 +104,16 @@ class EmailComposerHeaderView: UIView {
         self.toEmailTextView.tagSeparatorFont = AppFonts.Regular.withSize(18.0)
         
         self.messageSubjectTextView.font = AppFonts.Regular.withSize(18.0)
+        
+        checkInDateLabel.font = AppFonts.Regular.withSize(26.0)
+        checkInDayLabel.font = AppFonts.Regular.withSize(16.0)
+        checkOutDateLabel.font = AppFonts.Regular.withSize(26.0)
+        checkOutDayLabel.font = AppFonts.Regular.withSize(16.0)
+        checkInTitleLable.font = AppFonts.Regular.withSize(16.0)
+        checkOutTitleLable.font = AppFonts.Regular.withSize(16.0)
+        numberOfNightsLabel.font = AppFonts.SemiBold.withSize(14.0)
+        
+        
     }
     
     private func setUpColor() {
