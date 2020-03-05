@@ -30,7 +30,7 @@ open class ISPageControl: UIControl {
         }
     }
     
-    @IBInspectable open var currentPageTintColor: UIColor = #colorLiteral(red: 0, green: 0.6276981994, blue: 1, alpha: 1) {
+    @IBInspectable open var currentPageTintColor: UIColor = UIColor(displayP3Red: 0, green: 0.6276981994, blue: 1, alpha: 1) {
         didSet {
             setNeedsLayout()
         }

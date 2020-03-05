@@ -219,7 +219,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.switchView.setOn(isOn: self.viewModel.isFavouriteOn, animated: false, shouldNotify: false)
         //        self.animateMapToFirstHotelInMapMode()
         self.filterButton.isSelected = self.viewModel.isFilterApplied
-        searchBar.setTextField(color: UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
+        searchBar.setTextField(color: UIColor(displayP3Red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
         
         self.gradientLayer = CAGradientLayer()
@@ -384,7 +384,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.switchView.selectedBorderWidth = 0.0//1.5
         self.switchView.iconBorderWidth = 0.0
         self.switchView.iconBorderColor = AppColors.clear
-        self.switchView.originalImage = #imageLiteral(resourceName: "switch_fav_on").maskWithColor(color: #colorLiteral(red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
+        self.switchView.originalImage = #imageLiteral(resourceName: "switch_fav_on").maskWithColor(color: UIColor(displayP3Red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
         self.switchView.selectedImage = #imageLiteral(resourceName: "switch_fav_on")
         self.switchView.isBackgroundBlurry = true
         self.switchGradientView.backgroundColor = AppColors.clear
