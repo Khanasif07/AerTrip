@@ -386,6 +386,12 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         
         let imageFromText: UIImage = AppGlobals.shared.getImageFor(firstName: travel.firstName, lastName: travel.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
         viewModel.frequentFlyer = travel.frequestFlyer
+        
+        if viewModel.frequentFlyer.isEmpty {
+        var emptyFF = FrequentFlyer(json: [:])
+        emptyFF.airlineName = LocalizedString.SelectAirline.localized
+        viewModel.frequentFlyer.append(emptyFF)
+        }
         ffExtraCount = viewModel.frequentFlyer.isEmpty ? 4 : 3
         
         if travel.profileImage != "" {

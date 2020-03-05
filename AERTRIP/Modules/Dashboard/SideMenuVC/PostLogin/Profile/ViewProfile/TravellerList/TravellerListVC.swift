@@ -355,6 +355,24 @@ class TravellerListVC: BaseVC {
         return NSCompoundPredicate(orPredicateWithSubpredicates: labelPredicates)
     }
     
+    func charactersPredicate() -> NSPredicate? {
+        var labelPredicates:[NSPredicate] = []
+        let charactersPriority = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"]
+        let isFirstNamePredicate = UserInfo.loggedInUser?.generalPref?.sortOrder == "LF"
+        for group in charactersPriority {
+            if isFirstNamePredicate {
+                labelPredicates.append(NSPredicate(format: "lastNameFirstChar == '\(group.lowercased())'"))
+            } else {
+                labelPredicates.append(NSPredicate(format: "firstNameFirstChar == '\(group.lowercased())'"))
+            }
+        }
+        if !labelPredicates.isEmpty {
+            return NSCompoundPredicate(orPredicateWithSubpredicates: labelPredicates)
+        }
+        //MARK:- Change Asif
+        return NSCompoundPredicate(orPredicateWithSubpredicates: labelPredicates)
+    }
+    
     func loadSavedData() {
         let fetchRequest = TravellerData.createFetchRequest()//NSFetchRequest<NSFetchRequestResult>(entityName: "TravellerData")
         if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
@@ -370,13 +388,13 @@ class TravellerListVC: BaseVC {
             fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "labelLocPrio", cacheName: nil)
         } else {
             if UserInfo.loggedInUser?.generalPref?.sortOrder == "LF" {
-                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "lastNameSorting", ascending: true)]
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "lastNameSorting", ascending: true, selector: #selector(NSString.caseInsensitiveCompare))]
                 fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "lastNameFirstChar", cacheName: nil)
             } else {
-                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameSorting", ascending: true)]
+                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameSorting", ascending: true, selector: #selector(NSString.caseInsensitiveCompare))]
                 fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "firstNameFirstChar", cacheName: nil)
             }
-            
+           
         }
         fetchedResultsController.delegate = self
         
@@ -384,7 +402,7 @@ class TravellerListVC: BaseVC {
             if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
                 fetchedResultsController.fetchRequest.predicate = labelPredicate()
             } else {
-                fetchedResultsController.fetchRequest.predicate = nil
+                fetchedResultsController.fetchRequest.predicate = nil//charactersPredicate()
             }
         } else {
             if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
