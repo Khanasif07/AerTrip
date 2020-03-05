@@ -68,5 +68,25 @@ extension UITextField {
                                            height: self.frame.height)
         }
     }
-
+    
+    
+    func setUpTextField(placehoder: String,with symbol: String = "",foregroundColor: UIColor = AppColors.themeGray40,
+                           textColor: UIColor = AppColors.themeBlack,
+                           keyboardType: UIKeyboardType,
+                           returnType: UIReturnKeyType,
+                           isSecureText: Bool) {
+           
+           self.keyboardType       = keyboardType
+           self.placeholder        = placehoder
+           self.textColor          = textColor
+           self.isSecureTextEntry  = isSecureText
+           self.returnKeyType      = returnType
+           self.font           = AppFonts.Regular.withSize(18)
+           self.tintColor = AppColors.themeGreen
+           let attriburedString = NSMutableAttributedString(string: placehoder)
+           let asterix = NSAttributedString(string: symbol, attributes: [.foregroundColor: foregroundColor])
+           attriburedString.append(asterix)
+           
+           self.attributedPlaceholder = attriburedString
+       }
 }

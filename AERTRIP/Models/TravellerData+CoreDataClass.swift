@@ -64,24 +64,21 @@ public class TravellerData: NSManagedObject {
             printDebug("firstNameSorting: \(userData!.firstNameSorting)")
             printDebug("lastNameSorting: \(userData!.lastNameSorting)")
             
-            
-            
-
         if (firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && (lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
-            userData!.firstNameFirstChar = "#".uppercased()
-            userData!.lastNameFirstChar = "#".uppercased()
+            userData!.firstNameFirstChar = "#".lowercased()
+            userData!.lastNameFirstChar = "#".lowercased()
         } else if !(firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && !(lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
             if alphaArr.contains(firstNameFirstChar) {
                 userData!.firstNameFirstChar = firstNameFirstChar.lowercased()
             }
             else {
-                userData!.firstNameFirstChar = "#".uppercased()
+                userData!.firstNameFirstChar = "#".lowercased()
             }
             if alphaArr.contains(lastNameFirstChar) {
                 userData!.lastNameFirstChar = lastNameFirstChar.lowercased()
             }
             else {
-                userData!.lastNameFirstChar = "#".uppercased()
+                userData!.lastNameFirstChar = "#".lowercased()
             }
         }else if !(firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && (lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
             if alphaArr.contains(firstNameFirstChar) {
@@ -89,8 +86,8 @@ public class TravellerData: NSManagedObject {
                 userData!.lastNameFirstChar = firstNameFirstChar.lowercased()
             }
             else {
-                userData!.firstNameFirstChar = "#".uppercased()
-                userData!.lastNameFirstChar = "#".uppercased()
+                userData!.firstNameFirstChar = "#".lowercased()
+                userData!.lastNameFirstChar = "#".lowercased()
             }
         }else if (firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && !(lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
             if alphaArr.contains(lastNameFirstChar) {
@@ -98,8 +95,8 @@ public class TravellerData: NSManagedObject {
                 userData!.lastNameFirstChar = lastNameFirstChar.lowercased()
             }
             else {
-                userData!.firstNameFirstChar = "#".uppercased()
-                userData!.lastNameFirstChar = "#".uppercased()
+                userData!.firstNameFirstChar = "#".lowercased()
+                userData!.lastNameFirstChar = "#".lowercased()
             }
         }
             printDebug("firstNameFirstChar: \(userData!.firstNameFirstChar)")

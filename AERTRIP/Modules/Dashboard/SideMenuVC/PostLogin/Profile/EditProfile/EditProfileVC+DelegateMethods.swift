@@ -263,7 +263,6 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
                         frequentFlyer.airlineName = LocalizedString.SelectAirline.localized
                         cell.ffData = frequentFlyer
                     }
-                    cell.deleteButton.isHidden = false
                     cell.hideSeperator = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)
                     //                    cell.rightTitleLabel.isHidden = true
                     //                    cell.leftSeparatorView.isHidden = indexPath.row == self.viewModel.frequentFlyer.count + (self.ffExtraCount - 2)

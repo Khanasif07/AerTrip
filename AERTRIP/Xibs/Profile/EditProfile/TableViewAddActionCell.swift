@@ -38,10 +38,10 @@ class TableViewAddActionCell: UITableViewCell {
     func configureFotAddNewGroup() {
         greenButtonLeadingConstraint.constant = 16
         actionLabel.text = LocalizedString.AddNewGroup.localized
-        cellBackgroundView.backgroundColor = .white
-        topDividerView.isHidden = true
+//        cellBackgroundView.backgroundColor = .white
+//        topDividerView.isHidden = true
         actionLabel.font = AppFonts.Regular.withSize(14)
         actionLabel.textColor = AppColors.themeBlack
-        self.bottomDividerView.isHidden = false
+        self.bottomDividerView.isHidden = true
     }
 }
