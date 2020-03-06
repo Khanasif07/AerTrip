@@ -417,7 +417,8 @@ extension UIViewController {
                 CNContactFormatter.descriptorForRequiredKeys(for: .fullName),
                 CNContactEmailAddressesKey,
                 CNContactPhoneNumbersKey,
-                CNContactImageDataKey,CNContactBirthdayKey] as [Any]
+                CNContactImageDataKey,CNContactBirthdayKey,CNContactPostalAddressesKey] as [Any]
+            // CNContactNoteKey
             
             // Get all the containers
             var allContainers: [CNContainer] = []

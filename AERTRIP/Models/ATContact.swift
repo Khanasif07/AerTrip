@@ -28,13 +28,13 @@ struct ATContact {
     var image: String
     var imageData: Data?
     var contact: String
-//    {
-//        didSet {
-//            if !contact.isEmpty, self.firstName.isEmpty {
-//              self.firstName = contact
-//            }
-//        }
-//    }
+    //    {
+    //        didSet {
+    //            if !contact.isEmpty, self.firstName.isEmpty {
+    //              self.firstName = contact
+    //            }
+    //        }
+    //    }
     var email: String {
         didSet {
             if !email.isEmpty, self.firstName.isEmpty{
@@ -139,22 +139,22 @@ struct ATContact {
         
         self.dob = contact.dob
         if let phone = contact.phoneNumbers.first {
-        self.contact = phone.value.stringValue
+            self.contact = phone.value.stringValue
         }
         /*
-        DispatchQueue.global(qos: .utility).async {
-            if let phone = contact.phoneNumbers.first {
-                self.contact = phone.value.stringValue
-                do {
-                    let temp = try PhoneNumberKit().parse(self.contact)
-                    self.contact = "\(temp.nationalNumber)"
-                    self.isd = "+\(temp.countryCode)"
-                } catch {
-                    printDebug("not able to parse the number")
-                    self.contact = ""
-                }
-            }
-        }*/
+         DispatchQueue.global(qos: .utility).async {
+         if let phone = contact.phoneNumbers.first {
+         self.contact = phone.value.stringValue
+         do {
+         let temp = try PhoneNumberKit().parse(self.contact)
+         self.contact = "\(temp.nationalNumber)"
+         self.isd = "+\(temp.countryCode)"
+         } catch {
+         printDebug("not able to parse the number")
+         self.contact = ""
+         }
+         }
+         }*/
         self.imageData = contact.imageData
     }
     
@@ -266,38 +266,38 @@ extension CNContact {
     var firstName: String {
         var fName = ""
         // commenting because to match with contact appp we have to remove this logic
-//        if self.givenName.contains(" ") {
-//            let arr = self.givenName.components(separatedBy: " ")
-//            if arr.count > 1 {
-//                fName = arr[0]
-//            }
-//            else if arr.count == 1{
-//                fName = arr[0]
-//            }
-//        }
+        //        if self.givenName.contains(" ") {
+        //            let arr = self.givenName.components(separatedBy: " ")
+        //            if arr.count > 1 {
+        //                fName = arr[0]
+        //            }
+        //            else if arr.count == 1{
+        //                fName = arr[0]
+        //            }
+        //        }
         fName = self.givenName
         
         //if name is empty then set email's first char as name
-//        if fName.isEmpty {
-//            fName = self.email.capitalizedFirst()
-//        }
+        //        if fName.isEmpty {
+        //            fName = self.email.capitalizedFirst()
+        //        }
         
         //if name is empty then set email's first char as name
-//        if fName.isEmpty {
-//            fName = self.fullContact.contact
-//        }
+        //        if fName.isEmpty {
+        //            fName = self.fullContact.contact
+        //        }
         
         return fName
     }
     
     var lastName: String {
         // commenting because to match with contact appp we have to remove this logic
-//        if self.givenName.contains(" ") {
-//            let arr = self.givenName.components(separatedBy: " ")
-//            if arr.count > 1 {
-//                return arr[1]
-//            }
-//        }
+        //        if self.givenName.contains(" ") {
+        //            let arr = self.givenName.components(separatedBy: " ")
+        //            if arr.count > 1 {
+        //                return arr[1]
+        //            }
+        //        }
         // sending space because backend is not accepting the
         if self.familyName.isEmpty {
             return " "
@@ -354,18 +354,23 @@ extension CNContact {
         return ("", "")
     }
     
+    func getFullContactFrom(contact: CNLabeledValue<CNPhoneNumber>) -> (isd: String, contact: String)  {
+        let tempNumber = contact.value.stringValue
+        do {
+            let temp = try PhoneNumberKit().parse(tempNumber)
+            return ("+\(temp.countryCode)", "\(temp.nationalNumber)")
+        }
+        catch {
+            printDebug("not able to parse the number")
+            if let currentIsd = PKCountryPicker.default.getCurrentLocalCountryData()?.countryCode {
+                return (currentIsd, tempNumber)
+            }
+            return ("", tempNumber)
+        }
+    }
+    
     var label: ATContact.Label {
         return ATContact.Label.phone
     }
 }
 
-protocol Test {
-    func printName()
-}
-
-extension Test {
-    
-    func printName() {
-        printDebug("hello world")
-    }
-}

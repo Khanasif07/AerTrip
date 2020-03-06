@@ -294,7 +294,7 @@ extension LoginVC {
             self.emailTextField.isError = self.viewModel.email.checkInvalidity(.Email)
         } else {
             
-            self.passwordTextField.isError = self.viewModel.password.checkInvalidity(.Password)
+            self.passwordTextField.isError = self.viewModel.password.isEmpty //self.viewModel.password.checkInvalidity(.Password)  removed the validation because to match with website
         }
     }
     

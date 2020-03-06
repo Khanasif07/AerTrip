@@ -101,11 +101,10 @@ import UIKit
             guard let ref = url.absoluteString.components(separatedBy: "&ref=").last else { return false}
             AppFlowManager.default.deeplinkToRegistrationSuccefullyVC(type: .deeplinkSetPassword, email: email, refId: ref)
         }
-        else if url.absoluteString.contains("&key="), url.absoluteString.contains("&token="), url.absoluteString.contains("&email=") {
-            guard let ref = url.absoluteString.slice(from: "&key=", to: "&token=") else { return false}
-            guard let token = url.absoluteString.slice(from: "&token=", to: "&email=") else { return false}
-            guard let email = url.absoluteString.components(separatedBy: "&email=").last else { return false}
-            AppFlowManager.default.deeplinkToRegistrationSuccefullyVC(type: .deeplinkResetPassword, email: email, refId: ref, token: token)
+        else if url.absoluteString.contains("?key="), url.absoluteString.contains("&token=") {
+            guard let ref = url.absoluteString.slice(from: "?key=", to: "&token=") else { return false}
+            guard let token = url.absoluteString.components(separatedBy: "&token=").last else { return false}
+            AppFlowManager.default.deeplinkToRegistrationSuccefullyVC(type: .deeplinkResetPassword, email: "", refId: ref, token: token)
         }
         
         return true
