@@ -30,6 +30,9 @@ enum APIEndPoint: String {
     case verifyRegistration            = "users/verify-registration"
     case resetPassword                 = "users/validate-password-reset-token"
     case getTravellerDetail            = "users/traveller-detail"
+    case validateFromToken            = "users/validate-from-token"
+
+    
     case dropDownSalutation            = "default/dropdown-keys"
     case flightsPreferences            = "flights/preference-master"
     case flyerSearch                   = "airlines/search"
@@ -118,7 +121,6 @@ enum APIEndPoint: String {
     case hotelItinerary = "hotels/itinerary?action=traveller"
     case getPaymentMethod = "itinerary/get-payment-methods"
     case shareText = "su/create"
-    
 }
 
 // MARK: - endpoint extension for url -

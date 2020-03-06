@@ -59,4 +59,27 @@ extension ThankYouRegistrationVM {
         })
         
     }
+    
+    func webserviceForValidateFromToken() {
+        
+        var params = JSONDictionary()
+        params[APIKeys.key.rawValue]    = self.refId
+        params[APIKeys.token.rawValue]  = self.token
+        params[APIKeys.request.rawValue]  = APIKeys.password_reset.rawValue
+
+     
+        self.delegate?.willApiCall()
+        APICaller.shared.callValidateFromTokenApi(params: params, loader: true, completionBlock: {(success, errors, email) in
+            
+            if success {
+                self.email = email
+                self.delegate?.didGetSuccess()
+            }
+            else {
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
+                self.delegate?.didGetFail(errors: errors)
+            }
+        })
+        
+    }
 }

@@ -717,7 +717,7 @@ extension String {
     }
     
     func containsSpecialCharacters() -> Bool {
-        let capitalLetterRegEx = ".*[!&^%$#@()/]+.*"
+        let capitalLetterRegEx = ".*[!&^%$#@()/*]+.*"
         let texttest = NSPredicate(format: "SELF MATCHES %@", capitalLetterRegEx)
         return texttest.evaluate(with: self)
     }
@@ -749,7 +749,7 @@ enum ValidityExpression: String {
     case Username = "^[a-zA-z]{1,}+[a-zA-z0-9!@#$%&*]{2,15}"
     case Email = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
     case MobileNumber = "^[+0-9]{0,16}$"
-    case Password = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!&^%$#@()/])[A-Za-z\\dd$@$!%*?&#]{8,}"
+    case Password = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!&^%$#@()/*])[A-Za-z\\dd$@$!%*?&#]{8,}"
     case Name = "^[a-zA-Z ]{2,50}"
     case Url = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,25}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
     case Price = "^([0-9]{0,0}((.)[0-9]{0,0}))$"

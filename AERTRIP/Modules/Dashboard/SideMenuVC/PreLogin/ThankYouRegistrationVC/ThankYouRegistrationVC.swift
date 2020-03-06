@@ -138,9 +138,10 @@ extension ThankYouRegistrationVC: SFSafariViewControllerDelegate {
         AppGlobals.shared.updateIQToolBarDoneButton(isEnabled: false)
         self.view.backgroundColor = AppColors.screensBackground.color
         
-        if self.viewModel.type ==  .deeplinkSetPassword || self.viewModel.type == .deeplinkResetPassword {
-            
+        if self.viewModel.type ==  .deeplinkSetPassword {
             self.viewModel.webserviceForGetRegistrationData()
+        } else if self.viewModel.type == .deeplinkResetPassword {
+            self.viewModel.webserviceForValidateFromToken()
         }
         
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
