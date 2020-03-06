@@ -317,6 +317,34 @@ extension APICaller {
         }
     }
     
+    //MARK: - Api for Validate From Token
+    //MARK: -
+    func callValidateFromTokenApi(params: JSONDictionary, loader: Bool = false, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ email: String)->Void ) {
+        
+        AppNetworking.POST(endPoint: .validateFromToken, parameters: params, loader: loader, success: { [weak self] (data) in
+            
+            guard let sSelf = self else {return}
+            
+            sSelf.handleResponse(data, success: { (sucess, jsonData) in
+                completionBlock(true, [], jsonData["data"]["email"].stringValue)
+                
+            }, failure: { (errors) in
+                ATErrorManager.default.logError(forCodes: errors, fromModule: .login)
+                completionBlock(false, errors, "")
+            })
+            
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], "")
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], "")
+            }
+        }
+    }
+    
     //MARK: - Api for Update UserDetail
     //MARK: -
     func callGetSalutationsApi( completionBlock: @escaping(_ success: Bool, _ salutations: [String], _ errorCodes: ErrorCodes)->Void ) {

@@ -17,7 +17,7 @@ protocol ImportContactVMDelegate: class {
     func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor)
     
     func remove(for usingFor: ContactListVC.UsingFor)
-
+    
     func addAll(for usingFor: ContactListVC.UsingFor)
     func removeAll(for usingFor: ContactListVC.UsingFor)
     
@@ -61,8 +61,8 @@ class ImportContactVM: NSObject {
             // Nimish Sharma
             phoneContacts = phoneContacts.lazy.sorted(by: {$0.fullName < $1.fullName})
             //.sort { (ct1, ct2) -> Bool in
-//                ct1.fullName < ct2.fullName
-//            }
+            //                ct1.fullName < ct2.fullName
+            //            }
         }
     }
     var facebookContacts: [ATContact] = []{
@@ -90,7 +90,7 @@ class ImportContactVM: NSObject {
     var selectedFacebookContacts: [ATContact] = []
     
     var selectedGoogleContacts: [ATContact] = []
-
+    
     var totalSelectedContacts: Int {
         return (self.selectedPhoneContacts.count + self.selectedFacebookContacts.count + self.selectedGoogleContacts.count)
     }
@@ -102,8 +102,8 @@ class ImportContactVM: NSObject {
     var sections = [Section]()
     var facebookSection = [Section]()
     var googleSection = [Section]()
-
-
+    
+    
     
     //MARK:- Methods
     //MARK:- Public
@@ -186,9 +186,9 @@ class ImportContactVM: NSObject {
                     obj.sendDataChangedNotification(data: Notification.contactFetched)
                 }
             }
-        }, failure: { (error) in
-            printDebug(error)
-            cancled?()
+            }, failure: { (error) in
+                printDebug(error)
+                cancled?()
         })
     }
     
@@ -205,9 +205,9 @@ class ImportContactVM: NSObject {
             if let obj = self?.delegateCollection as? BaseVC {
                 obj.sendDataChangedNotification(data: Notification.contactFetched)
             }
-        }, failure: { (error) in
-            printDebug(error)
-            cancled?()
+            }, failure: { (error) in
+                printDebug(error)
+                cancled?()
         })
     }
     
@@ -215,7 +215,7 @@ class ImportContactVM: NSObject {
         switch usingFor {
         case .contacts:
             
-//            sections = Section.fetch(forContacts: self.phoneContacts)
+            //            sections = Section.fetch(forContacts: self.phoneContacts)
             
             let groupedDictionary = Dictionary(grouping: self.phoneContacts,by: { String($0.firstName.prefix(1)).capitalizedFirst() })
             let keys = groupedDictionary.keys.sorted()
@@ -224,7 +224,7 @@ class ImportContactVM: NSObject {
             })) }
         case .facebook:
             
-//            facebookSection = Section.fetch(forContacts: self.facebookContacts)
+            //            facebookSection = Section.fetch(forContacts: self.facebookContacts)
             
             let groupedDictionary = Dictionary(grouping: self.facebookContacts,by: { String($0.firstName.prefix(1)) })
             let keys = groupedDictionary.keys.sorted()
@@ -233,7 +233,7 @@ class ImportContactVM: NSObject {
             })) }
         case .google:
             
-//            googleSection = Section.fetch(forContacts: self.googleContacts)
+            //            googleSection = Section.fetch(forContacts: self.googleContacts)
             
             let groupedDictionary = Dictionary(grouping: self.googleContacts,by: { String($0.firstName.prefix(1)).capitalizedFirst() })
             let keys = groupedDictionary.keys.sorted()
@@ -242,7 +242,7 @@ class ImportContactVM: NSObject {
             })) }
         }
         
-        }
+    }
     
     //MARK:- Search
     //MARK:-
@@ -252,7 +252,7 @@ class ImportContactVM: NSObject {
             self.searchingFor = forText
             perform(#selector(callSearch(_:)), with: forText, afterDelay: 0.5)
         }
-   }
+    }
     
     @objc private func callSearch(_ forText: String) {
         if let obj = self.delegateCollection as? BaseVC {
@@ -268,7 +268,7 @@ class ImportContactVM: NSObject {
                 self.phoneContacts = self._phoneContacts
                 self.facebookContacts = self._facebookContacts
                 self.googleContacts = self._googleContacts
-               // obj.sendDataChangedNotification(data: Notification.searchDone)
+                // obj.sendDataChangedNotification(data: Notification.searchDone)
                 return
             }
             self.phoneContacts = self._phoneContacts.filter({ (contact) -> Bool in
@@ -312,23 +312,23 @@ class ImportContactVM: NSObject {
                 params["contacts[google][\(idx)][picture]"] = contact.image
                 if !contact.email.isEmpty {
                     params["contacts[google][\(idx)][email][\(idx)][contact_label]"] = "home"
-                      params["contacts[google][\(idx)][email][\(idx)][contact_type]"]  = "email"
-                      params["contacts[google][\(idx)][email][\(idx)][contact_value]"] = contact.email
+                    params["contacts[google][\(idx)][email][\(idx)][contact_type]"]  = "email"
+                    params["contacts[google][\(idx)][email][\(idx)][contact_value]"] = contact.email
                 }
                 
                 if !contact.contact.isEmpty {
                     params["contacts[google][\(idx)][mobile][\(idx)][contact_label]"] = "home"
                     params["contacts[google][\(idx)][mobile][\(idx)][contact_type]"]  = "mobile"
                     params["contacts[google][\(idx)][mobile][\(idx)][contact_value]"] = contact.contact // phone number without isd
-                        params["contacts[google][\(idx)][mobile][\(idx)][isd]"] = contact.isd // isd
-
-
+                    params["contacts[google][\(idx)][mobile][\(idx)][isd]"] = contact.isd // isd
+                    
+                    
                 }
                 
                 
             }
             
-        
+            
             self.delegateCollection?.showLoader()
             APICaller.shared.callSaveSocialContactsAPI(params: params, loader: true) { [weak self] (success, errorCodes) in
                 guard let sSelf = self else {return}
@@ -341,22 +341,58 @@ class ImportContactVM: NSObject {
         
         func savePhoneContacts() {
             var params = JSONDictionary()
-
+            
             for (idx, contact) in self.selectedPhoneContacts.enumerated() {
-//                let contact = ATContact(contact: cnContact)
+                //                let contact = ATContact(contact: cnContact)
                 params["data[\(idx)][last_name]"] = contact.lastName
                 params["data[\(idx)][first_name]"] = contact.firstName
                 params["data[\(idx)][dob]"] = contact.dob
+               // params["data[\(idx)][notes]"] = contact.note TO DO: when permission is granter from apple account
                 
-                params["data[\(idx)][email][0][contact_label]"] = contact.emailLabel
-                params["data[\(idx)][email][0][contact_type]"] = "email"
-                params["data[\(idx)][email][0][contact_value]"] = contact.email
+                for (indexEmail, email) in contact.emailAddresses.enumerated() {
+                    params["data[\(idx)][email][\(indexEmail)][contact_label]"] = contact.emailLabel
+                    params["data[\(idx)][email][\(indexEmail)][contact_type]"] = "email"
+                    params["data[\(idx)][email][\(indexEmail)][contact_value]"] = email.value
+                }
                 
-                params["data[\(idx)][mobile][0][contact_label]"] = "cell"
-                params["data[\(idx)][mobile][0][contact_type]"] = contact.label.rawValue
-                let fullContact = contact.fullContact
-                params["data[\(idx)][mobile][0][contact_value]"] = fullContact.contact
-                params["data[\(idx)][mobile][0][isd]"] = fullContact.isd
+                for (indexContact, phone) in contact.phoneNumbers.enumerated() {
+                    params["data[\(idx)][mobile][\(indexContact)][contact_label]"] = "cell"
+                    params["data[\(idx)][mobile][\(indexContact)][contact_type]"] = contact.label.rawValue
+                    let fullContact = contact.getFullContactFrom(contact: phone)
+                    params["data[\(idx)][mobile][\(indexContact)][contact_value]"] = fullContact.contact
+                    params["data[\(idx)][mobile][\(indexContact)][isd]"] = fullContact.isd
+                }
+                
+                for (indexContact, address) in contact.postalAddresses.enumerated() {
+                    params["data[\(idx)][addresses][\(indexContact)][address_line1]"] = address.value.street
+                    params["data[\(idx)][addresses][\(indexContact)][address_type]"] = "home"
+                    params["data[\(idx)][addresses][\(indexContact)][city]"] = address.value.city
+                    params["data[\(idx)][addresses][\(indexContact)][country]"] = address.value.isoCountryCode
+                    params["data[\(idx)][addresses][\(indexContact)][country_name]"] = address.value.country
+//                    params["data[\(idx)][addresses][\(indexContact)][id]"] = nil
+//                    params["data[\(idx)][addresses][\(indexContact)][passenger_id]"] = nil
+                    params["data[\(idx)][addresses][\(indexContact)][postal_code]"] = address.value.postalCode
+                    params["data[\(idx)][addresses][\(indexContact)][state]"] = address.value.state
+                    
+                }
+                //                data[3][addresses][0][address_line1]:Test Address
+                //                data[3][addresses][0][address_line2]:
+                //                data[3][addresses][0][address_type]:home
+                //                data[3][addresses][0][city]:
+                //                data[3][addresses][0][country]:
+                //                data[3][addresses][0][country_name]:
+                //                data[3][addresses][0][id]:
+                //                data[3][addresses][0][passenger_id]:
+                //                data[3][addresses][0][postal_code]:
+                //                data[3][addresses][0][state]:
+                
+                
+                //                params["data[\(idx)][mobile][0][contact_label]"] = "cell"
+                //                params["data[\(idx)][mobile][0][contact_type]"] = contact.label.rawValue
+                //                let fullContact = contact.fullContact
+                //                params["data[\(idx)][mobile][0][contact_value]"] = fullContact.contact
+                //                params["data[\(idx)][mobile][0][isd]"] = fullContact.isd
+                
                 
             }
             

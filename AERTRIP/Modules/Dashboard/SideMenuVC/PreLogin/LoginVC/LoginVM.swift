@@ -28,9 +28,10 @@ class LoginVM {
             return false
         } else if self.password.isEmpty {
             return false
-        } else if self.password.checkInvalidity(.Password) {
-           return false
         }
+//        else if self.password.checkInvalidity(.Password) {
+//           return false
+//        }
         return true
     }
     
@@ -51,11 +52,12 @@ class LoginVM {
             AppToast.default.showToastMessage(message: LocalizedString.Enter_password.localized)
             return false
             
-        } else if self.password.checkInvalidity(.Password) {
-            
-            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_Password.localized)
-            return false
         }
+//        else if self.password.checkInvalidity(.Password) {
+//
+//            AppToast.default.showToastMessage(message: LocalizedString.Enter_valid_Password.localized)
+//            return false
+//        }
         return true
     }
     
