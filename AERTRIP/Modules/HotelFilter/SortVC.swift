@@ -66,11 +66,11 @@ extension SortVC: UITableViewDataSource, UITableViewDelegate {
             cell.accessoryView = setCheckBox()
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
             cell.leftTitleLabel.textColor = AppColors.themeGreen
-            cell.rightTitleLabel.textColor = AppColors.themeGreen
+            cell.rightTitleLabel.textColor = AppColors.themeGray40
         } else {
             cell.accessoryView = nil
             cell.leftTitleLabel.textColor = AppColors.themeBlack
-            cell.rightTitleLabel.textColor = AppColors.themeBlack
+            cell.rightTitleLabel.textColor = AppColors.themeGray40
         }
 //        if indexPath.row == 0, HotelFilterVM.shared.sortUsing == .BestSellers {
 ////            cell.accessoryType = .checkmark

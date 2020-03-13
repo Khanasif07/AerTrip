@@ -29,6 +29,9 @@ class SortTableViewCell: UITableViewCell {
     func doInitialSetup() {
         leftTitleLabel.font = AppFonts.Regular.withSize(18.0)
         rightTitleLabel.font = AppFonts.Regular.withSize(14.0)
+        leftTitleLabel.textColor = AppColors.themeBlack
+        rightTitleLabel.textColor = AppColors.themeGray40
+
     }
 
     

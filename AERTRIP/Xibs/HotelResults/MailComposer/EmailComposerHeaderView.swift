@@ -10,8 +10,10 @@ import UIKit
 
 protocol EmailComposeerHeaderViewDelegate: class {
     func openContactScreen()
-    func textViewText(_ textView: UITextView)
+    func textViewText(emailTextView: UITextView)
+    func textViewText(messageTextView: UITextView)
     func updateHeightOfHeader(_ headerView: EmailComposerHeaderView, _ textView: UITextView)
+    
 }
 
 class EmailComposerHeaderView: UIView {
@@ -60,12 +62,16 @@ class EmailComposerHeaderView: UIView {
         self.setUpFont()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.firstDotedView.makeDottedLine()
+        self.secondDotedView.makeDottedLine()
+    }
     // MARK: - Helper methods
     
     private func doInitialSeup() {
         aertripLogo.transform = CGAffineTransform(rotationAngle: 3/2*CGFloat.pi)
-        self.firstDotedView.makeDottedLine()
-        self.secondDotedView.makeDottedLine()
+        
         self.messageSubjectTextView.text = LocalizedString.CheckoutMyFavouriteHotels.localized
         self.checkInCheckOutView.layer.cornerRadius = 5.0
         self.checkInCheckOutView.layer.borderWidth = 0.5
@@ -89,6 +95,7 @@ class EmailComposerHeaderView: UIView {
         self.hotelResultLabel.text = LocalizedString.HotelResultFor.localized
         self.seeRatesButton.setTitle(LocalizedString.SeeRates.localized, for: .normal)
         self.checkOutMessageLabel.text = LocalizedString.CheckOutMessage.localized
+        self.toEmailTextView.placeholder = LocalizedString.EnterEmail.localized
     }
     
     private func setUpFont() {
@@ -158,8 +165,11 @@ class EmailComposerHeaderView: UIView {
 
 extension EmailComposerHeaderView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        self.delegate?.textViewText(textView)
-        
+        if textView == self.toEmailTextView {
+            self.delegate?.textViewText(emailTextView: textView)
+        } else if textView == self.messageSubjectTextView {
+            self.delegate?.textViewText(messageTextView: textView)
+        }
         self.delegate?.updateHeightOfHeader(self, textView)
     }
     
@@ -173,3 +183,4 @@ extension EmailComposerHeaderView: UITextViewDelegate {
   
     
 }
+

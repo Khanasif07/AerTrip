@@ -556,6 +556,7 @@ enum LocalizedString: String {
     case CheckoutMyFavouriteHotels
     case SendWithSpace
     case PleaseEnterEmail
+    case EnterEmail
     
     // Select Trip Screen
     case SelectTrip

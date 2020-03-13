@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -39,20 +39,32 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fJb-Cm-eXE">
-                            <rect key="frame" x="143" y="140" width="88" height="24.5"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="fJb-Cm-eXE">
+                            <rect key="frame" x="145.5" y="140" width="84" height="24.5"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mri-tp-2dc">
-                                    <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
-                                    <state key="normal" image="twiterIcon"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="20" id="DqL-sj-w5c"/>
+                                        <constraint firstAttribute="height" constant="20" id="sII-lZ-m8O"/>
+                                    </constraints>
+                                    <state key="normal" image="twitterMail"/>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kav-Qm-Mzv">
-                                    <rect key="frame" x="32" y="0.0" width="24" height="24"/>
-                                    <state key="normal" image="googleIcon"/>
+                                    <rect key="frame" x="32" y="0.0" width="20" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="20" id="9pd-qG-jrV"/>
+                                        <constraint firstAttribute="width" constant="20" id="j02-wT-QzQ"/>
+                                    </constraints>
+                                    <state key="normal" image="googleMail"/>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5I3-VL-dFD">
-                                    <rect key="frame" x="64" y="0.0" width="24" height="24"/>
-                                    <state key="normal" image="facebookIcon"/>
+                                    <rect key="frame" x="64" y="0.0" width="20" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="20" id="Vdp-Yn-AuE"/>
+                                        <constraint firstAttribute="height" constant="20" id="sOA-LD-Ixb"/>
+                                    </constraints>
+                                    <state key="normal" image="facebookMail"/>
                                 </button>
                             </subviews>
                         </stackView>
@@ -66,13 +78,12 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="7io-eN-eus" firstAttribute="leading" secondItem="gI7-8o-Pk3" secondAttribute="leading" id="CSX-af-eaC"/>
-                        <constraint firstAttribute="trailing" secondItem="fJb-Cm-eXE" secondAttribute="trailing" constant="144" id="D3A-CQ-nck"/>
                         <constraint firstAttribute="trailing" secondItem="7Fx-JZ-fqP" secondAttribute="trailing" constant="16" id="Dey-w3-LbV"/>
                         <constraint firstItem="fJb-Cm-eXE" firstAttribute="top" secondItem="7Fx-JZ-fqP" secondAttribute="bottom" constant="24" id="EZL-vX-gkC"/>
                         <constraint firstItem="YU8-2B-ElD" firstAttribute="leading" secondItem="gI7-8o-Pk3" secondAttribute="leading" constant="137" id="Lmd-3x-OtN"/>
                         <constraint firstItem="YU8-2B-ElD" firstAttribute="top" secondItem="gI7-8o-Pk3" secondAttribute="top" constant="8" id="OMj-TN-68K"/>
-                        <constraint firstItem="fJb-Cm-eXE" firstAttribute="leading" secondItem="gI7-8o-Pk3" secondAttribute="leading" constant="143" id="TfM-4D-I8G"/>
                         <constraint firstItem="7Fx-JZ-fqP" firstAttribute="leading" secondItem="gI7-8o-Pk3" secondAttribute="leading" constant="16" id="YM6-KZ-Lis"/>
+                        <constraint firstItem="fJb-Cm-eXE" firstAttribute="centerX" secondItem="gI7-8o-Pk3" secondAttribute="centerX" id="gHM-JH-9Ss"/>
                         <constraint firstItem="7Fx-JZ-fqP" firstAttribute="top" secondItem="7io-eN-eus" secondAttribute="bottom" constant="26" id="gwM-Wf-zsK"/>
                         <constraint firstItem="7io-eN-eus" firstAttribute="top" secondItem="YU8-2B-ElD" secondAttribute="bottom" constant="26" id="hn3-az-PBJ"/>
                         <constraint firstItem="hQU-Se-DTN" firstAttribute="leading" secondItem="gI7-8o-Pk3" secondAttribute="leading" constant="16" id="lZx-8O-4Lp"/>
@@ -103,8 +114,8 @@
         </view>
     </objects>
     <resources>
-        <image name="facebookIcon" width="24" height="24"/>
-        <image name="googleIcon" width="24" height="24"/>
-        <image name="twiterIcon" width="24" height="24"/>
+        <image name="facebookMail" width="20" height="20"/>
+        <image name="googleMail" width="20" height="20"/>
+        <image name="twitterMail" width="20" height="20"/>
     </resources>
 </document>

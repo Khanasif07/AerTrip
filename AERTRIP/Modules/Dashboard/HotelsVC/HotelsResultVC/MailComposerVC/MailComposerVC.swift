@@ -235,9 +235,11 @@ extension MailComposerVC: EmailComposeerHeaderViewDelegate {
             headerView.messageSubjectTextView.isScrollEnabled = msgHeight >= maxHeight
         })
     }
+    func textViewText(emailTextView: UITextView) {
+    }
     
-    func textViewText(_ textView: UITextView) {
-        self.viewModel.subject = textView.text ?? ""
+    func textViewText(messageTextView: UITextView) {
+        self.viewModel.subject = messageTextView.text ?? ""
     }
     
     func openContactScreen() {

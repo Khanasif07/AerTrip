@@ -52,6 +52,7 @@ class PriceVC: BaseVC {
         horizontalMultiSlider.value = [UserInfo.hotelFilter != nil ? CGFloat(filterApplied.leftRangePrice) : CGFloat(HotelFilterVM.shared.minimumPrice), UserInfo.hotelFilter != nil ? CGFloat(filterApplied.rightRangePrice) : CGFloat(HotelFilterVM.shared.maximumPrice)]
         horizontalMultiSlider.isSettingValue = true
         horizontalMultiSlider.thumbCount = 2
+        horizontalMultiSlider.snapStepSize = 1
         horizontalMultiSlider.tintColor = AppColors.themeGreen // color of the track
         horizontalMultiSlider.outerTrackColor = AppColors.themeGray10
         horizontalMultiSlider.trackWidth = 3
