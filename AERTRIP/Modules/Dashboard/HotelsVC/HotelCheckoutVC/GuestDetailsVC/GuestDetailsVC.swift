@@ -278,7 +278,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
             guard let headerView = guestDetailTableView.dequeueReusableHeaderFooterView(withIdentifier: AppConstants.ktableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
                 fatalError("ViewProfileDetailTableViewSectionView not found")
             }
-            headerView.headerLabel.text = "\(LocalizedString.Room.localized) \(section + 1)"
+            headerView.headerLabel.text = "\(LocalizedString.Room.localized) \(section + 1)".uppercased()
             headerView.backgroundColor = AppColors.themeGray04
             headerView.containerView.backgroundColor = AppColors.themeGray04
             headerView.topDividerHeightConstraint.constant = 0.5

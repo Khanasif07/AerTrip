@@ -157,7 +157,7 @@ class HCDataSelectionPrefrencesCell: UITableViewCell {
         } else {
             var prefreence = [String]()
             if !prefrenceNames.isEmpty {
-                prefreence.append(prefrenceNames.joined(separator: ","))
+                prefreence.append(prefrenceNames.joined(separator: ", "))
             }
             if !other.isEmpty {
                 prefreence.append(other)
@@ -166,7 +166,7 @@ class HCDataSelectionPrefrencesCell: UITableViewCell {
                 prefreence.append(request)
             }
             
-            descriptionLabel.text = prefreence.joined(separator: ",")
+            descriptionLabel.text = prefreence.joined(separator: ", ")
         }
     }
 }
@@ -301,13 +301,13 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
                 
                 if let img = self.contact?.profilePicture, !img.isEmpty {
                     self.iconImageView.setImageWithUrl(img, placeholder: placeHolder, showIndicator: false)
-                    self.iconImageView.layer.borderColor = AppColors.themeGray40.cgColor
-                    self.iconImageView.layer.borderWidth = 1.0
+//                    self.iconImageView.layer.borderColor = AppColors.themeGray40.cgColor
+//                    self.iconImageView.layer.borderWidth = 1.0
                 }
                 else {
-                    self.iconImageView.image = self.contact?.flImage
-                    self.iconImageView.layer.borderColor = AppColors.themeGray40.cgColor
-                    self.iconImageView.layer.borderWidth = 1.0
+                    self.iconImageView.image = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, font: AppFonts.Light.withSize(36.0),textColor: AppColors.themeGray60, offSet: CGPoint(x: 0, y: 12), backGroundColor: AppColors.imageBackGroundColor)
+//                    self.iconImageView.layer.borderColor = AppColors.themeGray40.cgColor
+//                    self.iconImageView.layer.borderWidth = 1.0
                 }
                 
                 if let year = self.contact?.age, year > 0 {

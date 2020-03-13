@@ -285,7 +285,6 @@ extension HotelResultVC {
         guard scrollView === tableViewVertical else {
             return
         }
-        //        updateHeaderView(scrollView)
         var yPosition = CGFloat()
         if(scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0) {
             yPosition = 0
@@ -293,7 +292,7 @@ extension HotelResultVC {
         else {
             yPosition = -120
         }
-        if self.isViewDidAppear {
+        if self.isViewDidAppear, self.headerContainerViewTopConstraint.constant != yPosition {
             UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0, options: .curveEaseInOut, animations: {
                 self.headerContainerViewTopConstraint.constant = yPosition
                 self.view.layoutIfNeeded()
@@ -303,27 +302,6 @@ extension HotelResultVC {
     
     
     // MARK: - Manage Header animation
-    
-    func showHeaderIfHiddenOnTopAfterEndScrolling(_ scrollView: UIScrollView) {
-        let yPosition = scrollView.contentOffset.y
-        if yPosition >= 0 {
-            if 0...96.0 ~= yPosition {
-                let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration*0.5, curve: .linear) { [weak self] in
-                    self?.headerContainerViewTopConstraint.constant = 0.0
-                    self?.view.layoutIfNeeded()
-                }
-                animator.startAnimation()
-            }
-        }
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        //showHeaderIfHiddenOnTopAfterEndScrolling(scrollView)
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        //showHeaderIfHiddenOnTopAfterEndScrolling(scrollView)
-    }
     
     // Disable mapButton and search bar when no data found on filter
     func noHotelFoundOnFilter() {
@@ -337,44 +315,6 @@ extension HotelResultVC {
         self.mapButton.isUserInteractionEnabled = true
         self.searchBar.isUserInteractionEnabled = true
         self.mapButton.isHidden = false
-    }
-    
-    func updateHeaderView(_ scrollView: UIScrollView) {
-        let yPosition = scrollView.contentOffset.y
-        let maxBound = scrollView.contentSize.height - scrollView.height
-        
-        //        print(scrollView.panGestureRecognizer.velocity(in: self.view))
-        if scrollView.contentSize.height <  scrollView.height {
-            self.headerContainerViewTopConstraint.constant = 0.0
-            return
-        }
-        if 0.5 < abs(yPosition), abs(yPosition) < abs(maxBound) {
-            //show with progress after header height scrolled up
-            let newProg = self.oldScrollPosition.y - yPosition
-            var headrC = min(0,max(-140.0, (self.headerContainerViewTopConstraint.constant + newProg)))
-            if yPosition <= 100.0 {
-                headrC = 0.0
-            }
-            printDebug("ScrollView ContentOffset  Y: \(yPosition)")
-            printDebug("ScrollView previous ContentOffset Y: \( self.oldScrollPosition.y)")
-            printDebug("header height: \(headrC)")
-            printDebug("headerContainerViewTopConstraint.constant: \(self.headerContainerViewTopConstraint.constant)")
-            if headrC != self.headerContainerViewTopConstraint.constant {
-                self.headerContainerViewTopConstraint.constant = headrC
-            }
-            
-            
-            //            let finalPos = 100.0 + headrC
-            //            if finalPos != self.tableViewTopConstraint.constant {
-            //                self.tableViewTopConstraint.constant = finalPos
-            //                self.mapContainerTopConstraint.constant = finalPos
-            //            }
-            
-            //            }
-        }
-        
-        
-        self.oldScrollPosition = scrollView.contentOffset
     }
 }
 

@@ -214,10 +214,9 @@ class HCDataSelectionVC: BaseVC {
                 finalDate += " - \(txt)"
             }
         }
-       
-        checkInOutDate.removeConstraints(checkInOutDate.constraints)
-        
+               
         checkInOutDate.text = finalDate
+        checkInOutDate.isHidden = finalDate.isEmpty
     }
     
     private func setupNavView() {
@@ -577,7 +576,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
         if newRow < 0 {
             // room data cell
             let totalCount = hotelFormData.adultsCount[indexPath.row] + hotelFormData.childrenCounts[indexPath.row]
-            let constantHeight = ((148/375) * self.view.width)
+            let constantHeight: CGFloat = 157//((148/375) * self.view.width)
             return constantHeight * ((totalCount <= 4) ? 1.0 : 2.0) + 0.0
         }
         else {
@@ -666,7 +665,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                     return UITableViewCell()
                 }
                 cell.contactTitleLabel.isHidden = true
-                cell.contactNumberTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.Mobile.localized)
+                cell.contactNumberTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.Mobile.localized,with: "")
                 cell.delegate = self
                 return cell
                 
@@ -681,7 +680,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
 //                cell.titleLabel.textColor = AppColors.themeGray20
 //                cell.titleLabel.text = LocalizedString.Email_ID.localized
                 cell.editableTextField.isEnabled = UserInfo.loggedInUserId == nil
-                cell.editableTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.Email_ID.localized)
+                cell.editableTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.Email_ID.localized,with: "")
                 cell.delegate = self
                 cell.editableTextField.text = viewModel.email
                 cell.editableTextField.font = AppFonts.Regular.withSize(18.0)
