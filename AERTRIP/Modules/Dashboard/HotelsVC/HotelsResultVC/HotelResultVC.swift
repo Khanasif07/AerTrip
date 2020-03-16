@@ -230,16 +230,15 @@ class HotelResultVC: StatusBarAnimatableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.isViewDidAppear = true
+        self.statusBarColor = AppColors.themeWhite
+        self.statusBarStyle = .default
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.statusBarColor = AppColors.themeWhite
-        self.statusBarStyle = .default
-        
+        super.viewWillAppear(animated)        
         addCustomBackgroundBlurView()
     }
-    
+        
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.statusBarColor = AppColors.clear
@@ -455,7 +454,15 @@ class HotelResultVC: StatusBarAnimatableViewController {
     }
     
     @IBAction func unPinAllFavouriteButtonTapped(_ sender: Any) {
-        self.removeAllFavouritesHotels()
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [ LocalizedString.RemoveFromFavourites.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
+        
+        _ = PKAlertController.default.presentActionSheet(LocalizedString.FloatingButtonsTitle.localized, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
+            
+            if index == 0 {
+                self?.removeAllFavouritesHotels()
+                printDebug("Remove All favourite")
+            }
+        }
     }
     
     @IBAction func shareButtonTapped(_ sender: Any) {

@@ -38,7 +38,8 @@ class DestinationSearchedTableCell: UITableViewCell {
     }
     
     func configureData(data: SearchedDestination, forText: String) {
-        if !data.city.isEmpty {
+        
+        if data.dest_type == "City" {
             self.titleLabel.attributedText =  self.getAttributedBoldText(text: data.city, boldText: forText, fullTextColor: AppColors.themeBlack)
         } else {
             let newValue = data.value.components(separatedBy: ",")

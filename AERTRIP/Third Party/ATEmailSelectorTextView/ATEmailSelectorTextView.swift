@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import IQKeyboardManager
 
-class ATEmailSelectorTextView: UITextView {
+class ATEmailSelectorTextView: IQTextView {
 
     //MARK:- Proverties
     //MARK:- Private

@@ -546,6 +546,7 @@
 
 // Mail Composer VC
 "CheckoutMyFavouriteHotels" = "Checkout my favorite hotels on Aertrip!";
+"EnterEmail" = "Enter email";
 //Booking Incomplete Screen
 "BookingIncomplete" = "Booking Incomplete";
 "YourWalletMoneyOf" = "Your wallet money of";

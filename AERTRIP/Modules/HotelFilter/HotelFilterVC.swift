@@ -81,6 +81,7 @@ class HotelFilterVC: BaseVC {
         delay(seconds: 0.5) { [weak self] in
             self?.show(animated: true)
         }
+        self.parchmentView?.select(index: selectedIndex)
     }
     
     // MARK: - Overrider methods
@@ -222,10 +223,9 @@ class HotelFilterVC: BaseVC {
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
         self.parchmentView?.sizeDelegate = self
-        self.parchmentView?.select(index: selectedIndex)
-        
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
+
     }
     
     

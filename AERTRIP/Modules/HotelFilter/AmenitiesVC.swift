@@ -41,7 +41,7 @@ class AmenitiesVC: BaseVC {
     }
     
     private func addFooterView() {
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 120))
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 35))
         customView.backgroundColor = AppColors.themeWhite
         
         tableView.tableFooterView = customView

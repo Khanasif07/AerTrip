@@ -220,7 +220,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jU1-4c-SMd" customClass="StepSlider">
-                                <rect key="frame" x="10" y="80" width="394" height="80"/>
+                                <rect key="frame" x="18" y="80" width="378" height="80"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -263,9 +263,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="jU1-4c-SMd" firstAttribute="top" secondItem="f5U-Ru-ge6" secondAttribute="bottom" constant="4" id="4ag-90-cbQ"/>
-                            <constraint firstItem="Eok-Mn-bfI" firstAttribute="trailing" secondItem="jU1-4c-SMd" secondAttribute="trailing" constant="10" id="AHy-Cc-5jZ"/>
+                            <constraint firstItem="Eok-Mn-bfI" firstAttribute="trailing" secondItem="jU1-4c-SMd" secondAttribute="trailing" constant="18" id="AHy-Cc-5jZ"/>
                             <constraint firstItem="DxM-Qk-1fu" firstAttribute="leading" secondItem="Eok-Mn-bfI" secondAttribute="leading" constant="16" id="F6j-hk-CBF"/>
-                            <constraint firstItem="jU1-4c-SMd" firstAttribute="leading" secondItem="Eok-Mn-bfI" secondAttribute="leading" constant="10" id="Fxp-b5-tAj"/>
+                            <constraint firstItem="jU1-4c-SMd" firstAttribute="leading" secondItem="Eok-Mn-bfI" secondAttribute="leading" constant="18" id="Fxp-b5-tAj"/>
                             <constraint firstAttribute="trailing" secondItem="Yc4-Rx-GhG" secondAttribute="trailing" constant="16" id="Y5d-xx-4Kv"/>
                             <constraint firstItem="DxM-Qk-1fu" firstAttribute="top" secondItem="Eok-Mn-bfI" secondAttribute="top" constant="12" id="bXf-Yf-w6A"/>
                             <constraint firstItem="Yc4-Rx-GhG" firstAttribute="top" secondItem="Eok-Mn-bfI" secondAttribute="top" constant="45" id="fQk-6v-cZM"/>
@@ -581,9 +581,8 @@
                                     <constraint firstAttribute="bottom" secondItem="NcH-Vm-ej2" secondAttribute="bottom" constant="10" id="nHl-Bb-VqG"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UEz-Fm-zlt">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UEz-Fm-zlt" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="16" y="160" width="382" height="0.66666666666665719"/>
-                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="PWI-z9-6D1"/>
                                 </constraints>
