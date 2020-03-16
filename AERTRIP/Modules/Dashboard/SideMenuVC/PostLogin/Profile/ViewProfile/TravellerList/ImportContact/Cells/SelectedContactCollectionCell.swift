@@ -104,7 +104,7 @@ class SelectedContactCollectionCell: UICollectionViewCell {
                 self.nameLabel.text = fName
                 self.crossButton.isHidden = false
             }
-            else if let type = self.contact?.passengerType, let number = self.contact?.numberInRoom, number >= 0 {
+            else if let lName = self.contact?.lastName, lName.isEmpty, let type = self.contact?.passengerType, let number = self.contact?.numberInRoom, number >= 0 {
                 self.crossButton.isHidden = true
                 self.nameLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)"
                 
@@ -114,10 +114,19 @@ class SelectedContactCollectionCell: UICollectionViewCell {
 //                }
                 
                 
+            } else {
+                self.nameLabel.text = " "
+                self.crossButton.isHidden = false
             }
             if let lName = self.contact?.lastName, !lName.isEmpty {
-                lastNameLabel.text = lName
-                lastNameLabel.isHidden = false
+                if  let fName = self.contact?.firstName, fName.isEmpty {
+                    self.nameLabel.text = lName
+                    self.crossButton.isHidden = false
+                } else {
+                    lastNameLabel.text = lName
+                    lastNameLabel.isHidden = false
+                }
+                
             }
             if let year = self.contact?.age, year > 0 {
                 ageLabel.text = "(\(year)y)"
@@ -148,14 +157,27 @@ class SelectedContactCollectionCell: UICollectionViewCell {
             self.profileImageView.image = placeHolder
             if let img = self.contact?.profilePicture, !img.isEmpty {
                 self.profileImageView.setImageWithUrl(img, placeholder: placeHolder, showIndicator: false)
-                self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
-                self.profileImageView.layer.borderWidth = 1.0
+//                self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
+//                self.profileImageView.layer.borderWidth = 1.0
+            }else if let fName = self.contact?.firstName, let lName = self.contact?.lastName {
+                if (!fName.isEmpty || !lName.isEmpty) {
+                self.profileImageView.image = AppGlobals.shared.getImageFor(firstName: fName, lastName: lName, font: AppFonts.Light.withSize(36.0),textColor: AppColors.themeGray60, offSet: CGPoint(x: 0, y: 12), backGroundColor: AppColors.imageBackGroundColor)
+                }
+
             }
-            else if let fName = self.contact?.firstName, !fName.isEmpty, let flImage = self.contact?.flImage {
-                self.profileImageView.image = flImage
-                self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
-                self.profileImageView.layer.borderWidth = 1.0
-            }
+                
+                
+                
+//            else if let fName = self.contact?.firstName, !fName.isEmpty, let flImage = self.contact?.flImage {
+//                self.profileImageView.image = flImage
+//                self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
+//                self.profileImageView.layer.borderWidth = 1.0
+//            }else if let lName = self.contact?.lastName, !lName.isEmpty, let flImage = self.contact?.flImage {
+//                self.profileImageView.image = flImage
+//                self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
+//                self.profileImageView.layer.borderWidth = 1.0
+//            }
+            
             
             lastNameAgeContainer.isHidden = false
         }

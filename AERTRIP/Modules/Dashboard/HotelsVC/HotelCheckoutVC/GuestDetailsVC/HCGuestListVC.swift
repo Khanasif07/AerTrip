@@ -42,7 +42,7 @@ class HCGuestListVC: BaseVC {
     //MARK:- Public
     var currentlyUsingFor = UsingFor.contacts
     let viewModel = HCSelectGuestsVM.shared //only used for fetching the contacts from diffrent sources
-
+    
     //MARK:- Private
     private lazy var allowEmptyView: EmptyScreenView = {
         let newEmptyView = EmptyScreenView()
@@ -122,32 +122,32 @@ class HCGuestListVC: BaseVC {
                 self.reloadList()
             }
             else if obj == .searchDone {
-//                delay(seconds: 0.3) { [weak self] in
-//                    guard let `self` = self else {
-//                        return
-//                    }
-                    self.noResultemptyView.messageLabel.isHidden = false
-                    self.noResultemptyView.messageLabel.text = "\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(self.viewModel.searchText)'"
-                    self.noResultemptyView.messageLabel.numberOfLines = 0
-                    self.noResultemptyView.messageLabelTopConstraint.constant = 30
-                    if self.currentlyUsingFor == .travellers && self.viewModel.travellerContacts.isEmpty {
-                        self.tableView?.backgroundView = self.noResultemptyView
-                    }
-                    else if self.currentlyUsingFor == .contacts && self.viewModel.phoneContacts.isEmpty {
-                        self.tableView?.backgroundView = self.noResultemptyView
-                        
-                    }
-                    else if self.currentlyUsingFor == .facebook && self.viewModel.facebookContacts.isEmpty {
-                        self.tableView?.backgroundView = self.noResultemptyView
-                        
-                    }
-                    else if self.currentlyUsingFor == .google && self.viewModel.googleContacts.isEmpty {
-                        self.tableView?.backgroundView = self.noResultemptyView
-                    }
-                    self.reloadList()
-//                }
-               
-              
+                //                delay(seconds: 0.3) { [weak self] in
+                //                    guard let `self` = self else {
+                //                        return
+                //                    }
+                self.noResultemptyView.messageLabel.isHidden = false
+                self.noResultemptyView.messageLabel.text = "\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(self.viewModel.searchText)'"
+                self.noResultemptyView.messageLabel.numberOfLines = 0
+                self.noResultemptyView.messageLabelTopConstraint.constant = 30
+                if self.currentlyUsingFor == .travellers && self.viewModel.travellerContacts.isEmpty {
+                    self.tableView?.backgroundView = self.noResultemptyView
+                }
+                else if self.currentlyUsingFor == .contacts && self.viewModel.phoneContacts.isEmpty {
+                    self.tableView?.backgroundView = self.noResultemptyView
+                    
+                }
+                else if self.currentlyUsingFor == .facebook && self.viewModel.facebookContacts.isEmpty {
+                    self.tableView?.backgroundView = self.noResultemptyView
+                    
+                }
+                else if self.currentlyUsingFor == .google && self.viewModel.googleContacts.isEmpty {
+                    self.tableView?.backgroundView = self.noResultemptyView
+                }
+                self.reloadList()
+                //                }
+                
+                
             }
         }
     }
@@ -222,16 +222,16 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
         if self.currentlyUsingFor == .travellers {
             cell.showSalutationImage = true
             cell.contact = self.viewModel.travellerContacts[indexPath.row]
-          
+            
             // Get age str based on date of birth
-//            let dateStr = AppGlobals.shared.getAgeLastString(dob: self.viewModel.travellerContacts[indexPath.row].dob, formatter: "yyyy-MM-dd")
-//            // get attributed date str
-//            let attributedDateStr = AppGlobals.shared.getAttributedBoldText(text: dateStr, boldText: dateStr,color: AppColors.themeGray40)
-//
-//            // add a UILabel for Age string
-//            let label = UILabel(frame: CGRect(x: 0, y: 0, width: 45, height: 30))
-//            label.attributedText = attributedDateStr
-//            cell.accessoryView = label
+            //            let dateStr = AppGlobals.shared.getAgeLastString(dob: self.viewModel.travellerContacts[indexPath.row].dob, formatter: "yyyy-MM-dd")
+            //            // get attributed date str
+            //            let attributedDateStr = AppGlobals.shared.getAttributedBoldText(text: dateStr, boldText: dateStr,color: AppColors.themeGray40)
+            //
+            //            // add a UILabel for Age string
+            //            let label = UILabel(frame: CGRect(x: 0, y: 0, width: 45, height: 30))
+            //            label.attributedText = attributedDateStr
+            //            cell.accessoryView = label
             cell.dividerView.isHidden = indexPath.row == (self.viewModel.travellerContacts.count - 1)
             cell.selectionButton.isSelected = self.viewModel.selectedTravellerContacts.contains(where: { (contact) -> Bool in
                 contact.id == self.viewModel.travellerContacts[indexPath.row].id
@@ -263,7 +263,7 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        
         if self.currentlyUsingFor == .travellers {
             
             if let oIndex = self.viewModel.originalIndex(forContact: self.viewModel.travellerContacts[indexPath.row], forType: .travellers) {
@@ -277,6 +277,9 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
                 else if HotelsSearchVM.hotelFormData.totalGuestCount > self.viewModel.allSelectedCount {
                     self.viewModel.selectedTravellerContacts.append(self.viewModel.travellerContacts[indexPath.row])
                     self.viewModel.add(atIndex: oIndex, for: .travellers)
+                } else {
+                    self.viewModel.selectedTravellerContacts.append(self.viewModel.travellerContacts[indexPath.row])
+                    self.viewModel.update(atIndex: oIndex, for: .travellers)
                 }
             }
         }
@@ -290,14 +293,18 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
             else {
                 
                 let newContact = self.viewModel.phoneContacts[indexPath.row]
-
+                
                 if let index = self.viewModel._phoneContacts.firstIndex(where: { (contact) -> Bool in
                     contact.id == newContact.id
-                }), HotelsSearchVM.hotelFormData.totalGuestCount > self.viewModel.allSelectedCount {
-                    
-                    self.viewModel.selectedPhoneContacts.append(newContact)
-                    //get the original index of the contact
-                    self.viewModel.add(atIndex: index, for: .contacts)
+                }) {
+                    if HotelsSearchVM.hotelFormData.totalGuestCount > self.viewModel.allSelectedCount {
+                        self.viewModel.selectedPhoneContacts.append(newContact)
+                        //get the original index of the contact
+                        self.viewModel.add(atIndex: index, for: .contacts)
+                    } else {
+                        self.viewModel.selectedPhoneContacts.append(self.viewModel.phoneContacts[indexPath.row])
+                        self.viewModel.update(atIndex: index, for: .contacts)
+                    }
                 }
             }
         }
@@ -313,10 +320,16 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
                 let newContact = self.viewModel.facebookContacts[indexPath.row]
                 if let index = self.viewModel._facebookContacts.firstIndex(where: { (contact) -> Bool in
                     contact.id == newContact.id
-                }), HotelsSearchVM.hotelFormData.totalGuestCount > self.viewModel.allSelectedCount {
-                    self.viewModel.selectedFacebookContacts.append(newContact)
-                    //get the original index of the contact
-                    self.viewModel.add(atIndex: index, for: .facebook)
+                }) {
+                    if  HotelsSearchVM.hotelFormData.totalGuestCount > self.viewModel.allSelectedCount {
+                        self.viewModel.selectedFacebookContacts.append(newContact)
+                        //get the original index of the contact
+                        self.viewModel.add(atIndex: index, for: .facebook)
+                        
+                    }else {
+                        self.viewModel.selectedFacebookContacts.append(self.viewModel.facebookContacts[indexPath.row])
+                        self.viewModel.update(atIndex: index, for: .facebook)
+                    }
                 }
             }
         }
@@ -332,10 +345,16 @@ extension HCGuestListVC: UITableViewDelegate, UITableViewDataSource {
                 let newContact = self.viewModel.googleContacts[indexPath.row]
                 if let index = self.viewModel._googleContacts.firstIndex(where: { (contact) -> Bool in
                     contact.id == newContact.id
-                }), HotelsSearchVM.hotelFormData.totalGuestCount > self.viewModel.allSelectedCount {
-                    self.viewModel.selectedGoogleContacts.append(newContact)
-                    //get the original index of the contact
-                    self.viewModel.add(atIndex: index, for: .google)
+                }) {
+                    
+                    if HotelsSearchVM.hotelFormData.totalGuestCount > self.viewModel.allSelectedCount {
+                        self.viewModel.selectedGoogleContacts.append(newContact)
+                        //get the original index of the contact
+                        self.viewModel.add(atIndex: index, for: .google)
+                    } else {
+                        self.viewModel.selectedGoogleContacts.append(self.viewModel.googleContacts[indexPath.row])
+                        self.viewModel.update(atIndex: index, for: .google)
+                    }
                 }
             }
         }
@@ -373,7 +392,11 @@ extension HCGuestListVC: EmptyScreenViewDelegate {
 //MARK:- ViewModel Delegate
 //MARK:-
 extension HCGuestListVC: HCSelectGuestsVMDelegate {
-
+    func update(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
+        self.reloadList()
+    }
+    
+    
     func add(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
         self.reloadList()
     }

@@ -184,13 +184,20 @@ class RoomGuestSelectionVC: BaseVC {
         }
         
         if animated {
-            UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
+            UIView.animate(withDuration: animated ? AppConstants.kCloseAnimationDuration : 0.0, delay: 0, options: .curveEaseOut, animations: {
                 setValue()
             }, completion: { (isDone) in
                 if shouldRemove {
                     self.removeFromParentVC
                 }
             })
+//            UIView.animate(withDuration: animated ? AppConstants.kCloseAnimationDuration : 0.0, animations: {
+//                setValue()
+//            }, completion: { (isDone) in
+//                if shouldRemove {
+//                    self.removeFromParentVC
+//                }
+//            })
         }
         else {
             setValue()

@@ -60,10 +60,14 @@ class GuestDetailTableViewCell: UITableViewCell {
     // MARK: - Helper methods
     
     private func doInitalSetup() {
-        self.firstNameTextField.titleYPadding = -10.0
-        self.lastNameTextField.titleYPadding = -10.0
-        self.firstNameTextField.lineViewBottomSpace = 0.5
-        self.lastNameTextField.lineViewBottomSpace = 0.5
+        self.firstNameTextField.titleYPadding = 12.0
+        self.firstNameTextField.hintYPadding = 12.0
+        self.lastNameTextField.titleYPadding = 12.0
+        self.lastNameTextField.hintYPadding = 12.0
+//        self.firstNameTextField.titleYPadding = -10.0
+//        self.lastNameTextField.titleYPadding = -10.0
+//        self.firstNameTextField.lineViewBottomSpace = 0.5
+//        self.lastNameTextField.lineViewBottomSpace = 0.5
         self.firstNameTextField.isSingleTextField = false
         self.lastNameTextField.isSingleTextField = false
         self.firstNameTextField.delegate = self
@@ -80,8 +84,8 @@ class GuestDetailTableViewCell: UITableViewCell {
         //let attributes = [NSAttributedString.Key.foregroundColor: AppColors.themeGray20, .font: AppFonts.Regular.withSize(18.0)]
         //  firstNameTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.FirstName.localized, attributes: attributes)
         // lastNameTextField.attributedPlaceholder = NSAttributedString(string: LocalizedString.LastName.localized, attributes: attributes)
-        firstNameTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.FirstName.localized, foregroundColor: AppColors.themeGray20)
-        lastNameTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.LastName.localized, foregroundColor: AppColors.themeGray20)
+        firstNameTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.FirstName.localized,with: "", foregroundColor: AppColors.themeGray20)
+        lastNameTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.LastName.localized,with: "", foregroundColor: AppColors.themeGray20)
         self.firstNameTextField.font = AppFonts.Regular.withSize(18.0)
         self.lastNameTextField.font = AppFonts.Regular.withSize(18.0)
     }

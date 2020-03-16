@@ -16,6 +16,9 @@ class TravellerListTableViewCell: UITableViewCell {
     @IBOutlet weak var separatorView: ATDividerView!
     @IBOutlet weak var selectTravellerButton: UIButton!
     @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerStackView: UIStackView!
+    
+    
 //    @IBOutlet weak var edgeToEdgeBottomSeparatorView: ATDividerView!
     
 //    @IBOutlet weak var edgeToEdgeTopSeparatorView: ATDividerView!
@@ -63,6 +66,7 @@ class TravellerListTableViewCell: UITableViewCell {
     private func configureCellForTraveller() {
         selectTravellerButton.isHidden = true
         leadingConstraint.constant = 16
+        containerStackView.spacing = 16
         profileImageView.image = AppGlobals.shared.getEmojiIcon(dob: travellerModelData?.dob ?? "", salutation: travellerModelData?.salutation ?? "", dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
         let fullName = travellerModelData?.fullName ?? ""
         var age = ""
