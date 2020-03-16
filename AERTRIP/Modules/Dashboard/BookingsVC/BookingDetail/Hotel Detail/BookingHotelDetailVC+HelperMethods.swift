@@ -149,7 +149,7 @@ extension BookingHotelDetailVC {
     }
     
     func getHeightForRowFirstSection(_ indexPath: IndexPath) -> CGFloat {
-        return [220.5, 109, UITableView.automaticDimension, 145.0][indexPath.row]
+        return [222.5, 100, UITableView.automaticDimension, 145.0][indexPath.row]
     }
     
     func getHeightForRoomSection(_ indexPath: IndexPath) -> CGFloat {
