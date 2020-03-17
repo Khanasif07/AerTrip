@@ -15,7 +15,7 @@ protocol HCSelectGuestsVMDelegate: class {
     
     func add(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor)
     func remove(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor)
-    
+    func update(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor)
     // func reloadTable(for usingFor: HCGuestListVC.UsingFor)
 }
 
@@ -124,6 +124,14 @@ class HCSelectGuestsVM: NSObject {
     func add(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
         self.delegateList?.add(atIndex: index, for: usingFor)
         self.delegateCollection?.add(atIndex: index, for: usingFor)
+        if let obj = self.delegateCollection as? BaseVC {
+            obj.sendDataChangedNotification(data: Notification.selectionChanged)
+        }
+    }
+    
+    func update(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
+        self.delegateList?.update(atIndex: index, for: usingFor)
+        self.delegateCollection?.update(atIndex: index, for: usingFor)
         if let obj = self.delegateCollection as? BaseVC {
             obj.sendDataChangedNotification(data: Notification.selectionChanged)
         }

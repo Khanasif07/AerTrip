@@ -682,10 +682,10 @@ extension HotelsSearchVC: ExpandedCellDelegate {
                 self.updateCollectionViewFrame()
                 self.addRoomCollectionView.performBatchUpdates({ () -> Void in
                     self.addRoomCollectionView.insertItems(at: [indexPath])
-                    let indices: IndexSet = [indexPath.section]
-                    self.addRoomCollectionView.reloadSections(indices)
+//                    let indices: IndexSet = [indexPath.section]
+//                    self.addRoomCollectionView.reloadSections(indices)
                 }, completion: { (true) in
-                    //self.reloadCollectionView()
+                    self.reloadCollectionView()
                 })
             }
         } else {

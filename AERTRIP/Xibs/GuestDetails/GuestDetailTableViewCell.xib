@@ -10,15 +10,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="134" id="KGk-i7-Jjw" customClass="GuestDetailTableViewCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="192" id="KGk-i7-Jjw" customClass="GuestDetailTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="154"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="154"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="USd-zI-5DG">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="118.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Br8-JF-9yQ">
                                 <rect key="frame" x="16" y="15" width="42" height="20"/>
@@ -29,24 +29,30 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="wOV-ds-QMg">
-                                <rect key="frame" x="16" y="55" width="288" height="60"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="wOV-ds-QMg">
+                                <rect key="frame" x="16" y="32" width="288" height="60"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="AES-Ex-fSS">
-                                        <rect key="frame" x="0.0" y="0.0" width="196" height="60"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="AES-Ex-fSS">
+                                        <rect key="frame" x="0.0" y="0.0" width="210" height="60"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PeD-mV-8zF" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="90.5" height="60"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PeD-mV-8zF" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="97" height="60"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="rSS-Ni-JXy"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="First Name"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Pe-Oj-KeI" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="105.5" y="0.0" width="90.5" height="60"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Pe-Oj-KeI" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
+                                                <rect key="frame" x="113" y="0.0" width="97" height="60"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="eVd-XU-G8b"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                                 <userDefinedRuntimeAttributes>
@@ -59,7 +65,7 @@
                                         <rect key="frame" x="211" y="0.0" width="77" height="60"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DZt-Ab-RMV">
-                                                <rect key="frame" x="0.0" y="18" width="77" height="38"/>
+                                                <rect key="frame" x="0.0" y="13.5" width="77" height="38"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PJS-Hy-qID">
                                                         <rect key="frame" x="0.0" y="0.0" width="77" height="38"/>
@@ -144,7 +150,7 @@
                                         <constraints>
                                             <constraint firstItem="DZt-Ab-RMV" firstAttribute="leading" secondItem="cQy-oa-KKM" secondAttribute="leading" id="Nzm-sI-9iD"/>
                                             <constraint firstAttribute="trailing" secondItem="DZt-Ab-RMV" secondAttribute="trailing" id="cAt-Lg-E18"/>
-                                            <constraint firstAttribute="bottom" secondItem="DZt-Ab-RMV" secondAttribute="bottom" constant="4" id="lWk-ti-NKq"/>
+                                            <constraint firstAttribute="bottom" secondItem="DZt-Ab-RMV" secondAttribute="bottom" constant="8.5" id="lWk-ti-NKq"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -155,12 +161,11 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="118.5" id="4Jv-41-rjX"/>
-                            <constraint firstItem="wOV-ds-QMg" firstAttribute="top" secondItem="Br8-JF-9yQ" secondAttribute="bottom" constant="20" id="9P3-2o-NXd"/>
+                            <constraint firstItem="wOV-ds-QMg" firstAttribute="top" secondItem="Br8-JF-9yQ" secondAttribute="bottom" constant="-3" id="9P3-2o-NXd"/>
                             <constraint firstItem="Br8-JF-9yQ" firstAttribute="leading" secondItem="USd-zI-5DG" secondAttribute="leading" constant="16" id="DeF-aF-0S7"/>
                             <constraint firstItem="Br8-JF-9yQ" firstAttribute="top" secondItem="USd-zI-5DG" secondAttribute="top" constant="15" id="RoK-8s-XiC"/>
                             <constraint firstItem="wOV-ds-QMg" firstAttribute="leading" secondItem="Br8-JF-9yQ" secondAttribute="leading" id="b35-2r-4eD"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="wOV-ds-QMg" secondAttribute="bottom" id="o3F-ZP-NsT"/>
+                            <constraint firstAttribute="bottom" secondItem="wOV-ds-QMg" secondAttribute="bottom" constant="4" id="gxc-72-bK5"/>
                             <constraint firstAttribute="trailing" secondItem="wOV-ds-QMg" secondAttribute="trailing" constant="16" id="scz-Tn-i9F"/>
                         </constraints>
                     </view>
@@ -168,7 +173,7 @@
                 <constraints>
                     <constraint firstItem="USd-zI-5DG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="8GM-0u-cA0"/>
                     <constraint firstItem="USd-zI-5DG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="FJ0-SB-Dbx"/>
-                    <constraint firstAttribute="bottom" secondItem="USd-zI-5DG" secondAttribute="bottom" id="ZkR-xh-48J"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="USd-zI-5DG" secondAttribute="bottom" id="ZkR-xh-48J"/>
                     <constraint firstAttribute="trailing" secondItem="USd-zI-5DG" secondAttribute="trailing" id="u8C-gr-2zq"/>
                 </constraints>
             </tableViewCellContentView>
@@ -183,7 +188,7 @@
                 <outlet property="unicodeSwitch" destination="mK8-1Q-kTi" id="973-1L-eBf"/>
                 <outlet property="verticalDividerView" destination="eyx-ZB-vtI" id="7OG-H4-8Cr"/>
             </connections>
-            <point key="canvasLocation" x="52.799999999999997" y="58.47076461769116"/>
+            <point key="canvasLocation" x="52.799999999999997" y="84.557721139430285"/>
         </tableViewCell>
     </objects>
 </document>

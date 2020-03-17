@@ -97,6 +97,7 @@ class GuestDetailsVC: BaseVC {
         self.travellersTableView.isHidden = true
         self.setUpNavigationView()
         self.travellers = []//self.viewModel.travellerList
+        self.travellersTableView.keyboardDismissMode = .none
     }
     
     // configure navigation View
@@ -131,6 +132,9 @@ class GuestDetailsVC: BaseVC {
         self.viewModel.hotelFormData = HotelsSearchVM.hotelFormData
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+       // super.touchesBegan(touches, with: event) commented this line to stop the keyboard dismissing
+    }
     
     override func keyboardWillShow(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
@@ -267,9 +271,9 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView === self.guestDetailTableView {
-            return 95.5
+            return UITableView.automaticDimension//96
         } else {
-            return 44.0
+            return 43.0
         }
     }
     
