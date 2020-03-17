@@ -41,6 +41,6 @@ class ReviewTableViewCell: UITableViewCell {
     internal func configCell(title: String ,totalNumbReviews: String, currentReviews: String) {
         self.reviewTitle.text = title
         self.progressBarView.progress = CGFloat((currentReviews.toDouble ?? 0.0)/(totalNumbReviews.toDouble ?? 0.0))
-        self.numbOfReviews.text = (currentReviews.toDouble ?? 0.0).kFormatted
+        self.numbOfReviews.text = (currentReviews.toDouble ?? 0.0).formatedCount()
     }
 }

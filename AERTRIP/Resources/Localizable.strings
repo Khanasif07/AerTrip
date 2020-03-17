@@ -483,6 +483,9 @@
 "RatingSummary" = "Rating Summary";
 "PleaseSelectTrip" = "Please select trip";
 
+// Hotel Detail screen
+"HotelHasAlreadyBeenSavedToTrip" = "Hotel has already been saved to trip";
+
 //Hotel Checkout Deatail Selection screen
 "Guests" = "Guests";
 

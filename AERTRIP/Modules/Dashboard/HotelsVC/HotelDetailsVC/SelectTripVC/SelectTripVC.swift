@@ -13,6 +13,7 @@ protocol SelectTripVCDelegate: class {
 }
 
 class SelectTripVC: BaseVC {
+    
     // MARK: - IBOutlets
     
     // MARK: -
@@ -158,14 +159,23 @@ extension SelectTripVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        if  let indexPath = viewModel.selectedIndexPath {
-            // move and update trip
-            viewModel.moveAndUpdateTripAPI(selectedTrip: viewModel.allTrips[indexPath.row])
-        } else {
-            if viewModel.usingFor == .bookingTripChange {
-                AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectTrip.localized)
-            } else {
+        if viewModel.usingFor == .hotel {
+            if viewModel.selectedIndexPath != nil {
                 selectionCompleted()
+            } else {
+                AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectTrip.localized)
+                
+            }
+        } else {
+            if  let indexPath = viewModel.selectedIndexPath {
+                // move and update trip
+                viewModel.moveAndUpdateTripAPI(selectedTrip: viewModel.allTrips[indexPath.row])
+            } else {
+                if viewModel.usingFor == .bookingTripChange {
+                    AppToast.default.showToastMessage(message: LocalizedString.PleaseSelectTrip.localized)
+                } else {
+                    selectionCompleted()
+                }
             }
         }
     }
@@ -223,29 +233,29 @@ extension SelectTripVC: UITableViewDataSource, UITableViewDelegate {
 extension SelectTripVC {
     
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-          let touchPoint = sender.location(in: view?.window)
-          var initialTouchPoint = CGPoint.zero
-          
-          switch sender.state {
-          case .began:
-              initialTouchPoint = touchPoint
-          case .changed:
-              if touchPoint.y > initialTouchPoint.y {
-                  view.frame.origin.y = touchPoint.y - initialTouchPoint.y
-              }
-          case .ended, .cancelled:
-              if touchPoint.y - initialTouchPoint.y > 300 {
-                  dismiss(animated: true, completion: nil)
-              } else {
-                  UIView.animate(withDuration: 0.2, animations: {
-                      self.view.frame = CGRect(x: 0,
-                                               y: 0,
-                                               width: self.view.frame.size.width,
-                                               height: self.view.frame.size.height)
-                  })
-              }
-          case .failed, .possible:
-              break
-          }
-      }
+        let touchPoint = sender.location(in: view?.window)
+        var initialTouchPoint = CGPoint.zero
+        
+        switch sender.state {
+        case .began:
+            initialTouchPoint = touchPoint
+        case .changed:
+            if touchPoint.y > initialTouchPoint.y {
+                view.frame.origin.y = touchPoint.y - initialTouchPoint.y
+            }
+        case .ended, .cancelled:
+            if touchPoint.y - initialTouchPoint.y > 300 {
+                dismiss(animated: true, completion: nil)
+            } else {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.view.frame = CGRect(x: 0,
+                                             y: 0,
+                                             width: self.view.frame.size.width,
+                                             height: self.view.frame.size.height)
+                })
+            }
+        case .failed, .possible:
+            break
+        }
+    }
 }

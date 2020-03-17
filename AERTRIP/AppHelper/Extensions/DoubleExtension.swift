@@ -31,4 +31,41 @@ extension Double {
         guard let formattedString = formatter.string(from: self) else { return "" }
         return formattedString
     }
+    
+    func formatedCount() ->String{
+        var thousandNum = self/1000
+        var millionNum = self/1000000
+        if self >= 1000 && self < 1000000{
+            if(floor(thousandNum) == thousandNum){
+                return("\(Int(thousandNum))k").replacingOccurrences(of: ".0", with: "")
+            }
+            return("\(thousandNum.roundToPlaces(places: 1))k").replacingOccurrences(of: ".0", with: "")
+        }
+        
+        if self > 1000000000 {
+            if(floor(millionNum) == millionNum){
+                return("\(Int(thousandNum))M").replacingOccurrences(of: ".0", with: "")
+            }
+            return ("\(millionNum.roundToPlaces(places: 1))B").replacingOccurrences(of: ".0", with: "")
+        } else if self > 1000000 {
+            if(floor(millionNum) == millionNum){
+                return("\(Int(thousandNum))k").replacingOccurrences(of: ".0", with: "")
+            }
+            return ("\(millionNum.roundToPlaces(places: 1))M").replacingOccurrences(of: ".0", with: "")
+        }
+        else{
+            if(floor(self) == self){
+                return ("\(Int(self))").replacingOccurrences(of: ".0", with: "")
+            }
+            return ("\(self)").replacingOccurrences(of: ".0", with: "")
+        }
+
+    }
+    
+    mutating func roundToPlaces(places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return  (self * divisor).rounded() / divisor
+    }
+
+    
 }

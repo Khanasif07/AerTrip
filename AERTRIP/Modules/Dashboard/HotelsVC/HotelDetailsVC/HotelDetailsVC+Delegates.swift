@@ -170,8 +170,9 @@ extension HotelDetailsVC: HotelDetailDelegate {
     
     func saveHotelWithTripSuccess(trip: TripModel, isAllreadyAdded: Bool) {
         
-        let tripName = trip.isDefault ? LocalizedString.Default.localized.lowercased() : "\(trip.name)"
-        let message = "Hotel has been\(isAllreadyAdded ? " \(LocalizedString.Already.localized.lowercased())" : "") added to \(tripName) trip"
+//        let tripName = trip.isDefault ? LocalizedString.Default.localized.lowercased() : "\(trip.name)"
+//        let message = "Hotel has been\(isAllreadyAdded ? " \(LocalizedString.Already.localized.lowercased())" : "") added to \(tripName) trip"
+        let message = LocalizedString.HotelHasAlreadyBeenSavedToTrip.localized
         AppToast.default.showToastMessage(message: message, onViewController: self)
     }
     
@@ -367,7 +368,7 @@ extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
             }else {
                 AppFlowManager.default.popToViewController(sSelf, animated: true)
             }
-            AppFlowManager.default.selectTrip(nil) { (trip, details)  in
+            AppFlowManager.default.selectTrip(nil, tripType: .hotel) { (trip, details)  in
                 delay(seconds: 0.3, completion: { [weak self] in
                     guard let sSelf = self else {return}
                     

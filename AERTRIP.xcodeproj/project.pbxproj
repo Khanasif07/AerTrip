@@ -624,6 +624,7 @@
 		84409E5E2266F969005A5487 /* CustomDotMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84409E5C2266F969005A5487 /* CustomDotMarker.swift */; };
 		84409E5F2266F969005A5487 /* CustomDotMarker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84409E5D2266F969005A5487 /* CustomDotMarker.xib */; };
 		8441BFAC22AA6E7A0046830B /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441BFAB22AA6E7A0046830B /* MyViewController.swift */; };
+		84432AEA2420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84432AE92420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift */; };
 		8445B51A22A50F2700DDBC7F /* RequestReschedulingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445B51922A50F2700DDBC7F /* RequestReschedulingVC.swift */; };
 		8445B51C22A50F3000DDBC7F /* RequestReschedulingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445B51B22A50F3000DDBC7F /* RequestReschedulingVM.swift */; };
 		8445B51F22A5110400DDBC7F /* BookingTopNavBarWithSubtitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445B51E22A5110400DDBC7F /* BookingTopNavBarWithSubtitle.swift */; };
@@ -1676,6 +1677,7 @@
 		84409E5C2266F969005A5487 /* CustomDotMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDotMarker.swift; sourceTree = "<group>"; };
 		84409E5D2266F969005A5487 /* CustomDotMarker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomDotMarker.xib; sourceTree = "<group>"; };
 		8441BFAB22AA6E7A0046830B /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
+		84432AE92420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPanGestureRecognizerExtension.swift; sourceTree = "<group>"; };
 		8445B51922A50F2700DDBC7F /* RequestReschedulingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReschedulingVC.swift; sourceTree = "<group>"; };
 		8445B51B22A50F3000DDBC7F /* RequestReschedulingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReschedulingVM.swift; sourceTree = "<group>"; };
 		8445B51E22A5110400DDBC7F /* BookingTopNavBarWithSubtitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingTopNavBarWithSubtitle.swift; sourceTree = "<group>"; };
@@ -5379,6 +5381,7 @@
 				18F9AC78234DDEB000FA6AF3 /* UILabelExtension.swift */,
 				0CC8546C2350956500544F10 /* UISearchBar+extension.swift */,
 				84795B36241B7254004CCA36 /* UISegmentedControlExtension.swift */,
+				84432AE92420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -6319,6 +6322,7 @@
 				84534EAD2248E099009FF536 /* HCBedDetailsTableViewCell.swift in Sources */,
 				84085CE921F59C0E00F1E844 /* CreateYourAccountVM.swift in Sources */,
 				84AD5F28222D51F80095EA5D /* PKAlertController.swift in Sources */,
+				84432AEA2420F7B100E7A387 /* UIPanGestureRecognizerExtension.swift in Sources */,
 				8438C17D22045E4C001D510B /* TopNavigationView.swift in Sources */,
 				842EDE762238E7D600E99409 /* HotelDetailsVC.swift in Sources */,
 				84534ED32249E594009FF536 /* YouAreAllDoneVC+TableCells.swift in Sources */,

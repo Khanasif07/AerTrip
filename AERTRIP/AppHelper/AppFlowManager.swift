@@ -621,8 +621,8 @@ extension AppFlowManager {
     
     func presentCreateNewTripVC(delegate: CreateNewTripVCDelegate, onViewController: UIViewController? = nil) {
         let obj = CreateNewTripVC.instantiate(fromAppStoryboard: .HotelResults)
-        obj.modalPresentationStyle = .fullScreen
-        obj.modalPresentationCapturesStatusBarAppearance =  true
+        obj.modalPresentationStyle = .overFullScreen
+//        obj.modalPresentationCapturesStatusBarAppearance =  true
         obj.statusBarColor = AppColors.themeWhite
         obj.delegate = delegate
         if let oVC = onViewController {
@@ -1054,16 +1054,32 @@ extension AppFlowManager {
 // MARK: - Select Trip Flow Methods
 
 extension AppFlowManager {
-    func selectTrip(_ tripDetails: TripDetails?, complition: @escaping ((TripModel, TripDetails?) -> Void)) {
+    func selectTrip(_ tripDetails: TripDetails?, tripType: TripUsingFor, complition: @escaping ((TripModel, TripDetails?) -> Void)) {
         func openSelectTripScreen(trips: [TripModel]) {
             let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
             obj.selectionComplition = complition
             obj.viewModel.allTrips = trips
             obj.viewModel.tripDetails = tripDetails
+            obj.viewModel.usingFor = tripType
             obj.modalPresentationStyle = .overFullScreen
             obj.modalPresentationCapturesStatusBarAppearance = true
             obj.statusBarColor = AppColors.themeWhite
             self.currentNavigation?.present(obj, animated: true)
+        }
+        
+        func checkDefaultTrip(trips: [TripModel]) {
+            var isDefaultFound = false
+            for trip in trips {
+                if trip.isDefault {
+                    isDefaultFound = true
+                    complition(trip, nil)
+                    break
+                }
+            }
+            
+            if !isDefaultFound {
+               openSelectTripScreen(trips: trips)
+            }
         }
         
         if let detail = tripDetails {
@@ -1073,7 +1089,11 @@ extension AppFlowManager {
                 //                    complition(trip, nil)
                 //                }
                 //                else {
-                openSelectTripScreen(trips: trips)
+                if tripType == .hotel {
+                    checkDefaultTrip(trips: trips)
+                } else {
+                    openSelectTripScreen(trips: trips)
+                }
                 //                }
             }
         }
@@ -1084,7 +1104,11 @@ extension AppFlowManager {
                 //                    complition(trip, nil)
                 //                }
                 //                else {
-                openSelectTripScreen(trips: trips)
+                if tripType == .hotel {
+                    checkDefaultTrip(trips: trips)
+                } else {
+                    openSelectTripScreen(trips: trips)
+                }
                 //                }
             }
         }

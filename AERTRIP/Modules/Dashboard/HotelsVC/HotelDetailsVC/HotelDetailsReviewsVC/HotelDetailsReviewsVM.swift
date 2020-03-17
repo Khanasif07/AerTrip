@@ -11,7 +11,7 @@ import Foundation
 protocol HotelTripAdvisorDetailsDelegate: class {
     func getHotelTripAdvisorDetailsSuccess()
     func getHotelTripAdvisorFail()
-    
+    func willFetchHotelTripAdvisor()
 }
 
 class HotelDetailsReviewsVM {
@@ -26,6 +26,7 @@ class HotelDetailsReviewsVM {
     var hotelId: String = ""
     
     func getTripAdvisorDetails() {
+        self.delegate?.willFetchHotelTripAdvisor()
         let params: JSONDictionary = [APIKeys.hid.rawValue : self.hotelId]
         APICaller.shared.getHotelTripAdvisorDetailsApi(params: params, loader: false) { [weak self] (success, errors, tripAdvisorDetails) in
             guard let sSelf = self else {return}
