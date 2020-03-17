@@ -341,57 +341,6 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
     func update(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
         //        self.selectionDidChanged()
         
-        /*
-        let oldContact = GuestDetailsVM.shared.guests[indexPath.section][indexPath.item]
-        switch oldContact.label {
-        case .traveller:
-            if let index = self.viewModel.selectedTravellerContacts.firstIndex(where: { (contact) -> Bool in
-                return oldContact.id == contact.id
-            }) {
-                self.viewModel.selectedTravellerContacts.remove(at: index)
-            }
-            if let index = self.viewModel.travellerContacts.firstIndex(where: { (contact) -> Bool in
-                return oldContact.id == contact.id
-            }) {
-                self.viewModel.remove(atIndex: index, for: .travellers)
-            }
-            
-        case .phone:
-            if let index = self.viewModel.selectedPhoneContacts.firstIndex(where: { (contact) -> Bool in
-                return oldContact.id == contact.id
-            }) {
-                self.viewModel.selectedPhoneContacts.remove(at: index)
-            }
-            
-            if let index = self.viewModel.phoneContacts.firstIndex(where: { (contact) -> Bool in
-                return oldContact.id == contact.id
-            }) {
-                self.viewModel.remove(atIndex: index, for: .contacts)
-            }
-        case .facebook:
-            if let index = self.viewModel.selectedFacebookContacts.firstIndex(where: { (contact) -> Bool in
-                return oldContact.id == contact.id
-            }) {
-                self.viewModel.selectedFacebookContacts.remove(at: index)
-            }
-            if let index = self.viewModel.facebookContacts.firstIndex(where: { (contact) -> Bool in
-                return oldContact.id == contact.id
-            }) {
-                self.viewModel.remove(atIndex: index, for: .facebook)
-            }
-        case .google:
-            if let index = self.viewModel.selectedGoogleContacts.firstIndex(where: { (contact) -> Bool in
-                return oldContact.id == contact.id
-            }) {
-                self.viewModel.selectedGoogleContacts.remove(at: index)
-            }
-            if let index = self.viewModel.googleContacts.firstIndex(where: { (contact) -> Bool in
-                return oldContact.id == contact.id
-            }) {
-                self.viewModel.remove(atIndex: index, for: .google)
-            }
-        }
-         */
         let oldContact = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item]
                 var item = ATContact(json: [:])
                 switch usingFor {
@@ -485,6 +434,7 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
         GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].firstName = item.firstName
         GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].lastName = item.lastName
         GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].profilePicture = item.profilePicture
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].imageData = item.imageData
         GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].label = item.label
         GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].email = item.email
         GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].emailLabel = item.emailLabel

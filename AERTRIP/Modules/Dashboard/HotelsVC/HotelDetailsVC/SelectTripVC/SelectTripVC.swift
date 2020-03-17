@@ -203,10 +203,12 @@ extension SelectTripVC: UITableViewDataSource, UITableViewDelegate {
         cell?.textLabel?.font = AppFonts.Regular.withSize(18.0)
         cell?.textLabel?.text = viewModel.allTrips[indexPath.row].name
         cell?.tintColor = AppColors.themeGreen
-        cell?.accessoryType = .none
+        cell?.accessoryView = nil
         
         if let idxPath = viewModel.selectedIndexPath, idxPath.row == indexPath.row {
-            cell?.accessoryType = .checkmark
+            let checkMarckImageView = UIImageView(image: UIImage(named: "buttonCheckIcon"))
+            checkMarckImageView.contentMode = .center
+            cell?.accessoryView = checkMarckImageView
         }
         
         return cell!

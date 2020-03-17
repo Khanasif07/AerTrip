@@ -90,6 +90,14 @@ extension HCSpecialRequestsVC: UITableViewDelegate, UITableViewDataSource{
 //        return self.viewModel.itineraryData.special_requests.count + 2
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row < self.viewModel.specialRequests.count {
+            return 44
+        } else {
+            return 60
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row < self.viewModel.specialRequests.count {
             let cell = self.getRoomTableViewCell(tableView, cellForRowAt: indexPath)
