@@ -496,7 +496,7 @@ extension AppFlowManager {
         ob.viewModel.amenities = amentites
         ob.modalPresentationStyle = .overFullScreen
         ob.modalPresentationCapturesStatusBarAppearance = true
-        ob.statusBarColor = AppColors.themeWhite
+//        ob.statusBarColor = AppColors.themeWhite
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     

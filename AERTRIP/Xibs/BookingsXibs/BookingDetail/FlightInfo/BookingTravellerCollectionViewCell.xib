@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -110,8 +108,10 @@
                 <outlet property="bottomConstraint" destination="u0X-Wh-Tla" id="M2S-1x-yEc"/>
                 <outlet property="bottomSlideView" destination="ac9-oi-Ky7" id="90H-F9-gub"/>
                 <outlet property="lastNameAgeContainer" destination="kQ6-QU-8rS" id="1y5-g9-ybt"/>
+                <outlet property="leadingOfStackView" destination="Lcm-B7-iu6" id="Z1H-8k-5l9"/>
                 <outlet property="profileImageView" destination="1Cd-hZ-YUu" id="mu6-UB-e9G"/>
                 <outlet property="topConstraint" destination="Qc2-V6-fyU" id="wgI-jp-arM"/>
+                <outlet property="trailingOfStackView" destination="4UU-od-qYa" id="N3T-PY-Ggc"/>
                 <outlet property="travellerAgeLabel" destination="WU1-cA-Lz0" id="Nsa-wH-gEf"/>
                 <outlet property="travellerFirstNameLabel" destination="urf-yA-Njd" id="a5Q-Yz-1Gv"/>
                 <outlet property="travellerLastNameLabel" destination="8r3-ff-N3O" id="HsB-60-6LK"/>

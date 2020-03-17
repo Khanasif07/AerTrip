@@ -90,7 +90,7 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
             }
             var roomTitle: String = "\(LocalizedString.Room.localized) \(section)"
             if let voucher = self.viewModel.bookingDetail?.bookingDetail?.roomDetails[section-1].voucher, !voucher.isEmpty {
-                roomTitle.append("-")
+                roomTitle.append(" - ")
                 roomTitle.append((self.viewModel.bookingDetail?.bookingDetail?.roomDetails[section - 1].voucher ?? ""))
             }
             headerView.configureHeader(roomTitle: roomTitle, roomType: self.viewModel.bookingDetail?.bookingDetail?.roomDetails[section - 1].roomType ?? "", roomDescription: self.viewModel.bookingDetail?.bookingDetail?.roomDetails[section - 1].description ?? "")

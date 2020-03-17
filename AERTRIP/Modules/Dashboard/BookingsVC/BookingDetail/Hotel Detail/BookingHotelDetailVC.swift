@@ -55,7 +55,7 @@ class BookingHotelDetailVC: BaseVC {
         self.hotelDetailTableView.registerCell(nibName: FareInfoNoteTableViewCell.reusableIdentifier)
         
         self.hotelDetailTableView.registerCell(nibName: BookingCheckinCheckOutTableViewCell.reusableIdentifier)
-        self.hotelDetailTableView.registerCell(nibName: BookingTravellerTableViewCell.reusableIdentifier)
+        self.hotelDetailTableView.registerCell(nibName: BookingHotelsDetailsTravellerTableCell.reusableIdentifier)
         
         self.hotelDetailTableView.register(UINib(nibName: self.footerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.footerViewIdentifier)
     }

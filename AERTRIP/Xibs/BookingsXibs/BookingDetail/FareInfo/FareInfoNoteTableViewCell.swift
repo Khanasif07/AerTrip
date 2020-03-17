@@ -54,7 +54,7 @@ class FareInfoNoteTableViewCell: UITableViewCell {
     }
     
     private func setUpTextColor() {
-        self.noteLabel.textColor = isForBookingPolicyCell ?  AppColors.themeBlack : AppColors.themeGray60
+        self.noteLabel.textColor = isForBookingPolicyCell ?  AppColors.themeBlack : AppColors.themeGray40
     }
     
     

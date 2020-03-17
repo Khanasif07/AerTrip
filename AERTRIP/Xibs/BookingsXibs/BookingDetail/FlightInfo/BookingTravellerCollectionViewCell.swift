@@ -19,6 +19,8 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var lastNameAgeContainer: UIView!
+    @IBOutlet weak var leadingOfStackView: NSLayoutConstraint!
+    @IBOutlet weak var trailingOfStackView: NSLayoutConstraint!
     
     var paxData: Pax? {
         didSet {

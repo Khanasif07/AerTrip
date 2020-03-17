@@ -19,9 +19,28 @@ extension BookingHotelDetailVC {
                 // TODO: Need to manage the  and test marker on Map
                 AppGlobals.shared.openAppleMap(originLat: "", originLong: "", destLat: self.viewModel.bookingDetail?.bookingDetail?.latitude ?? "", destLong: self.viewModel.bookingDetail?.bookingDetail?.longitude ?? "")
             } else {
-                AppGlobals.shared.openGoogleMaps(originLat: "", originLong: "", destLat: self.viewModel.bookingDetail?.bookingDetail?.latitude ?? "", destLong: self.viewModel.bookingDetail?.bookingDetail?.longitude ?? "")
+                self.openGoogleMapWithMarker()
+//                AppGlobals.shared.openGoogleMaps(originLat: "", originLong: "", destLat: self.viewModel.bookingDetail?.bookingDetail?.latitude ?? "", destLong: self.viewModel.bookingDetail?.bookingDetail?.longitude ?? "")
             }
         }
+    }
+    
+    
+    
+    func openGoogleMapWithMarker(){
+        let lat = self.viewModel.bookingDetail?.bookingDetail?.latitude ?? ""
+        let long = self.viewModel.bookingDetail?.bookingDetail?.longitude ?? ""
+        
+        if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
+            let urlStr = "comgooglemaps://?center=\(lat),\(long)&zoom=12"// "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"
+            
+            if let url = URL(string: urlStr), !url.absoluteString.isEmpty {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        } else {
+            AppToast.default.showToastMessage(message: "Google Maps is not installed on your device.")
+        }
+        
     }
     
     func getCellForFirstSection(_ indexPath: IndexPath) -> UITableViewCell {
@@ -92,7 +111,7 @@ extension BookingHotelDetailVC {
             return fareInfoNoteCell
             
         case 4: // Guest Cell
-            guard let guestCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "BookingTravellerTableViewCell") as? BookingTravellerTableViewCell else {
+            guard let guestCell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "BookingHotelsDetailsTravellerTableCell") as? BookingHotelsDetailsTravellerTableCell else {
                 fatalError("BookingTravellerTableViewCell not found")
             }
             guestCell.guestDetails = self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].guest ?? []
@@ -156,7 +175,7 @@ extension BookingHotelDetailVC {
         let inclusionCellHeight:CGFloat = (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.inclusionString == "-") ? 0.0 : 60.0
         let otherInclusionCellHeight:CGFloat =  (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.otherInclsionString == "-"  ) ? 0.0 : 60.0
        
-        return [60, inclusionCellHeight, otherInclusionCellHeight, (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.notes ?? []).isEmpty ? 0 : UITableView.automaticDimension, 200][indexPath.row]
+        return [60, inclusionCellHeight, otherInclusionCellHeight, (self.viewModel.bookingDetail?.bookingDetail?.roomDetails[indexPath.section - 1].includes?.notes ?? []).isEmpty ? 0 : UITableView.automaticDimension, 187][indexPath.row]
     }
     
     func getHeightForLastSection(_ indexPath: IndexPath) -> CGFloat {
