@@ -32,8 +32,7 @@ extension BookingHotelDetailVC {
         let long = self.viewModel.bookingDetail?.bookingDetail?.longitude ?? ""
         
         if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
-            let urlStr = "comgooglemaps://?center=\(lat),\(long)&zoom=12"// "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"
-            
+            let urlStr = "comgooglemaps://?q=\(lat),\(long)&zoom=12"
             if let url = URL(string: urlStr), !url.absoluteString.isEmpty {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }

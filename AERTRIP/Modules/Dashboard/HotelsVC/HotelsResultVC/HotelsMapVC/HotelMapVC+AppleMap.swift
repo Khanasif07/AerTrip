@@ -33,6 +33,7 @@ extension HotelsMapVC : MKMapViewDelegate{
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         self.updateRegionMarker()
+        self.hideUnhideCurrentLocationBtn()
     }
     
     func addGestureRecognizerForTap(){
@@ -280,6 +281,17 @@ extension HotelsMapVC : MKMapViewDelegate{
         }
     }
     
+    
+    func hideUnhideCurrentLocationBtn(){
+        let centreLocation = CLLocation(latitude: self.appleMap.centerCoordinate.latitude, longitude: self.appleMap.centerCoordinate.longitude)
+        guard let cityCoordinates  = viewModel.searchedCityLocation else {return}
+        let cityLocation = CLLocation(latitude: cityCoordinates.latitude, longitude: cityCoordinates.longitude)
+        if centreLocation.distance(from: cityLocation) < 5{
+            self.currentLocationButton.isHidden = true
+        }else{
+            self.currentLocationButton.isHidden = false
+        }
+    }
     
     func selecteMarkerOnScrollCollection(location: CLLocationCoordinate2D){
         guard let currentAnnotation = self.appleMap.annotations.first(where: {self.compareTwoCoordinate($0.coordinate, location)}) as? MyAnnotation else {return}
