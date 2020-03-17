@@ -48,6 +48,7 @@ class HCDataSelectionVM {
     var specialRequest: String = ""
     // following properties will use to hit the confirmation API, will passed from where this class is being initiated
     var sId = "", hId = "", qId = ""
+    var locid = ""
     
     // MARK: - Private
     
@@ -66,6 +67,7 @@ class HCDataSelectionVM {
             guard let sSelf = self else { return }
             if success {
                 sSelf.itineraryData = itData
+                sSelf.itineraryData?.hotelDetails?.locid = sSelf.locid
                 sSelf.delegate?.fetchConfirmItineraryDataSuccess()
             } else {
                 printDebug(errors)
@@ -227,7 +229,12 @@ class HCDataSelectionVM {
         firstSectionCells.append(.hotelRatingCell)
         firstSectionCells.append(.addressCell)
         firstSectionCells.append(.checkInOutDateCell)
-        firstSectionCells.append(.amenitiesCell)
+        if !hotelData.info.isEmpty {
+            firstSectionCells.append(.overViewCell)
+        }
+        if ((hotelData.amenities?.main) != nil) {
+            firstSectionCells.append(.amenitiesCell)
+        }
         if !hotelData.locid.isEmpty {
             firstSectionCells.append(.tripAdvisorRatingCell)
         }

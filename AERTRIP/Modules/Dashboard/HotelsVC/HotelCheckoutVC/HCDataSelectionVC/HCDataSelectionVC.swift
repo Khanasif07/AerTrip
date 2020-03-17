@@ -247,7 +247,8 @@ class HCDataSelectionVC: BaseVC {
             fareDetailLabel.text = "\(LocalizedString.For.localized) \(room) \(roomText) & \(night) \(nightText)"
         }
         
-        totalFareAmountLabel.text = "$ \(Int(viewModel.itineraryData?.total_fare ?? 0.0))"
+        totalFareAmountLabel.text = (viewModel.itineraryData?.total_fare ?? 0.0).amountInDelimeterWithSymbol
+        
     }
     
     private func toggleFareDetailView() {
