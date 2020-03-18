@@ -43,14 +43,13 @@ class ATGalleryScrollCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         scrollView.zoomScale = 1.0
     }
     
     private func configureData() {
         guard let imgD = self.imageData else {return}
         
-        self.imageView.contentMode = ATGalleryViewConfiguration.imageContentMode
+        self.imageView.contentMode = .scaleAspectFit//ATGalleryViewConfiguration.imageContentMode
         
         self.imageView.image = ATGalleryViewConfiguration.placeholderImage        
         
@@ -63,14 +62,14 @@ class ATGalleryScrollCell: UICollectionViewCell {
     }
     
     func makeImageInCenter() {
-        self.imageView.removeFromSuperview()
-        self.imageView.translatesAutoresizingMaskIntoConstraints = true
+//        self.imageView.removeFromSuperview()
+//        self.imageView.translatesAutoresizingMaskIntoConstraints = true
         
         let newFrame = CGRect(x: 0.0, y: (UIDevice.screenHeight - ATGalleryViewConfiguration.imageViewHeight)/2.0, width: UIDevice.screenWidth, height: ATGalleryViewConfiguration.imageViewHeight)
         
-        self.imageView.frame = newFrame
+//        self.imageView.frame = newFrame
         
-        self.scrollView.addSubview(self.imageView)
+//        self.scrollView.addSubview(self.imageView)
     }
 }
 
@@ -79,8 +78,12 @@ extension ATGalleryScrollCell: UIScrollViewDelegate {
         return self.imageView
     }
     
-    func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        let subView = scrollView.subviews[0] // get the image view
-        subView.center = scrollView.center
-    }
+//    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+//        let subView = scrollView.subviews[0] // get the image view
+//        subView.center = scrollView.center
+//    }
+//    func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
+//        let subView = scrollView.subviews[0] // get the image view
+////        subView.center = scrollView.center
+//    }
 }

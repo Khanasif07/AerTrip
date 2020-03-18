@@ -129,8 +129,12 @@ extension HotelDetailsOverviewVC {
     }
     
    @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+    guard let direction = sender.direction, direction.isVertical
+        else {
+        initialTouchPoint = CGPoint.zero
+        return
+    }
         let touchPoint = sender.location(in: view?.window)
-        var initialTouchPoint = CGPoint.zero
         print(touchPoint)
 
         switch sender.state {
@@ -152,6 +156,7 @@ extension HotelDetailsOverviewVC {
                 })
             }
         case .failed, .possible:
+            initialTouchPoint = CGPoint.zero
             break
         }
     }

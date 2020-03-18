@@ -203,6 +203,12 @@ extension HotelCheckOutDetailsVIew: HotelDetailsImgSlideCellDelegate {
 // Mark:- ATGallery Delegate And Datasource
 //========================================
 extension HotelCheckOutDetailsVIew: ATGalleryViewDelegate, ATGalleryViewDatasource {
+    func galleryViewWillClose(galleryView: ATGalleryViewController) {
+    }
+    
+    func galleryViewDidClose(galleryView: ATGalleryViewController) {
+    }
+    
     func numberOfImages(in galleryView: ATGalleryViewController) -> Int {
         return self.viewModel?.photos.count ?? 0
     }
