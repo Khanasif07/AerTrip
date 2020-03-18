@@ -186,6 +186,12 @@ extension BookingHotelDetailVC: HotelDetailsImgSlideCellDelegate {
 // Mark:- ATGallery Delegate And Datasource
 //========================================
 extension BookingHotelDetailVC: ATGalleryViewDelegate, ATGalleryViewDatasource {
+    func galleryViewWillClose(galleryView: ATGalleryViewController) {
+    }
+    
+    func galleryViewDidClose(galleryView: ATGalleryViewController) {
+    }
+    
     func numberOfImages(in galleryView: ATGalleryViewController) -> Int {
         return self.viewModel.bookingDetail?.bookingDetail?.completePhotos.count ?? 0
     }

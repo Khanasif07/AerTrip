@@ -323,6 +323,7 @@ extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
         // open gallery with show image at index
         if let topVC = UIApplication.topViewController() {
             ATGalleryViewController.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, datasource: self, delegate: self)
+            canDismissViewController = false
         }
     }
     
@@ -338,6 +339,14 @@ extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
 //MARK:- ATGallery Delegate And Datasource
 //========================================
 extension HotelDetailsVC: ATGalleryViewDelegate, ATGalleryViewDatasource {
+    
+    func galleryViewWillClose(galleryView: ATGalleryViewController) {
+        canDismissViewController = true
+    }
+    
+    func galleryViewDidClose(galleryView: ATGalleryViewController) {
+        canDismissViewController = true
+    }
     
     func numberOfImages(in galleryView: ATGalleryViewController) -> Int {
         return self.viewModel.hotelData?.photos.count ?? 0

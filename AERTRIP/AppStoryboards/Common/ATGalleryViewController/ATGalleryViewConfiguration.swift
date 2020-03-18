@@ -74,4 +74,7 @@ protocol ATGalleryViewDatasource: class {
 
 protocol ATGalleryViewDelegate: class {
     func galleryView(galleryView: ATGalleryViewController, willShow image: ATGalleryImage, for index: Int)
+    func galleryViewWillClose(galleryView: ATGalleryViewController)
+    func galleryViewDidClose(galleryView: ATGalleryViewController)
+
 }

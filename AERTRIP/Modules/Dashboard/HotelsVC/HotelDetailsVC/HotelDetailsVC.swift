@@ -44,6 +44,7 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
     var backImage:UIImage? = UIImage()
     var isAddingChild = false
     var draggingDownToDismiss = false
+    var canDismissViewController = true
     
     final class DismissalPanGesture: UIPanGestureRecognizer {}
     final class DismissalScreenEdgePanGesture: UIScreenEdgePanGestureRecognizer {}
@@ -671,7 +672,9 @@ extension HotelDetailsVC{
        
        // This handles both screen edge and dragdown pan. As screen edge pan is a subclass of pan gesture, this input param works.
        @objc func handleDismissalPan(gesture: UIPanGestureRecognizer) {
-           
+        
+        guard self.canDismissViewController else {return}
+        
            let isScreenEdgePan = gesture.isKind(of: DismissalScreenEdgePanGesture.self)
            let canStartDragDownToDismissPan = !isScreenEdgePan && !draggingDownToDismiss
            

@@ -47,7 +47,7 @@ class ATGalleryViewController: UIViewController {
     weak var datasource: ATGalleryViewDatasource?
     weak var delegate: ATGalleryViewDelegate?
     var startShowingFrom: Int = 0
-    
+    var imageIndexToShowHorizontal = 0
     private var numberOfImages: Int = 0
     
     //MARK:- ViewLifeCycle
@@ -84,8 +84,8 @@ class ATGalleryViewController: UIViewController {
     }
     
     private func addTapGesture() {
-        self.horizontalCollectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tapHandeler(_:))))
-        self.verticalCollectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tapHandeler(_:))))
+//        self.horizontalCollectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tapHandeler(_:))))
+//        self.verticalCollectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tapHandeler(_:))))
     }
     
     @objc private func tapHandeler(_ sender: UIGestureRecognizer) {
@@ -178,7 +178,8 @@ class ATGalleryViewController: UIViewController {
             sSelf.view.layoutIfNeeded()
             }, completion: { (isDone) in
                 self.pageControl.isHidden = ATGalleryViewConfiguration.viewMode == .vertical
-                self.modeChangeButton.isHidden = false
+                //Fixed the issue: This icon is not required at bottom right
+//                self.modeChangeButton.isHidden = false
                 self.closeButton.isHidden = false
                 self.mainImageView.isHidden = true
         })
@@ -191,7 +192,13 @@ class ATGalleryViewController: UIViewController {
         }
     }
     
+    private func scrollCollectionView(collectionView: UICollectionView, index: Int) {
+        collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: UICollectionView.ScrollPosition.centeredVertically, animated: false)
+    }
+    
     private func hideMe() {
+        
+        self.delegate?.galleryViewWillClose(galleryView: self)
         
         //closing animation
         let newFrame = self.originalImageFrame
@@ -212,6 +219,7 @@ class ATGalleryViewController: UIViewController {
                 UIApplication.shared.isStatusBarHidden = false
                 self.view.removeFromSuperview()
                 self.removeFromParent()
+                self.delegate?.galleryViewDidClose(galleryView: self)
         })
     }
     
@@ -250,8 +258,9 @@ class ATGalleryViewController: UIViewController {
         }
         else {
             //show horizontal collection
-            self.horizontalCollectionView.reloadData()
-            
+            //self.horizontalCollectionView.reloadData()
+            self.horizontalCollectionView.scrollToItem(at: IndexPath(item: self.imageIndexToShowHorizontal, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
+            pageControl.currentPage = self.imageIndexToShowHorizontal
             self.horizontalCollectionView.isHidden = false
             self.horizontalCollectionView.alpha = 0.0
             self.verticalCollectionView.isHidden = false
@@ -259,6 +268,7 @@ class ATGalleryViewController: UIViewController {
             self.mainImageView.isHidden = false
             self.mainImageView.alpha = 1.0
             
+
             let newFrame = CGRect(x: 0.0, y: (UIDevice.screenHeight - ATGalleryViewConfiguration.imageViewHeight)/2.0, width: UIDevice.screenWidth, height: ATGalleryViewConfiguration.imageViewHeight)
             
             UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: { [weak self] in
@@ -337,7 +347,12 @@ class ATGalleryViewController: UIViewController {
     
     //MARK:- Action
     @IBAction func closeButtonAction(_ sender: UIButton) {
-        self.hideMe()
+        if ATGalleryViewConfiguration.viewMode == .vertical {
+            self.hideMe()
+        } else {
+            self.modeChangeButtonAction(self.modeChangeButton)
+        }
+        
     }
     @IBAction func modeChangeButtonAction(_ sender: UIButton) {
         ATGalleryViewConfiguration.viewMode = sender.isSelected ? .vertical : .horizontal
@@ -402,6 +417,12 @@ extension ATGalleryViewController: UICollectionViewDelegate {
             self.delegate?.galleryView(galleryView: self, willShow: img, for: indexPath.item)
         }
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if verticalCollectionView == collectionView {
+            self.imageIndexToShowHorizontal = indexPath.item
+            self.modeChangeButtonAction(self.modeChangeButton)
+        }
+    }
 }
 
 extension ATGalleryViewController: UIScrollViewDelegate {
@@ -409,6 +430,7 @@ extension ATGalleryViewController: UIScrollViewDelegate {
         if scrollView === horizontalCollectionView {
             let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
             pageControl.currentPage = Int(pageNumber)
+            horizontalCollectionView.reloadItems(at: IndexPath(item: Int(pageNumber), section: 0))
         }
     }
 }
