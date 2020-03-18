@@ -347,18 +347,28 @@ class AppGlobals {
     }
     
     func openGoogleMaps(originLat: String, originLong: String, destLat: String, destLong: String) {
+        
         if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
-            //to show the route between source and destination uncomment the next line
-            let urlStr = "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"
-            
-            //            let urlStr = "comgooglemaps://?center=\(destLat),\(destLong)&zoom=14&views=traffic"
-            
+            let urlStr = "comgooglemaps://?q=\(destLat),\(destLong)&zoom=12"
             if let url = URL(string: urlStr), !url.absoluteString.isEmpty {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         } else {
             AppToast.default.showToastMessage(message: "Google Maps is not installed on your device.")
         }
+        
+//        if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
+//            //to show the route between source and destination uncomment the next line
+//            let urlStr = "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"
+//
+//            //            let urlStr = "comgooglemaps://?center=\(destLat),\(destLong)&zoom=14&views=traffic"
+//
+//            if let url = URL(string: urlStr), !url.absoluteString.isEmpty {
+//                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//            }
+//        } else {
+//            AppToast.default.showToastMessage(message: "Google Maps is not installed on your device.")
+//        }
     }
     
     func openAppleMap(originLat: String, originLong: String, destLat: String, destLong: String) {
@@ -366,11 +376,11 @@ class AppGlobals {
         //to show the route between source and destination uncomment the next line
         
         var directionURL = ""
-        if originLat.isEmpty && originLong.isEmpty {
-            directionURL = "http://maps.apple.com/?daddr=\(destLat),\(destLong)"
-        } else {
-            directionURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"
-        }
+//        if originLat.isEmpty && originLong.isEmpty {
+            directionURL = "http://maps.apple.com/?q=\(destLat),\(destLong)"
+//        } else {
+//            directionURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"
+//        }
         
         
         

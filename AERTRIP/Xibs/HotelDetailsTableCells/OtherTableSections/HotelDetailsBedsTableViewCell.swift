@@ -119,14 +119,16 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         if isOnlyOneRoom {
             self.bedTypeLabel.text = roomData.name
             self.bedDiscriptionLabel.text = roomData.desc
+            self.bedDiscriptionLabel.isHidden = roomData.desc.isEmpty
             self.dropDownStackView.isHidden = roomData.desc.isEmpty
             self.bedDiscriptionLabel.font = AppFonts.SemiBold.withSize(18.0)
-            self.bedTypeLabel.font = AppFonts.SemiBold.withSize(14.0)
+            self.bedTypeLabel.font = AppFonts.SemiBold.withSize(18.0)
             self.deviderView.isHidden = false
         } else {
             self.bedTypeLabel.text = "No. of rooms : \(numberOfRooms)"
             self.bedDiscriptionLabel.font = AppFonts.SemiBold.withSize(18.0)
             self.bedTypeLabel.font = AppFonts.SemiBold.withSize(14.0)
+            self.bedDiscriptionLabel.isHidden = false
             self.bedDiscriptionLabel.text = roomData.name + " " + roomData.desc
             self.deviderView.isHidden = true
         }

@@ -319,7 +319,13 @@ extension HotelsMapVC : MKMapViewDelegate{
                 detailsShownMarkers.append(annotation)
                 return markerView.asImage()
             }else {
-                return UIImage(named: "clusterSmallTag") ?? UIImage()
+                if annotation.hotel?.fav ?? "0" == "0"{
+                   return UIImage(named: "clusterSmallTag") ?? UIImage()
+                }else{
+                    return UIImage(named: "favHotelWithShadowMarker") ?? UIImage()
+                }
+                
+//                return UIImage(named: "clusterSmallTag") ?? UIImage()
             }
         }
     }
@@ -346,7 +352,11 @@ extension HotelsMapVC : MKMapViewDelegate{
 
                 self.appleMap.view(for: annotation)?.image = markerView.asImage()
             }else {
-                self.appleMap.view(for: annotation)?.image = UIImage(named: "clusterSmallTag") ?? UIImage()
+                if annotation.hotel?.fav ?? "0" == "0"{
+                    self.appleMap.view(for: annotation)?.image = UIImage(named: "clusterSmallTag") ?? UIImage()
+                }else{
+                    self.appleMap.view(for: annotation)?.image = UIImage(named: "favHotelWithShadowMarker") ?? UIImage()
+                }
             }
         }
     }

@@ -258,7 +258,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
             let attributesDictionary = [NSAttributedString.Key.font : AppFonts.Regular.withSize(14.0)]
             let fullAttributedString = NSMutableAttributedString()
             for (note) in notesInclusion {
-                let formattedString: String = "●  \(note)\n"
+                let formattedString: String = "•  \(note)\n"
                 let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
                 let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: 4.0, isForNotes: true,lineSpacing: 2.0)
                 attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
