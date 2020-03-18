@@ -29,6 +29,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     @IBOutlet weak var shadowViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var shadowViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var shadowViewBottomConstraints: NSLayoutConstraint!
+    @IBOutlet weak var stackViewBottomConstraint: NSLayoutConstraint!
     
     
     //Mark:- LifeCycle
@@ -191,7 +192,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
             let attributesDictionary = [NSAttributedString.Key.font : AppFonts.Regular.withSize(14.0)]
             let fullAttributedString = NSMutableAttributedString()
             for (note) in notesInclusion {
-                let formattedString: String = "●  \(note)\n"
+                let formattedString: String = "•  \(note)\n"
                 let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
                 let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: 4.0,isForNotes: true,lineSpacing :2.0)
                 attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
@@ -255,10 +256,14 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
             self.descriptionLabel.textColor = AppColors.themeBlack
             //let attributedString = NSMutableAttributedString()
             //
+            self.stackViewBottomConstraint.constant = 16
             let attributesDictionary = [NSAttributedString.Key.font : AppFonts.Regular.withSize(14.0)]
             let fullAttributedString = NSMutableAttributedString()
             for (note) in notesInclusion {
-                let formattedString: String = "•  \(note)\n"
+                var formattedString: String = "•  \(note)\n"
+                if note == notesInclusion.last ?? ""{
+                    formattedString = "•  \(note)"
+                }
                 let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
                 let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: 4.0, isForNotes: true,lineSpacing: 2.0)
                 attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))

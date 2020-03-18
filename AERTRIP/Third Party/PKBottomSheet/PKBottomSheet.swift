@@ -168,8 +168,9 @@ class PKBottomSheet: UIView {
         headerHeightConstraint.constant = headerHeight
         
         if let hView = self.headerView {
-            hView.translatesAutoresizingMaskIntoConstraints = true
             hView.frame = headerContainerView.bounds
+            hView.frame.size.width = UIScreen.main.bounds.width
+            hView.translatesAutoresizingMaskIntoConstraints = true
             headerContainerView.addSubview(hView)
         }
         

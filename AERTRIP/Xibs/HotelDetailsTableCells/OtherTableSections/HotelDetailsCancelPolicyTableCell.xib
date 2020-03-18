@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -92,6 +92,7 @@
                 <outlet property="shadowViewBottomConstraints" destination="WfL-Bw-GF4" id="9tc-fc-7k4"/>
                 <outlet property="shadowViewLeadingConstraint" destination="chj-XC-HZc" id="UaK-hP-gve"/>
                 <outlet property="shadowViewTrailingConstraint" destination="VoK-9j-8dR" id="BAi-EN-DS4"/>
+                <outlet property="stackViewBottomConstraint" destination="2Ad-Q5-uaG" id="tKh-rU-5C5"/>
             </connections>
             <point key="canvasLocation" x="-1" y="153"/>
         </tableViewCell>

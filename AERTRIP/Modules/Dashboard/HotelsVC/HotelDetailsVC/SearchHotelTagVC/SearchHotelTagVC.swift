@@ -46,7 +46,10 @@ class SearchHotelTagVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.searchBar.becomeFirstResponder()
+    }
     override func setupTexts() {
         self.cancelBtnOutlet.setTitle(LocalizedString.Cancel.localized, for: .normal)
     }
