@@ -758,6 +758,7 @@ enum ValidityExpression: String {
 // Stylish
 
 extension String {
+    
     func asStylizedPrice(using font: UIFont) -> NSMutableAttributedString {
         let stylizedPrice = NSMutableAttributedString(string: self, attributes: [.font: font])
         
@@ -791,6 +792,29 @@ extension String {
         stylizedPrice.addAttribute(.baselineOffset, value: offset, range: NSRange(location: 0, length: 2))
         return stylizedPrice
     }
+    
+    func attributeStringWithColors(stringToColor : String,
+                                   strClr: UIColor,
+                                   substrClr: UIColor,
+                                   strFont: UIFont = AppFonts.Regular.withSize(12),
+                                   strClrFont: UIFont = AppFonts.SemiBold.withSize(12)) -> NSAttributedString{
+
+        let attributedString = NSMutableAttributedString(string:self)
+
+        let range1 = (self as NSString).range(of: self)
+        // attributedString.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: 14), range: range1)
+        attributedString.addAttributes([NSAttributedString.Key.foregroundColor : strClr, NSAttributedString.Key.font: strFont], range: range1)
+
+        //if main_string.contains("(should be 18 years or above from curent date)"){
+        let range2 = (self as NSString).range(of: stringToColor)
+
+
+        attributedString.addAttributes([NSAttributedString.Key.font: strClrFont ,NSAttributedString.Key.foregroundColor : substrClr], range: range2)
+
+        return attributedString
+    }
+    
+    
 }
 
 extension String {

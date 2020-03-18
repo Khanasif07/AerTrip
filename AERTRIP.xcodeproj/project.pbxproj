@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C0B231524210CD700E1764D /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C0B231424210CD700E1764D /* Chat.storyboard */; };
+		0C0B23192421115100E1764D /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0B23182421115100E1764D /* ChatVC.swift */; };
+		0C0B231B242250E900E1764D /* ChatVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0B231A242250E900E1764D /* ChatVC+TableView.swift */; };
 		0C2558FD233C979B00F57C6E /* UIViewKeyframeAnimationOptions + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2558FC233C979B00F57C6E /* UIViewKeyframeAnimationOptions + Extension.swift */; };
+		0C272E292422601300133B50 /* SenderChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C272E272422601300133B50 /* SenderChatCell.swift */; };
+		0C272E2A2422601300133B50 /* SenderChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C272E282422601300133B50 /* SenderChatCell.xib */; };
 		0C32DC06232F70FC008033B5 /* QuickPayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C32DC05232F70FC008033B5 /* QuickPayVC.swift */; };
 		0C6666AE22D472F0009DFACD /* TripChangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6666AC22D472F0009DFACD /* TripChangeTableViewCell.swift */; };
 		0C6666AF22D472F1009DFACD /* TripChangeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6666AD22D472F0009DFACD /* TripChangeTableViewCell.xib */; };
@@ -1014,8 +1019,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C0B231424210CD700E1764D /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
+		0C0B23182421115100E1764D /* ChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
+		0C0B231A242250E900E1764D /* ChatVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatVC+TableView.swift"; sourceTree = "<group>"; };
 		0C181FBE22FABDAD0088E64A /* Bolts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Bolts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C2558FC233C979B00F57C6E /* UIViewKeyframeAnimationOptions + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewKeyframeAnimationOptions + Extension.swift"; sourceTree = "<group>"; };
+		0C272E272422601300133B50 /* SenderChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderChatCell.swift; sourceTree = "<group>"; };
+		0C272E282422601300133B50 /* SenderChatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SenderChatCell.xib; sourceTree = "<group>"; };
 		0C32DC05232F70FC008033B5 /* QuickPayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickPayVC.swift; sourceTree = "<group>"; };
 		0C6666AC22D472F0009DFACD /* TripChangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripChangeTableViewCell.swift; sourceTree = "<group>"; };
 		0C6666AD22D472F0009DFACD /* TripChangeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripChangeTableViewCell.xib; sourceTree = "<group>"; };
@@ -2089,6 +2099,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C272E2424225FCF00133B50 /* chat */ = {
+			isa = PBXGroup;
+			children = (
+				0C272E272422601300133B50 /* SenderChatCell.swift */,
+				0C272E282422601300133B50 /* SenderChatCell.xib */,
+			);
+			path = chat;
+			sourceTree = "<group>";
+		};
 		0C32DC03232F70B5008033B5 /* New Group */ = {
 			isa = PBXGroup;
 			children = (
@@ -2278,6 +2297,7 @@
 		180A3D6E21C0D9EF001A1E6A /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				0C272E2424225FCF00133B50 /* chat */,
 				18038D10226DC2C700A4D1DD /* Aerin */,
 				84D157FA22660B1400393528 /* Accounts */,
 				18F181D5223BC86D00323775 /* FinalCheckout */,
@@ -3296,6 +3316,8 @@
 			isa = PBXGroup;
 			children = (
 				84085C7A21F59C0C00F1E844 /* AerinVC.swift */,
+				0C0B23182421115100E1764D /* ChatVC.swift */,
+				0C0B231A242250E900E1764D /* ChatVC+TableView.swift */,
 			);
 			path = AerinVC;
 			sourceTree = "<group>";
@@ -5436,6 +5458,7 @@
 				847775582265BE6900EAB8B0 /* Account.storyboard */,
 				84F2DC8D22644BCF00212F05 /* Bookings.storyboard */,
 				18038CEF226D90C000A4D1DD /* Aerin.storyboard */,
+				0C0B231424210CD700E1764D /* Chat.storyboard */,
 			);
 			path = AppStoryboards;
 			sourceTree = "<group>";
@@ -5796,6 +5819,7 @@
 				84DD249422671EDB0013F77E /* BookingDocumentsCollectionViewCell.xib in Resources */,
 				8495132822BA74B800938CB0 /* SourceSansPro-Regular.svg in Resources */,
 				18E7970C2248F98900A7AC8B /* DiscountCell.xib in Resources */,
+				0C0B231524210CD700E1764D /* Chat.storyboard in Resources */,
 				182EB21522856E46001BFB20 /* FareInfoHeaderView.xib in Resources */,
 				180A3D7321C0DA53001A1E6A /* SideMenuOptionsLabelCell.xib in Resources */,
 				18FDDD26221FF52F00EF01FC /* SectionFooter.xib in Resources */,
@@ -5818,6 +5842,7 @@
 				1887859721DF4E680061869E /* TravellerList.storyboard in Resources */,
 				18999D9321E48DCE00E66072 /* CategorisedByGroupsTableViewCell.xib in Resources */,
 				182D486D228BE3DB004796A2 /* CancellationPolicyTableViewCell.xib in Resources */,
+				0C272E2A2422601300133B50 /* SenderChatCell.xib in Resources */,
 				8431405A22291554006C672A /* HotelResultSectionHeader.xib in Resources */,
 				8445B52222A5111700DDBC7F /* BookingTopNavBarWithSubtitle.xib in Resources */,
 				1870BEC222C4DBE20030174C /* BookingAddCommonInputTableViewCell.xib in Resources */,
@@ -6302,10 +6327,12 @@
 				1804889421CA7AC300437C81 /* APICaller+ViewProfile.swift in Sources */,
 				18FD91672296695B00D005E9 /* BookingReschedulingVM.swift in Sources */,
 				84956FBF21B667D200BF1183 /* ATButton.swift in Sources */,
+				0C272E292422601300133B50 /* SenderChatCell.swift in Sources */,
 				84F983CF21B51A070018DFED /* AppProtocols.swift in Sources */,
 				84085CD921F59C0E00F1E844 /* BaseVC.swift in Sources */,
 				1841AF9421C8BE830038111D /* ViewProfileTableViewCell.swift in Sources */,
 				84E4BC4C229E67CC00B72306 /* FlightCarriersTableViewCell.swift in Sources */,
+				0C0B231B242250E900E1764D /* ChatVC+TableView.swift in Sources */,
 				841DD1E82202DC690055FEBB /* DestinationSearchedTableCell.swift in Sources */,
 				1879C48F22927AA700897CED /* BookingCallTableViewCell.swift in Sources */,
 				18EF5E71221D261B00EFFA6E /* GMUDefaultClusterRenderer.m in Sources */,
@@ -6386,6 +6413,7 @@
 				84B6DE9E228018D10042D902 /* SpecialAccountDetailsVC.swift in Sources */,
 				1873DD8722C9F3FC00DC8206 /* WeatherFooterTableViewCell.swift in Sources */,
 				1879C48B2292680C00897CED /* BookingCallVM.swift in Sources */,
+				0C0B23192421115100E1764D /* ChatVC.swift in Sources */,
 				1870AD18220C769400FB32C8 /* HotelModel.swift in Sources */,
 				849D37932289397200763AD8 /* AccountOnlineDepositVC.swift in Sources */,
 				18EF5E6C221D261B00EFFA6E /* GMUClusterManager.m in Sources */,
