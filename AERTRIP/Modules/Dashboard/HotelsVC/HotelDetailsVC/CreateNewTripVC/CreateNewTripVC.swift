@@ -31,7 +31,8 @@ class CreateNewTripVC: BaseVC {
     //MARK:- Public
     let viewModel = CreateNewTripVM()
     weak var delegate: CreateNewTripVCDelegate?
-    
+    var initialTouchPoint = CGPoint.zero
+    var initailContainerYPosition: CGFloat?
     //MARK:- Private
     
     //MARK:- ViewLifeCycle
@@ -41,18 +42,27 @@ class CreateNewTripVC: BaseVC {
         
         createButton.layer.cornerRadius = createButton.height / 2
         editButton.cornerRadius = editButton.height / 2.0
-        createButton.layer.masksToBounds = true
+//        createButton.layer.masksToBounds = true
         
         popUpContainerView.roundTopCorners(cornerRadius: 10.0)
         inputContainerView.cornerRadius = 10.0
-        inputContainerShadowView.addShadow(cornerRadius: inputContainerView.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.1), offset: CGSize(width: 0.0, height: 0.0), opacity: 0.16, shadowRadius: 5.0)
+        inputContainerShadowView.addShadow(cornerRadius: inputContainerView.cornerRadius, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.1), offset: CGSize(width: 0.0, height: 0.0), opacity: 0.5, shadowRadius: 5.0)
+        
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if initailContainerYPosition == nil {
+            initailContainerYPosition = popUpContainerView.y
+        }
     }
     
     override func initialSetup() {
         
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         swipeGesture.delegate = self
-        self.view.addGestureRecognizer(swipeGesture)
+        self.popUpContainerView.addGestureRecognizer(swipeGesture)
         
         topNavView.delegate = self
         topNavView.configureNavBar(title: LocalizedString.CreateNewTrip.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
@@ -61,6 +71,9 @@ class CreateNewTripVC: BaseVC {
         
         titleTextField.becomeFirstResponder()
         titleTextField.autocorrectionType = .no
+        
+        self.createButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.createButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
     }
     
     override func bindViewModel() {
@@ -170,8 +183,14 @@ extension CreateNewTripVC: TopNavigationViewDelegate {
 
 extension CreateNewTripVC {
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+        
+        guard let direction = sender.direction, direction.isVertical
+            else {
+            initialTouchPoint = CGPoint.zero
+            return
+        }
+        
         let touchPoint = sender.location(in: view?.window)
-        var initialTouchPoint = CGPoint.zero
         print(touchPoint)
         
         switch sender.state {
@@ -179,20 +198,21 @@ extension CreateNewTripVC {
             initialTouchPoint = touchPoint
         case .changed:
             if touchPoint.y > initialTouchPoint.y {
-                view.frame.origin.y = touchPoint.y - initialTouchPoint.y
+                popUpContainerView.frame.origin.y = touchPoint.y - (self.initailContainerYPosition ?? 0)  //initialTouchPoint.y
             }
         case .ended, .cancelled:
             if touchPoint.y - initialTouchPoint.y > 300 {
                 dismiss(animated: true, completion: nil)
             } else {
                 UIView.animate(withDuration: 0.2, animations: {
-                    self.view.frame = CGRect(x: 0,
-                                             y: 0,
-                                             width: self.view.frame.size.width,
-                                             height: self.view.frame.size.height)
+                    self.popUpContainerView.frame = CGRect(x: 0,
+                                                           y: self.initailContainerYPosition ?? 0,
+                                             width: self.popUpContainerView.frame.size.width,
+                                             height: self.popUpContainerView.frame.size.height)
                 })
             }
         case .failed, .possible:
+            initialTouchPoint = CGPoint.zero
             break
         }
     }

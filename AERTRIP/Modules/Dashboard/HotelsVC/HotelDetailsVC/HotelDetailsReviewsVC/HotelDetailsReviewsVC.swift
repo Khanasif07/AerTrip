@@ -15,8 +15,8 @@ class HotelDetailsReviewsVC: BaseVC {
     private(set) var viewModel = HotelDetailsReviewsVM()
     let sectionName = ["",LocalizedString.TravellerRating.localized,LocalizedString.RatingSummary.localized]
     let ratingNames = [LocalizedString.Excellent.localized,LocalizedString.VeryGood.localized,LocalizedString.Average.localized,LocalizedString.Poor.localized,LocalizedString.Terrible.localized]
-    var initialTouchPoint:CGPoint = CGPoint(x: 0.0, y: 0.0)
-    
+    var initialTouchPoint:CGPoint = CGPoint.zero
+
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var mainContainerBottomConst: NSLayoutConstraint!
@@ -78,7 +78,9 @@ class HotelDetailsReviewsVC: BaseVC {
         
         self.dividerView.isHidden = true
         self.registerNibs()
-        self.viewModel.getTripAdvisorDetails()
+        delay(seconds: 0.2) {
+            self.viewModel.getTripAdvisorDetails()
+        }
     }
     
     override func bindViewModel() {
@@ -227,7 +229,7 @@ extension HotelDetailsReviewsVC {
     
     internal func getTripAdvisorTravelerRatingCell(_ tableView: UITableView, indexPath: IndexPath,tripAdviserDetails: HotelDetailsReviewsModel) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TripAdvisorTravelerRatingTableViewCell", for: indexPath) as? TripAdvisorTravelerRatingTableViewCell else { return UITableViewCell() }
-        cell.configCell(reviewsLabel: "\(String(describing: tripAdviserDetails.numReviews.toDouble ?? 0.0)) \(LocalizedString.Reviews.localized)", tripAdvisorRating: Double(tripAdviserDetails.rating) ?? 0.0, ranking: tripAdviserDetails.rankingData?.rankingString ?? "")
+        cell.configCell(reviewsLabel: "\(String(describing: tripAdviserDetails.numReviews.toInt ?? 0)) \(LocalizedString.Reviews.localized)", tripAdvisorRating: Double(tripAdviserDetails.rating) ?? 0.0, ranking: tripAdviserDetails.rankingData?.rankingString ?? "")
         return cell
     }
     
@@ -278,15 +280,21 @@ extension HotelDetailsReviewsVC {
 }
 
 extension HotelDetailsReviewsVC: HotelTripAdvisorDetailsDelegate {
+    func willFetchHotelTripAdvisor() {
+        AppGlobals.shared.startLoading()
+    }
+    
     func getHotelTripAdvisorDetailsSuccess() {
         self.viewModel.getTypeOfCellInSections()
         
         printDebug("Reviews")
         self.reviewsTblView.reloadData()
+        AppGlobals.shared.stopLoading()
     }
     
     func getHotelTripAdvisorFail() {
         printDebug("Api parsing failed")
+        AppGlobals.shared.stopLoading()
     }
 }
 
@@ -337,8 +345,13 @@ extension HotelDetailsReviewsVC {
 extension HotelDetailsReviewsVC {
    
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+        guard let direction = sender.direction, direction.isVertical
+                   else {
+                   initialTouchPoint = CGPoint.zero
+                   return
+               }
+        
         let touchPoint = sender.location(in: view?.window)
-        var initialTouchPoint = CGPoint.zero
         
         switch sender.state {
         case .began:
@@ -359,6 +372,7 @@ extension HotelDetailsReviewsVC {
                 })
             }
         case .failed, .possible:
+            initialTouchPoint = CGPoint.zero
             break
         }
     }

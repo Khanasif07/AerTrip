@@ -564,6 +564,9 @@ enum LocalizedString: String {
     case NameYourTrip
     case PleaseSelectTrip
     
+    // Hotel Detail screen
+    case HotelHasAlreadyBeenSavedToTrip
+    
     // Hotel Checkout Deatail Selection screen
     case Guests
     
