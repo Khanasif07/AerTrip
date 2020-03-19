@@ -74,6 +74,10 @@ class HotelDetailsAmenitiesVC: BaseVC {
         self.viewModel.getAmenitiesSections()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.statusBarColor = AppColors.clear
+    }
     // Mark:- Functions
     //================
     private func registerNibs() {

@@ -132,6 +132,12 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
                     
                     // self.present(alert, animated: true, completion: nil)
                 }
+            } else if indexPath.row == 2 { // Website
+                 let website = self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? ""
+                if !website.isEmpty{
+                    guard let url = URL(string: website) else {return}
+                    UIApplication.shared.open(url, options: [:])
+                }
             }
             
             else if indexPath.row == 3, (self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "") != LocalizedString.SpaceWithHiphen.localized { // Overview cell {

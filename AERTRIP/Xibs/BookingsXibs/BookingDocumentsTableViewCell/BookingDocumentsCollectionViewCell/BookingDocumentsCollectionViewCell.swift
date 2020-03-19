@@ -82,8 +82,13 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
         self.loaderSetUp()
     }
     
-    internal func configCell(name: String , documentsSize: String , request: DocumentDownloadingModel) {
-        self.nameLabel.text = name
+    internal func configCell(name: String , documentsSize: String , request: DocumentDownloadingModel, type:String = "") {
+        if type.isEmpty{
+            self.nameLabel.text = name
+        }else{
+            self.nameLabel.text = "\(name).\(type)"
+        }
+        
         self.documentsSizeLabel.text = documentsSize
         var previousProgress: Float = 0.0
         request.progressUpdate = { [weak self] progress in
@@ -123,11 +128,15 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    internal func notDownloadingStatusSetUp(name: String) {
+    internal func notDownloadingStatusSetUp(name: String , type: String = "") {
         self.downloadingIcon.isHidden = false
         self.progressView.isHidden = true
         self.nameLabel.textColor = AppColors.themeBlack
-        self.nameLabel.text = name
+        if type.isEmpty{
+            self.nameLabel.text = name
+        }else{
+            self.nameLabel.text = "\(name).\(type)"
+        }
         self.imageContainerViewTopConstraint.constant = self.normalTopConstraint
         self.imageContainerViewWidthConstraint.constant = self.normalWidthConstraint
         self.imageContainerViewHeightConstraint.constant = self.normalHeightConstraint
@@ -147,11 +156,15 @@ class BookingDocumentsCollectionViewCell: UICollectionViewCell {
         self.dowloadingPlaceHolderImgView.image = #imageLiteral(resourceName: "DownloadingPlaceHolder")
     }
     
-    internal func downloadedStatusSetUp(name: String) {
+    internal func downloadedStatusSetUp(name: String, type: String = "") {
         self.nameLabel.textColor = AppColors.themeBlack
         self.downloadingIcon.isHidden = true
         self.progressView.isHidden = true
-        self.nameLabel.text = name
+        if type.isEmpty{
+            self.nameLabel.text = name
+        }else{
+            self.nameLabel.text = "\(name).\(type)"
+        }
         self.imageContainerViewTopConstraint.constant = self.normalTopConstraint
         self.imageContainerViewWidthConstraint.constant = self.normalWidthConstraint
         self.imageContainerViewHeightConstraint.constant = self.normalHeightConstraint

@@ -15,7 +15,8 @@ class BookingHDWebPhoneTableViewCell: ATTableViewCell {
     @IBOutlet weak var titleValueLabel: UILabel!
     
     @IBOutlet weak var dividerView: UIView!
-   
+    @IBOutlet weak var deviderBottomConstraint: NSLayoutConstraint!
+    
     
     override func setupFonts() {
     self.titleLabel.font = AppFonts.SemiBold.withSize(16.0)

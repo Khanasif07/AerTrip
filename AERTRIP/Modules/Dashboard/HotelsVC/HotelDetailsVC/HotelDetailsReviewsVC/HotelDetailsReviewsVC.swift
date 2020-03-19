@@ -87,6 +87,11 @@ class HotelDetailsReviewsVC: BaseVC {
         self.viewModel.delegate = self
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.statusBarColor = AppColors.clear
+    }
+    
     //Mark:- Functions
     //================
     private func registerNibs() {
