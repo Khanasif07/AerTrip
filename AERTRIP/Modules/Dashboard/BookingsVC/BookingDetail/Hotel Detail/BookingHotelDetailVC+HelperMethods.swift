@@ -124,6 +124,7 @@ extension BookingHotelDetailVC {
         // Website Detail Cell
         case 2:
             phoneWebCommonCell.configureCell(title: "Website", text: self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? "")
+            phoneWebCommonCell.deviderBottomConstraint.constant = 10
             return phoneWebCommonCell
         case 3: // Overview Cell
             guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell else { return UITableViewCell() }
@@ -173,7 +174,7 @@ extension BookingHotelDetailVC {
         case 3:// overview
             return (self.viewModel.bookingDetail?.bookingDetail?.overViewData ?? "").isEmpty ? 0 : UITableView.automaticDimension
         case 4: // amentities
-            return (self.viewModel.bookingDetail?.bookingDetail?.amenities == nil) ? 0 : 132.0
+            return (self.viewModel.bookingDetail?.bookingDetail?.amenities == nil) ? 0 : 140.0
         case 5:
             return (self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? false) ? 0 : 46.0
         default:

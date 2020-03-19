@@ -60,6 +60,11 @@ class HotelDetailsOverviewVC: BaseVC {
         self.stickyTitleLabel.text = LocalizedString.Overview.localized
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.statusBarColor = AppColors.clear
+    }
+    
     override func initialSetup() {
         
         
