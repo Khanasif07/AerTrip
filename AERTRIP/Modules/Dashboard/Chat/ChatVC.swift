@@ -22,9 +22,15 @@ class ChatVC : BaseVC {
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var chatTableView: UITableView!
-    
+    @IBOutlet weak var chatBackViewHeight: NSLayoutConstraint!
+    @IBOutlet var animationView: UIView!
+    @IBOutlet weak var animationLabel: UILabel!
+    @IBOutlet weak var animationBubbleImageView: UIImageView!
+    @IBOutlet weak var textViewBackView: UIView!
     
     private var name = "Guru"
+    let chatVm = ChatVM()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +56,51 @@ class ChatVC : BaseVC {
     }
     
     @IBAction func sendButton(_ sender: UIButton) {
+        guard  let msg = self.messageTextView.text else { return }
+        self.chatVm.messages.append(MessageModel(msg: msg, source: MessageModel.MessageSource.me))
+        animateCell()
+        self.chatTableView.beginUpdates()
+        self.chatTableView.insertRows(at: [IndexPath(row: self.chatVm.messages.count - 1, section: 0)], with: UITableView.RowAnimation.none)
+        self.chatTableView.endUpdates()
+        self.chatTableView.scrollToRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0), at: UITableView.ScrollPosition.top, animated: true)
+        resetFrames()
+        animateCell()
+        self.messageTextView.text = ""
+
+    }
+    
+    func animateCell(){
+        
+       let rectOfLastCell = self.chatTableView.rectForRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0))
+        let rectWrtView = self.chatTableView.convert(rectOfLastCell, to: self.view)
+        
        
+//
+//        printDebug(rectOfLastCell)
+//        printDebug(rectWrtView)
+        self.animationView.isHidden = true
+        guard let msg = self.messageTextView.text else { return }
+        self.animationLabel.text = msg
+        self.animationView.frame = CGRect(x: 0, y: self.textViewBackView.frame.origin.y, width: self.view.frame.width, height: self.animationLabel.frame.height + 28)
+       let horizintalScale = self.animationView.frame.width - self.animationBubbleImageView.frame.width - 8 - 15
+        self.animationLabel.transform = CGAffineTransform(translationX: -horizintalScale, y: 0)
+        self.animationBubbleImageView.transform = CGAffineTransform(translationX: -horizintalScale, y: 0)
+    
+        self.animationView.isHidden = false
+
+        UIView.animate(withDuration: 2, animations: {
+            
+            self.animationBubbleImageView.transform = CGAffineTransform.identity
+            self.animationLabel.transform = CGAffineTransform.identity
+//            self.animationView.transform = CGAffineTransform(translationX: 0, y: -300)
+            self.animationView.frame.origin.y = 10
+            
+            
+        }) { (success) in
+            
+            
+        }
+        
     }
     
 }
@@ -62,17 +112,23 @@ extension ChatVC {
         setUpNavigationView()
         setUpAttributes()
         performInitialAnimation()
+        configureTableView()
     }
     
     func setUpAttributes(){
 //        self.morningLabel.font = AppFonts.SemiBold.withSize(28)
         self.whereToGoLabel.font = AppFonts.Regular.withSize(28)
+        self.animationLabel.font = AppFonts.Regular.withSize(14)
         self.morningLabel.textColor = AppColors.themeGreen
         self.morningBackView.alpha = 0
         let morningStr = "Good Morning, \(name)"
         self.morningLabel.attributedText = morningStr.attributeStringWithColors(stringToColor: name, strClr: UIColor.black, substrClr: AppColors.themeGreen, strFont: AppFonts.Regular.withSize(28), strClrFont: AppFonts.SemiBold.withSize(28))
-//        self.messageTextView.becomeFirstResponder()
-    }
+        self.messageTextView.delegate = self
+        
+        let bubbleImage = UIImage(named: "outgoing-message-bubble")?.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        self.animationBubbleImageView.image = bubbleImage
+        self.view.addSubview(animationView)
+  }
     
     func configureTableView(){
         chatTableView.dataSource = self
@@ -86,7 +142,6 @@ extension ChatVC {
         topNavView.delegate = self
         topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         topNavView.configureLeftButton(normalImage: #imageLiteral(resourceName: "back"), selectedImage:  #imageLiteral(resourceName: "back"), normalTitle: "", selectedTitle: "", normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
-        
         topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "green_2"), selectedImage: #imageLiteral(resourceName: "green_2"), normalTitle: "", selectedTitle: "", normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
     }
     
@@ -108,11 +163,9 @@ extension ChatVC {
         delay(seconds: 0.3) {
             UIView.animate(withDuration: 1) {
                 self.morningBackView.alpha = 1
-                 
             }
           }
         UIView.animate(withDuration: 1, animations: {
-
             self.morningBackView.transform = CGAffineTransform(translationX: 0, y: (-50))
         }) { (success) in
         }
@@ -156,6 +209,43 @@ extension ChatVC {
     
     private func removeKeyboard(){
             NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+}
+
+
+extension ChatVC {
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        return true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        arrangeTextViewHeight()
+    }
+    
+    func arrangeTextViewHeight(){
+         
+         let text = messageTextView.text ?? ""
+        
+         let height = text.heightOfText(self.view.frame.size.width - 74, font: AppFonts.Regular.withSize(14)) + 10
+         
+         if height > 44 && height < 90 {
+             self.chatBackViewHeight.constant = height + 10
+             UIView.animate(withDuration: 0.3) {
+                 self.view.layoutIfNeeded()
+             }
+         }else if height < 44{
+             resetFrames()
+         }
+         messageTextView.isScrollEnabled = (height > 90)
+     }
+    
+    func resetFrames() {
+        UIView.animate(withDuration: 0.3) {
+            self.chatBackViewHeight.constant = 44
+            self.view.layoutIfNeeded()
+        }
     }
     
 }
