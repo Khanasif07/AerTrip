@@ -174,6 +174,7 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
     
     private func updateBottomConstraint() {
         self.containerBottomConstraint.constant = isLastCellInSection ? 0 : 16
+        self.bgView.layoutIfNeeded()
     }
     
     @objc func saveButtonTapped(_ sender: UIButton) {
