@@ -145,14 +145,14 @@ extension BookingDocumentsTableViewCell: UICollectionViewDelegate , UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookingDocumentsCollectionViewCell.reusableIdentifier, for: indexPath) as? BookingDocumentsCollectionViewCell else { return UICollectionViewCell() }
         cell.delegate = self
-        cell.configCell(name: self.documentsData[indexPath.item].fileName , documentsSize: self.documentsData[indexPath.item].size, request: documentsData[indexPath.item])
+        cell.configCell(name: self.documentsData[indexPath.item].fileName , documentsSize: self.documentsData[indexPath.item].size, request: documentsData[indexPath.item], type: self.documentsData[indexPath.item].type)
         switch self.documentsData[indexPath.item].downloadingStatus {
         case .notDownloaded:
-            cell.notDownloadingStatusSetUp(name: self.documentsData[indexPath.item].fileName)
+            cell.notDownloadingStatusSetUp(name: self.documentsData[indexPath.item].fileName, type: self.documentsData[indexPath.item].type)
         case .downloading:
             cell.downloadingStatusSetUp()
         case .downloaded:
-            cell.downloadedStatusSetUp(name: self.documentsData[indexPath.item].fileName)
+            cell.downloadedStatusSetUp(name: self.documentsData[indexPath.item].fileName, type: self.documentsData[indexPath.item].type)
         }
         let currentDocumentFolder = self.checkCreateAndReturnDocumentFolder()
         let url = URL(fileURLWithPath: self.documentsData[indexPath.item].sourceUrl)

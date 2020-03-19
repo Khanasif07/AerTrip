@@ -95,6 +95,7 @@ extension HotlelBookingsDetailsVC {
     
     func getPaymentInfoCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PaymentInfoTableViewCell.reusableIdentifier, for: indexPath) as? PaymentInfoTableViewCell else { return UITableViewCell() }
+        cell.paymentInfoLabel.text = LocalizedString.Vouchers.localized
         cell.clipsToBounds = true
         return cell
     }
