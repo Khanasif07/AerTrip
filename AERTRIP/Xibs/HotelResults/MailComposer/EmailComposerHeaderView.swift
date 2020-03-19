@@ -136,6 +136,10 @@ class EmailComposerHeaderView: UIView {
         self.toEmailTextView.inactiveTagFontColor = AppColors.themeGreen
         self.toEmailTextView.activeTagFontColor = AppColors.themeWhite
         self.toEmailTextView.tagSeparatorColor = AppColors.themeGreen
+        if #available(iOS 13, *) {
+        }else{
+            self.toEmailTextView.placeholderTextColor = AppColors.themeGray40
+        }
     }
     
     // Check Out View
