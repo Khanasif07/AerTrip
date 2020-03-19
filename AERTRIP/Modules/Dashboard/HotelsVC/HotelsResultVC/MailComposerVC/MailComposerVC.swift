@@ -38,14 +38,14 @@ class MailComposerVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.statusBarColor = AppColors.clear
+        //self.statusBarColor = AppColors.clear
         self.statusBarStyle = .default
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.statusBarColor = AppColors.clear
+        //self.statusBarColor = AppColors.clear
         self.statusBarStyle = .default
     }
     

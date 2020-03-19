@@ -904,7 +904,7 @@ struct Leg {
     }
     
     var cabinClass: String {
-        return self.flight.map { $0.cabinClass }.joined(separator: ",")
+        return self.flight.map { $0.cabinClass }.removeDuplicates().joined(separator: ",")
     }
     
     var legDuration: Double {

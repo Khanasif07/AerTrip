@@ -20,6 +20,10 @@ class FlightBookingsDetailsVC: BaseVC {
     var eventTypeImage: UIImage {
         return #imageLiteral(resourceName: "flightIcon")
     }
+    var eventTypeNavigationBarImage: UIImage {
+        return #imageLiteral(resourceName: "BookingDetailFlightNavIcon")
+    }
+    
     
     private var navBarHeight: CGFloat {
         return UIDevice.isIPhoneX ? 88.0 : 64.0
@@ -106,6 +110,9 @@ class FlightBookingsDetailsVC: BaseVC {
     private func setupParallaxHeader() {
         let parallexHeaderHeight = CGFloat(147.0)
         let parallexHeaderMinHeight = CGFloat(0.0)//navigationController?.navigationBar.bounds.height ?? 74 // 105
+        self.headerView?.translatesAutoresizingMaskIntoConstraints = false
+        self.headerView?.widthAnchor.constraint(equalToConstant: bookingDetailsTableView?.width ?? 0.0).isActive = true
+
         self.bookingDetailsTableView.parallaxHeader.view = self.headerView
         self.bookingDetailsTableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
         self.bookingDetailsTableView.parallaxHeader.height = parallexHeaderHeight
