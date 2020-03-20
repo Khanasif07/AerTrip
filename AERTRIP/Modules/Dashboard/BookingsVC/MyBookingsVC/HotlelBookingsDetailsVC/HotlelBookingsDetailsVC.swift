@@ -59,8 +59,7 @@ class HotlelBookingsDetailsVC: BaseVC {
         self.configureTableHeaderView()
         self.setupParallaxHeader()
         self.registerNibs()
-        self.bookingDetailsTableView.delegate = self
-        self.bookingDetailsTableView.dataSource = self
+        
      
         // Call to get booking detail
         self.viewModel.getBookingDetail()
@@ -121,6 +120,8 @@ class HotlelBookingsDetailsVC: BaseVC {
     private func setupParallaxHeader() {
         let parallexHeaderHeight = CGFloat(147.0)
         let parallexHeaderMinHeight = CGFloat(0.0)//(navigationController?.navigationBar.bounds.height ?? 74) - 2
+        self.headerView?.translatesAutoresizingMaskIntoConstraints = false
+        self.headerView?.widthAnchor.constraint(equalToConstant: bookingDetailsTableView?.width ?? 0.0).isActive = true
         self.bookingDetailsTableView.parallaxHeader.view = self.headerView
         self.bookingDetailsTableView.parallaxHeader.minimumHeight = parallexHeaderMinHeight
         self.bookingDetailsTableView.parallaxHeader.height = parallexHeaderHeight
