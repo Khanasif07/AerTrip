@@ -321,6 +321,8 @@
 		18C31F0B2227E40D0052162C /* EmailComposerHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18C31F0A2227E40D0052162C /* EmailComposerHeaderView.xib */; };
 		18C31F0D2227FFB60052162C /* EmailComposerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C31F0C2227FFB60052162C /* EmailComposerHeaderView.swift */; };
 		18D2BC9621C8CE4E003A37E1 /* SocialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */; };
+		18D34EC42424F0F0007D32D8 /* TotalPayableNowWithIconCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D34EC32424F0F0007D32D8 /* TotalPayableNowWithIconCell.xib */; };
+		18D34EC62424F133007D32D8 /* TotalPayableNowWithIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D34EC52424F133007D32D8 /* TotalPayableNowWithIconCell.swift */; };
 		18D4C40E220AB061005E1E37 /* AmenitiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D4C40D220AB061005E1E37 /* AmenitiesVC.swift */; };
 		18D4C412220AB572005E1E37 /* AmenitiesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D4C410220AB572005E1E37 /* AmenitiesTableViewCell.swift */; };
 		18D4C413220AB572005E1E37 /* AmenitiesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18D4C411220AB572005E1E37 /* AmenitiesTableViewCell.xib */; };
@@ -1328,6 +1330,8 @@
 		18C31F0A2227E40D0052162C /* EmailComposerHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmailComposerHeaderView.xib; sourceTree = "<group>"; };
 		18C31F0C2227FFB60052162C /* EmailComposerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailComposerHeaderView.swift; sourceTree = "<group>"; };
 		18D2BC9521C8CE4E003A37E1 /* SocialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialButton.swift; sourceTree = "<group>"; };
+		18D34EC32424F0F0007D32D8 /* TotalPayableNowWithIconCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TotalPayableNowWithIconCell.xib; sourceTree = "<group>"; };
+		18D34EC52424F133007D32D8 /* TotalPayableNowWithIconCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPayableNowWithIconCell.swift; sourceTree = "<group>"; };
 		18D4C40D220AB061005E1E37 /* AmenitiesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmenitiesVC.swift; sourceTree = "<group>"; };
 		18D4C410220AB572005E1E37 /* AmenitiesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmenitiesTableViewCell.swift; sourceTree = "<group>"; };
 		18D4C411220AB572005E1E37 /* AmenitiesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmenitiesTableViewCell.xib; sourceTree = "<group>"; };
@@ -3108,6 +3112,8 @@
 				18E797112249EB6B00A7AC8B /* CurrenyCollectionViewCell.swift */,
 				18E797122249EB6B00A7AC8B /* CurrenyCollectionViewCell.xib */,
 				18E79715224A06B100A7AC8B /* TotalPayableNowCell.swift */,
+				18D34EC32424F0F0007D32D8 /* TotalPayableNowWithIconCell.xib */,
+				18D34EC52424F133007D32D8 /* TotalPayableNowWithIconCell.swift */,
 				18E79716224A06B100A7AC8B /* TotalPayableNowCell.xib */,
 				18F9E2F12255BA8E00CD0B42 /* ConvenienceFeeTableViewCell.swift */,
 				18F9E2F22255BA8E00CD0B42 /* ConvenienceFeeTableViewCell.xib */,
@@ -5649,6 +5655,7 @@
 				183E3F6921D9F1D70032DEBA /* HotelCardCollectionViewCell.xib in Resources */,
 				18930A1D21D2B831005442C8 /* SearchTableViewCell.xib in Resources */,
 				84323D3A222FE42300DA7581 /* AmenitiesDescriptionTableViewCell.xib in Resources */,
+				18D34EC42424F0F0007D32D8 /* TotalPayableNowWithIconCell.xib in Resources */,
 				1820F0ED228D46CD0019B8BB /* BookingRequestAddOnTableViewCell.xib in Resources */,
 				8491D1F1222D3FC2001D0313 /* SourceSansPro-BlackItalic.ttf in Resources */,
 				18FA223121EC7C7C0024B91E /* AssignGroupTableViewCell.xib in Resources */,
@@ -6199,6 +6206,7 @@
 				8472F21723E4161C00993B08 /* HotelsMapVC+CoreData.swift in Sources */,
 				8455A67E2232920900CEE2B3 /* ReviewsOptionTableViewCell.swift in Sources */,
 				84085CD721F59C0E00F1E844 /* BaseTabBarController.swift in Sources */,
+				18D34EC62424F133007D32D8 /* TotalPayableNowWithIconCell.swift in Sources */,
 				84E4BC6C22A113AF00B72306 /* FlightsOptionsTableViewCell.swift in Sources */,
 				182D4860228AF515004796A2 /* BookingHDRoomDetailTableViewCell.swift in Sources */,
 				843E63202292782F00A04248 /* DepositItinerary.swift in Sources */,

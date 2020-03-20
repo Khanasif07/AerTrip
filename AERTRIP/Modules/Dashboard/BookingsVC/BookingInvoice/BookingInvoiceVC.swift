@@ -38,6 +38,7 @@ class BookingInvoiceVC: BaseVC {
         
         let navTitle = self.viewModel.isForReceipt ? LocalizedString.Receipt.localized : LocalizedString.Booking.localized
         self.topNavBar.configureNavBar(title: navTitle, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true)
+        self.invoiceTableView.backgroundColor = AppColors.themeGray04
     }
     
     // MARK: - Helper methods
@@ -49,19 +50,25 @@ class BookingInvoiceVC: BaseVC {
         self.invoiceTableView.registerCell(nibName: DiscountCell.reusableIdentifier)
         self.invoiceTableView.register(UINib(nibName: self.cellIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.cellIdentifier)
         self.invoiceTableView.registerCell(nibName: TotalPayableNowCell.reusableIdentifier)
+        self.invoiceTableView.registerCell(nibName: TotalPayableNowWithIconCell.reusableIdentifier)
         self.invoiceTableView.registerCell(nibName: BookingDateVoucherTableViewCell.reusableIdentifier)
         self.invoiceTableView.registerCell(nibName: DownloadInvoiceTableViewCell.reusableIdentifier)
     }
     
     private func getReceiptDetailCell() -> UITableViewCell {
-        guard let totalPayableCell = self.invoiceTableView.dequeueReusableCell(withIdentifier: "TotalPayableNowCell") as? TotalPayableNowCell else {
+        guard let totalPayableCell = self.invoiceTableView.dequeueReusableCell(withIdentifier: "TotalPayableNowWithIconCell") as? TotalPayableNowWithIconCell else {
             fatalError("TotalPayableNowCell not found")
         }
         
         totalPayableCell.topDeviderView.isHidden = true
         totalPayableCell.bottomDeviderView.isHidden = true
-        
-        totalPayableCell.totalPayableNowLabel.text = self.viewModel.voucher?.paymentInfo?.paymentTitle ?? LocalizedString.dash.localized
+        let txt = self.viewModel.voucher?.paymentInfo?.paymentTitle ?? LocalizedString.dash.localized
+        totalPayableCell.totalPayableNowLabel.text = txt
+        if txt.lowercased().contains("banking"){
+            totalPayableCell.paymentImageView.image = AppImage.netBanking
+        }else{
+            totalPayableCell.paymentImageView.image = AppImage.visa
+        }
         
         totalPayableCell.totalPayableNowLabel.font = AppFonts.Regular.withSize(18.0)
         
