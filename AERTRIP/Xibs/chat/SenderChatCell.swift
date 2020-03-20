@@ -24,14 +24,12 @@ class SenderChatCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     
     func populateData(msgObj : MessageModel){
         self.messageLabel.text = msgObj.msg
-        
-
+        self.contentView.isHidden = msgObj.isHidden
     }
     
 }

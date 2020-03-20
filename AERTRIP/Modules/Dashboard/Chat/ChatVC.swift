@@ -58,16 +58,17 @@ class ChatVC : BaseVC {
     @IBAction func sendButton(_ sender: UIButton) {
         guard  let msg = self.messageTextView.text else { return }
         self.chatVm.messages.append(MessageModel(msg: msg, source: MessageModel.MessageSource.me))
-        self.chatTableView.beginUpdates()
-        self.chatTableView.insertRows(at: [IndexPath(row: self.chatVm.messages.count - 1, section: 0)], with: UITableView.RowAnimation.none)
-        self.chatTableView.endUpdates()
-        self.hideShowSenderCellContent(ishidden: true)
-        self.chatTableView.scrollToRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0), at: UITableView.ScrollPosition.top, animated: true)
+//        self.chatTableView.beginUpdates()
+//        self.chatTableView.insertRows(at: [IndexPath(row: self.chatVm.messages.count - 1, section: 0)], with: UITableView.RowAnimation.none)
+//        self.chatTableView.endUpdates()
+        self.chatTableView.reloadData()
         self.resetFrames()
-        delay(seconds: 0.1) {
+        self.chatTableView.scrollToRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0), at: UITableView.ScrollPosition.top, animated: true)
+        self.hideShowSenderCellContent(ishidden: true)
+        delay(seconds: 0.25) {
             self.animateCell()
             self.messageTextView.text = ""
-        }
+       }
     }
     
     func animateCell(){
@@ -75,7 +76,7 @@ class ChatVC : BaseVC {
        let rectOfLastCell = self.chatTableView.rectForRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0))
         let rectWrtView = self.chatTableView.convert(rectOfLastCell, to: self.view)
       
-        printDebug("rectWrtView before...\(rectWrtView)")
+//        printDebug("rectWrtView before...\(rectWrtView)")
         
         self.animationView.isHidden = true
         guard let msg = self.messageTextView.text else { return }
@@ -86,23 +87,28 @@ class ChatVC : BaseVC {
         self.animationBubbleImageView.transform = CGAffineTransform(translationX: -horizintalScale, y: 0)
 
         self.animationView.isHidden = false
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.animationBubbleImageView.transform = CGAffineTransform.identity
             self.animationLabel.transform = CGAffineTransform.identity
-            self.animationView.frame.origin.y = rectWrtView.origin.y - (self.animationView.frame.height / 2)
+            self.animationView.frame.origin.y = rectWrtView.origin.y
         }) { (success) in
-            delay(seconds: 0.1) {
                 self.hideShowSenderCellContent(ishidden: false)
                 self.animationView.isHidden = true
-            }
-               let rectWrtView = self.chatTableView.convert(rectOfLastCell, to: self.view)
-            printDebug("rectWrtView after...\(rectWrtView)")
+                self.chatVm.messages[self.chatVm.messages.count - 1].isHidden = false
+
+//               let rectWrtView = self.chatTableView.convert(rectOfLastCell, to: self.view)
+//            printDebug("rectWrtView after...\(rectWrtView)")
         }
     }
     
     func hideShowSenderCellContent(ishidden : Bool){
-        guard let cell = self.chatTableView.cellForRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0)) as? SenderChatCell else { return }
+        guard let cell = self.chatTableView.cellForRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0)) as? SenderChatCell else {
+            printDebug("ishidden...")
+            return }
         cell.contentView.isHidden = ishidden
+        
+        printDebug("ishidden....\(ishidden)")
+        
     }
     
 }
