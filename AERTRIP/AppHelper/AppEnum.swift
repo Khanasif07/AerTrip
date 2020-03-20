@@ -300,6 +300,8 @@ enum AppImage {
     static let linkedInLogoImage: UIImage = #imageLiteral(resourceName: "linkedInIcon")
     static let facebookLogoImage: UIImage = #imageLiteral(resourceName: "facebook")
     static let googleLogoImage: UIImage = #imageLiteral(resourceName: "google")
+    static let netBanking = #imageLiteral(resourceName: "netBanking")
+    static let visa = #imageLiteral(resourceName: "visa")
 }
 
 enum ATAmenity: String, CaseIterable {
