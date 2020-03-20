@@ -123,7 +123,7 @@ extension HotelCheckOutDetailsVIew: GetFullInfoDelegate {
             self.allIndexPath.append(indexPath)
             self.hotelDetailsTableView.reloadData()
         } else {
-            if let index = self.allIndexPath.index(of: indexPath){
+            if let index = self.allIndexPath.firstIndex(of: indexPath){
                 self.allIndexPath.remove(at: index)
             }
             self.hotelDetailsTableView.reloadData()

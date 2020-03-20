@@ -94,6 +94,7 @@ class DashboardVC: BaseVC {
         mainScrollView.delaysContentTouches = false
         
         addViewOnTop()
+        updateProfileButton()
     }
     
     private func addViewOnTop() {

@@ -143,12 +143,15 @@ class SelectDestinationVC: BaseVC {
     
     //Handle Swipe Gesture
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+        guard let direction = sender.direction, direction.isVertical
+            else {
+            initialTouchPoint = CGPoint.zero
+            return
+        }
         let touchPoint = sender.location(in: self.mainContainerView?.window)
         let velocity = sender.velocity(in: self.mainContainerView)
         print(velocity)
         switch sender.state {
-        case .possible:
-            print(sender.state)
         case .began:
             self.initialTouchPoint = touchPoint
         case .changed:
@@ -162,14 +165,13 @@ class SelectDestinationVC: BaseVC {
                     self.mainCintainerBottomConstraint.constant = touchPointDiffY
                 }
             }
-        case .cancelled:
-            print(sender.state)
         case .ended:
             print(sender.state)
             panGestureFinalAnimation(velocity: velocity,touchPoint: touchPoint)
             
-        case .failed:
-            print(sender.state)
+        case .failed, .possible, .cancelled:
+        initialTouchPoint = CGPoint.zero
+        break
             
         }
     }
@@ -312,12 +314,11 @@ extension SelectDestinationVC: SelectDestinationVMDelegate {
     }
     
     func searchDestinationSuccess() {
-        if isInSearchMode, let searchText = self.searchBar.text {
-            self.noResultemptyView.messageLabel.text = "\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(searchText)'"
+        if isInSearchMode {
             self.tableView.backgroundView?.isHidden = !self.viewModel.allTypes.isEmpty
         }
         else {
-            self.noResultemptyView.messageLabel.text = ""
+            self.noResultemptyView.searchTextLabel.text = ""
             self.tableView.backgroundView?.isHidden = true
         }
         self.reloadData()
@@ -345,9 +346,12 @@ extension SelectDestinationVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             //clear all data and reload to initial view
+            self.noResultemptyView.searchTextLabel.text = ""
             self.isInSearchMode = false
         } else if searchText.count >= AppConstants.kSearchTextLimit {
             //search text
+            self.noResultemptyView.searchTextLabel.isHidden = false
+            self.noResultemptyView.searchTextLabel.text = "\( LocalizedString.For.localized) '\(searchText)'"
             self.isInSearchMode = true
             self.viewModel.searchDestination(forText: searchText)
         }

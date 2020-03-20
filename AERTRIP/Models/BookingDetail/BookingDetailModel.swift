@@ -180,17 +180,26 @@ struct BookingDetailModel {
         }
         
         if self.product == "flight" {
-            for leg in self.bookingDetail?.leg ?? [] {
-                for flight in leg.flight {
-                    var weather = WeatherInfo()
-                    weather.date = flight.departDate
-                    weather.city = flight.departCity
-                    weather.countryCode = flight.departureCountryCode
-                    self.tripWeatherData.append(weather)
-                }
-            }
+            
             
             if !self.weatherInfo.isEmpty {
+                
+                for leg in self.bookingDetail?.leg ?? [] {
+                    for flight in leg.flight {
+                        var departureWeather = WeatherInfo()
+                        departureWeather.date = flight.departDate
+                        departureWeather.city = flight.departCity
+                        departureWeather.countryCode = flight.departureCountryCode
+                        self.tripWeatherData.append(departureWeather)
+                        
+                        var arrivalWeather = WeatherInfo()
+                        arrivalWeather.date = flight.arrivalDate
+                        arrivalWeather.city = flight.arrivalCity
+                        arrivalWeather.countryCode = flight.arrivalCountryCode
+                        self.tripWeatherData.append(arrivalWeather)
+                    }
+                }
+                
                 for (_, weatherInfoData) in self.weatherInfo.enumerated() {
                     for (j, weatherTripInfoData) in self.tripWeatherData.enumerated() {
                         if weatherInfoData.date?.isEqualTo(weatherTripInfoData.date ?? Date()) ?? false, weatherInfoData.countryCode == weatherTripInfoData.countryCode, weatherInfoData.city == weatherTripInfoData.city {
@@ -1029,6 +1038,9 @@ struct FlightDetail {
         }
         return total
     }
+    var calendarDepartDate: Date?
+    var calendarArivalDate: Date?
+
     
     init() {
         self.init(json: [:])
@@ -1070,6 +1082,16 @@ struct FlightDetail {
         
         if let obj = json["departure_time"] {
             self.departureTime = "\(obj)".removeNull
+        }
+        
+        if  let date = json["depart_date"], let time = json["departure_time"]{
+            // "2019-02-01"
+            self.calendarDepartDate = "\(date) \(time)".toDate(dateFormat: "yyyy-MM-dd HH:mm")
+        }
+        
+        if  let date = json["arrival_date"], let time = json["arrival_time"]{
+            // "2019-02-01"
+            self.calendarArivalDate = "\(date) \(time)".toDate(dateFormat: "yyyy-MM-dd HH:mm")
         }
         
         if let obj = json["arrival"] {

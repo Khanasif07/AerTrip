@@ -36,8 +36,8 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
     weak var delegate: HotelCardCollectionViewCellDelegate?
     
     private var gradientLayer: CAGradientLayer!
-//    var scrollSize: CGFloat = 0.0
-//    let numberOfPage: Int = 100
+    //    var scrollSize: CGFloat = 0.0
+    //    let numberOfPage: Int = 100
     
     var hotelData: HotelsModel? {
         didSet {
@@ -67,7 +67,7 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
         self.gradientLayer.frame = self.gradientView.bounds
         let gradientColor = AppColors.themeBlack
         self.gradientLayer.colors =
-                [gradientColor.withAlphaComponent(0.0).cgColor, gradientColor.withAlphaComponent(0.20).cgColor, gradientColor.withAlphaComponent(0.40).cgColor]
+            [gradientColor.withAlphaComponent(0.0).cgColor, gradientColor.withAlphaComponent(0.20).cgColor, gradientColor.withAlphaComponent(0.40).cgColor]
         self.gradientLayer.locations = [0.0, 0.5, 1.0]
         self.gradientView.layer.addSublayer(self.gradientLayer)
         self.gradientView.backgroundColor = AppColors.clear
@@ -97,26 +97,26 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.isPagingEnabled = true
-//        self.scrollView.isUserInteractionEnabled = (thumbnail.count > 1)
-//        self.scrollView.contentSize = CGSize(width: self.scrollSize * CGFloat(thumbnail.count), height: self.hotelImageView.frame.size.height)
+        //        self.scrollView.isUserInteractionEnabled = (thumbnail.count > 1)
+        //        self.scrollView.contentSize = CGSize(width: self.scrollSize * CGFloat(thumbnail.count), height: self.hotelImageView.frame.size.height)
         
         printDebug("thumbnail count is \(thumbnail.count)")
         self.pageControl.isHidden = (thumbnail.count <= 1)
         self.collectionView.isScrollEnabled = (thumbnail.count > 1)
         self.collectionView.reloadData()
-//        for index in 0..<thumbnail.count {
-//            let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: self.hotelImageView.frame.origin.y, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
-//            view.contentMode = .scaleAspectFill
-//            view.clipsToBounds = true
-//            view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: true)
-//            scrollView.addSubview(view)
-//        }
+        //        for index in 0..<thumbnail.count {
+        //            let view = UIImageView(frame: CGRect(x: CGFloat(index) * scrollSize, y: self.hotelImageView.frame.origin.y, width: hotelImageView.frame.size.width, height: hotelImageView.frame.size.height))
+        //            view.contentMode = .scaleAspectFill
+        //            view.clipsToBounds = true
+        //            view.setImageWithUrl(thumbnail.first ?? "", placeholder: UIImage(named: "hotelCardPlaceHolder") ?? AppPlaceholderImage.frequentFlyer, showIndicator: true)
+        //            scrollView.addSubview(view)
+        //        }
     }
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
-//        self.bgView.cornerRadius = 10.0
+        //        self.bgView.cornerRadius = 10.0
     }
     
     private func populateData() {
@@ -125,9 +125,9 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
         self.greenCircleRatingView.rating = self.hotelData?.taRating ?? 0
         self.saveButton.isSelected = self.hotelData?.isFavourite ?? false
         
-//        if let image = UIImage(named: "hotelCardPlaceHolder") {
-//            self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: true)
-//        }
+        //        if let image = UIImage(named: "hotelCardPlaceHolder") {
+        //            self.hotelImageView.setImageWithUrl(self.hotelData?.photo ?? "", placeholder: image, showIndicator: true)
+        //        }
     }
     
     
@@ -154,7 +154,7 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
             self.tripLogoImage.isHidden = false
             self.greenCircleRatingView.rating = hotel.rating
         }
-
+        
         self.actualPriceLabel.text = hotel.listPrice == 0 ? "" : "\(String(describing: hotel.listPrice))"
         var price : Double = hotel.price
         if  let filter = UserInfo.hotelFilter, filter.priceType == .PerNight  {
@@ -173,8 +173,11 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
     }
     
     private func updateBottomConstraint() {
-        self.containerBottomConstraint.constant = isLastCellInSection ? 0 : 16
-        self.bgView.layoutIfNeeded()
+        let valueToSet: CGFloat = isLastCellInSection ? 0 : 16
+        if valueToSet != self.containerBottomConstraint.constant {
+            self.containerBottomConstraint.constant = valueToSet
+            self.contentView.layoutIfNeeded()
+        }
     }
     
     @objc func saveButtonTapped(_ sender: UIButton) {
@@ -204,12 +207,12 @@ extension HotelCardTableViewCell: UICollectionViewDataSource, UICollectionViewDe
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ATGalleryCell.reusableIdentifier, for: indexPath) as? ATGalleryCell else {
             return UICollectionViewCell()
         }
-        
+        cell.backgroundColor = UIColor.clear
         cell.imageHeightConstraint.constant = collectionView.height
         cell.indicator.isHidden = true
         if let images = hotelListData?.thumbnail, images.count > indexPath.item {
             //set image from url
-//            cell.imageView.image = #imageLiteral(resourceName: "hotelCardPlaceHolder")
+            //            cell.imageView.image = #imageLiteral(resourceName: "hotelCardPlaceHolder")
             cell.imageView.setImageWithUrl(images[indexPath.item], placeholder: #imageLiteral(resourceName: "hotelCardPlaceHolder"), showIndicator: false)
         }
         else {

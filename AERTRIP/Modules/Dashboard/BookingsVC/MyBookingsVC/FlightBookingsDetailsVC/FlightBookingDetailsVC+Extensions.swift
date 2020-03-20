@@ -24,7 +24,12 @@ extension FlightBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        let currentSection = self.viewModel.sectionDataForFlightProductType[indexPath.section]
+        switch currentSection[indexPath.row] {
+        case .weatherHeaderCell, .weatherInfoCell, .weatherFooterCell:
+            return (self.viewModel.bookingDetail?.tripWeatherData.isEmpty ?? true) ? CGFloat.leastNonzeroMagnitude : UITableView.automaticDimension
+         default: return UITableView.automaticDimension
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -310,10 +315,20 @@ extension FlightBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     }
     
     func addToCalender() {
-        if let start = self.viewModel.bookingDetail?.bookingDetail?.eventStartingDate, let end = self.viewModel.bookingDetail?.bookingDetail?.evenEndingDate {
-            let bId = self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""
-            AppGlobals.shared.addEventToCalender(title: "Flight Booking: \(bId)", startDate: start, endDate: end, notes: "You've a flight booked for '\(self.viewModel.tripCitiesStr.string)'\nFor reference you booking id is '\(self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? "")'", uniqueId: bId)
-        }
+//        if let start = self.viewModel.bookingDetail?.bookingDetail?.eventStartingDate, let end = self.viewModel.bookingDetail?.bookingDetail?.evenEndingDate {
+//            let bId = self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""
+//            AppGlobals.shared.addEventToCalender(title: "\(self.viewModel.tripCitiesStr.string)", startDate: start, endDate: end, notes: "You've a flight booked for '\(self.viewModel.tripCitiesStr.string)'\nFor reference you booking id is '\(self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? "")'", uniqueId: bId)
+//        }
+        let bId = self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""
+        self.viewModel.bookingDetail?.bookingDetail?.leg.forEach({ (leg) in
+            leg.flight.forEach { (flightDetail) in
+                if let start = flightDetail.calendarDepartDate, let end = flightDetail.calendarArivalDate {
+                    let tripCity = "\(flightDetail.departCity) -> \(flightDetail.arrivalCity)"
+                     AppGlobals.shared.addEventToCalender(title: tripCity, startDate: start, endDate: end, notes: "You've a flight booked for '\(self.viewModel.tripCitiesStr.string)'\nFor reference you booking id is '\(self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? "")'", uniqueId: bId)
+                }
+            }
+        })
+        
     }
     
     func addToAppleWallet() {

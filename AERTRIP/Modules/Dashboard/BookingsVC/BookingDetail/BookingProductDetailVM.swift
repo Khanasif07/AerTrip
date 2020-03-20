@@ -289,6 +289,9 @@ class BookingProductDetailVM {
         if self.bookingDetail?.weatherDisplayedWithin16Info ?? false {
             temp.append(.weatherFooterCell)
         }
+        if self.bookingDetail?.tripWeatherData.isEmpty ?? false {
+            temp.remove(object: .weatherFooterCell)
+        }
         
         self.sectionDataForFlightProductType.append(temp)
         self.sectionDataForFlightProductType.append([.nameCell, .emailCell, .mobileCell, .gstCell, .billingAddressCell])
