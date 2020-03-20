@@ -133,8 +133,11 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
                     // self.present(alert, animated: true, completion: nil)
                 }
             } else if indexPath.row == 2 { // Website
-                 let website = self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? ""
+                 var website = self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? ""
                 if !website.isEmpty{
+                    if !(website.hasPrefix("http://") || website.hasPrefix("https://")){
+                        website = "http://\(website)"
+                    }
                     guard let url = URL(string: website) else {return}
                     UIApplication.shared.open(url, options: [:])
                 }

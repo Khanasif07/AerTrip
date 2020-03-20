@@ -180,17 +180,26 @@ struct BookingDetailModel {
         }
         
         if self.product == "flight" {
-            for leg in self.bookingDetail?.leg ?? [] {
-                for flight in leg.flight {
-                    var weather = WeatherInfo()
-                    weather.date = flight.departDate
-                    weather.city = flight.departCity
-                    weather.countryCode = flight.departureCountryCode
-                    self.tripWeatherData.append(weather)
-                }
-            }
+            
             
             if !self.weatherInfo.isEmpty {
+                
+                for leg in self.bookingDetail?.leg ?? [] {
+                    for flight in leg.flight {
+                        var departureWeather = WeatherInfo()
+                        departureWeather.date = flight.departDate
+                        departureWeather.city = flight.departCity
+                        departureWeather.countryCode = flight.departureCountryCode
+                        self.tripWeatherData.append(departureWeather)
+                        
+                        var arrivalWeather = WeatherInfo()
+                        arrivalWeather.date = flight.arrivalDate
+                        arrivalWeather.city = flight.arrivalCity
+                        arrivalWeather.countryCode = flight.arrivalCountryCode
+                        self.tripWeatherData.append(arrivalWeather)
+                    }
+                }
+                
                 for (_, weatherInfoData) in self.weatherInfo.enumerated() {
                     for (j, weatherTripInfoData) in self.tripWeatherData.enumerated() {
                         if weatherInfoData.date?.isEqualTo(weatherTripInfoData.date ?? Date()) ?? false, weatherInfoData.countryCode == weatherTripInfoData.countryCode, weatherInfoData.city == weatherTripInfoData.city {
@@ -352,14 +361,14 @@ extension BookingDetailModel {
      */
     
     var bookingPrice: Double {
-        let price: Double = 0.0
+        var price: Double = 0.0
         // TODO: Recheck all price logic as transaction key not coming
-//        for voucher in self.receipt?.voucher ?? [] {
-//            if voucher.basic?.voucherType.lowercased() == ATVoucherType.sales.value, let totalTran = voucher.transactions.filter({ $0.ledgerName.lowercased() == "total" }).first {
-//                price = totalTran.amount
-//                break
-//            }
-//        }
+        for voucher in self.receipt?.voucher ?? [] {
+            if voucher.basic?.voucherType.lowercased() == ATVoucherType.sales.value, let totalTran = voucher.transactions.filter({ $0.ledgerName.lowercased() == "total" }).first {
+                price = totalTran.amount
+                break
+            }
+        }
         return price
     }
     
@@ -421,8 +430,8 @@ extension BookingDetailModel {
     // Total_amount_paid
     
     var paid: Double {
-      //  return self.totalAmountPaid
-        return 0.0
+        return self.totalAmountPaid
+//        return 0.0
     }
     
     // Refund Amount: Total of cancellations + Total of Reschedules
@@ -1029,6 +1038,9 @@ struct FlightDetail {
         }
         return total
     }
+    var calendarDepartDate: Date?
+    var calendarArivalDate: Date?
+
     
     init() {
         self.init(json: [:])
@@ -1070,6 +1082,16 @@ struct FlightDetail {
         
         if let obj = json["departure_time"] {
             self.departureTime = "\(obj)".removeNull
+        }
+        
+        if  let date = json["depart_date"], let time = json["departure_time"]{
+            // "2019-02-01"
+            self.calendarDepartDate = "\(date) \(time)".toDate(dateFormat: "yyyy-MM-dd HH:mm")
+        }
+        
+        if  let date = json["arrival_date"], let time = json["arrival_time"]{
+            // "2019-02-01"
+            self.calendarArivalDate = "\(date) \(time)".toDate(dateFormat: "yyyy-MM-dd HH:mm")
         }
         
         if let obj = json["arrival"] {
@@ -1989,18 +2011,23 @@ struct Transaction {
     var codes: [Codes] = []
     
     init(json: JSONDictionary) {
-        if let obj = json["amount"] {
-            self.amount = "\(obj)".toDouble ?? 0.0
-        }
-        else if let obj = json["total"] {
-            self.amount = "\(obj)".toDouble ?? 0.0
-        }
-        
-        if let obj = json["ledger_name"] {
-            self.ledgerName = "\(obj)"
-        }
-        if let obj = json["codes"] as? JSONDictionary {
-            self.codes = Codes.models(json: obj)
+        if let amt = (json["Total"] as? JSONDictionary)?["amount"]{
+            self.amount = "\(amt)".toDouble ?? 0.0
+            self.ledgerName = "total"
+        }else{
+            if let obj = json["amount"] {
+                self.amount = "\(obj)".toDouble ?? 0.0
+            }
+            else if let obj = json["total"] {
+                self.amount = "\(obj)".toDouble ?? 0.0
+            }
+            
+            if let obj = json["ledger_name"] {
+                self.ledgerName = "\(obj)"
+            }
+            if let obj = json["codes"] as? JSONDictionary {
+                self.codes = Codes.models(json: obj)
+            }
         }
     }
     

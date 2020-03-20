@@ -173,7 +173,11 @@ extension ThankYouRegistrationVC: SFSafariViewControllerDelegate {
 
 extension ThankYouRegistrationVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popViewController(animated: true)
+        if self.navigationController?.viewControllers.count == 1 {
+            AppFlowManager.default.goToDashboard()
+        } else {
+           AppFlowManager.default.popViewController(animated: true)
+        }
     }
 }
 
