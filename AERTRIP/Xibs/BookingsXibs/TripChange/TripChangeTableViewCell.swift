@@ -15,6 +15,13 @@ class TripChangeTableViewCell: ATTableViewCell {
     @IBOutlet weak var tripTitleLabel: UILabel!
     @IBOutlet weak var tripNameLabel: UILabel!
     @IBOutlet weak var changeButton: UIButton!
+    @IBOutlet weak var viewBottomContraint: NSLayoutConstraint!
+    
+    var hideBottomSpace = false {
+        didSet {
+            self.updateBottomConstraint()
+        }
+    }
     
     override func doInitialSetup() {
         self.tripChangeImageView.tintColor = AppColors.brightViolet
@@ -42,5 +49,12 @@ class TripChangeTableViewCell: ATTableViewCell {
     
     func configureCell(tripName: String) {
         self.tripNameLabel.text = tripName
+    }
+    
+    private func updateBottomConstraint() {
+        let bottomConstant: CGFloat = hideBottomSpace ? 0 : 21
+        if viewBottomContraint.constant != bottomConstant {
+            viewBottomContraint.constant = bottomConstant
+        }
     }
 }

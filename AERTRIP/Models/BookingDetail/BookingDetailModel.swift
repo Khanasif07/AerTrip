@@ -2212,6 +2212,11 @@ struct WeatherInfo {
         if let obj = json["city"] {
             self.city = "\(obj)"
         }
+        
+        if let obj = json["temperature"] {
+            self.temperature = "\(obj)".toInt ?? 0
+        }
+        
     }
     
     static func getModels(json: [JSONDictionary]) -> [WeatherInfo] {
