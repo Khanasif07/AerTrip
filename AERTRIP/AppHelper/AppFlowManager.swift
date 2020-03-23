@@ -622,7 +622,7 @@ extension AppFlowManager {
     func presentCreateNewTripVC(delegate: CreateNewTripVCDelegate, onViewController: UIViewController? = nil) {
         let obj = CreateNewTripVC.instantiate(fromAppStoryboard: .HotelResults)
         obj.modalPresentationStyle = .overFullScreen
-//        obj.modalPresentationCapturesStatusBarAppearance =  true
+        obj.modalPresentationCapturesStatusBarAppearance =  true
         obj.statusBarColor = AppColors.themeWhite
         obj.delegate = delegate
         if let oVC = onViewController {

@@ -113,17 +113,22 @@ class RecentHotelSearchCollectionViewCell: UICollectionViewCell {
     private func adultAndRoomText(recentSearchesData: RecentSearchesModel) {
         var roomCount: Int = 0
         var adultCounts: Int = 0
+        var childCounts: Int = 0
         if let roomData = recentSearchesData.room {
             for roomData in roomData {
                 if roomData.isPresent{
                     roomCount += 1
                     adultCounts += Int(roomData.adultCounts) ?? 0
+                    childCounts += Int(roomData.child.count)
                 }
             }
         }
         let roomText = (roomCount == 1) ? "\(roomCount) Room" : "\(roomCount) Rooms"
         let adultText = adultCounts == 1 ? "\(adultCounts) Adult" : "\(adultCounts) Adults"
-        self.totalAdultsLabel.text = roomText + " (\(adultText))"
+        let childText = adultCounts == 1 ? "\(childCounts) Children" : "\(childCounts) Childrens"
+
+        let message = childCounts == 0 ? " (\(adultText))" : " (\(adultText), \(childText))"
+        self.totalAdultsLabel.text = roomText + message
         
     }
 }

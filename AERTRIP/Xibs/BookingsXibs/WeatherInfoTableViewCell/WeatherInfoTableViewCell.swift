@@ -61,7 +61,14 @@ class WeatherInfoTableViewCell: UITableViewCell {
     private func configureCell() {
         let cityNameCode: String = "\(weatherData?.city ?? ""), \(weatherData?.countryCode ?? "")"
         getCityNameWithDateLabel(cityName: usingFor == .hotel ? "" : cityNameCode, date: weatherData?.date?.toString(dateFormat: usingFor == .hotel ? "E, d MMM" : "d MMM") ?? "")
-        tempLabel.text = weatherData?.maxTemperature == 0 || weatherData?.minTemperature == 0 ? "   -         " : "\(weatherData?.temperature ?? 0)\u{00B0}C"
+        if weatherData?.maxTemperature == 0 || weatherData?.minTemperature == 0 {
+           tempLabel.text = "   -         "
+        } else if (weatherData?.temperature ?? 0) != 0 {
+            tempLabel.text = "\(weatherData?.temperature ?? 0)\u{00B0}C"
+        } else {
+            tempLabel.text = ""
+        }
+//        tempLabel.text = weatherData?.maxTemperature == 0 || weatherData?.minTemperature == 0 ? "   -         " : "\(weatherData?.temperature ?? 0)\u{00B0}C"
         let code: String = String(weatherData?.weatherIcon.split(separator: "-").first ?? "")
         
         let iconWithText = AppGlobals.shared.getTextWithImage(startText: "", image: ATWeatherType(rawValue: code)!.icon, endText: "  \(weatherData?.maxTemperature ?? 0) \u{00B0}/ \(weatherData?.minTemperature ?? 0)\u{00B0}", font: AppFonts.Regular.withSize(18.0), isEndTextBold: false)

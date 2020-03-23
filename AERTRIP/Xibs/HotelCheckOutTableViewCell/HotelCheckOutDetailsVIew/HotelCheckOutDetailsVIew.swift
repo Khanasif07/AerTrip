@@ -25,7 +25,8 @@ class HotelCheckOutDetailsVIew: UIView {
     internal weak var delegate: HotelCheckOutDetailsVIewDelegate?
     internal var roomRates = [[RoomsRates : Int]]()
     internal let hotelImageHeight: CGFloat = 211.0
-
+    internal var didsmissOnScrollPosition: CGFloat = 200.0
+    
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var hotelDetailsTableView: ATTableView! {

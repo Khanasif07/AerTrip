@@ -151,7 +151,7 @@ class ViewProfileVC: BaseVC {
         
         self.profileImageHeaderView?.delegate = self
         self.setupParallaxHeader()
-
+        
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 17.0))
         tableView.tableFooterView = footerView
         self.tableView.dataSource = self
@@ -392,12 +392,14 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
             
             self.currentProgressIntValue = intValue
             self.currentProgress = newProgress.toCGFloat
-
+            
         }
         //
         if prallexProgress  <= 0.7 {
             if isNavBarHidden {
-                self.statusBarStyle = .lightContent
+                if let parent = self.parent as? BaseVC {
+                    parent.statusBarStyle = .lightContent
+                }
                 
                 self.topNavView.animateBackView(isHidden: true) { [weak self](isDone) in
                     
@@ -414,7 +416,9 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
                 }
                 
             } else {
-                self.statusBarStyle = .default
+                if let parent = self.parent as? BaseVC {
+                    parent.statusBarStyle = .default
+                }
                 
                 self.topNavView.animateBackView(isHidden: false) { [weak self](isDone) in
                     
@@ -429,8 +433,9 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
                 }
             }
         } else {
-            
-            self.statusBarStyle = isBackBtnTapped ? .default : .lightContent
+            if let parent = self.parent as? BaseVC {
+                parent.statusBarStyle = isBackBtnTapped ? .default : .lightContent
+            }
             
             self.topNavView.animateBackView(isHidden: true) { [weak self](isDone) in
                 
@@ -452,7 +457,7 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updateForParallexProgress()
-
+        
         // Nimish
         updateProfileImageViewFrame()
         // Nimish

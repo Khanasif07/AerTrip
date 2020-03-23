@@ -50,6 +50,10 @@ class CreateNewTripVC: BaseVC {
         
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.statusBarStyle = .lightContent
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -202,7 +206,7 @@ extension CreateNewTripVC {
             }
         case .ended, .cancelled:
             if touchPoint.y - initialTouchPoint.y > 300 {
-                dismiss(animated: true, completion: nil)
+                dismiss(animated: false, completion: nil)
             } else {
                 UIView.animate(withDuration: 0.2, animations: {
                     self.popUpContainerView.frame = CGRect(x: 0,
