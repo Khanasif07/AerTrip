@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -122,6 +122,7 @@ Pin-code: 400 087</string>
             <connections>
                 <outlet property="hotelNameLabel" destination="xeZ-nS-7A8" id="nnS-sE-ePO"/>
                 <outlet property="mainStackBtmConst" destination="T8q-5u-vKx" id="tq8-Hh-hPN"/>
+                <outlet property="stackViewTopConstraint" destination="3yQ-zn-UIZ" id="V4v-jq-WMz"/>
                 <outlet property="starRatingContatinerView" destination="aFv-gN-7Ac" id="ABG-cY-oou"/>
                 <outlet property="starRatingView" destination="D3p-YX-RCR" id="pP4-b4-LY9"/>
                 <outlet property="starRatingViewLeadingConst" destination="FID-M5-pzt" id="PId-9R-JT8"/>

@@ -281,7 +281,14 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         }
         else if indexPath.section == 1 {
             //case details
-            return 30.0
+            let title = self.viewModel.caseDetailTitle[indexPath.row]
+            let value = self.viewModel.caseDetailData[title] as? String ?? ""
+            if !(value.isEmpty) && !(value == LocalizedString.dash.localized){
+                return 30.0
+            }else{
+                return 0.0
+            }
+            
         }
         else if let caseD = self.viewModel.caseHistory, !caseD.note.isEmpty {
             return UITableView.automaticDimension
@@ -331,7 +338,12 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         requestStatusCell.configureCell(title: title, descriptor: value, status: .none)
         
         if indexPath.row == 0 {
-            requestStatusCell.descriptorLabel.textColor = self.viewModel.caseData?.resolutionStatus.textColor
+            if !(self.viewModel.caseData?.resolutionStatus ?? .closed == .canceled){
+                requestStatusCell.descriptorLabel.textColor = self.viewModel.caseData?.resolutionStatus.textColor
+            }else{
+                requestStatusCell.descriptorLabel.textColor = AppColors.themeRed
+            }
+            
         }
         else {
             requestStatusCell.descriptorLabel.textColor = AppColors.themeTextColor

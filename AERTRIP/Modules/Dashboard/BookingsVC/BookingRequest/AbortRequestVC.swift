@@ -45,6 +45,8 @@ class AbortRequestVC: BaseVC {
     override func setupFonts() {
         self.confirmAbortButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
         self.abortRequestTitleLabel.font = AppFonts.Regular.withSize(14.0)
+        self.addCommentTextView.tintColor = AppColors.themeGreen
+        self.addCommentTextView.font = AppFonts.Regular.withSize(18.0)
         self.addCommentTextView.delegate = self
     }
     
