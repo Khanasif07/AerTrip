@@ -50,7 +50,7 @@ class BookingVoucherTableViewCell: ATTableViewCell {
     override func setupFonts() {
         self.titleLabel.font = AppFonts.Regular.withSize(18.0)
         self.dateLabel.font = AppFonts.Regular.withSize(16.0)
-        self.priceLabel.font = AppFonts.Regular.withSize(22.0)
+        self.priceLabel.font = AppFonts.SemiBold.withSize(22.0)
         self.payNowButton.titleLabel?.font = AppFonts.SemiBold.withSize(16.0)
     }
     
