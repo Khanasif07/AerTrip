@@ -103,7 +103,9 @@ class HCDataSelectionVC: BaseVC {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
-            hotelCheckOutDetailsVIew.frame = CGRect(x: 0.0, y: AppFlowManager.default.safeAreaInsets.top, width: hotelCheckOutDetailsContainerVIew.width, height: hotelCheckOutDetailsContainerVIew.bounds.height - AppFlowManager.default.safeAreaInsets.top)
+//            CGRect(x: 0.0, y: AppFlowManager.default.safeAreaInsets.top, width: hotelCheckOutDetailsContainerVIew.width, height: hotelCheckOutDetailsContainerVIew.bounds.height - AppFlowManager.default.safeAreaInsets.top)
+
+            hotelCheckOutDetailsVIew.frame = CGRect(x: 0.0, y: AppFlowManager.default.safeAreaInsets.top, width: hotelCheckOutDetailsContainerVIew.width, height: hotelCheckOutDetailsContainerVIew.bounds.height)
         }
     }
     
@@ -261,13 +263,13 @@ class HCDataSelectionVC: BaseVC {
             fareDetailContainerView.isHidden = false
             if isHotelDetailsCheckOutViewOpen {
 //                self.hotelCheckOutDetailsContainerVIew.transform = CGAffineTransform(translationX: 0, y: view.height - (hotelDetailsParentContainerView.height + fareDetailContainerView.height + AppFlowManager.default.safeAreaInsets.top))
-                hotelDetailsContainerViewHeightConstraint.constant = view.height - (hotelDetailsParentContainerView.height + fareDetailContainerView.height + AppFlowManager.default.safeAreaInsets.top)
+                hotelDetailsContainerViewHeightConstraint.constant = view.height - (hotelDetailsParentContainerView.height + fareDetailContainerView.height)
             }
         }
         else {
             if isHotelDetailsCheckOutViewOpen {
 //                 self.hotelCheckOutDetailsContainerVIew.transform = CGAffineTransform(translationX: 0, y: view.height - (hotelDetailsParentContainerView.height +  AppFlowManager.default.safeAreaInsets.top))
-                hotelDetailsContainerViewHeightConstraint.constant = view.height - (hotelDetailsParentContainerView.height + AppFlowManager.default.safeAreaInsets.top)
+                hotelDetailsContainerViewHeightConstraint.constant = view.height - (hotelDetailsParentContainerView.height )
             }
         }
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in

@@ -214,16 +214,16 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.addMapView()
         self.appleMap.delegate = self
         self.addGestureRecognizerForTap()
-        if AppGlobals.shared.isNetworkRechable() {
-            delay(seconds: 0.2) { [weak self] in
-                guard let strongSelf = self else {return}
-               // strongSelf.mapView?.delegate = self
-                strongSelf.loadFinalDataOnScreen()
-            }
-        } else {
-            self.noHotelFound()
-            AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
-        }
+//        if AppGlobals.shared.isNetworkRechable() {
+//            delay(seconds: 0.2) { [weak self] in
+//                guard let strongSelf = self else {return}
+//               // strongSelf.mapView?.delegate = self
+                self.loadFinalDataOnScreen()
+//            }
+//        } else {
+//            self.noHotelFound()
+//            AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
+//        }
         setupCollection()
     }
     
