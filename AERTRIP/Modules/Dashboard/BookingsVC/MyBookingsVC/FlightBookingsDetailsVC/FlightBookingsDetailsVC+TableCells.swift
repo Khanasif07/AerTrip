@@ -265,7 +265,7 @@ extension FlightBookingsDetailsVC {
         } else {
             tripChangeCell.configureCell(tripName: self.viewModel.bookingDetail?.tripInfo?.name ?? "")
         }
-        
+        tripChangeCell.hideBottomSpace = self.viewModel.bookingDetail?.tripWeatherData.isEmpty ?? true
         return tripChangeCell
     }
     
