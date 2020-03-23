@@ -376,7 +376,7 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
            //  get item position
             let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: guestDetailTableView)
             
-            self.guestDetailTableView.setContentOffset(CGPoint(x: self.guestDetailTableView.origin.x, y: itemPosition.y - CGFloat(104)), animated: true)
+            self.guestDetailTableView.setContentOffset(CGPoint(x: self.guestDetailTableView.origin.x, y: itemPosition.y - CGFloat(94)), animated: true)
          
             self.guestDetailTableView.isScrollEnabled = (self.travellers.count == 0)
             //false            travellersTableView.reloadData()

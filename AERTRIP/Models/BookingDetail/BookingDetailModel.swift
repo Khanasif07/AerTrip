@@ -469,26 +469,7 @@ extension BookingDetailModel {
         if let legs = self.bookingDetail?.leg, let index = legs.firstIndex(where: { $0.completed == 0 }) {
             return (index < (self.additionalInformation?.webCheckins.count ?? 0)) ? (self.additionalInformation?.webCheckins[index] ?? "") : ""
         }
-        else {
-            // TODO: - handeling for hotels
-            return self.additionalInformation?.webCheckins.first ?? ""
-            if self.bookingDetail?.journeyCompleted == 1 {
-                return ""
-            }
-            else {
-                if let index = self.bookingDetail?.leg.firstIndex(where: { (result) -> Bool in
-                    result.completed == 0
-                }) {
-                    if index < self.additionalInformation?.webCheckins.count ?? 0 {
-                        return self.additionalInformation?.webCheckins[index] ?? ""
-                    }
-                    else {
-                        return ""
-                    }
-                }
-                return ""
-            }
-        }
+        return ""
     }
     
     var frequentFlyerDatas: [FrequentFlyerData] {

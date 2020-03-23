@@ -60,6 +60,7 @@ extension BookingHotelDetailVC {
             }
             hotelNameCell.starRatingViewLeadingConst.constant = 0
             hotelNameCell.mainStackBtmConst.constant = 20.0
+            hotelNameCell.stackViewTopConstraint.constant = 16.0
             hotelNameCell.configureCell(hoteName: self.viewModel.bookingDetail?.bookingDetail?.hotelName ?? "", starRating: self.viewModel.bookingDetail?.bookingDetail?.hotelStarRating ?? 0.0, tripRating: self.viewModel.bookingDetail?.bookingDetail?.taRating ?? 0.0)
             
             return hotelNameCell
@@ -168,7 +169,7 @@ extension BookingHotelDetailVC {
     }
     
     func getHeightForRowFirstSection(_ indexPath: IndexPath) -> CGFloat {
-        return [222.5, 100, UITableView.automaticDimension, 145.0][indexPath.row]
+        return [220.5, 100, UITableView.automaticDimension, 145.0][indexPath.row]
     }
     
     func getHeightForRoomSection(_ indexPath: IndexPath) -> CGFloat {

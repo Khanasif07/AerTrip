@@ -66,11 +66,15 @@ class HotelsSearchVM: NSObject{
         var room: JSONDictionaryArray = []
         for (index,adultData) in self.searchedFormData.adultsCount.enumerated() {
             var childArrayData: JSONDictionaryArray = []
+            
             if index < self.searchedFormData.childrenAge.count {
-                for child in self.searchedFormData.childrenAge[index] {
+                for (childIndex,child) in self.searchedFormData.childrenAge[index].enumerated() {
+                    if  childIndex < self.searchedFormData.childrenCounts[index] {
+                    
                     let show: Int = child >= 0 ? 1 : 0
                     let childData: JSONDictionary = [APIKeys.show.rawValue : show , APIKeys.age.rawValue : child , APIKeys.error.rawValue : false]
                     childArrayData.append(childData)
+                    }
                 }
             }
             let roomData: JSONDictionary = [APIKeys.adults.rawValue : adultData , APIKeys.child.rawValue : childArrayData , APIKeys.show.rawValue : 1]

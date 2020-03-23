@@ -122,6 +122,7 @@ Pin-code: 400 087</string>
             <connections>
                 <outlet property="hotelNameLabel" destination="xeZ-nS-7A8" id="nnS-sE-ePO"/>
                 <outlet property="mainStackBtmConst" destination="T8q-5u-vKx" id="tq8-Hh-hPN"/>
+                <outlet property="stackViewTopConstraint" destination="3yQ-zn-UIZ" id="V4v-jq-WMz"/>
                 <outlet property="starRatingContatinerView" destination="aFv-gN-7Ac" id="ABG-cY-oou"/>
                 <outlet property="starRatingView" destination="D3p-YX-RCR" id="pP4-b4-LY9"/>
                 <outlet property="starRatingViewLeadingConst" destination="FID-M5-pzt" id="PId-9R-JT8"/>

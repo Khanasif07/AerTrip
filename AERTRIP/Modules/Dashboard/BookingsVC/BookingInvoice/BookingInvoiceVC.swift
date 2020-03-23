@@ -300,7 +300,7 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
                 headerView.discountsTitleLabel.text = "Taxes and Fees"
                 headerView.discountPriceLabel.text = "\(Double(0).delimiterWithSymbol)"
             }
-            
+            headerView.topBackgroundView.backgroundColor = AppColors.themeWhite
             headerView.tag = section
             return headerView
             
@@ -331,7 +331,7 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
             }
             
             headerView.delegate = self
-            
+            headerView.topBackgroundView.backgroundColor = AppColors.themeWhite
             headerView.tag = section
             return headerView
         }

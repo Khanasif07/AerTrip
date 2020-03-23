@@ -33,6 +33,7 @@ class BookingFlightDetailVC: BaseVC {
     let viewModel = BookingDetailVM()
     
     override func initialSetup() {
+        self.view.layoutIfNeeded()
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.setUpSegmentControl()
@@ -63,6 +64,26 @@ class BookingFlightDetailVC: BaseVC {
     private func setUpSegmentControl() {
         segmentControl.selectedSegmentIndex = 0
         segmentControl.addTarget(self, action: #selector(indexChanged(_:)), for: .valueChanged)
+        
+        if #available(iOS 13.0, *) {
+            segmentControl.backgroundColor = AppColors.themeWhite
+            segmentControl.selectedSegmentTintColor = AppColors.themeGreen
+            segmentControl.tintColor = AppColors.themeGreen
+            segmentControl.apportionsSegmentWidthsByContent = true
+            segmentControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeWhite], for: UIControl.State.selected)
+            
+            let font: [AnyHashable : Any] = [NSAttributedString.Key.font : AppFonts.SemiBold.withSize(14)]
+            segmentControl.setTitleTextAttributes(font as? [NSAttributedString.Key : Any], for: .normal)
+            segmentControl.layer.borderColor = AppColors.themeGreen.cgColor
+            segmentControl.layer.borderWidth = 1.0
+            segmentControl.layer.cornerRadius = 4.0
+            segmentControl.layer.masksToBounds = true
+            
+            segmentControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGreen], for: UIControl.State.normal)
+//            segmentControl.setBacgroundColor()
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     private func registerXib() {
