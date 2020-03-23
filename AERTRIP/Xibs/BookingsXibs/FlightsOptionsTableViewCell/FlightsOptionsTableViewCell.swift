@@ -97,7 +97,7 @@ extension FlightsOptionsTableViewCell: UICollectionViewDelegate, UICollectionVie
                 cell.optionNameLabel.textColor = AppColors.themeGray40
             }
         } else {
-            cell.configureCell(optionImage: self.optionImages[indexPath.item], optionName: self.optionNames[indexPath.item], isLastCell: indexPath.row == 2)
+            cell.configureCell(optionImage: self.optionImages[indexPath.item], optionName: self.optionNames[indexPath.item], isLastCell: indexPath.row == 1)
             if indexPath.item == 0, self.additionalInformation?.directions.isEmpty ?? false {
                 cell.optionImageView.image = #imageLiteral(resourceName: "dircetionGray")
                 cell.optionNameLabel.textColor = AppColors.themeGray40

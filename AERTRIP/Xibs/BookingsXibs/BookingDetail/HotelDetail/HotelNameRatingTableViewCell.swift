@@ -20,7 +20,8 @@ class HotelNameRatingTableViewCell: ATTableViewCell {
     @IBOutlet weak var tripRatingView: FloatRatingView!
     @IBOutlet weak var tripAdvisorImageView: UIImageView!
     @IBOutlet weak var taImageLeadingConstraint: NSLayoutConstraint!
-
+    @IBOutlet weak var stackViewTopConstraint: NSLayoutConstraint!
+    
     // MARK: - View Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()

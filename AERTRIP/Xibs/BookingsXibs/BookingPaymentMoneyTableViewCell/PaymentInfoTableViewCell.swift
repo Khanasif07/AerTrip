@@ -13,7 +13,8 @@ class PaymentInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var paymentInfoLabel: UILabel!
     @IBOutlet weak var nextScreenImageView: UIImageView!
-
+    @IBOutlet weak var paymentInfoTopConstraint: NSLayoutConstraint!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
