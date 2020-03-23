@@ -17,7 +17,6 @@ extension HotelsMapVC : MKMapViewDelegate{
         let annotationView = MKAnnotationView(annotation: annatation, reuseIdentifier: "route")
         annotationView.image = returnImageForMarker(annotation: annatation)
         annotationView.canShowCallout = true
-        
         return annotationView
         
     }

@@ -60,7 +60,10 @@ extension HotelsMapVC {
     }
     
     func removeAllFavouritesHotels() {
-        guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
+        guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {
+            self.isRemovingAllFav = false
+            return
+        }
         self.switchView.setOn(isOn: false)
         self.manageSwitchContainer(isHidden: true)
         self.viewModel.isUnpinHotelTapped = true

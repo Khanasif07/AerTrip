@@ -162,6 +162,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     //Manage Transition Created by golu
     var detailsShownMarkers = [MyAnnotation]()
     var seletedIndexForSearchTable:Int?
+    var isRemovingAllFav:Bool = false
     var currentMapSpan = MKCoordinateSpan(latitudeDelta: 0.025, longitudeDelta:  0.035)
     internal var transition: CardTransition?
     override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
@@ -461,6 +462,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
                 printDebug("Share")
                 self?.openSharingSheet()
             } else if index == 2 {
+                self?.isRemovingAllFav = true
                 self?.removeAllFavouritesHotels()
                 printDebug("Remove All photo")
             }

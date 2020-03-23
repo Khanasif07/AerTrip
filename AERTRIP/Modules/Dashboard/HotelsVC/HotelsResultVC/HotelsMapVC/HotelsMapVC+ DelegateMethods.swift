@@ -218,7 +218,12 @@ extension HotelsMapVC: HotelResultDelegate {
         } else {
             self.viewModel.getFavouriteHotels(shouldReloadData: false)//to manage the switch button and original hotel list (if no fav then load full list) after updating favs.
         }
-        self.updateFavouriteAnnotationDetail(duration: 0.4)
+        if(self.isRemovingAllFav){
+            self.updateSeletedUnfavouriteAll()
+            self.isRemovingAllFav = false
+        }else{
+            self.updateFavouriteAnnotationDetail(duration: 0.4)
+        }
     }
     
     func updateFavouriteFail(errors: ErrorCodes, isHotelFavourite: Bool) {
@@ -245,7 +250,12 @@ extension HotelsMapVC: HotelResultDelegate {
             }
         }
         
-        self.updateFavouriteAnnotationDetail(duration: 0.4)
+        if(self.isRemovingAllFav){
+            self.updateSeletedUnfavouriteAll()
+            self.isRemovingAllFav = false
+        }else{
+            self.updateFavouriteAnnotationDetail(duration: 0.4)
+        }
 //        self.showHotelOnMap(duration: 0.4)
     }
     
