@@ -15,23 +15,42 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
         return 1
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.chatVm.messages.count
     }
         
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        switch self.chatVm.messages[indexPath.row].msgSource {
+            case .me, .other:
+                return UITableView.automaticDimension
+            default:
+                return 53
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SenderChatCell", for: indexPath) as? SenderChatCell else {
-             printDebug("SenderChatCell not found")
-             return UITableViewCell()
-         }
-        cell.populateData(msgObj: self.chatVm.messages[indexPath.row])
-        return cell
+        switch self.chatVm.messages[indexPath.row].msgSource {
+            case .me:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SenderChatCell", for: indexPath) as? SenderChatCell else {
+                    fatalError("SenderChatCell not found")
+            }
+                    cell.populateData(msgObj: self.chatVm.messages[indexPath.row])
+                    return cell
+            
+            case .other:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "ReceiverChatCell", for: indexPath) as? ReceiverChatCell else {
+                   fatalError("ReceiverChatCell not found")
+               }
+                cell.populateData(msgObj: self.chatVm.messages[indexPath.row])
+                return cell
+            
+            default:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "TypingStatusChatCell", for: indexPath) as? TypingStatusChatCell else {
+                    fatalError("TypingStatusChatCell not found")
+            }
+                return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

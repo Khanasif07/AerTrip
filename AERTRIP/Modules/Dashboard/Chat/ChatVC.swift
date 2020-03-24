@@ -27,6 +27,8 @@ class ChatVC : BaseVC {
     @IBOutlet weak var animationLabel: UILabel!
     @IBOutlet weak var animationBubbleImageView: UIImageView!
     @IBOutlet weak var textViewBackView: UIView!
+    @IBOutlet weak var suggestionsCollectionView: UICollectionView!
+    @IBOutlet weak var sendButtonWidth: NSLayoutConstraint!
     
     //MARK:- Variables
     private var name = "Guru"
@@ -50,6 +52,10 @@ class ChatVC : BaseVC {
         super.viewWillDisappear(animated)
         IQKeyboardManager.shared().isEnabled = true
         removeKeyboard()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     @IBAction func chatButtonTapped(_ sender: UIButton) {
@@ -79,10 +85,11 @@ extension ChatVC {
     
     //MARK:- Setup view
     private func setUpSubView(){
-        setUpNavigationView()
-        setUpAttributes()
-        performInitialAnimation()
-        configureTableView()
+        self.setUpNavigationView()
+        self.setUpAttributes()
+        self.performInitialAnimation()
+        self.configureTableView()
+        self.configureCollectionView()
     }
     
     //MARK:- Set view attributes
@@ -95,11 +102,13 @@ extension ChatVC {
         self.morningLabel.attributedText = morningStr.attributeStringWithColors(stringToColor: name, strClr: UIColor.black, substrClr: AppColors.themeGreen, strFont: AppFonts.Regular.withSize(28), strClrFont: AppFonts.SemiBold.withSize(28))
         messageTextView.font = AppFonts.Regular.withSize(18)
         self.messageTextView.delegate = self
-        self.animationBubbleImageView.image = UIImage(named: "outgoing-message-bubble")?.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        self.animationBubbleImageView.image = UIImage(named: "Green Chat bubble")?.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         self.view.addSubview(animationView)
-        self.animationView.isHidden = true
+        self.hideAnimationView()
         self.chatTableView.isHidden = true
         self.chatButton.isUserInteractionEnabled = false
+        self.messageTextView.tintColor = AppColors.themeGreen
+        self.showHideSendButton()
     }
     
     //MARK:- Configure tableview
@@ -107,10 +116,20 @@ extension ChatVC {
         chatTableView.dataSource = self
         chatTableView.delegate = self
         chatTableView.register(UINib(nibName: "SenderChatCell", bundle: nil), forCellReuseIdentifier: "SenderChatCell")
+        chatTableView.register(UINib(nibName: "TypingStatusChatCell", bundle: nil), forCellReuseIdentifier: "TypingStatusChatCell")
+        chatTableView.register(UINib(nibName: "ReceiverChatCell", bundle: nil), forCellReuseIdentifier: "ReceiverChatCell")
         chatTableView.estimatedRowHeight = 100
         chatTableView.rowHeight = UITableView.automaticDimension
     }
     
+    func configureCollectionView(){
+        suggestionsCollectionView.dataSource = self
+        suggestionsCollectionView.delegate = self
+        suggestionsCollectionView.register(UINib(nibName: "SuggestionsCell", bundle: nil), forCellWithReuseIdentifier: "SuggestionsCell")
+        suggestionsCollectionView.contentInset = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
+        suggestionsCollectionView.isHidden = true
+    }
+        
     //MARK:- Set navigation view
     private func setUpNavigationView(){
         topNavView.delegate = self
@@ -168,7 +187,8 @@ extension ChatVC {
         self.animationBubbleImageView.transform = CGAffineTransform(translationX: -horizintalScale, y: 0)
         self.sendButton.isEnabled = false
         self.showAnimationViewWith(text: text)
-//        UIView.animate(withDuration: 0.3, animations: {
+
+        //        UIView.animate(withDuration: 0.3, animations: {
 //            self.animationBubbleImageView.transform = CGAffineTransform.identity
 //            self.animationLabel.transform = CGAffineTransform.identity
 //            self.animationView.frame.origin.y = rectWrtView.origin.y
@@ -197,7 +217,7 @@ extension ChatVC {
             self.hideShowSenderCellContent(ishidden: false)
             self.hideAnimationView()
             self.chatVm.messages[self.chatVm.messages.count - 1].isHidden = false
-            delay(seconds: 0.3) {
+            delay(seconds: 0.2) {
                 self.sendButton.isEnabled = true
             }
         }
@@ -205,8 +225,10 @@ extension ChatVC {
     
     func showAnimationViewWith(text : String){
         self.animationView.isHidden = false
-        self.animationLabel.text = text
-        self.animationView.alpha = 1
+        UIView.animate(withDuration: 0.2) {
+            self.animationLabel.text = text
+            self.animationView.alpha = 1
+        }
     }
     
     func hideAnimationView(){
@@ -272,6 +294,16 @@ extension ChatVC {
     
     func textViewDidChange(_ textView: UITextView) {
         arrangeTextViewHeight()
+        showHideSendButton(text: textView.text ?? "")
+    }
+    
+    func showHideSendButton(text : String = ""){
+        if text.count > 1 { return }
+        UIView.animate(withDuration: 0.3) {
+            self.sendButtonWidth.constant = text.isEmpty ? 0 : 44
+            self.view.layoutIfNeeded()
+//            self.sendButton.alpha = text.isEmpty ? 0 : 1
+        }
     }
     
     func arrangeTextViewHeight(){

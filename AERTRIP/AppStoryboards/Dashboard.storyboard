@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -1578,6 +1579,29 @@ on Christmas”</string>
                                 <rect key="frame" x="0.0" y="44" width="375" height="579"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TyX-rk-SSG">
+                                <rect key="frame" x="0.0" y="530" width="375" height="93"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="93" id="rRN-jw-VrE"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1kc-cJ-u7x">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="TSP-Od-79D">
+                                        <rect key="frame" x="0.0" y="21.5" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="vrT-7t-7kb">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -1587,8 +1611,11 @@ on Christmas”</string>
                             <constraint firstItem="LQJ-fm-qhE" firstAttribute="bottom" secondItem="qsI-YU-Au9" secondAttribute="bottom" id="KIk-g3-CNf"/>
                             <constraint firstItem="ooj-lS-MzQ" firstAttribute="top" secondItem="LQJ-fm-qhE" secondAttribute="top" constant="262" id="Lxa-Wv-a8X"/>
                             <constraint firstItem="wWm-ff-Gby" firstAttribute="top" secondItem="vwz-ka-BHx" secondAttribute="bottom" id="Omz-qP-3Mp"/>
+                            <constraint firstItem="TyX-rk-SSG" firstAttribute="leading" secondItem="LQJ-fm-qhE" secondAttribute="leading" id="QS4-WO-hMl"/>
+                            <constraint firstItem="qsI-YU-Au9" firstAttribute="top" secondItem="TyX-rk-SSG" secondAttribute="bottom" id="RR3-Ef-Vfm"/>
                             <constraint firstItem="vwz-ka-BHx" firstAttribute="top" secondItem="LQJ-fm-qhE" secondAttribute="top" id="ZsO-Tl-xH9"/>
                             <constraint firstItem="LQJ-fm-qhE" firstAttribute="trailing" secondItem="FQY-RR-TSG" secondAttribute="trailing" id="aAd-71-5YK"/>
+                            <constraint firstItem="LQJ-fm-qhE" firstAttribute="trailing" secondItem="TyX-rk-SSG" secondAttribute="trailing" id="ab0-MF-Muj"/>
                             <constraint firstItem="ooj-lS-MzQ" firstAttribute="centerX" secondItem="LQJ-fm-qhE" secondAttribute="centerX" id="b1M-7g-XeO"/>
                             <constraint firstItem="qsI-YU-Au9" firstAttribute="top" secondItem="wWm-ff-Gby" secondAttribute="bottom" id="d43-z3-75t"/>
                             <constraint firstItem="vwz-ka-BHx" firstAttribute="leading" secondItem="LQJ-fm-qhE" secondAttribute="leading" id="en4-Qf-nq4"/>
@@ -1611,6 +1638,8 @@ on Christmas”</string>
                         <outlet property="morningBackView" destination="FQY-RR-TSG" id="1TZ-3U-rtR"/>
                         <outlet property="morningLabel" destination="pqi-fE-jG8" id="Q6p-5x-mHb"/>
                         <outlet property="sendButton" destination="kfm-EL-2Wc" id="Zhk-Lh-wH1"/>
+                        <outlet property="sendButtonWidth" destination="Ceh-tB-5LH" id="FlL-0y-Jfg"/>
+                        <outlet property="suggestionsCollectionView" destination="TyX-rk-SSG" id="2wN-Ih-UlN"/>
                         <outlet property="textViewBackView" destination="qsI-YU-Au9" id="3GT-Y5-VKU"/>
                         <outlet property="textViewBackViewBottom" destination="KIk-g3-CNf" id="KQ6-PQ-yJa"/>
                         <outlet property="topNavView" destination="vwz-ka-BHx" id="j4c-We-oKF"/>

@@ -14,11 +14,12 @@ struct MessageModel {
     enum MessageSource{
         case me
         case other
+        case typing
     }
     
     var msg : String
     var msgSource : MessageSource
-    var isHidden : Bool = true
+    var isHidden : Bool = false
     
     init(msg : String, source : MessageSource) {
         self.msg = msg

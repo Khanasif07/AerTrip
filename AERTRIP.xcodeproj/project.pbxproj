@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C09BFD42429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09BFD32429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift */; };
 		0C0B231524210CD700E1764D /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C0B231424210CD700E1764D /* Chat.storyboard */; };
 		0C162AC8242337E9001C2B10 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162AC7242337E9001C2B10 /* MessageModel.swift */; };
 		0C162ACC24233AC5001C2B10 /* ChatVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */; };
@@ -25,6 +26,13 @@
 		0C93A8E82330ABB6000795DE /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C93A8E72330ABB6000795DE /* NotificationVC.swift */; };
 		0CAC8C8222E1E0620039D612 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F983A221B51A070018DFED /* UIImageExtension.swift */; };
 		0CAD5FE32338B32D0086F58D /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD5FE22338B32C0086F58D /* UILabel+Extension.swift */; };
+		0CBDEA432429CD3F009D7849 /* TypingStatusChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CBDEA412429CD3F009D7849 /* TypingStatusChatCell.swift */; };
+		0CBDEA442429CD3F009D7849 /* TypingStatusChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CBDEA422429CD3F009D7849 /* TypingStatusChatCell.xib */; };
+		0CBDEA472429CDE9009D7849 /* AMDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CBDEA462429CDE9009D7849 /* AMDots.swift */; };
+		0CBDEA4A2429E413009D7849 /* ReceiverChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CBDEA482429E413009D7849 /* ReceiverChatCell.swift */; };
+		0CBDEA4B2429E413009D7849 /* ReceiverChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CBDEA492429E413009D7849 /* ReceiverChatCell.xib */; };
+		0CBDEA4E2429EF9B009D7849 /* SuggestionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CBDEA4C2429EF9B009D7849 /* SuggestionsCell.swift */; };
+		0CBDEA4F2429EF9B009D7849 /* SuggestionsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CBDEA4D2429EF9B009D7849 /* SuggestionsCell.xib */; };
 		0CC23989231639EF00ADEE92 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC23988231639EF00ADEE92 /* TestViewController.swift */; };
 		0CC8546D2350956500544F10 /* UISearchBar+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC8546C2350956500544F10 /* UISearchBar+extension.swift */; };
 		0CD644B7234B0AEE00D71709 /* ATUnicodeSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD644B6234B0AED00D71709 /* ATUnicodeSwitch.swift */; };
@@ -1021,6 +1029,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C09BFD32429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatVC+CollectionViewDelegates.swift"; sourceTree = "<group>"; };
 		0C0B231424210CD700E1764D /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		0C162AC7242337E9001C2B10 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatVC+TableView.swift"; sourceTree = "<group>"; };
@@ -1039,6 +1048,13 @@
 		0C6C1C6D22E875D200152927 /* HotelFareSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelFareSectionHeader.swift; sourceTree = "<group>"; };
 		0C93A8E72330ABB6000795DE /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		0CAD5FE22338B32C0086F58D /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		0CBDEA412429CD3F009D7849 /* TypingStatusChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingStatusChatCell.swift; sourceTree = "<group>"; };
+		0CBDEA422429CD3F009D7849 /* TypingStatusChatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TypingStatusChatCell.xib; sourceTree = "<group>"; };
+		0CBDEA462429CDE9009D7849 /* AMDots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AMDots.swift; sourceTree = "<group>"; };
+		0CBDEA482429E413009D7849 /* ReceiverChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiverChatCell.swift; sourceTree = "<group>"; };
+		0CBDEA492429E413009D7849 /* ReceiverChatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceiverChatCell.xib; sourceTree = "<group>"; };
+		0CBDEA4C2429EF9B009D7849 /* SuggestionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsCell.swift; sourceTree = "<group>"; };
+		0CBDEA4D2429EF9B009D7849 /* SuggestionsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionsCell.xib; sourceTree = "<group>"; };
 		0CC23988231639EF00ADEE92 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		0CC8546C2350956500544F10 /* UISearchBar+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+extension.swift"; sourceTree = "<group>"; };
 		0CD644B6234B0AED00D71709 /* ATUnicodeSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATUnicodeSwitch.swift; sourceTree = "<group>"; };
@@ -2117,6 +2133,7 @@
 				0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */,
 				0C162ACB24233AC5001C2B10 /* ChatVC.swift */,
 				0C162ACE24233B24001C2B10 /* ChatVM.swift */,
+				0C09BFD32429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -2126,6 +2143,12 @@
 			children = (
 				0C272E272422601300133B50 /* SenderChatCell.swift */,
 				0C272E282422601300133B50 /* SenderChatCell.xib */,
+				0CBDEA412429CD3F009D7849 /* TypingStatusChatCell.swift */,
+				0CBDEA422429CD3F009D7849 /* TypingStatusChatCell.xib */,
+				0CBDEA482429E413009D7849 /* ReceiverChatCell.swift */,
+				0CBDEA492429E413009D7849 /* ReceiverChatCell.xib */,
+				0CBDEA4C2429EF9B009D7849 /* SuggestionsCell.swift */,
+				0CBDEA4D2429EF9B009D7849 /* SuggestionsCell.xib */,
 			);
 			path = chat;
 			sourceTree = "<group>";
@@ -2169,6 +2192,14 @@
 				0C93A8E72330ABB6000795DE /* NotificationVC.swift */,
 			);
 			path = NotificationVC;
+			sourceTree = "<group>";
+		};
+		0CBDEA452429CDE9009D7849 /* ChatDots */ = {
+			isa = PBXGroup;
+			children = (
+				0CBDEA462429CDE9009D7849 /* AMDots.swift */,
+			);
+			path = ChatDots;
 			sourceTree = "<group>";
 		};
 		0CD644B5234B0AC200D71709 /* ATUnicodeSwitch */ = {
@@ -5313,6 +5344,7 @@
 		84F9838121B51A070018DFED /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				0CBDEA452429CDE9009D7849 /* ChatDots */,
 				8408D1C82406ADB300432A2C /* AertripCalendar */,
 				8408D1C12406ADB200432A2C /* CalendarDataModel */,
 				84EEA5D623E1BC1B008B95CD /* ALToast */,
@@ -5634,6 +5666,7 @@
 				84409E5F2266F969005A5487 /* CustomDotMarker.xib in Resources */,
 				8483AFAB22119A44009F7600 /* HotelInfoAddressCell.xib in Resources */,
 				8445B53022A5371700DDBC7F /* CustomerContactCellTableViewCell.xib in Resources */,
+				0CBDEA4B2429E413009D7849 /* ReceiverChatCell.xib in Resources */,
 				18E79718224A06B100A7AC8B /* TotalPayableNowCell.xib in Resources */,
 				846856A922339607001B9E13 /* ReviewTableViewCell.xib in Resources */,
 				1809A47421CD053B0018AB2F /* EditProfileImageHeaderView.xib in Resources */,
@@ -5671,6 +5704,7 @@
 				183E3F5F21D9E8AA0032DEBA /* HotelPreferences.storyboard in Resources */,
 				8455A6772232784B00CEE2B3 /* TripAdvisorTravelerRatingTableViewCell.xib in Resources */,
 				840DDE92220D7C0800F8BA92 /* HotelDetailsImageCollectionCell.xib in Resources */,
+				0CBDEA4F2429EF9B009D7849 /* SuggestionsCell.xib in Resources */,
 				84B9B9DF225B5449007A4C94 /* HCSocialShareTripTableViewCell.xib in Resources */,
 				18999D9721E4A69000E66072 /* EmptyTableViewCell.xib in Resources */,
 				842E04902215855E00C482DC /* RecentHotelSearchCollectionViewCell.xib in Resources */,
@@ -5741,6 +5775,7 @@
 				840DDE8D220D764800F8BA92 /* HotelDetailsImgSlideCell.xib in Resources */,
 				180E7C0E223205D5005FAEA9 /* EmailComposerFooterView.xib in Resources */,
 				84EEA5D523E19E0C008B95CD /* EditProfileFooterTableView.xib in Resources */,
+				0CBDEA442429CD3F009D7849 /* TypingStatusChatCell.xib in Resources */,
 				1F4636D021F5ABF0000D56B0 /* CheckInOutView.xib in Resources */,
 				84504D592212F382002C1374 /* AmenitiesDescriptionHeaderView.xib in Resources */,
 				84DD24602265A9B50013F77E /* OthersBookingTableViewCell.xib in Resources */,
@@ -6041,6 +6076,7 @@
 				18B57A1122AF523A00269410 /* BookingTravellerAddOnsTableViewCell.swift in Sources */,
 				18F7493721D1070E0051FE6F /* EditProfileThreePartTableViewCell.swift in Sources */,
 				8408D1D02406ADB300432A2C /* CalendarVM.m in Sources */,
+				0CBDEA4A2429E413009D7849 /* ReceiverChatCell.swift in Sources */,
 				18E796FF2248E53B00A7AC8B /* FinalAmountTableViewCell.swift in Sources */,
 				84F983DF21B51A070018DFED /* StringExtension.swift in Sources */,
 				8472F20A23E4078100993B08 /* HotelsMapVC+HelperMethods.swift in Sources */,
@@ -6232,6 +6268,7 @@
 				842EDE96223A2CAA00E99409 /* HCSpecialRequestsVC.swift in Sources */,
 				84F983E121B51A070018DFED /* UserDefaultsExtension.swift in Sources */,
 				849DA81A23E2B6EB00C2E9D8 /* ATCategoryButton.swift in Sources */,
+				0C09BFD42429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift in Sources */,
 				84AFF97822A78D2800E91F14 /* HotelCancellationVC+Extensions.swift in Sources */,
 				8441BFAC22AA6E7A0046830B /* MyViewController.swift in Sources */,
 				841C8DAF225742BA009B9A54 /* YouAreAllDoneModel.swift in Sources */,
@@ -6242,6 +6279,7 @@
 				18E79717224A06B100A7AC8B /* TotalPayableNowCell.swift in Sources */,
 				84085CE821F59C0E00F1E844 /* CreateYourAccountVC.swift in Sources */,
 				18EF75372280145A00FCBBE6 /* PKWaterWaveView.swift in Sources */,
+				0CBDEA4E2429EF9B009D7849 /* SuggestionsCell.swift in Sources */,
 				8472F21723E4161C00993B08 /* HotelsMapVC+CoreData.swift in Sources */,
 				8455A67E2232920900CEE2B3 /* ReviewsOptionTableViewCell.swift in Sources */,
 				84085CD721F59C0E00F1E844 /* BaseTabBarController.swift in Sources */,
@@ -6468,6 +6506,7 @@
 				840A84222229BA890040EB99 /* HotelTagCollectionCell.swift in Sources */,
 				84085D0321F59C0E00F1E844 /* EditProfileVC.swift in Sources */,
 				182D4847228AA8C8004796A2 /* ATTableViewCell.swift in Sources */,
+				0CBDEA432429CD3F009D7849 /* TypingStatusChatCell.swift in Sources */,
 				84F983E521B51A070018DFED /* AppEnum.swift in Sources */,
 				1870540822A8E69600FEBC37 /* BookingDetailModel.swift in Sources */,
 				1871B674220823F00066636E /* HotelsSearchVM.swift in Sources */,
@@ -6555,6 +6594,7 @@
 				1870AD1F220C769400FB32C8 /* GeneralPrefrenceModel.swift in Sources */,
 				84085CE121F59C0E00F1E844 /* LoginVC.swift in Sources */,
 				1896D5932209538B003FC2B6 /* MultiSliderExtensions.swift in Sources */,
+				0CBDEA472429CDE9009D7849 /* AMDots.swift in Sources */,
 				18EF5E76221D261B00EFFA6E /* GMUHeatmapTileLayer.m in Sources */,
 				183B71A6228984C600A75B7F /* RouteFareInfoTableViewCell.swift in Sources */,
 				1879C4AD2293DD2600897CED /* BookingRequestAddOnsFFVC.swift in Sources */,
@@ -6832,7 +6872,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 38;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (

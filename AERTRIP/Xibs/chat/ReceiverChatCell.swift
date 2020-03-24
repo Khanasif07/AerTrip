@@ -1,14 +1,14 @@
 //
-//  SenderChatCell.swift
+//  ReceiverChatCell.swift
 //  AERTRIP
 //
-//  Created by Appinventiv on 18/03/20.
+//  Created by Appinventiv on 24/03/20.
 //  Copyright © 2020 Pramod Kumar. All rights reserved.
 //
 
 import UIKit
 
-class SenderChatCell: UITableViewCell {
+class ReceiverChatCell : UITableViewCell {
 
     @IBOutlet weak var bubbleImageView: UIImageView!
     @IBOutlet weak var messageLabel: UILabel!
@@ -18,7 +18,7 @@ class SenderChatCell: UITableViewCell {
         // Initialization code
         self.selectionStyle = .none
         self.messageLabel.font = AppFonts.Regular.withSize(18)
-        let bubbleImage = UIImage(named: "Green Chat bubble")?.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 25, bottom: 17, right: 25), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        let bubbleImage = UIImage(named: "White Chat bubble")?.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 25, bottom: 17, right: 25), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         self.bubbleImageView.image = bubbleImage
     }
 
@@ -31,5 +31,4 @@ class SenderChatCell: UITableViewCell {
         self.messageLabel.text = msgObj.msg
         self.contentView.isHidden = msgObj.isHidden
     }
-    
 }
