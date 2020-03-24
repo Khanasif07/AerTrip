@@ -29,7 +29,10 @@ class BulkBookingVM {
     var pType: String = "hotel"
     var enquiryId: String = ""
     var oldData: HotelFormPreviosSearchData = HotelFormPreviosSearchData()
-    
+    var searchedLocation: SearchedDestination?
+    var checkIn: Date?
+    var checkOut: Date?
+
     //MARK:- Public
     internal weak var delegate: BulkBookingVMDelegate?
     

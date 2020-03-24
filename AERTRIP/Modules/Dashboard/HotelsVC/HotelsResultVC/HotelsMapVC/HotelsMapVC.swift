@@ -88,7 +88,12 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         }
     }
     
-    @IBOutlet weak var hotelSearchTableView: ATTableView!
+    @IBOutlet weak var hotelSearchTableView: ATTableView! {
+        didSet {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(searchTabeleTapped(tap:)))
+            self.hotelSearchTableView.addGestureRecognizer(tap)
+        }
+    }
     @IBOutlet weak var currentLocationButton: UIButton!
     @IBOutlet weak var floatingViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var floatingButtonBackView: UIView!
@@ -513,6 +518,18 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         if gesture.state == .began {
             printDebug("Long press tapped")
             AppFlowManager.default.presentAerinTextSpeechVC()
+        }
+    }
+    
+    @objc func searchTabeleTapped(tap:UITapGestureRecognizer) {
+        let location = tap.location(in: self.hotelSearchTableView)
+        let path = self.hotelSearchTableView.indexPathForRow(at: location)
+        if let indexPathForRow = path {
+            self.tableView(self.hotelSearchTableView, didSelectRowAt: indexPathForRow)
+        } else if (hotelSearchTableView.backgroundView == nil || hotelSearchTableView.backgroundView?.isHidden ?? false){
+            // handle tap on empty space below existing rows however you want
+            printDebug("tapped at empty space of table view")
+            self.cancelButtonTapped(self.cancelButton)
         }
     }
     

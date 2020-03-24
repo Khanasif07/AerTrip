@@ -19,7 +19,7 @@ class HotelsSearchVC: BaseVC {
     private var collectionViewHeight: CGFloat = 85.0
     private var containerViewHeight: CGFloat = 429.0
     private var scrollViewContentSize: CGSize = CGSize.zero
-    private var recentSearchHeight: CGFloat = 194.0
+    private var recentSearchHeight: CGFloat = 162.0
     private var addRoomPicIndex: IndexPath?
     private(set) var viewModel = HotelsSearchVM()
     private var needToGetRecentSearches: Bool = false
@@ -125,7 +125,9 @@ class HotelsSearchVC: BaseVC {
         }
         if let view = self.recentSearchesView {
             view.frame = self.recentSearchesContainerView.bounds
+            view.layoutSubviews()
         }
+        
         if !(self.scrollViewContentSize == .zero) {
             self.updateCollectionViewFrame()
         }
@@ -600,7 +602,7 @@ class HotelsSearchVC: BaseVC {
         if let range = string.range(of: text) {
             if gesture.didTapAttributedTextInLabel(label: self.bulkBookingsLbl, inRange: NSRange(range, in: string)) {
                 printDebug("Tapped BulkBookings")
-                AppFlowManager.default.showBulkBookingVC(withOldData: self.viewModel.searchedFormData)
+                AppFlowManager.default.showBulkBookingVC(withOldData: self.viewModel.searchedFormData, delegate: self)
             } else {
                 printDebug("This is not bulk bookings text")
             }
@@ -890,3 +892,17 @@ extension HotelsSearchVC: CalendarDataHandler {
         HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
     }
 }
+
+extension HotelsSearchVC: BulkBookingVCDelegate {
+    
+    func didSelectedDestination(checkinDate: Date?, checkOutDate: Date?, location: SearchedDestination?) {
+        if let destination = location {
+            didSelectedDestination(hotel: destination)
+        }
+        if (checkinDate != nil) || (checkOutDate != nil) {
+            self.selectedDates(fromCalendar: checkinDate, end: checkOutDate, isHotelCalendar: true, isReturn: false)
+        }
+    }
+    
+}
+

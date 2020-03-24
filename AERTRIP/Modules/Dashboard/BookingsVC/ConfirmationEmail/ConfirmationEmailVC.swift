@@ -9,6 +9,7 @@
 import UIKit
 import Contacts
 import ContactsUI
+/*
 class ConfirmationEmailVC: BaseVC {
     // MARK: IB Outlets
     
@@ -298,5 +299,5 @@ extension ConfirmationEmailVC: MailComoserVMDelegate {
         stopLoading()
     }
 }
-
+*/
 
