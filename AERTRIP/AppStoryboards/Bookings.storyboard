@@ -2381,6 +2381,54 @@ with us!</string>
             </objects>
             <point key="canvasLocation" x="5164" y="2552"/>
         </scene>
+        <!--Mail ComposerVC-->
+        <scene sceneID="61m-CG-y2w">
+            <objects>
+                <viewController storyboardIdentifier="MailComposerVC" id="8mf-wm-3M9" customClass="MailComposerVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Wfu-1I-Nvg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yLP-wa-WRA" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="voc-gt-p1W"/>
+                                </constraints>
+                            </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="vfS-gq-Ahx">
+                                <rect key="frame" x="335" y="12.5" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jbF-f5-eC7">
+                                <rect key="frame" x="0.0" y="45" width="375" height="622"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="vfS-gq-Ahx" firstAttribute="trailing" secondItem="yLP-wa-WRA" secondAttribute="trailing" constant="-20" id="1c1-Sk-yWK"/>
+                            <constraint firstItem="48a-t3-643" firstAttribute="trailing" secondItem="jbF-f5-eC7" secondAttribute="trailing" id="Jl2-Sk-dPi"/>
+                            <constraint firstItem="yLP-wa-WRA" firstAttribute="leading" secondItem="48a-t3-643" secondAttribute="leading" id="MIP-rQ-Kge"/>
+                            <constraint firstItem="jbF-f5-eC7" firstAttribute="top" secondItem="yLP-wa-WRA" secondAttribute="bottom" id="TUQ-HP-gFa"/>
+                            <constraint firstItem="jbF-f5-eC7" firstAttribute="leading" secondItem="48a-t3-643" secondAttribute="leading" id="WLD-wi-P4N"/>
+                            <constraint firstItem="yLP-wa-WRA" firstAttribute="leading" secondItem="48a-t3-643" secondAttribute="leading" id="X26-QY-epw"/>
+                            <constraint firstItem="vfS-gq-Ahx" firstAttribute="centerY" secondItem="yLP-wa-WRA" secondAttribute="centerY" id="XWU-zX-CfJ"/>
+                            <constraint firstItem="48a-t3-643" firstAttribute="bottom" secondItem="jbF-f5-eC7" secondAttribute="bottom" id="rLL-Yo-hc5"/>
+                            <constraint firstItem="48a-t3-643" firstAttribute="trailing" secondItem="yLP-wa-WRA" secondAttribute="trailing" id="u7y-FF-hLP"/>
+                            <constraint firstItem="yLP-wa-WRA" firstAttribute="top" secondItem="48a-t3-643" secondAttribute="top" id="xDn-Yp-gCh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="48a-t3-643"/>
+                    </view>
+                    <connections>
+                        <outlet property="acitivityIndicatorView" destination="vfS-gq-Ahx" id="nX0-S7-LpV"/>
+                        <outlet property="tableView" destination="jbF-f5-eC7" id="uh4-6w-1uu"/>
+                        <outlet property="topNavView" destination="yLP-wa-WRA" id="iFS-Ur-tGJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HXA-sb-upF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-463" y="3604"/>
+        </scene>
     </scenes>
     <resources>
         <image name="aerinBlackIcon" width="24" height="24"/>

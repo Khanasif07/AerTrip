@@ -87,7 +87,9 @@ class BookingCallVC: BaseVC {
             }
             let title = self.viewModel.airportData[indexPath.row].city + "," + self.viewModel.airportData[indexPath.row].countryCode
             bookingCell.configureCell(code: self.viewModel.airportData[indexPath.row].ataCode, title: title, phoneLabel: self.viewModel.airportData[indexPath.row].phone, cellType: .airports)
-            bookingCell.dividerView.isHidden = self.viewModel.airportData.count - 1 == indexPath.row
+            bookingCell.dividerView.isHidden = false//self.viewModel.airportData.count - 1 == indexPath.row
+            bookingCell.dividerViewLeadingConst.constant = self.viewModel.airportData.count - 1 == indexPath.row ? 0.0 : 43.0
+
             return bookingCell
         }
     }
@@ -147,7 +149,7 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.viewModel.usingFor == .flight {
-            return [self.viewModel.contactInfo?.aertrip.count, self.viewModel.contactInfo?.airlines.count, self.viewModel.airportData.count + 1][section] ?? 0
+            return [self.viewModel.contactInfo?.aertrip.count, self.viewModel.contactInfo?.airlines.count, self.viewModel.airportData.count][section] ?? 0
         } else {
            return[self.viewModel.aertripData.count,self.viewModel.hotelData.count + 1][section]
         }
