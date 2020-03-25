@@ -112,7 +112,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             let title = allSections[section].name
             if title.contains("to") {
                 var titleArr = allSections[section].name.components(separatedBy: "to")
-                titleArr[1] = " \(Int((self.viewModel.filterApplied.distanceRange < 1.0) ? 1.0 : self.viewModel.filterApplied.distanceRange))"
+               // titleArr[1] = " \(Int((self.viewModel.filterApplied.distanceRange < 1.0) ? 1.0 : self.viewModel.filterApplied.distanceRange))"
                 
                 finalText = titleArr.joined(separator: "to")
             }

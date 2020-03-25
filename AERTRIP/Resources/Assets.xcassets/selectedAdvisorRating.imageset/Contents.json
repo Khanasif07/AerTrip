@@ -1,18 +1,18 @@
 {
   "images" : [
     {
-      "filename" : "selectedAdvisorRating.png",
       "idiom" : "universal",
+      "filename" : "on.png",
       "scale" : "1x"
     },
     {
-      "filename" : "selectedAdvisorRating@2x.png",
       "idiom" : "universal",
+      "filename" : "on@2x.png",
       "scale" : "2x"
     },
     {
-      "filename" : "selectedAdvisorRating@3x.png",
       "idiom" : "universal",
+      "filename" : "on@3x.png",
       "scale" : "3x"
     }
   ],

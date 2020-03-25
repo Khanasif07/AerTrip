@@ -305,21 +305,21 @@ class HotelFilterVC: BaseVC {
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
+        HotelFilterVM.shared.saveDataToUserDefaults()
         self.hide(animated: true, shouldRemove: true)
         delegate?.doneButtonTapped()
     }
     
     @objc func  outsideAreaTapped() {
+        HotelFilterVM.shared.saveDataToUserDefaults()
         self.hide(animated: true, shouldRemove: true)
         if UserInfo.hotelFilter == nil {
             HotelFilterVM.shared.lastSelectedIndex = 0
         }
+        delegate?.doneButtonTapped()
     }
-    
-    
-    
+        
 }
-
 
 extension HotelFilterVC: ATCategoryNavBarDelegate {
     

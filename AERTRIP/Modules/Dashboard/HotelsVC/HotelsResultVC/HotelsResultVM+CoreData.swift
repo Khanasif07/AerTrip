@@ -118,13 +118,13 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
         case .BestSellers:
             self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "bc", ascending: true)]
         case .PriceLowToHigh:
-            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "price", ascending: true)]
+            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "price", ascending: self.filterApplied.sortUsing == .PriceLowToHigh(ascending: true))]
         case .TripAdvisorRatingHighToLow:
-            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "rating", ascending: false)]
+            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "rating", ascending: self.filterApplied.sortUsing == .TripAdvisorRatingHighToLow(ascending: true))]
         case .StartRatingHighToLow:
-            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "star", ascending: false)]
+            self.fetchedResultsController.fetchRequest.sortDescriptors = [NSSortDescriptor(key: "star", ascending: self.filterApplied.sortUsing == .StartRatingHighToLow(ascending: true))]
         case .DistanceNearestFirst:
-            self.fetchedResultsController.fetchRequest.sortDescriptors =  [NSSortDescriptor(key: "distance", ascending: true)]
+            self.fetchedResultsController.fetchRequest.sortDescriptors =  [NSSortDescriptor(key: "distance", ascending: self.filterApplied.sortUsing == .DistanceNearestFirst(ascending: true))]
             
         }
     }

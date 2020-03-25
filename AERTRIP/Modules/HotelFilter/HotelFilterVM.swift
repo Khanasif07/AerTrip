@@ -8,16 +8,16 @@
 
 import Foundation
 
-enum SortUsing {
+enum SortUsing: Equatable {
     private enum CodingKeys: CodingKey {
         case bestSellers, priceLowToHigh, tripAdvisorRatingHighToLow, starRatingHighToLow, distanceNearestFirst
     }
     
     case BestSellers
-    case PriceLowToHigh
-    case TripAdvisorRatingHighToLow
-    case StartRatingHighToLow
-    case DistanceNearestFirst
+    case PriceLowToHigh(ascending: Bool)
+    case TripAdvisorRatingHighToLow(ascending: Bool)
+    case StartRatingHighToLow(ascending: Bool)
+    case DistanceNearestFirst(ascending: Bool)
 }
 
 protocol HotelFilterVMDelegate: class {
@@ -64,7 +64,7 @@ class HotelFilterVM {
     weak var delegate: HotelFilterVMDelegate?
     
     var isFilterApplied: Bool {
-        return !(HotelFilterVM.shared.sortUsing == HotelFilterVM.shared.defaultSortUsing && HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange && HotelFilterVM.shared.leftRangePrice == HotelFilterVM.shared.defaultLeftRangePrice && HotelFilterVM.shared.rightRangePrice == HotelFilterVM.shared.defaultRightRangePrice && HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount).isEmpty &&  HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty && HotelFilterVM.shared.isIncludeUnrated == HotelFilterVM.shared.defaultIsIncludeUnrated && HotelFilterVM.shared.priceType == HotelFilterVM.shared.defaultPriceType && HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty && HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty && HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty && HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty)
+        return !( HotelFilterVM.shared.distanceRange == HotelFilterVM.shared.defaultDistanceRange && HotelFilterVM.shared.leftRangePrice == HotelFilterVM.shared.defaultLeftRangePrice && HotelFilterVM.shared.rightRangePrice == HotelFilterVM.shared.defaultRightRangePrice && HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount).isEmpty &&  HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty && HotelFilterVM.shared.isIncludeUnrated == HotelFilterVM.shared.defaultIsIncludeUnrated && HotelFilterVM.shared.priceType == HotelFilterVM.shared.defaultPriceType && HotelFilterVM.shared.amenitites.difference(from: HotelFilterVM.shared.defaultAmenitites).isEmpty && HotelFilterVM.shared.roomMeal.difference(from: HotelFilterVM.shared.defaultRoomMeal).isEmpty && HotelFilterVM.shared.roomCancelation.difference(from: HotelFilterVM.shared.defaultRoomCancelation).isEmpty && HotelFilterVM.shared.roomOther.difference(from: HotelFilterVM.shared.defaultRoomOther).isEmpty)
     }
     
     func setData(from: UserInfo.HotelFilter) {
@@ -201,6 +201,7 @@ class HotelFilterVM {
 extension SortUsing: Codable {
     enum Key: CodingKey {
         case rawValue
+        case bestSellers, priceLowToHigh, tripAdvisorRatingHighToLow, starRatingHighToLow, distanceNearestFirst
     }
     
     enum CodingError: Error {
@@ -214,13 +215,17 @@ extension SortUsing: Codable {
         case 0:
             self = .BestSellers
         case 1:
-            self = .PriceLowToHigh
+            let value = try container.decode(Bool.self, forKey: .priceLowToHigh)
+            self = .PriceLowToHigh(ascending: value)
         case 2:
-            self = .TripAdvisorRatingHighToLow
+            let value = try container.decode(Bool.self, forKey: .tripAdvisorRatingHighToLow)
+            self = .TripAdvisorRatingHighToLow(ascending: value)
         case 3:
-            self = .StartRatingHighToLow
+            let value = try container.decode(Bool.self, forKey: .starRatingHighToLow)
+            self = .StartRatingHighToLow(ascending: value)
         case 4:
-            self = .DistanceNearestFirst
+            let value = try container.decode(Bool.self, forKey: .distanceNearestFirst)
+            self = .DistanceNearestFirst(ascending: value)
         default:
             throw CodingError.unknownValue
         }
@@ -233,12 +238,16 @@ extension SortUsing: Codable {
             try container.encode(0, forKey: .rawValue)
         case .PriceLowToHigh:
             try container.encode(1, forKey: .rawValue)
+            try container.encode(self == .PriceLowToHigh(ascending: true), forKey: .priceLowToHigh)
         case .TripAdvisorRatingHighToLow:
             try container.encode(2, forKey: .rawValue)
+            try container.encode(self == .TripAdvisorRatingHighToLow(ascending: true), forKey: .tripAdvisorRatingHighToLow)
         case .StartRatingHighToLow:
             try container.encode(3, forKey: .rawValue)
+            try container.encode(self == .StartRatingHighToLow(ascending: true), forKey: .starRatingHighToLow)
         case .DistanceNearestFirst:
             try container.encode(4, forKey: .rawValue)
+            try container.encode(self == .DistanceNearestFirst(ascending: true), forKey: .distanceNearestFirst)
         }
     }
 }

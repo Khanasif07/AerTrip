@@ -16,8 +16,8 @@ class SortVC: UIViewController {
     // MARK: - Variables
     
     let cellIdentifier = "SortTableViewCell"
-
-    private let sortTitle : [SortUsing] = [.BestSellers,.PriceLowToHigh,.TripAdvisorRatingHighToLow,.StartRatingHighToLow,.DistanceNearestFirst]
+    
+    private let sortTitle : [SortUsing] = [.BestSellers,.PriceLowToHigh(ascending: true),.TripAdvisorRatingHighToLow(ascending: false),.StartRatingHighToLow(ascending: false),.DistanceNearestFirst(ascending: true)]
     private let titles: [String] = [LocalizedString.BestSellers.localized, LocalizedString.Price.localized, LocalizedString.TripAdvisor.localized, LocalizedString.StarRating.localized, LocalizedString.Distance.localized]
     private let subTitles: [String] = [LocalizedString.Recommended.localized, LocalizedString.LowToHigh.localized, LocalizedString.FiveToOne.localized, LocalizedString.FiveToOne.localized, LocalizedString.NearestFirst.localized]
     
@@ -62,45 +62,78 @@ extension SortVC: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         cell.tintColor = AppColors.themeGreen
-        if sortTitle[indexPath.row] == HotelFilterVM.shared.sortUsing {
+        //        if sortTitle[indexPath.row] == HotelFilterVM.shared.sortUsing {
+        //            cell.accessoryView = setCheckBox()
+        //            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
+        //            cell.leftTitleLabel.textColor = AppColors.themeGreen
+        //            cell.rightTitleLabel.textColor = AppColors.themeGray40
+        //        } else {
+        //            cell.accessoryView = nil
+        //            cell.leftTitleLabel.textColor = AppColors.themeBlack
+        //            cell.rightTitleLabel.textColor = AppColors.themeGray40
+        //        }
+        
+        func setSelectedState() {
             cell.accessoryView = setCheckBox()
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
             cell.leftTitleLabel.textColor = AppColors.themeGreen
             cell.rightTitleLabel.textColor = AppColors.themeGray40
-        } else {
-            cell.accessoryView = nil
-            cell.leftTitleLabel.textColor = AppColors.themeBlack
-            cell.rightTitleLabel.textColor = AppColors.themeGray40
         }
-//        if indexPath.row == 0, HotelFilterVM.shared.sortUsing == .BestSellers {
-////            cell.accessoryType = .checkmark
-//            cell.accessoryView = setCheckBox()
-//            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
-//            cell.leftTitleLabel.textColor = AppColors.themeGreen
-//            cell.rightTitleLabel.textColor = AppColors.themeGreen
-//        } else if indexPath.row == 1, HotelFilterVM.shared.sortUsing == .PriceLowToHigh {
-//            cell.accessoryType = .checkmark
-//            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
-//            cell.leftTitleLabel.textColor = AppColors.themeGreen
-//            cell.rightTitleLabel.textColor = AppColors.themeGreen
-//        } else if indexPath.row == 2, HotelFilterVM.shared.sortUsing == .TripAdvisorRatingHighToLow {
-//            cell.accessoryType = .checkmark
-//            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
-//            cell.leftTitleLabel.textColor = AppColors.themeGreen
-//            cell.rightTitleLabel.textColor = AppColors.themeGreen
-//
-//        } else if indexPath.row == 3, HotelFilterVM.shared.sortUsing == .StartRatingHighToLow {
-//            cell.accessoryType = .checkmark
-//            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
-//            cell.leftTitleLabel.textColor = AppColors.themeGreen
-//            cell.rightTitleLabel.textColor = AppColors.themeGreen
-//        } else if indexPath.row == 4, HotelFilterVM.shared.sortUsing == .DistanceNearestFirst {
-//            cell.accessoryType = .checkmark
-//            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
-//            cell.leftTitleLabel.textColor = AppColors.themeGreen
-//            cell.rightTitleLabel.textColor = AppColors.themeGreen
-//        }
-        cell.configureCell(leftTitle: titles[indexPath.row], rightTitle: subTitles[indexPath.row])
+        
+        cell.accessoryView = nil
+        cell.leftTitleLabel.textColor = AppColors.themeBlack
+        cell.rightTitleLabel.textColor = AppColors.themeGray40
+        
+        
+        switch indexPath.row {
+        case 0:
+            cell.leftTitleLabel.text = titles[indexPath.row]
+            cell.rightTitleLabel.text = LocalizedString.Recommended.localized
+            if HotelFilterVM.shared.sortUsing == .BestSellers {
+               setSelectedState()
+            }
+        case 1:
+            cell.leftTitleLabel.text = titles[indexPath.row]
+            cell.rightTitleLabel.text = LocalizedString.LowToHigh.localized
+            if HotelFilterVM.shared.sortUsing == .PriceLowToHigh(ascending: true) {
+               setSelectedState()
+                cell.rightTitleLabel.text = LocalizedString.LowToHigh.localized
+            } else if HotelFilterVM.shared.sortUsing == .PriceLowToHigh(ascending: false) {
+               setSelectedState()
+                cell.rightTitleLabel.text = LocalizedString.HighToLow.localized
+            }
+        case 2:
+            cell.leftTitleLabel.text = titles[indexPath.row]
+            cell.rightTitleLabel.text = LocalizedString.FiveToOne.localized
+            if HotelFilterVM.shared.sortUsing == .TripAdvisorRatingHighToLow(ascending: true) {
+               setSelectedState()
+                cell.rightTitleLabel.text = LocalizedString.OneToFive.localized
+            } else if HotelFilterVM.shared.sortUsing == .TripAdvisorRatingHighToLow(ascending: false) {
+               setSelectedState()
+                cell.rightTitleLabel.text = LocalizedString.FiveToOne.localized
+            }
+        case 3:
+            cell.leftTitleLabel.text = titles[indexPath.row]
+            cell.rightTitleLabel.text = LocalizedString.FiveToOne.localized
+            if HotelFilterVM.shared.sortUsing == .StartRatingHighToLow(ascending: true) {
+               setSelectedState()
+                cell.rightTitleLabel.text = LocalizedString.OneToFive.localized
+            } else if HotelFilterVM.shared.sortUsing == .StartRatingHighToLow(ascending: false) {
+               setSelectedState()
+                cell.rightTitleLabel.text = LocalizedString.FiveToOne.localized
+            }
+        case 4:
+            cell.leftTitleLabel.text = titles[indexPath.row]
+            cell.rightTitleLabel.text = LocalizedString.NearestFirst.localized
+            if HotelFilterVM.shared.sortUsing == .DistanceNearestFirst(ascending: true) {
+               setSelectedState()
+                cell.rightTitleLabel.text = LocalizedString.NearestFirst.localized
+            } else if HotelFilterVM.shared.sortUsing == .DistanceNearestFirst(ascending: false) {
+               setSelectedState()
+                cell.rightTitleLabel.text = LocalizedString.FurthestFirst.localized
+            }
+        default: break
+        }
         return cell
     }
     func setCheckBox() -> UIImageView {
@@ -113,21 +146,37 @@ extension SortVC: UITableViewDataSource, UITableViewDelegate {
         HotelFilterVM.shared.isSortingApplied = true
         if let cell = tableView.cellForRow(at: indexPath) as? SortTableViewCell {
             cell.tintColor = AppColors.themeGreen
-//            cell.accessoryType = .checkmark
-//            cell.accessoryView = setCheckBox()
-//            cell.leftTitleLabel.textColor = AppColors.themeGreen
-//            cell.rightTitleLabel.textColor = AppColors.themeGreen
+            //            cell.accessoryType = .checkmark
+            //            cell.accessoryView = setCheckBox()
+            //            cell.leftTitleLabel.textColor = AppColors.themeGreen
+            //            cell.rightTitleLabel.textColor = AppColors.themeGreen
             switch indexPath.row {
             case 0:
                 HotelFilterVM.shared.sortUsing = .BestSellers
             case 1:
-                HotelFilterVM.shared.sortUsing = .PriceLowToHigh
+                if HotelFilterVM.shared.sortUsing != .PriceLowToHigh(ascending: true) {
+                    HotelFilterVM.shared.sortUsing = .PriceLowToHigh(ascending: true)
+                } else {
+                    HotelFilterVM.shared.sortUsing = .PriceLowToHigh(ascending: false)
+                }
             case 2:
-                HotelFilterVM.shared.sortUsing = .TripAdvisorRatingHighToLow
+                if HotelFilterVM.shared.sortUsing != .TripAdvisorRatingHighToLow(ascending: false) {
+                    HotelFilterVM.shared.sortUsing = .TripAdvisorRatingHighToLow(ascending: false)
+                } else {
+                    HotelFilterVM.shared.sortUsing = .TripAdvisorRatingHighToLow(ascending: true)
+                }
             case 3:
-                HotelFilterVM.shared.sortUsing = .StartRatingHighToLow
+                if HotelFilterVM.shared.sortUsing != .StartRatingHighToLow(ascending: false) {
+                    HotelFilterVM.shared.sortUsing = .StartRatingHighToLow(ascending: false)
+                } else {
+                    HotelFilterVM.shared.sortUsing = .StartRatingHighToLow(ascending: true)
+                }
             case 4:
-                HotelFilterVM.shared.sortUsing = .DistanceNearestFirst
+                if HotelFilterVM.shared.sortUsing != .DistanceNearestFirst(ascending: true) {
+                    HotelFilterVM.shared.sortUsing = .DistanceNearestFirst(ascending: true)
+                } else {
+                    HotelFilterVM.shared.sortUsing = .DistanceNearestFirst(ascending: false)
+                }
             default:
                 return
             }
