@@ -27,6 +27,14 @@ class SettingsVM {
     ]
     
     
-    
+    func getSettingsYype(key : Int, index : Int) -> SettingsOptions {
+        guard let items = self.settingsDataToPopulate[key]?[index] else { return SettingsVM.SettingsOptions.aboutUs }
+        return items
+    }
+ 
+    func getCountInParticularSection(section : Int) -> Int {
+        guard let items = self.settingsDataToPopulate[section] else { return 0 }
+        return items.count
+    }
  
 }

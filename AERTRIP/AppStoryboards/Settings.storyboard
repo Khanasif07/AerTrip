@@ -29,9 +29,56 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lbP-xl-q27">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lbP-xl-q27">
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="PLe-CU-TAW">
+                                    <rect key="frame" x="0.0" y="100" width="375" height="171"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Made with ❤️ in India " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zna-gi-Ocv">
+                                            <rect key="frame" x="10" y="25" width="355" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2018. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gCL-ZI-6RO">
+                                            <rect key="frame" x="10" y="56" width="355" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HG4-ZD-de0">
+                                            <rect key="frame" x="10" y="87" width="355" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="gCL-ZI-6RO" firstAttribute="top" secondItem="zna-gi-Ocv" secondAttribute="bottom" constant="10" id="AjH-Lx-4Wu"/>
+                                        <constraint firstAttribute="trailing" secondItem="zna-gi-Ocv" secondAttribute="trailing" constant="10" id="FiA-CU-djf"/>
+                                        <constraint firstAttribute="trailing" secondItem="gCL-ZI-6RO" secondAttribute="trailing" constant="10" id="OJE-UK-9Xe"/>
+                                        <constraint firstItem="HG4-ZD-de0" firstAttribute="top" secondItem="gCL-ZI-6RO" secondAttribute="bottom" constant="10" id="V4X-6m-9Bq"/>
+                                        <constraint firstItem="gCL-ZI-6RO" firstAttribute="leading" secondItem="PLe-CU-TAW" secondAttribute="leading" constant="10" id="X7D-47-PE2"/>
+                                        <constraint firstItem="HG4-ZD-de0" firstAttribute="leading" secondItem="PLe-CU-TAW" secondAttribute="leading" constant="10" id="hrl-lp-Srh"/>
+                                        <constraint firstItem="zna-gi-Ocv" firstAttribute="leading" secondItem="PLe-CU-TAW" secondAttribute="leading" constant="10" id="jhf-MH-eUh"/>
+                                        <constraint firstAttribute="trailing" secondItem="HG4-ZD-de0" secondAttribute="trailing" constant="10" id="rka-Et-sf3"/>
+                                        <constraint firstItem="zna-gi-Ocv" firstAttribute="top" secondItem="PLe-CU-TAW" secondAttribute="top" constant="25" id="siM-WI-Dqa"/>
+                                    </constraints>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="w7G-CW-2Bw">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="w7G-CW-2Bw" id="Lk7-yj-Bee">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -50,13 +97,16 @@
                     </view>
                     <connections>
                         <outlet property="appVersionLabel" destination="iTg-Ko-5Cj" id="6B2-Lq-Lga"/>
+                        <outlet property="copyRightLabel" destination="gCL-ZI-6RO" id="7Hc-cQ-HK2"/>
+                        <outlet property="madeWithLabel" destination="zna-gi-Ocv" id="kqv-wN-spH"/>
                         <outlet property="settingsTableView" destination="lbP-xl-q27" id="98d-J0-eOR"/>
                         <outlet property="topNavView" destination="zEc-Oe-p41" id="Vpq-Vr-I06"/>
+                        <outlet property="versionLabel" destination="HG4-ZD-de0" id="IFr-2s-HnP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="25M-1o-0Qp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2298" y="217"/>
+            <point key="canvasLocation" x="2296.8000000000002" y="216.34182908545728"/>
         </scene>
     </scenes>
 </document>

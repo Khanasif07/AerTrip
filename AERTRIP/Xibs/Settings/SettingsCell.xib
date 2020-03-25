@@ -23,10 +23,12 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q7j-Ax-sAP">
-                        <rect key="frame" x="49" y="70" width="240" height="8"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q7j-Ax-sAP">
+                        <rect key="frame" x="16" y="88.5" width="358" height="0.5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="4Ci-gA-OmJ"/>
+                        </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allsdfdsfdsfsdfjsdhfjsdfjhsdkfhjksdjhfkjsdhfds sdfsdlkfjsdjflksdjflkjsdlfkjsdlkfsd" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYF-JO-VSN">
                         <rect key="frame" x="244.5" y="24" width="99.5" height="41"/>
@@ -49,13 +51,22 @@
                     <constraint firstAttribute="trailing" secondItem="QVD-Mz-dpm" secondAttribute="trailing" id="4Ad-ae-lKd"/>
                     <constraint firstItem="2rK-W0-t4k" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="5Up-L0-KwU"/>
                     <constraint firstItem="QVD-Mz-dpm" firstAttribute="leading" secondItem="WYF-JO-VSN" secondAttribute="trailing" id="9z7-ow-Ggx"/>
+                    <constraint firstAttribute="bottom" secondItem="Q7j-Ax-sAP" secondAttribute="bottom" id="Dw0-et-E9S"/>
                     <constraint firstItem="WYF-JO-VSN" firstAttribute="leading" secondItem="2rK-W0-t4k" secondAttribute="trailing" constant="2" id="Ltg-Zs-cCr"/>
                     <constraint firstItem="WYF-JO-VSN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="VTZ-V4-Zgp"/>
                     <constraint firstItem="QVD-Mz-dpm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Xie-FW-gYC"/>
                     <constraint firstItem="2rK-W0-t4k" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="jGQ-fd-T3M"/>
+                    <constraint firstAttribute="trailing" secondItem="Q7j-Ax-sAP" secondAttribute="trailing" id="vnN-sO-gAM"/>
+                    <constraint firstItem="Q7j-Ax-sAP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="wBN-KS-PgN"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="arrowImageView" destination="QVD-Mz-dpm" id="GnX-e0-zJt"/>
+                <outlet property="sepratorView" destination="Q7j-Ax-sAP" id="iav-bz-wd0"/>
+                <outlet property="settingsLabel" destination="2rK-W0-t4k" id="XOy-6j-1dM"/>
+                <outlet property="settingsValueLavel" destination="WYF-JO-VSN" id="QpU-vm-62m"/>
+            </connections>
             <point key="canvasLocation" x="176.81159420289856" y="103.45982142857143"/>
         </tableViewCell>
     </objects>

@@ -15,11 +15,15 @@ class SettingsVC: BaseVC {
     @IBOutlet weak var appVersionLabel: UILabel!
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var settingsTableView: UITableView!
+    @IBOutlet weak var versionLabel: UILabel!
+    @IBOutlet weak var copyRightLabel: UILabel!
+    @IBOutlet weak var madeWithLabel: UILabel!
     
     //MARK:- Properties
     //MARK:- Public
     
     //MARK:- Private
+    let settingsVm = SettingsVM()
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -41,6 +45,7 @@ class SettingsVC: BaseVC {
         }
     }
     
+
     override func setupColors() {
         self.appVersionLabel.textColor = AppColors.themeBlack
     }
@@ -53,6 +58,13 @@ class SettingsVC: BaseVC {
         configureTableView()
     }
     
+    func setUpViewAttributes(){
+        self.madeWithLabel.font = AppFonts.Regular.withSize(16)
+        self.copyRightLabel.font = AppFonts.Regular.withSize(14)
+        self.versionLabel.font = AppFonts.Regular.withSize(14)
+        self.copyRightLabel.textColor = AppColors.themeGray40
+        self.versionLabel.textColor = AppColors.themeGray40
+    }
     
     private func configureTableView(){
         self.settingsTableView.register(UINib(nibName: "SettingsCell", bundle: nil), forCellReuseIdentifier: "SettingsCell")
