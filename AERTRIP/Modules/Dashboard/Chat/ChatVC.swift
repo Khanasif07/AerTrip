@@ -35,7 +35,7 @@ class ChatVC : BaseVC {
     let chatVm = ChatVM()
     var dotsView: AMDots?
     var typingCellTimer : Timer?
-
+    
     //MARK:- View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,9 +60,7 @@ class ChatVC : BaseVC {
         self.view.endEditing(true)
     }
     
-    @IBAction func chatButtonTapped(_ sender: UIButton) {
-        
-    }
+    @IBAction func chatButtonTapped(_ sender: UIButton) { }
     
     //MARK:- Send Button Tapped
     @IBAction func sendButton(_ sender: UIButton) {
@@ -74,7 +72,6 @@ class ChatVC : BaseVC {
         self.resetFrames()
         self.chatTableView.scrollToRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0), at: UITableView.ScrollPosition.top, animated: true)
         self.hideShowSenderCellContent(ishidden: true)
-//        self.animationLabel.text = msg
         self.messageTextView.text = ""
         delay(seconds: 0.27) {
             self.animateCell(text : msg)
@@ -82,25 +79,24 @@ class ChatVC : BaseVC {
         //MARK:- Here i had used insert row due to some issue with the yIndex of the cell i had used reload
     }
     
+    //MARK:- Add dot animation to tableview cell
     func addDotViewToTypingCell(){
-            if let typingCellIndex = self.chatVm.messages.lastIndex(where: { (obj) -> Bool in
-                obj.msgSource == .typing
-            }){
+        if let typingCellIndex = self.chatVm.messages.lastIndex(where: { (obj) -> Bool in
+            obj.msgSource == .typing
+        }){
             guard let cell = self.chatTableView.cellForRow(at: IndexPath(row: typingCellIndex, section: 0)) as? TypingStatusChatCell else { return }
-                dotsView = AMDots(frame: CGRect(x: cell.dotsView.frame.origin.x, y: cell.dotsView.frame.origin.y, width: cell.dotsView.frame.width, height: cell.dotsView.frame.height), colors: [#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1),#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1),#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)])
-                  dotsView?.hidesWhenStopped = true
-                  dotsView?.colors = [#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1),#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1),#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1),#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1),#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)]
-                  dotsView?.backgroundColor = UIColor.clear
-                  dotsView?.animationType = .jump
-                  dotsView?.dotSize = 5
-                    dotsView?.animationDuration = 1.4
-                  dotsView?.spacing = 5
-                  dotsView?.aheadTime = 1
-                cell.contentView.addSubview(self.dotsView ?? UIView())
+            dotsView = AMDots(frame: CGRect(x: cell.dotsView.frame.origin.x, y: cell.dotsView.frame.origin.y, width: cell.dotsView.frame.width, height: cell.dotsView.frame.height), colors: [#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1),#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1),#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)])
+            dotsView?.hidesWhenStopped = true
+            dotsView?.backgroundColor = UIColor.clear
+            dotsView?.animationType = .jump
+            dotsView?.dotSize = 5
+            dotsView?.animationDuration = 1.4
+            dotsView?.spacing = 5
+            dotsView?.aheadTime = 1
+            cell.contentView.addSubview(self.dotsView ?? UIView())
+            dotsView?.start()
         }
-
     }
-    
 }
 
 //MARK:- Functions
@@ -152,7 +148,7 @@ extension ChatVC {
         suggestionsCollectionView.contentInset = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
         suggestionsCollectionView.isHidden = true
     }
-        
+    
     //MARK:- Set navigation view
     private func setUpNavigationView(){
         topNavView.delegate = self
@@ -160,7 +156,22 @@ extension ChatVC {
         topNavView.configureLeftButton(normalImage: #imageLiteral(resourceName: "back"), selectedImage:  #imageLiteral(resourceName: "back"), normalTitle: "", selectedTitle: "", normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "green_2"), selectedImage: #imageLiteral(resourceName: "green_2"), normalTitle: "", selectedTitle: "", normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
     }
+}
+
+extension ChatVC : TopNavigationViewDelegate {
     
+    func topNavBarLeftButtonAction(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: false)
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        AppFlowManager.default.moveToSettingsVC()
+    }
+    
+}
+
+//MARK:- Animations
+extension ChatVC {
     //MARK:- Welcome animation
     private func performInitialAnimation(){
         UIView.animate(withDuration: 0.2, animations: {
@@ -210,30 +221,28 @@ extension ChatVC {
         self.animationBubbleImageView.transform = CGAffineTransform(translationX: -horizintalScale, y: 0)
         self.sendButton.isEnabled = false
         self.showAnimationViewWith(text: text)
-
-        //        UIView.animate(withDuration: 0.3, animations: {
-//            self.animationBubbleImageView.transform = CGAffineTransform.identity
-//            self.animationLabel.transform = CGAffineTransform.identity
-//            self.animationView.frame.origin.y = rectWrtView.origin.y
-//
-//        }) { (success) in
-//
-//            self.hideShowSenderCellContent(ishidden: false)
-//            self.animationView.isHidden = true
-//            self.chatVm.messages[self.chatVm.messages.count - 1].isHidden = false
-//        }
         
-    
+        //MARK:- To be used further if needed
+        //        UIView.animate(withDuration: 0.3, animations: {
+        //            self.animationBubbleImageView.transform = CGAffineTransform.identity
+        //            self.animationLabel.transform = CGAffineTransform.identity
+        //            self.animationView.frame.origin.y = rectWrtView.origin.y
+        //
+        //        }) { (success) in
+        //
+        //            self.hideShowSenderCellContent(ishidden: false)
+        //            self.animationView.isHidden = true
+        //            self.chatVm.messages[self.chatVm.messages.count - 1].isHidden = false
+        //        }
+        
         UIView.animateKeyframes(withDuration: 0.5, delay: 0.0, options: [], animations: {
-            
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.2) {
-                    self.animationBubbleImageView.transform = CGAffineTransform.identity
-                    self.animationLabel.transform = CGAffineTransform.identity
-//                self.animationView.frame.origin.y = rectWrtView.origin.y / 4
+                self.animationBubbleImageView.transform = CGAffineTransform.identity
+                self.animationLabel.transform = CGAffineTransform.identity
             }
-
+            
             UIView.addKeyframe(withRelativeStartTime: 0.1, relativeDuration: 0.3) {
-                    self.animationView.frame.origin.y = rectWrtView.origin.y
+                self.animationView.frame.origin.y = rectWrtView.origin.y
             }
             
         }) { (success) in
@@ -245,30 +254,6 @@ extension ChatVC {
             }
             self.scheduleTypingCell()
         }
-    }
-        
-    func scheduleTypingCell(){
-        if self.chatVm.typingCellTimerCounter > 0 { return }
-        self.typingCellTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(handleTypingCellTimer), userInfo: nil, repeats: true)
-    }
-    
-    @objc func handleTypingCellTimer(){
-        self.chatVm.typingCellTimerCounter += 1
-//        printDebug("out..\(self.chatVm.typingCellTimerCounter)")
-        if self.chatVm.typingCellTimerCounter == 2{
-            self.insertTypingCell()
-//            printDebug("in..\(self.chatVm.typingCellTimerCounter)")
-        }
-        
-        if self.chatVm.typingCellTimerCounter == 20{
-            invalidateTypingCellTimer()
-        }
-    }
-    
-     func invalidateTypingCellTimer(){
-        self.typingCellTimer?.invalidate()
-        self.chatVm.typingCellTimerCounter = 0
-        removeTypingCell()
     }
     
     private func showAnimationViewWith(text : String){
@@ -290,6 +275,27 @@ extension ChatVC {
             return }
         cell.contentView.isHidden = ishidden
     }
+}
+
+//MARK:- ManageTypingCell
+extension ChatVC {
+    
+    func scheduleTypingCell(){
+        if self.chatVm.typingCellTimerCounter > 0 { return }
+        self.typingCellTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(handleTypingCellTimer), userInfo: nil, repeats: true)
+    }
+    
+    @objc func handleTypingCellTimer(){
+        self.chatVm.typingCellTimerCounter += 1
+        if self.chatVm.typingCellTimerCounter == 2{ self.insertTypingCell() }
+        if self.chatVm.typingCellTimerCounter == 10{ invalidateTypingCellTimer() }
+    }
+    
+    func invalidateTypingCellTimer(){
+        self.typingCellTimer?.invalidate()
+        self.chatVm.typingCellTimerCounter = 0
+        removeTypingCell()
+    }
     
     private func insertTypingCell(){
         self.chatVm.messages.append(MessageModel(msg: "", source: MessageModel.MessageSource.typing))
@@ -297,7 +303,7 @@ extension ChatVC {
         self.chatTableView.insertRows(at: [IndexPath(row: self.chatVm.messages.count - 1, section: 0)], with: UITableView.RowAnimation.none)
         self.chatTableView.endUpdates()
         self.chatTableView.scrollToRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0), at: UITableView.ScrollPosition.bottom, animated: true)
-        delay(seconds: 0.2) {
+        delay(seconds: 0.05) {
             self.addDotViewToTypingCell()
         }
     }
@@ -309,22 +315,12 @@ extension ChatVC {
         self.dotsView?.removeFromSuperview()
         self.dotsView = nil
     }
-    
-}
-
-extension ChatVC : TopNavigationViewDelegate {
-    
-    func topNavBarLeftButtonAction(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: false)
-    }
-    
 }
 
 //MARK:- Keyboard SetUp
 extension ChatVC {
     
     private func addKeyboard(){
-        
         NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillChangeFrameNotification, object: nil, queue: OperationQueue.main, using: {[weak self] (notification) in
             guard let info = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
             guard let strongSelf = self else {return}
@@ -369,7 +365,6 @@ extension ChatVC {
         UIView.animate(withDuration: 0.3) {
             self.sendButtonWidth.constant = text.isEmpty ? 0 : 44
             self.view.layoutIfNeeded()
-//            self.sendButton.alpha = text.isEmpty ? 0 : 1
         }
     }
     
@@ -387,7 +382,6 @@ extension ChatVC {
         }else if height < 44{
             resetFrames()
         }
-        //         messageTextView.isScrollEnabled = (height > 90)
     }
     
     func resetFrames() {

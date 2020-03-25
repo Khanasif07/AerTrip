@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0C09BFD42429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09BFD32429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift */; };
+		0C09BFD6242B746500B801BE /* ChatVC+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09BFD5242B746500B801BE /* ChatVC+Animations.swift */; };
+		0C09BFD8242B97A400B801BE /* SettingsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09BFD7242B97A400B801BE /* SettingsVM.swift */; };
+		0C09BFDC242B9A2D00B801BE /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09BFDA242B9A2D00B801BE /* SettingsCell.swift */; };
+		0C09BFDD242B9A2D00B801BE /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C09BFDB242B9A2D00B801BE /* SettingsCell.xib */; };
+		0C09BFDF242BA21F00B801BE /* SettingsVC+TableViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09BFDE242BA21F00B801BE /* SettingsVC+TableViewDelegates.swift */; };
 		0C0B231524210CD700E1764D /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C0B231424210CD700E1764D /* Chat.storyboard */; };
 		0C162AC8242337E9001C2B10 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162AC7242337E9001C2B10 /* MessageModel.swift */; };
 		0C162ACC24233AC5001C2B10 /* ChatVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */; };
@@ -1030,6 +1035,11 @@
 
 /* Begin PBXFileReference section */
 		0C09BFD32429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatVC+CollectionViewDelegates.swift"; sourceTree = "<group>"; };
+		0C09BFD5242B746500B801BE /* ChatVC+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatVC+Animations.swift"; sourceTree = "<group>"; };
+		0C09BFD7242B97A400B801BE /* SettingsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVM.swift; sourceTree = "<group>"; };
+		0C09BFDA242B9A2D00B801BE /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		0C09BFDB242B9A2D00B801BE /* SettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
+		0C09BFDE242BA21F00B801BE /* SettingsVC+TableViewDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsVC+TableViewDelegates.swift"; sourceTree = "<group>"; };
 		0C0B231424210CD700E1764D /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		0C162AC7242337E9001C2B10 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatVC+TableView.swift"; sourceTree = "<group>"; };
@@ -2119,6 +2129,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C09BFD9242B99EA00B801BE /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				0C09BFDA242B9A2D00B801BE /* SettingsCell.swift */,
+				0C09BFDB242B9A2D00B801BE /* SettingsCell.xib */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		0C162AC6242337D1001C2B10 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -2134,6 +2153,7 @@
 				0C162ACB24233AC5001C2B10 /* ChatVC.swift */,
 				0C162ACE24233B24001C2B10 /* ChatVM.swift */,
 				0C09BFD32429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift */,
+				0C09BFD5242B746500B801BE /* ChatVC+Animations.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -2350,6 +2370,7 @@
 		180A3D6E21C0D9EF001A1E6A /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				0C09BFD9242B99EA00B801BE /* Settings */,
 				0C272E2424225FCF00133B50 /* chat */,
 				18038D10226DC2C700A4D1DD /* Aerin */,
 				84D157FA22660B1400393528 /* Accounts */,
@@ -5544,6 +5565,8 @@
 			isa = PBXGroup;
 			children = (
 				84FFDFA621F9DC19005CA257 /* SettingsVC.swift */,
+				0C09BFD7242B97A400B801BE /* SettingsVM.swift */,
+				0C09BFDE242BA21F00B801BE /* SettingsVC+TableViewDelegates.swift */,
 			);
 			path = SettingsVC;
 			sourceTree = "<group>";
@@ -5876,6 +5899,7 @@
 				84DD249422671EDB0013F77E /* BookingDocumentsCollectionViewCell.xib in Resources */,
 				8495132822BA74B800938CB0 /* SourceSansPro-Regular.svg in Resources */,
 				18E7970C2248F98900A7AC8B /* DiscountCell.xib in Resources */,
+				0C09BFDD242B9A2D00B801BE /* SettingsCell.xib in Resources */,
 				0C0B231524210CD700E1764D /* Chat.storyboard in Resources */,
 				182EB21522856E46001BFB20 /* FareInfoHeaderView.xib in Resources */,
 				180A3D7321C0DA53001A1E6A /* SideMenuOptionsLabelCell.xib in Resources */,
@@ -6028,6 +6052,7 @@
 				84085CD621F59C0E00F1E844 /* DefaultNavigationTransition.swift in Sources */,
 				1820F100228E93820019B8BB /* BookingVoucherVM.swift in Sources */,
 				84323D412230563800DA7581 /* HotelDetailsSearchTagTableCell.swift in Sources */,
+				0C09BFD8242B97A400B801BE /* SettingsVM.swift in Sources */,
 				8477163E22844AC0000E1BB6 /* PeriodicStatementListVM.swift in Sources */,
 				18FD916C229678FE00D005E9 /* BookingReschedulingHeaderView.swift in Sources */,
 				84085CD821F59C0E00F1E844 /* DemoVC.swift in Sources */,
@@ -6297,6 +6322,7 @@
 				182EB21C2285817F001BFB20 /* FareInfoNoteTableViewCell.swift in Sources */,
 				84F983CD21B51A070018DFED /* AppStoryboards.swift in Sources */,
 				1820F0F0228D6BB80019B8BB /* BookingRequestStateTableViewCell.swift in Sources */,
+				0C09BFDF242BA21F00B801BE /* SettingsVC+TableViewDelegates.swift in Sources */,
 				84085CD521F59C0E00F1E844 /* TransitionCoordinator.swift in Sources */,
 				84085D0F21F59C0E00F1E844 /* ImportContactVM.swift in Sources */,
 				842272882211A5BF00D4F065 /* ATGalleryScrollCell.swift in Sources */,
@@ -6425,6 +6451,7 @@
 				84F983D321B51A070018DFED /* NSObjectExtension.swift in Sources */,
 				1887859D21DF745C0061869E /* TravellerListHeaderView.swift in Sources */,
 				183B71AA2289901700A75B7F /* BookingAmenityCollectionViewCell.swift in Sources */,
+				0C09BFD6242B746500B801BE /* ChatVC+Animations.swift in Sources */,
 				84F4DB94226DDEC300B68171 /* ADVoucherTypeVM.swift in Sources */,
 				84085CEB21F59C0E00F1E844 /* SecureYourAccountVM.swift in Sources */,
 				84B23F79222FFA9E00C952ED /* ClusterMarkerView.swift in Sources */,
@@ -6534,6 +6561,7 @@
 				84085D0521F59C0E00F1E844 /* FFSearchVM.swift in Sources */,
 				1870AD1C220C769400FB32C8 /* HotelsSearched.swift in Sources */,
 				84DD249322671EDB0013F77E /* BookingDocumentsCollectionViewCell.swift in Sources */,
+				0C09BFDC242B9A2D00B801BE /* SettingsCell.swift in Sources */,
 				18EF5E6D221D261B00EFFA6E /* GMUGridBasedClusterAlgorithm.m in Sources */,
 				180692C122952FFE00177487 /* BookingFFMealTableViewCell.swift in Sources */,
 				8472F20423E4064C00993B08 /* HotelsMapVC+CollectionViewDataSourceDelegateMethods.swift in Sources */,

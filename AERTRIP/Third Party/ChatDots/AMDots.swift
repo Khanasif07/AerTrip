@@ -45,13 +45,13 @@ public class AMDots: UIView {
   private var defaultsBlinkingColor = #colorLiteral(red: 0.8588235294, green: 0.1960784314, blue: 0.2117647059, alpha: 1)
   private var currentViewIndex = -1
   private var timer: Timer?
-
+  var alreadyDrawn = false
   // MARK: - init
 
   public init(frame: CGRect, colors: [UIColor]? = nil, blinkingColor: UIColor? = nil) {
     super.init(frame: frame)
     self.colors = colors ?? defaultsColors
-    self.colors.append(contentsOf: [UIColor.blue,UIColor.blue])
+    self.colors.append(contentsOf: [UIColor.clear,UIColor.clear])
     self.blinkingColor = blinkingColor ?? self.defaultsBlinkingColor
   }
 
@@ -70,12 +70,12 @@ public class AMDots: UIView {
   // MARK: - Draw
 
   override public func draw(_ rect: CGRect) {
-
+//    if self.alreadyDrawn { return }
     drawTheDots()
 
     #if !TARGET_INTERFACE_BUILDER
 //    stop()
-    start()
+//    start()
     #endif
   }
 
@@ -85,7 +85,11 @@ public class AMDots: UIView {
       let width = frame.size.width - (CGFloat(colors.count-1)*spacing)
       dotSize = (width / CGFloat(colors.count))
     }
-
+    
+    for sub in self.subviews{
+        sub.removeFromSuperview()
+    }
+    
     for (index,color) in colors.enumerated() {
       var view = UIView()
       if index == colors.count - 2 || index == colors.count - 1{
@@ -165,13 +169,15 @@ public class AMDots: UIView {
     isHidden = false
 
     timer = Timer.scheduledTimer(timeInterval: Double(animationDuration-aheadTime), target: self, selector: #selector(startAnimation), userInfo: nil, repeats: true)
+    alreadyDrawn = true
+
   }
 
   /// Use it to stop the animation for the AMDots
   public func stop() {
     timer?.invalidate()
     timer = nil
-
+    alreadyDrawn = false
     if hidesWhenStopped {
       isHidden = true
     }

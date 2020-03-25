@@ -14,7 +14,7 @@ class SettingsVC: BaseVC {
     //MARK:-
     @IBOutlet weak var appVersionLabel: UILabel!
     @IBOutlet weak var topNavView: TopNavigationView!
-    
+    @IBOutlet weak var settingsTableView: UITableView!
     
     //MARK:- Properties
     //MARK:- Public
@@ -25,7 +25,6 @@ class SettingsVC: BaseVC {
     //MARK:-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
         self.initialSetups()
     }
@@ -35,8 +34,8 @@ class SettingsVC: BaseVC {
     }
     
     override func setupTexts() {
-        
         self.appVersionLabel.text = "Build Version N/A"
+        self.appVersionLabel.isHidden = true
         if let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String, let bundelVersion = Bundle.main.infoDictionary!["CFBundleVersion"] as? String {
             self.appVersionLabel.text = "Build Version \(appVersion) (\(bundelVersion))"
         }
@@ -51,6 +50,14 @@ class SettingsVC: BaseVC {
     private func initialSetups() {
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.Settings.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false)
+        configureTableView()
+    }
+    
+    
+    private func configureTableView(){
+        self.settingsTableView.register(UINib(nibName: "SettingsCell", bundle: nil), forCellReuseIdentifier: "SettingsCell")
+        self.settingsTableView.dataSource = self
+        self.settingsTableView.delegate = self
     }
     
     //MARK:- Public
