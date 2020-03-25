@@ -454,9 +454,9 @@ class HotelResultVC: StatusBarAnimatableViewController {
     }
     
     @IBAction func unPinAllFavouriteButtonTapped(_ sender: Any) {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [ LocalizedString.RemoveFromFavourites.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [ LocalizedString.RemoveFromFavourites.localized], colors: [AppColors.themeRed])
         
-        _ = PKAlertController.default.presentActionSheet(LocalizedString.FloatingButtonsTitle.localized, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
+        _ = PKAlertController.default.presentActionSheet(LocalizedString.UnfavouritesAllTitle.localized, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
             
             if index == 0 {
                 self?.removeAllFavouritesHotels()

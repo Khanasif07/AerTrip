@@ -448,6 +448,7 @@
 "RemoveFromFavourites" = "Remove from Favourites";
 "Share" = "Share";
 "FloatingButtonsTitle" = "What do you want to do with your \n favourite hotels?";
+"UnfavouritesAllTitle" = "Do you want to unfavourites all \n favourites hotels?";
 "EmailFavoriteHotelsInfo" = "Email Favorite Hotels Info";
 "Send" = "Send";
 "To" = "To";

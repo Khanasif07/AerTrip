@@ -34,6 +34,7 @@ class MailComposerVC: BaseVC {
         
         self.doInitialSetup()
         self.setupEmail()
+        self.updateSendButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -155,6 +156,34 @@ class MailComposerVC: BaseVC {
         self.mailComposerHeaderView.checkOutDayLabel.text = checkOutDay
     }
     
+    
+    private func updateSendButton(){
+        
+        let mail = self.mailComposerHeaderView.toEmailTextView.text
+        let mailsArray = mail?.components(separatedBy: ",") ?? []
+        let emails = mailsArray.filter({ $0 != " " &&  $0 != ""})
+        var isEmailValid = false
+        for email in emails{
+            isEmailValid = email.trimmingCharacters(in: .whitespacesAndNewlines).checkValidity(.Email)
+            if !isEmailValid{
+                self.topNavView.firstRightButton.isEnabled = false
+                self.topNavView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+                return
+            }
+        }
+        
+        if !isEmailValid || self.viewModel.subject.isEmpty{
+            
+//            self.email.checkValidity(.Email)
+            self.topNavView.firstRightButton.isEnabled = false
+            self.topNavView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+        }else{
+           self.topNavView.firstRightButton.isEnabled = true
+            self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        }
+        
+    }
+    
     private func setupEmail() {
         if let email = UserInfo.loggedInUser?.email {
             self.viewModel.fromEmails = [email]
@@ -236,10 +265,16 @@ extension MailComposerVC: EmailComposeerHeaderViewDelegate {
         })
     }
     func textViewText(emailTextView: UITextView) {
+        delay(seconds: 0.2) {[weak self] in
+            self?.updateSendButton()
+        }
+        
+        
     }
     
     func textViewText(messageTextView: UITextView) {
         self.viewModel.subject = messageTextView.text ?? ""
+        self.updateSendButton()
     }
     
     func openContactScreen() {
@@ -279,6 +314,7 @@ extension MailComposerVC: CNContactPickerDelegate {
         } else {
             AppToast.default.showToastMessage(message: LocalizedString.UnableToGetMail.localized, title:"", onViewController: self, duration: 0.6)
         }
+        self.updateSendButton()
         
     }
 }

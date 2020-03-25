@@ -286,6 +286,7 @@ enum LocalizedString: String {
     case Default
     case Share
     case FloatingButtonsTitle
+    case UnfavouritesAllTitle
     // Mark: - Salutation
     case Mrs
     case Ms

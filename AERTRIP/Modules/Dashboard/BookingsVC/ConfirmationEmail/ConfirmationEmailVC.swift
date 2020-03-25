@@ -50,7 +50,7 @@ class ConfirmationEmailVC: BaseVC {
     
     
     override func bindViewModel() {
-        self.viewModel.delegate = self
+//        self.viewModel.delegate = self
     }
     
     override func viewDidLayoutSubviews() {
@@ -136,21 +136,21 @@ class ConfirmationEmailVC: BaseVC {
     
     private func setUpCheckInOutView() {
         // get all value in a format
-        let currentFormat = "yyyy-MM-dd"
-        let checkInDate = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkIn ?? "", currentFormat: currentFormat, requiredFormat: "dd MMM")
-        let checkOutDate = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkOut ?? "", currentFormat: currentFormat, requiredFormat: "dd MMM")
-        
-        let totalNights = (self.viewModel.hotelSearchRequest?.requestParameters.checkOut.toDate(dateFormat: currentFormat)! ?? Date()).daysFrom(viewModel.hotelSearchRequest?.requestParameters.checkIn.toDate(dateFormat: currentFormat)! ?? Date())
-        
-        let checkInDay = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkIn ?? "", currentFormat: currentFormat, requiredFormat: "EEEE")
-        let checkOutDay = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkOut ?? "", currentFormat: currentFormat, requiredFormat: "EEEE")
+//        let currentFormat = "yyyy-MM-dd"
+//        let checkInDate = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkIn ?? "", currentFormat: currentFormat, requiredFormat: "dd MMM")
+//        let checkOutDate = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkOut ?? "", currentFormat: currentFormat, requiredFormat: "dd MMM")
+//
+//        let totalNights = (self.viewModel.hotelSearchRequest?.requestParameters.checkOut.toDate(dateFormat: currentFormat)! ?? Date()).daysFrom(viewModel.hotelSearchRequest?.requestParameters.checkIn.toDate(dateFormat: currentFormat)! ?? Date())
+//
+//        let checkInDay = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkIn ?? "", currentFormat: currentFormat, requiredFormat: "EEEE")
+//        let checkOutDay = Date.getDateFromString(stringDate: self.viewModel.hotelSearchRequest?.requestParameters.checkOut ?? "", currentFormat: currentFormat, requiredFormat: "EEEE")
         
         // setup the text
-        self.mailComposerHeaderView.checkInDateLabel.text = checkInDate
-        self.mailComposerHeaderView.checkOutDateLabel.text = checkOutDate
-        self.mailComposerHeaderView.numberOfNightsLabel.text = (totalNights == 1) ? "\(totalNights) Night" : "\(totalNights) Nights"
-        self.mailComposerHeaderView.checkInDayLabel.text = checkInDay
-        self.mailComposerHeaderView.checkOutDayLabel.text = checkOutDay
+//        self.mailComposerHeaderView.checkInDateLabel.text = checkInDate
+//        self.mailComposerHeaderView.checkOutDateLabel.text = checkOutDate
+//        self.mailComposerHeaderView.numberOfNightsLabel.text = (totalNights == 1) ? "\(totalNights) Night" : "\(totalNights) Nights"
+//        self.mailComposerHeaderView.checkInDayLabel.text = checkInDay
+//        self.mailComposerHeaderView.checkOutDayLabel.text = checkOutDay
     }
     
     private func setupEmail() {
@@ -185,7 +185,7 @@ extension ConfirmationEmailVC: TopNavigationViewDelegate {
 
 extension ConfirmationEmailVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.favouriteHotels.count
+        return 0//self.viewModel.favouriteHotels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -193,7 +193,7 @@ extension ConfirmationEmailVC: UITableViewDataSource, UITableViewDelegate {
             printDebug("cell not found")
             return UITableViewCell()
         }
-        cell.favHotel = self.viewModel.favouriteHotels[indexPath.row]
+//        cell.favHotel = self.viewModel.favouriteHotels[indexPath.row]
         return cell
     }
     
