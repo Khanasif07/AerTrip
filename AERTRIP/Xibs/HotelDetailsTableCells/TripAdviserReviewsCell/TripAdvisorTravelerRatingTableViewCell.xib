@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,18 +18,18 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviserBig" translatesAutoresizingMaskIntoConstraints="NO" id="MnX-uc-XFV">
-                        <rect key="frame" x="16" y="28" width="32" height="18"/>
+                        <rect key="frame" x="16" y="28" width="27" height="16"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="18" id="pxr-yN-5Xw"/>
-                            <constraint firstAttribute="width" constant="32" id="yrK-03-TOs"/>
+                            <constraint firstAttribute="height" constant="16" id="pxr-yN-5Xw"/>
+                            <constraint firstAttribute="width" constant="27" id="yrK-03-TOs"/>
                         </constraints>
                     </imageView>
                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QpF-hL-504" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="51" y="28.5" width="84" height="17"/>
+                        <rect key="frame" x="46" y="27.5" width="88" height="17"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="17" id="WwP-hT-KNJ"/>
-                            <constraint firstAttribute="width" constant="84" id="sdP-xl-NaP"/>
+                            <constraint firstAttribute="width" constant="88" id="sdP-xl-NaP"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilled"/>
@@ -41,24 +41,24 @@
                                 <integer key="value" value="5"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="size" keyPath="minImageSize">
-                                <size key="value" width="17" height="17"/>
+                                <size key="value" width="15" height="15"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3,089 Reviews" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ylO-VJ-vhw">
-                        <rect key="frame" x="151" y="27" width="171" height="20.5"/>
+                        <rect key="frame" x="150" y="26" width="172" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#24 of 484 Hotels in Mumbai" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KSe-g5-rXf">
-                        <rect key="frame" x="16" y="57.5" width="306" height="23"/>
+                        <rect key="frame" x="16" y="56.5" width="306" height="23"/>
                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdvisorReview" translatesAutoresizingMaskIntoConstraints="NO" id="zVV-yp-Fvg">
-                        <rect key="frame" x="338" y="28.5" width="53" height="52"/>
+                        <rect key="frame" x="338" y="27.5" width="53" height="52"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="53" id="FVs-BG-Jal"/>
                             <constraint firstAttribute="height" constant="52" id="fV2-hH-s2o"/>
@@ -94,7 +94,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="combinedShapeFill" width="14" height="14"/>
+        <image name="combinedShapeFill" width="15" height="14"/>
         <image name="combinedShapeUnfilled" width="14" height="14"/>
         <image name="tripAdviserBig" width="32" height="18"/>
         <image name="tripAdvisorReview" width="79.5" height="79.5"/>

@@ -98,7 +98,7 @@ class HotelCheckOutDetailsVIew: UIView {
     
     private func registerXibs() {
         self.hotelDetailsTableView.registerCell(nibName: HotelDetailsImgSlideCell.reusableIdentifier)
-        self.hotelDetailsTableView.registerCell(nibName: HotelRatingInfoCell.reusableIdentifier)
+        self.hotelDetailsTableView.registerCell(nibName: HCDataHotelRatingInfoTableViewCell.reusableIdentifier)
         self.hotelDetailsTableView.registerCell(nibName: HotelInfoAddressCell.reusableIdentifier)
         self.hotelDetailsTableView.registerCell(nibName: HotelDetailAmenitiesCell.reusableIdentifier)
         self.hotelDetailsTableView.registerCell(nibName: TripAdvisorTableViewCell.reusableIdentifier)
