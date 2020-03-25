@@ -33,7 +33,9 @@ class ChatVC : BaseVC {
     //MARK:- Variables
     private var name = "Guru"
     let chatVm = ChatVM()
-    
+    var dotsView: AMDots?
+    var typingCellTimer : Timer?
+
     //MARK:- View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +66,7 @@ class ChatVC : BaseVC {
     
     //MARK:- Send Button Tapped
     @IBAction func sendButton(_ sender: UIButton) {
+        self.invalidateTypingCellTimer()
         guard  let msg = self.messageTextView.text, !msg.isEmpty else { return }
         if self.chatVm.messages.isEmpty { hideWelcomeView() }
         self.chatVm.messages.append(MessageModel(msg: msg, source: MessageModel.MessageSource.me))
@@ -78,6 +81,26 @@ class ChatVC : BaseVC {
         }
         //MARK:- Here i had used insert row due to some issue with the yIndex of the cell i had used reload
     }
+    
+    func addDotViewToTypingCell(){
+            if let typingCellIndex = self.chatVm.messages.lastIndex(where: { (obj) -> Bool in
+                obj.msgSource == .typing
+            }){
+            guard let cell = self.chatTableView.cellForRow(at: IndexPath(row: typingCellIndex, section: 0)) as? TypingStatusChatCell else { return }
+                dotsView = AMDots(frame: CGRect(x: cell.dotsView.frame.origin.x, y: cell.dotsView.frame.origin.y, width: cell.dotsView.frame.width, height: cell.dotsView.frame.height), colors: [#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1),#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1),#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)])
+                  dotsView?.hidesWhenStopped = true
+                  dotsView?.colors = [#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1),#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1),#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1),#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1),#colorLiteral(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)]
+                  dotsView?.backgroundColor = UIColor.clear
+                  dotsView?.animationType = .jump
+                  dotsView?.dotSize = 5
+                    dotsView?.animationDuration = 1.4
+                  dotsView?.spacing = 5
+                  dotsView?.aheadTime = 1
+                cell.contentView.addSubview(self.dotsView ?? UIView())
+        }
+
+    }
+    
 }
 
 //MARK:- Functions
@@ -220,10 +243,35 @@ extension ChatVC {
             delay(seconds: 0.2) {
                 self.sendButton.isEnabled = true
             }
+            self.scheduleTypingCell()
+        }
+    }
+        
+    func scheduleTypingCell(){
+        if self.chatVm.typingCellTimerCounter > 0 { return }
+        self.typingCellTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(handleTypingCellTimer), userInfo: nil, repeats: true)
+    }
+    
+    @objc func handleTypingCellTimer(){
+        self.chatVm.typingCellTimerCounter += 1
+//        printDebug("out..\(self.chatVm.typingCellTimerCounter)")
+        if self.chatVm.typingCellTimerCounter == 2{
+            self.insertTypingCell()
+//            printDebug("in..\(self.chatVm.typingCellTimerCounter)")
+        }
+        
+        if self.chatVm.typingCellTimerCounter == 20{
+            invalidateTypingCellTimer()
         }
     }
     
-    func showAnimationViewWith(text : String){
+     func invalidateTypingCellTimer(){
+        self.typingCellTimer?.invalidate()
+        self.chatVm.typingCellTimerCounter = 0
+        removeTypingCell()
+    }
+    
+    private func showAnimationViewWith(text : String){
         self.animationView.isHidden = false
         UIView.animate(withDuration: 0.2) {
             self.animationLabel.text = text
@@ -231,7 +279,7 @@ extension ChatVC {
         }
     }
     
-    func hideAnimationView(){
+    private func hideAnimationView(){
         self.animationView.isHidden = true
         self.animationLabel.text = ""
         self.animationView.alpha = 0
@@ -241,6 +289,25 @@ extension ChatVC {
         guard let cell = self.chatTableView.cellForRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0)) as? SenderChatCell else {
             return }
         cell.contentView.isHidden = ishidden
+    }
+    
+    private func insertTypingCell(){
+        self.chatVm.messages.append(MessageModel(msg: "", source: MessageModel.MessageSource.typing))
+        self.chatTableView.beginUpdates()
+        self.chatTableView.insertRows(at: [IndexPath(row: self.chatVm.messages.count - 1, section: 0)], with: UITableView.RowAnimation.none)
+        self.chatTableView.endUpdates()
+        self.chatTableView.scrollToRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0), at: UITableView.ScrollPosition.bottom, animated: true)
+        delay(seconds: 0.2) {
+            self.addDotViewToTypingCell()
+        }
+    }
+    
+    private func removeTypingCell(){
+        self.chatVm.messages = self.chatVm.messages.filter { $0.msgSource != .typing }
+        self.chatTableView.reloadData()
+        self.dotsView?.stop()
+        self.dotsView?.removeFromSuperview()
+        self.dotsView = nil
     }
     
 }

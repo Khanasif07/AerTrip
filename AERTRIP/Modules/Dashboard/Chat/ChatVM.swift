@@ -11,5 +11,6 @@ import Foundation
 class ChatVM {
     
     var messages : [MessageModel] = []
-
+    var typingCellTimerCounter = 0
+    
 }

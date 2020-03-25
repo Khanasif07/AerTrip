@@ -19,7 +19,7 @@ struct MessageModel {
     
     var msg : String
     var msgSource : MessageSource
-    var isHidden : Bool = false
+    var isHidden : Bool = true
     
     init(msg : String, source : MessageSource) {
         self.msg = msg

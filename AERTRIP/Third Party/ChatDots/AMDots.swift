@@ -74,6 +74,7 @@ public class AMDots: UIView {
     drawTheDots()
 
     #if !TARGET_INTERFACE_BUILDER
+//    stop()
     start()
     #endif
   }
@@ -174,6 +175,10 @@ public class AMDots: UIView {
     if hidesWhenStopped {
       isHidden = true
     }
+    
+//    let view = subviews[currentViewIndex]
+
+    currentViewIndex = -1
   }
 
 }
