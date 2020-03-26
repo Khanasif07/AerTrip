@@ -18,6 +18,7 @@ class SearchHotelTagVC: BaseVC {
     internal var tagButtons: [String] = []
     internal var copyOfTagButtons: [String] = []
     internal weak var delegate: AddTagButtonDelegate?
+    internal var initialTouchPoint: CGPoint = CGPoint(x: 0.0, y: 0.0)
     
     //Mark:- IBOutlets
     //================
@@ -33,7 +34,7 @@ class SearchHotelTagVC: BaseVC {
     @IBOutlet weak var cancelBtnOutlet: UIButton!
     @IBOutlet weak var dividerView: ATDividerView! {
         didSet {
-//            self.dividerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
+            //            self.dividerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
         }
     }
     
@@ -137,8 +138,12 @@ extension SearchHotelTagVC: UISearchBarDelegate {
 
 extension SearchHotelTagVC {
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+        guard let direction = sender.direction, direction.isVertical, self.tagTableView.contentOffset.y <= 0
+            else {
+                initialTouchPoint = CGPoint.zero
+                return
+        }
         let touchPoint = sender.location(in: view?.window)
-        var initialTouchPoint = CGPoint.zero
         
         switch sender.state {
         case .began:
@@ -159,8 +164,11 @@ extension SearchHotelTagVC {
                 })
             }
         case .failed, .possible:
+            initialTouchPoint = CGPoint.zero
             break
         }
     }
-    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }

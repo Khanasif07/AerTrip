@@ -111,6 +111,7 @@ class HotelsSearchVC: BaseVC {
         // call this method after all setup
         self.footerViewSetUp ()
         self.setDataFromPreviousSearch()
+        self.updateNearMeLocation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -287,6 +288,16 @@ class HotelsSearchVC: BaseVC {
         self.whereLabel.font = (self.cityNameLabel.text ?? "").isEmpty ? AppFonts.Regular.withSize(20.0) : AppFonts.Regular.withSize(16.0)
         self.cityNameLabel.isHidden = (self.cityNameLabel.text ?? "").isEmpty
         self.stateNameLabel.isHidden = (self.stateNameLabel.text ?? "").isEmpty
+    }
+    
+    private func updateNearMeLocation() {
+        if self.viewModel.searchedFormData.destId.isEmpty {
+            if let model = self.viewModel.nearMeLocation {
+                didSelectedDestination(hotel: model)
+            } else {
+                self.viewModel.hotelsNearByMe()
+            }
+        }
     }
     
     ///GetDataFromPreviousSearch
@@ -779,6 +790,14 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
 //MARK:- SearchHoteslOnPreferencesDelegate
 //========================================
 extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
+    func getMyLocationSuccess() {
+        if let model = self.viewModel.nearMeLocation {
+            didSelectedDestination(hotel: model)
+        }
+    }
+    
+    func getMyLocationFail() {
+    }
     
     func getRecentSearchesDataSuccess() {
         if let recentSearchesView = self.recentSearchesView, let recentSearchesData = self.viewModel.recentSearchesData {
@@ -817,6 +836,7 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
         
         self.viewModel.searchedFormData.adultsCount.removeAll()
         self.viewModel.searchedFormData.childrenAge.removeAll()
+        self.viewModel.searchedFormData.childrenCounts.removeAll()
         for roomData in recentSearch.room ?? [] {
             if roomData.isPresent {
                 if let adultCounts = roomData.adultCounts.toInt {
@@ -824,12 +844,15 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
                 }
                 var childrenArray: [Int] = []
                 childrenArray.removeAll()
+                var childrenCounter = 0
                 for child in roomData.child {
                     if child.isPresent {
                         childrenArray.append(child.childAge)
+                        childrenCounter += 1
                     }
                 }
                 self.viewModel.searchedFormData.childrenAge.append(childrenArray)
+                self.viewModel.searchedFormData.childrenCounts.append(childrenCounter)
             }
         }
         self.viewModel.searchedFormData.ratingCount = recentSearch.filter?.stars ?? []

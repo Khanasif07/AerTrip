@@ -16,7 +16,7 @@ class HotelDetailsReviewsVC: BaseVC {
     let sectionName = ["",LocalizedString.TravellerRating.localized,LocalizedString.RatingSummary.localized]
     let ratingNames = [LocalizedString.Excellent.localized,LocalizedString.VeryGood.localized,LocalizedString.Average.localized,LocalizedString.Poor.localized,LocalizedString.Terrible.localized]
     var initialTouchPoint:CGPoint = CGPoint.zero
-
+    
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var mainContainerBottomConst: NSLayoutConstraint!
@@ -74,7 +74,7 @@ class HotelDetailsReviewsVC: BaseVC {
         mainContainerView.isUserInteractionEnabled = true
         swipeGesture.delegate = self
         self.view.addGestureRecognizer(swipeGesture)
-               
+        
         
         self.dividerView.isHidden = true
         self.registerNibs()
@@ -144,7 +144,7 @@ extension HotelDetailsReviewsVC: UITableViewDelegate , UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if self.viewModel.hotelTripAdvisorDetails != nil {
-             return self.viewModel.sectionData.count
+            return self.viewModel.sectionData.count
         }
         return 0
     }
@@ -166,7 +166,7 @@ extension HotelDetailsReviewsVC: UITableViewDelegate , UITableViewDataSource {
             return nil
         }
         
-       
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -258,7 +258,7 @@ extension HotelDetailsReviewsVC {
             if indexPath.row == ratingSummary.count - 1 {
                 cell.dividerViewTopConstraints.constant = 26.5
                 cell.dividerView.isHidden = false
-                } else {
+            } else {
                 cell.dividerViewTopConstraints.constant = 6.5
                 cell.dividerView.isHidden = true
             }
@@ -309,7 +309,7 @@ extension HotelDetailsReviewsVC {
         
         let yOffset = (scrollView.contentOffset.y > headerContainerView.height) ? headerContainerView.height : scrollView.contentOffset.y
         printDebug(yOffset)
-
+        
         dividerView.isHidden = yOffset < (headerContainerView.height - 5.0)
         
         //header container view height
@@ -324,7 +324,7 @@ extension HotelDetailsReviewsVC {
         //reviews label
         self.reviewsLabel.alpha = 1.0 - alpha
         reviewTopConstraint.constant = 23.0 - (yOffset * (23.0 / headerContainerView.height))
-//        reviewLabelYConstraint.constant = -(yOffset * (100.0 / headerContainerView.height))
+        //        reviewLabelYConstraint.constant = -(yOffset * (100.0 / headerContainerView.height))
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -348,13 +348,13 @@ extension HotelDetailsReviewsVC {
     }
 }
 extension HotelDetailsReviewsVC {
-   
+    
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-        guard let direction = sender.direction, direction.isVertical
-                   else {
-                   initialTouchPoint = CGPoint.zero
-                   return
-               }
+        guard let direction = sender.direction, direction.isVertical, self.reviewsTblView.contentOffset.y <= 0
+            else {
+                initialTouchPoint = CGPoint.zero
+                return
+        }
         
         let touchPoint = sender.location(in: view?.window)
         
@@ -384,13 +384,17 @@ extension HotelDetailsReviewsVC {
     
     
     func setValue() {
-           let toDeduct = (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
-           let finalValue =  (self.view.height - toDeduct)
-           self.mainContainerBottomConst.constant = 0.0
-           self.mainContainerHeightConst.constant = finalValue
-           self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
-           self.view.layoutIfNeeded()
-           
-       }
+        let toDeduct = (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
+        let finalValue =  (self.view.height - toDeduct)
+        self.mainContainerBottomConst.constant = 0.0
+        self.mainContainerHeightConst.constant = finalValue
+        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
+        self.view.layoutIfNeeded()
+        
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
     
 }

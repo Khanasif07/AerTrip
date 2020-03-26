@@ -61,7 +61,7 @@ extension HotelsMapVC {
     
     func removeAllFavouritesHotels() {
         guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
-        self.switchView.setOn(isOn: false)
+        self.switchView.isOn = false
         self.manageSwitchContainer(isHidden: true)
         self.viewModel.isUnpinHotelTapped = true
         self.selectedIndexPath = nil
@@ -76,7 +76,7 @@ extension HotelsMapVC {
             dataVC.viewModel.hotelSearchRequest = self.viewModel.hotelSearchRequest
             self.hotelsGroupExpendedVC = dataVC
             dataVC.viewModel.samePlaceHotels = hotels
-            dataVC.viewModel.isFromFavorite = self.switchView.on
+            dataVC.viewModel.isFromFavorite = self.switchView.isOn
             let sheet = PKBottomSheet.instanceFromNib
             sheet.isAddTapGesture = false
             sheet.headerHeight = 24.0
@@ -214,7 +214,7 @@ extension HotelsMapVC {
         
         if isHidden, shouldOff {
             //if switch is hidden then it must be off, otherwise it should be as it is.
-            self.switchView.setOn(isOn: false, animated: false, shouldNotify: false)
+            self.switchView.isOn = false
             self.viewModel.isFavouriteOn = false
             self.hideFavsButtons()
         }

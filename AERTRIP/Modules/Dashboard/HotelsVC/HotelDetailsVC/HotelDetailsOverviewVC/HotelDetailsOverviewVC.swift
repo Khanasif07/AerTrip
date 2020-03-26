@@ -17,7 +17,7 @@ class HotelDetailsOverviewVC: BaseVC {
     let viewModel = HotelDetailsOverviewVM()
     private let maxHeaderHeight: CGFloat = 58.0
     var initialTouchPoint: CGPoint = CGPoint(x: 0.0, y: 0.0)
-
+    
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var mainContainerView: UIView!
@@ -76,20 +76,20 @@ class HotelDetailsOverviewVC: BaseVC {
         self.dividerView.isHidden = true
         self.overViewTextViewOutlet.attributedText = self.viewModel.overViewInfo.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.rawValue, fontColor: AppColors.themeBlack)
         //Heading
-//        self.overViewTextViewOutlet.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline).withSize(16.0)
-//        // subheadline
-//        self.overViewTextViewOutlet.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline).withSize(16.0)
-//        // body
-//        self.overViewTextViewOutlet.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body).withSize(16.0)
+        //        self.overViewTextViewOutlet.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline).withSize(16.0)
+        //        // subheadline
+        //        self.overViewTextViewOutlet.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline).withSize(16.0)
+        //        // body
+        //        self.overViewTextViewOutlet.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body).withSize(16.0)
     }
     
     //Mark:- Functions
     //================
-
+    
     
     //Mark:- IBActions
     //================
-
+    
     @IBAction func cancelButtonAction(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -130,18 +130,18 @@ extension HotelDetailsOverviewVC {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         manageHeaderView(scrollView)
-       // printDebug("scrollViewDidScroll")
+        // printDebug("scrollViewDidScroll")
     }
     
-   @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-    guard let direction = sender.direction, direction.isVertical
-        else {
-        initialTouchPoint = CGPoint.zero
-        return
-    }
+    @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+        guard let direction = sender.direction, direction.isVertical, self.overViewTextViewOutlet.contentOffset.y <= 0
+            else {
+                initialTouchPoint = CGPoint.zero
+                return
+        }
         let touchPoint = sender.location(in: view?.window)
         print(touchPoint)
-
+        
         switch sender.state {
         case .began:
             initialTouchPoint = touchPoint
@@ -166,18 +166,7 @@ extension HotelDetailsOverviewVC {
         }
     }
     
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        manageHeaderView(scrollView)
-//        printDebug("scrollViewDidEndDecelerating")
-//    }
-//
-//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        manageHeaderView(scrollView)
-//        printDebug("scrollViewDidEndDragging")
-//    }
-//    
-//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-//        manageHeaderView(scrollView)
-//        printDebug("scrollViewDidEndScrollingAnimation")
-//    }
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }

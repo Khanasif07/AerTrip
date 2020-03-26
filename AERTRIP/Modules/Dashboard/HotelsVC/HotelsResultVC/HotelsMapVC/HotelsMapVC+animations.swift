@@ -212,17 +212,20 @@ extension HotelsMapVC {
     
     func animateFloatingButtonOnMapView(isAnimated: Bool = true) {
         if isAnimated {
-        UIView.animate(withDuration: TimeInterval(self.defaultDuration),
-                       delay: 0,
-                       usingSpringWithDamping: self.defaultDamping,
-                       initialSpringVelocity: self.defaultVelocity,
-                       options: .allowUserInteraction,
-                       animations: { [weak self] in
-                        self?.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 55, y: 0)
-                       },
-                       completion: { _ in
-                           printDebug("Animation finished")
-        })
+//        UIView.animate(withDuration: TimeInterval(self.defaultDuration),
+//                       delay: 0,
+//                       usingSpringWithDamping: self.defaultDamping,
+//                       initialSpringVelocity: self.defaultVelocity,
+//                       options: .allowUserInteraction,
+//                       animations: { [weak self] in
+//                        self?.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 55, y: 0)
+//                       },
+//                       completion: { _ in
+//                           printDebug("Animation finished")
+//        })
+            UIView.animate(withDuration: TimeInterval(0.1), delay: 0, options: .curveEaseOut, animations: { [weak self] in
+             self?.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 55, y: 0)
+            }, completion: nil)
         } else {
             self.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 55, y: 0)
         }
