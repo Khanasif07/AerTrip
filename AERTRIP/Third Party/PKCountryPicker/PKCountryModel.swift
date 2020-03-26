@@ -26,6 +26,9 @@ public struct PKCountryModel {
     var flagImage: UIImage? {
         return UIImage(named: self.countryFlag)
     }
+    var currencySymbol : String = ""
+    var currencyName : String = ""
+    var currencyCode : String = ""
     
     init(json: [String: Any]) {
         if let obj = json["CountryID"] as? Int {
@@ -88,6 +91,19 @@ public struct PKCountryModel {
         if let obj = json["SortIndex"] as? Int {
             self.sortIndex = obj
         }
+        
+        if let obj = json["CurrencySymbol"] as? String {
+            self.currencySymbol = obj
+        }
+        
+        if let obj = json["CurrencyCode"] as? String {
+            self.currencyCode = obj
+        }
+        
+        if let obj = json["CurrencyName"] as? String {
+            self.currencyName = obj
+        }
+        
     }
     
     static func getModels(jsonArr: [[String:Any]]) -> [PKCountryModel] {

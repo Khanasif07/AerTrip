@@ -29,6 +29,8 @@ class ChatVC : BaseVC {
     @IBOutlet weak var textViewBackView: UIView!
     @IBOutlet weak var suggestionsCollectionView: UICollectionView!
     @IBOutlet weak var sendButtonWidth: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewBottom: NSLayoutConstraint!
+    
     
     //MARK:- Variables
     private var name = "Guru"
@@ -46,7 +48,7 @@ class ChatVC : BaseVC {
         super.viewWillAppear(animated)
         IQKeyboardManager.shared().isEnabled = false
         IQKeyboardManager.shared().isEnableAutoToolbar = false
-        IQKeyboardManager.shared()
+        IQKeyboardManager.shared().shouldResignOnTouchOutside = true
         addKeyboard()
     }
     
@@ -66,7 +68,10 @@ class ChatVC : BaseVC {
     @IBAction func sendButton(_ sender: UIButton) {
         self.invalidateTypingCellTimer()
         guard  let msg = self.messageTextView.text, !msg.isEmpty else { return }
-        if self.chatVm.messages.isEmpty { hideWelcomeView() }
+        if self.chatVm.messages.isEmpty {
+            hideWelcomeView()
+            hideSuggestions()
+        }
         self.chatVm.messages.append(MessageModel(msg: msg, source: MessageModel.MessageSource.me))
         self.chatTableView.reloadData()
         self.resetFrames()
@@ -146,7 +151,7 @@ extension ChatVC {
         suggestionsCollectionView.delegate = self
         suggestionsCollectionView.register(UINib(nibName: "SuggestionsCell", bundle: nil), forCellWithReuseIdentifier: "SuggestionsCell")
         suggestionsCollectionView.contentInset = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
-        suggestionsCollectionView.isHidden = true
+//        suggestionsCollectionView.isHidden = true
     }
     
     //MARK:- Set navigation view
@@ -161,6 +166,7 @@ extension ChatVC {
 extension ChatVC : TopNavigationViewDelegate {
     
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+        invalidateTypingCellTimer()
         self.navigationController?.popViewController(animated: false)
     }
     
@@ -209,6 +215,19 @@ extension ChatVC {
             self.whereToGoLabel.isHidden = true
             self.chatButton.isHidden = true
             self.chatTableView.isHidden = false
+        }
+    }
+    
+    private func hideSuggestions(){
+        
+//        UIView.animate(withDuration: 0.5, animations: {
+//            self.suggestionsCollectionView.alpha = 0
+//        }) { (success) in
+//            self.suggestionsCollectionView.isHidden = true
+//        }
+        
+        UIView.animate(withDuration: 0.5) {
+            self.collectionViewBottom.constant = -200
         }
     }
     

@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
   
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -38,13 +37,28 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-          
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as? SettingsCell else {
-                       fatalError("SettingsCell not found")
-               }
-        cell.populateCell(type : self.settingsVm.getSettingsYype(key: indexPath.section, index: indexPath.row))
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as? SettingsCell else { fatalError("SettingsCell not found") }
+        cell.populateCell(type : self.settingsVm.getSettingsType(key: indexPath.section, index: indexPath.row))
         return cell
-        
       }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        switch self.settingsVm.getSettingsType(key: indexPath.section, index: indexPath.row) {
+            case .country:
+                AppFlowManager.default.moveToCountryVC()
+       
+            case .currency:
+                AppFlowManager.default.moveToCurrencyVC()
+            
+//        case .notification:
+//            AppFlowManager.default.moveToNotificationVC()
+
+            
+        default:
+                break
+        }
+        
+    }
     
 }

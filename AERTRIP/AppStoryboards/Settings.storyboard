@@ -106,7 +106,137 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="25M-1o-0Qp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2296.8000000000002" y="216.34182908545728"/>
+            <point key="canvasLocation" x="1812" y="219"/>
+        </scene>
+        <!--CountryVC-->
+        <scene sceneID="3S6-cr-HDV">
+            <objects>
+                <viewController storyboardIdentifier="CountryVC" id="yoh-80-m1l" customClass="CountryVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oQ5-26-ZU0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="je3-Vo-fAu" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="H10-LD-k5I"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ORh-v3-htr">
+                                <rect key="frame" x="0.0" y="96.5" width="375" height="570.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </tableView>
+                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="xbi-HT-BfD">
+                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="dwI-x0-28F"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-m3-1IE">
+                                <rect key="frame" x="0.0" y="96" width="375" height="0.5"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="cU7-eB-aHo"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="xbi-HT-BfD" firstAttribute="leading" secondItem="kcg-Ig-V90" secondAttribute="leading" id="BC5-Lp-Hjn"/>
+                            <constraint firstItem="ORh-v3-htr" firstAttribute="leading" secondItem="kcg-Ig-V90" secondAttribute="leading" id="DYB-3D-OCl"/>
+                            <constraint firstItem="8ie-m3-1IE" firstAttribute="top" secondItem="xbi-HT-BfD" secondAttribute="bottom" constant="8" id="cKC-1m-xZ1"/>
+                            <constraint firstItem="ORh-v3-htr" firstAttribute="top" secondItem="8ie-m3-1IE" secondAttribute="bottom" id="el9-u7-me7"/>
+                            <constraint firstItem="je3-Vo-fAu" firstAttribute="leading" secondItem="kcg-Ig-V90" secondAttribute="leading" id="gwA-T1-qOn"/>
+                            <constraint firstItem="kcg-Ig-V90" firstAttribute="bottom" secondItem="ORh-v3-htr" secondAttribute="bottom" id="h1G-BB-2vI"/>
+                            <constraint firstItem="8ie-m3-1IE" firstAttribute="leading" secondItem="kcg-Ig-V90" secondAttribute="leading" id="heg-8a-yQ8"/>
+                            <constraint firstItem="kcg-Ig-V90" firstAttribute="trailing" secondItem="ORh-v3-htr" secondAttribute="trailing" id="lI1-RZ-n5R"/>
+                            <constraint firstItem="kcg-Ig-V90" firstAttribute="trailing" secondItem="je3-Vo-fAu" secondAttribute="trailing" id="qnm-5h-lIL"/>
+                            <constraint firstItem="xbi-HT-BfD" firstAttribute="trailing" secondItem="kcg-Ig-V90" secondAttribute="trailing" id="qzm-Fm-4pO"/>
+                            <constraint firstItem="kcg-Ig-V90" firstAttribute="trailing" secondItem="8ie-m3-1IE" secondAttribute="trailing" id="r5N-Cp-X4t"/>
+                            <constraint firstItem="xbi-HT-BfD" firstAttribute="top" secondItem="je3-Vo-fAu" secondAttribute="bottom" id="t8a-oR-xsE"/>
+                            <constraint firstItem="je3-Vo-fAu" firstAttribute="top" secondItem="kcg-Ig-V90" secondAttribute="top" id="td8-TS-lP7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="kcg-Ig-V90"/>
+                    </view>
+                    <connections>
+                        <outlet property="countryTableView" destination="ORh-v3-htr" id="Ntj-4a-509"/>
+                        <outlet property="searchBar" destination="xbi-HT-BfD" id="Nbe-I5-aei"/>
+                        <outlet property="topNavView" destination="je3-Vo-fAu" id="1oX-YW-Ohk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2u5-VY-noJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2576.8000000000002" y="231.63418290854574"/>
+        </scene>
+        <!--CurrencyVC-->
+        <scene sceneID="6tc-kE-1nS">
+            <objects>
+                <viewController storyboardIdentifier="CurrencyVC" id="7He-H7-tkJ" customClass="CurrencyVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2PK-Ss-sI3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yDI-Q3-4IA" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="11Y-Ff-n1i"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Erc-5Z-ktL">
+                                <rect key="frame" x="0.0" y="96.5" width="375" height="570.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </tableView>
+                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="rCw-8P-Ro8">
+                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="49w-qH-fvn"/>
+                                </constraints>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RSr-IA-dyx">
+                                <rect key="frame" x="0.0" y="96" width="375" height="0.5"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="dVG-ki-VqN"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4Bv-2i-N2k" firstAttribute="trailing" secondItem="RSr-IA-dyx" secondAttribute="trailing" id="1VE-ch-8LC"/>
+                            <constraint firstItem="4Bv-2i-N2k" firstAttribute="trailing" secondItem="Erc-5Z-ktL" secondAttribute="trailing" id="FVh-GT-Uv7"/>
+                            <constraint firstItem="rCw-8P-Ro8" firstAttribute="top" secondItem="yDI-Q3-4IA" secondAttribute="bottom" id="Q7D-6N-Cv7"/>
+                            <constraint firstItem="Erc-5Z-ktL" firstAttribute="leading" secondItem="4Bv-2i-N2k" secondAttribute="leading" id="Ybn-7V-GrV"/>
+                            <constraint firstItem="yDI-Q3-4IA" firstAttribute="top" secondItem="4Bv-2i-N2k" secondAttribute="top" id="ZNu-d5-pmY"/>
+                            <constraint firstItem="rCw-8P-Ro8" firstAttribute="trailing" secondItem="4Bv-2i-N2k" secondAttribute="trailing" id="hud-yJ-vHD"/>
+                            <constraint firstItem="RSr-IA-dyx" firstAttribute="top" secondItem="rCw-8P-Ro8" secondAttribute="bottom" constant="8" id="kud-Pw-jKP"/>
+                            <constraint firstItem="4Bv-2i-N2k" firstAttribute="trailing" secondItem="yDI-Q3-4IA" secondAttribute="trailing" id="lIu-Rs-KKM"/>
+                            <constraint firstItem="rCw-8P-Ro8" firstAttribute="leading" secondItem="4Bv-2i-N2k" secondAttribute="leading" id="mXh-Id-imo"/>
+                            <constraint firstItem="4Bv-2i-N2k" firstAttribute="bottom" secondItem="Erc-5Z-ktL" secondAttribute="bottom" id="r8G-Uz-4rs"/>
+                            <constraint firstItem="RSr-IA-dyx" firstAttribute="leading" secondItem="4Bv-2i-N2k" secondAttribute="leading" id="slw-ls-p6Q"/>
+                            <constraint firstItem="Erc-5Z-ktL" firstAttribute="top" secondItem="RSr-IA-dyx" secondAttribute="bottom" id="wXc-CG-BMe"/>
+                            <constraint firstItem="yDI-Q3-4IA" firstAttribute="leading" secondItem="4Bv-2i-N2k" secondAttribute="leading" id="wfa-x5-8Rl"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4Bv-2i-N2k"/>
+                    </view>
+                    <connections>
+                        <outlet property="currencyTableView" destination="Erc-5Z-ktL" id="mo7-gz-JsU"/>
+                        <outlet property="searchBar" destination="rCw-8P-Ro8" id="fLf-eD-v8f"/>
+                        <outlet property="topNavView" destination="yDI-Q3-4IA" id="5g8-Ft-WX3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AjN-Ro-qJX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3249" y="232"/>
         </scene>
     </scenes>
 </document>
