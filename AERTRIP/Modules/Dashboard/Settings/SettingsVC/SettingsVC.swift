@@ -20,9 +20,6 @@ class SettingsVC: BaseVC {
     @IBOutlet weak var madeWithLabel: UILabel!
     
     //MARK:- Properties
-    //MARK:- Public
-    
-    //MARK:- Private
     let settingsVm = SettingsVM()
     
     //MARK:- ViewLifeCycle

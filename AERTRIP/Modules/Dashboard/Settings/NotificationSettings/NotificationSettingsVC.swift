@@ -8,23 +8,57 @@
 
 import UIKit
 
-class NotificationSettingsVC: UIViewController {
+class NotificationSettingsVC: BaseVC {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    @IBOutlet weak var notificationSettingsTableView: UITableView!
+    @IBOutlet weak var topNavView: TopNavigationView!
 
-        // Do any additional setup after loading the view.
-    }
+//    let notificationSettingsVm = NotificationSettingsVM()
     
+       //MARK:- ViewLifeCycle
+        //MARK:-
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            // Do any additional setup after loading the view.
+            self.initialSetups()
+        }
 
-    /*
-    // MARK: - Navigation
+        override func setupTexts() {
+            super.setupTexts()
+        }
+        
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        override func setupColors() {
+            super.setupColors()
+        }
+        
+        //MARK:- Methods
+        //MARK:- Private
+        private func initialSetups() {
+            self.topNavView.delegate = self
+            self.topNavView.configureNavBar(title: LocalizedString.Settings.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false)
+            configureTableView()
+            setUpViewAttributes()
+        }
+        
+        func setUpViewAttributes(){
+            
+        }
+        
+        private func configureTableView(){
+            self.notificationSettingsTableView.register(UINib(nibName: "SettingsCell", bundle: nil), forCellReuseIdentifier: "SettingsCell")
+//            self.notificationSettingsTableView.dataSource = self
+//            self.notificationSettingsTableView.delegate = self
+        }
+        
+        //MARK:- Public
+        
+        
+        //MARK:- Action
     }
-    */
 
-}
+    extension NotificationSettingsVC: TopNavigationViewDelegate {
+        func topNavBarLeftButtonAction(_ sender: UIButton) {
+            AppFlowManager.default.popViewController(animated: true)
+        }
+    }

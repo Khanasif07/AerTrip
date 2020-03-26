@@ -238,5 +238,56 @@
             </objects>
             <point key="canvasLocation" x="3249" y="232"/>
         </scene>
+        <!--Notification SettingsVC-->
+        <scene sceneID="tD5-dR-Qdg">
+            <objects>
+                <viewController storyboardIdentifier="NotificationSettingsVC" id="yyi-5O-A7Q" customClass="NotificationSettingsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YkO-FE-xWy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nga-dw-0gY" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="06Z-P1-Zp6"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qgD-yQ-bz1">
+                                <rect key="frame" x="156" y="323" width="63.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iaF-oq-xOr">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qgD-yQ-bz1" firstAttribute="centerX" secondItem="jpH-nX-bbb" secondAttribute="centerX" id="5K3-4G-yZd"/>
+                            <constraint firstItem="jpH-nX-bbb" firstAttribute="bottom" secondItem="iaF-oq-xOr" secondAttribute="bottom" id="Atg-qs-lCu"/>
+                            <constraint firstItem="nga-dw-0gY" firstAttribute="leading" secondItem="jpH-nX-bbb" secondAttribute="leading" id="Hga-CM-zbh"/>
+                            <constraint firstItem="qgD-yQ-bz1" firstAttribute="centerY" secondItem="jpH-nX-bbb" secondAttribute="centerY" id="Sr5-p0-i7Z"/>
+                            <constraint firstItem="nga-dw-0gY" firstAttribute="top" secondItem="jpH-nX-bbb" secondAttribute="top" id="ZK0-DH-GPN"/>
+                            <constraint firstItem="iaF-oq-xOr" firstAttribute="leading" secondItem="jpH-nX-bbb" secondAttribute="leading" id="apX-g8-chs"/>
+                            <constraint firstItem="jpH-nX-bbb" firstAttribute="trailing" secondItem="iaF-oq-xOr" secondAttribute="trailing" id="tOg-2R-VDe"/>
+                            <constraint firstItem="jpH-nX-bbb" firstAttribute="trailing" secondItem="nga-dw-0gY" secondAttribute="trailing" id="u5Q-YF-qlo"/>
+                            <constraint firstItem="iaF-oq-xOr" firstAttribute="top" secondItem="nga-dw-0gY" secondAttribute="bottom" id="uVx-ug-PM0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="jpH-nX-bbb"/>
+                    </view>
+                    <connections>
+                        <outlet property="appVersionLabel" destination="qgD-yQ-bz1" id="nfC-f9-3a6"/>
+                        <outlet property="notificationSettingsTableView" destination="iaF-oq-xOr" id="ygC-z1-vry"/>
+                        <outlet property="topNavView" destination="nga-dw-0gY" id="ZPS-MA-wCg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ULl-0P-Lk1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3897" y="218"/>
+        </scene>
     </scenes>
 </document>

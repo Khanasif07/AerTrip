@@ -32,6 +32,7 @@
 		0C24D4F5242CAF9D00CBFF92 /* CurrencyVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24D4F4242CAF9D00CBFF92 /* CurrencyVM.swift */; };
 		0C24D4F8242CE93200CBFF92 /* NotificationSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24D4F7242CE93200CBFF92 /* NotificationSettingsVC.swift */; };
 		0C24D4FA242CE97000CBFF92 /* NotificationSettingsVC+TableViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24D4F9242CE97000CBFF92 /* NotificationSettingsVC+TableViewDelegates.swift */; };
+		0C24D4FC242CEEDD00CBFF92 /* NotificationSettingsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24D4FB242CEEDD00CBFF92 /* NotificationSettingsVM.swift */; };
 		0C2558FD233C979B00F57C6E /* UIViewKeyframeAnimationOptions + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2558FC233C979B00F57C6E /* UIViewKeyframeAnimationOptions + Extension.swift */; };
 		0C272E292422601300133B50 /* SenderChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C272E272422601300133B50 /* SenderChatCell.swift */; };
 		0C272E2A2422601300133B50 /* SenderChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C272E282422601300133B50 /* SenderChatCell.xib */; };
@@ -1073,6 +1074,7 @@
 		0C24D4F4242CAF9D00CBFF92 /* CurrencyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyVM.swift; sourceTree = "<group>"; };
 		0C24D4F7242CE93200CBFF92 /* NotificationSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsVC.swift; sourceTree = "<group>"; };
 		0C24D4F9242CE97000CBFF92 /* NotificationSettingsVC+TableViewDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationSettingsVC+TableViewDelegates.swift"; sourceTree = "<group>"; };
+		0C24D4FB242CEEDD00CBFF92 /* NotificationSettingsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsVM.swift; sourceTree = "<group>"; };
 		0C2558FC233C979B00F57C6E /* UIViewKeyframeAnimationOptions + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewKeyframeAnimationOptions + Extension.swift"; sourceTree = "<group>"; };
 		0C272E272422601300133B50 /* SenderChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderChatCell.swift; sourceTree = "<group>"; };
 		0C272E282422601300133B50 /* SenderChatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SenderChatCell.xib; sourceTree = "<group>"; };
@@ -2242,6 +2244,7 @@
 			children = (
 				0C24D4F7242CE93200CBFF92 /* NotificationSettingsVC.swift */,
 				0C24D4F9242CE97000CBFF92 /* NotificationSettingsVC+TableViewDelegates.swift */,
+				0C24D4FB242CEEDD00CBFF92 /* NotificationSettingsVM.swift */,
 			);
 			path = NotificationSettings;
 			sourceTree = "<group>";
@@ -6316,6 +6319,7 @@
 				84100A9422392E3F006A05EC /* FareUpdatedPopUpVC.swift in Sources */,
 				84F2DCA0226473BE00212F05 /* BookingDateVC.swift in Sources */,
 				842EDE832238E7D600E99409 /* CreateNewTripVM.swift in Sources */,
+				0C24D4FC242CEEDD00CBFF92 /* NotificationSettingsVM.swift in Sources */,
 				0C24D4E4242C752A00CBFF92 /* CountryVC.swift in Sources */,
 				84F983D621B51A070018DFED /* UIViewControllerExtension.swift in Sources */,
 				84E9FEFC22A008DB0059F911 /* AccountLedgerEventCell.swift in Sources */,
