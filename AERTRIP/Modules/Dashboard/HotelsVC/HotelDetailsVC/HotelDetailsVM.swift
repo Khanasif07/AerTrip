@@ -102,9 +102,11 @@ class HotelDetailsVM {
     
     func newFiltersAccordingToTags(rates: [Rates], selectedTag: [String])-> [Rates]{
         var filteredRates: [Rates] = []
+        var newArray = rates
         if !selectedTag.isEmpty{
             for tag in selectedTag{
-                let filteredArray = rates.filter{ rates in
+                if (tag != selectedTag.first ?? ""){newArray = filteredRates}
+                let filteredArray = newArray.filter{ rates in
                     let roomRate = rates.roomsRates ?? []
                     if roomRate.map({$0.name.lowercased()}).joined(separator: ",").contains(tag.lowercased()){
                         return true
