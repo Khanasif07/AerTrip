@@ -155,10 +155,19 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
             self.greenCircleRatingView.rating = hotel.rating
         }
         
-        self.actualPriceLabel.text = hotel.listPrice == 0 ? "" : "\(String(describing: hotel.listPrice))"
+        var listPrice = hotel.listPrice
         var price : Double = hotel.price
         if  let filter = UserInfo.hotelFilter, filter.priceType == .PerNight  {
             price = hotel.perNightPrice
+            listPrice = hotel.perNightListPrice
+        }
+        
+        if listPrice == 0{
+            self.actualPriceLabel.text = ""
+        }else{
+            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: listPrice.amountInDelimeterWithSymbol)
+            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
+            self.actualPriceLabel.attributedText = attributeString
         }
         self.discountedPriceLabel.text = price.amountInDelimeterWithSymbol
         self.saveButton.isSelected = hotel.fav == "0" ? false : true

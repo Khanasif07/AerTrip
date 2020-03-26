@@ -116,8 +116,6 @@ class HotelDetailsVM {
                         return true
                     }else if (rates.inclusion_array[APIKeys.inclusions.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
                         return true
-                    }else if (rates.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
-                        return true
                     }else if ((rates.cancellation_penalty?.is_refundable ?? false) && ((tag.lowercased() == "free cancellation") || (tag.lowercased() == "free"))){
                         return true
                     }

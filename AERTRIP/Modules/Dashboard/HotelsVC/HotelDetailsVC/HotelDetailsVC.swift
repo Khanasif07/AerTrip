@@ -583,7 +583,9 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
             }
         }
         
-       self.hotelTableView.reloadData()
+        delay(seconds: 0.2){
+            self.hotelTableView.reloadData()
+        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             self?.manageFavIcon()
