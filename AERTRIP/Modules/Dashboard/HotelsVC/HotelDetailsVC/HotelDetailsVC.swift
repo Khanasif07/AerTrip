@@ -572,7 +572,7 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
         if let hotelData = self.viewModel.hotelData , let rates = hotelData.rates {
             self.viewModel.hotelDetailsTableSectionData.append(self.getFirstSectionData(hotelData: hotelData))
             self.viewModel.hotelDetailsTableSectionData.append([.searchTagCell])
-            self.viewModel.ratesData = self.viewModel.filteredRates(rates: rates , roomMealData: self.viewModel.roomMealDataCopy, roomOtherData: self.viewModel.roomOtherDataCopy, roomCancellationData: self.viewModel.roomCancellationDataCopy)
+            self.viewModel.ratesData = self.viewModel.newFiltersAccordingToTags(rates: rates, selectedTag: tagList)//self.viewModel.filteredRates(rates: rates , roomMealData: self.viewModel.roomMealDataCopy, roomOtherData: self.viewModel.roomOtherDataCopy, roomCancellationData: self.viewModel.roomCancellationDataCopy)
             if self.viewModel.ratesData.isEmpty {
             self.viewModel.hotelDetailsTableSectionData.append([.ratesEmptyStateCell])
             } else {

@@ -243,7 +243,7 @@ extension HotelDetailsReviewsVC {
         if let currentReview = tripAdviserDetails.reviewRatingCount[self.getReverseNumber(row: indexPath.row)] as? String {
             cell.configCell(title: self.ratingNames[indexPath.row] ,totalNumbReviews: tripAdviserDetails.numReviews, currentReviews: currentReview)
             if indexPath.row == ratingNames.count - 1 {
-                cell.progressViewBottomConstraints.constant = 26.5
+                cell.progressViewBottomConstraints.constant = 10.5
             } else {
                 cell.progressViewBottomConstraints.constant = 6.5
             }
