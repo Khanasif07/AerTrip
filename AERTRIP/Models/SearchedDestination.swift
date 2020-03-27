@@ -20,6 +20,7 @@ struct SearchedDestination: Codable {
     var country: String = ""
     var label: String = ""
     var value: String = ""
+    var isHotelNearMeSelected = false
     
     init() {
         self.init(json: [:])

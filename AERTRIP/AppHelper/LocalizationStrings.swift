@@ -298,7 +298,6 @@ enum LocalizedString: String {
     case SelectAirlineForAllFrequentFlyer
     
     // MARK: - Hotel Search
-    
     // MARK: -
     
     case PreferredStarCategory
@@ -307,6 +306,8 @@ enum LocalizedString: String {
     case star
     case searchForHotelsToAdd
     case searchHotelName
+    case NearMe
+
     
     // MARK: - Traveller List VC
     

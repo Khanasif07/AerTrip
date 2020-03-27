@@ -75,9 +75,9 @@ extension HotelResultVC {
 //                        self?.unPinAllFavouriteButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
 //                        self?.emailButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
 //                        self?.shareButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-//                        self?.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 58, y: 0)
-//                        self?.emailButton.transform = CGAffineTransform(translationX: 112, y: 0)
-//                        self?.shareButton.transform = CGAffineTransform(translationX: 166, y: 0)
+//                        self?.emailButton.transform = CGAffineTransform(translationX: 58, y: 0)
+//                        self?.shareButton.transform = CGAffineTransform(translationX: 112, y: 0)
+//                        self?.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 166, y: 0)
 //                       },
 //                       completion: { _ in
 //                           printDebug("Animation finished")
@@ -86,18 +86,18 @@ extension HotelResultVC {
              self?.unPinAllFavouriteButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
              self?.emailButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
              self?.shareButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-             self?.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 58, y: 0)
-             self?.emailButton.transform = CGAffineTransform(translationX: 112, y: 0)
-             self?.shareButton.transform = CGAffineTransform(translationX: 166, y: 0)
+             self?.emailButton.transform = CGAffineTransform(translationX: 58, y: 0)
+             self?.shareButton.transform = CGAffineTransform(translationX: 112, y: 0)
+             self?.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 166, y: 0)
             }, completion: nil)
             
         } else {
             self.unPinAllFavouriteButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             self.emailButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             self.shareButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-            self.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 58, y: 0)
-            self.emailButton.transform = CGAffineTransform(translationX: 112, y: 0)
-            self.shareButton.transform = CGAffineTransform(translationX: 166, y: 0)
+            self.emailButton.transform = CGAffineTransform(translationX: 58, y: 0)
+            self.shareButton.transform = CGAffineTransform(translationX: 112, y: 0)
+            self.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 166, y: 0)
         }
     }
     

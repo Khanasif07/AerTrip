@@ -223,9 +223,9 @@ class RoomGuestSelectionVC: BaseVC {
             button.isSelected = button.tag <= self.viewModel.selectedAdults
             
             if oldState != button.isSelected {
-                if button.isSelected == true { self.selectButtonAnimation(button: button,isFirstTime: animated)
+                if button.isSelected == true { //self.selectButtonAnimation(button: button,isFirstTime: animated)
                 } else {
-                    self.deselectButtonAnimation(button: button,isFirstTime: animated)
+                    //self.deselectButtonAnimation(button: button,isFirstTime: animated)
                 }
             }
         }
@@ -236,9 +236,9 @@ class RoomGuestSelectionVC: BaseVC {
             button.isSelected = button.tag <= self.viewModel.selectedChilds
             
             if oldState != button.isSelected {
-                if button.isSelected == true  { self.selectButtonAnimation(button: button,isFirstTime: animated)
+                if button.isSelected == true  { //self.selectButtonAnimation(button: button,isFirstTime: animated)
                 } else {
-                    self.deselectButtonAnimation(button: button,isFirstTime: animated)
+                    //self.deselectButtonAnimation(button: button,isFirstTime: animated)
                 }
             }
         }
@@ -377,7 +377,7 @@ class RoomGuestSelectionVC: BaseVC {
             self.updateSelection(needToChangePickerViewHeight: false)
         }
         else {
-            var tag = (self.viewModel.selectedAdults >= sender.tag) ? (sender.tag - 1) : sender.tag
+            var tag = sender.tag//(self.viewModel.selectedAdults >= sender.tag) ? (sender.tag - 1) : sender.tag
             if (tag + self.viewModel.selectedChilds) >= self.viewModel.maxGuest {
                 tag = (self.viewModel.maxGuest - self.viewModel.selectedChilds)
             }
