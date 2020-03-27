@@ -171,7 +171,15 @@ extension HotelResultVC: HotelResultDelegate {
         self.filterButton.isEnabled = true
         self.mapButton.isEnabled = true
         self.searchButton.isEnabled = true
-
+        
+        var ignorePreviousFilter = false
+        if self.viewModel.searchedFormData.destType == "Hotel" || self.viewModel.searchedFormData.destType == "POI" || self.viewModel.searchedFormData.destType == "Area" {
+            self.viewModel.fetchRequestType = .FilterApplied
+            self.viewModel.filterApplied.sortUsing = .DistanceNearestFirst(ascending: true)
+            HotelFilterVM.shared.sortUsing = .DistanceNearestFirst(ascending: true)
+            ignorePreviousFilter = true
+        }
+        
         if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
             delay(seconds: 1.0) { [weak self] in
                 HotelFilterVM.shared.ratingCount = HotelsSearchVM.hotelFormData.ratingCount
@@ -187,7 +195,7 @@ extension HotelResultVC: HotelResultDelegate {
         self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
         //self.updateMarkers()
         
-        if UserInfo.hotelFilter != nil {
+        if UserInfo.hotelFilter != nil, !ignorePreviousFilter {
             self.getSavedFilter()
             // Apply previous filter
             self.applyPreviousFilter()
@@ -195,6 +203,8 @@ extension HotelResultVC: HotelResultDelegate {
             // Apply Aerin Filter
             // self.applyAerinFilter()
         }
+        
+        
         
         
     }
