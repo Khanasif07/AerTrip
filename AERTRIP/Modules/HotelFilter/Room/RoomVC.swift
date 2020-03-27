@@ -99,19 +99,19 @@ class RoomVC: UIViewController {
         
         var title = LocalizedString.Meal.localized
         if !HotelFilterVM.shared.roomMeal.isEmpty {
-            title += "●"
+            title += " •"
         }
         roomSegmentedControl.setTitle(title, forSegmentAt: 0)
 
         title = LocalizedString.cancellationPolicy.localized        
         if !HotelFilterVM.shared.roomCancelation.isEmpty {
-            title += "●"
+            title += " •"
         }
         roomSegmentedControl.setTitle(title, forSegmentAt: 1)
         
         title = LocalizedString.Others.localized
         if !HotelFilterVM.shared.roomOther.isEmpty {
-            title += "●"
+            title += " •"
         }
         roomSegmentedControl.setTitle(title, forSegmentAt: 2)
 

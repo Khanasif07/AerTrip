@@ -292,7 +292,7 @@ class HotelsSearchVC: BaseVC {
     
     private func updateNearMeLocation() {
         if self.viewModel.searchedFormData.destId.isEmpty {
-            if let model = self.viewModel.nearMeLocation {
+            if let model = self.viewModel.nearMeLocation, !model.dest_id.isEmpty {
                 didSelectedDestination(hotel: model)
             } else {
                 self.viewModel.hotelsNearByMe()
@@ -300,6 +300,12 @@ class HotelsSearchVC: BaseVC {
         }
     }
     
+    private func updateAddressTextForHotelNearMe() {
+        if !self.viewModel.searchedFormData.destId.isEmpty, self.viewModel.searchedFormData.isHotelNearMeSelected {
+            self.cityNameLabel.text = LocalizedString.NearMe.localized
+            self.stateNameLabel.text = self.viewModel.searchedFormData.destName
+        }
+    }
     ///GetDataFromPreviousSearch
     private func setDataFromPreviousSearch(olddata: HotelFormPreviosSearchData? = nil, isSettingForFirstTime: Bool = false) {
         let date = Date()
@@ -313,6 +319,7 @@ class HotelsSearchVC: BaseVC {
         //set selected city
         self.cityNameLabel.text = self.viewModel.searchedFormData.cityName
         self.stateNameLabel.text = self.viewModel.searchedFormData.stateName
+        self.updateAddressTextForHotelNearMe()
         self.manageAddressLabels()
         
         //set checkIn/Out Date
@@ -736,7 +743,9 @@ extension HotelsSearchVC: ExpandedCellDelegate {
         self.viewModel.searchedFormData.destType = hotel.dest_type
         self.viewModel.searchedFormData.destName = hotel.dest_name
         self.viewModel.searchedFormData.destId = hotel.dest_id
+        self.viewModel.searchedFormData.isHotelNearMeSelected = hotel.isHotelNearMeSelected
         HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
+        
     }
 }
 
@@ -781,9 +790,10 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
         let stateName = splittedStringArray.joined(separator: ",")
         self.stateNameLabel.text = stateName//hotel.value
         self.viewModel.searchedFormData.stateName = stateName//hotel.value
-        self.manageAddressLabels()
         self.dataForApi(hotel: hotel)
         HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
+        self.updateAddressTextForHotelNearMe()
+        self.manageAddressLabels()
     }
 }
 

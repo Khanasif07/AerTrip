@@ -22,6 +22,7 @@ struct HotelFormPreviosSearchData: Codable {
     var cityName: String = ""
     var lat: String = ""
     var lng: String = ""
+    var isHotelNearMeSelected = false
     var ratingCount: [Int] = []
     var totalGuestCount: Int {
         let totalAd = adultsCount.reduce(0) { $0 + $1 }
@@ -58,6 +59,7 @@ struct HotelFormPreviosSearchData: Codable {
         self.lat            = ""
         self.lng            = ""
         self.ratingCount    = [1,2,3,4,5]
+        self.isHotelNearMeSelected = false
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -75,6 +77,7 @@ struct HotelFormPreviosSearchData: Codable {
         case ratingCount
         case lat
         case lng
+        case isHotelNearMeSelected
 
     }
     
@@ -96,6 +99,7 @@ struct HotelFormPreviosSearchData: Codable {
         ratingCount = try values.decode([Int].self, forKey: .ratingCount)
         lat = try values.decode(String.self, forKey: .lat)
         lng = try values.decode(String.self, forKey: .lng)
+        isHotelNearMeSelected = try values.decode(Bool.self, forKey: .isHotelNearMeSelected)
 
     }
     
@@ -115,6 +119,7 @@ struct HotelFormPreviosSearchData: Codable {
         try container.encode(ratingCount, forKey: .ratingCount)
         try container.encode(lat, forKey: .lat)
         try container.encode(lng, forKey: .lng)
+        try container.encode(isHotelNearMeSelected, forKey: .isHotelNearMeSelected)
 
     }
 }

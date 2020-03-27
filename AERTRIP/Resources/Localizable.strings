@@ -180,6 +180,7 @@
 "star" = "Star";
 "searchForHotelsToAdd" = "Search for hotels to add";
 "searchHotelName" = "Search";
+"NearMe" = "Near Me";
 
 
 //MARK:- Import Contacts
@@ -352,10 +353,10 @@
 "StarRating" = "Star Rating";
 "Distance" = "Distance";
 "Recommended" = "Recommended";
-"LowToHigh" = "Low to high";
+"LowToHigh" = "Low to High";
 "FiveToOne" = "5 to 1";
 "NearestFirst" = "Nearest first";
-"HighToLow" = "high to Low";
+"HighToLow" = "High to Low";
 "OneToFive" = "1 to 5";
 "FurthestFirst" = "Furthest first";
 "Meal" = "Meal";

@@ -331,7 +331,9 @@ extension SelectDestinationVC: SelectDestinationVMDelegate {
     func getMyLocationSuccess(selected: SearchedDestination) {
         self.view.endEditing(true)
         self.hide(animated: true, shouldRemove: true)
-        self.delegate?.didSelectedDestination(hotel: selected)
+        var location = selected
+        location.isHotelNearMeSelected = true
+        self.delegate?.didSelectedDestination(hotel: location)
     }
     
     func getMyLocationFail() {
