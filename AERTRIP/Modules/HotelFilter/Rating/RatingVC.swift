@@ -103,7 +103,7 @@ class RatingVC: BaseVC {
             sender.setImage(#imageLiteral(resourceName: "deselectedAdvisorRating"), for: .normal)
             sender.setImage(#imageLiteral(resourceName: "selectedAdvisorRating"), for: .selected)
         }
-       
+        print("size: \(sender.size)")
     }
     
     @IBAction func includeUnratedAction(_ sender: UIButton) {
@@ -128,7 +128,8 @@ class RatingVC: BaseVC {
            // HotelFilterVM.shared.ratingCount = HotelFilterVM.shared.defaultRatingCount
             for starBtn in self.starButtonsOutlet {
                 starBtn.isSelected = false
-                starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
+               // starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
+                starBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
             }
         }
         else {

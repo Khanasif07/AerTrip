@@ -246,7 +246,7 @@ class HCDataSelectionVC: BaseVC {
         if let room = viewModel.itineraryData?.hotelDetails?.num_rooms, let night = viewModel.itineraryData?.hotelDetails?.no_of_nights {
             let roomText = (room > 1) ? LocalizedString.Rooms.localized : LocalizedString.Room.localized
             let nightText = (night > 1) ? LocalizedString.Nights.localized : LocalizedString.Night.localized
-            fareDetailLabel.text = "\(LocalizedString.For.localized) \(room) \(roomText) & \(night) \(nightText)"
+            fareBreakupTitleLabel.text = "\(LocalizedString.FareBreakup.localized) (\(room) \(roomText) & \(night) \(nightText))"
         }
         
         totalFareAmountLabel.text = (viewModel.itineraryData?.total_fare ?? 0.0).amountInDelimeterWithSymbol

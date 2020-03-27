@@ -255,7 +255,7 @@ open class FloatRatingView: UIView {
             return
         }
 
-        let desiredImageWidth = frame.size.width / CGFloat(emptyImageViews.count)
+        let desiredImageWidth = frame.size.width / CGFloat(emptyImageViews.count) - 1.0
         let maxImageWidth = max(minImageSize.width, desiredImageWidth)
         let maxImageHeight = max(minImageSize.height, frame.size.height)
         let imageViewSize = sizeForImage(emptyImage, inSize: CGSize(width: maxImageWidth, height: maxImageHeight))

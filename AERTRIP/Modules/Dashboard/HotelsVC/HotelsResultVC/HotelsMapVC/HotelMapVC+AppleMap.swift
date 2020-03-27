@@ -227,7 +227,7 @@ extension HotelsMapVC : MKMapViewDelegate{
                         if self.appleMap.annotations.count == 2{ self.updateSeletedUnfavouriteAll() }
                         return
                 }
-                let switchOn = (!isSwitchOn) ? self.switchView.on : isSwitchOn
+                let switchOn = (!isSwitchOn) ? self.switchView.isOn : isSwitchOn
                 if self.appleMap.annotations.count == 2{
                     self.updateSeletedUnfavouriteAll()
                 }else if currentAnnotation.markerType == .clusterMarker{

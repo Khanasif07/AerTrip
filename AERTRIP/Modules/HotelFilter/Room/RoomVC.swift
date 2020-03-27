@@ -71,6 +71,7 @@ class RoomVC: UIViewController {
         } else {
             // Fallback on earlier versions
         }
+        updateSegmentControlTitle()
     }
     
     private func registerXib() {
@@ -93,8 +94,30 @@ class RoomVC: UIViewController {
         }
         tableView.reloadData()
     }
-}
+    
+    private func updateSegmentControlTitle() {
+        
+        var title = LocalizedString.Meal.localized
+        if !HotelFilterVM.shared.roomMeal.isEmpty {
+            title += "●"
+        }
+        roomSegmentedControl.setTitle(title, forSegmentAt: 0)
 
+        title = LocalizedString.cancellationPolicy.localized        
+        if !HotelFilterVM.shared.roomCancelation.isEmpty {
+            title += "●"
+        }
+        roomSegmentedControl.setTitle(title, forSegmentAt: 1)
+        
+        title = LocalizedString.Others.localized
+        if !HotelFilterVM.shared.roomOther.isEmpty {
+            title += "●"
+        }
+        roomSegmentedControl.setTitle(title, forSegmentAt: 2)
+
+        
+    }
+}
 // MARK: - UITableViewDataSource
 
 extension RoomVC: UITableViewDataSource, UITableViewDelegate {
@@ -165,5 +188,6 @@ extension RoomVC: UITableViewDataSource, UITableViewDelegate {
             }
         }
         self.tableView.reloadData()
+        updateSegmentControlTitle()
     }
 }

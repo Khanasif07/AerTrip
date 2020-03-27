@@ -357,10 +357,11 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func showBulkBookingVC(withOldData: HotelFormPreviosSearchData) {
+    func showBulkBookingVC(withOldData: HotelFormPreviosSearchData, delegate: BulkBookingVCDelegate) {
         if let mVC = self.mainHomeVC {
             let ob = BulkBookingVC.instantiate(fromAppStoryboard: .HotelsSearch)
             ob.viewModel.oldData = withOldData
+            ob.delegate = delegate
             mVC.add(childViewController: ob)
         }
     }

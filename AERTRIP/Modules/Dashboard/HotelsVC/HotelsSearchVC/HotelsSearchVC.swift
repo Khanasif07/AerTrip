@@ -19,7 +19,7 @@ class HotelsSearchVC: BaseVC {
     private var collectionViewHeight: CGFloat = 85.0
     private var containerViewHeight: CGFloat = 429.0
     private var scrollViewContentSize: CGSize = CGSize.zero
-    private var recentSearchHeight: CGFloat = 194.0
+    private var recentSearchHeight: CGFloat = 162.0
     private var addRoomPicIndex: IndexPath?
     private(set) var viewModel = HotelsSearchVM()
     private var needToGetRecentSearches: Bool = false
@@ -111,6 +111,7 @@ class HotelsSearchVC: BaseVC {
         // call this method after all setup
         self.footerViewSetUp ()
         self.setDataFromPreviousSearch()
+        self.updateNearMeLocation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,7 +126,9 @@ class HotelsSearchVC: BaseVC {
         }
         if let view = self.recentSearchesView {
             view.frame = self.recentSearchesContainerView.bounds
+            view.layoutSubviews()
         }
+        
         if !(self.scrollViewContentSize == .zero) {
             self.updateCollectionViewFrame()
         }
@@ -285,6 +288,16 @@ class HotelsSearchVC: BaseVC {
         self.whereLabel.font = (self.cityNameLabel.text ?? "").isEmpty ? AppFonts.Regular.withSize(20.0) : AppFonts.Regular.withSize(16.0)
         self.cityNameLabel.isHidden = (self.cityNameLabel.text ?? "").isEmpty
         self.stateNameLabel.isHidden = (self.stateNameLabel.text ?? "").isEmpty
+    }
+    
+    private func updateNearMeLocation() {
+        if self.viewModel.searchedFormData.destId.isEmpty {
+            if let model = self.viewModel.nearMeLocation {
+                didSelectedDestination(hotel: model)
+            } else {
+                self.viewModel.hotelsNearByMe()
+            }
+        }
     }
     
     ///GetDataFromPreviousSearch
@@ -600,7 +613,7 @@ class HotelsSearchVC: BaseVC {
         if let range = string.range(of: text) {
             if gesture.didTapAttributedTextInLabel(label: self.bulkBookingsLbl, inRange: NSRange(range, in: string)) {
                 printDebug("Tapped BulkBookings")
-                AppFlowManager.default.showBulkBookingVC(withOldData: self.viewModel.searchedFormData)
+                AppFlowManager.default.showBulkBookingVC(withOldData: self.viewModel.searchedFormData, delegate: self)
             } else {
                 printDebug("This is not bulk bookings text")
             }
@@ -777,6 +790,14 @@ extension HotelsSearchVC: SelectDestinationVCDelegate {
 //MARK:- SearchHoteslOnPreferencesDelegate
 //========================================
 extension HotelsSearchVC: SearchHoteslOnPreferencesDelegate {
+    func getMyLocationSuccess() {
+        if let model = self.viewModel.nearMeLocation {
+            didSelectedDestination(hotel: model)
+        }
+    }
+    
+    func getMyLocationFail() {
+    }
     
     func getRecentSearchesDataSuccess() {
         if let recentSearchesView = self.recentSearchesView, let recentSearchesData = self.viewModel.recentSearchesData {
@@ -815,6 +836,7 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
         
         self.viewModel.searchedFormData.adultsCount.removeAll()
         self.viewModel.searchedFormData.childrenAge.removeAll()
+        self.viewModel.searchedFormData.childrenCounts.removeAll()
         for roomData in recentSearch.room ?? [] {
             if roomData.isPresent {
                 if let adultCounts = roomData.adultCounts.toInt {
@@ -822,12 +844,15 @@ extension HotelsSearchVC: RecentHotelSearcheViewDelegate {
                 }
                 var childrenArray: [Int] = []
                 childrenArray.removeAll()
+                var childrenCounter = 0
                 for child in roomData.child {
                     if child.isPresent {
                         childrenArray.append(child.childAge)
+                        childrenCounter += 1
                     }
                 }
                 self.viewModel.searchedFormData.childrenAge.append(childrenArray)
+                self.viewModel.searchedFormData.childrenCounts.append(childrenCounter)
             }
         }
         self.viewModel.searchedFormData.ratingCount = recentSearch.filter?.stars ?? []
@@ -890,3 +915,17 @@ extension HotelsSearchVC: CalendarDataHandler {
         HotelsSearchVM.hotelFormData = self.viewModel.searchedFormData
     }
 }
+
+extension HotelsSearchVC: BulkBookingVCDelegate {
+    
+    func didSelectedDestination(checkinDate: Date?, checkOutDate: Date?, location: SearchedDestination?) {
+        if let destination = location {
+            didSelectedDestination(hotel: destination)
+        }
+        if (checkinDate != nil) || (checkOutDate != nil) {
+            self.selectedDates(fromCalendar: checkinDate, end: checkOutDate, isHotelCalendar: true, isReturn: false)
+        }
+    }
+    
+}
+

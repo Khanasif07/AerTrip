@@ -636,20 +636,21 @@
     [self animateBottomViewOut];
 }
 
-
-
-//MARK:- Target Action methods
-
-
-
-- (IBAction)doneAction:(id)sender {
-    
+-(void)applyCalendarChanges {
     if (self.multicityViewModel != nil ) {
         [self.multicityViewModel onDoneButtonTapped];
     }
     else if ( self.viewModel != nil){
         [self.viewModel onDoneButtonTapped];
     }
+}
+
+//MARK:- Target Action methods
+
+
+
+- (IBAction)doneAction:(id)sender {
+    [self applyCalendarChanges];
     [self animateBottomViewOut];
 }
 - (IBAction)cancelAction:(id)sender {
@@ -728,6 +729,7 @@
           self.topConstraintMainView.constant = (self.view.bounds.size.height);
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
+        [self applyCalendarChanges];
         [self dismissViewControllerAnimated:NO completion:nil];
     }];
 }

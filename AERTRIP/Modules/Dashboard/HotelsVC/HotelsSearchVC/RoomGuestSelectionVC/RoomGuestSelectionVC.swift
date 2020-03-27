@@ -351,16 +351,21 @@ class RoomGuestSelectionVC: BaseVC {
             self.agesContainerView.isHidden = true
         })
     }
+    
+    private func applyRoomChanges() {
+        self.delegate?.didSelectedRoomGuest(adults: self.viewModel.selectedAdults, children: self.viewModel.selectedChilds, childrenAges: self.viewModel.childrenAge, roomNumber: self.viewModel.roomNumber)
+    }
     //MARK:- Public
     
     
     //MARK:- Action
     @objc func tappedOnBackgroundView(_ sender: UIGestureRecognizer) {
+        applyRoomChanges()
         self.hide(animated: true, shouldRemove: true)
     }
     
     @IBAction func doneButtonAction(_ sender: UIButton) {
-        self.delegate?.didSelectedRoomGuest(adults: self.viewModel.selectedAdults, children: self.viewModel.selectedChilds, childrenAges: self.viewModel.childrenAge, roomNumber: self.viewModel.roomNumber)
+        applyRoomChanges()
         self.hide(animated: true, shouldRemove: true)
     }
     
@@ -506,6 +511,7 @@ extension RoomGuestSelectionVC {
     }
     
     func closeBottomSheet() {
+        applyRoomChanges()
         self.hide(animated: true, shouldRemove: true)
     }
 }

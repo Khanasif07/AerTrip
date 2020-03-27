@@ -201,7 +201,7 @@ extension HotelsMapVC: HotelResultDelegate {
     }
     
     func updateFavouriteSuccess(isHotelFavourite: Bool) {
-        if self.switchView.on, !isHotelFavourite  {
+        if self.switchView.isOn, !isHotelFavourite  {
             //self.loadSaveData()
             if let indexPath = self.selectedIndexPath, self.viewModel.collectionViewLocArr.indices.contains(indexPath.item),let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.item]] as? [HotelSearched], let hotel = hData.first  {
                 let locStr = self.viewModel.collectionViewLocArr[indexPath.item]
@@ -227,7 +227,7 @@ extension HotelsMapVC: HotelResultDelegate {
     }
     
     func updateFavouriteFail(errors: ErrorCodes, isHotelFavourite: Bool) {
-        if self.switchView.on, !isHotelFavourite  {
+        if self.switchView.isOn, !isHotelFavourite  {
             //self.loadSaveData()
             if let indexPath = self.selectedIndexPath, self.viewModel.collectionViewLocArr.indices.contains(indexPath.item),let hData = self.viewModel.collectionViewList[self.viewModel.collectionViewLocArr[indexPath.item]] as? [HotelSearched], let hotel = hData.first  {
 //                let locStr = self.viewModel.collectionViewLocArr[indexPath.item]

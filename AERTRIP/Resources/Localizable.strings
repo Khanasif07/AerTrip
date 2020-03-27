@@ -355,6 +355,10 @@
 "LowToHigh" = "Low to high";
 "FiveToOne" = "5 to 1";
 "NearestFirst" = "Nearest first";
+"HighToLow" = "high to Low";
+"OneToFive" = "1 to 5";
+"FurthestFirst" = "Furthest first";
+"Meal" = "Meal";
 
 // MARK:- Range VC
 "SearchResultsRange" = "Search Results Range";

@@ -118,7 +118,7 @@ extension HotelResultVC: HotelResultDelegate {
         self.filterButton.isSelected = self.viewModel.isFilterApplied
         self.switchContainerView.isHidden = self.viewModel.favouriteHotels.isEmpty
         self.floatingButtonOnMapView.isHidden = !self.viewModel.isFavouriteOn
-        self.switchView.setOn(isOn: self.viewModel.isFavouriteOn, animated: false, shouldNotify: false)
+        self.switchView.isOn = self.viewModel.isFavouriteOn
         self.filterCollectionView.reloadData()
     }
     
@@ -227,7 +227,7 @@ extension HotelResultVC: HotelResultDelegate {
     }
     
     func updateFavouriteSuccess(isHotelFavourite: Bool) {
-        if self.switchView.on, !isHotelFavourite  {
+        if self.switchView.isOn, !isHotelFavourite  {
             self.viewModel.loadSaveData()
             self.viewModel.getFavouriteHotels(shouldReloadData: true)
         } else {
@@ -242,7 +242,7 @@ extension HotelResultVC: HotelResultDelegate {
     }
     
     func updateFavouriteFail(errors: ErrorCodes, isHotelFavourite: Bool) {
-        if self.switchView.on, !isHotelFavourite  {
+        if self.switchView.isOn, !isHotelFavourite  {
             self.viewModel.loadSaveData()
             self.viewModel.getFavouriteHotels(shouldReloadData: true)
         }else {

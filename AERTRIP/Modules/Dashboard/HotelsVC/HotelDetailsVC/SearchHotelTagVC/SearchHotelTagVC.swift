@@ -18,6 +18,7 @@ class SearchHotelTagVC: BaseVC {
     internal var tagButtons: [String] = []
     internal var copyOfTagButtons: [String] = []
     internal weak var delegate: AddTagButtonDelegate?
+    internal var initialTouchPoint: CGPoint = CGPoint(x: 0.0, y: 0.0)
     
     //Mark:- IBOutlets
     //================
@@ -33,7 +34,7 @@ class SearchHotelTagVC: BaseVC {
     @IBOutlet weak var cancelBtnOutlet: UIButton!
     @IBOutlet weak var dividerView: ATDividerView! {
         didSet {
-//            self.dividerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
+            //            self.dividerView.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
         }
     }
     
@@ -129,19 +130,34 @@ extension SearchHotelTagVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         printDebug(searchText)
-        if searchText.isEmpty {
+        if searchText.trimmingCharacters(in: .whitespaces).isEmpty {
             self.copyOfTagButtons = self.tagButtons
+            searchBar.text = ""
         } else {
             self.updateDataSource(searchedTag: searchText)
         }
         self.tagTableView.reloadData()
     }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if !(searchBar.text?.trimmingCharacters(in: .whitespaces).isEmpty ?? false){
+            if let safeDelegate = self.delegate {
+                safeDelegate.addTagButtons(tagName: searchBar.text!)
+            }
+            self.dismiss(animated: true, completion: nil)
+        }else{
+            searchBar.text = ""
+        }
+    }
 }
 
 extension SearchHotelTagVC {
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+        guard let direction = sender.direction, direction.isVertical, self.tagTableView.contentOffset.y <= 0
+            else {
+                initialTouchPoint = CGPoint.zero
+                return
+        }
         let touchPoint = sender.location(in: view?.window)
-        var initialTouchPoint = CGPoint.zero
         
         switch sender.state {
         case .began:
@@ -162,8 +178,13 @@ extension SearchHotelTagVC {
                 })
             }
         case .failed, .possible:
+            initialTouchPoint = CGPoint.zero
+            break
+        @unknown default:
             break
         }
     }
-    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }

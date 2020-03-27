@@ -75,7 +75,12 @@ class HotelResultVC: StatusBarAnimatableViewController {
         }
     }
     
-    @IBOutlet weak var hotelSearchTableView: ATTableView!
+    @IBOutlet weak var hotelSearchTableView: ATTableView! {
+        didSet {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(searchTabeleTapped(tap:)))
+            self.hotelSearchTableView.addGestureRecognizer(tap)
+        }
+    }
     @IBOutlet weak var floatingViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var floatingButtonBackView: UIView!
     @IBOutlet weak var switchContainerView: UIView!
@@ -237,6 +242,8 @@ class HotelResultVC: StatusBarAnimatableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)        
         addCustomBackgroundBlurView()
+        self.statusBarColor = AppColors.themeWhite
+        self.statusBarStyle = .default
     }
         
     override func viewWillDisappear(_ animated: Bool) {
@@ -357,6 +364,13 @@ class HotelResultVC: StatusBarAnimatableViewController {
         
         //  self.searchBar.backgroundColor = .red
         self.searchBar.searchBarStyle = .default
+        
+        // replaced the switch with flight switch
+        switchView.tintColor = AppColors.themeGray20
+        switchView.offTintColor = AppColors.themeGray10
+        switchView.isOn = false
+        switchView.setupUI()
+        /*
         self.switchView.originalColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.switchView.selectedColor = AppColors.themeRed
         self.switchView.originalBorderColor = AppColors.themeGray04//AppColors.themeGray20
@@ -368,6 +382,8 @@ class HotelResultVC: StatusBarAnimatableViewController {
         self.switchView.originalImage = #imageLiteral(resourceName: "switch_fav_on").maskWithColor(color: UIColor(displayP3Red: 0.8470588235, green: 0.8470588235, blue: 0.8470588235, alpha: 1))
         self.switchView.selectedImage = #imageLiteral(resourceName: "switch_fav_on")
         self.switchView.isBackgroundBlurry = true
+ */
+        
         self.switchGradientView.backgroundColor = AppColors.clear
         self.switchGradientView.isHidden = true
         // self.switchGradientView.addGrayShadow(ofColor: AppColors.themeBlack.withAlphaComponent(0.2), radius: 18, offset: .zero, opacity: 2, cornerRadius: 100)
@@ -515,6 +531,19 @@ class HotelResultVC: StatusBarAnimatableViewController {
         if gesture.state == .began {
             printDebug("Long press tapped")
             AppFlowManager.default.presentAerinTextSpeechVC()
+        }
+    }
+    
+    // added tap gesture to handle the tap on mapview when vertical tableview is visible
+    @objc func searchTabeleTapped(tap:UITapGestureRecognizer) {
+        let location = tap.location(in: self.hotelSearchTableView)
+        let path = self.hotelSearchTableView.indexPathForRow(at: location)
+        if let indexPathForRow = path {
+            self.tableView(self.hotelSearchTableView, didSelectRowAt: indexPathForRow)
+        } else if (hotelSearchTableView.backgroundView == nil || hotelSearchTableView.backgroundView?.isHidden ?? false){
+            // handle tap on empty space below existing rows however you want
+            printDebug("tapped at empty space of table view")
+            self.cancelButtonTapped(self.cancelButton)
         }
     }
     

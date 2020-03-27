@@ -9,6 +9,10 @@
 import UIKit
 import IQKeyboardManager
 
+protocol BulkBookingVCDelegate: class {
+    func didSelectedDestination(checkinDate: Date?, checkOutDate: Date?, location: SearchedDestination?)
+}
+
 class BulkBookingVC: BaseVC {
     
     //Mark:- Properties
@@ -66,6 +70,7 @@ class BulkBookingVC: BaseVC {
     //MARK:- Public
     let viewModel = BulkBookingVM()
     var initialTouchPoint: CGPoint = CGPoint(x: 0.0, y: 0.0)
+    weak var delegate: BulkBookingVCDelegate?
     
     //MARK:- Private
     
@@ -281,7 +286,7 @@ class BulkBookingVC: BaseVC {
     ///Hide View
     private func hide(animated: Bool, shouldRemove: Bool = false) {
         self.bottomView.isHidden = true
-        
+        applyBulkBookingChanges()
         func setValue() {
             self.mainCintainerBottomConstraint.constant = -(self.mainContainerView.frame.height + 100)
             self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
@@ -402,6 +407,7 @@ class BulkBookingVC: BaseVC {
     private func dataForApi(hotel: SearchedDestination) {
         self.viewModel.destination = hotel.city
         self.viewModel.source = hotel.dest_name
+        self.viewModel.searchedLocation = hotel
     }
     
     ///Update Room Data
@@ -410,7 +416,9 @@ class BulkBookingVC: BaseVC {
         self.adultCountLabel.text = "\(adults)"
         self.childCountLabel.text = "\(children)"
     }
-    
+    private func applyBulkBookingChanges() {
+        self.delegate?.didSelectedDestination(checkinDate: self.viewModel.checkIn, checkOutDate: self.viewModel.checkOut, location: self.viewModel.searchedLocation)
+    }
     //MARK:- Public
     
     
@@ -605,6 +613,8 @@ extension BulkBookingVC: CalendarDataHandler {
         if let checkInOutVw = self.checkInOutView {
             checkInOutVw.setDates(fromData: self.viewModel.oldData)
         }
+        self.viewModel.checkIn = startDate
+        self.viewModel.checkOut = endDate
         printDebug(startDate)
         printDebug(endDate)
         printDebug(isHotelCalendar)

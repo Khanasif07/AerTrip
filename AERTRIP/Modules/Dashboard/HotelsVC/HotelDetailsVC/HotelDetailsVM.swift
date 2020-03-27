@@ -99,6 +99,46 @@ class HotelDetailsVM {
         return filteredRates
     }
     
+    
+    func newFiltersAccordingToTags(rates: [Rates], selectedTag: [String])-> [Rates]{
+        var filteredRates: [Rates] = []
+        var tempRatesData = rates
+        if !selectedTag.isEmpty{
+            for tag in selectedTag{
+                if (tag != selectedTag.first ?? ""){//To Apply AND filter on rates.
+                    tempRatesData = filteredRates
+                    filteredRates = []
+                }
+                let filteredArray = tempRatesData.filter{ rates in
+                    let roomRate = rates.roomsRates ?? []
+                    if roomRate.map({$0.name.lowercased()}).joined(separator: ",").contains(tag.lowercased()){
+                        return true
+                    }else if roomRate.map({$0.desc.lowercased()}).joined(separator: ",").contains(tag.lowercased()){
+                        return true
+                    } else if (rates.inclusion_array[APIKeys.boardType.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
+                        return true
+                    }else if (rates.inclusion_array[APIKeys.other_inclusions.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
+                        return true
+                    }else if (rates.inclusion_array[APIKeys.inclusions.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
+                        return true
+                    }else if ((rates.cancellation_penalty?.is_refundable ?? false) && ((tag.lowercased() == "free cancellation") || (tag.lowercased() == "free"))){
+                        return true
+                    }
+                    return false
+                }
+                for rt in filteredArray{
+                    if !filteredRates.contains(array: [rt]){
+                        filteredRates.append(rt)
+                    }
+                }
+            }
+            return filteredRates
+        }else{
+            return rates
+        }
+    }
+    
+    
     /* Filteration on the basis of RoomMealData , RoomOtherData && RoomCancellationData if these are not empty.
      If any of them is empty then filteration done on the basis on remianing non empty data
      If all are empty then unfiltered rates will be returned because there is no need to filter the data

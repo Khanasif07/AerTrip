@@ -448,7 +448,11 @@ enum LocalizedString: String {
     case LowToHigh
     case FiveToOne
     case NearestFirst
-    
+    case HighToLow
+    case OneToFive
+    case FurthestFirst
+    case Meal
+
     case WriteYourOwnReview
     case ViewAll
     case ReadAll

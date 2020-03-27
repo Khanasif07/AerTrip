@@ -113,8 +113,9 @@ class MailComposerVC: BaseVC {
     private func setupHeader() {
         self.mailComposerHeaderView = EmailComposerHeaderView.instanceFromNib()
         self.mailComposerHeaderView.delegate = self
-        let text = "\(UserInfo.loggedInUser?.firstName ?? "") \(UserInfo.loggedInUser?.lastName ?? "") \(LocalizedString.SharedMessage.localized)"
-        mailComposerHeaderView.sharedStatusLabel.attributedText = getAttributedBoldText(text: text, boldText: "\(UserInfo.loggedInUser?.firstName ?? "") \(UserInfo.loggedInUser?.lastName ?? "")")
+        let text = "\(UserInfo.loggedInUser?.firstName ?? "") \(LocalizedString.SharedMessage.localized)"
+        mailComposerHeaderView.sharedStatusLabel.numberOfLines = 3
+        mailComposerHeaderView.sharedStatusLabel.attributedText = getAttributedBoldText(text: text, boldText: "\(UserInfo.loggedInUser?.firstName ?? "")")
         mailComposerHeaderView.sharedStatusLabel.textAlignment = .center
         self.setUpCheckInOutView()
         self.tableView.tableHeaderView = mailComposerHeaderView
@@ -253,7 +254,7 @@ extension MailComposerVC: EmailComposeerHeaderViewDelegate {
         msgHeight = max(minHeight, msgHeight)
         msgHeight = min(maxHeight, msgHeight)
 
-        self.tableView.tableHeaderView?.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: (577.0 + emailHeight + msgHeight))
+        self.tableView.tableHeaderView?.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: (650.0 + emailHeight + msgHeight))
 
         UIView.animate(withDuration: 0.3, animations: {
             headerView.emailHeightConatraint.constant = emailHeight

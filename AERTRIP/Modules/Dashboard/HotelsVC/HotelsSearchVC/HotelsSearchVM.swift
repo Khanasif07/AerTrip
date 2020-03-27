@@ -14,6 +14,9 @@ protocol SearchHoteslOnPreferencesDelegate: class {
     
     func setRecentSearchesDataSuccess()
     func setRecentSearchesDataFail()
+    
+    func getMyLocationSuccess()
+    func getMyLocationFail()
 }
 
 class HotelsSearchVM: NSObject{
@@ -24,6 +27,7 @@ class HotelsSearchVM: NSObject{
     var hotelListResult = [HotelsSearched]()
     var recentSearchesData: [RecentSearchesModel]?
     var searchedFormData: HotelFormPreviosSearchData = HotelFormPreviosSearchData()
+    var nearMeLocation: SearchedDestination?
 
     class var hotelFormData: HotelFormPreviosSearchData {
         get {
@@ -106,6 +110,22 @@ class HotelsSearchVM: NSObject{
                 printDebug(errors)
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
                 sSelf.delegate?.setRecentSearchesDataFail()
+            }
+        }
+    }
+    
+    func hotelsNearByMe() {
+        APICaller.shared.getHotelsNearByMe(params: [:]) { [weak self] (success, error, hotel) in
+            
+            guard let sSelf = self else {return}
+            
+            if success, let obj = hotel {
+                sSelf.nearMeLocation = obj
+                sSelf.delegate?.getMyLocationSuccess()
+            }
+            else {
+                //AppToast.default.sho
+                sSelf.delegate?.getMyLocationFail()
             }
         }
     }

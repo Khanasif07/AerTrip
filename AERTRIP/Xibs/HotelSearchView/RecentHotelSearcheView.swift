@@ -26,7 +26,7 @@ class RecentHotelSearcheView: UIView {
         didSet {
             self.recentCollectionView.delegate = self
             self.recentCollectionView.dataSource = self
-            self.recentCollectionView.contentInset = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
+            self.recentCollectionView.contentInset = UIEdgeInsets(top: 0.0, left: 14.0, bottom: 0.0, right: 16.0)
         }
     }
     @IBOutlet weak var recentSearchLabel: UILabel!
@@ -41,6 +41,10 @@ class RecentHotelSearcheView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.initialSetUp()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
     }
     
     //Mark:- Function
@@ -89,11 +93,11 @@ extension RecentHotelSearcheView: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemSize = CGSize(width: 278.0 , height: collectionView.frame.height)
+        let itemSize = CGSize(width: 259.0 , height: collectionView.frame.height)
         return itemSize
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10.0
+        return 8.0
     }
 }

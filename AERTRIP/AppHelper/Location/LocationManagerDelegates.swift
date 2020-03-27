@@ -33,7 +33,7 @@ extension LocationManager: CLLocationManagerDelegate {
         if let loc = locations.first {
             self.lastUpdatedCoordinate = loc.coordinate
             self.recentCoordinates.append(loc.coordinate)
-            
+            self.lastUpdatedCoordinate =  CLLocationCoordinate2D(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude)
             DispatchQueue.main.async { [weak self] in
                 self?.locationUpdate?(loc)
             }
