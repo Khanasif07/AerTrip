@@ -465,7 +465,7 @@
             <objects>
                 <viewController storyboardIdentifier="AerinVC" id="bYL-Ms-OZy" customClass="AerinVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kAo-x2-gd7">
-                        <rect key="frame" x="0.0" y="0.0" width="369" height="494.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="369" height="494"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHU-LR-LWt">
@@ -637,23 +637,23 @@ on Christmas”</string>
             <objects>
                 <viewController storyboardIdentifier="FlightsVC" id="qif-Xc-JfX" customClass="FlightsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZF0-0c-QWp">
-                        <rect key="frame" x="0.0" y="0.0" width="369" height="494.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="369" height="494"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flights " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="McH-7D-g5Y">
-                                <rect key="frame" x="152" y="211" width="65" height="23.5"/>
+                                <rect key="frame" x="154.5" y="210" width="60" height="25.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dN1-OA-CG2">
-                                <rect key="frame" x="104" y="249.5" width="161" height="20"/>
+                                <rect key="frame" x="107.5" y="250.5" width="154" height="21.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="0.99999600648880005" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WJG-0o-Orm">
-                                <rect key="frame" x="104" y="211" width="161" height="58.5"/>
+                                <rect key="frame" x="107.5" y="210" width="154" height="62"/>
                                 <connections>
                                     <action selector="myButtonAction:" destination="qif-Xc-JfX" eventType="touchUpInside" id="eAu-Pb-X0A"/>
                                 </connections>
@@ -756,7 +756,7 @@ on Christmas”</string>
                                                     <rect key="frame" x="10" y="0.0" width="350" height="62"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount Due" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UTm-27-Lt8">
-                                                            <rect key="frame" x="0.0" y="8" width="230.5" height="20"/>
+                                                            <rect key="frame" x="0.0" y="8" width="242.5" height="20"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                             <nil key="textColor"/>
@@ -774,17 +774,17 @@ on Christmas”</string>
                                                             </state>
                                                         </button>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="z3B-zb-52K">
-                                                            <rect key="frame" x="240.5" y="5.5" width="109.5" height="45"/>
+                                                            <rect key="frame" x="252.5" y="5.5" width="97.5" height="45"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="₹ 18,99545" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K55-7N-Anf">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="109.5" height="22.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="97.5" height="22.5"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJu-Ck-BcL">
-                                                                    <rect key="frame" x="0.0" y="22.5" width="109.5" height="22.5"/>
+                                                                    <rect key="frame" x="0.0" y="22.5" width="97.5" height="22.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -1075,17 +1075,17 @@ on Christmas”</string>
             <objects>
                 <viewController storyboardIdentifier="TripsVC" id="PTU-br-IAu" customClass="TripsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8aR-r3-Nn6">
-                        <rect key="frame" x="0.0" y="0.0" width="369" height="494.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="369" height="494"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLz-uM-NAJ">
-                                <rect key="frame" x="163" y="211" width="43" height="23.5"/>
+                                <rect key="frame" x="164" y="210" width="41.5" height="25.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ws-RO-flc">
-                                <rect key="frame" x="104" y="249.5" width="161" height="20"/>
+                                <rect key="frame" x="107.5" y="250.5" width="154" height="21.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1474,7 +1474,6 @@ on Christmas”</string>
         <!--Photo GalleryVC-->
         <scene sceneID="ODd-k8-QDm">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fh5-QE-bpz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="PhotoGalleryVC" id="cb8-mt-uaQ" customClass="PhotoGalleryVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="41m-V2-2o0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -1523,11 +1522,8 @@ on Christmas”</string>
                                         </cells>
                                     </collectionView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="szo-M7-ooy">
-                                        <rect key="frame" x="325" y="40" width="30" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="bzj-TY-BMj"/>
-                                            <constraint firstAttribute="height" constant="30" id="clJ-2B-iHk"/>
-                                        </constraints>
+                                        <rect key="frame" x="314" y="20" width="41" height="32"/>
+                                        <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                         <state key="normal" image="BlurCross"/>
                                         <connections>
                                             <action selector="tapDismissBtn:" destination="cb8-mt-uaQ" eventType="touchUpInside" id="dcQ-tU-OgM"/>
@@ -1541,7 +1537,7 @@ on Christmas”</string>
                                     <constraint firstAttribute="bottom" secondItem="LmM-fo-Ofj" secondAttribute="bottom" id="HC4-U9-kFF"/>
                                     <constraint firstItem="LmM-fo-Ofj" firstAttribute="top" secondItem="Ykn-ih-xeX" secondAttribute="top" id="NPj-Ku-d8j"/>
                                     <constraint firstAttribute="trailing" secondItem="LmM-fo-Ofj" secondAttribute="trailing" id="NZU-tf-vuf"/>
-                                    <constraint firstItem="szo-M7-ooy" firstAttribute="top" secondItem="Ykn-ih-xeX" secondAttribute="top" constant="40" id="gcm-kH-uGE"/>
+                                    <constraint firstItem="szo-M7-ooy" firstAttribute="top" secondItem="Ykn-ih-xeX" secondAttribute="top" constant="20" id="gcm-kH-uGE"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1555,11 +1551,14 @@ on Christmas”</string>
                         <viewLayoutGuide key="safeArea" id="2b2-wN-cGJ"/>
                     </view>
                     <connections>
+                        <outlet property="closeButton" destination="szo-M7-ooy" id="tXJ-pV-1lp"/>
+                        <outlet property="closeButtonTopConstraint" destination="gcm-kH-uGE" id="adO-6U-rjh"/>
                         <outlet property="galleryCollection" destination="LmM-fo-Ofj" id="eGt-mt-LCC"/>
                         <outlet property="verticalCollectionBottomConstraint" destination="DT8-1S-V5z" id="7nn-Rq-QX4"/>
                         <outlet property="verticalCollectionTopConstraint" destination="1xO-wG-0JT" id="zM5-7C-4oV"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fh5-QE-bpz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-378.39999999999998" y="16.641679160419791"/>
         </scene>

@@ -13,7 +13,8 @@ class PhotoGalleryVC: UIViewController {
     @IBOutlet weak var galleryCollection: UICollectionView!
     @IBOutlet weak var verticalCollectionTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var verticalCollectionBottomConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var closeButtonTopConstraint: NSLayoutConstraint!
     var imageNames = [String]()
     var parentVC = UIViewController()
     var startShowingFrom:Int = 0
@@ -21,6 +22,7 @@ class PhotoGalleryVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupCloseButton()
         self.galleryCollection.delegate = self
         self.galleryCollection.dataSource = self
     }
@@ -33,6 +35,15 @@ class PhotoGalleryVC: UIViewController {
         self.view.removeFromSuperview()
         self.removeFromParent()
     }
+    
+    private func setupCloseButton() {
+        self.closeButton.backgroundColor = AppColors.clear
+        self.closeButton.tintColor = AppColors.clear
+        
+        self.closeButton.setImage(ATGalleryViewConfiguration.closeButtonImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        self.closeButton.setImage(ATGalleryViewConfiguration.closeButtonImage.withRenderingMode(.alwaysOriginal), for: .selected)
+    }
+    
 }
 
 extension PhotoGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
@@ -91,24 +102,22 @@ extension PhotoGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource, 
             self.view.frame = self.parentVC.view.bounds
             self.parentVC.view.addSubview(self.view)
             self.didMove(toParent: self.parentVC)
-//            var newFrame = CGRect(x: 0.0, y: (UIDevice.screenHeight - ATGalleryViewConfiguration.imageViewHeight)/2.0, width: UIDevice.screenWidth, height: ATGalleryViewConfiguration.imageViewHeight)
-            
-            
-//            UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: { [weak self] in
-//                guard let sSelf = self else {return}
+            UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: { [weak self] in
+                guard let sSelf = self else {return}
 //                sSelf.mainImageView.frame = newFrame
 //                sSelf.mainImageView.alpha = 0.0
 //                sSelf.horizontalCollectionView.alpha = 1.0
 //                sSelf.verticalCollectionView.alpha = 1.0
-//
-//                sSelf.view.layoutIfNeeded()
-//                }, completion: { (isDone) in
+
+                sSelf.view.layoutIfNeeded()
+                }, completion: { (isDone) in
+                    self.galleryCollection.scrollToItem(at: IndexPath(item: self.startShowingFrom, section: 0), at: .centeredVertically, animated: true)
 //                    self.pageControl.isHidden = ATGalleryViewConfiguration.viewMode == .vertical
-//                    //Fixed the issue: This icon is not required at bottom right
-//    //                self.modeChangeButton.isHidden = false
+                    //Fixed the issue: This icon is not required at bottom right
+    //                self.modeChangeButton.isHidden = false
 //                    self.closeButton.isHidden = false
 //                    self.mainImageView.isHidden = true
-//            })
+            })
         }
     
     //MARK:- Public
