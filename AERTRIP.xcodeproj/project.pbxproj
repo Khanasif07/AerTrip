@@ -267,6 +267,14 @@
 		188785A321DF79A30061869E /* TravellerListTableViewSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188785A221DF79A30061869E /* TravellerListTableViewSectionView.xib */; };
 		188785A621DF7D990061869E /* TravellerListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188785A421DF7D990061869E /* TravellerListTableViewCell.swift */; };
 		188785A721DF7D990061869E /* TravellerListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188785A521DF7D990061869E /* TravellerListTableViewCell.xib */; };
+		188A4DB1242DE96D00F871ED /* PanDirectionGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A4DB0242DE96D00F871ED /* PanDirectionGestureRecognizer.swift */; };
+		188A4DB3242DE9B800F871ED /* SwiftPhotoGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A4DB2242DE9B800F871ED /* SwiftPhotoGallery.swift */; };
+		188A4DB5242DE9F800F871ED /* SwiftPhotoGalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A4DB4242DE9F800F871ED /* SwiftPhotoGalleryCell.swift */; };
+		188A4DB8242DEA5A00F871ED /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A4DB7242DEA5A00F871ED /* DimmingPresentationController.swift */; };
+		188A4DBA242DEA8000F871ED /* GalleryImageDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A4DB9242DEA8000F871ED /* GalleryImageDismissAnimator.swift */; };
+		188A4DBC242DEAA000F871ED /* GalleryPresentingAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A4DBB242DEAA000F871ED /* GalleryPresentingAnimator.swift */; };
+		188A4DBF242DF1E700F871ED /* PhotoGalleryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A4DBE242DF1E700F871ED /* PhotoGalleryVC.swift */; };
+		188A4DC1242DF23800F871ED /* PhotoGalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A4DC0242DF23800F871ED /* PhotoGalleryCell.swift */; };
 		188BFBB52203378F00B4C315 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188BFBB42203378F00B4C315 /* GameKit.framework */; };
 		188BFBB72203379700B4C315 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188BFBB62203379700B4C315 /* StoreKit.framework */; };
 		188DABE92390D5C20075E488 /* HotelResultVC+TableViewDataSourceDelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807EFFC223F8A650092E127 /* HotelResultVC+TableViewDataSourceDelegateMethods.swift */; };
@@ -1284,6 +1292,14 @@
 		188785A221DF79A30061869E /* TravellerListTableViewSectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TravellerListTableViewSectionView.xib; sourceTree = "<group>"; };
 		188785A421DF7D990061869E /* TravellerListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravellerListTableViewCell.swift; sourceTree = "<group>"; };
 		188785A521DF7D990061869E /* TravellerListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TravellerListTableViewCell.xib; sourceTree = "<group>"; };
+		188A4DB0242DE96D00F871ED /* PanDirectionGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanDirectionGestureRecognizer.swift; sourceTree = "<group>"; };
+		188A4DB2242DE9B800F871ED /* SwiftPhotoGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPhotoGallery.swift; sourceTree = "<group>"; };
+		188A4DB4242DE9F800F871ED /* SwiftPhotoGalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPhotoGalleryCell.swift; sourceTree = "<group>"; };
+		188A4DB7242DEA5A00F871ED /* DimmingPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
+		188A4DB9242DEA8000F871ED /* GalleryImageDismissAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryImageDismissAnimator.swift; sourceTree = "<group>"; };
+		188A4DBB242DEAA000F871ED /* GalleryPresentingAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryPresentingAnimator.swift; sourceTree = "<group>"; };
+		188A4DBE242DF1E700F871ED /* PhotoGalleryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGalleryVC.swift; sourceTree = "<group>"; };
+		188A4DC0242DF23800F871ED /* PhotoGalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGalleryCell.swift; sourceTree = "<group>"; };
 		188BFBB42203378F00B4C315 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		188BFBB62203379700B4C315 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		188DFC842318FC530060F9D1 /* PKTapAndCopyUITextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKTapAndCopyUITextView.swift; sourceTree = "<group>"; };
@@ -2769,6 +2785,45 @@
 				188785A521DF7D990061869E /* TravellerListTableViewCell.xib */,
 			);
 			path = TravellerList;
+			sourceTree = "<group>";
+		};
+		188A4DA8242DE8C000F871ED /* PhotoLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				188A4DBD242DF1BA00F871ED /* Controller */,
+				188A4DB6242DEA2D00F871ED /* Transitions Files */,
+				188A4DA9242DE90800F871ED /* GalleryFile */,
+			);
+			path = PhotoLibrary;
+			sourceTree = "<group>";
+		};
+		188A4DA9242DE90800F871ED /* GalleryFile */ = {
+			isa = PBXGroup;
+			children = (
+				188A4DB0242DE96D00F871ED /* PanDirectionGestureRecognizer.swift */,
+				188A4DB4242DE9F800F871ED /* SwiftPhotoGalleryCell.swift */,
+				188A4DB2242DE9B800F871ED /* SwiftPhotoGallery.swift */,
+			);
+			path = GalleryFile;
+			sourceTree = "<group>";
+		};
+		188A4DB6242DEA2D00F871ED /* Transitions Files */ = {
+			isa = PBXGroup;
+			children = (
+				188A4DB7242DEA5A00F871ED /* DimmingPresentationController.swift */,
+				188A4DB9242DEA8000F871ED /* GalleryImageDismissAnimator.swift */,
+				188A4DBB242DEAA000F871ED /* GalleryPresentingAnimator.swift */,
+			);
+			path = "Transitions Files";
+			sourceTree = "<group>";
+		};
+		188A4DBD242DF1BA00F871ED /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				188A4DBE242DF1E700F871ED /* PhotoGalleryVC.swift */,
+				188A4DC0242DF23800F871ED /* PhotoGalleryCell.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		188DFC832318FC530060F9D1 /* PKTapAndCopyUITextView */ = {
@@ -4551,6 +4606,7 @@
 				843D17172208268D00072BAE /* SwipeNavigationController */,
 				849F31EB21FF1AC60076BB3D /* ATError */,
 				84CF4E3A21BE8C5500B8EC47 /* ATBedgeLabel.swift */,
+				188A4DA8242DE8C000F871ED /* PhotoLibrary */,
 				84956FBC21B65DA600BF1183 /* AppExtension.swift */,
 				84C47734220D98BE00B75FA0 /* ATCardView.swift */,
 				84956FBE21B667D200BF1183 /* ATButton.swift */,
@@ -6002,11 +6058,13 @@
 				1807F005223F9F060092E127 /* HotelResultVC+HelperMethods.swift in Sources */,
 				841A75F0226F320F00D5C47A /* CircularProgress.swift in Sources */,
 				842EDE782238E7D600E99409 /* PlaceModel.swift in Sources */,
+				188A4DBA242DEA8000F871ED /* GalleryImageDismissAnimator.swift in Sources */,
 				84F2DC932264708900212F05 /* TravelDateVC.swift in Sources */,
 				845D3A1A228D724500062EE5 /* AccountOutstanding.swift in Sources */,
 				182D4840228AA5B9004796A2 /* BookingHotelDetailVC+DelegateMethods.swift in Sources */,
 				841DD1EA2202DC690055FEBB /* BulkBookingVM.swift in Sources */,
 				18D88BFA22C39A700089755D /* BookingConfirmationMailVM.swift in Sources */,
+				188A4DBF242DF1E700F871ED /* PhotoGalleryVC.swift in Sources */,
 				84085D0E21F59C0E00F1E844 /* ContactDetailsTableCell.swift in Sources */,
 				1835E50423EAC1CD00F6EEA1 /* CardPresentationController.swift in Sources */,
 				1819D3D621FF4900006A367E /* CustomView.swift in Sources */,
@@ -6027,6 +6085,7 @@
 				848D327C225B551B009DB1CE /* ATWebViewVC.swift in Sources */,
 				18922E7B2204722200939F72 /* RangeVC.swift in Sources */,
 				84B6DEA2228018EC0042D902 /* SpecialAccountDetailsVC+Delegate.swift in Sources */,
+				188A4DB1242DE96D00F871ED /* PanDirectionGestureRecognizer.swift in Sources */,
 				18A96B9721B661F900EA9B3A /* GoogleLoginController.swift in Sources */,
 				84D54F7D23E3FC620002B504 /* MenuItemCollectionCell.swift in Sources */,
 				84085CE521F59C0E00F1E844 /* CreateProfileVC.swift in Sources */,
@@ -6086,6 +6145,7 @@
 				8472F21323E4160E00993B08 /* MailComposerVM.swift in Sources */,
 				18F968022233BF0400B163C8 /* GrowingTextView.swift in Sources */,
 				84D5F22822A644F600824A9F /* HotelBookingDetailsVC+TableCells.swift in Sources */,
+				188A4DC1242DF23800F871ED /* PhotoGalleryCell.swift in Sources */,
 				849DA81823E2B6DB00C2E9D8 /* ATCategoryNavBar.swift in Sources */,
 				84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */,
 				188DFC852318FC530060F9D1 /* PKTapAndCopyUITextView.swift in Sources */,
@@ -6118,6 +6178,7 @@
 				84085D1321F59C0E00F1E844 /* TravellerListVC.swift in Sources */,
 				182EB21322856DC7001BFB20 /* FareInfoHeaderView.swift in Sources */,
 				844ADB3C2429DEEB0077B8AB /* ConfirmationEmailVC.swift in Sources */,
+				188A4DB3242DE9B800F871ED /* SwiftPhotoGallery.swift in Sources */,
 				847790C023ED70A6004EBC45 /* GradientView.swift in Sources */,
 				187684B022845A44009637D6 /* NightStateTableViewCell.swift in Sources */,
 				1820F0E8228D43240019B8BB /* BookingRequestNoteTableViewCell.swift in Sources */,
@@ -6171,6 +6232,7 @@
 				180A3D7221C0DA53001A1E6A /* SideMenuOptionsLabelCell.swift in Sources */,
 				84F983D521B51A070018DFED /* UIApplicationExtension.swift in Sources */,
 				84085CDF21F59C0E00F1E844 /* TripsVC.swift in Sources */,
+				188A4DBC242DEAA000F871ED /* GalleryPresentingAnimator.swift in Sources */,
 				84100A9422392E3F006A05EC /* FareUpdatedPopUpVC.swift in Sources */,
 				84F2DCA0226473BE00212F05 /* BookingDateVC.swift in Sources */,
 				842EDE832238E7D600E99409 /* CreateNewTripVM.swift in Sources */,
@@ -6597,6 +6659,7 @@
 				182D484A228AAB33004796A2 /* BookingCancellationPolicyTableViewCell.swift in Sources */,
 				18930A1F21D33EFF005442C8 /* SearchTextField.swift in Sources */,
 				84085D0821F59C0E00F1E844 /* ViewProfileDetailVC.swift in Sources */,
+				188A4DB8242DEA5A00F871ED /* DimmingPresentationController.swift in Sources */,
 				84534EBB2248F4E0009FF536 /* HCGuestsDetailsCollectionViewCell.swift in Sources */,
 				84B5089F229528DB00D4D371 /* PeriodicStatementEvent.swift in Sources */,
 				841DD1E32202DC690055FEBB /* RoomGuestSelectionVC.swift in Sources */,
@@ -6665,6 +6728,7 @@
 				182D486C228BE3DB004796A2 /* CancellationPolicyTableViewCell.swift in Sources */,
 				180162ED2295706C007E5D43 /* BookingAddOnHeaderView.swift in Sources */,
 				84534EA92248BE61009FF536 /* HCCheckInOutTableViewCell.swift in Sources */,
+				188A4DB5242DE9F800F871ED /* SwiftPhotoGalleryCell.swift in Sources */,
 				188E930E221A957A008FE50A /* CustomMarker.swift in Sources */,
 				84F983F221B51A070018DFED /* Reachability.swift in Sources */,
 				18EF5E22221C07F500EFFA6E /* ATSwitcher.swift in Sources */,

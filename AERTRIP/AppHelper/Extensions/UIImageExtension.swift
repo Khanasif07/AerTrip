@@ -139,6 +139,43 @@ extension UIImageView {
         }
     }
     
+    
+    func setImageWithUrl( imageUrl: String, placeholder: UIImage, showIndicator:Bool, completionHandler: @escaping (_ image: UIImage?, _ error: Error?) -> ()?) {
+        var imageUrl = imageUrl
+        guard imageUrl.count > 0 else {
+            self.image = placeholder
+            return
+        }
+        
+        func setImage(url: URL, showIndicator:Bool) {
+            if showIndicator{
+                self.kf.indicatorType = .activity
+            }
+            self.kf.setImage(with: url, placeholder: placeholder){  result in
+                
+                switch result {
+                case .success(let value):
+                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
+                    completionHandler(value.image, nil)
+                case .failure(let error):
+                    print("Job failed: \(error.localizedDescription)")
+                    completionHandler(nil, error)
+                }
+            }
+        }
+        
+        self.image = placeholder
+        if imageUrl.hasPrefix("//") {
+            imageUrl = "https:" + imageUrl
+        }
+        if imageUrl.hasPrefix("http://") || imageUrl.hasPrefix("https://"), let url = URL(string: imageUrl){
+            setImage(url: url, showIndicator:showIndicator)
+        }
+        else {
+            setImage(url: URL(fileURLWithPath: imageUrl), showIndicator:showIndicator)
+        }
+    }
+    
     func cancelImageDownloading() {
         self.kf.cancelDownloadTask()
     }

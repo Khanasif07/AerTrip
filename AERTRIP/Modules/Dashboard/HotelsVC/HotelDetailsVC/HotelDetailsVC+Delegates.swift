@@ -326,7 +326,8 @@ extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
     func hotelImageTapAction(at index: Int) {
         // open gallery with show image at index
         if let topVC = UIApplication.topViewController() {
-            ATGalleryViewController.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, datasource: self, delegate: self)
+            PhotoGalleryVC.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, imageArray: self.viewModel.hotelData?.photos ?? [])
+//            ATGalleryViewController.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, datasource: self, delegate: self)
             canDismissViewController = false
         }
     }
