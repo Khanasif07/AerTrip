@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import IQKeyboardManager
 protocol AddTagButtonDelegate: class {
     func addTagButtons(tagName: String)
 }
@@ -46,6 +46,9 @@ class SearchHotelTagVC: BaseVC {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        IQKeyboardManager.shared().isEnabled = false
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
+        searchBar.returnKeyType = UIReturnKeyType.done
     }
     
     override func setupTexts() {
@@ -88,6 +91,8 @@ class SearchHotelTagVC: BaseVC {
     //Mark:- IBActions
     //================
     @IBAction func cancelBtnAction(_ sender: UIButton) {
+        IQKeyboardManager.shared().isEnabled = true
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -117,6 +122,8 @@ extension SearchHotelTagVC: UITableViewDelegate, UITableViewDataSource {
         if let safeDelegate = self.delegate {
             safeDelegate.addTagButtons(tagName: self.copyOfTagButtons[indexPath.row])
         }
+        IQKeyboardManager.shared().isEnabled = true
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
         self.dismiss(animated: true, completion: nil)
     }
 }
@@ -140,6 +147,8 @@ extension SearchHotelTagVC: UISearchBarDelegate {
             if let safeDelegate = self.delegate {
                 safeDelegate.addTagButtons(tagName: searchBar.text!)
             }
+            IQKeyboardManager.shared().isEnabled = true
+            IQKeyboardManager.shared().isEnableAutoToolbar = true
             self.dismiss(animated: true, completion: nil)
         }else{
             searchBar.text = ""
