@@ -127,12 +127,23 @@ extension SearchHotelTagVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         printDebug(searchText)
-        if searchText.isEmpty {
+        if searchText.trimmingCharacters(in: .whitespaces).isEmpty {
             self.copyOfTagButtons = self.tagButtons
+            searchBar.text = ""
         } else {
             self.updateDataSource(searchedTag: searchText)
         }
         self.tagTableView.reloadData()
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if !(searchBar.text?.trimmingCharacters(in: .whitespaces).isEmpty ?? false){
+            if let safeDelegate = self.delegate {
+                safeDelegate.addTagButtons(tagName: searchBar.text!)
+            }
+            self.dismiss(animated: true, completion: nil)
+        }else{
+            searchBar.text = ""
+        }
     }
 }
 
@@ -165,6 +176,8 @@ extension SearchHotelTagVC {
             }
         case .failed, .possible:
             initialTouchPoint = CGPoint.zero
+            break
+        @unknown default:
             break
         }
     }

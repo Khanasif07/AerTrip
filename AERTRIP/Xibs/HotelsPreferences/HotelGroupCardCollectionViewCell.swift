@@ -153,10 +153,23 @@ class HotelGroupCardCollectionViewCell: UICollectionViewCell {
             self.greenCircleRatingView.rating = rating
         }
         
-        self.actualPriceLabel.text = self.hotelListData?.listPrice == 0 ? "" : "\(String(describing: self.hotelListData?.listPrice ?? 0.0))"
+//        self.actualPriceLabel.text = self.hotelListData?.listPrice == 0 ? "" : "\(String(describing: self.hotelListData?.listPrice ?? 0.0))"
+        var listPrice:Double = self.hotelListData?.listPrice ?? 0.0
+        
+                
         var price : Double = self.hotelListData?.price ?? 0.0
         if  let filter = UserInfo.hotelFilter, filter.priceType == .PerNight {
             price = self.hotelListData?.perNightPrice ?? 0.0
+            listPrice = self.hotelListData?.perNightListPrice ?? 0.0
+        }
+        
+        if listPrice == 0{
+            self.actualPriceLabel.text = ""
+        }else{
+            let price = listPrice.amountInDelimeterWithSymbol
+            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: price)
+            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
+            self.actualPriceLabel.attributedText = attributeString
         }
         self.discountedPriceLabel.text = price.amountInDelimeterWithSymbol
         self.saveButton.isSelected = self.hotelListData?.fav == "0" ? false : true

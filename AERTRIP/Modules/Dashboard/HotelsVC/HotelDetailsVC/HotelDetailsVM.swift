@@ -102,9 +102,14 @@ class HotelDetailsVM {
     
     func newFiltersAccordingToTags(rates: [Rates], selectedTag: [String])-> [Rates]{
         var filteredRates: [Rates] = []
+        var tempRatesData = rates
         if !selectedTag.isEmpty{
             for tag in selectedTag{
-                let filteredArray = rates.filter{ rates in
+                if (tag != selectedTag.first ?? ""){//To Apply AND filter on rates.
+                    tempRatesData = filteredRates
+                    filteredRates = []
+                }
+                let filteredArray = tempRatesData.filter{ rates in
                     let roomRate = rates.roomsRates ?? []
                     if roomRate.map({$0.name.lowercased()}).joined(separator: ",").contains(tag.lowercased()){
                         return true
@@ -115,8 +120,6 @@ class HotelDetailsVM {
                     }else if (rates.inclusion_array[APIKeys.other_inclusions.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
                         return true
                     }else if (rates.inclusion_array[APIKeys.inclusions.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
-                        return true
-                    }else if (rates.inclusion_array[APIKeys.notes_inclusion.rawValue] as? [String] ?? []).joined(separator: ",").contains(tag){
                         return true
                     }else if ((rates.cancellation_penalty?.is_refundable ?? false) && ((tag.lowercased() == "free cancellation") || (tag.lowercased() == "free"))){
                         return true
