@@ -177,9 +177,9 @@ extension ChatVC : TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToSettingsVC()
+//        AppFlowManager.default.moveToSettingsVC()
     }
-    
+
 }
 
 //MARK:- Animations
@@ -282,6 +282,7 @@ extension ChatVC {
     }
     
     private func showAnimationViewWith(text : String){
+        self.animationLabel.textAlignment = text.count <= 10 ? .center : .left
         self.animationView.isHidden = false
         UIView.animate(withDuration: 0.2) {
             self.animationLabel.text = text
