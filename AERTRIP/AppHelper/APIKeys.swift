@@ -424,4 +424,15 @@ enum APIKeys: String {
     case search = "search"
     case request
     case password_reset = "password-reset"
+    
+    //MARK:- ChatBot
+    
+//    case sessionId = "session_id"
+    
+    case fullfilment = "fullfilment"
+    case delta = "delta"
+    case depart = "depart"
+    case origin = "origin"
+    case cabinClass = "cabinClass"
+    
 }

@@ -33,6 +33,8 @@
 		0C24D4F8242CE93200CBFF92 /* NotificationSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24D4F7242CE93200CBFF92 /* NotificationSettingsVC.swift */; };
 		0C24D4FA242CE97000CBFF92 /* NotificationSettingsVC+TableViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24D4F9242CE97000CBFF92 /* NotificationSettingsVC+TableViewDelegates.swift */; };
 		0C24D4FC242CEEDD00CBFF92 /* NotificationSettingsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24D4FB242CEEDD00CBFF92 /* NotificationSettingsVM.swift */; };
+		0C24D4FE242DBD2100CBFF92 /* ApiCaller+ChatBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24D4FD242DBD2100CBFF92 /* ApiCaller+ChatBot.swift */; };
+		0C24D500242E47FC00CBFF92 /* FlightsDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24D4FF242E47FC00CBFF92 /* FlightsDemoVC.swift */; };
 		0C2558FD233C979B00F57C6E /* UIViewKeyframeAnimationOptions + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2558FC233C979B00F57C6E /* UIViewKeyframeAnimationOptions + Extension.swift */; };
 		0C272E292422601300133B50 /* SenderChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C272E272422601300133B50 /* SenderChatCell.swift */; };
 		0C272E2A2422601300133B50 /* SenderChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C272E282422601300133B50 /* SenderChatCell.xib */; };
@@ -1075,6 +1077,8 @@
 		0C24D4F7242CE93200CBFF92 /* NotificationSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsVC.swift; sourceTree = "<group>"; };
 		0C24D4F9242CE97000CBFF92 /* NotificationSettingsVC+TableViewDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationSettingsVC+TableViewDelegates.swift"; sourceTree = "<group>"; };
 		0C24D4FB242CEEDD00CBFF92 /* NotificationSettingsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsVM.swift; sourceTree = "<group>"; };
+		0C24D4FD242DBD2100CBFF92 /* ApiCaller+ChatBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiCaller+ChatBot.swift"; sourceTree = "<group>"; };
+		0C24D4FF242E47FC00CBFF92 /* FlightsDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsDemoVC.swift; sourceTree = "<group>"; };
 		0C2558FC233C979B00F57C6E /* UIViewKeyframeAnimationOptions + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewKeyframeAnimationOptions + Extension.swift"; sourceTree = "<group>"; };
 		0C272E272422601300133B50 /* SenderChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderChatCell.swift; sourceTree = "<group>"; };
 		0C272E282422601300133B50 /* SenderChatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SenderChatCell.xib; sourceTree = "<group>"; };
@@ -2186,6 +2190,7 @@
 				0C162ACE24233B24001C2B10 /* ChatVM.swift */,
 				0C09BFD32429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift */,
 				0C09BFD5242B746500B801BE /* ChatVC+Animations.swift */,
+				0C24D4FF242E47FC00CBFF92 /* FlightsDemoVC.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -5602,6 +5607,7 @@
 				8483806B2249EC8000202828 /* APICaller+Trips.swift */,
 				182D4852228ACD5B004796A2 /* APICaller+Booking.swift */,
 				84FD0DCF228AB66800915A09 /* APICaller+Account.swift */,
+				0C24D4FD242DBD2100CBFF92 /* ApiCaller+ChatBot.swift */,
 			);
 			path = APICaller;
 			sourceTree = "<group>";
@@ -6699,6 +6705,7 @@
 				1804888821CA597000437C81 /* ViewProfileDetailTableViewSectionView.swift in Sources */,
 				84314227224DFA330021F5BC /* HotelCheckOutDetailsVIew.swift in Sources */,
 				84CF4E3C21BE8C5500B8EC47 /* ATBedgeLabel.swift in Sources */,
+				0C24D4FE242DBD2100CBFF92 /* ApiCaller+ChatBot.swift in Sources */,
 				18EF5E81221D261B00EFFA6E /* GMUGeoJSONParser.m in Sources */,
 				842EDE7B2238E7D600E99409 /* HotelDetailsReviewsModel.swift in Sources */,
 				1893299E22561C410095F1AD /* HCDataSelectionVC+DelegateMethods.swift in Sources */,
@@ -6719,6 +6726,7 @@
 				0CBDEA472429CDE9009D7849 /* AMDots.swift in Sources */,
 				18EF5E76221D261B00EFFA6E /* GMUHeatmapTileLayer.m in Sources */,
 				183B71A6228984C600A75B7F /* RouteFareInfoTableViewCell.swift in Sources */,
+				0C24D500242E47FC00CBFF92 /* FlightsDemoVC.swift in Sources */,
 				1879C4AD2293DD2600897CED /* BookingRequestAddOnsFFVC.swift in Sources */,
 				18EF5E74221D261B00EFFA6E /* GMUWeightedLatLng.m in Sources */,
 				8493CD4D2240E0A30073A679 /* YouAreAllDoneVC.swift in Sources */,

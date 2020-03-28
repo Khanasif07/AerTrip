@@ -30,6 +30,8 @@ class SenderChatCell: UITableViewCell {
     func populateData(msgObj : MessageModel){
         self.messageLabel.text = msgObj.msg
         self.contentView.isHidden = msgObj.isHidden
+        self.messageLabel.textAlignment = msgObj.msg.count <= 10 ? .center : .left
+        
     }
     
 }

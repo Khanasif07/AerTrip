@@ -62,6 +62,11 @@ class ChatVC : BaseVC {
         self.view.endEditing(true)
     }
     
+    override func bindViewModel() {
+        super.bindViewModel()
+        self.chatVm.delegate = self
+    }
+    
     @IBAction func chatButtonTapped(_ sender: UIButton) { }
     
     //MARK:- Send Button Tapped
@@ -78,6 +83,7 @@ class ChatVC : BaseVC {
         self.chatTableView.scrollToRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0), at: UITableView.ScrollPosition.top, animated: true)
         self.hideShowSenderCellContent(ishidden: true)
         self.messageTextView.text = ""
+        self.chatVm.msgToBeSent = msg
         delay(seconds: 0.27) {
             self.animateCell(text : msg)
         }
@@ -301,12 +307,14 @@ extension ChatVC {
     
     func scheduleTypingCell(){
         if self.chatVm.typingCellTimerCounter > 0 { return }
+        self.insertTypingCell()
         self.typingCellTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(handleTypingCellTimer), userInfo: nil, repeats: true)
     }
     
     @objc func handleTypingCellTimer(){
+//        if self.chatVm.typingCellTimerCounter == 0{ self.insertTypingCell() }
         self.chatVm.typingCellTimerCounter += 1
-        if self.chatVm.typingCellTimerCounter == 2{ self.insertTypingCell() }
+        if self.chatVm.typingCellTimerCounter == 1{self.chatVm.sendMessageToChatBot(message: self.chatVm.msgToBeSent) }
         if self.chatVm.typingCellTimerCounter == 10{ invalidateTypingCellTimer() }
     }
     
@@ -409,4 +417,44 @@ extension ChatVC {
             self.view.layoutIfNeeded()
         }
     }
+}
+
+extension ChatVC : ChatBotDelegatesDelegate {
+   
+    func willstarttChatBotSession() {
+//        self.scheduleTypingCell()
+
+    }
+    
+    func chatBotSessionCreatedSuccessfully() {
+        invalidateTypingCellTimer()
+        self.chatTableView.scrollToRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0), at: UITableView.ScrollPosition.top, animated: true)
+    }
+    
+    func failedToCreateChatBotSession() {
+        
+    }
+    
+    func willCommunicateWithChatBot() {
+   
+    }
+    
+    func chatBotCommunicatedSuccessfully() {
+        invalidateTypingCellTimer()
+        self.chatTableView.scrollToRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0), at: UITableView.ScrollPosition.top, animated: true)
+    }
+    
+    func failedToCommunicateWithChatBot() {
+        invalidateTypingCellTimer()
+    }
+    
+    func hideTypingCell(){
+        invalidateTypingCellTimer()
+    }
+    
+    func moveFurtherWhenallRequiredInformationSubmited() {
+        let vc = FlightsDemoVC.instantiate(fromAppStoryboard: AppStoryboard.Dashboard)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
