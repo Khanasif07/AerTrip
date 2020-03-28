@@ -10,7 +10,8 @@ import UIKit
 
 class PhotoGalleryCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
-    
+    @IBOutlet weak var cellWidth: NSLayoutConstraint!
+        
     func configureData(with imageData: ATGalleryImage?) {
         guard let imgD = imageData else{return}
         self.imageView.image = ATGalleryViewConfiguration.placeholderImage

@@ -330,16 +330,6 @@ extension BaseVC {
     }
 }
 
-extension UINavigationController {
-    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return visibleViewController?.supportedInterfaceOrientations ?? super.supportedInterfaceOrientations
-    }
-    
-    open override var shouldAutorotate: Bool {
-        return visibleViewController?.shouldAutorotate ?? super.shouldAutorotate
-    }
-}
-
 extension UITabBarController {
     open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if let selected = selectedViewController {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoGalleryVC: UIViewController {
+class PhotoGalleryVC: BaseVC {
 
     @IBOutlet weak var galleryCollection: UICollectionView!
     @IBOutlet weak var verticalCollectionTopConstraint: NSLayoutConstraint!
@@ -56,6 +56,7 @@ extension PhotoGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         guard let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoGalleryCell", for: indexPath) as? PhotoGalleryCell else {return UICollectionViewCell()}
         var imgData = ATGalleryImage()
         imgData.imagePath = self.imageNames[indexPath.row]
+        cell.cellWidth.constant = UIScreen.main.bounds.width
         cell.configureData(with : imgData)
         return cell
     }
@@ -104,19 +105,9 @@ extension PhotoGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource, 
             self.didMove(toParent: self.parentVC)
             UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.4, options: .curveEaseInOut, animations: { [weak self] in
                 guard let sSelf = self else {return}
-//                sSelf.mainImageView.frame = newFrame
-//                sSelf.mainImageView.alpha = 0.0
-//                sSelf.horizontalCollectionView.alpha = 1.0
-//                sSelf.verticalCollectionView.alpha = 1.0
-
                 sSelf.view.layoutIfNeeded()
                 }, completion: { (isDone) in
                     self.galleryCollection.scrollToItem(at: IndexPath(item: self.startShowingFrom, section: 0), at: .centeredVertically, animated: true)
-//                    self.pageControl.isHidden = ATGalleryViewConfiguration.viewMode == .vertical
-                    //Fixed the issue: This icon is not required at bottom right
-    //                self.modeChangeButton.isHidden = false
-//                    self.closeButton.isHidden = false
-//                    self.mainImageView.isHidden = true
             })
         }
     
@@ -173,30 +164,16 @@ extension PhotoGalleryVC: UIViewControllerTransitioningDelegate {
     }
 
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        guard let returnCellFrame = self.galleryCollection.cellForItem(at: IndexPath(item: index, section: 0))?.frame else { return nil }
         guard let returnCellFrame = self.galleryCollection.cellForItem(at: IndexPath(item: index, section: 0)) else { return nil }
-        let currentCellFrame = returnCellFrame.layer.presentation()!.frame
-        let cardFrame = returnCellFrame.superview!.convert(currentCellFrame, to: nil)
+        let cardFrame = returnCellFrameWithViewController(cell:returnCellFrame)
         return GalleryImageDismissAnimator(pageIndex: index, finalFrame: cardFrame)
     }
     
     
     func returnCellFrameWithViewController(cell: UICollectionViewCell)-> CGRect{
-        
         let currentCellFrame = cell.layer.presentation()!.frame
         let cardFrame = cell.superview!.convert(currentCellFrame, to: nil)
-        let frameWithoutTransform = { () -> CGRect in
-            let center = cell.center
-            let size = cell.bounds.size
-            let r = CGRect(
-                x: center.x - size.width / 2,
-                y: center.y - size.height / 2,
-                width: size.width,
-                height: size.height
-            )
-            return cell.superview!.convert(r, to: nil)
-        }()
-        return frameWithoutTransform
+        return cardFrame
     }
     
 }
