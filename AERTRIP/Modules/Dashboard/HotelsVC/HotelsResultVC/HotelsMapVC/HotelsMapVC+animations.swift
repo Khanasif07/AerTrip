@@ -16,7 +16,7 @@ extension HotelsMapVC {
             
             sSelf.headerContatinerViewHeightConstraint.constant = 100
 //            sSelf.tableViewTopConstraint.constant = 100
-            sSelf.mapContainerTopConstraint.constant = 100
+            sSelf.mapContainerTopConstraint.constant = (!UIDevice.isIPhoneX) ? 120.0 : 144.0
             sSelf.headerContainerViewTopConstraint.constant = 0.0
             sSelf.searchBarContainerView.backgroundColor = AppColors.themeWhite
             sSelf.searchBarContainerView.frame = sSelf.searchIntitialFrame
@@ -34,7 +34,7 @@ extension HotelsMapVC {
             
             sSelf.headerContatinerViewHeightConstraint.constant = 50
 //            sSelf.tableViewTopConstraint.constant = 50
-            sSelf.mapContainerTopConstraint.constant = 50
+            sSelf.mapContainerTopConstraint.constant = (!UIDevice.isIPhoneX) ? 70 : 94.0
             sSelf.headerContainerViewTopConstraint.constant = 0.0
             sSelf.searchBarContainerView.translatesAutoresizingMaskIntoConstraints = true
             sSelf.searchBarContainerView.backgroundColor = AppColors.clear

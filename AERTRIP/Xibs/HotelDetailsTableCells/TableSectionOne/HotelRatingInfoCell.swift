@@ -65,15 +65,15 @@ class HotelRatingInfoCell: UITableViewCell {
         let modeImage: String
         self.distanceLabel.text = ""
         if let durationValue = duration {
-        if durationValue/60 <= 10 {
-            modeImage = "• 🚶🏻 "
-            let time = self.removeZeroAfterDecimal((Double(durationValue)/60.0).roundTo(places: 1))
-            self.distanceLabel.text = "\(distanceText) \(modeImage) \(time) mins"
-        } else {
-            modeImage = "• 🚘 "
-            let time = self.removeZeroAfterDecimal((Double(durationValue)/60.0).roundTo(places: 1))
-            self.distanceLabel.text = "\(distanceText) \(modeImage) \(time) mins"
-        }
+            if durationValue/60 <= 10 {
+                modeImage = "• 🚶🏻 "
+                let time = (Double(durationValue)/60.0).roundTo(places: 1).removeZeroAfterDecimal
+                self.distanceLabel.text = "\(distanceText) \(modeImage) \(time) mins"
+            } else {
+                modeImage = "• 🚘 "
+                let time = (Double(durationValue)/60.0).roundTo(places: 1).removeZeroAfterDecimal
+                self.distanceLabel.text = "\(distanceText) \(modeImage) \(time) mins"
+            }
         }
         self.distanceLabel.isHidden = (self.distanceLabel.text ?? "").isEmpty
         self.deviderView.isHidden = false
@@ -90,20 +90,20 @@ class HotelRatingInfoCell: UITableViewCell {
         }
     }
 
-    func removeZeroAfterDecimal(_ number: Double)-> String{
-        let formatter = NumberFormatter()
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 2
-        return formatter.string(from: NSNumber(value: number)) ?? ""
-    }
+//    func removeZeroAfterDecimal(_ number: Double)-> String{
+//        let formatter = NumberFormatter()
+//        formatter.minimumFractionDigits = 0
+//        formatter.maximumFractionDigits = 2
+//        return formatter.string(from: NSNumber(value: number)) ?? ""
+//    }
     
         
     internal func configureCell(hotelData: HotelSearched , placeData: PlaceModel?) {
 //        self.textSetUp(hotelName: hotelData.hotelName ?? "", distanceText: placeData.distanceText , durationValue: placeData.durationValue, starRating: hotelData.star, tripAdvisorRating: hotelData.rating)
         
         //sending the distabce as we are getting from aertrip data base not from google API as discussed with Nitesh
-        
-        self.textSetUp(hotelName: hotelData.hotelName ?? "", distanceText: "\(hotelData.distance) km", duration: placeData?.durationValue, starRating: hotelData.star, tripAdvisorRating: hotelData.rating)
+        let distance = hotelData.distance.removeZeroAfterDecimal
+        self.textSetUp(hotelName: hotelData.hotelName ?? "", distanceText: "\(distance) km", duration: placeData?.durationValue, starRating: hotelData.star, tripAdvisorRating: hotelData.rating)
     }
     
     internal func configHCDetailsCell(hotelData: HotelDetails , placeData: PlaceModel) {

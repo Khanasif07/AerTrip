@@ -275,7 +275,8 @@ class HCDataSelectionVC: BaseVC {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else { return }
 //            sSelf.fareDetailContainerView.transform = isHidden ? CGAffineTransform(translationX: 0, y: -(sSelf.fareDetailContainerView.height)) : CGAffineTransform(translationX: 0, y: 0)
-            sSelf.fareDetailBottomConstraint.constant = isHidden ? -(sSelf.fareDetailContainerView.height) : 0.0
+            let safeDistance:CGFloat = (UIDevice.isIPhoneX) ? 20.0 :  0.0
+            sSelf.fareDetailBottomConstraint.constant = isHidden ? -(sSelf.fareDetailContainerView.height) : safeDistance
             sSelf.upArrowImageView.transform = rotateTrans
             
             sSelf.view.layoutIfNeeded()

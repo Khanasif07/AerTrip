@@ -44,7 +44,7 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
     var backImage:UIImage? = UIImage()
     var isAddingChild = false
     var draggingDownToDismiss = false
-
+    var isDeviceHasBadzel = false
     var needToChnageNavigationY = false
     var currentViewHeight = CGFloat()
     var statusBarHeight:CGFloat{
@@ -180,6 +180,7 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
     }
     
     override func initialSetup() {
+        self.isDeviceHasBadzel = UIDevice.isIPhoneX
         self.viewModel.getHotelDistanceAndTimeInfo()
         self.configUI()
         self.registerNibs()
@@ -349,6 +350,9 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
     }
     
      func footerViewSetUp() {
+        if isDeviceHasBadzel{
+            self.footerViewHeightConstraint.constant = 70
+        }
         self.stickyView = getStickyFooter()
         if let stickyView = self.stickyView {
             stickyView.frame = self.footerView.bounds

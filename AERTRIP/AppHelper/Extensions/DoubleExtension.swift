@@ -66,6 +66,12 @@ extension Double {
         let divisor = pow(10.0, Double(places))
         return  (self * divisor).rounded() / divisor
     }
+    var removeZeroAfterDecimal: String{
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+        return formatter.string(from: NSNumber(value: self)) ?? ""
+    }
 
     
 }

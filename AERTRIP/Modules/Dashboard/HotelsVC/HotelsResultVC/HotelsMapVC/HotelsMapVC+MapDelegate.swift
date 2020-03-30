@@ -84,9 +84,9 @@ extension HotelsMapVC: GMSMapViewDelegate {
                 guard let sSelf = self else {return}
                 sSelf.collectionViewBottomConstraint.constant = 0.0
                 sSelf.floatingViewBottomConstraint.constant = 183.0
-                sSelf.mapContainerViewBottomConstraint.constant = 203.0
+                sSelf.mapContainerViewBottomConstraint.constant = (!UIDevice.isIPhoneX) ? 203.0 : 237.0
                 sSelf.headerContainerViewTopConstraint.constant = 0.0
-                sSelf.mapContainerTopConstraint.constant = 50.0
+                sSelf.mapContainerTopConstraint.constant = (!UIDevice.isIPhoneX) ? 70.0 : 94.0
                 sSelf.mapContainerView.layoutSubviews()
                 sSelf.hotelsMapCV.backgroundColor = AppColors.clear
                 sSelf.view.layoutIfNeeded()
@@ -94,6 +94,9 @@ extension HotelsMapVC: GMSMapViewDelegate {
             
             animator.addCompletion { [weak self](pos) in
                 self?.isHidingOnMapTap = false
+                DispatchQueue.main.async {
+                    self?.removeBlur()
+                }
             }
             animator.startAnimation()
             self.showHotelOnMap(duration: 0.4)
@@ -116,6 +119,9 @@ extension HotelsMapVC: GMSMapViewDelegate {
             
             animator.addCompletion { [weak self](pos) in
                 self?.isHidingOnMapTap = false
+                DispatchQueue.main.async {
+                    self?.addBlurView()
+                }
             }
             animator.startAnimation()
         }

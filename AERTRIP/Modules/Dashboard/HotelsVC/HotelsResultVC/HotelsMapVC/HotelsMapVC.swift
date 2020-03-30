@@ -119,7 +119,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     let thresholdZoomLabel: Float = 14.0
     var prevZoomLabel: Float = 1.0
     var markersOnLocations: JSONDictionary = JSONDictionary()
-    var maxVisblePriceMarker = 5
+    var maxVisblePriceMarker = 6
     // Request and View Type
     var visualEffectView : UIVisualEffectView!
     var backView : UIView!
@@ -173,6 +173,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
         return StatusBarAnimatableConfig(prefersHidden: false, animation: .slide)
     }
+    var blurView = UIVisualEffectView()
     var isMapZoomNeedToSet = false
     
     // MARK: - ViewLifeCycle
@@ -180,6 +181,8 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     // MARK: -
     
     override func initialSetup() {
+        self.mapContainerViewBottomConstraint.constant = (!UIDevice.isIPhoneX) ? 203.0 : 237.0
+//        self.mapContainerTopConstraint.constant = (!UIDevice.isIPhoneX) ? 100 : 144
         self.view.layoutIfNeeded()
         self.filterButton.isEnabled = false
         self.mapView?.isMyLocationEnabled = false

@@ -117,7 +117,7 @@ extension HotelResultVC: HotelResultDelegate {
         self.animateFloatingButtonOnListView(isAnimated: false)
         self.filterButton.isSelected = self.viewModel.isFilterApplied
         self.switchContainerView.isHidden = self.viewModel.favouriteHotels.isEmpty
-        self.floatingButtonOnMapView.isHidden = !self.viewModel.isFavouriteOn
+        self.floatingButtonOnMapView.isHidden = true//!self.viewModel.isFavouriteOn
         self.switchView.isOn = self.viewModel.isFavouriteOn
         self.filterCollectionView.reloadData()
     }

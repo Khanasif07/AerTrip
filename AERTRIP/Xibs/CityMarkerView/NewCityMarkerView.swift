@@ -52,7 +52,7 @@ class NewCityMarkerView: UIView {
     
     ///ConfigureUI
     private func configureUI() {
-        backgroundView.backgroundColor = shouldAddRippel ? AppColors.clear : AppColors.themeOrange.withAlphaComponent(0.1)//AppColors.themeOrange.withAlphaComponent(0.1)
+        backgroundView.backgroundColor = AppColors.clear//shouldAddRippel ? AppColors.clear : AppColors.themeOrange.withAlphaComponent(0.1)//AppColors.themeOrange.withAlphaComponent(0.1)
         dotView.backgroundColor = AppColors.themeOrange
         backgroundView.cornerRadius = 31.0
         dotView.cornerRadius = 6.5

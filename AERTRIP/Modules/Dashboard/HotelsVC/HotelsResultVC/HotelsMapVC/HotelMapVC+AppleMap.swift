@@ -124,7 +124,7 @@ extension HotelsMapVC : MKMapViewDelegate{
                 self.appleMap.addAnnotation(marker)
             }
         }
-        
+        self.appleMap.showAnnotations(self.appleMap.annotations, animated: true)
     }
     
     
@@ -182,7 +182,7 @@ extension HotelsMapVC : MKMapViewDelegate{
     func updateSelectedMarker(_ annotation: MKAnnotation?, isTappedMarker:Bool = true){
         self.removePreviouseSelected()
         guard  let anno = annotation as? MyAnnotation else {return}
-        self.updateMarkerImageFor(annotation: anno, isSelected: !self.isMapInFullView, isDetaisShow: true)
+        self.updateMarkerImageFor(annotation: anno, isSelected: true, isDetaisShow: true)
         var isTapSelected = false
         if !self.detailsShownMarkers.contains(anno){
             detailsShownMarkers.forEach { annotation in
@@ -193,7 +193,7 @@ extension HotelsMapVC : MKMapViewDelegate{
         }else{
             isTapSelected = true
         }
-        self.appleMap.deselectAnnotation(anno, animated: false)
+//        self.appleMap.deselectAnnotation(anno, animated: false)
         self.setRegionToShow(location: anno.coordinate)
         updateRegionMarker()
         if isTappedMarker{
@@ -339,16 +339,16 @@ extension HotelsMapVC : MKMapViewDelegate{
             return UIImage()
         default:
             guard let markerView = annotation.markerImageView else {return UIImage()}
-            if  markerView.isDetailsShown || markerView.isSelected{
+//            if  markerView.isDetailsShown || markerView.isSelected{
                 detailsShownMarkers.append(annotation)
                 return markerView.asImage()
-            }else {
-                if annotation.hotel?.fav ?? "0" == "0"{
-                   return UIImage(named: "clusterSmallTag") ?? UIImage()
-                }else{
-                    return UIImage(named: "favHotelWithShadowMarker") ?? UIImage()
-                }
-            }
+//            }else {
+//                if annotation.hotel?.fav ?? "0" == "0"{
+//                   return UIImage(named: "clusterSmallTag") ?? UIImage()
+//                }else{
+//                    return UIImage(named: "favHotelWithShadowMarker") ?? UIImage()
+//                }
+//            }
         }
     }
     
@@ -366,20 +366,21 @@ extension HotelsMapVC : MKMapViewDelegate{
         case .city:break;
         default:
             guard let markerView =  annotation.markerImageView else {return}
-                markerView.isDetailsShown = isDetaisShow
+                
             if markerView.connectorView != nil {
                 markerView.isSelected = isSelected
             }
-            if  markerView.isDetailsShown || markerView.isSelected{
+            markerView.isDetailsShown = isDetaisShow
+//            if  markerView.isDetailsShown || markerView.isSelected{
 
                 self.appleMap.view(for: annotation)?.image = markerView.asImage()
-            }else {
-                if annotation.hotel?.fav ?? "0" == "0"{
-                    self.appleMap.view(for: annotation)?.image = UIImage(named: "clusterSmallTag") ?? UIImage()
-                }else{
-                    self.appleMap.view(for: annotation)?.image = UIImage(named: "favHotelWithShadowMarker") ?? UIImage()
-                }
-            }
+//            }else {
+//                if annotation.hotel?.fav ?? "0" == "0"{
+//                    self.appleMap.view(for: annotation)?.image = UIImage(named: "clusterSmallTag") ?? UIImage()
+//                }else{
+//                    self.appleMap.view(for: annotation)?.image = UIImage(named: "favHotelWithShadowMarker") ?? UIImage()
+//                }
+//            }
         }
     }
 
@@ -396,6 +397,26 @@ extension HotelsMapVC : MKMapViewDelegate{
     func setInitailRegionToShow(location: CLLocationCoordinate2D){
         self.appleMap.setRegion(MKCoordinateRegion(center: location, latitudinalMeters: 6000, longitudinalMeters: 6000), animated: true)
     }
+    
+    func addBlurView(){
+        let height = UIApplication.shared.statusBarFrame.height
+        blurView = UIVisualEffectView(frame: CGRect(x: 0.0, y: 0.0, width: Double(UIDevice.screenWidth), height: Double(height)))
+        self.statusBarColor = AppColors.clear
+        blurView.backgroundColor = AppColors.clear
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = blurView.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurEffectView.alpha = 0.6
+        blurView.contentView.addSubview(blurEffectView)
+        self.view.addSubview(blurView)
+    }
+    
+    func removeBlur(){
+        self.statusBarColor = AppColors.themeWhite
+        blurView.removeFromSuperview()
+    }
+    
 }
 
 class MyAnnotation: NSObject, MKAnnotation {

@@ -35,10 +35,15 @@ class CustomMarker: UIView {
     var isSelected: Bool = false {
         didSet {
             self.updateSelection()
+            self.updateMakerImage()
         }
     }
     
-    var isDetailsShown = false
+    var isDetailsShown = false{
+        didSet{
+            updateMakerImage()
+        }
+    }
     
     class func instanceFromNib() -> CustomMarker {
         return UINib(nibName: "CustomMarker", bundle: nil).instantiate(withOwner: nil, options: nil).first as! CustomMarker
@@ -51,6 +56,11 @@ class CustomMarker: UIView {
         self.priceView.addShadow(cornerRadius: 8.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.5), offset: CGSize(width: 0.0, height: 3.0), opacity: 0.5, shadowRadius: 2.0)
     }
     
+    func updateMakerImage(){
+        self.priceView.isHidden = !(isDetailsShown || isSelected)
+        self.connectorView.isHidden = !(isDetailsShown || isSelected)
+    }
+    
     private func configureData() {
         self.isFavourite = (hotel?.fav ?? "0") == "1"
         
@@ -61,6 +71,7 @@ class CustomMarker: UIView {
         
 //        let str = NSAttributedString(string: hotel?.hotelName?.substring(to: 4) ?? "")
         self.priceLabel.attributedText = (price.amountInDelimeterWithSymbol).addPriceSymbolToLeft(using: AppFonts.SemiBold.withSize(16.0))
+        updateMakerImage()
     }
     
     private func updateFav() {
@@ -92,7 +103,7 @@ class CustomMarker: UIView {
 //            return
 //        }
         
-        connectorView.backgroundColor = AppColors.themeGreen//isSelected ? AppColors.themeGreen : AppColors.themeWhite
+        connectorView.backgroundColor = (isFavourite ? AppColors.themeRed : AppColors.themeGreen)
         
         priceView.layer.borderColor = isSelected ? AppColors.clear.cgColor : (isFavourite ? AppColors.themeRed.cgColor : AppColors.themeGreen.cgColor)
         priceView.layer.borderWidth = isSelected ? 0.0 : 1.0

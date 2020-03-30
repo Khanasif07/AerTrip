@@ -182,10 +182,9 @@ extension HotelDetailsVC: HotelDetailDelegate {
         if let cell = self.hotelTableView.cellForRow(at: index) as? HotelDetailsLoaderTableViewCell {
             cell.activityIndicator.stopAnimating()
         }
-        if UIDevice.isIPhoneX && !self.isAddingChild{
+        if self.isDeviceHasBadzel && !self.isAddingChild{
             self.footerViewHeightConstraint.constant = 70.0
             self.footerView.addGredient(isVertical: false)
-//            self.footerView.backgroundColor = AppColors.themeGreen
         }
         self.hotelTableView.reloadData()
     }
