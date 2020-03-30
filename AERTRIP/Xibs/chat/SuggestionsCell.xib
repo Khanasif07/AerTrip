@@ -11,65 +11,52 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SuggestionsCell" id="gTV-IL-0wX" customClass="SuggestionsCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="251" height="135"/>
+            <rect key="frame" x="0.0" y="0.0" width="284" height="115"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="251" height="135"/>
+                <rect key="frame" x="0.0" y="0.0" width="284" height="115"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ayp-L8-1p7">
-                        <rect key="frame" x="0.0" y="0.0" width="251" height="135"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blueflight" translatesAutoresizingMaskIntoConstraints="NO" id="ZMl-sB-8RM">
-                                <rect key="frame" x="15" y="52.5" width="30" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="ho6-7e-7KP"/>
-                                    <constraint firstAttribute="height" constant="30" id="nIO-ft-rAH"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOM → DEL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nrz-EN-qsu">
-                                <rect key="frame" x="60" y="47.5" width="175" height="21.5"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17 Jan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BuT-Kh-CC6">
-                                <rect key="frame" x="60" y="69" width="188" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.00050000000000000001" colorSpace="calibratedRGB"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blueflight" translatesAutoresizingMaskIntoConstraints="NO" id="ZMl-sB-8RM">
+                        <rect key="frame" x="15" y="64.5" width="30" height="30"/>
                         <constraints>
-                            <constraint firstItem="ZMl-sB-8RM" firstAttribute="leading" secondItem="Ayp-L8-1p7" secondAttribute="leading" constant="15" id="Bhy-hZ-t1R"/>
-                            <constraint firstItem="nrz-EN-qsu" firstAttribute="leading" secondItem="ZMl-sB-8RM" secondAttribute="trailing" constant="15" id="T3s-Vs-fQi"/>
-                            <constraint firstAttribute="trailing" secondItem="BuT-Kh-CC6" secondAttribute="trailing" constant="3" id="XUZ-LU-M3s"/>
-                            <constraint firstItem="nrz-EN-qsu" firstAttribute="top" secondItem="ZMl-sB-8RM" secondAttribute="top" constant="-5" id="be6-60-14T"/>
-                            <constraint firstAttribute="trailing" secondItem="nrz-EN-qsu" secondAttribute="trailing" constant="16" id="eBC-sY-VDa"/>
-                            <constraint firstItem="ZMl-sB-8RM" firstAttribute="centerY" secondItem="Ayp-L8-1p7" secondAttribute="centerY" id="h9I-u1-b0s"/>
-                            <constraint firstItem="BuT-Kh-CC6" firstAttribute="top" secondItem="nrz-EN-qsu" secondAttribute="bottom" id="l0J-J9-wxD"/>
-                            <constraint firstItem="BuT-Kh-CC6" firstAttribute="leading" secondItem="nrz-EN-qsu" secondAttribute="leading" id="q66-Pu-lbf"/>
+                            <constraint firstAttribute="width" constant="30" id="1SY-yt-INC"/>
+                            <constraint firstAttribute="height" constant="30" id="eUO-q5-QpG"/>
                         </constraints>
-                    </view>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOM → DEL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nrz-EN-qsu">
+                        <rect key="frame" x="60" y="59.5" width="208" height="21.5"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17 Jan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BuT-Kh-CC6">
+                        <rect key="frame" x="60" y="81" width="208" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="Ayp-L8-1p7" secondAttribute="trailing" id="7H6-oL-qAZ"/>
-                <constraint firstItem="Ayp-L8-1p7" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="G9p-EG-Reu"/>
-                <constraint firstAttribute="bottom" secondItem="Ayp-L8-1p7" secondAttribute="bottom" id="LTj-Xh-hUj"/>
-                <constraint firstItem="Ayp-L8-1p7" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="URs-MZ-0rK"/>
+                <constraint firstAttribute="trailing" secondItem="nrz-EN-qsu" secondAttribute="trailing" constant="16" id="8fd-kJ-aXz"/>
+                <constraint firstItem="ZMl-sB-8RM" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" id="BL0-8y-cD1"/>
+                <constraint firstItem="BuT-Kh-CC6" firstAttribute="leading" secondItem="nrz-EN-qsu" secondAttribute="leading" id="QEu-ib-UjD"/>
+                <constraint firstItem="BuT-Kh-CC6" firstAttribute="trailing" secondItem="nrz-EN-qsu" secondAttribute="trailing" id="ZAQ-yk-DwD"/>
+                <constraint firstItem="BuT-Kh-CC6" firstAttribute="top" secondItem="nrz-EN-qsu" secondAttribute="bottom" id="nHA-PU-CTw"/>
+                <constraint firstItem="nrz-EN-qsu" firstAttribute="top" secondItem="ZMl-sB-8RM" secondAttribute="top" constant="-5" id="opn-fa-8hB"/>
+                <constraint firstItem="ZMl-sB-8RM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="yGc-gU-zLi"/>
+                <constraint firstItem="nrz-EN-qsu" firstAttribute="leading" secondItem="ZMl-sB-8RM" secondAttribute="trailing" constant="15" id="zA2-2S-YC3"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <size key="customSize" width="251" height="135"/>
+            <size key="customSize" width="284" height="115"/>
             <connections>
                 <outlet property="dateLabel" destination="BuT-Kh-CC6" id="dB2-ny-R4M"/>
-                <outlet property="suggestionBackView" destination="Ayp-L8-1p7" id="eaz-Dq-Ek8"/>
                 <outlet property="suggestionImageView" destination="ZMl-sB-8RM" id="E9Q-ed-faa"/>
                 <outlet property="suggestionLabel" destination="nrz-EN-qsu" id="EZX-fH-erz"/>
             </connections>
-            <point key="canvasLocation" x="174.63768115942031" y="141.62946428571428"/>
+            <point key="canvasLocation" x="198.55072463768118" y="157.03125"/>
         </collectionViewCell>
     </objects>
     <resources>

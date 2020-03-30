@@ -23,6 +23,8 @@ extension ChatVC : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SuggestionsCell", for: indexPath) as? SuggestionsCell else {
                 fatalError("SuggestionsCell not found")
         }
+        printDebug(indexPath.item)
+        indexPath.item == 1 ? cell.configureHotelCell() : cell.configureFlightCell()
         return cell
     }
     
@@ -31,7 +33,11 @@ extension ChatVC : UICollectionViewDelegate, UICollectionViewDataSource, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 14
+        return 16
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 16
     }
     
 }

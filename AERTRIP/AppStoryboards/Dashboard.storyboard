@@ -644,19 +644,19 @@ on Christmas”</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flights " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="McH-7D-g5Y">
-                                <rect key="frame" x="154.5" y="210" width="60" height="25.5"/>
+                                <rect key="frame" x="152" y="211" width="65" height="23.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dN1-OA-CG2">
-                                <rect key="frame" x="107.5" y="250.5" width="154" height="21.5"/>
+                                <rect key="frame" x="104" y="249.5" width="161" height="20"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="0.99999600648880005" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WJG-0o-Orm">
-                                <rect key="frame" x="107.5" y="210" width="154" height="62"/>
+                                <rect key="frame" x="104" y="211" width="161" height="58.5"/>
                                 <connections>
                                     <action selector="myButtonAction:" destination="qif-Xc-JfX" eventType="touchUpInside" id="eAu-Pb-X0A"/>
                                 </connections>
@@ -759,7 +759,7 @@ on Christmas”</string>
                                                     <rect key="frame" x="10" y="0.0" width="350" height="62"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount Due" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UTm-27-Lt8">
-                                                            <rect key="frame" x="0.0" y="8" width="242.5" height="20"/>
+                                                            <rect key="frame" x="0.0" y="8" width="230.5" height="20"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                             <nil key="textColor"/>
@@ -777,17 +777,17 @@ on Christmas”</string>
                                                             </state>
                                                         </button>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="z3B-zb-52K">
-                                                            <rect key="frame" x="252.5" y="5.5" width="97.5" height="45"/>
+                                                            <rect key="frame" x="240.5" y="5.5" width="109.5" height="45"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="₹ 18,99545" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K55-7N-Anf">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="97.5" height="22.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="109.5" height="22.5"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJu-Ck-BcL">
-                                                                    <rect key="frame" x="0.0" y="22.5" width="97.5" height="22.5"/>
+                                                                    <rect key="frame" x="0.0" y="22.5" width="109.5" height="22.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -1082,13 +1082,13 @@ on Christmas”</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLz-uM-NAJ">
-                                <rect key="frame" x="164" y="210" width="41.5" height="25.5"/>
+                                <rect key="frame" x="163" y="211" width="43" height="23.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ws-RO-flc">
-                                <rect key="frame" x="107.5" y="250.5" width="154" height="21.5"/>
+                                <rect key="frame" x="104" y="249.5" width="161" height="20"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1582,23 +1582,23 @@ on Christmas”</string>
                                 <rect key="frame" x="0.0" y="44" width="375" height="579"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TyX-rk-SSG">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="RRV-Zx-63h">
                                 <rect key="frame" x="0.0" y="530" width="375" height="93"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="93" id="rRN-jw-VrE"/>
+                                    <constraint firstAttribute="height" constant="93" id="Upq-Ae-Bhl"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1kc-cJ-u7x">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gNR-8j-8Lu">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="TSP-Od-79D">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Xgg-hZ-zRb">
                                         <rect key="frame" x="0.0" y="21.5" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="vrT-7t-7kb">
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="G3G-BB-tfP">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
@@ -1608,17 +1608,17 @@ on Christmas”</string>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="LQJ-fm-qhE" firstAttribute="trailing" secondItem="RRV-Zx-63h" secondAttribute="trailing" id="2ye-JO-GmT"/>
+                            <constraint firstItem="RRV-Zx-63h" firstAttribute="leading" secondItem="LQJ-fm-qhE" secondAttribute="leading" id="8rq-74-fpi"/>
                             <constraint firstItem="LQJ-fm-qhE" firstAttribute="trailing" secondItem="vwz-ka-BHx" secondAttribute="trailing" id="9FS-XQ-EcO"/>
                             <constraint firstItem="LQJ-fm-qhE" firstAttribute="trailing" secondItem="wWm-ff-Gby" secondAttribute="trailing" id="Gpe-Zk-Wi6"/>
                             <constraint firstItem="FQY-RR-TSG" firstAttribute="top" secondItem="ooj-lS-MzQ" secondAttribute="bottom" constant="5" id="JEi-W4-ipx"/>
                             <constraint firstItem="LQJ-fm-qhE" firstAttribute="bottom" secondItem="qsI-YU-Au9" secondAttribute="bottom" id="KIk-g3-CNf"/>
                             <constraint firstItem="ooj-lS-MzQ" firstAttribute="top" secondItem="LQJ-fm-qhE" secondAttribute="top" constant="262" id="Lxa-Wv-a8X"/>
                             <constraint firstItem="wWm-ff-Gby" firstAttribute="top" secondItem="vwz-ka-BHx" secondAttribute="bottom" id="Omz-qP-3Mp"/>
-                            <constraint firstItem="TyX-rk-SSG" firstAttribute="leading" secondItem="LQJ-fm-qhE" secondAttribute="leading" id="QS4-WO-hMl"/>
-                            <constraint firstItem="qsI-YU-Au9" firstAttribute="top" secondItem="TyX-rk-SSG" secondAttribute="bottom" id="RR3-Ef-Vfm"/>
                             <constraint firstItem="vwz-ka-BHx" firstAttribute="top" secondItem="LQJ-fm-qhE" secondAttribute="top" id="ZsO-Tl-xH9"/>
                             <constraint firstItem="LQJ-fm-qhE" firstAttribute="trailing" secondItem="FQY-RR-TSG" secondAttribute="trailing" id="aAd-71-5YK"/>
-                            <constraint firstItem="LQJ-fm-qhE" firstAttribute="trailing" secondItem="TyX-rk-SSG" secondAttribute="trailing" id="ab0-MF-Muj"/>
+                            <constraint firstItem="qsI-YU-Au9" firstAttribute="top" secondItem="RRV-Zx-63h" secondAttribute="bottom" id="aje-JR-Fz6"/>
                             <constraint firstItem="ooj-lS-MzQ" firstAttribute="centerX" secondItem="LQJ-fm-qhE" secondAttribute="centerX" id="b1M-7g-XeO"/>
                             <constraint firstItem="qsI-YU-Au9" firstAttribute="top" secondItem="wWm-ff-Gby" secondAttribute="bottom" id="d43-z3-75t"/>
                             <constraint firstItem="vwz-ka-BHx" firstAttribute="leading" secondItem="LQJ-fm-qhE" secondAttribute="leading" id="en4-Qf-nq4"/>
@@ -1637,13 +1637,13 @@ on Christmas”</string>
                         <outlet property="chatButton" destination="ooj-lS-MzQ" id="SMA-xv-Shb"/>
                         <outlet property="chatButtonTop" destination="Lxa-Wv-a8X" id="tG3-Pg-yAZ"/>
                         <outlet property="chatTableView" destination="wWm-ff-Gby" id="pZk-4W-kEs"/>
-                        <outlet property="collectionViewBottom" destination="RR3-Ef-Vfm" id="4QP-q3-UUh"/>
+                        <outlet property="collectionViewBottom" destination="aje-JR-Fz6" id="1Dp-gM-NHV"/>
                         <outlet property="messageTextView" destination="qWb-6B-7WR" id="dJ4-iB-KDg"/>
                         <outlet property="morningBackView" destination="FQY-RR-TSG" id="1TZ-3U-rtR"/>
                         <outlet property="morningLabel" destination="pqi-fE-jG8" id="Q6p-5x-mHb"/>
                         <outlet property="sendButton" destination="kfm-EL-2Wc" id="Zhk-Lh-wH1"/>
                         <outlet property="sendButtonWidth" destination="Ceh-tB-5LH" id="FlL-0y-Jfg"/>
-                        <outlet property="suggestionsCollectionView" destination="TyX-rk-SSG" id="2wN-Ih-UlN"/>
+                        <outlet property="suggestionsCollectionView" destination="RRV-Zx-63h" id="EmR-dg-je6"/>
                         <outlet property="textViewBackView" destination="qsI-YU-Au9" id="3GT-Y5-VKU"/>
                         <outlet property="textViewBackViewBottom" destination="KIk-g3-CNf" id="KQ6-PQ-yJa"/>
                         <outlet property="topNavView" destination="vwz-ka-BHx" id="j4c-We-oKF"/>

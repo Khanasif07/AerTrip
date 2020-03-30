@@ -80,9 +80,10 @@ class ChatVC : BaseVC {
         self.chatVm.messages.append(MessageModel(msg: msg, source: MessageModel.MessageSource.me))
         self.chatTableView.reloadData()
         self.resetFrames()
-        self.chatTableView.scrollToRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0), at: UITableView.ScrollPosition.top, animated: true)
+        scrollTableViewToLast()
         self.hideShowSenderCellContent(ishidden: true)
         self.messageTextView.text = ""
+        self.showHideSendButton()
         self.chatVm.msgToBeSent = msg
         delay(seconds: 0.27) {
             self.animateCell(text : msg)
@@ -166,6 +167,11 @@ extension ChatVC {
         topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         topNavView.configureLeftButton(normalImage: #imageLiteral(resourceName: "back"), selectedImage:  #imageLiteral(resourceName: "back"), normalTitle: "", selectedTitle: "", normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "green_2"), selectedImage: #imageLiteral(resourceName: "green_2"), normalTitle: "", selectedTitle: "", normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+    }
+    
+    private func scrollTableViewToLast(withAnimation : Bool = true){
+        if self.chatVm.messages.isEmpty { return }
+        self.chatTableView.scrollToRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0), at: UITableView.ScrollPosition.top, animated: withAnimation)
     }
 }
 
@@ -330,7 +336,7 @@ extension ChatVC {
         self.chatTableView.beginUpdates()
         self.chatTableView.insertRows(at: [IndexPath(row: self.chatVm.messages.count - 1, section: 0)], with: UITableView.RowAnimation.none)
         self.chatTableView.endUpdates()
-        self.chatTableView.scrollToRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0), at: UITableView.ScrollPosition.bottom, animated: true)
+        scrollTableViewToLast()
         delay(seconds: 0.05) {
             self.addDotViewToTypingCell()
         }
@@ -379,7 +385,16 @@ extension ChatVC {
 
 extension ChatVC {
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        scrollTableViewToLast(withAnimation : false)
+    }
+    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (range.location == 0 && text == " ") {return false}
+        
+        if self.sendButtonWidth.constant == 0{
+            showHideSendButton(text : text, shouldCheckCount : false)
+        }
         return true
     }
     
@@ -388,8 +403,8 @@ extension ChatVC {
         showHideSendButton(text: textView.text ?? "")
     }
     
-    func showHideSendButton(text : String = ""){
-        if text.count > 1 { return }
+    func showHideSendButton(text : String = "", shouldCheckCount : Bool = true){
+        if text.count > 1 && shouldCheckCount { return }
         UIView.animate(withDuration: 0.3) {
             self.sendButtonWidth.constant = text.isEmpty ? 0 : 44
             self.view.layoutIfNeeded()
@@ -429,7 +444,7 @@ extension ChatVC : ChatBotDelegatesDelegate {
     
     func chatBotSessionCreatedSuccessfully() {
         invalidateTypingCellTimer()
-        self.chatTableView.scrollToRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0), at: UITableView.ScrollPosition.top, animated: true)
+        scrollTableViewToLast()
     }
     
     func failedToCreateChatBotSession() {
@@ -442,7 +457,7 @@ extension ChatVC : ChatBotDelegatesDelegate {
     
     func chatBotCommunicatedSuccessfully() {
         invalidateTypingCellTimer()
-        self.chatTableView.scrollToRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0), at: UITableView.ScrollPosition.top, animated: true)
+        scrollTableViewToLast()
     }
     
     func failedToCommunicateWithChatBot() {
