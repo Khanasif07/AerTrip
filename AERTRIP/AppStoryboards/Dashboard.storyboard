@@ -1489,7 +1489,7 @@ on Christmas”</string>
                                     <constraint firstAttribute="width" secondItem="ooj-lS-MzQ" secondAttribute="height" multiplier="1:1" id="AyK-Kv-i3V"/>
                                     <constraint firstAttribute="width" constant="170" id="g7K-7D-Ywc"/>
                                 </constraints>
-                                <state key="normal" image="3D"/>
+                                <state key="normal" image="Logo White"/>
                                 <connections>
                                     <action selector="chatButtonTapped:" destination="6zx-8X-NJ7" eventType="touchUpInside" id="ySa-sJ-Lug"/>
                                 </connections>
@@ -1716,11 +1716,11 @@ on Christmas”</string>
         </scene>
     </scenes>
     <resources>
-        <image name="3D" width="70" height="70"/>
         <image name="Aerin Test66x66" width="66" height="66"/>
         <image name="AertripHomeIcon" width="27" height="30"/>
         <image name="FlightTest 66x66" width="66" height="66"/>
         <image name="HotelTest 66x66" width="66" height="66"/>
+        <image name="Logo White" width="170" height="170"/>
         <image name="TripsTest 66x66" width="66" height="66"/>
         <image name="aerin" width="62.5" height="57"/>
         <image name="aerinTapLogo" width="170" height="170"/>

@@ -226,15 +226,7 @@ extension ChatVC {
     
     func animateWhereToGoLabel(){
         self.morningLabel.isHidden = true
-        
-//        UIView.animate(withDuration: 0.6) {
-//        }
-        
-//        UIView.animate(withDuration: 0.6, animations: {
-//          }) { (success) in
-//
-//          }
-        
+                
         UIView.animate(withDuration: 0.6, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             self.whereToGoLabel.alpha = 1
         }, completion: nil)
