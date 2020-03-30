@@ -526,12 +526,7 @@ extension AppFlowManager {
         ob.modalPresentationStyle = .overFullScreen
         self.mainNavigationController.present(ob, animated: true, completion: nil)
     }
-    
-    func moveToSettingsVC() {
-        let obj = SettingsVC.instantiate(fromAppStoryboard: .Settings)
-        self.mainNavigationController.pushViewController(obj, animated: true)
-    }
-    
+        
     func showFilterVC(_ vc: BaseVC, index: Int = 0) {
         if let obj = UIApplication.topViewController() {
             let ob = HotelFilterVC.instantiate(fromAppStoryboard: .Filter)
@@ -1047,9 +1042,28 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
+    func moveToNotificationSettingsVC(){
+        let ob = NotificationSettingsVC.instantiate(fromAppStoryboard: .Settings)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
     
+    //MARK:- Settings Screen
     
+    func moveToSettingsVC() {
+        let obj = SettingsVC.instantiate(fromAppStoryboard: .Settings)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
     
+    func moveToCountryVC() {
+        let obj = CountryVC.instantiate(fromAppStoryboard: .Settings)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+    
+    func moveToCurrencyVC() {
+        let obj = CurrencyVC.instantiate(fromAppStoryboard: .Settings)
+        self.mainNavigationController.pushViewController(obj, animated: true)
+    }
+
 }
 
 // MARK: - Select Trip Flow Methods

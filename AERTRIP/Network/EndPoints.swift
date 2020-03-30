@@ -121,6 +121,8 @@ enum APIEndPoint: String {
     case hotelItinerary = "hotels/itinerary?action=traveller"
     case getPaymentMethod = "itinerary/get-payment-methods"
     case shareText = "su/create"
+    
+    case chatBotStart = "aerin/start"
 }
 
 // MARK: - endpoint extension for url -

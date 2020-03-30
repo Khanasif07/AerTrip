@@ -917,8 +917,6 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
         PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: PKCountryPicker.default.getCountryData(forISDCode: self.viewModel.mobile[indexPath.row].isd)) { [weak self] (selectedCountry,closePicker) in
             printDebug("selected country data: \(selectedCountry)")
             
-            
-            
             guard let cell = self?.tableView.cellForRow(at: indexPath) as? EditProfileThreePartTableViewCell else {
                 fatalError("EditProfileThreePartTableViewCell not found")
             }

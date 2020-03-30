@@ -990,4 +990,8 @@ enum LocalizedString: String {
     case Flexible
     case ContactDetails
     case KindlyDisconnectMessage
+    
+    //MARK:- Settings
+    case Currency
+    
 }

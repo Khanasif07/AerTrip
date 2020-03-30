@@ -898,10 +898,10 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
                 editProfileImageHeaderView.profileImageView.image = AppGlobals.shared.getImageFromText(flText.uppercased(), offSet: CGPoint(x: 0.0, y: 9.0)) }
         }
     }
-    
 }
 
 extension EditProfileVC: TopNavigationViewDelegate {
+    
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         if viewModel.currentlyUsinfFor == .addNewTravellerList {
             dismiss(animated: true, completion: nil)

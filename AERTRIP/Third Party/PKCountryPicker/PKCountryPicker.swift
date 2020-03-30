@@ -151,7 +151,7 @@ open class PKCountryPicker: UIView {
         //        }
     }
     
-    private func getAllCountries() -> [PKCountryModel] {
+     func getAllCountries() -> [PKCountryModel] {
         var countries = [PKCountryModel]()
         let frameworkBundle = Bundle(for: PKCountryPicker.self)
         guard let jsonPath = frameworkBundle.path(forResource: "countryData", ofType: "json"), let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) else {
@@ -163,6 +163,7 @@ open class PKCountryPicker: UIView {
                 countries = PKCountryModel.getModels(jsonArr: jsonObjects)
             }
         }
+            
         catch {
             return countries
         }
