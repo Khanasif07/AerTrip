@@ -37,7 +37,7 @@ open class SwiftPhotoGalleryCell: UICollectionViewCell {
                                                         toItem: contentView,
                                                         attribute: .leading,
                                                         multiplier: 1,
-                                                        constant: 0))
+            constant: 0))
 
         scrollViewConstraints.append(NSLayoutConstraint(item: scrollView,
                                                         attribute: .top,
@@ -145,6 +145,7 @@ open class SwiftPhotoGalleryCell: UICollectionViewCell {
                 self.imageView.setImageWithUrl(imageUrl: url.absoluteString, placeholder: ATGalleryViewConfiguration.placeholderImage, showIndicator: ATGalleryViewConfiguration.shouldShowLoader, completionHandler: {[weak self] image, error in
                     if let image = image{
                         self?.image = image
+                        self?.scrollView.delegate = self
                         self?.scrollView.maximumZoomScale = 2.0
                     }else{
                         self?.scrollView.delegate = nil

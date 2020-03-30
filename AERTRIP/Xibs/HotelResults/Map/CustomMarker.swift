@@ -92,7 +92,7 @@ class CustomMarker: UIView {
 //            return
 //        }
         
-        connectorView.backgroundColor = isSelected ? AppColors.themeGreen : AppColors.themeWhite
+        connectorView.backgroundColor = AppColors.themeGreen//isSelected ? AppColors.themeGreen : AppColors.themeWhite
         
         priceView.layer.borderColor = isSelected ? AppColors.clear.cgColor : (isFavourite ? AppColors.themeRed.cgColor : AppColors.themeGreen.cgColor)
         priceView.layer.borderWidth = isSelected ? 0.0 : 1.0

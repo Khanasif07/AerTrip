@@ -36,11 +36,19 @@ extension HotelsMapVC : MKMapViewDelegate{
     }
     
     func addGestureRecognizerForTap(){
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(zoomInGesture))
+        doubleTapGesture.numberOfTapsRequired = 2
+        doubleTapGesture.numberOfTouchesRequired = 1
+        doubleTapGesture.delegate = self
+        self.appleMap.addGestureRecognizer(doubleTapGesture)
         
         let tapInterceptor = UITapGestureRecognizer(target: self, action: #selector(tapOnMAp))
+        tapInterceptor.numberOfTapsRequired = 1
         tapInterceptor.numberOfTouchesRequired = 1
         tapInterceptor.delegate = self
+        tapInterceptor.require(toFail: doubleTapGesture)
         self.appleMap.addGestureRecognizer(tapInterceptor)
+        
         
     }
     
@@ -54,9 +62,22 @@ extension HotelsMapVC : MKMapViewDelegate{
     }
     
     @objc func tapOnMAp(_ gesture: UITapGestureRecognizer){
+        if (gesture.state != .ended){
+            return
+        }
         self.updateFullMarkerView()
         self.updateAnnotationOnMapTap()
     }
+    
+    @objc func zoomInGesture() {
+        var region = self.appleMap.region
+        var span = self.appleMap.region.span
+        span.latitudeDelta *= CLLocationDegrees(0.5)
+        span.longitudeDelta *= CLLocationDegrees(0.5)
+        region.span = span
+        self.appleMap.setRegion(region, animated: true)
+    }
+    
     func updateAnnotationOnMapTap(){
         if !self.isMapInFullView {
             let index = self.getCurrentCollectionIndex()
@@ -125,9 +146,9 @@ extension HotelsMapVC : MKMapViewDelegate{
             self.currentMapSpan = self.appleMap.region.span
             isMapZoomNeedToSet = true
         }
-        var visibleAnnotation = appleMap.annotations(in: self.appleMap.visibleMapRect).compactMap{$0 as! MyAnnotation}
+        let visibleAnnotation = appleMap.annotations(in: self.appleMap.visibleMapRect).compactMap{($0 as! MyAnnotation)}
         print( appleMap.getZoomLevel())
-        if appleMap.getZoomLevel() <= 14{
+//        if appleMap.getZoomLevel() <= 14{//All annotation on zoom level 14
             self.removePreviouseSelected()
             if visibleAnnotation.count >= maxVisblePriceMarker{
                 var counter = 1
@@ -149,36 +170,40 @@ extension HotelsMapVC : MKMapViewDelegate{
                 }
                 
             }
-        }else{
-            self.removePreviouseSelected()
-            visibleAnnotation.forEach { annotation in
-                if !detailsShownMarkers.contains(annotation){ detailsShownMarkers.append(annotation)}
-                self.updateMarkerImageFor(annotation: annotation, isSelected: annotation.isSelected, isDetaisShow: true)
-            }
-        }
+//        }else{
+//            self.removePreviouseSelected()
+//            visibleAnnotation.forEach { annotation in
+//                if !detailsShownMarkers.contains(annotation){ detailsShownMarkers.append(annotation)}
+//                self.updateMarkerImageFor(annotation: annotation, isSelected: annotation.isSelected, isDetaisShow: true)
+//            }
+//        }
     }
     
     func updateSelectedMarker(_ annotation: MKAnnotation?, isTappedMarker:Bool = true){
         self.removePreviouseSelected()
         guard  let anno = annotation as? MyAnnotation else {return}
         self.updateMarkerImageFor(annotation: anno, isSelected: !self.isMapInFullView, isDetaisShow: true)
+        var isTapSelected = false
         if !self.detailsShownMarkers.contains(anno){
             detailsShownMarkers.forEach { annotation in
                 self.updateMarkerImageFor(annotation: annotation, isSelected: false, isDetaisShow: false)
             }
             detailsShownMarkers = []
             detailsShownMarkers.append(anno)
+        }else{
+            isTapSelected = true
         }
+        self.appleMap.deselectAnnotation(anno, animated: false)
         self.setRegionToShow(location: anno.coordinate)
         updateRegionMarker()
         if isTappedMarker{
             if anno.markerType == .customMarker{
                 if let data = anno.hotel {
-                    movetoDetailPage(data: data)
+                    movetoDetailPage(data: data, isNeedToOpen: isTapSelected)
                 }
             } else if anno.markerType == .clusterMarker {
                 if let data = anno.hotelTtems?.first {
-                    movetoDetailPage(data: data)
+                    movetoDetailPage(data: data, isNeedToOpen: isTapSelected)
                 }
             }
         }
@@ -323,8 +348,6 @@ extension HotelsMapVC : MKMapViewDelegate{
                 }else{
                     return UIImage(named: "favHotelWithShadowMarker") ?? UIImage()
                 }
-                
-//                return UIImage(named: "clusterSmallTag") ?? UIImage()
             }
         }
     }

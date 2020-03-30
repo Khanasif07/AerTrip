@@ -184,7 +184,8 @@ extension HotelDetailsVC: HotelDetailDelegate {
         }
         if UIDevice.isIPhoneX && !self.isAddingChild{
             self.footerViewHeightConstraint.constant = 70.0
-            self.footerView.backgroundColor = AppColors.themeGreen
+            self.footerView.addGredient(isVertical: false)
+//            self.footerView.backgroundColor = AppColors.themeGreen
         }
         self.hotelTableView.reloadData()
     }
