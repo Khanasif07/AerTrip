@@ -89,10 +89,18 @@ extension Date {
         } else {
             return dateComponentNow.year! - dateComponentBirth.year!
         }
-        
-        
     }
     
+    var morningOrEvening : String{
+         let hour = Calendar.current.component(.hour, from: self)
+         switch hour {
+            case 6..<12 : return "Morning"
+            case 12 : return "Afternoon"
+            case 13..<17 : return "Afternoon"
+            case 17..<22 : return "Evening"
+            default: return "Night"
+         }
+     }
     
     func yearsFrom(_ date: Date) -> Int {
         return (Calendar.current as NSCalendar).components(.year, from: date, to: self, options: []).year!
