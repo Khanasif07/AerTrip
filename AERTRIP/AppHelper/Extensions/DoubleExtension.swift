@@ -35,7 +35,7 @@ extension Double {
     func formatedCount() ->String{
         var thousandNum = self/1000
         var millionNum = self/1000000
-        if self >= 1000 && self < 1000000{
+        if self >= 9999 && self < 1000000{
             if(floor(thousandNum) == thousandNum){
                 return("\(Int(thousandNum))k").replacingOccurrences(of: ".0", with: "")
             }

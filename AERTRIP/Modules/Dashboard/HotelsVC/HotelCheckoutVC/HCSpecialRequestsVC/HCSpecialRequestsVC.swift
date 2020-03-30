@@ -93,7 +93,10 @@ extension HCSpecialRequestsVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row < self.viewModel.specialRequests.count {
             return 44
-        } else {
+        }else if indexPath.row == self.viewModel.specialRequests.count {
+            return 60 + 17
+
+        }else {
             return 60
         }
     }
@@ -142,15 +145,17 @@ extension HCSpecialRequestsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCSpecialRequestTextfieldCell.reusableIdentifier, for: indexPath) as? HCSpecialRequestTextfieldCell else { return UITableViewCell() }
         cell.delegate = self
         if indexPath.row == self.viewModel.specialRequests.count {
-            cell.topDividerViewTopConstraints.constant = 0.0//17.0
+            //cell.topDividerViewTopConstraints.constant = 0.0//17.0
             cell.configCell(placeHolderText: textFieldPlaceHolder[0])
             cell.topDividerView.isHidden = false
             cell.infoTextField.text =  self.viewModel.other
+            cell.topDividerTopConstraint.constant = 17.5
         } else {
-            cell.topDividerViewTopConstraints.constant = 0.0
+           // cell.topDividerViewTopConstraints.constant = 0.0
             cell.topDividerView.isHidden = true
             cell.configCell(placeHolderText: textFieldPlaceHolder[1])
             cell.infoTextField.text =  self.viewModel.specialRequest
+            cell.topDividerTopConstraint.constant = 0
         }
         return cell
     }
@@ -176,7 +181,8 @@ extension HCSpecialRequestsVC: TopNavigationViewDelegate {
 //Mark:- HCSpecialRequestTextfieldCell Delegate
 //=============================================
 extension HCSpecialRequestsVC: HCSpecialRequestTextfieldCellDelegate {
-    func didPassSpecialRequestAndAirLineText(infoText: String,indexPath: IndexPath) {
+    func didPassSpecialRequestAndAirLineText(infoText: String,textField: UITextField) {
+        guard let cell = textField.tableViewCell, let indexPath = self.specialReqTableView.indexPath(for: cell) else {return}
         if indexPath.row == self.viewModel.specialRequests.count {
             self.viewModel.other = infoText
         } else {

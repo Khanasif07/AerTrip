@@ -15,4 +15,5 @@ class ViewProfileDetailTableViewSectionView: UITableViewHeaderFooterView {
     @IBOutlet weak var topDividerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var containerView: UIView!
     
+    @IBOutlet weak var bottomSeparatorView: ATDividerView!
 }

@@ -123,6 +123,7 @@ class HotelInfoAddressCell: UITableViewCell {
     }
     
     internal func configureOverviewCell(hotelData: HotelDetails = HotelDetails(), isForBooking: Bool = false, overview: String = "") {
+        self.containerView.layoutIfNeeded()
         self.moreBtnOutlet.isHidden = false
         self.addressInfoTextView.textContainer.maximumNumberOfLines = 3
         self.addressLabel.text = LocalizedString.Overview.localized

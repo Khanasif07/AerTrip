@@ -35,8 +35,8 @@ class PriceVC: BaseVC {
         super.viewDidLoad()
         
         getSavedFilter()
-        doInitialSetup()
         addSlider()
+        doInitialSetup()
         registerXib()
     }
     
@@ -65,10 +65,11 @@ class PriceVC: BaseVC {
     private func doInitialSetup() {
         minimumPriceView.layer.cornerRadius = 15.0
         maximumPriceView.layer.cornerRadius = 15.0
-        let leftRangePrice = UserInfo.hotelFilter != nil ? filterApplied.leftRangePrice : HotelFilterVM.shared.minimumPrice
-        let rightRangePrice = UserInfo.hotelFilter != nil ? filterApplied.rightRangePrice : HotelFilterVM.shared.maximumPrice
-        minimumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(leftRangePrice.roundTo(places: 2))").asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
-        maximumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(rightRangePrice.roundTo(places: 2))").asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+//        let leftRangePrice = UserInfo.hotelFilter != nil ? filterApplied.leftRangePrice : HotelFilterVM.shared.minimumPrice
+//        let rightRangePrice = UserInfo.hotelFilter != nil ? filterApplied.rightRangePrice : HotelFilterVM.shared.maximumPrice
+//        minimumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(leftRangePrice.roundTo(places: 0))").asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+//        maximumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(rightRangePrice.roundTo(places: 0))").asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+        self.sliderChanged(horizontalMultiSlider)
         self.tableView.dataSource = self
         self.tableView.delegate = self
     }
@@ -109,10 +110,10 @@ class PriceVC: BaseVC {
     @objc func sliderChanged(_ slider: MultiSlider) {
         printDebug("\(slider.value)")
         // "\u{20B9} " +
-        minimumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + String(format: "%.2f", slider.value.first ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+        minimumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + String(format: "%.0f", slider.value.first ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
         HotelFilterVM.shared.leftRangePrice = Double(slider.value.first ?? 0.0).roundTo(places: 2)
         HotelFilterVM.shared.rightRangePrice = Double(slider.value.last ?? 0.0).roundTo(places: 2)
-        maximumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + String(format: "%.2f", slider.value.last ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+        maximumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + String(format: "%.0f", slider.value.last ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
     }
 }
 
