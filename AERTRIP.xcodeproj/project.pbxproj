@@ -45,6 +45,8 @@
 		0C6666B822D486A2009DFACD /* BookingCommonActionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6666B622D486A2009DFACD /* BookingCommonActionTableViewCell.xib */; };
 		0C6C1C6C22E875C800152927 /* HotelFareSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C6C1C6B22E875C800152927 /* HotelFareSectionHeader.xib */; };
 		0C6C1C6E22E875D300152927 /* HotelFareSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C1C6D22E875D200152927 /* HotelFareSectionHeader.swift */; };
+		0C7532C12431FC6600B8F213 /* NotificationSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7532BF2431FC6600B8F213 /* NotificationSettingsCell.swift */; };
+		0C7532C22431FC6600B8F213 /* NotificationSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C7532C02431FC6600B8F213 /* NotificationSettingsCell.xib */; };
 		0C93A8E82330ABB6000795DE /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C93A8E72330ABB6000795DE /* NotificationVC.swift */; };
 		0CAC8C8222E1E0620039D612 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F983A221B51A070018DFED /* UIImageExtension.swift */; };
 		0CAD5FE32338B32D0086F58D /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD5FE22338B32C0086F58D /* UILabel+Extension.swift */; };
@@ -1089,6 +1091,8 @@
 		0C6666B622D486A2009DFACD /* BookingCommonActionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingCommonActionTableViewCell.xib; sourceTree = "<group>"; };
 		0C6C1C6B22E875C800152927 /* HotelFareSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelFareSectionHeader.xib; sourceTree = "<group>"; };
 		0C6C1C6D22E875D200152927 /* HotelFareSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelFareSectionHeader.swift; sourceTree = "<group>"; };
+		0C7532BF2431FC6600B8F213 /* NotificationSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsCell.swift; sourceTree = "<group>"; };
+		0C7532C02431FC6600B8F213 /* NotificationSettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationSettingsCell.xib; sourceTree = "<group>"; };
 		0C93A8E72330ABB6000795DE /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		0CAD5FE22338B32C0086F58D /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		0CBDEA412429CD3F009D7849 /* TypingStatusChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingStatusChatCell.swift; sourceTree = "<group>"; };
@@ -2170,6 +2174,8 @@
 				0C24D4D6242C747000CBFF92 /* CountryCell.xib */,
 				0C24D4EC242CAF0A00CBFF92 /* CurrencyCell.swift */,
 				0C24D4ED242CAF0A00CBFF92 /* CurrencyCell.xib */,
+				0C7532BF2431FC6600B8F213 /* NotificationSettingsCell.swift */,
+				0C7532C02431FC6600B8F213 /* NotificationSettingsCell.xib */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -5783,6 +5789,7 @@
 				1809A47421CD053B0018AB2F /* EditProfileImageHeaderView.xib in Resources */,
 				1879C49C2292BD2600897CED /* DownloadInvoiceTableViewCell.xib in Resources */,
 				180F9BDA222CF35F00518D3B /* HotelSearchTableViewCell.xib in Resources */,
+				0C7532C22431FC6600B8F213 /* NotificationSettingsCell.xib in Resources */,
 				84323D3E222FE5A300DA7581 /* AmenitiesNameTableViewCell.xib in Resources */,
 				18FD91702296853B00D005E9 /* AirlineTableViewCell.xib in Resources */,
 				84BBEEAF2214261E00844034 /* HotelDetailsCancelPolicyTableCell.xib in Resources */,
@@ -6195,6 +6202,7 @@
 				0CBDEA4A2429E413009D7849 /* ReceiverChatCell.swift in Sources */,
 				18E796FF2248E53B00A7AC8B /* FinalAmountTableViewCell.swift in Sources */,
 				84F983DF21B51A070018DFED /* StringExtension.swift in Sources */,
+				0C7532C12431FC6600B8F213 /* NotificationSettingsCell.swift in Sources */,
 				8472F20A23E4078100993B08 /* HotelsMapVC+HelperMethods.swift in Sources */,
 				84AFF96F22A78B0F00E91F14 /* HotelCancellationVM.swift in Sources */,
 				84C47735220D98BE00B75FA0 /* ATCardView.swift in Sources */,

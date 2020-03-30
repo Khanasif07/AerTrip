@@ -51,8 +51,8 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
             case .currency:
                 AppFlowManager.default.moveToCurrencyVC()
             
-//        case .notification:
-//            AppFlowManager.default.moveToNotificationVC()
+        case .notification:
+            AppFlowManager.default.moveToNotificationSettingsVC()
 
             
         default:

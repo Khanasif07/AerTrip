@@ -280,9 +280,8 @@
                         <viewLayoutGuide key="safeArea" id="jpH-nX-bbb"/>
                     </view>
                     <connections>
-                        <outlet property="appVersionLabel" destination="qgD-yQ-bz1" id="nfC-f9-3a6"/>
-                        <outlet property="notificationSettingsTableView" destination="iaF-oq-xOr" id="ygC-z1-vry"/>
-                        <outlet property="topNavView" destination="nga-dw-0gY" id="ZPS-MA-wCg"/>
+                        <outlet property="notificationSettingsTableView" destination="iaF-oq-xOr" id="9Vs-jC-f3U"/>
+                        <outlet property="topNavView" destination="nga-dw-0gY" id="chg-ZX-2tR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ULl-0P-Lk1" userLabel="First Responder" sceneMemberID="firstResponder"/>

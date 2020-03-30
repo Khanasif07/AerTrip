@@ -87,6 +87,23 @@ class ChatVM {
              }
          }
     }
+    
+    
+    func getRecentFlights(){
+        
+        APICaller.shared.recentSearchesApi(searchFor: "flights") { (success, error, obj) in
+            
+        }
+        
+    }
+    
+    func getRecentHotels(){
+        
+        APICaller.shared.recentSearchesApi(searchFor: "hotel") { (success, error, obj) in
+            
+        }
+        
+    }
 
     
 }

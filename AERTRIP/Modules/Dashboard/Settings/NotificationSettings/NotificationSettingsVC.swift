@@ -46,7 +46,7 @@ class NotificationSettingsVC: BaseVC {
         }
         
         private func configureTableView(){
-            self.notificationSettingsTableView.register(UINib(nibName: "SettingsCell", bundle: nil), forCellReuseIdentifier: "SettingsCell")
+            self.notificationSettingsTableView.register(UINib(nibName: "NotificationSettingsCell", bundle: nil), forCellReuseIdentifier: "NotificationSettingsCell")
 //            self.notificationSettingsTableView.dataSource = self
 //            self.notificationSettingsTableView.delegate = self
         }

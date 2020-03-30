@@ -1041,6 +1041,10 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
+    func moveToNotificationSettingsVC(){
+        let ob = NotificationSettingsVC.instantiate(fromAppStoryboard: .Settings)
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
     
     //MARK:- Settings Screen
     

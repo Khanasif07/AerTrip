@@ -1489,7 +1489,7 @@ on Christmas”</string>
                                     <constraint firstAttribute="width" secondItem="ooj-lS-MzQ" secondAttribute="height" multiplier="1:1" id="AyK-Kv-i3V"/>
                                     <constraint firstAttribute="width" constant="170" id="g7K-7D-Ywc"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="3D"/>
+                                <state key="normal" image="3D"/>
                                 <connections>
                                     <action selector="chatButtonTapped:" destination="6zx-8X-NJ7" eventType="touchUpInside" id="ySa-sJ-Lug"/>
                                 </connections>
@@ -1544,7 +1544,7 @@ on Christmas”</string>
                                     </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qWb-6B-7WR" customClass="IQTextView">
                                         <rect key="frame" x="15" y="0.5" width="301" height="43.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1557,7 +1557,7 @@ on Christmas”</string>
                                         </userDefinedRuntimeAttributes>
                                     </textView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.002" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="qWb-6B-7WR" secondAttribute="bottom" id="1pM-Vk-vMq"/>
                                     <constraint firstItem="kfm-EL-2Wc" firstAttribute="leading" secondItem="qWb-6B-7WR" secondAttribute="trailing" id="E4h-Ot-zYn"/>

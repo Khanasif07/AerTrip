@@ -83,7 +83,7 @@ class ChatVC : BaseVC {
         scrollTableViewToLast()
         self.hideShowSenderCellContent(ishidden: true)
         self.messageTextView.text = ""
-        self.showHideSendButton()
+//        self.showHideSendButton()
         self.chatVm.msgToBeSent = msg
         delay(seconds: 0.27) {
             self.animateCell(text : msg)
@@ -121,6 +121,8 @@ extension ChatVC {
         self.performInitialAnimation()
         self.configureTableView()
         self.configureCollectionView()
+//        self.chatVm.getRecentHotels()
+//        self.chatVm.getRecentFlights()
     }
     
     //MARK:- Set view attributes
@@ -128,7 +130,7 @@ extension ChatVC {
         self.whereToGoLabel.font = AppFonts.Regular.withSize(28)
         self.animationLabel.font = AppFonts.Regular.withSize(18)
         self.morningLabel.textColor = AppColors.themeGreen
-//        self.morningBackView.alpha = 0
+//        self.textViewBackView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
         self.morningLabel.alpha = 0
         self.whereToGoLabel.alpha = 0
         let morningStr = "Good \(Date().morningOrEvening), \(name)"
@@ -141,7 +143,7 @@ extension ChatVC {
         self.chatTableView.isHidden = true
         self.chatButton.isUserInteractionEnabled = false
         self.messageTextView.tintColor = AppColors.themeGreen
-        self.showHideSendButton()
+//        self.showHideSendButton()
     }
     
     //MARK:- Configure tableview
@@ -181,13 +183,12 @@ extension ChatVC : TopNavigationViewDelegate {
     
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         invalidateTypingCellTimer()
-        self.navigationController?.popViewController(animated: false)
+        self.navigationController?.popViewController(animated: true)
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
 //        AppFlowManager.default.moveToSettingsVC()
     }
-
 }
 
 //MARK:- Animations
@@ -224,17 +225,24 @@ extension ChatVC {
     }
     
     func animateWhereToGoLabel(){
-        UIView.animate(withDuration: 1) {
-          //self.morningBackView.alpha = 1
-          self.morningLabel.alpha = 0
-            self.whereToGoLabel.alpha = 1
-        }
+        self.morningLabel.isHidden = true
         
-        UIView.animate(withDuration: 1, animations: {
-            self.whereToGoLabel.transform = CGAffineTransform(translationX: 0, y: (-(self.morningLabel.frame.height + 2)))
-          }) { (success) in
-              
-          }
+//        UIView.animate(withDuration: 0.6) {
+//        }
+        
+//        UIView.animate(withDuration: 0.6, animations: {
+//          }) { (success) in
+//
+//          }
+        
+        UIView.animate(withDuration: 0.6, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+            self.whereToGoLabel.alpha = 1
+        }, completion: nil)
+
+        UIView.animate(withDuration: 0.6, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+              self.whereToGoLabel.transform = CGAffineTransform(translationX: 0, y: (-(self.morningLabel.frame.height + 2)))
+          }, completion: nil)
+        
     }
     
     private func hideWelcomeView(){
@@ -413,14 +421,14 @@ extension ChatVC {
         if (range.location == 0 && text == " ") {return false}
         
         if self.sendButtonWidth.constant == 0{
-            showHideSendButton(text : text, shouldCheckCount : false)
+          //  showHideSendButton(text : text, shouldCheckCount : false)
         }
         return true
     }
     
     func textViewDidChange(_ textView: UITextView) {
         arrangeTextViewHeight()
-        showHideSendButton(text: textView.text ?? "")
+//        showHideSendButton(text: textView.text ?? "")
     }
     
     func showHideSendButton(text : String = "", shouldCheckCount : Bool = true){
