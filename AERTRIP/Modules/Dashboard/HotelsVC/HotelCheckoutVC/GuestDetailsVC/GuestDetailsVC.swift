@@ -44,7 +44,6 @@ class GuestDetailsVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.registerXib()
         self.doInitialSetup()
         //self.addFooterViewToGuestDetailTableView()
@@ -98,6 +97,7 @@ class GuestDetailsVC: BaseVC {
         self.setUpNavigationView()
         self.travellers = []//self.viewModel.travellerList
         self.travellersTableView.keyboardDismissMode = .none
+        self.guestDetailTableView.backgroundColor = AppColors.themeGray04
     }
     
     // configure navigation View
@@ -105,7 +105,7 @@ class GuestDetailsVC: BaseVC {
     private func setUpNavigationView() {
         self.topNavView.delegate = self
         self.topNavView.firstLeftButtonLeadingConst.constant = 5
-        self.topNavView.configureNavBar(title: LocalizedString.GuestDetails.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
+        self.topNavView.configureNavBar(title: LocalizedString.GuestDetails.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
 //        self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.CancelWithSpace.localized, selectedTitle: LocalizedString.CancelWithSpace.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.DoneWithSpace.localized, selectedTitle: LocalizedString.DoneWithSpace.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
     }
@@ -241,10 +241,10 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
                 cell.firstNameTextField.isHiddenBottomLine = true
                 cell.lastNameTextField.isHiddenBottomLine = true
             }
-            if indexPath.section == GuestDetailsVM.shared.guests.count - 1 {
-                cell.firstNameTextField.isHiddenBottomLine = false
-                cell.lastNameTextField.isHiddenBottomLine = false
-            }
+//            if indexPath.section == GuestDetailsVM.shared.guests.count - 1 {
+//                cell.firstNameTextField.isHiddenBottomLine = false
+//                cell.lastNameTextField.isHiddenBottomLine = false
+//            }
     
             return cell
         } else {
@@ -261,11 +261,13 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if tableView === self.guestDetailTableView {
             return 60.0
         } else {
-            return 0
+            return CGFloat.leastNonzeroMagnitude
         }
     }
     
@@ -286,6 +288,38 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.backgroundColor = AppColors.themeGray04
             headerView.containerView.backgroundColor = AppColors.themeGray04
             headerView.topDividerHeightConstraint.constant = 0.5
+            headerView.topSeparatorView.isHidden = section == 0 ? true : false
+            headerView.bottomSeparatorView.isHidden = false
+            
+            return headerView
+        } else {
+            return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if tableView === self.guestDetailTableView {
+            if GuestDetailsVM.shared.guests.count - 1 == section {
+                return 35
+            }
+            return CGFloat.leastNonzeroMagnitude
+        } else {
+            return CGFloat.leastNonzeroMagnitude
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if tableView === self.guestDetailTableView {
+            guard let headerView = guestDetailTableView.dequeueReusableHeaderFooterView(withIdentifier: AppConstants.ktableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
+                fatalError("ViewProfileDetailTableViewSectionView not found")
+            }
+            headerView.headerLabel.text = ""
+            headerView.backgroundColor = AppColors.themeGray04
+            headerView.containerView.backgroundColor = AppColors.themeGray04
+            headerView.topDividerHeightConstraint.constant = 0.5
+            headerView.topSeparatorView.isHidden = false
+            headerView.bottomSeparatorView.isHidden = true
+            
             return headerView
         } else {
             return nil
@@ -375,8 +409,11 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
         if let _ = self.guestDetailTableView.cell(forItem: textField) as? GuestDetailTableViewCell {
            //  get item position
             let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: guestDetailTableView)
-            
-            self.guestDetailTableView.setContentOffset(CGPoint(x: self.guestDetailTableView.origin.x, y: itemPosition.y - CGFloat(94)), animated: true)
+            var  yValue = 80
+            if let index = self.indexPath {
+                yValue = index.row ==  GuestDetailsVM.shared.guests[index.section].count - 1 ? 80 : 82
+            }
+            self.guestDetailTableView.setContentOffset(CGPoint(x: self.guestDetailTableView.origin.x, y: itemPosition.y - CGFloat(yValue)), animated: true)
          
             self.guestDetailTableView.isScrollEnabled = (self.travellers.count == 0)
             //false            travellersTableView.reloadData()

@@ -33,7 +33,7 @@ class HCSelectGuestsVC: BaseVC {
     
     //MARK:- Private
     private let collectionLayout: ContactListCollectionFlowLayout = ContactListCollectionFlowLayout()
-//    fileprivate weak var categoryView: ATCategoryView!
+    //    fileprivate weak var categoryView: ATCategoryView!
     
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
@@ -45,17 +45,17 @@ class HCSelectGuestsVC: BaseVC {
     }
     
     private var allTabsStr: [HCGuestListVC.UsingFor] = []
-//    private var allTabs: [ATCategoryItem] {
-//        var temp = [ATCategoryItem]()
-//
-//        for item in allTabsStr {
-//            var obj = ATCategoryItem()
-//            obj.title = item.title
-//            temp.append(obj)
-//        }
-//
-//        return temp
-//    }
+    //    private var allTabs: [ATCategoryItem] {
+    //        var temp = [ATCategoryItem]()
+    //
+    //        for item in allTabsStr {
+    //            var obj = ATCategoryItem()
+    //            obj.title = item.title
+    //            temp.append(obj)
+    //        }
+    //
+    //        return temp
+    //    }
     
     private var allChildVCs: [HCGuestListVC] = [HCGuestListVC]()
     
@@ -125,7 +125,7 @@ class HCSelectGuestsVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         self.viewModel.clearAllSelection()
-
+        
         selectedContactsCollectionView.setCollectionViewLayout(self.collectionLayout, animated: false)
         
         self.topNavView.delegate = self
@@ -137,9 +137,9 @@ class HCSelectGuestsVC: BaseVC {
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .selected)
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .disabled)
         
-//        self.viewModel.selectedPhoneContacts.removeAll()
-//        self.viewModel.selectedFacebookContacts.removeAll()
-//        self.viewModel.selectedGoogleContacts.removeAll()
+        //        self.viewModel.selectedPhoneContacts.removeAll()
+        //        self.viewModel.selectedFacebookContacts.removeAll()
+        //        self.viewModel.selectedGoogleContacts.removeAll()
         
         self.searchBar.searchBarStyle = .default
         self.searchBar.delegate = self
@@ -156,9 +156,9 @@ class HCSelectGuestsVC: BaseVC {
         else {
             allTabsStr = [HCGuestListVC.UsingFor.contacts, HCGuestListVC.UsingFor.facebook, HCGuestListVC.UsingFor.google]
         }
-
+        
         self.setupPagerView()
-
+        
         self.selectedContactsSetHidden(isHidden: false, animated: false)
         self.selectedContactsCollectionView.reloadData()
     }
@@ -186,7 +186,7 @@ class HCSelectGuestsVC: BaseVC {
         self.parchmentView = PagingViewController()
         self.parchmentView?.menuItemSpacing = allTabsStr.count == 4 ? (self.view.width - 274.0) / 3 : (self.view.width - 208.0) / 2
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
-        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 100, height: 50)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 100, height: 49)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
@@ -205,7 +205,7 @@ class HCSelectGuestsVC: BaseVC {
         self.parchmentView?.select(index: 0)
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
-
+        
     }
     
     private func selectedContactsSetHidden(isHidden: Bool, animated: Bool) {
@@ -219,11 +219,11 @@ class HCSelectGuestsVC: BaseVC {
     private func selectNextGuest() {
         //update the currentSelected IndexPath according to the data
         
-     //   increasing selection for next only
+        //   increasing selection for next only
         //setup item
         let maxItemInCurrentSection = (GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section].count - 1)
         let newItem = (currentSelectedGuestIndex.item + 1)
-
+        
         //setup section
         if (newItem > maxItemInCurrentSection) {
             //increase section and make item 0
@@ -342,74 +342,74 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
         //        self.selectionDidChanged()
         
         let oldContact = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item]
-                var item = ATContact(json: [:])
-                switch usingFor {
-                case .travellers:
-                    item = self.viewModel._travellerContacts[index]
-                    if let index = self.viewModel.selectedTravellerContacts.firstIndex(where: { (contact) -> Bool in
-                        return oldContact.id == contact.id
-                    }) {
-                        self.viewModel.selectedTravellerContacts.remove(at: index)
-                    }
-                    
-                case .contacts:
-                    item = self.viewModel._phoneContacts[index]
-                    if let index = self.viewModel.selectedPhoneContacts.firstIndex(where: { (contact) -> Bool in
-                        return oldContact.id == contact.id
-                    }) {
-                        self.viewModel.selectedPhoneContacts.remove(at: index)
-                    }
-                    
-                case .facebook:
-                    item = self.viewModel._facebookContacts[index]
-                    if let index = self.viewModel.selectedFacebookContacts.firstIndex(where: { (contact) -> Bool in
-                        return oldContact.id == contact.id
-                    }) {
-                        self.viewModel.selectedFacebookContacts.remove(at: index)
-                    }
-                    
-                case .google:
-                    item = self.viewModel._googleContacts[index]
-                    if let index = self.viewModel.selectedGoogleContacts.firstIndex(where: { (contact) -> Bool in
-                        return oldContact.id == contact.id
-                    }) {
-                        self.viewModel.selectedGoogleContacts.remove(at: index)
-                    }
-                    
-                }
+        var item = ATContact(json: [:])
+        switch usingFor {
+        case .travellers:
+            item = self.viewModel._travellerContacts[index]
+            if let index = self.viewModel.selectedTravellerContacts.firstIndex(where: { (contact) -> Bool in
+                return oldContact.id == contact.id
+            }) {
+                self.viewModel.selectedTravellerContacts.remove(at: index)
+            }
             
-                GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].id = item.id
-                GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].salutation = item.salutation
-                GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].firstName = item.firstName
-                GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].lastName = item.lastName
-                GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].profilePicture = item.profilePicture
-                GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].label = item.label
-                GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].email = item.email
-                GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].emailLabel = item.emailLabel
-                
-                self.selectedContactsCollectionView.reloadData()
-
-                if getCollectionIndexPath(forContact: item) != nil {
-
-                    let oldValue = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item]
-
-                    GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = item
-                    GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].numberInRoom = oldValue.numberInRoom
-                    GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].passengerType = oldValue.passengerType
-                    GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].age = oldValue.age
-
-                    GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].age = oldValue.age
-
-
-                   // self.selectNextGuest()
-        //            self.selectedContactsCollectionView.performBatchUpdates({
-        //                self.selectedContactsCollectionView.insertItems(at: [idx])
-        //            }, completion: { (isDone) in
-                        self.selectedContactsCollectionView.reloadData()
-                    self.selectedContactsCollectionView.scrollToItem(at: currentSelectedGuestIndex, at: .centeredHorizontally, animated: true)
-                        //self.scrollCollectionToEnd()
-        //            })
-                }
+        case .contacts:
+            item = self.viewModel._phoneContacts[index]
+            if let index = self.viewModel.selectedPhoneContacts.firstIndex(where: { (contact) -> Bool in
+                return oldContact.id == contact.id
+            }) {
+                self.viewModel.selectedPhoneContacts.remove(at: index)
+            }
+            
+        case .facebook:
+            item = self.viewModel._facebookContacts[index]
+            if let index = self.viewModel.selectedFacebookContacts.firstIndex(where: { (contact) -> Bool in
+                return oldContact.id == contact.id
+            }) {
+                self.viewModel.selectedFacebookContacts.remove(at: index)
+            }
+            
+        case .google:
+            item = self.viewModel._googleContacts[index]
+            if let index = self.viewModel.selectedGoogleContacts.firstIndex(where: { (contact) -> Bool in
+                return oldContact.id == contact.id
+            }) {
+                self.viewModel.selectedGoogleContacts.remove(at: index)
+            }
+            
+        }
+        
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].id = item.id
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].salutation = item.salutation
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].firstName = item.firstName
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].lastName = item.lastName
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].profilePicture = item.profilePicture
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].label = item.label
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].email = item.email
+        GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].emailLabel = item.emailLabel
+        
+        self.selectedContactsCollectionView.reloadData()
+        
+        if getCollectionIndexPath(forContact: item) != nil {
+            
+            let oldValue = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item]
+            
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = item
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].numberInRoom = oldValue.numberInRoom
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].passengerType = oldValue.passengerType
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].age = oldValue.age
+            
+            GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].age = oldValue.age
+            
+            
+            // self.selectNextGuest()
+            //            self.selectedContactsCollectionView.performBatchUpdates({
+            //                self.selectedContactsCollectionView.insertItems(at: [idx])
+            //            }, completion: { (isDone) in
+            self.selectedContactsCollectionView.reloadData()
+            self.selectedContactsCollectionView.scrollToItem(at: currentSelectedGuestIndex, at: .centeredHorizontally, animated: true)
+            //self.scrollCollectionToEnd()
+            //            })
+        }
     }
     
     func add(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
@@ -428,7 +428,7 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
         case .google:
             item = self.viewModel._googleContacts[index]
         }
-    
+        
         GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].id = item.id
         GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].salutation = item.salutation
         GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].firstName = item.firstName
@@ -440,32 +440,32 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
         GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].emailLabel = item.emailLabel
         
         self.selectedContactsCollectionView.reloadData()
-
+        
         if getCollectionIndexPath(forContact: item) != nil {
-
+            
             let oldValue = GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item]
-
+            
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item] = item
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].numberInRoom = oldValue.numberInRoom
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].passengerType = oldValue.passengerType
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].age = oldValue.age
-
+            
             GuestDetailsVM.shared.guests[currentSelectedGuestIndex.section][currentSelectedGuestIndex.item].age = oldValue.age
-
-
+            
+            
             self.selectNextGuest()
-//            self.selectedContactsCollectionView.performBatchUpdates({
-//                self.selectedContactsCollectionView.insertItems(at: [idx])
-//            }, completion: { (isDone) in
-                self.selectedContactsCollectionView.reloadData()
+            //            self.selectedContactsCollectionView.performBatchUpdates({
+            //                self.selectedContactsCollectionView.insertItems(at: [idx])
+            //            }, completion: { (isDone) in
+            self.selectedContactsCollectionView.reloadData()
             self.selectedContactsCollectionView.scrollToItem(at: currentSelectedGuestIndex, at: .centeredHorizontally, animated: true)
-                //self.scrollCollectionToEnd()
-//            })
+            //self.scrollCollectionToEnd()
+            //            })
         }
     }
     
     func remove(atIndex index: Int, for usingFor: HCGuestListVC.UsingFor) {
-//        GuestDetailsVM.shared.guests[indexPath.section][indexPath.item] = ATContact(json: [:])
+        //        GuestDetailsVM.shared.guests[indexPath.section][indexPath.item] = ATContact(json: [:])
         var indexPath: IndexPath?
         switch usingFor {
         case .travellers:
@@ -473,10 +473,10 @@ extension HCSelectGuestsVC: HCSelectGuestsVMDelegate {
             
         case .contacts:
             indexPath = getCollectionIndexPath(forContact: self.viewModel.phoneContacts[index])
-
+            
         case .facebook:
             indexPath = getCollectionIndexPath(forContact: self.viewModel.facebookContacts[index])
-
+            
         case .google:
             indexPath = getCollectionIndexPath(forContact: self.viewModel.googleContacts[index])
         }
@@ -569,11 +569,19 @@ extension HCSelectGuestsVC: UICollectionViewDataSource, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: UIDevice.screenWidth / 5.0, height: collectionView.height)
+        return CGSize(width: 66, height: collectionView.height)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 16
+    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 10.0, bottom: 0, right: 0)
+        if  section == 0 {
+            return UIEdgeInsets(top: 0, left: 15.0, bottom: 0, right: 0)
+        } else {
+            return UIEdgeInsets(top: 0, left: 26.0, bottom: 0, right: 0)
+            
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -649,15 +657,15 @@ extension HCSelectGuestsVC: PagingViewControllerDataSource , PagingViewControlle
     }
     
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
-         self.allTabsStr.count
+        self.allTabsStr.count
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController  {
-         return self.allChildVCs[index]
+        return self.allChildVCs[index]
     }
     
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
-
+        
         // depending onthe text size, give the width of the menu item
         if let pagingIndexItem = pagingItem as? PagingIndexItem{
             let text = pagingIndexItem.title
@@ -669,11 +677,11 @@ extension HCSelectGuestsVC: PagingViewControllerDataSource , PagingViewControlle
         return 100.0
     }
     
-    func pagingViewController<T>(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
-           
-           let pagingIndexItem = pagingItem as! PagingIndexItem
-           self.currentIndex = pagingIndexItem.index
-       }
+    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool){
+        
+        let pagingIndexItem = pagingItem as! PagingIndexItem
+        self.currentIndex = pagingIndexItem.index
+    }
 }
 
 

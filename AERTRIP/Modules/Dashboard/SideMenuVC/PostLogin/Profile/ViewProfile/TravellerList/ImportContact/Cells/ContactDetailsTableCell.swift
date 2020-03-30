@@ -90,6 +90,7 @@ class ContactDetailsTableCell: UITableViewCell {
             }
             
             if showSalutationImage {
+                self.userImageView.makeCircular(borderWidth: 0.0, borderColor: AppColors.themeGray20)
                 self.userImageView.cancelImageDownloading()
                 self.userImageView.image =  AppGlobals.shared.getEmojiIcon(dob: self.contact?.dob ?? "", salutation: self.contact?.salutation ?? "", dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
             }

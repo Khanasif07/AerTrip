@@ -87,9 +87,9 @@ open class PKCountryPicker: UIView {
     private func initialSetup() {
         self.pickerView.delegate = self
         self.pickerView.dataSource = self
-        self.frame = CGRect(x: (UIScreen.main.bounds.size.width-PKCountryPickerSettings.pickerSize.width)/2.0, y: UIScreen.main.bounds.size.height, width: PKCountryPickerSettings.pickerSize.width, height: (PKCountryPickerSettings.pickerSize.height + PKCountryPickerSettings.toolbarHeight))
+        self.frame = CGRect(x: 0, y: UIScreen.main.bounds.size.height, width: UIPickerView.pickerSize.width, height: UIPickerView.pickerSize.height)
         
-        self.pickerView.frame = CGRect(x: 0.0, y: PKCountryPickerSettings.toolbarHeight, width: PKCountryPickerSettings.pickerSize.width, height: PKCountryPickerSettings.pickerSize.height)
+        self.pickerView.frame = CGRect(x: 0.0, y: 0, width: UIPickerView.pickerSize.width, height: UIPickerView.pickerSize.height)
         self.addSubview(self.pickerView)
         self.countries = self.getAllCountries()
         self.setupToolBar()
@@ -99,7 +99,7 @@ open class PKCountryPicker: UIView {
     
     private func setupToolBar() {
         let toolbar = UIToolbar()
-        toolbar.frame = CGRect(x: 0.0, y: 0.0, width: PKCountryPickerSettings.pickerSize.width, height: PKCountryPickerSettings.toolbarHeight)
+        toolbar.frame = CGRect(x: 0.0, y: -10, width: PKCountryPickerSettings.pickerSize.width, height: PKCountryPickerSettings.toolbarHeight)
         
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(pickerCancelButtonTapped))
         
@@ -151,7 +151,7 @@ open class PKCountryPicker: UIView {
         //        }
     }
     
-    private func getAllCountries() -> [PKCountryModel] {
+     func getAllCountries() -> [PKCountryModel] {
         var countries = [PKCountryModel]()
         let frameworkBundle = Bundle(for: PKCountryPicker.self)
         guard let jsonPath = frameworkBundle.path(forResource: "countryData", ofType: "json"), let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) else {
@@ -163,6 +163,7 @@ open class PKCountryPicker: UIView {
                 countries = PKCountryModel.getModels(jsonArr: jsonObjects)
             }
         }
+            
         catch {
             return countries
         }
@@ -175,7 +176,7 @@ open class PKCountryPicker: UIView {
         parent.view.endEditing(true)
         parent.view.addSubview(self)
         
-        let visibleFrame = CGRect(x: (UIScreen.main.bounds.size.width-PKCountryPickerSettings.pickerSize.width)/2.0, y: (UIScreen.main.bounds.size.height-(PKCountryPickerSettings.pickerSize.height+PKCountryPickerSettings.toolbarHeight)), width: PKCountryPickerSettings.pickerSize.width, height: (PKCountryPickerSettings.pickerSize.height + PKCountryPickerSettings.toolbarHeight))
+        let visibleFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - UIPickerView.pickerSize.height, width: UIPickerView.pickerSize.width, height: UIPickerView.pickerSize.height)
         
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.frame = visibleFrame

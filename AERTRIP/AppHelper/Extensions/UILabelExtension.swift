@@ -175,10 +175,9 @@ extension UILabel {
         //attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: textColor , range: range)
         // attribute.addAttribute(NSBaselineOffsetAttributeName, value: 0, range: range)
         self.attributedText = attribute
-        
-        
-        
     }
+    
+    
 }
 
 

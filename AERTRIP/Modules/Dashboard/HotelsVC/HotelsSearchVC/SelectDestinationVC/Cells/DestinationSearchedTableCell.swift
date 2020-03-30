@@ -37,6 +37,7 @@ class DestinationSearchedTableCell: UITableViewCell {
         self.addressLabel.textColor = AppColors.themeGray40
     }
     
+    
     func configureData(data: SearchedDestination, forText: String) {
         
         if data.dest_type == "City" {

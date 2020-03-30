@@ -31,12 +31,14 @@ extension HotelCheckOutDetailsVIew {
     
     internal func getHotelInfoAddressCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
+        cell.addressInfoTextView.isUserInteractionEnabled = false
         cell.configureAddressCell(hotelData: hotelDetails)
         return cell
     }
     
     internal func getHotelOverViewCell(indexPath: IndexPath, hotelDetails: HotelDetails) -> UITableViewCell {
         guard let cell = self.hotelDetailsTableView.dequeueReusableCell(withIdentifier: "HotelInfoAddressCell", for: indexPath) as? HotelInfoAddressCell  else { return UITableViewCell() }
+        cell.addressInfoTextView.isUserInteractionEnabled = false
         cell.configureOverviewCell(hotelData: hotelDetails)
         return cell
     }

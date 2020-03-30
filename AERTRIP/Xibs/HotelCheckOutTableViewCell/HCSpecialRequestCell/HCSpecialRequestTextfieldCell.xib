@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -19,8 +17,8 @@
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HCSpecialRequestTextfieldCell" id="ET3-I3-THa" customClass="HCSpecialRequestTextfieldCell" customModule="AERTRIP" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="61"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ET3-I3-THa" id="cJS-zu-HiA">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="60.5"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ET3-I3-THa" id="cJS-zu-HiA">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="61"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bgJ-7e-3eE">
@@ -33,9 +31,11 @@
                                     <constraint firstAttribute="height" constant="0.5" id="QJs-J0-pl3"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Airline Name, Flight Number, Arrival Time..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Mg-AH-RaU">
-                                <rect key="frame" x="16" y="28.5" width="343" height="23"/>
-                                <nil key="textColor"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Airline Name, Flight Number, Arrival Time..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Mg-AH-RaU" customClass="PKFloatLabelTextField" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="16" y="-2.5" width="343" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="yip-2V-5Za"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -52,13 +52,12 @@
                             <constraint firstAttribute="bottom" secondItem="tfS-xN-gZM" secondAttribute="bottom" id="23H-cZ-T0d"/>
                             <constraint firstItem="3Ue-HZ-H8e" firstAttribute="top" secondItem="bgJ-7e-3eE" secondAttribute="top" id="4hC-dh-hua"/>
                             <constraint firstAttribute="height" constant="60.5" id="A8T-Jf-s8J"/>
-                            <constraint firstItem="9Mg-AH-RaU" firstAttribute="top" secondItem="3Ue-HZ-H8e" secondAttribute="bottom" constant="28" id="EtC-ZA-8JL"/>
                             <constraint firstItem="9Mg-AH-RaU" firstAttribute="leading" secondItem="bgJ-7e-3eE" secondAttribute="leading" constant="16" id="YVA-8q-5DZ"/>
                             <constraint firstAttribute="trailing" secondItem="tfS-xN-gZM" secondAttribute="trailing" constant="16" id="dAP-k6-khM"/>
                             <constraint firstItem="tfS-xN-gZM" firstAttribute="leading" secondItem="bgJ-7e-3eE" secondAttribute="leading" constant="16" id="fmP-Q8-a4S"/>
                             <constraint firstAttribute="trailing" secondItem="9Mg-AH-RaU" secondAttribute="trailing" constant="16" id="mBN-Xd-eJz"/>
                             <constraint firstAttribute="trailing" secondItem="3Ue-HZ-H8e" secondAttribute="trailing" id="mkF-KV-SaY"/>
-                            <constraint firstAttribute="bottom" secondItem="9Mg-AH-RaU" secondAttribute="bottom" constant="9" id="rTE-cB-tZ2"/>
+                            <constraint firstAttribute="bottom" secondItem="9Mg-AH-RaU" secondAttribute="bottom" constant="3" id="rTE-cB-tZ2"/>
                             <constraint firstItem="3Ue-HZ-H8e" firstAttribute="leading" secondItem="bgJ-7e-3eE" secondAttribute="leading" id="xoj-Qi-H1T"/>
                         </constraints>
                     </view>
@@ -76,6 +75,7 @@
                 <outlet property="bottomDividerViewTrailingConstraints" destination="dAP-k6-khM" id="DNl-nB-E13"/>
                 <outlet property="containerViewHeightConstraint" destination="A8T-Jf-s8J" id="xap-TS-qhb"/>
                 <outlet property="infoTextField" destination="9Mg-AH-RaU" id="wA5-cA-UVp"/>
+                <outlet property="topDividerTopConstraint" destination="4hC-dh-hua" id="Uva-gX-c7o"/>
                 <outlet property="topDividerView" destination="3Ue-HZ-H8e" id="W8H-Ft-cbr"/>
                 <outlet property="topDividerViewLeadingConstraints" destination="xoj-Qi-H1T" id="sgV-Pc-tkx"/>
                 <outlet property="topDividerViewTopConstraints" destination="4hC-dh-hua" id="aq2-2f-cur"/>

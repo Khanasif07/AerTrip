@@ -200,7 +200,7 @@ class AerinVC: BaseVC {
     // MARK: - Action
     
     @IBAction func aerinButtonAction(_ sender: Any) {
-        if !AppConstants.isReleasingToClient {
+//        if !AppConstants.isReleasingToClient {
             // move to Aerin VC
             // AppFlowManager.default.showAerinTextToSpeechVC()
             // AppFlowManager.default.moveToAerinTextSpeechDetailVC()
@@ -224,14 +224,28 @@ class AerinVC: BaseVC {
             
             //
             
-            let obj = CreateProfileVC.instantiate(fromAppStoryboard: .PreLogin)
-            AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: true)
+          
+            
+//            let obj = CreateProfileVC.instantiate(fromAppStoryboard: .PreLogin)
+//            AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: true)
+           
+            
+            
+            
+            
             //****  Booking DirectionVC ******
             
             //AppFlowManager.default.moveToBookingDirectionVC()
             
             //             let obj = SelectTripVC.instantiate(fromAppStoryboard: .HotelResults)
             //            AppFlowManager.default.mainNavigationController.present(obj, animated: true)
-        }
+            
+            let obj = ChatVC.instantiate(fromAppStoryboard: .Dashboard)
+
+         AppFlowManager.default.mainNavigationController.pushViewController(obj, animated: false)
+
+            
+            
+//        }
     }
 }

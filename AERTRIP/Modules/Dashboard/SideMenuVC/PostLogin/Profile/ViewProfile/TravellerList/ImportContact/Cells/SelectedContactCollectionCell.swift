@@ -17,9 +17,6 @@ class SelectedContactCollectionCell: UICollectionViewCell {
     @IBOutlet weak var crossButton: ATBlurButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var lastNameLabel: UILabel!
-    @IBOutlet weak var ageLabel: UILabel!
-    @IBOutlet weak var lastNameAgeContainer: UIView!
     @IBOutlet weak var roomLabel: UILabel!
     
     weak var delegate: SelectedContactCollectionCellDelegate?
@@ -74,21 +71,12 @@ class SelectedContactCollectionCell: UICollectionViewCell {
     private func setupTextAndColor() {
         self.nameLabel.font = AppFonts.Regular.withSize(14.0)
         self.nameLabel.textColor = AppColors.themeBlack
-        self.lastNameLabel.font = AppFonts.Regular.withSize(14.0)
-        self.ageLabel.font = AppFonts.Regular.withSize(14.0)
-        self.lastNameLabel.textColor = AppColors.themeBlack
-        self.ageLabel.textColor = AppColors.themeGray40
         self.roomLabel.font = AppFonts.Regular.withSize(14.0)
         self.roomLabel.textColor = AppColors.themeGray40
         
     }
     
     private func resetView() {
-        lastNameLabel.isHidden = true
-        ageLabel.isHidden = true
-        lastNameAgeContainer.isHidden = true
-        lastNameLabel.text = ""
-        ageLabel.text = ""
         roomLabel.text = ""
     }
     
@@ -114,24 +102,14 @@ class SelectedContactCollectionCell: UICollectionViewCell {
 //                }
                 
                 
-            } else {
+            }else if let lName = self.contact?.lastName, !lName.isEmpty {
+                    self.nameLabel.text = lName
+                    self.crossButton.isHidden = false                
+            }else {
                 self.nameLabel.text = " "
                 self.crossButton.isHidden = false
             }
-            if let lName = self.contact?.lastName, !lName.isEmpty {
-                if  let fName = self.contact?.firstName, fName.isEmpty {
-                    self.nameLabel.text = lName
-                    self.crossButton.isHidden = false
-                } else {
-                    lastNameLabel.text = lName
-                    lastNameLabel.isHidden = false
-                }
-                
-            }
-            if let year = self.contact?.age, year > 0 {
-                ageLabel.text = "(\(year)y)"
-                ageLabel.isHidden = false
-            }
+            
             if let type = self.contact?.passengerType, let number = self.contact?.numberInRoom, number >= 0 {
                 if type == PassengersType.Adult, number == 1, roomNo > 0 {
                     roomLabel.text = "\(LocalizedString.Room.localized) \(roomNo)"
@@ -143,12 +121,10 @@ class SelectedContactCollectionCell: UICollectionViewCell {
                 if isSelectedForGuest {
                     placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_selected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
                     self.nameLabel.textColor = AppColors.themeBlack
-                    self.lastNameLabel.textColor = AppColors.themeBlack
                 }
                 else {
                     placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
                     self.nameLabel.textColor = AppColors.themeGray40
-                    self.lastNameLabel.textColor = AppColors.themeGray40
                 }
             }
             
@@ -182,7 +158,6 @@ class SelectedContactCollectionCell: UICollectionViewCell {
 //            }
             
             
-            lastNameAgeContainer.isHidden = false
         }
         else {
             self.nameLabel.text = self.contact?.firstName ?? ""

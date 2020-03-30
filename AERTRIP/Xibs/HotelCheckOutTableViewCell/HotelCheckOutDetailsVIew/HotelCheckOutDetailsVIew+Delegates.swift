@@ -65,10 +65,10 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
             if let cell = self.getCancellationCell(indexPath: indexPath, ratesData: rates) {
                 return cell
             }
-//        case .paymentPolicyCell:
-//            if let cell = self.getPaymentInfoCell(indexPath: indexPath, ratesData: rates) {
-//                return cell
-//            }
+            //        case .paymentPolicyCell:
+            //            if let cell = self.getPaymentInfoCell(indexPath: indexPath, ratesData: rates) {
+            //                return cell
+        //            }
         case .notesCell:
             if let cell = self.getNotesCell(indexPath: indexPath, ratesData: rates) {
                 return cell
@@ -81,15 +81,18 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            if (tableView.cellForRow(at: indexPath) as? HotelInfoAddressCell) != nil {
-                if indexPath.row == 2 {
-                    guard let parentVC = self.parentViewController as? HCDataSelectionVC, let reqParams = parentVC.viewModel.hotelSearchRequest?.requestParameters, let destParams = self.viewModel else { return }
-                    AppGlobals.shared.redirectToMap(sourceView: self, originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
-                } else if indexPath.row == 3 {
-                    AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel?.info ?? "")
+            let sectionData = self.sectionData[indexPath.section]
+            switch sectionData[indexPath.row] {
+            case .addressCell:
+                guard let parentVC = self.parentViewController as? HCDataSelectionVC, let reqParams = parentVC.viewModel.hotelSearchRequest?.requestParameters, let destParams = self.viewModel else { return }
+                AppGlobals.shared.redirectToMap(sourceView: self, originLat: reqParams.latitude, originLong: reqParams.longitude, destLat: destParams.lat, destLong: destParams.long)
+            case .overViewCell:
+                AppFlowManager.default.presentHotelDetailsOverViewVC(overViewInfo: self.viewModel?.info ?? "")
+            case .tripAdvisorRatingCell:
+                if let locid = self.viewModel?.locid {
+                    !locid.isEmpty ? AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel?.hid ?? "") : printDebug(locid + "location id is empty")
                 }
-            } else if (tableView.cellForRow(at: indexPath) as? TripAdvisorTableViewCell) != nil, let locid = self.viewModel?.locid {
-                !locid.isEmpty ? AppFlowManager.default.presentHotelDetailsTripAdvisorVC(hotelId: self.viewModel?.hid ?? "") : printDebug(locid + "location id is empty")
+            default: break
             }
         }
     }
@@ -105,10 +108,10 @@ extension HotelCheckOutDetailsVIew: UITableViewDelegate, UITableViewDataSource {
                 return 0.0
             } else {
                 if indexPath.section == 0, indexPath.row == 2 {
-                        let text = hotelData.address + "Maps   "
-                        let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
-                        return size.height + 46.5
-                            + 21.0 + 2.0 // y of textview 46.5 + bottom space 14.0 + 7.0
+                    let text = hotelData.address + "Maps   "
+                    let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+                    return size.height + 46.5
+                        + 21.0 + 2.0 // y of textview 46.5 + bottom space 14.0 + 7.0
                 }
             }
             

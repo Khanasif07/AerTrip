@@ -10,6 +10,7 @@ import Foundation
 
 extension UISearchBar {
     func getTextField() -> UITextField? { return value(forKey: "searchField") as? UITextField }
+ 
     func setTextField(color: UIColor) {
         guard let textField = getTextField() else { return }
         switch searchBarStyle {

@@ -80,7 +80,8 @@ extension RequestReschedulingVC: BookingTopNavBarWithSubtitleDelegate {
 }
 
 extension RequestReschedulingVC: HCSpecialRequestTextfieldCellDelegate {
-    func didPassSpecialRequestAndAirLineText(infoText: String, indexPath: IndexPath) {
+    func didPassSpecialRequestAndAirLineText(infoText: String, textField: UITextField) {
+        guard let cell = textField.tableViewCell, let indexPath = self.reschedulingTableView.indexPath(for: cell) else {return}
         self.viewModel.legsWithSelection[indexPath.section].prefredFlightNo = infoText
     }
 }
