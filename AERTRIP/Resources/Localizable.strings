@@ -904,3 +904,9 @@
 "KindlyDisconnectMessage" = "Kindly set a password for your Aertrip account or login via another social account before disconnecting ";
 
 "Currency" = "Currency";
+
+"EnableDisableAllNotifications" = "To enable or disable notifications go to Settings → Notifications → Aertrip → All Notifications";
+"GetNotifiedAboutYourBookings" = "Get notified about your bookings";
+"GetNotifiedAboutYourTripEvents" = "Get notified about your trip events";
+"GetNotifiedAboutNewOffersAndDeals" = "Get notified about new offers and deals";
+

@@ -29,6 +29,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FPn-k3-xLb">
+                        <rect key="frame" x="16" y="61.5" width="346" height="0.5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="cDL-0E-Nwn"/>
+                        </constraints>
+                    </view>
                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZGp-HS-xin">
                         <rect key="frame" x="299" y="15.5" width="49" height="31"/>
                         <constraints>
@@ -39,6 +46,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="ZGp-HS-xin" secondAttribute="trailing" constant="16" id="Q2r-91-ryY"/>
+                    <constraint firstAttribute="trailing" secondItem="FPn-k3-xLb" secondAttribute="trailing" id="Rg3-fI-aRK"/>
+                    <constraint firstAttribute="bottom" secondItem="FPn-k3-xLb" secondAttribute="bottom" id="U39-PL-P5b"/>
                     <constraint firstItem="j0c-HG-nAf" firstAttribute="leading" secondItem="fm7-t9-rkd" secondAttribute="leading" id="VMU-eM-590"/>
                     <constraint firstItem="ZGp-HS-xin" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="b6y-Dj-gtl"/>
                     <constraint firstItem="fm7-t9-rkd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="gtw-Oh-XZt"/>
@@ -47,10 +56,12 @@
                     <constraint firstItem="j0c-HG-nAf" firstAttribute="trailing" secondItem="fm7-t9-rkd" secondAttribute="trailing" id="k7Y-17-Oa3"/>
                     <constraint firstAttribute="bottom" secondItem="j0c-HG-nAf" secondAttribute="bottom" constant="10" id="lie-QZ-crA"/>
                     <constraint firstItem="ZGp-HS-xin" firstAttribute="leading" secondItem="fm7-t9-rkd" secondAttribute="trailing" constant="5" id="uet-GT-t1K"/>
+                    <constraint firstItem="FPn-k3-xLb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="zOw-i6-MO3"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="sepratorView" destination="FPn-k3-xLb" id="93v-e6-yRx"/>
                 <outlet property="settingDescriptionLabel" destination="j0c-HG-nAf" id="vLs-N9-4dt"/>
                 <outlet property="settingTitleLabel" destination="fm7-t9-rkd" id="H6m-Rz-4cj"/>
             </connections>

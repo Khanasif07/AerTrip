@@ -13,7 +13,7 @@ class NotificationSettingsVC: BaseVC {
     @IBOutlet weak var notificationSettingsTableView: UITableView!
     @IBOutlet weak var topNavView: TopNavigationView!
 
-//    let notificationSettingsVm = NotificationSettingsVM()
+    let notificationSettingsVm = NotificationSettingsVM()
     
        //MARK:- ViewLifeCycle
         //MARK:-
@@ -47,8 +47,13 @@ class NotificationSettingsVC: BaseVC {
         
         private func configureTableView(){
             self.notificationSettingsTableView.register(UINib(nibName: "NotificationSettingsCell", bundle: nil), forCellReuseIdentifier: "NotificationSettingsCell")
-//            self.notificationSettingsTableView.dataSource = self
-//            self.notificationSettingsTableView.delegate = self
+            notificationSettingsTableView.register(UINib(nibName: "SettingsHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "SettingsHeaderView")
+//            messageListTableView.registerHeaderFooter(with: MessageHeaderView.self)
+
+//            notificationSettingsTableView.register(<#T##nib: UINib?##UINib?#>, forHeaderFooterViewReuseIdentifier: <#T##String#>)
+            
+            self.notificationSettingsTableView.dataSource = self
+            self.notificationSettingsTableView.delegate = self
         }
         
         //MARK:- Public

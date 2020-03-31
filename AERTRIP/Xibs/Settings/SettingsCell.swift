@@ -15,8 +15,6 @@ class SettingsCell: UITableViewCell {
     @IBOutlet weak var sepratorView: UIView!
     @IBOutlet weak var settingsLabel: UILabel!
    
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -36,6 +36,8 @@
 		0C24D4FE242DBD2100CBFF92 /* ApiCaller+ChatBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24D4FD242DBD2100CBFF92 /* ApiCaller+ChatBot.swift */; };
 		0C24D500242E47FC00CBFF92 /* FlightsDemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24D4FF242E47FC00CBFF92 /* FlightsDemoVC.swift */; };
 		0C2558FD233C979B00F57C6E /* UIViewKeyframeAnimationOptions + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2558FC233C979B00F57C6E /* UIViewKeyframeAnimationOptions + Extension.swift */; };
+		0C26ECFC243386CB00C058D0 /* SettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C26ECFB243386CB00C058D0 /* SettingsHeaderView.swift */; };
+		0C26ECFE243386E700C058D0 /* SettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C26ECFD243386E700C058D0 /* SettingsHeaderView.xib */; };
 		0C272E292422601300133B50 /* SenderChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C272E272422601300133B50 /* SenderChatCell.swift */; };
 		0C272E2A2422601300133B50 /* SenderChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C272E282422601300133B50 /* SenderChatCell.xib */; };
 		0C32DC06232F70FC008033B5 /* QuickPayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C32DC05232F70FC008033B5 /* QuickPayVC.swift */; };
@@ -1082,6 +1084,8 @@
 		0C24D4FD242DBD2100CBFF92 /* ApiCaller+ChatBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApiCaller+ChatBot.swift"; sourceTree = "<group>"; };
 		0C24D4FF242E47FC00CBFF92 /* FlightsDemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsDemoVC.swift; sourceTree = "<group>"; };
 		0C2558FC233C979B00F57C6E /* UIViewKeyframeAnimationOptions + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewKeyframeAnimationOptions + Extension.swift"; sourceTree = "<group>"; };
+		0C26ECFB243386CB00C058D0 /* SettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderView.swift; sourceTree = "<group>"; };
+		0C26ECFD243386E700C058D0 /* SettingsHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsHeaderView.xib; sourceTree = "<group>"; };
 		0C272E272422601300133B50 /* SenderChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderChatCell.swift; sourceTree = "<group>"; };
 		0C272E282422601300133B50 /* SenderChatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SenderChatCell.xib; sourceTree = "<group>"; };
 		0C32DC05232F70FC008033B5 /* QuickPayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickPayVC.swift; sourceTree = "<group>"; };
@@ -2176,6 +2180,8 @@
 				0C24D4ED242CAF0A00CBFF92 /* CurrencyCell.xib */,
 				0C7532BF2431FC6600B8F213 /* NotificationSettingsCell.swift */,
 				0C7532C02431FC6600B8F213 /* NotificationSettingsCell.xib */,
+				0C26ECFB243386CB00C058D0 /* SettingsHeaderView.swift */,
+				0C26ECFD243386E700C058D0 /* SettingsHeaderView.xib */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -5989,6 +5995,7 @@
 				187F9EAF22314F3F005B6027 /* HotelsSearch.storyboard in Resources */,
 				84DD245A2265A5FA0013F77E /* DateTableHeaderView.xib in Resources */,
 				180692C222952FFE00177487 /* BookingFFMealTableViewCell.xib in Resources */,
+				0C26ECFE243386E700C058D0 /* SettingsHeaderView.xib in Resources */,
 				84DD246F2265B5700013F77E /* HotelTableViewCell.xib in Resources */,
 				18F181D9223BC8C900323775 /* ApplyCouponTableViewCell.xib in Resources */,
 				84E4BC7C22A1414100B72306 /* WeatherHeaderTableViewCell.xib in Resources */,
@@ -6318,6 +6325,7 @@
 				1879C4A12293CADF00897CED /* BookingDirectionVM.swift in Sources */,
 				84F983C921B51A070018DFED /* AppColors.swift in Sources */,
 				84DD2489226715530013F77E /* BookingTravellersDetailsTableViewCell.swift in Sources */,
+				0C26ECFC243386CB00C058D0 /* SettingsHeaderView.swift in Sources */,
 				842EDE802238E7D600E99409 /* SelectTripVC.swift in Sources */,
 				84247F8B22A5308200A0FEB7 /* CompletedVC.swift in Sources */,
 				843A26E222B8EABF00651D8E /* FareInfoVM.swift in Sources */,
@@ -7009,8 +7017,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 38;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
@@ -7213,7 +7221,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.aertrip.app;
 				PRODUCT_MODULE_NAME = AERTRIP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = aertrip_adhoc_24Sep2019;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AERTRIP/Resources/AERTRIP-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
@@ -7230,8 +7238,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 38;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
@@ -7434,7 +7442,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.aertrip.app;
 				PRODUCT_MODULE_NAME = AERTRIP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = aertrip_adhoc_24Sep2019;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AERTRIP/Resources/AERTRIP-Bridging-Header.h";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;

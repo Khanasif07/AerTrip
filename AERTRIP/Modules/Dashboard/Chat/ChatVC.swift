@@ -121,8 +121,8 @@ extension ChatVC {
         self.performInitialAnimation()
         self.configureTableView()
         self.configureCollectionView()
-//        self.chatVm.getRecentHotels()
-//        self.chatVm.getRecentFlights()
+        self.chatVm.getRecentHotels()
+        self.chatVm.getRecentFlights()
     }
     
     //MARK:- Set view attributes
@@ -187,7 +187,7 @@ extension ChatVC : TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-//        AppFlowManager.default.moveToSettingsVC()
+        AppFlowManager.default.moveToSettingsVC()
     }
 }
 
@@ -493,6 +493,28 @@ extension ChatVC : ChatBotDelegatesDelegate {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
- 
+    func willGetRecentSearchHotel(){
+        
+    }
     
+    func getRecentSearchHotelSuccessFully(){
+        self.suggestionsCollectionView.reloadData()
+    }
+    
+    func failedToGetRecentSearchApi(){
+
+    }
+    
+    func willGetRecentSearchFlights(){
+        
+    }
+    
+    func getRecentSearchFlightsSuccessFully(){
+        self.suggestionsCollectionView.reloadData()
+    }
+    
+    func failedToGetRecentSearchedFlightsApi(){
+        
+    }
+ 
 }

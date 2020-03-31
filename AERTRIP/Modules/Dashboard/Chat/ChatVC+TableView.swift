@@ -51,8 +51,6 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
                     
             }
                                 
-       
-                
                 return cell
         }
     }
@@ -64,12 +62,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
     }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let typingCell = cell as? TypingStatusChatCell else { return }
         
-    }
-    
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
       
         guard let _ = cell as? TypingStatusChatCell else { return }

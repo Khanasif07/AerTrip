@@ -985,5 +985,9 @@ enum LocalizedString: String {
     
     //MARK:- Settings
     case Currency
+    case EnableDisableAllNotifications = "EnableDisableAllNotifications"
+    case GetNotifiedAboutYourBookings = "GetNotifiedAboutYourBookings"
+    case GetNotifiedAboutYourTripEvents = "GetNotifiedAboutYourTripEvents"
+    case GetNotifiedAboutNewOffersAndDeals = "GetNotifiedAboutNewOffersAndDeals"
     
 }
