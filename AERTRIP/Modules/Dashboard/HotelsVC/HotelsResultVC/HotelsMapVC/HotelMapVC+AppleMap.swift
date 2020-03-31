@@ -14,7 +14,7 @@ extension HotelsMapVC : MKMapViewDelegate{
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         guard let annatation = annotation as? MyAnnotation else {return nil}
-        let annotationView = MKAnnotationView(annotation: annatation, reuseIdentifier: "route")
+        let annotationView = ResistantAnnotationView(annotation: annatation, reuseIdentifier: "route")
         annotationView.image = returnImageForMarker(annotation: annatation)
         annotationView.canShowCallout = true
         return annotationView
@@ -207,6 +207,9 @@ extension HotelsMapVC : MKMapViewDelegate{
                 }
             }
         }
+        if let annotationView = self.appleMap.view(for: anno)  as?  ResistantAnnotationView{
+                annotationView.resistantLayer.resistantZPosition = 1000
+        }
     }
     
     
@@ -226,11 +229,17 @@ extension HotelsMapVC : MKMapViewDelegate{
             selectedAnnotation.markerImageView?.isSelected = true
             appleMap.view(for: selectedAnnotation)?.image = selectedAnnotation.markerImageView?.asImage() ?? UIImage()
             selectedAnnotation.isSelected = true
+            if let annotationView = self.appleMap.view(for: selectedAnnotation)  as?  ResistantAnnotationView{
+                    annotationView.resistantLayer.resistantZPosition = 1000
+            }
             self.detailsShownMarkers.append(selectedAnnotation)
         }else if selectedAnnotation.clusterView?.hotelTtems != nil{
             selectedAnnotation.clusterView?.isSelected = true
             appleMap.view(for: selectedAnnotation)?.image = selectedAnnotation.clusterView?.asImage() ?? UIImage()
             selectedAnnotation.isSelected = true
+            if let annotationView = self.appleMap.view(for: selectedAnnotation)  as?  ResistantAnnotationView{
+                    annotationView.resistantLayer.resistantZPosition = 1000
+            }
             self.detailsShownMarkers.append(selectedAnnotation)
         }
     }
@@ -382,6 +391,14 @@ extension HotelsMapVC : MKMapViewDelegate{
 //                }
 //            }
         }
+        if let annotationView = self.appleMap.view(for: annotation)  as?  ResistantAnnotationView{
+            if isSelected || isDetaisShow {
+                annotationView.resistantLayer.resistantZPosition = isSelected ? 1000 : 100
+            } else {
+                annotationView.resistantLayer.resistantZPosition = 0
+            }
+        }
+        
     }
 
     func compareTwoCoordinate(_ first:CLLocationCoordinate2D, _ second: CLLocationCoordinate2D)-> Bool{
@@ -459,5 +476,27 @@ extension MKMapView {
             zoomer = 0
         }
         return zoomer
+    }
+}
+
+class ResistantLayer: CALayer {
+
+    override var zPosition: CGFloat {
+        get { return super.zPosition }
+        set {}
+    }
+    var resistantZPosition: CGFloat {
+        get { return super.zPosition }
+        set { super.zPosition = newValue }
+    }
+}
+
+class ResistantAnnotationView: MKAnnotationView {
+
+    override class var layerClass: AnyClass {
+        return ResistantLayer.self
+    }
+    var resistantLayer: ResistantLayer {
+        return self.layer as! ResistantLayer
     }
 }

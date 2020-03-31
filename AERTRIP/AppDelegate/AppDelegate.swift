@@ -34,7 +34,8 @@ import UIKit
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         Fabric.with([Crashlytics.self])
         GMSServices.provideAPIKey(AppConstants.kGoogleAPIKey)
-        
+        UITextView.appearance().tintColor = AppColors.themeGreen
+        UITextField.appearance().tintColor = AppColors.themeGreen
         
         NotificationCenter.default.addObserver(self, selector: #selector(checkForReachability(_:)), name: Notification.Name(rawValue: ReachabilityDidChangeNotificationName), object: nil)
         

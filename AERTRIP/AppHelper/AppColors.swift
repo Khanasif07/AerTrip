@@ -135,6 +135,8 @@ enum AppColors {
     // RGB - 228,228,229
     static let secondarySystemFillColor = UIColor(displayP3Red: 0.8941176471, green: 0.8941176471, blue: 0.8980392157, alpha: 1)
 
+    /// RGB - 255, 255, 255
+    static let themeWhite70  = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.7)
     
     case headlines
     case body

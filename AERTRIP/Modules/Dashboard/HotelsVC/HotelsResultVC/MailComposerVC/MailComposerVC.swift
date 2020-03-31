@@ -120,10 +120,12 @@ class MailComposerVC: BaseVC {
         self.setUpCheckInOutView()
         self.tableView.tableHeaderView = mailComposerHeaderView
         self.updateHeightOfHeader(mailComposerHeaderView, mailComposerHeaderView.toEmailTextView)
+        mailComposerHeaderView.seeRatesButton.isUserInteractionEnabled = false
     }
     
     private func setUpFooter() {
         self.mailComposerFooterView = EmailComposerFooterView.instanceFromNib()
+        self.mailComposerFooterView.seeRatesButton.isUserInteractionEnabled = false
         self.tableView.tableFooterView = self.mailComposerFooterView
     }
     

@@ -48,6 +48,34 @@ extension UIView {
         self.layer.insertSublayer(gradientLayer, at: 0)
     }
     
+    func addGredientWithScreenWidth(isVertical: Bool = true, cornerRadius: CGFloat = 0.0, colors: [UIColor] = [AppColors.themeGreen, AppColors.shadowBlue]) {
+            removeGredient()
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.name = "gradientLayer"
+            gradientLayer.frame = self.bounds
+        gradientLayer.frame.size.width = UIScreen.main.bounds.width
+            var cgColors = colors.map { (clr) -> CGColor in
+                clr.cgColor
+            }
+            
+            if isVertical {
+                gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+                gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
+            }
+            else {
+                gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
+                gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+                cgColors.reverse()
+            }
+            
+    //        gradientLayer.cornerRadius = cornerRadius
+    //        gradientLayer.masksToBounds = true
+            
+            gradientLayer.colors = cgColors
+            
+            self.layer.insertSublayer(gradientLayer, at: 0)
+        }
+    
     func addGradientWithColor(color: UIColor) {
         let gradient = CAGradientLayer()
         gradient.frame = self.bounds

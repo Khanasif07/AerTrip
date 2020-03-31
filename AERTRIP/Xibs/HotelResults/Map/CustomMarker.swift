@@ -53,7 +53,7 @@ class CustomMarker: UIView {
     func doInitialSetup() {
         isFavourite = false
         
-        self.priceView.addShadow(cornerRadius: 8.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.5), offset: CGSize(width: 0.0, height: 3.0), opacity: 0.5, shadowRadius: 2.0)
+        self.priceView.addShadow(cornerRadius: 8.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.5), offset: CGSize(width: 0.0, height: 3.0), opacity: 0.5, shadowRadius: 3.0)
     }
     
     func updateMakerImage(){

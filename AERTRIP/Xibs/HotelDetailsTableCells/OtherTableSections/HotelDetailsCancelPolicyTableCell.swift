@@ -129,6 +129,10 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
                     let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
                     let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: -5.0, isForNotes: false)
                     attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
+                    attributedString.addAttributes([
+                        .font: AppFonts.c.withSize(10.0),
+                        .foregroundColor: AppColors.themeGray20
+                    ], range: ("\(string)\n" as NSString).range(of: LocalizedString.rupeesText.localized))
                     fullAttributedString.append(attributedString)
                 }
                 return fullAttributedString

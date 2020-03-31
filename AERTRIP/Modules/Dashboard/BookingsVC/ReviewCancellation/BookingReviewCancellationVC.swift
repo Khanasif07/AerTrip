@@ -179,7 +179,7 @@ class BookingReviewCancellationVC: BaseVC {
         var textHeight: CGFloat = 0.0
         
         if self.commentTextView.text.isEmpty {
-            textHeight = 34.0
+            textHeight = 45.0
         }
         else {
             textHeight = (CGFloat(self.commentTextView.numberOfLines) * (self.commentTextView.font?.lineHeight ?? 20.0)) + 14.0

@@ -183,6 +183,10 @@ extension BookingHotelDetailVC: HotelDetailsImgSlideCellDelegate {
         let indexPath = IndexPath(row: 0, section: 0)
         guard let cell = self.hotelDetailTableView.cellForRow(at: indexPath) as? HotelDetailsImgSlideCell else { return }
         if let topVC = UIApplication.topViewController() {
+//            let photoes = self.viewModel.bookingDetail?.bookingDetail?.completePhotos ?? []
+//
+//             PhotoGalleryVC.show(onViewController: topVC, sourceView: cell.imageCollectionView, startShowingFrom: index, imageArray: photoes)
+            
             ATGalleryViewController.show(onViewController: topVC, sourceView: cell.imageCollectionView, startShowingFrom: index, datasource: self, delegate: self)
         }
     }

@@ -274,12 +274,12 @@ extension HotelDetailsVC {
                 
                 UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
                     guard let `self` = self else {return}
-                    self.stickyBottomConstraint.constant = (self.hotelTableView.contentOffset.y > self.initialStickyPosition) ? -(self.footerView.height + AppFlowManager.default.safeAreaInsets.bottom) : 0.0
+                    self.stickyBottomConstraint.constant = (self.hotelTableView.contentOffset.y > self.initialStickyPosition) ? -(self.footerView.height + AppFlowManager.default.safeAreaInsets.bottom) : -1.0
                 }.startAnimation()
             }
         }
         else {
-            self.stickyBottomConstraint.constant = 0.0
+            self.stickyBottomConstraint.constant = -1.0
         }
     }
     

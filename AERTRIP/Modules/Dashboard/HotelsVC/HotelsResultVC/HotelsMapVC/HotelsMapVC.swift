@@ -119,7 +119,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     let thresholdZoomLabel: Float = 14.0
     var prevZoomLabel: Float = 1.0
     var markersOnLocations: JSONDictionary = JSONDictionary()
-    var maxVisblePriceMarker = 6
+    var maxVisblePriceMarker = 5
     // Request and View Type
     var visualEffectView : UIVisualEffectView!
     var backView : UIView!
@@ -168,6 +168,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     var detailsShownMarkers = [MyAnnotation]()
     var seletedIndexForSearchTable:Int?
     var isRemovingAllFav:Bool = false
+    var selectedAnnotation:MyAnnotation?
     var currentMapSpan = MKCoordinateSpan(latitudeDelta: 0.025, longitudeDelta:  0.035)
     internal var transition: CardTransition?
     override var statusBarAnimatableConfig: StatusBarAnimatableConfig{

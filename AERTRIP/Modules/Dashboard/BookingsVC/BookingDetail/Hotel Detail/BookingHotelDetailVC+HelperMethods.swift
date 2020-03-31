@@ -52,6 +52,8 @@ extension BookingHotelDetailVC {
             hotelImageSlideCell.imageUrls = self.viewModel.bookingDetail?.bookingDetail?.completePhotos ?? []
             hotelImageSlideCell.delegate = self
             hotelImageSlideCell.configCell(imageUrls: self.viewModel.bookingDetail?.bookingDetail?.completePhotos ?? [])
+            hotelImageSlideCell.pageControl.radius = 5.0
+            hotelImageSlideCell.pageControl.tintColor = AppColors.themeWhite70
             return hotelImageSlideCell
             
         case 1: // Hotel Name Rating Cell

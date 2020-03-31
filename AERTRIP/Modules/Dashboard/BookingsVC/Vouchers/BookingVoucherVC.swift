@@ -147,6 +147,7 @@ extension BookingVoucherVC: UITableViewDataSource,UITableViewDelegate {
             if let count = self.viewModel.receipt?.otherVoucher.count {
                 voucherCell.dividerView.isHidden = (indexPath.row == (count - 1))
             }
+            voucherCell.titleLabel.text = "Booking"
         }
         else if indexPath.section == 1 {
             //receipt

@@ -45,7 +45,7 @@ class HotelDetailsImageCollectionCell: UICollectionViewCell {
     
     private func initialSetup() {
         self.gradientView.backgroundColor = AppColors.clear
-        self.gradientView.addGredient(isVertical: true, colors: [AppColors.themeBlack.withAlphaComponent(0.5),AppColors.themeBlack.withAlphaComponent(0.0)])
+        self.gradientView.addGredientWithScreenWidth(isVertical: true, colors: [AppColors.themeBlack.withAlphaComponent(0.5),AppColors.themeBlack.withAlphaComponent(0.0)])
     }
     
 }
