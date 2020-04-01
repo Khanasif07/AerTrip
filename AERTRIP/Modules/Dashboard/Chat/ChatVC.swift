@@ -129,12 +129,11 @@ extension ChatVC {
     private func setUpAttributes(){
         self.whereToGoLabel.font = AppFonts.Regular.withSize(28)
         self.animationLabel.font = AppFonts.Regular.withSize(18)
-        self.morningLabel.textColor = AppColors.themeGreen
+        self.morningLabel.textColor = UIColor.black
 //        self.textViewBackView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
         self.morningLabel.alpha = 0
         self.whereToGoLabel.alpha = 0
-        let morningStr = "Good \(Date().morningOrEvening), \(name)"
-        self.morningLabel.attributedText = morningStr.attributeStringWithColors(stringToColor: name, strClr: UIColor.black, substrClr: AppColors.themeGreen, strFont: AppFonts.Regular.withSize(28), strClrFont: AppFonts.SemiBold.withSize(28))
+        self.setMorningLabelText()
         messageTextView.font = AppFonts.Regular.withSize(18)
         self.messageTextView.delegate = self
         self.animationBubbleImageView.image = UIImage(named: "Green Chat bubble")?.resizableImage(withCapInsets: UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21), resizingMode: .stretch).withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
@@ -144,6 +143,15 @@ extension ChatVC {
         self.chatButton.isUserInteractionEnabled = false
         self.messageTextView.tintColor = AppColors.themeGreen
 //        self.showHideSendButton()
+    }
+    
+    private func setMorningLabelText(){
+        if let info = UserInfo.loggedInUser, !info.firstName.isEmpty {
+            let morningStr = "Good \(Date().morningOrEvening), \(info.firstName)"
+            self.morningLabel.attributedText = morningStr.attributeStringWithColors(stringToColor: info.firstName, strClr: UIColor.black, substrClr: AppColors.themeGreen, strFont: AppFonts.Regular.withSize(28), strClrFont: AppFonts.SemiBold.withSize(28))
+        }else{
+            self.morningLabel.text = "Good \(Date().morningOrEvening)"
+        }
     }
     
     //MARK:- Configure tableview
@@ -187,7 +195,7 @@ extension ChatVC : TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-//        AppFlowManager.default.moveToSettingsVC()
+        AppFlowManager.default.moveToSettingsVC()
     }
 }
 
@@ -198,7 +206,7 @@ extension ChatVC {
         UIView.animate(withDuration: 0.2, animations: {
             self.chatButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         }) { (success) in
-            UIView.animate(withDuration: 0.2, animations: {
+            UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
                 self.chatButtonTop.constant = 10
                 self.view.layoutIfNeeded()
             }) { (success) in
@@ -227,11 +235,11 @@ extension ChatVC {
     func animateWhereToGoLabel(){
         self.morningLabel.isHidden = true
                 
-        UIView.animate(withDuration: 0.6, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+        UIView.animate(withDuration: 1, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             self.whereToGoLabel.alpha = 1
         }, completion: nil)
 
-        UIView.animate(withDuration: 0.6, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
+        UIView.animate(withDuration: 1, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
               self.whereToGoLabel.transform = CGAffineTransform(translationX: 0, y: (-(self.morningLabel.frame.height + 2)))
           }, completion: nil)
         
@@ -251,13 +259,6 @@ extension ChatVC {
     }
     
     private func hideSuggestions(){
-        
-//        UIView.animate(withDuration: 0.5, animations: {
-//            self.suggestionsCollectionView.alpha = 0
-//        }) { (success) in
-//            self.suggestionsCollectionView.isHidden = true
-//        }
-        
         UIView.animate(withDuration: 0.5) {
             self.collectionViewBottom.constant = -200
         }
@@ -273,18 +274,6 @@ extension ChatVC {
         self.sendButton.isEnabled = false
         self.showAnimationViewWith(text: text)
         
-        //MARK:- To be used further if needed
-        //        UIView.animate(withDuration: 0.3, animations: {
-        //            self.animationBubbleImageView.transform = CGAffineTransform.identity
-        //            self.animationLabel.transform = CGAffineTransform.identity
-        //            self.animationView.frame.origin.y = rectWrtView.origin.y
-        //
-        //        }) { (success) in
-        //
-        //            self.hideShowSenderCellContent(ishidden: false)
-        //            self.animationView.isHidden = true
-        //            self.chatVm.messages[self.chatVm.messages.count - 1].isHidden = false
-        //        }
         
         UIView.animateKeyframes(withDuration: 0.5, delay: 0.0, options: [], animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.2) {
@@ -312,14 +301,16 @@ extension ChatVC {
         self.animationView.isHidden = false
         UIView.animate(withDuration: 0.2) {
             self.animationLabel.text = text
-            self.animationView.alpha = 1
+            self.animationBubbleImageView.alpha = 1
+//            self.animationView.alpha = 1
         }
     }
     
     private func hideAnimationView(){
         self.animationView.isHidden = true
         self.animationLabel.text = ""
-        self.animationView.alpha = 0
+        self.animationBubbleImageView.alpha = 0
+//        self.animationView.alpha = 0
     }
     
     private func hideShowSenderCellContent(ishidden : Bool){

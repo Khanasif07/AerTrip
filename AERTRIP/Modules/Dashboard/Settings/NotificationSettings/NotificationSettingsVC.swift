@@ -47,10 +47,13 @@ class NotificationSettingsVC: BaseVC {
         
         private func configureTableView(){
             self.notificationSettingsTableView.register(UINib(nibName: "NotificationSettingsCell", bundle: nil), forCellReuseIdentifier: "NotificationSettingsCell")
-            notificationSettingsTableView.register(UINib(nibName: "SettingsHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "SettingsHeaderView")
-//            messageListTableView.registerHeaderFooter(with: MessageHeaderView.self)
-
-//            notificationSettingsTableView.register(<#T##nib: UINib?##UINib?#>, forHeaderFooterViewReuseIdentifier: <#T##String#>)
+//             notificationSettingsTableView.register(UINib(nibName: "SettingsHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "SettingsHeaderView")
+            
+//            let nib = UINib(nibName: "SettingsHeaderView", bundle: nil)
+//            self.notificationSettingsTableView.register(nib, forHeaderFooterViewReuseIdentifier: "SettingsHeaderView")
+            
+            let nib2 = UINib(nibName: "SettingsHeaderView", bundle: nil)
+            self.notificationSettingsTableView.register(nib2, forHeaderFooterViewReuseIdentifier: "SettingsHeaderView")
             
             self.notificationSettingsTableView.dataSource = self
             self.notificationSettingsTableView.delegate = self

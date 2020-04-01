@@ -18,7 +18,7 @@ class NotificationSettingsCell : UITableViewCell {
         super.awakeFromNib()
         settingTitleLabel.font = AppFonts.Regular.withSize(18)
         settingDescriptionLabel.font = AppFonts.Regular.withSize(14)
-        settingDescriptionLabel.backgroundColor = AppColors.themeGray20
+        settingDescriptionLabel.textColor = AppColors.themeGray20
         self.sepratorView.backgroundColor = AppColors.themeGray20
     }
 

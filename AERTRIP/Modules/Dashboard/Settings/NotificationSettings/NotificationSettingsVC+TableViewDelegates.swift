@@ -34,25 +34,24 @@ extension NotificationSettingsVC : UITableViewDelegate, UITableViewDataSource {
         
         if section == 1 { return nil }
         
-//        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SettingsHeaderView") else {
-//            fatalError("SettingsHeaderView not found")
-//        }
-//
-//        headerView.titleLabel.text = ""
-//        return headerView
-        return nil
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SettingsHeaderView") as? SettingsHeaderView else {
+            fatalError("SettingsHeaderView not found")
+        }
+
+        headerView.titleLabel.text = ""
+        return headerView
     }
     
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if section == 1 { return nil }
         
-//        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SettingsHeaderView") as? SettingsHeaderView else {
-//                       fatalError("SettingsHeaderView not found")
-//                   }
-//        headerView.titleLabel.text = LocalizedString.EnableDisableAllNotifications.localized
-//        return headerView
-        return nil
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SettingsHeaderView") as? SettingsHeaderView else {
+                       fatalError("SettingsHeaderView not found")
+                   }
+        headerView.titleLabel.text = LocalizedString.EnableDisableAllNotifications.localized
+        return headerView
+//        return nil
     }
     
     
