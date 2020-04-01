@@ -177,7 +177,25 @@ extension UILabel {
         self.attributedText = attribute
     }
     
-    
+    func AttributedParagraphLineSpacing(lineSpacing: CGFloat) {
+        
+        //  self.textColor = UIColor.black
+        guard let labelString = self.text else { return }
+        
+        let main_string = labelString as NSString
+        let range = main_string.range(of: labelString)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = lineSpacing
+        
+        var  attribute = NSMutableAttributedString.init(string: main_string as String)
+        if let labelAttributedString = self.attributedText {
+            attribute = NSMutableAttributedString.init(attributedString: labelAttributedString)
+        }
+        
+        attribute.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle , range: range)
+        // attribute.addAttribute(NSBaselineOffsetAttributeName, value: 0, range: range)
+        self.attributedText = attribute
+    }
 }
 
 

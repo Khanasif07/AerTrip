@@ -35,9 +35,14 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self setModalPresentationStyle:UIModalPresentationOverFullScreen];
-    [self setModalPresentationCapturesStatusBarAppearance:YES];
     
+     if (@available(iOS 13.0, *)) {
+    
+     }
+     else {
+        [self setModalPresentationStyle:UIModalPresentationOverFullScreen];
+        [self setModalPresentationCapturesStatusBarAppearance:YES];
+     }
 }
 
 - (void)viewDidLoad {
@@ -46,13 +51,24 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self configureInitialBottomViewPosition];
-
+    
+     if (@available(iOS 13.0, *)) {
+    
+     }
+     else {
+         [self configureInitialBottomViewPosition];
+     }
 
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self animateBottomViewIn];
+    
+     if (@available(iOS 13.0, *)) {
+    
+     }
+     else {
+         [self animateBottomViewIn];
+     }
     [self showDatesSelection];
 
 }
@@ -251,7 +267,7 @@
             else {
                 [self.selectedDates addObject:date];
             }
-        }        
+        }
     }
 }
 
@@ -724,14 +740,22 @@
     }];
 }
 - (void)animateBottomViewOut {
-    [UIView animateWithDuration:0.2 delay:0 options: UIViewAnimationOptionCurveEaseIn animations:^{
-        self.dimmerLayer.alpha = 0.0;
-          self.topConstraintMainView.constant = (self.view.bounds.size.height);
-        [self.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
+    
+    if (@available(iOS 13.0, *)) {
         [self applyCalendarChanges];
-        [self dismissViewControllerAnimated:NO completion:nil];
-    }];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else {
+       
+        [UIView animateWithDuration:0.2 delay:0 options: UIViewAnimationOptionCurveEaseIn animations:^{
+            self.dimmerLayer.alpha = 0.0;
+              self.topConstraintMainView.constant = (self.view.bounds.size.height);
+            [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            [self applyCalendarChanges];
+            [self dismissViewControllerAnimated:NO completion:nil];
+        }];
+    }
 }
 
 

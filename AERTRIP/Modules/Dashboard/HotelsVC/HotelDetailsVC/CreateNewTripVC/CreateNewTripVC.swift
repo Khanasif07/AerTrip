@@ -33,6 +33,7 @@ class CreateNewTripVC: BaseVC {
     weak var delegate: CreateNewTripVCDelegate?
     var initialTouchPoint = CGPoint.zero
     var initailContainerYPosition: CGFloat?
+    var viewTranslation = CGPoint(x: 0, y: 0)
     //MARK:- Private
     
     //MARK:- ViewLifeCycle
@@ -87,6 +88,7 @@ class CreateNewTripVC: BaseVC {
     override func setupFonts() {
         createButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         createButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+        createButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
         editButton.titleLabel?.font = AppFonts.SemiBold.withSize(16.0)
         titleTextField.font = AppFonts.Regular.withSize(18.0)
     }
@@ -188,35 +190,37 @@ extension CreateNewTripVC: TopNavigationViewDelegate {
 extension CreateNewTripVC {
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
         
-        guard let direction = sender.direction, direction.isVertical
+        func reset() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.popUpContainerView.transform = .identity
+            })
+        }
+        
+        func moveView() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.popUpContainerView.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+            })
+        }
+        
+        guard let direction = sender.direction, direction.isVertical, direction == .down
             else {
-            initialTouchPoint = CGPoint.zero
+            reset()
             return
         }
         
-        let touchPoint = sender.location(in: view?.window)
-        print(touchPoint)
-        
         switch sender.state {
-        case .began:
-            initialTouchPoint = touchPoint
         case .changed:
-            if touchPoint.y > initialTouchPoint.y {
-                popUpContainerView.frame.origin.y = touchPoint.y - (self.initailContainerYPosition ?? 0)  //initialTouchPoint.y
-            }
-        case .ended, .cancelled:
-            if touchPoint.y - initialTouchPoint.y > 300 {
-                dismiss(animated: false, completion: nil)
+            viewTranslation = sender.translation(in: popUpContainerView)
+            moveView()
+        case .ended:
+            if viewTranslation.y < 200 {
+                reset()
             } else {
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.popUpContainerView.frame = CGRect(x: 0,
-                                                           y: self.initailContainerYPosition ?? 0,
-                                             width: self.popUpContainerView.frame.size.width,
-                                             height: self.popUpContainerView.frame.size.height)
-                })
+                dismiss(animated: true, completion: nil)
             }
-        case .failed, .possible:
-            initialTouchPoint = CGPoint.zero
+        case .cancelled:
+            reset()
+        default:
             break
         }
     }

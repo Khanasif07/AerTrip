@@ -112,9 +112,11 @@ class MailComposerVC: BaseVC {
     private func setupHeader() {
         self.mailComposerHeaderView = EmailComposerHeaderView.instanceFromNib()
         self.mailComposerHeaderView.delegate = self
-        let text = "\(UserInfo.loggedInUser?.firstName ?? "") \(LocalizedString.SharedMessage.localized)"
+        var userFirstName = UserInfo.loggedInUser?.firstName ?? ""
+        userFirstName = userFirstName.substring(to: 11)
+        let text = "\(userFirstName) \(LocalizedString.SharedMessage.localized)"
         mailComposerHeaderView.sharedStatusLabel.numberOfLines = 3
-        mailComposerHeaderView.sharedStatusLabel.attributedText = getAttributedBoldText(text: text, boldText: "\(UserInfo.loggedInUser?.firstName ?? "")")
+        mailComposerHeaderView.sharedStatusLabel.attributedText = getAttributedBoldText(text: text, boldText: "\(userFirstName)")
         mailComposerHeaderView.sharedStatusLabel.textAlignment = .center
         self.setUpCheckInOutView()
         self.tableView.tableHeaderView = mailComposerHeaderView

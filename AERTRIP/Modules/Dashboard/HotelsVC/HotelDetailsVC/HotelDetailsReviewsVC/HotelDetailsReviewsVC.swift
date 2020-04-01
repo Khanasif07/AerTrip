@@ -16,6 +16,7 @@ class HotelDetailsReviewsVC: BaseVC {
     let sectionName = ["",LocalizedString.TravellerRating.localized,LocalizedString.RatingSummary.localized]
     let ratingNames = [LocalizedString.Excellent.localized,LocalizedString.VeryGood.localized,LocalizedString.Average.localized,LocalizedString.Poor.localized,LocalizedString.Terrible.localized]
     var initialTouchPoint:CGPoint = CGPoint.zero
+    var viewTranslation = CGPoint(x: 0, y: 0)
     
     //Mark:- IBOutlets
     //================
@@ -306,7 +307,7 @@ extension HotelDetailsReviewsVC: HotelTripAdvisorDetailsDelegate {
 extension HotelDetailsReviewsVC {
     
     func manageHeaderView(_ scrollView: UIScrollView) {
-        
+        guard mainContainerView.height < scrollView.contentSize.height else {return}
         let yOffset = (scrollView.contentOffset.y > headerContainerView.height) ? headerContainerView.height : scrollView.contentOffset.y
         printDebug(yOffset)
         
@@ -325,66 +326,72 @@ extension HotelDetailsReviewsVC {
         self.reviewsLabel.alpha = 1.0 - alpha
         reviewTopConstraint.constant = 23.0 - (yOffset * (23.0 / headerContainerView.height))
         //        reviewLabelYConstraint.constant = -(yOffset * (100.0 / headerContainerView.height))
+        printDebug("alpha: \(alpha)")
+        printDebug("reviewTopConstraint.constant: \(reviewTopConstraint.constant)")
+
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         manageHeaderView(scrollView)
-        printDebug("scrollViewDidScroll")
+        //printDebug("scrollViewDidScroll")
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         manageHeaderView(scrollView)
-        printDebug("scrollViewDidEndDecelerating")
+        //printDebug("scrollViewDidEndDecelerating")
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         manageHeaderView(scrollView)
-        printDebug("scrollViewDidEndDragging")
+        //printDebug("scrollViewDidEndDragging")
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         manageHeaderView(scrollView)
-        printDebug("scrollViewDidEndScrollingAnimation")
+        //printDebug("scrollViewDidEndScrollingAnimation")
     }
 }
 extension HotelDetailsReviewsVC {
     
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-        guard let direction = sender.direction, direction.isVertical, self.reviewsTblView.contentOffset.y <= 0
-            else {
-                initialTouchPoint = CGPoint.zero
-                return
+        func reset() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.transform = .identity
+            })
         }
         
-        let touchPoint = sender.location(in: view?.window)
+        func moveView() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+            })
+        }
+        
+        guard let direction = sender.direction, direction.isVertical, direction == .down, self.reviewsTblView.contentOffset.y <= 0
+            else {
+            reset()
+            return
+        }
         
         switch sender.state {
-        case .began:
-            initialTouchPoint = touchPoint
         case .changed:
-            if touchPoint.y > initialTouchPoint.y {
-                view.frame.origin.y = touchPoint.y - initialTouchPoint.y
-            }
-        case .ended, .cancelled:
-            if touchPoint.y - initialTouchPoint.y > 300 {
-                dismiss(animated: true, completion: nil)
+            viewTranslation = sender.translation(in: self.view)
+            moveView()
+        case .ended:
+            if viewTranslation.y < 200 {
+                reset()
             } else {
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.view.frame = CGRect(x: 0,
-                                             y: 0,
-                                             width: self.view.frame.size.width,
-                                             height: self.view.frame.size.height)
-                })
+                dismiss(animated: true, completion: nil)
             }
-        case .failed, .possible:
-            initialTouchPoint = CGPoint.zero
+        case .cancelled:
+            reset()
+        default:
             break
         }
     }
     
     
     func setValue() {
-        let toDeduct = (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
+        let toDeduct = AppFlowManager.default.safeAreaInsets.top
         let finalValue =  (self.view.height - toDeduct)
         self.mainContainerBottomConst.constant = 0.0
         self.mainContainerHeightConst.constant = finalValue

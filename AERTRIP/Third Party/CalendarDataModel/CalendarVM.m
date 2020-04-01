@@ -11,7 +11,7 @@
 @implementation CalendarVM
 
 
--(void)onDoneButtonTapped 
+-(void)onDoneButtonTapped
 {
     if (self.isHotelCalendar)
         [self.delegate selectedDatesFromCalendar:self.date1 endDate:self.date2 isHotelCalendar:self.isHotelCalendar isReturn:self.isReturn];

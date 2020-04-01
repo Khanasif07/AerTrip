@@ -33,8 +33,8 @@ extension HotelFilterVC : PagingViewControllerDelegate, PagingViewControllerSize
         if let pagingIndexItem = pagingItem as? MenuItem {
             let text = pagingIndexItem.title
             
-            let font = AppFonts.SemiBold.withSize(16.0)
-            return text.widthOfString(usingFont: font) + 20.0
+            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
+            return text.widthOfString(usingFont: font) + 23.0
         }
         
         return 100.0
