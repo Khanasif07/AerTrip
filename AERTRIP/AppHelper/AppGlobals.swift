@@ -338,7 +338,7 @@ class AppGlobals {
         paragraphStyle.maximumLineHeight = 0
         paragraphStyle.defaultTabInterval = 5
         paragraphStyle.firstLineHeadIndent = 0
-        paragraphStyle.headIndent = isForNotes ? 15 : 0
+        paragraphStyle.headIndent = isForNotes ? 11 : 0
         paragraphStyle.alignment = .left
         paragraphStyle.lineSpacing = lineSpacing
         paragraphStyle.paragraphSpacingBefore = paragraphSpacingBefore

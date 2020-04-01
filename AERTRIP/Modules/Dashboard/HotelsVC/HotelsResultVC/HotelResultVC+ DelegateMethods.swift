@@ -168,9 +168,12 @@ extension HotelResultVC: HotelResultDelegate {
     
     func loadFinalDataOnScreen() {
         self.filterCollectionView.isUserInteractionEnabled = true
-        self.filterButton.isEnabled = true
-        self.mapButton.isEnabled = true
-        self.searchButton.isEnabled = true
+//        self.filterButton.isEnabled = true
+//        self.mapButton.isEnabled = true
+//        self.searchButton.isEnabled = true
+        self.filterButton.isUserInteractionEnabled = true
+        self.mapButton.isUserInteractionEnabled = true
+        self.searchButton.isUserInteractionEnabled = true
         
         var ignorePreviousFilter = false
         if self.viewModel.searchedFormData.destType == "Hotel" || self.viewModel.searchedFormData.destType == "POI" || self.viewModel.searchedFormData.destType == "Area" {
@@ -203,10 +206,6 @@ extension HotelResultVC: HotelResultDelegate {
             // Apply Aerin Filter
             // self.applyAerinFilter()
         }
-        
-        
-        
-        
     }
     
     func getAllHotelsOnResultFallbackSuccess(_ isDone: Bool) {

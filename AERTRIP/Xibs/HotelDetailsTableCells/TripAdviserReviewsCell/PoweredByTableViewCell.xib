@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,34 +12,46 @@
         <tableViewCell contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" indentationWidth="10" reuseIdentifier="PoweredByTableViewCell" id="KGk-i7-Jjw" customClass="PoweredByTableViewCell" customModule="AERTRIP" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="71"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="70.5"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="71"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0dU-jH-7BJ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="71.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="71"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tfd-qb-dvo">
-                                <rect key="frame" x="89" y="27" width="95" height="21.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zjx-La-EKY">
-                                <rect key="frame" x="189" y="31.5" width="102" height="16"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GWJ-8f-bd4">
+                                <rect key="frame" x="86.5" y="25" width="202" height="21.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tfd-qb-dvo">
+                                        <rect key="frame" x="0.0" y="0.0" width="95" height="21.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zjx-La-EKY">
+                                        <rect key="frame" x="100" y="5.5" width="102" height="16"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="102" id="2og-BQ-veR"/>
+                                            <constraint firstAttribute="height" constant="16" id="yzw-8R-oyn"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="102" id="2og-BQ-veR"/>
-                                    <constraint firstAttribute="height" constant="16" id="yzw-8R-oyn"/>
+                                    <constraint firstItem="Tfd-qb-dvo" firstAttribute="leading" secondItem="GWJ-8f-bd4" secondAttribute="leading" id="HFU-gQ-F94"/>
+                                    <constraint firstItem="Zjx-La-EKY" firstAttribute="centerY" secondItem="Tfd-qb-dvo" secondAttribute="centerY" constant="3" id="Izf-9V-hLe"/>
+                                    <constraint firstAttribute="trailing" secondItem="Zjx-La-EKY" secondAttribute="trailing" id="Swa-Ht-DoW"/>
+                                    <constraint firstAttribute="bottom" secondItem="Tfd-qb-dvo" secondAttribute="bottom" id="eKA-mb-y2C"/>
+                                    <constraint firstItem="Zjx-La-EKY" firstAttribute="leading" secondItem="Tfd-qb-dvo" secondAttribute="trailing" constant="5" id="qm3-eX-Yv5"/>
+                                    <constraint firstItem="Tfd-qb-dvo" firstAttribute="top" secondItem="GWJ-8f-bd4" secondAttribute="top" id="wQx-Pp-rnM"/>
                                 </constraints>
-                            </imageView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="71" id="07E-2T-9dX"/>
-                            <constraint firstItem="Zjx-La-EKY" firstAttribute="centerY" secondItem="Tfd-qb-dvo" secondAttribute="centerY" multiplier="1.05" id="0U6-0w-gMh"/>
-                            <constraint firstItem="Zjx-La-EKY" firstAttribute="leading" secondItem="Tfd-qb-dvo" secondAttribute="trailing" constant="5" id="E2H-f5-Osf"/>
-                            <constraint firstItem="Tfd-qb-dvo" firstAttribute="leading" secondItem="0dU-jH-7BJ" secondAttribute="leading" constant="89" id="XMO-4K-juh"/>
-                            <constraint firstItem="Tfd-qb-dvo" firstAttribute="centerY" secondItem="0dU-jH-7BJ" secondAttribute="centerY" multiplier="1.05" id="ckw-fT-MSF"/>
+                            <constraint firstItem="GWJ-8f-bd4" firstAttribute="centerY" secondItem="0dU-jH-7BJ" secondAttribute="centerY" id="GhP-v1-G74"/>
+                            <constraint firstItem="GWJ-8f-bd4" firstAttribute="centerX" secondItem="0dU-jH-7BJ" secondAttribute="centerX" id="f0h-5j-Hk3"/>
                         </constraints>
                     </view>
                 </subviews>

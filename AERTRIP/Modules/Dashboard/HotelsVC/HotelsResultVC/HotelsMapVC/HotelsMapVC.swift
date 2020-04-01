@@ -111,7 +111,6 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     var isHidingOnMapTap: Bool = false
     
     //Map Related
-    var mapView: GMSMapView?
     let minZoomLabel: Float = 1.0
     let maxZoomLabel: Float = 30.0
     let defaultZoomLabel: Float = 12.0
@@ -183,12 +182,8 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     
     override func initialSetup() {
         self.mapContainerViewBottomConstraint.constant = (!UIDevice.isIPhoneX) ? 203.0 : 237.0
-//        self.mapContainerTopConstraint.constant = (!UIDevice.isIPhoneX) ? 100 : 144
         self.view.layoutIfNeeded()
         self.filterButton.isEnabled = false
-        self.mapView?.isMyLocationEnabled = false
-        // self.animateCollectionView(isHidden: true, animated: false)
-        
         self.view.backgroundColor = AppColors.themeWhite
         
         self.initialSetups()
@@ -223,17 +218,8 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.addMapView()
         self.appleMap.delegate = self
         self.addGestureRecognizerForTap()
-//        if AppGlobals.shared.isNetworkRechable() {
-//            delay(seconds: 0.2) { [weak self] in
-//                guard let strongSelf = self else {return}
-//               // strongSelf.mapView?.delegate = self
-                self.loadFinalDataOnScreen()
-//            }
-//        } else {
-//            self.noHotelFound()
-//            AppToast.default.showToastMessage(message: LocalizedString.NoInternet.localized)
-//        }
-        setupCollection()
+        self.loadFinalDataOnScreen()
+        self.setupCollection()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -352,20 +338,14 @@ class HotelsMapVC: StatusBarAnimatableViewController {
         self.searchBar.delegate = self
         self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
         self.searchIntitialFrame = self.searchBarContainerView.frame
-        //self.reloadHotelList()
         self.floatingButtonOnMapView.isHidden = true
         self.cancelButton.alpha = 0
         self.hotelSearchTableView.separatorStyle = .none
         self.hotelSearchTableView.delegate = self
         self.hotelSearchTableView.dataSource = self
-        
         self.hotelSearchTableView.backgroundView = noResultemptyView
         self.hotelSearchTableView.reloadData()
-        
-        
-        //  self.searchBar.backgroundColor = .red
         self.searchBar.searchBarStyle = .default
-        
         // replaced the switch with flight switch
         switchView.tintColor = AppColors.themeGray20
         switchView.offTintColor = AppColors.themeGray10

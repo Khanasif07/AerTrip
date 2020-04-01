@@ -130,7 +130,7 @@ final class PresentCardTransitionDriver {
                     return cardDetailView.centerYAnchor.constraint(equalTo: animatedContainerView.centerYAnchor)
                 case .fromTop:
                     // Keep -1 to be consistent with the weird bug above.
-                    return cardDetailView.topAnchor.constraint(equalTo: animatedContainerView.topAnchor, constant: -1)
+                    return cardDetailView.topAnchor.constraint(equalTo: animatedContainerView.topAnchor, constant: -0.2)
                 }
             }()
             let cardConstraints = [
@@ -187,7 +187,7 @@ final class PresentCardTransitionDriver {
             cardDetailView.removeConstraints([topTemporaryFix, cardWidthConstraint, cardHeightConstraint])
 
             // Keep -1 to be consistent with the weird bug above.
-            cardDetailView.edges(to: container, top: -1)
+            cardDetailView.edges(to: container, top: -0.2)
 
             // No longer need the bottom constraint that pins bottom of card content to its root.
 //            screens.cardDetail.cardBottomToRootBottomConstraint.isActive = false

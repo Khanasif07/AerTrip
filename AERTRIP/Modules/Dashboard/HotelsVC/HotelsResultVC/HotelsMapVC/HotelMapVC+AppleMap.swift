@@ -195,7 +195,7 @@ extension HotelsMapVC : MKMapViewDelegate{
         }
 //        self.appleMap.deselectAnnotation(anno, animated: false)
         self.setRegionToShow(location: anno.coordinate)
-        updateRegionMarker()
+//        updateRegionMarker()
         if isTappedMarker{
             if anno.markerType == .customMarker{
                 if let data = anno.hotel {

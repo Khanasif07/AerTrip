@@ -17,17 +17,17 @@ extension HotelsMapVC {
     }
     
     func animateZoomLabel() {
-        if let currentZoom = self.mapView?.camera.zoom {
-            self.mapView?.animate(toZoom: currentZoom + 4.0)
-            
-            delay(seconds: 0.3) { [weak self] in
-                self?.mapView?.animate(toZoom: currentZoom)
-            }
-        }
+//        if let currentZoom = self.mapView?.camera.zoom {
+//            self.mapView?.animate(toZoom: currentZoom + 4.0)
+//
+//            delay(seconds: 0.3) { [weak self] in
+//                self?.mapView?.animate(toZoom: currentZoom)
+//            }
+//        }
     }
     
     func adjustMapPadding() {
-        self.mapView?.padding = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+//        self.mapView?.padding = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     }
         
     func showHotelOnMap(duration: Double, index: Int? = nil) {
@@ -43,10 +43,11 @@ extension HotelsMapVC {
 
 extension HotelsMapVC {
     func isMarkerWithinScreen(markerPosition: CLLocationCoordinate2D) -> Bool {
-        guard let region = self.mapView?.projection.visibleRegion() else {return false}
-        
-        let bounds = GMSCoordinateBounds(region: region)
-        return bounds.contains(markerPosition)
+//        guard let region = self.mapView?.projection.visibleRegion() else {return false}
+//
+//        let bounds = GMSCoordinateBounds(region: region)
+//        return bounds.contains(markerPosition)
+        return false
     }
     
     func getLocationObject(fromLocation: String) -> CLLocationCoordinate2D? {
@@ -64,11 +65,11 @@ extension HotelsMapVC {
 
 extension HotelsMapVC: GMSMapViewDelegate {
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
-        guard let lat = mapView.myLocation?.coordinate.latitude,
-            let lng = mapView.myLocation?.coordinate.longitude else { return false }
-        
-        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lng, zoom: self.mapView?.camera.zoom ?? 20)
-        mapView.animate(to: camera)
+//        guard let lat = mapView.myLocation?.coordinate.latitude,
+//            let lng = mapView.myLocation?.coordinate.longitude else { return false }
+//        
+//        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: lng, zoom: self.mapView?.camera.zoom ?? 20)
+//        mapView.animate(to: camera)
         
         return true
     }

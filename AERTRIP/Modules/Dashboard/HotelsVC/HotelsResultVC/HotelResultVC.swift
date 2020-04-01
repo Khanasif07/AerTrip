@@ -98,6 +98,7 @@ class HotelResultVC: StatusBarAnimatableViewController {
             filterCollectionView.contentInset = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
         }
     }
+    @IBOutlet weak var mapButtonIndicator: UIActivityIndicatorView!
     @IBOutlet weak var switchGradientView: UIView!
     @IBOutlet weak var searchButton: UIButton!
     // MARK: - Properties
@@ -179,11 +180,15 @@ class HotelResultVC: StatusBarAnimatableViewController {
         self.view.layoutIfNeeded()
         
         self.filterCollectionView.isUserInteractionEnabled = false
-        self.filterButton.isEnabled = false
-        self.mapButton.isEnabled = false
-        self.searchButton.isEnabled = false
+//        self.filterButton.isEnabled = false
+//        self.mapButton.isEnabled = false
+//        self.searchButton.isEnabled = false
+        self.filterButton.isUserInteractionEnabled = false
+        self.mapButton.isUserInteractionEnabled = false
+        self.searchButton.isUserInteractionEnabled = false
         //self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
-        
+        self.hotelSearchTableView.showsVerticalScrollIndicator = true
+        self.searchButton.imageEdgeInsets = UIEdgeInsets(top: 3, left: 5, bottom: 0, right: 0)
         self.view.backgroundColor = AppColors.themeWhite
         
         self.initialSetups()
@@ -255,6 +260,10 @@ class HotelResultVC: StatusBarAnimatableViewController {
         //        }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.mapButtonIndicator.stopAnimating()
+    }
     
     override func bindViewModel() {
         self.viewModel.hotelResultDelegate = self
@@ -464,9 +473,10 @@ class HotelResultVC: StatusBarAnimatableViewController {
     }
     
     @IBAction func mapButtonAction(_ sender: Any) {
-        delay(seconds: 0.1) {
+        self.mapButtonIndicator.startAnimating()
+//        delay(seconds: 0.1) {
             AppFlowManager.default.moveToHotelsResultMapVC(viewModel: self.viewModel)
-        }
+//        }
     }
     
     @IBAction func unPinAllFavouriteButtonTapped(_ sender: Any) {

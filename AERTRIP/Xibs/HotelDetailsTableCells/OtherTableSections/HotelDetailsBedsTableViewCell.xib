@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -75,7 +75,7 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="58d-HN-F5u" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="115.5" width="327" height="0.5"/>
+                                        <rect key="frame" x="16" y="115.5" width="311" height="0.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="25F-Q3-Z3Z"/>
@@ -87,10 +87,10 @@
                                     <constraint firstItem="Odl-Oi-vuI" firstAttribute="top" secondItem="iIk-Fh-H5s" secondAttribute="top" constant="9" id="IAn-s4-MwN"/>
                                     <constraint firstAttribute="bottom" secondItem="58d-HN-F5u" secondAttribute="bottom" id="NBr-G1-rqQ"/>
                                     <constraint firstItem="58d-HN-F5u" firstAttribute="top" secondItem="Odl-Oi-vuI" secondAttribute="bottom" constant="10" id="cJ1-Ge-L8p"/>
-                                    <constraint firstAttribute="trailing" secondItem="58d-HN-F5u" secondAttribute="trailing" constant="8" id="kgb-2i-wKu"/>
+                                    <constraint firstAttribute="trailing" secondItem="58d-HN-F5u" secondAttribute="trailing" constant="16" id="kgb-2i-wKu"/>
                                     <constraint firstAttribute="trailing" secondItem="Odl-Oi-vuI" secondAttribute="trailing" constant="10" id="l0V-8K-Qdm"/>
                                     <constraint firstItem="Odl-Oi-vuI" firstAttribute="leading" secondItem="iIk-Fh-H5s" secondAttribute="leading" constant="16" id="mCf-LN-ID2"/>
-                                    <constraint firstItem="58d-HN-F5u" firstAttribute="leading" secondItem="iIk-Fh-H5s" secondAttribute="leading" constant="8" id="mpP-S4-Z4z"/>
+                                    <constraint firstItem="58d-HN-F5u" firstAttribute="leading" secondItem="iIk-Fh-H5s" secondAttribute="leading" constant="16" id="mpP-S4-Z4z"/>
                                 </constraints>
                             </view>
                         </subviews>

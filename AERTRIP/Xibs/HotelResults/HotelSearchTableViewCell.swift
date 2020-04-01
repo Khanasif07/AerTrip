@@ -109,7 +109,7 @@ class HotelSearchTableViewCell: AppStoreAnimationTableViewCell {
     }
     
     private func getAttributeBoldTextForAddress(text: String, boldText: String) -> NSMutableAttributedString {
-        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), .foregroundColor: UIColor.black])
+        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), .foregroundColor: AppColors.themeGray60])
         
         attString.addAttributes([
             .font: AppFonts.Regular.withSize(14.0),
