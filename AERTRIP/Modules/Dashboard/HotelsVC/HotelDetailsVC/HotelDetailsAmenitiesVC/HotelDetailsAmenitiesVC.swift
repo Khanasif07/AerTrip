@@ -14,6 +14,7 @@ class HotelDetailsAmenitiesVC: BaseVC {
     private(set) var viewModel = HotelDetailsAmenitiesVM()
     private let maxHeaderHeight: CGFloat = 58.0
     var initialTouchPoint: CGPoint = CGPoint(x: 0.0, y: 0.0)
+    var viewTranslation = CGPoint(x: 0, y: 0)
     
     // Mark:- IBOutlets
     //================
@@ -87,11 +88,11 @@ class HotelDetailsAmenitiesVC: BaseVC {
     }
     
     private func heightForHeader(_ tableView: UITableView, section: Int) -> CGFloat {
-        if section == 0 {
+//        if section == 0 {
             return CGFloat.leastNonzeroMagnitude
-        } else {
-            return 49.0
-        }
+//        } else {
+//            return 49.0
+//        }
     }
     
     private func imageByAmenitiesName(imageName: String) -> UIImage {
@@ -123,7 +124,7 @@ extension HotelDetailsAmenitiesVC: UITableViewDelegate, UITableViewDataSource {
         case 0:
             return 1
         default:
-            return self.viewModel.sections.isEmpty ? 0 : self.viewModel.rowsData[section - 1].count
+            return self.viewModel.sections.isEmpty ? 0 : 1
         }
     }
     
@@ -173,13 +174,20 @@ extension HotelDetailsAmenitiesVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AmenitiesNameTableViewCell.reusableIdentifier, for: indexPath) as? AmenitiesNameTableViewCell else {
             return UITableViewCell()
         }
-        cell.facilitiesNameLabel.text = amenitiesName[indexPath.row]
+        let title = self.viewModel.sections[indexPath.section - 1]
+        let newAmenitiesName = [title] + amenitiesName
+        cell.facilitiesNameLabel.text = newAmenitiesName.joined(separator: "\n")
+        let image = self.imageByAmenitiesName(imageName: self.viewModel.sections[indexPath.section - 1])
+        cell.facilitiesIconView.image = image
+        cell.facilitiesNameLabel.AttributedFontForText(text: title, textFont: AppFonts.SemiBold.withSize(16))
+        cell.facilitiesNameLabel.AttributedParagraphLineSpacing(lineSpacing: 10)
         return cell
     }
 }
 
 extension HotelDetailsAmenitiesVC {
     func manageHeaderView(_ scrollView: UIScrollView) {
+        guard mainContainerView.height < scrollView.contentSize.height else {return}
         let yOffset = (scrollView.contentOffset.y > self.headerContainerView.height) ? self.headerContainerView.height : scrollView.contentOffset.y
         printDebug(yOffset)
         
@@ -223,40 +231,44 @@ extension HotelDetailsAmenitiesVC {
 extension HotelDetailsAmenitiesVC {
     
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-        guard let direction = sender.direction, direction.isVertical, self.amenitiesTblView.contentOffset.y <= 0
-            else {
-                initialTouchPoint = CGPoint.zero
-                return
+        func reset() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.transform = .identity
+            })
         }
-        let touchPoint = sender.location(in: view?.window)
+        
+        func moveView() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+            })
+        }
+        
+        guard let direction = sender.direction, direction.isVertical, direction == .down, self.amenitiesTblView.contentOffset.y <= 0
+            else {
+            reset()
+            return
+        }
         
         switch sender.state {
-        case .began:
-            initialTouchPoint = touchPoint
         case .changed:
-            if touchPoint.y > initialTouchPoint.y {
-                view.frame.origin.y = touchPoint.y - initialTouchPoint.y
-            }
-        case .ended, .cancelled:
-            if touchPoint.y - initialTouchPoint.y > 300 {
-                dismiss(animated: true, completion: nil)
+            viewTranslation = sender.translation(in: self.view)
+            moveView()
+        case .ended:
+            if viewTranslation.y < 200 {
+                reset()
             } else {
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.view.frame = CGRect(x: 0,
-                                             y: 0,
-                                             width: self.view.frame.size.width,
-                                             height: self.view.frame.size.height)
-                })
+                dismiss(animated: true, completion: nil)
             }
-        case .failed, .possible:
-            initialTouchPoint = CGPoint.zero
+        case .cancelled:
+            reset()
+        default:
             break
         }
     }
     
     
     func setValue() {
-        let toDeduct = (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
+        let toDeduct = AppFlowManager.default.safeAreaInsets.top
         let finalValue =  (self.view.height - toDeduct)
         self.mainContainerBottomConst.constant = 0.0
         self.mainContainerHeightConst.constant = finalValue

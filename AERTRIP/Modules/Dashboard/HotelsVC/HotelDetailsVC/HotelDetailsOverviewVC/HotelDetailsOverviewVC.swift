@@ -17,6 +17,7 @@ class HotelDetailsOverviewVC: BaseVC {
     let viewModel = HotelDetailsOverviewVM()
     private let maxHeaderHeight: CGFloat = 58.0
     var initialTouchPoint: CGPoint = CGPoint(x: 0.0, y: 0.0)
+    var viewTranslation = CGPoint(x: 0, y: 0)
     
     //Mark:- IBOutlets
     //================
@@ -99,7 +100,7 @@ class HotelDetailsOverviewVC: BaseVC {
 extension HotelDetailsOverviewVC {
     
     func setValue() {
-        let toDeduct = (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
+        let toDeduct = AppFlowManager.default.safeAreaInsets.top
         let finalValue =  (self.view.height - toDeduct)
         self.mainContainerBottomConst.constant = 0.0
         self.mainContainerViewHeightConst.constant = finalValue
@@ -108,7 +109,7 @@ extension HotelDetailsOverviewVC {
         
     }
     func manageHeaderView(_ scrollView: UIScrollView) {
-        
+        guard mainContainerView.height < scrollView.contentSize.height else {return}
         let yOffset = (scrollView.contentOffset.y > headerContainerView.height) ? headerContainerView.height : scrollView.contentOffset.y
         printDebug(yOffset)
         
@@ -134,34 +135,37 @@ extension HotelDetailsOverviewVC {
     }
     
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-        guard let direction = sender.direction, direction.isVertical, self.overViewTextViewOutlet.contentOffset.y <= 0
-            else {
-                initialTouchPoint = CGPoint.zero
-                return
+        func reset() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.transform = .identity
+            })
         }
-        let touchPoint = sender.location(in: view?.window)
-        print(touchPoint)
+        
+        func moveView() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+            })
+        }
+        
+        guard let direction = sender.direction, direction.isVertical, direction == .down, self.overViewTextViewOutlet.contentOffset.y <= 0
+            else {
+            reset()
+            return
+        }
         
         switch sender.state {
-        case .began:
-            initialTouchPoint = touchPoint
         case .changed:
-            if touchPoint.y > initialTouchPoint.y {
-                view.frame.origin.y = touchPoint.y - initialTouchPoint.y
-            }
-        case .ended, .cancelled:
-            if touchPoint.y - initialTouchPoint.y > 300 {
-                dismiss(animated: true, completion: nil)
+            viewTranslation = sender.translation(in: self.view)
+            moveView()
+        case .ended:
+            if viewTranslation.y < 200 {
+                reset()
             } else {
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.view.frame = CGRect(x: 0,
-                                             y: 0,
-                                             width: self.view.frame.size.width,
-                                             height: self.view.frame.size.height)
-                })
+                dismiss(animated: true, completion: nil)
             }
-        case .failed, .possible:
-            initialTouchPoint = CGPoint.zero
+        case .cancelled:
+            reset()
+        default:
             break
         }
     }

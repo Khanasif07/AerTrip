@@ -270,8 +270,8 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
             }
             
             if let year = self.contact?.age, year > 0 {
-                ageLabel.text = "(\(year)y)"
-                
+                //ageLabel.text = "(\(year)y)"
+                finalText += " (\(year)y)"
             }
             ageLabel.isHidden = false
             lastNameAgeContainer.isHidden = false
@@ -286,7 +286,7 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
             let placeHolder = self.contact?.flImage ?? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
             self.iconImageView.image = placeHolder
 
-            if (fName.isEmpty && lName.isEmpty && saltn.isEmpty) {
+            if (fName.isEmpty && lName.isEmpty) {
                 infoImageView.isHidden = false
                 setupForAdd()
             }

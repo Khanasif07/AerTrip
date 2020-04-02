@@ -33,6 +33,9 @@ class EmailComposerFooterView: UIView {
     
     private func doInitialSetup() {
         self.seeRatesButton.layer.cornerRadius = 5.0
+        self.seeRatesButton.shadowColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.seeRatesButton.layer.applySketchShadow(color: AppColors.themeBlack, alpha: 0.16, x: 0, y: 2, blur: 6, spread: 0)
+        self.seeRatesButton.isUserInteractionEnabled = false
     }
     
     private func setUpText() {

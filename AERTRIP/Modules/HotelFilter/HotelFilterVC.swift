@@ -30,14 +30,12 @@ class HotelFilterVC: BaseVC {
     @IBOutlet weak var navigationView: UIView!
     @IBOutlet weak var navigationViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainBackView: UIView!
+    @IBOutlet weak var blurBackGroundView: UIView!
+    @IBOutlet weak var filterContainerView: UIView!
     
     // MARK: - Private
     
-    private var currentIndex: Int = 0 {
-        didSet {
-            
-        }
-    }
+    private var currentIndex: Int = 0
     
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
@@ -75,13 +73,17 @@ class HotelFilterVC: BaseVC {
         self.parchmentView?.view.frame = self.dataContainerView.bounds
         self.parchmentView?.loadViewIfNeeded()
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         delay(seconds: 0.5) { [weak self] in
             self?.show(animated: true)
         }
         self.parchmentView?.select(index: selectedIndex)
+        self.statusBarColor = AppColors.clear
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.statusBarColor = AppColors.themeWhite
     }
     
     // MARK: - Overrider methods
@@ -126,6 +128,9 @@ class HotelFilterVC: BaseVC {
             //  self?.show(animated: true)
             self?.mainContainerView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
         }
+        blurBackGroundView.addBlurEffect(backgroundColor: AppColors.themeWhite.withAlphaComponent(0.85), style:  UIBlurEffect.Style.light, alpha: 1)
+        filterContainerView.addBlurEffect(backgroundColor: AppColors.themeWhite.withAlphaComponent(0.85), style:  UIBlurEffect.Style.light, alpha: 1)
+
     }
     
     private func  setFilterButton() {
@@ -205,9 +210,9 @@ class HotelFilterVC: BaseVC {
         
         self.parchmentView = PagingViewController()
         self.parchmentView?.menuItemSpacing = 10.0
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 51.0, bottom: 0.0, right: 0.0)
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 41.0, bottom: 0.0, right: 0.0)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 52)
-        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets(top: 0, left: 7.5, bottom: 0, right: 7.5), insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets(top: 0, left: 11.5, bottom: 0, right: 11.5), insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
             zIndex: Int.max - 1,
@@ -225,7 +230,9 @@ class HotelFilterVC: BaseVC {
         self.parchmentView?.sizeDelegate = self
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
-
+        self.parchmentView?.menuBackgroundColor = UIColor.clear
+        self.parchmentView?.collectionView.backgroundColor = UIColor.clear
+        
     }
     
     

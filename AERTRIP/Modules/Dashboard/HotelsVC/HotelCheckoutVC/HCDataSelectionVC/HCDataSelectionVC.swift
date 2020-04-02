@@ -203,11 +203,11 @@ class HCDataSelectionVC: BaseVC {
 
         var finalDate = ""
         if let chIn = viewModel.itineraryData?.hotelDetails?.checkin, !chIn.isEmpty {
-            finalDate = Date.getDateFromString(stringDate: chIn, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
+            finalDate = Date.getDateFromString(stringDate: chIn, currentFormat: "yyyy-MM-dd", requiredFormat: "d MMM") ?? ""
         }
         
         if let chOut = viewModel.itineraryData?.hotelDetails?.checkout, !chOut.isEmpty {
-            let txt = Date.getDateFromString(stringDate: chOut, currentFormat: "yyyy-MM-dd", requiredFormat: "dd MMM") ?? ""
+            let txt = Date.getDateFromString(stringDate: chOut, currentFormat: "yyyy-MM-dd", requiredFormat: "d MMM") ?? ""
 
             if finalDate.isEmpty {
                 finalDate = txt
@@ -580,8 +580,24 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
         if newRow < 0 {
             // room data cell
             let totalCount = hotelFormData.adultsCount[indexPath.row] + hotelFormData.childrenCounts[indexPath.row]
-            let constantHeight: CGFloat = 157//((148/375) * self.view.width)
-            return constantHeight * ((totalCount <= 4) ? 1.0 : 2.0) + 0.0
+            var isEmptyText = true
+            for i in stride(from: 0, to: totalCount, by: 1) {
+            if GuestDetailsVM.shared.guests.count > indexPath.row, GuestDetailsVM.shared.guests[indexPath.row].count > i {
+                let object = GuestDetailsVM.shared.guests[indexPath.row][i]
+                if (!object.firstName.isEmpty || !object.lastName.isEmpty) {
+                   isEmptyText = false
+                }
+            }
+            }
+            
+            let constantHeight: CGFloat = isEmptyText ? 140 : 157
+            var extraHeight:CGFloat = 0
+            if isEmptyText {
+                extraHeight = (indexPath.row == hotelFormData.adultsCount.count - 1) ? 16 : 0
+            } else {
+                extraHeight = (indexPath.row == hotelFormData.adultsCount.count - 1) ? 17 : 0
+            }
+            return constantHeight * ((totalCount <= 4) ? 1.0 : 2.0) + extraHeight
         }
         else {
             switch newRow {
