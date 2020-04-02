@@ -989,5 +989,6 @@ enum LocalizedString: String {
     case GetNotifiedAboutYourBookings = "GetNotifiedAboutYourBookings"
     case GetNotifiedAboutYourTripEvents = "GetNotifiedAboutYourTripEvents"
     case GetNotifiedAboutNewOffersAndDeals = "GetNotifiedAboutNewOffersAndDeals"
+    case Ok = "Ok"
     
 }

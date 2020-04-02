@@ -16,25 +16,23 @@ extension CurrencyVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.currencyVm.countries.count
+        return self.currencyVm.currencuesCount
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-          
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CurrencyCell", for: indexPath) as? CurrencyCell else {
                        fatalError("SettingsCell not found")
                }
-        cell.populateData(country: self.currencyVm.countries[indexPath.row], isSelected: self.currencyVm.countries[indexPath.row].countryID != self.currencyVm.selectedCountry.countryID)
+        cell.populateData(country: self.currencyVm.getCurrency(at: indexPath.row), isSelected: !self.currencyVm.isSelectedCountry(index: indexPath.row))
         return cell
       }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.currencyVm.selectedCountry = self.currencyVm.countries[indexPath.row]
+        self.currencyVm.selectCurrency(index: indexPath.row)
         self.currencyTableView.reloadData()
     }
     

@@ -14,7 +14,9 @@ class SettingsCell: UITableViewCell {
     @IBOutlet weak var settingsValueLavel: UILabel!
     @IBOutlet weak var sepratorView: UIView!
     @IBOutlet weak var settingsLabel: UILabel!
-   
+    @IBOutlet weak var `switch`: UISwitch!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -36,12 +38,14 @@ class SettingsCell: UITableViewCell {
     func populateCell(type : SettingsVM.SettingsOptions){
         settingsLabel.text = type.rawValue
         self.settingsValueLavel.isHidden = true
-
+        self.switch.isHidden = true
+       
         switch type {
             
         case .country:
             self.settingsValueLavel.isHidden = false
             self.settingsValueLavel.text = "India"
+        
         case .currency:
             self.settingsValueLavel.isHidden = false
             self.settingsValueLavel.text = "$"
@@ -49,15 +53,14 @@ class SettingsCell: UITableViewCell {
         case .notification:
             self.settingsValueLavel.isHidden = false
             self.settingsValueLavel.text = "All"
+            
+        case .calenderStyle:
+            self.switch.isHidden = false
+            self.arrowImageView.isHidden = true
 
         default:
             self.settingsValueLavel.isHidden = true
 
-            
-            
         }
-        
     }
-    
-    
 }

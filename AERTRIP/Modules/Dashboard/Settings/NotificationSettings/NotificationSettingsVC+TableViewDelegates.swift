@@ -54,7 +54,6 @@ extension NotificationSettingsVC : UITableViewDelegate, UITableViewDataSource {
 //        return nil
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationSettingsCell", for: indexPath) as? NotificationSettingsCell else { fatalError("SettingsCell not found") }

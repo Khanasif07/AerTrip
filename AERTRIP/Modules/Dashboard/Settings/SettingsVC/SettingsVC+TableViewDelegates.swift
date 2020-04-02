@@ -54,6 +54,14 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
         case .notification:
             AppFlowManager.default.moveToNotificationSettingsVC()
 
+        case .aboutUs:
+            AppFlowManager.default.moveToWebViewVC(type: WebViewVM.WebViewType.aboutUs)
+            
+        case .privacyPolicy:
+            AppFlowManager.default.moveToWebViewVC(type: WebViewVM.WebViewType.privacypolicy)
+            
+        case .legal:
+            AppFlowManager.default.moveToWebViewVC(type: WebViewVM.WebViewType.legal)
             
         default:
                 break

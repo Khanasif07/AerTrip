@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C0506CB2435BA0300BC4703 /* WebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0506CA2435BA0300BC4703 /* WebViewVC.swift */; };
+		0C0506CD2435BC4A00BC4703 /* WebViewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0506CC2435BC4A00BC4703 /* WebViewVM.swift */; };
+		0C0506CF2435CEDD00BC4703 /* ATAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0506CE2435CEDC00BC4703 /* ATAlertController.swift */; };
 		0C09BFD42429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09BFD32429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift */; };
 		0C09BFD6242B746500B801BE /* ChatVC+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09BFD5242B746500B801BE /* ChatVC+Animations.swift */; };
 		0C09BFDC242B9A2D00B801BE /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09BFDA242B9A2D00B801BE /* SettingsCell.swift */; };
@@ -1054,6 +1057,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C0506CA2435BA0300BC4703 /* WebViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewVC.swift; sourceTree = "<group>"; };
+		0C0506CC2435BC4A00BC4703 /* WebViewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewVM.swift; sourceTree = "<group>"; };
+		0C0506CE2435CEDC00BC4703 /* ATAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATAlertController.swift; sourceTree = "<group>"; };
 		0C09BFD32429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatVC+CollectionViewDelegates.swift"; sourceTree = "<group>"; };
 		0C09BFD5242B746500B801BE /* ChatVC+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatVC+Animations.swift"; sourceTree = "<group>"; };
 		0C09BFDA242B9A2D00B801BE /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
@@ -2169,6 +2175,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C0506C92435B85700BC4703 /* WebViewVC */ = {
+			isa = PBXGroup;
+			children = (
+				0C0506CA2435BA0300BC4703 /* WebViewVC.swift */,
+				0C0506CC2435BC4A00BC4703 /* WebViewVM.swift */,
+			);
+			path = WebViewVC;
+			sourceTree = "<group>";
+		};
 		0C09BFD9242B99EA00B801BE /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -2210,6 +2225,7 @@
 		0C24D4D9242C74F600CBFF92 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				0C0506C92435B85700BC4703 /* WebViewVC */,
 				0C24D4F6242CE90E00CBFF92 /* NotificationSettings */,
 				0C24D4E2242C750F00CBFF92 /* Country */,
 				0C24D4E1242C750F00CBFF92 /* Currency */,
@@ -4709,6 +4725,7 @@
 		84956FB721B65C4300BF1183 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0C0506CE2435CEDC00BC4703 /* ATAlertController.swift */,
 				849DA81223E2B66500C2E9D8 /* ATCategoryVC */,
 				848D327A225B550B009DB1CE /* ATWebViewVC */,
 				84AD5F2A222D52FC0095EA5D /* ATNotificationButton.swift */,
@@ -6253,6 +6270,7 @@
 				18F968022233BF0400B163C8 /* GrowingTextView.swift in Sources */,
 				84D5F22822A644F600824A9F /* HotelBookingDetailsVC+TableCells.swift in Sources */,
 				849DA81823E2B6DB00C2E9D8 /* ATCategoryNavBar.swift in Sources */,
+				0C0506CF2435CEDD00BC4703 /* ATAlertController.swift in Sources */,
 				84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */,
 				188DFC852318FC530060F9D1 /* PKTapAndCopyUITextView.swift in Sources */,
 				84271E832237A10700C1A70D /* HCDataSelectionVC.swift in Sources */,
@@ -6292,6 +6310,7 @@
 				84F9288F221B305400679349 /* AmenitiesDetailsTableViewCell.swift in Sources */,
 				18FD91442271F0F300269268 /* HCEmailTextFieldCell.swift in Sources */,
 				84791ED722819FE700472E54 /* AccountLadgerDetailsVM.swift in Sources */,
+				0C0506CB2435BA0300BC4703 /* WebViewVC.swift in Sources */,
 				84F983D721B51A070018DFED /* UITableViewExtension.swift in Sources */,
 				18C31F0D2227FFB60052162C /* EmailComposerHeaderView.swift in Sources */,
 				84AB8FC822129B49002C0A66 /* ATGalleryCell.swift in Sources */,
@@ -6547,6 +6566,7 @@
 				8452D37221E6151500927287 /* CoreDataManager.swift in Sources */,
 				84534EAD2248E099009FF536 /* HCBedDetailsTableViewCell.swift in Sources */,
 				84085CE921F59C0E00F1E844 /* CreateYourAccountVM.swift in Sources */,
+				0C0506CD2435BC4A00BC4703 /* WebViewVM.swift in Sources */,
 				84AD5F28222D51F80095EA5D /* PKAlertController.swift in Sources */,
 				8438C17D22045E4C001D510B /* TopNavigationView.swift in Sources */,
 				842EDE762238E7D600E99409 /* HotelDetailsVC.swift in Sources */,

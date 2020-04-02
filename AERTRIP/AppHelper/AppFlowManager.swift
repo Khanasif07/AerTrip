@@ -1046,6 +1046,13 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
+    func moveToWebViewVC(type : WebViewVM.WebViewType){
+           let ob = WebViewVC.instantiate(fromAppStoryboard: .Settings)
+        ob.webViewVm.webViewType = type
+           self.mainNavigationController.pushViewController(ob, animated: true)
+       }
+       
+    
     //MARK:- Settings Screen
     
     func moveToSettingsVC() {

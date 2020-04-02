@@ -46,16 +46,25 @@
                             <constraint firstAttribute="height" constant="30" id="VRP-Cp-DYg"/>
                         </constraints>
                     </imageView>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pcf-4R-85O">
+                        <rect key="frame" x="311" y="29" width="49" height="31"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="47" id="2uC-we-Po3"/>
+                            <constraint firstAttribute="height" constant="31" id="zuX-Gb-Hmx"/>
+                        </constraints>
+                    </switch>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="QVD-Mz-dpm" secondAttribute="trailing" id="4Ad-ae-lKd"/>
                     <constraint firstItem="2rK-W0-t4k" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="5Up-L0-KwU"/>
                     <constraint firstItem="QVD-Mz-dpm" firstAttribute="leading" secondItem="WYF-JO-VSN" secondAttribute="trailing" id="9z7-ow-Ggx"/>
+                    <constraint firstAttribute="trailing" secondItem="pcf-4R-85O" secondAttribute="trailing" constant="16" id="Con-Hw-Vpv"/>
                     <constraint firstAttribute="bottom" secondItem="Q7j-Ax-sAP" secondAttribute="bottom" id="Dw0-et-E9S"/>
                     <constraint firstItem="WYF-JO-VSN" firstAttribute="leading" secondItem="2rK-W0-t4k" secondAttribute="trailing" constant="2" id="Ltg-Zs-cCr"/>
                     <constraint firstItem="WYF-JO-VSN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="VTZ-V4-Zgp"/>
                     <constraint firstItem="QVD-Mz-dpm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Xie-FW-gYC"/>
                     <constraint firstItem="2rK-W0-t4k" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="jGQ-fd-T3M"/>
+                    <constraint firstItem="pcf-4R-85O" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="tbD-9g-PZK"/>
                     <constraint firstAttribute="trailing" secondItem="Q7j-Ax-sAP" secondAttribute="trailing" id="vnN-sO-gAM"/>
                     <constraint firstItem="Q7j-Ax-sAP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="wBN-KS-PgN"/>
                 </constraints>
@@ -66,6 +75,7 @@
                 <outlet property="sepratorView" destination="Q7j-Ax-sAP" id="iav-bz-wd0"/>
                 <outlet property="settingsLabel" destination="2rK-W0-t4k" id="XOy-6j-1dM"/>
                 <outlet property="settingsValueLavel" destination="WYF-JO-VSN" id="QpU-vm-62m"/>
+                <outlet property="switch" destination="pcf-4R-85O" id="y9f-mu-jra"/>
             </connections>
             <point key="canvasLocation" x="176.81159420289856" y="103.45982142857143"/>
         </tableViewCell>

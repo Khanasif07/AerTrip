@@ -17,7 +17,7 @@ extension CountryVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.countryVm.countries.count
+        return self.countryVm.countriesCount
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -31,14 +31,14 @@ extension CountryVC : UITableViewDelegate, UITableViewDataSource {
                        fatalError("SettingsCell not found")
                }
         
-        cell.populateData(country: self.countryVm.countries[indexPath.row], isSelected: self.countryVm.selectedCountry.countryID != self.countryVm.countries[indexPath.row].countryID)
-        
+        cell.populateData(country: self.countryVm.getCountry(at: indexPath.row), isSelected: !self.countryVm.isSelectedCountry(index: indexPath.row))
+                
         return cell
         
       }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.countryVm.selectedCountry = self.countryVm.countries[indexPath.row]
+        self.countryVm.selectCountry(index: indexPath.row)
         self.countryTableView.reloadData()
     }
     

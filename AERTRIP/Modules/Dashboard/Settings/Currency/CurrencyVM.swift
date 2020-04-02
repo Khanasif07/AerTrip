@@ -8,13 +8,81 @@
 
 import Foundation
 
+protocol CurrencyVcDelegate : class {
+    func showUnderDevelopmentPopUp()
+}
+
 class CurrencyVM {
     
-    var countries: [PKCountryModel] = [PKCountryModel]()
-    var selectedCountry = PKCountryModel(json: [:])
+    private var countries: [PKCountryModel] = [PKCountryModel]()
+    private var selectedCountry = PKCountryModel(json: [:])
+    weak var delegate : CurrencyVcDelegate?
+    private var filteredCountries: [PKCountryModel] = [PKCountryModel]()
+    var searchText : String = ""
+    
+    var currencyCount : Int {
+        return getCurrentDaraSource().count
+    }
+    
+    func preSelectIndia(){
+        let india = countries.filter { $0.countryID == 4 }
+        selectedCountry = india.first ?? PKCountryModel(json: [:])
+    }
     
     func getCountries() {
         countries = PKCountryPicker.default.getAllCountries().filter { !$0.currencySymbol.isEmpty }
+    }
+    
+    func selectCountry(index : Int){
+        if self.countries[index].countryID != 93 {
+            self.delegate?.showUnderDevelopmentPopUp()
+            return
+        }
+        self.selectedCountry = self.getCurrentDaraSource()[index]
+    }
+    
+    func getCurrentDaraSource() -> [PKCountryModel] {
+        return self.searchText.isEmpty ? countries : filteredCountries
+    }
+    
+    func getCountry(at index : Int) -> PKCountryModel {
+        return getCurrentDaraSource()[index]
+    }
+    
+    func isSelectedCountry(index : Int) -> Bool {
+        return getCurrentDaraSource()[index].countryID == selectedCountry.countryID
+    }
+    
+    func clearFilteredData(){
+        self.filteredCountries.removeAll()
+    }
+    
+    func filterCountries(txt : String) {
+        self.filteredCountries = self.countries.filter { (obj) -> Bool in
+            
+            let currencyName = obj.currencyName.lowercased()
+            let currencyNameArray = currencyName.split(separator: " ")
+            
+            for item in currencyNameArray{
+                return item.starts(with: txt.lowercased())
+            }
+            
+            let currencyCode = obj.currencyCode.lowercased()
+            let currencyCodeArray = currencyCode.split(separator: " ")
+            
+            for item in currencyCodeArray {
+                return item.starts(with: txt.lowercased())
+            }
+            
+            let currencySymbol = obj.currencySymbol.lowercased()
+            let currencySymbolArray = currencySymbol.split(separator: " ")
+            
+            for item in currencySymbolArray {
+                return item.starts(with: txt.lowercased())
+            }
+            
+            return false
+        }
     }
     
 }
