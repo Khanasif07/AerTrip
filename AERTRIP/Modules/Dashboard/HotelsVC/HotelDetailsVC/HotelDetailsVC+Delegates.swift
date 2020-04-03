@@ -241,7 +241,11 @@ extension HotelDetailsVC: HotelDetailDelegate {
 //==========================
 extension HotelDetailsVC {
     func manageHeaderView() {
+        guard hotelTableView.isDragging else {return}
         let yOffset = self.hotelTableView.contentOffset.y
+        printDebug("yOffset \(yOffset)")
+        printDebug("headerView.height \(headerView.height)")
+
         if (hotelImageHeight - headerView.height) < yOffset {
             //show
             self.headerView.navTitleLabel.text = self.viewModel.hotelInfo?.hotelName
@@ -382,7 +386,7 @@ extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
             }else {
                 AppFlowManager.default.popToViewController(sSelf, animated: true)
             }
-            AppFlowManager.default.selectTrip(nil, tripType: .hotel) { (trip, details)  in
+            AppFlowManager.default.selectTrip(nil, tripType: .bookingAddToTrip) { (trip, details)  in
                 delay(seconds: 0.3, completion: { [weak self] in
                     guard let sSelf = self else {return}
                     
