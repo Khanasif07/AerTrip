@@ -17,7 +17,7 @@ class HCDataSelectionRoomDetailCell: UITableViewCell {
     
     private(set) var forIndex: IndexPath?
     private let hotelFormData = HotelsSearchVM.hotelFormData
-    
+    private var lineSpacing: CGFloat = 5
     // Mark:- LifeCycles
     // Mark:-
     override func awakeFromNib() {
@@ -41,6 +41,17 @@ class HCDataSelectionRoomDetailCell: UITableViewCell {
     func configData(forIndexPath idxPath: IndexPath) {
         forIndex = idxPath
         roomNumberLabel.text = LocalizedString.Room.localized + " \(idxPath.row + 1)"
+        let totalCount = hotelFormData.adultsCount[idxPath.row] + hotelFormData.childrenCounts[idxPath.row]
+        var isEmptyText = true
+        for i in stride(from: 0, to: 3, by: 1) {
+        if GuestDetailsVM.shared.guests.count > idxPath.row, GuestDetailsVM.shared.guests[idxPath.row].count > i {
+            let object = GuestDetailsVM.shared.guests[idxPath.row][i]
+            if (!object.firstName.isEmpty || !object.lastName.isEmpty) {
+               isEmptyText = false
+            }
+        }
+        }
+        lineSpacing = isEmptyText ? 12 : 5
         collectionView.reloadData()
     }
     
@@ -76,7 +87,7 @@ extension HCDataSelectionRoomDetailCell: UICollectionViewDataSource, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 5.0
+        return lineSpacing
     }
 
     

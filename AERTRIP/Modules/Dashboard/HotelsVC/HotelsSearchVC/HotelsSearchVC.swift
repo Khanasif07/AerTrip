@@ -16,8 +16,8 @@ class HotelsSearchVC: BaseVC {
     internal var checkInOutView: CheckInOutView?
     internal var recentSearchesView: RecentHotelSearcheView?
     private var previousOffSet = CGPoint.zero
-    private var collectionViewHeight: CGFloat = 85.0
-    private var containerViewHeight: CGFloat = 429.0
+    private var collectionViewHeight: CGFloat = 86.0
+    private var containerViewHeight: CGFloat = 422.0
     private var scrollViewContentSize: CGSize = CGSize.zero
     private var recentSearchHeight: CGFloat = 162.0
     private var addRoomPicIndex: IndexPath?
@@ -317,7 +317,11 @@ class HotelsSearchVC: BaseVC {
         }
         
         //set selected city
+        if self.viewModel.searchedFormData.destType.lowercased() == "hotel" {
+        self.cityNameLabel.text = self.viewModel.searchedFormData.destName
+        } else {
         self.cityNameLabel.text = self.viewModel.searchedFormData.cityName
+        }
         self.stateNameLabel.text = self.viewModel.searchedFormData.stateName
         self.updateAddressTextForHotelNearMe()
         self.manageAddressLabels()
@@ -771,7 +775,12 @@ extension HotelsSearchVC: RoomGuestSelectionVCDelegate {
 extension HotelsSearchVC: SelectDestinationVCDelegate {
     func didSelectedDestination(hotel: SearchedDestination) {
         printDebug("selected: \(hotel)")
-        if !hotel.city.isEmpty {
+        if hotel.dest_type.lowercased() == "hotel" {
+            self.cityNameLabel.text = hotel.dest_name
+            self.viewModel.searchedFormData.cityName = hotel.city
+            self.viewModel.searchedFormData.lat = hotel.latitude
+            self.viewModel.searchedFormData.lng = hotel.longitude
+        }else if !hotel.city.isEmpty {
             self.cityNameLabel.text = hotel.city
             self.viewModel.searchedFormData.cityName = hotel.city
             self.viewModel.searchedFormData.lat = hotel.latitude

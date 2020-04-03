@@ -17,6 +17,8 @@ class HCDataSelectionVC: BaseVC {
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var tableView: ATTableView!
     @IBOutlet weak var continueContainerView: UIView!
+    @IBOutlet weak var continueGradientView: UIView!
+    @IBOutlet weak var continueViewBottomConstraint: NSLayoutConstraint!
     
     // continue
     @IBOutlet weak var fareDetailContainerView: UIView!
@@ -75,8 +77,8 @@ class HCDataSelectionVC: BaseVC {
         configureHotelCheckOutDetailsVIew()
         animateFareDetails(isHidden: true, animated: false)
         
-        continueContainerView.addGredient(isVertical: false)
-        
+        continueContainerView.backgroundColor = .clear
+        continueGradientView.addGredient(isVertical: false)
         viewModel.fetchConfirmItineraryData()
         fillData()
         
@@ -275,10 +277,10 @@ class HCDataSelectionVC: BaseVC {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else { return }
 //            sSelf.fareDetailContainerView.transform = isHidden ? CGAffineTransform(translationX: 0, y: -(sSelf.fareDetailContainerView.height)) : CGAffineTransform(translationX: 0, y: 0)
-            let safeDistance:CGFloat = (UIDevice.isIPhoneX) ? 20.0 :  0.0
+            let safeDistance:CGFloat = AppFlowManager.default.safeAreaInsets.bottom
             sSelf.fareDetailBottomConstraint.constant = isHidden ? -(sSelf.fareDetailContainerView.height) : safeDistance
             sSelf.upArrowImageView.transform = rotateTrans
-            
+            sSelf.continueViewBottomConstraint.constant = isHidden ? safeDistance : 0
             sSelf.view.layoutIfNeeded()
             
         }, completion: { [weak self] _ in
@@ -597,7 +599,28 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 extraHeight = (indexPath.row == hotelFormData.adultsCount.count - 1) ? 17 : 0
             }
-            return constantHeight * ((totalCount <= 4) ? 1.0 : 2.0) + extraHeight
+            if (totalCount <= 4)  {
+                return constantHeight * ((totalCount <= 4) ? 1.0 : 2.0) + extraHeight
+            } else {
+                var isEmptyText = true
+                for i in stride(from: 4, to: totalCount, by: 1) {
+                if GuestDetailsVM.shared.guests.count > indexPath.row, GuestDetailsVM.shared.guests[indexPath.row].count > i {
+                    let object = GuestDetailsVM.shared.guests[indexPath.row][i]
+                    if (!object.firstName.isEmpty || !object.lastName.isEmpty) {
+                       isEmptyText = false
+                    }
+                }
+                }
+                if isEmptyText {
+                    extraHeight = (indexPath.row == hotelFormData.adultsCount.count - 1) ? 16 : 0
+                    let height = constantHeight + 111
+                    return height + extraHeight
+
+                } else {
+                    return constantHeight * ((totalCount <= 4) ? 1.0 : 2.0) + extraHeight
+                }
+            }
+            
         }
         else {
             switch newRow {
