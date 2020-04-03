@@ -49,7 +49,7 @@ class RoomGuestSelectionVC: BaseVC {
         return 420.0 + AppFlowManager.default.safeAreaInsets.bottom
     }
     private var mainContainerHeight: CGFloat = 0.0
-    
+    var viewTranslation = CGPoint(x: 0, y: 0)
     //MARK:- ViewLifeCycle
     //====================
     override func viewDidLoad() {
@@ -446,34 +446,44 @@ extension RoomGuestSelectionVC: UIPickerViewDelegate, UIPickerViewDataSource {
 extension RoomGuestSelectionVC {
     //Handle Swipe Gesture
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-        let touchPoint = sender.location(in: self.headerView?.window)
-        let velocity = sender.velocity(in: self.headerView)
-        print(velocity)
+        printDebug("sender.state.rawValue: \(sender.state.rawValue)")
+        func reset() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.mainContainerView.transform = .identity
+            })
+        }
+        
+        func moveView() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.mainContainerView.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+            })
+        }
+        
+        guard let direction = sender.direction, direction.isVertical, direction == .down
+            else {
+                printDebug("sender.direction: \(sender.direction)")
+            reset()
+            return
+        }
+        printDebug("direction: \(direction)")
         switch sender.state {
-        case .possible:
-            print(sender.state)
-        case .began:
-            self.initialTouchPoint = touchPoint
         case .changed:
-            let touchPointDiffY = initialTouchPoint.y - touchPoint.y
-            print(touchPointDiffY)
-            if  touchPoint.y > 0.0 {
-                if touchPointDiffY > 0 {
-                    self.mainContainerBottomConstraints.constant = -( UIScreen.main.bounds.height) + touchPointDiffY
-                }
-                else {
-                    self.mainContainerBottomConstraints.constant = touchPointDiffY
-                }
+            viewTranslation = sender.translation(in: self.mainContainerView)
+            moveView()
+        case .ended:
+            if viewTranslation.y < self.mainContainerView.height/2 {
+                reset()
+            } else {
+                closeBottomSheet()
             }
         case .cancelled:
-            print(sender.state)
-        case .ended:
-            print(sender.state)
-            panGestureFinalAnimation(velocity: velocity,touchPoint: touchPoint)
+            reset()
         case .failed:
-            print(sender.state)
-            
+            reset()
+        default:
+            break
         }
+        printDebug("viewTranslation: \(viewTranslation)")
     }
     
     

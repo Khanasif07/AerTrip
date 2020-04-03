@@ -47,7 +47,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 Aug" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnt-2q-YBA">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 Apr" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnt-2q-YBA">
                                             <rect key="frame" x="0.0" y="18.5" width="80" height="30"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <nil key="textColor"/>
@@ -91,7 +91,7 @@
                             <rect key="frame" x="195" y="0.0" width="180" height="104"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="-1" translatesAutoresizingMaskIntoConstraints="NO" id="0Rx-xP-rRh">
-                                    <rect key="frame" x="50.5" y="18.5" width="79" height="67"/>
+                                    <rect key="frame" x="50.5" y="19.5" width="79" height="67"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check-out" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rjb-L0-GXv">
                                             <rect key="frame" x="0.0" y="0.0" width="79" height="19.5"/>
@@ -99,7 +99,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 Sep" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYY-yl-qEv">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 May" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYY-yl-qEv">
                                             <rect key="frame" x="0.0" y="18.5" width="79" height="30"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <nil key="textColor"/>
@@ -132,7 +132,7 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="0Rx-xP-rRh" firstAttribute="centerX" secondItem="E9k-H6-qiC" secondAttribute="centerX" id="Lc4-ck-eSX"/>
-                                <constraint firstItem="0Rx-xP-rRh" firstAttribute="centerY" secondItem="E9k-H6-qiC" secondAttribute="centerY" id="PEQ-l3-Dhd"/>
+                                <constraint firstItem="0Rx-xP-rRh" firstAttribute="centerY" secondItem="E9k-H6-qiC" secondAttribute="centerY" constant="1" id="PEQ-l3-Dhd"/>
                                 <constraint firstAttribute="bottom" secondItem="n8X-oV-72R" secondAttribute="bottom" id="Qo1-XN-0Dv"/>
                                 <constraint firstAttribute="trailing" secondItem="n8X-oV-72R" secondAttribute="trailing" id="Sux-g4-VdI"/>
                                 <constraint firstItem="n8X-oV-72R" firstAttribute="top" secondItem="E9k-H6-qiC" secondAttribute="top" id="hOR-Yl-IkL"/>

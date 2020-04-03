@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -305,6 +305,10 @@
                                     <constraint firstAttribute="height" id="29z-nN-UnY"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MBG-cE-VPm">
+                                <rect key="frame" x="0.0" y="527" width="375" height="140"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ppY-MC-9bt">
                                 <rect key="frame" x="0.0" y="527" width="375" height="50"/>
                                 <subviews>
@@ -463,9 +467,11 @@
                             <constraint firstItem="ffZ-xz-8YE" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="7xd-lw-0Hd"/>
                             <constraint firstItem="pDs-Hh-dQp" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="9Pl-Yz-GTl"/>
                             <constraint firstItem="cUJ-iR-Ql8" firstAttribute="leading" secondItem="pDs-Hh-dQp" secondAttribute="leading" id="Ff9-lJ-Xc4"/>
+                            <constraint firstItem="ppY-MC-9bt" firstAttribute="leading" secondItem="MBG-cE-VPm" secondAttribute="leading" id="GK6-5t-Mtb"/>
                             <constraint firstItem="fLI-xY-h1k" firstAttribute="centerX" secondItem="qGC-DP-rgu" secondAttribute="centerX" id="HId-cg-W7A"/>
                             <constraint firstItem="fLI-xY-h1k" firstAttribute="centerY" secondItem="qGC-DP-rgu" secondAttribute="centerY" id="JQP-H5-EWI"/>
                             <constraint firstItem="cUJ-iR-Ql8" firstAttribute="bottom" secondItem="ppY-MC-9bt" secondAttribute="bottom" id="KKc-xw-hQ9"/>
+                            <constraint firstItem="ppY-MC-9bt" firstAttribute="top" secondItem="MBG-cE-VPm" secondAttribute="top" id="LsF-ib-55r"/>
                             <constraint firstItem="3bH-R8-FdX" firstAttribute="leading" secondItem="ppY-MC-9bt" secondAttribute="leading" id="MLX-dr-3WG"/>
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="trailing" secondItem="ffZ-xz-8YE" secondAttribute="trailing" id="MyW-Re-Wik"/>
                             <constraint firstItem="ppY-MC-9bt" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="Nhf-aN-4ut"/>
@@ -473,9 +479,11 @@
                             <constraint firstAttribute="bottom" secondItem="zMl-TE-dRQ" secondAttribute="bottom" id="RCf-rf-KB5"/>
                             <constraint firstItem="zMl-TE-dRQ" firstAttribute="top" secondItem="ppY-MC-9bt" secondAttribute="bottom" id="UVz-Jr-Qoz"/>
                             <constraint firstItem="pDs-Hh-dQp" firstAttribute="top" secondItem="ffZ-xz-8YE" secondAttribute="bottom" id="VbY-KC-ZB0"/>
+                            <constraint firstItem="ppY-MC-9bt" firstAttribute="trailing" secondItem="MBG-cE-VPm" secondAttribute="trailing" id="aHs-r6-bGS"/>
                             <constraint firstItem="cUJ-iR-Ql8" firstAttribute="top" secondItem="pDs-Hh-dQp" secondAttribute="top" id="cyD-jk-S7l"/>
                             <constraint firstItem="bXX-Jv-Wqc" firstAttribute="top" secondItem="qGC-DP-rgu" secondAttribute="top" id="ljZ-aS-cxI"/>
                             <constraint firstItem="ppY-MC-9bt" firstAttribute="top" secondItem="3bH-R8-FdX" secondAttribute="bottom" id="oe1-1I-8Pk"/>
+                            <constraint firstAttribute="bottom" secondItem="MBG-cE-VPm" secondAttribute="bottom" id="ozE-DY-P7n"/>
                             <constraint firstItem="qGC-DP-rgu" firstAttribute="trailing" secondItem="zMl-TE-dRQ" secondAttribute="trailing" id="wlJ-ud-Cvi"/>
                             <constraint firstItem="bXX-Jv-Wqc" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="xDG-ow-6vT"/>
                             <constraint firstItem="zMl-TE-dRQ" firstAttribute="leading" secondItem="qGC-DP-rgu" secondAttribute="leading" id="zUA-yo-GjA"/>
@@ -488,6 +496,8 @@
                         <outlet property="continueButton" destination="RIu-DD-UtY" id="JuK-5t-FOx"/>
                         <outlet property="continueButtonActivityIndicator" destination="BMx-Iy-bhO" id="SLv-cq-icc"/>
                         <outlet property="continueContainerView" destination="ppY-MC-9bt" id="VAu-5f-jOJ"/>
+                        <outlet property="continueGradientView" destination="MBG-cE-VPm" id="myn-b8-wDk"/>
+                        <outlet property="continueViewBottomConstraint" destination="UVz-Jr-Qoz" id="KgV-K6-HdP"/>
                         <outlet property="detailsButton" destination="8MW-fv-lmw" id="r4O-qj-YBo"/>
                         <outlet property="fareBreakupTitleLabel" destination="R1w-5H-hFM" id="PK2-DG-nBT"/>
                         <outlet property="fareDetailBottomConstraint" destination="RCf-rf-KB5" id="dtX-cV-aPE"/>
