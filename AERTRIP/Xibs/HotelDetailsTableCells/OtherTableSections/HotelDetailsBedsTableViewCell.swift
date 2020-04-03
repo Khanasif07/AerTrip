@@ -40,6 +40,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
         }
     }
     @IBOutlet weak var dropDownStackView: UIStackView!
+    @IBOutlet weak var shadowViewTopConstraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================
@@ -157,6 +158,7 @@ class HotelDetailsBedsTableViewCell: UITableViewCell {
     }
     
     internal func showHideSetUp(cornerRaduis: CGFloat, bookmarkBtnHidden: Bool, dividerViewHidden: Bool) {
+        self.shadowViewTopConstraint.constant = (cornerRaduis == 0.0) ? 0.0 : 8.0
         self.containerView.roundTopCorners(cornerRadius: cornerRaduis)
         self.bookmarkButtonOutlet.isHidden = bookmarkBtnHidden
         self.deviderView.isHidden = dividerViewHidden

@@ -16,17 +16,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CustomMarker" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="66" height="47"/>
+            <rect key="frame" x="0.0" y="0.0" width="75" height="47"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y9O-wj-yxX">
-                    <rect key="frame" x="0.0" y="0.0" width="66" height="47"/>
+                    <rect key="frame" x="0.0" y="0.0" width="75" height="47"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pWE-ga-fhZ">
-                            <rect key="frame" x="0.0" y="0.0" width="66" height="27"/>
+                            <rect key="frame" x="0.0" y="0.0" width="75" height="27"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fqe-kI-xbz">
-                                    <rect key="frame" x="0.0" y="5" width="66" height="17"/>
+                                    <rect key="frame" x="0.0" y="5" width="75" height="17"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                                     <nil key="textColor"/>
@@ -43,14 +43,14 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VqL-7u-ZGq">
-                            <rect key="frame" x="32.5" y="27" width="1" height="10"/>
+                            <rect key="frame" x="37" y="27" width="1" height="10"/>
                             <color key="backgroundColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="IHc-4b-o7i"/>
                             </constraints>
                         </view>
                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clusterSmallTag" translatesAutoresizingMaskIntoConstraints="NO" id="BaY-fR-KX4">
-                            <rect key="frame" x="25.5" y="32" width="15" height="15"/>
+                            <rect key="frame" x="30" y="32" width="15" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="15" id="55c-cA-g6V"/>
                                 <constraint firstAttribute="width" constant="15" id="ngm-SK-vBc"/>
@@ -85,7 +85,7 @@
                 <outlet property="priceLabel" destination="Fqe-kI-xbz" id="KnP-v9-hhd"/>
                 <outlet property="priceView" destination="pWE-ga-fhZ" id="HDm-TI-erd"/>
             </connections>
-            <point key="canvasLocation" x="129.59999999999999" y="152.47376311844079"/>
+            <point key="canvasLocation" x="-349" y="9"/>
         </view>
     </objects>
     <resources>

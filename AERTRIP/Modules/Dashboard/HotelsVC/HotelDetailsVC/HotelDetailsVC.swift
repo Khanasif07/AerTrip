@@ -161,7 +161,7 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
         super.viewWillAppear(animated)
         if needToChnageNavigationY{
             self.navigationController?.view?.subviews.first?.frame.size.height = self.currentViewHeight
-            self.navigationController?.view?.subviews.first?.frame.origin.y = -1
+            self.navigationController?.view?.subviews.first?.frame.origin.y = 0
             self.navigationController?.view.setNeedsDisplay()
             needToChnageNavigationY = false
             

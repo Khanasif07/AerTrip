@@ -141,9 +141,9 @@ class HCDataSelectionVC: BaseVC {
     }
     
     func setUpIndicatorView() {
-              self.mainIndicatorView.isHidden = true
-               self.mainIndicatorView.style = .whiteLarge
-               self.mainIndicatorView.color = AppColors.themeGreen
+        self.mainIndicatorView.isHidden = true
+        self.mainIndicatorView.style = .whiteLarge
+        self.mainIndicatorView.color = AppColors.themeGreen
     }
     override func setupColors() {
         // continue button

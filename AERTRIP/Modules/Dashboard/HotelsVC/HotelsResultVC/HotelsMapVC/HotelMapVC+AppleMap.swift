@@ -29,8 +29,12 @@ extension HotelsMapVC : MKMapViewDelegate{
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
 //        self.updateRegionMarker()
     }
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        self.moveLegalLabel()
+    }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        self.moveLegalLabel()
         self.updateRegionMarker()
         self.hideUnhideCurrentLocationBtn()
     }
@@ -50,6 +54,31 @@ extension HotelsMapVC : MKMapViewDelegate{
         self.appleMap.addGestureRecognizer(tapInterceptor)
         
         
+    }
+    
+    
+    func moveLegalLabel() {
+        if self.appleMap.subviews.count > 2 && !isMapInFullView{
+            let mapLogoView: UIView = self.appleMap.subviews[1]
+            let legalLabel: UIView = self.appleMap.subviews[2]
+            UIView.animateKeyframes(withDuration: 0.6, delay: 0.0, options: .calculationModeLinear, animations: {
+                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3) {
+                    legalLabel.frame.origin.x = UIScreen.main.bounds.width/2 + 26
+                }
+                UIView.addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 0.3) {
+                    mapLogoView.frame.origin.x = UIScreen.main.bounds.width/2 - 50
+                }
+            })
+            
+        }else if self.appleMap.subviews.count > 1 && !isMapInFullView{// IOS12 and lower devices.
+            let legalLabel: UIView = self.appleMap.subviews[1]
+            UIView.animateKeyframes(withDuration: 0.3, delay: 0.0, options: .calculationModeLinear, animations: {
+                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3) {
+                    legalLabel.frame.origin.x = UIScreen.main.bounds.width/2 - 14
+                }
+                
+            })
+        }
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
@@ -195,7 +224,7 @@ extension HotelsMapVC : MKMapViewDelegate{
         }
 //        self.appleMap.deselectAnnotation(anno, animated: false)
         self.setRegionToShow(location: anno.coordinate)
-//        updateRegionMarker()
+        updateRegionMarker()
         if isTappedMarker{
             if anno.markerType == .customMarker{
                 if let data = anno.hotel {

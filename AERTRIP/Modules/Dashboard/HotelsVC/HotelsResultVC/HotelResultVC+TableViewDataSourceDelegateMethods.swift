@@ -78,7 +78,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if tableView === hotelSearchTableView {
-            return 0.5
+            return (self.viewModel.searchedHotels.count != 0) ? 0.5 : 0
         }
         else {
            return  section == 0 ?  0 :  53.0
@@ -89,7 +89,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         if tableView === hotelSearchTableView {
             let headerView = ATDividerView()
             headerView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 0.5)
-            return headerView
+            return (self.viewModel.searchedHotels.count != 0) ? headerView : nil
         }
         else {
             guard let hView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HotelResultSectionHeader") as? HotelResultSectionHeader else {

@@ -123,6 +123,7 @@
                 <outlet property="dropDownStackView" destination="OtQ-BV-2ab" id="u2o-Ep-agt"/>
                 <outlet property="dropDownTextField" destination="vvK-iQ-UYY" id="iw7-0K-7C1"/>
                 <outlet property="shadowView" destination="2wt-mY-hTS" id="k5o-Zw-qnR"/>
+                <outlet property="shadowViewTopConstraint" destination="ExZ-kU-pkz" id="6Fz-Yu-Tvl"/>
             </connections>
             <point key="canvasLocation" x="138" y="154"/>
         </tableViewCell>

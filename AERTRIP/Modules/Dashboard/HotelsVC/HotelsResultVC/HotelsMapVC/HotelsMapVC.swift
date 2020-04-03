@@ -118,7 +118,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     let thresholdZoomLabel: Float = 14.0
     var prevZoomLabel: Float = 1.0
     var markersOnLocations: JSONDictionary = JSONDictionary()
-    var maxVisblePriceMarker = 5
+    var maxVisblePriceMarker = 6
     // Request and View Type
     var visualEffectView : UIVisualEffectView!
     var backView : UIView!

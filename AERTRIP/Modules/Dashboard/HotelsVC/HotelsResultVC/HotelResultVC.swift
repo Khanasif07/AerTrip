@@ -178,7 +178,7 @@ class HotelResultVC: StatusBarAnimatableViewController {
     
     override func initialSetup() {
         self.view.layoutIfNeeded()
-        
+        mapButtonIndicator.tintColor = AppColors.themeGreen
         self.filterCollectionView.isUserInteractionEnabled = false
 //        self.filterButton.isEnabled = false
 //        self.mapButton.isEnabled = false
@@ -188,7 +188,7 @@ class HotelResultVC: StatusBarAnimatableViewController {
         self.searchButton.isUserInteractionEnabled = false
         //self.floatingButtonBackView.addGredient(colors: [AppColors.themeWhite.withAlphaComponent(0.01), AppColors.themeWhite])
         self.hotelSearchTableView.showsVerticalScrollIndicator = true
-        self.searchButton.imageEdgeInsets = UIEdgeInsets(top: 3, left: 5, bottom: 0, right: 0)
+        self.searchButton.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 0, right: 0)
         self.view.backgroundColor = AppColors.themeWhite
         
         self.initialSetups()
@@ -262,6 +262,7 @@ class HotelResultVC: StatusBarAnimatableViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        self.mapButton.alpha = 1.0
         self.mapButtonIndicator.stopAnimating()
     }
     
@@ -473,10 +474,12 @@ class HotelResultVC: StatusBarAnimatableViewController {
     }
     
     @IBAction func mapButtonAction(_ sender: Any) {
+        self.mapButtonIndicator.isHidden = false
+        self.mapButton.alpha = 0.5
         self.mapButtonIndicator.startAnimating()
-//        delay(seconds: 0.1) {
+        delay(seconds: 0.1) {
             AppFlowManager.default.moveToHotelsResultMapVC(viewModel: self.viewModel)
-//        }
+        }
     }
     
     @IBAction func unPinAllFavouriteButtonTapped(_ sender: Any) {
