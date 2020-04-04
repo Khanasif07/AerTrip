@@ -32,6 +32,7 @@ class HCDataHotelRatingInfoTableViewCell:UITableViewCell {
     //================
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = .none
         self.configureUI()
     }
     

@@ -105,9 +105,7 @@ class HCDataSelectionVC: BaseVC {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
-//            CGRect(x: 0.0, y: AppFlowManager.default.safeAreaInsets.top, width: hotelCheckOutDetailsContainerVIew.width, height: hotelCheckOutDetailsContainerVIew.bounds.height - AppFlowManager.default.safeAreaInsets.top)
-
-            hotelCheckOutDetailsVIew.frame = CGRect(x: 0.0, y: AppFlowManager.default.safeAreaInsets.top, width: hotelCheckOutDetailsContainerVIew.width, height: hotelCheckOutDetailsContainerVIew.bounds.height)
+            hotelCheckOutDetailsVIew.frame = CGRect(x: 0.0, y: AppFlowManager.default.safeAreaInsets.top, width: hotelCheckOutDetailsContainerVIew.width, height: hotelCheckOutDetailsContainerVIew.bounds.height - AppFlowManager.default.safeAreaInsets.top)
         }
     }
     
@@ -687,6 +685,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                     return UITableViewCell()
                 }
                 cell.configureData(prefrenceNames: self.viewModel.selectedRequestsName, request: self.viewModel.specialRequest, other: self.viewModel.other)
+                cell.titleLabel.font = AppFonts.Regular.withSize(18)
                 return cell
                 
             case 3:

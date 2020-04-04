@@ -81,7 +81,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             return (self.viewModel.searchedHotels.count != 0) ? 0.5 : 0
         }
         else {
-           return  section == 0 ?  0 :  53.0
+            return  self.getHeightForResult(section: section)//section == 0 ?  0 :  53.0
         }
     }
     
@@ -98,6 +98,11 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             
             hView.titleLabel.text = self.getSectionTitle(forSection: section)
             hView.titleLabelWidthConstraint.constant = hView.titleLabel.intrinsicContentSize.width + 16
+            
+            if section == 0{
+                hView.labelCenterConstraint.constant = -10
+            }
+            
             return hView
         }
     }
@@ -205,6 +210,14 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
 
             }
         }
+    }
+    ///Uncomment commented line when "Beyond 20km" label need to show.
+    func getHeightForResult(section:Int)->CGFloat{
+//        if HotelFilterVM.shared.sortUsing == .DistanceNearestFirst(ascending: false){
+//            return (section == 0) ? 30 : 53
+//        }else{
+            return (section == 0) ? 0 : 53
+//        }
     }
     
     //--------------------------- Golu Change ---------------------

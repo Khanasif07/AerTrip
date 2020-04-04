@@ -381,12 +381,12 @@ class RoomGuestSelectionVC: BaseVC {
             if (tag + self.viewModel.selectedChilds) >= self.viewModel.maxGuest {
                 tag = (self.viewModel.maxGuest - self.viewModel.selectedChilds)
             }
-            self.viewModel.selectedAdults = tag
+            // need to remove unselect on tap of selected uncomment comment logic
+//            self.viewModel.selectedAdults = tag
+            self.viewModel.selectedAdults = (self.viewModel.selectedAdults == tag) ? (tag - 1) : tag
             self.updateSelection(needToChangePickerViewHeight: false)
         }
         self.checkForMaximumGuest()
-        
-        
     }
     
     @IBAction func childrenButtonsAction(_ sender: ATGuestButton) {
