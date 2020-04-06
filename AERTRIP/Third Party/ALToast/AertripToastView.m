@@ -6,6 +6,7 @@
 
 // Set visibility duration
 static const CGFloat kDuration = 3;
+static const CGFloat kButtonViewDuration = 5;
 
 
 // Static toastview queue variable
@@ -22,7 +23,7 @@ static NSMutableArray *toasts;
 @property (nonatomic, readonly) UIVisualEffectView * backgroundBlurEffectView;
 
 - (void)fadeToastOut;
-+ (void)ShowToastInView:(UIView *)parentView;
++ (void)ShowToastInView:(UIView *)parentView withDuration:(CGFloat) duration;
 
 @end
 
@@ -196,15 +197,20 @@ static NSMutableArray *toasts;
     labelFrame.size.width = pWidth -  64 - (view.button.frame.size.width);
     view.textLabel.frame = labelFrame;
     
+    CGFloat duration = kDuration;
+    if (buttonTitle != nil) {
+        duration = kButtonViewDuration;
+    }
+    
     if (toasts == nil) {
         toasts = [[NSMutableArray alloc] initWithCapacity:1];
         [toasts addObject:view];
-        [AertripToastView ShowToastInView:parentView];
+        [AertripToastView ShowToastInView:parentView withDuration:duration];
     }
     else {
         [toasts addObject:view];
         // nitin change
-        [AertripToastView ShowToastInView:parentView];
+        [AertripToastView ShowToastInView:parentView withDuration:duration];
     }
     
     view.userInteractionEnabled = YES;
@@ -252,7 +258,7 @@ static NSMutableArray *toasts;
 
 
 
-+ (void)ShowToastInView:(UIView *)parentView {
++ (void)ShowToastInView:(UIView *)parentView withDuration:(CGFloat) duration {
     if ([toasts count] > 0) {
         AertripToastView *view = [toasts objectAtIndex:0];
         
@@ -270,7 +276,7 @@ static NSMutableArray *toasts;
         } completion:^(BOOL finished){}];
         
         // Start timer for fade out
-        [view performSelector:@selector(fadeToastOut) withObject:nil afterDelay:kDuration];
+        [view performSelector:@selector(fadeToastOut) withObject:nil afterDelay:duration];
     }
 }
 

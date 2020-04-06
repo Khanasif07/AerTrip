@@ -571,9 +571,12 @@ extension BulkBookingVC: BulkBookingVMDelegate {
         if let font = self.searchButtonOutlet.titleLabel?.font {
             config.textFont = font
         }
+        let point = searchButtonOutlet.convert(searchButtonOutlet.frame.origin, to: self.mainContainerView)
+        let y = self.view.height - (point.y + config.buttonHeight)
         config.width = self.searchButtonOutlet.width
-        
+        config.spaceFromBottom = y
         AppFlowManager.default.showBulkEnquiryVC(buttonConfig: config)
+        return
     }
     
     func bulkBookingEnquiryFail(errors:ErrorCodes) {

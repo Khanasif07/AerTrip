@@ -25,6 +25,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
         var isGradient: Bool = true
         var cornerRadius: CGFloat = 0.0
         var spaceFromBottom: CGFloat = 22.5
+        let buttonHeight: CGFloat = 62.0
     }
     
     enum UsingFor {
@@ -205,7 +206,6 @@ class BulkEnquirySuccessfulVC: BaseVC {
         self.searchBtnOutlet.setImage(nil, for: .normal)
         let reScaleFrame = CGRect(x: (self.containerView.width - 62.0) / 2.0, y: self.searchBtnOutlet.y, width: 62.0, height: 62.0)
         self.searchBtnOutlet.translatesAutoresizingMaskIntoConstraints = true
-        
         UIView.animate(withDuration: AppConstants.kAnimationDuration / 4.0, animations: {
             self.searchBtnOutlet.frame = reScaleFrame
             self.searchBtnOutlet.myCornerRadius = reScaleFrame.height / 2.0
@@ -214,12 +214,14 @@ class BulkEnquirySuccessfulVC: BaseVC {
         }) { (isCompleted) in
             self.searchBtnOutlet.layer.cornerRadius = reScaleFrame.height / 2.0
             let yPerSafeArea = self.mainTitleLabel.frame.origin.y + self.view.safeAreaInsets.bottom + 26.0 + 5
-            let y = self.containerView.height - 115 - 62 - 11
+            var y = ((self.containerView.height) / 2.0) + self.mainTitleLabel.frame.origin.y
+            y = y - (115 + 62 + 11)
+            y = self.mainTitleLabel.frame.origin.y + (115 + 24 + 11)  - self.view.safeAreaInsets.bottom
             let tY: CGFloat
 //            if UIDevice.isIPhoneX {
 //                tY = (((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y)
 //            } else {
-                tY = (((self.view.frame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y + 15.0)
+                tY = (((self.containerView.height) / 2.0) - self.searchBtnOutlet.frame.origin.y + 15.0)
 //            }
             //- yPerSafeArea
             //            let tY = ((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y //- yPerSafeArea
