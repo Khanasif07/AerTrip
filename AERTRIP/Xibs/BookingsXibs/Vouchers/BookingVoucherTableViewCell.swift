@@ -23,6 +23,8 @@ class BookingVoucherTableViewCell: ATTableViewCell {
     @IBOutlet weak var dividerViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var dividerViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var paymentTypeImageView: UIImageView!
+    
     
     var voucherData: Voucher = Voucher() {
         didSet {
@@ -38,6 +40,11 @@ class BookingVoucherTableViewCell: ATTableViewCell {
     
     var payButtonAction: ((ATButton)->Void)? = nil
     
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.paymentTypeImageView.isHidden = true
+    }
     
     // MARK: - Override methods
     override func doInitialSetup() {
@@ -116,7 +123,11 @@ class BookingVoucherTableViewCell: ATTableViewCell {
             }
             titleStr = self.voucherData.basic?.type ?? LocalizedString.dash.localized
         }
-        
+        if titleStr.lowercased().contains("netbanking"){
+            self.paymentTypeImageView.image = #imageLiteral(resourceName: "netBanking")
+        }else{
+            self.paymentTypeImageView.image = #imageLiteral(resourceName: "visa")
+        }
         
         self.titleLabel.text = titleStr
         self.dateLabel.text = self.voucherData.basic?.transactionDateTime?.toString(dateFormat: "EEE, dd MMM yyyy") ?? ""

@@ -57,6 +57,7 @@ class BookingCallTableViewCell: ATTableViewCell {
         case .email:
             self.cellImageView.image = #imageLiteral(resourceName: "headPhoneIcon")
             let fullText: String = title + "\n" + email
+            self.titleLabel.numberOfLines = 2
             self.titleLabel.attributedText = self.getAttributedBoldText(text: fullText, boldText: email)
             self.phoneLabel.text = phoneLabel.count == 14 ?  phoneLabel.prefix(9) + " " + phoneLabel.suffix(5) : phoneLabel
         case .airlines:
