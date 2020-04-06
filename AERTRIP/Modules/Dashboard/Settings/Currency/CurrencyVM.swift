@@ -29,11 +29,11 @@ class CurrencyVM {
         selectedCountry = india.first ?? PKCountryModel(json: [:])
     }
     
-    func getCountries() {
+    func getCurrencies() {
         countries = PKCountryPicker.default.getAllCountries().filter { !$0.currencySymbol.isEmpty }
     }
     
-    func selectCountry(index : Int){
+   func selectCurrency(index : Int){
         if self.countries[index].countryID != 93 {
             self.delegate?.showUnderDevelopmentPopUp()
             return
@@ -45,11 +45,11 @@ class CurrencyVM {
         return self.searchText.isEmpty ? countries : filteredCountries
     }
     
-    func getCountry(at index : Int) -> PKCountryModel {
+    func getCurrency(at index : Int) -> PKCountryModel {
         return getCurrentDaraSource()[index]
     }
     
-    func isSelectedCountry(index : Int) -> Bool {
+    func isSelectedCurrency(index : Int) -> Bool {
         return getCurrentDaraSource()[index].countryID == selectedCountry.countryID
     }
     
@@ -64,22 +64,26 @@ class CurrencyVM {
             let currencyNameArray = currencyName.split(separator: " ")
             
             for item in currencyNameArray{
-                return item.starts(with: txt.lowercased())
+                if item.starts(with: txt.lowercased()){
+                    return true
+                }
             }
             
             let currencyCode = obj.currencyCode.lowercased()
             let currencyCodeArray = currencyCode.split(separator: " ")
             
             for item in currencyCodeArray {
-                return item.starts(with: txt.lowercased())
-            }
+                if item.starts(with: txt.lowercased()){
+                    return true
+                }            }
             
             let currencySymbol = obj.currencySymbol.lowercased()
             let currencySymbolArray = currencySymbol.split(separator: " ")
             
             for item in currencySymbolArray {
-                return item.starts(with: txt.lowercased())
-            }
+                if item.starts(with: txt.lowercased()){
+                    return true
+                }            }
             
             return false
         }

@@ -14,24 +14,45 @@
             <rect key="frame" x="0.0" y="0.0" width="673" height="172"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H6L-Z8-Gfs">
+                    <rect key="frame" x="0.0" y="0.0" width="673" height="0.5"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.002" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="Fpc-6x-UCh"/>
+                    </constraints>
+                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBN-Zj-Of3">
-                    <rect key="frame" x="16" y="10" width="641" height="152"/>
+                    <rect key="frame" x="16" y="10" width="641" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WQd-2E-d8c">
+                    <rect key="frame" x="0.0" y="171.5" width="673" height="0.5"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.002" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="0.5" id="qPu-4c-cYH"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="kBN-Zj-Of3" secondAttribute="trailing" constant="16" id="26M-mk-Avf"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="kBN-Zj-Of3" secondAttribute="bottom" constant="10" id="dND-Mt-LCN"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="WQd-2E-d8c" secondAttribute="bottom" id="3QF-hr-nAv"/>
+                <constraint firstItem="WQd-2E-d8c" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="5s2-GZ-yh8"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="H6L-Z8-Gfs" secondAttribute="trailing" id="C7e-qY-1ya"/>
+                <constraint firstAttribute="trailing" secondItem="WQd-2E-d8c" secondAttribute="trailing" id="PiF-DO-xJT"/>
+                <constraint firstItem="H6L-Z8-Gfs" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="d07-wO-9iS"/>
                 <constraint firstItem="kBN-Zj-Of3" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="fhd-S1-g4D"/>
+                <constraint firstItem="H6L-Z8-Gfs" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="jTq-0v-xdP"/>
                 <constraint firstItem="kBN-Zj-Of3" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="ysg-Ns-qgg"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="bottomSepratorView" destination="WQd-2E-d8c" id="D9j-rm-e6O"/>
                 <outlet property="titleLabel" destination="kBN-Zj-Of3" id="ZHE-pb-UcG"/>
+                <outlet property="topSepratorView" destination="H6L-Z8-Gfs" id="VMM-Gr-EFr"/>
             </connections>
             <point key="canvasLocation" x="58.399999999999999" y="-39.580209895052477"/>
         </view>

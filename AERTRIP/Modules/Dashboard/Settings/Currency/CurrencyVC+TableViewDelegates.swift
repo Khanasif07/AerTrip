@@ -16,7 +16,7 @@ extension CurrencyVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.currencyVm.currencuesCount
+        return self.currencyVm.currencyCount
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -27,7 +27,8 @@ extension CurrencyVC : UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CurrencyCell", for: indexPath) as? CurrencyCell else {
                        fatalError("SettingsCell not found")
                }
-        cell.populateData(country: self.currencyVm.getCurrency(at: indexPath.row), isSelected: !self.currencyVm.isSelectedCountry(index: indexPath.row))
+                
+        cell.populateData(country: currencyVm.getCurrency(at: indexPath.row), isSelected: !self.currencyVm.isSelectedCurrency(index: indexPath.row))
         return cell
       }
     

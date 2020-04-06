@@ -290,6 +290,7 @@ class UserInfo {
     
     var userId:String = ""
     
+
     var email: String {
         get{
             return (userData?["email"] as? String ?? "").removeNull
@@ -670,6 +671,9 @@ class UserInfo {
         return temp
     }
 
+    var calenderSynsStatus : Bool = true
+
+    
     init(withData data:JSONDictionary, userId:String) {
         self.userId = userId
         self.updateInfo(withData: data)
@@ -699,6 +703,7 @@ class UserInfo {
         }
         return nil
     }
+    
     class func deleteUser(userId:String){
         
         UserDefaults.removeObject(forKey: "userProfileData_\(userId)")

@@ -57,6 +57,7 @@ class SettingsCell: UITableViewCell {
         case .calenderStyle:
             self.switch.isHidden = false
             self.arrowImageView.isHidden = true
+            self.switch.setOn(toggleSettings.calenderSyncSettings, animated: false)
 
         default:
             self.settingsValueLavel.isHidden = true

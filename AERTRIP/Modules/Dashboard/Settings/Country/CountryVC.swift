@@ -20,7 +20,6 @@ class CountryVC : BaseVC {
     //MARK:- ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         self.initialSetups()
     }
     

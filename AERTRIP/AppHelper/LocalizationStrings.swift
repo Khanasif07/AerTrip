@@ -990,5 +990,6 @@ enum LocalizedString: String {
     case GetNotifiedAboutYourTripEvents = "GetNotifiedAboutYourTripEvents"
     case GetNotifiedAboutNewOffersAndDeals = "GetNotifiedAboutNewOffersAndDeals"
     case Ok = "Ok"
+    case AllEventSyncedToCalendarApp = "AllEventSyncedToCalendarApp"
     
 }

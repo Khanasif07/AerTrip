@@ -64,6 +64,7 @@
                 <outlet property="sepratorView" destination="FPn-k3-xLb" id="93v-e6-yRx"/>
                 <outlet property="settingDescriptionLabel" destination="j0c-HG-nAf" id="vLs-N9-4dt"/>
                 <outlet property="settingTitleLabel" destination="fm7-t9-rkd" id="H6m-Rz-4cj"/>
+                <outlet property="switch" destination="ZGp-HS-xin" id="rFr-1V-kfI"/>
             </connections>
             <point key="canvasLocation" x="168.11594202898553" y="96.428571428571431"/>
         </tableViewCell>

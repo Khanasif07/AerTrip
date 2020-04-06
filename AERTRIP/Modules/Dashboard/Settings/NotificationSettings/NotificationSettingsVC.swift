@@ -8,6 +8,20 @@
 
 import UIKit
 
+struct ToggleSettings {
+    
+    var calenderSyncSettings = true
+    var allNotificationS = true
+    var bookingNotifications = true
+    var tripEventsNotifications = true
+    var otherNotifications = true
+    
+}
+
+var toggleSettings = ToggleSettings()
+
+//MARK:- Above structure and a variable is just to manage ui because api's are in progress
+
 class NotificationSettingsVC: BaseVC {
 
     @IBOutlet weak var notificationSettingsTableView: UITableView!
@@ -26,8 +40,7 @@ class NotificationSettingsVC: BaseVC {
         override func setupTexts() {
             super.setupTexts()
         }
-        
-
+    
         override func setupColors() {
             super.setupColors()
         }
@@ -47,22 +60,10 @@ class NotificationSettingsVC: BaseVC {
         
         private func configureTableView(){
             self.notificationSettingsTableView.register(UINib(nibName: "NotificationSettingsCell", bundle: nil), forCellReuseIdentifier: "NotificationSettingsCell")
-//             notificationSettingsTableView.register(UINib(nibName: "SettingsHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "SettingsHeaderView")
-            
-//            let nib = UINib(nibName: "SettingsHeaderView", bundle: nil)
-//            self.notificationSettingsTableView.register(nib, forHeaderFooterViewReuseIdentifier: "SettingsHeaderView")
-            
-            let nib2 = UINib(nibName: "SettingsHeaderView", bundle: nil)
-            self.notificationSettingsTableView.register(nib2, forHeaderFooterViewReuseIdentifier: "SettingsHeaderView")
-            
+            self.notificationSettingsTableView.register(UINib(nibName: "SettingsHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "SettingsHeaderView")
             self.notificationSettingsTableView.dataSource = self
             self.notificationSettingsTableView.delegate = self
         }
-        
-        //MARK:- Public
-        
-        
-        //MARK:- Action
     }
 
     extension NotificationSettingsVC: TopNavigationViewDelegate {

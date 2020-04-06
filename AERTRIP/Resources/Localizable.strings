@@ -910,3 +910,4 @@
 "GetNotifiedAboutYourTripEvents" = "Get notified about your trip events";
 "GetNotifiedAboutNewOffersAndDeals" = "Get notified about new offers and deals";
 "Ok" = "Ok";
+"AllEventSyncedToCalendarApp" = "All the events will be sync to calendar app.";

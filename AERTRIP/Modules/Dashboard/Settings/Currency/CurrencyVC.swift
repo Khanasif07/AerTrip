@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CurrencyVC: UIViewController {
+class CurrencyVC: BaseVC {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var topNavView: TopNavigationView!
@@ -31,16 +31,36 @@ class CurrencyVC: UIViewController {
         self.topNavView.configureNavBar(title: LocalizedString.Currency.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false,isDivider : false)
         configureTableView()
         setUpViewAttributes()
-        self.currencyVm.getCountries()
+        self.currencyVm.getCurrencies()
         self.currencyVm.preSelectIndia()
     }
     
     func setUpViewAttributes(){
+        self.searchBar.delegate = self
         searchBar.showsBookmarkButton = true
         searchBar.setImage(#imageLiteral(resourceName: "microphone"), for: .bookmark, state: .normal)
         searchBar.setTextField(color: AppColors.themeGray04)
-        searchBar.backgroundColor = UIColor.clear
         searchBar.backgroundImage = UIImage()
+    }
+    
+    override func bindViewModel() {
+        super.bindViewModel()
+        self.currencyVm.delegate = self
+    }
+    
+    override func setupColors() {
+        super.setupColors()
+        searchBar.backgroundColor = UIColor.clear
+    }
+    
+    override func setupFonts() {
+        super.setupFonts()
+        
+    }
+    
+    override func setupTexts() {
+        super.setupTexts()
+        
     }
     
     private func configureTableView(){
@@ -81,11 +101,12 @@ extension CurrencyVC : UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
     }
-    
 }
 
-extension CurrencyVC : CountryVcDelegate {
+extension CurrencyVC : CurrencyVcDelegate {
     func showUnderDevelopmentPopUp(){
         _ = ATAlertController.alert(title: "", message: LocalizedString.UnderDevelopment.localized, buttons: [LocalizedString.Ok.localized], tapBlock: nil)
     }
 }
+
+

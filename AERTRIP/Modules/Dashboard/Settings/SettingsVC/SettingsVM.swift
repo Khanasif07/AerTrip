@@ -36,5 +36,17 @@ class SettingsVM {
         guard let items = self.settingsDataToPopulate[section] else { return 0 }
         return items.count
     }
+    
+    func isSepratorHidden(section : Int, row : Int) -> Bool {
+        if section == 0 && row == 2{
+            return true
+        }else if section == 1 {
+            return true
+        }else if section == 2 && row == 2 {
+            return true
+        }else{
+            return false
+        }
+    }
  
 }

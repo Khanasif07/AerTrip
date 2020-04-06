@@ -28,17 +28,46 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
         case 0,1:
             return 35
         default:
-            return 54
+            return 0
         }
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView()
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        switch section {
+            case 1:
+                return 54
+            default:
+                return 0
+        }
     }
+    
+        func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+            
+            if section == 2 { return nil }
+            
+            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SettingsHeaderView") as? SettingsHeaderView else {
+                fatalError("SettingsHeaderView not found")
+            }
+
+            headerView.titleLabel.text = ""
+            return headerView
+        }
+        
+        
+        func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+            if section != 1 { return nil }
+            
+            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SettingsHeaderView") as? SettingsHeaderView else {
+                           fatalError("SettingsHeaderView not found") }
+            headerView.titleLabel.text = LocalizedString.AllEventSyncedToCalendarApp.localized
+            return headerView
+        }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as? SettingsCell else { fatalError("SettingsCell not found") }
+        cell.sepratorView.isHidden = self.settingsVm.isSepratorHidden(section: indexPath.section, row: indexPath.row)
         cell.populateCell(type : self.settingsVm.getSettingsType(key: indexPath.section, index: indexPath.row))
+        cell.switch.addTarget(self, action: #selector(toggleSwitched), for: UIControl.Event.valueChanged)
         return cell
       }
     
@@ -67,6 +96,10 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
                 break
         }
         
+    }
+    
+    @objc func toggleSwitched(sender : UISwitch) {
+        toggleSettings.calenderSyncSettings = sender.isOn
     }
     
 }

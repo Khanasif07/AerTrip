@@ -319,6 +319,16 @@ extension UIView {
         return nil
     }
     
+    func tableViewIndexPath(_ tableView: UITableView) -> IndexPath? {
+        
+        if let cell = self.tableViewCell {
+            
+            return tableView.indexPath(for: cell)
+            
+        }
+        return nil
+    }
+    
     func rootSuperView() -> UIView? {
         var view = self
         while let parentView = view.superview {

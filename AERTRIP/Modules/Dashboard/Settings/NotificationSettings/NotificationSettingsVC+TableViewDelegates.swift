@@ -37,7 +37,7 @@ extension NotificationSettingsVC : UITableViewDelegate, UITableViewDataSource {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SettingsHeaderView") as? SettingsHeaderView else {
             fatalError("SettingsHeaderView not found")
         }
-
+        
         headerView.titleLabel.text = ""
         return headerView
     }
@@ -55,9 +55,10 @@ extension NotificationSettingsVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "NotificationSettingsCell", for: indexPath) as? NotificationSettingsCell else { fatalError("SettingsCell not found") }
+        cell.sepratorView.isHidden = self.notificationSettingsVm.isSepratorHidden(section: indexPath.section, row: indexPath.row)
         cell.populateData(type: self.notificationSettingsVm.notificationSettingsDataSource[indexPath.section]?[indexPath.row].type ?? NotificationSettingsVM.NotificationSettingsType.bookings, desc: self.notificationSettingsVm.notificationSettingsDataSource[indexPath.section]?[indexPath.row].desc ?? "")
+        cell.switch.addTarget(self, action: #selector(toggleSwitched), for: UIControl.Event.valueChanged)
         return cell
       }
     
@@ -65,5 +66,12 @@ extension NotificationSettingsVC : UITableViewDelegate, UITableViewDataSource {
        
     }
     
+    @objc func toggleSwitched(sender : UISwitch){
+        guard let indexPath = sender.tableViewIndexPath(self.notificationSettingsTableView) else { return }
+        self.notificationSettingsVm.handleNotificationToggles(section: indexPath.section, row: indexPath.row, isOn: sender.isOn)
+        if indexPath.section == 0 && indexPath.row == 0{
+            self.notificationSettingsTableView.reloadData()
+        }
+    }
     
 }
