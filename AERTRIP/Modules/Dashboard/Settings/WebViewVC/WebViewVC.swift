@@ -37,7 +37,7 @@ extension WebViewVC {
     }
     
     func loadWebView(){
-        guard let url = URL(string: "https://www.google.com") else { return }
+        guard let url = URL(string: self.webViewVm.getUrlToLoad()) else { return }
         self.webView.load(URLRequest(url : url))
     }
     

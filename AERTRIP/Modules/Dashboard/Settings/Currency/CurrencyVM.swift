@@ -88,5 +88,14 @@ class CurrencyVM {
             return false
         }
     }
+
+    func getCurrenciesFromApi() {
+        
+        APICaller.shared.getCurrencies(params: [:]) { (success, data) in
+        
+        }
+        
+    }
     
 }
+

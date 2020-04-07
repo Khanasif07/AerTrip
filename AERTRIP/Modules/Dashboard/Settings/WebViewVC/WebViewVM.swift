@@ -19,4 +19,19 @@ class WebViewVM {
     
     var webViewType = WebViewType.aboutUs
     
+    
+    func getUrlToLoad() -> String{
+        
+        switch webViewType{
+            
+            case .aboutUs: return APIEndPoint.about.rawValue
+            
+            case .legal: return APIEndPoint.legal.rawValue
+            
+            case .privacypolicy: return APIEndPoint.privacy.rawValue
+                        
+        }
+        
+    }
+    
 }

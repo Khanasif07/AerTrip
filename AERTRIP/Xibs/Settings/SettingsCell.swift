@@ -30,10 +30,8 @@ class SettingsCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
-    
     
     func populateCell(type : SettingsVM.SettingsOptions){
         settingsLabel.text = type.rawValue
@@ -54,7 +52,7 @@ class SettingsCell: UITableViewCell {
             self.settingsValueLavel.isHidden = false
             self.settingsValueLavel.text = "All"
             
-        case .calenderStyle:
+        case .calenderSync:
             self.switch.isHidden = false
             self.arrowImageView.isHidden = true
             self.switch.setOn(toggleSettings.calenderSyncSettings, animated: false)

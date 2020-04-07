@@ -123,6 +123,12 @@ enum APIEndPoint: String {
     case shareText = "su/create"
     
     case chatBotStart = "aerin/start"
+    
+    case currencies = "default/supported-currencies"
+    
+    case privacy = "https://beta.aertrip.com/privacy"
+    case about = "https://beta.aertrip.com/about"
+    case legal = "https://beta.aertrip.com/legal"
 }
 
 // MARK: - endpoint extension for url -

@@ -14,10 +14,10 @@ class NotificationSettingsVM {
         case allNotifications = "All Notifications"
         case bookings = "Bookings"
         case tripEvents = "Trip Events"
-        case others = "Others"
+        case offers = "Offers"
     }
     
-    var notificationSettingsDataSource = [0 : [(type : NotificationSettingsType.allNotifications, desc : "")], 1 : [(type : NotificationSettingsType.bookings, desc : LocalizedString.GetNotifiedAboutYourBookings.localized),(type : NotificationSettingsType.tripEvents, desc : LocalizedString.GetNotifiedAboutYourTripEvents.localized), (type : NotificationSettingsType.others, desc : LocalizedString.GetNotifiedAboutNewOffersAndDeals.localized)]]
+    var notificationSettingsDataSource = [0 : [(type : NotificationSettingsType.allNotifications, desc : "")], 1 : [(type : NotificationSettingsType.bookings, desc : LocalizedString.GetNotifiedAboutYourBookings.localized),(type : NotificationSettingsType.tripEvents, desc : LocalizedString.GetNotifiedAboutYourTripEvents.localized), (type : NotificationSettingsType.offers, desc : LocalizedString.GetNotifiedAboutNewOffersAndDeals.localized)]]
     
     
     func handleNotificationToggles(section : Int, row : Int, isOn : Bool){
@@ -34,6 +34,9 @@ class NotificationSettingsVM {
             default:
                 break
             }
+            
+            toggleSettings.allNotificationS = toggleSettings.bookingNotifications &&  toggleSettings.tripEventsNotifications && toggleSettings.otherNotifications
+            
         }
     }
     

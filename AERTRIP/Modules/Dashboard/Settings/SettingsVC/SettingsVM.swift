@@ -14,7 +14,7 @@ class SettingsVM {
         case country = "Country"
         case currency = "Currency"
         case notification = "Notification"
-        case calenderStyle = "Calender Style"
+        case calenderSync = "Calender Sync"
         case aboutUs = "About Us"
         case legal = "Legal"
         case privacyPolicy = "Privacy Policy"
@@ -22,7 +22,7 @@ class SettingsVM {
     
     let settingsDataToPopulate = [
         0 : [SettingsOptions.country, SettingsOptions.currency, SettingsOptions.notification],
-        1 : [SettingsOptions.calenderStyle],
+        1 : [SettingsOptions.calenderSync],
         2 : [SettingsOptions.aboutUs, SettingsOptions.legal, SettingsOptions.privacyPolicy]
     ]
     

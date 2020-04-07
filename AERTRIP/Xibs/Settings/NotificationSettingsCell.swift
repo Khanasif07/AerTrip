@@ -20,8 +20,9 @@ class NotificationSettingsCell : UITableViewCell {
         selectionStyle = .none
         settingTitleLabel.font = AppFonts.Regular.withSize(18)
         settingDescriptionLabel.font = AppFonts.Regular.withSize(14)
-        settingDescriptionLabel.textColor = AppColors.themeGray20
+//        settingDescriptionLabel.textColor = AppColors.themeGray20
         self.sepratorView.backgroundColor = AppColors.themeGray20
+        settingDescriptionLabel.textColor = AppColors.themeGray40
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -42,11 +43,11 @@ class NotificationSettingsCell : UITableViewCell {
         case .tripEvents:
             self.switch.setOn(toggleSettings.tripEventsNotifications, animated: true)
             
-        case .others:
+        case .offers:
             self.switch.setOn(toggleSettings.otherNotifications, animated: true)
             
         }
-        
+
     }
     
 }

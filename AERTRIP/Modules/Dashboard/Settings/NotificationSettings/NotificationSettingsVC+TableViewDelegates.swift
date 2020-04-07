@@ -69,9 +69,10 @@ extension NotificationSettingsVC : UITableViewDelegate, UITableViewDataSource {
     @objc func toggleSwitched(sender : UISwitch){
         guard let indexPath = sender.tableViewIndexPath(self.notificationSettingsTableView) else { return }
         self.notificationSettingsVm.handleNotificationToggles(section: indexPath.section, row: indexPath.row, isOn: sender.isOn)
-        if indexPath.section == 0 && indexPath.row == 0{
+//        if indexPath.section == 0 && indexPath.row == 0{
+        delay(seconds: 0.2) {
             self.notificationSettingsTableView.reloadData()
         }
+//        }
     }
-    
 }

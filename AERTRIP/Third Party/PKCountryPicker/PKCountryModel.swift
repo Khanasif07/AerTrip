@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 public struct PKCountryModel {
     var countryID: Int = 0
@@ -26,6 +27,7 @@ public struct PKCountryModel {
     var flagImage: UIImage? {
         return UIImage(named: self.countryFlag)
     }
+    var currencyId : String = ""
     var currencySymbol : String = ""
     var currencyName : String = ""
     var currencyCode : String = ""
@@ -104,6 +106,12 @@ public struct PKCountryModel {
             self.currencyName = obj
         }
         
+    }
+    
+    init(json: JSON) {
+        currencyId = json[APIKeys.id.rawValue].stringValue
+        currencyCode = json[APIKeys.currency_code.rawValue].stringValue
+        currencyName = json[APIKeys.name.rawValue].stringValue
     }
     
     static func getModels(jsonArr: [[String:Any]]) -> [PKCountryModel] {

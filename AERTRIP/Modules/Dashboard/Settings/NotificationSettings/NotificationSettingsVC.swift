@@ -49,7 +49,7 @@ class NotificationSettingsVC: BaseVC {
         //MARK:- Private
         private func initialSetups() {
             self.topNavView.delegate = self
-            self.topNavView.configureNavBar(title: LocalizedString.Notifications.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false)
+            self.topNavView.configureNavBar(title: LocalizedString.Notifications.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
             configureTableView()
             setUpViewAttributes()
         }

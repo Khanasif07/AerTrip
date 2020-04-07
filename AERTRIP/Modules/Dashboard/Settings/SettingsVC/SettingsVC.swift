@@ -49,11 +49,9 @@ class SettingsVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         self.topNavView.delegate = self
-        self.topNavView.configureNavBar(title: LocalizedString.Settings.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false)
+        self.topNavView.configureNavBar(title: LocalizedString.Settings.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false,isDivider : false)
         configureTableView()
     }
-    
-
     
     private func configureTableView(){
         self.settingsTableView.register(UINib(nibName: "SettingsCell", bundle: nil), forCellReuseIdentifier: "SettingsCell")

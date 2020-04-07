@@ -10,6 +10,7 @@
 		0C0506CB2435BA0300BC4703 /* WebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0506CA2435BA0300BC4703 /* WebViewVC.swift */; };
 		0C0506CD2435BC4A00BC4703 /* WebViewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0506CC2435BC4A00BC4703 /* WebViewVM.swift */; };
 		0C0506CF2435CEDD00BC4703 /* ATAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0506CE2435CEDC00BC4703 /* ATAlertController.swift */; };
+		0C06BB20243B76DC0022281F /* APICaller+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C06BB1F243B76DC0022281F /* APICaller+Settings.swift */; };
 		0C09BFD42429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09BFD32429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift */; };
 		0C09BFD6242B746500B801BE /* ChatVC+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09BFD5242B746500B801BE /* ChatVC+Animations.swift */; };
 		0C09BFDC242B9A2D00B801BE /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09BFDA242B9A2D00B801BE /* SettingsCell.swift */; };
@@ -1060,6 +1061,7 @@
 		0C0506CA2435BA0300BC4703 /* WebViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewVC.swift; sourceTree = "<group>"; };
 		0C0506CC2435BC4A00BC4703 /* WebViewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewVM.swift; sourceTree = "<group>"; };
 		0C0506CE2435CEDC00BC4703 /* ATAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATAlertController.swift; sourceTree = "<group>"; };
+		0C06BB1F243B76DC0022281F /* APICaller+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+Settings.swift"; sourceTree = "<group>"; };
 		0C09BFD32429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatVC+CollectionViewDelegates.swift"; sourceTree = "<group>"; };
 		0C09BFD5242B746500B801BE /* ChatVC+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatVC+Animations.swift"; sourceTree = "<group>"; };
 		0C09BFDA242B9A2D00B801BE /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
@@ -5637,6 +5639,7 @@
 				182D4852228ACD5B004796A2 /* APICaller+Booking.swift */,
 				84FD0DCF228AB66800915A09 /* APICaller+Account.swift */,
 				0C24D4FD242DBD2100CBFF92 /* ApiCaller+ChatBot.swift */,
+				0C06BB1F243B76DC0022281F /* APICaller+Settings.swift */,
 			);
 			path = APICaller;
 			sourceTree = "<group>";
@@ -6330,6 +6333,7 @@
 				18020ADE2281500B00DE5FE0 /* DomesticReturnFlightResultCollectionViewCell.swift in Sources */,
 				84D5F22A22A6452500824A9F /* HotelBookingsDetailsVC+Extensions.swift in Sources */,
 				847F7EB82279DB75009BE02F /* PKTextField.swift in Sources */,
+				0C06BB20243B76DC0022281F /* APICaller+Settings.swift in Sources */,
 				84AFF97122A78B8800E91F14 /* HotelCancellationVC.swift in Sources */,
 				0C24D4E0242C74F600CBFF92 /* SettingsVM.swift in Sources */,
 				84E4CC6721E3679B0015C306 /* PKViewPagerTab.swift in Sources */,

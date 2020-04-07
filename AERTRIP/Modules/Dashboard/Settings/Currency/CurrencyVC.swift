@@ -33,6 +33,7 @@ class CurrencyVC: BaseVC {
         setUpViewAttributes()
         self.currencyVm.getCurrencies()
         self.currencyVm.preSelectIndia()
+//        self.currencyVm.getCurrenciesFromApi()
     }
     
     func setUpViewAttributes(){
@@ -41,6 +42,7 @@ class CurrencyVC: BaseVC {
         searchBar.setImage(#imageLiteral(resourceName: "microphone"), for: .bookmark, state: .normal)
         searchBar.setTextField(color: AppColors.themeGray04)
         searchBar.backgroundImage = UIImage()
+        searchBar.tintColor = AppColors.themeGreen
     }
     
     override func bindViewModel() {

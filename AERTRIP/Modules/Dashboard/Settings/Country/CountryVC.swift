@@ -40,6 +40,7 @@ class CountryVC : BaseVC {
         searchBar.showsBookmarkButton = true
         searchBar.setImage(#imageLiteral(resourceName: "microphone"), for: .bookmark, state: .normal)
         searchBar.backgroundImage = UIImage()
+        searchBar.tintColor = AppColors.themeGreen
     }
     
     override func bindViewModel() {
@@ -62,7 +63,6 @@ class CountryVC : BaseVC {
         self.countryTableView.dataSource = self
         self.countryTableView.delegate = self
     }
-    
 }
 
 extension CountryVC: TopNavigationViewDelegate {

@@ -227,7 +227,6 @@ class ContactListVC: BaseVC {
         }
     }
     
-    
     private func hideSelectAllButton(isHidden: Bool = true) {
         self.bottomHeaderTopDiverView.isHidden = isHidden
         self.selectAllButton.isHidden = isHidden
