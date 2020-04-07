@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1024,10 +1024,10 @@ been sent</string>
                                                 <rect key="frame" x="225.33333333333331" y="0.0" width="100" height="266"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="12.5" translatesAutoresizingMaskIntoConstraints="NO" id="pK7-Yp-wzS">
-                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="276.66666666666669"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="280"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yha-YK-x8Z">
-                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="56"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="56.666666666666664"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Children" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Sw-4i-o5H">
                                                                         <rect key="frame" x="0.0" y="5" width="100" height="20.333333333333332"/>
@@ -1055,10 +1055,10 @@ been sent</string>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="6Bo-AR-Jbm">
-                                                                <rect key="frame" x="0.0" y="68.666666666666629" width="100" height="65.666666666666686"/>
+                                                                <rect key="frame" x="0.0" y="69.333333333333371" width="100" height="66.666666666666686"/>
                                                                 <subviews>
                                                                     <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JKq-Tl-RDH">
-                                                                        <rect key="frame" x="26" y="9" width="48" height="48"/>
+                                                                        <rect key="frame" x="26" y="9.3333333333332575" width="48" height="48"/>
                                                                         <state key="normal" image="child_icon_bulk"/>
                                                                         <state key="selected" image="child_selected"/>
                                                                     </button>
@@ -1071,10 +1071,10 @@ been sent</string>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YzA-bp-NnN">
-                                                                <rect key="frame" x="0.0" y="147" width="100" height="129.66666666666663"/>
+                                                                <rect key="frame" x="0.0" y="148.66666666666663" width="100" height="131.33333333333337"/>
                                                                 <subviews>
                                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Kp-MU-TGO">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="129.66666666666666"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="131.33333333333334"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1217,7 +1217,7 @@ been sent</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aM9-4Q-rjl" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="140" width="414" height="756"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHc-Vi-zSn" customClass="PassthroughView" customModule="AERTRIP" customModuleProvider="target">
@@ -2211,6 +2211,7 @@ been sent</string>
                         <constraints>
                             <constraint firstItem="V4z-cq-RyF" firstAttribute="top" secondItem="b4p-u6-PAq" secondAttribute="top" id="2eC-dN-ceB"/>
                             <constraint firstItem="0o3-aH-xeT" firstAttribute="top" secondItem="Dci-Q6-szv" secondAttribute="bottom" constant="5" id="5KZ-eb-hn0"/>
+                            <constraint firstItem="aM9-4Q-rjl" firstAttribute="top" secondItem="b4p-u6-PAq" secondAttribute="top" id="8NS-pb-VCc"/>
                             <constraint firstItem="0o3-aH-xeT" firstAttribute="trailing" secondItem="b4p-u6-PAq" secondAttribute="trailing" id="FEQ-m1-50d"/>
                             <constraint firstItem="V4z-cq-RyF" firstAttribute="trailing" secondItem="b4p-u6-PAq" secondAttribute="trailing" id="FKR-2j-Xde"/>
                             <constraint firstItem="cYF-2F-5gQ" firstAttribute="top" secondItem="V4z-cq-RyF" secondAttribute="bottom" id="Ipg-jk-d6n"/>
@@ -2227,7 +2228,6 @@ been sent</string>
                             <constraint firstItem="aM9-4Q-rjl" firstAttribute="bottom" secondItem="He0-20-oIc" secondAttribute="bottom" id="bIF-38-3c7"/>
                             <constraint firstItem="cYF-2F-5gQ" firstAttribute="leading" secondItem="He0-20-oIc" secondAttribute="leading" id="haa-1z-sO1"/>
                             <constraint firstItem="QAK-AD-OFu" firstAttribute="leading" secondItem="b4p-u6-PAq" secondAttribute="leading" id="sct-fe-fKG"/>
-                            <constraint firstItem="aM9-4Q-rjl" firstAttribute="top" secondItem="V4z-cq-RyF" secondAttribute="bottom" id="xee-cO-ofd"/>
                             <constraint firstItem="V4z-cq-RyF" firstAttribute="leading" secondItem="b4p-u6-PAq" secondAttribute="leading" id="yhN-7V-y4Y"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="b4p-u6-PAq"/>
@@ -2684,7 +2684,7 @@ been sent</string>
                                                                         <state key="normal" image="adult_icon"/>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ka-Su-2SG">
-                                                                        <rect key="frame" x="15" y="0.0" width="17.666666666666671" height="22"/>
+                                                                        <rect key="frame" x="15.000000000000002" y="0.0" width="17.666666666666671" height="22"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -3324,7 +3324,7 @@ been sent</string>
         <image name="ic_list_view" width="27" height="27"/>
         <image name="my_location_dest" width="21" height="21"/>
         <image name="rooms_white_icon" width="31" height="58"/>
-        <image name="saveHotelsSelected" width="27" height="27"/>
+        <image name="saveHotelsSelected" width="27" height="30"/>
         <image name="setCurrentLocationIcon" width="64" height="64"/>
         <image name="shareIcon" width="76" height="76"/>
         <image name="shimmerViewFavouriteButton" width="18" height="22"/>

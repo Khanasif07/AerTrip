@@ -214,9 +214,12 @@ class BulkEnquirySuccessfulVC: BaseVC {
         }) { (isCompleted) in
             self.searchBtnOutlet.layer.cornerRadius = reScaleFrame.height / 2.0
             let yPerSafeArea = self.mainTitleLabel.frame.origin.y + self.view.safeAreaInsets.bottom + 26.0 + 5
-            var y = ((self.containerView.height) / 2.0) + self.mainTitleLabel.frame.origin.y
-            y = y - (115 + 62 + 11)
-            y = self.mainTitleLabel.frame.origin.y + (115 + 24 + 11)  - self.view.safeAreaInsets.bottom
+            var y = self.mainTitleLabel.frame.origin.y + (115 + 24 + 11)  - self.view.safeAreaInsets.bottom
+            //y = y - (115 + 62 + 11)
+            if self.currentUsingAs == .bulkBooking, #available(iOS 13.0, *) {
+                y = self.mainTitleLabel.frame.origin.y + (115 + 62 + 11)
+            }
+            printDebug("y: \(y)")
             let tY: CGFloat
 //            if UIDevice.isIPhoneX {
 //                tY = (((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y)

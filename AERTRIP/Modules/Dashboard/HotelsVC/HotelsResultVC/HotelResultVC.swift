@@ -57,7 +57,7 @@ class HotelResultVC: StatusBarAnimatableViewController {
             self.tableViewVertical.separatorStyle = .none
             self.tableViewVertical.showsVerticalScrollIndicator = false
             self.tableViewVertical.showsHorizontalScrollIndicator = false
-            self.tableViewVertical.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
+            self.tableViewVertical.contentInset = UIEdgeInsets(top: 112, left: 0, bottom: 0, right: 0)
         }
     }
     
@@ -124,8 +124,7 @@ class HotelResultVC: StatusBarAnimatableViewController {
     var oldOffset: CGPoint = .zero //used in colletion view scrolling for map re-focus
     let hotelResultCellIdentifier = "HotelSearchTableViewCell"
     
-    var visualEffectView : UIVisualEffectView!
-    var backView : UIView!
+    var statusBarBlurView : UIVisualEffectView!
     override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
         return StatusBarAnimatableConfig(prefersHidden: false, animation: .slide)
     }
@@ -165,6 +164,13 @@ class HotelResultVC: StatusBarAnimatableViewController {
     let defaultVelocity: CGFloat = 15.0
     var applyButtonTapped: Bool = false
     var isViewDidAppear = false
+    var visualEffectViewHeight : CGFloat {
+        return statusBarHeight + 96
+    }
+    var statusBarHeight : CGFloat {
+        return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
+    }
+    var scrollviewInitialYOffset = CGFloat(0.0)
     
     //used for making collection view centerlized
     var indexOfCellBeforeDragging = 0
@@ -240,24 +246,20 @@ class HotelResultVC: StatusBarAnimatableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.isViewDidAppear = true
-        self.statusBarColor = AppColors.themeWhite
+        self.statusBarColor = AppColors.clear
         self.statusBarStyle = .default
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)        
         addCustomBackgroundBlurView()
-        self.statusBarColor = AppColors.themeWhite
+        self.statusBarColor = AppColors.clear
         self.statusBarStyle = .default
     }
         
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.statusBarColor = AppColors.clear
-        backView.removeFromSuperview()
-        //        if  self.isMovingFromParent {
-        //            backView.removeFromSuperview()
-        //        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -310,27 +312,24 @@ class HotelResultVC: StatusBarAnimatableViewController {
     
     func addCustomBackgroundBlurView(){
         
-        visualEffectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: visualEffectViewHeight))
-        visualEffectView.effect = UIBlurEffect(style: .prominent)
-        
-        backView = UIView(frame: CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: 20))
-        backView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
-        backView.addSubview(visualEffectView)
-        
         let backVisualEfectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: backContainerView.height))
         backVisualEfectView.effect = UIBlurEffect(style: .prominent)
         backVisualEfectView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         
         backContainerView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
-        //backContainerView.addSubview(backVisualEfectView)
+        backContainerView.addSubview(backVisualEfectView)
         
         
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.view.backgroundColor = .clear
-        //self.navigationController?.view.addSubview(backView)
-        navigationItem.hidesBackButton = true
-        self.navigationItem.leftBarButtonItem=nil
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.view.backgroundColor = .clear
+//        //self.navigationController?.view.addSubview(backView)
+//        navigationItem.hidesBackButton = true
+//        self.navigationItem.leftBarButtonItem=nil
+        
+        statusBarBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: statusBarHeight))
+        statusBarBlurView.effect = UIBlurEffect(style: .prominent)
+        self.navigationController?.view.addSubview(statusBarBlurView)
         
     }
     // MARK: - Methods

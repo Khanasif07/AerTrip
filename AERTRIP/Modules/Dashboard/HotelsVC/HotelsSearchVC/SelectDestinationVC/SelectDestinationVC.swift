@@ -20,6 +20,7 @@ class SelectDestinationVC: BaseVC {
     
     var currentlyUsingFor: CurrentlyUsingFor = .hotelForm
     var initialTouchPoint : CGPoint = CGPoint(x: 0.0, y: 0.0)
+    var viewTranslation = CGPoint(x: 0, y: 0)
     
     //MARK:- IBOutlets
     //MARK:-
@@ -36,6 +37,7 @@ class SelectDestinationVC: BaseVC {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
+            tableView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         }
     }
     @IBOutlet weak var mainCintainerBottomConstraint: NSLayoutConstraint!
@@ -116,15 +118,21 @@ class SelectDestinationVC: BaseVC {
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         mainContainerView.isUserInteractionEnabled = true
         swipeGesture.delegate = self
-        self.mainContainerView.addGestureRecognizer(swipeGesture)
-        
+        if #available(iOS 13.0, *) {} else {
+            self.mainContainerView.addGestureRecognizer(swipeGesture)
+        }
         
         self.view.alpha = 1.0
         self.view.backgroundColor = AppColors.clear//AppColors.themeBlack.withAlphaComponent(0.3)
         self.bottomViewHeightConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
         
         //self.headerView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
-        self.rectangleView.cornerRadius = 15.0
+        if #available(iOS 13.0, *) {
+            self.rectangleView.cornerRadius = 10.0
+        } else {
+            self.rectangleView.cornerRadius = 15.0
+        }
+        
         self.rectangleView.layer.masksToBounds = true
         self.hide(animated: false)
         delay(seconds: 0.1) { [weak self] in
@@ -141,38 +149,44 @@ class SelectDestinationVC: BaseVC {
         tableView.register(UINib(nibName: headerCellId, bundle: nil), forHeaderFooterViewReuseIdentifier: headerCellId)
     }
     
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
     //Handle Swipe Gesture
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
-        guard let direction = sender.direction, direction.isVertical
+        func reset() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.transform = .identity
+            })
+        }
+        
+        func moveView() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+            })
+        }
+        
+        guard let direction = sender.direction, direction.isVertical, direction == .down, self.tableView.contentOffset.y <= 0
             else {
-            initialTouchPoint = CGPoint.zero
+            reset()
             return
         }
-        let touchPoint = sender.location(in: self.mainContainerView?.window)
-        let velocity = sender.velocity(in: self.mainContainerView)
-        print(velocity)
+        
         switch sender.state {
-        case .began:
-            self.initialTouchPoint = touchPoint
         case .changed:
-            let touchPointDiffY = initialTouchPoint.y - touchPoint.y
-            print(touchPointDiffY)
-            if  touchPoint.y > 62.0 {
-                if touchPointDiffY > 0 {
-                    self.mainCintainerBottomConstraint.constant = -( UIScreen.main.bounds.height - 62.0) + (68.0) + touchPointDiffY
-                }
-                else if touchPointDiffY < -68.0 {
-                    self.mainCintainerBottomConstraint.constant = touchPointDiffY
-                }
-            }
+            viewTranslation = sender.translation(in: self.view)
+            moveView()
         case .ended:
-            print(sender.state)
-            panGestureFinalAnimation(velocity: velocity,touchPoint: touchPoint)
-            
-        case .failed, .possible, .cancelled:
-        initialTouchPoint = CGPoint.zero
-        break
-            
+            if viewTranslation.y < 200 {
+                reset()
+            } else {
+                dismiss(animated: true, completion: nil)
+            }
+        case .cancelled:
+            reset()
+        default:
+            break
         }
     }
     
@@ -226,13 +240,17 @@ class SelectDestinationVC: BaseVC {
         animater.addCompletion { (position) in
             self.removeFromParentVC
         }
-        animater.startAnimation()
+        //animater.startAnimation()
+        self.dismiss(animated: true, completion: nil)
     }
     
     private func show(animated: Bool) {
         self.bottomView.isHidden = false
         let toDeduct = (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
-        let finalValue = (self.currentlyUsingFor == .hotelForm) ? (self.view.height - toDeduct) : (self.view.height - (15.0 + toDeduct))
+        var finalValue = (self.currentlyUsingFor == .hotelForm) ? (self.view.height - toDeduct) : (self.view.height - (15.0 + toDeduct))
+        if #available(iOS 13.0, *) {
+            finalValue = (self.view.height - AppFlowManager.default.safeAreaInsets.bottom)
+        }
         
         func setValue() {
             self.mainCintainerBottomConstraint.constant = 0.0
@@ -276,7 +294,8 @@ class SelectDestinationVC: BaseVC {
                     self.removeFromParentVC
                 }
             }
-            animater.startAnimation()
+            //animater.startAnimation()
+            self.dismiss(animated: true, completion: nil)
         }
         else {
             setValue()

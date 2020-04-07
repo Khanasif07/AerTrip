@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ConfirmationEmailTableViewCell" rowHeight="138" id="ig1-W8-gNu" customClass="ConfirmationEmailTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="633" height="138"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ig1-W8-gNu" id="S9H-Mo-Vzd">
+                <rect key="frame" x="0.0" y="0.0" width="633" height="138"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IYf-oW-HUI">
+                        <rect key="frame" x="0.0" y="0.0" width="633" height="86.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="To:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qpi-U9-dqX">
+                                <rect key="frame" x="16" y="34.5" width="23.5" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="uRL-ci-8Bo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OZW-s6-cr3" customClass="ATEmailSelectorTextView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="45.5" y="12" width="541.5" height="62.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="1dR-oz-iaW"/>
+                                </constraints>
+                                <color key="textColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="19x-OA-DiD" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="86" width="633" height="0.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="oiQ-Ae-pEo"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WA9-5s-dwN">
+                                <rect key="frame" x="595" y="52.5" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="22" id="ZSj-NR-K3L"/>
+                                    <constraint firstAttribute="height" constant="22" id="nkf-p9-F57"/>
+                                </constraints>
+                                <state key="normal" image="greenCircleButton"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <accessibilityTraits key="traits" notEnabled="YES"/>
+                        </accessibility>
+                        <constraints>
+                            <constraint firstItem="OZW-s6-cr3" firstAttribute="leading" secondItem="Qpi-U9-dqX" secondAttribute="trailing" constant="6" id="0Cp-WF-il2"/>
+                            <constraint firstItem="WA9-5s-dwN" firstAttribute="leading" secondItem="OZW-s6-cr3" secondAttribute="trailing" constant="8" id="Hei-gi-LDA"/>
+                            <constraint firstAttribute="bottom" secondItem="OZW-s6-cr3" secondAttribute="bottom" constant="12" id="PKk-2u-YHo"/>
+                            <constraint firstItem="OZW-s6-cr3" firstAttribute="top" secondItem="IYf-oW-HUI" secondAttribute="top" constant="12" id="aKR-6t-oTo"/>
+                            <constraint firstItem="Qpi-U9-dqX" firstAttribute="leading" secondItem="IYf-oW-HUI" secondAttribute="leading" constant="16" id="dth-P8-Wuh"/>
+                            <constraint firstAttribute="bottom" secondItem="19x-OA-DiD" secondAttribute="bottom" id="gRf-5o-7aI"/>
+                            <constraint firstItem="WA9-5s-dwN" firstAttribute="bottom" secondItem="OZW-s6-cr3" secondAttribute="bottom" id="kQ6-eM-MS3"/>
+                            <constraint firstAttribute="trailing" secondItem="WA9-5s-dwN" secondAttribute="trailing" constant="16" id="qbl-Ix-IFC"/>
+                            <constraint firstAttribute="trailing" secondItem="19x-OA-DiD" secondAttribute="trailing" id="qfk-nj-zHP"/>
+                            <constraint firstItem="19x-OA-DiD" firstAttribute="leading" secondItem="IYf-oW-HUI" secondAttribute="leading" id="vzM-va-hVl"/>
+                            <constraint firstItem="Qpi-U9-dqX" firstAttribute="centerY" secondItem="OZW-s6-cr3" secondAttribute="centerY" id="zKq-co-El6"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The booking confirmation email will be resent." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGP-j8-m4c">
+                        <rect key="frame" x="16" y="97.5" width="601" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="IYf-oW-HUI" firstAttribute="leading" secondItem="S9H-Mo-Vzd" secondAttribute="leading" id="BKo-qQ-jXq"/>
+                    <constraint firstItem="hGP-j8-m4c" firstAttribute="top" secondItem="IYf-oW-HUI" secondAttribute="bottom" constant="11" id="Iwk-aC-fIj"/>
+                    <constraint firstAttribute="bottom" secondItem="hGP-j8-m4c" secondAttribute="bottom" constant="20" id="KDb-in-VhC"/>
+                    <constraint firstAttribute="trailing" secondItem="hGP-j8-m4c" secondAttribute="trailing" constant="16" id="Nkf-yy-UIL"/>
+                    <constraint firstAttribute="trailing" secondItem="IYf-oW-HUI" secondAttribute="trailing" id="PMg-BN-OIw"/>
+                    <constraint firstItem="IYf-oW-HUI" firstAttribute="top" secondItem="S9H-Mo-Vzd" secondAttribute="top" id="ToI-ur-35j"/>
+                    <constraint firstItem="hGP-j8-m4c" firstAttribute="leading" secondItem="S9H-Mo-Vzd" secondAttribute="leading" constant="16" id="eZu-Xi-Ugn"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="emailHeightConatraint" destination="1dR-oz-iaW" id="Rbo-j1-iSa"/>
+                <outlet property="messageLabel" destination="hGP-j8-m4c" id="qDY-Uu-t2a"/>
+                <outlet property="toEmailTextView" destination="OZW-s6-cr3" id="h6R-YN-HI3"/>
+                <outlet property="toLabel" destination="Qpi-U9-dqX" id="tWx-mY-CCy"/>
+            </connections>
+            <point key="canvasLocation" x="-171.73913043478262" y="-60.9375"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="greenCircleButton" width="22" height="22"/>
+    </resources>
+</document>

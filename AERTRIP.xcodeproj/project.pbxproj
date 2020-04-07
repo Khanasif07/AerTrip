@@ -754,6 +754,8 @@
 		846FB584222509D3007F70F9 /* Common.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846FB583222509D3007F70F9 /* Common.storyboard */; };
 		846FB58D22250AFA007F70F9 /* PKBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846FB58B22250AFA007F70F9 /* PKBottomSheet.swift */; };
 		846FB58E22250AFA007F70F9 /* PKBottomSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846FB58C22250AFA007F70F9 /* PKBottomSheet.xib */; };
+		84712D1E243AF2C1003F0ADD /* ConfirmationEmailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84712D1D243AF2C1003F0ADD /* ConfirmationEmailTableViewCell.swift */; };
+		84712D20243AF2EB003F0ADD /* ConfirmationEmailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84712D1F243AF2EB003F0ADD /* ConfirmationEmailTableViewCell.xib */; };
 		8472F20123E3FE6C00993B08 /* HotelsMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472F20023E3FE6C00993B08 /* HotelsMapVC.swift */; };
 		8472F20423E4064C00993B08 /* HotelsMapVC+CollectionViewDataSourceDelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472F20223E4064C00993B08 /* HotelsMapVC+CollectionViewDataSourceDelegateMethods.swift */; };
 		8472F20523E4064C00993B08 /* HotelsMapVC+MapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472F20323E4064C00993B08 /* HotelsMapVC+MapDelegate.swift */; };
@@ -1865,6 +1867,8 @@
 		846FB583222509D3007F70F9 /* Common.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Common.storyboard; sourceTree = "<group>"; };
 		846FB58B22250AFA007F70F9 /* PKBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKBottomSheet.swift; sourceTree = "<group>"; };
 		846FB58C22250AFA007F70F9 /* PKBottomSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PKBottomSheet.xib; sourceTree = "<group>"; };
+		84712D1D243AF2C1003F0ADD /* ConfirmationEmailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationEmailTableViewCell.swift; sourceTree = "<group>"; };
+		84712D1F243AF2EB003F0ADD /* ConfirmationEmailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmationEmailTableViewCell.xib; sourceTree = "<group>"; };
 		8472F20023E3FE6C00993B08 /* HotelsMapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsMapVC.swift; sourceTree = "<group>"; };
 		8472F20223E4064C00993B08 /* HotelsMapVC+CollectionViewDataSourceDelegateMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HotelsMapVC+CollectionViewDataSourceDelegateMethods.swift"; sourceTree = "<group>"; };
 		8472F20323E4064C00993B08 /* HotelsMapVC+MapDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HotelsMapVC+MapDelegate.swift"; sourceTree = "<group>"; };
@@ -4602,6 +4606,15 @@
 			path = PKBottomSheet;
 			sourceTree = "<group>";
 		};
+		84712D1C243AF29C003F0ADD /* ConfirmationEmail */ = {
+			isa = PBXGroup;
+			children = (
+				84712D1D243AF2C1003F0ADD /* ConfirmationEmailTableViewCell.swift */,
+				84712D1F243AF2EB003F0ADD /* ConfirmationEmailTableViewCell.xib */,
+			);
+			path = ConfirmationEmail;
+			sourceTree = "<group>";
+		};
 		8472F1FF23E3FDF300993B08 /* HotelsMapVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -5149,6 +5162,7 @@
 		84DD245C2265A9630013F77E /* BookingsXibs */ = {
 			isa = PBXGroup;
 			children = (
+				84712D1C243AF29C003F0ADD /* ConfirmationEmail */,
 				0C6666B022D48571009DFACD /* CommonAction */,
 				0C6666AB22D472C9009DFACD /* TripChange */,
 				1873DD8322C9F3D800DC8206 /* WeatherFooterTableViewCell */,
@@ -6004,6 +6018,7 @@
 				84B1406422A16E1A00EAA5D2 /* FlightBookingsRequestTitleTableViewCell.xib in Resources */,
 				843FF9D0240D216300CBE5EC /* ViewProfileDetailFrequentCell.xib in Resources */,
 				84534EAA2248BE61009FF536 /* HCCheckInOutTableViewCell.xib in Resources */,
+				84712D20243AF2EB003F0ADD /* ConfirmationEmailTableViewCell.xib in Resources */,
 				18930A2A21D36761005442C8 /* TextEditableTableViewCell.xib in Resources */,
 				84BF46C32211E611000AA6E3 /* HotelDetailAmenitiesCell.xib in Resources */,
 				180692BE229525D100177487 /* BookingFFAirlineTableViewCell.xib in Resources */,
@@ -6960,6 +6975,7 @@
 				180162ED2295706C007E5D43 /* BookingAddOnHeaderView.swift in Sources */,
 				84534EA92248BE61009FF536 /* HCCheckInOutTableViewCell.swift in Sources */,
 				188A4DB5242DE9F800F871ED /* SwiftPhotoGalleryCell.swift in Sources */,
+				84712D1E243AF2C1003F0ADD /* ConfirmationEmailTableViewCell.swift in Sources */,
 				188E930E221A957A008FE50A /* CustomMarker.swift in Sources */,
 				0C24D4F3242CAF8900CBFF92 /* CurrencyVC+TableViewDelegates.swift in Sources */,
 				84F983F221B51A070018DFED /* Reachability.swift in Sources */,

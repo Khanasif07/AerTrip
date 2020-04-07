@@ -335,14 +335,18 @@ extension AppFlowManager {
         }
     }
     
-    func showSelectDestinationVC(delegate: SelectDestinationVCDelegate, currentlyUsingFor: SelectDestinationVC.CurrentlyUsingFor) {
+    func showSelectDestinationVC(delegate: SelectDestinationVCDelegate, currentlyUsingFor: SelectDestinationVC.CurrentlyUsingFor, navigationController: UINavigationController? = nil) {
         if let mVC = self.mainHomeVC {
             let ob = SelectDestinationVC.instantiate(fromAppStoryboard: .HotelsSearch)
             ob.currentlyUsingFor = currentlyUsingFor
             ob.delegate = delegate
-            ob.modalPresentationStyle = .fullScreen
-            mVC.add(childViewController: ob)
+            if #available(iOS 13.0, *) {} else {
+            ob.modalPresentationStyle = .overCurrentContext
+            }
+//            mVC.add(childViewController: ob)
+            (navigationController ?? mVC).present(ob, animated: true, completion: nil)
         }
+        
     }
     
     func moveToHotelsResultVc(withFormData: HotelFormPreviosSearchData) {
@@ -362,7 +366,13 @@ extension AppFlowManager {
             let ob = BulkBookingVC.instantiate(fromAppStoryboard: .HotelsSearch)
             ob.viewModel.oldData = withOldData
             ob.delegate = delegate
-            mVC.add(childViewController: ob)
+            
+            //mVC.add(childViewController: ob)
+            let navigationController = self.getNavigationController(forPresentVC: ob)
+            if #available(iOS 13.0, *) {} else {
+            navigationController.modalPresentationStyle = .overCurrentContext
+            }
+            mVC.present(navigationController, animated: true, completion: nil)
         }
     }
     
@@ -393,11 +403,12 @@ extension AppFlowManager {
         }
     }
     
-    func showBulkEnquiryVC(buttonConfig: BulkEnquirySuccessfulVC.ButtonConfiguration) {
+    func showBulkEnquiryVC(buttonConfig: BulkEnquirySuccessfulVC.ButtonConfiguration, delegate: BulkEnquirySuccessfulVCDelegate) {
         if let mVC = UIApplication.topViewController() {
             let ob = BulkEnquirySuccessfulVC.instantiate(fromAppStoryboard: .HotelsSearch)
             ob.searchButtonConfiguration = buttonConfig
             ob.currentUsingAs = .bulkBooking
+            ob.delegate = delegate
             mVC.add(childViewController: ob)
         }
     }
@@ -832,7 +843,7 @@ extension AppFlowManager {
         }
     }
     
-    func moveHotelCalenderVC(isHotelCalendar: Bool = false, isReturn: Bool = false, isMultiCity: Bool = false, checkInDate: Date? = nil, checkOutDate: Date? = nil, delegate: CalendarDataHandler, isStartDateSelection: Bool) {
+    func moveHotelCalenderVC(isHotelCalendar: Bool = false, isReturn: Bool = false, isMultiCity: Bool = false, checkInDate: Date? = nil, checkOutDate: Date? = nil, delegate: CalendarDataHandler, isStartDateSelection: Bool, navigationController: UINavigationController? = nil) {
         if let ob = UIStoryboard(name: "AertripCalendar", bundle: Bundle(for: AertripCalendarViewController.self)).instantiateViewController(withIdentifier: "AertripCalendarViewController") as? AertripCalendarViewController {
             let calendarVM = CalendarVM()
             calendarVM.isHotelCalendar = isHotelCalendar
@@ -843,7 +854,7 @@ extension AppFlowManager {
             calendarVM.date2 = checkOutDate
             ob.viewModel = calendarVM
             ob.viewModel?.delegate = delegate
-            self.mainNavigationController.present(ob, animated: true, completion: nil)
+            (navigationController ?? self.mainNavigationController).present(ob, animated: true, completion: nil)
         }
     }
     

@@ -75,12 +75,12 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
             self.animateButton()
             // nitin self.getFavouriteHotels(shouldReloadData: false)
             //self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
+            tableViewVertical.setContentOffset(.zero, animated: false)
+            showBluredHeaderViewCompleted()
         }
         else {
             self.hideFavsButtons()
         }
-        
-        
         
     }
 }

@@ -273,7 +273,10 @@ extension HotelResultVC {
             self.switchView.isOn = false
             self.viewModel.isFavouriteOn = false
             self.hideFavsButtons()
+            tableViewVertical.setContentOffset(.zero, animated: false)
+            showBluredHeaderViewCompleted()
         }
+        
     }
     
     func manageFloatingView(isHidden: Bool) {
@@ -281,25 +284,26 @@ extension HotelResultVC {
         self.floatingButtonBackView.isHidden = isHidden
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView === tableViewVertical else {
-            return
-        }
-        var yPosition = CGFloat()
-        if(scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0) {
-            yPosition = 0
-        }
-        else {
-            yPosition = -120
-        }
-        if self.isViewDidAppear, self.headerContainerViewTopConstraint.constant != yPosition {
-            UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0, options: .curveEaseInOut, animations: {
-                self.headerContainerViewTopConstraint.constant = yPosition
-                self.view.layoutIfNeeded()
-            }, completion: nil)
-        }
-    }
-    
+    /*
+     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+     guard scrollView === tableViewVertical else {
+     return
+     }
+     var yPosition = CGFloat()
+     if(scrollView.panGestureRecognizer.translation(in: scrollView.superview).y > 0) {
+     yPosition = 0
+     }
+     else {
+     yPosition = -120
+     }
+     if self.isViewDidAppear, self.headerContainerViewTopConstraint.constant != yPosition {
+     UIView.animate(withDuration: AppConstants.kAnimationDuration, delay: 0, options: .curveEaseInOut, animations: {
+     self.headerContainerViewTopConstraint.constant = yPosition
+     self.view.layoutIfNeeded()
+     }, completion: nil)
+     }
+     }
+     */
     
     // MARK: - Manage Header animation
     
@@ -401,5 +405,121 @@ extension HotelResultVC {
     
 }
 
-
-
+//MARK:- Scroll related methods
+extension HotelResultVC {
+    
+    fileprivate func hideHeaderBlurView(_ offsetDifference: CGFloat) {
+        DispatchQueue.main.async {
+            
+            var yCordinate : CGFloat
+            yCordinate = max (  -self.visualEffectViewHeight ,  -offsetDifference )
+            yCordinate = min ( 0,  yCordinate)
+            
+            
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseOut], animations: {
+                
+                var rect = self.headerContainerView.frame
+                let yCordinateOfView = rect.origin.y
+                if ( yCordinateOfView  > yCordinate ) {
+                    rect.origin.y = yCordinate
+                    print("hideHeaderBlurView.frame : \(self.headerContainerView.frame )")
+                    self.headerContainerViewTopConstraint.constant = yCordinate
+                }
+                
+            } ,completion: nil)
+        }
+    }
+    
+    fileprivate func revealBlurredHeaderView(_ invertedOffset: CGFloat) {
+        DispatchQueue.main.async {
+            
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseInOut], animations: {
+                
+                var rect = self.headerContainerView.frame
+                
+                var yCordinate = rect.origin.y + invertedOffset
+                yCordinate = min ( 0,  yCordinate)
+                rect.origin.y = yCordinate
+                print("revealBlurredHeaderView.frame : \(self.headerContainerView.frame )")
+                self.headerContainerViewTopConstraint.constant = yCordinate
+                
+            } ,completion: nil)
+        }
+    }
+    
+    fileprivate func snapToTopOrBottomOnSlowScrollDragging(_ scrollView: UIScrollView) {
+        
+            var rect = self.headerContainerView.frame
+            let yCoordinate = rect.origin.y * ( -1 )
+            
+            // After dragging if blurEffectView is at top or bottom position , snapping animation is not required
+            if yCoordinate == 0 || yCoordinate == ( -visualEffectViewHeight){
+                return
+            }
+            
+            // If blurEffectView yCoodinate is close to top of the screen
+            if  ( yCoordinate > ( visualEffectViewHeight / 2.0 ) ){
+                rect.origin.y = -visualEffectViewHeight
+                
+                if scrollView.contentOffset.y < 100 {
+                    let zeroPoint = CGPoint(x: 0, y: 96.0)
+                    scrollView.setContentOffset(zeroPoint, animated: true)
+                }
+            }
+            else {  //If blurEffectView yCoodinate is close to fully visible state of blurView
+                rect.origin.y = 0
+            }
+            
+            // Animatioon to move the blurEffectView
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseOut], animations: {
+                self.headerContainerViewTopConstraint.constant = rect.origin.y
+            } ,completion: nil)
+    }
+    
+    func showBluredHeaderViewCompleted() {
+        DispatchQueue.main.async {
+            
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: [.curveEaseInOut], animations: {
+                self.headerContainerViewTopConstraint.constant = 0
+            } ,completion: nil)
+        }
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+         guard scrollView === tableViewVertical, self.isViewDidAppear else {return}
+        scrollviewInitialYOffset = scrollView.contentOffset.y
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView === tableViewVertical, self.isViewDidAppear else {return}
+        
+        let contentSize = scrollView.contentSize
+        let scrollViewHeight = contentSize.height
+        let viewHeight = self.view.frame.height
+        
+        if scrollViewHeight < (viewHeight + visualEffectViewHeight) {
+            return
+        }
+        
+        let contentOffset = scrollView.contentOffset
+        let offsetDifference = contentOffset.y - scrollviewInitialYOffset
+        if offsetDifference > 0 {
+            hideHeaderBlurView(offsetDifference)
+        }
+        else {
+            let invertedOffset = -offsetDifference
+            revealBlurredHeaderView(invertedOffset)
+        }
+    }
+    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView){
+        guard scrollView === tableViewVertical, self.isViewDidAppear else {return}
+        showBluredHeaderViewCompleted()
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard scrollView === tableViewVertical, self.isViewDidAppear else {return}
+        snapToTopOrBottomOnSlowScrollDragging(scrollView)
+        //        scrollviewInitialYOffset = 0.0
+    }
+}
