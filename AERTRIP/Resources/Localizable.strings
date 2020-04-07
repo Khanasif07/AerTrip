@@ -903,8 +903,8 @@
 "ContactDetails" = "Contact Details";
 "KindlyDisconnectMessage" = "Kindly set a password for your Aertrip account or login via another social account before disconnecting ";
 
+//MARK:- Settings
 "Currency" = "Currency";
-
 "EnableDisableAllNotifications" = "To enable or disable notifications go to Settings → Notifications → Aertrip → All Notifications";
 "GetNotifiedAboutYourBookings" = "Get notified about your bookings";
 "GetNotifiedAboutYourTripEvents" = "Get notified about your trip events";
@@ -912,3 +912,8 @@
 "Ok" = "Ok";
 "AllEventSyncedToCalendarApp" = "All the events will be sync to calendar app.";
 "ThisFunctionalityWillBeAvailableSoon" = "This functionality will be available soon.";
+
+//Air in
+"TryDelhiToGoaTomorrow" = "Try \"Delhi to Goa tomorrow\"";
+
+"Copyright2018AllRightsReserved" = "Copyright © 2018. All rights reserved.";

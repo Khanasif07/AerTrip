@@ -71,6 +71,7 @@ class ChatVC : BaseVC {
     
     //MARK:- Send Button Tapped
     @IBAction func sendButton(_ sender: UIButton) {
+        self.messageTextView.placeholder = ""
         self.invalidateTypingCellTimer()
         guard  let msg = self.messageTextView.text, !msg.isEmpty else { return }
         if self.chatVm.messages.isEmpty {
@@ -129,7 +130,6 @@ extension ChatVC {
         self.whereToGoLabel.font = AppFonts.Regular.withSize(28)
         self.animationLabel.font = AppFonts.Regular.withSize(18)
         self.morningLabel.textColor = UIColor.black
-//        self.textViewBackView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
         self.morningLabel.alpha = 0
         self.whereToGoLabel.alpha = 0
         self.setMorningLabelText()
@@ -141,7 +141,8 @@ extension ChatVC {
         self.chatTableView.isHidden = true
         self.chatButton.isUserInteractionEnabled = false
         self.messageTextView.tintColor = AppColors.themeGreen
-//        self.showHideSendButton()
+        self.messageTextView.placeholder = LocalizedString.TryDelhiToGoaTomorrow.localized
+        
     }
     
     private func setMorningLabelText(){

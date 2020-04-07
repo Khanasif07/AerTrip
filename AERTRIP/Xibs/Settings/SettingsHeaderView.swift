@@ -20,9 +20,8 @@ class SettingsHeaderView: UITableViewHeaderFooterView {
         self.titleLabel.textColor = AppColors.themeGray60
         titleLabel.numberOfLines = 0
         titleLabel.font = AppFonts.Regular.withSize(14)
-        self.topSepratorView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
-        self.bottomSepratorView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
-
+        self.topSepratorView.backgroundColor = AppColors.themeGray20
+        self.bottomSepratorView.backgroundColor = AppColors.themeGray20
     }
 
 }

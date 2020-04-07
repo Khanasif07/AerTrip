@@ -20,6 +20,8 @@ class CountryCell: UITableViewCell {
         // Initialization code
         self.selectionStyle = .none
         countryLabel.font = AppFonts.Regular.withSize(18)
+        flagImageView.layer.borderWidth = 0.3
+        flagImageView.layer.borderColor = AppColors.themeGray20.cgColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

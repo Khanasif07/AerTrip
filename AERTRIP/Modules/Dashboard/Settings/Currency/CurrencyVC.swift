@@ -115,7 +115,9 @@ extension CurrencyVC : UISearchBarDelegate {
 
 extension CurrencyVC : CurrencyVcDelegate {
     func showUnderDevelopmentPopUp(){
-        _ = ATAlertController.alert(title: "", message: LocalizedString.ThisFunctionalityWillBeAvailableSoon.localized, buttons: [LocalizedString.Ok.localized], tapBlock: nil)
+        AppToast.default.showToastMessage(message: LocalizedString.ThisFunctionalityWillBeAvailableSoon.localized)
+
+//        _ = ATAlertController.alert(title: "", message: LocalizedString.ThisFunctionalityWillBeAvailableSoon.localized, buttons: [LocalizedString.Ok.localized], tapBlock: nil)
     }
 }
 

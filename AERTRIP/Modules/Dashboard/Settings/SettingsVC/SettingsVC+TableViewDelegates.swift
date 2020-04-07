@@ -68,6 +68,7 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
         cell.sepratorView.isHidden = self.settingsVm.isSepratorHidden(section: indexPath.section, row: indexPath.row)
         cell.populateCell(type : self.settingsVm.getSettingsType(key: indexPath.section, index: indexPath.row))
         cell.switch.addTarget(self, action: #selector(toggleSwitched), for: UIControl.Event.valueChanged)
+        cell.switch.setOn(false, animated: true)
         return cell
       }
     
@@ -99,7 +100,12 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     @objc func toggleSwitched(sender : UISwitch) {
-        toggleSettings.calenderSyncSettings = sender.isOn
+//        toggleSettings.calenderSyncSettings = sender.isOn
+        delay(seconds: 0.3) {
+            AppToast.default.showToastMessage(message: LocalizedString.ThisFunctionalityWillBeAvailableSoon.localized)
+            guard let cell = self.settingsTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? SettingsCell else { return }
+            cell.switch.setOn(false, animated: true)
+        }
     }
     
 }

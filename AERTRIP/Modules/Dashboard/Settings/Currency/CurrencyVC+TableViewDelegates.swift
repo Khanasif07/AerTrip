@@ -24,7 +24,6 @@ extension CurrencyVC : UITableViewDelegate, UITableViewDataSource {
         return 44
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CurrencyCell", for: indexPath) as? CurrencyCell else {
                        fatalError("SettingsCell not found")
@@ -35,6 +34,7 @@ extension CurrencyVC : UITableViewDelegate, UITableViewDataSource {
       }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.view.endEditing(true)
         self.currencyVm.selectCurrency(index: indexPath.row)
         self.currencyTableView.reloadData()
     }

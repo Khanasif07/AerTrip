@@ -41,8 +41,7 @@ class SettingsVC: BaseVC {
     }
 
     override func setupTexts() {
-
-    
+        self.copyRightLabel.text = LocalizedString.Copyright2018AllRightsReserved.localized.replacingOccurrences(of: "2018", with: "\(Date().year)")
     }
         
     //MARK:- Methods
@@ -59,7 +58,6 @@ class SettingsVC: BaseVC {
         self.settingsTableView.dataSource = self
         self.settingsTableView.delegate = self
     }
-    
 }
 
 extension SettingsVC: TopNavigationViewDelegate {
