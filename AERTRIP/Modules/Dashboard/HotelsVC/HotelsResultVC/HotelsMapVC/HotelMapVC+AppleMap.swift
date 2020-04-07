@@ -30,13 +30,13 @@ extension HotelsMapVC : MKMapViewDelegate{
 //        self.updateRegionMarker()
     }
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        self.moveLegalLabel()
+//        self.moveLegalLabel()
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        self.moveLegalLabel()
         self.updateRegionMarker()
         self.hideUnhideCurrentLocationBtn()
+        self.moveLegalLabel()
     }
     
     func addGestureRecognizerForTap(){
@@ -58,7 +58,7 @@ extension HotelsMapVC : MKMapViewDelegate{
     
     
     func moveLegalLabel() {
-        if self.appleMap.subviews.count > 2 && !isMapInFullView{
+        if self.appleMap.subviews.count > 2{// && !isMapInFullView
             let mapLogoView: UIView = self.appleMap.subviews[1]
             let legalLabel: UIView = self.appleMap.subviews[2]
             UIView.animateKeyframes(withDuration: 0.6, delay: 0.0, options: .calculationModeLinear, animations: {
@@ -70,7 +70,7 @@ extension HotelsMapVC : MKMapViewDelegate{
                 }
             })
             
-        }else if self.appleMap.subviews.count > 1 && !isMapInFullView{// IOS12 and lower devices.
+        }else if self.appleMap.subviews.count > 1{// IOS12 and lower devices.// && !isMapInFullView
             let legalLabel: UIView = self.appleMap.subviews[1]
             UIView.animateKeyframes(withDuration: 0.3, delay: 0.0, options: .calculationModeLinear, animations: {
                 UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3) {

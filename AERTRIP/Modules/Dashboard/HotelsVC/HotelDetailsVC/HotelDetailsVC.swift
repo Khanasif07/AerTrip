@@ -159,13 +159,15 @@ class HotelDetailsVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        if needToChnageNavigationY{
+        if needToChnageNavigationY{
 //            self.navigationController?.view?.subviews.first?.frame.size.height = self.currentViewHeight
 //            self.navigationController?.view?.subviews.first?.frame.origin.y = 0
 //            self.navigationController?.view.setNeedsDisplay()
 //            needToChnageNavigationY = false
-//
-//        }
+            if #available(iOS 13.0, *) {
+                self.isModalInPresentation = false
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -175,7 +177,10 @@ class HotelDetailsVC: BaseVC {
 //        self.navigationController?.view?.subviews.first?.frame.size.height = self.currentViewHeight - self.statusBarHeight
 //        self.navigationController?.view?.subviews.first?.frame.origin.y = self.statusBarHeight
 //        self.navigationController?.view.setNeedsDisplay()
-//        self.needToChnageNavigationY = true
+        if #available(iOS 13.0, *) {
+            self.isModalInPresentation = true
+        }
+        self.needToChnageNavigationY = true
         
     }
     
