@@ -81,7 +81,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             return (self.viewModel.searchedHotels.count != 0) ? 0.5 : 0
         }
         else {
-           return  section == 0 ?  0 :  53.0
+            return  self.getHeightForResult(section: section)//section == 0 ?  0 :  53.0
         }
     }
     
@@ -98,6 +98,11 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             
             hView.titleLabel.text = self.getSectionTitle(forSection: section)
             hView.titleLabelWidthConstraint.constant = hView.titleLabel.intrinsicContentSize.width + 16
+            
+            if section == 0{
+                hView.labelCenterConstraint.constant = -10
+            }
+            
             return hView
         }
     }
@@ -201,11 +206,36 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             let hData = viewModel.fetchedResultsController.object(at: indexPath)
             if let cell = tableView.cellForRow(at: indexPath) as? HotelCardTableViewCell {
                 
-                self.presentController(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+                self.presentControllerDefault(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
 
             }
         }
     }
+    ///Uncomment commented line when "Beyond 20km" label need to show.
+    func getHeightForResult(section:Int)->CGFloat{
+//        if HotelFilterVM.shared.sortUsing == .DistanceNearestFirst(ascending: false){
+//            return (section == 0) ? 30 : 53
+//        }else{
+            return (section == 0) ? 0 : 53
+//        }
+    }
+    
+    
+    func presentControllerDefault(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
+        let vc = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
+        vc.viewModel.hotelInfo = hotelInfo
+        vc.delegate = self
+        vc.viewModel.hotelSearchRequest = hotelSearchRequest
+        var img = cell.selfImage
+        if cell.selfImage == nil{
+            img = cell.viewScreenShot()
+        }
+        vc.backImage = img
+        let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
+        self.present(nav, animated: true)
+        
+    }
+    
     
     //--------------------------- Golu Change ---------------------
     func presentController(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){

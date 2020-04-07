@@ -560,6 +560,7 @@
                                         <connections>
                                             <outlet property="dividerView" destination="r3h-aV-7RE" id="yPf-Mh-0xU"/>
                                             <outlet property="dividerViewLeadingConstraints" destination="4Ke-ep-j8N" id="5Fz-AU-faL"/>
+                                            <outlet property="dividerViewTrailingConstraints" destination="Bih-ye-bJW" id="uyu-fe-BjV"/>
                                             <outlet property="hotelTagName" destination="hQW-nJ-MgF" id="F8I-Br-kyF"/>
                                         </connections>
                                     </tableViewCell>
@@ -727,7 +728,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U1u-Kv-brt">
-                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="846" width="414" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="kmt-Pq-JiN"/>
@@ -755,7 +756,7 @@
                             <constraint firstItem="0z1-4n-pet" firstAttribute="trailing" secondItem="sFr-ut-Ggi" secondAttribute="trailing" id="1cK-VD-IIj"/>
                             <constraint firstItem="0z1-4n-pet" firstAttribute="trailing" secondItem="ATu-nW-Keb" secondAttribute="trailing" id="3zk-f5-EvV"/>
                             <constraint firstItem="0z1-4n-pet" firstAttribute="trailing" secondItem="QX9-ZE-4k9" secondAttribute="trailing" id="6In-qN-aG7"/>
-                            <constraint firstItem="0z1-4n-pet" firstAttribute="bottom" secondItem="U1u-Kv-brt" secondAttribute="bottom" id="BoR-KJ-znY"/>
+                            <constraint firstAttribute="bottom" secondItem="U1u-Kv-brt" secondAttribute="bottom" id="BoR-KJ-znY"/>
                             <constraint firstItem="QX9-ZE-4k9" firstAttribute="top" secondItem="Xxf-m8-3Kt" secondAttribute="top" id="DIt-Dd-6yd"/>
                             <constraint firstItem="dk1-hr-5ri" firstAttribute="trailing" secondItem="z5I-1I-YSb" secondAttribute="trailing" id="Iwc-dt-kYr"/>
                             <constraint firstItem="0z1-4n-pet" firstAttribute="bottom" secondItem="sFr-ut-Ggi" secondAttribute="bottom" id="KgX-Xt-hMY"/>
@@ -796,6 +797,6 @@
     </scenes>
     <resources>
         <image name="black_cross" width="24" height="24"/>
-        <image name="saveHotelsSelected" width="27" height="27"/>
+        <image name="saveHotelsSelected" width="27" height="30"/>
     </resources>
 </document>

@@ -279,14 +279,15 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
                 
                 finalText = "\((type == .Adult) ? LocalizedString.Adult.localized : LocalizedString.Child.localized) \(self.contact?.numberInRoom ?? 0)"
             }
-            
+            var ageText = ""
             if let year = self.contact?.age, year > 0 {
                 //ageLabel.text = "(\(year)y)"
                 finalText += " (\(year)y)"
+                ageText = "(\(year)y)"
             }
             ageLabel.isHidden = false
             lastNameAgeContainer.isHidden = false
-            firstNameLabel.text = finalText
+            firstNameLabel.attributedText = self.atributedtedString(text: finalText, ageText: ageText)
         }
         
         self.iconImageView.cornerRadius = self.iconImageView.height / 2.0
@@ -336,6 +337,16 @@ class HCDataSelectionRoomDetailsCollectionCell: UICollectionViewCell {
     
     // Mark:- IBActions
     // Mark:-
+    
+    func atributedtedString(text: String, ageText: String)-> NSAttributedString{
+        
+        let attributedString = NSMutableAttributedString(string: text, attributes: [
+            .font: AppFonts.Regular.withSize(14),
+            .foregroundColor: AppColors.themeBlack
+        ])
+        attributedString.addAttribute(.foregroundColor, value: AppColors.themeGray40, range: (text as NSString).range(of: ageText))
+        return attributedString
+    }
 }
 
 

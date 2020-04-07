@@ -16,6 +16,7 @@ class SearchTagTableCell: UITableViewCell {
     @IBOutlet weak var hotelTagName: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var dividerViewLeadingConstraints: NSLayoutConstraint!
+    @IBOutlet weak var dividerViewTrailingConstraints: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================

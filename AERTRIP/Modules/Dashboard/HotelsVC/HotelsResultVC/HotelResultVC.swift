@@ -27,7 +27,7 @@ let visualEffectViewHeight =  CGFloat(20)//CGFloat(200.0)
 
 
 
-class HotelResultVC: StatusBarAnimatableViewController {
+class HotelResultVC: BaseVC {
     
     // MARK: - IBOutlets
     // MARK: -
@@ -125,9 +125,10 @@ class HotelResultVC: StatusBarAnimatableViewController {
     let hotelResultCellIdentifier = "HotelSearchTableViewCell"
     
     var statusBarBlurView : UIVisualEffectView!
-    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
-        return StatusBarAnimatableConfig(prefersHidden: false, animation: .slide)
-    }
+//    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
+//        return StatusBarAnimatableConfig(prefersHidden: false, animation: .slide)
+//    }
+
     
     // Empty State view
     
@@ -329,7 +330,7 @@ class HotelResultVC: StatusBarAnimatableViewController {
         
         statusBarBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: statusBarHeight))
         statusBarBlurView.effect = UIBlurEffect(style: .prominent)
-        self.navigationController?.view.addSubview(statusBarBlurView)
+        //self.navigationController?.view.addSubview(statusBarBlurView)
         
     }
     // MARK: - Methods

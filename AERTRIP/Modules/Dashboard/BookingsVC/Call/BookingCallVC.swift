@@ -235,7 +235,7 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
                 if indexPath.row == 0 {
                     return 44.0
                 } else {
-                    return 60.0
+                    return !(self.viewModel.aertripData[indexPath.row].email.isEmpty) ? 60.0 : 44.0
                 }
             case 1:
                 return 44.0
@@ -255,7 +255,7 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
                 if indexPath.row == 0 {
                     return 44.0
                 } else {
-                    return 60.0
+                    return !(self.viewModel.aertripData[indexPath.row].email.isEmpty) ? 60.0 : 44.0
                 }
             case 1:
                 if indexPath.row == self.viewModel.hotelData.count {

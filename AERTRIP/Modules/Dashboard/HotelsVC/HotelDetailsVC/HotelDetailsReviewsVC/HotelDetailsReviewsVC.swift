@@ -236,6 +236,7 @@ extension HotelDetailsReviewsVC {
     internal func getTripAdvisorTravelerRatingCell(_ tableView: UITableView, indexPath: IndexPath,tripAdviserDetails: HotelDetailsReviewsModel) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TripAdvisorTravelerRatingTableViewCell", for: indexPath) as? TripAdvisorTravelerRatingTableViewCell else { return UITableViewCell() }
         cell.configCell(reviewsLabel: "\(String(describing: tripAdviserDetails.numReviews.toInt ?? 0)) \(LocalizedString.Reviews.localized)", tripAdvisorRating: Double(tripAdviserDetails.rating) ?? 0.0, ranking: tripAdviserDetails.rankingData?.rankingString ?? "")
+        cell.reviewsButton.addTarget(self, action: #selector(tapCellReviewBtn), for: .touchUpInside)
         return cell
     }
     
@@ -283,6 +284,13 @@ extension HotelDetailsReviewsVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PoweredByTableViewCell.reusableIdentifier, for: indexPath) as? PoweredByTableViewCell else { return UITableViewCell() }
         return cell
     }
+    
+    @objc func tapCellReviewBtn(_ sender: UIButton){
+        let urlString = "https:\(self.viewModel.hotelTripAdvisorDetails?.webUrl ?? "")"
+        let screenTitle = LocalizedString.ReadReviews.localized
+        AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+    }
+    
 }
 
 extension HotelDetailsReviewsVC: HotelTripAdvisorDetailsDelegate {

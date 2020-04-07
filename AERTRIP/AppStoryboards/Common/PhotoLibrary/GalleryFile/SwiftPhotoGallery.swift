@@ -45,24 +45,6 @@ public class SwiftPhotoGallery: UIViewController {
         }
     }
 
-//    public var currentPageIndicatorTintColor: UIColor {
-//        get {
-//            return pageControl.currentPageIndicatorTintColor!
-//        }
-//        set(newCurrentPageIndicatorTintColor) {
-//            pageControl.currentPageIndicatorTintColor = newCurrentPageIndicatorTintColor
-//        }
-//    }
-
-//    public var pageIndicatorTintColor: UIColor {
-//        get {
-//            return pageControl.pageIndicatorTintColor!
-//        }
-//        set(newPageIndicatorTintColor) {
-//            pageControl.pageIndicatorTintColor = newPageIndicatorTintColor
-//        }
-//    }
-
     public var currentPage: Int {
         set(page) {
             if page < numberOfImages {
@@ -144,7 +126,6 @@ public class SwiftPhotoGallery: UIViewController {
 
     public override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-
         flowLayout.itemSize = view.bounds.size
     }
 
@@ -174,10 +155,6 @@ public class SwiftPhotoGallery: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor.black
-
-//        pageControl.currentPageIndicatorTintColor = UIColor.white
-//        pageControl.pageIndicatorTintColor = UIColor(white: 0.75, alpha: 0.35)
-
         isRevolvingCarouselEnabled = numberOfImages > 1
         setupPageControl()
         setupGestureRecognizers()
@@ -383,7 +360,7 @@ public class SwiftPhotoGallery: UIViewController {
 
         
         
-        pageControlCenterXConstraint = NSLayoutConstraint(item: pageControl,
+        pageControlCenterXConstraint = NSLayoutConstraint(item: pageControl as Any,
                                                           attribute: NSLayoutConstraint.Attribute.centerX,
                                                           relatedBy: NSLayoutConstraint.Relation.equal,
                                                           toItem: view,
@@ -398,14 +375,14 @@ public class SwiftPhotoGallery: UIViewController {
                                                          attribute: NSLayoutConstraint.Attribute.bottom,
                                                          multiplier: 1.0,
                                                          constant: 20)
-        pageControlWidthConstraint = NSLayoutConstraint(item: pageControl,
+        pageControlWidthConstraint = NSLayoutConstraint(item: pageControl as Any,
                                                         attribute: .width,
                                                         relatedBy: .equal,
                                                         toItem: nil,
                                                         attribute: .width,
                                                         multiplier: 1.0,
                                                         constant: 200)
-        pageControlHeightConstraint = NSLayoutConstraint(item: pageControl,
+        pageControlHeightConstraint = NSLayoutConstraint(item: pageControl as Any,
                                                          attribute: .height,
                                                          relatedBy: .equal,
                                                          toItem: nil,

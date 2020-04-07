@@ -18,6 +18,7 @@ class TripAdvisorTravelerRatingTableViewCell: UITableViewCell {
     @IBOutlet weak var reviewsLabel: UILabel!
     @IBOutlet weak var hotelNumberLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var reviewsButton: UIButton!
     
     
     override func awakeFromNib() {

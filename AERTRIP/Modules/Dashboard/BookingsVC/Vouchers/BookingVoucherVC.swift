@@ -148,6 +148,7 @@ extension BookingVoucherVC: UITableViewDataSource,UITableViewDelegate {
                 voucherCell.dividerView.isHidden = (indexPath.row == (count - 1))
             }
             voucherCell.titleLabel.text = "Booking"
+            voucherCell.paymentTypeImageView.isHidden = true
         }
         else if indexPath.section == 1 {
             //receipt
@@ -155,6 +156,8 @@ extension BookingVoucherVC: UITableViewDataSource,UITableViewDelegate {
             if let count = self.viewModel.receipt?.receiptVoucher.count {
                 voucherCell.dividerView.isHidden = (indexPath.row == (count - 1))
             }
+            voucherCell.paymentTypeImageView.isHidden = false
+            
         }
         else {
             //pay

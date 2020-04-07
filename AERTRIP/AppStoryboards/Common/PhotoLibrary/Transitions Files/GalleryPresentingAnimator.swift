@@ -29,7 +29,7 @@ class GalleryPresentingAnimator: NSObject, UIViewControllerAnimatedTransitioning
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 
         guard let toView = transitionContext.view(forKey: .to),
-            let fromVC = transitionContext.viewController(forKey: .from)?.children.first?.children.first as? PhotoGalleryVC,
+            let fromVC = transitionContext.viewController(forKey: .from) as? PhotoGalleryVC,
             let fromView = fromVC.galleryCollection?.cellForItem(at: indexPath) as? PhotoGalleryCell
             else {
                 transitionContext.completeTransition(true)

@@ -28,7 +28,7 @@ class GalleryImageDismissAnimator: NSObject, UIViewControllerAnimatedTransitioni
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 
-        guard let toVC = transitionContext.viewController(forKey: .to)?.children.first?.children.first as? PhotoGalleryVC,
+        guard let toVC = transitionContext.viewController(forKey: .to) as? PhotoGalleryVC,
             let fromVC = transitionContext.viewController(forKey: .from) as? SwiftPhotoGallery,
             let swiftPhotoGalleryCell = fromVC.imageCollectionView.cellForItem(at: indexPath) as? SwiftPhotoGalleryCell
             else {

@@ -12,7 +12,7 @@ protocol HotelDetailsVCDelegate : class {
     func hotelFavouriteUpdated()
 }
 
-class HotelDetailsVC: StatusBarAnimatableViewController {
+class HotelDetailsVC: BaseVC {
     
     //Mark:- Variables
     //================
@@ -159,23 +159,23 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if needToChnageNavigationY{
-            self.navigationController?.view?.subviews.first?.frame.size.height = self.currentViewHeight
-            self.navigationController?.view?.subviews.first?.frame.origin.y = 0
-            self.navigationController?.view.setNeedsDisplay()
-            needToChnageNavigationY = false
-            
-        }
+//        if needToChnageNavigationY{
+//            self.navigationController?.view?.subviews.first?.frame.size.height = self.currentViewHeight
+//            self.navigationController?.view?.subviews.first?.frame.origin.y = 0
+//            self.navigationController?.view.setNeedsDisplay()
+//            needToChnageNavigationY = false
+//
+//        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.statusBarColor = AppColors.clear
-        self.currentViewHeight = self.navigationController?.view.height ?? 0.0
-        self.navigationController?.view?.subviews.first?.frame.size.height = self.currentViewHeight - self.statusBarHeight
-        self.navigationController?.view?.subviews.first?.frame.origin.y = self.statusBarHeight
-        self.navigationController?.view.setNeedsDisplay()
-        self.needToChnageNavigationY = true
+//        self.statusBarColor = AppColors.clear
+//        self.currentViewHeight = self.navigationController?.view.height ?? 0.0
+//        self.navigationController?.view?.subviews.first?.frame.size.height = self.currentViewHeight - self.statusBarHeight
+//        self.navigationController?.view?.subviews.first?.frame.origin.y = self.statusBarHeight
+//        self.navigationController?.view.setNeedsDisplay()
+//        self.needToChnageNavigationY = true
         
     }
     
@@ -187,13 +187,7 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
         self.footerViewSetUp()
        // self.permanentTagsForFilteration()
         self.getSavedFilter()
-        self.completion = { [weak self] in
-            self?.hotelTableView.reloadData()
-            self?.viewModel.getHotelInfoApi()
-        }
-        if self.isAddingChild{
-            self.viewModel.getHotelInfoApi()
-        }
+        self.viewModel.getHotelInfoApi()
         self.smallLineView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.hotelTableView.bounces = true
         self.view.backgroundColor = .clear
@@ -203,10 +197,10 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
         self.viewModel.delegate = self
     }
     //------------------------ Golu Change --------------------
-    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
-        return StatusBarAnimatableConfig(prefersHidden: true,
-        animation: .slide)
-    }
+//    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
+//        return StatusBarAnimatableConfig(prefersHidden: false,
+//        animation: .slide)
+//    }
     //------------------------ End --------------------
     override func dataChanged(_ note: Notification) {
         if let _ = note.object as? HCDataSelectionVC {
@@ -351,7 +345,7 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
     
      func footerViewSetUp() {
         if isDeviceHasBadzel{
-            self.footerViewHeightConstraint.constant = 70
+            self.footerViewHeightConstraint.constant = 84
         }
         self.stickyView = getStickyFooter()
         if let stickyView = self.stickyView {
@@ -605,21 +599,21 @@ class HotelDetailsVC: StatusBarAnimatableViewController {
 extension HotelDetailsVC{
     
     func setPanGesture(){
-        hotelTableView.contentInsetAdjustmentBehavior = .never
-        
-        dismissalPanGesture.addTarget(self, action: #selector(handleDismissalPan(gesture:)))
-        dismissalPanGesture.delegate = self
-        
-        dismissalScreenEdgePanGesture.addTarget(self, action: #selector(handleDismissalPan(gesture:)))
-        dismissalScreenEdgePanGesture.delegate = self
-        
-        // Make drag down/scroll pan gesture waits til screen edge pan to fail first to begin
-        dismissalPanGesture.require(toFail: dismissalScreenEdgePanGesture)
-        hotelTableView.panGestureRecognizer.require(toFail: dismissalScreenEdgePanGesture)
-        
-        loadViewIfNeeded()
-        view.addGestureRecognizer(dismissalPanGesture)
-        view.addGestureRecognizer(dismissalScreenEdgePanGesture)
+//        hotelTableView.contentInsetAdjustmentBehavior = .never
+//
+//        dismissalPanGesture.addTarget(self, action: #selector(handleDismissalPan(gesture:)))
+//        dismissalPanGesture.delegate = self
+//
+//        dismissalScreenEdgePanGesture.addTarget(self, action: #selector(handleDismissalPan(gesture:)))
+//        dismissalScreenEdgePanGesture.delegate = self
+//
+//        // Make drag down/scroll pan gesture waits til screen edge pan to fail first to begin
+//        dismissalPanGesture.require(toFail: dismissalScreenEdgePanGesture)
+//        hotelTableView.panGestureRecognizer.require(toFail: dismissalScreenEdgePanGesture)
+//
+//        loadViewIfNeeded()
+//        view.addGestureRecognizer(dismissalPanGesture)
+//        view.addGestureRecognizer(dismissalScreenEdgePanGesture)
     }
        
        func didSuccessfullyDragDownToDismiss() {
