@@ -27,7 +27,7 @@ let visualEffectViewHeight =  CGFloat(20)//CGFloat(200.0)
 
 
 
-class HotelResultVC: StatusBarAnimatableViewController {
+class HotelResultVC: BaseVC {
     
     // MARK: - IBOutlets
     // MARK: -
@@ -126,9 +126,9 @@ class HotelResultVC: StatusBarAnimatableViewController {
     
     var visualEffectView : UIVisualEffectView!
     var backView : UIView!
-    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
-        return StatusBarAnimatableConfig(prefersHidden: false, animation: .slide)
-    }
+//    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
+//        return StatusBarAnimatableConfig(prefersHidden: false, animation: .slide)
+//    }
     
     // Empty State view
     
@@ -240,14 +240,14 @@ class HotelResultVC: StatusBarAnimatableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.isViewDidAppear = true
-        self.statusBarColor = AppColors.themeWhite
+//        self.statusBarColor = AppColors.themeWhite
         self.statusBarStyle = .default
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)        
         addCustomBackgroundBlurView()
-        self.statusBarColor = AppColors.themeWhite
+//        self.statusBarColor = AppColors.themeWhite
         self.statusBarStyle = .default
     }
         

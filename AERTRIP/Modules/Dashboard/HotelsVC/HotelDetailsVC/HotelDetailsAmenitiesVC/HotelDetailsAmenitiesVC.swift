@@ -65,10 +65,10 @@ class HotelDetailsAmenitiesVC: BaseVC {
     
     override func initialSetup() {
         
-        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        mainContainerView.isUserInteractionEnabled = true
-        swipeGesture.delegate = self
-        self.view.addGestureRecognizer(swipeGesture)
+//        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+//        mainContainerView.isUserInteractionEnabled = true
+//        swipeGesture.delegate = self
+//        self.view.addGestureRecognizer(swipeGesture)
         
         self.dividerView.isHidden = true
         self.registerNibs()
@@ -207,10 +207,10 @@ extension HotelDetailsAmenitiesVC {
         self.amenitiesLabelTopConstraints.constant = 23.0 - (yOffset * (23.0 / self.headerContainerView.height))
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.manageHeaderView(scrollView)
-        printDebug("scrollViewDidScroll")
-    }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        self.manageHeaderView(scrollView)
+//        printDebug("scrollViewDidScroll")
+//    }
     
     //    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
     //        self.manageHeaderView(scrollView)

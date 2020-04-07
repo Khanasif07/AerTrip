@@ -114,8 +114,10 @@ extension SearchHotelTagVC: UITableViewDelegate, UITableViewDataSource {
         cell.hotelTagName.text = self.copyOfTagButtons[indexPath.row]
         if indexPath.row == self.copyOfTagButtons.count - 1 {
             cell.dividerViewLeadingConstraints.constant = 0.0
+            cell.dividerViewTrailingConstraints.constant = 0.0
         } else {
             cell.dividerViewLeadingConstraints.constant = 16.0
+             cell.dividerViewTrailingConstraints.constant = 16.0
         }
         return cell
     }

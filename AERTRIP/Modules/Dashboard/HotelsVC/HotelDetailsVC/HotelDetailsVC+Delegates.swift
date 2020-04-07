@@ -183,7 +183,7 @@ extension HotelDetailsVC: HotelDetailDelegate {
             cell.activityIndicator.stopAnimating()
         }
         if self.isDeviceHasBadzel && !self.isAddingChild{
-            self.footerViewHeightConstraint.constant = 70.0
+            self.footerViewHeightConstraint.constant = 84.0
             self.footerView.addGredient(isVertical: false)
         }
         self.hotelTableView.reloadData()
@@ -278,12 +278,12 @@ extension HotelDetailsVC {
                 
                 UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) { [weak self] in
                     guard let `self` = self else {return}
-                    self.stickyBottomConstraint.constant = (self.hotelTableView.contentOffset.y > self.initialStickyPosition) ? -(self.footerView.height + AppFlowManager.default.safeAreaInsets.bottom) : -1.0
+                    self.stickyBottomConstraint.constant = (self.hotelTableView.contentOffset.y >= self.initialStickyPosition) ? -(self.footerView.height + AppFlowManager.default.safeAreaInsets.bottom) : 0.0
                 }.startAnimation()
             }
         }
         else {
-            self.stickyBottomConstraint.constant = -1.0
+            self.stickyBottomConstraint.constant = 0.0
         }
     }
     
@@ -329,11 +329,18 @@ extension HotelDetailsVC {
 extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
     func hotelImageTapAction(at index: Int) {
         // open gallery with show image at index
-        if let topVC = UIApplication.topViewController() {
-            PhotoGalleryVC.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, imageArray: self.viewModel.hotelData?.photos ?? [])
+//        if let topVC = UIApplication.topViewController() {
+            
+            let gVC = PhotoGalleryVC.instantiate(fromAppStoryboard: .Dashboard)
+            gVC.parentVC = self
+            gVC.imageNames = self.viewModel.hotelData?.photos ?? []
+            gVC.startShowingFrom = index
+            self.present(gVC, animated: true, completion: nil)
+            
+//            PhotoGalleryVC.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, imageArray: self.viewModel.hotelData?.photos ?? [])
 //            ATGalleryViewController.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, datasource: self, delegate: self)
             canDismissViewController = false
-        }
+//        }
     }
     
     func willShowImage(at index: Int, image: UIImage?) {
@@ -345,32 +352,6 @@ extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
     }
 }
 
-//MARK:- ATGallery Delegate And Datasource
-//========================================
-extension HotelDetailsVC: ATGalleryViewDelegate, ATGalleryViewDatasource {
-    
-    func galleryViewWillClose(galleryView: ATGalleryViewController) {
-        canDismissViewController = true
-    }
-    
-    func galleryViewDidClose(galleryView: ATGalleryViewController) {
-        canDismissViewController = true
-    }
-    
-    func numberOfImages(in galleryView: ATGalleryViewController) -> Int {
-        return self.viewModel.hotelData?.photos.count ?? 0
-    }
-    
-    func galleryView(galleryView: ATGalleryViewController, galleryImageAt index: Int) -> ATGalleryImage {
-        var image = ATGalleryImage()
-        image.imagePath = self.viewModel.hotelData?.photos[index]
-        return image
-    }
-    
-    func galleryView(galleryView: ATGalleryViewController, willShow image: ATGalleryImage, for index: Int) {
-        self.imagesCollectionView?.scrollToItem(at: IndexPath(item: index, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
-    }
-}
 
 //MARK:- HotelDetailsBedsTableViewCellDelegate
 //============================================

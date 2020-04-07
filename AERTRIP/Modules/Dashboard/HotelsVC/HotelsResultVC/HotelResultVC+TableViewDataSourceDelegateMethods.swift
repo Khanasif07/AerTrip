@@ -206,7 +206,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             let hData = viewModel.fetchedResultsController.object(at: indexPath)
             if let cell = tableView.cellForRow(at: indexPath) as? HotelCardTableViewCell {
                 
-                self.presentController(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+                self.presentControllerDefault(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
 
             }
         }
@@ -219,6 +219,23 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             return (section == 0) ? 0 : 53
 //        }
     }
+    
+    
+    func presentControllerDefault(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
+        let vc = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
+        vc.viewModel.hotelInfo = hotelInfo
+        vc.delegate = self
+        vc.viewModel.hotelSearchRequest = hotelSearchRequest
+        var img = cell.selfImage
+        if cell.selfImage == nil{
+            img = cell.viewScreenShot()
+        }
+        vc.backImage = img
+        let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
+        self.present(nav, animated: true)
+        
+    }
+    
     
     //--------------------------- Golu Change ---------------------
     func presentController(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){

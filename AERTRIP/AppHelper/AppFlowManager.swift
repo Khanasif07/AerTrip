@@ -54,8 +54,8 @@ class AppFlowManager: NSObject {
         }
     }
     
-    var currentNavigation:SwipeNavigationController?{
-        return UIApplication.topViewController()?.navigationController as? SwipeNavigationController
+    var currentNavigation:UINavigationController?{
+        return UIApplication.topViewController()?.navigationController
     }
     
     private var currentTabbarNavigationController = UINavigationController() {
@@ -74,8 +74,8 @@ class AppFlowManager: NSObject {
         self.tabBarController = controller
     }
     
-    func getNavigationController(forPresentVC: UIViewController) -> SwipeNavigationController {
-        let nav = SwipeNavigationController(rootViewController: forPresentVC)
+    func getNavigationController(forPresentVC: UIViewController) -> UINavigationController {
+        let nav = UINavigationController(rootViewController: forPresentVC)
         let textAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(17.0),
                               NSAttributedString.Key.foregroundColor: AppColors.themeWhite]
         
@@ -495,8 +495,8 @@ extension AppFlowManager {
         let ob = HotelDetailsAmenitiesVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.amenitiesGroups = amenitiesGroups
         ob.viewModel.amenities = amentites
-        ob.modalPresentationStyle = .overFullScreen
-        ob.modalPresentationCapturesStatusBarAppearance = true
+//        ob.modalPresentationStyle = .overFullScreen
+//        ob.modalPresentationCapturesStatusBarAppearance = true
 //        ob.statusBarColor = AppColors.themeWhite
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
@@ -504,18 +504,18 @@ extension AppFlowManager {
     func presentHotelDetailsOverViewVC(overViewInfo: String) {
         let ob = HotelDetailsOverviewVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.overViewInfo = overViewInfo
-        ob.modalPresentationStyle = .overFullScreen
-        ob.modalPresentationCapturesStatusBarAppearance = true
-        ob.statusBarColor = AppColors.themeWhite
+//        ob.modalPresentationStyle = .overFullScreen
+//        ob.modalPresentationCapturesStatusBarAppearance = true
+//        ob.statusBarColor = AppColors.themeWhite
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
     func presentHotelDetailsTripAdvisorVC(hotelId: String) {
         let ob = HotelDetailsReviewsVC.instantiate(fromAppStoryboard: .HotelResults)
         ob.viewModel.hotelId = hotelId
-        ob.modalPresentationStyle = .overFullScreen
-        ob.modalPresentationCapturesStatusBarAppearance = true
-        ob.statusBarColor = AppColors.themeWhite
+//        ob.modalPresentationStyle = .overFullScreen
+//        ob.modalPresentationCapturesStatusBarAppearance = true
+//        ob.statusBarColor = AppColors.themeWhite
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     

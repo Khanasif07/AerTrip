@@ -57,9 +57,25 @@ extension HotelsMapVC: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         else if let cell = collectionView.cellForItem(at: indexPath) as? HotelCardCollectionViewCell, let data = cell.hotelListData {
              //--------------------------- Golu Change ---------------------
             self.selectedIndexPath = indexPath
-            presentController(cell: cell, hotelInfo: data, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+            presentControllerDefault(cell: cell, hotelInfo: data, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
         }
          //--------------------------- End ---------------------
+    }
+    
+    
+    func presentControllerDefault(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
+        let vc = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
+        vc.viewModel.hotelInfo = hotelInfo
+        vc.delegate = self
+        vc.viewModel.hotelSearchRequest = hotelSearchRequest
+        var img = cell.selfImage
+        if cell.selfImage == nil{
+            img = cell.viewScreenShot()
+        }
+        vc.backImage = img
+        let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
+        self.present(nav, animated: true)
+        
     }
     
     

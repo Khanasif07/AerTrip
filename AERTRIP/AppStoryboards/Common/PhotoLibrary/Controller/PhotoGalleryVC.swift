@@ -32,8 +32,9 @@ class PhotoGalleryVC: BaseVC {
     }
     
     @IBAction func tapDismissBtn(_ sender: Any) {
-        self.view.removeFromSuperview()
-        self.removeFromParent()
+//        self.view.removeFromSuperview()
+//        self.removeFromParent()
+        self.dismiss(animated: true, completion: nil)
     }
     
     private func setupCloseButton() {
@@ -72,7 +73,8 @@ extension PhotoGalleryVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         gallery.hidePageControl = false
         gallery.modalPresentationStyle = .custom
         gallery.transitioningDelegate = self
-        
+        UIApplication.shared.statusBarStyle = .lightContent
+        setNeedsStatusBarAppearanceUpdate()
         /// Load the first page like this:
         
         //        present(gallery, animated: true, completion: nil)
@@ -143,6 +145,7 @@ extension PhotoGalleryVC: SwiftPhotoGalleryDelegate {
 
     func galleryDidTapToClose(gallery: SwiftPhotoGallery) {
         self.index = gallery.currentPage
+        UIApplication.shared.statusBarStyle = .default
         dismiss(animated: true, completion: nil)
     }
 }

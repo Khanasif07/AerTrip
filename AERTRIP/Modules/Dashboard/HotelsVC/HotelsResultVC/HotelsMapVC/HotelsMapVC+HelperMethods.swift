@@ -72,27 +72,38 @@ extension HotelsMapVC {
     }
     
     func expandGroup(_ hotels: [HotelSearched]) {
-        if let topVC = UIApplication.topViewController() {
-            let dataVC = HotelsGroupExpendedVC.instantiate(fromAppStoryboard: .HotelsSearch)
-            dataVC.delegate = self
-            dataVC.viewModel.sid = self.viewModel.sid
-            dataVC.viewModel.hotelSearchRequest = self.viewModel.hotelSearchRequest
-            self.hotelsGroupExpendedVC = dataVC
-            dataVC.viewModel.samePlaceHotels = hotels
-            dataVC.viewModel.isFromFavorite = self.switchView.isOn
-            let sheet = PKBottomSheet.instanceFromNib
-            sheet.isAddTapGesture = false
-            sheet.headerHeight = 24.0
-            sheet.headerView = dataVC.headerView
-            sheet.isHideBottomSheetOnTap = false
-            
-            dataVC.sheetView = sheet
-            
-            sheet.frame = topVC.view.bounds
-            sheet.delegate = self
-            topVC.view.addSubview(sheet)
-            sheet.present(presentedViewController: dataVC, animated: true)
-        }
+//        if let topVC = UIApplication.topViewController() {
+//            let dataVC = HotelsGroupExpendedVC.instantiate(fromAppStoryboard: .HotelsSearch)
+//            dataVC.delegate = self
+//            dataVC.viewModel.sid = self.viewModel.sid
+//            dataVC.viewModel.hotelSearchRequest = self.viewModel.hotelSearchRequest
+//            self.hotelsGroupExpendedVC = dataVC
+//            dataVC.viewModel.samePlaceHotels = hotels
+//            dataVC.viewModel.isFromFavorite = self.switchView.isOn
+//            let sheet = PKBottomSheet.instanceFromNib
+//            sheet.isAddTapGesture = false
+//            sheet.headerHeight = 24.0
+//            sheet.headerView = dataVC.headerView
+//            sheet.isHideBottomSheetOnTap = false
+//
+//            dataVC.sheetView = sheet
+//
+//            sheet.frame = topVC.view.bounds
+//            sheet.delegate = self
+//            topVC.view.addSubview(sheet)
+//            sheet.present(presentedViewController: dataVC, animated: true)
+//        }
+        
+        let dataVC = HotelsGroupExpendedVC.instantiate(fromAppStoryboard: .HotelsSearch)
+        dataVC.delegate = self
+        dataVC.viewModel.sid = self.viewModel.sid
+        dataVC.viewModel.hotelSearchRequest = self.viewModel.hotelSearchRequest
+        self.hotelsGroupExpendedVC = dataVC
+        dataVC.viewModel.samePlaceHotels = hotels
+        dataVC.viewModel.isFromFavorite = self.switchView.isOn
+        dataVC.headerView.size.height = 24.0
+        self.present(dataVC, animated: true, completion: nil)
+        
     }
     
     func updateFavOnList(forIndexPath: IndexPath?) {

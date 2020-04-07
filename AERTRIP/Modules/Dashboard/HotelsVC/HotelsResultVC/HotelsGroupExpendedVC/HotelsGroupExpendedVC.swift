@@ -167,9 +167,26 @@ extension HotelsGroupExpendedVC: UICollectionViewDataSource, UICollectionViewDel
 //        }
         if let cell = collectionView.cellForItem(at: indexPath) as? HotelCardCollectionViewCell{
             self.selectedIndexPath = indexPath
-            self.presentController(cell: cell, hotelInfo: self.viewModel.samePlaceHotels[indexPath.item], sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+            self.presentControllerDefault(cell: cell, hotelInfo: self.viewModel.samePlaceHotels[indexPath.item], sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
         }
     }
+    
+    
+    func presentControllerDefault(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
+        let vc = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
+        vc.viewModel.hotelInfo = hotelInfo
+        vc.delegate = self
+        vc.viewModel.hotelSearchRequest = hotelSearchRequest
+        var img = cell.selfImage
+        if cell.selfImage == nil{
+            img = cell.viewScreenShot()
+        }
+        vc.backImage = img
+        let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
+        self.present(nav, animated: true)
+        
+    }
+    
     
     func presentController(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
         

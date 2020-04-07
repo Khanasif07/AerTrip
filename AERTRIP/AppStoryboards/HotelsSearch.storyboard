@@ -1024,10 +1024,10 @@ been sent</string>
                                                 <rect key="frame" x="225.33333333333331" y="0.0" width="100" height="266"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="12.5" translatesAutoresizingMaskIntoConstraints="NO" id="pK7-Yp-wzS">
-                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="276.66666666666669"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="283.33333333333331"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yha-YK-x8Z">
-                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="56"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="57.333333333333336"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Children" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Sw-4i-o5H">
                                                                         <rect key="frame" x="0.0" y="5" width="100" height="20.333333333333332"/>
@@ -1055,10 +1055,10 @@ been sent</string>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="6Bo-AR-Jbm">
-                                                                <rect key="frame" x="0.0" y="68.666666666666629" width="100" height="65.666666666666686"/>
+                                                                <rect key="frame" x="0.0" y="70" width="100" height="67.666666666666686"/>
                                                                 <subviews>
                                                                     <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JKq-Tl-RDH">
-                                                                        <rect key="frame" x="26" y="9" width="48" height="48"/>
+                                                                        <rect key="frame" x="26" y="10" width="48" height="48"/>
                                                                         <state key="normal" image="child_icon_bulk"/>
                                                                         <state key="selected" image="child_selected"/>
                                                                     </button>
@@ -1071,10 +1071,10 @@ been sent</string>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YzA-bp-NnN">
-                                                                <rect key="frame" x="0.0" y="147" width="100" height="129.66666666666663"/>
+                                                                <rect key="frame" x="0.0" y="150.33333333333337" width="100" height="133"/>
                                                                 <subviews>
                                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Kp-MU-TGO">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="129.66666666666666"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="133"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2684,7 +2684,7 @@ been sent</string>
                                                                         <state key="normal" image="adult_icon"/>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ka-Su-2SG">
-                                                                        <rect key="frame" x="15" y="0.0" width="17.666666666666671" height="22"/>
+                                                                        <rect key="frame" x="15.000000000000002" y="0.0" width="17.666666666666671" height="22"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -2973,7 +2973,7 @@ been sent</string>
                                 <rect key="frame" x="0.0" y="144" width="414" height="515"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oyO-vX-rBO">
-                                <rect key="frame" x="0.0" y="599" width="414" height="60"/>
+                                <rect key="frame" x="0.0" y="629" width="414" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="9T0-mo-LbM"/>
@@ -3243,7 +3243,7 @@ been sent</string>
                             <constraint firstItem="ZuB-T2-crU" firstAttribute="leading" secondItem="ZPp-HR-M7c" secondAttribute="leading" id="DEY-vt-gdx"/>
                             <constraint firstItem="517-wN-Pyh" firstAttribute="leading" secondItem="j3l-eS-uIm" secondAttribute="leading" id="JqD-pZ-fzc"/>
                             <constraint firstItem="BWY-Am-3M5" firstAttribute="trailing" secondItem="Spz-Rv-ajN" secondAttribute="trailing" id="Nwi-kB-6Vy"/>
-                            <constraint firstItem="tDJ-tn-Vwy" firstAttribute="top" secondItem="oyO-vX-rBO" secondAttribute="bottom" id="QnS-uO-Yvo"/>
+                            <constraint firstItem="tDJ-tn-Vwy" firstAttribute="top" secondItem="oyO-vX-rBO" secondAttribute="bottom" constant="-30" id="QnS-uO-Yvo"/>
                             <constraint firstItem="Spz-Rv-ajN" firstAttribute="bottom" secondItem="517-wN-Pyh" secondAttribute="bottom" constant="183" id="RDw-36-icu"/>
                             <constraint firstAttribute="trailing" secondItem="tDJ-tn-Vwy" secondAttribute="trailing" id="Rhg-SN-Fdg"/>
                             <constraint firstItem="Xzi-Hh-Ux3" firstAttribute="top" secondItem="Spz-Rv-ajN" secondAttribute="top" id="TTs-2E-379"/>
@@ -3324,7 +3324,7 @@ been sent</string>
         <image name="ic_list_view" width="27" height="27"/>
         <image name="my_location_dest" width="21" height="21"/>
         <image name="rooms_white_icon" width="31" height="58"/>
-        <image name="saveHotelsSelected" width="27" height="27"/>
+        <image name="saveHotelsSelected" width="27" height="30"/>
         <image name="setCurrentLocationIcon" width="64" height="64"/>
         <image name="shareIcon" width="76" height="76"/>
         <image name="shimmerViewFavouriteButton" width="18" height="22"/>
