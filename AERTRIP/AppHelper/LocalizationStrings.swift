@@ -991,5 +991,7 @@ enum LocalizedString: String {
     case GetNotifiedAboutNewOffersAndDeals = "GetNotifiedAboutNewOffersAndDeals"
     case Ok = "Ok"
     case AllEventSyncedToCalendarApp = "AllEventSyncedToCalendarApp"
+    case ThisFunctionalityWillBeAvailableSoon = "ThisFunctionalityWillBeAvailableSoon"
+    
     
 }

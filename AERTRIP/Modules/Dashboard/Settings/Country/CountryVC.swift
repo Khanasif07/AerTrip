@@ -17,6 +17,13 @@ class CountryVC : BaseVC {
     //MARK:- Properties
     let countryVm = CountryVM()
     
+    lazy var noResultemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noResult
+        return newEmptyView
+    }()
+    
+    
     //MARK:- ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +69,7 @@ class CountryVC : BaseVC {
         self.countryTableView.register(UINib(nibName: "CountryCell", bundle: nil), forCellReuseIdentifier: "CountryCell")
         self.countryTableView.dataSource = self
         self.countryTableView.delegate = self
+        self.countryTableView.backgroundView = noResultemptyView
     }
 }
 
@@ -85,6 +93,8 @@ extension CountryVC : UISearchBarDelegate {
             self.countryTableView.reloadData()
         }else {
             self.countryVm.filterCountries(txt: txt)
+            noResultemptyView.searchTextLabel.isHidden = false
+            noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
             self.countryTableView.reloadData()
         }
     }
@@ -101,6 +111,6 @@ extension CountryVC : UISearchBarDelegate {
 
 extension CountryVC : CountryVcDelegate {
     func showUnderDevelopmentPopUp(){
-       _ = ATAlertController.alert(title: "", message: LocalizedString.UnderDevelopment.localized, buttons: [LocalizedString.Ok.localized], tapBlock: nil)
+       _ = ATAlertController.alert(title: "", message: LocalizedString.ThisFunctionalityWillBeAvailableSoon.localized, buttons: [LocalizedString.Ok.localized], tapBlock: nil)
     }
 }

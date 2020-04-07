@@ -41,7 +41,7 @@ class NotificationSettingsVM {
     }
     
     func isSepratorHidden(section : Int, row : Int) -> Bool {
-        if section == 0 && row == 1{
+        if section == 0 && row == 0{
             return true
         }else if section == 1 && row == 2 {
             return true
@@ -49,5 +49,4 @@ class NotificationSettingsVM {
             return false
         }
     }
-    
 }

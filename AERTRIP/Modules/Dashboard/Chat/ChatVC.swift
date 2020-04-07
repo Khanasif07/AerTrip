@@ -194,7 +194,7 @@ extension ChatVC : TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.moveToSettingsVC()
+//        AppFlowManager.default.moveToSettingsVC()
     }
 }
 

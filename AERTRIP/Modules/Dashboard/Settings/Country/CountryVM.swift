@@ -34,7 +34,7 @@ class CountryVM {
     }
     
     func selectCountry(index : Int){
-        if self.countries[index].countryID != 93 {
+        if self.getCurrentDaraSource()[index].countryID != 93 {
             self.delegate?.showUnderDevelopmentPopUp()
             return
         }

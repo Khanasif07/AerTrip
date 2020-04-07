@@ -16,6 +16,7 @@ extension CurrencyVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        noResultemptyView.isHidden = self.currencyVm.currencyCount > 0
         return self.currencyVm.currencyCount
     }
     

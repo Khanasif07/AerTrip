@@ -17,6 +17,7 @@ extension CountryVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        noResultemptyView.isHidden = self.countryVm.countriesCount > 0
         return self.countryVm.countriesCount
     }
     

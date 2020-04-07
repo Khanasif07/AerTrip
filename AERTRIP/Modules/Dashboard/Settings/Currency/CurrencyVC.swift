@@ -16,6 +16,11 @@ class CurrencyVC: BaseVC {
     
     //MARK:- Properties
     let currencyVm = CurrencyVM()
+    lazy var noResultemptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noResult
+        return newEmptyView
+    }()
     
     //MARK:- ViewLifeCycle
     override func viewDidLoad() {
@@ -69,6 +74,7 @@ class CurrencyVC: BaseVC {
         self.currencyTableView.register(UINib(nibName: "CurrencyCell", bundle: nil), forCellReuseIdentifier: "CurrencyCell")
         self.currencyTableView.dataSource = self
         self.currencyTableView.delegate = self
+        self.currencyTableView.backgroundView = noResultemptyView
     }
 }
 
@@ -92,6 +98,8 @@ extension CurrencyVC : UISearchBarDelegate {
             self.currencyTableView.reloadData()
         }else {
             self.currencyVm.filterCountries(txt: txt)
+            noResultemptyView.searchTextLabel.isHidden = false
+            noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
             self.currencyTableView.reloadData()
         }
     }
@@ -107,7 +115,7 @@ extension CurrencyVC : UISearchBarDelegate {
 
 extension CurrencyVC : CurrencyVcDelegate {
     func showUnderDevelopmentPopUp(){
-        _ = ATAlertController.alert(title: "", message: LocalizedString.UnderDevelopment.localized, buttons: [LocalizedString.Ok.localized], tapBlock: nil)
+        _ = ATAlertController.alert(title: "", message: LocalizedString.ThisFunctionalityWillBeAvailableSoon.localized, buttons: [LocalizedString.Ok.localized], tapBlock: nil)
     }
 }
 

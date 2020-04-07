@@ -25,7 +25,7 @@ class CurrencyVM {
     }
     
     func preSelectIndia(){
-        let india = countries.filter { $0.countryID == 4 }
+        let india = countries.filter { $0.countryID == 93 }
         selectedCountry = india.first ?? PKCountryModel(json: [:])
     }
     
@@ -34,7 +34,7 @@ class CurrencyVM {
     }
     
    func selectCurrency(index : Int){
-        if self.countries[index].countryID != 93 {
+        if self.getCurrentDaraSource()[index].countryID != 93 {
             self.delegate?.showUnderDevelopmentPopUp()
             return
         }

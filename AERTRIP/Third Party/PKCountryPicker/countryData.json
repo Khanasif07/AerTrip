@@ -1714,9 +1714,9 @@
         "AppleStore": 1,
         "UNRank": 9,
         "MobileRank": 2,
-        "CurrencyCode": "",
-        "CurrencyName": "",
-        "CurrencySymbol": "",
+        "CurrencyCode": "INR",
+        "CurrencyName": "Rupees",
+        "CurrencySymbol": "₹",
         "SortIndex": 86
     },
     {
