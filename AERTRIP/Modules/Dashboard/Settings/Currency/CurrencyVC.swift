@@ -10,9 +10,12 @@ import UIKit
 
 class CurrencyVC: BaseVC {
     
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var currencyTableView: UITableView!
+    @IBOutlet weak var searchBarBackView: UIView!
+    @IBOutlet weak var searchBarSepratorView: UIView!
+    @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var micButton: UIButton!
     
     //MARK:- Properties
     let currencyVm = CurrencyVM()
@@ -36,18 +39,14 @@ class CurrencyVC: BaseVC {
         self.topNavView.configureNavBar(title: LocalizedString.Currency.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false,isDivider : false)
         configureTableView()
         setUpViewAttributes()
-        self.currencyVm.getCurrencies()
-        self.currencyVm.preSelectIndia()
-//        self.currencyVm.getCurrenciesFromApi()
+//        self.currencyVm.getCurrencies()
+        self.currencyVm.getCurrenciesFromApi()
     }
     
     func setUpViewAttributes(){
-        self.searchBar.delegate = self
-        searchBar.showsBookmarkButton = true
-        searchBar.setImage(#imageLiteral(resourceName: "microphone"), for: .bookmark, state: .normal)
-        searchBar.setTextField(color: AppColors.themeGray04)
-        searchBar.backgroundImage = UIImage()
-        searchBar.tintColor = AppColors.themeGreen
+        self.searchTextField.delegate = self
+        self.searchTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: UIControl.Event.editingChanged)
+        self.searchBarBackView.roundedCorners(cornerRadius: 10)
     }
     
     override func bindViewModel() {
@@ -57,12 +56,14 @@ class CurrencyVC: BaseVC {
     
     override func setupColors() {
         super.setupColors()
-        searchBar.backgroundColor = UIColor.clear
+        self.searchBarBackView.backgroundColor = AppColors.themeGray04
+        self.searchBarSepratorView.backgroundColor = AppColors.themeGray20
+               searchTextField.setAttributedPlaceHolder(placeHolderText: LocalizedString.search.localized, color: AppColors.themeGray40, font: AppFonts.Regular.withSize(18))
     }
     
     override func setupFonts() {
         super.setupFonts()
-        
+        self.searchTextField.font = AppFonts.Regular.withSize(18)
     }
     
     override func setupTexts() {
@@ -75,6 +76,7 @@ class CurrencyVC: BaseVC {
         self.currencyTableView.dataSource = self
         self.currencyTableView.delegate = self
         self.currencyTableView.backgroundView = noResultemptyView
+        self.noResultemptyView.isHidden = true
     }
 }
 
@@ -86,38 +88,44 @@ extension CurrencyVC: TopNavigationViewDelegate {
 
 extension CurrencyVC : UISearchBarDelegate {
     
-    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-        
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard let txt = searchBar.text else { return }
-        self.currencyVm.searchText = txt
-        if txt.isEmpty{
-            self.currencyVm.clearFilteredData()
-            self.currencyTableView.reloadData()
-        }else {
-            self.currencyVm.filterCountries(txt: txt)
-            noResultemptyView.searchTextLabel.isHidden = false
-            noResultemptyView.searchTextLabel.text = "for \(searchText.quoted)"
-            self.currencyTableView.reloadData()
-        }
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return true
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        
+    @objc func textFieldValueChanged(_ textField : UITextField) {
+        guard let txt = textField.text else { return }
+         self.currencyVm.searchText = txt
+         if txt.isEmpty{
+             self.currencyVm.clearFilteredData()
+             self.currencyTableView.reloadData()
+         }else {
+             self.currencyVm.filterCountries(txt: txt)
+             noResultemptyView.searchTextLabel.isHidden = false
+             noResultemptyView.searchTextLabel.text = "for \(txt.quoted)"
+             self.currencyTableView.reloadData()
+         }
     }
 }
 
 extension CurrencyVC : CurrencyVcDelegate {
+    
+    func willGetCurrencies() {
+        AppGlobals.shared.startLoading()
+    }
+    
+    func getCurrenciesSuccessFull() {
+        AppGlobals.shared.stopLoading()
+        self.currencyTableView.reloadData()
+    }
+    
+    func failedToGetCurrencies() {
+        AppGlobals.shared.stopLoading()
+        self.currencyVm.preSelectIndia()
+        self.currencyTableView.reloadData()
+    }
+    
     func showUnderDevelopmentPopUp(){
         AppToast.default.showToastMessage(message: LocalizedString.ThisFunctionalityWillBeAvailableSoon.localized)
-
-//        _ = ATAlertController.alert(title: "", message: LocalizedString.ThisFunctionalityWillBeAvailableSoon.localized, buttons: [LocalizedString.Ok.localized], tapBlock: nil)
     }
 }
 

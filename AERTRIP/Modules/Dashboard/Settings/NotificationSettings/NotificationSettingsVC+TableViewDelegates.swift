@@ -59,6 +59,7 @@ extension NotificationSettingsVC : UITableViewDelegate, UITableViewDataSource {
         cell.sepratorView.isHidden = self.notificationSettingsVm.isSepratorHidden(section: indexPath.section, row: indexPath.row)
         cell.populateData(type: self.notificationSettingsVm.notificationSettingsDataSource[indexPath.section]?[indexPath.row].type ?? NotificationSettingsVM.NotificationSettingsType.bookings, desc: self.notificationSettingsVm.notificationSettingsDataSource[indexPath.section]?[indexPath.row].desc ?? "")
         cell.switch.addTarget(self, action: #selector(toggleSwitched), for: UIControl.Event.valueChanged)
+//        cell.switch.setOn(false, animated: true)
         return cell
       }
     
@@ -67,12 +68,27 @@ extension NotificationSettingsVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     @objc func toggleSwitched(sender : UISwitch){
+        
         guard let indexPath = sender.tableViewIndexPath(self.notificationSettingsTableView) else { return }
         self.notificationSettingsVm.handleNotificationToggles(section: indexPath.section, row: indexPath.row, isOn: sender.isOn)
-//        if indexPath.section == 0 && indexPath.row == 0{
-        delay(seconds: 0.2) {
+        delay(seconds: 0.15) {
             self.notificationSettingsTableView.reloadData()
+            delay(seconds: 0.01) {
+                self.notificationSettingsVm.handleNotificationToggles(section: indexPath.section, row: indexPath.row, isOn: false)
+                delay(seconds: 0.15) {
+                    self.notificationSettingsTableView.reloadData()
+                }
+            }
         }
-//        }
+        
+        AppToast.default.showToastMessage(message: LocalizedString.ThisFunctionalityWillBeAvailableSoon.localized)
+
+        //MARK:- THIS IS DONE DUE TO SHOW SOME FAKEISM AS CLIENT REQUESTED TO DO THAT ONCE A TOGGLE IS ON IT SHOULD AUTOMATICALLY BECOME OFF AND A COMMING SOON MESSAGE WILL BE DISPLAYED.  AFTER ALL I DIDN'T FIND A MORE QUICKEST WAY OF DOING THIS AS CODE WAS ALREADY IMPLEMENTED.
+        
     }
+    
+    func manageToggleSwitching(indexPath : IndexPath){
+        
+    }
+    
 }

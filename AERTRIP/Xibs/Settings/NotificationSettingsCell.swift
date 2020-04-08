@@ -36,16 +36,16 @@ class NotificationSettingsCell : UITableViewCell {
         switch type {
         case .allNotifications:
             self.switch.setOn(toggleSettings.allNotificationS, animated: true)
-            
+
         case .bookings:
             self.switch.setOn(toggleSettings.bookingNotifications, animated: true)
 
         case .tripEvents:
             self.switch.setOn(toggleSettings.tripEventsNotifications, animated: true)
-            
+
         case .offers:
             self.switch.setOn(toggleSettings.otherNotifications, animated: true)
-            
+
         }
 
     }

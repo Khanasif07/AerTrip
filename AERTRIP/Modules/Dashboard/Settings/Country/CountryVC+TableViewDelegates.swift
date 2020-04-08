@@ -39,6 +39,7 @@ extension CountryVC : UITableViewDelegate, UITableViewDataSource {
       }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.view.endEditing(true)
         self.countryVm.selectCountry(index: indexPath.row)
         self.countryTableView.reloadData()
     }

@@ -10,11 +10,11 @@ import UIKit
 
 struct ToggleSettings {
     
-    var calenderSyncSettings = true
-    var allNotificationS = true
-    var bookingNotifications = true
-    var tripEventsNotifications = true
-    var otherNotifications = true
+    var calenderSyncSettings = false
+    var allNotificationS = false
+    var bookingNotifications = false
+    var tripEventsNotifications = false
+    var otherNotifications = false
     
 }
 

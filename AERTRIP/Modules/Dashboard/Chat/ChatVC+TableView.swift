@@ -48,9 +48,8 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             default:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "TypingStatusChatCell", for: indexPath) as? TypingStatusChatCell else {
                     fatalError("TypingStatusChatCell not found")
-                    
             }
-                                
+                cell.contentView.alpha = 0
                 return cell
         }
     }

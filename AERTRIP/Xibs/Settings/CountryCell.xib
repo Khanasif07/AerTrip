@@ -37,21 +37,32 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BAv-jq-cH0">
+                        <rect key="frame" x="16" y="78.5" width="349" height="0.5"/>
+                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="6BR-oc-04u"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="azv-zR-j1W" firstAttribute="leading" secondItem="e4o-dK-wHL" secondAttribute="trailing" constant="5" id="8g3-qd-6DI"/>
                     <constraint firstItem="e4o-dK-wHL" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="JZx-FK-Tmd"/>
                     <constraint firstItem="azv-zR-j1W" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="TK2-YM-1Qs"/>
                     <constraint firstAttribute="trailing" secondItem="azv-zR-j1W" secondAttribute="trailing" constant="28" id="YDb-x3-bC3"/>
+                    <constraint firstItem="BAv-jq-cH0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="YzF-VJ-d6a"/>
                     <constraint firstItem="v0p-Ux-msz" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ca6-zM-8U8"/>
                     <constraint firstItem="v0p-Ux-msz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="lvQ-oK-Mvf"/>
                     <constraint firstItem="e4o-dK-wHL" firstAttribute="leading" secondItem="v0p-Ux-msz" secondAttribute="trailing" constant="17.5" id="q7a-BH-xhA"/>
+                    <constraint firstAttribute="trailing" secondItem="BAv-jq-cH0" secondAttribute="trailing" id="s0B-YJ-Sy7"/>
+                    <constraint firstAttribute="bottom" secondItem="BAv-jq-cH0" secondAttribute="bottom" id="y02-kL-7jx"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="countryLabel" destination="e4o-dK-wHL" id="3AE-DR-RLU"/>
                 <outlet property="flagImageView" destination="v0p-Ux-msz" id="dGB-Z8-BNf"/>
+                <outlet property="sepratorView" destination="BAv-jq-cH0" id="eUD-LI-saz"/>
                 <outlet property="tickImageView" destination="azv-zR-j1W" id="7ap-LS-1wE"/>
             </connections>
             <point key="canvasLocation" x="97.826086956521749" y="58.59375"/>

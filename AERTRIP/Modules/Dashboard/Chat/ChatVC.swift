@@ -105,8 +105,23 @@ class ChatVC : BaseVC {
             dotsView?.animationDuration = 1.4
             dotsView?.spacing = 5
             dotsView?.aheadTime = 1
+            dotsView?.alpha = 0
             cell.contentView.addSubview(self.dotsView ?? UIView())
             dotsView?.start()
+            showTypingCell()
+        }
+    }
+    
+    func showTypingCell(){
+        if let ind = self.chatVm.messages.lastIndex(where: { (obj) -> Bool in
+            return obj.msgSource == .typing
+        }){
+            guard let cell = self.chatTableView.cellForRow(at: IndexPath(row: ind, section: 0)) as? TypingStatusChatCell else { return }
+            
+            UIView.animate(withDuration: 0.2) {
+                cell.contentView.alpha = 1
+                self.dotsView?.alpha = 1
+            }
         }
     }
 }

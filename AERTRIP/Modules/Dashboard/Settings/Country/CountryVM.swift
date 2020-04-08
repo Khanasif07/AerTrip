@@ -22,6 +22,13 @@ class CountryVM {
     
     func getCountries() {
         countries = PKCountryPicker.default.getAllCountries()
+        if let indiaIndex = countries.lastIndex(where: { (obj) -> Bool in
+            return obj.countryID == 93
+        }){
+            let india = countries[indiaIndex]
+            countries.remove(at: indiaIndex)
+            countries.insert(india, at: 0)
+        }
     }
         
     var countriesCount : Int {
@@ -71,5 +78,4 @@ class CountryVM {
             return false
         }
     }
-    
 }

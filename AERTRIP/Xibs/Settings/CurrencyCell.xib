@@ -10,15 +10,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CurrencyCell" rowHeight="37" id="KGk-i7-Jjw" customClass="CurrencyCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="37"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CurrencyCell" rowHeight="81" id="KGk-i7-Jjw" customClass="CurrencyCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="338" height="81"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="37"/>
+                <rect key="frame" x="0.0" y="0.0" width="338" height="81"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ALL" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZOy-21-Hif">
-                        <rect key="frame" x="16" y="10.5" width="60" height="16"/>
+                        <rect key="frame" x="16" y="32.5" width="60" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="iSi-oN-XHE"/>
                         </constraints>
@@ -27,7 +27,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tY2-Gz-7NE">
-                        <rect key="frame" x="86" y="10.5" width="60" height="16"/>
+                        <rect key="frame" x="86" y="32.5" width="60" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="uxw-Sr-p8s"/>
                         </constraints>
@@ -36,28 +36,38 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="United States Dollar" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="799-di-9UH">
-                        <rect key="frame" x="156" y="5" width="122" height="27"/>
+                        <rect key="frame" x="156" y="5" width="140" height="71"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenTick" translatesAutoresizingMaskIntoConstraints="NO" id="5oQ-Rl-s48">
-                        <rect key="frame" x="288" y="8.5" width="20" height="20"/>
+                        <rect key="frame" x="306" y="30.5" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="3gl-DS-qzS"/>
                             <constraint firstAttribute="width" constant="20" id="M1v-KC-rRJ"/>
                         </constraints>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mZf-zX-8ZA">
+                        <rect key="frame" x="16" y="80.5" width="322" height="0.5"/>
+                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="dIF-aX-itA"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="799-di-9UH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="5zQ-UI-nbL"/>
                     <constraint firstAttribute="bottom" secondItem="799-di-9UH" secondAttribute="bottom" constant="5" id="CNh-ab-1Kd"/>
+                    <constraint firstAttribute="bottom" secondItem="mZf-zX-8ZA" secondAttribute="bottom" id="I1y-vm-36T"/>
                     <constraint firstItem="ZOy-21-Hif" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="NNU-mp-9Ra"/>
                     <constraint firstItem="5oQ-Rl-s48" firstAttribute="leading" secondItem="799-di-9UH" secondAttribute="trailing" constant="10" id="WiK-KJ-DJA"/>
+                    <constraint firstAttribute="trailing" secondItem="mZf-zX-8ZA" secondAttribute="trailing" id="XgT-UV-MbV"/>
                     <constraint firstItem="5oQ-Rl-s48" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="eBL-vo-ezE"/>
                     <constraint firstItem="tY2-Gz-7NE" firstAttribute="leading" secondItem="ZOy-21-Hif" secondAttribute="trailing" constant="10" id="fLA-gg-wyS"/>
                     <constraint firstItem="799-di-9UH" firstAttribute="leading" secondItem="tY2-Gz-7NE" secondAttribute="trailing" constant="10" id="gah-8Y-I4b"/>
                     <constraint firstAttribute="trailing" secondItem="5oQ-Rl-s48" secondAttribute="trailing" constant="12" id="jTP-cA-9h6"/>
+                    <constraint firstItem="mZf-zX-8ZA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ofP-tK-Le8"/>
                     <constraint firstItem="tY2-Gz-7NE" firstAttribute="centerY" secondItem="ZOy-21-Hif" secondAttribute="centerY" id="ooI-Ng-ryb"/>
                     <constraint firstItem="ZOy-21-Hif" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="vDp-C6-lpt"/>
                 </constraints>
@@ -67,9 +77,10 @@
                 <outlet property="currencyCodeLabel" destination="tY2-Gz-7NE" id="WVt-bm-h7y"/>
                 <outlet property="currencyNameLabel" destination="799-di-9UH" id="78V-25-1GY"/>
                 <outlet property="currencySymbolLabel" destination="ZOy-21-Hif" id="n1m-mz-j5s"/>
+                <outlet property="sepratorView" destination="mZf-zX-8ZA" id="C9g-zl-jxR"/>
                 <outlet property="tickImageView" destination="5oQ-Rl-s48" id="lpw-Mr-uTl"/>
             </connections>
-            <point key="canvasLocation" x="137.68115942028987" y="77.34375"/>
+            <point key="canvasLocation" x="150.72463768115944" y="92.075892857142847"/>
         </tableViewCell>
     </objects>
     <resources>

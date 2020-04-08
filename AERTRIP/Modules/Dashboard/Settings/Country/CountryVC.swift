@@ -103,9 +103,6 @@ extension CountryVC  {
             self.countryTableView.reloadData()
         }
     }
-    
-
-    
 }
 
 extension CountryVC : CountryVcDelegate {

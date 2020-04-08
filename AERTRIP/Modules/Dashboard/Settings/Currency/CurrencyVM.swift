@@ -10,6 +10,11 @@ import Foundation
 
 protocol CurrencyVcDelegate : class {
     func showUnderDevelopmentPopUp()
+    
+    func willGetCurrencies()
+    func getCurrenciesSuccessFull()
+    func failedToGetCurrencies()
+    
 }
 
 class CurrencyVM {
@@ -25,7 +30,7 @@ class CurrencyVM {
     }
     
     func preSelectIndia(){
-        let india = countries.filter { $0.countryID == 93 }
+        let india = countries.filter { $0.currencyCode == "INR"  }
         selectedCountry = india.first ?? PKCountryModel(json: [:])
     }
     
@@ -34,7 +39,7 @@ class CurrencyVM {
     }
     
    func selectCurrency(index : Int){
-        if self.getCurrentDaraSource()[index].countryID != 93 {
+        if self.getCurrentDaraSource()[index].currencyCode != "INR" {
             self.delegate?.showUnderDevelopmentPopUp()
             return
         }
@@ -50,7 +55,7 @@ class CurrencyVM {
     }
     
     func isSelectedCurrency(index : Int) -> Bool {
-        return getCurrentDaraSource()[index].countryID == selectedCountry.countryID
+        return getCurrentDaraSource()[index].currencyCode == selectedCountry.currencyCode
     }
     
     func clearFilteredData(){
@@ -91,10 +96,44 @@ class CurrencyVM {
 
     func getCurrenciesFromApi() {
         
+        self.delegate?.willGetCurrencies()
+        
         APICaller.shared.getCurrencies(params: [:]) { (success, data) in
-        
+            if success{
+                
+              var topCountries =  data.filter { (obj) -> Bool in
+                   return obj.currencyCode == "INR" || obj.currencyCode == "USD" || obj.currencyCode == "EUR" || obj.currencyCode == "JYP" || obj.currencyCode == "GBP"
+                }
+                
+              let restCountries = data.filter { (obj) -> Bool in
+                   return obj.currencyCode != "INR" && obj.currencyCode != "USD" && obj.currencyCode != "EUR" && obj.currencyCode != "JYP" && obj.currencyCode != "GBP"
+                }
+                
+                if let indiaIndex = topCountries.lastIndex(where: { (obj) -> Bool in
+                    return obj.currencyCode == "INR"
+                }){
+                    let india = topCountries[indiaIndex]
+                    topCountries.remove(at: indiaIndex)
+                    topCountries.insert(india, at: 0)
+                }
+                
+                self.countries = topCountries + restCountries
+                self.preSelectIndia()
+                self.delegate?.getCurrenciesSuccessFull()
+            }else{
+                self.delegate?.failedToGetCurrencies()
+            }
         }
-        
+    }
+    
+    func getCurrencySymbol(from currencyCode: String) -> String? {
+
+        let locale = NSLocale(localeIdentifier: currencyCode)
+        if locale.displayName(forKey: .currencySymbol, value: currencyCode) == currencyCode {
+            let newlocale = NSLocale(localeIdentifier: currencyCode.dropLast() + "_en")
+            return newlocale.displayName(forKey: .currencySymbol, value: currencyCode)
+        }
+        return locale.displayName(forKey: .currencySymbol, value: currencyCode)
     }
     
 }

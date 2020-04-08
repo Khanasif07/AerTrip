@@ -13,6 +13,7 @@ class CountryCell: UITableViewCell {
     @IBOutlet weak var tickImageView: UIImageView!
     @IBOutlet weak var flagImageView: UIImageView!
     @IBOutlet weak var countryLabel: UILabel!
+    @IBOutlet weak var sepratorView: UIView!
     
     
     override func awakeFromNib() {
@@ -34,6 +35,7 @@ class CountryCell: UITableViewCell {
         self.countryLabel.text = country.countryEnglishName
         self.flagImageView.image = country.flagImage
         self.tickImageView.isHidden = isSelected
+        self.sepratorView.isHidden = country.countryID != 93
     }
     
 }
