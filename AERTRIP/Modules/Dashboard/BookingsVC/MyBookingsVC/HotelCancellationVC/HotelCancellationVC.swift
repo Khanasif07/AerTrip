@@ -18,6 +18,7 @@ class HotelCancellationVC: BaseVC {
     //MARK:- IBOutlets
     //MARK:===========
     @IBOutlet weak var topNavBar: BookingTopNavBarWithSubtitle!
+    @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var hotelCancellationTableView: UITableView! {
         didSet {
             self.hotelCancellationTableView.contentInset = UIEdgeInsets.zero
@@ -45,6 +46,12 @@ class HotelCancellationVC: BaseVC {
         if self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count == 1{
             self.updateSelectAll()
         }
+        self.gradientView.addGredient(isVertical: false)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.gradientView.addGredient(isVertical: false)
     }
     
     override func setupColors() {

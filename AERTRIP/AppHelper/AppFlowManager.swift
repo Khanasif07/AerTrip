@@ -864,9 +864,10 @@ extension AppFlowManager {
         self.mainNavigationController.present(obj, animated: true, completion: nil)
     }
     
-    func presentAertripBankDetailsVC(bankDetails: [BankAccountDetail]) {
+    func presentAertripBankDetailsVC(bankDetails: [BankAccountDetail], currentIndex:Int = 0) {
         let obj = AertripBankDetailsVC.instantiate(fromAppStoryboard: .Account)
         obj.viewModel.allBanks = bankDetails
+        obj.currentIndex = currentIndex
         self.mainNavigationController.present(obj, animated: true, completion: nil)
     }
     

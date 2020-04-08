@@ -96,10 +96,10 @@ struct AccountOfflineDepositDetails {
             flag = false
             AppToast.default.showToastMessage(message: "Please enter your account number.")
         }
-        else if uploadedSlips.isEmpty {
-            flag = false
-            AppToast.default.showToastMessage(message: "Please upload some slips as proof.")
-        }
+//        else if uploadedSlips.isEmpty {
+//            flag = false
+//            AppToast.default.showToastMessage(message: "Please upload some slips as proof.")
+//        }
         else if !isAgreeToTerms {
             flag = false
             AppToast.default.showToastMessage(message: "Please indicate that you understand and agree to the rules and terms.")

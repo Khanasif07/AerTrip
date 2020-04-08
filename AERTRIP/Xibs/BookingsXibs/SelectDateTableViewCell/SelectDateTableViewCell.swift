@@ -75,17 +75,18 @@ class SelectDateTableViewCell: UITableViewCell {
         //toolbar.layer.borderColor = AppColors.themeBlack.withAlphaComponent(0.3).cgColor
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneDatePicker))
-        let greenAttribute = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18.0), NSAttributedString.Key.foregroundColor: AppColors.themeBlack] as [NSAttributedString.Key : Any]
+        let greenAttribute = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18.0), NSAttributedString.Key.foregroundColor: AppColors.themeGreen] as [NSAttributedString.Key : Any]
         doneButton.setTitleTextAttributes(greenAttribute , for: .normal)
         toolbar.setItems([spaceButton,doneButton], animated: true)
 //        self.datePicker.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - pickerViewHeight, width: UIScreen.main.bounds.width , height: pickerViewHeight)
         self.datePicker.minimumDate = Date()
-        self.datePicker.maximumDate = Date().add(years: 0, months: 0, days: 29, hours: 0, minutes: 0, seconds: 0)
+        self.datePicker.maximumDate = Date().add(years: 1, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0)
         self.datePicker.datePickerMode = .date
         self.datePicker.backgroundColor = AppColors.themeWhite
         
         toolbar.backgroundColor = .clear
         toolbar.barTintColor = AppColors.secondarySystemFillColor
+//        toolbar.tintColor = AppColors.themeGreen
         
         datePicker.frame = CGRect(x: 0, y: 0, width: pickerSize.width, height: pickerSize.height)
         genericPickerView.addSubview(self.datePicker)

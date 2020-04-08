@@ -49,6 +49,7 @@ extension RequestReschedulingVC {
     func getCustomerContactCellTableViewCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomerContactCellTableViewCell.reusableIdentifier, for: indexPath) as? CustomerContactCellTableViewCell else { return UITableViewCell() }
         cell.backgroundColor = AppColors.themeGray20
+        cell.dividerView.isHidden = true
         return cell
     }
     

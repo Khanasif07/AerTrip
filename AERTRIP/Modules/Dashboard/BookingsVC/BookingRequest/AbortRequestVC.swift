@@ -20,6 +20,7 @@ class AbortRequestVC: BaseVC {
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var bottomDivider: UIView!
     
+    @IBOutlet weak var gradientView: UIView!
     
     //MARK: - Variables
     let viewModel = AbortRequestVM()
@@ -38,7 +39,7 @@ class AbortRequestVC: BaseVC {
         self.view.backgroundColor = AppColors.themeWhite
         self.bottomView.backgroundColor = AppColors.themeGray04
         self.bottomDivider.backgroundColor = AppColors.divider.color
-        
+        self.gradientView.addGredient(isVertical: false)
         self.manageTextFieldHeight()
     }
     
@@ -63,7 +64,10 @@ class AbortRequestVC: BaseVC {
         self.confirmAbortButton.setTitleColor(AppColors.themeWhite, for: .selected)
         self.abortRequestTitleLabel.textColor = AppColors.themeBlack
     }
-    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.gradientView.addGredient(isVertical: false)
+    }
     
     override func setupNavBar() {
         self.topNavView.navTitleLabel.textColor = AppColors.textFieldTextColor51

@@ -19,6 +19,7 @@ class RequestReschedulingVC: BaseVC {
     @IBOutlet weak var topNavBar: BookingTopNavBarWithSubtitle!
     @IBOutlet weak var totalRefundTitleLabel: UILabel!
     @IBOutlet weak var totalRefundAmountLabel: UILabel!
+    @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var reschedulingTableView: UITableView! {
         didSet {
             self.reschedulingTableView.contentInset = UIEdgeInsets(top: 2.0, left: 0.0, bottom: 0.0, right: 0.0)
@@ -42,6 +43,8 @@ class RequestReschedulingVC: BaseVC {
         self.topNavBar.delegate = self
         
         self.setTotalRefundAmount()
+        self.gradientView.addGredient(isVertical: false)
+        self.reschedulingTableView.backgroundColor = AppColors.themeGray04
     }
     
     override func setupColors() {
@@ -61,6 +64,11 @@ class RequestReschedulingVC: BaseVC {
     
     override func bindViewModel() {
         self.viewModel.delegate = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.gradientView.addGredient(isVertical: false)
     }
     
     //MARK:- Functions

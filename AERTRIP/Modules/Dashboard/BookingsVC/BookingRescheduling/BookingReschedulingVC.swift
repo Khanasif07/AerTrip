@@ -11,6 +11,7 @@ import UIKit
 class BookingReschedulingVC: BaseVC {
     // MARK: - IBOutlet
     
+    @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var topNavBar: TopNavigationView!
     @IBOutlet weak var passengerLabel: UILabel!
     @IBOutlet weak var reschedulingTableView: ATTableView!
@@ -49,6 +50,7 @@ class BookingReschedulingVC: BaseVC {
         self.reloadList()
         self.continueButton.addGredient(isVertical: false)
         self.continueButton.shouldShowPressAnimation = false
+        self.gradientView.addGredient(isVertical: false)
     }
     
     func registerXib() {
@@ -58,6 +60,11 @@ class BookingReschedulingVC: BaseVC {
         self.reschedulingTableView.registerCell(nibName: BookingSchedulingPassengerDetailTableViewCell.reusableIdentifier)
         self.reschedulingTableView.registerCell(nibName: BookingSchedulingPassengerDetailTableViewCell.reusableIdentifier)
         self.reschedulingTableView.registerCell(nibName: BookingReschedulingPassengerAccordionTableViewCell.reusableIdentifier)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.gradientView.addGredient(isVertical: false)
     }
     
     override func setupNavBar() {
@@ -239,7 +246,7 @@ class BookingReschedulingVC: BaseVC {
             if legD.selectedPaxs.contains(where: { $0.paxId == paxD.paxId }) {
                 bookingAccordionCell.selectedTravellerButton.isSelected = true
             }
-            
+            bookingAccordionCell.bottomDividerView.isHidden = (index == legD.pax.count - 1)
             return bookingAccordionCell
         }
     }

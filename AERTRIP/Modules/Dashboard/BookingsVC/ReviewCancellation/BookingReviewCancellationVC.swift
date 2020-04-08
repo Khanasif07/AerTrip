@@ -15,6 +15,7 @@ class BookingReviewCancellationVC: BaseVC {
     // MARK: - IB Outlet
     
     @IBOutlet weak var topNavBar: TopNavigationView!
+    @IBOutlet weak var gradientView: UIView!
     
     // refund View
     @IBOutlet weak var refundView: UIView!
@@ -73,6 +74,8 @@ class BookingReviewCancellationVC: BaseVC {
     override func initialSetup() {
         self.requestCancellationButton.shouldShowPressAnimation = false
         self.requestCancellationButton.shadowColor = AppColors.clear
+        self.commentTextView.placeholderColor = AppColors.themeGray20
+        self.commentTextView.font = AppFonts.Regular.withSize(18)
         switch self.viewModel.currentUsingAs {
         case .flightCancellationReview, .hotelCancellationReview:
             self.commentTextView.placeholder = LocalizedString.EnterYourCommentOptional.localized
@@ -82,8 +85,6 @@ class BookingReviewCancellationVC: BaseVC {
             self.cancellationViewHeightConstraint.constant = 0.0
             self.totalNetRefundView.isHidden = true
             self.totalNetRefundViewHeightConstraint.constant = 0.0
-            self.commentTextView.placeholderColor = AppColors.themeGray20
-            self.commentTextView.font = AppFonts.Regular.withSize(18)
             self.commentTextView.placeholderInsets = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
         }
         
@@ -101,6 +102,12 @@ class BookingReviewCancellationVC: BaseVC {
             self.viewModel.getCancellationRefundModeReasons()
         }
         self.manageTextFieldHeight()
+        self.gradientView.addGredient(isVertical: false)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.gradientView.addGredient(isVertical: false)
     }
     
     override func setupTexts() {
@@ -173,7 +180,7 @@ class BookingReviewCancellationVC: BaseVC {
     private func manageTextFieldHeight() {
         var allOthersHeight: CGFloat = 0.0
         if self.viewModel.currentUsingAs == .flightCancellationReview || self.viewModel.currentUsingAs == .hotelCancellationReview {
-            allOthersHeight = 300.0 + (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
+            allOthersHeight = 296.0 + (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
         } else {
             allOthersHeight = 195.0 + (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
         }
@@ -187,6 +194,7 @@ class BookingReviewCancellationVC: BaseVC {
             }else{
                 textHeight = 45.0
             }
+            commentTextView.frame.size.height = textHeight
             
         }
         else {
@@ -202,9 +210,9 @@ class BookingReviewCancellationVC: BaseVC {
         }
         
         self.bottomViewHeightConstraint.constant = calculatedBlank
-        UIView.animate(withDuration: 0.2, animations: { [weak self] in
-            self?.view.layoutIfNeeded()
-        })
+//        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            self.view.layoutIfNeeded()
+//        })
     }
     override func setupNavBar() {
         switch self.viewModel.currentUsingAs {
