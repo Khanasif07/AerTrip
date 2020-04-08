@@ -291,14 +291,14 @@ extension ChatVC {
             let animationOptions: UIView.AnimationOptions = .curveEaseOut
             let keyframeAnimationOptions: UIView.KeyframeAnimationOptions = UIView.KeyframeAnimationOptions(rawValue: animationOptions.rawValue)
 
-         UIView.animateKeyframes(withDuration: 0.5, delay: 0.0, options: keyframeAnimationOptions, animations: {
+         UIView.animateKeyframes(withDuration: 0.7, delay: 0.0, options: keyframeAnimationOptions, animations: {
 
-                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.2) {
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.3) {
                     self.animationBubbleImageView.transform = CGAffineTransform.identity
                     self.animationLabel.transform = CGAffineTransform.identity
                 }
 
-                UIView.addKeyframe(withRelativeStartTime: 0.1, relativeDuration: 0.3) {
+                UIView.addKeyframe(withRelativeStartTime: 0.1, relativeDuration: 0.4) {
                     self.animationView.frame.origin.y = rectWrtView.origin.y
                 }
 
@@ -306,9 +306,9 @@ extension ChatVC {
                 self.hideShowSenderCellContent(ishidden: false)
                 self.hideAnimationView()
                 self.chatVm.messages[self.chatVm.messages.count - 1].isHidden = false
-                delay(seconds: 0.2) {
-                    self.sendButton.isEnabled = true
-                }
+//                delay(seconds: 0.2) {
+//                    self.sendButton.isEnabled = true
+//                }
                 self.scheduleTypingCell()
             }
         }
@@ -348,12 +348,15 @@ extension ChatVC {
 //        if self.chatVm.typingCellTimerCounter == 0{ self.insertTypingCell() }
         self.chatVm.typingCellTimerCounter += 1
         if self.chatVm.typingCellTimerCounter == 1{self.chatVm.sendMessageToChatBot(message: self.chatVm.msgToBeSent) }
-        if self.chatVm.typingCellTimerCounter == 10{ invalidateTypingCellTimer() }
+        if self.chatVm.typingCellTimerCounter == 10{
+            invalidateTypingCellTimer()
+        }
     }
     
     func invalidateTypingCellTimer(){
         self.typingCellTimer?.invalidate()
         self.chatVm.typingCellTimerCounter = 0
+        self.sendButton.isEnabled = true
         removeTypingCell()
     }
     
