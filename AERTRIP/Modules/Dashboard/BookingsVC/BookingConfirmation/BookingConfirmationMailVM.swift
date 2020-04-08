@@ -11,10 +11,10 @@ import Foundation
 protocol BookingConfirmationMailVMDelegate: class{
     func willGetTravellerEmail()
     func getTravellerEmailSuccess()
-    func getTravellerEmailFail()
+    func getTravellerEmailFail(_ errors: ErrorCodes)
     func willSendEmail()
     func sendEmailSuccess()
-    func sendEmailFail()
+    func sendEmailFail(_ errors: ErrorCodes)
 }
 
 class BookingConfirmationMailVM {
@@ -25,7 +25,7 @@ class BookingConfirmationMailVM {
     var emails: [String] = []
     var token: String = ""
     var addedEmail: [String] = []
-    
+    var hitSendConfirmationApi = false
     
     
     
@@ -40,8 +40,13 @@ class BookingConfirmationMailVM {
                 sSelf.emails = emails
                 sSelf.token = token
                 sSelf.delegate?.getTravellerEmailSuccess()
+                if sSelf.hitSendConfirmationApi {
+                    sSelf.hitSendConfirmationApi = false
+                    sSelf.sendConfirmationMail()
+                }
             } else {
-                  sSelf.delegate?.getTravellerEmailFail()
+                sSelf.delegate?.getTravellerEmailFail(errors)
+                sSelf.hitSendConfirmationApi = false
             }
         }
         
@@ -50,17 +55,19 @@ class BookingConfirmationMailVM {
     
     func sendConfirmationMail() {
         var params: JSONDictionary = [:]
-        for email in emails {
-            params["\(APIKeys.email.rawValue)[]"] = email
+        for (index, email) in addedEmail.enumerated() {
+            params["\(APIKeys.email.rawValue)[\(index)]"] = email
         }
         params["_t"] = self.token
+        params["booking_id"] = self.bookingId
+
         self.delegate?.willSendEmail()
         APICaller.shared.sendConfirmationEmailApi(bookingID: bookingId, params: params) { [weak self] (success, errorCode, message) in
             guard let sSelf = self else { return }
             if success {
-                sSelf.delegate?.getTravellerEmailSuccess()
+                sSelf.delegate?.sendEmailSuccess()
             } else {
-                sSelf.delegate?.getTravellerEmailFail()
+                sSelf.delegate?.sendEmailFail(errorCode)
             }
         }
     }

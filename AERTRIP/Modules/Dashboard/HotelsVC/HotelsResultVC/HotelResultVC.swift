@@ -125,6 +125,8 @@ class HotelResultVC: BaseVC {
     let hotelResultCellIdentifier = "HotelSearchTableViewCell"
     
     var statusBarBlurView : UIVisualEffectView!
+    var headerBlurView : UIVisualEffectView!
+
 //    override var statusBarAnimatableConfig: StatusBarAnimatableConfig{
 //        return StatusBarAnimatableConfig(prefersHidden: false, animation: .slide)
 //    }
@@ -261,6 +263,9 @@ class HotelResultVC: BaseVC {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.statusBarColor = AppColors.clear
+        self.headerBlurView.removeFromSuperview()
+        self.statusBarBlurView.removeFromSuperview()
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -313,12 +318,12 @@ class HotelResultVC: BaseVC {
     
     func addCustomBackgroundBlurView(){
         
-        let backVisualEfectView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: backContainerView.height))
-        backVisualEfectView.effect = UIBlurEffect(style: .prominent)
-        backVisualEfectView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+        headerBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: backContainerView.height))
+        headerBlurView.effect = UIBlurEffect(style: .prominent)
+        headerBlurView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         
         backContainerView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
-        backContainerView.addSubview(backVisualEfectView)
+        backContainerView.addSubview(headerBlurView)
         
         
 //        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -330,7 +335,7 @@ class HotelResultVC: BaseVC {
         
         statusBarBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: statusBarHeight))
         statusBarBlurView.effect = UIBlurEffect(style: .prominent)
-        //self.navigationController?.view.addSubview(statusBarBlurView)
+        self.navigationController?.view.addSubview(statusBarBlurView)
         
     }
     // MARK: - Methods

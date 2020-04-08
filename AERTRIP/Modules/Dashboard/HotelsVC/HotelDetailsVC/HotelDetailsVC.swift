@@ -172,7 +172,7 @@ class HotelDetailsVC: BaseVC {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        self.statusBarColor = AppColors.clear
+        self.statusBarColor = AppColors.clear
 //        self.currentViewHeight = self.navigationController?.view.height ?? 0.0
 //        self.navigationController?.view?.subviews.first?.frame.size.height = self.currentViewHeight - self.statusBarHeight
 //        self.navigationController?.view?.subviews.first?.frame.origin.y = self.statusBarHeight

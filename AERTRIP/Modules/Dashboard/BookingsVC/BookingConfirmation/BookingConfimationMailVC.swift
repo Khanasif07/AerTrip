@@ -49,12 +49,17 @@ class BookingConfimationMailVC: BaseVC {
     override func setupTexts() {
         self.toLabel.text = LocalizedString.To.localized + ":"
         self.infoLabel.text = LocalizedString.BookingConfirmationInfo.localized
+        self.toMailTextView.placeholder = LocalizedString.EnterEmail.localized
     }
     
     override func setupColors() {
         self.toLabel.textColor = AppColors.themeGray40
         self.toMailTextView.textColor = AppColors.themeGray40
         self.infoLabel.textColor = AppColors.themeGray40
+        if #available(iOS 13, *) {
+        }else{
+            self.toMailTextView.placeholderTextColor = AppColors.themeGray40
+        }
     }
     
     override func setupNavBar() {
@@ -96,6 +101,33 @@ class BookingConfimationMailVC: BaseVC {
             
         })
     }
+    
+    private func updateSendButton(){
+            
+            let mail = self.toMailTextView.text
+            let mailsArray = mail?.components(separatedBy: ",") ?? []
+            let emails = mailsArray.filter({ $0 != " " &&  $0 != ""})
+            var isEmailValid = false
+            for email in emails{
+                isEmailValid = email.trimmingCharacters(in: .whitespacesAndNewlines).checkValidity(.Email)
+                if !isEmailValid{
+                    self.topNavigationView.firstRightButton.isEnabled = false
+                    self.topNavigationView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+                    return
+                }
+            }
+            
+            if !isEmailValid {
+                
+    //            self.email.checkValidity(.Email)
+                self.topNavigationView.firstRightButton.isEnabled = false
+                self.topNavigationView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+            }else{
+               self.topNavigationView.firstRightButton.isEnabled = true
+                self.topNavigationView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
+            }
+            
+        }
 }
 
 // MARK: - Top Navigation View Delegate methods
@@ -108,7 +140,20 @@ extension BookingConfimationMailVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         printDebug("send button Tapped")
-        self.viewModel.sendConfirmationMail()
+        printDebug("Send mail")
+        self.view.endEditing(true)
+        let mail = self.toMailTextView.text
+        let mailsArray = mail?.components(separatedBy: ",") ?? []
+        self.viewModel.addedEmail = mailsArray.filter({ $0 != " " })
+        if self.viewModel.addedEmail.contains("") {
+           AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterEmail.localized)
+        } else {
+            if self.viewModel.token.isEmpty {
+                self.viewModel.getTravellerMail()
+            } else {
+              self.viewModel.sendConfirmationMail()
+            }
+        }
     }
 }
 
@@ -137,5 +182,8 @@ extension BookingConfimationMailVC {
         self.updateHeightOfHeader(self.toMailTextView)
         
         return true
+    }
+    func textViewDidChange(_ textView: UITextView) {
+        self.updateSendButton()
     }
 }
