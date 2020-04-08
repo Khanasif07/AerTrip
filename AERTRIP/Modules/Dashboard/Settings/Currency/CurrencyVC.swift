@@ -72,11 +72,11 @@ class CurrencyVC: BaseVC {
     }
     
     private func configureTableView(){
+        self.noResultemptyView.isHidden = true
         self.currencyTableView.register(UINib(nibName: "CurrencyCell", bundle: nil), forCellReuseIdentifier: "CurrencyCell")
         self.currencyTableView.dataSource = self
         self.currencyTableView.delegate = self
         self.currencyTableView.backgroundView = noResultemptyView
-        self.noResultemptyView.isHidden = true
     }
 }
 

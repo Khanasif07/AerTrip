@@ -46,11 +46,11 @@ class SettingsCell: UITableViewCell {
         
         case .currency:
             self.settingsValueLavel.isHidden = false
-            self.settingsValueLavel.text = "$"
+            self.settingsValueLavel.text = "₹"
 
         case .notification:
             self.settingsValueLavel.isHidden = false
-            self.settingsValueLavel.text = "All"
+            self.settingsValueLavel.text = ""
             
         case .calenderSync:
             self.switch.isHidden = false
