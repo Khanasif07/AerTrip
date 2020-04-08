@@ -82,9 +82,9 @@ class BookingVoucherTableViewCell: ATTableViewCell {
         self.payNowButton.isHidden = false
         self.priceLabel.isHidden = true
         self.arrowImageView.isHidden = true
-        
-        self.dateLabel.text = self.amount.amountInDelimeterWithSymbol
-        
+        let grossStr = abs(amount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(24.0))
+//        self.dateLabel.text = self.amount.amountInDelimeterWithSymbol
+         self.dateLabel.attributedText = grossStr
         if (self.amount < 0) {
             self.payNowButton.setTitle("Get Refund", for: .normal)
             self.payNowButton.isHidden = true

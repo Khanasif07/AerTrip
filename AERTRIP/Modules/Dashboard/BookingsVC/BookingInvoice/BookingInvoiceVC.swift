@@ -173,12 +173,12 @@ class BookingInvoiceVC: BaseVC {
             }
             
             totalPayableCell.totalPayableNowLabel.text = ladName
-            totalPayableCell.totalPayableTextTopConstraint.constant = 5
-            totalPayableCell.totalPayableTextBottomConstraint.constant = 17.5
+            totalPayableCell.totalPayableTextTopConstraint.constant = 8
+            totalPayableCell.totalPayableTextBottomConstraint.constant = 13.0
             let grossStr = abs(amount).amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(20.0))
             grossStr.append((amount > 0) ? drAttr : crAttr)
             totalPayableCell.totalPriceLabel.attributedText = grossStr
-            totalPayableCell.totalPayableNowLabel.font = AppFonts.Regular.withSize(18.0)
+            totalPayableCell.totalPayableNowLabel.font = AppFonts.Regular.withSize(20.0)
             totalPayableCell.topDeviderView.isHidden = false
             totalPayableCell.bottomDeviderView.isHidden = true
             return totalPayableCell
@@ -215,7 +215,7 @@ class BookingInvoiceVC: BaseVC {
     }
     
     func getHeightForRowAtFourthSection(_ indexPath: IndexPath) -> CGFloat {
-        return [54, 28, 44][indexPath.row]
+        return [46, 28, 44][indexPath.row]
     }
 }
 

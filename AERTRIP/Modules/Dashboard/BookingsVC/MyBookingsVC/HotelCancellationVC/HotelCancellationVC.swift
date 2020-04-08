@@ -42,6 +42,9 @@ class HotelCancellationVC: BaseVC {
         self.topNavBar.delegate = self
         self.cancellationButtonOutlet.isUserInteractionEnabled = false
         self.totalNetRefundContainerView.isHidden = true
+        if self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count == 1{
+            self.updateSelectAll()
+        }
     }
     
     override func setupColors() {

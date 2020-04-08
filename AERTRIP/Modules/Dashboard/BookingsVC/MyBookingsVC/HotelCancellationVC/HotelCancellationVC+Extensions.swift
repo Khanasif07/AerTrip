@@ -101,6 +101,10 @@ extension HotelCancellationVC: BookingTopNavBarWithSubtitleDelegate {
 
 extension HotelCancellationVC: BookingReschedulingHeaderViewDelegate {
     func selectAllButtonAction(_ sender: UIButton) {
+        self.updateSelectAll()
+    }
+    
+    func updateSelectAll(){
         guard let rooms = self.viewModel.bookingDetail?.bookingDetail?.roomDetails else { return}
         
         if rooms.count == self.viewModel.selectedRooms.count {
@@ -113,6 +117,7 @@ extension HotelCancellationVC: BookingReschedulingHeaderViewDelegate {
         }
         self.hotelCancellationTableView.reloadData()
     }
+    
 }
 
 extension HotelCancellationVC: HotelCancellationRoomInfoTableViewCellDelegate {

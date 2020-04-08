@@ -39,6 +39,7 @@ class BookingReschedulingVC: BaseVC {
     var collapseCompletionHandler: () -> Void = {} // completion for collapse
     
     override func initialSetup() {
+        self.continueButton.shadowColor = AppColors.clear
         self.continueButton.addGredient(isVertical: false)
         self.setupTotalRefundAndCont()
         self.registerXib()

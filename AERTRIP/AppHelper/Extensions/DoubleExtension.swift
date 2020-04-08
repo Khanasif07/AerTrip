@@ -71,8 +71,13 @@ extension Double {
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 2
         formatter.numberStyle = .decimal
-        return formatter.string(from: NSNumber(value: self)) ?? ""
+        return formatter.string(from: NSNumber(value: self)) ?? "0"
     }
 
+    var numberAfterDecimal:String{
+        let powerOfTen:Double = pow(10.0, 2.0)
+        let targetedDecimalPlaces:Int = Int(self * powerOfTen)%Int(powerOfTen)
+        return "\(targetedDecimalPlaces)"
+    }
     
 }

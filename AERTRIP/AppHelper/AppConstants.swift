@@ -20,7 +20,7 @@ enum AppConstants {
     static let kGoogleApiKey = ""
     static let kFacebookAppID = ""
     static let kMe = "Me"
-    
+    static var decimalSymbol:String{return Locale.current.decimalSeparator ?? "."}
     static let kOtpLength = 6
     static let kMinTextFieldCharLength = 2
     static let kMaxTextFieldCharLength = 32

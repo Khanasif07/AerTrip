@@ -72,6 +72,7 @@ class BookingReviewCancellationVC: BaseVC {
     
     override func initialSetup() {
         self.requestCancellationButton.shouldShowPressAnimation = false
+        self.requestCancellationButton.shadowColor = AppColors.clear
         switch self.viewModel.currentUsingAs {
         case .flightCancellationReview, .hotelCancellationReview:
             self.commentTextView.placeholder = LocalizedString.EnterYourCommentOptional.localized
@@ -81,7 +82,9 @@ class BookingReviewCancellationVC: BaseVC {
             self.cancellationViewHeightConstraint.constant = 0.0
             self.totalNetRefundView.isHidden = true
             self.totalNetRefundViewHeightConstraint.constant = 0.0
-            self.commentTextView.placeholderInsets = UIEdgeInsets(top: 4.0, left: 4.0, bottom: 0.0, right: 0.0)
+            self.commentTextView.placeholderColor = AppColors.themeGray20
+            self.commentTextView.font = AppFonts.Regular.withSize(18)
+            self.commentTextView.placeholderInsets = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0)
         }
         
         self.refundModeTextField.delegate = self
@@ -172,17 +175,23 @@ class BookingReviewCancellationVC: BaseVC {
         if self.viewModel.currentUsingAs == .flightCancellationReview || self.viewModel.currentUsingAs == .hotelCancellationReview {
             allOthersHeight = 300.0 + (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
         } else {
-            allOthersHeight = 186.0 + (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
+            allOthersHeight = 195.0 + (AppFlowManager.default.safeAreaInsets.top + AppFlowManager.default.safeAreaInsets.bottom)
         }
         let blankSpace: CGFloat = UIDevice.screenHeight - (allOthersHeight)
         
         var textHeight: CGFloat = 0.0
         
         if self.commentTextView.text.isEmpty {
-            textHeight = 45.0
+            if UIDevice.isIPhoneX{
+                textHeight = 36.0
+            }else{
+                textHeight = 45.0
+            }
+            
         }
         else {
-            textHeight = (CGFloat(self.commentTextView.numberOfLines) * (self.commentTextView.font?.lineHeight ?? 20.0)) + 14.0
+            let txtViewHt = (CGFloat(self.commentTextView.numberOfLines) * (self.commentTextView.font?.lineHeight ?? 20.0)) + 14.0
+            textHeight = max(txtViewHt, textHeight)
         }
         
         var calculatedBlank: CGFloat = blankSpace - (textHeight)

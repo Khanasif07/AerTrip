@@ -23,7 +23,7 @@ class PKTextView: UITextView {
     var borderColor: UIColor = UIColor.darkGray
     var cornerRad: CGFloat = 0.0
     var placeholderInsets: UIEdgeInsets = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 5.0)
-
+    var placeholderColor:UIColor = UIColor.lightGray
     
     //MARK:- View Initialization
     //MARK:-
@@ -31,10 +31,10 @@ class PKTextView: UITextView {
         super.init(frame: frame, textContainer: textContainer)
     }
     
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        super.canPerformAction(action, withSender: sender)
-        return true
-    }
+//    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+//        super.canPerformAction(action, withSender: sender)
+//        return true
+//    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -74,7 +74,7 @@ class PKTextView: UITextView {
                 plceText.draw(in: finalRect)
             }
             else {
-                self.placeholder.draw(in: finalRect, withAttributes: [NSAttributedString.Key.font : self.currentFont as Any, NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+                self.placeholder.draw(in: finalRect, withAttributes: [NSAttributedString.Key.font : self.currentFont as Any, NSAttributedString.Key.foregroundColor : placeholderColor])
             }
         }
     }
