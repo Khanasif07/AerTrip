@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parchment
 
 protocol BookingRequestAddOnsFFVCDelegate: class  {
     func addOnAndFFUpdated()
@@ -18,6 +19,7 @@ class BookingRequestAddOnsFFVC: BaseVC {
     @IBOutlet weak var topNavigationView: TopNavigationView!
     @IBOutlet weak var dataContainerView: UIView!
     @IBOutlet weak var requestButton: UIButton!
+    @IBOutlet weak var gradientView: UIView!
     
     // MARK: - Properties
     
@@ -27,41 +29,34 @@ class BookingRequestAddOnsFFVC: BaseVC {
     private var allTabsStr: [String] = [LocalizedString.AddOns.localized]
     weak var delegate: BookingRequestAddOnsFFVCDelegate?
     
-    fileprivate weak var categoryView: ATCategoryView!
-    private var allTabs: [ATCategoryItem] {
-        var temp = [ATCategoryItem]()
-        
-        for title in self.allTabsStr {
-            var obj = ATCategoryItem()
-            obj.title = title
-            temp.append(obj)
-        }
-        
-        return temp
-    }
+    //fileprivate weak var categoryView: ATCategoryView!
+    // Parchment View
+    fileprivate var parchmentView : PagingViewController?
+//    private var allTabs: [ATCategoryItem] {
+//        var temp = [ATCategoryItem]()
+//
+//        for title in self.allTabsStr {
+//            var obj = ATCategoryItem()
+//            obj.title = title
+//            temp.append(obj)
+//        }
+//
+//        return temp
+//    }
     
     override func initialSetup() {
-        self.edgesForExtendedLayout = UIRectEdge(rawValue: 0)
+        //self.edgesForExtendedLayout = UIRectEdge(rawValue: 0)
         self.currentIndex = 0
         if !BookingRequestAddOnsFFVM.shared.isLCC {
             self.allTabsStr.append(LocalizedString.FrequentFlyer.localized)
         }
         
-        for i in 0..<self.allTabsStr.count {
-            if i == 0 {
-                let vc = AddOnsVC.instantiate(fromAppStoryboard: .Bookings)
-                self.allChildVCs.append(vc)
-            } else if i == 1 {
-                let vc = FrequentFlyerVC.instantiate(fromAppStoryboard: .Bookings)
-                self.allChildVCs.append(vc)
-            }
-        }
         self.setupPagerView()
-        self.requestButton.addGredient(isVertical: false)
         self.setupNavBar()
         let frequentFlyerData = BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerDatas ?? []
         BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData = frequentFlyerData
         BookingRequestAddOnsFFVM.shared.getPreferenceMaster()
+        self.gradientView.addGredient(isVertical: false)
     }
     
     override func setupNavBar() {
@@ -93,36 +88,60 @@ class BookingRequestAddOnsFFVC: BaseVC {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        self.categoryView?.frame = self.dataContainerView.bounds
-        self.categoryView?.layoutIfNeeded()
+        self.parchmentView?.view.frame = self.dataContainerView.bounds
+        self.parchmentView?.loadViewIfNeeded()
+        self.gradientView.addGredient(isVertical: false)
     }
     
     private func setupPagerView() {
-        var style = ATCategoryNavBarStyle()
-        style.height = 49.0 // category bar Height
-        style.interItemSpace = 110.0
-        style.itemPadding = 8.0
-        style.isScrollable = false
-        style.layoutAlignment = .center
-        style.isEmbeddedToView = true
-        style.showBottomSeparator = true
-        style.bottomSeparatorColor = AppColors.themeGray40
-        style.defaultFont = AppFonts.Regular.withSize(16.0)
-        style.selectedFont = AppFonts.SemiBold.withSize(16.0)
-        style.indicatorColor = AppColors.themeGreen
-        style.normalColor = AppColors.textFieldTextColor51
-        style.selectedColor = AppColors.themeBlack
+        self.currentIndex = 0
+        self.allChildVCs.removeAll()
+        for i in 0..<self.allTabsStr.count {
+            if i == 0 {
+                let vc = AddOnsVC.instantiate(fromAppStoryboard: .Bookings)
+                self.allChildVCs.append(vc)
+            } else if i == 1 {
+                let vc = FrequentFlyerVC.instantiate(fromAppStoryboard: .Bookings)
+                self.allChildVCs.append(vc)
+            }
+        }
+        self.view.layoutIfNeeded()
+        if let _ = self.parchmentView{
+            self.parchmentView?.view.removeFromSuperview()
+            self.parchmentView = nil
+        }
+        setupParchmentPageController()
+    }
+    
+    // Added to replace the existing page controller, added Asif Khan, 28-29Jan'2020
+    private func setupParchmentPageController(){
         
-        style.badgeDotSize = CGSize(width: 4.0, height: 4.0)
-        style.badgeBackgroundColor = AppColors.themeGreen
-        style.badgeBorderColor = AppColors.clear
-        style.badgeBorderWidth = 0.0
+        self.parchmentView = PagingViewController()
+        if self.allTabsStr.count == 1 {
+            self.parchmentView?.menuHorizontalAlignment = .center
+        }
+        self.parchmentView?.menuItemSpacing = self.allTabsStr.count == 2 ? (UIDevice.screenWidth - 273.0) : (UIDevice.screenWidth - 273.0)/2
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: self.allTabsStr.count == 2 ? 59.0 : 28.0, bottom: 0.0, right:  self.allTabsStr.count == 2 ? 64.0 : 29.0)
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0), insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 50)
+        self.parchmentView?.borderOptions = PagingBorderOptions.visible(
+            height: 0.5,
+            zIndex: Int.max - 1,
+            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
+        self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
+        self.parchmentView?.indicatorColor = AppColors.themeGreen
+        self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        self.dataContainerView.addSubview(self.parchmentView!.view)
         
-        let categoryView = ATCategoryView(frame: self.dataContainerView.bounds, categories: self.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
-        categoryView.interControllerSpacing = 0.0
-        categoryView.navBar.internalDelegate = self
-        self.dataContainerView.addSubview(categoryView)
-        self.categoryView = categoryView
+        self.parchmentView?.dataSource = self
+        self.parchmentView?.delegate = self
+        self.parchmentView?.sizeDelegate = self
+        self.parchmentView?.select(index: 0)
+        self.parchmentView?.reloadData()
+        self.parchmentView?.reloadMenu()
+        
     }
     
     @IBAction func requstButtonTapped(_ sender: Any) {
@@ -185,5 +204,38 @@ extension BookingRequestAddOnsFFVC: BulkEnquirySuccessfulVCDelegate {
     func doneButtonAction() {
           self.delegate?.addOnAndFFUpdated()
           self.dismiss(animated: true)
+    }
+}
+
+extension BookingRequestAddOnsFFVC: PagingViewControllerDataSource , PagingViewControllerDelegate, PagingViewControllerSizeDelegate {
+    func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
+        return PagingIndexItem(index: index, title:  self.allTabsStr[index])
+    }
+    
+    func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
+        self.allTabsStr.count
+    }
+    
+    func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController  {
+        return self.allChildVCs[index]
+    }
+    
+    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
+        
+        // depending onthe text size, give the width of the menu item
+        if let pagingIndexItem = pagingItem as? PagingIndexItem{
+            let text = pagingIndexItem.title
+            
+            let font = AppFonts.SemiBold.withSize(16.0)
+            return text.widthOfString(usingFont: font) + 2.5
+        }
+        
+        return 100.0
+    }
+    
+    func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool){
+        
+        let pagingIndexItem = pagingItem as! PagingIndexItem
+        self.currentIndex = pagingIndexItem.index
     }
 }

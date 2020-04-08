@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -56,7 +54,7 @@
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oxA-hU-E1N">
-                            <rect key="frame" x="52" y="52" width="323" height="24"/>
+                            <rect key="frame" x="52" y="52" width="323" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -69,7 +67,6 @@
                         <constraint firstAttribute="trailing" secondItem="Pak-Jz-zSz" secondAttribute="trailing" id="M48-88-dmu"/>
                         <constraint firstItem="oxA-hU-E1N" firstAttribute="top" secondItem="Pak-Jz-zSz" secondAttribute="bottom" constant="8" id="TV6-1j-vmZ"/>
                         <constraint firstItem="oxA-hU-E1N" firstAttribute="leading" secondItem="Pak-Jz-zSz" secondAttribute="leading" constant="52" id="cZL-QX-CmV"/>
-                        <constraint firstAttribute="bottom" secondItem="oxA-hU-E1N" secondAttribute="bottom" id="fs8-h2-dZO"/>
                         <constraint firstItem="Pak-Jz-zSz" firstAttribute="leading" secondItem="0kg-ZZ-tVz" secondAttribute="leading" id="jE7-mV-PWb"/>
                     </constraints>
                 </view>
@@ -88,6 +85,7 @@
                 <outlet property="passengerNameLabel" destination="HVA-ei-Xyy" id="H0E-ox-hX0"/>
                 <outlet property="profileImageView" destination="uqj-Kr-htP" id="tAV-6D-jWG"/>
             </connections>
+            <point key="canvasLocation" x="138" y="149"/>
         </view>
     </objects>
 </document>

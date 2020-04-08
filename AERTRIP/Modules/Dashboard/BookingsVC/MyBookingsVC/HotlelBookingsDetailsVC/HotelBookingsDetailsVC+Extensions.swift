@@ -188,10 +188,10 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.ProcessCancellation.localized, LocalizedString.SpecialRequest.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationEmail.localized], colors: [self.viewModel.bookingDetail?.cancellationRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, self.viewModel.bookingDetail?.specialRequestAllowed ?? false ? AppColors.themeDarkGreen : AppColors.themeGray40, AppColors.themeDarkGreen, AppColors.themeDarkGreen])
         
-        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { _, index in
+        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: {[weak self]  _, index in
             switch index {
             case 0:
-                if let bdtl = self.viewModel.bookingDetail, bdtl.cancellationRequestAllowed {
+                if let bdtl = self?.viewModel.bookingDetail, bdtl.cancellationRequestAllowed {
                     printDebug("Process Cancellation")
                     AppFlowManager.default.presentToHotelCancellationVC(bookingDetail: bdtl)
                 }
@@ -200,7 +200,7 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
                 }
                 
             case 1:
-                if let bdtl = self.viewModel.bookingDetail, bdtl.specialRequestAllowed {
+                if let bdtl = self?.viewModel.bookingDetail, bdtl.specialRequestAllowed {
                     AppFlowManager.default.moveToSpecialRequestVC(forBookingId: bdtl.bookingDetail?.bookingId ?? "")
                     printDebug("Special Request")
                 }
@@ -210,11 +210,11 @@ extension HotlelBookingsDetailsVC: TopNavigationViewDelegate {
                 
             case 2:
                 printDebug("Download ")
-                let endPoint = "https://beta.aertrip.com/api/v1/dashboard/booking-action?type=pdf&booking_id=\(self.viewModel.bookingDetail?.id ?? "")"
+                let endPoint = "https://beta.aertrip.com/api/v1/dashboard/booking-action?type=pdf&booking_id=\(self?.viewModel.bookingDetail?.id ?? "")"
                 AppGlobals.shared.viewPdf(urlPath: endPoint, screenTitle: LocalizedString.Voucher.localized)
             case 3:
-                AppGlobals.shared.showUnderDevelopment()
                 printDebug("Resend Confirmation mail ")
+                AppFlowManager.default.presentConfirmationMailVC(bookindId: self?.viewModel.bookingDetail?.id ?? "")
             default:
                 printDebug("default")
             }

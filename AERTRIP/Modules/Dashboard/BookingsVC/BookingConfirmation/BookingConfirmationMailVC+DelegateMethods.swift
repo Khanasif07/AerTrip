@@ -15,9 +15,11 @@ extension BookingConfimationMailVC: BookingConfirmationMailVMDelegate {
     
     func sendEmailSuccess() {
         AppGlobals.shared.stopLoading()
+        self.dismiss(animated: true, completion: nil)
     }
     
-    func sendEmailFail() {
+    func sendEmailFail(_ error: ErrorCodes) {
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
         AppGlobals.shared.stopLoading()
     }
     
@@ -29,7 +31,8 @@ extension BookingConfimationMailVC: BookingConfirmationMailVMDelegate {
         AppGlobals.shared.stopLoading()
     }
     
-    func getTravellerEmailFail() {
+    func getTravellerEmailFail(_ error: ErrorCodes) {
+        AppGlobals.shared.showErrorOnToastView(withErrors: error, fromModule: .hotelsSearch)
         AppGlobals.shared.stopLoading()
     }
 }

@@ -206,6 +206,7 @@ extension MailComposerVC: TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         printDebug("Send mail")
+        self.view.endEditing(true)
         let mail = self.mailComposerHeaderView.toEmailTextView.text
         let mailsArray = mail?.components(separatedBy: ",") ?? []
         self.viewModel.pinnedEmails = mailsArray.filter({ $0 != " " })

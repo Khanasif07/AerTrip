@@ -23,7 +23,16 @@ class FrequentFlyerVC: BaseVC {
         frequentFlyerTableView.dataSource = self
         frequentFlyerTableView.delegate = self
         frequentFlyerTableView.reloadData()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        frequentFlyerTableView.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        frequentFlyerTableView.reloadData()
     }
     
     // MARK: Helper methods
