@@ -145,6 +145,7 @@ class BookingRequestAddOnsFFVC: BaseVC {
     }
     
     @IBAction func requstButtonTapped(_ sender: Any) {
+        self.view.endEditing(true)
         // AppFlowManager.default.showAddonRequestSent(buttonTitle:LocalizedString.Done.localized)
         BookingRequestAddOnsFFVM.shared.postAddOnRequest()
     }

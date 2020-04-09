@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManager
 
 class AbortRequestVC: BaseVC {
     
@@ -14,12 +15,13 @@ class AbortRequestVC: BaseVC {
     
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var confirmAbortButton: UIButton!
-    @IBOutlet weak var addCommentTextView: PKTextView!
+    @IBOutlet weak var addCommentTextView: IQTextView!
     @IBOutlet weak var abortRequestTitleLabel: UILabel!
     @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var bottomDivider: UIView!
-    
+    @IBOutlet weak var gradientView: UIView!
+    @IBOutlet weak var confirmBtnBottomConstraint: NSLayoutConstraint!
     
     //MARK: - Variables
     let viewModel = AbortRequestVM()
@@ -30,15 +32,24 @@ class AbortRequestVC: BaseVC {
     
     private var keyboardHeight: CGFloat = 0.0
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        gradientView.addGredient(isVertical: false)
+        addCommentTextView.layoutSubviews()
+    }
+    
     // MARK:- Overide methods
     
     override func initialSetup() {
-        confirmAbortButton.addGredient(isVertical: false)
+        addCommentTextView.contentInset = .zero
         addCommentTextView.placeholder = LocalizedString.EnterComments.localized
         self.view.backgroundColor = AppColors.themeWhite
         self.bottomView.backgroundColor = AppColors.themeGray04
         self.bottomDivider.backgroundColor = AppColors.divider.color
-        
+        confirmBtnBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
+        self.manageTextFieldHeight()
+        addCommentTextView.layoutIfNeeded()
+        self.view.layoutIfNeeded()
         self.manageTextFieldHeight()
     }
     
@@ -62,6 +73,7 @@ class AbortRequestVC: BaseVC {
         self.confirmAbortButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.confirmAbortButton.setTitleColor(AppColors.themeWhite, for: .selected)
         self.abortRequestTitleLabel.textColor = AppColors.themeBlack
+        self.addCommentTextView.placeholderTextColor = AppColors.themeGray20
     }
     
     
@@ -98,7 +110,7 @@ class AbortRequestVC: BaseVC {
         var textHeight: CGFloat = 0.0
         
         if self.addCommentTextView.text.isEmpty {
-            textHeight = 30.0
+            textHeight = (self.addCommentTextView.font?.lineHeight ?? 20.0) + 10.0
         }
         else {
             textHeight = (CGFloat(self.addCommentTextView.numberOfLines) * (self.addCommentTextView.font?.lineHeight ?? 20.0)) + 10.0

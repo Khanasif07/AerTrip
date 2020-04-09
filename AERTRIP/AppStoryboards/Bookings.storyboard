@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -852,6 +852,10 @@ with us!</string>
                                 <rect key="frame" x="0.0" y="44" width="375" height="563"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f1Y-yS-mTy">
+                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M3B-FY-Udb">
                                 <rect key="frame" x="0.0" y="607" width="375" height="60"/>
                                 <subviews>
@@ -897,21 +901,27 @@ with us!</string>
                             <constraint firstItem="8a9-js-Ay6" firstAttribute="leading" secondItem="VHX-sa-ouH" secondAttribute="leading" id="6HH-IN-qAi"/>
                             <constraint firstItem="got-SJ-hpU" firstAttribute="top" secondItem="8a9-js-Ay6" secondAttribute="bottom" id="9vZ-PO-pgf"/>
                             <constraint firstItem="8a9-js-Ay6" firstAttribute="top" secondItem="VHX-sa-ouH" secondAttribute="top" id="BFP-XG-8Cg"/>
+                            <constraint firstAttribute="bottom" secondItem="M3B-FY-Udb" secondAttribute="bottom" id="G1F-TQ-Fhs"/>
                             <constraint firstItem="got-SJ-hpU" firstAttribute="leading" secondItem="VHX-sa-ouH" secondAttribute="leading" id="JJn-cT-EwR"/>
+                            <constraint firstItem="M3B-FY-Udb" firstAttribute="trailing" secondItem="f1Y-yS-mTy" secondAttribute="trailing" id="Jar-I0-c13"/>
+                            <constraint firstItem="M3B-FY-Udb" firstAttribute="top" secondItem="f1Y-yS-mTy" secondAttribute="top" id="JdT-LQ-MLd"/>
                             <constraint firstItem="M3B-FY-Udb" firstAttribute="leading" secondItem="VHX-sa-ouH" secondAttribute="leading" id="OJl-kL-AkD"/>
                             <constraint firstItem="M3B-FY-Udb" firstAttribute="trailing" secondItem="VHX-sa-ouH" secondAttribute="trailing" id="RVf-va-Tdp"/>
                             <constraint firstItem="M3B-FY-Udb" firstAttribute="top" secondItem="got-SJ-hpU" secondAttribute="bottom" id="S8H-pK-X8O"/>
-                            <constraint firstItem="M3B-FY-Udb" firstAttribute="bottom" secondItem="VHX-sa-ouH" secondAttribute="bottom" id="V65-D9-mA2"/>
                             <constraint firstItem="VHX-sa-ouH" firstAttribute="trailing" secondItem="8a9-js-Ay6" secondAttribute="trailing" id="clD-d2-yLs"/>
+                            <constraint firstItem="M3B-FY-Udb" firstAttribute="leading" secondItem="f1Y-yS-mTy" secondAttribute="leading" id="sbF-yz-flM"/>
+                            <constraint firstAttribute="bottom" secondItem="f1Y-yS-mTy" secondAttribute="bottom" id="w5g-V7-jg2"/>
                             <constraint firstItem="VHX-sa-ouH" firstAttribute="trailing" secondItem="got-SJ-hpU" secondAttribute="trailing" id="zU8-b1-Gwx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VHX-sa-ouH"/>
                     </view>
                     <connections>
+                        <outlet property="gradientView" destination="f1Y-yS-mTy" id="b62-j0-WeZ"/>
                         <outlet property="makePaymentButton" destination="2cp-ge-TTJ" id="5qN-99-R7Q"/>
                         <outlet property="makePaymentLabel" destination="e5p-3h-GVB" id="6SJ-xl-f7S"/>
                         <outlet property="priceLabel" destination="Wv2-Lm-fY8" id="KbC-qC-whn"/>
                         <outlet property="priceView" destination="M3B-FY-Udb" id="s52-f5-ues"/>
+                        <outlet property="priceViewBottomConstraint" destination="G1F-TQ-Fhs" id="dyi-nr-3Tf"/>
                         <outlet property="priceViewHieghtConstraint" destination="f01-TB-OUY" id="zBG-1e-omh"/>
                         <outlet property="requestTableView" destination="got-SJ-hpU" id="HDu-Zb-R9n"/>
                         <outlet property="topNavigationView" destination="8a9-js-Ay6" id="eRR-9b-sVt"/>
@@ -1209,22 +1219,22 @@ with us!</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uw2-Ag-4P5">
-                                <rect key="frame" x="16" y="52" width="343" height="22"/>
+                                <rect key="frame" x="16" y="52" width="343" height="18"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="22" id="SBo-1S-7ry"/>
+                                    <constraint firstAttribute="height" constant="18" id="SBo-1S-7ry"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="h5j-Hg-SqJ" customClass="PKTextView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="12" y="79" width="347" height="68"/>
+                            <textView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="h5j-Hg-SqJ" customClass="IQTextView">
+                                <rect key="frame" x="12" y="72" width="347" height="23"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h48-BB-m8z">
-                                <rect key="frame" x="0.0" y="147" width="375" height="470"/>
+                                <rect key="frame" x="0.0" y="101" width="375" height="516"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oJE-8h-zgy">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
@@ -1236,11 +1246,15 @@ with us!</string>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="470" id="6g8-QJ-deE"/>
+                                    <constraint firstAttribute="height" constant="516" id="6g8-QJ-deE"/>
                                     <constraint firstAttribute="trailing" secondItem="oJE-8h-zgy" secondAttribute="trailing" id="78h-od-n6d"/>
                                     <constraint firstItem="oJE-8h-zgy" firstAttribute="leading" secondItem="h48-BB-m8z" secondAttribute="leading" id="d5U-s7-9Wb"/>
                                     <constraint firstItem="oJE-8h-zgy" firstAttribute="top" secondItem="h48-BB-m8z" secondAttribute="top" id="vTB-U6-Bqi"/>
                                 </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cv8-4e-ZZK">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DiR-MH-Bvn">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
@@ -1256,20 +1270,24 @@ with us!</string>
                         <constraints>
                             <constraint firstItem="c0N-Ia-BmZ" firstAttribute="trailing" secondItem="Uw2-Ag-4P5" secondAttribute="trailing" constant="16" id="1yf-SF-Tf9"/>
                             <constraint firstItem="c0N-Ia-BmZ" firstAttribute="trailing" secondItem="DiR-MH-Bvn" secondAttribute="trailing" id="6Fy-Av-g1b"/>
-                            <constraint firstItem="h5j-Hg-SqJ" firstAttribute="top" secondItem="Uw2-Ag-4P5" secondAttribute="bottom" constant="5" id="77X-WZ-18J"/>
+                            <constraint firstItem="h5j-Hg-SqJ" firstAttribute="top" secondItem="Uw2-Ag-4P5" secondAttribute="bottom" constant="2" id="77X-WZ-18J"/>
                             <constraint firstItem="c0N-Ia-BmZ" firstAttribute="trailing" secondItem="h5j-Hg-SqJ" secondAttribute="trailing" constant="16" id="9cN-0A-rev"/>
-                            <constraint firstItem="h48-BB-m8z" firstAttribute="top" secondItem="h5j-Hg-SqJ" secondAttribute="bottom" id="FRD-eI-hog"/>
+                            <constraint firstItem="h48-BB-m8z" firstAttribute="top" secondItem="h5j-Hg-SqJ" secondAttribute="bottom" constant="6" id="FRD-eI-hog"/>
                             <constraint firstItem="Uw2-Ag-4P5" firstAttribute="leading" secondItem="c0N-Ia-BmZ" secondAttribute="leading" constant="16" id="Fb8-5W-xMD"/>
+                            <constraint firstItem="DiR-MH-Bvn" firstAttribute="top" secondItem="Cv8-4e-ZZK" secondAttribute="top" id="Fsm-ux-aR9"/>
                             <constraint firstItem="npd-h4-fHh" firstAttribute="top" secondItem="c0N-Ia-BmZ" secondAttribute="top" id="PnD-Sr-aJp"/>
                             <constraint firstItem="DiR-MH-Bvn" firstAttribute="leading" secondItem="c0N-Ia-BmZ" secondAttribute="leading" id="TL1-uv-lzV"/>
                             <constraint firstItem="Uw2-Ag-4P5" firstAttribute="top" secondItem="npd-h4-fHh" secondAttribute="bottom" constant="8" id="V7U-ps-qX8"/>
                             <constraint firstItem="h48-BB-m8z" firstAttribute="leading" secondItem="c0N-Ia-BmZ" secondAttribute="leading" id="Vua-vE-NAx"/>
-                            <constraint firstItem="c0N-Ia-BmZ" firstAttribute="bottom" secondItem="DiR-MH-Bvn" secondAttribute="bottom" id="o2r-ar-oRp"/>
+                            <constraint firstItem="DiR-MH-Bvn" firstAttribute="trailing" secondItem="Cv8-4e-ZZK" secondAttribute="trailing" id="gP8-Wr-i4z"/>
+                            <constraint firstAttribute="bottom" secondItem="DiR-MH-Bvn" secondAttribute="bottom" id="o2r-ar-oRp"/>
+                            <constraint firstAttribute="bottom" secondItem="Cv8-4e-ZZK" secondAttribute="bottom" id="pC9-S8-Bn4"/>
                             <constraint firstItem="DiR-MH-Bvn" firstAttribute="top" secondItem="h48-BB-m8z" secondAttribute="bottom" id="skX-W2-cbB"/>
                             <constraint firstItem="h5j-Hg-SqJ" firstAttribute="leading" secondItem="c0N-Ia-BmZ" secondAttribute="leading" constant="12" id="w0V-Hw-MmM"/>
                             <constraint firstItem="c0N-Ia-BmZ" firstAttribute="trailing" secondItem="h48-BB-m8z" secondAttribute="trailing" id="wP2-IO-dge"/>
                             <constraint firstItem="c0N-Ia-BmZ" firstAttribute="trailing" secondItem="npd-h4-fHh" secondAttribute="trailing" id="xpO-nc-Oy0"/>
                             <constraint firstItem="npd-h4-fHh" firstAttribute="leading" secondItem="c0N-Ia-BmZ" secondAttribute="leading" id="xyg-EW-aLh"/>
+                            <constraint firstItem="DiR-MH-Bvn" firstAttribute="leading" secondItem="Cv8-4e-ZZK" secondAttribute="leading" id="zX5-99-Jgn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="c0N-Ia-BmZ"/>
                     </view>
@@ -1280,6 +1298,8 @@ with us!</string>
                         <outlet property="bottomView" destination="h48-BB-m8z" id="IcB-Xv-8Xc"/>
                         <outlet property="bottomViewHeightConstraint" destination="6g8-QJ-deE" id="3ex-da-cTY"/>
                         <outlet property="confirmAbortButton" destination="DiR-MH-Bvn" id="kdz-7n-6M7"/>
+                        <outlet property="confirmBtnBottomConstraint" destination="o2r-ar-oRp" id="X8y-CX-Fiw"/>
+                        <outlet property="gradientView" destination="Cv8-4e-ZZK" id="eRV-Wr-KcB"/>
                         <outlet property="topNavView" destination="npd-h4-fHh" id="9Y1-xi-SKW"/>
                     </connections>
                 </viewController>
@@ -1600,6 +1620,10 @@ with us!</string>
                                 <rect key="frame" x="0.0" y="88" width="375" height="485"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6uJ-Tg-adQ">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Xh-hk-UEH">
                                 <rect key="frame" x="0.0" y="573" width="375" height="94"/>
                                 <subviews>
@@ -1668,16 +1692,21 @@ with us!</string>
                             <constraint firstItem="3FH-rM-Xb1" firstAttribute="top" secondItem="c1t-8m-vgW" secondAttribute="top" id="Hyq-7K-Axu"/>
                             <constraint firstItem="c1t-8m-vgW" firstAttribute="bottom" secondItem="3Xh-hk-UEH" secondAttribute="bottom" id="JJc-wf-vea"/>
                             <constraint firstItem="c1t-8m-vgW" firstAttribute="trailing" secondItem="B6p-KS-kHc" secondAttribute="trailing" id="JKk-FV-wY2"/>
+                            <constraint firstItem="g8v-7A-Rws" firstAttribute="trailing" secondItem="6uJ-Tg-adQ" secondAttribute="trailing" id="MRw-ue-Z0j"/>
                             <constraint firstItem="c1t-8m-vgW" firstAttribute="trailing" secondItem="3Xh-hk-UEH" secondAttribute="trailing" id="N7r-7u-E1p"/>
                             <constraint firstItem="c1t-8m-vgW" firstAttribute="trailing" secondItem="3FH-rM-Xb1" secondAttribute="trailing" id="W0n-nb-kgQ"/>
+                            <constraint firstAttribute="bottom" secondItem="6uJ-Tg-adQ" secondAttribute="bottom" id="WNm-jW-Gs9"/>
+                            <constraint firstItem="g8v-7A-Rws" firstAttribute="leading" secondItem="6uJ-Tg-adQ" secondAttribute="leading" id="dUD-L4-0b6"/>
                             <constraint firstItem="B6p-KS-kHc" firstAttribute="top" secondItem="3FH-rM-Xb1" secondAttribute="bottom" id="eyt-Pg-bRA"/>
                             <constraint firstItem="B6p-KS-kHc" firstAttribute="leading" secondItem="c1t-8m-vgW" secondAttribute="leading" id="qhV-tO-Aiy"/>
                             <constraint firstItem="3Xh-hk-UEH" firstAttribute="leading" secondItem="c1t-8m-vgW" secondAttribute="leading" id="qry-UH-DHL"/>
+                            <constraint firstItem="g8v-7A-Rws" firstAttribute="top" secondItem="6uJ-Tg-adQ" secondAttribute="top" id="tzT-yt-KBN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="c1t-8m-vgW"/>
                     </view>
                     <connections>
                         <outlet property="continueButton" destination="g8v-7A-Rws" id="3Al-lT-JLV"/>
+                        <outlet property="gradientView" destination="6uJ-Tg-adQ" id="U2E-xu-Ylp"/>
                         <outlet property="passengerLabel" destination="Rz5-CJ-M9I" id="yd4-Sa-mj0"/>
                         <outlet property="priceView" destination="O8x-ms-HpG" id="oyf-lB-hcf"/>
                         <outlet property="priceViewAndButtonContainerHeight" destination="xzL-hK-RJN" id="sld-qf-MS1"/>
@@ -1975,6 +2004,10 @@ with us!</string>
                                     <constraint firstAttribute="trailing" secondItem="YaB-tc-gqJ" secondAttribute="trailing" id="wV1-Re-rIJ"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z4J-bT-1Xy">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQY-E1-Dg9" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <constraints>
@@ -1987,16 +2020,20 @@ with us!</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="EQY-E1-Dg9" firstAttribute="trailing" secondItem="z4J-bT-1Xy" secondAttribute="trailing" id="5af-gu-VdR"/>
                             <constraint firstItem="Bs4-yh-VC1" firstAttribute="leading" secondItem="RJ9-4T-Ppy" secondAttribute="leading" id="ABf-VV-4Ce"/>
                             <constraint firstItem="EQY-E1-Dg9" firstAttribute="top" secondItem="UUH-SE-kyq" secondAttribute="bottom" id="DCj-E4-3IU"/>
                             <constraint firstItem="980-Yb-HBG" firstAttribute="top" secondItem="DKu-WU-hnC" secondAttribute="bottom" constant="28" id="Dzb-c0-i0s"/>
                             <constraint firstItem="1Tu-Wy-uni" firstAttribute="top" secondItem="980-Yb-HBG" secondAttribute="bottom" constant="10" id="IW5-6p-rnS"/>
                             <constraint firstItem="EQY-E1-Dg9" firstAttribute="leading" secondItem="RJ9-4T-Ppy" secondAttribute="leading" id="Jsd-e7-gv2"/>
                             <constraint firstItem="RJ9-4T-Ppy" firstAttribute="trailing" secondItem="1Tu-Wy-uni" secondAttribute="trailing" id="MeH-LV-Y6C"/>
+                            <constraint firstAttribute="bottom" secondItem="z4J-bT-1Xy" secondAttribute="bottom" id="QDg-9k-iBu"/>
                             <constraint firstItem="UUH-SE-kyq" firstAttribute="leading" secondItem="RJ9-4T-Ppy" secondAttribute="leading" id="Qbx-Db-VgA"/>
+                            <constraint firstItem="EQY-E1-Dg9" firstAttribute="leading" secondItem="z4J-bT-1Xy" secondAttribute="leading" id="Qmc-z9-UDU"/>
                             <constraint firstItem="RJ9-4T-Ppy" firstAttribute="trailing" secondItem="EQY-E1-Dg9" secondAttribute="trailing" id="SJG-mU-QMT"/>
                             <constraint firstItem="3iP-ys-0uo" firstAttribute="leading" secondItem="RJ9-4T-Ppy" secondAttribute="leading" id="SMu-iK-tGx"/>
                             <constraint firstItem="Bs4-yh-VC1" firstAttribute="top" secondItem="RJ9-4T-Ppy" secondAttribute="top" id="XIa-a9-Or2"/>
+                            <constraint firstItem="EQY-E1-Dg9" firstAttribute="top" secondItem="z4J-bT-1Xy" secondAttribute="top" id="Xe1-xk-LFG"/>
                             <constraint firstItem="DKu-WU-hnC" firstAttribute="trailing" secondItem="RJ9-4T-Ppy" secondAttribute="trailing" id="XlJ-51-GqG"/>
                             <constraint firstItem="RJ9-4T-Ppy" firstAttribute="bottom" secondItem="EQY-E1-Dg9" secondAttribute="bottom" id="bi7-ix-dfa"/>
                             <constraint firstItem="RJ9-4T-Ppy" firstAttribute="trailing" secondItem="3iP-ys-0uo" secondAttribute="trailing" id="byT-iy-me2"/>
@@ -2019,6 +2056,7 @@ with us!</string>
                         <outlet property="cancellationTitleLabel" destination="6u6-Rn-7sZ" id="ZQz-lF-5ZK"/>
                         <outlet property="cancellationViewHeightConstraint" destination="3sm-vx-I0h" id="UoR-mu-n7v"/>
                         <outlet property="commentTextView" destination="980-Yb-HBG" id="ynz-0q-RiF"/>
+                        <outlet property="gradientView" destination="z4J-bT-1Xy" id="Oph-hU-pNZ"/>
                         <outlet property="infoLabel" destination="f6N-Sh-hdL" id="kF0-ym-aDO"/>
                         <outlet property="refundAmountLabel" destination="STk-Up-0s8" id="QA7-K5-MTK"/>
                         <outlet property="refundModeTextField" destination="ihc-C8-Mut" id="k6e-XC-nQ8"/>
@@ -2141,7 +2179,11 @@ with us!</string>
                                 <rect key="frame" x="0.0" y="88" width="375" height="486"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B5k-SN-QxH">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bbw-vB-K01">
+                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B5k-SN-QxH" customClass="ATButton" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="618" width="375" height="49"/>
                                 <color key="backgroundColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -2202,10 +2244,14 @@ with us!</string>
                             <constraint firstItem="LlE-o1-db6" firstAttribute="trailing" secondItem="B5k-SN-QxH" secondAttribute="trailing" id="3mD-Qj-3Jv"/>
                             <constraint firstItem="Xng-Lg-79B" firstAttribute="top" secondItem="heH-9b-SUq" secondAttribute="bottom" id="9n8-w9-udw"/>
                             <constraint firstItem="Xng-Lg-79B" firstAttribute="leading" secondItem="LlE-o1-db6" secondAttribute="leading" id="FKN-wI-cha"/>
+                            <constraint firstItem="B5k-SN-QxH" firstAttribute="leading" secondItem="Bbw-vB-K01" secondAttribute="leading" id="G32-bD-SBo"/>
                             <constraint firstItem="B5k-SN-QxH" firstAttribute="top" secondItem="Xng-Lg-79B" secondAttribute="bottom" id="N4o-AB-hvq"/>
+                            <constraint firstItem="B5k-SN-QxH" firstAttribute="top" secondItem="Bbw-vB-K01" secondAttribute="top" id="PW9-Ft-ioH"/>
+                            <constraint firstAttribute="bottom" secondItem="Bbw-vB-K01" secondAttribute="bottom" id="QEu-PN-ZaK"/>
                             <constraint firstItem="LlE-o1-db6" firstAttribute="trailing" secondItem="heH-9b-SUq" secondAttribute="trailing" id="ROi-Zq-gOs"/>
                             <constraint firstItem="LlE-o1-db6" firstAttribute="trailing" secondItem="Xng-Lg-79B" secondAttribute="trailing" id="TIV-gW-oDz"/>
                             <constraint firstItem="heH-9b-SUq" firstAttribute="top" secondItem="EQ2-en-J8z" secondAttribute="bottom" id="cXb-rJ-LHh"/>
+                            <constraint firstItem="B5k-SN-QxH" firstAttribute="trailing" secondItem="Bbw-vB-K01" secondAttribute="trailing" id="d6L-UZ-yQr"/>
                             <constraint firstItem="EQ2-en-J8z" firstAttribute="top" secondItem="LlE-o1-db6" secondAttribute="top" id="eya-0o-CvS"/>
                             <constraint firstItem="LlE-o1-db6" firstAttribute="bottom" secondItem="B5k-SN-QxH" secondAttribute="bottom" id="iZL-ZA-S0a"/>
                             <constraint firstItem="LlE-o1-db6" firstAttribute="trailing" secondItem="EQ2-en-J8z" secondAttribute="trailing" id="ibn-Eh-d0v"/>
@@ -2215,6 +2261,7 @@ with us!</string>
                         <viewLayoutGuide key="safeArea" id="LlE-o1-db6"/>
                     </view>
                     <connections>
+                        <outlet property="gradientView" destination="Bbw-vB-K01" id="PGJ-eK-fHk"/>
                         <outlet property="requestReschedulingBtnOutlet" destination="B5k-SN-QxH" id="roi-Jm-J4t"/>
                         <outlet property="reschedulingTableView" destination="heH-9b-SUq" id="B7q-75-YvF"/>
                         <outlet property="topNavBar" destination="EQ2-en-J8z" id="AHa-Ql-UcE"/>

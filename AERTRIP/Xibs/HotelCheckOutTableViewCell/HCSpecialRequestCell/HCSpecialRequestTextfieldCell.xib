@@ -53,10 +53,10 @@
                             <constraint firstItem="3Ue-HZ-H8e" firstAttribute="top" secondItem="bgJ-7e-3eE" secondAttribute="top" id="4hC-dh-hua"/>
                             <constraint firstAttribute="height" constant="60.5" id="A8T-Jf-s8J"/>
                             <constraint firstItem="9Mg-AH-RaU" firstAttribute="leading" secondItem="bgJ-7e-3eE" secondAttribute="leading" constant="16" id="YVA-8q-5DZ"/>
-                            <constraint firstAttribute="trailing" secondItem="tfS-xN-gZM" secondAttribute="trailing" constant="16" id="dAP-k6-khM"/>
-                            <constraint firstItem="tfS-xN-gZM" firstAttribute="leading" secondItem="bgJ-7e-3eE" secondAttribute="leading" constant="16" id="fmP-Q8-a4S"/>
                             <constraint firstAttribute="trailing" secondItem="9Mg-AH-RaU" secondAttribute="trailing" constant="16" id="mBN-Xd-eJz"/>
                             <constraint firstAttribute="trailing" secondItem="3Ue-HZ-H8e" secondAttribute="trailing" id="mkF-KV-SaY"/>
+                            <constraint firstAttribute="trailing" secondItem="tfS-xN-gZM" secondAttribute="trailing" constant="16" id="pNp-Jt-4SE"/>
+                            <constraint firstItem="tfS-xN-gZM" firstAttribute="leading" secondItem="bgJ-7e-3eE" secondAttribute="leading" constant="16" id="qDf-zb-Evh"/>
                             <constraint firstAttribute="bottom" secondItem="9Mg-AH-RaU" secondAttribute="bottom" constant="3" id="rTE-cB-tZ2"/>
                             <constraint firstItem="3Ue-HZ-H8e" firstAttribute="leading" secondItem="bgJ-7e-3eE" secondAttribute="leading" id="xoj-Qi-H1T"/>
                         </constraints>
@@ -71,8 +71,8 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="bottomDividerView" destination="tfS-xN-gZM" id="h6L-zb-Mv9"/>
-                <outlet property="bottomDividerViewLeadingConstraints" destination="fmP-Q8-a4S" id="Z5I-GV-G77"/>
-                <outlet property="bottomDividerViewTrailingConstraints" destination="dAP-k6-khM" id="DNl-nB-E13"/>
+                <outlet property="bottomDividerViewLeadingConstraints" destination="qDf-zb-Evh" id="eMC-DH-r9h"/>
+                <outlet property="bottomDividerViewTrailingConstraints" destination="pNp-Jt-4SE" id="gWQ-7k-Ctj"/>
                 <outlet property="containerViewHeightConstraint" destination="A8T-Jf-s8J" id="xap-TS-qhb"/>
                 <outlet property="infoTextField" destination="9Mg-AH-RaU" id="wA5-cA-UVp"/>
                 <outlet property="topDividerTopConstraint" destination="4hC-dh-hua" id="Uva-gX-c7o"/>

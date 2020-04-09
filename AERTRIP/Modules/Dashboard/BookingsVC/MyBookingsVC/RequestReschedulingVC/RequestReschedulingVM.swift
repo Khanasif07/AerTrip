@@ -24,6 +24,22 @@ class RequestReschedulingVM {
     
     weak var delegate: RequestReschedulingVMDelegate?
     
+    
+    func isValidData() -> Bool {
+        for leg in self.legsWithSelection {
+            
+            //set dates
+            if let _ = leg.rescheduledDate {
+            }
+            else {
+                AppToast.default.showToastMessage(message: "Please select all rescheduling dates.")
+                return false
+            }
+            
+        }
+        return true
+    }
+    
     private func getParamForRescheduling() -> JSONDictionary {
         
         //        6930[date]: 2019-07-06
@@ -51,9 +67,9 @@ class RequestReschedulingVM {
             }
             
             //set preferred_flight if any
-            if !leg.prefredFlightNo.isEmpty {
+//            if !leg.prefredFlightNo.isEmpty {
                 params["\(leg.legId)[preferred_flight]"] = leg.prefredFlightNo
-            }
+//            }
             
             //set selected pax_id
             for pax in leg.selectedPaxs {

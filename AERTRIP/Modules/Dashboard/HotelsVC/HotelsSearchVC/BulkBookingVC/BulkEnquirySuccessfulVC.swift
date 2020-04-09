@@ -57,7 +57,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
     @IBOutlet weak var mainContainerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainContainerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var searchButtonWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var searchButtonBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchButtonHeightConstraint: NSLayoutConstraint!
     
     private var tickLayer: CAShapeLayer!
     private var tickImageSize: CGSize {
@@ -109,7 +109,7 @@ class BulkEnquirySuccessfulVC: BaseVC {
             self.mainTitleLabel.text = LocalizedString.BulkEnquirySent.localized
             self.subTitleLabel.text = LocalizedString.CustomerServicesShallConnect.localized
             self.searchButtonWidthConstraint.constant = 150.0
-            self.mainContainerViewHeightConstraint.constant = self.view.height - (AppFlowManager.default.safeAreaInsets.top)
+            self.mainContainerViewHeightConstraint.constant = self.view.height
             self.containerView.roundTopCorners(cornerRadius: 15.0)
             self.mainTitleLabel.font = AppFonts.c.withSize(31.0)
         case .accountDeposit:
@@ -182,7 +182,10 @@ class BulkEnquirySuccessfulVC: BaseVC {
         self.searchBtnOutlet.titleLabel?.font = searchButtonConfiguration.textFont
         
         self.searchButtonWidthConstraint.constant = searchButtonConfiguration.width
-        self.searchButtonBottomConstraint.constant = searchButtonConfiguration.spaceFromBottom
+        
+        print(self.containerView.height - searchButtonConfiguration.spaceFromBottom - self.searchBtnOutlet.y)
+        let y = self.view.height - searchButtonConfiguration.spaceFromBottom - self.searchBtnOutlet.y - self.searchBtnOutlet.height
+        self.searchBtnOutlet.transform = CGAffineTransform(translationX:  0, y: y)
     }
     
     //Mark:- Methods
@@ -204,63 +207,41 @@ class BulkEnquirySuccessfulVC: BaseVC {
     private func setupViewForSuccessAnimation() {
         self.searchBtnOutlet.setTitle(nil, for: .normal)
         self.searchBtnOutlet.setImage(nil, for: .normal)
-        let reScaleFrame = CGRect(x: (self.containerView.width - 62.0) / 2.0, y: self.searchBtnOutlet.y, width: 62.0, height: 62.0)
-        self.searchBtnOutlet.translatesAutoresizingMaskIntoConstraints = true
+        
+       // self.searchBtnOutlet.translatesAutoresizingMaskIntoConstraints = true
         UIView.animate(withDuration: AppConstants.kAnimationDuration / 4.0, animations: {
-            self.searchBtnOutlet.frame = reScaleFrame
-            self.searchBtnOutlet.myCornerRadius = reScaleFrame.height / 2.0
+            self.searchButtonHeightConstraint.constant = 62
+            self.searchButtonWidthConstraint.constant = 62
+            self.searchBtnOutlet.myCornerRadius = 62 / 2.0
             self.view.layoutIfNeeded()
             
         }) { (isCompleted) in
-            self.searchBtnOutlet.layer.cornerRadius = reScaleFrame.height / 2.0
-            let yPerSafeArea = self.mainTitleLabel.frame.origin.y + self.view.safeAreaInsets.bottom + 26.0 + 5
-            var y = self.mainTitleLabel.frame.origin.y + (115 + 24 + 11)  - self.view.safeAreaInsets.bottom
-            //y = y - (115 + 62 + 11)
-            if self.currentUsingAs == .bulkBooking, #available(iOS 13.0, *) {
-                y = self.mainTitleLabel.frame.origin.y + (115 + 62 + 11)
-            }
-            printDebug("y: \(y)")
+        
             let tY: CGFloat
-//            if UIDevice.isIPhoneX {
-//                tY = (((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y)
-//            } else {
-                tY = (((self.containerView.height) / 2.0) - self.searchBtnOutlet.frame.origin.y + 15.0)
-//            }
-            //- yPerSafeArea
-            //            let tY = ((self.view.frame.height - reScaleFrame.height) / 2.0) - self.searchBtnOutlet.frame.origin.y //- yPerSafeArea
+            tY = ((self.containerView.height) / 2.0) - self.searchBtnOutlet.height/2 - 115
             var t = CGAffineTransform.identity
             t = t.translatedBy(x: 0.0, y: tY )
             UIView.animate(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), animations: {
                 self.searchBtnOutlet.transform = t
                 self.containerView.alpha = 1.0
             }) { (isCompleted) in
-//                self.mainTitleLabel.bottom = self.searchBtnOutlet.bottom + 26.0
-//                self.subTitleLabel.bottom = self.mainTitleLabel.bottom + 16.0
-//                self.doneBtnOutlet.bottom = self.subTitleLabel.bottom + 120.0
                 self.animatingCheckMark()
                 delay(seconds: AppConstants.kAnimationDuration + 0.1, completion: {
-                    self.finalTransFormation(tY: -y)
+                    self.finalTransFormation()
                 })
             }
         }
     }
     
-    private func finalTransFormation(tY: CGFloat) {
-        
-        let newReScaleFrame = CGRect(x: (self.containerView.width - 62.0) / 2.0, y: self.searchBtnOutlet.y, width: 62.0, height: 62.0)
-        var t = CGAffineTransform.identity
-        t = t.translatedBy(x: 0.0, y: tY )
+    private func finalTransFormation() {
+
         self.mainTitleLabel.isHidden = false
         self.subTitleLabel.isHidden = false
         self.doneBtnOutlet.isHidden = false
         UIView.animate(withDuration: ((AppConstants.kAnimationDuration / 4.0) * 3.0), animations: {
-            self.searchBtnOutlet.frame = newReScaleFrame
             self.updateTickPath()
-            self.searchBtnOutlet.myCornerRadius = newReScaleFrame.height / 2.0
-            self.searchBtnOutlet.transform = t
-//            self.mainTitleLabel.bottom = self.bulkLabelBottom
-//            self.subTitleLabel.bottom = self.customerLabelBottom
-//            self.doneBtnOutlet.bottom = self.doneBtnBottom
+            self.searchBtnOutlet.myCornerRadius = self.searchBtnOutlet.width / 2.0
+            self.searchBtnOutlet.transform = .identity
             self.mainTitleLabel.alpha = 1.0
             self.subTitleLabel.alpha = 1.0
             self.doneBtnOutlet.alpha = 1.0

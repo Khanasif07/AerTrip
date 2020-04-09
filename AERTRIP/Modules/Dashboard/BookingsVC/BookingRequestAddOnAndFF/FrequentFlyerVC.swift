@@ -23,6 +23,7 @@ class FrequentFlyerVC: BaseVC {
         frequentFlyerTableView.dataSource = self
         frequentFlyerTableView.delegate = self
         frequentFlyerTableView.reloadData()
+        self.frequentFlyerTableView.backgroundColor = AppColors.themeGray04
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,6 +112,8 @@ extension FrequentFlyerVC: UITableViewDataSource, UITableViewDelegate {
         guard let footerView = self.frequentFlyerTableView.dequeueReusableHeaderFooterView(withIdentifier: self.footerViewIdentifier) as? BookingInfoEmptyFooterView else {
             fatalError("BookingInfoFooterView not found")
         }
+        let totalSection = BookingRequestAddOnsFFVM.shared.bookingDetails?.frequentFlyerData.count ?? 0
+        footerView.bottomDividerView.isHidden = (totalSection - 1) == section
         return footerView
     }
 }

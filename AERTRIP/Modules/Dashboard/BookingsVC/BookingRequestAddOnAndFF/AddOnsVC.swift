@@ -23,6 +23,7 @@ class AddOnsVC: BaseVC {
         self.addOnTableView.dataSource = self
         self.addOnTableView.delegate = self
         self.addOnTableView.reloadData()
+        self.addOnTableView.backgroundColor = AppColors.themeGray04
     }
     
     func registerXib() {
@@ -155,6 +156,8 @@ extension AddOnsVC: UITableViewDataSource, UITableViewDelegate {
         guard let footerView = self.addOnTableView.dequeueReusableHeaderFooterView(withIdentifier: self.footerViewIdentifier) as? BookingInfoEmptyFooterView else {
             fatalError("BookingInfoFooterView not found")
         }
+        let totalSection = BookingRequestAddOnsFFVM.shared.bookingDetails?.bookingDetail?.leg.count ?? 0
+        footerView.bottomDividerView.isHidden = (totalSection - 1) == section
         return footerView
     }
 }

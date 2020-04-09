@@ -97,13 +97,16 @@ extension RequestReschedulingVC: SelectDateTableViewCellDelegate {
 
 extension RequestReschedulingVC: RequestReschedulingVMDelegate {
     func willMakeRequestForRescheduling() {
+        self.requestReschedulingBtnOutlet.isLoading = true
     }
     
     func makeRequestForReschedulingSuccess() {
+        self.requestReschedulingBtnOutlet.isLoading = false
         AppFlowManager.default.showReschedulingRequest(buttonTitle: LocalizedString.RequestRescheduling.localized, delegate: self)
     }
     
     func makeRequestForReschedulingFail() {
+        self.requestReschedulingBtnOutlet.isLoading = false
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
     }
 }

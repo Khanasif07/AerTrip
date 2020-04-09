@@ -13,9 +13,16 @@ class BookingInfoEmptyFooterView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var footerBackgroundView: UIView!
     @IBOutlet weak var topDividerView: ATDividerView!
+    @IBOutlet weak var bottomDividerView: ATDividerView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         self.footerBackgroundView.backgroundColor = AppColors.themeGray04
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.bottomDividerView.isHidden = false
     }
 }

@@ -16,9 +16,10 @@ class BookingAddOnRequestVC: BaseVC {
     @IBOutlet weak var requestTableView: ATTableView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var makePaymentLabel: UILabel!
-    
+    @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var priceViewHieghtConstraint: NSLayoutConstraint!
+    @IBOutlet weak var priceViewBottomConstraint: NSLayoutConstraint!
     
     // MARK: - Variables
     let viewModel = BookingAddOnRequestVM()
@@ -39,10 +40,15 @@ class BookingAddOnRequestVC: BaseVC {
         
     // MARK: - View Life Cyle
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.gradientView.addGredient(isVertical: false)
+    }
+    
     override func initialSetup() {
         
         self.requestTableView.backgroundColor = AppColors.themeGray04
-        
+        self.priceView.backgroundColor = AppColors.clear
         self.registerXib()
         self.requestTableView.dataSource = self
         self.requestTableView.delegate = self
@@ -53,6 +59,7 @@ class BookingAddOnRequestVC: BaseVC {
         AppGlobals.shared.startLoading()
         self.viewModel.getCaseHistory()
         self.setUpNavBar()
+        self.view.layoutIfNeeded()
     }
     
     override func bindViewModel() {
@@ -74,7 +81,7 @@ class BookingAddOnRequestVC: BaseVC {
         self.topNavigationView.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.topNavigationView.navTitleLabel.textColor = AppColors.textFieldTextColor51
         self.topNavigationView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "popOverMenuIcon"), selectedImage: #imageLiteral(resourceName: "popOverMenuIcon"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
-        self.priceView.addGredient(isVertical: false)
+        
     }
     
     private func registerXib() {
@@ -116,6 +123,9 @@ class BookingAddOnRequestVC: BaseVC {
             self.makePaymentButton.setTitle(nil, for: .normal)
             self.priceView.isHidden = false
             self.priceViewHieghtConstraint.constant = 60.0
+            self.priceViewBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
+            self.view.layoutIfNeeded()
+            
         }
         
         func setupForConfirm(title: String) {
@@ -124,11 +134,15 @@ class BookingAddOnRequestVC: BaseVC {
             self.makePaymentButton.setTitle(title, for: .normal)
             self.priceView.isHidden = false
             self.priceViewHieghtConstraint.constant = 60.0
+            self.priceViewBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
+            self.view.layoutIfNeeded()
         }
         
         func hideMakePayment() {
             self.priceView.isHidden = true
             self.priceViewHieghtConstraint.constant = 0.0
+            self.priceViewBottomConstraint.constant = 0.0
+            self.view.layoutIfNeeded()
         }
         
         if let caseData = self.viewModel.caseData {

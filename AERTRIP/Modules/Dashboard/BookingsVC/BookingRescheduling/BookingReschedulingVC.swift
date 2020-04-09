@@ -22,6 +22,7 @@ class BookingReschedulingVC: BaseVC {
     @IBOutlet weak var totalNetRefundLabel: UILabel!
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var continueButton: ATButton!
+    @IBOutlet weak var gradientView: UIView!
     
     // MARK: - Variables
     
@@ -38,17 +39,22 @@ class BookingReschedulingVC: BaseVC {
     var expandCompletionHandler: () -> Void = {} // completion for expand
     var collapseCompletionHandler: () -> Void = {} // completion for collapse
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.gradientView.addGredient(isVertical: false)
+    }
     override func initialSetup() {
         self.continueButton.shadowColor = AppColors.clear
-        self.continueButton.addGredient(isVertical: false)
+        self.priceViewAndButtonContainerView.backgroundColor = AppColors.clear
         self.setupTotalRefundAndCont()
         self.registerXib()
         self.setupNavBar()
         self.reschedulingTableView.dataSource = self
         self.reschedulingTableView.delegate = self
         self.reloadList()
-        self.continueButton.addGredient(isVertical: false)
+        //self.continueButton.addGredient(isVertical: false)
         self.continueButton.shouldShowPressAnimation = false
+        self.reschedulingTableView.backgroundColor = AppColors.themeGray04
     }
     
     func registerXib() {
@@ -69,10 +75,12 @@ class BookingReschedulingVC: BaseVC {
     }
     
     override func setupFonts() {
-        self.continueButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
         self.passengerLabel.font = AppFonts.Regular.withSize(16.0)
         self.totalNetRefundLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.totalPriceLabel.font = AppFonts.SemiBold.withSize(18.0)
+        self.continueButton.setTitleFont(font: AppFonts.SemiBold.withSize(20.0), for: .normal)
+        self.continueButton.setTitleFont(font: AppFonts.SemiBold.withSize(20.0), for: .selected)
+        self.continueButton.setTitleFont(font: AppFonts.SemiBold.withSize(20.0), for: .highlighted)
     }
     
     override func setupColors() {
@@ -303,7 +311,7 @@ extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 67.0
+        return 60.0
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -350,6 +358,7 @@ extension BookingReschedulingVC: UITableViewDataSource, UITableViewDelegate {
         guard let footerView = self.reschedulingTableView.dequeueReusableHeaderFooterView(withIdentifier: self.footerViewIdentifier) as? BookingInfoEmptyFooterView else {
             fatalError("BookingInfoFooterView not found")
         }
+        footerView.bottomDividerView.isHidden = (self.viewModel.legsData.count - 1) == section
         return footerView
     }
     

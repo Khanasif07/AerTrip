@@ -31,9 +31,9 @@ extension RequestReschedulingVC {
     func getPreferredFlightNoCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCSpecialRequestTextfieldCell.reusableIdentifier, for: indexPath) as? HCSpecialRequestTextfieldCell else { return UITableViewCell() }
         cell.delegate = self
-        cell.topDividerViewLeadingConstraints.constant = 16.0
         cell.bottomDividerViewLeadingConstraints.constant = 0.0
         cell.bottomDividerViewTrailingConstraints.constant = 0.0
+        cell.topDividerViewLeadingConstraints.constant = 16.0
         cell.containerViewHeightConstraint.constant = 60.0
         cell.configCell(placeHolderText: LocalizedString.preferredFlightNo.localized)
         return cell
@@ -49,6 +49,7 @@ extension RequestReschedulingVC {
     func getCustomerContactCellTableViewCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomerContactCellTableViewCell.reusableIdentifier, for: indexPath) as? CustomerContactCellTableViewCell else { return UITableViewCell() }
         cell.backgroundColor = AppColors.themeGray20
+        cell.dividerView.isHidden = true
         return cell
     }
     

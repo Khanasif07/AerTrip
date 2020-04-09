@@ -38,12 +38,10 @@ class BookingReviewCancellationVC: BaseVC {
     @IBOutlet weak var totalNetRefundViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var totalNetRefundLabel: UILabel!
     @IBOutlet weak var refundAmountLabel: UILabel!
-    
     @IBOutlet weak var infoLabel: UILabel!
-    
-
-    
+    @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
+    
     //MARK: - Variables
     let viewModel = BookingReviewCancellationVM()
     private var keyboardHeight: CGFloat = 0.0
@@ -56,6 +54,10 @@ class BookingReviewCancellationVC: BaseVC {
         self.commentTextView.delegate = self
 
         
+    }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.gradientView.addGredient(isVertical: false)
     }
     
     
@@ -137,10 +139,12 @@ class BookingReviewCancellationVC: BaseVC {
         self.refundModeTextField.font = AppFonts.Regular.withSize(18.0)
         self.totalNetRefundLabel.font = AppFonts.Regular.withSize(18.0)
         self.refundAmountLabel.font = AppFonts.Regular.withSize(18.0)
-        self.requestCancellationButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
         self.infoLabel.font = AppFonts.Regular.withSize(14.0)
         self.cancellationTitleLabel.font = AppFonts.Regular.withSize(14.0)
         self.cancellationTextField.font = AppFonts.Regular.withSize(18.0)
+        self.requestCancellationButton.setTitleFont(font: AppFonts.SemiBold.withSize(20.0), for: .normal)
+        self.requestCancellationButton.setTitleFont(font: AppFonts.SemiBold.withSize(20.0), for: .selected)
+        self.requestCancellationButton.setTitleFont(font: AppFonts.SemiBold.withSize(20.0), for: .highlighted)
     }
     
     override func setupColors() {
