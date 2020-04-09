@@ -50,6 +50,8 @@ class RequestReschedulingVC: BaseVC {
         self.requestReschedulingBtnOutlet.shadowColor = AppColors.clear
         self.requestReschedulingBtnOutlet.shouldShowPressAnimation = false
         self.setTotalRefundAmount()
+        self.gradientView.addGredient(isVertical: false)
+        self.reschedulingTableView.backgroundColor = AppColors.themeGray04
     }
     
     override func setupColors() {
@@ -71,6 +73,11 @@ class RequestReschedulingVC: BaseVC {
     
     override func bindViewModel() {
         self.viewModel.delegate = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.gradientView.addGredient(isVertical: false)
     }
     
     //MARK:- Functions

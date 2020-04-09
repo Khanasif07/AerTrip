@@ -1694,10 +1694,12 @@ with us!</string>
                             <constraint firstItem="c1t-8m-vgW" firstAttribute="trailing" secondItem="B6p-KS-kHc" secondAttribute="trailing" id="JKk-FV-wY2"/>
                             <constraint firstItem="g8v-7A-Rws" firstAttribute="trailing" secondItem="6uJ-Tg-adQ" secondAttribute="trailing" id="MRw-ue-Z0j"/>
                             <constraint firstItem="c1t-8m-vgW" firstAttribute="trailing" secondItem="3Xh-hk-UEH" secondAttribute="trailing" id="N7r-7u-E1p"/>
+                            <constraint firstAttribute="trailing" secondItem="g8v-7A-Rws" secondAttribute="trailing" id="VZG-1d-xaD"/>
                             <constraint firstItem="c1t-8m-vgW" firstAttribute="trailing" secondItem="3FH-rM-Xb1" secondAttribute="trailing" id="W0n-nb-kgQ"/>
                             <constraint firstAttribute="bottom" secondItem="6uJ-Tg-adQ" secondAttribute="bottom" id="WNm-jW-Gs9"/>
                             <constraint firstItem="g8v-7A-Rws" firstAttribute="leading" secondItem="6uJ-Tg-adQ" secondAttribute="leading" id="dUD-L4-0b6"/>
                             <constraint firstItem="B6p-KS-kHc" firstAttribute="top" secondItem="3FH-rM-Xb1" secondAttribute="bottom" id="eyt-Pg-bRA"/>
+                            <constraint firstAttribute="leading" secondItem="g8v-7A-Rws" secondAttribute="leading" id="kYk-ds-Hgk"/>
                             <constraint firstItem="B6p-KS-kHc" firstAttribute="leading" secondItem="c1t-8m-vgW" secondAttribute="leading" id="qhV-tO-Aiy"/>
                             <constraint firstItem="3Xh-hk-UEH" firstAttribute="leading" secondItem="c1t-8m-vgW" secondAttribute="leading" id="qry-UH-DHL"/>
                             <constraint firstItem="g8v-7A-Rws" firstAttribute="top" secondItem="6uJ-Tg-adQ" secondAttribute="top" id="tzT-yt-KBN"/>
@@ -2035,9 +2037,11 @@ with us!</string>
                             <constraint firstItem="Bs4-yh-VC1" firstAttribute="top" secondItem="RJ9-4T-Ppy" secondAttribute="top" id="XIa-a9-Or2"/>
                             <constraint firstItem="EQY-E1-Dg9" firstAttribute="top" secondItem="z4J-bT-1Xy" secondAttribute="top" id="Xe1-xk-LFG"/>
                             <constraint firstItem="DKu-WU-hnC" firstAttribute="trailing" secondItem="RJ9-4T-Ppy" secondAttribute="trailing" id="XlJ-51-GqG"/>
+                            <constraint firstAttribute="leading" secondItem="EQY-E1-Dg9" secondAttribute="leading" id="aSw-8L-TzS"/>
                             <constraint firstItem="RJ9-4T-Ppy" firstAttribute="bottom" secondItem="EQY-E1-Dg9" secondAttribute="bottom" id="bi7-ix-dfa"/>
                             <constraint firstItem="RJ9-4T-Ppy" firstAttribute="trailing" secondItem="3iP-ys-0uo" secondAttribute="trailing" id="byT-iy-me2"/>
                             <constraint firstItem="RJ9-4T-Ppy" firstAttribute="trailing" secondItem="Bs4-yh-VC1" secondAttribute="trailing" id="cCH-57-FVt"/>
+                            <constraint firstAttribute="trailing" secondItem="EQY-E1-Dg9" secondAttribute="trailing" id="qPa-By-qhH"/>
                             <constraint firstItem="DKu-WU-hnC" firstAttribute="top" secondItem="3iP-ys-0uo" secondAttribute="bottom" id="tut-3X-qUf"/>
                             <constraint firstItem="RJ9-4T-Ppy" firstAttribute="trailing" secondItem="980-Yb-HBG" secondAttribute="trailing" constant="16" id="uof-NE-EEW"/>
                             <constraint firstItem="3iP-ys-0uo" firstAttribute="top" secondItem="Bs4-yh-VC1" secondAttribute="bottom" id="w6U-ry-sDX"/>
@@ -2068,7 +2072,7 @@ with us!</string>
                         <outlet property="requestCancellationButton" destination="EQY-E1-Dg9" id="PQn-mT-BXo"/>
                         <outlet property="topNavBar" destination="Bs4-yh-VC1" id="rHu-Mu-nEX"/>
                         <outlet property="totalNetRefundLabel" destination="H1P-A6-YB1" id="4zP-Js-uXk"/>
-                        <outlet property="totalNetRefundView" destination="UUH-SE-kyq" id="qpO-BE-S38"/>
+                        <outlet property="totalNetRefundView" destination="UUH-SE-kyq" id="1dK-6l-rqT"/>
                         <outlet property="totalNetRefundViewHeightConstraint" destination="Be0-fs-ga1" id="PAj-qT-haT"/>
                     </connections>
                 </viewController>
@@ -2243,6 +2247,7 @@ with us!</string>
                             <constraint firstItem="EQ2-en-J8z" firstAttribute="leading" secondItem="LlE-o1-db6" secondAttribute="leading" id="2JE-Ie-905"/>
                             <constraint firstItem="LlE-o1-db6" firstAttribute="trailing" secondItem="B5k-SN-QxH" secondAttribute="trailing" id="3mD-Qj-3Jv"/>
                             <constraint firstItem="Xng-Lg-79B" firstAttribute="top" secondItem="heH-9b-SUq" secondAttribute="bottom" id="9n8-w9-udw"/>
+                            <constraint firstAttribute="leading" secondItem="B5k-SN-QxH" secondAttribute="leading" id="ACs-P3-dOI"/>
                             <constraint firstItem="Xng-Lg-79B" firstAttribute="leading" secondItem="LlE-o1-db6" secondAttribute="leading" id="FKN-wI-cha"/>
                             <constraint firstItem="B5k-SN-QxH" firstAttribute="leading" secondItem="Bbw-vB-K01" secondAttribute="leading" id="G32-bD-SBo"/>
                             <constraint firstItem="B5k-SN-QxH" firstAttribute="top" secondItem="Xng-Lg-79B" secondAttribute="bottom" id="N4o-AB-hvq"/>
@@ -2379,6 +2384,10 @@ with us!</string>
                                     </view>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Iv-gH-gGc">
+                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fXs-r7-uDg">
                                 <rect key="frame" x="0.0" y="618" width="375" height="49"/>
                                 <color key="backgroundColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2400,17 +2409,22 @@ with us!</string>
                             <constraint firstItem="UN3-ei-9OI" firstAttribute="bottom" secondItem="fXs-r7-uDg" secondAttribute="bottom" id="DCR-Wb-9fg"/>
                             <constraint firstItem="eQY-xz-Jff" firstAttribute="top" secondItem="UN3-ei-9OI" secondAttribute="top" id="IAo-AG-AqK"/>
                             <constraint firstItem="UN3-ei-9OI" firstAttribute="trailing" secondItem="eQY-xz-Jff" secondAttribute="trailing" id="IPG-mP-EPJ"/>
+                            <constraint firstItem="4Iv-gH-gGc" firstAttribute="top" secondItem="fXs-r7-uDg" secondAttribute="top" id="JD9-dI-NAn"/>
+                            <constraint firstItem="4Iv-gH-gGc" firstAttribute="leading" secondItem="fXs-r7-uDg" secondAttribute="leading" id="Otp-zA-qsR"/>
                             <constraint firstItem="Suh-a8-eij" firstAttribute="top" secondItem="eQY-xz-Jff" secondAttribute="bottom" id="SuO-PJ-3oJ"/>
                             <constraint firstItem="fXs-r7-uDg" firstAttribute="leading" secondItem="UN3-ei-9OI" secondAttribute="leading" id="W21-ys-68e"/>
+                            <constraint firstItem="4Iv-gH-gGc" firstAttribute="trailing" secondItem="fXs-r7-uDg" secondAttribute="trailing" id="Y8q-so-xCz"/>
                             <constraint firstItem="Suh-a8-eij" firstAttribute="leading" secondItem="UN3-ei-9OI" secondAttribute="leading" id="a8Z-Ej-xrS"/>
                             <constraint firstItem="eQY-xz-Jff" firstAttribute="leading" secondItem="UN3-ei-9OI" secondAttribute="leading" id="aFj-MH-rEO"/>
                             <constraint firstItem="UN3-ei-9OI" firstAttribute="trailing" secondItem="fXs-r7-uDg" secondAttribute="trailing" id="cr8-eU-TcZ"/>
                             <constraint firstItem="fXs-r7-uDg" firstAttribute="top" secondItem="Suh-a8-eij" secondAttribute="bottom" id="fjp-Rb-rjf"/>
+                            <constraint firstAttribute="bottom" secondItem="4Iv-gH-gGc" secondAttribute="bottom" id="gVL-WD-Bo9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UN3-ei-9OI"/>
                     </view>
                     <connections>
                         <outlet property="cancellationButtonOutlet" destination="fXs-r7-uDg" id="FA9-kE-1Ef"/>
+                        <outlet property="gradientView" destination="4Iv-gH-gGc" id="Xit-Iq-lGX"/>
                         <outlet property="hotelCancellationTableView" destination="WgX-Xa-Hq1" id="91u-o7-zn7"/>
                         <outlet property="topNavBar" destination="eQY-xz-Jff" id="2EM-hp-PiJ"/>
                         <outlet property="totalNetRefundContainerView" destination="Pch-xg-0wy" id="5SC-5m-7Me"/>

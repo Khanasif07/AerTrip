@@ -19,7 +19,7 @@ class AertripBankDetailsVC: BaseVC {
     //MARK:- Properties
     //MARK:- Public
     let viewModel = AertripBankDetailsVM()
-    
+    var currentIndex = 0
     //MARK:- Private
 
     
@@ -31,7 +31,11 @@ class AertripBankDetailsVC: BaseVC {
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
+        if self.currentIndex != 0 && currentIndex < self.viewModel.allBanks.count{
+            let numberOfRow = self.tableView.numberOfRows(inSection: currentIndex)
+            let indexPath = IndexPath(row: numberOfRow - 1, section: currentIndex)
+            self.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+        }
 //        self.viewModel.getBankAccountDetails()
     }
     
@@ -55,6 +59,11 @@ class AertripBankDetailsVC: BaseVC {
 extension AertripBankDetailsVC: AertripBankDetailsVMDelegate {
     func getBankAccountDetailsSuccess() {
         self.tableView.reloadData()
+        if self.currentIndex != 0 && currentIndex < self.viewModel.allBanks.count{
+            let numberOfRow = self.tableView.numberOfRows(inSection: currentIndex)
+            let indexPath = IndexPath(row: numberOfRow - 1, section: currentIndex)
+            self.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+        }
     }
     
     func getBankAccountDetailsFail() {

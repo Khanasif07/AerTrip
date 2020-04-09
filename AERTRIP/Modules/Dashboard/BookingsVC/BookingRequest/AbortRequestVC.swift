@@ -50,6 +50,7 @@ class AbortRequestVC: BaseVC {
         self.manageTextFieldHeight()
         addCommentTextView.layoutIfNeeded()
         self.view.layoutIfNeeded()
+        self.gradientView.addGredient(isVertical: false)
         self.manageTextFieldHeight()
     }
     
@@ -75,7 +76,10 @@ class AbortRequestVC: BaseVC {
         self.abortRequestTitleLabel.textColor = AppColors.themeBlack
         self.addCommentTextView.placeholderTextColor = AppColors.themeGray20
     }
-    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.gradientView.addGredient(isVertical: false)
+    }
     
     override func setupNavBar() {
         self.topNavView.navTitleLabel.textColor = AppColors.textFieldTextColor51

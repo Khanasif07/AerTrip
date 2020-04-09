@@ -190,7 +190,9 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0, indexPath.row == 3 {
             //see bank details
-            AppFlowManager.default.presentAertripBankDetailsVC(bankDetails: self.viewModel.paymentModeDetails?.types ?? [])
+            
+            let index = self.selectedBankIndex() ?? 0
+            AppFlowManager.default.presentAertripBankDetailsVC(bankDetails: self.viewModel.paymentModeDetails?.types ?? [], currentIndex: index)
         }
         else if indexPath.section == 1 {
             let newIndex = indexPath.row - self.viewModel.userEnteredDetails.uploadedSlips.count
@@ -231,7 +233,10 @@ extension AccountOfflineDepositVC: UITableViewDataSource, UITableViewDelegate {
         depositCell.amountTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: UIControl.Event.editingChanged)
         depositCell.amount = self.viewModel.userEnteredDetails.depositAmount
         depositCell.delegate = self
-        
+        if self.currentUsingFor == .addOns{
+            depositCell.amountTextField.backgroundColor = AppColors.clear
+            depositCell.isUserInteractionEnabled = false
+        }
         return depositCell
     }
     
@@ -381,6 +386,12 @@ extension AccountOfflineDepositVC: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         AppFlowManager.default.mainNavigationController.dismiss(animated: true, completion: nil)
     }
+    
+    func selectedBankIndex()-> Int?{
+        let index = self.viewModel.paymentModeDetails?.allBanksName.firstIndex(of: self.viewModel.userEnteredDetails.aertripBank)
+        return index
+    }
+    
 }
 
 
@@ -432,7 +443,7 @@ extension AccountOfflineDepositVC {
                         textField.text = firstSelect
                         self.viewModel.userEnteredDetails.aertripBank = firstSelect
                     }
-                    
+                    textField.tintColor = AppColors.clear
                 case 5:
                     //deposit date
                     let selected = (textField.text ?? "").toDate(dateFormat: "dd-MM-YYYY")
@@ -440,7 +451,7 @@ extension AccountOfflineDepositVC {
                         textField.text = dateStr
                         self.viewModel.userEnteredDetails.depositDate = dateStr.toDate(dateFormat: "dd-MM-YYYY")
                     }
-                    
+                    textField.tintColor = AppColors.clear
                 case 6:
                     
                     if self.currentUsingAs == .fundTransfer {
@@ -450,6 +461,7 @@ extension AccountOfflineDepositVC {
                             textField.text = firstSelect
                             self.viewModel.userEnteredDetails.transferType = firstSelect
                         }
+                        textField.tintColor = AppColors.clear
                     }
                     
                 case 8:
@@ -459,7 +471,7 @@ extension AccountOfflineDepositVC {
                         textField.text = firstSelect
                         self.viewModel.userEnteredDetails.userBank = firstSelect
                     }
-                    
+                    textField.tintColor = AppColors.clear
                 default:
                     printDebug("")
                     return true
