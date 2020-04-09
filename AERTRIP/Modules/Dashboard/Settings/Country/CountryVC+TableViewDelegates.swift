@@ -42,6 +42,12 @@ extension CountryVC : UITableViewDelegate, UITableViewDataSource {
         self.view.endEditing(true)
         self.countryVm.selectCountry(index: indexPath.row)
         self.countryTableView.reloadData()
+        
+        delay(seconds: 0.3) {
+            self.countryVm.againSelectIndia()
+            self.countryTableView.reloadData()
+        }
+        
     }
     
 }

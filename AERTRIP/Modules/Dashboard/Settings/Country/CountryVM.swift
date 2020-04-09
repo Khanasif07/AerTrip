@@ -41,11 +41,26 @@ class CountryVM {
     }
     
     func selectCountry(index : Int){
-        if self.getCurrentDaraSource()[index].countryID != 93 {
-            self.delegate?.showUnderDevelopmentPopUp()
-            return
-        }
+//        if self.getCurrentDaraSource()[index].countryID != 93 {
+//            self.delegate?.showUnderDevelopmentPopUp()
+//            return
+//        }
         self.selectedCountry = self.getCurrentDaraSource()[index]
+    }
+    
+    func againSelectIndia(){
+        if let indiaIndex = self.getCurrentDaraSource().lastIndex(where: { (obj) -> Bool in
+            return obj.countryID == 93
+        }){
+            self.selectedCountry = self.getCurrentDaraSource()[indiaIndex]
+            self.delegate?.showUnderDevelopmentPopUp()
+        }else{
+            guard let indiaIndex = self.countries.lastIndex(where: { (obj) -> Bool in
+                  return obj.countryID == 93
+              }) else { return }
+              self.selectedCountry = self.countries[indiaIndex]
+              self.delegate?.showUnderDevelopmentPopUp()
+        }
     }
     
     func getCurrentDaraSource() -> [PKCountryModel] {

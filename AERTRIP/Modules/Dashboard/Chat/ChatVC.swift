@@ -291,14 +291,14 @@ extension ChatVC {
             let animationOptions: UIView.AnimationOptions = .curveEaseOut
             let keyframeAnimationOptions: UIView.KeyframeAnimationOptions = UIView.KeyframeAnimationOptions(rawValue: animationOptions.rawValue)
 
-         UIView.animateKeyframes(withDuration: 0.7, delay: 0.0, options: keyframeAnimationOptions, animations: {
+    UIView.animateKeyframes(withDuration: 0.8, delay: 0.0, options: keyframeAnimationOptions, animations: {
 
-                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.3) {
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1) {
                     self.animationBubbleImageView.transform = CGAffineTransform.identity
                     self.animationLabel.transform = CGAffineTransform.identity
                 }
 
-                UIView.addKeyframe(withRelativeStartTime: 0.1, relativeDuration: 0.4) {
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.3) {
                     self.animationView.frame.origin.y = rectWrtView.origin.y
                 }
 

@@ -39,11 +39,28 @@ class CurrencyVM {
     }
     
     func selectCurrency(index : Int){
-        if self.getCurrentDaraSource()[index].currencyCode != "INR" {
-            self.delegate?.showUnderDevelopmentPopUp()
-            return
-        }
+//        if self.getCurrentDaraSource()[index].currencyCode != "INR" {
+//            self.delegate?.showUnderDevelopmentPopUp()
+//            return
+//        }
         self.selectedCountry = self.getCurrentDaraSource()[index]
+    }
+    
+    func againSelectIndia(){
+        if let indiaIndex = self.getCurrentDaraSource().lastIndex(where: { (obj) -> Bool in
+            return obj.currencyCode == "INR"
+        }){
+            self.selectedCountry = self.getCurrentDaraSource()[indiaIndex]
+            self.delegate?.showUnderDevelopmentPopUp()
+        }else{
+            
+            guard let indiaIndex = self.countries.lastIndex(where: { (obj) -> Bool in
+                return obj.currencyCode == "INR"
+            }) else { return }
+            self.selectedCountry = self.countries[indiaIndex]
+            self.delegate?.showUnderDevelopmentPopUp()
+            
+        }
     }
     
     func getCurrentDaraSource() -> [PKCountryModel] {
@@ -100,6 +117,10 @@ class CurrencyVM {
         
         APICaller.shared.getCurrencies(params: [:]) { (success, data) in
             if success{
+                
+               let data = data.sorted { (one, two) -> Bool in
+                    two.currencyName.lowercased() > one.currencyName.lowercased()
+                }
                 
                 var topCountries =  data.filter { (obj) -> Bool in
                     return obj.currencyCode == "INR" || obj.currencyCode == "USD" || obj.currencyCode == "EUR" || obj.currencyCode == "JYP" || obj.currencyCode == "GBP"
