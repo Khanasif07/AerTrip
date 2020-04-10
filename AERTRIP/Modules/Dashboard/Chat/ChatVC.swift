@@ -67,7 +67,11 @@ class ChatVC : BaseVC {
         self.chatVm.delegate = self
     }
     
-    @IBAction func chatButtonTapped(_ sender: UIButton) { }
+    @IBAction func chatButtonTapped(_ sender: UIButton) {
+        
+    }
+    
+    
     
     //MARK:- Send Button Tapped
     @IBAction func sendButton(_ sender: UIButton) {
@@ -211,6 +215,8 @@ extension ChatVC : TopNavigationViewDelegate {
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
 //        AppFlowManager.default.moveToSettingsVC()
+        let vc = ThingsCanBeAskedVC.instantiate(fromAppStoryboard: AppStoryboard.Dashboard)
+        self.present(vc, animated: true, completion: nil)
     }
 }
 
@@ -291,14 +297,14 @@ extension ChatVC {
             let animationOptions: UIView.AnimationOptions = .curveEaseOut
             let keyframeAnimationOptions: UIView.KeyframeAnimationOptions = UIView.KeyframeAnimationOptions(rawValue: animationOptions.rawValue)
 
-    UIView.animateKeyframes(withDuration: 0.8, delay: 0.0, options: keyframeAnimationOptions, animations: {
+    UIView.animateKeyframes(withDuration: 1.2, delay: 0.0, options: keyframeAnimationOptions, animations: {
 
                 UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1) {
                     self.animationBubbleImageView.transform = CGAffineTransform.identity
                     self.animationLabel.transform = CGAffineTransform.identity
                 }
 
-                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.3) {
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.28) {
                     self.animationView.frame.origin.y = rectWrtView.origin.y
                 }
 

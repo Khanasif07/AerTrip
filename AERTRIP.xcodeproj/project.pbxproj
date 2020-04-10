@@ -20,6 +20,7 @@
 		0C162ACC24233AC5001C2B10 /* ChatVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */; };
 		0C162ACD24233AC5001C2B10 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACB24233AC5001C2B10 /* ChatVC.swift */; };
 		0C162ACF24233B24001C2B10 /* ChatVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACE24233B24001C2B10 /* ChatVM.swift */; };
+		0C22F44C2440559C00FD357F /* ThingsCanBeAskedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22F44B2440559C00FD357F /* ThingsCanBeAskedVC.swift */; };
 		0C24D4D7242C747000CBFF92 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24D4D5242C747000CBFF92 /* CountryCell.swift */; };
 		0C24D4D8242C747000CBFF92 /* CountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C24D4D6242C747000CBFF92 /* CountryCell.xib */; };
 		0C24D4DE242C74F600CBFF92 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24D4DB242C74F600CBFF92 /* SettingsVC.swift */; };
@@ -1072,6 +1073,7 @@
 		0C162ACB24233AC5001C2B10 /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		0C162ACE24233B24001C2B10 /* ChatVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVM.swift; sourceTree = "<group>"; };
 		0C181FBE22FABDAD0088E64A /* Bolts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Bolts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C22F44B2440559C00FD357F /* ThingsCanBeAskedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingsCanBeAskedVC.swift; sourceTree = "<group>"; };
 		0C24D4D5242C747000CBFF92 /* CountryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
 		0C24D4D6242C747000CBFF92 /* CountryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryCell.xib; sourceTree = "<group>"; };
 		0C24D4DB242C74F600CBFF92 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
@@ -2220,6 +2222,7 @@
 				0C09BFD32429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift */,
 				0C09BFD5242B746500B801BE /* ChatVC+Animations.swift */,
 				0C24D4FF242E47FC00CBFF92 /* FlightsDemoVC.swift */,
+				0C22F44B2440559C00FD357F /* ThingsCanBeAskedVC.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -6198,6 +6201,7 @@
 				18EF5E73221D261B00EFFA6E /* GMUStaticCluster.m in Sources */,
 				842EDE822238E7D600E99409 /* CreateNewTripVC.swift in Sources */,
 				0C24D4EE242CAF0A00CBFF92 /* CurrencyCell.swift in Sources */,
+				0C22F44C2440559C00FD357F /* ThingsCanBeAskedVC.swift in Sources */,
 				84323D39222FE42300DA7581 /* AmenitiesDescriptionTableViewCell.swift in Sources */,
 				84534EC022490A44009FF536 /* HCTotalChargeTableViewCell.swift in Sources */,
 				84E4BC56229E935900B72306 /* TravellersPnrStatusTableViewCell.swift in Sources */,
