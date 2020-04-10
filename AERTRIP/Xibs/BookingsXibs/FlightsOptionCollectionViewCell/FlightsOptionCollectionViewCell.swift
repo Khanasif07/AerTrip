@@ -24,7 +24,8 @@ class FlightsOptionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var dividerView: UIView!
-    
+    @IBOutlet weak var containerViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerViewLeadingConstraint: NSLayoutConstraint!
     // MARK: - LifeCycle
     
     // MARK: ===========
@@ -59,5 +60,11 @@ class FlightsOptionCollectionViewCell: UICollectionViewCell {
             self.titleTopConstraint.constant = 8.0
         }
         
+    }
+    
+    func setupForTwoViews(leadingConstant: CGFloat, trailingConstant: CGFloat) {
+        containerViewTrailingConstraint.constant = trailingConstant
+        containerViewLeadingConstraint.constant = leadingConstant
+        self.containerView.layoutIfNeeded()
     }
 }

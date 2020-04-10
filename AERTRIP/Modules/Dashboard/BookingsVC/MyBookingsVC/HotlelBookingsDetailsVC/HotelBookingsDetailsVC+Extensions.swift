@@ -69,12 +69,8 @@ extension HotlelBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return UITableView.automaticDimension
         case .flightsOptionsCell:
             return UITableView.automaticDimension
-        case .weatherHeaderCell:
-            return UITableView.automaticDimension
-        case .weatherInfoCell:
-            return UITableView.automaticDimension
-        case .weatherFooterCell:
-            return UITableView.automaticDimension
+        case .weatherHeaderCell, .weatherInfoCell, .weatherFooterCell:
+            return (self.viewModel.bookingDetail?.tripWeatherData.isEmpty ?? true) ? CGFloat.leastNonzeroMagnitude : UITableView.automaticDimension
         case .addToCalenderCell:
             return UITableView.automaticDimension
         case .addToAppleWallet:

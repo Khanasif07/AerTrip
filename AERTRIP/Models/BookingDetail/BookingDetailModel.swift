@@ -217,15 +217,17 @@ struct BookingDetailModel {
             }
         }
         else {
-            // set trip Weather Data for Hotel
-            let datesBetweenArray = Date.dates(from: self.bookingDetail?.checkIn ?? Date(), to: self.bookingDetail?.checkOut ?? Date())
-            for date in datesBetweenArray {
-                var weatherInfo = WeatherInfo()
-                weatherInfo.date = date
-                self.tripWeatherData.append(weatherInfo)
-            }
+            
             
             if !self.weatherInfo.isEmpty {
+                // set trip Weather Data for Hotel
+                let datesBetweenArray = Date.dates(from: self.bookingDetail?.checkIn ?? Date(), to: self.bookingDetail?.checkOut ?? Date())
+                for date in datesBetweenArray {
+                    var weatherInfo = WeatherInfo()
+                    weatherInfo.date = date
+                    self.tripWeatherData.append(weatherInfo)
+                }
+                
                 for (_, weatherInfoData) in self.weatherInfo.enumerated() {
                     for (j, weatherTripInfoData) in self.tripWeatherData.enumerated() {
                         if weatherInfoData.date == weatherTripInfoData.date {
