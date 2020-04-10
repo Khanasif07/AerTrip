@@ -17,13 +17,13 @@ extension OtherBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.viewModel.sectionDataForOtherProductType.count
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.sectionDataForOtherProductType[section].count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-         let currentSection = self.viewModel.sectionDataForOtherProductType[indexPath.section]
+        let currentSection = self.viewModel.sectionDataForOtherProductType[indexPath.section]
         switch currentSection[indexPath.row] {
         case .policyDetailCell:
             return 28.0
@@ -31,7 +31,7 @@ extension OtherBookingsDetailsVC: UITableViewDelegate, UITableViewDataSource {
             return UITableView.automaticDimension
         }
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentSection = self.viewModel.sectionDataForOtherProductType[indexPath.section]
         switch currentSection[indexPath.row] {
@@ -88,23 +88,23 @@ extension OtherBookingsDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
-
+    
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-//        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.ProcessCancellation.localized, LocalizedString.SpecialRequest.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationEmail.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
-//        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { _, index in
-//            switch index {
-//            case 0:
-//                printDebug("0")
-//            case 1:
-//                printDebug("1")
-//            case 2:
-//                printDebug("2")
-//            case 3:
-//                printDebug("3")
-//            default:
-//                printDebug("default")
-//            }
-//        })
+        //        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.ProcessCancellation.localized, LocalizedString.SpecialRequest.localized, LocalizedString.Download.localized, LocalizedString.ResendConfirmationEmail.localized], colors: [AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen, AppColors.themeGreen])
+        //        _ = PKAlertController.default.presentActionSheet(nil, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton, tapBlock: { _, index in
+        //            switch index {
+        //            case 0:
+        //                printDebug("0")
+        //            case 1:
+        //                printDebug("1")
+        //            case 2:
+        //                printDebug("2")
+        //            case 3:
+        //                printDebug("3")
+        //            default:
+        //                printDebug("default")
+        //            }
+        //        })
     }
 }
 
@@ -120,16 +120,16 @@ extension OtherBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
             printDebug(request)
             documentDownloadingData[collectionIndex.item].downloadingStatus = .downloading
             documentDownloadingData[collectionIndex.item].downloadRequest = request
-        }, progressUpdate: { [weak self] progress in
-            guard self != nil else { return }
-            documentDownloadingData[collectionIndex.item].progressUpdate?(progress)
-        }, success: { [weak self] success in
-            guard let sSelf = self else { return }
-            documentDownloadingData[collectionIndex.item].downloadingStatus = .downloaded
-            UIView.performWithoutAnimation {
-                sSelf.dataTableView.reloadData()
-            }
-            printDebug(success)
+            }, progressUpdate: { [weak self] progress in
+                guard self != nil else { return }
+                documentDownloadingData[collectionIndex.item].progressUpdate?(progress)
+            }, success: { [weak self] success in
+                guard let sSelf = self else { return }
+                documentDownloadingData[collectionIndex.item].downloadingStatus = .downloaded
+                UIView.performWithoutAnimation {
+                    sSelf.dataTableView.reloadData()
+                }
+                printDebug(success)
         }) { [weak self] error in
             guard let sSelf = self else { return }
             documentDownloadingData[collectionIndex.item].downloadingStatus = .notDownloaded
@@ -139,7 +139,7 @@ extension OtherBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
             printDebug(error)
         }
     }
-
+    
     func cancelDownloadDocument(itemIndexPath: IndexPath) {
         printDebug("Downloading Stop")
         guard let documentDownloadingData = self.viewModel.bookingDetail?.documents else { return }
@@ -151,18 +151,90 @@ extension OtherBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
 
 //==========================
 extension OtherBookingsDetailsVC: MXParallaxHeaderDelegate {
-    func updateForParallexProgress() {
+    //    func updateForParallexProgress() {
+    //        let prallexProgress = self.dataTableView.parallaxHeader.progress
+    //        printDebug("progress %f \(prallexProgress)")
+    //        if prallexProgress <= 0.65 {
+    //            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
+    //                guard let sSelf = self else { return }
+    //                sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeImage, endText: self?.viewModel.bookingDetail?.bookingDetail?.title ?? "", font: AppFonts.SemiBold.withSize(18.0), isEndTextBold: true)
+    //                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 0
+    //                sSelf.headerView?.bookingIdAndDateLabel.alpha = 0
+    //                sSelf.topNavBar.dividerView.isHidden = false
+    //            }
+    //        } else {
+    //            self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
+    //                guard let sSelf = self else { return }
+    //                sSelf.topNavBar.navTitleLabel.text = ""
+    //                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 1
+    //                sSelf.headerView?.bookingIdAndDateLabel.alpha = 1
+    //                sSelf.topNavBar.dividerView.isHidden = true
+    //            }
+    //        }
+    //        self.headerView?.layoutIfNeeded()
+    //    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.updateForParallexProgress()
+    }
+    
+    @objc func updateForParallexProgress() {
+        
         let prallexProgress = self.dataTableView.parallaxHeader.progress
-        printDebug("progress %f \(prallexProgress)")
-        if prallexProgress <= 0.65 {
-            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
-                guard let sSelf = self else { return }
-                sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeImage, endText: self?.viewModel.bookingDetail?.bookingDetail?.title ?? "", font: AppFonts.SemiBold.withSize(18.0), isEndTextBold: true)
-                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 0
-                sSelf.headerView?.bookingIdAndDateLabel.alpha = 0
-                sSelf.topNavBar.dividerView.isHidden = false
+        printDebug("intial progress value \(prallexProgress)")
+        
+        printDebug("progress value \(prallexProgress)")
+        
+        
+        if isScrollingFirstTime && prallexProgress > 1.0 {
+            maxValue = prallexProgress
+            minValue = abs(1 - prallexProgress)
+            finalMaxValue = Int(maxValue * 100)
+            isScrollingFirstTime = false
+            printDebug("minvalue \(minValue) and maxValue \(maxValue)")
+        }
+        //
+        //
+        if minValue...maxValue ~= prallexProgress {
+            printDebug("progress value \(prallexProgress)")
+            let intValue =  finalMaxValue - Int(prallexProgress * 100)
+            
+            printDebug(" int value \(intValue)")
+            let newProgress: Float = (Float(1) - (Float(1.3)  * (Float(intValue) / 100)))
+            
+            printDebug("new progress value \(newProgress)")
+            
+            
+            printDebug("CGFloat progress  Value is \(newProgress.toCGFloat.roundTo(places: 3))")
+            
+            self.currentProgressIntValue = intValue
+            self.currentProgress = newProgress.toCGFloat
+            
+        }
+        //
+        if prallexProgress  <= 0.7 {
+            if isNavBarHidden {
+                
+                self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
+                    guard let sSelf = self else { return }
+                    sSelf.topNavBar.navTitleLabel.text = ""
+                    sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 1
+                    sSelf.headerView?.bookingIdAndDateLabel.alpha = 1
+                    sSelf.topNavBar.dividerView.isHidden = true
+                }
+                
+            } else {
+                
+                self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
+                    guard let sSelf = self else { return }
+                    sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeImage, endText: self?.viewModel.bookingDetail?.bookingDetail?.title ?? "", font: AppFonts.SemiBold.withSize(18.0), isEndTextBold: true)
+                    sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 0
+                    sSelf.headerView?.bookingIdAndDateLabel.alpha = 0
+                    sSelf.topNavBar.dividerView.isHidden = false
+                }
             }
         } else {
+            
             self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
                 guard let sSelf = self else { return }
                 sSelf.topNavBar.navTitleLabel.text = ""
@@ -170,20 +242,10 @@ extension OtherBookingsDetailsVC: MXParallaxHeaderDelegate {
                 sSelf.headerView?.bookingIdAndDateLabel.alpha = 1
                 sSelf.topNavBar.dividerView.isHidden = true
             }
+            
         }
-        self.headerView?.layoutIfNeeded()
-    }
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.updateForParallexProgress()
-    }
-
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.updateForParallexProgress()
-    }
-
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        self.updateForParallexProgress()
+        self.isNavBarHidden = false
+        
     }
 }
 
@@ -193,7 +255,7 @@ extension OtherBookingsDetailsVC: BookingProductDetailVMDelegate {
     func willGetBookingDetail() {
         AppGlobals.shared.startLoading()
     }
-
+    
     func getBookingDetailSucces() {
         self.configureTableHeaderView()
         self.dataTableView.delegate = self
@@ -202,7 +264,7 @@ extension OtherBookingsDetailsVC: BookingProductDetailVMDelegate {
         self.dataTableView.reloadData()
         AppGlobals.shared.stopLoading()
     }
-
+    
     func getBookingDetailFaiure(error: ErrorCodes) {
         AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
         AppGlobals.shared.stopLoading()

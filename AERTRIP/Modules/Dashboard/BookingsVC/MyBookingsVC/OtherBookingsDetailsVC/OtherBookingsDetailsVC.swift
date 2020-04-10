@@ -24,6 +24,17 @@ class OtherBookingsDetailsVC: BaseVC {
     private var navBarHeight: CGFloat {
         return UIDevice.isIPhoneX ? 88.0 : 64.0
     }
+    var maxValue: CGFloat = 1.0
+    var minValue: CGFloat = 0.0
+    var finalMaxValue: Int = 0
+    var currentProgress: CGFloat = 0
+    var currentProgressIntValue: Int = 0
+    
+    var isScrollingFirstTime: Bool = true
+    var isNavBarHidden:Bool = true
+    let headerHeightToAnimate: CGFloat = 30.0
+    var isHeaderAnimating: Bool = false
+    var isBackBtnTapped = false
     
     // MARK: - IBOutlets
     
@@ -50,7 +61,7 @@ class OtherBookingsDetailsVC: BaseVC {
         self.viewModel.getBookingDetail()
         self.statusBarStyle = .default
         self.topNavBarHeightConstraint.constant = self.navBarHeight
-        self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
+        self.topNavBar.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: .white))
         self.topNavBar.configureLeftButton(normalImage: #imageLiteral(resourceName: "backGreen"), selectedImage: #imageLiteral(resourceName: "backGreen"))
         self.topNavBar.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "greenPopOverButton"), selectedImage: #imageLiteral(resourceName: "greenPopOverButton"))
         self.setupParallaxHeader()

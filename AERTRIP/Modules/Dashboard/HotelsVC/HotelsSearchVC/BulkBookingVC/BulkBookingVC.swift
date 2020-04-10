@@ -618,6 +618,9 @@ extension BulkBookingVC: CalendarDataHandler {
         } else {
             self.viewModel.oldData.checkOutDate = ""
         }
+        self.viewModel.checkInDate = self.viewModel.oldData.checkInDate
+        self.viewModel.checkOutDate = self.viewModel.oldData.checkOutDate
+
         if let checkInOutVw = self.checkInOutView {
             checkInOutVw.setDates(fromData: self.viewModel.oldData)
         }
