@@ -35,7 +35,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IJx-xE-TF9">
-                                                <rect key="frame" x="367" y="7" width="44" height="44"/>
+                                                <rect key="frame" x="367" y="13.5" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="LBc-Yj-SKZ"/>
                                                     <constraint firstAttribute="width" secondItem="IJx-xE-TF9" secondAttribute="height" multiplier="1:1" id="Uh0-5x-h9Y"/>
@@ -61,8 +61,8 @@
                                             <constraint firstAttribute="height" constant="58" id="8l3-ND-lEk"/>
                                             <constraint firstItem="ZSs-5T-m9x" firstAttribute="leading" secondItem="BbH-Ve-X4Q" secondAttribute="leading" id="Kiu-bq-FDP"/>
                                             <constraint firstAttribute="trailing" secondItem="IJx-xE-TF9" secondAttribute="trailing" constant="3" id="T7V-aS-gxL"/>
+                                            <constraint firstItem="ZSs-5T-m9x" firstAttribute="top" secondItem="IJx-xE-TF9" secondAttribute="bottom" id="XtU-h0-7zo"/>
                                             <constraint firstItem="VcK-r3-9tc" firstAttribute="top" secondItem="BbH-Ve-X4Q" secondAttribute="top" constant="20" id="afV-DX-bqD"/>
-                                            <constraint firstItem="IJx-xE-TF9" firstAttribute="centerY" secondItem="BbH-Ve-X4Q" secondAttribute="centerY" id="dLi-26-791"/>
                                             <constraint firstItem="cBi-6j-0Lv" firstAttribute="centerY" secondItem="BbH-Ve-X4Q" secondAttribute="centerY" id="enE-1u-WEp"/>
                                             <constraint firstAttribute="bottom" secondItem="ZSs-5T-m9x" secondAttribute="bottom" id="gN4-KL-RMQ"/>
                                             <constraint firstItem="VcK-r3-9tc" firstAttribute="leading" secondItem="BbH-Ve-X4Q" secondAttribute="leading" constant="16" id="lix-ef-wus"/>

@@ -123,9 +123,8 @@ class BookingCancellationPolicyVC: BaseVC {
             cancellationPolicy.configureCell(cancellationTimePeriod: "\(chargeData.fromStr) or later", cancellationAmount: "", cancellationType: .nonRefundable)
         }
         else {
-            cancellationPolicy.configureCell(cancellationTimePeriod: "\(chargeData.fromStr) to \(chargeData.toStr)", cancellationAmount: chargeData.cancellationFee.delimiterWithSymbolTill2Places, cancellationType: .cancellationFee)
+            cancellationPolicy.configureCell(cancellationTimePeriod: "\(chargeData.fromStr) \(LocalizedString.dash.localized) \(chargeData.toStr)", cancellationAmount: chargeData.cancellationFee.delimiterWithSymbolTill2Places, cancellationType: .cancellationFee)
         }
-        
         return cancellationPolicy
     }
 }

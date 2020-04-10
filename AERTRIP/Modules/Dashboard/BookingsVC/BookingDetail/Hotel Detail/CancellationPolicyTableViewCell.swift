@@ -51,7 +51,7 @@ class CancellationPolicyTableViewCell: ATTableViewCell {
         case .freeCancellation:
             self.titleLabelLeadingConstraint.constant = 12
             self.titleLabel.textColor = AppColors.themeGreen
-            self.titleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: (UIImage(named: "greenBgIcon"))!, endText: cancellationType.title, font: AppFonts.SemiBold.withSize(18.0))
+            self.titleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: (UIImage(named: "greenBgIcon"))!, endText: " \(cancellationType.title.uppercased())", font: AppFonts.Regular.withSize(18.0))
         case .cancellationFee:
             self.titleLabel.attributedText = self.getAttributedText(text: "\(cancellationAmount) " + cancellationType.title, amountText: cancellationAmount)
         case .nonRefundable:

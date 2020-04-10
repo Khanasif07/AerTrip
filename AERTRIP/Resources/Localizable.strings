@@ -467,6 +467,7 @@
 "NoHotelFoundMessageOnFilter" = "Choose another filters try again.";
 "NoHotelFoundFilter" = "No Hotel Found\nChoose another filters try again.";
 "rupeesText" = "₹";
+"callingNotAvailable" = "Your device doesn't supports calling function!";
 
 
 "ContactUsAertrip" = "Have a question? Contact us : support@aertrip.com";

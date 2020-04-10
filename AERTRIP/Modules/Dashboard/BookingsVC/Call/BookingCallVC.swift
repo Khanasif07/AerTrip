@@ -89,7 +89,7 @@ class BookingCallVC: BaseVC {
             bookingCell.configureCell(code: self.viewModel.airportData[indexPath.row].ataCode, title: title, phoneLabel: self.viewModel.airportData[indexPath.row].phone, cellType: .airports)
             bookingCell.dividerView.isHidden = false//self.viewModel.airportData.count - 1 == indexPath.row
             bookingCell.dividerViewLeadingConst.constant = self.viewModel.airportData.count - 1 == indexPath.row ? 0.0 : 43.0
-
+            
             return bookingCell
         }
     }
@@ -114,28 +114,6 @@ class BookingCallVC: BaseVC {
             bookingCell.dividerView.isHidden = indexPath.section == self.viewModel.section.count - 1 ? false : true
             bookingCell.dividerViewLeadingConst.constant = indexPath.section == self.viewModel.section.count - 1 ? 0.0 : 43.0
             return bookingCell
-        }
-    }
-    
-    func makePhoneCall(phoneNumber: String) {
-        var uc = URLComponents()
-        uc.scheme = "tel"
-        uc.path = phoneNumber
-        
-        if let phoneURL = uc.url {
-//            let alert = UIAlertController(title: phoneNumber, message: nil, preferredStyle: .alert)
-//            alert.view.tintColor = AppColors.themeGreen
-//            alert.addAction(UIAlertAction(title: "Call", style: .default, handler: { _ in
-//
-//            }))
-        
-                UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
-           
-              //  UIApplication.shared.openURL(phoneURL as URL)
-            //
-            //   alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            
-            // self.present(alert, animated: true, completion: nil)
         }
     }
 }

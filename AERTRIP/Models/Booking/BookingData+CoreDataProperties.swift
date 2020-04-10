@@ -176,6 +176,91 @@ extension BookingData {
         }
     }
     
+    var flightBookingTitle:NSMutableAttributedString?{
+        
+        func isReturnFlight(forArr: [String]) -> Bool {
+                guard !forArr.isEmpty else {return false}
+                
+                if forArr.count == 3, let first = forArr.first, let last = forArr.last {
+                    return (first.lowercased() == last.lowercased())
+                }
+                else {
+                    return ((self.tripType ?? "").lowercased() == "return")
+                }
+            }
+            
+            func getNormalString(forArr: [String]) -> String {
+                guard !forArr.isEmpty else {return LocalizedString.dash.localized}
+                return "\(self.origin ?? "") → \(self.destination ?? "")"
+            }
+            
+            func getReturnString(forArr: [String]) -> String {
+                guard forArr.count >= 2 else {return LocalizedString.dash.localized}
+                return "\(self.origin ?? "") ⇋ \(self.destination ?? "")"
+            }
+            
+            guard let tripCts = self.tripCities as? [String] else {
+                return NSMutableAttributedString(string: self.origin ?? LocalizedString.dash.localized)
+            }
+            
+            if ((self.tripType ?? "").lowercased() == "single") {
+                //single flight case
+                let temp = getNormalString(forArr: tripCts)
+                return NSMutableAttributedString(string: temp)
+            }
+            else if isReturnFlight(forArr: tripCts){
+                //return flight case
+                let temp = getReturnString(forArr: tripCts)
+                return NSMutableAttributedString(string: temp)
+            }
+            else {
+                //multi flight case
+                if let routes = self.routes as? [[String]], let travledCity = self.travelledCities as? [String] {
+                    //travlled some where
+                    
+                    if (routes.first ?? []).isEmpty {
+                        //still not travlled
+                        let temp = getNormalString(forArr: tripCts)
+                        return NSMutableAttributedString(string: temp)
+                    }
+                    else {
+                        
+                        var routeStr = ""
+                        var travLastIndex: Int = 0
+                        var prevCount: Int = 0
+                        for route in routes {
+                            var temp = route.joined(separator: " → ")
+                            
+                            if !routeStr.isEmpty {
+                                temp = ", \(temp)"
+                            }
+                            
+                            for (idx, ct) in route.enumerated() {
+                                let newIdx = idx + prevCount
+                                if travledCity.count > newIdx, travledCity[newIdx] == ct {
+                                    //travelled through this city
+                                    var currentCityTemp = " \(ct) →"
+                                    if !routeStr.isEmpty, idx == 0 {
+                                        currentCityTemp = ", \(ct) →"
+                                    }
+                                    travLastIndex = routeStr.count + currentCityTemp.count
+                                }
+                            }
+                            routeStr += temp
+                            prevCount = route.count
+                        }
+                        
+                        let attributedStr1 = NSMutableAttributedString(string: routeStr)
+                        if travLastIndex > 0 {
+                            attributedStr1.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGray20], range: NSRange(location: 0, length: travLastIndex+3))
+                        }
+                        return attributedStr1
+                    }
+                }
+                return NSMutableAttributedString(string: LocalizedString.dash.localized)
+            }
+    }
+    
     var paxStr: String {
         func getStringForOthers(arr: [String]) -> String {
             

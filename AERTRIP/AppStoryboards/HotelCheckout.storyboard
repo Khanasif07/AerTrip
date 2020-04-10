@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -542,25 +542,22 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AuL-Y2-nzN" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="obO-hP-wGa" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="189" width="375" height="478"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <tableView key="tableFooterView" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="obO-hP-wGa" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="478"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </tableView>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ef6-oa-bzv" firstAttribute="trailing" secondItem="obO-hP-wGa" secondAttribute="trailing" id="97N-r3-Ss6"/>
                             <constraint firstItem="ef6-oa-bzv" firstAttribute="trailing" secondItem="dnv-2r-oQd" secondAttribute="trailing" id="A5x-Ze-hTo"/>
                             <constraint firstItem="ef6-oa-bzv" firstAttribute="trailing" secondItem="AuL-Y2-nzN" secondAttribute="trailing" id="CSH-7H-VRt"/>
-                            <constraint firstItem="obO-hP-wGa" firstAttribute="leading" secondItem="ef6-oa-bzv" secondAttribute="leading" id="ENL-BA-iza"/>
                             <constraint firstItem="AuL-Y2-nzN" firstAttribute="top" secondItem="dnv-2r-oQd" secondAttribute="bottom" id="TgQ-YF-zyu"/>
                             <constraint firstItem="dnv-2r-oQd" firstAttribute="leading" secondItem="ef6-oa-bzv" secondAttribute="leading" id="UXR-XF-3oz"/>
                             <constraint firstItem="ef6-oa-bzv" firstAttribute="bottom" secondItem="AuL-Y2-nzN" secondAttribute="bottom" id="WWc-Gg-0Lu"/>
-                            <constraint firstItem="obO-hP-wGa" firstAttribute="top" secondItem="ef6-oa-bzv" secondAttribute="top" constant="189" id="hyW-kn-fVV"/>
                             <constraint firstItem="AuL-Y2-nzN" firstAttribute="leading" secondItem="ef6-oa-bzv" secondAttribute="leading" id="jjA-XZ-s6H"/>
                             <constraint firstItem="dnv-2r-oQd" firstAttribute="top" secondItem="ef6-oa-bzv" secondAttribute="top" id="mEX-z2-gHW"/>
-                            <constraint firstItem="ef6-oa-bzv" firstAttribute="bottom" secondItem="obO-hP-wGa" secondAttribute="bottom" id="wpi-3A-45C"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ef6-oa-bzv"/>
                     </view>

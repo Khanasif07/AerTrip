@@ -102,6 +102,8 @@ class HotelInfoAddressCell: UITableViewCell {
     @objc func textViewTapped() {
         if let parentVC = self.parentViewController as? HotelDetailsVC {
             parentVC.openMap()
+        }else if let parentVC = self.parentViewController as? BookingHotelDetailVC{
+            parentVC.openMaps()
         }
     }
     

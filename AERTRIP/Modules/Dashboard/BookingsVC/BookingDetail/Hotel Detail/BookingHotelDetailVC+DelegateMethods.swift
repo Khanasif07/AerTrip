@@ -114,24 +114,11 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == ((self.viewModel.bookingDetail?.bookingDetail?.roomDetails.count ?? 0) + 1) {
             if indexPath.row == 0 { // Address Cell {
-                self.openMaps()
+//                self.openMaps()
             } else if indexPath.row == 1 { // Phone cell
-                var uc = URLComponents()
-                uc.scheme = "tel"
-                uc.path =  self.viewModel.bookingDetail?.bookingDetail?.phoneDetail ?? ""
+                let phoneNumber = self.viewModel.bookingDetail?.bookingDetail?.phoneDetail ?? ""
+                self.makePhoneCall(phoneNumber: phoneNumber)
                 
-                if let phoneURL = uc.url {
-                    //            let alert = UIAlertController(title: phoneNumber, message: nil, preferredStyle: .alert)
-                    //            alert.view.tintColor = AppColors.themeGreen
-                    //            alert.addAction(UIAlertAction(title: "Call", style: .default, handler: { _ in
-                    //
-                    //            }))
-                    UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
-                   // UIApplication.shared.openURL(phoneURL as URL)
-                    //   alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-                    
-                    // self.present(alert, animated: true, completion: nil)
-                }
             } else if indexPath.row == 2 { // Website
                  var website = self.viewModel.bookingDetail?.bookingDetail?.websiteDetail ?? ""
                 if !website.isEmpty{
@@ -183,10 +170,6 @@ extension BookingHotelDetailVC: HotelDetailsImgSlideCellDelegate {
         let indexPath = IndexPath(row: 0, section: 0)
         guard let cell = self.hotelDetailTableView.cellForRow(at: indexPath) as? HotelDetailsImgSlideCell else { return }
         if let topVC = UIApplication.topViewController() {
-//            let photoes = self.viewModel.bookingDetail?.bookingDetail?.completePhotos ?? []
-//
-//             PhotoGalleryVC.show(onViewController: topVC, sourceView: cell.imageCollectionView, startShowingFrom: index, imageArray: photoes)
-            
             ATGalleryViewController.show(onViewController: topVC, sourceView: cell.imageCollectionView, startShowingFrom: index, datasource: self, delegate: self)
         }
     }

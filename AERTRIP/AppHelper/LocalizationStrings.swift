@@ -963,7 +963,7 @@ enum LocalizedString: String {
     case Infant
     case FlightDomesticCancellationRequest
     case CancellationRequest
-    
+    case callingNotAvailable
     // MARK: -
     case UnderDevelopment
     case OperatedBy

@@ -315,27 +315,27 @@ extension HotelDetailsReviewsVC: HotelTripAdvisorDetailsDelegate {
 extension HotelDetailsReviewsVC {
     
     func manageHeaderView(_ scrollView: UIScrollView) {
-        guard mainContainerView.height < scrollView.contentSize.height else {return}
-        let yOffset = (scrollView.contentOffset.y > headerContainerView.height) ? headerContainerView.height : scrollView.contentOffset.y
-        printDebug(yOffset)
-        
-        dividerView.isHidden = yOffset < (headerContainerView.height - 5.0)
-        
-        //header container view height
-        let heightToDecrease: CGFloat = 8.0
-        let height = (maxHeaderHeight) - (yOffset * (heightToDecrease / headerContainerView.height))
-        self.containerViewHeigthConstraint.constant = height
-        
-        //sticky label alpha
-        let alpha = (yOffset * (1.0 / headerContainerView.height))
-        self.stickyTitleLabel.alpha = alpha
-        
-        //reviews label
-        self.reviewsLabel.alpha = 1.0 - alpha
-        reviewTopConstraint.constant = 23.0 - (yOffset * (23.0 / headerContainerView.height))
-        //        reviewLabelYConstraint.constant = -(yOffset * (100.0 / headerContainerView.height))
-        printDebug("alpha: \(alpha)")
-        printDebug("reviewTopConstraint.constant: \(reviewTopConstraint.constant)")
+//        guard mainContainerView.height < scrollView.contentSize.height else {return}
+//        let yOffset = (scrollView.contentOffset.y > headerContainerView.height) ? headerContainerView.height : scrollView.contentOffset.y
+//        printDebug(yOffset)
+//        
+//        dividerView.isHidden = yOffset < (headerContainerView.height - 5.0)
+//        
+//        //header container view height
+//        let heightToDecrease: CGFloat = 8.0
+//        let height = (maxHeaderHeight) - (yOffset * (heightToDecrease / headerContainerView.height))
+//        self.containerViewHeigthConstraint.constant = height
+//        
+//        //sticky label alpha
+//        let alpha = (yOffset * (1.0 / headerContainerView.height))
+//        self.stickyTitleLabel.alpha = alpha
+//        
+//        //reviews label
+//        self.reviewsLabel.alpha = 1.0 - alpha
+//        reviewTopConstraint.constant = 23.0 - (yOffset * (23.0 / headerContainerView.height))
+//        //        reviewLabelYConstraint.constant = -(yOffset * (100.0 / headerContainerView.height))
+//        printDebug("alpha: \(alpha)")
+//        printDebug("reviewTopConstraint.constant: \(reviewTopConstraint.constant)")
 
     }
     

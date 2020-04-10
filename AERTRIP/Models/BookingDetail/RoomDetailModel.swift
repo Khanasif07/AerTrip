@@ -100,15 +100,15 @@ struct CancellationCharges {
     var to: Date?
     var isRefundable: Bool = false
     var cancellationFee: Double = 0.0
-    
+    let dateFomat = "d MMM, HH:mm"//"EEE, dd MMM yyyy HH:mm"
     
     var fromStr: String {
-        let str = self.from?.toString(dateFormat: "EEE, dd MMM yyyy HH:mm") ?? ""
+        let str = self.from?.toString(dateFormat: dateFomat) ?? ""
         return str.isEmpty ? LocalizedString.dash.localized : str
     }
     
     var toStr: String {
-        let str = self.to?.toString(dateFormat: "EEE, dd MMM yyyy HH:mm") ?? ""
+        let str = self.to?.toString(dateFormat: dateFomat) ?? ""
         return str.isEmpty ? LocalizedString.dash.localized : str
     }
     

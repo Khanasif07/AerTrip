@@ -354,6 +354,28 @@ extension UIViewController{
         
         self.view.addSubview(blurView)
     }
+    
+    func makePhoneCall(phoneNumber: String) {
+        var uc = URLComponents()
+        uc.scheme = "tel"
+        uc.path = phoneNumber
+        
+        if let phoneURL = uc.url {
+            let alert = UIAlertController(title: phoneNumber, message: nil, preferredStyle: .alert)
+            alert.view.tintColor = AppColors.themeGreen
+            alert.addAction(UIAlertAction(title: "Call", style: .default, handler: { _ in
+                if UIApplication.shared.canOpenURL(phoneURL){
+                    UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
+                }else{
+                    AppToast.default.showToastMessage(message: LocalizedString.callingNotAvailable.localized)
+                }
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
 }
 
 extension UINavigationController {
