@@ -146,6 +146,10 @@ class BookingProductDetailVM {
             temp.append(.weatherFooterCell)
         }
         
+        if self.bookingDetail?.tripWeatherData.isEmpty ?? false {
+            temp.remove(object: .weatherFooterCell)
+        }
+        
         // Weather Cell  finally
         self.sectionDataForHotelDetail.append(temp)
         

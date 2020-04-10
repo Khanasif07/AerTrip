@@ -107,6 +107,13 @@ extension FlightsOptionsTableViewCell: UICollectionViewDelegate, UICollectionVie
                 cell.optionImageView.image = #imageLiteral(resourceName: "callGray")
                 cell.optionNameLabel.textColor = AppColors.themeGray40
             }
+            if self.optionNames.count == 2 {
+                if indexPath.item == 0 {
+                    cell.setupForTwoViews(leadingConstant: 16, trailingConstant: 0)
+                } else {
+                    cell.setupForTwoViews(leadingConstant: 0, trailingConstant: 16)
+                }
+            }
         }
         
         return cell
@@ -153,15 +160,17 @@ extension FlightsOptionsTableViewCell: UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if self.usingFor == .flight {
-            return CGSize(width: 125.0, height: collectionView.frame.height)
-        } else {
-            if self.optionNames.count == 2 {
-                return CGSize(width: 187.5, height: collectionView.frame.height)
-            } else {
-                return CGSize(width: 125.0, height: collectionView.frame.height)
-            }
-        }
+//        if self.usingFor == .flight {
+//            return CGSize(width: collectionView.frame.width/3, height: collectionView.frame.height)
+//        } else {
+//            if self.optionNames.count == 2 {
+//                return CGSize(width: 187.5, height: collectionView.frame.height)
+//            } else {
+//                return CGSize(width: collectionView.frame.width/3, height: collectionView.frame.height)
+//            }
+//        }
+        let width = collectionView.width/CGFloat(self.optionImages.count)
+        return CGSize(width: width, height: collectionView.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
