@@ -20,6 +20,9 @@ class BookingAddOnRequestVC: BaseVC {
     @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var priceViewHieghtConstraint: NSLayoutConstraint!
     @IBOutlet weak var priceViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bookingRequestStatusView: UIView!
+    @IBOutlet weak var bookingRequestStatusLabel: UILabel!
+    @IBOutlet weak var bookingStatusViewHeight: NSLayoutConstraint!
     
     // MARK: - Variables
     let viewModel = BookingAddOnRequestVM()
@@ -59,6 +62,7 @@ class BookingAddOnRequestVC: BaseVC {
         AppGlobals.shared.startLoading()
         self.viewModel.getCaseHistory()
         self.setUpNavBar()
+        self.setupBookingStatusView()
         self.view.layoutIfNeeded()
     }
     
@@ -115,6 +119,24 @@ class BookingAddOnRequestVC: BaseVC {
         self.requestTableView.reloadData()
     }
     
+    
+    private func setupBookingStatusView(){
+        
+        if self.shouldShowMakePayment{
+            self.bookingRequestStatusView.backgroundColor = AppColors.themeGray40
+            self.bookingRequestStatusLabel.textColor = AppColors.themeWhite
+            self.bookingRequestStatusLabel.font = AppFonts.SemiBold.withSize(16.0)
+            var titleText = "Review the quotation and make payment"
+            if let caseData = self.viewModel.caseData, caseData.resolutionStatus == .confirmationPending {
+                titleText = "Kindly review and confirm"
+            }
+            self.bookingRequestStatusLabel.text = titleText
+        }else{
+            bookingRequestStatusView.isHidden = true
+            bookingStatusViewHeight.constant = 0
+        }
+        
+    }
     func seupMakePaymentButton() {
         
         func setupForPayment() {
@@ -122,7 +144,7 @@ class BookingAddOnRequestVC: BaseVC {
             self.makePaymentLabel.text = LocalizedString.MakePayment.localized
             self.makePaymentButton.setTitle(nil, for: .normal)
             self.priceView.isHidden = false
-            self.priceViewHieghtConstraint.constant = 60.0
+            self.priceViewHieghtConstraint.constant = 50.0
             self.priceViewBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
             self.view.layoutIfNeeded()
             
@@ -133,7 +155,7 @@ class BookingAddOnRequestVC: BaseVC {
             self.makePaymentLabel.text = ""
             self.makePaymentButton.setTitle(title, for: .normal)
             self.priceView.isHidden = false
-            self.priceViewHieghtConstraint.constant = 60.0
+            self.priceViewHieghtConstraint.constant = 50.0
             self.priceViewBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
             self.view.layoutIfNeeded()
         }
@@ -267,9 +289,9 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             //header details
-            if self.shouldShowMakePayment {
-                return 2
-            }
+//            if self.shouldShowMakePayment {
+//                return 2
+//            }
             return 1
         }
         else if section == 1 {
@@ -288,9 +310,9 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             //header details
-            if self.shouldShowMakePayment, indexPath.row == 0 {
-                return 30.0
-            }
+//            if self.shouldShowMakePayment, indexPath.row == 0 {
+//                return 30.0
+//            }
             return UITableView.automaticDimension
         }
         else if indexPath.section == 1 {
@@ -382,7 +404,7 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         bookingAddOnCell.communicationData = self.viewModel.caseHistory?.communications[indexPath.row]
         
         if let caseD = self.viewModel.caseHistory {
-            bookingAddOnCell.dividerView.isHidden = (indexPath.row == (caseD.communications.count-1))
+            bookingAddOnCell.isDeviderForLast = (indexPath.row == (caseD.communications.count-1))
         }
         
         return bookingAddOnCell
@@ -406,9 +428,9 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         
         if indexPath.section == 0 {
             //header details
-            if self.shouldShowMakePayment, indexPath.row == 0 {
-                return self.getRequestStatusCell()
-            }
+//            if self.shouldShowMakePayment, indexPath.row == 0 {
+//                return self.getRequestStatusCell()
+//            }
             return self.getHeaderRouteCell()
         }
         else if indexPath.section == 1 {

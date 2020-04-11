@@ -107,6 +107,13 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    func reduceLeadingAndTrailing(){
+        
+        self.leadingOfStackView.constant = 4
+        self.trailingOfStackView.constant = 4
+        
+    }
+    
     private func configureCellForGuest() {
 //        var finalStr = self.guestData?.fullName ?? ""
         var ageToShow = ""

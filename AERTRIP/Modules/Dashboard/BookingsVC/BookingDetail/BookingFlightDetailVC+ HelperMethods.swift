@@ -38,12 +38,12 @@ extension BookingFlightDetailVC {
             
         case .layover: return 40.0
         case .paxData:
-            if let pax = self.viewModel.legDetails[indexPath.section].pax.first, !pax.detailsToShow.isEmpty {
-                // Travellers & Add-ons
-                // 175.0 for list + <for details>
-                return 175.0 + (CGFloat(pax.detailsToShow.count) * 60.0)
-            }
-            return 0.0
+//            if let pax = self.viewModel.legDetails[indexPath.section].pax.first, !pax.detailsToShow.isEmpty {
+//                // Travellers & Add-ons
+//                // 175.0 for list + <for details>
+//                return 175.0 + (CGFloat(pax.detailsToShow.count) * 60.0)
+//            }
+            return UITableView.automaticDimension//0.0
         }
     }
     
@@ -125,7 +125,8 @@ extension BookingFlightDetailVC {
             }
             
             cell.paxDetails = self.viewModel.legDetails[indexPath.section].pax
-            
+            cell.parentIndexPath = indexPath
+            cell.heightDelegate = self
             return cell
 
         }
@@ -493,4 +494,14 @@ extension BookingFlightDetailVC {
         
         return finalCell
     }
+}
+extension BookingFlightDetailVC:TravellerAddOnsCellHeightDelegate {
+    
+    func needToUpdateHeight(at index:IndexPath){
+        self.tableView.beginUpdates()
+        UIView.animate(withDuration: 0.3) {
+            self.tableView.endUpdates()
+        }
+    }
+    
 }

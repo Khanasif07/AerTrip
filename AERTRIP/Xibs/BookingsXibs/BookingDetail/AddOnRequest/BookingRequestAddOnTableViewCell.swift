@@ -17,10 +17,17 @@ class BookingRequestAddOnTableViewCell: ATTableViewCell {
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var timeStampLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var devideLeadingConstraint: NSLayoutConstraint!
     
     var communicationData: BookingCaseHistory.Communication? {
         didSet {
             self.configureCell()
+        }
+    }
+    
+    var isDeviderForLast:Bool = false{
+        didSet{
+            self.updateLeadingConstraint()
         }
     }
     
@@ -44,4 +51,9 @@ class BookingRequestAddOnTableViewCell: ATTableViewCell {
         self.messageLabel.text = LocalizedString.dash.localized
         self.timeStampLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "\(communicationData?.commDate?.toString(dateFormat: "hh:mm aa") ?? "")  ", image: #imageLiteral(resourceName: "hotelCheckoutForwardArrow"), endText: "", font: AppFonts.Regular.withSize(16.0))
     }
+    
+    func updateLeadingConstraint(){
+        self.devideLeadingConstraint.constant = (self.isDeviderForLast) ? 0 : 37
+    }
+    
 }

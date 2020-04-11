@@ -42,7 +42,7 @@ class BookingFlightDetailVC: BaseVC {
         delay(seconds: 0.3) { [weak self] in
                 self?.tableView.scrollToRow(at: IndexPath(row: 0, section: self?.viewModel.legSectionTap ?? 0), at: .top, animated: false)
         }
-        
+        self.tableView.backgroundColor = AppColors.themeWhite
         self.viewModel.getBookingFees()
     }
     
@@ -131,6 +131,7 @@ class BookingFlightDetailVC: BaseVC {
         default:
             printDebug("Tapped")
         }
+        self.tableView.backgroundColor = AppColors.themeWhite
         self.reloadDetails()
     }
     

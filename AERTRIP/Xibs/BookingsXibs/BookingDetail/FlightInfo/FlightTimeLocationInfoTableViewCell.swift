@@ -25,8 +25,8 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var destinationFlightNameLbel: UILabel!
     @IBOutlet weak var destinationFlightAddressLabel: UILabel!
     @IBOutlet weak var destinationTerminalLabel: UILabel!
-    @IBOutlet weak var sourceNameHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var desNameHeightConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var sourceNameHeightConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var desNameHeightConstraint: NSLayoutConstraint!
     
     
     // Travel Time Label
@@ -42,7 +42,7 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
         }
     }
     
-    private let defaultStr = LocalizedString.na.localized
+    private let defaultStr = ""//LocalizedString.na.localized
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -125,21 +125,21 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
     }
     
     private func manageNameHeight() {
-        let sourceName = self.sourceFlightNameLbel.text ?? ""
-        let desName = self.destinationFlightNameLbel.text ?? ""
-        let textToCount = (sourceName.count > desName.count) ? sourceName : desName
-        
-        var height = textToCount.sizeCount(withFont: AppFonts.Regular.withSize(14.0), bundingSize: CGSize(width: self.sourceFlightNameLbel.width, height: 10000.0)).height
-        
-        if height <= 20.0 {
-            height = 20.0
-        }
-        else if height > 20.0 {
-            height = 40.0
-        }
-        
-        self.sourceNameHeightConstraint.constant = height
-        self.desNameHeightConstraint.constant = height
+//        let sourceName = self.sourceFlightNameLbel.text ?? ""
+//        let desName = self.destinationFlightNameLbel.text ?? ""
+//        let textToCount = (sourceName.count > desName.count) ? sourceName : desName
+//
+//        var height = textToCount.sizeCount(withFont: AppFonts.Regular.withSize(14.0), bundingSize: CGSize(width: self.sourceFlightNameLbel.width, height: 10000.0)).height
+//
+//        if height <= 20.0 {
+//            height = 20.0
+//        }
+//        else if height > 20.0 {
+//            height = 40.0
+//        }
+//
+//        self.sourceNameHeightConstraint.constant = height
+//        self.desNameHeightConstraint.constant = height
     }
     
     // MARK: - Helper methods

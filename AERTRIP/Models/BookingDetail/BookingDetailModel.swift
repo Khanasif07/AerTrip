@@ -763,7 +763,8 @@ struct BookingDetail {
     
     var websiteDetail: String {
 //        return self.website.isEmpty ? LocalizedString.SpaceWithHiphen.localized : self.website
-        return self.website
+        
+        return (self.website != "somedummywebsite.com") ? self.website : ""
 
     }
     

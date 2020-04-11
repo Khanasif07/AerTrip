@@ -8,12 +8,17 @@
 
 import UIKit
 
+protocol TravellerAddOnsCellHeightDelegate:NSObjectProtocol{
+    func needToUpdateHeight(at index:IndexPath)
+}
+
 class BookingTravellerAddOnsTableViewCell: UITableViewCell {
     // MARK: - IBOutlet
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var travellerCollectionView: UICollectionView!
     @IBOutlet weak var travellerAddonsCollectionView: UICollectionView!
+    @IBOutlet weak var listCollectionHeightConstaint: NSLayoutConstraint!
     
     var paxDetails: [Pax] = [] {
         didSet {
@@ -30,11 +35,17 @@ class BookingTravellerAddOnsTableViewCell: UITableViewCell {
     private var detailsToShow: JSONDictionary = [:] {
         didSet {
             self.detailsTitle = Array(detailsToShow.keys)
+            for title in self.detailsTitle{
+                if (self.detailsToShow[title] as? String ?? "").isEmpty || (self.detailsToShow[title] as? String ?? "") == "-"{
+                    self.detailsTitle.remove(object: title)
+                }
+            }
             self.detailsTitle.sort { $0 < $1}
         }
     }
     private var detailsTitle: [String] = []
-    
+    weak var heightDelegate:TravellerAddOnsCellHeightDelegate?
+    var parentIndexPath:IndexPath = [0,0]
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -61,6 +72,7 @@ class BookingTravellerAddOnsTableViewCell: UITableViewCell {
         else {
             self.detailsToShow = [:]
         }
+        self.listCollectionHeightConstaint.constant = CGFloat(self.detailsTitle.count * 60)
         self.travellerCollectionView.reloadData()
         self.travellerAddonsCollectionView.reloadData()
     }
@@ -87,7 +99,7 @@ extension BookingTravellerAddOnsTableViewCell: UICollectionViewDataSource, UICol
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if collectionView === travellerCollectionView {
             //list
-            return UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
+            return UIEdgeInsets(top: 0.0, left: 12.0, bottom: 0.0, right: 16.0)
         }
         else {
             //details
@@ -99,7 +111,7 @@ extension BookingTravellerAddOnsTableViewCell: UICollectionViewDataSource, UICol
         
         if collectionView === travellerCollectionView {
             //list
-            let newW: CGFloat = ((collectionView.width - 32.0) / 3.5)
+            let newW: CGFloat = 83//((collectionView.width - 32.0) / 3.5)
             return  CGSize(width: newW, height: 120)
         }
         else {
@@ -123,6 +135,7 @@ extension BookingTravellerAddOnsTableViewCell: UICollectionViewDataSource, UICol
         if collectionView === travellerCollectionView {
             //list
             self.selectedIndex = indexPath.item
+            self.heightDelegate?.needToUpdateHeight(at: self.parentIndexPath)
         }
         else {
             //details
@@ -133,10 +146,9 @@ extension BookingTravellerAddOnsTableViewCell: UICollectionViewDataSource, UICol
         guard let cell = self.travellerCollectionView.dequeueReusableCell(withReuseIdentifier: BookingTravellerCollectionViewCell.reusableIdentifier, for: indexPath) as? BookingTravellerCollectionViewCell else {
             return UICollectionViewCell()
         }
-        
         cell.paxData = self.paxDetails[indexPath.item]
         cell.isPaxSelected = (self.selectedIndex == indexPath.item)
-        
+        cell.reduceLeadingAndTrailing()
         return cell
     }
     
