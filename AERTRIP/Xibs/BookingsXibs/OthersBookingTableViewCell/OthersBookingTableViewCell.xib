@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,12 +18,12 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="OthersBookingTableViewCell" rowHeight="223" id="KGk-i7-Jjw" customClass="OthersBookingTableViewCell" customModule="AERTRIP" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="223"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="222.5"/>
+            <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="223"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xsc-lo-qk7">
-                        <rect key="frame" x="16" y="5" width="343" height="212.5"/>
+                        <rect key="frame" x="16" y="8" width="343" height="207"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fP2-dV-8J0">
                                 <rect key="frame" x="0.0" y="0.0" width="343" height="82"/>
@@ -67,7 +65,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="fqr-hg-R5g">
-                                <rect key="frame" x="0.0" y="82" width="343" height="130.5"/>
+                                <rect key="frame" x="0.0" y="82" width="343" height="125"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="o9y-q2-MVE">
                                     <size key="itemSize" width="50" height="50"/>
@@ -92,8 +90,8 @@
                 <constraints>
                     <constraint firstItem="xsc-lo-qk7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="F1a-XA-8rW"/>
                     <constraint firstAttribute="trailing" secondItem="xsc-lo-qk7" secondAttribute="trailing" constant="16" id="Ghb-7i-bdb"/>
-                    <constraint firstAttribute="bottom" secondItem="xsc-lo-qk7" secondAttribute="bottom" constant="5" id="YcE-tJ-oom"/>
-                    <constraint firstItem="xsc-lo-qk7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="fWs-gO-UZK"/>
+                    <constraint firstAttribute="bottom" secondItem="xsc-lo-qk7" secondAttribute="bottom" constant="8" id="YcE-tJ-oom"/>
+                    <constraint firstItem="xsc-lo-qk7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="fWs-gO-UZK"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

@@ -34,10 +34,12 @@ class EmptyScreenView: UIView {
         case noStatementGenrated
         case noAccountResult
         case noUpCommingBooking
-        case noPendingAction
         case noCompletedBooking
         case noCanceledBooking
-        
+        case noPendingAction
+        case noUpCommingBookingFilter
+        case noCompletedBookingFilter
+        case noCanceledBookingFilter
     }
     
     //MARK:- properties -
@@ -190,6 +192,15 @@ extension EmptyScreenView {
             
         case .noCanceledBooking:
             self.setUpNoCanceledBooking()
+            
+        case .noUpCommingBookingFilter:
+            self.setUpNoUpCommingBookingFilter()
+            
+        case .noCompletedBookingFilter:
+            self.setUpNoCompletedBookingFilter()
+            
+        case .noCanceledBookingFilter:
+            self.setUpNoCanceledBookingFilter()
         }
         
     }
@@ -488,6 +499,70 @@ extension EmptyScreenView {
         self.messageLabel.text = message
         self.messageLabel.AttributedFontAndColorForText(atributedText: LocalizedString.NewDestinationsAreAwaiting.localized, textFont: AppFonts.Regular.withSize(18.0), textColor: AppColors.themeGray60)
     }
+    
+    private func setUpNoUpCommingBookingFilter() {
+        self.hideFirstButton(isHidden: true)
+        self.mainImageView.image = nil
+        self.messageLabelTopConstraint.constant = 0
+        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+        self.messageLabel.textColor = AppColors.themeBlack
+        self.messageLabel.text = LocalizedString.Oops.localized
+        
+        self.searchTextLabel.isHidden = false
+        self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
+        self.searchTextLabel.textColor = AppColors.themeGray60
+        self.searchTextLabel.text = LocalizedString.NoBookingAvailable.localized
+        
+        self.hideBottomButton(isHidden: false)
+        self.bottomButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
+        self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .normal)
+        self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .selected)
+        self.bottomButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.bottomButton.setTitleColor(AppColors.themeGreen, for: .selected)
+    }
+    
+    private func setUpNoCompletedBookingFilter() {
+        self.hideFirstButton(isHidden: true)
+        self.mainImageView.image = nil
+        self.messageLabelTopConstraint.constant = 0
+        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+        self.messageLabel.textColor = AppColors.themeBlack
+        self.messageLabel.text = LocalizedString.Oops.localized
+        
+        self.searchTextLabel.isHidden = false
+        self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
+        self.searchTextLabel.textColor = AppColors.themeGray60
+        self.searchTextLabel.text = LocalizedString.NoBookingAvailable.localized
+        
+        self.hideBottomButton(isHidden: false)
+        self.bottomButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
+        self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .normal)
+        self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .selected)
+        self.bottomButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.bottomButton.setTitleColor(AppColors.themeGreen, for: .selected)
+    }
+    
+    private func setUpNoCanceledBookingFilter() {
+        self.hideFirstButton(isHidden: true)
+        self.mainImageView.image = nil
+        self.messageLabelTopConstraint.constant = 0
+        self.messageLabel.font = AppFonts.Regular.withSize(22.0)
+        self.messageLabel.textColor = AppColors.themeBlack
+        self.messageLabel.text = LocalizedString.Oops.localized
+        
+        self.searchTextLabel.isHidden = false
+        self.searchTextLabel.font = AppFonts.Regular.withSize(18.0)
+        self.searchTextLabel.textColor = AppColors.themeGray60
+        self.searchTextLabel.text = LocalizedString.NoBookingAvailable.localized
+        
+        self.hideBottomButton(isHidden: false)
+        self.bottomButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
+        self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .normal)
+        self.bottomButton.setTitle(LocalizedString.ClearFilters.localized, for: .selected)
+        self.bottomButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        self.bottomButton.setTitleColor(AppColors.themeGreen, for: .selected)
+    }
 }
+
 
 

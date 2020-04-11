@@ -837,6 +837,8 @@ enum LocalizedString: String {
     case ClearFilters
     case BookingID
     case OpeningBalance
+    case NoBookingAvailable
+
     
     // MARK: - OutStanding Ladger
     

@@ -58,5 +58,14 @@ class DateTableHeaderView: UITableViewHeaderFooterView {
         self.dateLabelTopConstraint.constant = isFirstHeaderView ? 16.0 : 25.0
         self.dataLabelBottomConstraint.constant = 5.0
     }
+    
+    internal func configViewForBooking(date: String , isFirstHeaderView: Bool) {
+        self.dateLabel.text = date
+        self.dateLabelTopConstraint.constant = isFirstHeaderView ? 16 : 8
+        self.dataLabelBottomConstraint.constant = 8
+        self.contentView.backgroundColor = AppColors.themeWhite
+        self.backgroundColor = AppColors.themeWhite
+        self.contentView.layoutIfNeeded()
+    }
 }
 

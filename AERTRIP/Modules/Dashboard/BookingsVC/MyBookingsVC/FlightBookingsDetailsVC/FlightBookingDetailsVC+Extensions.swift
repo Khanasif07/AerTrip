@@ -223,23 +223,130 @@ extension FlightBookingsDetailsVC: BookingDocumentsTableViewCellDelegate {
 
 //==========================
 extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
-    func updateForParallexProgress() {
+//    func updateForParallexProgress() {
+//        let prallexProgress = self.bookingDetailsTableView.parallaxHeader.progress
+//
+//        printDebug("progress %f \(prallexProgress)")
+//
+//        if prallexProgress <= 0.5 {
+//            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
+//                guard let sSelf = self else { return }
+//                sSelf.topNavBar.firstRightButton.isSelected = true
+//                sSelf.topNavBar.leftButton.isSelected = true
+//                sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
+//                sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeNavigationBarImage, endText: self?.viewModel.tripCitiesStr ?? NSMutableAttributedString(string: ""), font: AppFonts.SemiBold.withSize(18.0))
+//                sSelf.headerView?.bookingIdAndDateLabel.alpha = 0
+//                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 0
+//                sSelf.topNavBar.dividerView.isHidden = false
+//            }
+//        } else {
+//            self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
+//                guard let sSelf = self else { return }
+//                sSelf.topNavBar.firstRightButton.isSelected = false
+//                sSelf.topNavBar.leftButton.isSelected = false
+//                sSelf.topNavBar.leftButton.tintColor = AppColors.themeWhite
+//                sSelf.topNavBar.navTitleLabel.text = ""
+//                sSelf.topNavBar.dividerView.isHidden = true
+//                sSelf.headerView?.bookingIdAndDateLabel.alpha = 1
+//                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 1
+//            }
+//        }
+//
+////
+////        if prallexProgress <= 0.65 {
+////            self.topNavBar.backgroundType = .blurMainView(isDark: false)
+////            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
+////                guard let sSelf = self else { return }
+////                sSelf.topNavBar.firstRightButton.isSelected = true
+////                sSelf.topNavBar.leftButton.isSelected = true
+////                sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
+////                if let tripCities = self?.viewModel.tripCitiesStr {
+////                     sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image:  sSelf.eventTypeImage, endText: tripCities, font: AppFonts.SemiBold.withSize(18.0))
+////                }
+////
+////                sSelf.topNavBar.dividerView.isHidden = false
+////            }
+////        } else {
+////            self.topNavBar.backgroundType = .blurMainView(isDark: false)
+////            self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
+////                guard let sSelf = self else { return }
+////                sSelf.topNavBar.firstRightButton.isSelected = false
+////                sSelf.topNavBar.leftButton.isSelected = false
+////                sSelf.topNavBar.leftButton.tintColor = AppColors.themeWhite
+////                sSelf.topNavBar.navTitleLabel.text = ""
+////                sSelf.topNavBar.dividerView.isHidden = true
+////            }
+////        }
+//        self.headerView?.layoutIfNeeded()
+//    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.updateForParallexProgress()
+    }
+    
+    @objc func updateForParallexProgress() {
+        
         let prallexProgress = self.bookingDetailsTableView.parallaxHeader.progress
+        printDebug("intial progress value \(prallexProgress)")
         
-        printDebug("progress %f \(prallexProgress)")
+        printDebug("progress value \(prallexProgress)")
         
-        if prallexProgress <= 0.5 {
-            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
-                guard let sSelf = self else { return }
-                sSelf.topNavBar.firstRightButton.isSelected = true
-                sSelf.topNavBar.leftButton.isSelected = true
-                sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
-                sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeNavigationBarImage, endText: self?.viewModel.tripCitiesStr ?? NSMutableAttributedString(string: ""), font: AppFonts.SemiBold.withSize(18.0))
-                sSelf.headerView?.bookingIdAndDateLabel.alpha = 0
-                sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 0
-                sSelf.topNavBar.dividerView.isHidden = false
+        
+        if isScrollingFirstTime && prallexProgress > 1.0 {
+            maxValue = prallexProgress
+            minValue = abs(1 - prallexProgress)
+            finalMaxValue = Int(maxValue * 100)
+            isScrollingFirstTime = false
+            printDebug("minvalue \(minValue) and maxValue \(maxValue)")
+        }
+        //
+        //
+        if minValue...maxValue ~= prallexProgress {
+            printDebug("progress value \(prallexProgress)")
+            let intValue =  finalMaxValue - Int(prallexProgress * 100)
+            
+            printDebug(" int value \(intValue)")
+            let newProgress: Float = (Float(1) - (Float(1.3)  * (Float(intValue) / 100)))
+            
+            printDebug("new progress value \(newProgress)")
+            
+            
+            printDebug("CGFloat progress  Value is \(newProgress.toCGFloat.roundTo(places: 3))")
+            
+            self.currentProgressIntValue = intValue
+            self.currentProgress = newProgress.toCGFloat
+            
+        }
+        //
+        if prallexProgress  <= 0.7 {
+            if isNavBarHidden {
+                
+                self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
+                    guard let sSelf = self else { return }
+                    sSelf.topNavBar.firstRightButton.isSelected = false
+                    sSelf.topNavBar.leftButton.isSelected = false
+                    sSelf.topNavBar.leftButton.tintColor = AppColors.themeWhite
+                    sSelf.topNavBar.navTitleLabel.text = ""
+                    sSelf.topNavBar.dividerView.isHidden = true
+                    sSelf.headerView?.bookingIdAndDateLabel.alpha = 1
+                    sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 1
+                }
+                
+            } else {
+                
+                self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
+                    guard let sSelf = self else { return }
+                    sSelf.topNavBar.firstRightButton.isSelected = true
+                    sSelf.topNavBar.leftButton.isSelected = true
+                    sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
+                    sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image: sSelf.eventTypeNavigationBarImage, endText: self?.viewModel.tripCitiesStr ?? NSMutableAttributedString(string: ""), font: AppFonts.SemiBold.withSize(18.0))
+                    sSelf.headerView?.bookingIdAndDateLabel.alpha = 0
+                    sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 0
+                    sSelf.topNavBar.dividerView.isHidden = false
+                }
             }
         } else {
+            
             self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
                 guard let sSelf = self else { return }
                 sSelf.topNavBar.firstRightButton.isSelected = false
@@ -250,46 +357,10 @@ extension FlightBookingsDetailsVC: MXParallaxHeaderDelegate {
                 sSelf.headerView?.bookingIdAndDateLabel.alpha = 1
                 sSelf.headerView?.bookingIdAndDateTitleLabel.alpha = 1
             }
+            
         }
+        self.isNavBarHidden = false
         
-//
-//        if prallexProgress <= 0.65 {
-//            self.topNavBar.backgroundType = .blurMainView(isDark: false)
-//            self.topNavBar.animateBackView(isHidden: false) { [weak self] _ in
-//                guard let sSelf = self else { return }
-//                sSelf.topNavBar.firstRightButton.isSelected = true
-//                sSelf.topNavBar.leftButton.isSelected = true
-//                sSelf.topNavBar.leftButton.tintColor = AppColors.themeGreen
-//                if let tripCities = self?.viewModel.tripCitiesStr {
-//                     sSelf.topNavBar.navTitleLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "", image:  sSelf.eventTypeImage, endText: tripCities, font: AppFonts.SemiBold.withSize(18.0))
-//                }
-//
-//                sSelf.topNavBar.dividerView.isHidden = false
-//            }
-//        } else {
-//            self.topNavBar.backgroundType = .blurMainView(isDark: false)
-//            self.topNavBar.animateBackView(isHidden: true) { [weak self] _ in
-//                guard let sSelf = self else { return }
-//                sSelf.topNavBar.firstRightButton.isSelected = false
-//                sSelf.topNavBar.leftButton.isSelected = false
-//                sSelf.topNavBar.leftButton.tintColor = AppColors.themeWhite
-//                sSelf.topNavBar.navTitleLabel.text = ""
-//                sSelf.topNavBar.dividerView.isHidden = true
-//            }
-//        }
-        self.headerView?.layoutIfNeeded()
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.updateForParallexProgress()
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.updateForParallexProgress()
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        self.updateForParallexProgress()
     }
 }
 

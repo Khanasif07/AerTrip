@@ -33,10 +33,11 @@ class UpcomingBookingsVC: BaseVC {
         didSet {
             footerView.delegate = self
             footerView.pendingActionSwitch.isOn = false
+            footerView.clipsToBounds = true
         }
     }
     @IBOutlet weak var footerHeightConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var footerBottomConstraint: NSLayoutConstraint!
     
     var isOnlyPendingAction: Bool = false
     var isComingFromFilter: Bool = false
@@ -75,6 +76,14 @@ class UpcomingBookingsVC: BaseVC {
         return newEmptyView
     }()
     
+    // No Filter result Found Empty View
+    lazy var noResultFilterEmptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noUpCommingBookingFilter
+        newEmptyView.delegate = self
+        return newEmptyView
+    }()
+    
     //Mark:- LifeCycle
     //================
     
@@ -91,9 +100,11 @@ class UpcomingBookingsVC: BaseVC {
     
     //Mark:- Functions
     //================
-    private func manageFooter(isHidden: Bool) {
+    func manageFooter(isHidden: Bool) {
         self.footerView?.isHidden = isHidden
         self.footerHeightConstraint?.constant = isHidden ? 0.0 : 44.0
+        self.footerBottomConstraint?.constant = isHidden ? 0.0 : AppFlowManager.default.safeAreaInsets.bottom
+        //self.view.layoutIfNeeded()
     }
     
     func reloadList(isFirstTimeLoading: Bool = false) {
@@ -137,10 +148,7 @@ class UpcomingBookingsVC: BaseVC {
                 if self.isOnlyPendingAction {
                     emptyView = noPendingActionmFoundEmptyView
                 } else if self.isComingFromFilter {
-                    noResultemptyView.searchTextLabel.isHidden = false
-                    noResultemptyView.messageLabel.isHidden = true
-                    noResultemptyView.searchTextLabel.text = "No Bookings Available. We couldn’t find bookings to match your filters. Try changing the filters, or reset them."
-                    emptyView = noResultemptyView
+                    emptyView = noResultFilterEmptyView
                 }
                 else {
                      emptyView = noUpCommingBookingResultemptyView
@@ -184,3 +192,12 @@ extension UpcomingBookingsVC {
         return cell
     }
 }
+extension UpcomingBookingsVC: EmptyScreenViewDelegate {
+    func firstButtonAction(sender: ATButton) {
+    }
+    
+    func bottomButtonAction(sender: UIButton) {
+        self.sendDataChangedNotification(data: ATNotification.myBookingFilterCleared)
+    }
+}
+

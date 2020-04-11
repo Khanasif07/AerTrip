@@ -260,8 +260,9 @@ class TravelDateVC: BaseVC {
             self.view.layoutIfNeeded()
         }) { _ in
         }
+        if let _ = gesture.view {
         self.delegate?.didSelect(toDate: toDatePicker.date, forType: self.currentlyUsingAs)
-
+        }
     }
     
     @objc func fromTapGestureAction(_ gesture: UITapGestureRecognizer) {
@@ -274,7 +275,9 @@ class TravelDateVC: BaseVC {
             self.view.layoutIfNeeded()
         }) { _ in
         }
-        self.delegate?.didSelect(fromDate: fromDatePicker.date, forType: self.currentlyUsingAs)
+        if let _ = gesture.view {
+            self.delegate?.didSelect(fromDate: self.fromDatePicker.date, forType: self.currentlyUsingAs)
+        }
     }
     
     @objc func fromDatePickerValueChanged(_ datePicker: UIDatePicker) {

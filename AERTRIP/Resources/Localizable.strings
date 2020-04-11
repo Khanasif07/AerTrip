@@ -770,6 +770,7 @@
 "ClearFilters" = "Clear Filters";
 "BookingID" = "Booking ID";
 "OpeningBalance" = "Opening Balance";
+"NoBookingAvailable" = "No Bookings Available. We couldn’t find bookings to match your filters. Try changing the filters, or reset them.";
 
 //MARK:- OutStanding Ladger
 "Summary" = "Summary";
@@ -914,3 +915,4 @@
 "KindlyDisconnectMessage" = "Kindly set a password for your Aertrip account or login via another social account before disconnecting ";
 
 "Currency" = "Currency";
+
