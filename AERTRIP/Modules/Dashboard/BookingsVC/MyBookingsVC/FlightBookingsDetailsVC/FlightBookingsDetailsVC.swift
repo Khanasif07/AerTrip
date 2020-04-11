@@ -32,6 +32,18 @@ class FlightBookingsDetailsVC: BaseVC {
     var tripChangeIndexPath: IndexPath?
     var updatedTripDetail: TripModel?
     
+    var maxValue: CGFloat = 1.0
+    var minValue: CGFloat = 0.0
+    var finalMaxValue: Int = 0
+    var currentProgress: CGFloat = 0
+    var currentProgressIntValue: Int = 0
+    
+    var isScrollingFirstTime: Bool = true
+    var isNavBarHidden:Bool = true
+    let headerHeightToAnimate: CGFloat = 30.0
+    var isHeaderAnimating: Bool = false
+    var isBackBtnTapped = false
+    
     // MARK: - IBOutlets
     
     // MARK: -

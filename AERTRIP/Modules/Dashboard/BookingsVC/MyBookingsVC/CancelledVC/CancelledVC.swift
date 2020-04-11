@@ -33,10 +33,12 @@ class CancelledVC: BaseVC {
         didSet {
             self.footerView.delegate = self
             self.footerView.pendingActionSwitch.isOn = false
+            footerView.clipsToBounds = true
         }
     }
     
     @IBOutlet weak var footerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var footerBottomConstraint: NSLayoutConstraint!
     
     // fetch result controller
     var isOnlyPendingAction: Bool = false
@@ -72,15 +74,30 @@ class CancelledVC: BaseVC {
         return newEmptyView
     }()
     
+    // No Filter result Found Empty View
+    lazy var noResultFilterEmptyView: EmptyScreenView = {
+        let newEmptyView = EmptyScreenView()
+        newEmptyView.vType = .noCanceledBookingFilter
+        newEmptyView.delegate = self
+        return newEmptyView
+    }()
+    
+    var showFooterView = false
+    
     // Mark:- LifeCycle
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        manageFooter(isHidden: showFooterView)
+    }
+    
     override func initialSetup() {
         self.registerXibs()
-        self.loadSaveData(isForFirstTime: MyBookingFilterVM.shared.searchText.isEmpty)
+        self.loadSaveData(isForFirstTime: false)
 //        self.reloadList(isFirstTimeLoading: true)
     }
     
@@ -92,9 +109,12 @@ class CancelledVC: BaseVC {
     
     // Mark:- Functions
     //================
-    private func manageFooter(isHidden: Bool) {
+    func manageFooter(isHidden: Bool) {
+//        guard self.isViewLoaded, let _ = self.view.window  else {return}
         self.footerView?.isHidden = isHidden
         self.footerHeightConstraint?.constant = isHidden ? 0.0 : 44.0
+        self.footerBottomConstraint?.constant = isHidden ? 0.0 : AppFlowManager.default.safeAreaInsets.bottom
+        //self.view.layoutIfNeeded()
     }
     
     func reloadList(isFirstTimeLoading: Bool = false) {
@@ -136,10 +156,7 @@ class CancelledVC: BaseVC {
                 if self.isOnlyPendingAction {
                     emptyView = noPendingActionmFoundEmptyView
                 } else if self.isComingFromFilter {
-                    noResultemptyView.searchTextLabel.isHidden = false
-                    noResultemptyView.messageLabel.isHidden = true
-                    noResultemptyView.searchTextLabel.text = "No Bookings Available. We couldn’t find bookings to match your filters. Try changing the filters, or reset them."
-                    emptyView = noResultemptyView
+                    emptyView = noResultFilterEmptyView
                 }
                 else {
                     emptyView = noCanceledBookingResultemptyView
@@ -171,4 +188,12 @@ class CancelledVC: BaseVC {
     
     // Mark:- IBActions
     //================
+}
+extension CancelledVC: EmptyScreenViewDelegate {
+    func firstButtonAction(sender: ATButton) {
+    }
+    
+    func bottomButtonAction(sender: UIButton) {
+        self.sendDataChangedNotification(data: ATNotification.myBookingFilterCleared)
+    }
 }

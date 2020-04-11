@@ -34,7 +34,7 @@ extension CompletedVC: UITableViewDelegate , UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 44.0
+        return section == 0 ? 44.0 : 36
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -55,10 +55,7 @@ extension CompletedVC: UITableViewDelegate , UITableViewDataSource {
             let format = date.isCurrentYear ? "E, d MMM" : "d MMM yyyy"
             headerText = date.toString(dateFormat: format)
         }
-        headerView.dateLabel.text = headerText
-        headerView.dateLabelTopConstraint.constant = 11.0
-        headerView.contentView.backgroundColor = AppColors.themeWhite
-        headerView.backgroundColor = AppColors.themeWhite
+        headerView.configViewForBooking(date: headerText, isFirstHeaderView: section == 0)
         return headerView
     }
     

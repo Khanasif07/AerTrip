@@ -28,6 +28,7 @@ extension CancelledVC {
         
         if !isForFirstTime {
             self.reloadList(isFirstTimeLoading: isForFirstTime)
+            mangePendingActionView()
         }
     }
     
@@ -36,12 +37,18 @@ extension CancelledVC {
         return NSPredicate(format: "bookingTabType == '3'")
     }
     
-    
+    private func mangePendingActionView() {
+        let pridicate = createFinalPredicate(showPending: true)
+        let result = CoreDataManager.shared.fetchData("BookingData", nsPredicate: pridicate) ?? []
+        print("CancelledVC result.count: \(result.count)")
+        manageFooter(isHidden: result.isEmpty)
+        showFooterView = result.isEmpty
+    }
 }
 
 extension CancelledVC {
     //  Final Predicate
-    private func createFinalPredicate () -> NSPredicate? {
+    private func createFinalPredicate (showPending: Bool = false) -> NSPredicate? {
         
         var allPred: [NSPredicate] = []
         
@@ -61,7 +68,7 @@ extension CancelledVC {
             allPred.append(obj)
         }
         
-        if let obj = onlyPendingActionPredicate() {
+        if let obj = onlyPendingActionPredicate(showPending: showPending) {
             allPred.append(obj)
         }
         
@@ -97,8 +104,8 @@ extension CancelledVC {
         return nil
     }
     
-    private func onlyPendingActionPredicate() -> NSPredicate?{
-        if self.isOnlyPendingAction {
+    private func onlyPendingActionPredicate(showPending: Bool = false) -> NSPredicate?{
+        if self.isOnlyPendingAction || showPending {
             return NSPredicate(format: "isContainsPending == '1'")
         }
         return nil
