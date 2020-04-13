@@ -116,9 +116,13 @@ extension HotlelBookingsDetailsVC {
     
     func getPaidCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
-        cell.containerViewBottomConstraint.constant = 26.0
-        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.paid.delimiterWithSymbol, isLastCell: true)
-        cell.clipsToBounds = true
+        let isLastCell = (self.viewModel.bookingDetail?.totalOutStanding == 0.0)
+        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.paid.delimiterWithSymbol, isLastCell: isLastCell)
+        cell.containerViewBottomConstraint.constant = (isLastCell) ? 26.0 : 0.0
+        cell.dividerView.isHidden = false
+        cell.clipsToBounds = isLastCell
+        
+        
         return cell
     }
     

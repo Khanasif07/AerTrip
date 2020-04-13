@@ -151,6 +151,12 @@ extension FlightBookingsDetailsVC {
     // get Payment Cell
     func getPaymentInfoCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PaymentInfoTableViewCell.reusableIdentifier, for: indexPath) as? PaymentInfoTableViewCell else { return UITableViewCell() }
+        cell.paymentInfoLabel.text = LocalizedString.Vouchers.localized
+        if (self.viewModel.bookingDetail?.documents ?? []).count != 0{
+            cell.paymentInfoTopConstraint.constant = 26
+        }else{
+            cell.paymentInfoTopConstraint.constant = 5
+        }
         cell.clipsToBounds = true
         return cell
     }
@@ -165,9 +171,11 @@ extension FlightBookingsDetailsVC {
     
     func getPaidCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookingPaymentDetailsTableViewCell.reusableIdentifier, for: indexPath) as? BookingPaymentDetailsTableViewCell else { return UITableViewCell() }
-        cell.containerViewBottomConstraint.constant = 26.0
-        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.paid.delimiterWithSymbol, isLastCell: true)
-        cell.clipsToBounds = true
+        let isCellLast = (self.viewModel.bookingDetail?.totalOutStanding == 0)
+        cell.configCell(title: LocalizedString.Paid.localized, titleFont: AppFonts.Regular.withSize(16.0), titleColor: AppColors.themeBlack, isFirstCell: false, price: self.viewModel.bookingDetail?.paid.delimiterWithSymbol, isLastCell: isCellLast)
+        cell.containerViewBottomConstraint.constant = (isCellLast) ? 26.0 : 0.0
+        cell.clipsToBounds = isCellLast
+        cell.dividerView.isHidden = false
         return cell
     }
     
