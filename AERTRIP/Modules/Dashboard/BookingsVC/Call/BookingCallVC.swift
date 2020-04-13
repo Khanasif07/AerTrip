@@ -13,6 +13,7 @@ class BookingCallVC: BaseVC {
     // MARK: - IB Outlet
     
     @IBOutlet weak var topNavBar: TopNavigationView!
+    @IBOutlet weak var topDeviderView: ATDividerView!
     @IBOutlet weak var callTableView: ATTableView!
     
     // MARK: - Varibles
@@ -138,7 +139,7 @@ extension BookingCallVC: UITableViewDataSource, UITableViewDelegate {
         guard let callHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ViewProfileDetailTableViewSectionView") as? ViewProfileDetailTableViewSectionView else {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
-        
+        callHeader.topSeparatorView.isHidden = (section == 0)
         callHeader.headerLabel.text = self.viewModel.section[section]
         return callHeader
     }

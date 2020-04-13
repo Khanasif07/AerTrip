@@ -51,7 +51,7 @@ class BookingCallTableViewCell: ATTableViewCell {
         self.airportCodeLabel.isHidden = true
         switch cellType {
         case .none:
-            self.cellImageView.image = #imageLiteral(resourceName: "aertripGreenLogo")
+            self.cellImageView.image = #imageLiteral(resourceName: "upwardAertripLogo")//#imageLiteral(resourceName: "aertripGreenLogo")
             self.titleLabel.text = title
             self.phoneLabel.text = phoneLabel.count == 14 ?  phoneLabel.prefix(9) + " " + phoneLabel.suffix(5) : phoneLabel
         case .email:

@@ -128,7 +128,7 @@ class BookingInvoiceVC: BaseVC {
         discountCell.titleLabelBottomConstraint.constant = 1
         discountCell.backgroundColor = .red
         let code = self.viewModel.transectionCodes[indexPath.row]
-        discountCell.configureCell(title: code.ledgerName, amount: code.amount.delimiterWithSymbol)
+        discountCell.configureCellForInvoice(title: code.ledgerName, amount:self.getSuscriptDecimal(code.amount,fontSize: 14.0))
         return discountCell
     }
     
@@ -140,7 +140,7 @@ class BookingInvoiceVC: BaseVC {
         discountCell.titleLabelLeadingConstraint.constant = 30
         
         let code = self.viewModel.discountCodes[indexPath.row]
-        discountCell.configureCell(title: code.ledgerName, amount: code.amount.delimiterWithSymbol)
+        discountCell.configureCellForInvoice(title: code.ledgerName, amount:self.getSuscriptDecimal(code.amount,fontSize: 14.0))
         return discountCell
     }
     
@@ -280,25 +280,25 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
             headerView.delegate = self
             headerView.isDownArrow = false
             self.handleDiscountArrowAnimation(headerView)
-            
+            headerView.stackViewTopConstriant.constant = 5.5
             if let trans = self.viewModel.voucher?.transactions.filter({ $0.ledgerName.lowercased().contains("base")}).first {
                 headerView.grossFareTitleLabel.text = trans.ledgerName
-                headerView.grossPriceLabel.text = "\(trans.amount.delimiterWithSymbol)"
+                headerView.grossPriceLabel.attributedText = self.getSuscriptDecimal(trans.amount)
             }
             else {
                 headerView.grossFareTitleLabel.text = "Base Fare"
-                headerView.grossPriceLabel.text = "\(Double(0).delimiterWithSymbol)"
+                headerView.grossPriceLabel.attributedText = self.getSuscriptDecimal(0)
             }
             
             if let trans = self.viewModel.voucher?.transactions.filter({ $0.ledgerName.lowercased().contains("taxes")}).first {
                 headerView.discountContainer.isHidden = false
                 headerView.discountsTitleLabel.text = trans.ledgerName
-                headerView.discountPriceLabel.text = "\(trans.amount.delimiterWithSymbol)"
+                headerView.discountPriceLabel.attributedText = self.getSuscriptDecimal(trans.amount)
             }
             else {
                 headerView.discountContainer.isHidden = false
                 headerView.discountsTitleLabel.text = "Taxes and Fees"
-                headerView.discountPriceLabel.text = "\(Double(0).delimiterWithSymbol)"
+                headerView.discountPriceLabel.attributedText = self.getSuscriptDecimal(0)
             }
             headerView.topBackgroundView.backgroundColor = AppColors.themeWhite
             headerView.tag = section
@@ -314,17 +314,17 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
             
             if let trans = self.viewModel.voucher?.transactions.filter({ $0.ledgerName.lowercased().contains("gross")}).first {
                 headerView.grossFareTitleLabel.text = trans.ledgerName
-                headerView.grossPriceLabel.text = "\(trans.amount.delimiterWithSymbol)"
+                headerView.grossPriceLabel.attributedText = self.getSuscriptDecimal(trans.amount)
             }
             else {
                 headerView.grossFareTitleLabel.text = "Gross Fare"
-                headerView.grossPriceLabel.text = "\(Double(0).delimiterWithSymbol)"
+                headerView.grossPriceLabel.attributedText = self.getSuscriptDecimal(0)
             }
             
             if let trans = self.viewModel.voucher?.transactions.filter({ $0.ledgerName.lowercased().contains("discounts")}).first {
                 headerView.discountContainer.isHidden = false
                 headerView.discountsTitleLabel.text = trans.ledgerName
-                headerView.discountPriceLabel.text = "\(trans.amount.delimiterWithSymbol)"
+                headerView.discountPriceLabel.attributedText = self.getSuscriptDecimal(trans.amount)
             }
             else {
                 headerView.discountContainer.isHidden = true
@@ -346,7 +346,7 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
         else {
             switch section {
             case 1:
-                return 64.0
+                return 67.0
             case 2:
                 if let _ = self.viewModel.voucher?.transactions.filter({ $0.ledgerName.lowercased().contains("discounts")}).first {
                     return 64.0
@@ -401,6 +401,14 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
             }
         }
     }
+    
+    
+    func getSuscriptDecimal(_ amount:Double, fontSize:CGFloat = 16.0)-> NSAttributedString{
+        
+        let str = "\(amount.delimiterWithSymbolTill2Places)".asStylizedPrice(using: AppFonts.Regular.withSize(fontSize))
+        return str
+    }
+    
 }
 
 // MARK: - Top Navigation View Delegate methods

@@ -50,11 +50,11 @@ class FareInfoNoteTableViewCell: UITableViewCell {
     // MARK: - Helper methods
     
     private func setUpFont() {
-        self.noteLabel.font = isForBookingPolicyCell ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(14.0)
+        self.noteLabel.font = AppFonts.SemiBold.withSize(16.0)//isForBookingPolicyCell ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(14.0)
     }
     
     private func setUpTextColor() {
-        self.noteLabel.textColor = isForBookingPolicyCell ?  AppColors.themeBlack : AppColors.themeGray40
+        self.noteLabel.textColor = AppColors.themeBlack//isForBookingPolicyCell ?  AppColors.themeBlack : AppColors.themeGray40
     }
     
     
@@ -65,7 +65,8 @@ class FareInfoNoteTableViewCell: UITableViewCell {
         let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: 4.0, isForNotes: true,lineSpacing: 2.0)
         for text in notes {
             let bulletedString = NSMutableAttributedString()
-            let bulletedAttributedString: NSMutableAttributedString = NSMutableAttributedString(string: "●  ", attributes: attributesDictionary)
+            let bulletedAttributedString: NSMutableAttributedString = NSMutableAttributedString(string: "•  ", attributes: attributesDictionary)
+
             
             let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "\(text)\n", attributes: attributesDictionary)
             bulletedAttributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, bulletedAttributedString.length))

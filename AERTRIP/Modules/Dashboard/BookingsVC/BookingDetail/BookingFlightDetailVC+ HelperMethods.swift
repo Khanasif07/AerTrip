@@ -385,7 +385,7 @@ extension BookingFlightDetailVC {
                     finalCell = self.getFeeTitleCell(indexPath: indexPath, type: "Cancellation", aerline: "Airline Fee", aertrip: "Aertrip Fee")
                 }
                 else if indexPath.row == 1, let val = can.adult {
-                    // adult
+                    // adult csz
                     finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Adult", aerlineFee: val, aertripFee: info.aertripCanCharges?.adult ?? 0)
                 }
                 else if indexPath.row <= 2, let val = can.child {
