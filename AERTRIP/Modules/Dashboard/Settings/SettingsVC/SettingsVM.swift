@@ -9,7 +9,7 @@
 import UIKit
 
 class SettingsVM {
-
+    
     enum SettingsOptions : String {
         case country = "Country"
         case currency = "Currency"
@@ -31,7 +31,7 @@ class SettingsVM {
         guard let items = self.settingsDataToPopulate[key]?[index] else { return SettingsVM.SettingsOptions.aboutUs }
         return items
     }
- 
+    
     func getCountInParticularSection(section : Int) -> Int {
         guard let items = self.settingsDataToPopulate[section] else { return 0 }
         return items.count
@@ -48,5 +48,16 @@ class SettingsVM {
             return false
         }
     }
- 
+    
+    func isHeaderTopSeprator(section : Int) -> Bool {
+        return section == 0
+    }
+    
+    func getVersion() -> String {
+        guard let info = Bundle.main.infoDictionary else { return "" }
+        let appVersion = info["CFBundleShortVersionString"] as? String ?? ""
+        let appBuild = info[kCFBundleVersionKey as String] as? String ?? ""
+        return "Version " + appVersion + "(" + appBuild + ")"
+    }
+    
 }

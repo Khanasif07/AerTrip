@@ -42,13 +42,14 @@ class SettingsVC: BaseVC {
 
     override func setupTexts() {
         self.copyRightLabel.text = LocalizedString.Copyright2018AllRightsReserved.localized.replacingOccurrences(of: "2018", with: "\(Date().year)")
+        self.versionLabel.text = self.settingsVm.getVersion()
     }
         
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
         self.topNavView.delegate = self
-        self.topNavView.configureNavBar(title: LocalizedString.Settings.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false,isDivider : false)
+        self.topNavView.configureNavBar(title: LocalizedString.Settings.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false,isDivider : true)
         configureTableView()
     }
     

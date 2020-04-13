@@ -49,4 +49,8 @@ class NotificationSettingsVM {
             return false
         }
     }
+    
+    func isHeaderTopSeprator(section : Int) -> Bool {
+          return section == 0
+    }
 }

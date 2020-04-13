@@ -23,11 +23,11 @@ extension NotificationSettingsVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 35 : 0
+        return section == 0 ? 35 : CGFloat(Double.leastNonzeroMagnitude)
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return section == 0 ? 72 : 0
+        return section == 0 ? 72 : CGFloat(Double.leastNonzeroMagnitude)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -37,7 +37,7 @@ extension NotificationSettingsVC : UITableViewDelegate, UITableViewDataSource {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SettingsHeaderView") as? SettingsHeaderView else {
             fatalError("SettingsHeaderView not found")
         }
-        
+        headerView.topSepratorView.isHidden = self.notificationSettingsVm.isHeaderTopSeprator(section: section)
         headerView.titleLabel.text = ""
         return headerView
     }

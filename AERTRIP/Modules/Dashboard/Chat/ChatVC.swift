@@ -214,7 +214,6 @@ extension ChatVC : TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-//        AppFlowManager.default.moveToSettingsVC()
         let vc = ThingsCanBeAskedVC.instantiate(fromAppStoryboard: AppStoryboard.Dashboard)
         self.present(vc, animated: true, completion: nil)
     }

@@ -37,7 +37,7 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
             case 1:
                 return 54
             default:
-                return 0
+                return CGFloat(Double.leastNormalMagnitude)
         }
     }
     
@@ -48,7 +48,7 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SettingsHeaderView") as? SettingsHeaderView else {
                 fatalError("SettingsHeaderView not found")
             }
-
+            headerView.topSepratorView.isHidden = self.settingsVm.isHeaderTopSeprator(section : section)
             headerView.titleLabel.text = ""
             return headerView
         }
