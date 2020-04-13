@@ -40,7 +40,7 @@ class BookingAddOnRequestVC: BaseVC {
         }
         return false
     }
-        
+    
     // MARK: - View Life Cyle
     
     override func viewWillLayoutSubviews() {
@@ -218,7 +218,7 @@ class BookingAddOnRequestVC: BaseVC {
             }
         }
     }
-
+    
     private func addFooterView() {
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 50))
         customView.backgroundColor = AppColors.themeGray04
@@ -227,6 +227,19 @@ class BookingAddOnRequestVC: BaseVC {
 }
 
 extension BookingAddOnRequestVC: BookingAddOnRequestVMDelegate {
+    func willGetCommunicationDetail() {
+        AppGlobals.shared.startLoading()
+    }
+    
+    func getCommunicationDetailSuccess(htmlString: String, title: String) {
+        AppGlobals.shared.stopLoading()
+        AppFlowManager.default.showHTMLOnATWebView(htmlString, screenTitle: title)
+    }
+    
+    func getCommunicationDetailFail() {
+        AppGlobals.shared.stopLoading()
+    }
+    
     func makeRequestConfirmSuccess() {
         self.sendDataChangedNotification(data: ATNotification.myBookingCasesRequestStatusChanged)
         AppGlobals.shared.stopLoading()
@@ -289,9 +302,9 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             //header details
-//            if self.shouldShowMakePayment {
-//                return 2
-//            }
+            //            if self.shouldShowMakePayment {
+            //                return 2
+            //            }
             return 1
         }
         else if section == 1 {
@@ -310,9 +323,9 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             //header details
-//            if self.shouldShowMakePayment, indexPath.row == 0 {
-//                return 30.0
-//            }
+            //            if self.shouldShowMakePayment, indexPath.row == 0 {
+            //                return 30.0
+            //            }
             return UITableView.automaticDimension
         }
         else if indexPath.section == 1 {
@@ -428,9 +441,9 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         
         if indexPath.section == 0 {
             //header details
-//            if self.shouldShowMakePayment, indexPath.row == 0 {
-//                return self.getRequestStatusCell()
-//            }
+            //            if self.shouldShowMakePayment, indexPath.row == 0 {
+            //                return self.getRequestStatusCell()
+            //            }
             return self.getHeaderRouteCell()
         }
         else if indexPath.section == 1 {
@@ -445,6 +458,25 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            //header details
+            
+        }
+        else if indexPath.section == 1 {
+            //case details
+        }
+        else if let caseD = self.viewModel.caseHistory, !caseD.note.isEmpty {
+        }
+        else if let caseD = self.viewModel.caseHistory, !caseD.communications.isEmpty {
+            let commonHash = self.viewModel.caseHistory?.communications[indexPath.row].commHash ?? ""
+            let templateId = self.viewModel.caseHistory?.communications[indexPath.row].templateId ?? ""
+            let title = self.viewModel.caseHistory?.communications[indexPath.row].commDate?.toString(dateFormat: "hh:mm aa") ?? ""
+            self.viewModel.getCommunicationDetail(commonHash: commonHash, templateId: templateId, title: title)
+        }
+        
     }
 }
 

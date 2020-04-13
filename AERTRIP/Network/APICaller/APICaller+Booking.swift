@@ -534,4 +534,33 @@ extension APICaller {
             }
         }
     }
+    
+    func getcommunicationDetailAPI(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping (_ success: Bool, _ errorCodes: ErrorCodes, _ htmlData: String) -> Void) {
+        AppNetworking.GET(endPoint: APIEndPoint.communicationDetail, parameters: params, success: { [weak self] json in
+            guard let sSelf = self else { return }
+            printDebug(json)
+            sSelf.handleResponse(json, success: { sucess, jsonData in
+                if sucess, let response = jsonData[APIKeys.data.rawValue].string {
+                    print(response)
+                    completionBlock(true, [], response)
+                }
+                else {
+                    completionBlock(false, [], "")
+                }
+            }, failure: { error in
+                ATErrorManager.default.logError(forCodes: error, fromModule: .hotelsSearch)
+                completionBlock(false, error, "")
+            })
+        }) { (error) in
+            if error.code == AppNetworking.noInternetError.code {
+                AppGlobals.shared.stopLoading()
+                AppToast.default.showToastMessage(message: ATErrorManager.LocalError.noInternet.message)
+                completionBlock(false, [], "")
+            }
+            else {
+                completionBlock(false, [ATErrorManager.LocalError.requestTimeOut.rawValue], "")
+            }
+        }
+    }
 }
+

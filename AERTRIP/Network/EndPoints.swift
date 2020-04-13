@@ -107,6 +107,8 @@ enum APIEndPoint: String {
     case getTravellerEmails = "dashboard/get-traveller-emails"
     case rescheduleRequest = "reschedule/request"
     case addOnRequest = "addon/request"
+    case communicationDetail = "dashboard/communication-detail"
+
     // Final Checkout
     
     // ACCOUNT

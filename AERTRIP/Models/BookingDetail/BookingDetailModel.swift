@@ -2016,7 +2016,40 @@ struct Transaction {
     }
     
     static func models(jsonArr: [JSONDictionary]) -> [Transaction] {
-        return jsonArr.map { Transaction(json: $0) }
+        if let firstObject = jsonArr.first {
+            if let firstKey = firstObject.keys.first, let _ = firstObject[firstKey] as? JSONDictionary {
+                var temp: [Transaction] = []
+                _ = jsonArr.map {
+                    for key in Array($0.keys) {
+                    if let data = $0[key] as? JSONDictionary {
+                        var newData = data
+                        newData["ledger_name"] = key
+                        temp.append(Transaction(json: newData))
+                    }
+                    }
+                }
+                return temp
+            } else {
+                return jsonArr.map { Transaction(json: $0) }
+
+            }
+        }
+        return []
+//        if jsonArr.count == 1 {
+//        return jsonArr.map { Transaction(json: $0) }
+//        } else {
+//        var temp: [Transaction] = []
+//        _ = jsonArr.map {
+//            for key in Array($0.keys) {
+//            if let data = $0[key] as? JSONDictionary {
+//                var newData = data
+//                newData["ledger_name"] = key
+//                temp.append(Transaction(json: newData))
+//            }
+//            }
+//        }
+//        return temp
+//        }
     }
     
     static func models(json: JSONDictionary) -> [Transaction] {

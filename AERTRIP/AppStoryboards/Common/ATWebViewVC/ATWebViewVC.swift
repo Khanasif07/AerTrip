@@ -30,6 +30,7 @@ class ATWebViewVC: BaseVC {
     //MARK:- Public
     var urlToLoad: URL?
     var navTitle: String = AppConstants.kAppName
+    var htmlString: String?
     
     //MARK:- Private
     private var webView: WKWebView!
@@ -42,7 +43,11 @@ class ATWebViewVC: BaseVC {
         topNavView.delegate = self
         
         //create webView
-        self.loadUrl()
+        if let _ = self.urlToLoad {
+            self.loadUrl()
+        } else if let _ = self.htmlString {
+            self.loadhtml()
+        }
         webView.navigationDelegate = self
     }
     
@@ -60,6 +65,14 @@ class ATWebViewVC: BaseVC {
         }
         
         webView.load(URLRequest(url: url))
+    }
+    
+    private func loadhtml() {
+        guard let html = htmlString else {
+            fatalError("There is not url to load")
+        }
+        
+        webView.loadHTMLString(html, baseURL: nil)
     }
     
     //MARK:- Public

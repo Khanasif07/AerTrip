@@ -336,6 +336,7 @@ class HotelResultVC: BaseVC {
         statusBarBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: statusBarHeight))
         statusBarBlurView.effect = UIBlurEffect(style: .prominent)
         self.navigationController?.view.addSubview(statusBarBlurView)
+        statusBarBlurView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
         
     }
     // MARK: - Methods

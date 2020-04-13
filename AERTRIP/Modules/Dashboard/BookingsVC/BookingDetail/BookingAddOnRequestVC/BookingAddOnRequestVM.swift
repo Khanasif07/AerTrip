@@ -17,6 +17,10 @@ protocol BookingAddOnRequestVMDelegate: class {
     
     func getAddonPaymentItinerarySuccess()
     func getAddonPaymentItineraryFail()
+    
+    func willGetCommunicationDetail()
+    func getCommunicationDetailSuccess(htmlString: String, title: String)
+    func getCommunicationDetailFail()
 }
 
 class BookingAddOnRequestVM {
@@ -117,4 +121,21 @@ class BookingAddOnRequestVM {
             }
         }
     }
+    
+    func getCommunicationDetail(commonHash: String, templateId: String, title: String) {
+        self.delegate?.willGetCommunicationDetail()
+        let params = ["comm_hash": commonHash,"template_id": templateId]
+        APICaller.shared.getcommunicationDetailAPI(params: params) {[weak self] (success, errors, htmlString) in
+            if success {
+                self?.delegate?.getCommunicationDetailSuccess(htmlString: htmlString, title: title)
+            }
+            else {
+                self?.delegate?.getCommunicationDetailFail()
+                AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+                
+            }
+        }
+    }
+    
 }
+

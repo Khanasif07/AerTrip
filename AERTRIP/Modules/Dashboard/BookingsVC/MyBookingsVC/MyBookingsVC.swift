@@ -21,6 +21,12 @@ class MyBookingsVC: BaseVC {
     
     private var previousOffset = CGPoint.zero
     private var isBookingApiRunned = false
+    private var statusBarBlurView : UIVisualEffectView!
+    private var headerBlurView : UIVisualEffectView!
+    private var statusBarHeight : CGFloat {
+        return UIApplication.shared.isStatusBarHidden ? CGFloat(0) : UIApplication.shared.statusBarFrame.height
+    }
+    
     // Mark:- IBOutlets
     //================
     @IBOutlet weak var topNavBar: TopNavigationView! {
@@ -33,7 +39,7 @@ class MyBookingsVC: BaseVC {
     @IBOutlet weak var searchBarContainerView: UIView!
     @IBOutlet weak var searchBar: ATSearchBar! {
         didSet {
-            self.searchBar.backgroundColor = AppColors.screensBackground.color
+            self.searchBar.backgroundColor = AppColors.clear
             self.searchBar.placeholder = LocalizedString.search.localized
             self.searchBar.delegate = self
         }
@@ -42,7 +48,7 @@ class MyBookingsVC: BaseVC {
     @IBOutlet weak var emptyStateImageView: UIImageView!
     @IBOutlet weak var emptyStateTitleLabel: UILabel!
     @IBOutlet weak var emptyStateSubTitleLabel: UILabel!
-    
+    @IBOutlet weak var blurBackgroundView: UIView!
     
     // Mark:- LifeCycle
     
@@ -76,13 +82,7 @@ class MyBookingsVC: BaseVC {
         self.parchmentView?.view.frame = self.childContainerView.bounds
         self.parchmentView?.loadViewIfNeeded()
     }
-    
-    override func setupTexts() {
-        self.emptyStateImageView.image = #imageLiteral(resourceName: "booking_Emptystate")
-        self.emptyStateTitleLabel.text = LocalizedString.NoBookingsYet.localized
-        self.emptyStateSubTitleLabel.text = LocalizedString.StartYourWanderlustJourneyWithUs.localized
-    }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if !isBookingApiRunned {
@@ -90,6 +90,26 @@ class MyBookingsVC: BaseVC {
             MyBookingsVM.shared.getBookings()
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addCustomBackgroundBlurView()
+        self.statusBarColor = AppColors.clear
+        self.statusBarStyle = .default
+    }
+        
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.statusBarColor = AppColors.clear
+        self.headerBlurView.removeFromSuperview()
+        self.statusBarBlurView.removeFromSuperview()
+    }
+    
+    override func setupTexts() {
+        self.emptyStateImageView.image = #imageLiteral(resourceName: "booking_Emptystate")
+        self.emptyStateTitleLabel.text = LocalizedString.NoBookingsYet.localized
+        self.emptyStateSubTitleLabel.text = LocalizedString.StartYourWanderlustJourneyWithUs.localized
+    }
+    
     override func setupFonts() {
         self.topNavBar.navTitleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.emptyStateTitleLabel.font = AppFonts.Regular.withSize(22.0)
@@ -100,6 +120,8 @@ class MyBookingsVC: BaseVC {
         self.emptyStateTitleLabel.textColor = AppColors.themeBlack
         self.emptyStateSubTitleLabel.textColor = AppColors.themeGray60
         self.topNavBar.navTitleLabel.textColor = AppColors.textFieldTextColor51
+        self.searchBarContainerView.backgroundColor = AppColors.clear
+        self.childContainerView.backgroundColor = AppColors.clear
     }
     
     override func bindViewModel() {
@@ -155,6 +177,9 @@ class MyBookingsVC: BaseVC {
         
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
+        
+        self.parchmentView?.menuBackgroundColor = UIColor.clear
+        self.parchmentView?.collectionView.backgroundColor = UIColor.clear
     }
     
     
@@ -229,6 +254,22 @@ class MyBookingsVC: BaseVC {
         self.childContainerView.isHidden = true
         self.searchBarContainerView.isHidden = true
     }
+    
+    func addCustomBackgroundBlurView(){
+            
+            headerBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: blurBackgroundView.height))
+            headerBlurView.effect = UIBlurEffect(style: .prominent)
+            headerBlurView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
+            
+            blurBackgroundView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
+            blurBackgroundView.addSubview(headerBlurView)
+            
+            statusBarBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: statusBarHeight))
+            statusBarBlurView.effect = UIBlurEffect(style: .prominent)
+            self.navigationController?.view.addSubview(statusBarBlurView)
+        statusBarBlurView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
+            
+        }
 }
 
 
