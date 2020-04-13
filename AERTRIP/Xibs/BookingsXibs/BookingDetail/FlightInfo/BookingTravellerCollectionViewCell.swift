@@ -94,10 +94,11 @@ class BookingTravellerCollectionViewCell: UICollectionViewCell {
 //        }
         self.travellerFirstNameLabel.text = self.paxData?.firstName ?? ""
         self.travellerLastNameLabel.text = self.paxData?.lastName ?? ""
-        self.travellerAgeLabel.text = AppGlobals.shared.getAgeLastString(dob: self.paxData?.dob ?? "", formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+        let ageYear = AppGlobals.shared.getAgeLastString(dob: self.paxData?.dob ?? "", formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+        self.travellerAgeLabel.text = ageYear
         lastNameAgeContainer.isHidden = (((self.paxData?.lastName ?? "").isEmpty) && ((self.paxData?.dob ?? "").isEmpty))
         self.travellerLastNameLabel.isHidden = (self.paxData?.lastName ?? "").isEmpty
-        self.travellerAgeLabel.isHidden = (self.paxData?.dob ?? "").isEmpty
+        self.travellerAgeLabel.isHidden = (self.paxData?.dob ?? "").isEmpty || ageYear.replacingOccurrences(of: " ", with: "").isEmpty
         
         let placeImage = AppGlobals.shared.getImageFor(firstName: self.paxData?.firstName, lastName: self.paxData?.lastName, font: AppFonts.Regular.withSize(35.0),backGroundColor: AppColors.blueGray)
         if self.paxData?.profileImage.isEmpty ?? false {

@@ -461,8 +461,8 @@ extension BookingDetailModel {
 //    Total cost of booking - Total amount received
     
     var totalOutStanding: Double {
-//        return self.receipt?.totalAmountDue ?? 0.0
-        return 0.0
+        return self.receipt?.totalAmountDue ?? 0.0
+//        return 0.0
     }
     
     // Web checking url
