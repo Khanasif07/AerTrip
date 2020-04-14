@@ -18,6 +18,18 @@ class RequestReschedulingVM {
     
     var legsWithSelection: [Leg] = []
     var isOnlyReturn = false
+    var minimumDate:Date{
+        if isOnlyReturn{
+            let startDate = self.legsWithSelection.first?.eventStartDate ?? Date()
+            if startDate < Date(){
+                return Date()
+            }else{
+                return startDate
+            }
+        }else{
+            return Date()
+        }
+    }
     var totRefund: Double {
         return legsWithSelection.reduce(0) { $0 + ($1.selectedPaxs.reduce(0, { $0 + $1.netRefundForReschedule })) }
     }

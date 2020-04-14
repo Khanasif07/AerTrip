@@ -162,12 +162,23 @@ class BookingReschedulingVC: BaseVC {
     @IBAction func continueButtonTapped(_ sender: Any) {
         if self.viewModel.usingFor == .rescheduling {
             //rescheduling
-            AppFlowManager.default.moveToRequestReschedulingVC(onNavController: self.navigationController, legs: self.viewModel.selectedLegs)
+            AppFlowManager.default.moveToRequestReschedulingVC(onNavController: self.navigationController, legs: self.viewModel.selectedLegs, isOnlyReturn: self.checkOnlyReturnIsSelected())
         }
         else {
             //cancellation
             AppFlowManager.default.moveToReviewCancellationVC(onNavController: self.navigationController, usingAs: .flightCancellationReview, legs: self.viewModel.legsData, selectedRooms: nil)
         }
+    }
+    
+    
+    private func checkOnlyReturnIsSelected() -> Bool{
+        
+        if self.viewModel.selectedLegs.count < self.viewModel.legsData.count{
+            return !self.viewModel.selectedLegs.contains(where: {$0.legId == (self.viewModel.legsData.first?.legId ?? "")})
+        }else{
+            return false
+        }
+        
     }
     
     private func collapseCell(_ cell: BookingReschedulingPassengerAccordionTableViewCell, animated: Bool) {

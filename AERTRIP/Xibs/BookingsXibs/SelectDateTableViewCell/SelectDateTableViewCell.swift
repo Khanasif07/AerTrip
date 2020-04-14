@@ -23,6 +23,7 @@ class SelectDateTableViewCell: UITableViewCell {
     var minimumDate:Date = Date(){
         didSet{
             self.datePicker.minimumDate = minimumDate
+            self.datePicker.date = minimumDate
         }
     }
     
