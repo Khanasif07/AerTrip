@@ -17,8 +17,8 @@ class BookingInvoiceVC: BaseVC {
     // MARK: - Variables
     let viewModel = BookingInvoiceVM()
     let cellIdentifier = "FareSectionHeader"
-    var isBaseFareSectionExpanded: Bool = true
-    var isGrossFareSectionExpanded: Bool = true
+    //    var isBaseFareSectionExpanded: Bool = true
+    //    var isGrossFareSectionExpanded: Bool = true
     
     // MARK: - Override methods
     
@@ -102,18 +102,18 @@ class BookingInvoiceVC: BaseVC {
         }
     }
     
-    private func handleDiscountArrowAnimation(_ headerView: FareSectionHeader) {
+    private func handleTaxesArrowAnimation(_ headerView: FareSectionHeader) {
         let rotateTrans = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
-        if self.isBaseFareSectionExpanded {
+        if self.viewModel.isBaseFareSectionExpanded {
             headerView.arrowButton.transform = .identity
         } else {
             headerView.arrowButton.transform = rotateTrans
         }
     }
     
-    private func handleDiscountArrowAnimationforSecondSection(_ headerView: FareSectionHeader) {
+    private func handleDiscountArrowAnimation(_ headerView: FareSectionHeader) {
         let rotateTrans = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
-        if self.isGrossFareSectionExpanded {
+        if self.viewModel.isGrossFareSectionExpanded {
             headerView.arrowButton.transform = .identity
         } else {
             headerView.arrowButton.transform = rotateTrans
@@ -153,7 +153,7 @@ class BookingInvoiceVC: BaseVC {
             
             let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
             let crAttr = NSMutableAttributedString(string: " \(LocalizedString.CreditShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
-
+            
             var amount: Double = 0.0
             var ladName: String = LocalizedString.Total.localized
             if self.viewModel.isForReceipt {
@@ -165,11 +165,14 @@ class BookingInvoiceVC: BaseVC {
                 }
             }
             else {
-                if let trans = self.viewModel.voucher?.transactions.filter({ $0.ledgerName.lowercased().contains("payable")}).first {
-                    
-                    amount = trans.amount
-                    ladName = trans.ledgerName
-                }
+//                if let trans = self.viewModel.voucher?.transactions.filter({ $0.ledgerName.lowercased().contains("total")}).first {
+//
+//                    amount = trans.amount
+//                    ladName = trans.ledgerName
+//                }
+                let sectionHeader = self.viewModel.sectionHeader[indexPath.section]
+                amount = sectionHeader.amount
+                ladName = sectionHeader.title
             }
             printDebug("ladName: \(ladName)")
             totalPayableCell.totalPayableNowLabel.text = ladName
@@ -226,7 +229,7 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
         if self.viewModel.isForReceipt {
             return 3
         }
-        return 4
+        return self.viewModel.sectionHeader.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -234,10 +237,15 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
             return [2,1,3][section]
         }
         else {
-            let transC = self.isBaseFareSectionExpanded ? self.viewModel.transectionCodes.count : 0
-            let disC = self.isGrossFareSectionExpanded ? self.viewModel.discountCodes.count : 0
-            printDebug("numberOfRowsInSection \([2,transC,disC,3][section])")
-            return [2,transC,disC,3][section]
+            switch self.viewModel.sectionHeader[section].section {
+            case .taxes:
+                return self.viewModel.isBaseFareSectionExpanded ? self.viewModel.sectionHeader[section].rowCount : 0
+            case .discount:
+                return self.viewModel.isGrossFareSectionExpanded ? self.viewModel.sectionHeader[section].rowCount : 0
+            default:
+                return self.viewModel.sectionHeader[section].rowCount
+            }
+            
         }
     }
     
@@ -255,14 +263,14 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
             }
         }
         else {
-            switch indexPath.section {
-            case 0:
+            switch self.viewModel.sectionHeader[indexPath.section].section {
+            case .details:
                 return self.getCellForFirstSection(indexPath)
-            case 1:
+            case .taxes:
                 return self.getCellForSecondSection(indexPath)
-            case 2:
+            case .discount:
                 return self.getCellForThirdSection(indexPath)
-            case 3:
+            case .total:
                 return self.getCellForFourthSection(indexPath)
             default:
                 return UITableViewCell()
@@ -273,70 +281,108 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if self.viewModel.isForReceipt {
             return nil
-        }
-        else if section == 1 {
+        } else  {
+            let sectionHeader = self.viewModel.sectionHeader[section]
             guard let headerView = self.invoiceTableView.dequeueReusableHeaderFooterView(withIdentifier: self.cellIdentifier) as? FareSectionHeader else {
                 fatalError("FareSectionHeader not found")
             }
             headerView.delegate = self
             headerView.isDownArrow = false
-            self.handleDiscountArrowAnimation(headerView)
-            headerView.stackViewTopConstriant.constant = 5.5
-            if let trans = self.viewModel.voucher?.transactions.filter({ $0.ledgerName.lowercased().contains("base")}).first {
-                headerView.grossFareTitleLabel.text = trans.ledgerName
-                headerView.grossPriceLabel.attributedText = self.getSuscriptDecimal(trans.amount)
-            }
-            else {
-                headerView.grossFareTitleLabel.text = "Base Fare"
-                headerView.grossPriceLabel.attributedText = self.getSuscriptDecimal(0)
-            }
-            
-            if let trans = self.viewModel.voucher?.transactions.filter({ $0.ledgerName.lowercased().contains("taxes")}).first {
-                headerView.discountContainer.isHidden = false
-                headerView.discountsTitleLabel.text = trans.ledgerName
-                headerView.discountPriceLabel.attributedText = self.getSuscriptDecimal(trans.amount)
-            }
-            else {
-                headerView.discountContainer.isHidden = false
-                headerView.discountsTitleLabel.text = "Taxes and Fees"
-                headerView.discountPriceLabel.attributedText = self.getSuscriptDecimal(0)
-            }
+            headerView.discountContainer.isHidden = true
+            headerView.topStackView.isHidden = false
+
+            //headerView.stackViewTopConstriant.constant = 5.5
             headerView.topBackgroundView.backgroundColor = AppColors.themeWhite
             headerView.tag = section
-            return headerView
             
-        } else if section == 2 {
-            guard let headerView = self.invoiceTableView.dequeueReusableHeaderFooterView(withIdentifier: self.cellIdentifier) as? FareSectionHeader else {
-                fatalError("FareSectionHeader not found")
+            func showDataOnTopHeader() {
+                headerView.grossFareTitleLabel.text = sectionHeader.title
+                headerView.grossPriceLabel.attributedText = self.getSuscriptDecimal(sectionHeader.amount)
             }
-            headerView.arrowButton.transform = CGAffineTransform(rotationAngle: CGFloat(2 * Double.pi))
-            headerView.isDownArrow = false
-            self.handleDiscountArrowAnimationforSecondSection(headerView)
-            
-            if let trans = self.viewModel.voucher?.transactions.filter({ $0.ledgerName.lowercased().contains("gross")}).first {
-                headerView.grossFareTitleLabel.text = trans.ledgerName
-                headerView.grossPriceLabel.attributedText = self.getSuscriptDecimal(trans.amount)
-            }
-            else {
-                headerView.grossFareTitleLabel.text = "Gross Fare"
-                headerView.grossPriceLabel.attributedText = self.getSuscriptDecimal(0)
-            }
-            
-            if let trans = self.viewModel.voucher?.transactions.filter({ $0.ledgerName.lowercased().contains("discounts")}).first {
+            func showDataOnBottomHeader() {
+                headerView.topStackView.isHidden = true
                 headerView.discountContainer.isHidden = false
-                headerView.discountsTitleLabel.text = trans.ledgerName
-                headerView.discountPriceLabel.attributedText = self.getSuscriptDecimal(trans.amount)
-            }
-            else {
-                headerView.discountContainer.isHidden = true
+                headerView.discountsTitleLabel.text = sectionHeader.title
+                headerView.discountPriceLabel.attributedText = self.getSuscriptDecimal(sectionHeader.amount)
             }
             
-            headerView.delegate = self
-            headerView.topBackgroundView.backgroundColor = AppColors.themeWhite
-            headerView.tag = section
+            switch sectionHeader.section {
+            case .details,.total: return nil
+            case .taxes:
+                self.handleTaxesArrowAnimation(headerView)
+                showDataOnBottomHeader()
+            case .discount:
+                self.handleDiscountArrowAnimation(headerView)
+                showDataOnBottomHeader()
+            default:
+                showDataOnTopHeader()
+            }
             return headerView
         }
-        
+        /*
+         if section == 1 {
+         guard let headerView = self.invoiceTableView.dequeueReusableHeaderFooterView(withIdentifier: self.cellIdentifier) as? FareSectionHeader else {
+         fatalError("FareSectionHeader not found")
+         }
+         headerView.delegate = self
+         headerView.isDownArrow = false
+         self.handleDiscountArrowAnimation(headerView)
+         headerView.stackViewTopConstriant.constant = 5.5
+         if let trans = self.viewModel.voucher?.transactions.filter({ $0.ledgerName.lowercased().contains("base")}).first {
+         headerView.grossFareTitleLabel.text = trans.ledgerName
+         headerView.grossPriceLabel.attributedText = self.getSuscriptDecimal(trans.amount)
+         }
+         else {
+         headerView.grossFareTitleLabel.text = "Base Fare"
+         headerView.grossPriceLabel.attributedText = self.getSuscriptDecimal(0)
+         }
+         
+         if let trans = self.viewModel.voucher?.transactions.filter({ $0.ledgerName.lowercased().contains("taxes")}).first {
+         headerView.discountContainer.isHidden = false
+         headerView.discountsTitleLabel.text = trans.ledgerName
+         headerView.discountPriceLabel.attributedText = self.getSuscriptDecimal(trans.amount)
+         }
+         else {
+         headerView.discountContainer.isHidden = false
+         headerView.discountsTitleLabel.text = "Taxes and Fees"
+         headerView.discountPriceLabel.attributedText = self.getSuscriptDecimal(0)
+         }
+         headerView.topBackgroundView.backgroundColor = AppColors.themeWhite
+         headerView.tag = section
+         return headerView
+         
+         } else if section == 2 {
+         guard let headerView = self.invoiceTableView.dequeueReusableHeaderFooterView(withIdentifier: self.cellIdentifier) as? FareSectionHeader else {
+         fatalError("FareSectionHeader not found")
+         }
+         headerView.arrowButton.transform = CGAffineTransform(rotationAngle: CGFloat(2 * Double.pi))
+         headerView.isDownArrow = false
+         self.handleDiscountArrowAnimationforSecondSection(headerView)
+         
+         if let trans = self.viewModel.voucher?.transactions.filter({ $0.ledgerName.lowercased().contains("gross")}).first {
+         headerView.grossFareTitleLabel.text = trans.ledgerName
+         headerView.grossPriceLabel.attributedText = self.getSuscriptDecimal(trans.amount)
+         }
+         else {
+         headerView.grossFareTitleLabel.text = "Gross Fare"
+         headerView.grossPriceLabel.attributedText = self.getSuscriptDecimal(0)
+         }
+         
+         if let trans = self.viewModel.voucher?.transactions.filter({ $0.ledgerName.lowercased().contains("discounts")}).first {
+         headerView.discountContainer.isHidden = false
+         headerView.discountsTitleLabel.text = trans.ledgerName
+         headerView.discountPriceLabel.attributedText = self.getSuscriptDecimal(trans.amount)
+         }
+         else {
+         headerView.discountContainer.isHidden = true
+         }
+         
+         headerView.delegate = self
+         headerView.topBackgroundView.backgroundColor = AppColors.themeWhite
+         headerView.tag = section
+         return headerView
+         }
+         */
         return nil
     }
     
@@ -345,16 +391,9 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
             return 0
         }
         else {
-            switch section {
-            case 1:
-                return 67.0
-            case 2:
-                if let _ = self.viewModel.voucher?.transactions.filter({ $0.ledgerName.lowercased().contains("discounts")}).first {
-                    return 64.0
-                }
-                return 32.0
-            default:
-                return 0
+            switch self.viewModel.sectionHeader[section].section {
+            case .details, .total: return CGFloat.leastNormalMagnitude
+            default: return 32.0
             }
         }
     }
@@ -373,34 +412,38 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
             }
         }
         else {
-            switch indexPath.section {
-            case 0:
+            switch self.viewModel.sectionHeader[indexPath.section].section {
+            case .details:
                 return self.getHeightForRowAtFirstSection(indexPath)
-            case 1:
+            case .taxes:
                 return self.getHeightForRowAtSecondSection(indexPath)
-            case 2:
+            case .discount:
                 return self.getHeightForRowAtThirdSection(indexPath)
-            case 3:
+            case .total:
                 return self.getHeightForRowAtFourthSection(indexPath)
             default:
-                return 0
+                return CGFloat.leastNormalMagnitude
             }
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 3, indexPath.row == 2 {
-            //download invoice
-            if let bID = self.viewModel.voucher?.basic?.transactionId, !bID.isEmpty {
-                AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Booking Invoice")
+        if self.viewModel.isForReceipt {
+            if indexPath.section == 2, indexPath.row == 2 {
+                //download receipt
+                if let bID = self.viewModel.voucher?.basic?.transactionId, !bID.isEmpty {
+                    AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Receipt Voucher")
+                }
+            }
+        } else {
+            if self.viewModel.sectionHeader[indexPath.section].section == .total, indexPath.row == 2 {
+                //download invoice
+                if let bID = self.viewModel.voucher?.basic?.transactionId, !bID.isEmpty {
+                    AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Booking Invoice")
+                }
             }
         }
-        else if indexPath.section == 2, indexPath.row == 2 {
-            //download receipt
-            if let bID = self.viewModel.voucher?.basic?.transactionId, !bID.isEmpty {
-                AppGlobals.shared.viewPdf(urlPath: "\(APIEndPoint.baseUrlPath.path)dashboard/download-voucher?id=\(bID)", screenTitle: "Receipt Voucher")
-            }
-        }
+        
     }
     
     
@@ -422,18 +465,18 @@ extension BookingInvoiceVC: TopNavigationViewDelegate {
 
 extension BookingInvoiceVC: FareSectionHeaderDelegate {
     func headerViewTapped(_ view: UITableViewHeaderFooterView) {
-        let section = view.tag
-        if section == 1 {
-            if self.isBaseFareSectionExpanded {
-                self.isBaseFareSectionExpanded = false
+        let section = self.viewModel.sectionHeader[view.tag].section
+        if section == .taxes {
+            if self.viewModel.isBaseFareSectionExpanded {
+                self.viewModel.isBaseFareSectionExpanded = false
             } else {
-                self.isBaseFareSectionExpanded = true
+                self.viewModel.isBaseFareSectionExpanded = true
             }
-        } else if section == 2 {
-            if self.isGrossFareSectionExpanded {
-                self.isGrossFareSectionExpanded = false
+        } else if section == .discount {
+            if self.viewModel.isGrossFareSectionExpanded {
+                self.viewModel.isGrossFareSectionExpanded = false
             } else {
-                self.isGrossFareSectionExpanded = true
+                self.viewModel.isGrossFareSectionExpanded = true
             }
         }
         self.invoiceTableView.reloadData()
