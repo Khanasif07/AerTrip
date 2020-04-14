@@ -95,13 +95,13 @@ extension RequestReschedulingVC: SelectDateTableViewCellDelegate {
     
     func updateReturnMinimumDate(indexPath: IndexPath, date:Date?){
         
-        if self.viewModel.legsWithSelection.count > 1 && indexPath.section == 0{
+        if self.viewModel.legsWithSelection.count > 1 && indexPath.section < self.viewModel.legsWithSelection.count - 1{
             let nextIndexPath = IndexPath(row: indexPath.row, section: indexPath.section + 1)
             if let cell = self.reschedulingTableView.cellForRow(at: nextIndexPath) as? SelectDateTableViewCell{
                 self.reschedulingTableView.beginUpdates()
                 cell.minimumDate = date ?? Date()
-                if let returnDate = self.viewModel.legsWithSelection[1].rescheduledDate, (returnDate < (date ?? Date())){
-                    self.viewModel.legsWithSelection[1].rescheduledDate = nil
+                if let returnDate = self.viewModel.legsWithSelection[indexPath.section + 1].rescheduledDate, (returnDate < (date ?? Date())){
+                    self.viewModel.legsWithSelection[indexPath.section + 1].rescheduledDate = nil
                     cell.selectDateTextField.text = LocalizedString.Select.localized
                 }
                 self.reschedulingTableView.endUpdates()

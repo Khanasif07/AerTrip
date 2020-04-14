@@ -22,7 +22,7 @@ extension RequestReschedulingVC {
     
     func getSelectDateTableViewCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SelectDateTableViewCell.reusableIdentifier, for: indexPath) as? SelectDateTableViewCell else { return UITableViewCell() }
-        
+        cell.minimumDate = self.viewModel.minimumDate
         cell.delegate = self
         
         return cell
