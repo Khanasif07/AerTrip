@@ -230,7 +230,6 @@ class TravelDateVC: BaseVC {
             
             self.setDateOnLabels(fromDate: fromDt ?? Date(), toDate: self.oldToDate ?? Date())
         }
-        self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
 
     }
     
@@ -261,6 +260,8 @@ class TravelDateVC: BaseVC {
         }) { _ in
         }
         if let _ = gesture.view {
+            self.oldToDate = self.toDatePicker.date
+            self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
         self.delegate?.didSelect(toDate: toDatePicker.date, forType: self.currentlyUsingAs)
         }
     }
@@ -276,6 +277,8 @@ class TravelDateVC: BaseVC {
         }) { _ in
         }
         if let _ = gesture.view {
+            self.oldFromDate = self.fromDatePicker.date
+            self.setDateOnLabels(fromDate: self.oldFromDate, toDate: self.oldToDate)
             self.delegate?.didSelect(fromDate: self.fromDatePicker.date, forType: self.currentlyUsingAs)
         }
     }
@@ -291,11 +294,13 @@ class TravelDateVC: BaseVC {
             self.oldFromDate = self.fromDatePicker.date
         }
         else {
+            self.oldFromDate = self.fromDatePicker.date
             self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
         }
         
         if self.toDatePicker.date.timeIntervalSince1970 < self.fromDatePicker.date.timeIntervalSince1970 {
             self.toDatePicker.setDate(self.fromDatePicker.date, animated: false)
+            self.oldToDate = self.toDatePicker.date
             self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
         }
         self.delegate?.didSelect(fromDate: datePicker.date, forType: self.currentlyUsingAs)
@@ -313,11 +318,13 @@ class TravelDateVC: BaseVC {
             self.oldToDate = self.toDatePicker.date
         }
         else {
+            self.oldToDate = self.toDatePicker.date
             self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
         }
         
         if self.toDatePicker.date.timeIntervalSince1970 < self.fromDatePicker.date.timeIntervalSince1970 {
             self.fromDatePicker.setDate(self.toDatePicker.date, animated: false)
+            self.oldFromDate = self.fromDatePicker.date
             self.setDateOnLabels(fromDate: self.fromDatePicker.date, toDate: self.toDatePicker.date)
         }
         
