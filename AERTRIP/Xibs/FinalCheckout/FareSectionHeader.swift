@@ -21,6 +21,7 @@ class FareSectionHeader: UITableViewHeaderFooterView {
     @IBOutlet weak var arrowTapAreaView: UIView!
     @IBOutlet weak var discountContainer: UIView!
     
+    @IBOutlet weak var topStackView: UIStackView!
     @IBOutlet weak var arrowButton: UIButton!
     @IBOutlet weak var stackViewTopConstriant: NSLayoutConstraint!
     
