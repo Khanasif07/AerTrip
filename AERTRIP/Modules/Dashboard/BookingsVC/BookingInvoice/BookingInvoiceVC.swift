@@ -171,7 +171,7 @@ class BookingInvoiceVC: BaseVC {
                     ladName = trans.ledgerName
                 }
             }
-            
+            printDebug("ladName: \(ladName)")
             totalPayableCell.totalPayableNowLabel.text = ladName
             totalPayableCell.totalPayableTextTopConstraint.constant = 8
             totalPayableCell.totalPayableTextBottomConstraint.constant = 13.0
@@ -236,6 +236,7 @@ extension BookingInvoiceVC: UITableViewDataSource, UITableViewDelegate {
         else {
             let transC = self.isBaseFareSectionExpanded ? self.viewModel.transectionCodes.count : 0
             let disC = self.isGrossFareSectionExpanded ? self.viewModel.discountCodes.count : 0
+            printDebug("numberOfRowsInSection \([2,transC,disC,3][section])")
             return [2,transC,disC,3][section]
         }
     }
