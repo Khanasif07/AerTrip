@@ -242,12 +242,15 @@
                 <outlet property="destinationFlightNameLbel" destination="zhQ-IE-XHa" id="Eei-LA-KNy"/>
                 <outlet property="destinationTerminalLabel" destination="8Ca-rM-MtW" id="RyU-Tj-zNk"/>
                 <outlet property="dottedView" destination="qWt-L6-rdy" id="rP4-Aq-hjK"/>
+                <outlet property="moonIconHeightConstraint" destination="euo-4D-Yyh" id="bNZ-ox-8MH"/>
+                <outlet property="moonIconLeadingConstraint" destination="FnI-DM-DWG" id="R7P-My-STm"/>
                 <outlet property="sourceDateLabel" destination="k0E-XZ-Zoa" id="F8A-ha-ojO"/>
                 <outlet property="sourceFlightAddressLabel" destination="iC2-gg-lSK" id="Knb-6E-0mB"/>
                 <outlet property="sourceFlightCodeLabel" destination="MhD-6q-aYz" id="0y5-bg-53s"/>
                 <outlet property="sourceFlightNameLbel" destination="0zD-fV-lK2" id="5EW-1n-YOV"/>
                 <outlet property="sourceTerminalLabel" destination="kyw-z6-oR5" id="l2z-jO-HnI"/>
                 <outlet property="travelTimeLabel" destination="D8a-U0-eqS" id="BMd-Vg-vPK"/>
+                <outlet property="travelTimeLableCenterConstraint" destination="UzP-yr-79L" id="Lyp-bI-jf6"/>
                 <outlet property="wingNameLabel" destination="Jih-fI-yom" id="gR7-7A-JPZ"/>
             </connections>
             <point key="canvasLocation" x="40.579710144927539" y="28.794642857142854"/>

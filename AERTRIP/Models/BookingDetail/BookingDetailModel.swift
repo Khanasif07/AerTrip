@@ -968,6 +968,8 @@ struct FlightDetail {
     var fbn: String = ""
     var halt: [Halt] = []
     var amenities: [ATAmenity] = []
+    var ovgtf:Bool = false
+    var ovgtlo:Bool = false
     var numberOfCellFlightInfo: Int {
         var temp: Int = 2
         
@@ -1183,6 +1185,13 @@ struct FlightDetail {
         // baggage
         if let obj = json["baggage"] as? JSONDictionary {
             self.baggage = Baggage(json: obj)
+        }
+        if let obj = json["ovgtf"] as? Bool{
+            self.ovgtf = obj
+        }
+        
+        if let obj = json["ovgtlo"] as? Bool{
+            self.ovgtlo = obj
         }
         
         // TODO: parse the real data for amenities

@@ -17,7 +17,7 @@ protocol RequestReschedulingVMDelegate: class {
 class RequestReschedulingVM {
     
     var legsWithSelection: [Leg] = []
-    
+    var isOnlyReturn = false
     var totRefund: Double {
         return legsWithSelection.reduce(0) { $0 + ($1.selectedPaxs.reduce(0, { $0 + $1.netRefundForReschedule })) }
     }

@@ -88,8 +88,24 @@ extension RequestReschedulingVC: HCSpecialRequestTextfieldCellDelegate {
 
 extension RequestReschedulingVC: SelectDateTableViewCellDelegate {
     func didSelect(_ sender: SelectDateTableViewCell, date: Date?) {
-        if let indexPath = self.reschedulingTableView.indexPath(for: sender) {
-            self.viewModel.legsWithSelection[indexPath.section].rescheduledDate = date
+        guard let indexPath = self.reschedulingTableView.indexPath(for: sender) else{return}
+        self.viewModel.legsWithSelection[indexPath.section].rescheduledDate = date
+        self.updateReturnMinimumDate(indexPath: indexPath, date: date)
+    }
+    
+    func updateReturnMinimumDate(indexPath: IndexPath, date:Date?){
+        
+        if self.viewModel.legsWithSelection.count > 1 && indexPath.section == 0{
+            let nextIndexPath = IndexPath(row: indexPath.row, section: indexPath.section + 1)
+            if let cell = self.reschedulingTableView.cellForRow(at: nextIndexPath) as? SelectDateTableViewCell{
+                self.reschedulingTableView.beginUpdates()
+                cell.minimumDate = date ?? Date()
+                if let returnDate = self.viewModel.legsWithSelection[1].rescheduledDate, (returnDate < (date ?? Date())){
+                    self.viewModel.legsWithSelection[1].rescheduledDate = nil
+                    cell.selectDateTextField.text = LocalizedString.Select.localized
+                }
+                self.reschedulingTableView.endUpdates()
+            }
         }
     }
 }

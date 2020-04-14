@@ -92,7 +92,7 @@ extension BookingFlightDetailVC {
             }
             
             fligthTimeLocationInfoCell.flightDetail = flight
-            
+            fligthTimeLocationInfoCell.isMoonIConNeedToHide = !flight.ovgtf
             return fligthTimeLocationInfoCell
         }
         

@@ -35,6 +35,9 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var travelTimeLabel: UILabel!
     @IBOutlet weak var dottedView: UIView!
     @IBOutlet weak var wingNameLabel: UILabel!
+    @IBOutlet weak var moonIconHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var moonIconLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var travelTimeLableCenterConstraint: NSLayoutConstraint!
     
     var flightDetail: FlightDetail? {
         didSet {
@@ -43,6 +46,12 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
     }
     
     private let defaultStr = ""//LocalizedString.na.localized
+    
+    var isMoonIConNeedToHide:Bool = false{
+        didSet{
+            configureMoonIcon()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -180,6 +189,13 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
         // Travel Time
         self.travelTimeLabel.textColor = AppColors.themeGray60
         self.wingNameLabel.textColor = AppColors.themeGray40
+    }
+ 
+    
+    func configureMoonIcon(){
+        moonIconHeightConstraint.constant = (isMoonIConNeedToHide) ? 0.0 : 12.0
+        moonIconLeadingConstraint.constant = (isMoonIConNeedToHide) ? 0.0 : 5.0
+        travelTimeLableCenterConstraint.constant = (isMoonIConNeedToHide) ? 0.0 : 8.5
     }
     
 }

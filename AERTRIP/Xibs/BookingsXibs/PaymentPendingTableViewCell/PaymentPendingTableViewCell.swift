@@ -26,6 +26,12 @@ class PaymentPendingTableViewCell: UITableViewCell {
         self.configUI()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.configUI()
+    }
+    
+    
     //MARK:- Functions
     //MARK:===========
     private func configUI() {
@@ -34,12 +40,8 @@ class PaymentPendingTableViewCell: UITableViewCell {
         
         //Color
         self.priceLabel.textColor = AppColors.themeWhite
-        
-        //        self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.5, shadowRadius: 6.0)
-        
-//        self.containerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner ,.layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize.zero, opacity: 0.7, shadowRadius: 1.5)
         self.containerView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.7, shadowRadius: 5.0)
-        self.gradiyentView.addGredient(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue])
+        self.gradiyentView.addGredientWithScreenWidth(isVertical: true, cornerRadius: 0.0, colors: [AppColors.themeGreen, AppColors.shadowBlue], spacing: 16.0)
         self.gradiyentView.roundBottomCorners(cornerRadius: 10.0)
         
     }

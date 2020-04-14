@@ -20,6 +20,11 @@ class SelectDateTableViewCell: UITableViewCell {
     private var datePicker = UIDatePicker()
     var genericPickerView: UIView = UIView()
     let pickerSize: CGSize = UIPickerView.pickerSize
+    var minimumDate:Date = Date(){
+        didSet{
+            self.datePicker.minimumDate = minimumDate
+        }
+    }
     
     //MARK:- IBOutlets
     //MARK:===========
@@ -79,8 +84,8 @@ class SelectDateTableViewCell: UITableViewCell {
         doneButton.setTitleTextAttributes(greenAttribute , for: .normal)
         toolbar.setItems([spaceButton,doneButton], animated: true)
 //        self.datePicker.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.height - pickerViewHeight, width: UIScreen.main.bounds.width , height: pickerViewHeight)
-        self.datePicker.minimumDate = Date()
-        self.datePicker.maximumDate = Date().add(years: 1, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0)
+        self.datePicker.minimumDate = minimumDate
+        self.datePicker.maximumDate = Date().add(years: 1, months: 0, days: -1, hours: 0, minutes: 0, seconds: 0)
         self.datePicker.datePickerMode = .date
         self.datePicker.backgroundColor = AppColors.themeWhite
         
@@ -111,7 +116,7 @@ class SelectDateTableViewCell: UITableViewCell {
     
     @objc func datePickerValueChanged (_ datePicker: UIDatePicker) {
         self.selectDateTextField.text = datePicker.date.toString(dateFormat: "dd MMM YYYY")
-        self.delegate?.didSelect(self, date: datePicker.date)
+//        self.delegate?.didSelect(self, date: datePicker.date)
     }
 }
 

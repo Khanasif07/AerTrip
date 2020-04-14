@@ -724,9 +724,10 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToRequestReschedulingVC(onNavController: UINavigationController?, legs: [Leg]) {
+    func moveToRequestReschedulingVC(onNavController: UINavigationController?, legs: [Leg], isOnlyReturn:Bool = false) {
         let obj = RequestReschedulingVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.legsWithSelection = legs
+        obj.viewModel.isOnlyReturn = isOnlyReturn
         (onNavController ?? self.mainNavigationController).pushViewController(obj, animated: true)
     }
     
