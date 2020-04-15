@@ -42,7 +42,7 @@ class BookingFlightDetailVC: BaseVC {
         delay(seconds: 0.3) { [weak self] in
                 self?.tableView.scrollToRow(at: IndexPath(row: 0, section: self?.viewModel.legSectionTap ?? 0), at: .top, animated: false)
         }
-        self.tableView.backgroundColor = AppColors.themeWhite
+//        self.tableView.backgroundColor = AppColors.themeWhite
         self.viewModel.getBookingFees()
     }
     
@@ -91,6 +91,7 @@ class BookingFlightDetailVC: BaseVC {
         var frame = CGRect.zero
         frame.size.height = .leastNormalMagnitude
         self.tableView.tableHeaderView = UIView(frame: frame)
+        self.tableView.backgroundColor = AppColors.themeGray04
         
         self.tableView.register(UINib(nibName: self.headerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.headerViewIdentifier)
         self.tableView.register(UINib(nibName: self.fareInfoHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.fareInfoHeaderViewIdentifier)
@@ -131,7 +132,7 @@ class BookingFlightDetailVC: BaseVC {
         default:
             printDebug("Tapped")
         }
-        self.tableView.backgroundColor = AppColors.themeWhite
+//        self.tableView.backgroundColor = AppColors.themeWhite
         self.reloadDetails()
     }
     

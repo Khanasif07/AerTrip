@@ -89,7 +89,9 @@ class BookingDetailVM {
                     }
                     
                     if flight.layoverTime > 0 {
-                        temp.append(.layover)
+                        if flight.ovgtlo {
+                            temp.append(.layover)
+                        }
                     }
                 }
                 temp.append(.paxData)
@@ -131,7 +133,9 @@ class BookingDetailVM {
                 
                 if flight.layoverTime > 0 {
                     let isLast = ((flight.baggage?.checkInBg?.notes ?? "").isEmpty)
-                    temp.append(.layover(isLast: isLast))
+                    if flight.ovgtlo {
+                        temp.append(.layover(isLast: isLast))
+                    }
                 }
                 
                 if let nt = flight.baggage?.checkInBg?.notes, !nt.isEmpty {

@@ -113,6 +113,8 @@ extension BookingFlightDetailVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("BookingInfoFooterView not found")
         }
         
+        let totalSection = self.numberOfSections(in: self.tableView) - 1
+        footerView.bottomDividerView.isHidden = totalSection == section
         return footerView
     }
     
@@ -168,7 +170,7 @@ extension BookingFlightDetailVC: UITableViewDataSource, UITableViewDelegate {
 extension BookingFlightDetailVC: BaggageAirlineInfoTableViewCellDelegate {
     func dimensionButtonTapped(_ dimensionButton: UIButton) {
         printDebug("Dimension Button Tapped ")
-        var detail: CabinBgInfo?
+        var detail: BaggageInfo?
         if let cell = self.tableView.cell(forItem: dimensionButton) as? BaggageAirlineInfoTableViewCell {
             if let obj = cell.flightDetail?.baggage?.cabinBg?.infant {
                 detail = obj

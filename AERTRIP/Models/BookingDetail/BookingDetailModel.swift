@@ -978,7 +978,9 @@ struct FlightDetail {
         }
         
         if self.layoverTime > 0 {
+            if ovgtlo {
             temp += 1
+            }
         }
         return temp
     }
@@ -1281,9 +1283,9 @@ struct Baggage {
 
 // Structure for baggage
 struct CheckInBg {
-    var infant: String?
-    var child: String?
-    var adult: String?
+    var infant: BaggageInfo?
+    var child: BaggageInfo?
+    var adult: BaggageInfo?
     var notes: String = ""
     
     init() {
@@ -1291,16 +1293,16 @@ struct CheckInBg {
     }
     
     init(json: JSONDictionary) {
-        if let obj = json["ADT"] {
-            self.adult = "\(obj)".removeNull
+        if let obj = json["ADT"] as? JSONDictionary {
+            self.adult = BaggageInfo(json: obj)
         }
         
-        if let obj = json["CHD"] {
-            self.child = "\(obj)".removeNull
+        if let obj = json["CHD"] as? JSONDictionary {
+            self.child = BaggageInfo(json: obj)
         }
         
-        if let obj = json["INF"] {
-            self.infant = "\(obj)".removeNull
+        if let obj = json["INF"] as? JSONDictionary {
+            self.infant = BaggageInfo(json: obj)
         }
         
         if let obj = json["notes"] {
@@ -1312,9 +1314,9 @@ struct CheckInBg {
 // Structure for Cbg
 
 struct CabinBg {
-    var infant: CabinBgInfo?
-    var child: CabinBgInfo?
-    var adult: CabinBgInfo?
+    var infant: BaggageInfo?
+    var child: BaggageInfo?
+    var adult: BaggageInfo?
     
     init() {
         self.init(json: [:])
@@ -1322,24 +1324,27 @@ struct CabinBg {
     
     init(json: JSONDictionary) {
         if let obj = json["ADT"] as? JSONDictionary {
-            self.adult = CabinBgInfo(json: obj)
+            self.adult = BaggageInfo(json: obj)
         }
         
         if let obj = json["CHD"] as? JSONDictionary {
-            self.child = CabinBgInfo(json: obj)
+            self.child = BaggageInfo(json: obj)
         }
         
         if let obj = json["INF"] as? JSONDictionary {
-            self.infant = CabinBgInfo(json: obj)
+            self.infant = BaggageInfo(json: obj)
         }
     }
 }
 
-struct CabinBgInfo {
+struct BaggageInfo {
     var weight: String = ""
     var piece: String = "" // Now its coming as null, what does this mean
+    var maxPieces: String = ""
+    var maxWeight: String = ""
+    var note: String = ""
     var dimension: Dimension?
-    
+
     init() {
         self.init(json: [:])
     }
@@ -1348,10 +1353,18 @@ struct CabinBgInfo {
         if let obj = json["weight"] {
             self.weight = "\(obj)".removeNull
         }
-        
-        if let obj = json["piece"] {
+        if let obj = json["pieces"] {
             self.piece = "\(obj)".removeNull
-            self.piece = self.piece.isEmpty ? "1" : self.piece
+//            self.piece = self.piece.isEmpty ? "1" : self.piece
+        }
+        if let obj = json["max_weight"] {
+            self.maxWeight = "\(obj)".removeNull
+        }
+        if let obj = json["max_pieces"] {
+            self.maxPieces = "\(obj)".removeNull
+        }
+        if let obj = json["note"] {
+            self.note = "\(obj)".removeNull
         }
         
         if let obj = json["dimension"] as? JSONDictionary {
