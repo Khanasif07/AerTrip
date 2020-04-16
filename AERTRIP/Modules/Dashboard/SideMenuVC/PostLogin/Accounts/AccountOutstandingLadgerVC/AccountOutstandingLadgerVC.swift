@@ -47,6 +47,7 @@ class AccountOutstandingLadgerVC: BaseVC {
     @IBOutlet weak var loaderContainer: UIView!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     @IBOutlet weak var subHeaderTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var gradientView: UIView!
     
     //MARK:- Properties
     //MARK:- Public
@@ -79,13 +80,20 @@ class AccountOutstandingLadgerVC: BaseVC {
     
     //MARK:- ViewLifeCycle
     //MARK:-
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.gradientView.addGredient(isVertical: false)
+    }
+    
     override func initialSetup() {
         
         tableView.delegate = self
         tableView.dataSource = self
         
-        self.loaderContainer.addGredient(isVertical: false)
         
+        self.loaderContainer.backgroundColor = .clear
+        self.makePaymentContainerView.backgroundColor = .clear
         self.topNavView.delegate = self
         
         //add search view in tableView header
@@ -172,7 +180,6 @@ class AccountOutstandingLadgerVC: BaseVC {
         
         self.makePaymentTitleLabel.textColor = AppColors.themeWhite
         
-        self.makePaymentContainerView.addGredient(isVertical: false)
         self.makePaymentContainerView.addShadow(cornerRadius: 0.0, shadowColor: AppColors.themeGreen, backgroundColor: AppColors.clear, offset: CGSize(width: 0.0, height: 12.0))
     }
     

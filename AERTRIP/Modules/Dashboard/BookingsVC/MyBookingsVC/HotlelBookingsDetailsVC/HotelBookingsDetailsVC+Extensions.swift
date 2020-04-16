@@ -403,7 +403,15 @@ extension HotlelBookingsDetailsVC: FlightsOptionsTableViewCellDelegate {
     func addToCalender() {
         if let start = self.viewModel.bookingDetail?.bookingDetail?.eventStartingDate, let end = self.viewModel.bookingDetail?.bookingDetail?.evenEndingDate {
             let bId = self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? ""
-            AppGlobals.shared.addEventToCalender(title: "Hotel Booking: \(bId)", startDate: start, endDate: end, notes: "You've a booking in '\(self.navigationTitleText)' hotel.\nFor reference you booking id is '\(self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? "")'", uniqueId: bId)
+            
+            let title = "Hotel: \(self.viewModel.bookingDetail?.bookingDetail?.hotelName ?? ""), \(self.viewModel.bookingDetail?.bookingDetail?.city ?? "")"
+            let location = self.viewModel.bookingDetail?.bookingDetail?.hotelAddress ?? ""
+            let bookingId = "Booking Id: \(self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? "")"
+            let confirmationCode = "Confirmation Code: \(self.viewModel.bookingDetail?.bookingDetail?.bookingId ?? "")"
+            // confirmation code pending to append
+            let notes = bookingId //+ "\n \(confirmationCode)"
+            
+            AppGlobals.shared.addEventToCalender(title: title, startDate: start, endDate: end, location: location,  notes: notes, uniqueId: bId)
         }
     }
     

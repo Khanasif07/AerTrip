@@ -85,8 +85,7 @@ class AccountDetailsVC: BaseVC {
     //MARK:-
     override func initialSetup() {
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        
         
         self.manageSubView()
         let navTitle = (self.currentUsingAs == .account) ? LocalizedString.Accounts.localized : LocalizedString.AccountLegder.localized
@@ -128,7 +127,7 @@ class AccountDetailsVC: BaseVC {
         
         self.manageHeader(animated: false)
         
-        delay(seconds: 0.8) { [weak self] in
+        delay(seconds: 0.4) { [weak self] in
             self?.getAccountDetailsSuccess()
         }
     }
@@ -266,6 +265,8 @@ class AccountDetailsVC: BaseVC {
     //MARK:- Public
     func reloadList() {
         
+        tableView.delegate = self
+        tableView.dataSource = self
         self.setupHeaderFooterText()
 
         self.tableView.backgroundView = (self.currentViewState == .filterApplied) ? self.noAccountResultView : self.noAccountTransectionView

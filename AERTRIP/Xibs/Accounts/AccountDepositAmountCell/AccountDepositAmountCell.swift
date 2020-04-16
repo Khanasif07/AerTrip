@@ -40,6 +40,8 @@ class AccountDepositAmountCell: UITableViewCell {
 
         self.setFontAndColor()
         self.amountTextField.addTarget(self, action: #selector(self.textFieldDidEndEditing(_:)), for: .editingDidEnd)
+        self.amountTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+
     }
     
     override func prepareForReuse() {
@@ -55,6 +57,10 @@ class AccountDepositAmountCell: UITableViewCell {
             self.delegate?.amountDidChanged(amount: amt, amountString: txt)
         }
     }
+    
+    @objc private func textFieldDidChange(_ sender: UITextField) {
+        self.amountTextField.backgroundColor = .clear
+       }
     
     private func setData() {
         self.amountTextField.text = amount.delimiterWithoutSymbol

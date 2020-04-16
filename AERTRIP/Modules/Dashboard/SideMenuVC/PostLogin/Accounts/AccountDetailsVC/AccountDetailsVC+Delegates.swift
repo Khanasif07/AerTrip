@@ -29,7 +29,7 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return AppFonts.SemiBold.withSize(16.0).lineHeight + 32.0
+        return section == 0 ? 44 : 46
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -47,8 +47,8 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
         }
         headerView.dateLabel.text = titleStr
         headerView.parentView.backgroundColor = AppColors.themeWhite
-        headerView.dateLabelTopConstraint.constant = 20.0
-        headerView.dataLabelBottomConstraint.constant = 7.0
+        headerView.dateLabelTopConstraint.constant = section == 0 ? 16 : 18
+        headerView.dataLabelBottomConstraint.constant = 8
             
         return headerView
     }
@@ -122,7 +122,7 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.event = forData
-        cell.clipsToBounds = true
+        //cell.clipsToBounds = true
         cell.backgroundColor = AppColors.themeWhite
         
         return cell

@@ -117,7 +117,7 @@ class AccountDetailsVM: NSObject {
     func setAccountDetails(details: JSONDictionary) {
         self._accountDetails = details
         self.accountDetails = details
-        self.delegate?.getAccountDetailsSuccess()
+        //self.delegate?.getAccountDetailsSuccess()
     }
     
     func getAccountDetails() {

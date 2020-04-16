@@ -119,8 +119,8 @@ class AppGlobals {
     func showErrorOnToastView(withErrors errors: ErrorCodes, fromModule module: ATErrorManager.Module) {
         let (_, message, _) = ATErrorManager.default.error(forCodes: errors, module: module)
         if !message.isEmpty {
-                AppToast.default.showToastMessage(message: message)
-          
+            AppToast.default.showToastMessage(message: message)
+            
         }
     }
     
@@ -283,16 +283,16 @@ class AppGlobals {
     func shareWithActivityViewController(VC: UIViewController, shareData: Any) {
         var sharingData = [Any]()
         sharingData.append(shareData)
-//        let activityViewController = UIActivityViewController(activityItems: sharingData, applicationActivities: nil)
-//        activityViewController.popoverPresentationController?.sourceView = VC.view
-//        UIApplication.shared.keyWindow?.tintColor = AppColors.themeGreen
-//        VC.present(activityViewController, animated: true, completion: nil)
+        //        let activityViewController = UIActivityViewController(activityItems: sharingData, applicationActivities: nil)
+        //        activityViewController.popoverPresentationController?.sourceView = VC.view
+        //        UIApplication.shared.keyWindow?.tintColor = AppColors.themeGreen
+        //        VC.present(activityViewController, animated: true, completion: nil)
         
         let activityViewController = UIActivityViewController(activityItems: sharingData, applicationActivities: nil)
         
         let fakeViewController = UIViewController()
         fakeViewController.modalPresentationStyle = .overFullScreen
-
+        
         activityViewController.completionWithItemsHandler = { [weak fakeViewController] _, _, _, _ in
             if let presentingViewController = fakeViewController?.presentingViewController {
                 presentingViewController.dismiss(animated: false, completion: nil)
@@ -304,7 +304,7 @@ class AppGlobals {
             fakeViewController?.present(activityViewController, animated: true, completion: nil)
         }
         
-    
+        
     }
     
     ///GET TEXT SIZE
@@ -357,18 +357,18 @@ class AppGlobals {
             AppToast.default.showToastMessage(message: "Google Maps is not installed on your device.")
         }
         
-//        if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
-//            //to show the route between source and destination uncomment the next line
-//            let urlStr = "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"
-//
-//            //            let urlStr = "comgooglemaps://?center=\(destLat),\(destLong)&zoom=14&views=traffic"
-//
-//            if let url = URL(string: urlStr), !url.absoluteString.isEmpty {
-//                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-//            }
-//        } else {
-//            AppToast.default.showToastMessage(message: "Google Maps is not installed on your device.")
-//        }
+        //        if UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!) {
+        //            //to show the route between source and destination uncomment the next line
+        //            let urlStr = "comgooglemaps://?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)&directionsmode=driving&zoom=14&views=traffic"
+        //
+        //            //            let urlStr = "comgooglemaps://?center=\(destLat),\(destLong)&zoom=14&views=traffic"
+        //
+        //            if let url = URL(string: urlStr), !url.absoluteString.isEmpty {
+        //                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        //            }
+        //        } else {
+        //            AppToast.default.showToastMessage(message: "Google Maps is not installed on your device.")
+        //        }
     }
     
     func openAppleMap(originLat: String, originLong: String, destLat: String, destLong: String) {
@@ -376,11 +376,11 @@ class AppGlobals {
         //to show the route between source and destination uncomment the next line
         
         var directionURL = ""
-//        if originLat.isEmpty && originLong.isEmpty {
-            directionURL = "http://maps.apple.com/?q=\(destLat),\(destLong)"
-//        } else {
-//            directionURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"
-//        }
+        //        if originLat.isEmpty && originLong.isEmpty {
+        directionURL = "http://maps.apple.com/?q=\(destLat),\(destLong)"
+        //        } else {
+        //            directionURL = "http://maps.apple.com/?saddr=\(originLat),\(originLong)&daddr=\(destLat),\(destLong)"
+        //        }
         
         
         
@@ -420,7 +420,7 @@ class AppGlobals {
     }
     
     
-    func addEventToCalender(title: String, startDate: Date, endDate: Date, notes: String = "", uniqueId: String = "") {
+    func addEventToCalender(title: String, startDate: Date, endDate: Date, location: String = "", notes: String = "", uniqueId: String = "") {
         
         let eventStore = EKEventStore()
         func addToCalendar() {
@@ -428,14 +428,15 @@ class AppGlobals {
                 
                 if granted, (error == nil) {
                     DispatchQueue.mainAsync {
-                    let eventStore = EKEventStore()
-                    let event = EKEvent(eventStore: eventStore)
-                    
-                    event.title = title
-                    event.startDate = startDate
-                    event.endDate = endDate
-                    event.notes = notes
-                    event.calendar = eventStore.defaultCalendarForNewEvents
+                        let eventStore = EKEventStore()
+                        let event = EKEvent(eventStore: eventStore)
+                        
+                        event.title = title
+                        event.startDate = startDate
+                        event.endDate = endDate
+                        event.location = location                        
+                        event.notes = notes
+                        event.calendar = eventStore.defaultCalendarForNewEvents
                         do {
                             try eventStore.save(event, span: .thisEvent)
                             AppToast.default.showToastMessage(message: LocalizedString.EventAddedToCalander.localized)
@@ -644,7 +645,7 @@ extension AppGlobals {
         }
     }
     
-     func getAttributedBoldText(text: String, boldText: String,color: UIColor = AppColors.themeBlack) -> NSMutableAttributedString {
+    func getAttributedBoldText(text: String, boldText: String,color: UIColor = AppColors.themeBlack) -> NSMutableAttributedString {
         let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(16.0), .foregroundColor: color])
         
         attString.addAttribute(.font, value: AppFonts.Regular.withSize(16.0), range: (text as NSString).range(of: boldText))
@@ -763,7 +764,7 @@ extension AppGlobals {
                     }
                 } else {
                     if (day > 0) {
-                      emoji = UIImage(named: "infant")
+                        emoji = UIImage(named: "infant")
                     } else {
                         emoji = UIImage(named: "man")
                     }
@@ -805,25 +806,25 @@ extension AppGlobals {
             if (age <= 0) {
                 emoji = UIImage(named: "man")
             } else {
-                    if (age > 12) {
-                        emoji = UIImage(named: "man")
-                    } else if (age > 2) {
-                        emoji = UIImage(named: "boy")
-                    }else {
-                        emoji = UIImage(named: "infant")
-                    }
+                if (age > 12) {
+                    emoji = UIImage(named: "man")
+                } else if (age > 2) {
+                    emoji = UIImage(named: "boy")
+                }else {
+                    emoji = UIImage(named: "infant")
+                }
             }
         case "Mrs","Mrs.","Ms","Ms.","Miss","Miss.":
             if (age <= 0) {
                 emoji = UIImage(named: "woman")
             } else {
-                    if (age > 12) {
-                        emoji = UIImage(named: "woman")
-                    } else if (age > 2) {
-                        emoji = UIImage(named: "girl")
-                    }else {
-                        emoji = UIImage(named: "infant")
-                    }
+                if (age > 12) {
+                    emoji = UIImage(named: "woman")
+                } else if (age > 2) {
+                    emoji = UIImage(named: "girl")
+                }else {
+                    emoji = UIImage(named: "infant")
+                }
             }
         default:
             emoji = UIImage(named: "person")

@@ -21,7 +21,7 @@ class FareRulesVC: BaseVC {
         registerXib()
         self.fareRuleTableView.dataSource = self
         self.fareRuleTableView.delegate = self
-        self.fareRuleTableView.isScrollEnabled = false
+//        self.fareRuleTableView.isScrollEnabled = false
         self.fareRuleTableView.reloadData()
     }
 

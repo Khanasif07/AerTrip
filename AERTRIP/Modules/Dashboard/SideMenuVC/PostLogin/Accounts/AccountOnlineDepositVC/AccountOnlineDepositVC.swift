@@ -23,6 +23,7 @@ class AccountOnlineDepositVC: BaseVC {
     @IBOutlet weak var payButton: UIButton!
     @IBOutlet weak var loaderContainer: UIView!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var gradientView: UIView!
     
     // MARK: - Properties
     var currentUsingFor: UsingToPaymentFor = UsingToPaymentFor.accountDeposit
@@ -31,18 +32,21 @@ class AccountOnlineDepositVC: BaseVC {
     let cellIdentifier = "FareSectionHeader"
     
     // MARK: - View Life cycle
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.gradientView.addGredient(isVertical: false)
+    }
     
     override func initialSetup() {
         self.view.backgroundColor = AppColors.themeWhite
         self.checkOutTableView.dataSource = self
         self.checkOutTableView.delegate = self
         self.addFooterView()
-        self.payButton.addGredient(isVertical: false)
         self.setUpImage()
         self.setUpNavigationView()
         self.registerXib()
-        
-        self.loaderContainer.addGredient(isVertical: false)
+        self.payButton.backgroundColor = AppColors.clear
+        self.loaderContainer.backgroundColor = AppColors.clear
         self.manageLoader(shouldStart: false)
     }
     
