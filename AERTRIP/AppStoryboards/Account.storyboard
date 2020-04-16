@@ -1313,7 +1313,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="84N-mg-dBn">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -1323,7 +1323,7 @@
                             <constraint firstItem="Pye-PP-PgX" firstAttribute="trailing" secondItem="LXy-nf-VU3" secondAttribute="trailing" id="VIf-eD-2rc"/>
                             <constraint firstItem="Pye-PP-PgX" firstAttribute="trailing" secondItem="84N-mg-dBn" secondAttribute="trailing" id="aSS-gm-ldX"/>
                             <constraint firstItem="84N-mg-dBn" firstAttribute="top" secondItem="LXy-nf-VU3" secondAttribute="bottom" id="hUz-lr-9ui"/>
-                            <constraint firstItem="Pye-PP-PgX" firstAttribute="bottom" secondItem="84N-mg-dBn" secondAttribute="bottom" id="mR9-lK-jgn"/>
+                            <constraint firstAttribute="bottom" secondItem="84N-mg-dBn" secondAttribute="bottom" id="mR9-lK-jgn"/>
                             <constraint firstItem="LXy-nf-VU3" firstAttribute="top" secondItem="Pye-PP-PgX" secondAttribute="top" id="vkE-6o-5Bk"/>
                             <constraint firstItem="LXy-nf-VU3" firstAttribute="leading" secondItem="Pye-PP-PgX" secondAttribute="leading" id="x86-y4-vtL"/>
                         </constraints>

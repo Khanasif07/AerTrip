@@ -66,6 +66,7 @@ class AccountLadgerDetailHeader: UIView {
     }
     
     private func configureData() {
+        self.layoutIfNeeded()
         guard let event = self.ladgerEvent else {
             self.resetAllSubviews()
             return

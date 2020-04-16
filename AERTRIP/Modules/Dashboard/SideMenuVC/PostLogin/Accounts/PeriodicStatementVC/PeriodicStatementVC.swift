@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Parchment
 class PeriodicStatementVC: BaseVC {
     
     //MARK:- IBOutlets
@@ -23,8 +23,8 @@ class PeriodicStatementVC: BaseVC {
     private var currentIndex: Int = 0
     private let selectedIndex:Int = 0
     
-    fileprivate weak var categoryView: ATCategoryView!
-    
+    //fileprivate weak var categoryView: ATCategoryView!
+    fileprivate var parchmentView : PagingViewController?
     private var allChildVCs: [PeriodicStatementListVC] = []
     
     
@@ -37,11 +37,9 @@ class PeriodicStatementVC: BaseVC {
         self.initialSetups()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        self.categoryView?.frame = self.dataContainerView.bounds
-        self.categoryView?.layoutIfNeeded()
+    override func viewDidLayoutSubviews() {
+        self.parchmentView?.view.frame = self.dataContainerView.bounds
+        self.parchmentView?.loadViewIfNeeded()
     }
     
     override func bindViewModel() {
@@ -49,9 +47,7 @@ class PeriodicStatementVC: BaseVC {
     
     //MARK:- Methods
     //MARK:- Private
-    private func initialSetups() {
-        self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
-        
+    private func initialSetups() {        
         self.currentIndex = 0
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.PeriodicStatement.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false)
@@ -60,22 +56,6 @@ class PeriodicStatementVC: BaseVC {
     }
     
     private func setupPagerView() {
-        var style = ATCategoryNavBarStyle()
-        style.height = 51.0
-        style.interItemSpace = 17.0
-        style.itemPadding = 8.0
-        style.isScrollable = true
-        style.layoutAlignment = .center
-        style.isEmbeddedToView = true
-        style.showBottomSeparator = true
-        style.bottomSeparatorColor = AppColors.themeGray40
-        style.defaultFont = AppFonts.Regular.withSize(16.0)
-        style.selectedFont = AppFonts.Regular.withSize(16.0)
-        style.indicatorColor = AppColors.themeGreen
-        style.indicatorHeight = 2.0
-        style.indicatorCornerRadius = 2.0
-        style.normalColor = AppColors.themeBlack
-        style.selectedColor = AppColors.themeBlack
         
         self.allChildVCs.removeAll()
         
@@ -88,17 +68,41 @@ class PeriodicStatementVC: BaseVC {
             self.allChildVCs.append(vc)
         }
         
-        if let _ = self.categoryView {
-            self.categoryView.removeFromSuperview()
-            self.categoryView = nil
+        self.view.layoutIfNeeded()
+        if let _ = self.parchmentView{
+            self.parchmentView?.view.removeFromSuperview()
+            self.parchmentView = nil
         }
-        let categoryView = ATCategoryView(frame: self.dataContainerView.bounds, categories: self.viewModel.allTabs, childVCs: self.allChildVCs, parentVC: self, barStyle: style)
-        categoryView.interControllerSpacing = 0.0
-        categoryView.navBar.delegate = self
-        self.dataContainerView.addSubview(categoryView)
-        self.categoryView = categoryView
+        setupParchmentPageController()
     }
     
+    // Added to replace the existing page controller, added Asif Khan
+    private func setupParchmentPageController(){
+        
+        self.parchmentView = PagingViewController()
+        self.parchmentView?.menuItemSpacing = 35
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 15.0, bottom: 0.0, right: 0.0)
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
+        self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 50)
+        self.parchmentView?.borderOptions = PagingBorderOptions.visible(
+            height: 0.5,
+            zIndex: Int.max - 1,
+            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
+        self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
+        self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
+        self.parchmentView?.indicatorColor = AppColors.themeGreen
+        self.parchmentView?.selectedTextColor = AppColors.themeBlack
+        self.dataContainerView.addSubview(self.parchmentView!.view)
+        
+        self.parchmentView?.dataSource = self
+        self.parchmentView?.delegate = self
+        self.parchmentView?.sizeDelegate = self
+        self.parchmentView?.select(index: 0)
+        
+        self.parchmentView?.reloadData()
+        self.parchmentView?.reloadMenu()
+    }
     private func reloadList() {
         self.setupPagerView()
     }
@@ -113,8 +117,36 @@ extension PeriodicStatementVC: TopNavigationViewDelegate {
     }
 }
 
-extension PeriodicStatementVC: ATCategoryNavBarDelegate {
-    func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
-        self.currentIndex = toIndex
+extension PeriodicStatementVC : PagingViewControllerDataSource , PagingViewControllerDelegate, PagingViewControllerSizeDelegate {
+    
+    func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int{
+        self.viewModel.allYears.count
+    }
+    
+    func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
+        return self.allChildVCs[index]
+    }
+    
+    func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
+        return PagingIndexItem(index: index, title:  self.viewModel.allYears[index])
+    }
+    
+    func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
+        
+        // depending onthe text size, give the width of the menu item
+        if let pagingIndexItem = pagingItem as? PagingIndexItem{
+            let text = pagingIndexItem.title
+            
+            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
+            return text.widthOfString(usingFont: font) + 2.5
+        }
+        
+        return 100.0
+    }
+    
+    func pagingViewController<T>(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
+        
+        let pagingIndexItem = pagingItem as! PagingIndexItem
+        self.currentIndex = pagingIndexItem.index
     }
 }

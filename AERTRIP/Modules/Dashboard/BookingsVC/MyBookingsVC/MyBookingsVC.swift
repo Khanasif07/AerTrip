@@ -321,7 +321,7 @@ extension MyBookingsVC : PagingViewControllerDataSource , PagingViewControllerDe
         if let pagingIndexItem = pagingItem as? PagingIndexItem{
             let text = pagingIndexItem.title
             
-            let font = AppFonts.SemiBold.withSize(16.0)
+            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
             return text.widthOfString(usingFont: font) + 2.5
         }
         

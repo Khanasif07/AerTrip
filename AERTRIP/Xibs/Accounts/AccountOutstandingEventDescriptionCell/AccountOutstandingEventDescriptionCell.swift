@@ -20,9 +20,27 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
     
+    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var selectionButton: UIButton!
+    @IBOutlet weak var selectButtonHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var selectButtonLeadingConstraint: NSLayoutConstraint!
+    
     var event: AccountDetailEvent? {
         didSet {
             self.setData()
+        }
+    }
+    
+    var isSelectable: Bool = false {
+        didSet {
+            self.manageSelectable()
+        }
+    }
+    
+    var isHotelSelected: Bool = false {
+        didSet {
+            self.manageSelectedState()
         }
     }
     
@@ -41,7 +59,7 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         self.mainContainerView.backgroundColor = AppColors.themeWhite
 //        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner ,.layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize(width: 0.0, height: 1.0), opacity: 0.7, shadowRadius: 3.0)
         
-        self.mainContainerView.addShadow(cornerRadius: 10.0, maskedCorners: [.layerMaxXMaxYCorner ,.layerMinXMaxYCorner], color: AppColors.themeBlack.withAlphaComponent(0.4), offset: CGSize.zero, opacity: 0.5, shadowRadius: 4.0)
+        self.mainContainerView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
 
         self.amountTitleLabel.font = AppFonts.Regular.withSize(14.0)
         self.pendingTitleLabel.font = AppFonts.Regular.withSize(14.0)
@@ -57,6 +75,12 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         
         self.amountTitleLabel.text = LocalizedString.Amount.localized
         self.pendingTitleLabel.text = LocalizedString.Pending.localized
+        
+        self.titleLabel.font = AppFonts.Regular.withSize(18.0)
+        
+        self.titleLabel.textColor = AppColors.themeBlack
+        
+        self.isSelectable = false
     }
     
     private func resetAllText() {
@@ -67,6 +91,18 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         self.pendingValueLabel.attributedText = nil
         
         self.dateLabel.text = "Due Date:"
+        
+        self.iconImageView.image = nil
+        self.titleLabel.text = ""
+    }
+    
+    private func manageSelectable() {
+        self.selectButtonHeightConstraint.constant = self.isSelectable ? 22.0 : 0.0
+        self.selectButtonLeadingConstraint.constant = self.isSelectable ? 16.0 : 0.0
+    }
+    
+    private func manageSelectedState() {
+        self.selectionButton.isSelected = self.isHotelSelected
     }
     
     private func setData() {
@@ -75,6 +111,9 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
             self.resetAllText()
             return
         }
+        
+        self.iconImageView.image = event.iconImage
+        self.titleLabel.text = event.title
         
         let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
         let crAttr = NSMutableAttributedString(string: " \(LocalizedString.CreditShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])

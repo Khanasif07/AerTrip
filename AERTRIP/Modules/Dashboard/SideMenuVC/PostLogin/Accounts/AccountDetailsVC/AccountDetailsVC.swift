@@ -325,7 +325,7 @@ extension AccountDetailsVC: UISearchBarDelegate {
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         if searchBar === self.mainSearchBar, (searchBar.text ?? "").isEmpty {
-            self.searchBarCancelButtonClicked(searchBar)
+           // self.searchBarCancelButtonClicked(searchBar)
         }
     }
     

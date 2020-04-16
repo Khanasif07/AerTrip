@@ -49,6 +49,7 @@ class PeriodicStatementListVC: BaseVC {
         self.tableView.backgroundView = self.emptyView
         self.tableView.backgroundView?.isHidden = true
         self.dividerView.isHidden = false
+        self.tableView.backgroundColor = AppColors.themeGray04
         
         self.tableView.register(UINib(nibName: AppConstants.ktableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: AppConstants.ktableViewHeaderViewIdentifier)
     }

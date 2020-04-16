@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -70,12 +68,12 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="Pif-8b-45l" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="50" id="7ZN-N6-IRE"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Pif-8b-45l" secondAttribute="trailing" constant="50" id="9oD-HM-q4M"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="tfC-tD-zen" secondAttribute="trailing" constant="16" id="HYG-rh-72H"/>
+                <constraint firstItem="Pif-8b-45l" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="50" id="7ZN-N6-IRE"/>
+                <constraint firstAttribute="trailing" secondItem="Pif-8b-45l" secondAttribute="trailing" constant="50" id="9oD-HM-q4M"/>
+                <constraint firstAttribute="trailing" secondItem="tfC-tD-zen" secondAttribute="trailing" constant="16" id="HYG-rh-72H"/>
                 <constraint firstItem="MOw-oT-9fe" firstAttribute="top" secondItem="hXS-Wr-WUL" secondAttribute="bottom" constant="20" id="I2V-gr-xwB"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="tfC-tD-zen" secondAttribute="bottom" id="Po1-xo-ZCg"/>
-                <constraint firstItem="tfC-tD-zen" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="V3D-Cj-2bb"/>
+                <constraint firstItem="tfC-tD-zen" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="V3D-Cj-2bb"/>
                 <constraint firstItem="MOw-oT-9fe" firstAttribute="trailing" secondItem="Pif-8b-45l" secondAttribute="trailing" id="h8g-4m-LIf"/>
                 <constraint firstItem="hXS-Wr-WUL" firstAttribute="centerX" secondItem="MOw-oT-9fe" secondAttribute="centerX" id="iMa-4h-eOa"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Pif-8b-45l" secondAttribute="bottom" constant="22" id="lN3-uj-4zU"/>
