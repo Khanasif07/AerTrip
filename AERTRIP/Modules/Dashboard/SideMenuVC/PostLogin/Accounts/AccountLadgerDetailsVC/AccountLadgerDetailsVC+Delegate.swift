@@ -31,6 +31,9 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
         return 0
     }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
+    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -55,7 +58,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.row == dict.keys.count {
             //devider
-            return 13.0
+            return 1
         }
         else {
             //details
@@ -68,7 +71,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         guard indexPath.section > 0 else {
             //first section's first cell
             let cell = UITableViewCell()
-            cell.backgroundColor = AppColors.clear
+            cell.backgroundColor = AppColors.themeWhite
             return cell
         }
         
@@ -78,7 +81,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
         if indexPath.row == dict.keys.count {
             //devider
-            return self.getDeviderCell()
+            return self.getDeviderCell(indexPath: indexPath)
         }
         else {
             //details
@@ -161,11 +164,13 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func getDeviderCell() -> UITableViewCell {
+    func getDeviderCell(indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.tableView.dequeueReusableCell(withIdentifier: AccountLadgerDividerell.reusableIdentifier) as? AccountLadgerDividerell else {
             return UITableViewCell()
         }
-        
+        let value:CGFloat = (self.numberOfSections(in: self.tableView) - 1 ) == indexPath.section ? 0 : 16
+        cell.dividerLeadingConstraint.constant = value
+            cell.dividerTrailingConstraint.constant = value
         return cell
     }
     
@@ -238,6 +243,8 @@ class AccountLadgerDividerell: UITableViewCell {
     //MARK:- IBOutlet
     //MARK:-
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var dividerLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dividerTrailingConstraint: NSLayoutConstraint!
     
     //MARK:- Life Cycle
     //MARK:-

@@ -815,6 +815,7 @@
 "DepositDate" = "Deposit Date";
 "TransferType" = "Transfer Type";
 "EnterUTRSwiftCode" = "Enter UTR/Swift Code";
+"DepositAmountErrorMessage" = "Deposit amount must be grater then 0";
 
 "Camera" = "Camera";
 "PhotoLibrary" = "Photo Library";

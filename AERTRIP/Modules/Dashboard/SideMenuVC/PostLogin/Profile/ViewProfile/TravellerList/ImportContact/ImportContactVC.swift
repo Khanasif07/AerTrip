@@ -152,11 +152,13 @@ class ImportContactVC: BaseVC {
         self.parchmentView?.menuItemSpacing = (self.view.width - 251.5) / 2
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 33.0, bottom: 0.0, right: 38.0)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 40)
-        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets(top: 0, left: 0.0, bottom: 0, right: 0.0))
+        self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
             height: 0.5,
             zIndex: Int.max - 1,
-            insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+            insets: UIEdgeInsets.zero)
+        let nib = UINib(nibName: "MenuItemCollectionCell", bundle: nil)
+        self.parchmentView?.register(nib, for: MenuItem.self)
         self.parchmentView?.borderColor = AppColors.themeBlack.withAlphaComponent(0.16)
         self.parchmentView?.font = AppFonts.Regular.withSize(16.0)
         self.parchmentView?.selectedFont = AppFonts.SemiBold.withSize(16.0)
@@ -557,11 +559,11 @@ class ContactListCollectionFlowLayout: UICollectionViewFlowLayout {
 extension ImportContactVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
        
-               if let pagingIndexItem = pagingItem as? PagingIndexItem{
+               if let pagingIndexItem = pagingItem as? MenuItem{
                    let text = pagingIndexItem.title
                    
-                   let font = AppFonts.SemiBold.withSize(16.0)
-                return text.widthOfString(usingFont: font) + 2.5
+                   let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
+                   return text.widthOfString(usingFont: font)
                }
                
                return 100.0
@@ -577,13 +579,14 @@ extension ImportContactVC: PagingViewControllerDataSource , PagingViewController
     }
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
-        return PagingIndexItem(index: index, title:  self.allTabsStr[index])
+        return MenuItem(title: self.allTabsStr[index], index: index, isSelected:false)
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
         
-        let pagingIndexItem = pagingItem as! PagingIndexItem
-        self.currentIndex = pagingIndexItem.index
+        if let pagingIndexItem = pagingItem as? MenuItem {
+            self.currentIndex = pagingIndexItem.index
+        }
     }
 }
 

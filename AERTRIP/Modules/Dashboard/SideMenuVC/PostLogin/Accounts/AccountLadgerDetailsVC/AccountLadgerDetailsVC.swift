@@ -18,9 +18,10 @@ class AccountLadgerDetailsVC: BaseVC {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
+            tableView.backgroundColor = AppColors.themeGray04
         }
     }
-    
+    @IBOutlet weak var navBarHeight: NSLayoutConstraint!
     
     //MARK:- Properties
     //MARK:- Public
@@ -49,6 +50,10 @@ class AccountLadgerDetailsVC: BaseVC {
             return self.headerHeightForCredit
         }
     }
+    // Make navigation bar height as 88.0 on iphone X .
+    private var headerViewHeight: CGFloat {
+        return UIDevice.isIPhoneX ? 88.0 : 64.0
+    }
     
     var maxValue: CGFloat = 1.0
     var minValue: CGFloat = 0.0
@@ -66,11 +71,11 @@ class AccountLadgerDetailsVC: BaseVC {
     //MARK:-
     override func initialSetup() {
         
-        self.topNavView.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true, backgroundType: .color(color: .white))
+        self.topNavView.configureNavBar(title: nil, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true, backgroundType: .blurAnimatedView(isDark: false))
         
-        self.topNavView.backgroundType = .blurAnimatedView(isDark: false)
         self.topNavView.delegate = self
         self.topNavView.backgroundColor = AppColors.clear
+        self.navBarHeight.constant = headerViewHeight
 //        self.topNavView.containerView.backgroundColor = AppColors.clear
         
 //        if let event = self.viewModel.ladgerEvent, let img = event.iconImage {
@@ -99,7 +104,8 @@ class AccountLadgerDetailsVC: BaseVC {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if let view = self.headerView {
-            view.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: 152.0)
+            view.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: self.parallexHeaderMaxHeight)
+            view.layoutIfNeeded()
         }
     }
     
@@ -108,19 +114,17 @@ class AccountLadgerDetailsVC: BaseVC {
     private func setupParallexHeaderView() {
         self.headerView = AccountLadgerDetailHeader.instanceFromNib()
         self.headerView.ladgerEvent = self.viewModel.ladgerEvent
-
-//        self.headerView.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: 0)
+        self.headerView.backgroundColor = AppColors.themeWhite
+        self.headerView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: self.parallexHeaderMaxHeight)
         self.headerView?.translatesAutoresizingMaskIntoConstraints = false
         self.headerView?.widthAnchor.constraint(equalToConstant: tableView?.width ?? 0.0).isActive = true
         self.tableView.parallaxHeader.view = self.headerView
         self.tableView.parallaxHeader.minimumHeight = self.parallexHeaderMinHeight
-        
         self.tableView.parallaxHeader.height = self.parallexHeaderMaxHeight
-
         self.tableView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.tableView.parallaxHeader.delegate = self
-        
         self.view.bringSubviewToFront(self.topNavView)
+        self.tableView.layoutIfNeeded()
         
         //self.manageHeader(isHidden: true, animated: false)
     }
@@ -129,39 +133,39 @@ class AccountLadgerDetailsVC: BaseVC {
         return self.topNavView.navTitleLabel.alpha == 0.0
     }
     
-    private func manageHeader(isHidden: Bool, animated: Bool) {
-        
-        //stop to re-animate in current state
-        if isHidden, self.isHeaderHidden {
-            return
-        }
-        else if !isHidden, !self.isHeaderHidden {
-            return
-        }
-        
-        if isHidden {
-            self.topNavView.navTitleLabel.alpha = 1.0
-            self.topNavView.navTitleLabel.transform = .identity
-            
-            self.topNavView.dividerView.alpha = 1.0
-            self.topNavView.dividerView.transform = .identity
-        }
-        
-        let transformForHide = CGAffineTransform(translationX: 0.0, y: -50.0)
-        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {[weak self] in
-            guard let sSelf = self else {return}
-            
-            sSelf.topNavView.navTitleLabel.alpha = isHidden ? 0.0 : 1.0
-            sSelf.topNavView.navTitleLabel.transform = isHidden ? transformForHide : CGAffineTransform.identity
-            
-            sSelf.topNavView.dividerView.alpha = isHidden ? 0.0 : 1.0
-            sSelf.topNavView.dividerView.transform = isHidden ? transformForHide : CGAffineTransform.identity
-            
-            sSelf.topNavView.containerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(isHidden ? 0.001 : 1.0)
-            
-            }, completion: { (isDone) in
-        })
-    }
+//    private func manageHeader(isHidden: Bool, animated: Bool) {
+//
+//        //stop to re-animate in current state
+//        if isHidden, self.isHeaderHidden {
+//            return
+//        }
+//        else if !isHidden, !self.isHeaderHidden {
+//            return
+//        }
+//
+//        if isHidden {
+//            self.topNavView.navTitleLabel.alpha = 1.0
+//            self.topNavView.navTitleLabel.transform = .identity
+//
+//            self.topNavView.dividerView.alpha = 1.0
+//            self.topNavView.dividerView.transform = .identity
+//        }
+//
+//        let transformForHide = CGAffineTransform(translationX: 0.0, y: -50.0)
+//        UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {[weak self] in
+//            guard let sSelf = self else {return}
+//
+//            sSelf.topNavView.navTitleLabel.alpha = isHidden ? 0.0 : 1.0
+//            sSelf.topNavView.navTitleLabel.transform = isHidden ? transformForHide : CGAffineTransform.identity
+//
+//            sSelf.topNavView.dividerView.alpha = isHidden ? 0.0 : 1.0
+//            sSelf.topNavView.dividerView.transform = isHidden ? transformForHide : CGAffineTransform.identity
+//
+//            sSelf.topNavView.containerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(isHidden ? 0.001 : 1.0)
+//
+//            }, completion: { (isDone) in
+//        })
+//    }
     
     //MARK:- Public
     

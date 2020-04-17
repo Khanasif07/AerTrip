@@ -28,6 +28,7 @@ class AccountDepositAmountCell: UITableViewCell {
             self.setData()
         }
     }
+    var amountTextSetOnce = false
     
     //MARK:- ViewLifeCycle
     //MARK:-
@@ -52,18 +53,31 @@ class AccountDepositAmountCell: UITableViewCell {
     }
     
     @objc private func textFieldDidEndEditing(_ sender: UITextField) {
-        if let txt = sender.text, !txt.isEmpty, let amt = txt.replacingOccurrences(of: ",", with: "").toDouble {
+        if let txt = sender.text  {
+            let value = txt.isEmpty ? "0" : txt
+            if let amt = value.replacingOccurrences(of: ",", with: "").toDouble {
             self.amountTextField.text = amt.delimiterWithoutSymbol
             self.delegate?.amountDidChanged(amount: amt, amountString: txt)
+            }
         }
     }
     
     @objc private func textFieldDidChange(_ sender: UITextField) {
         self.amountTextField.backgroundColor = .clear
+        if let txt = sender.text  {
+            self.amountTextField.AttributedBackgroundColorForText(text: txt, textColor: AppColors.clear)
+        }
+
        }
     
     private func setData() {
-        self.amountTextField.text = amount.delimiterWithoutSymbol
+        let value = amount.delimiterWithoutSymbol
+        self.amountTextField.text = value
+        if !amountTextSetOnce {
+            amountTextSetOnce = true
+        self.amountTextField.AttributedBackgroundColorForText(text: value, textColor: AppColors.themeBlue.withAlphaComponent(0.26))
+        }
+        
     }
     
     private func setFontAndColor() {
@@ -77,7 +91,7 @@ class AccountDepositAmountCell: UITableViewCell {
         self.titleLabel.textColor = AppColors.themeGreen
         self.currencyLabel.textColor = AppColors.themeTextColor
         self.amountTextField.textColor = AppColors.themeBlack
-        self.amountTextField.backgroundColor = AppColors.themeBlue.withAlphaComponent(0.26)
+        self.amountTextField.backgroundColor = AppColors.themeWhite//AppColors.themeBlue.withAlphaComponent(0.26)
         
         self.titleLabel.text = LocalizedString.DepositAmount.localized
         self.currencyLabel.text = AppConstants.kRuppeeSymbol

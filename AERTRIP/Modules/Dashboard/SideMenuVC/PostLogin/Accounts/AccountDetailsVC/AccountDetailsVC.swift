@@ -355,7 +355,9 @@ extension AccountDetailsVC: UISearchBarDelegate {
                 self.clearSearchData()
             }
             else {
-                self.reloadList()
+//                self.reloadList()
+                self.clearSearchData()
+
             }
         }
     }

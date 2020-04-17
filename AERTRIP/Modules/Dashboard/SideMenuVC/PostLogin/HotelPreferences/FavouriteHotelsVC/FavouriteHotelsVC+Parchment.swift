@@ -12,7 +12,7 @@ import Parchment
 // To display the view controllers, and how they traverse from one page to another
 extension FavouriteHotelsVC: PagingViewControllerDataSource {
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
-        return PagingIndexItem(index: index, title: self.viewModel.hotels[index].cityName)
+        MenuItem(title: self.viewModel.hotels[index].cityName, index: index, isSelected:false)
     }
 
     func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController  {
@@ -29,21 +29,22 @@ extension FavouriteHotelsVC : PagingViewControllerDelegate, PagingViewController
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
 
         // depending onthe text size, give the width of the menu item
-        if let pagingIndexItem = pagingItem as? PagingIndexItem{
+        if let pagingIndexItem = pagingItem as? MenuItem{
             let text = pagingIndexItem.title
             
-            let font = AppFonts.SemiBold.withSize(16.0)
-            return text.widthOfString(usingFont: font) + 5.0
+            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
+            return text.widthOfString(usingFont: font)
         }
         
         return 100.0
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
-           
-           let pagingIndexItem = pagingItem as! PagingIndexItem
-           self.currentIndex = pagingIndexItem.index
-       }
+        
+        if let pagingIndexItem = pagingItem as? MenuItem {
+            self.currentIndex = pagingIndexItem.index
+        }
+    }
 }
 
 extension String {

@@ -700,10 +700,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yNN-Ko-Xnv">
-                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="HEl-5A-H5v" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="852"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AccountLadgerDetailCell" rowHeight="92" id="roN-EN-Ykq" customClass="AccountLadgerDetailCell" customModule="AERTRIP" customModuleProvider="target">
@@ -765,6 +765,8 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
+                                                    <outlet property="dividerLeadingConstraint" destination="VM0-5W-GG9" id="FEB-vb-AbL"/>
+                                                    <outlet property="dividerTrailingConstraint" destination="j51-d8-QRI" id="GZy-vf-sJA"/>
                                                     <outlet property="dividerView" destination="18c-15-wcI" id="7h3-zo-G5y"/>
                                                 </connections>
                                             </tableViewCell>
@@ -780,7 +782,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pin-zw-ibd" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="qr5-mi-tnf"/>
@@ -791,9 +793,8 @@
                         <constraints>
                             <constraint firstItem="8IO-QV-0GZ" firstAttribute="trailing" secondItem="Pin-zw-ibd" secondAttribute="trailing" id="4LZ-PN-iFb"/>
                             <constraint firstItem="8IO-QV-0GZ" firstAttribute="trailing" secondItem="Pin-zw-ibd" secondAttribute="trailing" id="8km-bZ-zNq"/>
-                            <constraint firstItem="Pin-zw-ibd" firstAttribute="top" secondItem="8IO-QV-0GZ" secondAttribute="top" id="FJo-CP-5bX"/>
-                            <constraint firstItem="yNN-Ko-Xnv" firstAttribute="top" secondItem="8IO-QV-0GZ" secondAttribute="top" id="HvG-yN-jwx"/>
-                            <constraint firstItem="Pin-zw-ibd" firstAttribute="top" secondItem="8IO-QV-0GZ" secondAttribute="top" id="IQU-UT-7qe"/>
+                            <constraint firstItem="Pin-zw-ibd" firstAttribute="top" secondItem="wuB-pw-JyS" secondAttribute="top" id="FJo-CP-5bX"/>
+                            <constraint firstItem="yNN-Ko-Xnv" firstAttribute="top" secondItem="wuB-pw-JyS" secondAttribute="top" id="HvG-yN-jwx"/>
                             <constraint firstAttribute="bottom" secondItem="yNN-Ko-Xnv" secondAttribute="bottom" id="OZA-zo-EgD"/>
                             <constraint firstItem="Pin-zw-ibd" firstAttribute="leading" secondItem="8IO-QV-0GZ" secondAttribute="leading" id="YiT-Su-saf"/>
                             <constraint firstItem="Pin-zw-ibd" firstAttribute="leading" secondItem="8IO-QV-0GZ" secondAttribute="leading" id="bGL-Pz-JUJ"/>
@@ -803,6 +804,7 @@
                         <viewLayoutGuide key="safeArea" id="8IO-QV-0GZ"/>
                     </view>
                     <connections>
+                        <outlet property="navBarHeight" destination="qr5-mi-tnf" id="c8r-7A-j7a"/>
                         <outlet property="tableView" destination="HEl-5A-H5v" id="8TT-UT-lcI"/>
                         <outlet property="topNavView" destination="Pin-zw-ibd" id="2Ks-AK-JfV"/>
                     </connections>

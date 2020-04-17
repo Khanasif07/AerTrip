@@ -42,6 +42,13 @@ class AccountOnlineDepositVM: NSObject {
     var totalPayableAmount: Double {
         return depositAmount + feeAmount
     }
+    func isValidAmount() -> Bool {
+        if depositAmount < 1 {
+            AppToast.default.showToastMessage(message: LocalizedString.DepositAmountErrorMessage.localized)
+            return false
+        }
+        return true
+    }
     
     func makePayment() {
         //forAmount used to decide that razor pay will use or not

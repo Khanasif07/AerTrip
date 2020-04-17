@@ -125,7 +125,8 @@ class TravelDateVC: BaseVC {
         let toTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.toTapGestureAction))
         self.toView.addGestureRecognizer(toTapGesture)
         
-        perform(#selector(createDatePickers), with: nil, afterDelay: 0.1)
+        //perform(#selector(createDatePickers), with: nil, afterDelay: 0.1)
+        createDatePickers()
     }
     
     @objc func createDatePickers() {

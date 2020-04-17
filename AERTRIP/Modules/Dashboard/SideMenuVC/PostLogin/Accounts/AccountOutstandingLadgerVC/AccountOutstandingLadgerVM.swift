@@ -72,14 +72,18 @@ class AccountOutstandingLadgerVM: NSObject {
     @objc private func callSearchEvent(_ forText: String) {
         printDebug("search text for: \(forText)")
 
-        self.searchedAccountDetails = self.getDataApplySearch(forText: forText, onData: self._accountDetails) ?? [:]
+        let value = self.getDataApplySearch(forText: forText, onData: self._accountDetails) ?? [:]
+        print("value: \(value)")
+        print("forText: \(forText)")
+
+        self.searchedAccountDetails = value
         
         self.delegate?.searchEventsSuccess()
     }
     
     private func getDataApplySearch(forText: String, onData: JSONDictionary) -> JSONDictionary? {
         if forText.isEmpty {
-            return onData
+            return [:]
         }
         else {
             
@@ -102,7 +106,7 @@ class AccountOutstandingLadgerVM: NSObject {
         param["action"] = "email"
         param["type"] = "outstanding"
         
-        AppToast.default.showToastMessage(message: LocalizedString.SendingEmail.localized, onViewController: onVC, duration: 10.0)
+        //AppToast.default.showToastMessage(message: LocalizedString.SendingEmail.localized, onViewController: onVC, duration: 10.0)
         APICaller.shared.accountReportActionAPI(params: param) { (success, errors) in
             if success {
                 AppToast.default.hideToast(onVC, animated: false)

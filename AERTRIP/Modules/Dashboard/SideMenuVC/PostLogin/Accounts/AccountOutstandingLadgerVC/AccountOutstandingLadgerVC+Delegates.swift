@@ -17,6 +17,9 @@ extension AccountOutstandingLadgerVC: UITableViewDataSource, UITableViewDelegate
         }
         else {
             let allDates = self.viewModel.searchedAllDates
+            print("allDates: \(allDates)")
+            print("self.mainSearchBar.text: \(self.mainSearchBar.text)")
+
             if (self.mainSearchBar.text ?? "").isEmpty {
                 self.searchTableView.isHidden = allDates.isEmpty
             }

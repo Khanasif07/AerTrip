@@ -135,7 +135,9 @@ class AccountOnlineDepositVC: BaseVC {
 
     //MARK: - Action
     @IBAction func payButtonAction(_ sender: UIButton) {
-        self.viewModel.makePayment()
+        if self.viewModel.isValidAmount() {
+            self.viewModel.makePayment()
+        }
     }
 }
 

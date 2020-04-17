@@ -401,19 +401,24 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar === self.mainSearchBar, searchText.count >= AppConstants.kSearchTextLimit {
+        if searchBar === self.mainSearchBar {
+            //searchText.count >= AppConstants.kSearchTextLimit
+            self.viewModel.searchEvent(forText: searchText)
+            if !searchText.isEmpty {
             self.noResultemptyView.searchTextLabel.isHidden = false
             self.noResultemptyView.searchTextLabel.text = "\(LocalizedString.For.localized) '\(searchText)'"
-            self.viewModel.searchEvent(forText: searchText)
+            } else {
+                self.clearSearchData()
+            }
         }
         else {
             //reset tot the old state
-            if (searchBar.text ?? "").isEmpty {
-                self.clearSearchData()
-            }
-            else {
-                self.reloadList()
-            }
+//            if (searchBar.text ?? "").isEmpty {
+//                self.clearSearchData()
+//            }
+//            else {
+//                self.reloadList()
+//            }
         }
     }
 }
@@ -564,7 +569,9 @@ extension AccountOutstandingLadgerVC {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.manageHeader(scrollView)
+        if self.currentViewState != .searching {
+            self.manageHeader(scrollView)
+        }
     }
 }
 

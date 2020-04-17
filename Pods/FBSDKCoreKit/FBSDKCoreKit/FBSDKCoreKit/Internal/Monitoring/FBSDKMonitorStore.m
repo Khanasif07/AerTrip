@@ -16,22 +16,54 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "TargetConditionals.h"
+#import "FBSDKMonitorStore.h"
 
-#if !TARGET_OS_TV
+@interface FBSDKMonitorStore ()
 
-#import <Foundation/Foundation.h>
-
-NS_ASSUME_NONNULL_BEGIN
-
-@interface FBSDKAddressInferencer : NSObject
-
-+ (void)initializeDenseFeature;
-+ (void)loadWeights;
-+ (BOOL)shouldFilterParam:(nullable NSString *)param;
+@property (nonatomic) BOOL skipDiskCheck;
 
 @end
 
-NS_ASSUME_NONNULL_END
+@implementation FBSDKMonitorStore
 
-#endif
+- (instancetype)initWithFilename:(NSString *)filename
+{
+  if ((self = [super init])) {
+
+    NSURL *temporaryDirectory = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
+    _filePath = [temporaryDirectory URLByAppendingPathComponent:filename];
+    _skipDiskCheck = YES;
+  }
+  return self;
+}
+
+- (void)clear
+{
+  [[NSFileManager defaultManager] removeItemAtURL:self.filePath
+                                            error:nil];
+  self.skipDiskCheck = YES;
+}
+
+- (void)persist:(NSArray<id<FBSDKMonitorEntry>> *)entries
+{
+  if (!entries.count) {
+    return;
+  }
+
+  [NSKeyedArchiver archiveRootObject:entries toFile:self.filePath.path];
+  self.skipDiskCheck = NO;
+}
+
+- (NSArray<id<FBSDKMonitorEntry>> *)retrieveEntries {
+  NSMutableArray *items = [NSMutableArray array];
+
+  if (!self.skipDiskCheck) {
+    items = [NSKeyedUnarchiver unarchiveObjectWithFile:self.filePath.path];
+
+    [self clear];
+  }
+ 
+  return [items copy];
+}
+
+@end

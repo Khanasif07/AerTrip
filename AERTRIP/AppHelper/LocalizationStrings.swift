@@ -884,6 +884,7 @@ enum LocalizedString: String {
     case DepositDate
     case TransferType
     case EnterUTRSwiftCode
+    case DepositAmountErrorMessage
     
     case Camera
     case PhotoLibrary

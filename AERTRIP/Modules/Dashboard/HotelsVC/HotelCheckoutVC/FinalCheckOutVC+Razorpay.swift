@@ -12,9 +12,9 @@ import Razorpay
 extension FinalCheckOutVC: RazorpayPaymentCompletionProtocolWithData {
     
     func initializePayment(withOptions options: JSONDictionary) {
-        let razorpay: Razorpay = Razorpay.initWithKey(AppConstants.kRazorpayPublicKey, andDelegateWithData: self)
+        let razorpay: RazorpayCheckout = RazorpayCheckout.initWithKey(AppConstants.kRazorpayPublicKey, andDelegateWithData: self)
         //razorpay.open(options)
-        razorpay.open(options, display: self)
+        razorpay.open(options, displayController: self)
     }
     func onPaymentError(_ code: Int32, description str: String, andData response: [AnyHashable : Any]?) {
         AppToast.default.showToastMessage(message: "Sorry! payment was faild.\nPlease try again.")
@@ -28,9 +28,4 @@ extension FinalCheckOutVC: RazorpayPaymentCompletionProtocolWithData {
     }
 }
 
-//#4    0x000000019be1fde4 in vImageConvert_AnyToAny ()
-//#5    0x00000001979e8628 in vImageConverter_convert_internal ()
-//#12    0x0000000197a34868 in CGSImageDataLock ()
-//#17    0x000000010166083c in gmscore::vector::MutableTextureAtlas::UseCGContext(CGRect (CGContext*) block_pointer) ()
-//#24    0x00000001015e94cc in -[GMSEntityRendererView draw] ()
  

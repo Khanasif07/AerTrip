@@ -290,7 +290,7 @@ extension Double{
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .currency
         numberFormatter.maximumFractionDigits = 2
-        numberFormatter.minimumFractionDigits = 0
+        numberFormatter.minimumFractionDigits = 2
         numberFormatter.locale = UserInfo.loggedInUser?.currentLocale ?? Locale(identifier: "en_IN")
         
         return numberFormatter

@@ -19,8 +19,7 @@
 <p align="center">
   <img src="https://rechsteiner-parchment.s3.eu-central-1.amazonaws.com/parchment-delegate.gif" alt="Cities Example" />
   <img src="https://rechsteiner-parchment.s3.eu-central-1.amazonaws.com/parchment-unplash.gif" alt="Unsplash Example" />
-  <img src="https://rechsteiner-parchment.s3.eu-central-1.amazonaws.com/parchment-
-            .gif" alt="Calendar Example" />
+  <img src="https://rechsteiner-parchment.s3.eu-central-1.amazonaws.com/parchment-calendar.gif" alt="Calendar Example" />
 </p>
 
 ## Features
@@ -217,6 +216,10 @@ protocol PagingViewControllerDelegate: class {
         startingViewController: UIViewController?,
         destinationViewController: UIViewController,
         transitionSuccessful: Bool)
+        
+    func pagingViewController(
+        _ pagingViewController: PagingViewController,
+        didSelectItem pagingItem: PagingItem)
 }
 ```
 
@@ -272,6 +275,11 @@ The size of the menu items. When using [`sizeDelegate`](#size-delegate) the widt
 ```Swift
 enum PagingMenuItemSize {
   case fixed(width: CGFloat, height: CGFloat)
+
+  // Automatically calculate the size of the menu items based on the
+  // cells intrinsic content size. Try to come up with an estimated
+  // width that's similar to the expected width of the cells.
+  case selfSizing(estimatedWidth: CGFloat, height: CGFloat)
 
   // Tries to fit all menu items inside the bounds of the screen.
   // If the items can't fit, the items will scroll as normal and

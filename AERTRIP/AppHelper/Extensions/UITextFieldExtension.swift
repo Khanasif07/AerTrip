@@ -89,4 +89,21 @@ extension UITextField {
            
            self.attributedPlaceholder = attriburedString
        }
+    
+    func AttributedBackgroundColorForText(text : String, textColor : UIColor) {
+        
+        //self.textColor = UIColor.black
+        guard let labelString = self.text else { return }
+        
+        let main_string = labelString as NSString
+        let range = main_string.range(of: text)
+        
+        var  attribute = NSMutableAttributedString.init(string: main_string as String)
+        if let labelAttributedString = self.attributedText {
+            attribute = NSMutableAttributedString.init(attributedString: labelAttributedString)
+        }
+        attribute.addAttribute(NSAttributedString.Key.backgroundColor, value: textColor , range: range)
+        // attribute.addAttribute(NSBaselineOffsetAttributeName, value: 0, range: range)
+        self.attributedText = attribute
+    }
 }

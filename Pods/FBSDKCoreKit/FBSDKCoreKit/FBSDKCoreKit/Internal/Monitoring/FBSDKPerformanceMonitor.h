@@ -20,15 +20,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FBSDKRestrictiveDataFilterManager : NSObject
+/**
+ Used for capturing performance metrics.
 
-- (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
+ To use: Create a Date object marking the start time of what you want to capture.
+ When you call `record:startTime:` the time spent will be the time of
+ recording minus the start time.
 
-+ (void)enable;
-+ (void)updateFilters:(nullable NSDictionary<NSString *, id> *)restrictiveParams;
-+ (nullable NSDictionary<NSString *, id> *)processParameters:(nullable NSDictionary<NSString *, id> *)parameters
-                                                   eventName:(NSString *)eventName;
+ - Note: This is essentially a name-spaced pass-through to `FBSDKMonitor`.
+ */
+@interface FBSDKPerformanceMonitor : NSObject
+
++ (void)record:(NSString *)name startTime:(NSDate *)startTime;
 
 @end
 
