@@ -526,7 +526,7 @@ class AppGlobals {
 extension Double {
     var amountInDelimeterWithSymbol: String {
         if self < 0 {
-            return "- \(abs(self.roundTo(places: 2)).delimiterWithSymbolTill2Places)"
+            return "- \(abs(self.roundTo(places: 2)).delimiterWithSymbolTill2Places)".replacingOccurrences(of: ".00", with: "")
         } else {
             return "\(self.roundTo(places: 2).delimiterWithSymbolTill2Places)".replacingOccurrences(of: ".00", with: "")
         }

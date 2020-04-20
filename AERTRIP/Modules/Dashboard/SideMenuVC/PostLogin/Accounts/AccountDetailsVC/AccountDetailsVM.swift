@@ -23,24 +23,15 @@ class AccountDetailsVM: NSObject {
     //MARK:- Public
     var oldFilter: AccountSelectedFilter?
     var walletAmount: Double = 0.0
-    var _accountDetails: JSONDictionary = JSONDictionary() {
+    private(set) var _accountDetails: JSONDictionary = JSONDictionary() {
         didSet {
             self.fetchLedgerStartDate()
         }
     }
-    
-    var accountDetails: JSONDictionary = JSONDictionary()
-    var allDates: [String] {
-        var arr = Array(accountDetails.keys)
-        arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
-        return arr
-    }
-    var searchedAccountDetails: JSONDictionary = JSONDictionary()
-    var searchedAllDates: [String] {
-        var arr = Array(searchedAccountDetails.keys)
-        arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
-        return arr
-    }
+    private(set) var accountDetails: JSONDictionary = JSONDictionary()
+    private(set) var allDates = [String]()
+    private(set) var searchedAccountDetails: JSONDictionary = JSONDictionary()
+    private(set) var searchedAllDates = [String]()
     
     var allVouchers: [String] = []
     
@@ -54,6 +45,19 @@ class AccountDetailsVM: NSObject {
     
     //MARK:- Methods
     //MARK:- Public
+    func setAccountDetails(data: JSONDictionary) {
+        self.accountDetails = data
+            var arr = Array(data.keys)
+            arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) < ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
+        self.allDates =  arr
+    }
+    
+    func setSearchedAccountDetails(data: JSONDictionary) {
+        self.searchedAccountDetails = data
+            var arr = Array(data.keys)
+            arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) < ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
+        self.searchedAllDates =  arr
+    }
     func searchEvent(forText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         perform(#selector(self.callSearchEvent(_:)), with: forText, afterDelay: 0.5)
@@ -61,8 +65,8 @@ class AccountDetailsVM: NSObject {
     
     @objc private func callSearchEvent(_ forText: String) {
         printDebug("search text for: \(forText)")
-        self.searchedAccountDetails = self.getDataApplySearch(forText: forText, onData: self._accountDetails) ?? [:]
-        
+        let value = self.getDataApplySearch(forText: forText, onData: self._accountDetails) ?? [:]
+        self.setSearchedAccountDetails(data: value)
         self.delegate?.searchEventsSuccess()
     }
     
@@ -116,7 +120,7 @@ class AccountDetailsVM: NSObject {
     
     func setAccountDetails(details: JSONDictionary) {
         self._accountDetails = details
-        self.accountDetails = details
+        self.setAccountDetails(data: details)
         //self.delegate?.getAccountDetailsSuccess()
     }
     
@@ -138,7 +142,7 @@ class AccountDetailsVM: NSObject {
             
             if success {
                 sSelf._accountDetails = accLad
-                sSelf.accountDetails = sSelf._accountDetails
+                sSelf.setAccountDetails(data: accLad)
                 sSelf.delegate?.getAccountDetailsSuccess()
             }
             else {
@@ -168,11 +172,11 @@ class AccountDetailsVM: NSObject {
                 if let searched = sSelf.getDataApplySearch(forText: searchText, onData: accLad) {
                     
                     if let vchr = filter?.voucherType, let data = sSelf.filterForVoucher(voucher: vchr, onData: searched) {
-                        sSelf.accountDetails = data
+                        sSelf.setAccountDetails(data: data)
                         sSelf.delegate?.applyFilterSuccess()
                     }
                     else {
-                        sSelf.accountDetails = searched
+                        sSelf.setAccountDetails(data: searched)
                         sSelf.delegate?.applyFilterSuccess()
                     }
                 }

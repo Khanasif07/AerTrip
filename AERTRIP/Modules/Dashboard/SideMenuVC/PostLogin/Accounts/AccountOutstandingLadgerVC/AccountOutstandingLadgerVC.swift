@@ -361,15 +361,14 @@ extension AccountOutstandingLadgerVC: UISearchBarDelegate {
     func clearSearchData() {
         self.mainSearchBar.text = ""
         self.searchBar.text = ""
-        self.viewModel.searchedAccountDetails.removeAll()
-        self.viewModel.selectedEvent.removeAll()
-        self.viewModel.accountDetails = self.viewModel._accountDetails
+        self.viewModel.setSearchedAccountDetails(data: [:])
+        self.viewModel.setAccountDetails(data: self.viewModel._accountDetails)
         self.reloadList()
     }
     
     func preserveSearchData() {
         self.searchBar.text = self.mainSearchBar.text
-        self.viewModel.accountDetails = self.viewModel.searchedAccountDetails
+        self.viewModel.setAccountDetails(data: self.viewModel.searchedAccountDetails)
         self.reloadList()
     }
     

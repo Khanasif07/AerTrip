@@ -85,7 +85,8 @@ class AccountDetailsVC: BaseVC {
     //MARK:-
     override func initialSetup() {
         
-        
+        tableView.delegate = self
+        tableView.dataSource = self
         
         self.manageSubView()
         let navTitle = (self.currentUsingAs == .account) ? LocalizedString.Accounts.localized : LocalizedString.AccountLegder.localized
@@ -127,9 +128,9 @@ class AccountDetailsVC: BaseVC {
         
         self.manageHeader(animated: false)
         
-        delay(seconds: 0.4) { [weak self] in
-            self?.getAccountDetailsSuccess()
-        }
+//        delay(seconds: 0.4) { [weak self] in
+//            self?.getAccountDetailsSuccess()
+//        }
     }
     
     override func dataChanged(_ note: Notification) {
@@ -265,8 +266,6 @@ class AccountDetailsVC: BaseVC {
     //MARK:- Public
     func reloadList() {
         
-        tableView.delegate = self
-        tableView.dataSource = self
         self.setupHeaderFooterText()
 
         self.tableView.backgroundView = (self.currentViewState == .filterApplied) ? self.noAccountResultView : self.noAccountTransectionView
@@ -304,15 +303,15 @@ extension AccountDetailsVC: UISearchBarDelegate {
         self.mainSearchBar.text = ""
         self.searchBar.text = ""
         self.ladgerDummySearchBar.text = ""
-        self.viewModel.searchedAccountDetails.removeAll()
-        self.viewModel.accountDetails = self.viewModel._accountDetails
+        self.viewModel.setSearchedAccountDetails(data: [:])
+        self.viewModel.setAccountDetails(data: self.viewModel._accountDetails)
         self.reloadList()
     }
     
     func preserveSearchData() {
         self.searchBar.text = self.mainSearchBar.text
         self.ladgerDummySearchBar.text = self.mainSearchBar.text
-        self.viewModel.accountDetails = self.viewModel.searchedAccountDetails
+        self.viewModel.setAccountDetails(data: self.viewModel.searchedAccountDetails)
         self.reloadList()
     }
     

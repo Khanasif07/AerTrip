@@ -22,19 +22,11 @@ protocol AccountOutstandingLadgerVMDelegate: class {
 class AccountOutstandingLadgerVM: NSObject {
     //MARK:- Properties
     //MARK:- Public
-    var _accountDetails: JSONDictionary = JSONDictionary()
-    var accountDetails: JSONDictionary = JSONDictionary()
-    var allDates: [String] {
-        var arr = Array(accountDetails.keys)
-        arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) < ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
-        return arr
-    }
-    var searchedAccountDetails: JSONDictionary = JSONDictionary()
-    var searchedAllDates: [String] {
-        var arr = Array(searchedAccountDetails.keys)
-        arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) < ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
-        return arr
-    }
+    private(set) var _accountDetails: JSONDictionary = JSONDictionary()
+    private(set) var accountDetails: JSONDictionary = JSONDictionary()
+    private(set) var allDates = [String]()
+    private(set)var searchedAccountDetails: JSONDictionary = JSONDictionary()
+    private(set) var searchedAllDates = [String]()
     
     var selectedEvent: [AccountDetailEvent] = []
     
@@ -51,7 +43,7 @@ class AccountOutstandingLadgerVM: NSObject {
         didSet {
             if let obj = accountOutstanding {
                 self._accountDetails = obj.ladger
-                self.accountDetails = obj.ladger
+                self.setAccountDetails(data: obj.ladger)
             }
         }
     }
@@ -61,6 +53,20 @@ class AccountOutstandingLadgerVM: NSObject {
     
     //MARK:- Methods
     //MARK:- Public
+    func setAccountDetails(data: JSONDictionary) {
+        self.accountDetails = data
+            var arr = Array(data.keys)
+            arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) < ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
+        self.allDates =  arr
+    }
+    
+    func setSearchedAccountDetails(data: JSONDictionary) {
+        self.searchedAccountDetails = data
+            var arr = Array(data.keys)
+            arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) < ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
+        self.searchedAllDates =  arr
+    }
+    
     func selectedArrayIndex(forEvent: AccountDetailEvent) -> Int?{
         return self.selectedEvent.firstIndex { $0.id == forEvent.id}
     }
@@ -73,11 +79,7 @@ class AccountOutstandingLadgerVM: NSObject {
         printDebug("search text for: \(forText)")
 
         let value = self.getDataApplySearch(forText: forText, onData: self._accountDetails) ?? [:]
-        print("value: \(value)")
-        print("forText: \(forText)")
-
-        self.searchedAccountDetails = value
-        
+        self.setSearchedAccountDetails(data: value)
         self.delegate?.searchEventsSuccess()
     }
     
