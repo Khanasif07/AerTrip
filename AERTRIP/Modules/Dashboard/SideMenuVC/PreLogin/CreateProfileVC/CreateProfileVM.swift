@@ -61,6 +61,9 @@ class CreateProfileVM {
             
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterMobileNumber.localized)
             return false
+        }else if self.userData.mobile.count < self.userData.minContactLimit {
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterValidMobileNumber.localized)
+            return false
         }
         return true
     }

@@ -173,7 +173,7 @@ private extension SecureYourAccountVC {
         if  self.viewModel.isPasswordType == .resetPasswod {
             placeholder = LocalizedString.New_Password.localized
         }
-        self.passwordTextField.setupTextField(placehoder: placeholder, keyboardType: .default, returnType: .done, isSecureText: true)
+        self.passwordTextField.setupTextField(placehoder: placeholder,textColor: AppColors.textFieldTextColor51, keyboardType: .default, returnType: .done, isSecureText: true)
         self.passwordTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         
         self.passwordTextField.rightView = UIView(frame: self.showPasswordButton.bounds)

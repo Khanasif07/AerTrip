@@ -277,10 +277,12 @@ class SpecialAccountDetailsVM {
     }
     
     func fetchScreenDetails() {
-        self.delegate?.willFetchScreenDetails()
         
         //firstly show the saved data
         self.formatDataForScreen()
+        
+        self.delegate?.willFetchScreenDetails()
+
         
         //hit api to update the saved data and show it on screen
         APICaller.shared.getAccountDetailsAPI(params: [:]) { [weak self](success, accLad, accVchrs, outLad, periodic, errors) in
@@ -298,6 +300,7 @@ class SpecialAccountDetailsVM {
             }
             else {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .profile)
+                self?.delegate?.fetchScreenDetailsFail()
             }
         }
     }

@@ -121,13 +121,16 @@ extension SpecialAccountDetailsVC: SpecialAccountDetailsVMDelegate {
     }
     
     func willFetchScreenDetails() {
+        AppGlobals.shared.startLoading()
     }
     
     func fetchScreenDetailsSuccess() {
+        AppGlobals.shared.stopLoading()
         self.tableView.reloadData()
     }
     
     func fetchScreenDetailsFail() {
+        AppGlobals.shared.stopLoading()
     }
 }
 

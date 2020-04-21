@@ -112,7 +112,7 @@
 "Last_Name"        = "Last Name";
 "Country"          = "Country";
 "Mobile_Number"      = "Mobile Number";
-"Lets_Get_Started"    = "Lets Get Started!";
+"Lets_Get_Started"    = "Let's Get Started!";
 "Done"            = "Done";
 "selectedCountryCode"    = "+91";
 "selectedCountry"        = "India";
@@ -156,12 +156,13 @@
 //MARK:-
 "Mr"  = "Mr";
 "Mis" = "Mis";
-"PleaseSelectSalutation" = "Kindly provide a valid salutation";
+"PleaseSelectSalutation" = "Please select gender";
 "PleaseEnterFirstName"   = "Please enter first name";
 "PleaseEnterLastName"    = "Please enter last name";
 "PleaseSelectCountry"    = "Please select country";
 "PleaseEnterMobileNumber" = "Please enter mobile number";
 "ViewProfile"         = "View Profile";
+"PleaseEnterValidMobileNumber" = "Please enter valid mobile number";
 
 //MARK:- ViewProfileVC
 //MARK:-
@@ -625,6 +626,9 @@
 "Pending" = "Pending";
 "DateSpan" = "Date Span";
 "VoucherType" = "Voucher Type";
+"CancellationFor" = "Cancellation for:";
+"ReschedulingFor" = "Rescheduling for:";
+
 
 //MARK: - BookingVC
 "MyBookings" = "My Bookings";

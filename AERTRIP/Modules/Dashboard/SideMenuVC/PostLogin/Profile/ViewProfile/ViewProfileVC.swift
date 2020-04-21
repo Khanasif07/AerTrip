@@ -324,6 +324,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
                 AppFlowManager.default.moveToLinkedAccountsVC()
                 
             default:
+                AppToast.default.showToastMessage(message: "This feature is coming soon")
                 break
             }
             

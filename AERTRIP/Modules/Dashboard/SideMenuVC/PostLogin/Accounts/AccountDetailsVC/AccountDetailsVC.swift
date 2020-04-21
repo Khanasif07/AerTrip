@@ -343,22 +343,27 @@ extension AccountDetailsVC: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar === self.mainSearchBar, searchText.count >= AppConstants.kSearchTextLimit {
+        if searchBar === self.mainSearchBar {
+            //searchText.count >= AppConstants.kSearchTextLimit
+            self.viewModel.searchEvent(forText: searchText)
+            if !searchText.isEmpty {
             self.noResultemptyView.searchTextLabel.isHidden = false
             self.noResultemptyView.searchTextLabel.text = "\(LocalizedString.For.localized) '\(searchText)'"
-            self.viewModel.searchEvent(forText: searchText)
-        }
-        else {
-            //reset tot the old state
-            if (searchBar.text ?? "").isEmpty {
+            } else {
                 self.clearSearchData()
             }
-            else {
-//                self.reloadList()
-                self.clearSearchData()
-
-            }
         }
+//        else {
+//            //reset tot the old state
+//            if (searchBar.text ?? "").isEmpty {
+//                self.clearSearchData()
+//            }
+//            else {
+////                self.reloadList()
+//                self.clearSearchData()
+//
+//            }
+//        }
     }
 }
 
@@ -438,15 +443,18 @@ extension AccountDetailsVC: AccountDetailsVMDelegate {
     }
 
     func willGetAccountDetails() {
+        AppGlobals.shared.startLoading()
     }
     
     func getAccountDetailsSuccess() {
+        AppGlobals.shared.stopLoading()
         self.topNavView.firstRightButton.isEnabled = true
         self.topNavView.secondRightButton.isEnabled = true
         self.reloadList()
     }
     
     func getAccountDetailsFail() {
+        AppGlobals.shared.stopLoading()
     }
     
     func searchEventsSuccess() {

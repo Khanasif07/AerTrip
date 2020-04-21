@@ -120,7 +120,6 @@ class CreateProfileVC: BaseVC {
     //MARK:-
     
     @IBAction func letsGetStartButton(_ sender: ATButton) {
-        
         self.view.endEditing(true)
         if self.viewModel.isValidateData {
             self.viewModel.webserviceForUpdateProfile()
@@ -153,7 +152,7 @@ class CreateProfileVC: BaseVC {
             unicodeSwitch.titleLeft = "🙋🏻‍♂️"
             self.viewModel.userData.salutation = AppConstants.kmR
         }
-        self.letsStartedButton.isEnabled  = self.viewModel.isValidateForButtonEnable
+        self.letsStartedButton.isEnabledShadow  = !self.viewModel.isValidateForButtonEnable
 
     }
     
@@ -191,7 +190,7 @@ private extension CreateProfileVC {
         self.viewModel.userData.address?.countryCode = LocalizedString.selectedCountryCode.localized
         self.viewModel.userData.address?.country = LocalizedString.selectedCountry.localized
         self.viewModel.userData.salutation = ""
-        self.letsStartedButton.isEnabled = false
+        self.letsStartedButton.isEnabledShadow = true
         self.firstNameTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         self.lastNameTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
         self.mobileNumberTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
@@ -319,7 +318,7 @@ extension CreateProfileVC {
             break
         }
         
-        self.letsStartedButton.isEnabled  = self.viewModel.isValidateForButtonEnable
+        self.letsStartedButton.isEnabledShadow  = !self.viewModel.isValidateForButtonEnable
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {

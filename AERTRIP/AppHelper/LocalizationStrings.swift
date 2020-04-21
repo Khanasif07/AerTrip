@@ -199,7 +199,8 @@ enum LocalizedString: String {
     case selectedCountryCode
     case selectedCountry
     case SelectedCountrySymbol = "SelectedCountySymbol"
-    
+    case PleaseEnterValidMobileNumber
+
     // MARK: - ViewProfileVC
     
     // MARK: -
@@ -693,6 +694,9 @@ enum LocalizedString: String {
     case Amount
     case Pending
     case Voucher
+    case CancellationFor
+    case ReschedulingFor
+
     
     // MARK: - BookingVC
     

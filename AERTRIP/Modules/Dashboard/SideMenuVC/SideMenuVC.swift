@@ -364,7 +364,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 AppFlowManager.default.moveToSettingsVC()
                 
             default:
-                AppGlobals.shared.showUnderDevelopment()
+                AppToast.default.showToastMessage(message: "This feature is coming soon")
             }
         }
         else {
@@ -380,6 +380,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 
             default:
                 print("DO Nothing")
+                AppToast.default.showToastMessage(message: "This feature is coming soon")
             }
         }
     }

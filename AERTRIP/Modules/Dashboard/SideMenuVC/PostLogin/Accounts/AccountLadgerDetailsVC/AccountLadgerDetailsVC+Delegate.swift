@@ -39,7 +39,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
         
         guard indexPath.section > 0 else {
             //first section's first cell
-            if let event = self.viewModel.ladgerEvent, event.voucher == .sales {
+            if let event = self.viewModel.ladgerEvent, event.voucher == .sales || event.voucher == .journal {
                 if event.productType == .flight {
                     return 7.0
                 }
@@ -90,7 +90,7 @@ extension AccountLadgerDetailsVC: UITableViewDelegate, UITableViewDataSource {
             var age = ""
             
             if let event = self.viewModel.ladgerEvent {
-                if event.voucher == .sales {
+                if event.voucher == .sales || event.voucher == .journal {
                     
                     if event.productType == .hotel {
                         switch section {

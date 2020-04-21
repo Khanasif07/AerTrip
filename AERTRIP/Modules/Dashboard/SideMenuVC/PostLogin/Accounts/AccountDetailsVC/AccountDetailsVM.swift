@@ -48,14 +48,14 @@ class AccountDetailsVM: NSObject {
     func setAccountDetails(data: JSONDictionary) {
         self.accountDetails = data
             var arr = Array(data.keys)
-            arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) < ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
+            arr.sort { ($0.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0)}
         self.allDates =  arr
     }
     
     func setSearchedAccountDetails(data: JSONDictionary) {
         self.searchedAccountDetails = data
             var arr = Array(data.keys)
-            arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) < ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
+            arr.sort { ($0.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0)}
         self.searchedAllDates =  arr
     }
     func searchEvent(forText: String) {
@@ -72,7 +72,7 @@ class AccountDetailsVM: NSObject {
     
     private func fetchLedgerStartDate() {
         var arr = Array(_accountDetails.keys)
-        arr.sort { ($0.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "EEE dd MMM")?.timeIntervalSince1970 ?? 0)}
+        arr.sort { ($0.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0) > ($1.toDate(dateFormat: "YYYY-MM-dd")?.timeIntervalSince1970 ?? 0)}
         if let lastD = arr.last, let dataArr = _accountDetails[lastD] as? [AccountDetailEvent] {
             self.ledgerStartDate = dataArr.last?.date ?? Date()
         }
@@ -80,7 +80,7 @@ class AccountDetailsVM: NSObject {
     
     private func getDataApplySearch(forText: String, onData: JSONDictionary) -> JSONDictionary? {
         if forText.isEmpty {
-            return onData
+            return [:]
         }
         else {
             
@@ -101,7 +101,7 @@ class AccountDetailsVM: NSObject {
     private func filterForVoucher(voucher: String, onData: JSONDictionary) -> JSONDictionary? {
         
         guard !voucher.isEmpty, voucher.lowercased() != "all", let vchr = VoucherType(rawValue: voucher) else {
-            return onData
+            return [:]
         }
         
         var newData = JSONDictionary()

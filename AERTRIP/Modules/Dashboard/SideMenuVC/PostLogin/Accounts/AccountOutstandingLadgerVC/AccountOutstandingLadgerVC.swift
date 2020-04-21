@@ -476,9 +476,11 @@ extension AccountOutstandingLadgerVC {
         self.subheaderDetailsConstainer.isHidden = false
         UIView.animate(withDuration: animated ? 0.2 : 0.0, animations: {[weak self] in
             guard let sSelf = self else {return}
-            
-            sSelf.subHeaderContainerTopConstraint.constant = isHidden ? constToHide : 0.0
+            let value = isHidden ? constToHide : 0.0
+            if sSelf.subHeaderContainerTopConstraint.constant != value {
+            sSelf.subHeaderContainerTopConstraint.constant = value
             sSelf.view.layoutIfNeeded()
+            }
             }, completion: { [weak self](isDone) in
                 guard let sSelf = self else {return}
 
@@ -506,9 +508,11 @@ extension AccountOutstandingLadgerVC {
         self.subHeaderContainer.isHidden = false
         UIView.animate(withDuration: animated ? 0.2 : 0.0, animations: {[weak self] in
             guard let sSelf = self else {return}
-            
-            sSelf.subHeaderContainerTopConstraint.constant = isHidden ? constToHide : constToShow
+            let value = isHidden ? constToHide : constToShow
+            if sSelf.subHeaderContainerTopConstraint.constant != value {
+            sSelf.subHeaderContainerTopConstraint.constant = value
             sSelf.view.layoutIfNeeded()
+            }
             }, completion: { [weak self](isDone) in
                 guard let sSelf = self else {return}
                 

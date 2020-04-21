@@ -45,6 +45,13 @@ extension AccountDetailsVC: UITableViewDataSource, UITableViewDelegate {
         else {
             titleStr = self.viewModel.searchedAllDates[section]
         }
+        if let date = titleStr.toDate(dateFormat: "YYYY-MM-dd") {
+            if date.isCurrentYear {
+                titleStr = date.toString(dateFormat: "EEE dd MMM")
+            } else {
+                titleStr = date.toString(dateFormat: "dd MMM YYYY")
+            }
+        }
         headerView.dateLabel.text = titleStr
         headerView.parentView.backgroundColor = AppColors.themeWhite
         headerView.dateLabelTopConstraint.constant = section == 0 ? 16 : 18

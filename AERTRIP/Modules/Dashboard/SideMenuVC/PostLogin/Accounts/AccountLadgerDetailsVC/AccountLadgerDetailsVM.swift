@@ -135,7 +135,7 @@ class AccountLadgerDetailsVM {
             return
         }
         
-        if event.voucher == .sales {
+        if event.voucher == .sales || event.voucher == .journal {
             
             if event.productType == .hotel {
                 self.parseDataForHotelSales()

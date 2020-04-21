@@ -44,7 +44,7 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maggie Fletcher" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAE-bT-BMd">
-                            <rect key="frame" x="10" y="147.5" width="355" height="33"/>
+                            <rect key="frame" x="16" y="147.5" width="343" height="33"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="33" id="XlT-Ft-NH1"/>
                             </constraints>
@@ -82,7 +82,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="ARz-1y-xpA" firstAttribute="centerX" secondItem="LRw-xr-uiF" secondAttribute="centerX" id="14r-wC-AMq"/>
-                        <constraint firstAttribute="trailing" secondItem="eAE-bT-BMd" secondAttribute="trailing" constant="10" id="5G0-Pb-9k7"/>
+                        <constraint firstAttribute="trailing" secondItem="eAE-bT-BMd" secondAttribute="trailing" constant="16" id="5G0-Pb-9k7"/>
                         <constraint firstItem="LRw-xr-uiF" firstAttribute="top" secondItem="eAE-bT-BMd" secondAttribute="bottom" constant="10" id="8ey-9o-wNj"/>
                         <constraint firstItem="LRw-xr-uiF" firstAttribute="leading" secondItem="cbl-xr-PpX" secondAttribute="leading" constant="20" id="FfI-l5-TGP"/>
                         <constraint firstItem="eAE-bT-BMd" firstAttribute="top" secondItem="ARz-1y-xpA" secondAttribute="bottom" constant="17" id="LrI-tj-Fwj"/>
@@ -90,7 +90,7 @@
                         <constraint firstAttribute="bottom" secondItem="LRw-xr-uiF" secondAttribute="bottom" constant="29" id="aVT-X6-x1Z"/>
                         <constraint firstItem="aaY-3S-c6N" firstAttribute="centerY" secondItem="ARz-1y-xpA" secondAttribute="centerY" multiplier="1.1" id="i8W-8z-T5J"/>
                         <constraint firstItem="aaY-3S-c6N" firstAttribute="centerX" secondItem="ARz-1y-xpA" secondAttribute="centerX" id="ilh-5h-Qut"/>
-                        <constraint firstItem="eAE-bT-BMd" firstAttribute="leading" secondItem="cbl-xr-PpX" secondAttribute="leading" constant="10" id="y1k-TL-sBw"/>
+                        <constraint firstItem="eAE-bT-BMd" firstAttribute="leading" secondItem="cbl-xr-PpX" secondAttribute="leading" constant="16" id="y1k-TL-sBw"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ycJ-AK-oMp" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">

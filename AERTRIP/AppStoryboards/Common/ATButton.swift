@@ -77,6 +77,12 @@ class ATButton: UIButton {
         }
     }
     
+    var isEnabledShadow: Bool = false {
+        didSet {
+            self.layoutSubviews()
+        }
+    }
+    
     var isSocial: Bool = false {
         didSet {
             self.layoutSubviews()
@@ -138,18 +144,25 @@ class ATButton: UIButton {
         shadowLayer.path = UIBezierPath(roundedRect: shadowFrame, cornerRadius: self.cornerRadius).cgPath
         shadowLayer.fillColor = AppColors.clear.cgColor
         if self.isEnabled {
-            
+            if isEnabledShadow {
+                shadowLayer.shadowColor = AppColors.clear.cgColor
+                shadowLayer.shadowOffset = CGSize.zero
+                shadowLayer.shadowOpacity = 0.0
+                shadowLayer.shadowRadius = 0.0
+            } else {
             shadowLayer.shadowColor = shadowColor.cgColor
             shadowLayer.shadowPath  = shadowLayer.path
             shadowLayer.shadowOffset = CGSize(width: 0.0, height: self.isSocial ? 2.0 : 12.0)
             shadowLayer.shadowOpacity = self.isSocial ? 0.16 : 0.5
             shadowLayer.shadowRadius = self.isSocial ? 3.0 : 15.0
+            }
         } else {
             shadowLayer.shadowColor = AppColors.clear.cgColor
             shadowLayer.shadowOffset = CGSize.zero
             shadowLayer.shadowOpacity = 0.0
             shadowLayer.shadowRadius = 0.0
         }
+        
     }
     
     private func getGradientLayer() -> CAGradientLayer {
@@ -182,9 +195,16 @@ class ATButton: UIButton {
         gLayer.masksToBounds = true
         
         if self.isEnabled {
-            gLayer.colors = gradientColors.map { (clr) -> CGColor in
-                clr.cgColor
+            if isEnabledShadow {
+                gLayer.colors = disabledGradientColors.map { (clr) -> CGColor in
+                    clr.cgColor
+                }
+            } else {
+                gLayer.colors = gradientColors.map { (clr) -> CGColor in
+                    clr.cgColor
+                }
             }
+            
         }
         else {
             gLayer.colors = disabledGradientColors.map { (clr) -> CGColor in

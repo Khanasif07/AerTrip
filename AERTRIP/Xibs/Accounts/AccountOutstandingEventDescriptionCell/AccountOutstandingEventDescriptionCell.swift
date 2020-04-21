@@ -94,6 +94,7 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         
         self.iconImageView.image = nil
         self.titleLabel.text = ""
+        self.titleLabel.attributedText = nil
     }
     
     private func manageSelectable() {
@@ -114,6 +115,10 @@ class AccountOutstandingEventDescriptionCell: UITableViewCell {
         
         self.iconImageView.image = event.iconImage
         self.titleLabel.text = event.title
+        
+        self.titleLabel.AttributedFontAndColorForText(atributedText: LocalizedString.CancellationFor.localized, textFont: AppFonts.Regular.withSize(14), textColor: AppColors.themeRed)
+        self.titleLabel.AttributedFontAndColorForText(atributedText: LocalizedString.ReschedulingFor.localized, textFont: AppFonts.Regular.withSize(14), textColor: AppColors.themeRed)
+
         
         let drAttr = NSMutableAttributedString(string: " \(LocalizedString.DebitShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
         let crAttr = NSMutableAttributedString(string: " \(LocalizedString.CreditShort.localized)", attributes: [.font: AppFonts.Regular.withSize(16.0)])
