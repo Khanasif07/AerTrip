@@ -192,6 +192,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
         topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.SaveWithSpace.localized, selectedTitle: LocalizedString.SaveWithSpace.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.CancelWithSpace.localized, selectedTitle: LocalizedString.CancelWithSpace.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
+        topNavView.dividerView.isHidden = false
 //        self.deleteTravellerView.isHidden = true
 //        delay(seconds: 0.7) { [weak self] in
 //            self?.deleteTravellerView.isHidden = self?.viewModel.paxId == UserInfo.loggedInUser?.paxId ? true : false
@@ -218,6 +219,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         footerView.backgroundColor = UIColor.clear
         tableView.tableFooterView = footerView
         tableView.sectionFooterHeight = CGFloat.leastNormalMagnitude
+        tableView.backgroundColor = AppColors.themeGray04
     }
     
     func setupPickers() {
@@ -551,13 +553,13 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         PKCountryPicker.default.closePicker()
         
         let visibleFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - pickerSize.height, width: pickerSize.width, height: pickerSize.height)
-        
+        let index = self.pickerData.firstIndex(of: withSelection) ?? 0
+        self.pickerView?.selectRow(index, inComponent: 0, animated: false)
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.genericPickerView?.frame = visibleFrame
             self.view.addSubview(self.genericPickerView!)
         }) { _ in
-            let index = self.pickerData.firstIndex(of: withSelection) ?? 0
-            self.pickerView?.selectRow(index, inComponent: 0, animated: true)
+            
         }
     }
     

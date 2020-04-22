@@ -10,6 +10,7 @@ import UIKit
 
 class EditProfileFooterTableView: UITableViewHeaderFooterView {
     
+    @IBOutlet weak var topSpaceView: UIView!
     @IBOutlet weak var deleteTravellerView: UIView!
     @IBOutlet weak var deleteButton: UIButton!
     

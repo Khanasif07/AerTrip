@@ -18,10 +18,17 @@
                     <rect key="frame" x="0.0" y="0.0" width="369" height="80"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Iwn-kw-Gv6">
-                            <rect key="frame" x="0.0" y="0.0" width="369" height="80"/>
+                            <rect key="frame" x="0.0" y="0.0" width="369" height="96"/>
                             <subviews>
+                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tm2-9M-X9Q">
+                                    <rect key="frame" x="0.0" y="0.0" width="369" height="16"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="16" id="2HI-20-qDh"/>
+                                    </constraints>
+                                </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dom-KP-rQ8">
-                                    <rect key="frame" x="0.0" y="0.0" width="369" height="45"/>
+                                    <rect key="frame" x="0.0" y="16" width="369" height="45"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oh6-Kw-S02" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="369" height="0.5"/>
@@ -64,13 +71,14 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iRK-Oj-7vz">
-                                    <rect key="frame" x="0.0" y="45" width="369" height="35"/>
+                                    <rect key="frame" x="0.0" y="61" width="369" height="35"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="35" id="9zm-uW-5G3"/>
                                     </constraints>
                                 </view>
                             </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </stackView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -93,6 +101,7 @@
             <connections>
                 <outlet property="deleteButton" destination="Hc2-3o-iCx" id="9sZ-n4-TIE"/>
                 <outlet property="deleteTravellerView" destination="dom-KP-rQ8" id="fXp-Qf-zLn"/>
+                <outlet property="topSpaceView" destination="Tm2-9M-X9Q" id="YmL-j1-5Uh"/>
             </connections>
             <point key="canvasLocation" x="-564" y="-1047.9760119940031"/>
         </view>

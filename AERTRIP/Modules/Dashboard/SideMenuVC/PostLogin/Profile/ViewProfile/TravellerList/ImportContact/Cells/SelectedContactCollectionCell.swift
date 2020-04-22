@@ -66,6 +66,7 @@ class SelectedContactCollectionCell: UICollectionViewCell {
         self.crossButton.layer.masksToBounds = true
         self.crossButton.addTarget(self, action: #selector(crossButtonAction(_:)), for: UIControl.Event.touchUpInside)
         resetView()
+        profileImageView.contentMode = .scaleAspectFill
     }
     
     private func setupTextAndColor() {
@@ -298,7 +299,7 @@ class SelectedContactImportCollectionCell: UICollectionViewCell {
                 self.nameLabel.text = ""
             }
             
-            let placeholder = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
+            let placeholder = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, offSet: CGPoint(x: 0.0, y: 9.0),backGroundColor: AppColors.imageBackGroundColor)
             self.profileImageView.image = placeholder
             if let imgData = self.contact?.imageData {
                 self.profileImageView.image = UIImage(data: imgData)
@@ -307,8 +308,8 @@ class SelectedContactImportCollectionCell: UICollectionViewCell {
                 self.profileImageView.setImageWithUrl(img, placeholder: placeholder, showIndicator: false)
             }
             self.crossButton.isHidden = false
-            self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
-            self.profileImageView.layer.borderWidth = 1.0
+//            self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
+//            self.profileImageView.layer.borderWidth = 1.0
         }
     }
     

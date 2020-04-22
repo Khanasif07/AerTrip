@@ -212,6 +212,13 @@ class ContactListVC: BaseVC {
         self.tableView.delegate = self
         self.tableView.dataSource = self
        // noResultemptyView.mainImageViewTopConstraint.constant = 400
+        
+        if self.currentlyUsingFor == .contacts {
+            if CNContactStore.authorizationStatus(for: .contacts) == .authorized {
+                self.viewModel.fetchPhoneContacts(forVC: self)
+            }
+        }
+        
     }
     
     private func reloadList() {

@@ -54,7 +54,11 @@ class ViewProfileDetailVC: BaseVC {
         profileImageHeaderView?.currentlyUsingAs = .profileDetails
         UIView.animate(withDuration: AppConstants.kAnimationDuration) { [weak self] in
             self?.tableView.origin.x = -200
-            self?.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(35.0))
+            if self?.viewModel.currentlyUsingFor != .travellerList {
+                self?.profileImageHeaderView?.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder(font: AppFonts.Regular.withSize(35.0))
+            } else if self?.viewModel.currentlyUsingFor == .travellerList{
+                self?.profileImageHeaderView?.profileImageView.image = AppGlobals.shared.getImageFor(firstName: self?.viewModel.travelData?.firstName, lastName: self?.viewModel.travelData?.lastName, font: AppFonts.Regular.withSize(35.0))  
+            }
             self?.profileImageHeaderView?.profileImageViewHeightConstraint.constant = 127.0
             self?.profileImageHeaderView?.layoutIfNeeded()
             self?.view.alpha = 1.0
@@ -121,14 +125,14 @@ class ViewProfileDetailVC: BaseVC {
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeWhite, for: .normal)
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .selected)
         self.topNavView.firstRightButton.isSelected = false
-        
+        self.topNavView.clipsToBounds = true
         setupParallaxHeader()
         tableView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellReuseIdentifier: cellIdentifier)
         tableView.register(UINib(nibName: "ViewProfileDetailFrequentCell",bundle: nil), forCellReuseIdentifier: "ViewProfileDetailFrequentCell")
         tableView.register(UINib(nibName: multipleDetailCellIdentifier, bundle: nil), forCellReuseIdentifier: multipleDetailCellIdentifier)
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: footterHeight))
         tableView.tableFooterView = footerView
-        profileImageHeaderView?.dividerView.isHidden = true
+//        profileImageHeaderView?.dividerView.isHidden = true
         setUpDataFromApi()
     }
     
@@ -215,12 +219,17 @@ class ViewProfileDetailVC: BaseVC {
         informations.removeAll()
         moreInformation.removeAll()
         if !travel.dob.isEmpty {
-            informations.append(AppGlobals.shared.formattedDateFromString(dateString: travel.dob, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? "")
-            moreInformation.append(LocalizedString.Birthday.localized)
+            if let value = AppGlobals.shared.formattedDateFromString(dateString: travel.dob, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") {
+                moreInformation.append(LocalizedString.Birthday.localized)
+                informations.append(value)
+            }
         }
         if !travel.doa.isEmpty {
-            informations.append(AppGlobals.shared.formattedDateFromString(dateString: travel.doa, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") ?? "")
-            moreInformation.append(LocalizedString.Anniversary.localized)
+            if let value = AppGlobals.shared.formattedDateFromString(dateString: travel.doa, inputFormat: "yyyy-MM-dd", withFormat: "dd MMMM yyyy") {
+                moreInformation.append(LocalizedString.Anniversary.localized)
+                informations.append(value)
+
+            }
         }
         if !travel.notes.isEmpty {
             informations.append(travel.notes)
@@ -268,6 +277,8 @@ class ViewProfileDetailVC: BaseVC {
                 sections.append(LocalizedString.FlightPreferences.localized)
             }
         }
+        
+        self.profileImageHeaderView?.dividerView.isHidden = !sections.isEmpty
         tableView.reloadData()
     }
     
@@ -449,6 +460,25 @@ extension ViewProfileDetailVC: UITableViewDataSource, UITableViewDelegate {
         headerView.headerLabel.text = sections[section].localized
         return headerView
     }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        let totalSection = self.numberOfSections(in: self.tableView)
+        if sections[section] != LocalizedString.FlightPreferences.localized, section == (totalSection - 1) {
+            return 0.5
+        }
+        return CGFloat.leastNormalMagnitude
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let totalSection = self.numberOfSections(in: self.tableView)
+        if sections[section] != LocalizedString.FlightPreferences.localized, section == (totalSection - 1) {
+            let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.width, height: 0.5))
+            footerView.backgroundColor = AppColors.divider.color
+            return footerView
+        }
+        return nil
+        
+    }
 }
 
 // MARK: - MXParallaxHeaderDelegate methods
@@ -473,6 +503,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
                            self?.topNavView.leftButton.tintColor = AppColors.themeWhite
                            self?.topNavView.navTitleLabel.text = ""
                            self?.topNavView.backView.backgroundColor = AppColors.themeWhite
+                        self?.topNavView.dividerView.isHidden = true
                        }
             } else {
                 self.statusBarStyle = .default
@@ -481,6 +512,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
                                self?.topNavView.leftButton.isSelected = true
                                self?.topNavView.leftButton.tintColor = AppColors.themeGreen
                                self?.topNavView.navTitleLabel.text = self?.getUpdatedTitle()
+                            self?.topNavView.dividerView.isHidden = false
                            }
             }
         } else {
@@ -491,6 +523,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
                 self?.topNavView.leftButton.tintColor = AppColors.themeWhite
                 self?.topNavView.navTitleLabel.text = ""
                 self?.topNavView.backView.backgroundColor = AppColors.themeWhite
+                self?.topNavView.dividerView.isHidden = true
             }
         }
         self.isNavBarHidden =  false

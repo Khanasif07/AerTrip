@@ -53,6 +53,7 @@ class ContactDetailsTableCell: UITableViewCell {
     private func initialSetup() {
         self.contentView.layoutIfNeeded()
         self.userImageView.makeCircular()
+        self.userImageView.contentMode = .scaleAspectFill
     }
     
     private func setupTextAndColor() {
@@ -63,7 +64,6 @@ class ContactDetailsTableCell: UITableViewCell {
     private func populateData() {
         if contact != nil {
             self.selectionButton.isSelected = false
-            self.nameLabel.text = self.contact?.fullName ?? ""
             let placeholder = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, offSet: CGPoint(x: 0.0, y: 9.0))
             self.userImageView.image = placeholder
             self.userImageView.makeCircular(borderWidth: 0.0, borderColor: AppColors.themeGray20)
@@ -81,8 +81,11 @@ class ContactDetailsTableCell: UITableViewCell {
                 age = AppGlobals.shared.getAgeLastString(dob: dob, formatter: Date.DateFormat.yyyy_MM_dd.rawValue)
             }
             let firstName = self.contact?.firstName ?? ""
-            let lastName = self.contact?.lastName ?? ""
-            self.nameLabel.appendFixedText(text: "\(firstName) \(lastName)", fixedText: age)
+//            let lastName = self.contact?.lastName ?? ""
+            
+            let fullName = self.contact?.fullName ?? ""
+
+            self.nameLabel.appendFixedText(text: "\(fullName)", fixedText: age)
             self.nameLabel.AttributedFont(textFont : AppFonts.Regular.withSize(18.0), textColor : AppColors.themeBlack)
             self.nameLabel.AttributedFontForText(text: firstName, textFont: AppFonts.SemiBold.withSize(18.0))
             if !age.isEmpty {

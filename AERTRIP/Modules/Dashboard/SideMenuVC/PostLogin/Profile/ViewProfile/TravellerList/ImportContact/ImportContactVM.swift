@@ -157,6 +157,7 @@ class ImportContactVM: NSObject {
         self.delegateList?.willFetchPhoneContacts()
         self.delegateCollection?.willFetchPhoneContacts()
         
+        DispatchQueue.backgroundAsync {
         forVC.fetchContacts(complition: { [weak self] (contacts) in
             DispatchQueue.mainAsync {
                 self?.isPhoneContactsAllowed = true
@@ -167,7 +168,10 @@ class ImportContactVM: NSObject {
                 }
             }
         }) {
+            DispatchQueue.mainAsync {
             cancled?()
+            }
+        }
         }
     }
     

@@ -489,6 +489,23 @@ extension PreferencesVC: GroupTableViewCellDelegate {
             if index == 0 {
                 switch self.sections[indexPath.section] {
                 case LocalizedString.Groups:
+                   
+                    let count = self.getCount(forLabel: self.viewModel.groups[indexPath.row])
+                    let otherCount = self.getCount(forLabel: "others")
+                    var othersFound = false
+                    for (index, dict) in self.labelsCountDict.enumerated() {
+                        if let obj = dict["label"], "\(obj)".lowercased() == "others" {
+                            var newDict = dict
+                            newDict["count"] = count + otherCount
+                            self.labelsCountDict[index] = newDict
+                            othersFound = true
+                            break
+                        }
+                    }
+                    if !othersFound {
+                        let dict = ["label": "others", "count": count] as [String : Any]
+                        self.labelsCountDict.append(dict)
+                    }
                     self.viewModel.removedGroups.append(self.viewModel.groups.remove(at: indexPath.row))
                     self.viewModel.modifiedGroups.remove(at: indexPath.row)
                     self.tableView.reloadData()

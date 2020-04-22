@@ -467,7 +467,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         switch sections[section] {
         case LocalizedString.FlightPreferences.localized:
-            return self.viewModel.currentlyUsinfFor == .travellerList ? 79 : 35
+            return self.viewModel.currentlyUsinfFor == .travellerList ? 95 : 35
         default:
             return CGFloat.leastNormalMagnitude
         }
@@ -480,8 +480,10 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: editProfileFooterTableView) as? EditProfileFooterTableView else {return nil}
             if self.viewModel.currentlyUsinfFor == .travellerList {
                 footerView.deleteTravellerView.isHidden = false
+                footerView.topSpaceView.isHidden = false
             } else {
                 footerView.deleteTravellerView.isHidden = true
+                footerView.topSpaceView.isHidden = true
             }
             footerView.deleteBtnHandler = {[weak self] in
                 guard let strongSelf = self else {return}

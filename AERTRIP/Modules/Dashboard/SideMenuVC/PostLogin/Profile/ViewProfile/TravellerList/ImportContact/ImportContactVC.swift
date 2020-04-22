@@ -9,7 +9,6 @@
 import UIKit
 import Parchment
 
-
 class ImportContactVC: BaseVC {
     
     //MARK:- IBOutlets
@@ -181,6 +180,7 @@ class ImportContactVC: BaseVC {
         if newValue == value {
             return
         }
+        
         UIView.animate(withDuration: animated ? 0.0 : 0.0, animations: { [weak self] in
             guard let selff = self else { return }
             selff.selectedContactsContainerHeightConstraint.constant = newValue

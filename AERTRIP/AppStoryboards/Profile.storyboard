@@ -48,7 +48,7 @@
                         <constraints>
                             <constraint firstItem="fov-BW-QqB" firstAttribute="trailing" secondItem="yuL-bN-VZw" secondAttribute="trailing" id="1bu-Cg-7Y7"/>
                             <constraint firstItem="mGw-tj-9MG" firstAttribute="trailing" secondItem="yuL-bN-VZw" secondAttribute="trailing" id="bH0-Yg-Ot8"/>
-                            <constraint firstItem="mGw-tj-9MG" firstAttribute="bottom" secondItem="yuL-bN-VZw" secondAttribute="bottom" id="cDs-Sv-wMT"/>
+                            <constraint firstItem="mGw-tj-9MG" firstAttribute="bottom" secondItem="Pl9-eK-MAY" secondAttribute="bottom" id="cDs-Sv-wMT"/>
                             <constraint firstAttribute="top" secondItem="mGw-tj-9MG" secondAttribute="top" id="eX8-aU-xpH"/>
                             <constraint firstItem="mGw-tj-9MG" firstAttribute="leading" secondItem="yuL-bN-VZw" secondAttribute="leading" id="mic-dP-n41"/>
                             <constraint firstItem="fov-BW-QqB" firstAttribute="top" secondItem="Pl9-eK-MAY" secondAttribute="top" id="p3b-H9-dUl"/>
@@ -272,7 +272,7 @@
                             <constraint firstItem="KHs-VJ-mZp" firstAttribute="top" secondItem="rv8-CM-H6Z" secondAttribute="bottom" id="WuB-Ng-R9e"/>
                             <constraint firstItem="mTb-gg-rvG" firstAttribute="top" secondItem="fFV-CJ-ROs" secondAttribute="top" id="d9Q-aA-EnH"/>
                             <constraint firstItem="mTb-gg-rvG" firstAttribute="trailing" secondItem="fFV-CJ-ROs" secondAttribute="trailing" id="uHe-lp-ozV"/>
-                            <constraint firstItem="fFV-CJ-ROs" firstAttribute="bottom" secondItem="KHs-VJ-mZp" secondAttribute="bottom" id="uOX-DY-9YV"/>
+                            <constraint firstAttribute="bottom" secondItem="KHs-VJ-mZp" secondAttribute="bottom" id="uOX-DY-9YV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fFV-CJ-ROs"/>
                     </view>
@@ -330,7 +330,7 @@
                             <constraint firstItem="rvP-JD-Bu9" firstAttribute="top" secondItem="s0p-Ak-SKz" secondAttribute="bottom" id="QW4-Nt-s69"/>
                             <constraint firstItem="s0p-Ak-SKz" firstAttribute="top" secondItem="m2S-Wn-qw2" secondAttribute="top" id="ajB-9w-y8w"/>
                             <constraint firstItem="rvP-JD-Bu9" firstAttribute="trailing" secondItem="m2S-Wn-qw2" secondAttribute="trailing" id="n5i-2j-q5T"/>
-                            <constraint firstItem="rvP-JD-Bu9" firstAttribute="bottom" secondItem="m2S-Wn-qw2" secondAttribute="bottom" id="nI8-H7-OTy"/>
+                            <constraint firstItem="rvP-JD-Bu9" firstAttribute="bottom" secondItem="x63-jN-dWV" secondAttribute="bottom" id="nI8-H7-OTy"/>
                             <constraint firstItem="s0p-Ak-SKz" firstAttribute="leading" secondItem="m2S-Wn-qw2" secondAttribute="leading" id="yi8-ch-2i1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="m2S-Wn-qw2"/>
@@ -434,7 +434,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kdx-fd-umM" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kdx-fd-umM" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
@@ -458,7 +458,7 @@
                             <constraint firstItem="n0T-yz-prP" firstAttribute="leading" secondItem="zVP-pb-aig" secondAttribute="leading" id="UtM-gX-JrG"/>
                             <constraint firstItem="Kdx-fd-umM" firstAttribute="leading" secondItem="zVP-pb-aig" secondAttribute="leading" id="maO-MY-Twb"/>
                             <constraint firstAttribute="top" secondItem="Kdx-fd-umM" secondAttribute="top" id="ngC-Zr-8Tx"/>
-                            <constraint firstItem="Kdx-fd-umM" firstAttribute="bottom" secondItem="zVP-pb-aig" secondAttribute="bottom" id="uRX-xy-uJP"/>
+                            <constraint firstItem="Kdx-fd-umM" firstAttribute="bottom" secondItem="UAX-dR-QiD" secondAttribute="bottom" id="uRX-xy-uJP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zVP-pb-aig"/>
                     </view>
