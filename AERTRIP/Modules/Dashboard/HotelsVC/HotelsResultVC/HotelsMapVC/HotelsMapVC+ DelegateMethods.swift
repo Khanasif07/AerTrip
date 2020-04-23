@@ -224,6 +224,7 @@ extension HotelsMapVC: HotelResultDelegate {
         }else{
             self.updateFavouriteAnnotationDetail(duration: 0.4)
         }
+        self.switchView.isOn = self.viewModel.isFavouriteOn
     }
     
     func updateFavouriteFail(errors: ErrorCodes, isHotelFavourite: Bool) {
@@ -256,6 +257,7 @@ extension HotelsMapVC: HotelResultDelegate {
         }else{
             self.updateFavouriteAnnotationDetail(duration: 0.4)
         }
+        self.switchView.isOn = self.viewModel.isFavouriteOn
 //        self.showHotelOnMap(duration: 0.4)
     }
     

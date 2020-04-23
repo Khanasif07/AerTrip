@@ -49,6 +49,7 @@ class HCDataSelectionVM {
     // following properties will use to hit the confirmation API, will passed from where this class is being initiated
     var sId = "", hId = "", qId = ""
     var locid = ""
+    var panCard: String = ""
     
     // MARK: - Private
     
@@ -93,7 +94,7 @@ class HCDataSelectionVM {
     }
     
     func isValidateData(vc: UIViewController) -> Bool {
-        var isValid = false
+        var isValid = true
         
         // check for guest details valid or not
         for (_, room) in GuestDetailsVM.shared.guests.enumerated() {
@@ -110,17 +111,25 @@ class HCDataSelectionVM {
         // check if mobile number is valid or Not
         if self.mobileNumber.isEmpty {
             AppToast.default.showToastMessage(message: LocalizedString.EnterMobileNumberMessage.localized)
-            isValid = false
+            return false
         }
         // check if mobile isd is valid or Not
         if self.mobileIsd.isEmpty {
             AppToast.default.showToastMessage(message: LocalizedString.EnterIsdMessage.localized)
-            isValid = false
+            return false
         }
         // check if email is empty or Not
         if self.email.isEmpty || !self.email.checkValidity(.Email) {
             AppToast.default.showToastMessage(message: LocalizedString.EnterEmailAddressMessage.localized)
-            isValid = false
+            return false
+        }
+        
+        if (self.itineraryData?.hotelDetails?.pan_required ?? false) {
+            // check if panCard is empty or Not
+            if self.panCard.isEmpty || !self.panCard.checkValidity(.PanCard) {
+                AppToast.default.showToastMessage(message: LocalizedString.EnterPanCardMessage.localized)
+                return false
+            }
         }
         return isValid
     }
@@ -147,16 +156,16 @@ class HCDataSelectionVM {
         
         /* Hardcode guest params required for testing if required */
         
-//        params["t[0][_t][0][fname]"] = "Pawan"
-//        params["t[0][_t][0][lname]"] =  "Kumar"
-//        params["t[0][_t][0][sal]:"] =  "Mr"
-//        params["t[0][_t][0][ptype]"] =  "ADT"
-//        params["t[0][_t][0][id]"] = "13332"
-//        params["t[0][_t][1][fname]"] = "fdsfs"
-//        params["t[0][_t][1][lname]"] = "fsdfsdfsdf"
-//        params["t[0][_t][1][sal]"] =  "Mr"
-//        params["t[0][_t][1][ptype]"] =  "ADT"
-//        params["t[0][_t][1][id]"] = "0"
+        //        params["t[0][_t][0][fname]"] = "Pawan"
+        //        params["t[0][_t][0][lname]"] =  "Kumar"
+        //        params["t[0][_t][0][sal]:"] =  "Mr"
+        //        params["t[0][_t][0][ptype]"] =  "ADT"
+        //        params["t[0][_t][0][id]"] = "13332"
+        //        params["t[0][_t][1][fname]"] = "fdsfs"
+        //        params["t[0][_t][1][lname]"] = "fsdfsdfsdf"
+        //        params["t[0][_t][1][sal]"] =  "Mr"
+        //        params["t[0][_t][1][ptype]"] =  "ADT"
+        //        params["t[0][_t][1][id]"] = "0"
         
         // rid and qid in parameters
         if let rate = self.itineraryData?.hotelDetails?.rates?.first , let roomRates = rate.roomsRates {
@@ -166,21 +175,22 @@ class HCDataSelectionVM {
             }
         }
         
-//        params["t[0][rid]"] = self.itineraryData?.hotelDetails?.rates?.first?.roomsRates?.first?.rid
-//        params["t[0][qid]"] = self.itineraryData?.hotelDetails?.rates?.first?.qid
+        //        params["t[0][rid]"] = self.itineraryData?.hotelDetails?.rates?.first?.roomsRates?.first?.rid
+        //        params["t[0][qid]"] = self.itineraryData?.hotelDetails?.rates?.first?.qid
         params["special"] = self.specialRequest
         params["other"] = self.other
         
         params["mobile"] = self.mobileNumber
         params["mobile_isd"] = self.mobileIsd
         params["it_id"] = self.itineraryData?.it_id
+        params["t_pan"] = self.panCard
         
         for value in selectedSpecialRequest {
             params["preference[\(value)]"] = true
         }
-
         
-//        self.delegate?.willCallForItenaryDataTraveller()
+        
+        //        self.delegate?.willCallForItenaryDataTraveller()
         APICaller.shared.callItenaryDataForTravellerAPI(itinaryId: self.itineraryData?.it_id ?? "", params: params, loader: false) { [weak self] success, errors, _, itinerary in
             guard let sSelf = self else { return }
             if success {
@@ -198,13 +208,13 @@ class HCDataSelectionVM {
         if (rate.roomsRates?.count ?? 0) > 0 {
             presentedCell.append(.roomBedsTypeCell)
         }
-//        } else {
-//            for room in rate.roomsRates ?? [] {
-//                if room.name != currentRoom.name {
-//                    presentedCell.append(.roomBedsTypeCell)
-//                }
-//            }
-//        }
+        //        } else {
+        //            for room in rate.roomsRates ?? [] {
+        //                if room.name != currentRoom.name {
+        //                    presentedCell.append(.roomBedsTypeCell)
+        //                }
+        //            }
+        //        }
         if let boardInclusion =  rate.inclusion_array[APIKeys.boardType.rawValue] as? [Any], !boardInclusion.isEmpty {
             presentedCell.append(.inclusionCell)
         } else if let internetData =  rate.inclusion_array[APIKeys.internet.rawValue] as? [Any], !internetData.isEmpty {

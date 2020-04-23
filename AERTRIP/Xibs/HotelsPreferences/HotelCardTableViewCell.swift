@@ -80,6 +80,16 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
         self.collectionView.cornerRadius = 10.0
         self.gradientView.cornerRadius = 10.0
         self.collectionView.registerCell(nibName: ATGalleryCell.reusableIdentifier)
+        
+        self.discountedPriceLabel.font = AppFonts.SemiBold.withSize(22)
+        self.actualPriceLabel.font = AppFonts.Regular.withSize(16)
+
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.discountedPriceLabel.attributedText = nil
+        self.actualPriceLabel.attributedText = nil
     }
     
     override func layoutSubviews() {
@@ -161,15 +171,18 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
             price = hotel.perNightPrice
             listPrice = hotel.perNightListPrice
         }
-        
+
         if listPrice == 0{
             self.actualPriceLabel.text = ""
         }else{
             let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: listPrice.amountInDelimeterWithSymbol)
             attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
             self.actualPriceLabel.attributedText = attributeString
+            self.actualPriceLabel.AttributedFontForText(text: price.getCurrencySymbol, textFont: AppFonts.Regular.withSize(12))
         }
         self.discountedPriceLabel.text = price.amountInDelimeterWithSymbol
+        self.discountedPriceLabel.AttributedFontForText(text: price.getCurrencySymbol, textFont: AppFonts.SemiBold.withSize(16))
+        
         self.saveButton.isSelected = hotel.fav == "0" ? false : true
         //        if let image = UIImage(named: "hotelCardPlaceHolder") {
         //            self.hotelImageView.setImageWithUrl(self.hotelListData?.thumbnail?.first ?? "", placeholder: image, showIndicator: true)

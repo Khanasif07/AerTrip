@@ -34,10 +34,13 @@ class PriceVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getSavedFilter()
         addSlider()
-        doInitialSetup()
         registerXib()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setFilterValues()
     }
     
     // MARK: - Override methods
@@ -47,9 +50,7 @@ class PriceVC: BaseVC {
     private func addSlider() {
         horizontalMultiSlider.addTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged)
         horizontalMultiSlider.orientation = .horizontal
-        horizontalMultiSlider.minimumValue = CGFloat(HotelFilterVM.shared.minimumPrice)
-        horizontalMultiSlider.maximumValue = CGFloat(HotelFilterVM.shared.maximumPrice)
-        horizontalMultiSlider.value = [UserInfo.hotelFilter != nil ? CGFloat(filterApplied.leftRangePrice) : CGFloat(HotelFilterVM.shared.minimumPrice), UserInfo.hotelFilter != nil ? CGFloat(filterApplied.rightRangePrice) : CGFloat(HotelFilterVM.shared.maximumPrice)]
+        
         horizontalMultiSlider.isSettingValue = true
         horizontalMultiSlider.thumbCount = 2
         horizontalMultiSlider.snapStepSize = 1
@@ -60,24 +61,25 @@ class PriceVC: BaseVC {
         horizontalMultiSlider.hasRoundTrackEnds = true
         horizontalMultiSlider.frame = CGRect(x: minimumPriceView.frame.origin.x + 16, y: minimumPriceView.frame.origin.y + minimumPriceView.height + 14, width: UIScreen.main.bounds.width - 66, height: 28.0)
         view.addSubview(horizontalMultiSlider)
-    }
-    
-    private func doInitialSetup() {
-        minimumPriceView.layer.cornerRadius = 15.0
-        maximumPriceView.layer.cornerRadius = 15.0
-//        let leftRangePrice = UserInfo.hotelFilter != nil ? filterApplied.leftRangePrice : HotelFilterVM.shared.minimumPrice
-//        let rightRangePrice = UserInfo.hotelFilter != nil ? filterApplied.rightRangePrice : HotelFilterVM.shared.maximumPrice
-//        minimumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(leftRangePrice.roundTo(places: 0))").asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
-//        maximumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + "\(rightRangePrice.roundTo(places: 0))").asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
-        self.sliderChanged(horizontalMultiSlider)
         self.tableView.dataSource = self
         self.tableView.delegate = self
+    }
+    
+    func setFilterValues() {
+        getSavedFilter()
+        minimumPriceView?.layer.cornerRadius = 15.0
+        maximumPriceView?.layer.cornerRadius = 15.0
+        horizontalMultiSlider.minimumValue = CGFloat(HotelFilterVM.shared.minimumPrice)
+        horizontalMultiSlider.maximumValue = CGFloat(HotelFilterVM.shared.maximumPrice)
+        horizontalMultiSlider.value = [UserInfo.hotelFilter != nil ? CGFloat(filterApplied.leftRangePrice) : CGFloat(HotelFilterVM.shared.minimumPrice), UserInfo.hotelFilter != nil ? CGFloat(filterApplied.rightRangePrice) : CGFloat(HotelFilterVM.shared.maximumPrice)]
+        self.setPriceOnLabels()
+        self.tableView?.reloadData()
     }
     
     func getSavedFilter() {
         guard let filter = UserInfo.hotelFilter else {
             printDebug("filter not found")
-            HotelFilterVM.shared.resetToDefault()
+            filterApplied = UserInfo.HotelFilter()
             HotelFilterVM.shared.priceType = .Total
             return
         }
@@ -110,10 +112,15 @@ class PriceVC: BaseVC {
     @objc func sliderChanged(_ slider: MultiSlider) {
         printDebug("\(slider.value)")
         // "\u{20B9} " +
-        minimumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + String(format: "%.0f", slider.value.first ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
         HotelFilterVM.shared.leftRangePrice = Double(slider.value.first ?? 0.0).roundTo(places: 2)
         HotelFilterVM.shared.rightRangePrice = Double(slider.value.last ?? 0.0).roundTo(places: 2)
-        maximumPriceLabel.attributedText = (AppConstants.kRuppeeSymbol + String(format: "%.0f", slider.value.last ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+        setPriceOnLabels()
+        HotelFilterVM.shared.delegate?.updateFiltersTabs()
+    }
+    
+    func setPriceOnLabels() {
+        minimumPriceLabel?.attributedText = (AppConstants.kRuppeeSymbol + String(format: "%.0f", horizontalMultiSlider.value.first ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
+        maximumPriceLabel?.attributedText = (AppConstants.kRuppeeSymbol + String(format: "%.0f", horizontalMultiSlider.value.last ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
     }
 }
 
@@ -132,7 +139,7 @@ extension PriceVC: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SortTableViewCell.reusableIdentifier, for: indexPath) as? SortTableViewCell else {
             return UITableViewCell()
         }
-//        cell.tintColor = AppColors.themeGreen
+        //        cell.tintColor = AppColors.themeGreen
         if priceTitles[indexPath.row] ==  HotelFilterVM.shared.priceType {
             cell.accessoryView = setCheckBox()
             cell.leftTitleLabel.textColor = AppColors.themeGreen
@@ -141,25 +148,25 @@ extension PriceVC: UITableViewDataSource, UITableViewDelegate {
             cell.leftTitleLabel.textColor = AppColors.themeBlack
             
         }
-//        if indexPath.row == 0,  HotelFilterVM.shared.priceType == .PerNight {
-//            cell.accessoryType = .checkmark
-//            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
-//
-//        } else if indexPath.row == 1, HotelFilterVM.shared.priceType == .Total {
-//            cell.accessoryType = .checkmark
-//            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
-//            cell.leftTitleLabel.textColor =  AppColors.themeGreen
-//        }
-      
+        //        if indexPath.row == 0,  HotelFilterVM.shared.priceType == .PerNight {
+        //            cell.accessoryType = .checkmark
+        //            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
+        //
+        //        } else if indexPath.row == 1, HotelFilterVM.shared.priceType == .Total {
+        //            cell.accessoryType = .checkmark
+        //            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
+        //            cell.leftTitleLabel.textColor =  AppColors.themeGreen
+        //        }
+        
         cell.configureCell(leftTitle: titles[indexPath.row], rightTitle: "")
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? SortTableViewCell{
-//            cell.tintColor = AppColors.themeGreen
-//            cell.accessoryType = .checkmark
-//            cell.leftTitleLabel.textColor = AppColors.themeGreen
+            //            cell.tintColor = AppColors.themeGreen
+            //            cell.accessoryType = .checkmark
+            //            cell.leftTitleLabel.textColor = AppColors.themeGreen
             switch indexPath.row {
             case 0:
                 HotelFilterVM.shared.priceType = .PerNight
@@ -169,6 +176,7 @@ extension PriceVC: UITableViewDataSource, UITableViewDelegate {
                 return
             }
             self.tableView.reloadData()
+            HotelFilterVM.shared.delegate?.updateFiltersTabs()
         }
     }
     

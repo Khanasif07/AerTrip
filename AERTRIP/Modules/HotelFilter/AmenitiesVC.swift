@@ -27,6 +27,10 @@ class AmenitiesVC: BaseVC {
         self.addFooterView()
         registerXib()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setFilterValues()
+    }
     
     // MARK: - Helper methods
     
@@ -45,6 +49,10 @@ class AmenitiesVC: BaseVC {
         customView.backgroundColor = AppColors.themeWhite
         
         tableView.tableFooterView = customView
+    }
+    
+    func setFilterValues() {
+        tableView?.reloadData()
     }
 }
 
@@ -75,6 +83,7 @@ extension AmenitiesVC: UITableViewDataSource, UITableViewDelegate {
         } else {
             HotelFilterVM.shared.amenitites.append(amentiesDetails[indexPath.row].rawValue)
         }
+        HotelFilterVM.shared.delegate?.updateFiltersTabs()
         self.tableView.reloadData()
     }
 }

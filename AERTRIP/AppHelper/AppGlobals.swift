@@ -547,6 +547,8 @@ extension Double {
             return "\(Int(self))"
         }
     }
+    
+    
 }
 
 extension AppGlobals {

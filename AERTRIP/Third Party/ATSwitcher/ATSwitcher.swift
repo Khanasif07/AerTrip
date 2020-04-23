@@ -70,6 +70,7 @@ class ATSwitcher: UIControl {
     fileprivate var onPoint = CGPoint.zero
     fileprivate var offPoint = CGPoint.zero
     fileprivate var isAnimating = false
+    fileprivate let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
     
     private func clear() {
         for view in self.subviews {
@@ -160,6 +161,7 @@ class ATSwitcher: UIControl {
         self.isOn = !self.isOn
         self.animate()
         self.delegate?.switcherDidChangeValue(switcher: self, value: self.isOn)
+        feedbackGenerator.impactOccurred()
         return true
     }
 

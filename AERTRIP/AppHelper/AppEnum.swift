@@ -305,16 +305,17 @@ enum AppImage {
 }
 
 enum ATAmenity: String, CaseIterable {
-    case AirConditioner = "1"
-    case BusinessCenter = "2"
-    case Coffee_Shop = "3"
-    case Gym = "4"
-    case Internet = "5"
-    case Pool = "6"
-    case RestaurantBar = "7"
-    case RoomService = "8"
-    case Spa = "9"
     case Wifi = "10"
+    case RoomService = "8"
+    case Internet = "5"
+    case AirConditioner = "1"
+    case RestaurantBar = "7"
+    case Gym = "4"
+    case BusinessCenter = "2"
+    case Pool = "6"
+    case Spa = "9"
+    case Coffee_Shop = "3"
+    
     
     var title: String {
         switch self {

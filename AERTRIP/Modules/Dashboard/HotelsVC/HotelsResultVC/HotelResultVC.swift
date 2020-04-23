@@ -43,7 +43,13 @@ class HotelResultVC: BaseVC {
     @IBOutlet weak var dividerView: ATDividerView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var unPinAllFavouriteButton: UIButton!
-    @IBOutlet weak var emailButton: UIButton!
+    @IBOutlet weak var emailButton: ATButton! {
+        didSet {
+            emailButton.isSocial = true
+            emailButton.gradientColors = []
+            emailButton.shouldShowPressAnimation = false
+        }
+    }
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var switchView: ATSwitcher!
     @IBOutlet weak var backContainerView: UIView!
@@ -431,10 +437,11 @@ class HotelResultVC: BaseVC {
     
     
     private func presentEmailVC() {
-        
         func showEmailComposer() {
+            self.emailButton.isLoading = true
             self.viewModel.getPinnedTemplate(hotels: self.viewModel.favouriteHotels) { [weak self] (status) in
                 guard let strongSelf = self else {return}
+                strongSelf.emailButton.isLoading = false
                 if status {
                     // url fetched
                     AppFlowManager.default.presentMailComposerVC(strongSelf.viewModel.favouriteHotels, strongSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), strongSelf.viewModel.shortUrl)
@@ -489,15 +496,21 @@ class HotelResultVC: BaseVC {
     }
     
     @IBAction func unPinAllFavouriteButtonTapped(_ sender: Any) {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [ LocalizedString.RemoveFromFavourites.localized], colors: [AppColors.themeRed])
+        let title = LocalizedString.UnfavouriteAll.localized.capitalized + "?"
+        let message = LocalizedString.UnfavouriteAllMessage.localized
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        _ = PKAlertController.default.presentActionSheet(LocalizedString.UnfavouritesAllTitle.localized, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] _, index in
-            
-            if index == 0 {
-                self?.removeAllFavouritesHotels()
-                printDebug("Remove All favourite")
-            }
+        let  cancelAction = UIAlertAction(title: LocalizedString.Cancel.localized, style: .default, handler: nil)
+        cancelAction.setValue(AppColors.themeDarkGreen, forKey: "titleTextColor")
+        
+        let  unFavouriteAction = UIAlertAction(title: LocalizedString.UnfavouriteAll.localized, style: .destructive) { [weak self] (action) in
+            self?.removeAllFavouritesHotels()
         }
+        unFavouriteAction.setValue(AppColors.themeRed, forKey: "titleTextColor")
+        
+        alert.addAction(cancelAction)
+        alert.addAction(unFavouriteAction)
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func shareButtonTapped(_ sender: Any) {

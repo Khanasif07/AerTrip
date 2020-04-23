@@ -58,12 +58,12 @@ class HCDataSelectionVC: BaseVC {
     
     var isFromFinalCheckout: Bool = false
     var confirmationCall: Int = 1
-
+    
     var apiCount: Int = 0
     var isGrossValueZero: Bool = false
     // MARK: - Private
     
-    private let hotelFormData = HotelsSearchVM.hotelFormData
+    let hotelFormData = HotelsSearchVM.hotelFormData
     
     // MARK: - ViewLifeCycle
     
@@ -82,7 +82,7 @@ class HCDataSelectionVC: BaseVC {
         viewModel.fetchConfirmItineraryData()
         fillData()
         
-//        manageLoader(shouldStart: true)
+        //        manageLoader(shouldStart: true)
         manageLoader(shouldStart: false)
         startLoading()
         continueButtonActivityIndicator.color = AppColors.themeWhite
@@ -198,9 +198,9 @@ class HCDataSelectionVC: BaseVC {
     private func fillData() {
         totalFareLabel.text = (viewModel.itineraryData?.total_fare ?? 0.0).amountInDelimeterWithSymbol
         setupFareBreakup()
-
+        
         hotelNameLabel.text = viewModel.itineraryData?.hotelDetails?.hname ?? ""
-
+        
         var finalDate = ""
         if let chIn = viewModel.itineraryData?.hotelDetails?.checkin, !chIn.isEmpty {
             finalDate = Date.getDateFromString(stringDate: chIn, currentFormat: "yyyy-MM-dd", requiredFormat: "d MMM") ?? ""
@@ -208,7 +208,7 @@ class HCDataSelectionVC: BaseVC {
         
         if let chOut = viewModel.itineraryData?.hotelDetails?.checkout, !chOut.isEmpty {
             let txt = Date.getDateFromString(stringDate: chOut, currentFormat: "yyyy-MM-dd", requiredFormat: "d MMM") ?? ""
-
+            
             if finalDate.isEmpty {
                 finalDate = txt
             }
@@ -216,7 +216,7 @@ class HCDataSelectionVC: BaseVC {
                 finalDate += " - \(txt)"
             }
         }
-               
+        
         checkInOutDate.text = finalDate
         checkInOutDate.isHidden = finalDate.isEmpty
     }
@@ -236,6 +236,8 @@ class HCDataSelectionVC: BaseVC {
         tableView.registerCell(nibName: EmptyTableViewCell.reusableIdentifier)
         tableView.registerCell(nibName: HCEmailTextFieldCell.reusableIdentifier)
         tableView.registerCell(nibName: ContactTableCell.reusableIdentifier)
+        tableView.registerCell(nibName: HCPanCardTextFieldCell.reusableIdentifier)
+        
     }
     
     // MARK: - Methods
@@ -262,29 +264,29 @@ class HCDataSelectionVC: BaseVC {
         if !isHidden {
             fareDetailContainerView.isHidden = false
             if isHotelDetailsCheckOutViewOpen {
-//                self.hotelCheckOutDetailsContainerVIew.transform = CGAffineTransform(translationX: 0, y: view.height - (hotelDetailsParentContainerView.height + fareDetailContainerView.height + AppFlowManager.default.safeAreaInsets.top))
+                //                self.hotelCheckOutDetailsContainerVIew.transform = CGAffineTransform(translationX: 0, y: view.height - (hotelDetailsParentContainerView.height + fareDetailContainerView.height + AppFlowManager.default.safeAreaInsets.top))
                 hotelDetailsContainerViewHeightConstraint.constant = view.height - (hotelDetailsParentContainerView.height + fareDetailContainerView.height)
             }
         }
         else {
             if isHotelDetailsCheckOutViewOpen {
-//                 self.hotelCheckOutDetailsContainerVIew.transform = CGAffineTransform(translationX: 0, y: view.height - (hotelDetailsParentContainerView.height +  AppFlowManager.default.safeAreaInsets.top))
+                //                 self.hotelCheckOutDetailsContainerVIew.transform = CGAffineTransform(translationX: 0, y: view.height - (hotelDetailsParentContainerView.height +  AppFlowManager.default.safeAreaInsets.top))
                 hotelDetailsContainerViewHeightConstraint.constant = view.height - (hotelDetailsParentContainerView.height )
             }
         }
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: { [weak self] in
             guard let sSelf = self else { return }
-//            sSelf.fareDetailContainerView.transform = isHidden ? CGAffineTransform(translationX: 0, y: -(sSelf.fareDetailContainerView.height)) : CGAffineTransform(translationX: 0, y: 0)
+            //            sSelf.fareDetailContainerView.transform = isHidden ? CGAffineTransform(translationX: 0, y: -(sSelf.fareDetailContainerView.height)) : CGAffineTransform(translationX: 0, y: 0)
             let safeDistance:CGFloat = AppFlowManager.default.safeAreaInsets.bottom
             sSelf.fareDetailBottomConstraint.constant = isHidden ? -(sSelf.fareDetailContainerView.height) : safeDistance
             sSelf.upArrowImageView.transform = rotateTrans
             sSelf.continueViewBottomConstraint.constant = isHidden ? safeDistance : 0
             sSelf.view.layoutIfNeeded()
             
-        }, completion: { [weak self] _ in
-            if isHidden {
-                self?.fareDetailContainerView.isHidden = true
-            }
+            }, completion: { [weak self] _ in
+                if isHidden {
+                    self?.fareDetailContainerView.isHidden = true
+                }
         })
     }
     
@@ -316,7 +318,7 @@ class HCDataSelectionVC: BaseVC {
     
     private func sendToFinalCheckoutVC() {
         if !isFromFinalCheckout {
-//            AppFlowManager.default.moveToFinalCheckoutVC(delegate: self, viewModel.itineraryData, viewModel.itineraryPriceDetail, originLat: viewModel.hotelInfo?.lat ?? "", originLong: viewModel.hotelInfo?.long ?? "")
+            //            AppFlowManager.default.moveToFinalCheckoutVC(delegate: self, viewModel.itineraryData, viewModel.itineraryPriceDetail, originLat: viewModel.hotelInfo?.lat ?? "", originLong: viewModel.hotelInfo?.long ?? "")
             if !isGrossValueZero {
                 AppFlowManager.default.moveToFinalCheckoutVC(delegate: self, viewModel.itineraryData, viewModel.itineraryPriceDetail, originLat: viewModel.hotelInfo?.lat ?? "", originLong: viewModel.hotelInfo?.long ?? "")
             }
@@ -374,7 +376,7 @@ class HCDataSelectionVC: BaseVC {
                 self?.isHotelDetailsCheckOutViewOpen = true
                 self?.hotelCheckOutDetailsContainerVIew?.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
                 self?.statusBarColor = AppColors.themeGray140
-
+                
             })
         }
     }
@@ -383,7 +385,7 @@ class HCDataSelectionVC: BaseVC {
 extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     func updateFavouriteSuccess(withMessage: String) {
         if let hotelCheckOutDetailsVIew = self.hotelCheckOutDetailsVIew {
-//            hotelCheckOutDetailsVIew.hotelDetailsTableView.reloadData()
+            //            hotelCheckOutDetailsVIew.hotelDetailsTableView.reloadData()
             sendDataChangedNotification(data: self)
             let buttonImage: UIImage = viewModel.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "saveHotels")
             hotelCheckOutDetailsVIew.headerView.leftButton.setImage(buttonImage, for: .normal)
@@ -428,8 +430,8 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func willFetchConfirmItineraryData() {
-          self.startLoading()
-//        manageLoader(shouldStart: true)
+        self.startLoading()
+        //        manageLoader(shouldStart: true)
     }
     
     func fetchConfirmItineraryDataSuccess() {
@@ -440,17 +442,18 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         }
         else {
             GuestDetailsVM.shared.travellerList = viewModel.itineraryData?.traveller_master ?? []
-//            manageLoader(shouldStart: false)
-//            AppGlobals.shared.stopLoading()
+            //            manageLoader(shouldStart: false)
+            //            AppGlobals.shared.stopLoading()
             self.fillData()
             self.viewModel.getHotelDetailsSectionData()
             self.updateHotelCheckOutDetailsVIew()
         }
+        self.tableView.reloadData()
     }
     
     func fetchConfirmItineraryDataFail() {
-//        manageLoader(shouldStart: false)
-//        AppGlobals.shared.stopLoading()
+        //        manageLoader(shouldStart: false)
+        //        AppGlobals.shared.stopLoading()
         self.stopLoading()
         if viewModel.itineraryData == nil, confirmationCall < 5 {
             confirmationCall += 1
@@ -459,18 +462,18 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     }
     
     func willFetchRecheckRatesData() {
-      //  manageLoader(shouldStart: true)
-       AppGlobals.shared.startLoading()
-//        self.mainIndicatorView.isHidden = false
-//        self.mainIndicatorView.startAnimating()
- //       startLoading()
+        //  manageLoader(shouldStart: true)
+        AppGlobals.shared.startLoading()
+        //        self.mainIndicatorView.isHidden = false
+        //        self.mainIndicatorView.startAnimating()
+        //       startLoading()
     }
     
     func fetchRecheckRatesDataFail(errors: ErrorCodes) {
-       // self.stopLoading()
+        // self.stopLoading()
         AppGlobals.shared.stopLoading()
-//        self.mainIndicatorView.isHidden = true
-//        manageLoader(shouldStart: true)
+        //        self.mainIndicatorView.isHidden = true
+        //        manageLoader(shouldStart: true)
         if errors.contains(array: [11]) {
             //send to result screen and re-hit the search API
             self.sendDataChangedNotification(data: ATNotification.GRNSessionExpired)
@@ -489,18 +492,18 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
         } else {
             AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
         }
-//        manageLoader(shouldStart: false)
-       
+        //        manageLoader(shouldStart: false)
+        
         
         //AppGlobals.shared.stopLoading()
     }
     
     func fetchRecheckRatesDataSuccess(recheckedData: ItineraryData) {
-       // manageLoader(shouldStart: false)
-       // stopLoading()
+        // manageLoader(shouldStart: false)
+        // stopLoading()
         AppGlobals.shared.stopLoading()
-//        self.mainIndicatorView.stopAnimating()
-//        self.mainIndicatorView.isHidden = true
+        //        self.mainIndicatorView.stopAnimating()
+        //        self.mainIndicatorView.isHidden = true
         if viewModel.isValidateData(vc: self) {
             viewModel.webserviceForItenaryDataTraveller()
         }
@@ -544,7 +547,7 @@ extension HCDataSelectionVC: HCDataSelectionVMDelegate {
     
     /*
      user login success
-
+     
      */
 }
 
@@ -571,7 +574,7 @@ extension HCDataSelectionVC: HCSelectGuestsVCDelegate {
 
 extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return hotelFormData.adultsCount.count + 8
+        return hotelFormData.adultsCount.count + ((self.viewModel.itineraryData?.hotelDetails?.pan_required ?? false) ? 10 : 8)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -582,12 +585,12 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
             let totalCount = hotelFormData.adultsCount[indexPath.row] + hotelFormData.childrenCounts[indexPath.row]
             var isEmptyText = true
             for i in stride(from: 0, to: totalCount, by: 1) {
-            if GuestDetailsVM.shared.guests.count > indexPath.row, GuestDetailsVM.shared.guests[indexPath.row].count > i {
-                let object = GuestDetailsVM.shared.guests[indexPath.row][i]
-                if (!object.firstName.isEmpty || !object.lastName.isEmpty) {
-                   isEmptyText = false
+                if GuestDetailsVM.shared.guests.count > indexPath.row, GuestDetailsVM.shared.guests[indexPath.row].count > i {
+                    let object = GuestDetailsVM.shared.guests[indexPath.row][i]
+                    if (!object.firstName.isEmpty || !object.lastName.isEmpty) {
+                        isEmptyText = false
+                    }
                 }
-            }
             }
             
             let constantHeight: CGFloat = isEmptyText ? 140 : 157
@@ -602,18 +605,18 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 var isEmptyText = true
                 for i in stride(from: 4, to: totalCount, by: 1) {
-                if GuestDetailsVM.shared.guests.count > indexPath.row, GuestDetailsVM.shared.guests[indexPath.row].count > i {
-                    let object = GuestDetailsVM.shared.guests[indexPath.row][i]
-                    if (!object.firstName.isEmpty || !object.lastName.isEmpty) {
-                       isEmptyText = false
+                    if GuestDetailsVM.shared.guests.count > indexPath.row, GuestDetailsVM.shared.guests[indexPath.row].count > i {
+                        let object = GuestDetailsVM.shared.guests[indexPath.row][i]
+                        if (!object.firstName.isEmpty || !object.lastName.isEmpty) {
+                            isEmptyText = false
+                        }
                     }
-                }
                 }
                 if isEmptyText {
                     extraHeight = (indexPath.row == hotelFormData.adultsCount.count - 1) ? 16 : 0
                     let height = constantHeight + 111
                     return height + extraHeight
-
+                    
                 } else {
                     return constantHeight * ((totalCount <= 4) ? 1.0 : 2.0) + extraHeight
                 }
@@ -622,7 +625,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
         }
         else {
             switch newRow {
-            case 0, 2, 7:
+            case 0, 2, 7, 9:
                 // space
                 return 35.0
                 
@@ -646,6 +649,10 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 //text message
                 return 60.0
                 
+            case 8:
+                //text message
+                return 60.0
+                
             default:
                 return 0.0
             }
@@ -666,7 +673,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
         }
         else {
             switch newRow {
-            case 0, 2, 7:
+            case 0, 2, 7, 9:
                 // space
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.reusableIdentifier) as? EmptyTableViewCell else {
                     return UITableViewCell()
@@ -675,7 +682,12 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 cell.contentView.backgroundColor = AppColors.themeGray04
                 cell.backgroundColor = AppColors.themeGray04
                 
-                cell.bottomDividerView.isHidden = newRow == 7
+                let numberOfRows = self.tableView(self.tableView, numberOfRowsInSection: indexPath.section) - hotelFormData.adultsCount.count
+                if numberOfRows == 10 {
+                    cell.bottomDividerView.isHidden = newRow == 9
+                } else {
+                    cell.bottomDividerView.isHidden = newRow == 7
+                }
                 
                 return cell
                 
@@ -713,14 +725,14 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 5:
                 // email
-           guard let cell = tableView.dequeueReusableCell(withIdentifier: HCEmailTextFieldCell.reusableIdentifier) as? HCEmailTextFieldCell else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: HCEmailTextFieldCell.reusableIdentifier) as? HCEmailTextFieldCell else {
                     return UITableViewCell()
                 }
                 
-//                cell.downArrowImageView.isHidden = true
-//                cell.titleLabel.font = AppFonts.Regular.withSize(18.0)
-//                cell.titleLabel.textColor = AppColors.themeGray20
-//                cell.titleLabel.text = LocalizedString.Email_ID.localized
+                //                cell.downArrowImageView.isHidden = true
+                //                cell.titleLabel.font = AppFonts.Regular.withSize(18.0)
+                //                cell.titleLabel.textColor = AppColors.themeGray20
+                //                cell.titleLabel.text = LocalizedString.Email_ID.localized
                 cell.editableTextField.isEnabled = UserInfo.loggedInUserId == nil
                 cell.editableTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.Email_ID.localized,with: "")
                 cell.delegate = self
@@ -728,7 +740,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 cell.editableTextField.font = AppFonts.Regular.withSize(18.0)
                 cell.editableTextField.textColor = UserInfo.loggedInUserId == nil ? AppColors.themeBlack : AppColors.themeGray40
                 cell.editableTextField.keyboardType = .emailAddress
-           
+                
                 
                 return cell
                 
@@ -741,6 +753,22 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 cell.topConstraint.constant = 0.0
                 cell.configUI()
                 
+                return cell
+                
+            case 8:
+                // Pan Number
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: HCPanCardTextFieldCell.reusableIdentifier) as? HCPanCardTextFieldCell else {
+                    return UITableViewCell()
+                }
+                
+                
+                cell.editableTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.PanCard.localized,with: "")
+                cell.delegate = self
+                cell.editableTextField.text = viewModel.panCard
+                cell.editableTextField.font = AppFonts.Regular.withSize(18.0)
+                cell.editableTextField.textColor = AppColors.themeBlack
+                cell.editableTextField.keyboardType = .default
+                cell.editableTextField.autocapitalizationType = .allCharacters
                 return cell
                 
             default:
@@ -801,7 +829,7 @@ extension HCDataSelectionVC: HotelCheckOutDetailsVIewDelegate {
             sSelf.isHotelDetailsCheckOutViewOpen = false
             sSelf.hotelDetailsContainerView.isHidden = false
             sSelf.hotelCheckOutDetailsContainerVIew.isHidden = true
-           
+            
         }
     }
 }

@@ -41,7 +41,9 @@ class EmailComposerFooterView: UIView {
     private func setUpText() {
         self.seeRatesButton.setTitle(LocalizedString.SeeRates.localized, for: .normal)
         self.contactUsLabel.text = LocalizedString.ContactUsAertrip.localized
-        self.licenseLabel.attributedText = self.getAttributeBoldTextForHotelName(text: AppConstants.kCopyrightSymbol + LocalizedString.CopyrightAertrip.localized, boldText: AppConstants.kCopyrightSymbol)
+        let licenceText = "\(AppConstants.kCopyrightSymbol)  \(Date().year) \(LocalizedString.CopyrightAertrip.localized)"
+        
+        self.licenseLabel.attributedText = self.getAttributeBoldTextForHotelName(text: licenceText, boldText: AppConstants.kCopyrightSymbol)
     }
     
     private func setUpColor() {
@@ -57,11 +59,11 @@ class EmailComposerFooterView: UIView {
     }
     
     private func getAttributeBoldTextForHotelName(text: String, boldText: String) -> NSMutableAttributedString {
-        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), .foregroundColor: UIColor.black])
+        let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), .foregroundColor: AppColors.themeGray40])
         
         attString.addAttributes([
             .font: AppFonts.Regular.withSize(18.0),
-            .foregroundColor: AppColors.themeGreen
+            .foregroundColor: AppColors.themeGray40
         ], range: (text as NSString).range(of: boldText))
         return attString
     }

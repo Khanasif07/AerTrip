@@ -28,7 +28,12 @@ class RatingVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.getSavedFilter()
+        self.setFilterValues()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.setFilterValues()
     }
     
     override func setupTexts() {
@@ -45,11 +50,11 @@ class RatingVC: BaseVC {
         self.starLabel.font = AppFonts.Regular.withSize(14.0)
     }
     
-    func getSavedFilter() {
+    func setFilterValues() {
         guard let filter = UserInfo.hotelFilter else {
             printDebug("filter not found")
             HotelFilterVM.shared.resetToDefault()
-            HotelFilterVM.shared.ratingCount.removeAll()
+            //HotelFilterVM.shared.ratingCount.removeAll()
             self.doInitialSetup()
             return
         }
@@ -60,14 +65,14 @@ class RatingVC: BaseVC {
     }
     
     private func doInitialSetup() {
-        
+        //guard let _ = self.view.window else { return }
         //setting stars
         
         HotelFilterVM.shared.ratingCount.removeAll()
         
         //reset all the buttons first
-        for btn in self.starButtonsOutlet {
-            btn.adjustsImageWhenHighlighted = false
+        for btn in self.starButtonsOutlet ?? [] {
+            //btn.adjustsImageWhenHighlighted = false
             btn.isSelected = false
             btn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
             btn.setImage(nil, for: .selected)
@@ -77,15 +82,14 @@ class RatingVC: BaseVC {
         for star in self.filterApplied.ratingCount {
             self.updateStarButtonState(forStar: star)
         }
-        self.starLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.ratingCount, maxCount: 5)
         
         for rating in HotelFilterVM.shared.tripAdvisorRatingCount {
-            self.tripAdvisorRatingButtons[rating - 1].isSelected = true
+            self.tripAdvisorRatingButtons?[rating - 1].isSelected = true
         }
         
-        self.starLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.ratingCount, maxCount: 5)
-        self.tripAdvisorStarLabel.text = self.getTARatingString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
-        self.includeRatedStatusButton.isSelected = self.filterApplied.isIncludeUnrated
+        self.starLabel?.text = self.getStarString(fromArr: HotelFilterVM.shared.ratingCount, maxCount: 5)
+        self.tripAdvisorStarLabel?.text = self.getTARatingString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
+        self.includeRatedStatusButton?.isSelected = self.filterApplied.isIncludeUnrated
     }
     
     @IBAction func starButtonsAction(_ sender: UIButton) {
@@ -94,6 +98,7 @@ class RatingVC: BaseVC {
         }
         self.updateStarButtonState(forStar: sender.tag)
         self.starLabel.text = self.getStarString(fromArr: HotelFilterVM.shared.ratingCount, maxCount: 5)
+        HotelFilterVM.shared.delegate?.updateFiltersTabs()
     }
     
     @IBAction func tripAdvisorRatingButtonsAction(_ sender: UIButton) {
@@ -102,13 +107,16 @@ class RatingVC: BaseVC {
             self?.tripAdvisorStarLabel.text = self?.getTARatingString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
             sender.setImage(#imageLiteral(resourceName: "deselectedAdvisorRating"), for: .normal)
             sender.setImage(#imageLiteral(resourceName: "selectedAdvisorRating"), for: .selected)
+            HotelFilterVM.shared.delegate?.updateFiltersTabs()
         }
         print("size: \(sender.size)")
+        
     }
     
     @IBAction func includeUnratedAction(_ sender: UIButton) {
         self.includeRatedStatusButton.isSelected = !sender.isSelected
         HotelFilterVM.shared.isIncludeUnrated = sender.isSelected
+        HotelFilterVM.shared.delegate?.updateFiltersTabs()
     }
     
     ///Star Button State
@@ -126,7 +134,7 @@ class RatingVC: BaseVC {
         if HotelFilterVM.shared.ratingCount.isEmpty || HotelFilterVM.shared.ratingCount.count == 5 {
             HotelFilterVM.shared.ratingCount.removeAll()
            // HotelFilterVM.shared.ratingCount = HotelFilterVM.shared.defaultRatingCount
-            for starBtn in self.starButtonsOutlet {
+            for starBtn in self.starButtonsOutlet ?? [] {
                 starBtn.isSelected = false
                // starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
                 starBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
@@ -134,7 +142,7 @@ class RatingVC: BaseVC {
         }
         else {
             
-            for starBtn in self.starButtonsOutlet {
+            for starBtn in self.starButtonsOutlet ?? [] {
                 
                 if starBtn.tag == forStar {
                     starBtn.isSelected = isSettingFirstTime ? true : !starBtn.isSelected

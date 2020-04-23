@@ -41,6 +41,11 @@ class RoomVC: UIViewController {
         registerXib()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setFilterValues()
+    }
+    
     // MARK: - Helper methods
     
     private func doInitialSetUp() {
@@ -101,21 +106,24 @@ class RoomVC: UIViewController {
         if !HotelFilterVM.shared.roomMeal.isEmpty {
             title += " •"
         }
-        roomSegmentedControl.setTitle(title, forSegmentAt: 0)
+        roomSegmentedControl?.setTitle(title, forSegmentAt: 0)
 
         title = LocalizedString.cancellationPolicy.localized        
         if !HotelFilterVM.shared.roomCancelation.isEmpty {
             title += " •"
         }
-        roomSegmentedControl.setTitle(title, forSegmentAt: 1)
+        roomSegmentedControl?.setTitle(title, forSegmentAt: 1)
         
         title = LocalizedString.Others.localized
         if !HotelFilterVM.shared.roomOther.isEmpty {
             title += " •"
         }
-        roomSegmentedControl.setTitle(title, forSegmentAt: 2)
-
-        
+        roomSegmentedControl?.setTitle(title, forSegmentAt: 2)
+    }
+    
+    func setFilterValues() {
+        updateSegmentControlTitle()
+        tableView?.reloadData()
     }
 }
 // MARK: - UITableViewDataSource
@@ -189,5 +197,6 @@ extension RoomVC: UITableViewDataSource, UITableViewDelegate {
         }
         self.tableView.reloadData()
         updateSegmentControlTitle()
+        HotelFilterVM.shared.delegate?.updateFiltersTabs()
     }
 }

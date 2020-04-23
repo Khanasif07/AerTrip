@@ -51,7 +51,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     ///Configure UI
     private func configUI() {
         self.allDetailsLabel.isHidden = true
-        self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.14), offset: CGSize.zero, opacity: 0.5, shadowRadius: 6.0)
+        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
         //UIColor
         self.backgroundColor = AppColors.screensBackground.color
         ///Font
@@ -77,13 +77,13 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         var startingDate: String = ""
         var endingDate: String = ""
         if !toDate.isEmpty {
-            endingDate = Date.getDateFromString(stringDate: toDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, dd MMM yyyy hh.mm aa") ?? ""
+            endingDate = Date.getDateFromString(stringDate: toDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, d MMM yyyy hh.mm aa") ?? ""
         }
         if !fromDate.isEmpty {
-            startingDate = Date.getDateFromString(stringDate: fromDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, dd MMM yyyy hh.mm aa") ?? ""
+            startingDate = Date.getDateFromString(stringDate: fromDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, d MMM yyyy hh.mm aa") ?? ""
         }
         if !toDate.isEmpty && fromDate.isEmpty && penalty == 0 {
-            let cancelDesc: String = Date.getDateFromString(stringDate: toDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "dd MMM’ yy") ?? ""
+            let cancelDesc: String = Date.getDateFromString(stringDate: toDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "d MMM’ yy") ?? ""
             let greenAttributedString = NSAttributedString(string: LocalizedString.FreeCancellation.localized, attributes: orangeAtrribute)
             let blackAttributedString = NSAttributedString(string: " by " + cancelDesc , attributes: blackAttribute)
             attributedString.append(greenAttributedString)
@@ -152,10 +152,10 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         var startingDate: String = ""
         var endingDate: String = ""
         if !toDate.isEmpty {
-            endingDate = Date.getDateFromString(stringDate: toDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, dd MMM yyyy hh.mm aa") ?? ""
+            endingDate = Date.getDateFromString(stringDate: toDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, d MMM yyyy hh.mm aa") ?? ""
         }
         if !fromDate.isEmpty {
-            startingDate = Date.getDateFromString(stringDate: fromDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, dd MMM yyyy hh.mm aa") ?? ""
+            startingDate = Date.getDateFromString(stringDate: fromDate, currentFormat: "yyyy-MM-dd HH:mm:ss", requiredFormat: "E, d MMM yyyy hh.mm aa") ?? ""
         }
         var penaltyString: String = ""
         if isRefundable {

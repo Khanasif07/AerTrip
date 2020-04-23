@@ -41,13 +41,13 @@ class AppToast: NSObject {
         
         if !AppToast.isPreviousView, !message.isEmpty {
 
-            self.parentViewController = onViewController
             self.toastDidClose = toastDidClose
             self.buttonAction = buttonAction
             if let view = onViewController?.view {
                 if buttonTitle.isEmpty {
                 AertripToastView.toast(in: view, withText: message)
                 } else {
+                    self.parentViewController = onViewController
                     AertripToastView.toast(in: view, withText: message, buttonTitle: buttonTitle, delegate: self)
                 }
             }

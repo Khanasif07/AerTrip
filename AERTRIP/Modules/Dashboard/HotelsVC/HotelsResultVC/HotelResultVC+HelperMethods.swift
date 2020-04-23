@@ -105,7 +105,7 @@ extension HotelResultVC {
     
     func removeAllFavouritesHotels() {
         guard AppGlobals.shared.isNetworkRechable(showMessage: true) else {return}
-        self.switchView.isOn = false
+        //self.switchView.isOn = false
         self.manageSwitchContainer(isHidden: true)
         self.viewModel.isUnpinHotelTapped = true
         self.selectedIndexPath = nil
@@ -270,7 +270,7 @@ extension HotelResultVC {
         
         if isHidden, shouldOff {
             //if switch is hidden then it must be off, otherwise it should be as it is.
-            self.switchView.isOn = false
+            //self.switchView.isOn = false
             self.viewModel.isFavouriteOn = false
             self.hideFavsButtons()
             tableViewVertical.setContentOffset(.zero, animated: false)

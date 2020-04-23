@@ -44,7 +44,12 @@ class HotelDetailsAmenitiesVC: BaseVC {
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setValue() 
+        //self.setValue()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.setValue()
     }
     
     override func setupColors() {
@@ -268,8 +273,12 @@ extension HotelDetailsAmenitiesVC {
     
     
     func setValue() {
+        
         let toDeduct = AppFlowManager.default.safeAreaInsets.top
-        let finalValue =  (self.view.height - toDeduct)
+        var finalValue =  (self.view.height - toDeduct)
+        if #available(iOS 13.0, *) {
+           finalValue = self.view.height
+        }
         self.mainContainerBottomConst.constant = 0.0
         self.mainContainerHeightConst.constant = finalValue
         self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)

@@ -21,10 +21,14 @@ class RangeVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.doInitialSetup()
-        self.setUpRangeView()
+        //self.setFilterValues()
         self.addCurrentLocationView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setFilterValues()
+    }
     // MARK: - Override methods
     
     private func doInitialSetup() {
@@ -57,19 +61,17 @@ class RangeVC: BaseVC {
         }
     }
     
-    private func setUpRangeView() {
-        guard let filter = UserInfo.hotelFilter else {
-            printDebug("filter not found")
-            return
-        }
-        let range = UserInfo.hotelFilter != nil ? filter.distanceRange : HotelFilterVM.shared.distanceRange
-        self.stepSlider.index = UInt(range.toInt)
-        self.rangeLabel.text = range.toInt >= 20 ? "Beyond \(range.toInt)km" : "Within " + "\((range.toInt))" + "km"
+    func setFilterValues() {
+        let filter = UserInfo.hotelFilter
+        let range = filter?.distanceRange ?? HotelFilterVM.shared.distanceRange
+        self.stepSlider?.index = UInt(range.toInt)
+        self.rangeLabel?.text = range.toInt >= 20 ? "Beyond \(range.toInt)km" : "Within " + "\((range.toInt))" + "km"
     }
     
     @IBAction func sliderValueChanged(_ sender: Any) {
         let value = (sender as AnyObject).index ?? 0
         self.rangeLabel.text = value >= 20 ? "Beyond \(value)km" : "Within " + "\(value)" + "km"
         HotelFilterVM.shared.distanceRange =  Double((sender as AnyObject).index ?? 0)
+        HotelFilterVM.shared.delegate?.updateFiltersTabs()
     }
 }

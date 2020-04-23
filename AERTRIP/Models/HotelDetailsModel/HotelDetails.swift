@@ -56,6 +56,8 @@ struct HotelDetails {
     var distance: String = ""
     var thumbnail: [String] = [String]()
     var totalOccupant: Int = 0
+    var pan_required: Bool = false
+
     
     //Mark:- Initialization
     //=====================
@@ -105,7 +107,9 @@ struct HotelDetails {
             APIKeys.info.rawValue: self.info,
             APIKeys.city.rawValue: self.city,
             APIKeys.is_refetch_cp.rawValue: self.is_refetch_cp,
-            APIKeys.occupant.rawValue: self.totalOccupant
+            APIKeys.occupant.rawValue: self.totalOccupant,
+            APIKeys.pan_required.rawValue: self.pan_required
+
         ]
     }
     
@@ -245,6 +249,11 @@ struct HotelDetails {
                 }
             }
         }
+        
+        if let obj = json[APIKeys.pan_required.rawValue] as? Bool {
+            self.pan_required = obj
+        }
+        
     }
     
     //Mark:- Functions

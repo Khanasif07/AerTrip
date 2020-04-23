@@ -556,7 +556,9 @@ enum LocalizedString: String {
     case HotelDetailsEmptyState
     case ResetFilter
     case ConfirmationEmail
-    
+    case UnfavouriteAll
+    case UnfavouriteAllMessage
+
     // Mail Composer View
     case ContactUsAertrip
     case CopyrightAertrip
@@ -564,6 +566,8 @@ enum LocalizedString: String {
     case SendWithSpace
     case PleaseEnterEmail
     case EnterEmail
+    case FavoriteHotelsInfoSentMessage
+
     
     // Select Trip Screen
     case SelectTrip
@@ -592,6 +596,9 @@ enum LocalizedString: String {
     case FareBreakup
     case TotalPayableNow
     case Confirm
+    case PanCard
+    case EnterPanCardMessage
+
     
     // Hotel Checkout Coupons VC
     case Coupons

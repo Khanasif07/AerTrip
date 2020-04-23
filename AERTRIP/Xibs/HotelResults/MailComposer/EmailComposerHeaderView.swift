@@ -70,7 +70,7 @@ class EmailComposerHeaderView: UIView {
     // MARK: - Helper methods
     
     private func doInitialSeup() {
-        aertripLogo.transform = CGAffineTransform(rotationAngle: 3/2*CGFloat.pi)
+        //aertripLogo.transform = CGAffineTransform(rotationAngle: 3/2*CGFloat.pi)
         
         self.messageSubjectTextView.text = LocalizedString.CheckoutMyFavouriteHotels.localized
         self.checkInCheckOutView.layer.cornerRadius = 5.0

@@ -15,8 +15,13 @@ extension HCDataSelectionVC : GuestDetailsVCDelegate {
 }
 
 
-extension HCDataSelectionVC : HCEmailTextFieldCellDelegate {
+extension HCDataSelectionVC : HCEmailTextFieldCellDelegate, HCPanCardTextFieldCellDelegate {
     func textEditableTableViewCellTextFieldText(_ indexPath: IndexPath, _ text: String) {
+        let newRow = indexPath.row - hotelFormData.adultsCount.count
+        if newRow == 5 {
         self.viewModel.email = text
+        } else if newRow == 8 {
+            self.viewModel.panCard = text
+        }
     }
 }

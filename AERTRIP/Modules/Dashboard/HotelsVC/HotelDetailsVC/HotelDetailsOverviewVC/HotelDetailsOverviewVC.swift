@@ -42,9 +42,12 @@ class HotelDetailsOverviewVC: BaseVC {
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
+        //self.setValue()
+    }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         self.setValue()
     }
-    
     override func setupColors() {
         self.titleLabel.textColor = AppColors.themeBlack
         self.stickyTitleLabel.alpha = 0.0
@@ -101,7 +104,10 @@ extension HotelDetailsOverviewVC {
     
     func setValue() {
         let toDeduct = AppFlowManager.default.safeAreaInsets.top
-        let finalValue =  (self.view.height - toDeduct)
+        var finalValue =  (self.view.height - toDeduct)
+        if #available(iOS 13.0, *) {
+           finalValue = self.view.height
+        }
         self.mainContainerBottomConst.constant = 0.0
         self.mainContainerViewHeightConst.constant = finalValue
         self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)

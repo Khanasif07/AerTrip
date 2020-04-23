@@ -137,8 +137,8 @@ class MailComposerVC: BaseVC {
         paragraphStyle.lineSpacing = 6
         let attString: NSMutableAttributedString = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.font: AppFonts.Regular.withSize(30.0), .foregroundColor: AppColors.themeBlack, .paragraphStyle: paragraphStyle])
         attString.addAttributes([
-            .font: AppFonts.c.withSize(30.0),
-            .foregroundColor: AppColors.themeGray20
+            .font: AppFonts.SemiBold.withSize(30.0),
+            .foregroundColor: AppColors.themeBlack
         ], range: (text as NSString).range(of: boldText))
         return attString
     }
@@ -180,11 +180,11 @@ class MailComposerVC: BaseVC {
         
         if !isEmailValid || self.viewModel.subject.isEmpty{
             
-//            self.email.checkValidity(.Email)
+            //            self.email.checkValidity(.Email)
             self.topNavView.firstRightButton.isEnabled = false
             self.topNavView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
         }else{
-           self.topNavView.firstRightButton.isEnabled = true
+            self.topNavView.firstRightButton.isEnabled = true
             self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
         }
         
@@ -211,11 +211,11 @@ extension MailComposerVC: TopNavigationViewDelegate {
         let mailsArray = mail?.components(separatedBy: ",") ?? []
         self.viewModel.pinnedEmails = mailsArray.filter({ $0 != " " })
         if self.viewModel.pinnedEmails.contains("") {
-           AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterEmail.localized)
+            AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterEmail.localized)
         } else {
-              self.viewModel.callSendEmailMail()
+            self.viewModel.callSendEmailMail()
         }
-      
+        
     }
 }
 
@@ -243,25 +243,25 @@ extension MailComposerVC: UITableViewDataSource, UITableViewDelegate {
 // MARK: -  Mail Composer Header View Delegate methods
 
 extension MailComposerVC: EmailComposeerHeaderViewDelegate {
-
+    
     func updateHeightOfHeader(_ headerView: EmailComposerHeaderView, _ textView: UITextView) {
         let minHeight = textView.font!.lineHeight * 1.0
         let maxHeight = textView.font!.lineHeight * 5.0
         //for email textView (screenW-62)
         //for message textView (screenW-32)
-
+        
         var emailHeight = headerView.toEmailTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 62.0), height: 10000.0)).height
-
+        
         var msgHeight = headerView.messageSubjectTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 22.0), height: 10000.0)).height
-
+        
         emailHeight = max(minHeight, emailHeight)
         emailHeight = min(maxHeight, emailHeight)
-
+        
         msgHeight = max(minHeight, msgHeight)
         msgHeight = min(maxHeight, msgHeight)
-
+        
         self.tableView.tableHeaderView?.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: (650.0 + emailHeight + msgHeight))
-
+        
         UIView.animate(withDuration: 0.3, animations: {
             headerView.emailHeightConatraint.constant = emailHeight
             headerView.subjectHeightConstraint.constant = msgHeight
@@ -335,7 +335,11 @@ extension MailComposerVC: MailComoserVMDelegate {
     
     func didSendEmailSuccess() {
         stopLoading()
-        dismiss(animated: true, completion: nil)
+        self.view.isUserInteractionEnabled = false
+        self.dismiss(animated: true, completion: nil)
+        delay(seconds: 0.5) {
+            AppToast.default.showToastMessage(message: LocalizedString.FavoriteHotelsInfoSentMessage.localized)
+        }
     }
     
     func didSendemailFail(_ error: ErrorCodes) {

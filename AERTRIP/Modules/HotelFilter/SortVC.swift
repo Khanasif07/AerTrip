@@ -31,6 +31,11 @@ class SortVC: UIViewController {
         registerXib()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setFilterValues()
+    }
+    
     // MARK: - Helper methods
     
     func registerXib() {
@@ -43,6 +48,9 @@ class SortVC: UIViewController {
         tableView.separatorStyle = .none
     }
     
+    func setFilterValues() {
+        tableView?.reloadData()
+    }
     
 }
 
@@ -182,6 +190,7 @@ extension SortVC: UITableViewDataSource, UITableViewDelegate {
             }
             self.tableView.reloadData()
         }
+        HotelFilterVM.shared.delegate?.updateFiltersTabs()
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

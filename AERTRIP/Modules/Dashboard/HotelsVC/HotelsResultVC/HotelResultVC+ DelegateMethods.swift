@@ -248,6 +248,7 @@ extension HotelResultVC: HotelResultDelegate {
         } else {
             self.updateFavOnList(forIndexPath: self.selectedIndexPath)
         }
+        self.switchView.isOn = self.viewModel.isFavouriteOn
     }
     
     func updateFavouriteFail(errors: ErrorCodes, isHotelFavourite: Bool) {
@@ -269,7 +270,7 @@ extension HotelResultVC: HotelResultDelegate {
             }
         }
         
-        
+        self.switchView.isOn = self.viewModel.isFavouriteOn
     }
     
     func getAllHotelsListResultSuccess(_ isDone: Bool) {

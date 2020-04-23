@@ -315,6 +315,10 @@ extension Double{
     var delimiterWithoutSymbol: String {
         return Double.numberFormatter.string(from: NSNumber(value: Int(self))) ?? ""
     }
+    
+    var getCurrencySymbol: String {
+        return Double.currencyFormatter.currencySymbol
+    }
 }
 
 extension CGFloat{

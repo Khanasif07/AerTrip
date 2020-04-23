@@ -78,7 +78,6 @@ class HotelFilterVC: BaseVC {
         delay(seconds: 0.5) { [weak self] in
             self?.show(animated: true)
         }
-        self.parchmentView?.select(index: selectedIndex)
         self.statusBarColor = AppColors.clear
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -228,6 +227,7 @@ class HotelFilterVC: BaseVC {
         self.parchmentView?.dataSource = self
         self.parchmentView?.delegate = self
         self.parchmentView?.sizeDelegate = self
+        self.parchmentView?.select(index: selectedIndex)
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
         self.parchmentView?.menuBackgroundColor = UIColor.clear
@@ -263,7 +263,7 @@ class HotelFilterVC: BaseVC {
                 
                 
                 let diff = HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount)
-                if 1...4 ~= diff.count {
+                if 1...5 ~= diff.count {
                     filtersTabs[idx].isSelected =  false
                 }
                 else if !HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty {
@@ -304,48 +304,69 @@ class HotelFilterVC: BaseVC {
         mainBackView.addGestureRecognizer(gestureRecognizer)
     }
     
-    // MARK: - IB Action
-    
-    @IBAction func clearAllButtonTapped(_ sender: Any) {
-        self.hide(animated: true, shouldRemove: true)
-        delegate?.clearAllButtonTapped()
-    }
-    
-    @IBAction func doneButtonTapped(_ sender: Any) {
+    private func saveAndApplyFilter() {
         HotelFilterVM.shared.saveDataToUserDefaults()
-        self.hide(animated: true, shouldRemove: true)
         delegate?.doneButtonTapped()
     }
     
+    // MARK: - IB Action
+    
+    @IBAction func clearAllButtonTapped(_ sender: Any) {
+       // self.hide(animated: true, shouldRemove: true)
+        delegate?.clearAllButtonTapped()
+        self.updateFiltersTabs()
+        self.allChildVCs.forEach { (viewController) in
+            if let vc = viewController as? PriceVC {
+                vc.setFilterValues()
+            }
+            else if let vc = viewController as? RangeVC {
+                vc.setFilterValues()
+            }
+            else if let vc = viewController as? RatingVC {
+                vc.setFilterValues()
+            }
+            else if let vc = viewController as? AmenitiesVC {
+                vc.setFilterValues()
+            }
+            else if let vc = viewController as? RoomVC {
+                vc.setFilterValues()
+            }else if let vc = viewController as? SortVC {
+                vc.setFilterValues()
+            }
+        }
+    }
+    
+    @IBAction func doneButtonTapped(_ sender: Any) {
+        saveAndApplyFilter()
+        self.hide(animated: true, shouldRemove: true)
+    }
+    
     @objc func  outsideAreaTapped() {
-        HotelFilterVM.shared.saveDataToUserDefaults()
+        saveAndApplyFilter()
         self.hide(animated: true, shouldRemove: true)
         if UserInfo.hotelFilter == nil {
             HotelFilterVM.shared.lastSelectedIndex = 0
         }
-        delegate?.doneButtonTapped()
     }
         
 }
 
-extension HotelFilterVC: ATCategoryNavBarDelegate {
-    
-    func categoryNavBar(_ navBar: ATCategoryNavBar, willSwitchIndexFrom fromIndex: Int, to toIndex: Int) {
-        printDebug("Manage will switch to next index ")
-    }
-    func categoryNavBar(_ navBar: ATCategoryNavBar, didSwitchIndexTo toIndex: Int) {
-        self.currentIndex = toIndex
-        HotelFilterVM.shared.lastSelectedIndex = toIndex
-    }
-    
-    
-    
-}
-
-
-
 extension HotelFilterVC: HotelFilterVMDelegate {
     func updateFiltersTabs() {
+        printDebug("updateFiltersTabs")
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        perform(#selector(self.updateFilter), with: nil, afterDelay: 0.5)
+    }
+    
+    @objc func updateFilter() {
+        printDebug("updateFilter")
         self.setBadgesOnAllCategories()
+        UIView.setAnimationsEnabled(false)
+        UIView.animate(withDuration: 0, animations: {
+            self.parchmentView?.reloadMenu()
+        }) { (_) in
+                    UIView.setAnimationsEnabled(true)
+        }
+        saveAndApplyFilter()
     }
 }

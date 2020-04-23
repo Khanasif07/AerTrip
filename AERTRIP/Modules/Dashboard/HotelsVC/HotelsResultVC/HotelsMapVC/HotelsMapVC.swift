@@ -448,7 +448,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     }
     
     @IBAction func floatingButtonOptionOnMapViewTapped(_ sender: Any) {
-        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Email.localized, LocalizedString.Share.localized, LocalizedString.RemoveFromFavourites.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeRed])
+        let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.Email.localized, LocalizedString.Share.localized, LocalizedString.UnfavouriteAll.localized], colors: [AppColors.themeDarkGreen, AppColors.themeDarkGreen, AppColors.themeRed])
         let cencelBtn = PKAlertButton(title: LocalizedString.Cancel.localized, titleColor: AppColors.themeDarkGreen,titleFont: AppFonts.SemiBold.withSize(20))
         _ = PKAlertController.default.presentActionSheet(LocalizedString.FloatingButtonsTitle.localized,titleFont: AppFonts.SemiBold.withSize(14), titleColor: AppColors.themeGray40, message: nil, sourceView: self.view, alertButtons: buttons, cancelButton: cencelBtn) { [weak self] _, index in
             
@@ -459,10 +459,28 @@ class HotelsMapVC: StatusBarAnimatableViewController {
                 printDebug("Share")
                 self?.openSharingSheet()
             } else if index == 2 {
-                self?.isRemovingAllFav = true
-                self?.removeAllFavouritesHotels()
+                removeAllFavouritesHotelsPopUp()
                 printDebug("Remove All photo")
             }
+        }
+        
+        func removeAllFavouritesHotelsPopUp() {
+            let title = LocalizedString.UnfavouriteAll.localized.capitalized + "?"
+            let message = LocalizedString.UnfavouriteAllMessage.localized
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            
+            let  cancelAction = UIAlertAction(title: LocalizedString.Cancel.localized, style: .default, handler: nil)
+            cancelAction.setValue(AppColors.themeDarkGreen, forKey: "titleTextColor")
+            
+            let  unFavouriteAction = UIAlertAction(title: LocalizedString.UnfavouriteAll.localized, style: .destructive) { [weak self] (action) in
+                self?.isRemovingAllFav = true
+                self?.removeAllFavouritesHotels()
+            }
+            unFavouriteAction.setValue(AppColors.themeRed, forKey: "titleTextColor")
+            
+            alert.addAction(cancelAction)
+            alert.addAction(unFavouriteAction)
+            present(alert, animated: true, completion: nil)
         }
     }
     

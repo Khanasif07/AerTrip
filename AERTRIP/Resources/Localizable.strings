@@ -469,7 +469,8 @@
 "NoHotelFoundFilter" = "No Hotel Found\nChoose another filters try again.";
 "rupeesText" = "₹";
 "callingNotAvailable" = "Your device doesn't supports calling function!";
-
+"UnfavouriteAll" = "Unfavourite all";
+"UnfavouriteAllMessage" = "This action will unfavourite all the favorite hotels and cannot be undone.";
 
 "ContactUsAertrip" = "Have a question? Contact us : support@aertrip.com";
 //"CopyrightAertrip" = "2012 Aertrip. All Rights Reserved.";
@@ -479,7 +480,7 @@
 "SelectTrip" = "Select Trip";
 "CreateNewTrip" = "Create New Trip";
 "NameYourTrip" = "Name Your Trip";
-"CopyrightAertrip" = " 2012 Aertrip. All Rights Reserved.";
+"CopyrightAertrip" = "Aertrip. All Rights Reserved.";
 "WriteYourOwnReview" = "Write your own Review";
 "ReadAll" = "Read all";
 "Excellent"  =  "Excellent";
@@ -516,6 +517,8 @@
 "FareBreakup" = "Fare Breakup";
 "TotalPayableNow" = "Total payable now";
 "Confirm" = "Confirm";
+"PanCard" = "Pan Number";
+"EnterPanCardMessage" = "Please enter valid PAN Number.";
 
 //Hotel Checkout Coupons VC
 "Coupons" = "Coupons";
@@ -558,6 +561,8 @@
 // Mail Composer VC
 "CheckoutMyFavouriteHotels" = "Checkout my favorite hotels on Aertrip!";
 "EnterEmail" = "Enter email";
+"FavoriteHotelsInfoSentMessage" = "Favorite hotels info has been sent.";
+
 //Booking Incomplete Screen
 "BookingIncomplete" = "Booking Incomplete";
 "YourWalletMoneyOf" = "Your wallet money of";
