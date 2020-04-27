@@ -164,6 +164,11 @@ extension UIView {
         self.layer.shadowRadius = shadowRadius
     }
     
+    func setBorder(borderWidth: CGFloat = 0.0, borderColor: UIColor = .clear) {
+        self.layer.borderWidth = borderWidth
+        self.layer.borderColor = borderColor.cgColor
+    }
+    
     /// SHOW VIEW
     func showViewWithFade() {
         self.alpha = 0.0
