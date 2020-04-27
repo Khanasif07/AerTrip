@@ -64,10 +64,10 @@ class GuestDetailTableViewCell: UITableViewCell {
         self.firstNameTextField.hintYPadding = 12.0
         self.lastNameTextField.titleYPadding = 12.0
         self.lastNameTextField.hintYPadding = 12.0
-//        self.firstNameTextField.titleYPadding = -10.0
-//        self.lastNameTextField.titleYPadding = -10.0
-//        self.firstNameTextField.lineViewBottomSpace = 0.5
-//        self.lastNameTextField.lineViewBottomSpace = 0.5
+        //        self.firstNameTextField.titleYPadding = -10.0
+        //        self.lastNameTextField.titleYPadding = -10.0
+        //        self.firstNameTextField.lineViewBottomSpace = 0.5
+        //        self.lastNameTextField.lineViewBottomSpace = 0.5
         self.firstNameTextField.isSingleTextField = false
         self.lastNameTextField.isSingleTextField = false
         self.firstNameTextField.delegate = self
@@ -75,6 +75,8 @@ class GuestDetailTableViewCell: UITableViewCell {
         
         self.firstNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         self.lastNameTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+        
+        
     }
     
     
@@ -131,11 +133,24 @@ class GuestDetailTableViewCell: UITableViewCell {
             let ageText = "(\(self.guestDetail?.age ?? 0)y)"
             let adultText = "\(LocalizedString.Adult.localized) \(number)"
             let childText = "\(LocalizedString.Child.localized) \(number) \(ageText)"
-
+            
             self.guestTitleLabel.text = (type == PassengersType.Adult) ? adultText : childText
             self.guestTitleLabel.AttributedFontColorForText(text: ageText, textColor: AppColors.themeGray40)
         }        
+        showErrorForFirstLastName()
+    }
+    
+    func showErrorForFirstLastName() {
+        guard  self.canShowSalutationError else {return}
+        let isValidFirstName = !((self.firstNameTextField.text ?? "").count < 3)
+        self.firstNameTextField.isError = !isValidFirstName
+        let firstName = self.firstNameTextField.placeholder ?? ""
+        self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidFirstName ? AppColors.themeGray40 :  AppColors.themeRed])
         
+        let isValidLastName = !((self.lastNameTextField.text ?? "").count < 3)
+        self.lastNameTextField.isError = !isValidLastName
+        let lastName = self.firstNameTextField.placeholder ?? ""
+        self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastName, attributes: [NSAttributedString.Key.foregroundColor: isValidLastName ? AppColors.themeGray40 :  AppColors.themeRed])
     }
     
     func setUpUnicodeSwitch() {
@@ -198,9 +213,9 @@ class GuestDetailTableViewCell: UITableViewCell {
             salutation = AppGlobals.shared.getSalutationAsPerGenderAndAge(gender: AppConstants.kmR, dob: self.guestDetail?.dob ?? "", dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
         }
         if sender.selectedIndex == 0 || sender.selectedIndex == 1 {
-        if let indexPath = (self.superview as? UITableView)?.indexPath(for: self) {
-            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = salutation
-        }
+            if let indexPath = (self.superview as? UITableView)?.indexPath(for: self) {
+                GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = salutation
+            }
         }
     }
 }
@@ -220,13 +235,13 @@ extension GuestDetailTableViewCell: UITextFieldDelegate {
     
     @objc func textFieldDidChanged(_ textField: UITextField) {
         
-        
-        if let txtStr = textField.text, txtStr.count > AppConstants.kFirstLastNameTextLimit {
+        let txtStr = textField.text ?? ""
+        if  txtStr.count > AppConstants.kFirstLastNameTextLimit {
             let text = txtStr.removeSpaceAsSentence
             textField.text = text.substring(to: 30)
             return
         } else {
-            let txtStr = textField.text ?? ""
+            
             textField.text = txtStr.removeSpaceAsSentence
         }
         switch textField {
@@ -234,12 +249,12 @@ extension GuestDetailTableViewCell: UITextFieldDelegate {
             //self.firstNameTextField.isHiddenBottomLine = false
             self.delegate?.textFieldWhileEditing(firstNameTextField)
         case self.lastNameTextField:
-           // self.lastNameTextField.isHiddenBottomLine = false
+            // self.lastNameTextField.isHiddenBottomLine = false
             self.delegate?.textFieldWhileEditing(lastNameTextField)
         default:
             break
         }
-        
+        showErrorForFirstLastName()
     }
     
     

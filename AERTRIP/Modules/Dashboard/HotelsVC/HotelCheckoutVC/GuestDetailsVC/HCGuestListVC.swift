@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Contacts
 
 class HCGuestListVC: BaseVC {
     
@@ -173,6 +174,12 @@ class HCGuestListVC: BaseVC {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         noResultemptyView.mainImageViewTopConstraint.constant = 200
+        
+        if self.currentlyUsingFor == .contacts {
+            if self.viewModel.phoneContacts.isEmpty, CNContactStore.authorizationStatus(for: .contacts) == .authorized {
+                self.viewModel.fetchPhoneContacts(forVC: self)
+            }
+        }
     }
     
     private func reloadList() {

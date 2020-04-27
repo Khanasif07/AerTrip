@@ -542,20 +542,23 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AuL-Y2-nzN" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <tableView key="tableFooterView" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="obO-hP-wGa" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="478"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </tableView>
+                            </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Z0k-FV-41a" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="189" width="375" height="478"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="ef6-oa-bzv" firstAttribute="bottom" secondItem="Z0k-FV-41a" secondAttribute="bottom" id="3fc-gi-9ki"/>
                             <constraint firstItem="ef6-oa-bzv" firstAttribute="trailing" secondItem="dnv-2r-oQd" secondAttribute="trailing" id="A5x-Ze-hTo"/>
                             <constraint firstItem="ef6-oa-bzv" firstAttribute="trailing" secondItem="AuL-Y2-nzN" secondAttribute="trailing" id="CSH-7H-VRt"/>
+                            <constraint firstItem="Z0k-FV-41a" firstAttribute="top" secondItem="ef6-oa-bzv" secondAttribute="top" constant="189" id="Svi-te-hKC"/>
                             <constraint firstItem="AuL-Y2-nzN" firstAttribute="top" secondItem="dnv-2r-oQd" secondAttribute="bottom" id="TgQ-YF-zyu"/>
                             <constraint firstItem="dnv-2r-oQd" firstAttribute="leading" secondItem="ef6-oa-bzv" secondAttribute="leading" id="UXR-XF-3oz"/>
+                            <constraint firstItem="Z0k-FV-41a" firstAttribute="leading" secondItem="ef6-oa-bzv" secondAttribute="leading" id="VP5-Tv-VQl"/>
                             <constraint firstItem="ef6-oa-bzv" firstAttribute="bottom" secondItem="AuL-Y2-nzN" secondAttribute="bottom" id="WWc-Gg-0Lu"/>
+                            <constraint firstItem="ef6-oa-bzv" firstAttribute="trailing" secondItem="Z0k-FV-41a" secondAttribute="trailing" id="Z1H-aq-DE9"/>
                             <constraint firstItem="AuL-Y2-nzN" firstAttribute="leading" secondItem="ef6-oa-bzv" secondAttribute="leading" id="jjA-XZ-s6H"/>
                             <constraint firstItem="dnv-2r-oQd" firstAttribute="top" secondItem="ef6-oa-bzv" secondAttribute="top" id="mEX-z2-gHW"/>
                         </constraints>
@@ -564,7 +567,7 @@
                     <connections>
                         <outlet property="guestDetailTableView" destination="AuL-Y2-nzN" id="lWJ-sp-4lG"/>
                         <outlet property="topNavView" destination="dnv-2r-oQd" id="EjT-8v-YOA"/>
-                        <outlet property="travellersTableView" destination="obO-hP-wGa" id="g7J-in-VOb"/>
+                        <outlet property="travellersTableView" destination="Z0k-FV-41a" id="tvY-QM-MaV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L5K-by-zH5" userLabel="First Responder" sceneMemberID="firstResponder"/>

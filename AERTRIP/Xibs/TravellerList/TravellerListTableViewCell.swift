@@ -32,42 +32,44 @@ class TravellerListTableViewCell: UITableViewCell {
         searchedText = ""
     }
     
-    var travellerData: TravellerData? {
-        didSet {
-            configureCell()
-        }
-    }
+//    var travellerData: TravellerData? {
+//        didSet {
+//            configureCell()
+//        }
+//    }
     
-    var travellerModelData: TravellerModel? {
+    var travellerModelData: (firstName: String, lastName: String, fullName: String, dob: String, salutation: String)? {
         didSet {
             configureCellForTraveller()
         }
     }
     var searchedText = ""
+    //var travelerData: (travellerName: String, travelerAge: String)
     
     // MARK: - Helper methods
     
-    private func configureCell() {
-        profileImageView.image = travellerData?.salutationImage
-        if let firstName = travellerData?.firstName, let lastName = travellerData?.lastName, let salutation = travellerData?.salutation, (travellerData?.profileImage.isEmpty ?? false) {
-            if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
-                let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
-                userNameLabel.attributedText = getAttributedBoldText(text: "\(salutation) \(lastName) \(firstName)", boldText: boldText)
-                
-            } else {
-                let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
-                userNameLabel.attributedText = getAttributedBoldText(text: "\(salutation) \(firstName) \(lastName)", boldText: boldText)
-            }
-        } 
-        
-        
-    }
+//    private func configureCell() {
+//        profileImageView.image = travellerData?.salutationImage
+//        if let firstName = travellerData?.firstName, let lastName = travellerData?.lastName, let salutation = travellerData?.salutation, (travellerData?.profileImage.isEmpty ?? false) {
+//            if UserInfo.loggedInUser?.generalPref?.displayOrder == "LF" {
+//                let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
+//                userNameLabel.attributedText = getAttributedBoldText(text: "\(salutation) \(lastName) \(firstName)", boldText: boldText)
+//
+//            } else {
+//                let boldText = (UserInfo.loggedInUser?.generalPref?.sortOrder == "LF") ? "\(lastName)" : "\(firstName)"
+//                userNameLabel.attributedText = getAttributedBoldText(text: "\(salutation) \(firstName) \(lastName)", boldText: boldText)
+//            }
+//        }
+//
+//
+//    }
     
     private func configureCellForTraveller() {
         selectTravellerButton.isHidden = true
         leadingConstraint.constant = 16
         containerStackView.spacing = 16
         profileImageView.image = AppGlobals.shared.getEmojiIcon(dob: travellerModelData?.dob ?? "", salutation: travellerModelData?.salutation ?? "", dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+        
         let fullName = travellerModelData?.fullName ?? ""
         var age = ""
         if let dob = travellerModelData?.dob,!dob.isEmpty {

@@ -8,6 +8,7 @@
 
 import UIKit
 import IQKeyboardManager
+import Contacts
 
 enum GuestTableViewType {
     case Searching
@@ -37,13 +38,14 @@ class GuestDetailsVC: BaseVC {
     var searchText: String = ""
     
     // travellers for managing on table view
-    var travellers: [TravellerModel] = []
+    //var travellers: [TravellerModel] = []
     var keyboardHeight: CGFloat = 0.0
     
     // MARK: - View Life cycle
-    
+     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.viewModel.resetData()
         self.registerXib()
         self.doInitialSetup()
         //self.addFooterViewToGuestDetailTableView()
@@ -95,9 +97,13 @@ class GuestDetailsVC: BaseVC {
         self.guestDetailTableView.isScrollEnabled = true
         self.travellersTableView.isHidden = true
         self.setUpNavigationView()
-        self.travellers = []//self.viewModel.travellerList
+        self.viewModel.resetData()//self.viewModel.travellerList
         self.travellersTableView.keyboardDismissMode = .none
         self.guestDetailTableView.backgroundColor = AppColors.themeGray04
+        
+            if HCSelectGuestsVM.shared._phoneContacts.isEmpty, CNContactStore.authorizationStatus(for: .contacts) == .authorized {
+                HCSelectGuestsVM.shared.fetchPhoneContacts(forVC: self)
+            }
     }
     
     // configure navigation View
@@ -145,9 +151,9 @@ class GuestDetailsVC: BaseVC {
     
     override func keyboardWillHide(notification: Notification) {
         self.guestDetailTableView.isScrollEnabled = true
-        self.travellers = []//self.viewModel.travellerList
+        self.viewModel.resetData()//self.viewModel.travellerList
         self.travellersTableView.reloadData()
-        self.travellersTableView.isHidden = self.travellers.count == 0
+        self.travellersTableView.isHidden = self.viewModel.isDataEmpty
     }
     
     // Make table view particular index selectable or Editable
@@ -155,7 +161,7 @@ class GuestDetailsVC: BaseVC {
         self.guestDetailTableView.scrollToRow(at: self.viewModel.selectedIndexPath, at: .top, animated: false)
         if let cell = guestDetailTableView.cellForRow(at: viewModel.selectedIndexPath) as? GuestDetailTableViewCell {
             let guest = GuestDetailsVM.shared.guests[self.viewModel.selectedIndexPath.section][self.viewModel.selectedIndexPath.row]
-            if self.travellers.count == 0 {
+            if self.viewModel.isDataEmpty {
                  self.travellersTableView.isHidden = true
             } else {
                 self.travellersTableView.isHidden = !guest.firstName.isEmpty
@@ -177,7 +183,7 @@ class GuestDetailsVC: BaseVC {
     private func makeTextFieldResponder() {
         if let cell = guestDetailTableView.cellForRow(at: viewModel.selectedIndexPath) as? GuestDetailTableViewCell {
             let guest = GuestDetailsVM.shared.guests[self.viewModel.selectedIndexPath.section][self.viewModel.selectedIndexPath.row]
-            if self.travellers.count == 0 {
+            if self.viewModel.isDataEmpty {
                 self.travellersTableView.isHidden = true
             } else {
                 self.travellersTableView.isHidden = !guest.firstName.isEmpty
@@ -190,11 +196,11 @@ class GuestDetailsVC: BaseVC {
     }
     
     private func editedGuest(_ travellerIndexPath: IndexPath) {
-        if let indexPath = self.indexPath {
+        if let indexPath = self.indexPath, let object = self.viewModel.objectForIndexPath(indexPath: indexPath) {
             printDebug(" before updating guest : \(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
-            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = self.travellers[travellerIndexPath.row].salutation
-            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = self.travellers[travellerIndexPath.row].firstName
-            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].lastName = self.travellers[travellerIndexPath.row].lastName
+            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = object.salutation
+            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = object.firstName
+            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].lastName = object.lastName
             
             printDebug("after updating guest : \(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
             
@@ -211,7 +217,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
         if tableView === self.guestDetailTableView {
             return GuestDetailsVM.shared.guests.count
         } else {
-            return 1
+            return 4
         }
     }
     
@@ -219,7 +225,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
         if tableView === self.guestDetailTableView {
             return GuestDetailsVM.shared.guests[section].count
         } else {
-            return self.travellers.count
+            return self.viewModel.numberOfRowsInSection(section: section)
         }
     }
     
@@ -245,7 +251,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
 //                cell.firstNameTextField.isHiddenBottomLine = false
 //                cell.lastNameTextField.isHiddenBottomLine = false
 //            }
-    
+            printDebug("cell frame: \(cell.frame)")
             return cell
         } else {
             guard let cell = travellersTableView.dequeueReusableCell(withIdentifier: TravellerListTableViewCell.reusableIdentifier, for: indexPath) as? TravellerListTableViewCell else {
@@ -254,9 +260,9 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
             }
             cell.separatorView.isHidden = indexPath.row == 0
             cell.searchedText = self.searchText
-            if indexPath.row < self.travellers.count {
-            cell.travellerModelData = self.travellers[indexPath.row]
-            }
+//            if indexPath.row < self.travellers.count {
+            cell.travellerModelData = self.viewModel.objectForIndexPath(indexPath: indexPath)
+//            }
             return cell
         }
     }
@@ -267,7 +273,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
         if tableView === self.guestDetailTableView {
             return 60.0
         } else {
-            return CGFloat.leastNonzeroMagnitude
+            return self.viewModel.numberOfRowsInSection(section: section) > 0 ? 28.0 : CGFloat.leastNormalMagnitude
         }
     }
     
@@ -293,7 +299,17 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
             
             return headerView
         } else {
-            return nil
+            guard let headerView = guestDetailTableView.dequeueReusableHeaderFooterView(withIdentifier: AppConstants.ktableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
+                fatalError("ViewProfileDetailTableViewSectionView not found")
+            }
+            headerView.headerLabel.text = self.viewModel.titleForSection(section: section).uppercased()
+            headerView.backgroundColor = AppColors.themeGray04
+            headerView.containerView.backgroundColor = AppColors.themeGray04
+            headerView.topDividerHeightConstraint.constant = 0.5
+            //headerView.topSeparatorView.isHidden = section == 0 ? true : false
+            headerView.bottomSeparatorView.isHidden = false
+            headerView.clipsToBounds = true
+            return headerView
         }
     }
     
@@ -330,15 +346,17 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
         if tableView === self.travellersTableView {
             self.guestDetailTableView.isScrollEnabled = true
             self.travellersTableView.isHidden = true
-            if let cellindexPath = self.indexPath {
+            let object = self.viewModel.objectForIndexPath(indexPath: indexPath)
+            if let cellindexPath = self.indexPath, let obj = object {
                 if let cell = self.guestDetailTableView.cellForRow(at: cellindexPath) as? GuestDetailTableViewCell {
                     //cell.salutationTextField.text = self.travellers[indexPath.row].salutation
-                    cell.firstNameTextField.text = self.travellers[indexPath.row].firstName
-                    cell.lastNameTextField.text = self.travellers[indexPath.row].lastName
+                    cell.firstNameTextField.text = obj.firstName
+                    cell.lastNameTextField.text = obj.lastName
                 }
             }
             self.editedGuest(indexPath)
-            self.travellers = self.viewModel.travellerList
+            self.viewModel.resetData()
+            self.viewModel.search(forText: "")
         }
     }
 
@@ -362,15 +380,12 @@ extension GuestDetailsVC: TopNavigationViewDelegate {
 extension GuestDetailsVC: GuestDetailTableViewCellDelegate {    
     func textFieldWhileEditing(_ textField: UITextField) {
         self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
-        if textField.text != "" {
-            self.searchText = textField.text ?? ""
-            self.travellers = self.viewModel.travellerList.filter({ $0.firstName.lowercased().contains(textField.text?.lowercased() ?? "") })
-            
-        } else {
-            self.travellers = []//self.viewModel.travellerList
-            self.searchText  = ""
+        self.searchText = textField.text ?? ""
+        self.viewModel.search(forText: self.searchText)
+        if self.searchText.isEmpty {
+            self.viewModel.resetData()
         }
-        self.travellersTableView.isHidden = self.travellers.count == 0
+        self.travellersTableView.isHidden = self.viewModel.isDataEmpty
         self.travellersTableView.reloadData()
         if let cell = self.guestDetailTableView.cell(forItem: textField) as? GuestDetailTableViewCell {
             switch textField {
@@ -403,7 +418,7 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
     
     func textField(_ textField: UITextField) {
         
-        self.travellersTableView.isHidden = self.travellers.count == 0
+        self.travellersTableView.isHidden = self.viewModel.isDataEmpty
         self.travellersTableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
         self.indexPath = self.guestDetailTableView.indexPath(forItem: textField)
         if let _ = self.guestDetailTableView.cell(forItem: textField) as? GuestDetailTableViewCell {
@@ -411,11 +426,11 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
             let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: guestDetailTableView)
             var  yValue = 80
             if let index = self.indexPath {
-                yValue = index.row ==  GuestDetailsVM.shared.guests[index.section].count - 1 ? 80 : 82
+                yValue = index.row ==  GuestDetailsVM.shared.guests[index.section].count - 1 ? 81 : 83
             }
             self.guestDetailTableView.setContentOffset(CGPoint(x: self.guestDetailTableView.origin.x, y: itemPosition.y - CGFloat(yValue)), animated: true)
          
-            self.guestDetailTableView.isScrollEnabled = (self.travellers.count == 0)
+            self.guestDetailTableView.isScrollEnabled = self.viewModel.isDataEmpty
             //false            travellersTableView.reloadData()
             printDebug("item position is \(itemPosition)")
         } else {
@@ -426,6 +441,11 @@ extension GuestDetailsVC: GuestDetailTableViewCellDelegate {
 }
 
 extension GuestDetailsVC: GuestDetailsVMDelegate {
+    func searchDidComplete() {
+        self.travellersTableView.isHidden = self.viewModel.isDataEmpty
+        self.travellersTableView.reloadData()
+    }
+    
     func getFail(errors: ErrorCodes) {
         printDebug(errors)
     }

@@ -214,7 +214,7 @@ class ContactListVC: BaseVC {
        // noResultemptyView.mainImageViewTopConstraint.constant = 400
         
         if self.currentlyUsingFor == .contacts {
-            if CNContactStore.authorizationStatus(for: .contacts) == .authorized {
+            if self.viewModel.phoneContacts.isEmpty, CNContactStore.authorizationStatus(for: .contacts) == .authorized {
                 self.viewModel.fetchPhoneContacts(forVC: self)
             }
         }

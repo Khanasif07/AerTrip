@@ -45,7 +45,7 @@ class TravellerListVC: BaseVC {
     private var shouldHitAPI: Bool = true
     var travellerListHeaderView: TravellerListHeaderView = TravellerListHeaderView()
     var tableViewHeaderCellIdentifier = "TravellerListTableViewSectionView"
-    let cellIdentifier = "TravellerListTableViewCell"
+    //let cellIdentifier = "TravellerListTableViewCell"
     let viewModel = TravellerListVM()
     var isSelectMode: Bool = false {
         didSet {
