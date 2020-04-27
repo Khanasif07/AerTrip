@@ -26,7 +26,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="jdg-bw-y5F" customClass="ATCollectionView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ZbT-5D-Ght">
                                     <size key="itemSize" width="50" height="50"/>
@@ -38,7 +38,7 @@
                             </collectionView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="YkF-Dz-NzE" firstAttribute="bottom" secondItem="jdg-bw-y5F" secondAttribute="bottom" id="0na-aB-nhm"/>
+                            <constraint firstAttribute="bottom" secondItem="jdg-bw-y5F" secondAttribute="bottom" id="0na-aB-nhm"/>
                             <constraint firstItem="YkF-Dz-NzE" firstAttribute="trailing" secondItem="jdg-bw-y5F" secondAttribute="trailing" id="4Bz-Iy-RAP"/>
                             <constraint firstItem="jdg-bw-y5F" firstAttribute="leading" secondItem="YkF-Dz-NzE" secondAttribute="leading" id="Cam-0R-GQ4"/>
                             <constraint firstItem="jdg-bw-y5F" firstAttribute="top" secondItem="XTt-JS-AuY" secondAttribute="top" id="RZr-p3-E3a"/>
@@ -83,13 +83,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hotels" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qha-hg-Avg">
-                                <rect key="frame" x="178.33333333333334" y="441.33333333333331" width="57.666666666666657" height="23.333333333333314"/>
+                                <rect key="frame" x="180.33333333333334" y="440.33333333333331" width="53.666666666666657" height="25.333333333333314"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Under Development)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqe-Xh-64F">
-                                <rect key="frame" x="126.66666666666669" y="479.66666666666669" width="161" height="20"/>
+                                <rect key="frame" x="130.33333333333337" y="480.66666666666669" width="153.66666666666663" height="21.666666666666686"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -750,13 +750,13 @@ been sent</string>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="kd6-Rz-f0E">
                                                             <rect key="frame" x="16" y="26.333333333333332" width="382" height="41.666666666666671"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WU9-Mx-swg">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WU9-Mx-swg">
                                                                     <rect key="frame" x="0.0" y="0.0" width="382" height="20.333333333333332"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Rk-Gx-itF">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Rk-Gx-itF">
                                                                     <rect key="frame" x="0.0" y="21.333333333333336" width="382" height="20.333333333333336"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
@@ -944,10 +944,10 @@ been sent</string>
                                                 <rect key="frame" x="112.66666666666666" y="0.0" width="112.66666666666666" height="266"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="19.5" translatesAutoresizingMaskIntoConstraints="NO" id="wVg-xb-02g">
-                                                        <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="266"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="264"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="8sd-hy-MIr">
-                                                                <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="117"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="115"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxk-PK-7qo">
                                                                         <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="45"/>
@@ -978,10 +978,10 @@ been sent</string>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EmB-dd-HPg">
-                                                                        <rect key="frame" x="0.0" y="57" width="112.66666666666667" height="60"/>
+                                                                        <rect key="frame" x="0.0" y="57" width="112.66666666666667" height="58"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XBn-d3-Nmd">
-                                                                                <rect key="frame" x="32.333333333333343" y="6" width="48" height="48"/>
+                                                                                <rect key="frame" x="32.333333333333343" y="5" width="48" height="48"/>
                                                                                 <state key="normal" image="adult_icon_bulk"/>
                                                                             </button>
                                                                         </subviews>
@@ -995,7 +995,7 @@ been sent</string>
                                                                 </subviews>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WoY-az-onx">
-                                                                <rect key="frame" x="0.0" y="136.66666666666663" width="112.66666666666667" height="129.33333333333337"/>
+                                                                <rect key="frame" x="0.0" y="134.66666666666663" width="112.66666666666667" height="129.33333333333337"/>
                                                                 <subviews>
                                                                     <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DEo-vf-mkT">
                                                                         <rect key="frame" x="0.0" y="0.0" width="112.66666666666667" height="129.33333333333334"/>
@@ -1024,10 +1024,10 @@ been sent</string>
                                                 <rect key="frame" x="225.33333333333331" y="0.0" width="100" height="266"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="12.5" translatesAutoresizingMaskIntoConstraints="NO" id="pK7-Yp-wzS">
-                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="293.66666666666669"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="297.33333333333331"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yha-YK-x8Z">
-                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="59.333333333333336"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="60"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Children" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Sw-4i-o5H">
                                                                         <rect key="frame" x="0.0" y="5" width="100" height="20.333333333333332"/>
@@ -1055,10 +1055,10 @@ been sent</string>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="6Bo-AR-Jbm">
-                                                                <rect key="frame" x="0.0" y="72" width="100" height="70.666666666666686"/>
+                                                                <rect key="frame" x="0.0" y="72.666666666666629" width="100" height="71.666666666666686"/>
                                                                 <subviews>
                                                                     <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JKq-Tl-RDH">
-                                                                        <rect key="frame" x="26" y="11.333333333333371" width="48" height="48"/>
+                                                                        <rect key="frame" x="26" y="12" width="48" height="48"/>
                                                                         <state key="normal" image="child_icon_bulk"/>
                                                                         <state key="selected" image="child_selected"/>
                                                                     </button>
@@ -1071,10 +1071,10 @@ been sent</string>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YzA-bp-NnN">
-                                                                <rect key="frame" x="0.0" y="155.33333333333337" width="100" height="138.33333333333337"/>
+                                                                <rect key="frame" x="0.0" y="157" width="100" height="140.33333333333337"/>
                                                                 <subviews>
                                                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Kp-MU-TGO">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="138.33333333333334"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="140.33333333333334"/>
                                                                     </pickerView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1560,108 +1560,11 @@ been sent</string>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="8Gg-mF-c01">
                                         <rect key="frame" x="8" y="16" width="398" height="1029"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vZb-jF-UOb" customClass="CustomView" customModule="AERTRIP" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vZb-jF-UOb" customClass="HotelShimmerView" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="398" height="193"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PMo-bq-XPg">
-                                                        <rect key="frame" x="16" y="11" width="366" height="166"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPm-ud-Pk8" customClass="ButtonShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="18" height="22"/>
-                                                                <state key="normal" image="shimmerViewFavouriteButton"/>
-                                                                <state key="selected" image="saveHotelsSelected"/>
-                                                            </button>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="npF-Ps-ULj">
-                                                                <rect key="frame" x="0.0" y="124" width="231" height="12"/>
-                                                                <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EOH-8q-bfu" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="12"/>
-                                                                        <color key="backgroundColor" red="0.97254901959999995" green="0.72549019609999998" blue="0.031372549020000001" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5gV-L6-mV3" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="130" y="0.0" width="101" height="12"/>
-                                                                        <color key="backgroundColor" red="0.60784313729999995" green="0.91372549020000005" blue="0.83529411760000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                </subviews>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="12" id="4Fc-U4-5xM"/>
-                                                                </constraints>
-                                                            </stackView>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BRt-h4-7Kq" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="311" y="126" width="55" height="8"/>
-                                                                <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="8" id="YwM-nF-eW8"/>
-                                                                    <constraint firstAttribute="width" constant="55" id="aHQ-nY-p7W"/>
-                                                                </constraints>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                        <integer key="value" value="2"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                </userDefinedRuntimeAttributes>
-                                                            </view>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="UDn-v3-CH5">
-                                                                <rect key="frame" x="0.0" y="151" width="366" height="15"/>
-                                                                <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fOi-Fy-gyl" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="15"/>
-                                                                        <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="srt-P0-YY3" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="296" y="0.0" width="70" height="15"/>
-                                                                        <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="width" constant="70" id="MEV-Bg-ZTB"/>
-                                                                        </constraints>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                </subviews>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="15" id="Dcy-Tj-0kc"/>
-                                                                </constraints>
-                                                            </stackView>
-                                                        </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstItem="UDn-v3-CH5" firstAttribute="leading" secondItem="PMo-bq-XPg" secondAttribute="leading" id="7Cl-20-sdY"/>
-                                                            <constraint firstItem="EPm-ud-Pk8" firstAttribute="leading" secondItem="PMo-bq-XPg" secondAttribute="leading" id="9yU-4Q-HA1"/>
-                                                            <constraint firstItem="BRt-h4-7Kq" firstAttribute="trailing" secondItem="UDn-v3-CH5" secondAttribute="trailing" id="CJb-jc-y3F"/>
-                                                            <constraint firstAttribute="trailing" secondItem="UDn-v3-CH5" secondAttribute="trailing" id="DEX-Ct-544"/>
-                                                            <constraint firstItem="BRt-h4-7Kq" firstAttribute="leading" secondItem="npF-Ps-ULj" secondAttribute="trailing" constant="80" id="NRN-Az-i9Q"/>
-                                                            <constraint firstItem="UDn-v3-CH5" firstAttribute="top" secondItem="npF-Ps-ULj" secondAttribute="bottom" constant="15" id="gaL-5H-V6i"/>
-                                                            <constraint firstAttribute="bottom" secondItem="UDn-v3-CH5" secondAttribute="bottom" id="jgv-so-Gkb"/>
-                                                            <constraint firstItem="npF-Ps-ULj" firstAttribute="leading" secondItem="UDn-v3-CH5" secondAttribute="leading" id="llF-yj-tBX"/>
-                                                            <constraint firstItem="EPm-ud-Pk8" firstAttribute="top" secondItem="PMo-bq-XPg" secondAttribute="top" id="ryG-Z5-aom"/>
-                                                            <constraint firstItem="BRt-h4-7Kq" firstAttribute="centerY" secondItem="npF-Ps-ULj" secondAttribute="centerY" id="x6N-XF-s4j"/>
-                                                        </constraints>
-                                                    </view>
-                                                </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="PMo-bq-XPg" firstAttribute="top" secondItem="vZb-jF-UOb" secondAttribute="top" constant="11" id="HIX-6a-XCZ"/>
-                                                    <constraint firstItem="PMo-bq-XPg" firstAttribute="leading" secondItem="vZb-jF-UOb" secondAttribute="leading" constant="16" id="LvX-Ys-PdM"/>
                                                     <constraint firstAttribute="height" constant="193" id="TOm-az-bYa"/>
-                                                    <constraint firstAttribute="bottom" secondItem="PMo-bq-XPg" secondAttribute="bottom" constant="16" id="k3P-Wh-qni"/>
-                                                    <constraint firstItem="PMo-bq-XPg" firstAttribute="trailing" secondItem="vR6-qz-gjz" secondAttribute="trailing" constant="-16" id="xx4-E8-u7c"/>
                                                 </constraints>
                                                 <viewLayoutGuide key="safeArea" id="vR6-qz-gjz"/>
                                                 <userDefinedRuntimeAttributes>
@@ -1685,108 +1588,9 @@ been sent</string>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="URP-vB-7Hr" customClass="CustomView" customModule="AERTRIP" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="URP-vB-7Hr" customClass="HotelShimmerView" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="209" width="398" height="193"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icy-s8-IQb">
-                                                        <rect key="frame" x="16" y="11" width="366" height="166"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qel-LB-3do" customClass="ButtonShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="18" height="22"/>
-                                                                <state key="normal" image="shimmerViewFavouriteButton"/>
-                                                                <state key="selected" image="saveHotelsSelected"/>
-                                                            </button>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="Vdl-Lg-7fz">
-                                                                <rect key="frame" x="0.0" y="124" width="231" height="12"/>
-                                                                <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tG7-4c-xi0" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="12"/>
-                                                                        <color key="backgroundColor" red="0.97254901959999995" green="0.72549019609999998" blue="0.031372549020000001" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GJl-RM-svd" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="130" y="0.0" width="101" height="12"/>
-                                                                        <color key="backgroundColor" red="0.60784313729999995" green="0.91372549020000005" blue="0.83529411760000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                </subviews>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="12" id="yZS-19-28C"/>
-                                                                </constraints>
-                                                            </stackView>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yIY-au-asz" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="311" y="126" width="55" height="8"/>
-                                                                <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="55" id="QLE-3H-Xk4"/>
-                                                                    <constraint firstAttribute="height" constant="8" id="gN7-eL-E3z"/>
-                                                                </constraints>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                        <integer key="value" value="2"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                </userDefinedRuntimeAttributes>
-                                                            </view>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="RuT-1d-Uy1">
-                                                                <rect key="frame" x="0.0" y="151" width="366" height="15"/>
-                                                                <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fie-0L-vhw" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="15"/>
-                                                                        <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WeH-Ps-fht" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="296" y="0.0" width="70" height="15"/>
-                                                                        <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="width" constant="70" id="zUl-G8-pCD"/>
-                                                                        </constraints>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                </subviews>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="15" id="fpn-sh-KIR"/>
-                                                                </constraints>
-                                                            </stackView>
-                                                        </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="RuT-1d-Uy1" secondAttribute="trailing" id="3oa-bk-yWQ"/>
-                                                            <constraint firstItem="yIY-au-asz" firstAttribute="trailing" secondItem="RuT-1d-Uy1" secondAttribute="trailing" id="C85-JS-Khu"/>
-                                                            <constraint firstItem="qel-LB-3do" firstAttribute="leading" secondItem="icy-s8-IQb" secondAttribute="leading" id="IHu-La-kUr"/>
-                                                            <constraint firstItem="Vdl-Lg-7fz" firstAttribute="leading" secondItem="RuT-1d-Uy1" secondAttribute="leading" id="WY6-mf-7oB"/>
-                                                            <constraint firstItem="qel-LB-3do" firstAttribute="top" secondItem="icy-s8-IQb" secondAttribute="top" id="X3S-A3-m0v"/>
-                                                            <constraint firstItem="yIY-au-asz" firstAttribute="leading" secondItem="Vdl-Lg-7fz" secondAttribute="trailing" constant="80" id="a6j-Qs-UBY"/>
-                                                            <constraint firstAttribute="bottom" secondItem="RuT-1d-Uy1" secondAttribute="bottom" id="cBp-L8-seH"/>
-                                                            <constraint firstItem="RuT-1d-Uy1" firstAttribute="leading" secondItem="icy-s8-IQb" secondAttribute="leading" id="gwH-ba-kxC"/>
-                                                            <constraint firstItem="RuT-1d-Uy1" firstAttribute="top" secondItem="Vdl-Lg-7fz" secondAttribute="bottom" constant="15" id="uH8-Y9-XkQ"/>
-                                                            <constraint firstItem="yIY-au-asz" firstAttribute="centerY" secondItem="Vdl-Lg-7fz" secondAttribute="centerY" id="vKc-NE-nZ5"/>
-                                                        </constraints>
-                                                    </view>
-                                                </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstItem="icy-s8-IQb" firstAttribute="trailing" secondItem="hQS-pp-tbO" secondAttribute="trailing" constant="-16" id="2t8-Xv-cWv"/>
-                                                    <constraint firstItem="icy-s8-IQb" firstAttribute="leading" secondItem="URP-vB-7Hr" secondAttribute="leading" constant="16" id="Yar-Pv-t1d"/>
-                                                    <constraint firstAttribute="bottom" secondItem="icy-s8-IQb" secondAttribute="bottom" constant="16" id="cgp-jC-hmj"/>
-                                                    <constraint firstItem="icy-s8-IQb" firstAttribute="top" secondItem="URP-vB-7Hr" secondAttribute="top" constant="11" id="eXh-gU-EOY"/>
-                                                </constraints>
                                                 <viewLayoutGuide key="safeArea" id="hQS-pp-tbO"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="rCornerRadius">
@@ -1809,108 +1613,9 @@ been sent</string>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mp2-O4-aIF" customClass="CustomView" customModule="AERTRIP" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mp2-O4-aIF" customClass="HotelShimmerView" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="418" width="398" height="193"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HqQ-7K-7bx">
-                                                        <rect key="frame" x="16" y="11" width="366" height="166"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FC3-aC-6VJ" customClass="ButtonShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="18" height="22"/>
-                                                                <state key="normal" image="shimmerViewFavouriteButton"/>
-                                                                <state key="selected" image="saveHotelsSelected"/>
-                                                            </button>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="rtB-cV-bXw">
-                                                                <rect key="frame" x="0.0" y="124" width="231" height="12"/>
-                                                                <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MEe-RF-BcL" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="12"/>
-                                                                        <color key="backgroundColor" red="0.97254901959999995" green="0.72549019609999998" blue="0.031372549020000001" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5kl-aN-brz" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="130" y="0.0" width="101" height="12"/>
-                                                                        <color key="backgroundColor" red="0.60784313729999995" green="0.91372549020000005" blue="0.83529411760000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                </subviews>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="12" id="nII-oH-z3Z"/>
-                                                                </constraints>
-                                                            </stackView>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BOd-mk-5sK" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="311" y="126" width="55" height="8"/>
-                                                                <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="55" id="1ez-cw-OzM"/>
-                                                                    <constraint firstAttribute="height" constant="8" id="41K-tA-WI1"/>
-                                                                </constraints>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                        <integer key="value" value="2"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                </userDefinedRuntimeAttributes>
-                                                            </view>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="TaM-za-Ee7">
-                                                                <rect key="frame" x="0.0" y="151" width="366" height="15"/>
-                                                                <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0F4-d2-kdk" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="15"/>
-                                                                        <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gRc-S8-vd4" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="296" y="0.0" width="70" height="15"/>
-                                                                        <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="width" constant="70" id="MZf-3M-XQJ"/>
-                                                                        </constraints>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                </subviews>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="15" id="UyN-Ia-nov"/>
-                                                                </constraints>
-                                                            </stackView>
-                                                        </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstItem="FC3-aC-6VJ" firstAttribute="top" secondItem="HqQ-7K-7bx" secondAttribute="top" id="5jE-dl-9Qv"/>
-                                                            <constraint firstItem="TaM-za-Ee7" firstAttribute="top" secondItem="rtB-cV-bXw" secondAttribute="bottom" constant="15" id="6Qy-vq-zam"/>
-                                                            <constraint firstAttribute="trailing" secondItem="TaM-za-Ee7" secondAttribute="trailing" id="6pr-QJ-FnZ"/>
-                                                            <constraint firstAttribute="bottom" secondItem="TaM-za-Ee7" secondAttribute="bottom" id="9O0-kD-GYw"/>
-                                                            <constraint firstItem="BOd-mk-5sK" firstAttribute="trailing" secondItem="TaM-za-Ee7" secondAttribute="trailing" id="Cy2-WZ-Jai"/>
-                                                            <constraint firstItem="FC3-aC-6VJ" firstAttribute="leading" secondItem="HqQ-7K-7bx" secondAttribute="leading" id="YaB-Sm-w0N"/>
-                                                            <constraint firstItem="TaM-za-Ee7" firstAttribute="leading" secondItem="HqQ-7K-7bx" secondAttribute="leading" id="coF-iM-9bQ"/>
-                                                            <constraint firstItem="BOd-mk-5sK" firstAttribute="centerY" secondItem="rtB-cV-bXw" secondAttribute="centerY" id="epg-ip-Lwl"/>
-                                                            <constraint firstItem="BOd-mk-5sK" firstAttribute="leading" secondItem="rtB-cV-bXw" secondAttribute="trailing" constant="80" id="jBQ-R3-k5N"/>
-                                                            <constraint firstItem="rtB-cV-bXw" firstAttribute="leading" secondItem="TaM-za-Ee7" secondAttribute="leading" id="kbv-r1-TfS"/>
-                                                        </constraints>
-                                                    </view>
-                                                </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="HqQ-7K-7bx" secondAttribute="bottom" constant="16" id="2Zt-bN-HFV"/>
-                                                    <constraint firstItem="HqQ-7K-7bx" firstAttribute="leading" secondItem="Mp2-O4-aIF" secondAttribute="leading" constant="16" id="7IS-nF-XrP"/>
-                                                    <constraint firstItem="HqQ-7K-7bx" firstAttribute="trailing" secondItem="j9x-gO-Pxl" secondAttribute="trailing" constant="-16" id="L4b-pH-Hqc"/>
-                                                    <constraint firstItem="HqQ-7K-7bx" firstAttribute="top" secondItem="Mp2-O4-aIF" secondAttribute="top" constant="11" id="Pyy-W5-y5w"/>
-                                                </constraints>
                                                 <viewLayoutGuide key="safeArea" id="j9x-gO-Pxl"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="rCornerRadius">
@@ -1933,108 +1638,9 @@ been sent</string>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qi7-dR-we9" customClass="CustomView" customModule="AERTRIP" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qi7-dR-we9" customClass="HotelShimmerView" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="627" width="398" height="193"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U8y-0w-xzl">
-                                                        <rect key="frame" x="16" y="11" width="366" height="166"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0CX-g1-dk1" customClass="ButtonShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="18" height="22"/>
-                                                                <state key="normal" image="shimmerViewFavouriteButton"/>
-                                                                <state key="selected" image="saveHotelsSelected"/>
-                                                            </button>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="e3B-0Z-SZO">
-                                                                <rect key="frame" x="0.0" y="124" width="231" height="12"/>
-                                                                <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JCG-Bl-VgW" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="12"/>
-                                                                        <color key="backgroundColor" red="0.97254901959999995" green="0.72549019609999998" blue="0.031372549020000001" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1TP-BV-4qw" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="130" y="0.0" width="101" height="12"/>
-                                                                        <color key="backgroundColor" red="0.60784313729999995" green="0.91372549020000005" blue="0.83529411760000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                </subviews>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="12" id="Zm6-Z2-ZeF"/>
-                                                                </constraints>
-                                                            </stackView>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f80-c7-Ssr" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="311" y="126" width="55" height="8"/>
-                                                                <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="55" id="NAq-Lk-DZx"/>
-                                                                    <constraint firstAttribute="height" constant="8" id="ZfK-HC-zAn"/>
-                                                                </constraints>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                        <integer key="value" value="2"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                </userDefinedRuntimeAttributes>
-                                                            </view>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="GyM-cN-46l">
-                                                                <rect key="frame" x="0.0" y="151" width="366" height="15"/>
-                                                                <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBF-SS-gkJ" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="15"/>
-                                                                        <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ctk-RM-bJv" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="296" y="0.0" width="70" height="15"/>
-                                                                        <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="width" constant="70" id="t1W-os-noI"/>
-                                                                        </constraints>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                </subviews>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="15" id="K4g-yZ-Jfh"/>
-                                                                </constraints>
-                                                            </stackView>
-                                                        </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstItem="0CX-g1-dk1" firstAttribute="top" secondItem="U8y-0w-xzl" secondAttribute="top" id="4cf-TI-xny"/>
-                                                            <constraint firstItem="GyM-cN-46l" firstAttribute="top" secondItem="e3B-0Z-SZO" secondAttribute="bottom" constant="15" id="9CD-tK-b61"/>
-                                                            <constraint firstItem="0CX-g1-dk1" firstAttribute="leading" secondItem="U8y-0w-xzl" secondAttribute="leading" id="AAZ-fC-Z7T"/>
-                                                            <constraint firstAttribute="bottom" secondItem="GyM-cN-46l" secondAttribute="bottom" id="ESL-AZ-L2i"/>
-                                                            <constraint firstItem="f80-c7-Ssr" firstAttribute="trailing" secondItem="GyM-cN-46l" secondAttribute="trailing" id="JNQ-G5-dGg"/>
-                                                            <constraint firstItem="e3B-0Z-SZO" firstAttribute="leading" secondItem="GyM-cN-46l" secondAttribute="leading" id="Sne-H5-VWU"/>
-                                                            <constraint firstItem="f80-c7-Ssr" firstAttribute="centerY" secondItem="e3B-0Z-SZO" secondAttribute="centerY" id="YD6-hm-8gA"/>
-                                                            <constraint firstItem="f80-c7-Ssr" firstAttribute="leading" secondItem="e3B-0Z-SZO" secondAttribute="trailing" constant="80" id="oP8-MR-93X"/>
-                                                            <constraint firstAttribute="trailing" secondItem="GyM-cN-46l" secondAttribute="trailing" id="pfH-oG-UUu"/>
-                                                            <constraint firstItem="GyM-cN-46l" firstAttribute="leading" secondItem="U8y-0w-xzl" secondAttribute="leading" id="pwx-U9-iP9"/>
-                                                        </constraints>
-                                                    </view>
-                                                </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstItem="U8y-0w-xzl" firstAttribute="trailing" secondItem="O1W-8f-G55" secondAttribute="trailing" constant="-16" id="1Ye-Yz-e4A"/>
-                                                    <constraint firstItem="U8y-0w-xzl" firstAttribute="top" secondItem="qi7-dR-we9" secondAttribute="top" constant="11" id="Iw3-Ku-fFR"/>
-                                                    <constraint firstItem="U8y-0w-xzl" firstAttribute="leading" secondItem="qi7-dR-we9" secondAttribute="leading" constant="16" id="Y3o-DO-yiI"/>
-                                                    <constraint firstAttribute="bottom" secondItem="U8y-0w-xzl" secondAttribute="bottom" constant="16" id="jPX-Ci-dnm"/>
-                                                </constraints>
                                                 <viewLayoutGuide key="safeArea" id="O1W-8f-G55"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="rCornerRadius">
@@ -2057,108 +1663,9 @@ been sent</string>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Evt-7r-YM0" customClass="CustomView" customModule="AERTRIP" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Evt-7r-YM0" customClass="HotelShimmerView" customModule="AERTRIP" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="836" width="398" height="193"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EHg-Hn-MSJ">
-                                                        <rect key="frame" x="16" y="11" width="366" height="166"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FuY-f3-cYF" customClass="ButtonShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="18" height="22"/>
-                                                                <state key="normal" image="shimmerViewFavouriteButton"/>
-                                                                <state key="selected" image="saveHotelsSelected"/>
-                                                            </button>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="aUo-fS-0LI">
-                                                                <rect key="frame" x="0.0" y="124" width="231" height="12"/>
-                                                                <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dPT-kf-LgB" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="12"/>
-                                                                        <color key="backgroundColor" red="0.97254901959999995" green="0.72549019609999998" blue="0.031372549020000001" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="URr-tV-scv" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="130" y="0.0" width="101" height="12"/>
-                                                                        <color key="backgroundColor" red="0.60784313729999995" green="0.91372549020000005" blue="0.83529411760000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                </subviews>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="12" id="7f1-9z-DTe"/>
-                                                                </constraints>
-                                                            </stackView>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RHM-yv-2FS" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                <rect key="frame" x="311" y="126" width="55" height="8"/>
-                                                                <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="55" id="1bb-eM-PsL"/>
-                                                                    <constraint firstAttribute="height" constant="8" id="hx1-P1-DeX"/>
-                                                                </constraints>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                        <integer key="value" value="2"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                </userDefinedRuntimeAttributes>
-                                                            </view>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="Hd1-XC-lH8">
-                                                                <rect key="frame" x="0.0" y="151" width="366" height="15"/>
-                                                                <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gmR-vI-Ed9" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="15"/>
-                                                                        <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g6c-yl-1ZV" customClass="ViewShimmer" customModule="AERTRIP" customModuleProvider="target">
-                                                                        <rect key="frame" x="296" y="0.0" width="70" height="15"/>
-                                                                        <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="width" constant="70" id="ixE-yV-Q5T"/>
-                                                                        </constraints>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                <integer key="value" value="2"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </view>
-                                                                </subviews>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="15" id="Sg2-Pe-lZ6"/>
-                                                                </constraints>
-                                                            </stackView>
-                                                        </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstItem="Hd1-XC-lH8" firstAttribute="top" secondItem="aUo-fS-0LI" secondAttribute="bottom" constant="15" id="0qR-LN-HXD"/>
-                                                            <constraint firstItem="RHM-yv-2FS" firstAttribute="leading" secondItem="aUo-fS-0LI" secondAttribute="trailing" constant="80" id="6oR-gw-t75"/>
-                                                            <constraint firstItem="aUo-fS-0LI" firstAttribute="leading" secondItem="Hd1-XC-lH8" secondAttribute="leading" id="GMx-ye-be3"/>
-                                                            <constraint firstItem="RHM-yv-2FS" firstAttribute="centerY" secondItem="aUo-fS-0LI" secondAttribute="centerY" id="Pu8-qo-9Ix"/>
-                                                            <constraint firstAttribute="bottom" secondItem="Hd1-XC-lH8" secondAttribute="bottom" id="Rbk-r7-Q8C"/>
-                                                            <constraint firstItem="RHM-yv-2FS" firstAttribute="trailing" secondItem="Hd1-XC-lH8" secondAttribute="trailing" id="iEB-BW-G9i"/>
-                                                            <constraint firstAttribute="trailing" secondItem="Hd1-XC-lH8" secondAttribute="trailing" id="kGq-Yd-2xj"/>
-                                                            <constraint firstItem="Hd1-XC-lH8" firstAttribute="leading" secondItem="EHg-Hn-MSJ" secondAttribute="leading" id="py9-RA-kMT"/>
-                                                            <constraint firstItem="FuY-f3-cYF" firstAttribute="leading" secondItem="EHg-Hn-MSJ" secondAttribute="leading" id="xFN-k8-dPU"/>
-                                                            <constraint firstItem="FuY-f3-cYF" firstAttribute="top" secondItem="EHg-Hn-MSJ" secondAttribute="top" id="ycK-EN-MBd"/>
-                                                        </constraints>
-                                                    </view>
-                                                </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstItem="EHg-Hn-MSJ" firstAttribute="trailing" secondItem="zc1-U3-tcC" secondAttribute="trailing" constant="-16" id="9S1-UD-Y5h"/>
-                                                    <constraint firstItem="EHg-Hn-MSJ" firstAttribute="leading" secondItem="Evt-7r-YM0" secondAttribute="leading" constant="16" id="K5p-jg-NOt"/>
-                                                    <constraint firstAttribute="bottom" secondItem="EHg-Hn-MSJ" secondAttribute="bottom" constant="16" id="oTq-qr-Olk"/>
-                                                    <constraint firstItem="EHg-Hn-MSJ" firstAttribute="top" secondItem="Evt-7r-YM0" secondAttribute="top" constant="11" id="v5O-iZ-C2k"/>
-                                                </constraints>
                                                 <viewLayoutGuide key="safeArea" id="zc1-U3-tcC"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="rCornerRadius">
@@ -3324,10 +2831,8 @@ been sent</string>
         <image name="ic_list_view" width="27" height="27"/>
         <image name="my_location_dest" width="21" height="21"/>
         <image name="rooms_white_icon" width="31" height="58"/>
-        <image name="saveHotelsSelected" width="27" height="30"/>
         <image name="setCurrentLocationIcon" width="64" height="64"/>
         <image name="shareIcon" width="76" height="76"/>
-        <image name="shimmerViewFavouriteButton" width="18" height="22"/>
         <image name="unPinAllFavouriteIcon" width="76" height="76"/>
     </resources>
 </document>

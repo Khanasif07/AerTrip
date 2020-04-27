@@ -574,7 +574,7 @@ extension HCDataSelectionVC: HCSelectGuestsVCDelegate {
 
 extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return hotelFormData.adultsCount.count + ((self.viewModel.itineraryData?.hotelDetails?.pan_required ?? false) ? 10 : 8)
+        return hotelFormData.adultsCount.count + 9
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -625,7 +625,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
         }
         else {
             switch newRow {
-            case 0, 2, 7, 9:
+            case 0, 2, 8:
                 // space
                 return 35.0
                 
@@ -643,15 +643,15 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 5:
                 // email
-                return 61.0
+                return 60.0
                 
             case 6:
                 //text message
-                return 60.0
+                return 58.0
                 
-            case 8:
-                //text message
-                return 60.0
+            case 7:
+                //pan card
+                return (self.viewModel.itineraryData?.hotelDetails?.pan_required ?? false) ? 60.0 : CGFloat.leastNormalMagnitude
                 
             default:
                 return 0.0
@@ -673,7 +673,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
         }
         else {
             switch newRow {
-            case 0, 2, 7, 9:
+            case 0, 2, 8:
                 // space
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: EmptyTableViewCell.reusableIdentifier) as? EmptyTableViewCell else {
                     return UITableViewCell()
@@ -681,13 +681,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 
                 cell.contentView.backgroundColor = AppColors.themeGray04
                 cell.backgroundColor = AppColors.themeGray04
-                
-                let numberOfRows = self.tableView(self.tableView, numberOfRowsInSection: indexPath.section) - hotelFormData.adultsCount.count
-                if numberOfRows == 10 {
-                    cell.bottomDividerView.isHidden = newRow == 9
-                } else {
-                    cell.bottomDividerView.isHidden = newRow == 7
-                }
+                cell.bottomDividerView.isHidden = newRow == 8
                 
                 return cell
                 
@@ -755,7 +749,7 @@ extension HCDataSelectionVC: UITableViewDataSource, UITableViewDelegate {
                 
                 return cell
                 
-            case 8:
+            case 7:
                 // Pan Number
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: HCPanCardTextFieldCell.reusableIdentifier) as? HCPanCardTextFieldCell else {
                     return UITableViewCell()

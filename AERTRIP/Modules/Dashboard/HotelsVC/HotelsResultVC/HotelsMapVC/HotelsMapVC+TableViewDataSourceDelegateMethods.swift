@@ -91,9 +91,11 @@ extension HotelsMapVC: UITableViewDataSource, UITableViewDelegate {
         self.seletedIndexForSearchTable = self.viewModel.collectionViewLocArr.firstIndex(of: ("\(hData.lat ?? ""),\(hData.long ?? "")"))
             if let cell = tableView.cellForRow(at: indexPath) as? HotelSearchTableViewCell{
 
-            presentController(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+//            presentController(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+                presentControllerDefault(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
                 self.selectedIndexPath = indexPath
             }
+        
     }
 }
 

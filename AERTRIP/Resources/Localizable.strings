@@ -517,7 +517,7 @@
 "FareBreakup" = "Fare Breakup";
 "TotalPayableNow" = "Total payable now";
 "Confirm" = "Confirm";
-"PanCard" = "Pan Number";
+"PanCard" = "PAN Number";
 "EnterPanCardMessage" = "Please enter valid PAN Number.";
 
 //Hotel Checkout Coupons VC

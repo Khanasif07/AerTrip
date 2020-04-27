@@ -64,13 +64,13 @@ class HotelsGroupExpendedVC: StatusBarAnimatableViewController {
         
         self.collectionView.register(UINib(nibName: "HotelCardCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HotelCardCollectionViewCell")
         
-        self.collectionView.isHidden = true
+        self.collectionView.isHidden = false//true
         
-        delay(seconds: 0.2) { [weak self] in
-            self?.saveCardsRact(forCards: 3)
-            self?.collectionView.isHidden = false
-            self?.animateCardsToShow()
-        }
+//        delay(seconds: 0.2) { [weak self] in
+//            self?.saveCardsRact(forCards: 3)
+//            self?.collectionView.isHidden = false
+//            self?.animateCardsToShow()
+//        }
     }
     
     private func saveCardsRact(forCards: Int) {

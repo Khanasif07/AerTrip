@@ -487,13 +487,14 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
         backButton.alpha = 1
         self.viewModel.searchedHotels.removeAll()
+        self.reloadHotelList()
         self.viewModel.fetchRequestType = .normal
         
         self.hideSearchAnimation()
         self.view.endEditing(true)
         self.searchBar.text = ""
         self.viewModel.searchTextStr = ""
-        self.reloadHotelList()
+//        self.reloadHotelList()
         delay(seconds: 0.1) { [weak self] in
             guard let self = self else {return}
             self.viewModel.loadSaveData()

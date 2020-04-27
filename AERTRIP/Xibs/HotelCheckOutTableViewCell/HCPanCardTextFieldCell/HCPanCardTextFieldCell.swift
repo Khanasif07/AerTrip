@@ -44,7 +44,7 @@ class HCPanCardTextFieldCell: UITableViewCell {
     private func doInitialSetup() {
         self.editableTextField.titleYPadding = 12.0
         self.editableTextField.hintYPadding = 12.0
-        self.editableTextField.isHiddenBottomLine = false
+        self.editableTextField.isHiddenBottomLine = true
     }
     
     

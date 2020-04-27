@@ -20,7 +20,7 @@ extension HCDataSelectionVC : HCEmailTextFieldCellDelegate, HCPanCardTextFieldCe
         let newRow = indexPath.row - hotelFormData.adultsCount.count
         if newRow == 5 {
         self.viewModel.email = text
-        } else if newRow == 8 {
+        } else if newRow == 7 {
             self.viewModel.panCard = text
         }
     }

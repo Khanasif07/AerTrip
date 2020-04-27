@@ -273,7 +273,7 @@ extension HotelResultVC {
             //self.switchView.isOn = false
             self.viewModel.isFavouriteOn = false
             self.hideFavsButtons()
-            tableViewVertical.setContentOffset(.zero, animated: false)
+            tableViewVertical.setContentOffset(CGPoint(x: 0, y: -112), animated: false)
             showBluredHeaderViewCompleted()
         }
         

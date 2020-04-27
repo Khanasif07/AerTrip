@@ -148,6 +148,7 @@ PODS:
   - PKLoader (0.1.2)
   - PromisesObjC (1.2.8)
   - razorpay-pod (1.1.5)
+  - Shimmer (1.0.2)
   - SwiftyJSON (5.0.0)
   - TransitionButton (0.5.2)
 
@@ -176,6 +177,7 @@ DEPENDENCIES:
   - PKCategoryView
   - PKLoader
   - razorpay-pod
+  - Shimmer
   - SwiftyJSON
   - TransitionButton
 
@@ -222,6 +224,7 @@ SPEC REPOS:
     - PKLoader
     - PromisesObjC
     - razorpay-pod
+    - Shimmer
     - SwiftyJSON
     - TransitionButton
 
@@ -267,9 +270,10 @@ SPEC CHECKSUMS:
   PKLoader: 2d12343e6f3bdeedb2bc9d94af069c445f14981e
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   razorpay-pod: 31dd24ddb70275d82be12527b45001f9bc9f1be2
+  Shimmer: c5374be1c2b0c9e292fb05b339a513cf291cac86
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   TransitionButton: fb271583d9c9e4bb116b97103047e5157653f233
 
-PODFILE CHECKSUM: bbb2c1c63062ae814deb94e20aab0931415b1f17
+PODFILE CHECKSUM: f61bbf0ccb84495e0a0bc2d93695b7800d79138c
 
 COCOAPODS: 1.9.0

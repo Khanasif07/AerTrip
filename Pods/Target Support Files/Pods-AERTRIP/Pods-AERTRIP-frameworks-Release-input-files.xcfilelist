@@ -22,6 +22,7 @@ ${BUILT_PRODUCTS_DIR}/PKLoader/PKLoader.framework
 ${BUILT_PRODUCTS_DIR}/Parchment/Parchment.framework
 ${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework
 ${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework
+${BUILT_PRODUCTS_DIR}/Shimmer/Shimmer.framework
 ${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework
 ${BUILT_PRODUCTS_DIR}/TransitionButton/TransitionButton.framework
 ${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework

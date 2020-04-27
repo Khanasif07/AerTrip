@@ -199,7 +199,9 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
 //                AppFlowManager.default.presentHotelDetailsVC(self,hotelInfo: hData, sourceView: cell.contentView, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest){
 //                    self.statusBarColor = AppColors.themeWhite
 //                }
-                self.presentController(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+//                self.presentController(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+                self.presentControllerDefault(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+
                 self.selectedIndexPath = indexPath
             }
         } else {

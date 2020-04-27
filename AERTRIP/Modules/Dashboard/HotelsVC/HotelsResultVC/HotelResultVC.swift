@@ -541,13 +541,14 @@ class HotelResultVC: BaseVC {
     
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
         self.viewModel.searchedHotels.removeAll()
+        self.reloadHotelList()
         self.viewModel.fetchRequestType = .normal
         
         self.hideSearchAnimation()
         self.view.endEditing(true)
         self.searchBar.text = ""
         self.viewModel.searchTextStr = ""
-        self.reloadHotelList()
+        //self.reloadHotelList()
         delay(seconds: 0.1) { [weak self] in
             self?.viewModel.loadSaveData()
         }
