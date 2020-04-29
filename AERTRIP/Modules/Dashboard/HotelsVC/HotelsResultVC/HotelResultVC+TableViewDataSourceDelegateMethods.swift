@@ -200,7 +200,8 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
 //                    self.statusBarColor = AppColors.themeWhite
 //                }
 //                self.presentController(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
-                self.presentControllerDefault(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+//                self.presentControllerDefault(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+                AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
 
                 self.selectedIndexPath = indexPath
             }
@@ -208,7 +209,8 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             let hData = viewModel.fetchedResultsController.object(at: indexPath)
             if let cell = tableView.cellForRow(at: indexPath) as? HotelCardTableViewCell {
                 
-                self.presentControllerDefault(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+                //self.presentControllerDefault(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+                AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
 
             }
         }
@@ -223,63 +225,63 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     
-    func presentControllerDefault(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
-        let vc = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
-        vc.viewModel.hotelInfo = hotelInfo
-        vc.delegate = self
-        vc.viewModel.hotelSearchRequest = hotelSearchRequest
-        var img = cell.selfImage
-        if cell.selfImage == nil{
-            img = cell.viewScreenShot()
-        }
-        vc.backImage = img
-        
-        let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
-        self.present(nav, animated: true)
-        
-    }
+//    func presentControllerDefault(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
+//        let vc = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
+//        vc.viewModel.hotelInfo = hotelInfo
+//        vc.delegate = self
+//        vc.viewModel.hotelSearchRequest = hotelSearchRequest
+//        var img = cell.selfImage
+//        if cell.selfImage == nil{
+//            img = cell.viewScreenShot()
+//        }
+//        vc.backImage = img
+//
+//        let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
+//        self.present(nav, animated: true)
+//
+//    }
     
     
     //--------------------------- Golu Change ---------------------
-    func presentController(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
-        
-        let vc = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
-        vc.viewModel.hotelInfo = hotelInfo
-        vc.delegate = self
-        vc.viewModel.hotelSearchRequest = hotelSearchRequest
-        var img = cell.selfImage
-        if cell.selfImage == nil{
-            img = cell.viewScreenShot()
-        }
-        vc.backImage = img
-        cell.freezeAnimations()
-        let currentCellFrame = cell.layer.presentation()!.frame
-        let cardFrame = cell.superview!.convert(currentCellFrame, to: nil)
-        vc.modalPresentationStyle = .custom
-        let frameWithoutTransform = { () -> CGRect in
-            let center = cell.center
-            let size = cell.bounds.size
-            let r = CGRect(
-                x: center.x - size.width / 2,
-                y: center.y - size.height / 2,
-                width: size.width,
-                height: size.height
-            )
-            return cell.superview!.convert(r, to: nil)
-        }()
-        
-        let params = CardTransition.Params(fromCardFrame: cardFrame, fromCardFrameWithoutTransform: frameWithoutTransform, fromCell: cell, img: img)
-        self.transition = CardTransition(params: params)
-        
-        let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
-        nav.transitioningDelegate = transition
-        nav.modalPresentationCapturesStatusBarAppearance = true
-        nav.modalPresentationStyle = .custom
-        self.present(nav, animated: true, completion: {
-            cell.unfreezeAnimations()
-        })
-        
-    }
+//    func presentController(cell:TransitionCellTypeDelegate, hotelInfo: HotelSearched, sid: String, hotelSearchRequest: HotelSearchRequestModel?){
+//
+//        let vc = HotelDetailsVC.instantiate(fromAppStoryboard: .HotelResults)
+//        vc.viewModel.hotelInfo = hotelInfo
+//        vc.delegate = self
+//        vc.viewModel.hotelSearchRequest = hotelSearchRequest
+//        var img = cell.selfImage
+//        if cell.selfImage == nil{
+//            img = cell.viewScreenShot()
+//        }
+//        vc.backImage = img
+//        cell.freezeAnimations()
+//        let currentCellFrame = cell.layer.presentation()!.frame
+//        let cardFrame = cell.superview!.convert(currentCellFrame, to: nil)
+//        vc.modalPresentationStyle = .custom
+//        let frameWithoutTransform = { () -> CGRect in
+//            let center = cell.center
+//            let size = cell.bounds.size
+//            let r = CGRect(
+//                x: center.x - size.width / 2,
+//                y: center.y - size.height / 2,
+//                width: size.width,
+//                height: size.height
+//            )
+//            return cell.superview!.convert(r, to: nil)
+//        }()
+//
+//        let params = CardTransition.Params(fromCardFrame: cardFrame, fromCardFrameWithoutTransform: frameWithoutTransform, fromCell: cell, img: img)
+//        self.transition = CardTransition(params: params)
+//
+//        let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
+//        nav.transitioningDelegate = transition
+//        nav.modalPresentationCapturesStatusBarAppearance = true
+//        nav.modalPresentationStyle = .custom
+//        self.present(nav, animated: true, completion: {
+//            cell.unfreezeAnimations()
+//        })
+//
+//    }
 }
 
 

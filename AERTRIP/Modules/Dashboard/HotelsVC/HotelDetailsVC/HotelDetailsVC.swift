@@ -104,10 +104,12 @@ class HotelDetailsVC: BaseVC {
     @IBOutlet weak var footerView: UIView!
     @IBOutlet weak var stickyBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
     
     var startPanPoint: CGPoint = .zero
     var animator = UIViewPropertyAnimator()
-
+    var viewTranslation = CGPoint(x: 0, y: 0)
+    
     //Mark:- LifeCycle
     //================
     override func viewDidLoad() {
@@ -196,6 +198,15 @@ class HotelDetailsVC: BaseVC {
         self.smallLineView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.hotelTableView.bounces = true
         self.view.backgroundColor = .clear
+        
+        if #available(iOS 13.0, *) {} else {
+        self.headerTopConstraint.constant = AppFlowManager.default.safeAreaInsets.top + 8
+            self.tableViewTopConstraint.constant = AppFlowManager.default.safeAreaInsets.top + 8
+            let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+            swipeGesture.delegate = self
+            self.view.addGestureRecognizer(swipeGesture)
+            self.view.backgroundColor = AppColors.clear
+        }
     }
     
     override func bindViewModel() {
@@ -727,4 +738,47 @@ extension HotelDetailsVC{
                fatalError("Impossible gesture state? \(gesture.state.rawValue)")
            }
        }
+}
+
+extension HotelDetailsVC {
+    
+    @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
+        func reset() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.transform = .identity
+            })
+        }
+        
+        func moveView() {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.view.transform = CGAffineTransform(translationX: 0, y: self.viewTranslation.y)
+            })
+        }
+        
+        guard let direction = sender.direction, direction.isVertical, direction == .down, self.hotelTableView.contentOffset.y <= 0
+            else {
+            reset()
+            return
+        }
+        
+        switch sender.state {
+        case .changed:
+            viewTranslation = sender.translation(in: self.view)
+            moveView()
+        case .ended:
+            if viewTranslation.y < 200 {
+                reset()
+            } else {
+                dismiss(animated: true, completion: nil)
+            }
+        case .cancelled:
+            reset()
+        default:
+            break
+        }
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }

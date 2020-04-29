@@ -92,8 +92,9 @@ extension HotelsMapVC: UITableViewDataSource, UITableViewDelegate {
             if let cell = tableView.cellForRow(at: indexPath) as? HotelSearchTableViewCell{
 
 //            presentController(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
-                presentControllerDefault(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+//                presentControllerDefault(cell: cell, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
                 self.selectedIndexPath = indexPath
+                AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: hData, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
             }
         
     }

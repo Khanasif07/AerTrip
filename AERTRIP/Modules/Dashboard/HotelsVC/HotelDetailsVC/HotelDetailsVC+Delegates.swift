@@ -417,8 +417,5 @@ extension HotelDetailsVC: HotelRatingInfoCellDelegate {
         AppGlobals.shared.shareWithActivityViewController(VC: self , shareData: "https://beta.aertrip.com")
     }
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
 }
 

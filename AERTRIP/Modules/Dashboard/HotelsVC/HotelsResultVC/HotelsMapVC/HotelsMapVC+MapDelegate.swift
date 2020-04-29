@@ -146,7 +146,8 @@ extension HotelsMapVC: GMSMapViewDelegate {
             } else {
                 delay(seconds: 0.2) {
                     if let cell = self.hotelsMapCV.cellForItem(at: IndexPath(item: scrollIndex, section: 0)) as? HotelCardCollectionViewCell{
-                        self.presentController(cell: cell, hotelInfo: data, sid:  self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+                        //self.presentController(cell: cell, hotelInfo: data, sid:  self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
+                        AppFlowManager.default.presentHotelDetailsVC(self, hotelInfo: data, sid: self.viewModel.sid, hotelSearchRequest: self.viewModel.hotelSearchRequest)
                     }
                 }
             }

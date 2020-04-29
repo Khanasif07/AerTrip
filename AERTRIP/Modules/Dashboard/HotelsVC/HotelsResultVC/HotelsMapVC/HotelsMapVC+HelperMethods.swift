@@ -101,7 +101,9 @@ extension HotelsMapVC {
         self.hotelsGroupExpendedVC = dataVC
         dataVC.viewModel.samePlaceHotels = hotels
         dataVC.viewModel.isFromFavorite = self.switchView.isOn
-        dataVC.headerView.size.height = 24.0
+        if #available(iOS 13.0, *) {} else {
+            dataVC.modalPresentationStyle = .overCurrentContext
+        }
         self.present(dataVC, animated: true, completion: nil)
         
     }

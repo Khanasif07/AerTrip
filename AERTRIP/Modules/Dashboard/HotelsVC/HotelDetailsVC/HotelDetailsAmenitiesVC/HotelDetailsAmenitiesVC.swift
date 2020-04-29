@@ -70,10 +70,12 @@ class HotelDetailsAmenitiesVC: BaseVC {
     
     override func initialSetup() {
         
-//        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-//        mainContainerView.isUserInteractionEnabled = true
-//        swipeGesture.delegate = self
-//        self.view.addGestureRecognizer(swipeGesture)
+        if #available(iOS 13.0, *) {} else {
+        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        mainContainerView.isUserInteractionEnabled = true
+        swipeGesture.delegate = self
+        self.view.addGestureRecognizer(swipeGesture)
+        }
         
         self.dividerView.isHidden = true
         self.registerNibs()
