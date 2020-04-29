@@ -48,8 +48,10 @@ class BookingRequestAddOnTableViewCell: ATTableViewCell {
         self.messageImageView.image = #imageLiteral(resourceName: "bookingEmailIcon")
         self.dotImageView.image = nil// #imageLiteral(resourceName: "greenDot")
         self.titleLabel.text = communicationData?.subject ?? LocalizedString.dash.localized
-        self.messageLabel.text = LocalizedString.dash.localized
+        self.messageLabel.text = ""//LocalizedString.dash.localized
         self.timeStampLabel.attributedText = AppGlobals.shared.getTextWithImage(startText: "\(communicationData?.commDate?.toString(dateFormat: "hh:mm aa") ?? "")  ", image: #imageLiteral(resourceName: "hotelCheckoutForwardArrow"), endText: "", font: AppFonts.Regular.withSize(16.0))
+        
+        print(messageLabel.frame)
     }
     
     func updateLeadingConstraint(){

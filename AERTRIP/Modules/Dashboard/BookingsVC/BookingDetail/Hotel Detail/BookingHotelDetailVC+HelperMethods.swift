@@ -156,6 +156,7 @@ extension BookingHotelDetailVC {
             guard let cell = self.hotelDetailTableView.dequeueReusableCell(withIdentifier: "HotelDetailAmenitiesCell", for: indexPath) as? HotelDetailAmenitiesCell else { return UITableViewCell() }
             cell.delegate = self
             cell.amenitiesDetails = self.viewModel.bookingDetail?.bookingDetail?.amenities
+            cell.dividerView.isHidden = (self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? false)
             return cell
             
         case 5: // Trip Advisor Cell

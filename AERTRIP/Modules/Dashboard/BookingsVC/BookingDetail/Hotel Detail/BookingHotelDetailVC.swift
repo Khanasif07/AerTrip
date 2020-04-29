@@ -34,6 +34,7 @@ class BookingHotelDetailVC: BaseVC {
         self.hotelDetailTableView.dataSource = self
         self.hotelDetailTableView.delegate = self
         self.hotelDetailTableView.reloadData()
+        self.hotelDetailTableView.backgroundColor = AppColors.themeGray04
         self.configureNavBar()
     }
     

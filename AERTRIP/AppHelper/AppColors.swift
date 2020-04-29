@@ -138,6 +138,9 @@ enum AppColors {
     /// RGB - 255, 255, 255
     static let themeWhite70  = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.7)
     
+    /// RGB -  0 170 108
+    static let reviewGreen = UIColor(displayP3Red: 0, green: 0.667, blue: 0.424, alpha: 1)
+    
     case headlines
     case body
     case subheads

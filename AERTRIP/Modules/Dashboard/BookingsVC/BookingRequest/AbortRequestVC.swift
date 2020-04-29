@@ -38,6 +38,11 @@ class AbortRequestVC: BaseVC {
         addCommentTextView.layoutSubviews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+     
+    }
+    
     // MARK:- Overide methods
     
     override func initialSetup() {
@@ -48,10 +53,12 @@ class AbortRequestVC: BaseVC {
         self.bottomDivider.backgroundColor = AppColors.divider.color
         confirmBtnBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
         self.manageTextFieldHeight()
-        addCommentTextView.layoutIfNeeded()
+        addCommentTextView.layoutSubviews()
         self.view.layoutIfNeeded()
         self.gradientView.addGredient(isVertical: false)
         self.manageTextFieldHeight()
+        
+        
     }
     
     override func setupFonts() {
@@ -114,10 +121,11 @@ class AbortRequestVC: BaseVC {
         var textHeight: CGFloat = 0.0
         
         if self.addCommentTextView.text.isEmpty {
-            textHeight = (self.addCommentTextView.font?.lineHeight ?? 20.0) + 10.0
+            textHeight = 23
         }
         else {
-            textHeight = (CGFloat(self.addCommentTextView.numberOfLines) * (self.addCommentTextView.font?.lineHeight ?? 20.0)) + 10.0
+            let value = (CGFloat(self.addCommentTextView.numberOfLines) * (self.addCommentTextView.font?.lineHeight ?? 20.0)) + 10.0
+            textHeight = self.addCommentTextView.numberOfLines > 1 ? value : 23
         }
         
         var calculatedBlank: CGFloat = blankSpace - (textHeight)
@@ -131,6 +139,7 @@ class AbortRequestVC: BaseVC {
             self?.bottomViewHeightConstraint.constant = calculatedBlank
             self?.view.layoutIfNeeded()
         }
+        printDebug("textHeight: \(textHeight)")
     }
     
     @IBAction func confirmAbortButtonTapped(_ sender: Any) {

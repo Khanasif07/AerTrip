@@ -105,6 +105,8 @@ extension BookingHotelDetailVC: UITableViewDataSource, UITableViewDelegate {
             guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.footerViewIdentifier) as? BookingInfoEmptyFooterView else {
                 fatalError("BookingInfoFooterView not found")
             }
+            footerView.topDividerView.isHidden = !(self.viewModel.bookingDetail?.bookingDetail?.taLocationID.isEmpty ?? false)
+            footerView.bottomDividerView.isHidden = true
             return footerView
         }
         

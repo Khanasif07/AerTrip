@@ -36,6 +36,9 @@ class ReviewTableViewCell: UITableViewCell {
 
         self.reviewTitle.textColor = AppColors.themeBlack
         self.numbOfReviews.textColor = AppColors.themeBlack
+        self.progressBarView.progressTint = AppColors.reviewGreen
+        self.progressBarView.progressBorderColor = AppColors.reviewGreen
+        
     }
     
     internal func configCell(title: String ,totalNumbReviews: String, currentReviews: String) {

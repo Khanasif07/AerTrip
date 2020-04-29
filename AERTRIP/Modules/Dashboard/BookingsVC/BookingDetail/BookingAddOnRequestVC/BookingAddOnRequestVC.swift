@@ -343,7 +343,8 @@ extension BookingAddOnRequestVC: UITableViewDataSource, UITableViewDelegate {
             return UITableView.automaticDimension
         }
         else if let caseD = self.viewModel.caseHistory, !caseD.communications.isEmpty {
-            return 108.0
+            return UITableView.automaticDimension
+            //return 108.0
         }
         return 0
     }
