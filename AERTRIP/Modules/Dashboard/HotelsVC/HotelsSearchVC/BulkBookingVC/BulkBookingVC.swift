@@ -454,12 +454,13 @@ class BulkBookingVC: BaseVC {
         }
         else {
             self.statusBarStyle = .default
+//            delay(seconds: 0.1) {
+//                sender.isLoading = true
+//            }
             delay(seconds: 0.1) {
-                sender.isLoading = true
-            }
-            delay(seconds: 0.1) {
-                AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { [weak self] (isGuest) in
+                AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking,presentViewController: true) { [weak self] (isGuest) in
                     guard let sSelf = self else {return}
+                    sender.isLoading = true
                     //                    if let vc = sSelf.navigationController {
                     sSelf.statusBarStyle = .lightContent
                     AppFlowManager.default.popToRootViewController(animated: true)

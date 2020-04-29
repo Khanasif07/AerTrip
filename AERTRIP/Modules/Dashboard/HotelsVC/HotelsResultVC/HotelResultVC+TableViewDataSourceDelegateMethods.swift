@@ -233,6 +233,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             img = cell.viewScreenShot()
         }
         vc.backImage = img
+        
         let nav = AppFlowManager.default.getNavigationController(forPresentVC: vc)
         self.present(nav, animated: true)
         

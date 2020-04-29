@@ -705,7 +705,11 @@ extension HotelsSearchVC: ExpandedCellDelegate {
             UIView.animate(withDuration: AppConstants.kAnimationDuration) {
                 self.updateCollectionViewFrame()
                 self.addRoomCollectionView.performBatchUpdates({ () -> Void in
-                    self.addRoomCollectionView.reloadItems(at: [IndexPath(row: 0, section: 0)])
+                    if let cell = self.addRoomCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as?AddRoomPictureCell {
+                        cell.configureCell(for: IndexPath(row: 0, section: 0), viewModel: self.viewModel)
+                    } else {
+                        self.addRoomCollectionView.reloadItems(at: [IndexPath(row: 0, section: 0)])
+                    }
                     self.addRoomCollectionView.insertItems(at: [indexPath])
 //                    let indices: IndexSet = [indexPath.section]
 //                    self.addRoomCollectionView.reloadSections(indices)
@@ -733,7 +737,11 @@ extension HotelsSearchVC: ExpandedCellDelegate {
                 UIView.animate(withDuration: AppConstants.kAnimationDuration) {
                     self.addRoomCollectionView.performBatchUpdates({ () -> Void in
                         self.updateCollectionViewFrame()
-                        self.addRoomCollectionView.reloadItems(at: [IndexPath(row: 0, section: 0)])
+                        if let cell = self.addRoomCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as?AddRoomPictureCell {
+                            cell.configureCell(for: IndexPath(row: 0, section: 0), viewModel: self.viewModel)
+                        } else {
+                            self.addRoomCollectionView.reloadItems(at: [IndexPath(row: 0, section: 0)])
+                        }
                         self.addRoomCollectionView.deleteItems(at: [indexPath])
                     }) { (true) in
                         self.reloadCollectionView()

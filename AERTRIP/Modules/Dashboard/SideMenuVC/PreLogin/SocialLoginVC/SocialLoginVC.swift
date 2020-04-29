@@ -314,8 +314,10 @@ private extension SocialLoginVC {
 
 extension SocialLoginVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        if self.currentlyUsingFrom == .loginProcess {
+        if self.currentlyUsingFrom == .loginProcess  {
             self.delegate?.backButtonTapped(sender)
+        } else if self.currentlyUsingFrom == .loginVerificationForCheckout || self.currentlyUsingFrom == .loginVerificationForBulkbooking{
+            AppFlowManager.default.currentNavigation?.dismissAsPopAnimation()
         } else {
             AppFlowManager.default.popViewController(animated: true)
         }

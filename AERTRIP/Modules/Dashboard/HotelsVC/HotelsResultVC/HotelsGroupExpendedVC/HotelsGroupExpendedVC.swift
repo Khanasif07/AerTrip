@@ -264,6 +264,9 @@ extension HotelsGroupExpendedVC: HotelCardCollectionViewCellDelegate {
         printDebug("handle scrolling enabled")
     }
     
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }
 
 

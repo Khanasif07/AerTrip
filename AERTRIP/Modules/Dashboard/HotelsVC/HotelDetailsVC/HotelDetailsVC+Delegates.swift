@@ -122,12 +122,16 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
         else if let _ = tableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell {
             AppGlobals.shared.startLoading(loaderBgColor: .clear)
             delay(seconds: 0.1) {
-                AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForCheckout) { [weak self](isGuest) in
+               var presentSelectionVC = false
+                if let _ = UserInfo.loggedInUserId {
+                    presentSelectionVC = true
+                }
+                AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForCheckout,presentViewController: true) { [weak self](isGuest) in
                 guard let sSelf = self else {return}
                 //                if let vc = sSelf.parent {
                 //                    AppFlowManager.default.popToViewController(vc, animated: true)
                 //                }
-                    AppFlowManager.default.moveToHCDataSelectionVC(sid: sSelf.viewModel.hotelSearchRequest?.sid ?? "", hid: sSelf.viewModel.hotelInfo?.hid ?? "", qid: sSelf.viewModel.ratesData[indexPath.section-2].qid, placeModel: sSelf.viewModel.placeModel ?? PlaceModel(), hotelSearchRequest: sSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), hotelInfo: sSelf.viewModel.hotelInfo ?? HotelSearched(), locid: sSelf.viewModel.hotelInfo?.locid ?? "")
+                    AppFlowManager.default.moveToHCDataSelectionVC(sid: sSelf.viewModel.hotelSearchRequest?.sid ?? "", hid: sSelf.viewModel.hotelInfo?.hid ?? "", qid: sSelf.viewModel.ratesData[indexPath.section-2].qid, placeModel: sSelf.viewModel.placeModel ?? PlaceModel(), hotelSearchRequest: sSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), hotelInfo: sSelf.viewModel.hotelInfo ?? HotelSearched(), locid: sSelf.viewModel.hotelInfo?.locid ?? "",presentViewController: presentSelectionVC)
                 AppFlowManager.default.removeLoginConfirmationScreenFromStack()
                 AppGlobals.shared.stopLoading()
             }
@@ -417,3 +421,4 @@ extension HotelDetailsVC: HotelRatingInfoCellDelegate {
         return true
     }
 }
+
