@@ -194,7 +194,7 @@ class HotelFilterVC: BaseVC {
                 self.allChildVCs.append(vc)
             }
         }
-        self.view.layoutIfNeeded()
+        //self.view.layoutIfNeeded()
         if let _ = self.parchmentView{
             self.parchmentView?.view.removeFromSuperview()
             self.parchmentView = nil
@@ -305,6 +305,9 @@ class HotelFilterVC: BaseVC {
     }
     
     private func saveAndApplyFilter() {
+//        if UserInfo.hotelFilter == nil {
+//            HotelFilterVM.shared.lastSelectedIndex = 0
+//        }
         HotelFilterVM.shared.saveDataToUserDefaults()
         delegate?.doneButtonTapped()
     }
@@ -344,9 +347,7 @@ class HotelFilterVC: BaseVC {
     @objc func  outsideAreaTapped() {
         saveAndApplyFilter()
         self.hide(animated: true, shouldRemove: true)
-        if UserInfo.hotelFilter == nil {
-            HotelFilterVM.shared.lastSelectedIndex = 0
-        }
+        
     }
         
 }

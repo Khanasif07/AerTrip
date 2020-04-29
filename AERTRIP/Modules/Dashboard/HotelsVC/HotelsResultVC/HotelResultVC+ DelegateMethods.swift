@@ -346,6 +346,7 @@ extension HotelResultVC: SectionFooterDelegate {
 
 extension HotelResultVC: HotelFilteVCDelegate {
     func clearAllButtonTapped() {
+        self.filterCollectionView.scrollToItem(at: IndexPath(item: HotelFilterVM.shared.lastSelectedIndex, section: 0), at: .centeredHorizontally, animated: false)
         self.viewModel.fetchRequestType = .normal
         self.filterButton.isSelected = false
         self.viewModel.isFilterApplied = false
@@ -357,9 +358,13 @@ extension HotelResultVC: HotelFilteVCDelegate {
         self.filterCollectionView.reloadData()
         //manage switch button when clear all filters
         // nitin self.getFavouriteHotels(shouldReloadData: false)
+        
+        
     }
     
     func doneButtonTapped() {
+        self.filterCollectionView.scrollToItem(at: IndexPath(item: HotelFilterVM.shared.lastSelectedIndex, section: 0), at: .centeredHorizontally, animated: false)
+
         if let isUse = UserDefaults.getObject(forKey: "shouldApplyFormStars") as? Bool, isUse {
             UserInfo.hotelFilterApplied = UserInfo.hotelFilter
         }

@@ -44,4 +44,8 @@ end
 #AertripCalendar.xcconfig
 #FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AertripCalendarDataModel" "${PODS_CONFIGURATION_BUILD_DIR}/FSCalendar"
 
+# To resolve the calendar Header Stroke(line) issue
+#Replace the line no. 46
+#FSCalendarStickyHeader.m
+#view.backgroundColor = [UIColor clearColor];//FSCalendarStandardLineColor;
 
