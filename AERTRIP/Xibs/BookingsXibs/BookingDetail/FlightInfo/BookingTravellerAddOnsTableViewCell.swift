@@ -60,6 +60,7 @@ class BookingTravellerAddOnsTableViewCell: UITableViewCell {
         self.travellerCollectionView.delegate = self
 
         self.travellerAddonsCollectionView.registerCell(nibName: BookingTravellerAddOnsCollectionViewCell.reusableIdentifier)
+        self.travellerAddonsCollectionView.registerCell(nibName: BookingFequentFlyerCollectionViewCell.reusableIdentifier)
         self.travellerAddonsCollectionView.dataSource = self
         self.travellerAddonsCollectionView.delegate = self
     }
@@ -116,6 +117,9 @@ extension BookingTravellerAddOnsTableViewCell: UICollectionViewDataSource, UICol
         }
         else {
             //details
+            if detailsTitle[indexPath.item].lowercased().contains("Frequent Flyer".lowercased()) {
+                return  CGSize(width: collectionView.width, height: 74.0)
+            }
             return  CGSize(width: collectionView.width, height: 60.0)
         }
     }
@@ -127,7 +131,11 @@ extension BookingTravellerAddOnsTableViewCell: UICollectionViewDataSource, UICol
         }
         else {
             //details
-            return self.getCellForDetails(indexPath: indexPath)
+            if detailsTitle[indexPath.item].lowercased().contains("Frequent Flyer".lowercased()) {
+                return self.getCellForFrequentFlyer(indexPath: indexPath)
+            } else {
+                return self.getCellForDetails(indexPath: indexPath)
+            }
         }
     }
     
@@ -164,4 +172,15 @@ extension BookingTravellerAddOnsTableViewCell: UICollectionViewDataSource, UICol
         
         return cell
     }
+    
+    func getCellForFrequentFlyer(indexPath: IndexPath) -> UICollectionViewCell{
+        guard let cell = self.travellerAddonsCollectionView.dequeueReusableCell(withReuseIdentifier: BookingFequentFlyerCollectionViewCell.reusableIdentifier, for: indexPath) as? BookingFequentFlyerCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
+        
+        return cell
+    }
+    
+    
 }

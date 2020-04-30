@@ -1591,7 +1591,7 @@ struct Pax {
 //    var addOns: JSONDictionary = [:] // TODO: Need to confirm this with yash as always coming in array
     
     var _pnr: String {
-        return self.pnr.isEmpty ? LocalizedString.dash.localized : self.pnr + "-" + self.status
+        return self.pnr.isEmpty ? (self.status.lowercased() == "pending" ? self.status.capitalized : LocalizedString.dash.localized ): self.pnr + "-" + self.status
     }
     
     var _seat: String {
@@ -1640,9 +1640,17 @@ struct Pax {
         return LocalizedString.dash.localized
     }
     
+    var _ff: String {
+        if let obj = self.addOns?.ff?.value, !obj.isEmpty {
+            return obj
+        }
+        return LocalizedString.dash.localized
+    }
+    
     var fullName: String {
         return "\(self.salutation) \(self.paxName)"
     }
+    
     
     var detailsToShow: JSONDictionary {
         var temp = JSONDictionary()
@@ -1655,7 +1663,8 @@ struct Pax {
         temp["5Meal Preferences"] = self._mealPreferences
         temp["6Baggage"] = self._baggage
         temp["7Others"] = self._others
-        
+        temp["8Frequent Flyer"] = self._ff
+
         return temp
     }
     
@@ -2388,15 +2397,15 @@ struct Preference {
 
 
 struct FF {
-    var az: String = ""
+    var value: String = ""
     
     init() {
         self.init(json: [:])
     }
     
     init(json: JSONDictionary) {
-        if let obj = json["AZ"] {
-            self.az = "\(obj)".removeNull
+        if let obj = json.values.first { //json["AZ"] { temporary need to discuss the key
+            self.value = "\(obj)".removeNull
         }
     }
 }

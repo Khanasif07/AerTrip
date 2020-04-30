@@ -117,47 +117,35 @@ with us!</string>
             </objects>
             <point key="canvasLocation" x="-1439" y="132"/>
         </scene>
-        <!--Upcoming BookingsVC-->
+        <!--Flight Baggage InfoVC-->
         <scene sceneID="24P-3x-mUb">
             <objects>
-                <viewController storyboardIdentifier="UpcomingBookingsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="af5-Ui-yOq" customClass="UpcomingBookingsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FlightBaggageInfoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="af5-Ui-yOq" customClass="FlightBaggageInfoVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2RR-RX-Udd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="RQQ-OT-0Mc" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="852"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJB-4e-z2V" customClass="MyBookingFooterView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="852" width="414" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Odz-xm-XTx"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="RQQ-OT-0Mc" secondAttribute="bottom" id="1Fv-yH-qYb"/>
                             <constraint firstItem="RQQ-OT-0Mc" firstAttribute="top" secondItem="2RR-RX-Udd" secondAttribute="top" id="2YW-gA-fDu"/>
-                            <constraint firstItem="yJB-4e-z2V" firstAttribute="top" secondItem="RQQ-OT-0Mc" secondAttribute="bottom" id="6YI-2s-Hpz"/>
                             <constraint firstItem="RQQ-OT-0Mc" firstAttribute="trailing" secondItem="xaN-iU-Qc4" secondAttribute="trailing" id="OqZ-Ny-vX2"/>
-                            <constraint firstItem="yJB-4e-z2V" firstAttribute="leading" secondItem="xaN-iU-Qc4" secondAttribute="leading" id="cEp-0d-Lbc"/>
-                            <constraint firstAttribute="bottom" secondItem="yJB-4e-z2V" secondAttribute="bottom" id="tc3-Pi-kgL"/>
                             <constraint firstItem="RQQ-OT-0Mc" firstAttribute="leading" secondItem="xaN-iU-Qc4" secondAttribute="leading" id="wAL-oV-bha"/>
-                            <constraint firstItem="xaN-iU-Qc4" firstAttribute="trailing" secondItem="yJB-4e-z2V" secondAttribute="trailing" id="zlU-DH-akn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xaN-iU-Qc4"/>
                     </view>
                     <connections>
-                        <outlet property="footerBottomConstraint" destination="tc3-Pi-kgL" id="KVv-5j-5ex"/>
-                        <outlet property="footerHeightConstraint" destination="Odz-xm-XTx" id="D3d-ZR-6ys"/>
-                        <outlet property="footerView" destination="yJB-4e-z2V" id="uTD-aJ-ahT"/>
-                        <outlet property="upcomingBookingsTableView" destination="RQQ-OT-0Mc" id="3SP-o8-154"/>
+                        <outlet property="tableView" destination="RQQ-OT-0Mc" id="Ll0-BT-lnM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r9B-gj-Pk9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-722.39999999999998" y="131.78410794602701"/>
+            <point key="canvasLocation" x="6010" y="-802"/>
         </scene>
         <!--Event TypeVC-->
         <scene sceneID="JIW-Fu-SRy">
@@ -440,73 +428,38 @@ with us!</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="taQ-pW-hAZ">
-                                <rect key="frame" x="0.0" y="44" width="414" height="97"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pTa-4M-ijb" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="5ZP-Za-sYa"/>
-                                        </constraints>
-                                    </view>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="W3y-oM-Auc">
-                                        <rect key="frame" x="16" y="56" width="382" height="32"/>
-                                        <segments>
-                                            <segment title="Flight Info"/>
-                                            <segment title="Baggage"/>
-                                            <segment title="Fare Info"/>
-                                        </segments>
-                                        <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </segmentedControl>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kcM-Ef-8IY" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="96.666666666666657" width="414" height="0.3333333333333286"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="0.5" id="oUS-2v-Z8n"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pTa-4M-ijb" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="kcM-Ef-8IY" secondAttribute="bottom" id="0Pm-1s-jou"/>
-                                    <constraint firstItem="W3y-oM-Auc" firstAttribute="leading" secondItem="taQ-pW-hAZ" secondAttribute="leading" constant="16" id="5dD-zq-E1v"/>
-                                    <constraint firstAttribute="trailing" secondItem="pTa-4M-ijb" secondAttribute="trailing" id="URi-a6-T09"/>
-                                    <constraint firstAttribute="trailing" secondItem="W3y-oM-Auc" secondAttribute="trailing" constant="16" id="f4S-Q0-4U1"/>
-                                    <constraint firstItem="kcM-Ef-8IY" firstAttribute="leading" secondItem="taQ-pW-hAZ" secondAttribute="leading" id="kd6-lh-8Hw"/>
-                                    <constraint firstItem="pTa-4M-ijb" firstAttribute="leading" secondItem="taQ-pW-hAZ" secondAttribute="leading" id="mMq-MA-nH5"/>
-                                    <constraint firstAttribute="trailing" secondItem="kcM-Ef-8IY" secondAttribute="trailing" id="piM-wb-G6y"/>
-                                    <constraint firstAttribute="height" constant="97" id="t56-mE-CBU"/>
-                                    <constraint firstItem="pTa-4M-ijb" firstAttribute="top" secondItem="taQ-pW-hAZ" secondAttribute="top" id="unY-MS-tFS"/>
-                                    <constraint firstItem="W3y-oM-Auc" firstAttribute="top" secondItem="pTa-4M-ijb" secondAttribute="bottom" constant="12" id="voS-QL-1YO"/>
+                                    <constraint firstAttribute="height" constant="44" id="5ZP-Za-sYa"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="DFu-Hf-uBE" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="141" width="414" height="721"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ocQ-m0-3CH">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="DFu-Hf-uBE" firstAttribute="leading" secondItem="cC7-Ec-fUV" secondAttribute="leading" id="7OR-B0-xhf"/>
-                            <constraint firstItem="cC7-Ec-fUV" firstAttribute="trailing" secondItem="DFu-Hf-uBE" secondAttribute="trailing" id="Dxy-py-Qi0"/>
-                            <constraint firstItem="cC7-Ec-fUV" firstAttribute="bottom" secondItem="DFu-Hf-uBE" secondAttribute="bottom" id="Ilb-Ou-QRn"/>
-                            <constraint firstItem="taQ-pW-hAZ" firstAttribute="top" secondItem="cC7-Ec-fUV" secondAttribute="top" id="LVP-v6-XUB"/>
-                            <constraint firstItem="DFu-Hf-uBE" firstAttribute="top" secondItem="taQ-pW-hAZ" secondAttribute="bottom" id="Qgh-hJ-uiP"/>
-                            <constraint firstItem="taQ-pW-hAZ" firstAttribute="leading" secondItem="cC7-Ec-fUV" secondAttribute="leading" id="Y2v-et-XWJ"/>
-                            <constraint firstItem="taQ-pW-hAZ" firstAttribute="trailing" secondItem="cC7-Ec-fUV" secondAttribute="trailing" id="q8c-q8-5pZ"/>
+                            <constraint firstItem="pTa-4M-ijb" firstAttribute="trailing" secondItem="cC7-Ec-fUV" secondAttribute="trailing" id="5Rd-cO-96U"/>
+                            <constraint firstItem="cC7-Ec-fUV" firstAttribute="trailing" secondItem="ocQ-m0-3CH" secondAttribute="trailing" id="ECL-sC-Nax"/>
+                            <constraint firstItem="ocQ-m0-3CH" firstAttribute="top" secondItem="pTa-4M-ijb" secondAttribute="bottom" id="EHA-bk-Ann"/>
+                            <constraint firstItem="pTa-4M-ijb" firstAttribute="leading" secondItem="cC7-Ec-fUV" secondAttribute="leading" id="F4J-8t-KUt"/>
+                            <constraint firstAttribute="bottom" secondItem="ocQ-m0-3CH" secondAttribute="bottom" id="faa-FX-5EE"/>
+                            <constraint firstItem="ocQ-m0-3CH" firstAttribute="leading" secondItem="cC7-Ec-fUV" secondAttribute="leading" id="jPg-rU-KWf"/>
+                            <constraint firstItem="pTa-4M-ijb" firstAttribute="top" secondItem="cC7-Ec-fUV" secondAttribute="top" id="trt-zp-UDU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cC7-Ec-fUV"/>
                     </view>
                     <connections>
-                        <outlet property="segmentControl" destination="W3y-oM-Auc" id="TBk-LP-VPJ"/>
-                        <outlet property="tableView" destination="DFu-Hf-uBE" id="GIm-Fy-4xh"/>
+                        <outlet property="containerView" destination="ocQ-m0-3CH" id="q2q-Cp-dDX"/>
                         <outlet property="topNavigationView" destination="pTa-4M-ijb" id="hiH-hq-TnA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n1q-jV-OTh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5242" y="-329"/>
+            <point key="canvasLocation" x="4693" y="-802"/>
         </scene>
         <!--Baggage InfoVC-->
         <scene sceneID="fIe-MI-rT7">
@@ -547,7 +500,7 @@ with us!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JQ8-20-L7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5953" y="-302"/>
+            <point key="canvasLocation" x="7329" y="-802"/>
         </scene>
         <!--Booking Hotel DetailVC-->
         <scene sceneID="wZb-4S-ICK">
@@ -1796,7 +1749,7 @@ with us!</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="pU3-7x-KCv" customClass="ATEmailSelectorTextView" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="39.666666666666657" y="11.666666666666671" width="324.33333333333337" height="20"/>
+                                        <rect key="frame" x="39.666666666666657" y="11.666666666666671" width="302.33333333333337" height="20"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="ohd-jy-fRZ"/>
@@ -1805,7 +1758,7 @@ with us!</string>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6TH-GX-8GW">
-                                        <rect key="frame" x="376" y="11" width="22" height="22"/>
+                                        <rect key="frame" x="354" y="11" width="44" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="nav-Zj-DJN"/>
                                         </constraints>
@@ -1915,7 +1868,7 @@ with us!</string>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackDownArrow" translatesAutoresizingMaskIntoConstraints="NO" id="9DX-T5-2nB">
-                                        <rect key="frame" x="395" y="41.333333333333343" width="9" height="6"/>
+                                        <rect key="frame" x="386" y="38.333333333333329" width="18" height="12"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pcn-yO-9z0" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="16" y="59.666666666666657" width="398" height="0.3333333333333357"/>
@@ -1957,7 +1910,7 @@ with us!</string>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackDownArrow" translatesAutoresizingMaskIntoConstraints="NO" id="QyA-tf-R8F">
-                                        <rect key="frame" x="395" y="41.333333333333343" width="9" height="6"/>
+                                        <rect key="frame" x="386" y="38.333333333333343" width="18" height="12"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XbG-cv-fK0" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                         <rect key="frame" x="16" y="59.666666666666657" width="398" height="0.3333333333333357"/>
@@ -2404,13 +2357,13 @@ with us!</string>
                                                 <rect key="frame" x="16" y="11.666666666666629" width="382" height="21"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Net Refund" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXo-Ws-P9t">
-                                                        <rect key="frame" x="0.0" y="0.0" width="127.66666666666667" height="21"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="127.33333333333333" height="21"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYS-pr-Met">
-                                                        <rect key="frame" x="127.66666666666664" y="0.0" width="254.33333333333337" height="21"/>
+                                                        <rect key="frame" x="127.33333333333336" y="0.0" width="254.66666666666663" height="21"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -2546,6 +2499,108 @@ with us!</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HXA-sb-upF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-463" y="3604"/>
+        </scene>
+        <!--Upcoming BookingsVC-->
+        <scene sceneID="eNH-JB-Z88">
+            <objects>
+                <viewController storyboardIdentifier="UpcomingBookingsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yg9-dw-iUw" customClass="UpcomingBookingsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SQt-0j-Pvt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="cQG-4F-DrY" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="852"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mqY-0E-gBZ" customClass="MyBookingFooterView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="852" width="414" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="RHc-LM-Wsa"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="KdF-9U-oOs" firstAttribute="trailing" secondItem="mqY-0E-gBZ" secondAttribute="trailing" id="17Y-sH-2eT"/>
+                            <constraint firstItem="cQG-4F-DrY" firstAttribute="leading" secondItem="KdF-9U-oOs" secondAttribute="leading" id="Aha-bz-uOJ"/>
+                            <constraint firstAttribute="bottom" secondItem="mqY-0E-gBZ" secondAttribute="bottom" id="VB2-0g-fFr"/>
+                            <constraint firstItem="mqY-0E-gBZ" firstAttribute="leading" secondItem="KdF-9U-oOs" secondAttribute="leading" id="nPf-dY-V6P"/>
+                            <constraint firstItem="cQG-4F-DrY" firstAttribute="trailing" secondItem="KdF-9U-oOs" secondAttribute="trailing" id="qLH-84-jwg"/>
+                            <constraint firstItem="cQG-4F-DrY" firstAttribute="top" secondItem="SQt-0j-Pvt" secondAttribute="top" id="v2e-go-tBn"/>
+                            <constraint firstItem="mqY-0E-gBZ" firstAttribute="top" secondItem="cQG-4F-DrY" secondAttribute="bottom" id="yaK-l3-oNx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="KdF-9U-oOs"/>
+                    </view>
+                    <connections>
+                        <outlet property="footerBottomConstraint" destination="VB2-0g-fFr" id="yeh-tF-7iA"/>
+                        <outlet property="footerHeightConstraint" destination="RHc-LM-Wsa" id="O2e-Tq-TxP"/>
+                        <outlet property="footerView" destination="mqY-0E-gBZ" id="1VT-ff-DxE"/>
+                        <outlet property="upcomingBookingsTableView" destination="cQG-4F-DrY" id="sDd-4c-P4W"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q01-QO-yTw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-722.39999999999998" y="131.78410794602701"/>
+        </scene>
+        <!--Flight InfoVC-->
+        <scene sceneID="450-Xk-uYn">
+            <objects>
+                <viewController storyboardIdentifier="FlightInfoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1se-09-wto" customClass="FlightInfoVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hGk-hy-u9n">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="wLg-Fe-HHz" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="wLg-Fe-HHz" firstAttribute="trailing" secondItem="auD-Px-wb2" secondAttribute="trailing" id="Sfu-hC-jfM"/>
+                            <constraint firstItem="wLg-Fe-HHz" firstAttribute="top" secondItem="hGk-hy-u9n" secondAttribute="top" id="Vme-Dk-4bK"/>
+                            <constraint firstAttribute="bottom" secondItem="wLg-Fe-HHz" secondAttribute="bottom" id="std-va-Y8m"/>
+                            <constraint firstItem="wLg-Fe-HHz" firstAttribute="leading" secondItem="auD-Px-wb2" secondAttribute="leading" id="xzk-Oh-Oh1"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="auD-Px-wb2"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="wLg-Fe-HHz" id="tVN-Dl-iA2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8W5-mz-8AM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5358" y="-802"/>
+        </scene>
+        <!--Flight Fare InfoVC-->
+        <scene sceneID="x9v-Na-0fI">
+            <objects>
+                <viewController storyboardIdentifier="FlightFareInfoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PAT-Z9-ZTp" customClass="FlightFareInfoVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Zz3-Vf-JqR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="2X2-hK-HDg" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2X2-hK-HDg" firstAttribute="top" secondItem="Zz3-Vf-JqR" secondAttribute="top" id="H43-0G-uvX"/>
+                            <constraint firstItem="2X2-hK-HDg" firstAttribute="leading" secondItem="d5r-CY-Bm9" secondAttribute="leading" id="QwE-ng-bS0"/>
+                            <constraint firstAttribute="bottom" secondItem="2X2-hK-HDg" secondAttribute="bottom" id="Y8w-rb-KR1"/>
+                            <constraint firstItem="2X2-hK-HDg" firstAttribute="trailing" secondItem="d5r-CY-Bm9" secondAttribute="trailing" id="uOp-Zw-bAL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="d5r-CY-Bm9"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="2X2-hK-HDg" id="781-6L-v5v"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LtU-h9-L3J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6671" y="-802"/>
         </scene>
     </scenes>
     <resources>

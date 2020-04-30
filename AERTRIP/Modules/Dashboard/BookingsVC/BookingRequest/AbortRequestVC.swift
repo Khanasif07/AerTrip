@@ -36,17 +36,21 @@ class AbortRequestVC: BaseVC {
         super.viewWillLayoutSubviews()
         gradientView.addGredient(isVertical: false)
         addCommentTextView.layoutSubviews()
+        if addCommentTextView.text.isEmpty {
+            addCommentTextView.alignTextCenterVerticaly()
+        }
+        printDebug("addCommentTextView.size: \(addCommentTextView.size)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-     
+        
+
     }
     
     // MARK:- Overide methods
     
     override func initialSetup() {
-        addCommentTextView.contentInset = .zero
         addCommentTextView.placeholder = LocalizedString.EnterComments.localized
         self.view.backgroundColor = AppColors.themeWhite
         self.bottomView.backgroundColor = AppColors.themeGray04

@@ -780,6 +780,8 @@ enum LocalizedString: String {
     case AddToTrips
     case BookSameFlight
     case Traveller
+    case FlightInfo
+    case Baggage
     
     // Booking Action sheet text
     case RequestAddOnAndFrequentFlyer

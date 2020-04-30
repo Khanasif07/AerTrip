@@ -708,6 +708,8 @@
 "AddToTrips" = "Add to Trips";
 "BookSameFlight" = "Book same flight";
 "Traveller" = "Traveller";
+"FlightInfo" = "Flight Info";
+"Baggage" = "Baggage";
 
 
 // Booking Action sheet option

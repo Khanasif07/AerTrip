@@ -1,230 +1,21 @@
 //
-//  BookingFlightDetailVC + HelperMethods.swift
+//  FlightFareInfoVC+HelperMethods.swift
 //  AERTRIP
 //
-//  Created by apple on 10/05/19.
-//  Copyright © 2019 Pramod Kumar. All rights reserved.
+//  Created by Admin on 30/04/20.
+//  Copyright © 2020 Pramod Kumar. All rights reserved.
 //
 
 import Foundation
+extension FlightFareInfoVC {
 
-extension BookingFlightDetailVC {
-
-    // get height for Baggage row for first sections
-    func getHeightForBaggageInfo(_ indexPath: IndexPath) -> CGFloat {
-        switch self.viewModel.allBaggageCells[indexPath.section][indexPath.row] {
-        case .aerlineDetail: return 60.0
-        case .title: return 29.0
-        case .adult(let isLast): return isLast ? 43.0 : 29.0
-        case .child(let isLast): return isLast ? 43.0 : 29.0
-        case .infant(let isLast): return isLast ? 43.0 : 29.0
-        case .layover(let isLast): return isLast ? 43.0 : 40.0
-        case .note: return 43.0
-        }
-    }
-    
-    // get height For Flight Info For First section
-    
-    func getHeightForFlightInfo(_ indexPath: IndexPath) -> CGFloat {
-        
-        switch self.viewModel.allFlightInfoCells[indexPath.section][indexPath.row] {
-        case .aerlineDetail: return 82.0
-        case .flightInfo: return 140.0
-        case .amenities(let totalRowsForAmenities):
-            let heightForOneRow: CGFloat = 55.0
-            let lineSpace = (CGFloat(totalRowsForAmenities) * 5.0)
-            // 10 id collection view top & bottom in xib
-            return (CGFloat(totalRowsForAmenities) * heightForOneRow) + lineSpace + 25.0
-            
-        case .layover: return 40.0
-        case .paxData:
-//            if let pax = self.viewModel.legDetails[indexPath.section].pax.first, !pax.detailsToShow.isEmpty {
-//                // Travellers & Add-ons
-//                // 175.0 for list + <for details>
-//                return 175.0 + (CGFloat(pax.detailsToShow.count) * 60.0)
-//            }
-            return UITableView.automaticDimension//0.0
-        }
-    }
-    
-    func getFlightDetailsForFlightInfo(indexPath: IndexPath) -> FlightDetail {
-        var currentIdx: Int = 0
-        var allTotal: Int = 1
-        
-        if let allLegs = self.viewModel.bookingDetail?.bookingDetail?.leg {
-            for flg in allLegs[indexPath.section].flight {
-                allTotal += flg.numberOfCellFlightInfo
-                if indexPath.row <= (allTotal-2) {
-                    break
-                }
-                else if indexPath.row > (allTotal-2) {
-                    currentIdx += 1
-                }
-            }
-        }
-        if (allTotal - 1) == indexPath.row {
-            //pax data
-            currentIdx -= 1
-        }
-        return self.viewModel.legDetails[indexPath.section].flight[currentIdx]
-    }
-    
-    // return cell for Flight Info
-    func getCellForFlightInfo(_ indexPath: IndexPath) -> UITableViewCell {
-        
-        let flight = self.getFlightDetailsForFlightInfo(indexPath: indexPath)
-
-        func getAerlineInfoCell() -> UITableViewCell {
-            // aerline details
-            guard let flightInfoCell = self.tableView.dequeueReusableCell(withIdentifier: FlightInfoTableViewCell.reusableIdentifier) as? FlightInfoTableViewCell else {
-                fatalError("FlightInfoTableViewCell not found")
-            }
-            
-            flightInfoCell.flightDetail = flight
-            
-            return flightInfoCell
-        }
-        
-        func getFlightInfoCell() -> UITableViewCell {
-            // flight details
-            guard let fligthTimeLocationInfoCell = self.tableView.dequeueReusableCell(withIdentifier: FlightTimeLocationInfoTableViewCell.reusableIdentifier) as? FlightTimeLocationInfoTableViewCell else {
-                fatalError("FlightTimeLocationInfoTableViewCell not found")
-            }
-            
-            fligthTimeLocationInfoCell.flightDetail = flight
-            fligthTimeLocationInfoCell.isMoonIConNeedToHide = !flight.ovgtf
-            return fligthTimeLocationInfoCell
-        }
-        
-        func getAminitiesCell() -> UITableViewCell {
-            // aminities
-            guard let cell = self.tableView.dequeueReusableCell(withIdentifier: AmentityTableViewCell.reusableIdentifier) as? AmentityTableViewCell else {
-                fatalError("AmentityTableViewCell not found")
-            }
-            
-            cell.flightDetail = flight
-            
-            return cell
-        }
-        
-        func getLayoverTimeCell() -> UITableViewCell {
-            // layouver time
-            guard let nightStateCell = self.tableView.dequeueReusableCell(withIdentifier: NightStateTableViewCell.reusableIdentifier) as? NightStateTableViewCell else {
-                fatalError("NightStateTableViewCell not found")
-            }
-            
-            nightStateCell.flightDetail = flight
-            
-            return nightStateCell
-        }
-        
-        func getPaxDataCell() -> UITableViewCell {
-            // Travellers & Add-ons
-            guard let cell = self.tableView.dequeueReusableCell(withIdentifier: BookingTravellerAddOnsTableViewCell.reusableIdentifier) as? BookingTravellerAddOnsTableViewCell else {
-                fatalError("BookingTravellerAddOnsTableViewCell not found")
-            }
-            
-            cell.paxDetails = self.viewModel.legDetails[indexPath.section].pax
-            cell.parentIndexPath = indexPath
-            cell.heightDelegate = self
-            return cell
-
-        }
-        
-        switch self.viewModel.allFlightInfoCells[indexPath.section][indexPath.row] {
-        case .aerlineDetail: return getAerlineInfoCell()
-        case .flightInfo: return getFlightInfoCell()
-        case .amenities( _): return getAminitiesCell()
-        case .layover: return getLayoverTimeCell()
-        case .paxData: return getPaxDataCell()
-        }
-    }
-    
-    func getFlightDetailsForBaggageInfo(indexPath: IndexPath) -> FlightDetail {
-        var currentIdx: Int = 0
-        var allTotal: Int = 0
-
-        if let allLegs = self.viewModel.bookingDetail?.bookingDetail?.leg {
-            for flg in allLegs[indexPath.section].flight {
-                allTotal += flg.numberOfCellBaggage
-                if indexPath.row <= (allTotal-1) {
-                    break
-                }
-                else if indexPath.row > (allTotal-1) {
-                    currentIdx += 1
-                }
-            }
-        }
-        return self.viewModel.legDetails[indexPath.section].flight[currentIdx]
-    }
-    
-    func getCellForBaggageInfo(_ indexPath: IndexPath) -> UITableViewCell {
-        let flight = self.getFlightDetailsForBaggageInfo(indexPath: indexPath)
-        
-        func getAerlineCell() -> UITableViewCell {
-            // aerline details
-            guard let airlineCell = self.tableView.dequeueReusableCell(withIdentifier: "BaggageAirlineInfoTableViewCell") as? BaggageAirlineInfoTableViewCell else {
-                fatalError("BaggageAirlineInfoTableViewCell not found")
-            }
-            airlineCell.flightDetail = flight
-            airlineCell.delegate = self
-            return airlineCell
-        }
-        
-        func getBaggageInfoCell(usingFor: BookingInfoCommonCell.UsingFor) -> UITableViewCell {
-            // baggage info
-            guard let commonCell = self.tableView.dequeueReusableCell(withIdentifier: "BookingInfoCommonCell") as? BookingInfoCommonCell else {
-                fatalError("BookingInfoCommonCell not found")
-            }
-            
-            commonCell.setData(forFlight: flight, usingFor: usingFor)
-            
-            return commonCell
-        }
-        
-        func getLayoverCell() -> UITableViewCell {
-            // layover time
-            guard let nightStateCell = self.tableView.dequeueReusableCell(withIdentifier: NightStateTableViewCell.reusableIdentifier) as? NightStateTableViewCell else {
-                fatalError("NightStateTableViewCell not found")
-            }
-            
-            nightStateCell.flightDetail = flight
-            
-            return nightStateCell
-        }
-        
-        func getNoteCell() -> UITableViewCell {
-            // layover time
-            guard let nightStateCell = self.tableView.dequeueReusableCell(withIdentifier: BookingRequestStatusTableViewCell.reusableIdentifier) as? BookingRequestStatusTableViewCell else {
-                fatalError("NightStateTableViewCell not found")
-            }
-            
-            nightStateCell.containerView.backgroundColor = AppColors.clear
-            nightStateCell.titleLabel.font = AppFonts.Regular.withSize(16.0)
-            nightStateCell.titleLabel.textColor = AppColors.themeGray40
-            nightStateCell.titleLabel.text = flight.baggage?.checkInBg?.notes ?? LocalizedString.dash.localized
-            
-            return nightStateCell
-        }
-        
-        switch self.viewModel.allBaggageCells[indexPath.section][indexPath.row] {
-        case .aerlineDetail: return getAerlineCell()
-        case .title: return getBaggageInfoCell(usingFor: .title)
-        case .adult: return getBaggageInfoCell(usingFor: .adult)
-        case .child: return getBaggageInfoCell(usingFor: .child)
-        case .infant: return getBaggageInfoCell(usingFor: .infant)
-        case .layover: return getLayoverCell()
-        case .note: return getNoteCell()
-        }
-    }
-    
     func getCancelChargesCount(charge: BookingFeeDetail.Charges?) -> Int {
         var temp = 0
         guard let can = charge else {
             return temp
         }
         temp += 1 // headers
-        
+
         if let _ = can.adult {
             temp += 1
         }
@@ -234,19 +25,19 @@ extension BookingFlightDetailVC {
         if let _ = can.infant {
             temp += 1
         }
-        
+
         temp += 1 // blank space
-        
+
         return temp
     }
-    
+
     func getResChargesCount(charge: BookingFeeDetail.Charges?) -> Int {
         var temp = 0
         guard let res = charge else {
             return temp
         }
         temp += 1 // headers
-        
+
         if let _ = res.adult {
             temp += 1
         }
@@ -256,7 +47,7 @@ extension BookingFlightDetailVC {
         if let _ = res.infant {
             temp += 1
         }
-        
+
         return temp
     }
     
@@ -298,10 +89,10 @@ extension BookingFlightDetailVC {
         guard let commonCell = self.tableView.dequeueReusableCell(withIdentifier: "BookingInfoCommonCell") as? BookingInfoCommonCell else {
             fatalError("BookingInfoCommonCell not found")
         }
-        
+
         commonCell.middleLabel.font = AppFonts.SemiBold.withSize(16.0)
         commonCell.rightLabel.font = AppFonts.SemiBold.withSize(16.0)
-        
+
         commonCell.leftLabel.text = type
         commonCell.middleLabel.text = aerline
         commonCell.rightLabel.text = aertrip
@@ -495,7 +286,7 @@ extension BookingFlightDetailVC {
         return finalCell
     }
 }
-extension BookingFlightDetailVC:TravellerAddOnsCellHeightDelegate {
+extension FlightFareInfoVC:TravellerAddOnsCellHeightDelegate {
     
     func needToUpdateHeight(at index:IndexPath){
         self.tableView.beginUpdates()
