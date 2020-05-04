@@ -8,24 +8,33 @@
 
 import Foundation
 extension FlightBaggageInfoVC {
-
+    
     // get height for Baggage row for first sections
     func getHeightForBaggageInfo(_ indexPath: IndexPath) -> CGFloat {
-        switch self.viewModel.allBaggageCells[indexPath.section][indexPath.row] {
-        case .aerlineDetail: return 60.0
-        case .title: return 29.0
-        case .adult(let isLast): return isLast ? 43.0 : 29.0
-        case .child(let isLast): return isLast ? 43.0 : 29.0
-        case .infant(let isLast): return isLast ? 43.0 : 29.0
-        case .layover(let isLast): return isLast ? 43.0 : 40.0
-        case .note: return 43.0
+        
+        switch indexPath.section {
+        case self.viewModel.allBaggageCells.count:
+            return UITableView.automaticDimension
+        default:
+            switch self.viewModel.allBaggageCells[indexPath.section][indexPath.row] {
+            case .aerlineDetail: return 59.0
+            case .title: return 20.0
+            case .adult(let isLast): return isLast ? 54.0 : 28.0
+            case .child(let isLast): return isLast ? 54.0 : 28.0
+            case .infant(let isLast): return isLast ? 54.0 : 28.0
+            case .layover(let isLast): return isLast ? 43.0 : 40.0
+            case .note: return 43.0
+            }
         }
     }
     
     func getFlightDetailsForBaggageInfo(indexPath: IndexPath) -> FlightDetail {
+        if self.viewModel.allBaggageCells.count == indexPath.section {
+            return FlightDetail()
+        }
         var currentIdx: Int = 0
         var allTotal: Int = 0
-
+        
         if let allLegs = self.viewModel.bookingDetail?.bookingDetail?.leg {
             for flg in allLegs[indexPath.section].flight {
                 allTotal += flg.numberOfCellBaggage
@@ -39,7 +48,7 @@ extension FlightBaggageInfoVC {
         }
         return self.viewModel.legDetails[indexPath.section].flight[currentIdx]
     }
-
+    
     func getCellForBaggageInfo(_ indexPath: IndexPath) -> UITableViewCell {
         let flight = self.getFlightDetailsForBaggageInfo(indexPath: indexPath)
         
@@ -89,14 +98,33 @@ extension FlightBaggageInfoVC {
             return nightStateCell
         }
         
-        switch self.viewModel.allBaggageCells[indexPath.section][indexPath.row] {
-        case .aerlineDetail: return getAerlineCell()
-        case .title: return getBaggageInfoCell(usingFor: .title)
-        case .adult: return getBaggageInfoCell(usingFor: .adult)
-        case .child: return getBaggageInfoCell(usingFor: .child)
-        case .infant: return getBaggageInfoCell(usingFor: .infant)
-        case .layover: return getLayoverCell()
-        case .note: return getNoteCell()
+        func getFinalNoteCell() -> UITableViewCell {
+            // layover time
+            guard let noteCell = self.tableView.dequeueReusableCell(withIdentifier: BookingInfoNotesCellTableViewCell.reusableIdentifier) as? BookingInfoNotesCellTableViewCell else {
+                fatalError("BookingInfoNotesCellTableViewCell not found")
+            }
+            
+            noteCell.flightDetail =
+                self.viewModel.legDetails.flatMap({ (leg) in
+                    return leg.flight
+                })
+            
+            return noteCell
+        }
+        
+        switch indexPath.section {
+        case self.viewModel.allBaggageCells.count:
+            return getFinalNoteCell()
+        default:
+            switch self.viewModel.allBaggageCells[indexPath.section][indexPath.row] {
+            case .aerlineDetail: return getAerlineCell()
+            case .title: return getBaggageInfoCell(usingFor: .title)
+            case .adult: return getBaggageInfoCell(usingFor: .adult)
+            case .child: return getBaggageInfoCell(usingFor: .child)
+            case .infant: return getBaggageInfoCell(usingFor: .infant)
+            case .layover: return getLayoverCell()
+            case .note: return getNoteCell()
+            }
         }
     }
     

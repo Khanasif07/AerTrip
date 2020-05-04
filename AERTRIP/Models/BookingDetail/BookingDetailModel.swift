@@ -1005,11 +1005,13 @@ struct FlightDetail {
         }
         
         if self.layoverTime > 0 {
-            temp += 1
+            if ovgtlo {
+                temp += 1
+            }
         }
         
         if let nt = self.baggage?.checkInBg?.notes, !nt.isEmpty {
-            temp += 1
+            //temp += 1
         }
         
         return temp
@@ -1640,13 +1642,6 @@ struct Pax {
         return LocalizedString.dash.localized
     }
     
-    var _ff: String {
-        if let obj = self.addOns?.ff?.value, !obj.isEmpty {
-            return obj
-        }
-        return LocalizedString.dash.localized
-    }
-    
     var fullName: String {
         return "\(self.salutation) \(self.paxName)"
     }
@@ -1663,8 +1658,16 @@ struct Pax {
         temp["5Meal Preferences"] = self._mealPreferences
         temp["6Baggage"] = self._baggage
         temp["7Others"] = self._others
-        temp["8Frequent Flyer"] = self._ff
-
+        //temp["8Frequent Flyer"] = self._ff
+        
+        var objectIndex = 8
+        if let obj = self.addOns?.ff, !obj.isEmpty {
+            obj.forEach { (ff) in
+                temp["\(objectIndex)Frequent Flyer"] = ff
+                objectIndex += 1
+            }
+        }
+        
         return temp
     }
     
@@ -2312,7 +2315,7 @@ struct TripInfo {
 struct AddOns {
     var addOn: AddOn?
     var preferences: Preference?
-    var ff: FF?
+    var ff: [FF]?
     
     init() {
         self.init(json: [:])
@@ -2329,7 +2332,7 @@ struct AddOns {
         }
         
         if let obj = json["ff"] as? JSONDictionary {
-            self.ff = FF(json: obj)
+            self.ff = FF.models(json: obj)
         }
     }
 }
@@ -2397,15 +2400,30 @@ struct Preference {
 
 
 struct FF {
+    var key: String = ""
     var value: String = ""
-    
+
     init() {
         self.init(json: [:])
     }
-    
+
     init(json: JSONDictionary) {
-        if let obj = json.values.first { //json["AZ"] { temporary need to discuss the key
+        if let obj = json["key"] {
+            self.key = "\(obj)".removeNull
+        }
+        if let obj = json["value"] {
             self.value = "\(obj)".removeNull
         }
+    }
+
+    static func models(json: JSONDictionary) -> [FF] {
+        var ff = [FF]()
+
+        let keyArr: [String] = Array(json.keys)
+        for key in keyArr {
+            let temp = ["key": key , "value": json[key] ?? ""]
+            ff.append(FF(json: temp as JSONDictionary))
+        }
+        return ff
     }
 }

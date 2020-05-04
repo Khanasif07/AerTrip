@@ -26,9 +26,9 @@ class FlightInfoVC: BaseVC {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.registerXib()
-        delay(seconds: 0.3) { [weak self] in
-            self?.tableView.scrollToRow(at: IndexPath(row: 0, section: self?.viewModel.legSectionTap ?? 0), at: .top, animated: false)
-        }
+//        delay(seconds: 0.3) { [weak self] in
+//            self?.tableView.scrollToRow(at: IndexPath(row: 0, section: self?.viewModel.legSectionTap ?? 0), at: .top, animated: false)
+//        }
         //        self.tableView.backgroundColor = AppColors.themeWhite
         self.viewModel.getBookingFees()
     }
@@ -49,7 +49,6 @@ class FlightInfoVC: BaseVC {
         self.tableView.register(UINib(nibName: self.headerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.headerViewIdentifier)
         self.tableView.register(UINib(nibName: self.fareInfoHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.fareInfoHeaderViewIdentifier)
         self.tableView.register(UINib(nibName: self.footerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.footerViewIdentifier)
-        self.tableView.registerCell(nibName: BaggageAirlineInfoTableViewCell.reusableIdentifier)
         self.tableView.registerCell(nibName: FareInfoNoteTableViewCell.reusableIdentifier)
         self.tableView.registerCell(nibName: EmptyDividerViewCellTableViewCell.reusableIdentifier)
         self.tableView.registerCell(nibName: BookingInfoCommonCell.reusableIdentifier)

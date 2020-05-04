@@ -782,6 +782,9 @@ enum LocalizedString: String {
     case Traveller
     case FlightInfo
     case Baggage
+    case NoBaggage
+    case NoInfo
+    case BaggageDetailsMessage
     
     // Booking Action sheet text
     case RequestAddOnAndFrequentFlyer

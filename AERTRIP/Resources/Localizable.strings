@@ -710,7 +710,9 @@
 "Traveller" = "Traveller";
 "FlightInfo" = "Flight Info";
 "Baggage" = "Baggage";
-
+"NoBaggage" = "No Baggage";
+"NoInfo" = "No Info";
+"BaggageDetailsMessage" = "Baggage details are indicative and subject to change without prior notice.";
 
 // Booking Action sheet option
 "RequestAddOnAndFrequentFlyer" = "Request Add-ons & Freq. Flyer";

@@ -108,30 +108,6 @@ extension FlightFareInfoVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-// Delegate methods
-
-extension FlightFareInfoVC: BaggageAirlineInfoTableViewCellDelegate {
-    func dimensionButtonTapped(_ dimensionButton: UIButton) {
-        printDebug("Dimension Button Tapped ")
-        var detail: BaggageInfo?
-        if let cell = self.tableView.cell(forItem: dimensionButton) as? BaggageAirlineInfoTableViewCell {
-            if let obj = cell.flightDetail?.baggage?.cabinBg?.infant {
-                detail = obj
-            }
-            if let obj = cell.flightDetail?.baggage?.cabinBg?.child {
-                detail = obj
-            }
-            if let obj = cell.flightDetail?.baggage?.cabinBg?.adult {
-                detail = obj
-            }
-        }
-        
-        if let obj = detail?.dimension {
-            AppFlowManager.default.presentBaggageInfoVC(dimension: obj)
-        }
-    }
-}
-
 // Route Fare info table View cell Delegate methods
 extension FlightFareInfoVC: RouteFareInfoTableViewCellDelegate {
     func viewDetailsButtonTapped(_ sender: UIButton) {

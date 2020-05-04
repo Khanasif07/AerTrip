@@ -54,49 +54,6 @@ extension FlightInfoVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-// Delegate methods
-
-extension FlightInfoVC: BaggageAirlineInfoTableViewCellDelegate {
-    func dimensionButtonTapped(_ dimensionButton: UIButton) {
-        printDebug("Dimension Button Tapped ")
-        var detail: BaggageInfo?
-        if let cell = self.tableView.cell(forItem: dimensionButton) as? BaggageAirlineInfoTableViewCell {
-            if let obj = cell.flightDetail?.baggage?.cabinBg?.infant {
-                detail = obj
-            }
-            if let obj = cell.flightDetail?.baggage?.cabinBg?.child {
-                detail = obj
-            }
-            if let obj = cell.flightDetail?.baggage?.cabinBg?.adult {
-                detail = obj
-            }
-        }
-        
-        if let obj = detail?.dimension {
-            AppFlowManager.default.presentBaggageInfoVC(dimension: obj)
-        }
-    }
-}
-
-// Route Fare info table View cell Delegate methods
-extension FlightInfoVC: RouteFareInfoTableViewCellDelegate {
-    func viewDetailsButtonTapped(_ sender: UIButton) {
-        printDebug("View Details Button Tapped")
-        if let indexPath = self.tableView.indexPath(forItem: sender) {
-            AppFlowManager.default.presentBookingFareInfoDetailVC(usingFor: .both, forBookingId: self.viewModel.bookingDetail?.id ?? "", legDetails: self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section], bookingFee: self.viewModel.bookingFee[indexPath.section])
-        }
-    }
-}
-
-// MARK: - Fare Info header view Delegate
-
-extension FlightInfoVC: FareInfoHeaderViewDelegate {
-    func fareButtonTapped(_ sender: UIButton) {
-        printDebug("fare info butto n tapped")
-        AppFlowManager.default.presentBookingFareInfoDetailVC(usingFor: .fareRules, forBookingId: self.viewModel.bookingDetail?.id ?? "", legDetails: self.viewModel.bookingDetail?.bookingDetail?.leg.first, bookingFee: self.viewModel.bookingFee.first)
-    }
-}
-
 extension FlightInfoVC: BookingDetailVMDelegate {
     func willGetBookingFees() {}
     

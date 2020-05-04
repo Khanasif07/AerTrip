@@ -109,7 +109,7 @@ extension FlightInfoVC {
             guard let cell = self.tableView.dequeueReusableCell(withIdentifier: BookingTravellerAddOnsTableViewCell.reusableIdentifier) as? BookingTravellerAddOnsTableViewCell else {
                 fatalError("BookingTravellerAddOnsTableViewCell not found")
             }
-            
+            cell.flightDetail = flight
             cell.paxDetails = self.viewModel.legDetails[indexPath.section].pax
             cell.parentIndexPath = indexPath
             cell.heightDelegate = self

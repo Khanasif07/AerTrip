@@ -48,7 +48,6 @@ class FlightFareInfoVC: BaseVC {
         self.tableView.register(UINib(nibName: self.headerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.headerViewIdentifier)
         self.tableView.register(UINib(nibName: self.fareInfoHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.fareInfoHeaderViewIdentifier)
         self.tableView.register(UINib(nibName: self.footerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.footerViewIdentifier)
-        self.tableView.registerCell(nibName: BaggageAirlineInfoTableViewCell.reusableIdentifier)
         self.tableView.registerCell(nibName: FareInfoNoteTableViewCell.reusableIdentifier)
         self.tableView.registerCell(nibName: EmptyDividerViewCellTableViewCell.reusableIdentifier)
         self.tableView.registerCell(nibName: BookingInfoCommonCell.reusableIdentifier)

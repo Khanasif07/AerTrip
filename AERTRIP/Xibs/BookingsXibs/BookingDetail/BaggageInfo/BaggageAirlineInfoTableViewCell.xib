@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,33 +14,27 @@
             <rect key="frame" x="0.0" y="0.0" width="328" height="132"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="328" height="131.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="328" height="132"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Wm-Fz-V97">
-                        <rect key="frame" x="0.0" y="0.0" width="328" height="131.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="328" height="132"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flight_blue_icon" translatesAutoresizingMaskIntoConstraints="NO" id="2Sc-VC-JmP">
-                                <rect key="frame" x="16" y="39" width="44" height="44"/>
+                                <rect key="frame" x="16" y="52.5" width="27" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="2Sc-VC-JmP" secondAttribute="height" multiplier="1:1" id="P6p-wn-byz"/>
-                                    <constraint firstAttribute="height" constant="44" id="Y6l-Br-c1g"/>
+                                    <constraint firstAttribute="height" constant="27" id="Y6l-Br-c1g"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0MQ-X5-vn2">
-                                <rect key="frame" x="70" y="39" width="191" height="21"/>
+                                <rect key="frame" x="53" y="55.5" width="208" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Itw-7U-HuN">
-                                <rect key="frame" x="70" y="60" width="191" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="253" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6hf-gg-ut0">
-                                <rect key="frame" x="266" y="46" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6hf-gg-ut0">
+                                <rect key="frame" x="266" y="51" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="dimensionButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="EPf-SY-B0o"/>
@@ -51,12 +43,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Itw-7U-HuN" firstAttribute="top" secondItem="0MQ-X5-vn2" secondAttribute="bottom" id="C3J-7S-fmD"/>
-                            <constraint firstItem="Itw-7U-HuN" firstAttribute="leading" secondItem="0MQ-X5-vn2" secondAttribute="leading" id="Ful-En-jef"/>
                             <constraint firstItem="0MQ-X5-vn2" firstAttribute="leading" secondItem="2Sc-VC-JmP" secondAttribute="trailing" constant="10" id="OjZ-yz-adJ"/>
-                            <constraint firstItem="Itw-7U-HuN" firstAttribute="trailing" secondItem="0MQ-X5-vn2" secondAttribute="trailing" id="YzU-TB-4dQ"/>
-                            <constraint firstItem="2Sc-VC-JmP" firstAttribute="centerY" secondItem="7Wm-Fz-V97" secondAttribute="centerY" constant="-5" id="eHx-TO-Wtu"/>
-                            <constraint firstItem="0MQ-X5-vn2" firstAttribute="top" secondItem="2Sc-VC-JmP" secondAttribute="top" id="eKJ-ct-Ajz"/>
+                            <constraint firstItem="0MQ-X5-vn2" firstAttribute="centerY" secondItem="2Sc-VC-JmP" secondAttribute="centerY" id="UI2-lo-eOo"/>
+                            <constraint firstItem="2Sc-VC-JmP" firstAttribute="centerY" secondItem="7Wm-Fz-V97" secondAttribute="centerY" id="eHx-TO-Wtu"/>
                             <constraint firstItem="6hf-gg-ut0" firstAttribute="leading" secondItem="0MQ-X5-vn2" secondAttribute="trailing" constant="5" id="g3S-X6-U4W"/>
                             <constraint firstAttribute="trailing" secondItem="6hf-gg-ut0" secondAttribute="trailing" constant="16" id="hQ0-Od-1S8"/>
                             <constraint firstItem="6hf-gg-ut0" firstAttribute="centerY" secondItem="2Sc-VC-JmP" secondAttribute="centerY" id="k2M-TF-MI5"/>
@@ -74,7 +63,6 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="airlineCodeLabel" destination="Itw-7U-HuN" id="gIh-km-6A2"/>
                 <outlet property="airlineImageView" destination="2Sc-VC-JmP" id="1CC-d4-PPX"/>
                 <outlet property="airlineNameLabel" destination="0MQ-X5-vn2" id="r05-78-glY"/>
                 <outlet property="dimensionButton" destination="6hf-gg-ut0" id="bZH-kO-1Yd"/>

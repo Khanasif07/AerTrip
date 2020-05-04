@@ -19,6 +19,18 @@ class BookingFequentFlyerCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var frequentFlyerView: UIView!
     
     
+    var frequentFlyer: FF? {
+        didSet {
+            self.configureCell()
+        }
+    }
+    
+    var showFrequentFlyerView: Bool = false {
+        didSet {
+            self.mangeFrequentFlyerViewVisibility()
+        }
+    }
+    
     // MARK: - View life cycle
     
     override func awakeFromNib() {
@@ -44,10 +56,15 @@ class BookingFequentFlyerCollectionViewCell: UICollectionViewCell {
     }
     
      private func configureCell() {
+        
         self.frequentFlyerLabel.text = LocalizedString.FrequentFlyer.localized
-        self.airlineNameLabel.text = "Air India - Elite"
-        self.airlineNoLabel.text = "346457568698"
+        self.airlineNameLabel.text = frequentFlyer?.key ?? ""
+        self.airlineNoLabel.text = frequentFlyer?.value ?? ""
         self.airlineIconView.image = #imageLiteral(resourceName: "greenFlightIcon")
         
+    }
+    
+    private func mangeFrequentFlyerViewVisibility() {
+        self.frequentFlyerView.isHidden = !showFrequentFlyerView
     }
 }

@@ -10,30 +10,30 @@ import UIKit
 
 extension FlightBaggageInfoVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.allBaggageCells.count
+        return self.viewModel.allBaggageCells.count + 1
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 60.0
+        return CGFloat.leastNormalMagnitude//60.0
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.headerViewIdentifier) as? BookingInfoHeaderView else { return nil }
-        
-        headerView.tripRougteLabel.text = self.viewModel.legDetails[section].title
-        return headerView
-        
-    }
+    //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    //
+    //        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.headerViewIdentifier) as? BookingInfoHeaderView else { return nil }
+    //
+    //        headerView.tripRougteLabel.text = self.viewModel.legDetails[section].title
+    //        return headerView
+    //
+    //    }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         
-        if self.viewModel.allBaggageCells.count == 1 {
-            return 0
-        } else {
+//        if self.viewModel.allBaggageCells.count == 1 {
+//            return 0
+//        } else {
             return 35.0
-        }
+//        }
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -47,7 +47,12 @@ extension FlightBaggageInfoVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.allBaggageCells[section].count
+        switch section {
+        case self.viewModel.allBaggageCells.count:
+            return 1
+        default:
+            return self.viewModel.allBaggageCells[section].count
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -80,25 +85,6 @@ extension FlightBaggageInfoVC: BaggageAirlineInfoTableViewCellDelegate {
         if let obj = detail?.dimension {
             AppFlowManager.default.presentBaggageInfoVC(dimension: obj)
         }
-    }
-}
-
-// Route Fare info table View cell Delegate methods
-extension FlightBaggageInfoVC: RouteFareInfoTableViewCellDelegate {
-    func viewDetailsButtonTapped(_ sender: UIButton) {
-        printDebug("View Details Button Tapped")
-        if let indexPath = self.tableView.indexPath(forItem: sender) {
-            AppFlowManager.default.presentBookingFareInfoDetailVC(usingFor: .both, forBookingId: self.viewModel.bookingDetail?.id ?? "", legDetails: self.viewModel.bookingDetail?.bookingDetail?.leg[indexPath.section], bookingFee: self.viewModel.bookingFee[indexPath.section])
-        }
-    }
-}
-
-// MARK: - Fare Info header view Delegate
-
-extension FlightBaggageInfoVC: FareInfoHeaderViewDelegate {
-    func fareButtonTapped(_ sender: UIButton) {
-        printDebug("fare info butto n tapped")
-        AppFlowManager.default.presentBookingFareInfoDetailVC(usingFor: .fareRules, forBookingId: self.viewModel.bookingDetail?.id ?? "", legDetails: self.viewModel.bookingDetail?.bookingDetail?.leg.first, bookingFee: self.viewModel.bookingFee.first)
     }
 }
 

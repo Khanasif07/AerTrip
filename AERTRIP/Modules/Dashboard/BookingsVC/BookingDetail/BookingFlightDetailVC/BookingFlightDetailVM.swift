@@ -139,7 +139,7 @@ class BookingDetailVM {
                 }
                 
                 if let nt = flight.baggage?.checkInBg?.notes, !nt.isEmpty {
-                    temp.append(.note)
+                    //temp.append(.note)
                 }
                 
             }

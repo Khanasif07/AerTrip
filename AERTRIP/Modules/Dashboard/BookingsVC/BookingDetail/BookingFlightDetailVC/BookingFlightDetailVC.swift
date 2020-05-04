@@ -93,8 +93,8 @@ class BookingFlightDetailVC: BaseVC {
     private func setupParchmentPageController(){
         
         self.parchmentView = PagingViewController()
-        self.parchmentView?.menuItemSpacing =  self.allTabsStr.count == 2 ? (UIDevice.screenWidth - 273.0) : (UIDevice.screenWidth - 273.0)/2
-        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: self.allTabsStr.count == 2 ? 59.0 : 28.0, bottom: 0.0, right:  self.allTabsStr.count == 2 ? 64.0 : 29.0)
+        self.parchmentView?.menuItemSpacing =  (UIDevice.screenWidth - 273.0)/2
+        self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left:  35.0, bottom: 0.0, right:   35)
         self.parchmentView?.indicatorOptions = PagingIndicatorOptions.visible(height: 2, zIndex: Int.max, spacing: UIEdgeInsets.zero, insets: UIEdgeInsets.zero)
         self.parchmentView?.menuItemSize = .sizeToFit(minWidth: 150, height: 50)
         self.parchmentView?.borderOptions = PagingBorderOptions.visible(
@@ -168,4 +168,12 @@ extension BookingFlightDetailVC : PagingViewControllerDataSource , PagingViewCon
             self.currentIndex = pagingIndexItem.index
         }
     }
+}
+extension BookingFlightDetailVC: BookingDetailVMDelegate {
+    func willGetBookingFees() {}
+
+    func getBookingFeesSuccess() {
+    }
+
+    func getBookingFeesFail() {}
 }

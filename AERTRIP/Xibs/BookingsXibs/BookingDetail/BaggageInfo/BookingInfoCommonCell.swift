@@ -23,6 +23,7 @@ class BookingInfoCommonCell: ATTableViewCell {
     @IBOutlet weak  var middleLabel: UILabel!
     @IBOutlet weak var rightLabel: UILabel!
     
+    @IBOutlet weak var viewTopConstraint: NSLayoutConstraint!
     // MARK: - Variables
     var isForPassenger : Bool = false
     
@@ -34,6 +35,10 @@ class BookingInfoCommonCell: ATTableViewCell {
         self.leftLabel.text = ""
         self.middleLabel.text = ""
         self.rightLabel.text = ""
+        self.leftLabel.attributedText = nil
+        self.middleLabel.attributedText = nil
+        self.rightLabel.attributedText = nil
+
     }
     
     override func awakeFromNib() {
@@ -81,7 +86,7 @@ class BookingInfoCommonCell: ATTableViewCell {
                 rightLabelTxt = LocalizedString.na.localized
             }
             
-            font = AppFonts.Regular.withSize(18.0)
+            font = AppFonts.Regular.withSize(14.0)
         }
         else if usingFor == .child {
             // child
@@ -96,7 +101,7 @@ class BookingInfoCommonCell: ATTableViewCell {
             } else {
                 rightLabelTxt = LocalizedString.na.localized
             }
-            font = AppFonts.Regular.withSize(18.0)
+            font = AppFonts.Regular.withSize(14.0)
         }
         else if usingFor == .infant {
             // infant
@@ -111,7 +116,7 @@ class BookingInfoCommonCell: ATTableViewCell {
             } else {
                 rightLabelTxt = LocalizedString.na.localized
             }
-            font = AppFonts.Regular.withSize(18.0)
+            font = AppFonts.Regular.withSize(14.0)
         } else if usingFor == .title {
             font = AppFonts.Regular.withSize(16.0)
         }
@@ -119,15 +124,31 @@ class BookingInfoCommonCell: ATTableViewCell {
         middleLabel.font = font
         rightLabel.font = font
         
-        if middleLabelTxt == "No Baggage" {
+        if middleLabelTxt == LocalizedString.NoBaggage.localized {
             middleLabel.textColor = AppColors.themeRed
         }
-        if rightLabelTxt == "No Baggage" {
+        if rightLabelTxt == LocalizedString.NoBaggage.localized {
             rightLabel.textColor = AppColors.themeRed
         }
         leftLabel.text = leftLabelTxt
         middleLabel.text = middleLabelTxt
         rightLabel.text = rightLabelTxt
+        
+        if usingFor != .title {
+            
+        middleLabel.AttributedFontColorForText(text: LocalizedString.NoBaggage.localized, textColor: AppColors.themeRed)
+        rightLabel.AttributedFontColorForText(text: LocalizedString.NoBaggage.localized, textColor: AppColors.themeRed)
+            
+        middleLabel.AttributedFontForText(text: middleLabelTxt.components(separatedBy: "(").first ?? "", textFont: AppFonts.SemiBold.withSize(16.0))
+        rightLabel.AttributedFontForText(text: rightLabelTxt.components(separatedBy: "(").first ?? "", textFont: AppFonts.SemiBold.withSize(16.0))
+            
+            middleLabel.AttributedFontForText(text: LocalizedString.NoInfo.localized, textFont: AppFonts.Regular.withSize(14.0))
+            rightLabel.AttributedFontForText(text: LocalizedString.NoInfo.localized, textFont: AppFonts.Regular.withSize(14.0))
+            viewTopConstraint.constant = 8.0
+        } else {
+            viewTopConstraint.constant = 0.0
+        }
+
     }
     
     
@@ -140,21 +161,21 @@ class BookingInfoCommonCell: ATTableViewCell {
         
         
         if weight == "0" || weight == "0 Kg"{
-            return "No Baggage"
+            return LocalizedString.NoBaggage.localized
         }else if weight == "-9"{
-            return "No Info"
+            return LocalizedString.NoInfo.localized
         }else if !weight.isEmpty && max_weight.isEmpty && max_pieces.isEmpty && (pieces == "0 pc" || pieces == "0" || pieces == ""){
             return weight // only weight present
         }else if !pieces.isEmpty && weight.isEmpty && max_weight.isEmpty && max_pieces.isEmpty {
             if pieces == "0 pc" || pieces == "0" {
-                return "No Baggage"
+                return LocalizedString.NoBaggage.localized
             }
             return pieces // only pieces present
         }
         else if !max_weight.isEmpty && !pieces.isEmpty && weight.isEmpty && max_pieces.isEmpty {
             // only max_weight and  pieces present
             if pieces == "0 pc" || pieces == "0" {
-                return "No Baggage"
+                return LocalizedString.NoBaggage.localized
             }
             let pc = pieces.components(separatedBy: " ")
             let weights = max_weight.components(separatedBy: " ")
@@ -166,7 +187,7 @@ class BookingInfoCommonCell: ATTableViewCell {
                         let str2 = " (\(intPieces) pc X \(intmax_weight) kg)"
                         return str1 + str2
                     }else{
-                        return "No Baggage"
+                        return LocalizedString.NoBaggage.localized
                     }
                 }
             }
@@ -184,19 +205,19 @@ class BookingInfoCommonCell: ATTableViewCell {
         let pieces = info.piece
         
         if weight == "0" || weight == "0 Kg"{
-            return "No Baggage"
+            return LocalizedString.NoBaggage.localized
         }else if weight == "-9"{
-            return "No Info"
+            return LocalizedString.NoInfo.localized
         }else if !weight.isEmpty && (pieces == "0 pc" || pieces == "0" || pieces == ""){
             return weight // only weight present
         }else if !pieces.isEmpty && weight.isEmpty {
             if pieces == "0 pc" || pieces == "0" {
-                return "No Baggage"
+                return LocalizedString.NoBaggage.localized
             }
             return pieces // only pieces present
         }else if !pieces.isEmpty && !weight.isEmpty {
             if pieces == "0 pc" || pieces == "0" {
-                return "No Baggage"
+                return LocalizedString.NoBaggage.localized
             }
             
             let pc = pieces.components(separatedBy: " ")
@@ -209,7 +230,7 @@ class BookingInfoCommonCell: ATTableViewCell {
                         let str2 = " (\(intPieces) pc X \(intWeight) kg)"
                         return str1 + str2
                     }else{
-                        return "No Baggage"
+                        return LocalizedString.NoBaggage.localized
                     }
                 }
             }
