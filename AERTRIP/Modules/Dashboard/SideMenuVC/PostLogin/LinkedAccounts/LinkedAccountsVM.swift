@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import LinkedinSwift
+//import LinkedinSwift
 
 protocol LinkedAccountsVMDelegate: class {
     func willFetchLinkedAccount()
@@ -129,7 +129,7 @@ extension LinkedAccountsVM {
     }
     
     func linkedLogin(vc: UIViewController, completionBlock: ((_ success: Bool)->())? ) {
-        
+        /*
         let linkedinHelper = LinkedinSwiftHelper(
             configuration: LinkedinSwiftConfiguration(clientId: AppConstants.linkedIn_Client_Id, clientSecret: AppConstants.linkedIn_ClientSecret, state: AppConstants.linkedIn_States, permissions: AppConstants.linkedIn_Permissions, redirectUrl: AppConstants.linkedIn_redirectUri)
         )
@@ -175,6 +175,7 @@ extension LinkedAccountsVM {
             //User Cancelled!
              completionBlock?(false)
         })
+ */
     }
 }
 

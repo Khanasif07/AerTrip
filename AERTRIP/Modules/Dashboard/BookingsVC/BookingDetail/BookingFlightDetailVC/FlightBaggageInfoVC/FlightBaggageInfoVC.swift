@@ -17,7 +17,7 @@ class FlightBaggageInfoVC: BaseVC {
     // MARK: - Variables
     let headerViewIdentifier = "BookingInfoHeaderView"
     let footerViewIdentifier = "BookingInfoEmptyFooterView"
-    let fareInfoHeaderViewIdentifier = "FareInfoHeaderView"
+    //let fareInfoHeaderViewIdentifier = "FareInfoHeaderView"
     let viewModel = BookingDetailVM()
     
     override func initialSetup() {
@@ -29,7 +29,7 @@ class FlightBaggageInfoVC: BaseVC {
 //            self?.tableView.scrollToRow(at: IndexPath(row: 0, section: self?.viewModel.legSectionTap ?? 0), at: .top, animated: false)
 //        }
         //        self.tableView.backgroundColor = AppColors.themeWhite
-        self.viewModel.getBookingFees()
+//        self.viewModel.getBookingFees()
     }
     
     
@@ -46,7 +46,7 @@ class FlightBaggageInfoVC: BaseVC {
         self.tableView.backgroundColor = AppColors.themeGray04
         
         self.tableView.register(UINib(nibName: self.headerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.headerViewIdentifier)
-        self.tableView.register(UINib(nibName: self.fareInfoHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.fareInfoHeaderViewIdentifier)
+        //self.tableView.register(UINib(nibName: self.fareInfoHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.fareInfoHeaderViewIdentifier)
         self.tableView.register(UINib(nibName: self.footerViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: self.footerViewIdentifier)
         self.tableView.registerCell(nibName: BaggageAirlineInfoTableViewCell.reusableIdentifier)
         self.tableView.registerCell(nibName: FareInfoNoteTableViewCell.reusableIdentifier)

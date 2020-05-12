@@ -7,7 +7,7 @@
 //
 
 import Foundation
-//import PKCategoryView
+
 
 protocol ViewAllHotelsVMDelegate: class {
     func willGetHotelPreferenceList()

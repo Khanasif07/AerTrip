@@ -1,6 +1,8 @@
 #Uncomment the next line to define a global platform for your project
 platform :ios, '11.0'
 
+inhibit_all_warnings!
+
 target 'AERTRIP' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
@@ -14,7 +16,7 @@ target 'AERTRIP' do
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
   pod 'GoogleSignIn'
-  pod 'LinkedinSwift'
+#  pod 'LinkedinSwift'
   pod 'Firebase/Core'
   pod 'Firebase/DynamicLinks'
   pod 'MXParallaxHeader'
@@ -27,7 +29,7 @@ target 'AERTRIP' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'FlexiblePageControl'
-  pod 'PKCategoryView'
+#  pod 'PKCategoryView'
   pod 'Parchment'
   pod 'Shimmer'
   

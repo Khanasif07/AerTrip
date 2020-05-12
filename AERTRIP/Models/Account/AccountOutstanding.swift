@@ -63,10 +63,22 @@ struct OnAccountLedgerEvent {
     
     static func modelsDict(data: [JSONDictionary]) -> JSONDictionary {
         
-        return data.reduce(into: [String:[OnAccountLedgerEvent]]()) {
-            let obj = OnAccountLedgerEvent(json: $1)
-            $0[obj.creationDateStr ?? "", default: [OnAccountLedgerEvent]()].append(obj)
+//        return data.reduce(into: [String:[OnAccountLedgerEvent]]()) {
+//            let obj = OnAccountLedgerEvent(json: $1)
+//
+//            $0[obj.creationDateStr ?? "", default: [OnAccountLedgerEvent]()].append(obj)
+//        }
+        var temp = JSONDictionary()
+        data.forEach { (dict) in
+            let obj = OnAccountLedgerEvent(json: dict)
+            if var array = temp[obj.creationDateStr ?? ""] as? [OnAccountLedgerEvent] {
+                array.append(obj)
+                temp[obj.creationDateStr ?? ""] = array
+            } else {
+                temp[obj.creationDateStr ?? ""] = [obj]
+            }
         }
+        return temp
         
 //        var temp = JSONDictionary()
 //

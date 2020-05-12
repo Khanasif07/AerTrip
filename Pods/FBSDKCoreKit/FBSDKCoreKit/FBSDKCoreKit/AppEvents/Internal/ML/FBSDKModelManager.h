@@ -33,6 +33,9 @@ typedef void (^FBSDKDownloadCompletionBlock)(void);
 + (nullable NSData *)getWeightsForKey:(NSString *)useCase;
 + (nullable NSArray *)getThresholdsForKey:(NSString *)useCase;
 
++ (BOOL)processIntegrity:(nullable NSString *)param;
++ (NSString *)processSuggestedEvents:(NSString *)textFeature denseData:(nullable float *)denseData;
+
 @end
 
 NS_ASSUME_NONNULL_END

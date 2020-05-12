@@ -21,49 +21,71 @@ extension FlightFareInfoVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if let booking = self.viewModel.bookingDetail, !booking.isMultipleFlight(), let fbn = self.viewModel.legDetails[section].flight.first?.fbn {
-            return !fbn.isEmpty ? 114.0 : 74.0
+        if let booking = self.viewModel.bookingDetail, !booking.isMultipleFlight(), let _ = self.viewModel.legDetails[section].flight.first?.fbn {
+            return UITableView.automaticDimension //!fbn.isEmpty ? 114.0 : 74.0
         }
         return 0.0
     }
     
+    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return 100
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        if let booking = self.viewModel.bookingDetail, !booking.isMultipleFlight(), let fbn = self.viewModel.legDetails[section].flight.first?.fbn {
+        if let booking = self.viewModel.bookingDetail, !booking.isMultipleFlight(), let flight = self.viewModel.legDetails[section].flight.first {
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: self.fareInfoHeaderViewIdentifier) as? FareInfoHeaderView else { return nil }
             
-            let titleTxt = fbn
-            headerView.titleLabel.text = titleTxt
-            headerView.dividerView.isHidden = titleTxt.isEmpty
-            
-            headerView.refundPolicyLabel.text = "Refund Policy"
-            headerView.delegate = self
-            headerView.fareRulesButton.setTitle(LocalizedString.FareRules.localized, for: .normal)
-            
-            var infoText = "We do not have information regarding refundability/reschedulability"
-            if let leg = self.viewModel.legDetails.first {
-                if leg.refundable == 1 {
-                    infoText = "Refundable"
-                }
-                else if leg.refundable == -9 {
-                    infoText = LocalizedString.na.localized
-                }
-                else {
-                    infoText = "Non-refundable"
-                }
-                
-                if leg.reschedulable == 1 {
-                    infoText += infoText.isEmpty ? "Reschedulable" : " • Reschedulable"
-                }
-                else if leg.refundable == -9 {
-                    infoText += infoText.isEmpty ? LocalizedString.na.localized : " • \(LocalizedString.na.localized)"
-                }
-                else {
-                    infoText += infoText.isEmpty ? "Non-reschedulable" : " • Non-reschedulable"
-                }
+            let cc = flight.cc
+            let fbn = flight.fbn
+            var bc = flight.bc
+            if bc != ""{
+                bc =  " (" + bc + ")"
+            }
+            var displayTitle = ""
+            if fbn != ""{
+                displayTitle = fbn.capitalized + bc
+            }else{
+                displayTitle = cc.capitalized + bc
             }
             
-            headerView.infoLabel.text = infoText
+            headerView.dividerView.isHidden = false
+            headerView.delegate = self
+            headerView.fareRulesButton.setTitle(LocalizedString.FareRules.localized, for: .normal)
+            if self.viewModel.legDetails.count == 1 {
+                headerView.refundPolicyLabel.text = displayTitle
+                headerView.infoLabel.isHidden = true
+            } else {
+                headerView.refundPolicyLabel.text = (flight.departure) + " → " + (flight.arrival)
+                headerView.infoLabel.text = displayTitle
+                headerView.infoLabel.isHidden = false
+            }
+            
+            
+//            var infoText = "We do not have information regarding refundability/reschedulability"
+//            if let leg = self.viewModel.legDetails.first {
+//                if leg.refundable == 1 {
+//                    infoText = "Refundable"
+//                }
+//                else if leg.refundable == -9 {
+//                    infoText = LocalizedString.na.localized
+//                }
+//                else {
+//                    infoText = "Non-refundable"
+//                }
+//
+//                if leg.reschedulable == 1 {
+//                    infoText += infoText.isEmpty ? "Reschedulable" : " • Reschedulable"
+//                }
+//                else if leg.refundable == -9 {
+//                    infoText += infoText.isEmpty ? LocalizedString.na.localized : " • \(LocalizedString.na.localized)"
+//                }
+//                else {
+//                    infoText += infoText.isEmpty ? "Non-reschedulable" : " • Non-reschedulable"
+//                }
+//            }
+            
+//            headerView.infoLabel.text = infoText
             
             return headerView
         }

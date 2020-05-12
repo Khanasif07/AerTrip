@@ -966,6 +966,8 @@ struct FlightDetail {
     var changeOfPlane: Int = 0
     var bookingClass: String = ""
     var fbn: String = ""
+    var cc: String = ""
+    var bc: String = ""
     var halt: [Halt] = []
     var amenities: [ATAmenity] = []
     var ovgtf:Bool = false
@@ -1179,6 +1181,14 @@ struct FlightDetail {
         
         if let obj = json["fbn"] {
             self.fbn = "\(obj)".removeNull
+        }
+        
+        if let obj = json["cc"] {
+            self.cc = "\(obj)".removeNull
+        }
+        
+        if let obj = json["bc"] {
+            self.bc = "\(obj)".removeNull
         }
         
         // Parse the halt data

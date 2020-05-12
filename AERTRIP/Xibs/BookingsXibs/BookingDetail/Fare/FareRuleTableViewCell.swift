@@ -91,20 +91,6 @@ extension FareRuleTableViewCell: WKNavigationDelegate {
 //        }
         //webView.scalesPageToFit = true
     }
-//    func webViewDidFinishLoad(webView: UIWebView) {
-//        //webview height
-//        webView.frame.size.height = 1
-//        webView.frame.size = webView.sizeThatFits(.zero)
-//        webView.scrollView.isScrollEnabled = false
-//        let height = webView.stringByEvaluatingJavaScript(from: "document.body.scrollHeight")
-//        if let height = height {
-//            if let heightInt = Int(height) {
-//                let heightFloat = Float(heightInt)
-//
-//                webViewHeightConstraint.constant = CGFloat(heightFloat)
-//            }
-//        }
-//        webView.scalesPageToFit = true
-//    }
+
     
 }

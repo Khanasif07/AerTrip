@@ -33,10 +33,10 @@ struct BookingFeeDetail {
     
     
     
-    var aerlineCanCharges: Charges?
+    var aerlineCanCharges: AerlineCharge?
     var aertripCanCharges: Charges?
     
-    var aerlineResCharges: Charges?
+    var aerlineResCharges: AerlineCharge?
     var aertripResCharges: Charges?
     var legId: [String] = []
     var rfd:Bool = false
@@ -47,7 +47,7 @@ struct BookingFeeDetail {
 
         if let can = json["cp"] as? JSONDictionary {
             if let obj = can["SPCFEE"] as? JSONDictionary {
-                self.aerlineCanCharges = Charges(json: obj)
+                self.aerlineCanCharges = AerlineCharge(json: obj)
             }
             if let obj = can["SUCFEE"] as? JSONDictionary {
                 self.aertripCanCharges = Charges(json: obj)
@@ -56,7 +56,7 @@ struct BookingFeeDetail {
         
         if let res = json["rscp"] as? JSONDictionary {
             if let obj = res["SPRFEE"] as? JSONDictionary {
-                self.aerlineResCharges = Charges(json: obj)
+                self.aerlineResCharges = AerlineCharge(json: obj)
             }
             if let obj = res["SURFEE"] as? JSONDictionary {
                 self.aertripResCharges = Charges(json: obj)
@@ -77,7 +77,7 @@ struct BookingFeeDetail {
     }
 }
 
-struct SPRFEE {
+struct AerlineCharge {
     var adult: [FEE]?
     var child: [FEE]?
     var infant: [FEE]?

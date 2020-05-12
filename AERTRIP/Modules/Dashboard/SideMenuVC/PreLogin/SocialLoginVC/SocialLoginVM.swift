@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import LinkedinSwift
+//import LinkedinSwift
 
 protocol SocialLoginVMDelegate: class {
     
@@ -91,7 +91,7 @@ class SocialLoginVM {
     }
     
     func linkedLogin(vc: UIViewController) {
-        
+        /*
         let linkedinHelper = LinkedinSwiftHelper(
             configuration: LinkedinSwiftConfiguration(clientId: AppConstants.linkedIn_Client_Id, clientSecret: AppConstants.linkedIn_ClientSecret, state: AppConstants.linkedIn_States, permissions: AppConstants.linkedIn_Permissions, redirectUrl: AppConstants.linkedIn_redirectUri)
         )
@@ -137,6 +137,7 @@ class SocialLoginVM {
             //User Cancelled!
 //            completionBlock?(false)
         })
+ */
     }
 }
 

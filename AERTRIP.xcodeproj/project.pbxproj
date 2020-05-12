@@ -540,6 +540,8 @@
 		84100A9122391B60006A05EC /* ContactTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84100A8F22391B60006A05EC /* ContactTableCell.xib */; };
 		84100A9422392E3F006A05EC /* FareUpdatedPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84100A9322392E3F006A05EC /* FareUpdatedPopUpVC.swift */; };
 		8410421D21DE33B7002B4C1F /* ATSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8410421C21DE33B7002B4C1F /* ATSearchBar.swift */; };
+		8411E17724699D4600F8D4AE /* FareInfoCommonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8411E17524699D4600F8D4AE /* FareInfoCommonCell.swift */; };
+		8411E17824699D4600F8D4AE /* FareInfoCommonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8411E17624699D4600F8D4AE /* FareInfoCommonCell.xib */; };
 		8411E8D6222ED76300C93C0B /* HotelFilterResultFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8411E8D4222ED76300C93C0B /* HotelFilterResultFooterView.xib */; };
 		8411E8D7222ED76300C93C0B /* HotelFilterResultFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8411E8D5222ED76300C93C0B /* HotelFilterResultFooterView.swift */; };
 		8417772C223F6DF700DAC087 /* hotelsSearch.csv in Resources */ = {isa = PBXBuildFile; fileRef = 8417772B223F6DF600DAC087 /* hotelsSearch.csv */; };
@@ -1624,6 +1626,8 @@
 		84100A8F22391B60006A05EC /* ContactTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactTableCell.xib; sourceTree = "<group>"; };
 		84100A9322392E3F006A05EC /* FareUpdatedPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FareUpdatedPopUpVC.swift; sourceTree = "<group>"; };
 		8410421C21DE33B7002B4C1F /* ATSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATSearchBar.swift; sourceTree = "<group>"; };
+		8411E17524699D4600F8D4AE /* FareInfoCommonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FareInfoCommonCell.swift; sourceTree = "<group>"; };
+		8411E17624699D4600F8D4AE /* FareInfoCommonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FareInfoCommonCell.xib; sourceTree = "<group>"; };
 		8411E8D4222ED76300C93C0B /* HotelFilterResultFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotelFilterResultFooterView.xib; sourceTree = "<group>"; };
 		8411E8D5222ED76300C93C0B /* HotelFilterResultFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelFilterResultFooterView.swift; sourceTree = "<group>"; };
 		8417772B223F6DF600DAC087 /* hotelsSearch.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hotelsSearch.csv; sourceTree = "<group>"; };
@@ -2687,6 +2691,8 @@
 				182EB217228580B5001BFB20 /* EmptyDividerViewCellTableViewCell.xib */,
 				182EB21A2285817F001BFB20 /* FareInfoNoteTableViewCell.swift */,
 				182EB21B2285817F001BFB20 /* FareInfoNoteTableViewCell.xib */,
+				8411E17524699D4600F8D4AE /* FareInfoCommonCell.swift */,
+				8411E17624699D4600F8D4AE /* FareInfoCommonCell.xib */,
 			);
 			path = FareInfo;
 			sourceTree = "<group>";
@@ -5902,7 +5908,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Pramod Kumar";
 				TargetAttributes = {
 					8469FE8E21B513FD0027BB2E = {
@@ -6092,6 +6098,7 @@
 				84B1405F22A166C900EAA5D2 /* FlightBookingRequestsTableViewCell.xib in Resources */,
 				840DDE8D220D764800F8BA92 /* HotelDetailsImgSlideCell.xib in Resources */,
 				180E7C0E223205D5005FAEA9 /* EmailComposerFooterView.xib in Resources */,
+				8411E17824699D4600F8D4AE /* FareInfoCommonCell.xib in Resources */,
 				84EEA5D523E19E0C008B95CD /* EditProfileFooterTableView.xib in Resources */,
 				0CBDEA442429CD3F009D7849 /* TypingStatusChatCell.xib in Resources */,
 				1F4636D021F5ABF0000D56B0 /* CheckInOutView.xib in Resources */,
@@ -6986,6 +6993,7 @@
 				849D379B22893A4B00763AD8 /* AccountOfflineDepositVC+DelegateMethods.swift in Sources */,
 				188290602238D51A0000C118 /* GuestDetailTableViewCell.swift in Sources */,
 				84F983D421B51A070018DFED /* ArrayExtension.swift in Sources */,
+				8411E17724699D4600F8D4AE /* FareInfoCommonCell.swift in Sources */,
 				18E39E952404F78800A0E023 /* HotelMapVC+AppleMap.swift in Sources */,
 				1896D5942209538B003FC2B6 /* MultiSlider.swift in Sources */,
 				1809A47F21CDFE850018AB2F /* EditProfileTwoPartTableViewCell.swift in Sources */,
@@ -7239,13 +7247,12 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 38;
+				CURRENT_PROJECT_VERSION = 52;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/ActiveLabel\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth\"",
@@ -7263,13 +7270,10 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransport\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransportCCTSupport\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/IOSLinkedInAPIFix\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManager\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/LinkedinSwift\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/MXParallaxHeader\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/MiniLayout\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/PKCategoryView\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PKLoader\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PhoneNumberKit\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\"",
@@ -7298,8 +7302,6 @@
 					"-l\"c++\"",
 					"-l\"sqlite3\"",
 					"-l\"z\"",
-					"-framework",
-					"\"AFNetworking\"",
 					"-framework",
 					"\"Accelerate\"",
 					"-framework",
@@ -7367,15 +7369,11 @@
 					"-framework",
 					"\"GoogleUtilities\"",
 					"-framework",
-					"\"IOSLinkedInAPIFix\"",
-					"-framework",
 					"\"IQKeyboardManager\"",
 					"-framework",
 					"\"ImageIO\"",
 					"-framework",
 					"\"Kingfisher\"",
-					"-framework",
-					"\"LinkedinSwift\"",
 					"-framework",
 					"\"LocalAuthentication\"",
 					"-framework",
@@ -7388,8 +7386,6 @@
 					"\"MobileCoreServices\"",
 					"-framework",
 					"\"OpenGLES\"",
-					"-framework",
-					"\"PKCategoryView\"",
 					"-framework",
 					"\"PKLoader\"",
 					"-framework",
@@ -7460,13 +7456,12 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 38;
+				CURRENT_PROJECT_VERSION = 52;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/ActiveLabel\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth\"",
@@ -7483,13 +7478,10 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransport\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransportCCTSupport\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/IOSLinkedInAPIFix\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardManager\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/LinkedinSwift\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/MXParallaxHeader\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/MiniLayout\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/PKCategoryView\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PKLoader\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/PhoneNumberKit\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON\"",
@@ -7519,8 +7511,6 @@
 					"-l\"c++\"",
 					"-l\"sqlite3\"",
 					"-l\"z\"",
-					"-framework",
-					"\"AFNetworking\"",
 					"-framework",
 					"\"Accelerate\"",
 					"-framework",
@@ -7588,15 +7578,11 @@
 					"-framework",
 					"\"GoogleUtilities\"",
 					"-framework",
-					"\"IOSLinkedInAPIFix\"",
-					"-framework",
 					"\"IQKeyboardManager\"",
 					"-framework",
 					"\"ImageIO\"",
 					"-framework",
 					"\"Kingfisher\"",
-					"-framework",
-					"\"LinkedinSwift\"",
 					"-framework",
 					"\"LocalAuthentication\"",
 					"-framework",
@@ -7609,8 +7595,6 @@
 					"\"MobileCoreServices\"",
 					"-framework",
 					"\"OpenGLES\"",
-					"-framework",
-					"\"PKCategoryView\"",
 					"-framework",
 					"\"PKLoader\"",
 					"-framework",

@@ -13,7 +13,7 @@ import FBSDKLoginKit
 import Firebase
 import GoogleMaps
 import GoogleSignIn
-import LinkedinSwift
+//import LinkedinSwift
 import FirebaseDynamicLinks
 import UIKit
 
@@ -133,10 +133,11 @@ import UIKit
         else if url.scheme?.lowercased() == AppConstants.googleUrl {
             return GIDSignIn.sharedInstance().handle(url)
         }
+            /*
         else if LinkedinSwiftHelper.shouldHandle(url) {
             return LinkedinSwiftHelper.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
         }
-        
+        */
         return true
     }
 }

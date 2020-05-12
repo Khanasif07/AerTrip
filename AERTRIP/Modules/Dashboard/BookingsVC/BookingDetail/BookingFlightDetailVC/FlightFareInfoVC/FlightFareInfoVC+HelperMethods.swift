@@ -9,44 +9,44 @@
 import Foundation
 extension FlightFareInfoVC {
 
-    func getCancelChargesCount(charge: BookingFeeDetail.Charges?) -> Int {
+    func getCancelChargesCount(charge: AerlineCharge?) -> Int {
         var temp = 0
         guard let can = charge else {
             return temp
         }
         temp += 1 // headers
 
-        if let _ = can.adult {
-            temp += 1
+        if let adult = can.adult {
+            temp += adult.count//1
         }
-        if let _ = can.child {
-            temp += 1
-        }
-        if let _ = can.infant {
-            temp += 1
-        }
+//        if let _ = can.child {
+//            temp += 1
+//        }
+//        if let _ = can.infant {
+//            temp += 1
+//        }
 
         temp += 1 // blank space
 
         return temp
     }
 
-    func getResChargesCount(charge: BookingFeeDetail.Charges?) -> Int {
+    func getResChargesCount(charge: AerlineCharge?) -> Int {
         var temp = 0
         guard let res = charge else {
             return temp
         }
         temp += 1 // headers
 
-        if let _ = res.adult {
-            temp += 1
+        if let adult = res.adult {
+            temp += adult.count//1
         }
-        if let _ = res.child {
-            temp += 1
-        }
-        if let _ = res.infant {
-            temp += 1
-        }
+//        if let _ = res.child {
+//            temp += 1
+//        }
+//        if let _ = res.infant {
+//            temp += 1
+//        }
 
         return temp
     }
@@ -76,12 +76,11 @@ extension FlightFareInfoVC {
             fatalError("BookingInfoCommonCell not found")
         }
         
-        commonCell.middleLabel.font = AppFonts.Regular.withSize(16.0)
         commonCell.rightLabel.font = AppFonts.Regular.withSize(16.0)
         
         commonCell.leftLabel.text = type
-        commonCell.middleLabel.attributedText = aerlineFee.toDouble.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
-        commonCell.rightLabel.attributedText = aertripFee.toDouble.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
+        let final = aerlineFee.toDouble.amountInDelimeterWithSymbol + " + " + aertripFee.toDouble.amountInDelimeterWithSymbol
+        commonCell.rightLabel.attributedText = final.asStylizedPrice(using: AppFonts.Regular.withSize(16.0))
         return commonCell
     }
     
@@ -90,12 +89,10 @@ extension FlightFareInfoVC {
             fatalError("BookingInfoCommonCell not found")
         }
 
-        commonCell.middleLabel.font = AppFonts.SemiBold.withSize(16.0)
         commonCell.rightLabel.font = AppFonts.SemiBold.withSize(16.0)
 
         commonCell.leftLabel.text = type
-        commonCell.middleLabel.text = aerline
-        commonCell.rightLabel.text = aertrip
+        commonCell.rightLabel.text =  aerline + " + " + aertrip
         return commonCell
     }
     
@@ -177,11 +174,15 @@ extension FlightFareInfoVC {
                 }
                 else if indexPath.row == 1, let val = can.adult {
                     // adult csz
-                    finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Adult", aerlineFee: val, aertripFee: info.aertripCanCharges?.adult ?? 0)
+                    finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Adult", aerlineFee: val.reduce(0, { (result, object) -> Int in
+                        return result + (object.value ?? 0)
+                    }), aertripFee: info.aertripCanCharges?.adult ?? 0)
                 }
                 else if indexPath.row <= 2, let val = can.child {
                     // Child
-                    finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Child", aerlineFee: val, aertripFee: info.aertripCanCharges?.child ?? 0)
+                    finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Child", aerlineFee: val.reduce(0, { (result, object) -> Int in
+                        return result + (object.value ?? 0)
+                    }), aertripFee: info.aertripCanCharges?.child ?? 0)
                 }
                 else if indexPath.row <= 3, let val = can.infant {
                     if indexPath.row == 3 {
@@ -190,7 +191,9 @@ extension FlightFareInfoVC {
                     }
                     else {
                         // infant
-                        finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Infant", aerlineFee: val, aertripFee: info.aertripCanCharges?.infant ?? 0)
+                        finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Infant", aerlineFee: val.reduce(0, { (result, object) -> Int in
+                            return result + (object.value ?? 0)
+                        }), aertripFee: info.aertripCanCharges?.infant ?? 0)
                     }
                 }
                 else if indexPath.row == (self.getCancelChargesCount(charge: info.aerlineCanCharges) - 1) {
@@ -209,11 +212,15 @@ extension FlightFareInfoVC {
                     }
                     else if newIndex == 1, let val = res.adult {
                         // adult
-                        finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Adult", aerlineFee: val, aertripFee: info.aertripResCharges?.adult ?? 0)
+                        finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Adult", aerlineFee: val.reduce(0, { (result, object) -> Int in
+                            return result + (object.value ?? 0)
+                        }), aertripFee: info.aertripResCharges?.adult ?? 0)
                     }
                     else if newIndex <= 2, let val = res.child {
                         // Child
-                        finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Child", aerlineFee: val, aertripFee: info.aertripResCharges?.child ?? 0)
+                        finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Child", aerlineFee: val.reduce(0, { (result, object) -> Int in
+                            return result + (object.value ?? 0)
+                        }), aertripFee: info.aertripResCharges?.child ?? 0)
                     }
                     else if newIndex <= 3, let val = res.infant {
                         if newIndex == 3 {
@@ -222,7 +229,9 @@ extension FlightFareInfoVC {
                         }
                         else {
                             // infant
-                            finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Infant", aerlineFee: val, aertripFee: info.aertripResCharges?.infant ?? 0)
+                            finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Per Infant", aerlineFee: val.reduce(0, { (result, object) -> Int in
+                                return result + (object.value ?? 0)
+                            }), aertripFee: info.aertripResCharges?.infant ?? 0)
                         }
                     }
                     else if newIndex > 0 {
@@ -273,11 +282,15 @@ extension FlightFareInfoVC {
             
         case 2:
             // cancelation
-            finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Cancellation", aerlineFee: self.viewModel.bookingFee[indexPath.section].aerlineCanCharges?.adult ?? 0, aertripFee: self.viewModel.bookingFee[indexPath.section].aertripCanCharges?.adult ?? 0)
+            finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Cancellation", aerlineFee: self.viewModel.bookingFee[indexPath.section].aerlineCanCharges?.adult?.reduce(0, { (result, object) -> Int in
+                return result + (object.value ?? 0)
+            }) ?? 0, aertripFee: self.viewModel.bookingFee[indexPath.section].aertripCanCharges?.adult ?? 0)
             
         case 3:
             // reschdule
-            finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Rescheduling", aerlineFee: self.viewModel.bookingFee[indexPath.section].aerlineResCharges?.adult ?? 0, aertripFee: self.viewModel.bookingFee[indexPath.section].aertripResCharges?.adult ?? 0)
+            finalCell = self.getFeeDetailsCell(indexPath: indexPath, type: "Rescheduling", aerlineFee: self.viewModel.bookingFee[indexPath.section].aerlineResCharges?.adult?.reduce(0, { (result, object) -> Int in
+                return result + (object.value ?? 0)
+            }) ?? 0, aertripFee: self.viewModel.bookingFee[indexPath.section].aertripResCharges?.adult ?? 0)
             
         default:
             return finalCell

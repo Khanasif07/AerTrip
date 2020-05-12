@@ -16,7 +16,6 @@ class FareInfoHeaderView: UITableViewHeaderFooterView {
     
     
     // MARK: - IB Outlets
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var refundPolicyLabel: UILabel!
     @IBOutlet weak var fareRulesButton: UIButton!
     @IBOutlet weak var dividerView: ATDividerView!
@@ -36,7 +35,6 @@ class FareInfoHeaderView: UITableViewHeaderFooterView {
     
     
     private func setUpFont() {
-        self.titleLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.refundPolicyLabel.font = AppFonts.SemiBold.withSize(18.0)
         self.infoLabel.font = AppFonts.Regular.withSize(16.0)
         self.fareRulesButton.titleLabel?.font = AppFonts.SemiBold.withSize(16.0)
@@ -44,9 +42,8 @@ class FareInfoHeaderView: UITableViewHeaderFooterView {
     }
     
     private func setUpColor() {
-        self.titleLabel.textColor = AppColors.themeBlack
         self.refundPolicyLabel.textColor = AppColors.themeBlack
-        self.infoLabel.textColor = AppColors.themeGray40
+        self.infoLabel.textColor = AppColors.themeBlack
         self.fareRulesButton.setTitleColor(AppColors.themeGreen, for: .normal)
     }
     
