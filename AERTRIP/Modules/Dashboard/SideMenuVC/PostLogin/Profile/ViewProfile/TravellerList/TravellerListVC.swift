@@ -58,7 +58,7 @@ class TravellerListVC: BaseVC {
     private var selectedTravller: [TravellerData] = []
     private var tableDataArray: [[TravellerData]] = []
     private var tableSectionArray = [String]()
-
+    
     var container: NSPersistentContainer!
     var fetchedResultsController: NSFetchedResultsController<TravellerData>!
     var predicateStr: String = ""
@@ -89,6 +89,7 @@ class TravellerListVC: BaseVC {
         loadSavedData()
         doInitialSetUp()
         registerXib()
+        self.tableView.tableFooterView = UIView(frame: .zero)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,11 +104,11 @@ class TravellerListVC: BaseVC {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
+        
         statusBarStyle = .default
         self.view.endEditing(true)
-
-
+        
+        
         if  self.isMovingFromParent {
             self.topNavView.backgroundType = .clear
         }
@@ -181,7 +182,7 @@ class TravellerListVC: BaseVC {
             topNavView.configureNavBar(title: title, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false)
             topNavView.configureLeftButton(normalTitle: LocalizedString.SelectAll.localized, selectedTitle: LocalizedString.DeselectAll.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
             topNavView.configureFirstRightButton(normalTitle: LocalizedString.Done.localized, selectedTitle: LocalizedString.Done.localized, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
-             topNavView.firstRightButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
+            topNavView.firstRightButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
         } else {
             topNavView.configureNavBar(title: LocalizedString.TravellerList.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: true, isDivider: false)
             topNavView.configureLeftButton(normalImage:  #imageLiteral(resourceName: "backGreen"), selectedImage:  #imageLiteral(resourceName: "backGreen"))
@@ -295,7 +296,7 @@ class TravellerListVC: BaseVC {
         travellerListHeaderView.bottomView.isHidden = true
         
         if let sections = self.fetchedResultsController.sections {
-         travellerListHeaderView.bottomView.isHidden = sections.count == 0 ? false : true
+            travellerListHeaderView.bottomView.isHidden = sections.count == 0 ? false : true
         }
         tableView.tableHeaderView = travellerListHeaderView
         bottomView.isHidden = true
@@ -334,7 +335,7 @@ class TravellerListVC: BaseVC {
             travellerListHeaderView.profileImageView.image = UserInfo.loggedInUser?.profileImagePlaceholder()
         }
         if let sections =  self.fetchedResultsController.sections {
-         travellerListHeaderView.bottomView.isHidden = sections.count == 0 ? false : true
+            travellerListHeaderView.bottomView.isHidden = sections.count == 0 ? false : true
         }
     }
     
@@ -401,7 +402,7 @@ class TravellerListVC: BaseVC {
                 fetchRequest.sortDescriptors = [NSSortDescriptor(key: "firstNameSorting", ascending: true, selector: #selector(NSString.caseInsensitiveCompare)),NSSortDescriptor(key: "lastNameSorting", ascending: true, selector: #selector(NSString.caseInsensitiveCompare))]
                 fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.managedObjectContext, sectionNameKeyPath: "firstNameFirstChar", cacheName: nil)
             }
-           
+            
         }
         fetchedResultsController.delegate = self
         
@@ -448,12 +449,12 @@ class TravellerListVC: BaseVC {
     }
     
     private func getSearchPredicates() -> NSPredicate {
-//        let firstName = NSPredicate(format: "firstName CONTAINS[c] '\(predicateStr)'")
-//        let lastName = NSPredicate(format: "lastName CONTAINS[c] '\(predicateStr)'")
+        //        let firstName = NSPredicate(format: "firstName CONTAINS[c] '\(predicateStr)'")
+        //        let lastName = NSPredicate(format: "lastName CONTAINS[c] '\(predicateStr)'")
         let lastName = NSPredicate(format: "fullName CONTAINS[c] '\(predicateStr)'")
-
         
-       // return NSCompoundPredicate(orPredicateWithSubpredicates: [firstName, lastName])
+        
+        // return NSCompoundPredicate(orPredicateWithSubpredicates: [firstName, lastName])
         return lastName
     }
     
@@ -548,9 +549,9 @@ extension TravellerListVC: TopNavigationViewDelegate {
 
 extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-//        guard let sections = self.fetchedResultsController.sections else {
-//            fatalError("No sections in fetchedResultsController")
-//        }
+        //        guard let sections = self.fetchedResultsController.sections else {
+        //            fatalError("No sections in fetchedResultsController")
+        //        }
         if isSelectMode {
             bottomView.isHidden = self.tableSectionArray.isEmpty
             bottomBackgroundView.isHidden = self.tableSectionArray.isEmpty
@@ -562,9 +563,9 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        guard let sections = self.fetchedResultsController.sections else {
-//            fatalError("No sections in fetchedResultsController")
-//        }
+        //        guard let sections = self.fetchedResultsController.sections else {
+        //            fatalError("No sections in fetchedResultsController")
+        //        }
         let sectionInfo = tableDataArray[section]
         return sectionInfo.count
     }
@@ -585,13 +586,15 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         //let data = fetchedResultsController.object(at: indexPath)
         configureCell(cell: cell, travellerData: data)
         cell.tintColor = AppColors.themeGreen
+        cell.selectionStyle = .gray
         let backView = UIView(frame: cell.contentView.bounds)
         backView.tag = 1
         backView.backgroundColor = AppColors.themeWhite
         cell.selectedBackgroundView = backView
+        
         return cell
     }
-
+    
     private func configureCell(cell: UITableViewCell, travellerData: TravellerData?) {
         cell.imageView?.image = travellerData?.salutationImage
         cell.imageView?.image = AppGlobals.shared.getEmojiIcon(dob: travellerData?.dob ?? "", salutation: travellerData?.salutation ?? "", dateFormatter: "yyyy-MM-dd")
@@ -604,9 +607,9 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         
         let firstName = travellerData?.firstName ?? ""
         let lastName = travellerData?.lastName ?? ""
-//        guard  let firstName = travellerData?.firstName, let lastName = travellerData?.lastName else {
-//            return
-//        }
+        //        guard  let firstName = travellerData?.firstName, let lastName = travellerData?.lastName else {
+        //            return
+        //        }
         
         
         // add a UILabel for Age string
@@ -628,22 +631,25 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
             let boldTextAttributed = getAttributedBoldText(text: "\(firstName) \(lastName)", boldText: boldText)
             cell.textLabel?.attributedText = boldTextAttributed
         }
-        
-        if let trav = travellerData, self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {
-            cell.setSelected(true, animated: false)
-            
-        } else {
-            cell.setSelected(false, animated: false)
+        if isSelectMode {
+            if let trav = travellerData, self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {
+                cell.setSelected(true, animated: false)
+                
+            } else {
+                cell.setSelected(false, animated: false)
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        let trav = fetchedResultsController.object(at: indexPath)
-        let section = tableDataArray[indexPath.section]
-        let trav = section[indexPath.row]
-        if self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {
-            cell.setSelected(true, animated: false)
-            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+        if isSelectMode {
+            //        let trav = fetchedResultsController.object(at: indexPath)
+            let section = tableDataArray[indexPath.section]
+            let trav = section[indexPath.row]
+            if self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {
+                cell.setSelected(true, animated: false)
+                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            }
         }
     }
     
@@ -656,9 +662,9 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
             
             _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.TheseContactsWillBeDeletedFromTravellersList.localized, sourceView: view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { [weak self] (_, index) in
                 guard let weakSelf = self else {return}
-//                let traveller = weakSelf.fetchedResultsController.object(at: indexPath)
+                //                let traveller = weakSelf.fetchedResultsController.object(at: indexPath)
                 let section = weakSelf.tableDataArray[indexPath.section]
-                   let traveller = section[indexPath.row]
+                let traveller = section[indexPath.row]
                 weakSelf.viewModel.paxIds.append(traveller.id ?? "")
                 weakSelf.selectedTravller.append(traveller)
                 weakSelf.viewModel.callDeleteTravellerAPI()
@@ -672,11 +678,11 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
             return []
         } else {
-//            guard let sections = self.fetchedResultsController.sections else {
-//                return []
-//            }
-//
-//            let all = ["#","A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+            //            guard let sections = self.fetchedResultsController.sections else {
+            //                return []
+            //            }
+            //
+            //            let all = ["#","A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
             return self.tableSectionArray//sections.isEmpty ? [] : all
         }
     }
@@ -685,9 +691,9 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: tableViewHeaderCellIdentifier) as? TravellerListTableViewSectionView else {
             return nil
         }
-//        guard let sections = fetchedResultsController.sections else {
-//            return nil
-//        }
+        //        guard let sections = fetchedResultsController.sections else {
+        //            return nil
+        //        }
         if UserInfo.loggedInUser?.generalPref?.categorizeByGroup ?? false {
             
             if let prio = self.tableSectionArray[section].toInt, let title = UserInfo.loggedInUser?.generalPref?.labelsWithPriority.someKey(forValue: prio) {
@@ -705,8 +711,11 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         let section = tableDataArray[indexPath.section]
         let current = section[indexPath.row]
         if isSelectMode {
+            if let cell = self.tableView.cellForRow(at: indexPath) {
+                cell.selectedBackgroundView?.backgroundColor = AppColors.themeWhite
+            }
             tableView.separatorStyle = .singleLine
-//            let current = fetchedResultsController.object(at: indexPath)
+            //            let current = fetchedResultsController.object(at: indexPath)
             if !selectedTravller.contains(where: { ($0.id ?? "") == (current.id ?? "") }) {
                 selectedTravller.append(current)
                 if let sections = self.fetchedResultsController.sections {
@@ -719,8 +728,12 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
             }
             updateNavView()
         } else {
-            tableView.reloadSection(section: indexPath.section, with: .none)
+            if let cell = self.tableView.cellForRow(at: indexPath) {
+                cell.selectedBackgroundView?.backgroundColor = AppColors.themeGray10
+            }
+            //tableView.reloadSection(section: indexPath.section, with: .none)
             AppFlowManager.default.moveToViewProfileDetailVC(current.travellerDetailModel, usingFor: .travellerList)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
         shouldHitAPI = false
         self.travellerIdToDelete = current.id ?? ""
@@ -730,7 +743,10 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         
         if isSelectMode {
-//            let current = fetchedResultsController.object(at: indexPath)
+            if let cell = self.tableView.cellForRow(at: indexPath) {
+                cell.selectedBackgroundView?.backgroundColor = AppColors.themeWhite
+            }
+            //            let current = fetchedResultsController.object(at: indexPath)
             let section = tableDataArray[indexPath.section]
             let current = section[indexPath.row]
             if let index = selectedTravller.firstIndex(where: { ($0.id ?? "") == (current.id ?? "") }) {
@@ -739,6 +755,10 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
             }
             
             updateNavView()
+        } else {
+            if let cell = self.tableView.cellForRow(at: indexPath) {
+                cell.selectedBackgroundView?.backgroundColor = AppColors.themeWhite
+            }
         }
     }
     

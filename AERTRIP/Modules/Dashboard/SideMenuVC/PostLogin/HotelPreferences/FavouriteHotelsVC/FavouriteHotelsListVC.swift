@@ -97,7 +97,7 @@ extension FavouriteHotelsListVC: UICollectionViewDataSource, UICollectionViewDel
             
             cell.hotelData = self.viewModel.hotels[indexPath.item]
             cell.containerTopConstraint.constant = (indexPath.item == 0) ? 16.0 : 5.0
-            cell.containerBottomConstraint.constant = 5.0
+            cell.containerBottomConstraint.constant = (indexPath.item == (self.viewModel.hotels.count - 1)) ? 11.0 : 5.0
             cell.delegate = self
             return cell
         }
@@ -105,11 +105,19 @@ extension FavouriteHotelsListVC: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == 1 {
-            let height = indexPath.item == 0 ? 76.0 : 35.0
+            let height = indexPath.item == 0 ? 70.0 : 35.0
             return CGSize(width: UIDevice.screenWidth, height: CGFloat(height))
         }
         else {
-            let height = (indexPath.item == 0) ? 214.0 : 203.0
+            var height = 203.0
+            if (indexPath.item == 0) && (indexPath.item == (self.viewModel.hotels.count - 1)) {
+                height = 220
+            }
+            else if (indexPath.item == 0)  {
+                height = 214.0
+            } else if (indexPath.item == (self.viewModel.hotels.count - 1)) {
+               height = 209.0
+            }
             return CGSize(width: UIDevice.screenWidth, height: CGFloat(height))
         }
     }

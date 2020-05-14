@@ -45,6 +45,9 @@ class CreateProfileVC: BaseVC {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var verticalDividerView: UIView!
     @IBOutlet weak var switchParentContainerView: UIView!
+    @IBOutlet weak var mobileNoseperatorView: ATDividerView!
+
+    
     //MARK:- ViewLifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -73,9 +76,6 @@ class CreateProfileVC: BaseVC {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
-        self.letsStartedButton.layer.cornerRadius = self.letsStartedButton.height/2
-        //self.letsStartedButton.layer.masksToBounds = true
     }
     
     override func bindViewModel() {
@@ -181,7 +181,9 @@ private extension CreateProfileVC {
         self.lastNameTextField.hintYPadding = 12.0
         self.lastNameTextField.titleYPadding = 12.0
         self.countryTextField.titleYPadding = 2.0
-
+        
+        self.mobileNoseperatorView.defaultBackgroundColor = self.countryTextField.lineColor
+        self.mobileNoseperatorView.defaultHeight = self.countryTextField.lineView.height
         //self.countryTextField.lineViewBottomSpace = 4.0
         self.topNavBar.configureNavBar(title: "", isDivider: false, backgroundType: .clear)
         self.topNavBar.delegate = self
@@ -198,6 +200,7 @@ private extension CreateProfileVC {
         if let currentCountry = PKCountryPicker.default.getCurrentLocalCountryData() {
             self.setupData(forCountry: currentCountry)
         }
+        self.letsStartedButton.myCornerRadius = self.letsStartedButton.height/2
     }
     
     private func setupData(forCountry: PKCountryModel) {
@@ -455,24 +458,26 @@ extension CreateProfileVC {
     
     func setupViewForSuccessAnimation() {
         
-        self.letsStartedButton.setTitle("", for: .normal)
+        self.letsStartedButton.setTitle(nil, for: .normal)
         self.letsStartedButton.setImage(#imageLiteral(resourceName: "Checkmark"), for: .normal)
-
+//        self.letStartButtonHeight.constant = 74
+//        self.letsStartButtonWidth.constant = 74
        // self.letsStartedButton.layer.masksToBounds = true
-        let reScaleFrame = CGRect(x: (self.whiteBackgroundView.width - 74.0) / 2.0, y: self.letsStartedButton.y, width: 74.0, height: 74.0)
+        //let reScaleFrame = CGRect(x: (self.whiteBackgroundView.width - (74.0)/2) / 2.0, y: self.letsStartedButton.y, width: 74.0, height: 74.0)
 
-        self.letsStartedButton.translatesAutoresizingMaskIntoConstraints = true
+        //self.letsStartedButton.translatesAutoresizingMaskIntoConstraints = true
 
         UIView.animate(withDuration: AppConstants.kAnimationDuration / 4.0, animations: {
-            self.letsStartedButton.frame = reScaleFrame
-            self.letsStartedButton.layer.cornerRadius = reScaleFrame.height / 2.0
+            self.letStartButtonHeight.constant = 74
+            self.letsStartButtonWidth.constant = 74
+            self.letsStartedButton.myCornerRadius = 74 / 2.0
             self.whiteBackgroundView.alpha = 0.5
             self.view.layoutIfNeeded()
             
         }) { (isCompleted) in
-            self.letsStartedButton.layer.cornerRadius = reScaleFrame.height / 2.0
+            //self.letsStartedButton.layer.cornerRadius = reScaleFrame.height / 2.0
 
-            let tY = ((UIDevice.screenHeight - reScaleFrame.height) / 2.0) - self.letsStartedButton.y
+            let tY = ((UIDevice.screenHeight - self.letsStartedButton.height) / 2.0) - self.letsStartedButton.y
             var t = CGAffineTransform.identity
             t = t.translatedBy(x: 0.0, y: tY)
 

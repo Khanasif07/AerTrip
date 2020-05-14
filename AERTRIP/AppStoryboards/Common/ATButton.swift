@@ -320,7 +320,8 @@ class ATButton: UIButton {
     private func animateToPressedSatate() {
         disable(forSeconds: 1)
         guard self.shouldShowPressAnimation else {return}
-        UIView.animate(withDuration: AppConstants.kAnimationDuration / 3.5, animations: { [weak self] in
+        //AppConstants.kAnimationDuration / 3.5
+        UIView.animate(withDuration: 0, animations: { [weak self] in
             self?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             self?.shadowLayer?.transform = CATransform3DMakeAffineTransform(CGAffineTransform(scaleX: 0.9, y: 0.8))
         }) { (isDone) in

@@ -440,7 +440,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
 //                          animations: { self.tableView.reloadData() }) // left out the unnecessary syntax in the completion block and the optional completion parameter
 //        tableView.reloadData()
         
-       self.tableView.reloadWithEaseInAnimation()
+      // self.tableView.reloadWithEaseInAnimation()
         
     }
     

@@ -9,9 +9,10 @@
 9,,73,Error to set profile image with social account,Unable to set profile image
 10,,,,
 11,,,,
-12,users/upload-user-image,74,Invalid Image format or size exceeds 2MB size,"Please provide a valid Image, either format is incorrect or file size exceeds 2MB"
+12,users/upload-user-image,74,Invalid Image format,"Please provide a valid Image, either format is incorrect"
 13,,75,error to uploading file,Unable to upload user image
 14,,76,error to save profile image,Unable to upload user image
+,,125,Image size exceeds 5MB size,File size exceeds 5MB
 15,,,,
 16,users/update-news-letters,77,Error to remove news letter setting,Failed to update new letter setting
 17,,78,Error to save news letter settings,Failed to update new letter setting
@@ -42,7 +43,7 @@
 42,,7,Invalid password,Please provide a valid password
 43,,56,Failed to register Email change request,Failed to register Email change request
 44,,57,Failed to change login,Failed to change login id
-45,,,,
+45,,122,Reset Email Token Error,Reset Email Token Error
 46,,,,
 47,users/change-password,47,Incorrect current password,Current password is invalid
 48,,48,Password validation failed,Password is weak. Please set a stronger password.
@@ -95,6 +96,7 @@
 95,,109,pax_id should be numeric,Please select a valid passengers
 96,,110,label should be less than 21 charater,Label should be less than or equal to 20 characters
 97,,111,Failed to apply label for selected passengers,Failed to apply label for selected passengers
+,,124,Can not change label for Primary Passenger,Can not change label for Primary Passenger
 98,,112,hotel id required,Please select the hotel
 99,,113,status is required,"Something went wrong, Please try again."
 100,,114,Error to update profile picture,Error to update profile picture
@@ -102,4 +104,3 @@
 102,,121,Invalid Airline code in frequent flyer ,Invalid Airline code in frequent flyer
 103,,,,
 104,users/hotel-star-preference,120,Unable to save hotel star preference,Unable to save hotel star preference
-105,,124,Can not change label for Primary Passenger,Can not change label for Primary Passenger

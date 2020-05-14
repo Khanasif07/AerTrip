@@ -30,10 +30,10 @@ class ForgotPasswordVC: BaseVC {
         
         // Do any additional setup after loading the view.
         self.initialSetups()
-        if self.viewModel.isFirstTime {
-            self.setupInitialAnimation()
-            self.setupViewDidLoadAnimation()
-        }
+//        if self.viewModel.isFirstTime {
+//            self.setupInitialAnimation()
+//            self.setupViewDidLoadAnimation()
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -116,7 +116,7 @@ private extension ForgotPasswordVC {
         self.continueButton.isEnabled = self.viewModel.isValidateForContinueButtonSelection 
         self.emailTextField.setupTextField(placehoder: LocalizedString.Email_ID.localized, keyboardType: .emailAddress, returnType: .done, isSecureText: false)
         self.emailTextField.addTarget(self, action: #selector(self.textFieldValueChanged(_:)), for: .editingChanged)
-        topNavBar.leftButton.isHidden = true
+        //topNavBar.leftButton.isHidden = true
     }
 }
 

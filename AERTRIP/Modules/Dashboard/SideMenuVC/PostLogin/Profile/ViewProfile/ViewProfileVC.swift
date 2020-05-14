@@ -270,6 +270,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ViewProfileTableViewCell else {
             fatalError("ViewProfileTableViewCell not found")
         }
+        cell.selectionStyle = .gray
         if indexPath.row != 0 {
             cell.topViewHeightConst.constant = 18
         } else {
@@ -350,6 +351,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
         default:
             break
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     

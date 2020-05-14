@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,14 +18,14 @@
                     <rect key="frame" x="0.0" y="0.0" width="346" height="179"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upwardAertripLogo" translatesAutoresizingMaskIntoConstraints="NO" id="bob-jK-b56">
-                            <rect key="frame" x="159.5" y="38" width="27" height="30"/>
+                            <rect key="frame" x="160.5" y="38" width="25" height="28"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoText" translatesAutoresizingMaskIntoConstraints="NO" id="HJk-Os-vtO">
-                            <rect key="frame" x="117.5" y="84" width="111" height="13"/>
+                            <rect key="frame" x="117" y="82" width="112" height="14"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uho-Jk-ZYW">
-                            <rect key="frame" x="70.5" y="120" width="205" height="41"/>
+                            <rect key="frame" x="70.5" y="119" width="205" height="41"/>
                             <string key="text">Enjoy a more personalised 
 travel experience</string>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -67,7 +67,7 @@ travel experience</string>
         </view>
     </objects>
     <resources>
-        <image name="logoText" width="111" height="13"/>
-        <image name="upwardAertripLogo" width="27" height="30"/>
+        <image name="logoText" width="112" height="14"/>
+        <image name="upwardAertripLogo" width="25" height="28"/>
     </resources>
 </document>

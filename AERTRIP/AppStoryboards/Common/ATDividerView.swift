@@ -26,7 +26,7 @@ open class ATDividerView: UIView {
         super.layoutSubviews()
         if !isFrameUpdated {
             self.updatedFrame()
-            isFrameUpdated = true
+            //isFrameUpdated = true
         } else {
             isFrameUpdated = false
         }
@@ -35,7 +35,7 @@ open class ATDividerView: UIView {
     //MARK:- Properties
     //MARK:- Private
     private var isFrameUpdated = false
-    
+    private let dividerView = UIView()
     //MARK:- Public
     var defaultHeight: CGFloat = 0.5 {
         didSet {
@@ -49,21 +49,31 @@ open class ATDividerView: UIView {
         }
     }
     
+    override open var backgroundColor: UIColor? {
+        willSet {
+            if let color = newValue, color != .clear {
+                self.backgroundColor = .clear
+            }
+        }
+    }
+    
     
     //MARK:- Methods
     //MARK:- Private
     private func initialSetup() {
-        
+        self.addSubview(dividerView)
         self.updatedFrame()
         self.updatedBackgroundColor()
     }
     
     private func updatedBackgroundColor() {
-        self.backgroundColor = defaultBackgroundColor
+        self.backgroundColor = .clear
+        dividerView.backgroundColor = AppColors.divider.color //defaultBackgroundColor
     }
     
     private func updatedFrame() {
-        let height = (1.0 / self.contentScaleFactor)
-        self.frame = CGRect(x: self.x, y: self.y, width: self.width, height: defaultHeight)
+        //self.translatesAutoresizingMaskIntoConstraints = true
+//        let height = (1.0 / self.contentScaleFactor)
+        dividerView.frame = CGRect(x: 0, y: 0, width: self.width, height: defaultHeight)
     }
 }

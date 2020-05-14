@@ -294,7 +294,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuOptionsLabelCell", for: indexPath) as? SideMenuOptionsLabelCell else {
                 return UITableViewCell()
             }
-            
+            cell.selectionStyle = .gray
             if let _ = UserInfo.loggedInUserId {
                 let title = self.viewModel.cellForLoginUser[indexPath.row - 2]
                 switch indexPath.row{
@@ -383,6 +383,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 AppToast.default.showToastMessage(message: "This feature is coming soon")
             }
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

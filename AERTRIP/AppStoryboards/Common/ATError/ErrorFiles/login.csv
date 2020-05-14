@@ -28,6 +28,7 @@
 28,,25,preferred currency required,Invalid user data
 29,,26,refund mode required,Invalid user data
 30,,27,user already registerd with this email id,User already registerd with this email id
+,,125,user already registerd with this mobile number,
 31,,28,email active as social user,User already registerd with this email id
 32,,29,user with no password and not in social,User already registerd with this email id
 33,,30,user already logged in,User already logged in
@@ -37,7 +38,13 @@
 37,,34,For Mobile App only,For Mobile App only
 38,,35,Failed to register Email Change Request,Failed to register Email Change Request
 39,,117,No user account with this email id,No user account with this email id
-40,,,,
+,,119,Retail user accessing corporate account,Kindly access your account via aertrip.com
+40,,120,Corp user accessing retail account,Kindly access your account via corp.aertrip.com
+,,121,Agent User Accessing retail or corp account.,Kindly access your account via agent.aertrip.com
+,,123,Please provide mobile isd.,
+,,124,Please provide mobile.,
+,,,,
+,,,,
 41,users/initial-details,9,Link has been expired,Link has been expired
 42,,36,Token has been expired,Token has been expired
 43,,37,User already created using this link,User already created using this link
@@ -53,8 +60,8 @@
 53,users/reset-password,115,user type not matched,The email ID provided is incorrect
 54,,116,user not found,The email ID provided is incorrect
 55,,106,You have exceeded maximum attempts to Reset Password for the day. Please try again tomorrow.,You have exceeded maximum attempts to Reset Password for the day. Please try again tomorrow.
-56,,,,
-57,,57,This Social Account is already linked with another Aertrip ID,The social account is already linked with other account.
+56,,117,Token OR Key Mismatch error,Token OR Key Mismatch error
+57,,,,
 58,users/update-password,18,Hash key is required,Please provide valid hash key
 59,,43,Token is required,Please provide valid token
 60,,3,password is required,Please provide a valid password
@@ -64,13 +71,15 @@
 64,,45,Passowrd has already been reset using this link,Password has already been reset using this link
 65,,9,Link has been expired,Link has been expired
 66,,46,Failed to reset password,Failed to reset password
-67,,,,
+67,,122,Can not use one of last 4 used passwords,Can not use one of last 4 used passwords
 68,user/register,27,user already registerd with this email id,User already registerd with this email id
 69,,88,The previous enquiry for this email id was REJECTED BY CSR,The previous enquiry for this email id was REJECTED BY CSR
 70,,89,Failed to update status of Corp Enquiry,Failed to update status of Corp Enquiry
 71,,90,Something went wrong. Please try again after some time,Something went wrong. Please try again after some time
 72,,91,Failed to send registration email,Failed to send registration email
-73,,,,
+73,,118,Activation Reference Error,Activation Reference Error
 74,users/update-refund-mode,58,mode is required,Refund mode is required
 75,,59,Failed to update refund mode,Failed to update refund mode
-76,,76,email required,Email ID is required
+,,,,
+76,users/app-social-link,57,This Social Account is already linked with another Aertrip ID,The social account is already linked with other account
+,,76,Unable to fetch Email id from Facebook,

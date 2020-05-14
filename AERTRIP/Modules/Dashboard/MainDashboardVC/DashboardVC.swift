@@ -55,7 +55,7 @@ class DashboardVC: BaseVC {
     private var isInitialAminationDone: Bool = false
     
     private var isAnimatingButtons = false
-        
+    
     var itemWidth : CGFloat {
         return aerinView.width
     }
@@ -92,7 +92,7 @@ class DashboardVC: BaseVC {
         
         
         mainScrollView.delaysContentTouches = false
-        
+        self.profileButton.imageView?.contentMode = .scaleAspectFill
         addViewOnTop()
         updateProfileButton()
     }
@@ -125,7 +125,7 @@ class DashboardVC: BaseVC {
         
         registerBulkEnquiryNotification()
         if firstTime{
-             firstTime = false
+            firstTime = false
             identitySize = aerinView.bounds.applying(CGAffineTransform.identity).size
             smallerSize = flightsView.bounds.applying(CGAffineTransform(scaleX: 0.75, y: 0.75)).size
         }
@@ -135,7 +135,7 @@ class DashboardVC: BaseVC {
             self.setupInitialAnimation()
         }
         //addCustomBackgroundBlurView()
-
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -149,7 +149,7 @@ class DashboardVC: BaseVC {
     }
     
     override func dataChanged(_ note: Notification) {
-//        printDebug("data changed notfication received")
+        //        printDebug("data changed notfication received")
         //        resetItems()
         updateProfileButton()
     }
@@ -280,7 +280,7 @@ class DashboardVC: BaseVC {
             self.overlayView.isHidden = true
             self.splashView.isHidden = true
         }
-
+        
     }
     
     private func updateProfileButton() {
@@ -329,7 +329,7 @@ extension DashboardVC  {
         isSelectingFromTabs = false
         previousSelected = selectedOption
     }
-            
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if scrollView == mainScrollView {            
@@ -358,8 +358,8 @@ extension DashboardVC  {
                 self.homeAertripLogoImageView.alpha = 1
             }
             
-//            printDebug("current progress \(progress)")
-//            Asif change, InnerCollView top Const is given 5 pixel ======================
+            //            printDebug("current progress \(progress)")
+            //            Asif change, InnerCollView top Const is given 5 pixel ======================
             if scrollView.contentOffset.y - mainScrollViewOffset.y >= 0 {
                 let valueMoved = scrollView.contentOffset.y - mainScrollViewOffset.y
                 let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
@@ -371,7 +371,7 @@ extension DashboardVC  {
                 }
                 userDidScrollUp = true
                 self.innerScrollTopConst.constant = 19.0
-//                printDebug("Scrolling up \(transform)")
+                //                printDebug("Scrolling up \(transform)")
             }else{
                 let valueMoved = mainScrollViewOffset.y - scrollView.contentOffset.y
                 let headerValueMoved = valueMoved/(headerView.height + headerView.origin.y)
@@ -379,7 +379,7 @@ extension DashboardVC  {
                 transform = 1.0 + headerValueMoved/4.0
                 userDidScrollUp = false
                 self.innerScrollTopConst.constant = 0.0
-//                 printDebug("Scrolling down \(transform)")
+                //                 printDebug("Scrolling down \(transform)")
             }
             updateSegmentYPosition(for: scrollView.contentOffset.y)
             updateSegmentTop(for: scrollView.contentOffset.y)
@@ -408,15 +408,16 @@ extension DashboardVC  {
                 let increaseTransform = 1.0 + progressValueMoved/4.0
                 let decreaseTransform = 1.0 - progressValueMoved/4.0
                 
-                if self.isSelectingFromTabs {
-                    if self.selectedOption != self.toBeSelect {
-                        animateForPage(fromPage: self.selectedOption.rawValue, toPage: self.toBeSelect.rawValue)
+                if scrollView.contentOffset.x >= 0 {
+                    if self.isSelectingFromTabs {
+                        if self.selectedOption != self.toBeSelect {
+                            animateForPage(fromPage: self.selectedOption.rawValue, toPage: self.toBeSelect.rawValue)
+                        }
+                    }
+                    else {
+                        animateForPage(moved: progressValueMoved, page: page, isForward: true, increaseSize: increaseTransform, decreaseSize : decreaseTransform)
                     }
                 }
-                else {
-                    animateForPage(moved: progressValueMoved, page: page, isForward: true, increaseSize: increaseTransform, decreaseSize : decreaseTransform)
-                }
-                
             }else{
                 
                 let valueMoved = previousOffset.x - offset.x
@@ -424,14 +425,15 @@ extension DashboardVC  {
                 
                 let increaseTransform = 1.0 + tabValueMoved/4
                 let decreaseTransform = 1.0 - tabValueMoved/4
-                
-                if self.isSelectingFromTabs {
-                    if self.selectedOption != self.toBeSelect {
-                        animateForPage(fromPage: self.selectedOption.rawValue, toPage: self.toBeSelect.rawValue)
+                if scrollView.contentOffset.x >= 0 {
+                    if self.isSelectingFromTabs {
+                        if self.selectedOption != self.toBeSelect {
+                            animateForPage(fromPage: self.selectedOption.rawValue, toPage: self.toBeSelect.rawValue)
+                        }
                     }
-                }
-                else {
-                    animateForPage(moved: tabValueMoved, page: page, isForward: false, increaseSize: increaseTransform, decreaseSize : decreaseTransform)
+                    else {
+                        animateForPage(moved: tabValueMoved, page: page, isForward: false, increaseSize: increaseTransform, decreaseSize : decreaseTransform)
+                    }
                 }
             }
             previousOffset = scrollView.contentOffset
@@ -444,7 +446,7 @@ extension DashboardVC  {
         let ratio = valueToBe / (headerTopConstraint.constant + headerView.height)
         
         segmentCenterYConstraint.constant = ratio * scrolledY
-//        printDebug("segment y pos:  \(segmentCenterYConstraint.constant)")
+        //        printDebug("segment y pos:  \(segmentCenterYConstraint.constant)")
     }
     
     private func updateInnerScrollTop(for scrolledY: CGFloat) {
@@ -456,10 +458,10 @@ extension DashboardVC  {
             innerScrollView.transform = CGAffineTransform.identity
         }
         else {
-//            printDebug("final value is \(final)")
-             //innerScrollView.transform = CGAffineTransform(translationX: 0, y: -(final))
-             self.innerScrollTopConst.constant = final
-             innerScrollView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
+            //            printDebug("final value is \(final)")
+            //innerScrollView.transform = CGAffineTransform(translationX: 0, y: -(final))
+            self.innerScrollTopConst.constant = final
+            innerScrollView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
         }
     }
     
@@ -473,7 +475,7 @@ extension DashboardVC  {
         }
         else {
             self.innerScrollTopConst.constant = final
-           // segmentContainerView.transform = CGAffineTransform(translationX: -(final - 4), y: -(final - 0.3))
+            // segmentContainerView.transform = CGAffineTransform(translationX: -(final - 4), y: -(final - 0.3))
             segmentContainerView.transform = CGAffineTransform(translationX: 0.0, y: -(final))
         }
     }
@@ -487,9 +489,9 @@ extension DashboardVC  {
             view.transform = (transformValue == 1.0) ? CGAffineTransform.identity : CGAffineTransform(scaleX: transformValue, y: transformValue)
         }
         else {
-//            if transformedBounds.size.width >= identitySize.width && !scrolledUp{
-//                view.transform = CGAffineTransform.identity
-//            }else
+            //            if transformedBounds.size.width >= identitySize.width && !scrolledUp{
+            //                view.transform = CGAffineTransform.identity
+            //            }else
             if transformedBounds.size.width < smallerSize.width && scrolledUp{
                 view.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
             }else{

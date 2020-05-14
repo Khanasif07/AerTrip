@@ -61,7 +61,7 @@ class PreferencesVC: BaseVC {
         topNavView.configureNavBar(title: LocalizedString.Preferences.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false)
         topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
         topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Done.rawValue, selectedTitle: LocalizedString.Done.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
-        topNavView.dividerView.isHidden = true
+        topNavView.dividerView.isHidden = false
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsSelectionDuringEditing = true
@@ -330,6 +330,10 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("ViewProfileDetailTableViewSectionView not found")
         }
         headerView.headerLabel.text = sections[section].rawValue
+        headerView.topSeparatorView.isHidden = section == 0
+        headerView.backgroundColor = .clear
+        headerView.containerView.backgroundColor = .clear
+        headerView.contentView.backgroundColor = .clear
         return headerView
     }
     
@@ -462,7 +466,7 @@ extension PreferencesVC: UITableViewDataSource, UITableViewDelegate {
         switch sections[section] {
         case LocalizedString.Groups:
             let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.width, height: 35))
-            footerView.backgroundColor = UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
+            footerView.backgroundColor = .clear
             return footerView
         default:
             return nil
