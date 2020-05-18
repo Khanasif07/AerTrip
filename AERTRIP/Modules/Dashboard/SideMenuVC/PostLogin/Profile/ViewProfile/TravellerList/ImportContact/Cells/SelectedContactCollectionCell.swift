@@ -236,6 +236,7 @@ class SelectedContactImportCollectionCell: UICollectionViewCell {
         //self.crossButton.blurAlpha = 0.6
         
         self.crossButton.addTarget(self, action: #selector(crossButtonAction(_:)), for: UIControl.Event.touchUpInside)
+        profileImageView.contentMode = .scaleAspectFill
     }
     
     private func setupTextAndColor() {
@@ -291,7 +292,7 @@ class SelectedContactImportCollectionCell: UICollectionViewCell {
             
         }
         else {
-            if let firstName = self.contact?.firstName, !firstName.isEmpty {
+            if let firstName = self.contact?.fullName, !firstName.isEmpty {
                 self.nameLabel.text = firstName
             } else if let lastName = self.contact?.lastName , !lastName.isEmpty {
                 self.nameLabel.text = lastName

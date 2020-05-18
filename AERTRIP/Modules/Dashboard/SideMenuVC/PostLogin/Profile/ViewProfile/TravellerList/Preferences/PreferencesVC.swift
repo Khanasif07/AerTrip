@@ -20,6 +20,7 @@ class PreferencesVC: BaseVC {
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var tableView: ATTableView!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var blurContainerView: BlurView!
     
     // MARK: - Variables
     
@@ -71,6 +72,8 @@ class PreferencesVC: BaseVC {
         self.tableFooterView()
         stopLoading()
        // self.view.backgroundColor = UIColor(displayP3Red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
+        self.tableView.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
+        topNavView.backgroundColor = .clear
     }
     
     func registerXib() {

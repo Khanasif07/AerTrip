@@ -308,6 +308,7 @@ class TravellerListVC: BaseVC {
         addLongPressOnTableView()
         topNavView.delegate = self
         updateNavView()
+        self.tableView.contentInset = UIEdgeInsets(top: 44 + searchBar.height, left: 0, bottom: 0, right: 0)
     }
     
     func registerXib() {

@@ -18,14 +18,14 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zul-2R-w6l" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="25" width="283" height="0.5"/>
+                        <rect key="frame" x="0.0" y="15" width="283" height="0.5"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="lVz-HB-G2f"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BBC-qf-0wx">
-                        <rect key="frame" x="20" y="25.5" width="243" height="62"/>
+                        <rect key="frame" x="20" y="15.5" width="243" height="72"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -48,7 +48,7 @@
                 <constraint firstAttribute="trailing" secondItem="zul-2R-w6l" secondAttribute="trailing" id="J66-yL-lGE"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="BBC-qf-0wx" secondAttribute="trailing" constant="20" id="NZT-8q-Qna"/>
                 <constraint firstItem="npn-FB-5ab" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Rlt-Ye-3bs"/>
-                <constraint firstItem="zul-2R-w6l" firstAttribute="top" secondItem="ZTg-uK-7eu" secondAttribute="top" constant="25" id="SR5-CM-F8D"/>
+                <constraint firstItem="zul-2R-w6l" firstAttribute="top" secondItem="ZTg-uK-7eu" secondAttribute="top" constant="15" id="SR5-CM-F8D"/>
                 <constraint firstAttribute="trailing" secondItem="npn-FB-5ab" secondAttribute="trailing" id="rxK-UN-VHo"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>

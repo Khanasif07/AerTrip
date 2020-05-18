@@ -78,11 +78,12 @@ class ContactListVC: BaseVC {
         //            self.selectAllbtnBtmConstraint.constant = 34.0
         //        }
         //        self.containerBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
+        
     }
     
     override func setupColors() {
         self.selectAllButton.tintColor = AppColors.clear
-        self.bottomBackgroundView.backgroundColor = AppColors.themeGray04
+        self.bottomBackgroundView.backgroundColor = AppColors.clear// AppColors.themeWhite.withAlphaComponent(0.85)
         self.bottomBackgroundView.isHidden = true
         self.selectAllButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.selectAllButton.setTitleColor(AppColors.themeGreen, for: .selected)
@@ -207,18 +208,31 @@ class ContactListVC: BaseVC {
     //MARK:- Private
     private func initialSetups() {
         
-        self.tableView.backgroundView = self.allowEmptyView
+        
         self.tableView.sectionIndexColor = AppColors.themeGreen
         self.tableView.delegate = self
         self.tableView.dataSource = self
        // noResultemptyView.mainImageViewTopConstraint.constant = 400
         
         if self.currentlyUsingFor == .contacts {
-            if self.viewModel.phoneContacts.isEmpty, CNContactStore.authorizationStatus(for: .contacts) == .authorized {
-                self.viewModel.fetchPhoneContacts(forVC: self)
+            if self.viewModel.phoneContacts.isEmpty {
+                if CNContactStore.authorizationStatus(for: .contacts) == .authorized {
+                    delay(seconds: 0.4) { [weak self] in
+                        guard let strongSelf = self else {return}
+                        strongSelf.viewModel.fetchPhoneContacts(forVC: strongSelf)
+                    }
+                } else {
+                    self.tableView.backgroundView = self.allowEmptyView
+                }
+            } else {
+                tableView.backgroundView = nil
             }
+        } else {
+            self.tableView.backgroundView = self.allowEmptyView
         }
-        
+        let bottom = self.selectAllButton.height + AppFlowManager.default.safeAreaInsets.bottom
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottom, right: 0)
+        self.bottomBackgroundView.addBlurEffect(style: .prominent, alpha: 1.0)
     }
     
     private func reloadList() {

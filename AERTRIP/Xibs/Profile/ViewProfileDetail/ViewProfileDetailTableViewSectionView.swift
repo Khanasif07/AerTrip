@@ -16,4 +16,8 @@ class ViewProfileDetailTableViewSectionView: UITableViewHeaderFooterView {
     @IBOutlet weak var containerView: UIView!
     
     @IBOutlet weak var bottomSeparatorView: ATDividerView!
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+    }
 }

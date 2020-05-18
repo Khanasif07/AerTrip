@@ -79,7 +79,7 @@ open class PKCountryPicker: UIView {
         let allCountries = self.countries//self.getAllCountries()self.getAllCountries()
         
         return allCountries.filter { (country) -> Bool in
-            country.ISOCode == forISOCode
+            country.ISOCode.lowercased() == forISOCode.lowercased() || country.countryEnglishName.lowercased() == forISOCode.lowercased()
             }.first
     }
     
@@ -178,12 +178,16 @@ open class PKCountryPicker: UIView {
         
         let visibleFrame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - UIPickerView.pickerSize.height, width: UIPickerView.pickerSize.width, height: UIPickerView.pickerSize.height)
         
+        if let pre = self.preSelectedCountry {
+            self.pickerView.selectRow(pre.sortIndex-1, inComponent: 0, animated: false)
+        }
+        
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
             self.frame = visibleFrame
         }) { (isCompleted) in
-            if let pre = self.preSelectedCountry {
-                self.pickerView.selectRow(pre.sortIndex-1, inComponent: 0, animated: false)
-            }
+//            if let pre = self.preSelectedCountry {
+//                self.pickerView.selectRow(pre.sortIndex-1, inComponent: 0, animated: false)
+//            }
         }
     }
     

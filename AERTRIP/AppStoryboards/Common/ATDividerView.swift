@@ -24,12 +24,12 @@ open class ATDividerView: UIView {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        if !isFrameUpdated {
+//        if !isFrameUpdated {
             self.updatedFrame()
             //isFrameUpdated = true
-        } else {
-            isFrameUpdated = false
-        }
+//        } else {
+//            isFrameUpdated = false
+//        }
     }
     
     //MARK:- Properties

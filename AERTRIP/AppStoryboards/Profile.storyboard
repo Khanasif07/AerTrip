@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -296,6 +296,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rvP-JD-Bu9">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eYr-7Z-rdm" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0p-Ak-SKz" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <subviews>
@@ -303,7 +311,7 @@
                                         <rect key="frame" x="335" y="12" width="20" height="20"/>
                                     </activityIndicatorView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="qqB-SK-D7p" firstAttribute="centerY" secondItem="s0p-Ak-SKz" secondAttribute="centerY" id="LIF-KG-pA0"/>
                                     <constraint firstAttribute="height" constant="44" id="V3i-2r-gug"/>
@@ -312,23 +320,23 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2TY-jX-cxe">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rvP-JD-Bu9">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
-                                <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="s0p-Ak-SKz" firstAttribute="trailing" secondItem="m2S-Wn-qw2" secondAttribute="trailing" id="4sd-bq-nme"/>
+                            <constraint firstItem="eYr-7Z-rdm" firstAttribute="trailing" secondItem="m2S-Wn-qw2" secondAttribute="trailing" id="71u-z9-VRG"/>
+                            <constraint firstItem="rvP-JD-Bu9" firstAttribute="top" secondItem="m2S-Wn-qw2" secondAttribute="top" id="9ix-5f-D2l"/>
                             <constraint firstItem="2TY-jX-cxe" firstAttribute="top" secondItem="x63-jN-dWV" secondAttribute="top" id="BFP-jq-dfj"/>
                             <constraint firstItem="rvP-JD-Bu9" firstAttribute="leading" secondItem="m2S-Wn-qw2" secondAttribute="leading" id="DvB-eG-oMs"/>
                             <constraint firstItem="2TY-jX-cxe" firstAttribute="leading" secondItem="m2S-Wn-qw2" secondAttribute="leading" id="FYU-qi-7hZ"/>
                             <constraint firstItem="m2S-Wn-qw2" firstAttribute="trailing" secondItem="2TY-jX-cxe" secondAttribute="trailing" id="Gd1-pE-q17"/>
+                            <constraint firstItem="eYr-7Z-rdm" firstAttribute="leading" secondItem="m2S-Wn-qw2" secondAttribute="leading" id="Hsz-Ta-CEf"/>
+                            <constraint firstItem="eYr-7Z-rdm" firstAttribute="top" secondItem="x63-jN-dWV" secondAttribute="top" id="Ifp-T8-2q7"/>
                             <constraint firstItem="s0p-Ak-SKz" firstAttribute="top" secondItem="2TY-jX-cxe" secondAttribute="bottom" id="PKc-4G-MqB"/>
-                            <constraint firstItem="rvP-JD-Bu9" firstAttribute="top" secondItem="s0p-Ak-SKz" secondAttribute="bottom" id="QW4-Nt-s69"/>
                             <constraint firstItem="s0p-Ak-SKz" firstAttribute="top" secondItem="m2S-Wn-qw2" secondAttribute="top" id="ajB-9w-y8w"/>
+                            <constraint firstItem="s0p-Ak-SKz" firstAttribute="bottom" secondItem="eYr-7Z-rdm" secondAttribute="bottom" id="k2T-uG-lcF"/>
                             <constraint firstItem="rvP-JD-Bu9" firstAttribute="trailing" secondItem="m2S-Wn-qw2" secondAttribute="trailing" id="n5i-2j-q5T"/>
                             <constraint firstItem="rvP-JD-Bu9" firstAttribute="bottom" secondItem="x63-jN-dWV" secondAttribute="bottom" id="nI8-H7-OTy"/>
                             <constraint firstItem="s0p-Ak-SKz" firstAttribute="leading" secondItem="m2S-Wn-qw2" secondAttribute="leading" id="yi8-ch-2i1"/>
@@ -337,6 +345,7 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicatorView" destination="qqB-SK-D7p" id="gmq-gi-Bkk"/>
+                        <outlet property="blurViewContainer" destination="eYr-7Z-rdm" id="DM3-q9-ldh"/>
                         <outlet property="tableView" destination="rvP-JD-Bu9" id="9Oc-Ez-e8y"/>
                         <outlet property="topNavView" destination="s0p-Ak-SKz" id="oM7-R9-pou"/>
                     </connections>

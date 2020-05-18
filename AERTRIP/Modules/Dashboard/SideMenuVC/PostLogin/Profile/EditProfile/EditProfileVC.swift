@@ -37,6 +37,7 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
     @IBOutlet weak var tableView: ATTableView!
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var blurViewContainer: BlurView!
     
     // MARK: - Variables
     
@@ -220,8 +221,24 @@ class EditProfileVC: BaseVC, UIImagePickerControllerDelegate, UINavigationContro
         tableView.tableFooterView = footerView
         tableView.sectionFooterHeight = CGFloat.leastNormalMagnitude
         tableView.backgroundColor = AppColors.themeGray04
+        
+        self.tableView.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
+        
+        let dismissKeyboardGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+        dismissKeyboardGesture.cancelsTouchesInView = false
+        tableView.addGestureRecognizer(dismissKeyboardGesture)
     }
-    
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            view.endEditing(true)
+            let location = sender.location(in: self.tableView)
+            let path = self.tableView.indexPathForRow(at: location)
+            if path == nil {
+                closeAllPicker(completion: nil)
+            }
+        }
+        sender.cancelsTouchesInView = false
+    }
     func setupPickers() {
         
         datePickerView?.frame = CGRect(x: (UIScreen.main.bounds.size.width - PKCountryPickerSettings.pickerSize.width) / 2.0, y: UIScreen.main.bounds.size.height, width: PKCountryPickerSettings.pickerSize.width, height: (PKCountryPickerSettings.pickerSize.height + PKCountryPickerSettings.toolbarHeight))

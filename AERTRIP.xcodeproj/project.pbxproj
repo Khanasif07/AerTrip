@@ -715,6 +715,7 @@
 		84534ED32249E594009FF536 /* YouAreAllDoneVC+TableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84534ED22249E594009FF536 /* YouAreAllDoneVC+TableCells.swift */; };
 		84534ED52249E8FD009FF536 /* YouAreAllDoneFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84534ED42249E8FD009FF536 /* YouAreAllDoneFooterView.swift */; };
 		84534ED72249E906009FF536 /* YouAreAllDoneFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84534ED62249E906009FF536 /* YouAreAllDoneFooterView.xib */; };
+		845357CA246EDD1E0039FF63 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845357C9246EDD1E0039FF63 /* BlurView.swift */; };
 		8455A6762232784B00CEE2B3 /* TripAdvisorTravelerRatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455A6742232784B00CEE2B3 /* TripAdvisorTravelerRatingTableViewCell.swift */; };
 		8455A6772232784B00CEE2B3 /* TripAdvisorTravelerRatingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8455A6752232784B00CEE2B3 /* TripAdvisorTravelerRatingTableViewCell.xib */; };
 		8455A67A223288C000CEE2B3 /* HotelDetailsAdvisorRatingSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8455A678223288C000CEE2B3 /* HotelDetailsAdvisorRatingSummaryTableViewCell.swift */; };
@@ -1801,6 +1802,7 @@
 		84534ED22249E594009FF536 /* YouAreAllDoneVC+TableCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YouAreAllDoneVC+TableCells.swift"; sourceTree = "<group>"; };
 		84534ED42249E8FD009FF536 /* YouAreAllDoneFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouAreAllDoneFooterView.swift; sourceTree = "<group>"; };
 		84534ED62249E906009FF536 /* YouAreAllDoneFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YouAreAllDoneFooterView.xib; sourceTree = "<group>"; };
+		845357C9246EDD1E0039FF63 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		8455A6742232784B00CEE2B3 /* TripAdvisorTravelerRatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripAdvisorTravelerRatingTableViewCell.swift; sourceTree = "<group>"; };
 		8455A6752232784B00CEE2B3 /* TripAdvisorTravelerRatingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripAdvisorTravelerRatingTableViewCell.xib; sourceTree = "<group>"; };
 		8455A678223288C000CEE2B3 /* HotelDetailsAdvisorRatingSummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailsAdvisorRatingSummaryTableViewCell.swift; sourceTree = "<group>"; };
@@ -5732,6 +5734,7 @@
 				84F983A921B51A070018DFED /* AppGlobals.swift */,
 				84F983AA21B51A070018DFED /* AppFonts.swift */,
 				180A3D8521C11AE7001A1E6A /* AppToast.swift */,
+				845357C9246EDD1E0039FF63 /* BlurView.swift */,
 			);
 			path = AppHelper;
 			sourceTree = "<group>";
@@ -7072,6 +7075,7 @@
 				84DD24842267042A0013F77E /* TitleWithSubTitleTableViewCell.swift in Sources */,
 				8472F21523E4160E00993B08 /* HotelsGroupExpendedVC.swift in Sources */,
 				84BF46C22211E611000AA6E3 /* HotelDetailAmenitiesCell.swift in Sources */,
+				845357CA246EDD1E0039FF63 /* BlurView.swift in Sources */,
 				182D486C228BE3DB004796A2 /* CancellationPolicyTableViewCell.swift in Sources */,
 				180162ED2295706C007E5D43 /* BookingAddOnHeaderView.swift in Sources */,
 				84534EA92248BE61009FF536 /* HCCheckInOutTableViewCell.swift in Sources */,
@@ -7247,7 +7251,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 57;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -7456,7 +7460,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 57;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;

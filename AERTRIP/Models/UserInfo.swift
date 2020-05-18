@@ -262,7 +262,7 @@ class UserInfo {
             return UserDefaults.getObject(forKey: UserDefaults.Key.loggedInUserId.rawValue) as? String
         }
         set{
-            if let vlue = newValue{
+            if let vlue = newValue, !vlue.isEmpty{
                 UserDefaults.setObject(vlue, forKey: UserDefaults.Key.loggedInUserId.rawValue)
             }
             else{
@@ -681,7 +681,7 @@ class UserInfo {
         for (key, value) in data {
             userInfo[key] = "\(value)"
         }
-
+        
         UserDefaults.setObject(userInfo, forKey: "userProfileData_\(userId)")
     }
     private func deleteValueFor(key:String){

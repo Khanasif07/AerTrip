@@ -97,14 +97,22 @@ extension CreateProfileVM {
          params[APIKeys.mobile.rawValue]  = self.userData.mobile
         
         self.delegate?.willApiCall()
-        APICaller.shared.callUpdateUserDetailAPI(params: params,  loader: true,  completionBlock: {(success, errors) in
-            
+        APICaller.shared.callUpdateUserDetailAPI(params: params,  loader: true,  completionBlock: { [weak self] (success, errors) in
+            guard let strongSelf = self else {return}
             if success {
-                self.delegate?.getSuccess()
+                strongSelf.userData.paxId = ""
+                strongSelf.userData.email = ""
+                strongSelf.userData.password = ""
+                strongSelf.userData.firstName = ""
+                strongSelf.userData.lastName = ""
+                strongSelf.userData.isd = ""
+                strongSelf.userData.salutation = ""
+                strongSelf.userData.mobile = ""
+                strongSelf.delegate?.getSuccess()
             }
             else {
                 AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .login)
-                self.delegate?.getFail(errors: errors)
+                strongSelf.delegate?.getFail(errors: errors)
             }
         })
         

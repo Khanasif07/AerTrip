@@ -314,6 +314,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var closePicker = true
         switch sections[indexPath.section] {
         case LocalizedString.EmailAddress.localized:
             if indexPath.row == self.viewModel.email.count {
@@ -371,6 +372,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             }
             
         case LocalizedString.MoreInformation.localized:
+            closePicker = false
             self.handleMoreInformationSectionSelection(indexPath)
             break
             
@@ -390,6 +392,7 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             
             break
         case LocalizedString.PassportDetails.localized:
+            closePicker = false
             self.handlePassportDetailSectionSelection(indexPath)
             
         case LocalizedString.FlightPreferences.localized:
@@ -408,6 +411,9 @@ extension EditProfileVC: UITableViewDataSource, UITableViewDelegate {
             
         default:
             break
+        }
+        if closePicker {
+            closeAllPicker(completion: nil)
         }
     }
     

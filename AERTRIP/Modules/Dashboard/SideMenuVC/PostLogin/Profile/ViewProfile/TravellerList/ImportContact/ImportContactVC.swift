@@ -20,7 +20,7 @@ class ImportContactVC: BaseVC {
     @IBOutlet weak var searchBar: ATSearchBar!
     @IBOutlet weak var listContainerView: UIView!
     @IBOutlet weak var selectedContactsCollectionView: UICollectionView!
-    
+    @IBOutlet weak var blurContainerView: BlurView!
     
     
     //MARK:- Properties
@@ -100,7 +100,7 @@ class ImportContactVC: BaseVC {
         
         self.topNavView.delegate = self
         self.topNavView.firstLeftButtonLeadingConst.constant = 7.0
-        self.topNavView.configureNavBar(title: LocalizedString.AllowContacts.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false,backgroundType: .color(color: AppColors.themeWhite))
+        self.topNavView.configureNavBar(title: LocalizedString.AllowContacts.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false,backgroundType: .color(color: AppColors.clear))
         self.topNavView.configureLeftButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Cancel.rawValue, selectedTitle: LocalizedString.Cancel.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen)
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: LocalizedString.Import.rawValue, selectedTitle: LocalizedString.Import.rawValue, normalColor: AppColors.themeGreen, selectedColor: AppColors.themeGreen, font: AppFonts.SemiBold.withSize(18.0))
         self.topNavView.firstRightButton.setTitleColor(AppColors.themeGreen, for: .normal)
@@ -172,6 +172,8 @@ class ImportContactVC: BaseVC {
         
         self.parchmentView?.reloadData()
         self.parchmentView?.reloadMenu()
+        self.parchmentView?.menuBackgroundColor = UIColor.clear
+        self.parchmentView?.collectionView.backgroundColor = UIColor.clear
     }
     
     private func selectedContactsSetHidden(isHidden: Bool, animated: Bool) {
@@ -189,7 +191,7 @@ class ImportContactVC: BaseVC {
             
         }
     }
-   
+    
     private func updateNavTitle() {
         
         if self.viewModel.totalSelectedContacts <= 0 {
@@ -318,19 +320,31 @@ extension ImportContactVC: ImportContactVMDelegate {
             item = self.viewModel.selectedGoogleContacts.count
             section = 2
         }
+        func reloadCollectionView() {
+            //self?.selectedContactsCollectionView.reloadSection(section: section)
+            self.selectedContactsCollectionView.performBatchUpdates({
+                self.selectedContactsCollectionView.insertItems(at: [IndexPath(item: item-1, section: section)])
+            }, completion: nil)
+        }
         self.itemsCounts[usingFor.rawValue] = item
         self.selectionDidChanged()
-        delay(seconds: 0.2) { [weak self] in
-            self?.selectedContactsCollectionView.reloadSection(section: section)
+        if self.viewModel.totalSelectedContacts > 1 {
+            reloadCollectionView()
+        } else {
+            delay(seconds: 0.2) {
+                reloadCollectionView()
+            }
         }
-        
         //self.scrollCollectionToEnd()
         
     }
-
+    
     func remove(fromIndex: Int, for usingFor: ContactListVC.UsingFor) {
         self.itemsCounts[usingFor.rawValue] -= 1
-        self.selectedContactsCollectionView.reloadData()
+        //self.selectedContactsCollectionView.reloadData()
+        self.selectedContactsCollectionView.performBatchUpdates({
+            self.selectedContactsCollectionView.deleteItems(at: [IndexPath(item: fromIndex, section: usingFor.rawValue)])
+        }, completion: nil)
         self.selectionDidChanged()
     }
     func remove(for usingFor: ContactListVC.UsingFor) {
@@ -367,7 +381,9 @@ extension ImportContactVC: ImportContactVMDelegate {
         }
         self.itemsCounts[usingFor.rawValue] = item
         self.selectionDidChanged()
-        self.selectedContactsCollectionView.reloadData()
+        delay(seconds: 0.2) { [weak self] in
+            self?.selectedContactsCollectionView.reloadData()
+        }
         
     }
     
@@ -385,7 +401,7 @@ extension ImportContactVC: ImportContactVMDelegate {
             item = self.viewModel.selectedGoogleContacts.count
             
         }
-
+        
         self.itemsCounts[usingFor.rawValue] = item
         self.selectionDidChanged()
         self.selectedContactsCollectionView.reloadData()
@@ -558,15 +574,15 @@ class ContactListCollectionFlowLayout: UICollectionViewFlowLayout {
 
 extension ImportContactVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
-       
-               if let pagingIndexItem = pagingItem as? MenuItem{
-                   let text = pagingIndexItem.title
-                   
-                   let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
-                   return text.widthOfString(usingFont: font)
-               }
-               
-               return 100.0
+        
+        if let pagingIndexItem = pagingItem as? MenuItem{
+            let text = pagingIndexItem.title
+            
+            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
+            return text.widthOfString(usingFont: font)
+        }
+        
+        return 100.0
     }
     
     

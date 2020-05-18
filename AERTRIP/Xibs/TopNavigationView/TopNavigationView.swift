@@ -146,7 +146,7 @@ class TopNavigationView: UIView {
             backVisualEfectView.effect = UIBlurEffect(style: .prominent)
             backVisualEfectView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
             
-            backView.backgroundColor = UIColor.red.withAlphaComponent(0.4)
+            backView.backgroundColor = .clear //UIColor.red.withAlphaComponent(0.4)
             backView.addSubview(backVisualEfectView)
         }
     }

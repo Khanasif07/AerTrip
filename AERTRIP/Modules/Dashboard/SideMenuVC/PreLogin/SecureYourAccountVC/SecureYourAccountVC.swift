@@ -168,6 +168,7 @@ private extension SecureYourAccountVC {
         
         self.nextButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .normal)
         self.nextButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .selected)
+        self.nextButton.setTitleFont(font: AppFonts.SemiBold.withSize(17.0), for: .highlighted)
 
         var placeholder = LocalizedString.Password.localized
         if  self.viewModel.isPasswordType == .resetPasswod {

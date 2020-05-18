@@ -134,7 +134,7 @@ class ViewProfileVC: BaseVC {
         self.tableView.register(UINib(nibName: self.cellIdentifier, bundle: nil), forCellReuseIdentifier: self.cellIdentifier)
         
         self.topNavView.delegate = self
-        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
+        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .clear)
         
         let editStr = "\(LocalizedString.Edit.rawValue) "
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editStr, selectedTitle: editStr, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
@@ -414,8 +414,9 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
                     
                     self?.topNavView.navTitleLabel.text = ""
                     
-                    self?.topNavView.backView.backgroundColor = AppColors.themeWhite
+                    self?.topNavView.backView.backgroundColor = .clear//AppColors.themeWhite
                     
+                    self?.topNavView.backgroundColor = .clear
                 }
                 
             } else {
@@ -450,7 +451,8 @@ extension ViewProfileVC: MXParallaxHeaderDelegate {
                 
                 self?.topNavView.navTitleLabel.text = ""
                 
-                self?.topNavView.backView.backgroundColor = AppColors.themeWhite
+                self?.topNavView.backView.backgroundColor = .clear//AppColors.themeWhite
+                self?.topNavView.backgroundColor = .clear
             }
             
         }

@@ -108,7 +108,7 @@ class ViewProfileDetailVC: BaseVC {
         self.headerViewHeightConstraint.constant = headerViewHeight
         
         self.topNavView.delegate = self
-        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .blurAnimatedView(isDark: false))
+        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .clear)
         
         let editTitle = "\(LocalizedString.Edit.localized) "
         self.topNavView.configureFirstRightButton(normalImage: nil, selectedImage: nil, normalTitle: editTitle, selectedTitle: editTitle, normalColor: AppColors.themeWhite, selectedColor: AppColors.themeGreen)
@@ -502,7 +502,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
                            self?.topNavView.leftButton.isSelected = false
                            self?.topNavView.leftButton.tintColor = AppColors.themeWhite
                            self?.topNavView.navTitleLabel.text = ""
-                           self?.topNavView.backView.backgroundColor = AppColors.themeWhite
+                        self?.topNavView.backView.backgroundColor = .clear //AppColors.themeWhite
                         self?.topNavView.dividerView.isHidden = true
                        }
             } else {
@@ -522,7 +522,7 @@ extension ViewProfileDetailVC: MXParallaxHeaderDelegate {
                 self?.topNavView.leftButton.isSelected = false
                 self?.topNavView.leftButton.tintColor = AppColors.themeWhite
                 self?.topNavView.navTitleLabel.text = ""
-                self?.topNavView.backView.backgroundColor = AppColors.themeWhite
+                self?.topNavView.backView.backgroundColor = .clear //AppColors.themeWhite
                 self?.topNavView.dividerView.isHidden = true
             }
         }
