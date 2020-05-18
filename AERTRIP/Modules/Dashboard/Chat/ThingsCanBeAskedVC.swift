@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManager
 
 class ThingsCanBeAskedVC : BaseVC {
 
@@ -20,6 +21,12 @@ class ThingsCanBeAskedVC : BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetUp()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        IQKeyboardManager.shared().isEnabled = false
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
     }
     
     override func setupFonts() {

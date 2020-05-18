@@ -30,7 +30,7 @@ class ChatVC : BaseVC {
     @IBOutlet weak var suggestionsCollectionView: UICollectionView!
     @IBOutlet weak var sendButtonWidth: NSLayoutConstraint!
     @IBOutlet weak var collectionViewBottom: NSLayoutConstraint!
-    
+    @IBOutlet weak var sepratorView: UIView!
     
     //MARK:- Variables
     private var name = "Guru"
@@ -70,8 +70,6 @@ class ChatVC : BaseVC {
     @IBAction func chatButtonTapped(_ sender: UIButton) {
         
     }
-    
-    
     
     //MARK:- Send Button Tapped
     @IBAction func sendButton(_ sender: UIButton) {
@@ -161,7 +159,8 @@ extension ChatVC {
         self.chatButton.isUserInteractionEnabled = false
         self.messageTextView.tintColor = AppColors.themeGreen
         self.messageTextView.placeholder = LocalizedString.TryDelhiToGoaTomorrow.localized
-        
+        self.sendButton.bringSubviewToFront(self.animationView)
+        self.animationView.bringSubviewToFront(self.sepratorView)
     }
     
     private func setMorningLabelText(){
