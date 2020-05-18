@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 public struct PKCountryModel {
     var countryID: Int = 0
@@ -26,6 +27,7 @@ public struct PKCountryModel {
     var flagImage: UIImage? {
         return UIImage(named: self.countryFlag)
     }
+    var currencyId : String = ""
     var currencySymbol : String = ""
     var currencyName : String = ""
     var currencyCode : String = ""
@@ -106,6 +108,13 @@ public struct PKCountryModel {
         
     }
     
+    init(json: JSON) {
+        currencyId = json[APIKeys.id.rawValue].stringValue
+        currencyCode = json[APIKeys.currency_code.rawValue].stringValue
+        currencyName = json[APIKeys.name.rawValue].stringValue
+        self.currencySymbol = self.getCurrencySymbol(from: json[APIKeys.currency_code.rawValue].stringValue) ?? ""
+    }
+    
     static func getModels(jsonArr: [[String:Any]]) -> [PKCountryModel] {
         var all = jsonArr.map { (json) -> PKCountryModel in
             PKCountryModel(json: json)
@@ -117,4 +126,15 @@ public struct PKCountryModel {
         
         return all
     }
+    
+    func getCurrencySymbol(from currencyCode: String) -> String? {
+
+         let locale = NSLocale(localeIdentifier: currencyCode)
+         if locale.displayName(forKey: .currencySymbol, value: currencyCode) == currencyCode {
+             let newlocale = NSLocale(localeIdentifier: currencyCode.dropLast() + "_en")
+             return newlocale.displayName(forKey: .currencySymbol, value: currencyCode)
+         }
+         return locale.displayName(forKey: .currencySymbol, value: currencyCode)
+     }
 }
+

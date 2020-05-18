@@ -10,6 +10,7 @@ import Foundation
 
 
 protocol ChatBotDelegatesDelegate: class {
+    
     func willstarttChatBotSession()
     func chatBotSessionCreatedSuccessfully()
     func failedToCreateChatBotSession()
@@ -19,18 +20,33 @@ protocol ChatBotDelegatesDelegate: class {
     func failedToCommunicateWithChatBot()
     
     func hideTypingCell()
-    
     func moveFurtherWhenallRequiredInformationSubmited()
+    
+    func willGetRecentSearchHotel()
+    func getRecentSearchHotelSuccessFully()
+    func failedToGetRecentSearchApi()
+    
+    func willGetRecentSearchFlights()
+    func getRecentSearchFlightsSuccessFully()
+    func failedToGetRecentSearchedFlightsApi()
+    
 }
 
 
 class ChatVM {
 
+    enum RecentSearchFor : String {
+        case hotel = "hotel"
+        case flight = "flight"
+    }
+    
     var messages : [MessageModel] = []
     var typingCellTimerCounter = 0
     var sessionId : String = ""
     weak var delegate : ChatBotDelegatesDelegate?
     var msgToBeSent : String = ""
+    var recentSearchesData : [RecentSearchesModel] = []
+
     
     func getRandomSessionId(length : Int) -> String{
         let letters = "0123456789"
@@ -90,20 +106,21 @@ class ChatVM {
     
     
     func getRecentFlights(){
-        
-        APICaller.shared.recentSearchesApi(searchFor: "flights") { (success, error, obj) in
+        APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.flight) { (success, error, obj) in
             
         }
-        
     }
     
     func getRecentHotels(){
-        
-        APICaller.shared.recentSearchesApi(searchFor: "hotel") { (success, error, obj) in
-            
+        self.delegate?.willGetRecentSearchHotel()
+        APICaller.shared.recentSearchesApi(searchFor: RecentSearchFor.hotel) { (success, error, obj) in
+            if success {
+                self.recentSearchesData = obj
+                self.delegate?.getRecentSearchHotelSuccessFully()
+            }else{
+                self.delegate?.failedToGetRecentSearchApi()
+            }
         }
-        
     }
-
     
 }

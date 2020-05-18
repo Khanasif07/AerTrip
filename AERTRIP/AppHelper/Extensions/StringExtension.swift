@@ -660,6 +660,8 @@ extension String {
         return frmtr.date(from: self)
     }
     
+    
+    
     func heightOfText(_ width: CGFloat, font: UIFont) -> CGFloat {
          
          let constraintRect = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)

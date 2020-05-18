@@ -1017,5 +1017,25 @@ enum LocalizedString: String {
     
     //MARK:- Settings
     case Currency
+    case EnableDisableAllNotifications = "EnableDisableAllNotifications"
+    case GetNotifiedAboutYourBookings = "GetNotifiedAboutYourBookings"
+    case GetNotifiedAboutYourTripEvents = "GetNotifiedAboutYourTripEvents"
+    case GetNotifiedAboutNewOffersAndDeals = "GetNotifiedAboutNewOffersAndDeals"
+    case Ok = "Ok"
+    case AllEventSyncedToCalendarApp = "AllEventSyncedToCalendarApp"
+    case ThisFunctionalityWillBeAvailableSoon = "ThisFunctionalityWillBeAvailableSoon"
+    case TryDelhiToGoaTomorrow = "TryDelhiToGoaTomorrow"
+    case Copyright2018AllRightsReserved = "Copyright2018AllRightsReserved"
+ 
+    case ThingsYouCanAsk = "ThingsYouCanAsk"
     
+    case FlightFromMumbaiToDelhi = "FlightFromMumbaiToDelhi"
+    case FindMeFlightFromBombayToKolkataTomorrowUnder = "FindMeFlightFromBombayToKolkataTomorrowUnder"
+    case BangloreToGoaFlightOnTheWeekendAndReturnFollowingMonday = "BangloreToGoaFlightOnTheWeekendAndReturnFollowingMonday"
+    case FlightOnDiwaliFromNewYorkToJaipur = "FlightOnDiwaliFromNewYorkToJaipur"
+   case BOMDELOn26Feb = "BOMDELOn26Feb"
+    case FlightToDubaiOn30thJun = "FlightToDubaiOn30thJun"
+    case CommingSoon = "CommingSoon"
+    case Flight = "Flight"
+  
 }

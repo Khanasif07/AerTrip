@@ -340,6 +340,7 @@ extension Date {
         case dd = "dd"
         case mm = "MM"
         case yyyy = "YYYY"
-        
+        case EComaddMMMyy = "E, dd MMM yy"
+        case ddMMM = "dd MMM"
     }
 }

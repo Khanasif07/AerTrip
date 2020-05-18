@@ -13,6 +13,7 @@ class CountryCell: UITableViewCell {
     @IBOutlet weak var tickImageView: UIImageView!
     @IBOutlet weak var flagImageView: UIImageView!
     @IBOutlet weak var countryLabel: UILabel!
+    @IBOutlet weak var sepratorView: UIView!
     
     
     override func awakeFromNib() {
@@ -20,6 +21,8 @@ class CountryCell: UITableViewCell {
         // Initialization code
         self.selectionStyle = .none
         countryLabel.font = AppFonts.Regular.withSize(18)
+        flagImageView.layer.borderWidth = 0.3
+        flagImageView.layer.borderColor = AppColors.themeGray20.cgColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -32,6 +35,7 @@ class CountryCell: UITableViewCell {
         self.countryLabel.text = country.countryEnglishName
         self.flagImageView.image = country.flagImage
         self.tickImageView.isHidden = isSelected
+        self.sepratorView.isHidden = country.countryID != 93
     }
     
 }

@@ -8,12 +8,26 @@
 
 import UIKit
 
+struct ToggleSettings {
+    
+    var calenderSyncSettings = false
+    var allNotificationS = false
+    var bookingNotifications = false
+    var tripEventsNotifications = false
+    var otherNotifications = false
+    
+}
+
+var toggleSettings = ToggleSettings()
+
+//MARK:- Above structure and a variable is just to manage ui because api's are in progress
+
 class NotificationSettingsVC: BaseVC {
 
     @IBOutlet weak var notificationSettingsTableView: UITableView!
     @IBOutlet weak var topNavView: TopNavigationView!
 
-//    let notificationSettingsVm = NotificationSettingsVM()
+    let notificationSettingsVm = NotificationSettingsVM()
     
        //MARK:- ViewLifeCycle
         //MARK:-
@@ -26,8 +40,7 @@ class NotificationSettingsVC: BaseVC {
         override func setupTexts() {
             super.setupTexts()
         }
-        
-
+    
         override func setupColors() {
             super.setupColors()
         }
@@ -36,7 +49,7 @@ class NotificationSettingsVC: BaseVC {
         //MARK:- Private
         private func initialSetups() {
             self.topNavView.delegate = self
-            self.topNavView.configureNavBar(title: LocalizedString.Settings.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false)
+            self.topNavView.configureNavBar(title: LocalizedString.Notifications.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true)
             configureTableView()
             setUpViewAttributes()
         }
@@ -47,14 +60,10 @@ class NotificationSettingsVC: BaseVC {
         
         private func configureTableView(){
             self.notificationSettingsTableView.register(UINib(nibName: "NotificationSettingsCell", bundle: nil), forCellReuseIdentifier: "NotificationSettingsCell")
-//            self.notificationSettingsTableView.dataSource = self
-//            self.notificationSettingsTableView.delegate = self
+            self.notificationSettingsTableView.register(UINib(nibName: "SettingsHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "SettingsHeaderView")
+            self.notificationSettingsTableView.dataSource = self
+            self.notificationSettingsTableView.delegate = self
         }
-        
-        //MARK:- Public
-        
-        
-        //MARK:- Action
     }
 
     extension NotificationSettingsVC: TopNavigationViewDelegate {

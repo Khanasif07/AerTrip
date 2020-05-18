@@ -931,5 +931,28 @@
 "ContactDetails" = "Contact Details";
 "KindlyDisconnectMessage" = "Kindly set a password for your Aertrip account or login via another social account before disconnecting ";
 
+//MARK:- Settings
 "Currency" = "Currency";
+"EnableDisableAllNotifications" = "To enable or disable notifications go to Settings → Notifications → Aertrip → All Notifications";
+"GetNotifiedAboutYourBookings" = "Get notified about your bookings";
+"GetNotifiedAboutYourTripEvents" = "Get notified about your trip events";
+"GetNotifiedAboutNewOffersAndDeals" = "Get notified about new offers and deals";
+"Ok" = "Ok";
+"AllEventSyncedToCalendarApp" = "All the events will be sync to calendar app.";
+"ThisFunctionalityWillBeAvailableSoon" = "This feature is coming soon.";
 
+//Air in
+"TryDelhiToGoaTomorrow" = "Try \"Delhi to Goa tomorrow\"";
+
+"Copyright2018AllRightsReserved" = "Copyright © 2018. All rights reserved.";
+
+"ThingsYouCanAsk" = "Things you can ask me…";
+"FlightFromMumbaiToDelhi" = "Flight from Mumbai to Delhi";
+"FindMeFlightFromBombayToKolkataTomorrowUnder" = "Find me flight from Bombay to Kolkata tomorrow under ₹ 8,000";
+"BangloreToGoaFlightOnTheWeekendAndReturnFollowingMonday" = "Banglore to Goa flight on the weekend and return following Monday";
+"FlightOnDiwaliFromNewYorkToJaipur" = "Flight on Diwali from New York to Jaipur";
+"BOMDELOn26Feb" = "BOM DEL on 26 Feb";
+"FlightToDubaiOn30thJun" = "Flight to Dubai on 30th Jun";
+"CommingSoon" = "Comming Soon";
+"Flight" = "Flight";
+"Hotel" = "Hotel";

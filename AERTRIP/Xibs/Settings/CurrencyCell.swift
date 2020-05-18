@@ -14,6 +14,7 @@ class CurrencyCell: UITableViewCell {
     @IBOutlet weak var currencyNameLabel: UILabel!
     @IBOutlet weak var currencyCodeLabel: UILabel!
     @IBOutlet weak var currencySymbolLabel: UILabel!
+    @IBOutlet weak var sepratorView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,6 +37,5 @@ class CurrencyCell: UITableViewCell {
         self.currencyCodeLabel.text = country.currencyCode
         self.tickImageView.isHidden = isSelected
     }
-    
     
 }

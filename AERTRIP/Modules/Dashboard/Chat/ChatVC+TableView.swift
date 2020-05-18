@@ -48,11 +48,8 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
             default:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "TypingStatusChatCell", for: indexPath) as? TypingStatusChatCell else {
                     fatalError("TypingStatusChatCell not found")
-                    
             }
-                                
-       
-                
+                cell.contentView.alpha = 0
                 return cell
         }
     }
@@ -64,12 +61,7 @@ extension ChatVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
     }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let typingCell = cell as? TypingStatusChatCell else { return }
         
-    }
-    
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
       
         guard let _ = cell as? TypingStatusChatCell else { return }

@@ -98,7 +98,6 @@ class AerinVC: BaseVC {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         self.aerInPulsAnimator.position = CGPoint(x: self.aerinContainer.frame.width / 2.0, y: self.aerinContainer.frame.height / 2.0)
     }
     

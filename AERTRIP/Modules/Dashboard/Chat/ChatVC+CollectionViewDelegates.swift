@@ -10,21 +10,19 @@ import Foundation
 
 extension ChatVC : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return self.chatVm.recentSearchesData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SuggestionsCell", for: indexPath) as? SuggestionsCell else {
                 fatalError("SuggestionsCell not found")
         }
-        printDebug(indexPath.item)
-        indexPath.item == 1 ? cell.configureHotelCell() : cell.configureFlightCell()
+        cell.populateData(data: self.chatVm.recentSearchesData[indexPath.item])
         return cell
     }
     

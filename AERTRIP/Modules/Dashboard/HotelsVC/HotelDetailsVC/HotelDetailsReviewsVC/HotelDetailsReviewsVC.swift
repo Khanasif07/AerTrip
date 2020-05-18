@@ -169,8 +169,6 @@ extension HotelDetailsReviewsVC: UITableViewDelegate , UITableViewDataSource {
         default:
             return nil
         }
-        
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
