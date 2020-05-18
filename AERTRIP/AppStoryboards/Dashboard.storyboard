@@ -28,10 +28,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashBackground" translatesAutoresizingMaskIntoConstraints="NO" id="oLe-ql-yRs">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AVB-Hf-qqV" customClass="GradientView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashBackground" translatesAutoresizingMaskIntoConstraints="NO" id="oLe-ql-yRs">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08Q-wv-BRZ">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08Q-wv-BRZ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4Y-5a-ItW" userLabel="Content View">
@@ -292,7 +296,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="MF0-Cj-Ypt" secondAttribute="trailing" constant="5" id="o84-To-IHu"/>
                                                 </constraints>
                                             </view>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7M1-zd-tJX" userLabel="Inner Scroll View">
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7M1-zd-tJX" userLabel="Inner Scroll View">
                                                 <rect key="frame" x="3" y="149" width="369" height="504.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DAo-n3-rEy" userLabel="Inner Container View">
@@ -422,14 +426,18 @@
                             <constraint firstItem="EIt-yX-B3o" firstAttribute="top" secondItem="bO0-Bl-9pr" secondAttribute="top" id="42f-y6-YzG"/>
                             <constraint firstItem="08Q-wv-BRZ" firstAttribute="leading" secondItem="O8V-oo-rnK" secondAttribute="leading" id="8qC-Jt-HXu"/>
                             <constraint firstItem="oLe-ql-yRs" firstAttribute="leading" secondItem="O8V-oo-rnK" secondAttribute="leading" id="Ae4-jV-584"/>
+                            <constraint firstItem="AVB-Hf-qqV" firstAttribute="leading" secondItem="O8V-oo-rnK" secondAttribute="leading" id="V2j-oa-KW3"/>
                             <constraint firstItem="oLe-ql-yRs" firstAttribute="trailing" secondItem="O8V-oo-rnK" secondAttribute="trailing" id="aId-Rn-3Si"/>
                             <constraint firstItem="oLe-ql-yRs" firstAttribute="bottom" secondItem="bO0-Bl-9pr" secondAttribute="bottom" id="ab9-JT-wC8"/>
                             <constraint firstItem="EIt-yX-B3o" firstAttribute="leading" secondItem="O8V-oo-rnK" secondAttribute="leading" id="ncQ-6z-EFW"/>
+                            <constraint firstItem="AVB-Hf-qqV" firstAttribute="trailing" secondItem="O8V-oo-rnK" secondAttribute="trailing" id="o41-vE-Y2F"/>
                             <constraint firstAttribute="bottom" secondItem="08Q-wv-BRZ" secondAttribute="bottom" id="qhB-Dk-jT1"/>
                             <constraint firstItem="O8V-oo-rnK" firstAttribute="trailing" secondItem="08Q-wv-BRZ" secondAttribute="trailing" id="tzn-WN-Ztz"/>
                             <constraint firstItem="EIt-yX-B3o" firstAttribute="trailing" secondItem="O8V-oo-rnK" secondAttribute="trailing" id="vhz-OP-qFS"/>
+                            <constraint firstItem="AVB-Hf-qqV" firstAttribute="top" secondItem="bO0-Bl-9pr" secondAttribute="top" id="xV6-PH-ZcN"/>
                             <constraint firstItem="oLe-ql-yRs" firstAttribute="top" secondItem="bO0-Bl-9pr" secondAttribute="top" id="y3Q-4j-bsN"/>
                             <constraint firstItem="08Q-wv-BRZ" firstAttribute="top" secondItem="bO0-Bl-9pr" secondAttribute="top" id="ycF-94-MyR"/>
+                            <constraint firstItem="AVB-Hf-qqV" firstAttribute="bottom" secondItem="bO0-Bl-9pr" secondAttribute="bottom" id="yxY-gK-Nw8"/>
                             <constraint firstItem="EIt-yX-B3o" firstAttribute="bottom" secondItem="O8V-oo-rnK" secondAttribute="bottom" id="zL5-4e-yel"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O8V-oo-rnK"/>
@@ -439,6 +447,7 @@
                         <outlet property="aerinLabel" destination="CMz-6r-Sru" id="HVT-56-aP9"/>
                         <outlet property="aerinView" destination="Wjk-Vp-DEf" id="YYh-Oi-CK7"/>
                         <outlet property="aertripLogoImageView" destination="5KX-bs-S52" id="CvE-25-HgE"/>
+                        <outlet property="backgroundGradientView" destination="AVB-Hf-qqV" id="g9E-7R-SYy"/>
                         <outlet property="flightsLabel" destination="bmS-2d-CXq" id="9dL-7b-RMQ"/>
                         <outlet property="flightsView" destination="M6D-EY-y2X" id="gU9-oL-6zw"/>
                         <outlet property="headerTopConstraint" destination="Ymh-y5-rUR" id="yiZ-zd-bG1"/>
@@ -756,17 +765,17 @@ on Christmas”</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PGv-f2-KsG">
-                                                    <rect key="frame" x="10" y="0.0" width="350" height="62"/>
+                                                    <rect key="frame" x="10" y="0.0" width="350" height="50"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Amount Due" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UTm-27-Lt8">
-                                                            <rect key="frame" x="0.0" y="8" width="247.5" height="20"/>
+                                                            <rect key="frame" x="0.0" y="2" width="247.5" height="20"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZt-tb-ePj">
-                                                            <rect key="frame" x="0.0" y="14" width="100" height="44"/>
+                                                            <rect key="frame" x="0.0" y="8" width="100" height="44"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="FQa-U9-jkR"/>
                                                                 <constraint firstAttribute="width" constant="100" id="kc3-uS-s2O"/>
@@ -777,7 +786,7 @@ on Christmas”</string>
                                                             </state>
                                                         </button>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="z3B-zb-52K">
-                                                            <rect key="frame" x="252.5" y="5.5" width="97.5" height="45"/>
+                                                            <rect key="frame" x="252.5" y="-0.5" width="97.5" height="45"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="₹ 18,99545" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K55-7N-Anf">
                                                                     <rect key="frame" x="0.0" y="0.0" width="97.5" height="22.5"/>
@@ -809,7 +818,7 @@ on Christmas”</string>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4u1-Ye-r3d" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                                    <rect key="frame" x="10" y="55.5" width="353" height="0.5"/>
+                                                    <rect key="frame" x="10" y="43.5" width="353" height="0.5"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="0.5" id="Hz7-BP-vUc"/>
@@ -821,9 +830,9 @@ on Christmas”</string>
                                                 <constraint firstItem="PGv-f2-KsG" firstAttribute="top" secondItem="TmU-Fr-dt0" secondAttribute="top" id="4M5-Uh-08z"/>
                                                 <constraint firstItem="4u1-Ye-r3d" firstAttribute="leading" secondItem="PGv-f2-KsG" secondAttribute="leading" id="7au-ZG-ZZs"/>
                                                 <constraint firstItem="PGv-f2-KsG" firstAttribute="leading" secondItem="TmU-Fr-dt0" secondAttribute="leading" constant="10" id="FIj-HO-SA6"/>
-                                                <constraint firstAttribute="bottom" secondItem="PGv-f2-KsG" secondAttribute="bottom" id="QAC-xL-y2V"/>
-                                                <constraint firstItem="z3B-zb-52K" firstAttribute="centerY" secondItem="TmU-Fr-dt0" secondAttribute="centerY" constant="-3" id="jWm-Qq-sb6"/>
-                                                <constraint firstAttribute="bottom" secondItem="4u1-Ye-r3d" secondAttribute="bottom" constant="6" id="kP6-Mw-HEk"/>
+                                                <constraint firstAttribute="bottom" secondItem="PGv-f2-KsG" secondAttribute="bottom" constant="12" id="QAC-xL-y2V"/>
+                                                <constraint firstItem="z3B-zb-52K" firstAttribute="centerY" secondItem="TmU-Fr-dt0" secondAttribute="centerY" constant="-9" id="jWm-Qq-sb6"/>
+                                                <constraint firstAttribute="bottom" secondItem="4u1-Ye-r3d" secondAttribute="bottom" constant="18" id="kP6-Mw-HEk"/>
                                                 <constraint firstItem="4u1-Ye-r3d" firstAttribute="trailing" secondItem="PGv-f2-KsG" secondAttribute="trailing" constant="3" id="st3-fH-ZWW"/>
                                                 <constraint firstAttribute="trailing" secondItem="PGv-f2-KsG" secondAttribute="trailing" constant="15" id="uvq-wp-7aV"/>
                                             </constraints>
@@ -859,24 +868,24 @@ on Christmas”</string>
                     <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="sET-rL-PFF">
-                            <rect key="frame" x="50" y="6" width="275" height="45"/>
+                            <rect key="frame" x="50" y="21.5" width="275" height="24"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f17-II-i8y">
-                                    <rect key="frame" x="0.0" y="0.0" width="68.5" height="45"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="68.5" height="24"/>
                                     <state key="normal" image="fbIcon"/>
                                     <connections>
                                         <action selector="linkedLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="TDz-uR-0R0"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C3X-Wc-eN0">
-                                    <rect key="frame" x="103.5" y="0.0" width="68" height="45"/>
+                                    <rect key="frame" x="103.5" y="0.0" width="68" height="24"/>
                                     <state key="normal" image="googleIcon"/>
                                     <connections>
                                         <action selector="googleLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="Hkv-dh-xZh"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vU4-Hb-QUb">
-                                    <rect key="frame" x="206.5" y="0.0" width="68.5" height="45"/>
+                                    <rect key="frame" x="206.5" y="0.0" width="68.5" height="24"/>
                                     <state key="normal" image="twitterIcon"/>
                                     <connections>
                                         <action selector="fbLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="ImB-qA-BLZ"/>
@@ -884,14 +893,14 @@ on Christmas”</string>
                                 </button>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="height" constant="45" id="CEl-Fw-Vcq"/>
+                                <constraint firstAttribute="height" constant="24" id="CEl-Fw-Vcq"/>
                             </constraints>
                         </stackView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="MMV-HB-2Nf" firstAttribute="trailing" secondItem="sET-rL-PFF" secondAttribute="trailing" constant="50" id="aqS-kM-rpe"/>
-                        <constraint firstItem="sET-rL-PFF" firstAttribute="top" secondItem="MMV-HB-2Nf" secondAttribute="top" constant="6" id="gyg-XB-Ve0"/>
+                        <constraint firstItem="sET-rL-PFF" firstAttribute="top" secondItem="mEQ-BN-39k" secondAttribute="top" constant="21.5" id="gyg-XB-Ve0"/>
                         <constraint firstItem="sET-rL-PFF" firstAttribute="leading" secondItem="MMV-HB-2Nf" secondAttribute="leading" constant="50" id="jgC-G7-a01"/>
                     </constraints>
                     <viewLayoutGuide key="safeArea" id="MMV-HB-2Nf"/>

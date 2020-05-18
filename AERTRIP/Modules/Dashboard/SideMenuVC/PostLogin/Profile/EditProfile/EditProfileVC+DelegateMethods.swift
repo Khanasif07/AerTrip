@@ -921,7 +921,7 @@ extension EditProfileVC: EditProfileThreePartTableViewCellDelegate {
         
         self.closeGenricAndDatePicker(completion: nil)
         
-        
+        PKCountryPickerSettings.shouldShowCountryCode = true
         PKCountryPicker.default.chooseCountry(onViewController: self, preSelectedCountry: PKCountryPicker.default.getCountryData(forISDCode: self.viewModel.mobile[indexPath.row].isd)) { [weak self] (selectedCountry,closePicker) in
             printDebug("selected country data: \(selectedCountry)")
             

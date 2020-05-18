@@ -38,6 +38,7 @@ class DashboardVC: BaseVC {
     @IBOutlet weak var tripsLabel: UILabel!
     @IBOutlet weak var profileButton: ATNotificationButton!
     @IBOutlet weak var splashView: UIView!
+    @IBOutlet weak var backgroundGradientView: GradientView!
     
     var overlayView = UIView()
     private var previousOffset = CGPoint.zero
@@ -90,10 +91,10 @@ class DashboardVC: BaseVC {
             self.addOverlayView()
         }
         
-        
+        self.backgroundGradientView.colors = [AppColors.themeGreen,AppColors.dashboardGradientColor]
         mainScrollView.delaysContentTouches = false
         self.profileButton.imageView?.contentMode = .scaleAspectFill
-        addViewOnTop()
+        //addViewOnTop()
         updateProfileButton()
     }
     

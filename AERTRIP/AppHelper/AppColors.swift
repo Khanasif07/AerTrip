@@ -141,6 +141,9 @@ enum AppColors {
     /// RGB -  0 170 108
     static let reviewGreen = UIColor(displayP3Red: 0, green: 0.667, blue: 0.424, alpha: 1)
     
+    /// RGB -  41 176 182
+    static let dashboardGradientColor = UIColor(displayP3Red: 0.161, green: 0.690, blue: 0.714, alpha: 1)
+    
     case headlines
     case body
     case subheads

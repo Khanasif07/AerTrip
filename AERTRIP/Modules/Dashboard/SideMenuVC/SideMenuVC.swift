@@ -297,33 +297,33 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             cell.selectionStyle = .gray
             if let _ = UserInfo.loggedInUserId {
                 let title = self.viewModel.cellForLoginUser[indexPath.row - 2]
-                switch indexPath.row{
-                case 2:
-                    cell.displayTextLabelTopConstraint.constant = 18.0
-                case 3:
-                    cell.displayTextLabelTopConstraint.constant = 13.0
-                case 4:
-                    cell.displayTextLabelTopConstraint.constant = 11.0
-                case 6:
-                    cell.displayTextLabelTopConstraint.constant = -6.0
-                default:
-                    cell.displayTextLabelTopConstraint.constant = 0.0
-                }
+//                switch indexPath.row{
+//                case 2:
+//                    cell.displayTextLabelTopConstraint.constant = 18.0
+//                case 3:
+//                    cell.displayTextLabelTopConstraint.constant = 13.0
+//                case 4:
+//                    cell.displayTextLabelTopConstraint.constant = 11.0
+//                case 6:
+//                    cell.displayTextLabelTopConstraint.constant = -6.0
+//                default:
+//                    cell.displayTextLabelTopConstraint.constant = 0.0
+//                }
                 cell.populateData(text: title)
                 cell.sepratorView.isHidden = !title.isEmpty
                 
             } else {
                 
-                switch indexPath.row{
-                case 2:
-                    cell.displayTextLabelTopConstraint.constant = 2.0
-                case 4:
-                    cell.displayTextLabelTopConstraint.constant = -2.0
-                case 5:
-                    cell.displayTextLabelTopConstraint.constant = -4.0
-                default:
-                    cell.displayTextLabelTopConstraint.constant = 0.0
-                }
+//                switch indexPath.row{
+//                case 2:
+//                    cell.displayTextLabelTopConstraint.constant = 2.0
+//                case 4:
+//                    cell.displayTextLabelTopConstraint.constant = -2.0
+//                case 5:
+//                    cell.displayTextLabelTopConstraint.constant = -4.0
+//                default:
+//                    cell.displayTextLabelTopConstraint.constant = 0.0
+//                }
                 
                 cell.populateData(text: self.viewModel.displayCellsForGuest[indexPath.row - 1])
             }
@@ -397,10 +397,15 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 return (UserInfo.loggedInUserId == nil) ? 267.0 : UITableView.automaticDimension
                 
             case 1:
-                return (UserInfo.loggedInUserId == nil) ? 60.0 : 70
+                return (UserInfo.loggedInUserId == nil) ? 61.5 : 82
                 
             default:
-                return (UserInfo.loggedInUserId == nil) ? ( indexPath.row == 6) ? 61.0 : 64.0 : 64.0
+                if let _ = UserInfo.loggedInUserId {
+                   return 61.0
+                } else {
+                   return 62.0
+                }
+//                return (UserInfo.loggedInUserId == nil) ? ( indexPath.row == 6) ? 61.0 : 64.0 : 61.0
             }
         }
     }

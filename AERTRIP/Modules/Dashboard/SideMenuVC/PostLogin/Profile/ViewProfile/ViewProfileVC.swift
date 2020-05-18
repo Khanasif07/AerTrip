@@ -35,10 +35,9 @@ class ViewProfileVC: BaseVC {
     
     weak var delegate: ViewProfileVCDelegate?
     let cellIdentifier = "ViewProfileTableViewCell"
-    var sections = ["details", "accounts", "logOut"]
-    var details = [LocalizedString.TravellerList.localized, LocalizedString.HotelPreferences.localized, LocalizedString.QuickPay.localized, LocalizedString.LinkedAccounts.localized, LocalizedString.NewsLetters.localized]
-    var accounts = [LocalizedString.Settings, LocalizedString.Notification]
-    var logOut = [LocalizedString.LogOut]
+    var sections = ["details", "logOut"]
+    var details = [LocalizedString.TravellerList.localized, LocalizedString.HotelPreferences.localized, LocalizedString.GSTIN.localized,  LocalizedString.QuickPay.localized, LocalizedString.LinkedAccounts.localized]
+    var logOut = [LocalizedString.ChangePassword,LocalizedString.LogOut]
     var profileImageHeaderView: SlideMenuProfileImageHeaderView?
     
     var maxValue: CGFloat = 1.0
@@ -73,7 +72,8 @@ class ViewProfileVC: BaseVC {
         super.viewWillAppear(animated)
         
         if let main = AppFlowManager.default.mainHomeVC, main.isPushedToNext {
-            self.statusBarStyle = topNavView.backView.isHidden ? .default : .lightContent
+            //self.statusBarStyle = topNavView.backView.isHidden ? .default : .lightContent
+            self.updateForParallexProgress()
         }
         else if let sideMenu = AppFlowManager.default.sideMenuController, !sideMenu.isOpen {
             self.statusBarStyle = .lightContent
@@ -244,8 +244,6 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
         switch self.sections[section] {
         case "details":
             return self.details.count
-        case "accounts":
-            return self.accounts.count
         case "logOut":
             return self.logOut.count
         default:
@@ -255,11 +253,9 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 80.0
+            return 79.0
         } else if indexPath.row == self.details.count - 1 && indexPath.section == 0 {
-            return 80.0
-        } else if indexPath.row == self.accounts.count - 1 && indexPath.section == 1{
-            return 80.0
+            return 79.0
         }
         else {
             return 61.0
@@ -279,23 +275,14 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
         switch self.sections[indexPath.section] {
         case "details":
             cell.bottomViewHeightConst.constant =  indexPath.row == self.details.count - 1 ? 36 : 18
-            cell.separatorView.isHidden = true
+            cell.separatorView.isHidden = self.details[indexPath.row] != LocalizedString.LinkedAccounts.localized
             cell.menuOptionLabel.isHidden = false
             cell.configureCell(self.details[indexPath.row])
             
             return cell
-        case "accounts":
-            cell.bottomViewHeightConst.constant =  indexPath.row == self.accounts.count - 1 ? 36 : 18
-            if self.accounts[indexPath.row].rawValue == "Settings" {
-                cell.separatorView.isHidden = false
-            } else {
-                cell.separatorView.isHidden = true
-            }
-            cell.configureCell(self.accounts[indexPath.row].rawValue)
-            return cell
         case "logOut":
-            cell.bottomViewHeightConst.constant = 18
-            cell.separatorView.isHidden = false
+            cell.bottomViewHeightConst.constant =  indexPath.row == self.logOut.count - 1 ? 36 : 18
+            cell.separatorView.isHidden = true
             cell.configureCell(self.logOut[indexPath.row].rawValue)
             return cell
         default:
@@ -307,21 +294,21 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
         switch self.sections[indexPath.section] {
         case "details":
             self.statusBarStyle = .default
-            switch indexPath.row {
+            switch self.details[indexPath.row] {
             // Open traveller detail listing
-            case 0:
+            case LocalizedString.TravellerList.localized:
                 AppFlowManager.default.moveToTravellerListVC()
                 
             // Open View All hotel details
-            case 1:
+            case LocalizedString.HotelPreferences.localized:
                 AppFlowManager.default.moveToViewAllHotelsVC()
                 
             // Open Quick pay
-            case 2:
+            case LocalizedString.QuickPay.localized:
                 AppFlowManager.default.moveToQuickPayVC()
                 
             // Open linked accout VC
-            case 3:
+            case LocalizedString.LinkedAccounts.localized:
                 AppFlowManager.default.moveToLinkedAccountsVC()
                 
             default:
@@ -329,25 +316,30 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
                 break
             }
             
-        case "accounts":
-            self.statusBarStyle = .default
-            if indexPath.row == 0 {
-                //settings
-                AppFlowManager.default.moveToSettingsVC()
-            } else {
-                AppFlowManager.default.moveToNotificationVC()
-            }
-            
+            //        case "accounts":
+            //            self.statusBarStyle = .default
+            //            if indexPath.row == 0 {
+            //                //settings
+            //                AppFlowManager.default.moveToSettingsVC()
+            //            } else {
+            //                AppFlowManager.default.moveToNotificationVC()
+            //            }
+        //
         case "logOut":
-            
-            let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.LogOut.localized], colors: [AppColors.themeRed])
-            _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
-                
-                if index == 0 {
-                    self.viewModel.webserviceForLogOut()
+            switch self.logOut[indexPath.row].rawValue {
+            // show logout option
+            case LocalizedString.LogOut.localized:
+                let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.LogOut.localized], colors: [AppColors.themeRed])
+                _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
+                    
+                    if index == 0 {
+                        self.viewModel.webserviceForLogOut()
+                    }
                 }
+            default:
+                AppToast.default.showToastMessage(message: "This feature is coming soon")
+                break
             }
-            
         default:
             break
         }

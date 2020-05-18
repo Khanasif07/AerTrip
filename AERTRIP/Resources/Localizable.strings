@@ -162,7 +162,7 @@
 "PleaseSelectCountry"    = "Please select country";
 "PleaseEnterMobileNumber" = "Please enter mobile number";
 "ViewProfile"         = "View Profile";
-"PleaseEnterValidMobileNumber" = "Please enter valid mobile number";
+"PleaseEnterValidMobileNumber" = "Please enter a valid mobile number";
 
 //MARK:- ViewProfileVC
 //MARK:-
@@ -172,6 +172,9 @@
 "Gender" = "Gender";
 "Male" = "Male";
 "Female" = "Female";
+//"GSTIN" = "GSTIN";
+"ChangePassword" = "Change Password";
+
 
 //MARK:- Hotel Search
 //MARK:-

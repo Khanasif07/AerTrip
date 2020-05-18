@@ -58,7 +58,7 @@
                         </subviews>
                     </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Qz-Pn-CCn" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="16" y="0.0" width="268" height="0.5"/>
+                        <rect key="frame" x="16" y="96.5" width="268" height="0.5"/>
                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="dIl-EX-lwe"/>
@@ -67,10 +67,10 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="pWh-6O-LNB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="6Nz-Gr-zF3"/>
-                    <constraint firstItem="0Qz-Pn-CCn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="7ez-Dw-Qdc"/>
                     <constraint firstAttribute="trailing" secondItem="0Qz-Pn-CCn" secondAttribute="trailing" constant="16" id="8Qq-uM-RaS"/>
                     <constraint firstItem="pWh-6O-LNB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="CCs-rq-zUN"/>
                     <constraint firstAttribute="trailing" secondItem="pWh-6O-LNB" secondAttribute="trailing" id="biE-pE-tCD"/>
+                    <constraint firstAttribute="bottom" secondItem="0Qz-Pn-CCn" secondAttribute="bottom" id="tlV-eV-z6D"/>
                     <constraint firstItem="0Qz-Pn-CCn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="uiS-Lt-TLM"/>
                     <constraint firstAttribute="bottom" secondItem="pWh-6O-LNB" secondAttribute="bottom" id="zEw-b1-4b4"/>
                 </constraints>

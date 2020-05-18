@@ -224,6 +224,10 @@ enum LocalizedString: String {
     case Gender
     case Male
     case Female
+    //case GSTIN
+    case ChangePassword
+
+    
     
     // MARK: - ViewProfileDetailVC
     
