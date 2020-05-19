@@ -45,7 +45,7 @@ class NotificationVC: BaseVC {
     // MARK: - Helper methods
     
     private func configureNavBar() {
-        self.topNavigation.configureNavBar(title: LocalizedString.Notifications.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: false, backgroundType: .color(color: AppColors.themeWhite))
+        self.topNavigation.configureNavBar(title: LocalizedString.Notifications.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true, backgroundType: .color(color: AppColors.themeWhite))
         self.topNavigation.delegate = self
     }
     

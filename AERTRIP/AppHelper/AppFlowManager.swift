@@ -1112,6 +1112,11 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
+//    func moveToCurrencyVC() {
+//        self.showURLOnATWebView(<#T##url: URL##URL#>, screenTitle: <#T##String#>)
+//    }
+    
+    
 }
 
 // MARK: - Select Trip Flow Methods

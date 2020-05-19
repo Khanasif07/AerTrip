@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FlightInfoVC: BaseVC {
+class FlightBookingInfoVC: BaseVC {
     
     //MARK:- IBOutlets
     //MARK:-

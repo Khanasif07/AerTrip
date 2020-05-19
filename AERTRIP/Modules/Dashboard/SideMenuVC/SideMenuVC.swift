@@ -284,7 +284,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideMenuOptionsLabelCell", for: indexPath) as? SideMenuOptionsLabelCell else {
                     return UITableViewCell()
                 }
-                
+                cell.selectionStyle = .gray
                 cell.populateData(text: self.viewModel.displayCellsForGuest[indexPath.row - 1])
                 return cell
             }
@@ -373,6 +373,7 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 0:
                 break
+//            case 1:
                 
             case 5:
                 //settings

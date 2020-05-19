@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension FlightInfoVC {
+extension FlightBookingInfoVC {
     
     // get height For Flight Info For First section
     func getHeightForFlightInfo(_ indexPath: IndexPath) -> CGFloat {
@@ -127,7 +127,7 @@ extension FlightInfoVC {
     }
     
 }
-extension FlightInfoVC:TravellerAddOnsCellHeightDelegate {
+extension FlightBookingInfoVC:TravellerAddOnsCellHeightDelegate {
     
     func needToUpdateHeight(at index:IndexPath){
         self.tableView.beginUpdates()
