@@ -184,7 +184,9 @@ enum LocalizedString: String {
     case Notification
     case ReferAndEarn
     case ViewAccounts
-    
+    case Support
+    case RateUs
+
     // MARK: - CreateProfileVCDelegate
     
     // MARK: -

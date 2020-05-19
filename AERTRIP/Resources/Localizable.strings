@@ -151,6 +151,9 @@
 "Notification"    = "Notification";
 "ReferAndEarn"    = "Refer & Earn";
 "ViewAccounts"    = "View Accounts";
+"Support"    = "Support";
+"RateUs"    = "Rate Us";
+
 
 //MARK:- CreateProfileVCDelegate
 //MARK:-
