@@ -2436,6 +2436,13 @@
 			path = NotificationVC;
 			sourceTree = "<group>";
 		};
+		0CBADF0D2473C18800086EA7 /* FlightThirdParties */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FlightThirdParties;
+			sourceTree = "<group>";
+		};
 		0CBDEA452429CDE9009D7849 /* ChatDots */ = {
 			isa = PBXGroup;
 			children = (
@@ -5719,6 +5726,7 @@
 		84F9838121B51A070018DFED /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				0CBADF0D2473C18800086EA7 /* FlightThirdParties */,
 				8463A5112456C7B200C70D8C /* GooleMapCluster */,
 				0CBDEA452429CDE9009D7849 /* ChatDots */,
 				8408D1C82406ADB300432A2C /* AertripCalendar */,
@@ -7325,7 +7333,6 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AppAuth\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/AvailableHapticFeedback\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Bolts\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/FSCalendar\"",
@@ -7355,7 +7362,6 @@
 					"\"${PODS_ROOT}/GoogleMaps/Maps/Frameworks\"",
 					"\"${PODS_ROOT}/GooglePlaces/Frameworks\"",
 					"\"${PODS_ROOT}/GoogleSignIn/Frameworks\"",
-					"\"${PODS_ROOT}/LinkedinSwift\"",
 					"\"${PODS_ROOT}/razorpay-pod/Pod\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/AERTRIP/Resources/Info.plist";
@@ -7564,7 +7570,6 @@
 					"\"${PODS_ROOT}/GoogleMaps/Maps/Frameworks\"",
 					"\"${PODS_ROOT}/GooglePlaces/Frameworks\"",
 					"\"${PODS_ROOT}/GoogleSignIn/Frameworks\"",
-					"\"${PODS_ROOT}/LinkedinSwift\"",
 					"\"${PODS_ROOT}/razorpay-pod/Pod\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/AERTRIP/Resources/Info.plist";
