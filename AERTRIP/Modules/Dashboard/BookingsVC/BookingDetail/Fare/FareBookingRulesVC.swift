@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FareRulesVC: BaseVC {
+class FareBookingRulesVC: BaseVC {
     
     // MARK: - IBOutlet
     @IBOutlet weak var fareRuleTableView: ATTableView!
@@ -41,7 +41,7 @@ class FareRulesVC: BaseVC {
 
 // MARK: - UITableViewDataSource and UITableViewDelegate methods
 
-extension FareRulesVC: UITableViewDataSource, UITableViewDelegate {
+extension FareBookingRulesVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }

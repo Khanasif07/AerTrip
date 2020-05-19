@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension FlightInfoVC: UITableViewDataSource, UITableViewDelegate {
+extension FlightBookingInfoVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.viewModel.legDetails.count
     }
@@ -54,7 +54,7 @@ extension FlightInfoVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-extension FlightInfoVC: BookingDetailVMDelegate {
+extension FlightBookingInfoVC: BookingDetailVMDelegate {
     func willGetBookingFees() {}
     
     func getBookingFeesSuccess() {

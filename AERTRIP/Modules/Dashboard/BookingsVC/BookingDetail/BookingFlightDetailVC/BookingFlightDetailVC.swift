@@ -69,7 +69,7 @@ class BookingFlightDetailVC: BaseVC {
         self.allTabsStr.append(LocalizedString.Baggage.localized)
         self.allTabsStr.append(LocalizedString.FareInfo.localized)
         
-        let flightInfoVC = FlightInfoVC.instantiate(fromAppStoryboard: .Bookings)
+        let flightInfoVC = FlightBookingInfoVC.instantiate(fromAppStoryboard: .Bookings)
         flightInfoVC.viewModel.bookingDetail = self.viewModel.bookingDetail
         self.allChildVCs.append(flightInfoVC)
         

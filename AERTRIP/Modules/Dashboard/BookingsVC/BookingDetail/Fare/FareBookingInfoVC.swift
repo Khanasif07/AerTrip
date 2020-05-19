@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FareInfoVC: BaseVC {
+class FareBookingInfoVC: BaseVC {
     
     @IBOutlet weak var fareInfoTableView: ATTableView!
     
@@ -44,7 +44,7 @@ class FareInfoVC: BaseVC {
 
 // MARK: - UITableViewDataSource and UITableViewDelegate methods
 
-extension FareInfoVC : UITableViewDataSource, UITableViewDelegate {
+extension FareBookingInfoVC : UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -154,7 +154,7 @@ extension FareInfoVC : UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-extension FareInfoVC {
+extension FareBookingInfoVC {
     func getCancelChargesCount(charge: AerlineCharge?) -> Int {
         var temp = 0
         guard let can = charge else {
