@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FlightAmenitiesCell" rowHeight="156" id="Gzu-1F-CRr" customClass="FlightAmenitiesTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="156"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gzu-1F-CRr" id="vbp-9I-7Dz">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="155.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N7z-eX-WPH">
+                        <rect key="frame" x="0.0" y="25" width="375" height="53"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FlightImage" translatesAutoresizingMaskIntoConstraints="NO" id="fhp-db-rQl">
+                                <rect key="frame" x="16" y="0.0" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="DSH-UC-wwI"/>
+                                    <constraint firstAttribute="height" constant="44" id="LM1-ks-3FC"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Virgin Atlantic" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="93v-Sx-E8y">
+                                <rect key="frame" x="70" y="4" width="109" height="23"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EK-5154・Economy (B)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4BU-wf-rgo">
+                                <rect key="frame" x="70" y="27" width="135.5" height="18"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4BU-wf-rgo" firstAttribute="leading" secondItem="93v-Sx-E8y" secondAttribute="leading" id="H2u-CB-CjO"/>
+                            <constraint firstAttribute="bottom" secondItem="4BU-wf-rgo" secondAttribute="bottom" constant="8" id="Kq9-6Y-WgZ"/>
+                            <constraint firstItem="fhp-db-rQl" firstAttribute="leading" secondItem="N7z-eX-WPH" secondAttribute="leading" constant="16" id="TAv-kh-SD9"/>
+                            <constraint firstItem="93v-Sx-E8y" firstAttribute="leading" secondItem="fhp-db-rQl" secondAttribute="trailing" constant="10" id="WbC-aN-Pbd"/>
+                            <constraint firstItem="93v-Sx-E8y" firstAttribute="top" secondItem="fhp-db-rQl" secondAttribute="top" constant="4" id="bwM-Xj-oUM"/>
+                            <constraint firstItem="4BU-wf-rgo" firstAttribute="top" secondItem="93v-Sx-E8y" secondAttribute="bottom" id="kOe-E6-KYw"/>
+                            <constraint firstItem="fhp-db-rQl" firstAttribute="top" secondItem="N7z-eX-WPH" secondAttribute="top" id="pvj-wl-ymm"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="N7z-eX-WPH" firstAttribute="centerX" secondItem="vbp-9I-7Dz" secondAttribute="centerX" id="PpL-xm-TqY"/>
+                    <constraint firstItem="N7z-eX-WPH" firstAttribute="top" secondItem="vbp-9I-7Dz" secondAttribute="top" constant="25" id="qkp-64-AX7"/>
+                    <constraint firstItem="N7z-eX-WPH" firstAttribute="width" secondItem="vbp-9I-7Dz" secondAttribute="width" id="tJu-ka-6sE"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="65.5" y="110"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="FlightImage" width="35" height="35"/>
+    </resources>
+</document>

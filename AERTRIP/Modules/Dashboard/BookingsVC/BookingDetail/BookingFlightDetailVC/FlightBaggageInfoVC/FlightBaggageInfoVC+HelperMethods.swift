@@ -28,9 +28,9 @@ extension FlightBaggageInfoVC {
         }
     }
     
-    func getFlightDetailsForBaggageInfo(indexPath: IndexPath) -> FlightDetail {
+    func getFlightDetailsForBaggageInfo(indexPath: IndexPath) -> BookingFlightDetail {
         if self.viewModel.allBaggageCells.count == indexPath.section {
-            return FlightDetail()
+            return BookingFlightDetail()
         }
         var currentIdx: Int = 0
         var allTotal: Int = 0

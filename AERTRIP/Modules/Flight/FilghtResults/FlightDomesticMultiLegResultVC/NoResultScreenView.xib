@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NoResultScreenView" customModule="Aertrip" customModuleProvider="target">
+            <connections>
+                <outlet property="TryAgain" destination="rRi-Nr-1qt" id="kVk-3Z-TXF"/>
+                <outlet property="clearFilter" destination="ENi-aq-CR2" id="wsa-3t-NC4"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="1mL-gx-8iC"/>
+                <outlet property="headerLabel" destination="c24-nk-uKX" id="v5Y-Wq-Wz4"/>
+                <outlet property="subTitle" destination="cJn-eW-Ji0" id="SH8-YC-N3z"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flight Not Found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c24-nk-uKX">
+                    <rect key="frame" x="8" y="16" width="398" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="VQc-mX-7jd"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kindly re check your search or try looking for other routes or dates." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cJn-eW-Ji0">
+                    <rect key="frame" x="8" y="51" width="398" height="84"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="84" id="LWi-hY-S7P"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ENi-aq-CR2">
+                    <rect key="frame" x="8" y="161" width="398" height="38"/>
+                    <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
+                    <state key="normal" title="Try again!">
+                        <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="clearFilterTapped:" destination="-1" eventType="touchUpInside" id="9IS-es-lvf"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rRi-Nr-1qt">
+                    <rect key="frame" x="8" y="161" width="398" height="38"/>
+                    <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
+                    <state key="normal" title="Try again!">
+                        <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="tryAgainTapped:" destination="-1" eventType="touchUpInside" id="vzd-en-mYU"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="cJn-eW-Ji0" firstAttribute="top" secondItem="c24-nk-uKX" secondAttribute="bottom" constant="10" id="6HM-aD-qPg"/>
+                <constraint firstItem="c24-nk-uKX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="6OF-WV-DoW"/>
+                <constraint firstItem="rRi-Nr-1qt" firstAttribute="top" secondItem="cJn-eW-Ji0" secondAttribute="bottom" constant="26" id="84T-do-NH7"/>
+                <constraint firstAttribute="trailing" secondItem="rRi-Nr-1qt" secondAttribute="trailing" constant="8" id="AkP-XV-a6y"/>
+                <constraint firstItem="ENi-aq-CR2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="OTs-Hq-crV"/>
+                <constraint firstItem="cJn-eW-Ji0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="WH8-jU-bjH"/>
+                <constraint firstItem="c24-nk-uKX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="eyy-WM-Ijf"/>
+                <constraint firstAttribute="trailing" secondItem="cJn-eW-Ji0" secondAttribute="trailing" constant="8" id="kiv-la-5S5"/>
+                <constraint firstItem="ENi-aq-CR2" firstAttribute="top" secondItem="cJn-eW-Ji0" secondAttribute="bottom" constant="26" id="pdc-yY-xz3"/>
+                <constraint firstItem="cJn-eW-Ji0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="rT8-Fs-1O9"/>
+                <constraint firstItem="rRi-Nr-1qt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="rhc-Jx-8dc"/>
+                <constraint firstAttribute="trailing" secondItem="c24-nk-uKX" secondAttribute="trailing" constant="8" id="s2k-cV-4wR"/>
+                <constraint firstAttribute="trailing" secondItem="ENi-aq-CR2" secondAttribute="trailing" constant="8" id="zRI-64-PR0"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

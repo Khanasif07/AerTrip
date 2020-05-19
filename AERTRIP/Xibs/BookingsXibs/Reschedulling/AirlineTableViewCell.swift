@@ -17,7 +17,7 @@ class AirlineTableViewCell: ATTableViewCell {
     @IBOutlet weak var airlineImageView: UIImageView!
     
    
-    var flightDetail: FlightDetail? {
+    var flightDetail: BookingFlightDetail? {
         didSet {
             self.configureCell()
         }

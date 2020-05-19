@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="AirportSelectionCell" customModule="Aertrip" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WWW" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxE-Gk-vx5">
+                        <rect key="frame" x="16" y="0.0" width="44" height="43.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="44" id="smd-Nw-sQm"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMb-7m-ack">
+                        <rect key="frame" x="77" y="-0.5" width="193" height="44.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="AYD-bC-5M7"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lzb-pP-ysw">
+                        <rect key="frame" x="271" y="0.0" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="44" id="hsJ-2l-8Ju"/>
+                            <constraint firstAttribute="height" constant="44" id="iCx-iW-sLw"/>
+                        </constraints>
+                        <state key="normal" image="UncheckedGreenRadioButton"/>
+                        <state key="selected" image="CheckedGreenRadioButton"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="JxE-Gk-vx5" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="I6d-Xu-QTq"/>
+                    <constraint firstAttribute="trailing" secondItem="lzb-pP-ysw" secondAttribute="trailing" constant="5" id="NZU-aL-MSV"/>
+                    <constraint firstAttribute="trailing" secondItem="KMb-7m-ack" secondAttribute="trailing" constant="50" id="QHz-pO-gkd"/>
+                    <constraint firstItem="lzb-pP-ysw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="XWB-EK-eOy"/>
+                    <constraint firstItem="JxE-Gk-vx5" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" id="i7P-h3-ezO"/>
+                    <constraint firstItem="JxE-Gk-vx5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="kOC-Wy-ZQE"/>
+                    <constraint firstItem="KMb-7m-ack" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="77" id="prB-z5-Dag"/>
+                    <constraint firstItem="KMb-7m-ack" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="u9D-cT-88z"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="airportCode" destination="JxE-Gk-vx5" id="n9p-a4-Yy2"/>
+                <outlet property="airportName" destination="KMb-7m-ack" id="jAN-OD-hg4"/>
+                <outlet property="radioButton" destination="lzb-pP-ysw" id="rVN-2s-85H"/>
+            </connections>
+            <point key="canvasLocation" x="137.59999999999999" y="153.82308845577214"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="CheckedGreenRadioButton" width="22" height="22"/>
+        <image name="UncheckedGreenRadioButton" width="22" height="22"/>
+    </resources>
+</document>

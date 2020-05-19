@@ -15,7 +15,7 @@ class FlightInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var flightNameLabel: UILabel!
     @IBOutlet weak var flightDetailsLabel: UILabel!
     
-    var flightDetail: FlightDetail? {
+    var flightDetail: BookingFlightDetail? {
         didSet {
             self.configureCell()
         }

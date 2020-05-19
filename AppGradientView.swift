@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GradientView: UIView {
+class AppGradientView: UIView {
     
     var colors: [UIColor] = [UIColor.black.withAlphaComponent(0.35),
                              UIColor.white] { didSet { self.setNeedsDisplay()} }

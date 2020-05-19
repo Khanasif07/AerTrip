@@ -22,7 +22,7 @@ class BookingFFAirlineTableViewCell: ATTableViewCell {
     
     @IBOutlet weak var rightDividerView: ATDividerView!
     
-    var flightData: FlightDetail? {
+    var flightData: BookingFlightDetail? {
         didSet {
             self.cofigureCell()
         }

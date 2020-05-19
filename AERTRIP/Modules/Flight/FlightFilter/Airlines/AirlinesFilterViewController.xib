@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AirlinesFilterViewController" customModule="Aertrip" customModuleProvider="target">
+            <connections>
+                <outlet property="JourneyTitle" destination="a8k-uP-v0T" id="ekI-rq-SmB"/>
+                <outlet property="airlinesTableView" destination="sED-I0-dgu" id="23m-o0-Amu"/>
+                <outlet property="heightConstraintForMulticityView" destination="NJB-bw-uk9" id="NDX-9d-qLV"/>
+                <outlet property="multicitySegmentView" destination="S8q-Yy-lzT" id="6di-hA-eLe"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A75-WX-9zn">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="94"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S8q-Yy-lzT">
+                            <rect key="frame" x="16" y="16" width="343" height="29.5"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOM → DEL" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a8k-uP-v0T">
+                            <rect key="frame" x="16" y="61.5" width="343" height="20.5"/>
+                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="a8k-uP-v0T" firstAttribute="leading" secondItem="A75-WX-9zn" secondAttribute="leading" constant="16" id="Fmz-Ar-Lwd"/>
+                        <constraint firstItem="a8k-uP-v0T" firstAttribute="top" secondItem="S8q-Yy-lzT" secondAttribute="bottom" constant="16" id="HT2-2H-ONz"/>
+                        <constraint firstAttribute="height" constant="94" id="NJB-bw-uk9"/>
+                        <constraint firstAttribute="trailing" secondItem="S8q-Yy-lzT" secondAttribute="trailing" constant="16" id="VvJ-HW-VML"/>
+                        <constraint firstItem="S8q-Yy-lzT" firstAttribute="leading" secondItem="A75-WX-9zn" secondAttribute="leading" constant="16" id="ZE3-Bw-iGN"/>
+                        <constraint firstItem="S8q-Yy-lzT" firstAttribute="top" secondItem="A75-WX-9zn" secondAttribute="top" constant="16" id="jTf-mB-qYb"/>
+                        <constraint firstAttribute="trailing" secondItem="a8k-uP-v0T" secondAttribute="trailing" constant="16" id="joy-kk-JXN"/>
+                        <constraint firstAttribute="bottom" secondItem="a8k-uP-v0T" secondAttribute="bottom" constant="12" id="qFP-Af-qqI"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sED-I0-dgu">
+                    <rect key="frame" x="0.0" y="94" width="375" height="573"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="GT2-eQ-NMV"/>
+                        <outlet property="delegate" destination="-1" id="6W0-Zh-DPg"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="sED-I0-dgu" firstAttribute="top" secondItem="A75-WX-9zn" secondAttribute="bottom" id="3gb-U7-5x0"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="A75-WX-9zn" secondAttribute="trailing" id="KGP-Hr-4nv"/>
+                <constraint firstItem="sED-I0-dgu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="QC8-9v-6AS"/>
+                <constraint firstItem="sED-I0-dgu" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Vva-6e-L9n"/>
+                <constraint firstItem="A75-WX-9zn" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="abK-bi-ntH"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="sED-I0-dgu" secondAttribute="bottom" id="hRt-2f-rYo"/>
+                <constraint firstItem="A75-WX-9zn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mc9-e1-ioC"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="138.40000000000001" y="152.47376311844079"/>
+        </view>
+    </objects>
+</document>

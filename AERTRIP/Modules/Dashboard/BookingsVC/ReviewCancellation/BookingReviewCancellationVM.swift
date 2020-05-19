@@ -40,7 +40,7 @@ class BookingReviewCancellationVM {
     var selectedRooms: [RoomDetailModel] = []
     
     //flight
-    var legsWithSelection: [Leg] = []
+    var legsWithSelection: [BookingLeg] = []
     
     // Net Refund for Cancellation is used for Flight detail
     var totRefundForFlight: Double {

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GSTINListCell" rowHeight="86" id="MP2-TY-lXc" customClass="GSTINListCell" customModule="Aertrip" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="357" height="86"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MP2-TY-lXc" id="qik-qa-rwv">
+                <rect key="frame" x="0.0" y="0.0" width="357" height="86"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ngg-dj-Mdn">
+                        <rect key="frame" x="16" y="12" width="282" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wze-bB-SCS">
+                        <rect key="frame" x="306" y="16" width="35" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="35" id="PUj-QX-h0f"/>
+                            <constraint firstAttribute="height" constant="18" id="tmG-Bz-k3n"/>
+                        </constraints>
+                        <state key="normal" title="Edit"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGB-6s-91E">
+                        <rect key="frame" x="16" y="36.5" width="42" height="33"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uLe-2H-vM8">
+                        <rect key="frame" x="16" y="85.5" width="341" height="0.5"/>
+                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="7x2-cK-qvS"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Ngg-dj-Mdn" firstAttribute="top" secondItem="qik-qa-rwv" secondAttribute="top" constant="12" id="9SI-nh-rPk"/>
+                    <constraint firstAttribute="trailing" secondItem="wze-bB-SCS" secondAttribute="trailing" constant="16" id="GQs-Id-nuq"/>
+                    <constraint firstItem="wze-bB-SCS" firstAttribute="leading" secondItem="Ngg-dj-Mdn" secondAttribute="trailing" constant="8" id="Jcn-kt-ayq"/>
+                    <constraint firstItem="mGB-6s-91E" firstAttribute="top" secondItem="Ngg-dj-Mdn" secondAttribute="bottom" constant="4" id="MgQ-Vp-sl6"/>
+                    <constraint firstItem="mGB-6s-91E" firstAttribute="leading" secondItem="qik-qa-rwv" secondAttribute="leading" constant="16" id="RUv-Tr-j6q"/>
+                    <constraint firstItem="uLe-2H-vM8" firstAttribute="leading" secondItem="qik-qa-rwv" secondAttribute="leading" constant="16" id="SBT-eG-GBw"/>
+                    <constraint firstItem="Ngg-dj-Mdn" firstAttribute="leading" secondItem="qik-qa-rwv" secondAttribute="leading" constant="16" id="UCN-Ur-3v9"/>
+                    <constraint firstAttribute="bottom" secondItem="uLe-2H-vM8" secondAttribute="bottom" id="WFu-53-FBb"/>
+                    <constraint firstItem="uLe-2H-vM8" firstAttribute="top" secondItem="mGB-6s-91E" secondAttribute="bottom" constant="16" id="hCe-M4-F5j"/>
+                    <constraint firstItem="wze-bB-SCS" firstAttribute="top" secondItem="qik-qa-rwv" secondAttribute="top" constant="16" id="mVq-vW-uZr"/>
+                    <constraint firstAttribute="trailing" secondItem="uLe-2H-vM8" secondAttribute="trailing" id="naV-Vp-dq4"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="editButton" destination="wze-bB-SCS" id="ROa-sT-nQx"/>
+                <outlet property="subtitleLabel" destination="mGB-6s-91E" id="zQh-Fm-BXa"/>
+                <outlet property="titleLabel" destination="Ngg-dj-Mdn" id="Y1t-FL-Tnf"/>
+            </connections>
+            <point key="canvasLocation" x="-58.695652173913047" y="22.767857142857142"/>
+        </tableViewCell>
+    </objects>
+</document>

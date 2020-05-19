@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FlightBaggageCell" rowHeight="252" id="sPx-eD-M13" customClass="FlightBaggageTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="252"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sPx-eD-M13" id="vSs-bg-MI2">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="251.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZYO-ty-Cm3">
+                        <rect key="frame" x="0.0" y="26" width="375" height="53"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FlightImage" translatesAutoresizingMaskIntoConstraints="NO" id="KJc-ij-ncu">
+                                <rect key="frame" x="16" y="0.0" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="OHC-hN-XfH"/>
+                                    <constraint firstAttribute="height" constant="44" id="SGM-6A-egs"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Virgin Atlantic" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kpz-pd-Z0k">
+                                <rect key="frame" x="70" y="4" width="109" height="23"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EK-5154・Economy (B)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0tE-Z7-WQt">
+                                <rect key="frame" x="70" y="27" width="135.5" height="18"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="KJc-ij-ncu" firstAttribute="top" secondItem="ZYO-ty-Cm3" secondAttribute="top" id="3P7-KN-C8e"/>
+                            <constraint firstItem="kpz-pd-Z0k" firstAttribute="top" secondItem="KJc-ij-ncu" secondAttribute="top" constant="4" id="6mK-E2-WAn"/>
+                            <constraint firstAttribute="bottom" secondItem="0tE-Z7-WQt" secondAttribute="bottom" constant="8" id="8dg-Ed-uvo"/>
+                            <constraint firstItem="kpz-pd-Z0k" firstAttribute="leading" secondItem="KJc-ij-ncu" secondAttribute="trailing" constant="10" id="HV4-Al-JG3"/>
+                            <constraint firstItem="0tE-Z7-WQt" firstAttribute="leading" secondItem="kpz-pd-Z0k" secondAttribute="leading" id="KcN-bf-gxQ"/>
+                            <constraint firstItem="0tE-Z7-WQt" firstAttribute="top" secondItem="kpz-pd-Z0k" secondAttribute="bottom" id="Lr5-DJ-Hzc"/>
+                            <constraint firstItem="KJc-ij-ncu" firstAttribute="leading" secondItem="ZYO-ty-Cm3" secondAttribute="leading" constant="16" id="XDn-Ba-aRw"/>
+                        </constraints>
+                    </view>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="K8v-2u-nE9">
+                        <rect key="frame" x="16" y="103" width="76" height="98"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhp-FZ-fqW">
+                                <rect key="frame" x="0.0" y="0.0" width="76" height="23"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Per Adult" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qjN-Oc-00b">
+                                <rect key="frame" x="0.0" y="25" width="76" height="23"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Per Child" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMW-oo-HjP">
+                                <rect key="frame" x="0.0" y="50" width="76" height="23"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Per Infant" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZF-Nb-7eH">
+                                <rect key="frame" x="0.0" y="75" width="76" height="23"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="MCc-Oh-lSx">
+                        <rect key="frame" x="193" y="103" width="75" height="98"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check-in" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dq1-aS-nHy">
+                                <rect key="frame" x="0.0" y="0.0" width="75" height="23"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 x 23 kgs " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ldx-1f-FPY">
+                                <rect key="frame" x="0.0" y="25" width="75" height="23"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 x 7 kgs" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SSM-h1-fez">
+                                <rect key="frame" x="0.0" y="50" width="75" height="23"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 x 7 kgs" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aRQ-We-6Ia">
+                                <rect key="frame" x="0.0" y="75" width="75" height="23"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="tXn-cA-Hmn">
+                        <rect key="frame" x="284" y="103" width="75" height="98"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cabin" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNJ-Zz-Sxa">
+                                <rect key="frame" x="0.0" y="0.0" width="75" height="23"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 x 23 kgs " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ClC-Ai-E5g">
+                                <rect key="frame" x="0.0" y="25" width="75" height="23"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 x 7 kgs" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Jp-Yk-r2s">
+                                <rect key="frame" x="0.0" y="50" width="75" height="23"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 x 7 kgs" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5sW-3m-MgX">
+                                <rect key="frame" x="0.0" y="75" width="75" height="23"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rt0-BG-rBv">
+                        <rect key="frame" x="16" y="227" width="343" height="24"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Layover in London 2h 15m" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zGn-Od-ds3">
+                                <rect key="frame" x="95" y="2.5" width="153.5" height="18"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="zGn-Od-ds3" firstAttribute="centerY" secondItem="Rt0-BG-rBv" secondAttribute="centerY" id="3TI-VQ-N2t"/>
+                            <constraint firstItem="zGn-Od-ds3" firstAttribute="centerX" secondItem="Rt0-BG-rBv" secondAttribute="centerX" id="4Uf-TV-2g5"/>
+                            <constraint firstAttribute="height" constant="24" id="gp8-S5-osK"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="12"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.boundToMask" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                <integer key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                <color key="value" red="0.97254901960784312" green="0.72549019607843135" blue="0.031372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="K8v-2u-nE9" firstAttribute="top" secondItem="ZYO-ty-Cm3" secondAttribute="bottom" constant="24" id="2kG-b9-PbG"/>
+                    <constraint firstItem="MCc-Oh-lSx" firstAttribute="top" secondItem="tXn-cA-Hmn" secondAttribute="top" id="Bk7-Xm-gcD"/>
+                    <constraint firstAttribute="bottom" secondItem="Rt0-BG-rBv" secondAttribute="bottom" constant="0.5" id="CBw-uu-gHD"/>
+                    <constraint firstItem="K8v-2u-nE9" firstAttribute="leading" secondItem="vSs-bg-MI2" secondAttribute="leading" constant="16" id="EAB-3W-znl"/>
+                    <constraint firstItem="ZYO-ty-Cm3" firstAttribute="width" secondItem="vSs-bg-MI2" secondAttribute="width" id="IuS-a4-nec"/>
+                    <constraint firstItem="tXn-cA-Hmn" firstAttribute="leading" secondItem="MCc-Oh-lSx" secondAttribute="trailing" constant="16" id="NnB-pb-oDs"/>
+                    <constraint firstItem="tXn-cA-Hmn" firstAttribute="top" secondItem="K8v-2u-nE9" secondAttribute="top" id="OLJ-jl-nxp"/>
+                    <constraint firstAttribute="trailing" secondItem="tXn-cA-Hmn" secondAttribute="trailing" constant="16" id="P6o-Ez-lrw"/>
+                    <constraint firstItem="Rt0-BG-rBv" firstAttribute="top" secondItem="tXn-cA-Hmn" secondAttribute="bottom" constant="26" id="Rl9-xi-GMj"/>
+                    <constraint firstItem="ZYO-ty-Cm3" firstAttribute="centerX" secondItem="vSs-bg-MI2" secondAttribute="centerX" id="UE7-ek-FmO"/>
+                    <constraint firstItem="Rt0-BG-rBv" firstAttribute="leading" secondItem="vSs-bg-MI2" secondAttribute="leading" constant="16" id="cf8-kM-4do"/>
+                    <constraint firstAttribute="trailing" secondItem="Rt0-BG-rBv" secondAttribute="trailing" constant="16" id="oAw-L7-Hs2"/>
+                    <constraint firstItem="ZYO-ty-Cm3" firstAttribute="top" secondItem="vSs-bg-MI2" secondAttribute="top" constant="26" id="zon-uA-2Wa"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="adultCabinLabel" destination="ClC-Ai-E5g" id="kVU-DD-wjd"/>
+                <outlet property="adultCheckInLabel" destination="ldx-1f-FPY" id="mCd-Hb-Xid"/>
+                <outlet property="adultLabel" destination="qjN-Oc-00b" id="DBX-jg-4fp"/>
+                <outlet property="childCabinLabel" destination="7Jp-Yk-r2s" id="1T4-YL-WwF"/>
+                <outlet property="childCheckInLabel" destination="SSM-h1-fez" id="MnA-H7-0ef"/>
+                <outlet property="childLabel" destination="bMW-oo-HjP" id="zF2-UW-faE"/>
+                <outlet property="coreImageView" destination="KJc-ij-ncu" id="awO-j4-FjA"/>
+                <outlet property="infantCabinLabel" destination="5sW-3m-MgX" id="3VG-jA-dCw"/>
+                <outlet property="infantCheckInLabel" destination="aRQ-We-6Ia" id="Rfy-PS-BHS"/>
+                <outlet property="infantLabel" destination="ZZF-Nb-7eH" id="9YP-Pg-Awj"/>
+                <outlet property="layoverLabel" destination="zGn-Od-ds3" id="6fL-dm-RFY"/>
+                <outlet property="layoverView" destination="Rt0-BG-rBv" id="Dqb-IH-Rex"/>
+                <outlet property="layoverViewHeightConstraint" destination="gp8-S5-osK" id="JcD-MW-FHU"/>
+                <outlet property="nameLabel" destination="kpz-pd-Z0k" id="kaB-dz-LNf"/>
+                <outlet property="subDescriptionLabel" destination="0tE-Z7-WQt" id="nIs-d8-Jkv"/>
+            </connections>
+            <point key="canvasLocation" x="419.5" y="158.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="FlightImage" width="35" height="35"/>
+    </resources>
+</document>

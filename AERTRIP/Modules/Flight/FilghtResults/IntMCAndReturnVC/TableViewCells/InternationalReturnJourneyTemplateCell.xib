@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="73" id="KGk-i7-Jjw" customClass="InternationalReturnJourneyTemplateCell" customModule="Aertrip" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="417" height="77"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="417" height="77"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8lY-ii-jeE">
+                        <rect key="frame" x="18" y="15" width="34" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="8Hg-gX-NOT"/>
+                            <constraint firstAttribute="width" constant="34" id="HRK-D2-MU5"/>
+                        </constraints>
+                    </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="103" translatesAutoresizingMaskIntoConstraints="NO" id="JSb-Cx-HfV">
+                        <rect key="frame" x="82" y="15" width="335" height="12"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k6c-vI-8gV">
+                                <rect key="frame" x="0.0" y="0.0" width="42" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="42" id="5GA-6T-N2k"/>
+                                    <constraint firstAttribute="height" constant="12" id="A0x-xe-xTh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37p-EU-9B4">
+                                <rect key="frame" x="293" y="0.0" width="42" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="42" id="VIR-6v-aFn"/>
+                                    <constraint firstAttribute="height" constant="12" id="tV5-Us-UkR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="szcxzczxcxz" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oul-ao-EqI">
+                        <rect key="frame" x="0.0" y="49" width="70" height="11"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="Qr4-1S-L6Q"/>
+                            <constraint firstAttribute="height" constant="11" id="h4d-DT-yyo"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="12"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WY8-xg-FDP">
+                        <rect key="frame" x="82" y="49" width="335" height="11"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LON" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cYd-vv-rdr">
+                                <rect key="frame" x="303" y="0.0" width="32" height="11"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="11" id="s6d-sl-e42"/>
+                                    <constraint firstAttribute="width" constant="32" id="zWO-au-Lc9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNS-f1-Bak">
+                                <rect key="frame" x="0.0" y="0.0" width="32" height="11"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="pRP-Jy-Svx"/>
+                                    <constraint firstAttribute="height" constant="11" id="yxk-Ks-JuE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hYs-Zj-oiM">
+                                <rect key="frame" x="42" y="5.5" width="251" height="0.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="v1v-zb-a6S"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="cYd-vv-rdr" secondAttribute="trailing" id="B0W-Nx-IGC"/>
+                            <constraint firstItem="cYd-vv-rdr" firstAttribute="top" secondItem="WY8-xg-FDP" secondAttribute="top" id="BgR-XT-tHn"/>
+                            <constraint firstItem="hYs-Zj-oiM" firstAttribute="leading" secondItem="dNS-f1-Bak" secondAttribute="trailing" constant="10" id="PHI-S6-HZK"/>
+                            <constraint firstItem="dNS-f1-Bak" firstAttribute="top" secondItem="WY8-xg-FDP" secondAttribute="top" id="TLM-mD-Mw2"/>
+                            <constraint firstItem="hYs-Zj-oiM" firstAttribute="centerY" secondItem="WY8-xg-FDP" secondAttribute="centerY" id="aFs-g4-33S"/>
+                            <constraint firstAttribute="bottom" secondItem="dNS-f1-Bak" secondAttribute="bottom" id="hSa-B7-Sc2"/>
+                            <constraint firstItem="hYs-Zj-oiM" firstAttribute="trailing" secondItem="cYd-vv-rdr" secondAttribute="leading" constant="-10" id="j26-h9-rmi"/>
+                            <constraint firstItem="dNS-f1-Bak" firstAttribute="leading" secondItem="WY8-xg-FDP" secondAttribute="leading" id="yBA-kR-k1r"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="JSb-Cx-HfV" secondAttribute="trailing" id="3Hz-Hk-d0F"/>
+                    <constraint firstItem="WY8-xg-FDP" firstAttribute="centerY" secondItem="oul-ao-EqI" secondAttribute="centerY" id="5GD-5I-ua9"/>
+                    <constraint firstItem="JSb-Cx-HfV" firstAttribute="leading" secondItem="8lY-ii-jeE" secondAttribute="trailing" constant="30" id="5oJ-pR-GeO"/>
+                    <constraint firstItem="oul-ao-EqI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="DVt-mv-b9n"/>
+                    <constraint firstItem="8lY-ii-jeE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="MgN-Zi-cJy"/>
+                    <constraint firstItem="oul-ao-EqI" firstAttribute="top" secondItem="8lY-ii-jeE" secondAttribute="bottom" constant="10" id="ReG-86-iE0"/>
+                    <constraint firstItem="WY8-xg-FDP" firstAttribute="leading" secondItem="JSb-Cx-HfV" secondAttribute="leading" id="WgB-ck-wsB"/>
+                    <constraint firstItem="8lY-ii-jeE" firstAttribute="centerX" secondItem="oul-ao-EqI" secondAttribute="centerX" id="cwd-Os-gjg"/>
+                    <constraint firstItem="JSb-Cx-HfV" firstAttribute="top" secondItem="8lY-ii-jeE" secondAttribute="top" id="s9S-T7-xPE"/>
+                    <constraint firstAttribute="trailing" secondItem="WY8-xg-FDP" secondAttribute="trailing" id="w7d-TC-OGh"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="airlineTitle" destination="oul-ao-EqI" id="Nbn-HD-bWh"/>
+                <outlet property="arrivalAirports" destination="cYd-vv-rdr" id="Q69-qV-bax"/>
+                <outlet property="arrivalTime" destination="37p-EU-9B4" id="TtM-Bi-lCh"/>
+                <outlet property="dashedView" destination="hYs-Zj-oiM" id="Mmt-O6-6jO"/>
+                <outlet property="departureAirports" destination="dNS-f1-Bak" id="0a2-xq-wdF"/>
+                <outlet property="departureTime" destination="k6c-vI-8gV" id="ssx-wZ-I3D"/>
+                <outlet property="logoTwo" destination="8lY-ii-jeE" id="Rwl-Su-Ixp"/>
+            </connections>
+            <point key="canvasLocation" x="128.2608695652174" y="82.03125"/>
+        </tableViewCell>
+    </objects>
+</document>

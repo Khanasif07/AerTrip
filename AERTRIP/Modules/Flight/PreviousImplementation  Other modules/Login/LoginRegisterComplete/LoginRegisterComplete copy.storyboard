@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Bold.ttf">
+            <string>SourceSansPro-Bold</string>
+        </array>
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Login Register Complete View Controller-->
+        <scene sceneID="obD-bD-gIi">
+            <objects>
+                <viewController storyboardIdentifier="LoginRegisterCompleteController" id="oJj-RP-d0b" customClass="LoginRegisterCompleteViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pWc-dc-4cH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5n-qX-OD6">
+                                <rect key="frame" x="8" y="30" width="27" height="27"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="27" id="85C-iu-wkq"/>
+                                    <constraint firstAttribute="width" constant="27" id="oKW-2b-Dex"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="backThick"/>
+                                <connections>
+                                    <action selector="backAction:" destination="oJj-RP-d0b" eventType="touchUpInside" id="UVw-YP-nnP"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AertripIconHBlack" translatesAutoresizingMaskIntoConstraints="NO" id="fW3-UM-A5P">
+                                <rect key="frame" x="173" y="60" width="29" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="W0f-O1-pOu"/>
+                                    <constraint firstAttribute="width" constant="29" id="Y94-J1-YGl"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you for registering." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S78-rc-qIL">
+                                <rect key="frame" x="49" y="101" width="277" height="96"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="277" id="MFn-V6-Kox"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="38"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sXj-Av-2oJ">
+                                <rect key="frame" x="49" y="212" width="277" height="40.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="277" id="AlG-KK-9bg"/>
+                                </constraints>
+                                <string key="text">We have sent you an account 
+activation link on</string>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pritesh.chavan@aertrip.com " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7sg-Ff-ERV">
+                                <rect key="frame" x="49" y="261.5" width="277" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="277" id="KmK-oH-l2M"/>
+                                    <constraint firstAttribute="height" constant="25" id="bdU-qd-gLB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
+                                <color key="textColor" red="1" green="0.56470588239999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wY5-KB-210">
+                                <rect key="frame" x="49" y="294.5" width="277" height="40.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="277" id="C5Y-ZB-D5H"/>
+                                </constraints>
+                                <string key="text">Check your email to activate
+ your account.</string>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IbC-wb-kXM">
+                                <rect key="frame" x="-0.5" y="335" width="375" height="263"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbP-Bq-Jd5">
+                                        <rect key="frame" x="125.5" y="114" width="123" height="35"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                                        <state key="normal" title="Open Email App">
+                                            <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="openEmailAppAction:" destination="oJj-RP-d0b" eventType="touchUpInside" id="Pxy-oA-4tX"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="kbP-Bq-Jd5" firstAttribute="centerX" secondItem="IbC-wb-kXM" secondAttribute="centerX" id="Mnc-HO-abq"/>
+                                    <constraint firstItem="kbP-Bq-Jd5" firstAttribute="centerY" secondItem="IbC-wb-kXM" secondAttribute="centerY" id="Wcn-Fm-hXC"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2X-WU-2jH">
+                                <rect key="frame" x="34" y="598" width="307" height="53"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="307" id="rEo-cD-DLt"/>
+                                </constraints>
+                                <string key="text">The activation email will expire in 7 days. If the email does not arrive soon, check your bulk or junk folder. It was sent from noreply@aertrip.com</string>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Ll1-71-5qh" firstAttribute="bottom" secondItem="b2X-WU-2jH" secondAttribute="bottom" constant="16" id="0aL-BM-vkH"/>
+                            <constraint firstItem="b2X-WU-2jH" firstAttribute="centerX" secondItem="IbC-wb-kXM" secondAttribute="centerX" id="B9t-it-Vn5"/>
+                            <constraint firstItem="S78-rc-qIL" firstAttribute="centerX" secondItem="fW3-UM-A5P" secondAttribute="centerX" id="MZa-Vn-wyf"/>
+                            <constraint firstItem="IbC-wb-kXM" firstAttribute="width" secondItem="pWc-dc-4cH" secondAttribute="width" id="NGB-yA-YbG"/>
+                            <constraint firstItem="fW3-UM-A5P" firstAttribute="centerX" secondItem="Ll1-71-5qh" secondAttribute="centerX" id="OPb-9L-v2f"/>
+                            <constraint firstItem="sXj-Av-2oJ" firstAttribute="top" secondItem="S78-rc-qIL" secondAttribute="bottom" constant="15" id="UfY-Ij-rb6"/>
+                            <constraint firstItem="wY5-KB-210" firstAttribute="centerX" secondItem="7sg-Ff-ERV" secondAttribute="centerX" id="Xhb-eL-J3u"/>
+                            <constraint firstItem="fW3-UM-A5P" firstAttribute="top" secondItem="Ll1-71-5qh" secondAttribute="top" constant="40" id="aMZ-CW-3AK"/>
+                            <constraint firstItem="7sg-Ff-ERV" firstAttribute="top" secondItem="sXj-Av-2oJ" secondAttribute="bottom" constant="9" id="bIe-el-xPS"/>
+                            <constraint firstItem="d5n-qX-OD6" firstAttribute="top" secondItem="Ll1-71-5qh" secondAttribute="top" constant="10" id="gq3-kx-Zzg"/>
+                            <constraint firstItem="sXj-Av-2oJ" firstAttribute="centerX" secondItem="S78-rc-qIL" secondAttribute="centerX" id="haD-oh-M5W"/>
+                            <constraint firstItem="d5n-qX-OD6" firstAttribute="leading" secondItem="Ll1-71-5qh" secondAttribute="leading" constant="8" id="iuO-Uk-iFi"/>
+                            <constraint firstItem="IbC-wb-kXM" firstAttribute="top" secondItem="wY5-KB-210" secondAttribute="bottom" id="oFg-Vu-noQ"/>
+                            <constraint firstItem="7sg-Ff-ERV" firstAttribute="centerX" secondItem="sXj-Av-2oJ" secondAttribute="centerX" id="sRe-nA-u8i"/>
+                            <constraint firstItem="IbC-wb-kXM" firstAttribute="centerX" secondItem="Ll1-71-5qh" secondAttribute="centerX" id="vHL-Gf-GtY"/>
+                            <constraint firstItem="S78-rc-qIL" firstAttribute="top" secondItem="fW3-UM-A5P" secondAttribute="bottom" constant="15" id="w5I-gw-Q3T"/>
+                            <constraint firstItem="b2X-WU-2jH" firstAttribute="top" secondItem="IbC-wb-kXM" secondAttribute="bottom" id="xEc-hi-pvf"/>
+                            <constraint firstItem="wY5-KB-210" firstAttribute="top" secondItem="7sg-Ff-ERV" secondAttribute="bottom" constant="8" id="zbh-Mw-cI5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ll1-71-5qh"/>
+                    </view>
+                    <connections>
+                        <outlet property="bottomLabel" destination="b2X-WU-2jH" id="TYu-IG-x38"/>
+                        <outlet property="emailInstructionLabel" destination="wY5-KB-210" id="OQv-kl-euK"/>
+                        <outlet property="emailLabel" destination="7sg-Ff-ERV" id="zVd-4e-5mL"/>
+                        <outlet property="subTitleLabel" destination="sXj-Av-2oJ" id="xpb-yR-ONB"/>
+                        <outlet property="titleLabel" destination="S78-rc-qIL" id="If4-JP-woa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0v4-Io-fSp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="55" y="152"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="AertripIconHBlack" width="29" height="26"/>
+        <image name="backThick" width="27" height="27"/>
+    </resources>
+</document>

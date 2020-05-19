@@ -492,7 +492,7 @@ struct BookingDetail {
     var travelledCities: [String] = []
     var disconnected: Bool = false
     var routes: [[String]] = [[]]
-    var leg: [Leg] = []
+    var leg: [BookingLeg] = []
     
     var journeyCompleted: Int = 0
     var travellers: [Traveller] = []
@@ -724,7 +724,7 @@ struct BookingDetail {
         
         // leg parsing
         if let obj = json["leg"] as? [JSONDictionary] {
-            self.leg = Leg.getModels(json: obj, eventStartDate: self.eventStartDate, bookingId: bookingId)
+            self.leg = BookingLeg.getModels(json: obj, eventStartDate: self.eventStartDate, bookingId: bookingId)
         }
         
         if let obj = json["journey_completed"] {
@@ -803,9 +803,9 @@ struct BookingDetail {
     }
 }
 
-// MARK: - Leg ,Flight and pax Details
+// MARK: - BookingLeg ,Flight and pax Details
 
-struct Leg {
+struct BookingLeg {
     var legId: String = ""
     var origin: String = ""
     var destination: String = ""
@@ -814,7 +814,7 @@ struct Leg {
     var refundable: Int = 0
     var reschedulable: Int = 0
     var fareName: String = ""
-    var flight: [FlightDetail] = []
+    var flight: [BookingFlightDetail] = []
     var halts: String = ""
     var pax: [Pax] = []
     var completed: Int = 0
@@ -864,7 +864,7 @@ struct Leg {
         
         // other parsing
         if let obj = json["flights"] as? [JSONDictionary] {
-            self.flight = FlightDetail.getModels(json: obj)
+            self.flight = BookingFlightDetail.getModels(json: obj)
         }
         
         if let obj = json["pax"] as? [JSONDictionary] {
@@ -921,12 +921,12 @@ struct Leg {
         return self.flight.count - 1 + self.haltCount
     }
     
-    static func getModels(json: [JSONDictionary], eventStartDate: Date?, bookingId: String) -> [Leg] {
-        return json.map { Leg(json: $0, eventStartDate: eventStartDate, bookingId: bookingId) }
+    static func getModels(json: [JSONDictionary], eventStartDate: Date?, bookingId: String) -> [BookingLeg] {
+        return json.map { BookingLeg(json: $0, eventStartDate: eventStartDate, bookingId: bookingId) }
     }
 }
 
-struct FlightDetail {
+struct BookingFlightDetail {
     var flightId: String = ""
     var departure: String = ""
     var departureAirport: String = ""
@@ -1212,8 +1212,8 @@ struct FlightDetail {
         self.amenities = [ATAmenity.Wifi, ATAmenity.Gym, ATAmenity.Internet, ATAmenity.Pool, ATAmenity.RoomService]
     }
     
-    static func getModels(json: [JSONDictionary]) -> [FlightDetail] {
-        return json.map { FlightDetail(json: $0) }
+    static func getModels(json: [JSONDictionary]) -> [BookingFlightDetail] {
+        return json.map { BookingFlightDetail(json: $0) }
     }
     
     // computed
@@ -1573,7 +1573,7 @@ struct Pax {
     var ticket: String = ""
     var pnr: String = ""
     var addOns: AddOns?
-    var flight: [FlightDetail] = []
+    var flight: [BookingFlightDetail] = []
     var inProcess: Bool = false
     var profileImage: String = ""
     var seat: String = ""

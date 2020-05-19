@@ -23,7 +23,7 @@ class BaggageAirlineInfoTableViewCell: UITableViewCell {
     // MARK: - Variables
     weak var delegate: BaggageAirlineInfoTableViewCellDelegate?
     
-    var flightDetail: FlightDetail? {
+    var flightDetail: BookingFlightDetail? {
         didSet {
             self.configureCell()
         }

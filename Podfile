@@ -42,6 +42,13 @@ target 'AERTRIP' do
 #  pod 'AertripCalendarDataModel' , :git => 'git@gitlab.com:aertrip/ios-shared-rep.git' , :commit => '38ef98df8d00a76bf09f37fffd1905c60d22c58e'
 #  pod 'AertripCalendar' , :git => 'git@gitlab.com:aertrip/ios-calendar.git'
   pod 'FSCalendar'
+  
+  
+  # FLIGHTS PODS
+  pod "SnapKit"
+  pod "HMSegmentedControl"
+  
+  
 end
 #AertripCalendar.xcconfig
 #FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/AertripCalendarDataModel" "${PODS_CONFIGURATION_BUILD_DIR}/FSCalendar"

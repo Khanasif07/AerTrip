@@ -39,7 +39,7 @@ class FlightTimeLocationInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var moonIconLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var travelTimeLableCenterConstraint: NSLayoutConstraint!
     
-    var flightDetail: FlightDetail? {
+    var flightDetail: BookingFlightDetail? {
         didSet {
             self.configureCell()
         }

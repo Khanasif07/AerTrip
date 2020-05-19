@@ -108,3 +108,60 @@ extension UITableViewCell {
 //        return nil
 //    }
 //}
+
+
+// FLIGHTS
+
+extension UITableView  {
+    
+    func resourceFor( urlPath : String , forView indetifier : Int) ->UIImage?  {
+        
+        guard  let urlobj = URL(string: urlPath) else {
+            return nil
+        }
+        
+         let urlRequest = URLRequest(url: urlobj)
+        
+        if let responseObj = URLCache.shared.cachedResponse(for: urlRequest) {
+            
+            let image = UIImage(data: responseObj.data)
+            return image
+        }else {
+            
+            let urlSession = URLSession.shared
+          let dataTask =  urlSession.dataTask(with: urlRequest) {[weak self ] ( downloadedData, response, error) in
+            
+                if (error != nil) {
+                    print(error.debugDescription)
+                    return
+                }
+                
+                if let data = downloadedData , let response = response {
+                    let cacheResponse = CachedURLResponse(response: response, data: data)
+                    URLCache.shared.storeCachedResponse(cacheResponse, for: urlRequest)
+                      DispatchQueue.main.async {
+                        self?.dataDownloadCompletedWith(forViewWithIdentifier: indetifier)
+                    }
+                }
+            }
+            
+            dataTask.resume()
+        }
+            return nil
+    }
+    
+    func dataDownloadCompletedWith(forViewWithIdentifier: Int) {
+        
+        DispatchQueue.main.async {
+            
+        if let visibleRows = self.indexPathsForVisibleRows {
+            self.reloadRows(at: visibleRows, with: .automatic)
+            }
+        }
+    }
+    
+    func indexPath(forItem item: Any) -> IndexPath? {
+        let itemPosition: CGPoint = (item as AnyObject).convert(CGPoint.zero, to: self)
+        return self.indexPathForRow(at: itemPosition)
+    }
+}

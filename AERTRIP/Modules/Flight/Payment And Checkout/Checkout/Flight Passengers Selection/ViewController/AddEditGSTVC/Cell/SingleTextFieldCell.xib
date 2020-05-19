@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SingleTextFieldCell" rowHeight="110" id="WSl-SC-EVp" customClass="SingleTextFieldCell" customModule="Aertrip" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="565" height="110"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WSl-SC-EVp" id="m68-3c-555">
+                <rect key="frame" x="0.0" y="0.0" width="565" height="110"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Date Of Birth" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wCu-zL-FOb" customClass="PKFloatLabelTextField" customModule="Aertrip" customModuleProvider="target">
+                        <rect key="frame" x="16" y="0.0" width="533" height="59.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="59.5" id="KgA-wl-55z"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Billing Name"/>
+                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                <color key="value" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                <color key="value" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
+                                <real key="value" value="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="selectedLineHeight">
+                                <real key="value" value="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="titleActiveTextColour">
+                                <color key="value" name="AertripColor"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </textField>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZw-PR-4Lz">
+                        <rect key="frame" x="16" y="59.5" width="533" height="0.5"/>
+                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="mGe-iL-wOb"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="wCu-zL-FOb" firstAttribute="leading" secondItem="m68-3c-555" secondAttribute="leading" constant="16" id="4Lj-x9-mBf"/>
+                    <constraint firstItem="VZw-PR-4Lz" firstAttribute="top" secondItem="wCu-zL-FOb" secondAttribute="bottom" id="7KO-tq-YXe"/>
+                    <constraint firstAttribute="trailing" secondItem="wCu-zL-FOb" secondAttribute="trailing" constant="16" id="Ahh-Af-PLh"/>
+                    <constraint firstItem="VZw-PR-4Lz" firstAttribute="leading" secondItem="m68-3c-555" secondAttribute="leading" constant="16" id="HMi-Tn-eUb"/>
+                    <constraint firstItem="wCu-zL-FOb" firstAttribute="top" secondItem="m68-3c-555" secondAttribute="top" id="LbY-bm-XU3"/>
+                    <constraint firstAttribute="bottom" secondItem="VZw-PR-4Lz" secondAttribute="bottom" id="YVc-YY-enq"/>
+                    <constraint firstAttribute="trailing" secondItem="VZw-PR-4Lz" secondAttribute="trailing" constant="16" id="txz-Eo-H1C"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="separatorView" destination="VZw-PR-4Lz" id="lZM-tX-D5p"/>
+                <outlet property="separatorViewLeading" destination="HMi-Tn-eUb" id="3AR-bk-020"/>
+                <outlet property="separatorViewTrailing" destination="txz-Eo-H1C" id="yBA-cj-iwE"/>
+                <outlet property="textField" destination="wCu-zL-FOb" id="2yw-zs-kVl"/>
+            </connections>
+            <point key="canvasLocation" x="28.260869565217394" y="55.580357142857139"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="AertripColor">
+            <color red="0.0" green="0.70196078431372544" blue="0.52549019607843139" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>

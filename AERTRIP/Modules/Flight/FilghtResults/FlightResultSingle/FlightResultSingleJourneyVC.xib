@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlightResultSingleJourneyVC" customModule="Aertrip" customModuleProvider="target">
+            <connections>
+                <outlet property="emailPinnedFlights" destination="t9v-Pt-IIC" id="j7x-W6-e6G"/>
+                <outlet property="emailPinnedLeading" destination="i2B-R2-Oi3" id="PyP-c5-Cyg"/>
+                <outlet property="pinOptionsViewWidth" destination="71E-Ro-ach" id="yHH-vM-Psr"/>
+                <outlet property="pinnedFlightOptionsTop" destination="UoV-rG-tLP" id="0Lg-Zm-iFL"/>
+                <outlet property="pinnedFlightsOptionsView" destination="x5s-Rr-XyM" id="0Ye-qc-8Ac"/>
+                <outlet property="resultsTableView" destination="nS9-zg-BIM" id="m5Y-Qt-z10"/>
+                <outlet property="resultsTableViewTop" destination="yl3-4I-m4W" id="bZX-Ye-Uai"/>
+                <outlet property="sharePinnedFilghts" destination="m1z-Bz-6DC" id="96L-2L-FoT"/>
+                <outlet property="sharePinnedFlightLeading" destination="9fa-TL-fqh" id="00D-7b-BCu"/>
+                <outlet property="showPinnedSwitch" destination="XeA-bU-Lkv" id="N3c-As-VMl"/>
+                <outlet property="unpinAllLeading" destination="tom-oe-r89" id="hdr-L1-ZSp"/>
+                <outlet property="unpinnedAllButton" destination="qsb-Na-xBr" id="AGd-dZ-3nb"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hQE-5P-eq9">
+                    <rect key="frame" x="0.0" y="43" width="414" height="1"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="9sW-fH-vzq"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nS9-zg-BIM">
+                    <rect key="frame" x="0.0" y="212" width="414" height="896"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="oLG-x5-tZM"/>
+                        <outlet property="delegate" destination="-1" id="7b7-Hb-C9E"/>
+                    </connections>
+                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x5s-Rr-XyM">
+                    <rect key="frame" x="16" y="896" width="212" height="44"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qsb-Na-xBr">
+                            <rect key="frame" x="60" y="0.0" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="5Gc-aH-lci"/>
+                                <constraint firstAttribute="width" constant="44" id="g1j-CH-G8x"/>
+                            </constraints>
+                            <state key="normal" image="unpinAllButton"/>
+                            <connections>
+                                <action selector="unpinnedAllTapped:" destination="-1" eventType="touchUpInside" id="3kL-yA-tRG"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t9v-Pt-IIC">
+                            <rect key="frame" x="114" y="0.0" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="HTN-KX-JtR"/>
+                                <constraint firstAttribute="height" constant="44" id="WpS-dc-w7Z"/>
+                            </constraints>
+                            <state key="normal" image="EmailPinned"/>
+                            <connections>
+                                <action selector="emailPinnedFlights:" destination="-1" eventType="touchUpInside" id="Ct6-xS-XhP"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m1z-Bz-6DC">
+                            <rect key="frame" x="168" y="0.0" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="SD2-sx-yog"/>
+                                <constraint firstAttribute="width" constant="44" id="mTo-SZ-3lD"/>
+                            </constraints>
+                            <state key="normal" title="share" image="SharePinned"/>
+                            <connections>
+                                <action selector="sharePinnedFlights:" destination="-1" eventType="touchUpInside" id="ixs-0c-LPR"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XeA-bU-Lkv" customClass="AertripSwitch" customModule="Aertrip" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="6.5" width="50" height="31"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="9zC-Nx-8uY"/>
+                                <constraint firstAttribute="height" constant="31" id="yxt-rc-GZQ"/>
+                            </constraints>
+                            <connections>
+                                <action selector="PinnedFlightSwitchToggled:" destination="-1" eventType="valueChanged" id="nx9-n1-b1T"/>
+                            </connections>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="212" id="71E-Ro-ach"/>
+                        <constraint firstItem="m1z-Bz-6DC" firstAttribute="leading" secondItem="x5s-Rr-XyM" secondAttribute="leading" constant="168" id="9fa-TL-fqh"/>
+                        <constraint firstItem="XeA-bU-Lkv" firstAttribute="centerY" secondItem="x5s-Rr-XyM" secondAttribute="centerY" id="B67-h1-BTf"/>
+                        <constraint firstItem="XeA-bU-Lkv" firstAttribute="leading" secondItem="x5s-Rr-XyM" secondAttribute="leading" id="FGU-7c-Zks"/>
+                        <constraint firstAttribute="height" constant="44" id="Khj-aO-Fja"/>
+                        <constraint firstItem="t9v-Pt-IIC" firstAttribute="top" secondItem="x5s-Rr-XyM" secondAttribute="top" id="R0a-yB-lWE"/>
+                        <constraint firstItem="qsb-Na-xBr" firstAttribute="top" secondItem="x5s-Rr-XyM" secondAttribute="top" id="dSn-9L-0oa"/>
+                        <constraint firstItem="t9v-Pt-IIC" firstAttribute="leading" secondItem="x5s-Rr-XyM" secondAttribute="leading" constant="114" id="i2B-R2-Oi3"/>
+                        <constraint firstItem="m1z-Bz-6DC" firstAttribute="top" secondItem="x5s-Rr-XyM" secondAttribute="top" id="jXH-4B-Hdy"/>
+                        <constraint firstItem="qsb-Na-xBr" firstAttribute="leading" secondItem="x5s-Rr-XyM" secondAttribute="leading" constant="60" id="tom-oe-r89"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="hQE-5P-eq9" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="1Ao-BD-adx"/>
+                <constraint firstItem="nS9-zg-BIM" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="C8N-mn-VZd"/>
+                <constraint firstAttribute="bottom" secondItem="x5s-Rr-XyM" secondAttribute="top" id="UoV-rG-tLP"/>
+                <constraint firstItem="nS9-zg-BIM" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="j4u-ib-yHt"/>
+                <constraint firstItem="x5s-Rr-XyM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="kaX-UQ-JxV"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="hQE-5P-eq9" secondAttribute="bottom" id="kpA-4H-INe"/>
+                <constraint firstItem="hQE-5P-eq9" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="oza-AT-Dcj"/>
+                <constraint firstItem="nS9-zg-BIM" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="r8Y-WR-b3W"/>
+                <constraint firstItem="nS9-zg-BIM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="168" id="yl3-4I-m4W"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="137.68115942028987" y="140.21739130434784"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="EmailPinned" width="44" height="44"/>
+        <image name="SharePinned" width="44" height="44"/>
+        <image name="unpinAllButton" width="44" height="44"/>
+    </resources>
+</document>

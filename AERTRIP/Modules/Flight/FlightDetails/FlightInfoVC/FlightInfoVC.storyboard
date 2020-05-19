@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Flight InfoVC-->
+        <scene sceneID="EL2-gX-a4x">
+            <objects>
+                <viewController storyboardIdentifier="FlightInfoVC" id="dV6-Ln-Xtm" customClass="FlightInfoVC" customModule="Aertrip" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HE1-aQ-eQJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="kGK-Kf-9ne">
+                                <rect key="frame" x="0.0" y="44" width="374.66666666666669" height="822"/>
+                                <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="dV6-Ln-Xtm" id="YBS-1l-AqA"/>
+                                    <outlet property="delegate" destination="dV6-Ln-Xtm" id="Txj-7k-a1y"/>
+                                </connections>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nNM-TQ-0ZR">
+                                <rect key="frame" x="374.66666666666669" y="44" width="0.33333333333331439" height="922"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="0.5" id="SrX-rg-fNo"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="Aro-4l-bYV" firstAttribute="bottom" secondItem="kGK-Kf-9ne" secondAttribute="bottom" constant="100" id="015-sL-nvO"/>
+                            <constraint firstItem="kGK-Kf-9ne" firstAttribute="top" secondItem="Aro-4l-bYV" secondAttribute="top" id="62z-Kj-QcP"/>
+                            <constraint firstItem="nNM-TQ-0ZR" firstAttribute="leading" secondItem="kGK-Kf-9ne" secondAttribute="trailing" id="9uC-xU-PK9"/>
+                            <constraint firstItem="Aro-4l-bYV" firstAttribute="bottom" secondItem="nNM-TQ-0ZR" secondAttribute="bottom" id="MBo-kn-Ixg"/>
+                            <constraint firstItem="Aro-4l-bYV" firstAttribute="trailing" secondItem="nNM-TQ-0ZR" secondAttribute="trailing" id="cPl-oI-7Ac"/>
+                            <constraint firstItem="nNM-TQ-0ZR" firstAttribute="top" secondItem="Aro-4l-bYV" secondAttribute="top" id="fQP-14-W16"/>
+                            <constraint firstItem="kGK-Kf-9ne" firstAttribute="leading" secondItem="Aro-4l-bYV" secondAttribute="leading" id="naS-os-j1S"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Aro-4l-bYV"/>
+                    </view>
+                    <size key="freeformSize" width="375" height="1000"/>
+                    <connections>
+                        <outlet property="flightInfoTableView" destination="kGK-Kf-9ne" id="0QE-n4-B6L"/>
+                        <outlet property="flightInfoTableViewBottom" destination="015-sL-nvO" id="acX-ad-PDb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qmq-j9-jkj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="101.59999999999999" y="63.546798029556655"/>
+        </scene>
+    </scenes>
+</document>

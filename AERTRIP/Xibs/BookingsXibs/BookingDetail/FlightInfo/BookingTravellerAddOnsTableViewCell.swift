@@ -32,7 +32,7 @@ class BookingTravellerAddOnsTableViewCell: UITableViewCell {
         }
     }
     
-    var flightDetail: FlightDetail? 
+    var flightDetail: BookingFlightDetail? 
     
     private var detailsToShow: JSONDictionary = [:] {
         didSet {

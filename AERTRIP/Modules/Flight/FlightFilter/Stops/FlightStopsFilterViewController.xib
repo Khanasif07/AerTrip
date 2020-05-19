@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlightStopsFilterViewController" customModule="Aertrip" customModuleProvider="target">
+            <connections>
+                <outlet property="LeastStopsTitle" destination="M90-vP-OGF" id="IHS-Qv-ovo"/>
+                <outlet property="LeastStopsTitleWidth" destination="YT9-zo-ITE" id="fHs-AP-0bJ"/>
+                <outlet property="leastStopTapGestureView" destination="eVf-aY-xAL" id="uF4-ea-qr6"/>
+                <outlet property="leastStopsButton" destination="idb-mB-2vh" id="IbV-BM-sQu"/>
+                <outlet property="multiLegJourney" destination="cdt-Vs-JXG" id="hjV-Ux-XTq"/>
+                <outlet property="multiLegViewHeight" destination="rPU-NW-g39" id="Zlc-eF-z0N"/>
+                <outlet property="multicitySegmentView" destination="jus-qh-ZhY" id="icB-aR-8NE"/>
+                <outlet property="stopsBaseView" destination="EXG-si-kgu" id="fqJ-fP-NJN"/>
+                <outlet property="stopsBaseViewTopConstant" destination="pTj-ca-qaY" id="6pD-DF-Ack"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cdt-Vs-JXG">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="107"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Least stops only" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M90-vP-OGF">
+                            <rect key="frame" x="16" y="0.0" width="122" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="EbW-Bm-A5y"/>
+                                <constraint firstAttribute="width" constant="122" id="YT9-zo-ITE"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All sectors" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdo-PF-3lc">
+                            <rect key="frame" x="148" y="0.0" width="60" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="60" id="67S-aM-9B3"/>
+                                <constraint firstAttribute="height" constant="44" id="iN8-gh-MXu"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eVf-aY-xAL">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="YGX-Hb-HiU"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="idb-mB-2vh">
+                            <rect key="frame" x="326" y="0.0" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="CYs-Eq-VmY"/>
+                                <constraint firstAttribute="width" constant="44" id="PlR-rQ-Xsh"/>
+                            </constraints>
+                            <state key="normal" image="UncheckedGreenRadioButton"/>
+                            <state key="selected" image="CheckedGreenRadioButton"/>
+                            <connections>
+                                <action selector="leastStopsButtonTapped:" destination="-1" eventType="touchUpInside" id="L2x-aj-WDS"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jus-qh-ZhY">
+                            <rect key="frame" x="16" y="60" width="343" height="30"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="Pnh-Hp-LdB"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="M90-vP-OGF" firstAttribute="top" secondItem="cdt-Vs-JXG" secondAttribute="top" id="0hk-mE-Kcs"/>
+                        <constraint firstItem="jus-qh-ZhY" firstAttribute="leading" secondItem="cdt-Vs-JXG" secondAttribute="leading" constant="16" id="5FN-K9-W3T"/>
+                        <constraint firstItem="wdo-PF-3lc" firstAttribute="top" secondItem="M90-vP-OGF" secondAttribute="top" id="7tH-vG-XK2"/>
+                        <constraint firstItem="jus-qh-ZhY" firstAttribute="top" secondItem="idb-mB-2vh" secondAttribute="bottom" constant="16" id="A1M-w5-s3o"/>
+                        <constraint firstAttribute="trailing" secondItem="eVf-aY-xAL" secondAttribute="trailing" id="C4v-sy-QLp"/>
+                        <constraint firstItem="eVf-aY-xAL" firstAttribute="leading" secondItem="cdt-Vs-JXG" secondAttribute="leading" id="EmS-f2-fvh"/>
+                        <constraint firstItem="idb-mB-2vh" firstAttribute="top" secondItem="cdt-Vs-JXG" secondAttribute="top" id="SV9-2X-OEW"/>
+                        <constraint firstItem="M90-vP-OGF" firstAttribute="leading" secondItem="cdt-Vs-JXG" secondAttribute="leading" constant="16" id="ZIi-Xe-zDQ"/>
+                        <constraint firstAttribute="trailing" secondItem="idb-mB-2vh" secondAttribute="trailing" constant="5" id="hLT-Vx-ngU"/>
+                        <constraint firstItem="eVf-aY-xAL" firstAttribute="top" secondItem="cdt-Vs-JXG" secondAttribute="top" id="mf2-K8-dKt"/>
+                        <constraint firstAttribute="height" constant="107" id="rPU-NW-g39"/>
+                        <constraint firstItem="wdo-PF-3lc" firstAttribute="leading" secondItem="M90-vP-OGF" secondAttribute="trailing" constant="10" id="w9I-i2-mpy"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EXG-si-kgu">
+                    <rect key="frame" x="16" y="107" width="343" height="69"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="69" id="SqO-3w-fSY"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jus-qh-ZhY" secondAttribute="trailing" constant="16" id="AG9-zP-Fb5"/>
+                <constraint firstItem="cdt-Vs-JXG" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="Run-NM-rtB"/>
+                <constraint firstItem="cdt-Vs-JXG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="XLM-1h-yXF"/>
+                <constraint firstItem="cdt-Vs-JXG" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="b3C-38-lfI"/>
+                <constraint firstItem="EXG-si-kgu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="muL-Qc-bS8"/>
+                <constraint firstItem="EXG-si-kgu" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="107" id="pTj-ca-qaY"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="EXG-si-kgu" secondAttribute="trailing" constant="16" id="yvF-nP-s5b"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="53.600000000000001" y="54.422788605697157"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="CheckedGreenRadioButton" width="22" height="22"/>
+        <image name="UncheckedGreenRadioButton" width="22" height="22"/>
+    </resources>
+</document>

@@ -14,7 +14,7 @@ class BookingInfoNotesCellTableViewCell: UITableViewCell {
     @IBOutlet weak var noteLabel: UILabel!
     
     // MARK: - Variables
-    var flightDetail: [FlightDetail]? {
+    var flightDetail: [BookingFlightDetail]? {
         didSet {
             self.configureCell()
         }

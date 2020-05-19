@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UseGSTINCell" rowHeight="350" id="VVZ-cz-DUU" customClass="UseGSTINCell" customModule="Aertrip" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="410" height="350"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VVZ-cz-DUU" id="pUQ-W3-x6c">
+                <rect key="frame" x="0.0" y="0.0" width="410" height="350"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0Zw-mK-fcb">
+                        <rect key="frame" x="0.0" y="0.0" width="410" height="350"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14u-Xc-BDK">
+                                <rect key="frame" x="0.0" y="0.0" width="410" height="103.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use GSTIN for this booking" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbr-r2-eag">
+                                        <rect key="frame" x="16" y="8" width="220.5" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="TJW-rC-v4p"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="GSTIN cannot be updated once booking is completed" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Hb-hG-1k1">
+                                        <rect key="frame" x="16" y="29" width="287" height="58.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="rKV-Gi-3eD">
+                                        <rect key="frame" x="343" y="23.5" width="53" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="31" id="HgO-uq-M8C"/>
+                                            <constraint firstAttribute="width" constant="51" id="anK-uA-0Ow"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="tapSwitch:" destination="VVZ-cz-DUU" eventType="valueChanged" id="5r7-F3-Lts"/>
+                                        </connections>
+                                    </switch>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="7Hb-hG-1k1" secondAttribute="bottom" constant="16" id="CIQ-0o-XNK"/>
+                                    <constraint firstItem="rKV-Gi-3eD" firstAttribute="top" secondItem="cbr-r2-eag" secondAttribute="bottom" constant="-5.5" id="OTL-ep-b93"/>
+                                    <constraint firstItem="cbr-r2-eag" firstAttribute="leading" secondItem="14u-Xc-BDK" secondAttribute="leading" constant="16" id="RlL-kh-lTp"/>
+                                    <constraint firstItem="cbr-r2-eag" firstAttribute="top" secondItem="14u-Xc-BDK" secondAttribute="top" constant="8" id="SFO-Ra-rKb"/>
+                                    <constraint firstItem="7Hb-hG-1k1" firstAttribute="leading" secondItem="cbr-r2-eag" secondAttribute="leading" id="TEl-uJ-J58"/>
+                                    <constraint firstItem="7Hb-hG-1k1" firstAttribute="top" secondItem="cbr-r2-eag" secondAttribute="bottom" id="gTm-Tb-FuZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="rKV-Gi-3eD" secondAttribute="trailing" constant="16" id="jqg-6t-Pje"/>
+                                    <constraint firstItem="rKV-Gi-3eD" firstAttribute="leading" secondItem="7Hb-hG-1k1" secondAttribute="trailing" constant="40" id="sgV-dT-WRD"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r6k-7O-OWj">
+                                <rect key="frame" x="0.0" y="103.5" width="410" height="118"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="duS-n6-X4W" customClass="PKFloatLabelTextField" customModule="Aertrip" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="0.0" width="361" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="fLE-Yn-i49"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="zF6-xK-qAu">
+                                        <rect key="frame" x="385" y="34" width="9" height="6"/>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qa4-fN-Fmq">
+                                        <rect key="frame" x="16" y="54" width="378" height="0.5"/>
+                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="kwg-gs-whQ"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yjn-Gf-IOg">
+                                        <rect key="frame" x="16" y="0.0" width="378" height="52"/>
+                                        <connections>
+                                            <action selector="tapSelectGSTBtn:" destination="VVZ-cz-DUU" eventType="touchUpInside" id="usx-Ha-zsZ"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DIj-kP-DI8" userLabel="Aertrip India Ltd. GSTIN - 27AAPCA3454J1Z4">
+                                        <rect key="frame" x="16" y="61.5" width="378" height="40.5"/>
+                                        <string key="text">Aertrip India Ltd.
+GSTIN - 27AAPCA3454J1Z4</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="qa4-fN-Fmq" firstAttribute="top" secondItem="duS-n6-X4W" secondAttribute="bottom" constant="2" id="3s2-s5-wVz"/>
+                                    <constraint firstItem="Yjn-Gf-IOg" firstAttribute="leading" secondItem="duS-n6-X4W" secondAttribute="leading" id="6BP-Go-xl2"/>
+                                    <constraint firstItem="qa4-fN-Fmq" firstAttribute="trailing" secondItem="zF6-xK-qAu" secondAttribute="trailing" id="7ZC-pf-nJC"/>
+                                    <constraint firstItem="duS-n6-X4W" firstAttribute="top" secondItem="r6k-7O-OWj" secondAttribute="top" id="8J4-9X-V1y"/>
+                                    <constraint firstItem="zF6-xK-qAu" firstAttribute="leading" secondItem="duS-n6-X4W" secondAttribute="trailing" constant="8" id="FrC-Zo-rPq"/>
+                                    <constraint firstItem="zF6-xK-qAu" firstAttribute="centerY" secondItem="duS-n6-X4W" secondAttribute="centerY" constant="11" id="NEy-oW-IPd"/>
+                                    <constraint firstItem="Yjn-Gf-IOg" firstAttribute="top" secondItem="duS-n6-X4W" secondAttribute="top" id="OQ4-4M-Go4"/>
+                                    <constraint firstAttribute="bottom" secondItem="DIj-kP-DI8" secondAttribute="bottom" constant="16" id="PZf-BO-tyC"/>
+                                    <constraint firstItem="DIj-kP-DI8" firstAttribute="leading" secondItem="duS-n6-X4W" secondAttribute="leading" id="Qor-YF-zR8"/>
+                                    <constraint firstItem="Yjn-Gf-IOg" firstAttribute="bottom" secondItem="duS-n6-X4W" secondAttribute="bottom" id="ScA-zO-54R"/>
+                                    <constraint firstItem="DIj-kP-DI8" firstAttribute="top" secondItem="qa4-fN-Fmq" secondAttribute="bottom" constant="7" id="T2u-ge-I9U"/>
+                                    <constraint firstItem="Yjn-Gf-IOg" firstAttribute="trailing" secondItem="qa4-fN-Fmq" secondAttribute="trailing" id="W3m-ia-tkZ"/>
+                                    <constraint firstItem="duS-n6-X4W" firstAttribute="leading" secondItem="r6k-7O-OWj" secondAttribute="leading" constant="16" id="XIw-rQ-Oke"/>
+                                    <constraint firstItem="qa4-fN-Fmq" firstAttribute="leading" secondItem="duS-n6-X4W" secondAttribute="leading" id="ozz-sF-peO"/>
+                                    <constraint firstAttribute="trailing" secondItem="zF6-xK-qAu" secondAttribute="trailing" constant="16" id="yVR-ke-jYq"/>
+                                    <constraint firstItem="DIj-kP-DI8" firstAttribute="trailing" secondItem="zF6-xK-qAu" secondAttribute="trailing" id="zuI-lj-SOD"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6js-92-Sum">
+                                <rect key="frame" x="0.0" y="221.5" width="410" height="128.5"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jK4-uB-dey" customClass="PKFloatLabelTextField" customModule="Aertrip" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="0.0" width="378" height="59"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="59" id="szv-Up-Eky"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q8Z-M6-2UH">
+                                        <rect key="frame" x="16" y="61" width="378" height="0.5"/>
+                                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="0zn-Nz-YZK"/>
+                                        </constraints>
+                                    </view>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aqg-Xr-EIw" customClass="PKFloatLabelTextField" customModule="Aertrip" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="69.5" width="378" height="59"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="59" id="mvj-e9-o9t"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="aqg-Xr-EIw" firstAttribute="leading" secondItem="6js-92-Sum" secondAttribute="leading" constant="16" id="0fa-ps-pXe"/>
+                                    <constraint firstAttribute="trailing" secondItem="jK4-uB-dey" secondAttribute="trailing" constant="16" id="Jhc-Xq-CeE"/>
+                                    <constraint firstItem="Q8Z-M6-2UH" firstAttribute="trailing" secondItem="jK4-uB-dey" secondAttribute="trailing" id="NGA-Ry-cIx"/>
+                                    <constraint firstItem="Q8Z-M6-2UH" firstAttribute="top" secondItem="jK4-uB-dey" secondAttribute="bottom" constant="2" id="OV5-Ps-5y8"/>
+                                    <constraint firstItem="jK4-uB-dey" firstAttribute="top" secondItem="6js-92-Sum" secondAttribute="top" id="Okj-Dv-LTo"/>
+                                    <constraint firstItem="aqg-Xr-EIw" firstAttribute="top" secondItem="Q8Z-M6-2UH" secondAttribute="bottom" constant="8" id="PAF-Hp-phh"/>
+                                    <constraint firstAttribute="trailing" secondItem="aqg-Xr-EIw" secondAttribute="trailing" constant="16" id="bt9-IL-dM3"/>
+                                    <constraint firstItem="Q8Z-M6-2UH" firstAttribute="leading" secondItem="jK4-uB-dey" secondAttribute="leading" id="cAW-pJ-x3r"/>
+                                    <constraint firstAttribute="bottom" secondItem="aqg-Xr-EIw" secondAttribute="bottom" id="hSM-87-FZR"/>
+                                    <constraint firstItem="jK4-uB-dey" firstAttribute="leading" secondItem="6js-92-Sum" secondAttribute="leading" constant="16" id="wrc-sj-N1W"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="0Zw-mK-fcb" firstAttribute="top" secondItem="pUQ-W3-x6c" secondAttribute="top" id="7OF-G5-6N4"/>
+                    <constraint firstAttribute="trailing" secondItem="0Zw-mK-fcb" secondAttribute="trailing" id="Mac-yh-hXf"/>
+                    <constraint firstAttribute="bottom" secondItem="0Zw-mK-fcb" secondAttribute="bottom" id="aef-x7-Zoe"/>
+                    <constraint firstItem="0Zw-mK-fcb" firstAttribute="leading" secondItem="pUQ-W3-x6c" secondAttribute="leading" id="cZH-wD-Cy9"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="companyNameSeparatorView" destination="Q8Z-M6-2UH" id="t11-or-bKz"/>
+                <outlet property="companyNameTextField" destination="jK4-uB-dey" id="aIS-OO-Fbk"/>
+                <outlet property="enterGSTView" destination="6js-92-Sum" id="7nH-tW-uFw"/>
+                <outlet property="gSTDetailsLabel" destination="DIj-kP-DI8" id="jfk-nj-dTO"/>
+                <outlet property="gSTNumberTextField" destination="aqg-Xr-EIw" id="rCQ-6G-oq8"/>
+                <outlet property="gstSwitch" destination="rKV-Gi-3eD" id="gvd-aL-Cmo"/>
+                <outlet property="selectGSTDetailView" destination="r6k-7O-OWj" id="dJN-d0-fgl"/>
+                <outlet property="selectGSTFieldSeparatorView" destination="qa4-fN-Fmq" id="qIc-uv-HtN"/>
+                <outlet property="selectGSTTextField" destination="duS-n6-X4W" id="fMQ-rf-5vG"/>
+                <outlet property="subTitleBottomConstraint" destination="CIQ-0o-XNK" id="Wx0-L7-jvt"/>
+                <outlet property="subTitleLabel" destination="7Hb-hG-1k1" id="MgV-pE-NU9"/>
+                <outlet property="useGSTTitleLabel" destination="cbr-r2-eag" id="DcJ-kd-oLv"/>
+                <outlet property="useGSTTopConstraint" destination="SFO-Ra-rKb" id="idh-c6-HtL"/>
+            </connections>
+            <point key="canvasLocation" x="55.072463768115945" y="38.839285714285715"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="downArrow" width="9" height="6"/>
+    </resources>
+</document>

@@ -22,7 +22,7 @@ class RouteFareInfoTableViewCell: UITableViewCell {
     // MARK: - Variables
     weak var delegate: RouteFareInfoTableViewCellDelegate?
     
-    var flightDetails: FlightDetail? {
+    var flightDetails: BookingFlightDetail? {
         didSet {
             self.configureCell()
         }

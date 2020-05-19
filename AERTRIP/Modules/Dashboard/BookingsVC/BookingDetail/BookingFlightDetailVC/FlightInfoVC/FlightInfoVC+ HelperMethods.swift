@@ -33,7 +33,7 @@ extension FlightBookingInfoVC {
         }
     }
     
-    func getFlightDetailsForFlightInfo(indexPath: IndexPath) -> FlightDetail {
+    func getFlightDetailsForFlightInfo(indexPath: IndexPath) -> BookingFlightDetail {
         var currentIdx: Int = 0
         var allTotal: Int = 1
         

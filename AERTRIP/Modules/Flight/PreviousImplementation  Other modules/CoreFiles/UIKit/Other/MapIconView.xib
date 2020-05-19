@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MapIconView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mapFavouritUnSelected" translatesAutoresizingMaskIntoConstraints="NO" id="CSI-gc-K31">
+                    <rect key="frame" x="155" y="318.5" width="65" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="jK1-y5-iIM"/>
+                        <constraint firstAttribute="width" constant="65" id="v4b-Gt-qte"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12345" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dh8-az-Oco">
+                    <rect key="frame" x="161.5" y="322.5" width="52" height="20.5"/>
+                    <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="CSI-gc-K31" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="4ZR-Um-IXa"/>
+                <constraint firstItem="dh8-az-Oco" firstAttribute="top" secondItem="CSI-gc-K31" secondAttribute="top" constant="4" id="IKy-j7-1QU"/>
+                <constraint firstItem="CSI-gc-K31" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="PqT-sf-75E"/>
+                <constraint firstItem="dh8-az-Oco" firstAttribute="centerX" secondItem="CSI-gc-K31" secondAttribute="centerX" id="QtZ-nK-abL"/>
+                <constraint firstItem="dh8-az-Oco" firstAttribute="width" secondItem="CSI-gc-K31" secondAttribute="width" multiplier="0.8" id="wLT-7x-5Lq"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="coreImageView" destination="CSI-gc-K31" id="rGx-3r-3AE"/>
+                <outlet property="mainLabel" destination="dh8-az-Oco" id="NhQ-ma-W7A"/>
+            </connections>
+            <point key="canvasLocation" x="-69" y="335"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="mapFavouritUnSelected" width="69" height="50"/>
+    </resources>
+</document>

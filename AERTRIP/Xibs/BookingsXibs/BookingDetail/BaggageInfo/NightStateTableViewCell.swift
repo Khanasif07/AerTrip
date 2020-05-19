@@ -16,7 +16,7 @@ class NightStateTableViewCell: UITableViewCell {
     @IBOutlet weak var topBackgroundView: UIView!
     
     
-    var flightDetail: FlightDetail? {
+    var flightDetail: BookingFlightDetail? {
         didSet {
             self.configureCell()
         }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WhySmartSortView" customModule="Aertrip" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="pUb-fh-zrF"/>
+                <outlet property="descLbl" destination="kml-cu-7yu" id="8gb-pF-HZz"/>
+                <outlet property="titleLbl" destination="ZB9-2G-YoA" id="Hhj-C6-kuD"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="504" height="169"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Why Smart Sort?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZB9-2G-YoA">
+                    <rect key="frame" x="16" y="30" width="472" height="20"/>
+                    <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kml-cu-7yu">
+                    <rect key="frame" x="16" y="55" width="472" height="61"/>
+                    <string key="text">Smart Sort enables you to select your flight from just the first few results. Flights are sorted after comparing price, duration and various other factors. Learn More</string>
+                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="kml-cu-7yu" firstAttribute="leading" secondItem="ZB9-2G-YoA" secondAttribute="leading" id="95k-Ra-oXn"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ZB9-2G-YoA" secondAttribute="trailing" constant="16" id="COr-xG-EyI"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="kml-cu-7yu" secondAttribute="bottom" constant="16" id="Cni-JI-VN3"/>
+                <constraint firstItem="ZB9-2G-YoA" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="Rpi-n9-XP7"/>
+                <constraint firstItem="kml-cu-7yu" firstAttribute="trailing" secondItem="ZB9-2G-YoA" secondAttribute="trailing" id="az7-8u-QtR"/>
+                <constraint firstItem="kml-cu-7yu" firstAttribute="top" secondItem="ZB9-2G-YoA" secondAttribute="bottom" constant="5" id="hDy-PH-CJv"/>
+                <constraint firstItem="ZB9-2G-YoA" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="30" id="jxg-M0-ID8"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="202.89855072463769" y="-162.6358695652174"/>
+        </view>
+    </objects>
+</document>

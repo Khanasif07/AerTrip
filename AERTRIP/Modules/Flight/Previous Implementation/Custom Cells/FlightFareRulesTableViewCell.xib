@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FlightFareRulesCell" rowHeight="170" id="oy5-RC-BiZ" customClass="FlightFareRulesTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oy5-RC-BiZ" id="VU8-ge-7gw">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="169.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amsterdam → Czechslovakia" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cY8-g6-Mep">
+                        <rect key="frame" x="16" y="21" width="217" height="23"/>
+                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18 Jul 2018" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4hT-ho-NL3">
+                        <rect key="frame" x="16" y="44" width="65.5" height="18"/>
+                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AoZ-H2-DLp">
+                        <rect key="frame" x="272" y="16" width="87" height="33"/>
+                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                        <state key="normal" title="View  Details">
+                            <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="viewDetailsAction:" destination="oy5-RC-BiZ" eventType="touchUpInside" id="hZE-e5-MnH"/>
+                        </connections>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XAm-rt-aHj">
+                        <rect key="frame" x="0.0" y="62" width="375" height="107"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="blL-hi-WAM">
+                                <rect key="frame" x="15.5" y="10" width="92.5" height="71.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Per Pax" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qYj-tm-Rku">
+                                        <rect key="frame" x="0.0" y="0.0" width="92.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cancellation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFZ-Ui-cS6">
+                                        <rect key="frame" x="0.0" y="25.5" width="92.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rescheduling" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kkJ-gm-ltC">
+                                        <rect key="frame" x="0.0" y="51" width="92.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="ZdK-BB-3b9">
+                                <rect key="frame" x="194.5" y="10" width="72.5" height="65.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Airline Fee" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lkc-GU-mZa">
+                                        <rect key="frame" x="0.0" y="0.0" width="72.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 1,20,000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6eU-JI-caz">
+                                        <rect key="frame" x="0.0" y="22.5" width="72.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 1,20,000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gTo-VV-qrs">
+                                        <rect key="frame" x="0.0" y="45" width="72.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="o6J-4O-DHh">
+                                <rect key="frame" x="283" y="10" width="75.5" height="65.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aertrip Fee" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeo-H7-EfO">
+                                        <rect key="frame" x="0.0" y="0.0" width="75.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXw-hV-9fY">
+                                        <rect key="frame" x="0.0" y="22.5" width="75.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgJ-Bq-q5f">
+                                        <rect key="frame" x="0.0" y="45" width="75.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="th8-1p-qs4" userLabel="LineView">
+                                <rect key="frame" x="16" y="106.5" width="343" height="0.5"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="i0C-YA-0hi"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="o6J-4O-DHh" firstAttribute="top" secondItem="ZdK-BB-3b9" secondAttribute="top" id="4H5-1v-FBu"/>
+                            <constraint firstItem="th8-1p-qs4" firstAttribute="top" secondItem="blL-hi-WAM" secondAttribute="bottom" constant="25" id="5Tk-z0-0hI"/>
+                            <constraint firstItem="blL-hi-WAM" firstAttribute="top" secondItem="XAm-rt-aHj" secondAttribute="top" constant="10" id="Dy8-vs-LlV"/>
+                            <constraint firstItem="ZdK-BB-3b9" firstAttribute="top" secondItem="blL-hi-WAM" secondAttribute="top" id="F58-bY-scD"/>
+                            <constraint firstAttribute="trailing" secondItem="th8-1p-qs4" secondAttribute="trailing" constant="16" id="XhV-ck-Xkg"/>
+                            <constraint firstItem="o6J-4O-DHh" firstAttribute="leading" secondItem="ZdK-BB-3b9" secondAttribute="trailing" constant="16" id="YGh-2b-6tc"/>
+                            <constraint firstItem="th8-1p-qs4" firstAttribute="leading" secondItem="XAm-rt-aHj" secondAttribute="leading" constant="16" id="du4-n6-GXi"/>
+                            <constraint firstAttribute="trailing" secondItem="o6J-4O-DHh" secondAttribute="trailing" constant="16" id="gw7-SX-xh8"/>
+                            <constraint firstItem="blL-hi-WAM" firstAttribute="leading" secondItem="XAm-rt-aHj" secondAttribute="leading" constant="16" id="iMp-R2-Vv3"/>
+                            <constraint firstAttribute="bottom" secondItem="th8-1p-qs4" secondAttribute="bottom" id="zPf-mC-daS"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="XAm-rt-aHj" firstAttribute="width" secondItem="VU8-ge-7gw" secondAttribute="width" id="5Yl-nZ-DCy"/>
+                    <constraint firstAttribute="bottom" secondItem="XAm-rt-aHj" secondAttribute="bottom" id="9U7-Qo-nyt"/>
+                    <constraint firstAttribute="trailing" secondItem="AoZ-H2-DLp" secondAttribute="trailing" constant="16" id="G37-OK-x0u"/>
+                    <constraint firstItem="4hT-ho-NL3" firstAttribute="top" secondItem="cY8-g6-Mep" secondAttribute="bottom" id="NLS-mZ-oZR"/>
+                    <constraint firstItem="4hT-ho-NL3" firstAttribute="leading" secondItem="cY8-g6-Mep" secondAttribute="leading" id="UlS-OW-PB3"/>
+                    <constraint firstItem="cY8-g6-Mep" firstAttribute="top" secondItem="VU8-ge-7gw" secondAttribute="top" constant="21" id="gcu-kf-4L2"/>
+                    <constraint firstItem="XAm-rt-aHj" firstAttribute="top" secondItem="4hT-ho-NL3" secondAttribute="bottom" id="jv1-hQ-IPZ"/>
+                    <constraint firstItem="XAm-rt-aHj" firstAttribute="centerX" secondItem="VU8-ge-7gw" secondAttribute="centerX" id="oIo-II-Rhe"/>
+                    <constraint firstItem="AoZ-H2-DLp" firstAttribute="centerY" secondItem="cY8-g6-Mep" secondAttribute="centerY" id="vWk-Ni-ZoE"/>
+                    <constraint firstItem="cY8-g6-Mep" firstAttribute="leading" secondItem="VU8-ge-7gw" secondAttribute="leading" constant="16" id="vay-Cm-KIn"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="cancellationAerTripFeeLabel" destination="bXw-hV-9fY" id="Kwv-5G-ree"/>
+                <outlet property="cancellationAirlineFeeLabel" destination="6eU-JI-caz" id="nRm-gZ-kDq"/>
+                <outlet property="cancellationLabel" destination="MFZ-Ui-cS6" id="k0f-iG-v59"/>
+                <outlet property="dateLabel" destination="4hT-ho-NL3" id="qTY-ZG-DD3"/>
+                <outlet property="nameLabel" destination="cY8-g6-Mep" id="xrh-md-U3f"/>
+                <outlet property="rescheduleAerTripFeeLabel" destination="lgJ-Bq-q5f" id="1kQ-Ct-aqS"/>
+                <outlet property="rescheduleAirlineFeeLabel" destination="gTo-VV-qrs" id="ndl-YF-MUY"/>
+                <outlet property="rescheduleLabel" destination="kkJ-gm-ltC" id="JXj-d1-wO2"/>
+            </connections>
+            <point key="canvasLocation" x="425.5" y="117"/>
+        </tableViewCell>
+    </objects>
+</document>

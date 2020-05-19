@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+        <array key="SourceSansPro-SemiBold.ttf">
+            <string>SourceSansPro-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NoResultsScreenViewController" customModule="Aertrip" customModuleProvider="target">
+            <connections>
+                <outlet property="button" destination="yYa-M0-e2g" id="6iR-UW-Wl0"/>
+                <outlet property="header" destination="MCc-eg-RWt" id="Esf-FJ-tU1"/>
+                <outlet property="revolvingIndicatorView" destination="kgj-Hz-ZSX" id="WIe-Az-O1D"/>
+                <outlet property="subTitle" destination="wjY-RV-Axa" id="L7r-XL-lxd"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RadarMarker" translatesAutoresizingMaskIntoConstraints="NO" id="zST-cY-klk">
+                    <rect key="frame" x="39.5" y="108" width="296" height="296"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="296" id="67M-w2-vax"/>
+                        <constraint firstAttribute="height" constant="296" id="Zni-Ul-XNO"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RadarRevolvingIndicator" translatesAutoresizingMaskIntoConstraints="NO" id="kgj-Hz-ZSX">
+                    <rect key="frame" x="97.5" y="166" width="180" height="180"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="180" id="U7j-4Q-80m"/>
+                        <constraint firstAttribute="height" constant="180" id="z3M-Oo-Xzn"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Results Available" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MCc-eg-RWt">
+                    <rect key="frame" x="94.5" y="419" width="186" height="28"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="186" id="C4u-PO-KsM"/>
+                        <constraint firstAttribute="height" constant="28" id="sTi-lk-kBK"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="22"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We couldn’t find flights to match your filters. Try changing the filters, or reset them." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjY-RV-Axa">
+                    <rect key="frame" x="51.5" y="453" width="272" height="69"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="272" id="GWc-Vk-TQ9"/>
+                        <constraint firstAttribute="height" constant="69" id="iGV-P1-vl4"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yYa-M0-e2g">
+                    <rect key="frame" x="137.5" y="532" width="100" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="9fa-d7-fHL"/>
+                        <constraint firstAttribute="width" constant="100" id="Zz3-N9-E2Q"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
+                    <state key="normal" title="Clear Filters">
+                        <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="buttonTapped:" destination="-1" eventType="touchUpInside" id="wHJ-dX-hO1"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="kgj-Hz-ZSX" firstAttribute="centerX" secondItem="zST-cY-klk" secondAttribute="centerX" id="0uQ-rI-3od"/>
+                <constraint firstItem="kgj-Hz-ZSX" firstAttribute="centerY" secondItem="zST-cY-klk" secondAttribute="centerY" id="3z8-T0-cvP"/>
+                <constraint firstItem="MCc-eg-RWt" firstAttribute="top" secondItem="zST-cY-klk" secondAttribute="bottom" constant="15" id="9Sg-Wa-YVy"/>
+                <constraint firstItem="yYa-M0-e2g" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="BwG-Ke-JoJ"/>
+                <constraint firstItem="wjY-RV-Axa" firstAttribute="top" secondItem="MCc-eg-RWt" secondAttribute="bottom" constant="6" id="QVu-cd-N9e"/>
+                <constraint firstItem="zST-cY-klk" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="XDd-5Y-9j2"/>
+                <constraint firstItem="zST-cY-klk" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="108" id="bbc-vz-K1h"/>
+                <constraint firstItem="wjY-RV-Axa" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="eWI-xq-WNG"/>
+                <constraint firstItem="MCc-eg-RWt" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="kdZ-w7-ULv"/>
+                <constraint firstItem="yYa-M0-e2g" firstAttribute="top" secondItem="wjY-RV-Axa" secondAttribute="bottom" constant="10" id="uy1-Et-lAX"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="138" y="154"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="RadarMarker" width="296" height="296"/>
+        <image name="RadarRevolvingIndicator" width="181" height="181"/>
+    </resources>
+</document>

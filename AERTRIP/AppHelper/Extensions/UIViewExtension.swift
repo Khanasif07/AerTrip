@@ -505,3 +505,82 @@ extension UIView {
 //    }
     }
 }
+
+// FLIGHTS
+
+extension UIView {
+    func setupDashedView() {
+        
+        self.backgroundColor = .clear
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.strokeColor = UIColor.ONE_ZORE_TWO_COLOR.cgColor
+        shapeLayer.lineWidth = 0.5
+        shapeLayer.lineDashPattern = [2,3]
+        
+        let path = CGMutablePath()
+        path.addLines(between: [CGPoint(x: 0, y: 0),
+                                CGPoint(x: self.frame.width, y: 0)])
+        shapeLayer.path = path
+        self.layer.backgroundColor = UIColor.clear.cgColor
+        self.layer.addSublayer(shapeLayer)
+        self.clipsToBounds = true
+        
+    }
+    
+    func addShimmerEffect( to views : [UIView]) {
+        
+        for view in views {
+            animate(view: view)
+        }
+    }
+    
+    func animate(view:UIView) {
+        let colorLayer = CALayer()
+        colorLayer.backgroundColor = UIColor(displayP3Red: (238.0/255.0), green: (239.0/255.0), blue: (242.0/255.0), alpha: 1).cgColor
+        colorLayer.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
+        colorLayer.name = "colorLayer"
+        view.layer.addSublayer(colorLayer)
+        view.autoresizesSubviews = true
+        view.clipsToBounds = true
+        
+        // 2. Add loader Layer
+        let multiplier = CGFloat(4.0)
+        let width = view.frame.width
+        let height = view.frame.height
+        
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [UIColor(white: 1.0, alpha: 0.0).cgColor,
+                                UIColor(white: 1.0, alpha: 0.7).cgColor,
+                                UIColor(white: 1.0, alpha: 0.0).cgColor]
+        gradientLayer.name = "loaderLayer"
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: multiplier * width, height:  multiplier * view.bounds.height)
+        
+        let degrees =  -45.0
+        let radians = CGFloat(degrees * Double.pi / 180)
+        gradientLayer.transform = CATransform3DMakeRotation(radians, 0.0, 0.0, 1.0)
+        
+        view.layer.addSublayer(gradientLayer)
+        //                 view.layer.addSublayer(gradientLayer)
+        
+        // 3. Animate loader layer
+        let animation = CABasicAnimation(keyPath: "transform.translation.x")
+        animation.duration = 2.0
+        animation.fromValue = -multiplier * width
+        animation.toValue = multiplier * width
+        animation.repeatCount = Float.infinity
+        gradientLayer.add(animation, forKey: "smartLoader")
+        
+        let animation2 = CABasicAnimation(keyPath: "transform.translation.y")
+        animation2.duration = 2.0
+        animation2.fromValue = -multiplier * height
+        animation2.toValue = multiplier * height
+        animation2.repeatCount = Float.infinity
+        gradientLayer.add(animation2, forKey: "smartLoader2")
+        
+        
+    }
+}
+
