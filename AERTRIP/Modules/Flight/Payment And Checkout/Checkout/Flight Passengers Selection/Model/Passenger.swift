@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Gender{
+enum PassengerGender{
     case male,female
 }
 
@@ -20,7 +20,7 @@ struct Passenger {
     var title = ""
     var fName = ""
     var lName = ""
-    var gender:Gender?
+    var gender:PassengerGender?
     var dob:Date?
     var dobString = ""
     var nationality = ""
@@ -44,3 +44,4 @@ struct  MealPreference {
     var mealPreference = ""
     var airlineLogo = ""
 }
+

@@ -16,7 +16,7 @@ extension UIView {
             return self.translatesAutoresizingMaskIntoConstraints
         }
         set {
-            self.translatesAutoresizingMaskIntoConstraints = newValue
+            self.translatesAutoresizingMaskIntoConstraints = newV@objc alue
             for view in self.subviews {
                 view.autoResizingActive = autoResizingActive
             }

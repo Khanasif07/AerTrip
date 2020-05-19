@@ -19,4 +19,5 @@
 #import "RecentSearchDisplayModel.h"
 #import "BookFlightObject.h"
 #import "MARKRangeSlider.h"
+#import "HMSegmentedControl.h"
 #endif /* Bridging_Header_h */

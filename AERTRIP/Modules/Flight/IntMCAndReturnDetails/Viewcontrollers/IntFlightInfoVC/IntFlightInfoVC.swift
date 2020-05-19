@@ -812,7 +812,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     let newArr = ["Time":"\(hour):\(minutes):\(seconds)",
                         "selectedJourneyFK":self.selectedJourneyFK,
                         "BaggageDataResponse":self.baggageData] as [String : Any]
-                    self.appdelegate.flightBaggageMutableArray.add(newArr)
+                    self.appdelegate.flightBaggageMutableArray.append(newArr)
                     self.flightInfoTableView.reloadData()
                 }
             }catch{

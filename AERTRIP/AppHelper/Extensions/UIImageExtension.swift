@@ -308,3 +308,43 @@ extension UIImage {
         return finalImage
      }
 }
+
+// FLIGHTS
+
+extension UIImageView{
+    
+    func resourceFor( urlPath : String) {
+        
+        guard  let urlobj = URL(string: urlPath) else {
+            return
+        }
+        
+         let urlRequest = URLRequest(url: urlobj)
+        
+        if let responseObj = URLCache.shared.cachedResponse(for: urlRequest) {
+            
+            let image = UIImage(data: responseObj.data)
+            self.image = image
+        }else {
+            
+            let urlSession = URLSession.shared
+          let dataTask =  urlSession.dataTask(with: urlRequest) {[weak self ] ( downloadedData, response, error) in
+            
+                if (error != nil) {
+//                    print(error.debugDescription)
+                    return
+                }
+                if let data = downloadedData , let response = response {
+                    let cacheResponse = CachedURLResponse(response: response, data: data)
+                    URLCache.shared.storeCachedResponse(cacheResponse, for: urlRequest)
+                      DispatchQueue.main.async {
+                        self?.image = UIImage(data: data)
+                    }
+                }
+            }
+            
+            dataTask.resume()
+        }
+    }
+    
+}

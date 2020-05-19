@@ -861,7 +861,7 @@ class UpgradePlanBaseVC: UIViewController, UICollectionViewDataSource, UICollect
                                             "selectedJourneyFK" : fk,
                                             "upgradeArray":fareArray] as NSDictionary
                                         
-                                        self.appdelegate.upgradeDataMutableArray.add(arr)
+                                        self.appdelegate.upgradeDataMutableArray.append(arr)
                                         
                                         if index == 0{
                                             self.displayFaresForSelectedIndex(selectedIndex: index)

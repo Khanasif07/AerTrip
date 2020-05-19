@@ -10,10 +10,8 @@
 
 @class HMSegmentedControl;
 
-NS_ASSUME_NONNULL_BEGIN
-
-typedef void (^IndexChangeBlock)(NSUInteger index);
-typedef NSAttributedString *_Nonnull(^HMTitleFormatterBlock)(HMSegmentedControl *segmentedControl, NSString *title, NSUInteger index, BOOL selected);
+typedef void (^IndexChangeBlock)(NSInteger index);
+typedef NSAttributedString *(^HMTitleFormatterBlock)(HMSegmentedControl *segmentedControl, NSString *title, NSUInteger index, BOOL selected);
 
 typedef NS_ENUM(NSInteger, HMSegmentedControlSelectionStyle) {
     HMSegmentedControlSelectionStyleTextWidthStripe, // Indicator width will only be as big as the text width
@@ -23,10 +21,8 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlSelectionStyle) {
 };
 
 typedef NS_ENUM(NSInteger, HMSegmentedControlSelectionIndicatorLocation) {
-    HMSegmentedControlSelectionIndicatorLocationTop,
-    HMSegmentedControlSelectionIndicatorLocationBottom,
-    HMSegmentedControlSelectionIndicatorLocationUp __deprecated_enum_msg("Use HMSegmentedControlSelectionIndicatorLocationTop.") = HMSegmentedControlSelectionIndicatorLocationTop,
-    HMSegmentedControlSelectionIndicatorLocationDown __deprecated_enum_msg("Use HMSegmentedControlSelectionIndicatorLocationBottom.") = HMSegmentedControlSelectionIndicatorLocationBottom,
+    HMSegmentedControlSelectionIndicatorLocationUp,
+    HMSegmentedControlSelectionIndicatorLocationDown,
 	HMSegmentedControlSelectionIndicatorLocationNone // No selection indicator
 };
 
@@ -43,8 +39,9 @@ typedef NS_OPTIONS(NSInteger, HMSegmentedControlBorderType) {
     HMSegmentedControlBorderTypeRight = (1 << 3)
 };
 
-/// Segment index for no selected segment
-FOUNDATION_EXPORT NSUInteger HMSegmentedControlNoSegment;
+enum {
+    HMSegmentedControlNoSegment = -1   // Segment index for no selected segment
+};
 
 typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
     HMSegmentedControlTypeText,
@@ -62,23 +59,23 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlImagePosition) {
 
 @interface HMSegmentedControl : UIControl
 
-@property (nonatomic, strong, nullable) NSArray<NSString *> *sectionTitles;
-@property (nonatomic, strong, nullable) NSArray<UIImage *> *sectionImages;
-@property (nonatomic, strong, nullable) NSArray<UIImage *> *sectionSelectedImages;
+@property (nonatomic, strong) NSArray *sectionTitles;
+@property (nonatomic, strong) NSArray<UIImage *> *sectionImages;
+@property (nonatomic, strong) NSArray<UIImage *> *sectionSelectedImages;
 
 /**
  Provide a block to be executed when selected index is changed.
  
  Alternativly, you could use `addTarget:action:forControlEvents:`
  */
-@property (nonatomic, copy, nullable) IndexChangeBlock indexChangeBlock;
+@property (nonatomic, copy) IndexChangeBlock indexChangeBlock;
 
 /**
  Used to apply custom text styling to titles when set.
  
  When this block is set, no additional styling is applied to the `NSAttributedString` object returned from this block.
  */
-@property (nonatomic, copy, nullable) HMTitleFormatterBlock titleFormatter;
+@property (nonatomic, copy) HMTitleFormatterBlock titleFormatter;
 
 /**
  Text attributes to apply to item title text.
@@ -217,7 +214,7 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlImagePosition) {
 /**
  Index of the currently selected segment.
  */
-@property (nonatomic, assign) NSUInteger selectedSegmentIndex;
+@property (nonatomic, assign) NSInteger selectedSegmentIndex;
 
 /**
  Height of the selection indicator. Only effective when `HMSegmentedControlSelectionStyle` is either `HMSegmentedControlSelectionStyleTextWidthStripe` or `HMSegmentedControlSelectionStyleFullWidthStripe`.
@@ -255,14 +252,11 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlImagePosition) {
  */
 @property (nonatomic) BOOL shouldAnimateUserSelection;
 
-- (instancetype)initWithSectionTitles:(NSArray<NSString *> *)sectiontitles;
-- (instancetype)initWithSectionImages:(NSArray<UIImage *> *)sectionImages sectionSelectedImages:(NSArray<UIImage *> *)sectionSelectedImages;
+- (id)initWithSectionTitles:(NSArray<NSString *> *)sectiontitles;
+- (id)initWithSectionImages:(NSArray<UIImage *> *)sectionImages sectionSelectedImages:(NSArray<UIImage *> *)sectionSelectedImages;
 - (instancetype)initWithSectionImages:(NSArray<UIImage *> *)sectionImages sectionSelectedImages:(NSArray<UIImage *> *)sectionSelectedImages titlesForSections:(NSArray<NSString *> *)sectiontitles;
-
 - (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated;
 - (void)setIndexChangeBlock:(IndexChangeBlock)indexChangeBlock;
 - (void)setTitleFormatter:(HMTitleFormatterBlock)titleFormatter;
 
 @end
-
-NS_ASSUME_NONNULL_END

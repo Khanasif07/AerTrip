@@ -11,7 +11,7 @@ protocol flightDetailsPinFlightDelegate : AnyObject {
 }
 
 import UIKit
-import HMSegmentedControl
+//import HMSegmentedControl
 
 class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetailsSmartIconsDelegate, FareBreakupVCDelegate
 {

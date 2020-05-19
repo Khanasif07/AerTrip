@@ -414,7 +414,7 @@ struct FrequentFlyer {
     var airlineCode : String = ""
     var airlineName : String = ""
     var logoUrl : String = ""
-    
+    var program: String = ""
     
     var jsonDict: [String:Any] {
         return ["id":self.id,

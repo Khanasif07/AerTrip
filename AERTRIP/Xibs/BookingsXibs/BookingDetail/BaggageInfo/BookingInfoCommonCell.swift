@@ -70,7 +70,7 @@ class BookingInfoCommonCell: ATTableViewCell {
         setUpColor()
         var font: UIFont? = AppFonts.SemiBold.withSize(18.0)
         
-        let flight = forFlight ?? FlightDetail(json: [:])
+        let flight = forFlight ?? BookingFlightDetail(json: [:])
         
         if usingFor == .adult {
             // adult

@@ -567,6 +567,26 @@
 		8411E8D7222ED76300C93C0B /* HotelFilterResultFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8411E8D5222ED76300C93C0B /* HotelFilterResultFooterView.swift */; };
 		8417772C223F6DF700DAC087 /* hotelsSearch.csv in Resources */ = {isa = PBXBuildFile; fileRef = 8417772B223F6DF600DAC087 /* hotelsSearch.csv */; };
 		841A75F0226F320F00D5C47A /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A75EF226F320F00D5C47A /* CircularProgress.swift */; };
+		841AA4FF2474374700B66720 /* UIScreenExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA4FE2474374700B66720 /* UIScreenExtension.swift */; };
+		841AA5032474378600B66720 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA5012474378500B66720 /* WebViewController.swift */; };
+		841AA5042474378600B66720 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841AA5022474378500B66720 /* WebViewController.xib */; };
+		841AA50A247439B000B66720 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA506247439B000B66720 /* JSONParser.swift */; };
+		841AA50B247439B000B66720 /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA508247439B000B66720 /* NetworkLayer.swift */; };
+		841AA50C247439B000B66720 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA509247439B000B66720 /* Webservice.swift */; };
+		841AA50E247448FC00B66720 /* Data+PrettyPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA50D247448FC00B66720 /* Data+PrettyPrint.swift */; };
+		841AA5102474496600B66720 /* MARKRangeSlider+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA50F2474496500B66720 /* MARKRangeSlider+Extension.swift */; };
+		841AA51224744A8900B66720 /* ImageWithoutRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA51124744A8900B66720 /* ImageWithoutRender.swift */; };
+		841AA51624744CA200B66720 /* HomeDummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841AA51424744CA100B66720 /* HomeDummyViewController.swift */; };
+		841AA51724744CA200B66720 /* HomeDummyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841AA51524744CA100B66720 /* HomeDummyViewController.xib */; };
+		841AA51E24744E0A00B66720 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 841AA51924744E0900B66720 /* LICENSE.md */; };
+		841AA51F24744E0A00B66720 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 841AA51C24744E0900B66720 /* HMSegmentedControl.m */; };
+		841AA52024744E0A00B66720 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 841AA51D24744E0900B66720 /* README.md */; };
+		841AA52B24744F0700B66720 /* HMSegmentedControl.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 841AA52224744F0500B66720 /* HMSegmentedControl.release.xcconfig */; };
+		841AA52C24744F0700B66720 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 841AA52424744F0600B66720 /* Info.plist */; };
+		841AA52D24744F0700B66720 /* HMSegmentedControl-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 841AA52524744F0600B66720 /* HMSegmentedControl-Info.plist */; };
+		841AA52E24744F0700B66720 /* HMSegmentedControl.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 841AA52624744F0600B66720 /* HMSegmentedControl.debug.xcconfig */; };
+		841AA52F24744F0700B66720 /* HMSegmentedControl-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 841AA52924744F0600B66720 /* HMSegmentedControl-dummy.m */; };
+		841AA53024744F0700B66720 /* HMSegmentedControl.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 841AA52A24744F0700B66720 /* HMSegmentedControl.xcconfig */; };
 		841C8DAF225742BA009B9A54 /* YouAreAllDoneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841C8DAE225742BA009B9A54 /* YouAreAllDoneModel.swift */; };
 		841DD1E32202DC690055FEBB /* RoomGuestSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841DD1D52202DC680055FEBB /* RoomGuestSelectionVC.swift */; };
 		841DD1E42202DC690055FEBB /* RoomGuestSelectionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841DD1D62202DC680055FEBB /* RoomGuestSelectionVM.swift */; };
@@ -849,7 +869,6 @@
 		843FF51824740231001F21B1 /* InternationalReturnTemplateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3E924740230001F21B1 /* InternationalReturnTemplateTableViewCell.swift */; };
 		843FF51924740231001F21B1 /* IntMCAndReturnVC+ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3EA24740230001F21B1 /* IntMCAndReturnVC+ScrollView.swift */; };
 		843FF51A24740231001F21B1 /* IntMCAndReturnVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF3EB24740230001F21B1 /* IntMCAndReturnVC.xib */; };
-		843FF51B24740231001F21B1 /* FlightInternationalMultiLegResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3EC24740230001F21B1 /* FlightInternationalMultiLegResultVC.swift */; };
 		843FF51C24740231001F21B1 /* IntMCAndReturnVC+FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3ED24740230001F21B1 /* IntMCAndReturnVC+FooterView.swift */; };
 		843FF51D24740231001F21B1 /* IntMCAndReturnVC+TableViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3EE24740230001F21B1 /* IntMCAndReturnVC+TableViewDelegates.swift */; };
 		843FF51E24740231001F21B1 /* IntMCAndReturnVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3EF24740230001F21B1 /* IntMCAndReturnVM.swift */; };
@@ -866,7 +885,6 @@
 		843FF52924740231001F21B1 /* DomesticMultiLegCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF3FC24740230001F21B1 /* DomesticMultiLegCell.xib */; };
 		843FF52A24740231001F21B1 /* FlightSectorHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843FF3FD24740230001F21B1 /* FlightSectorHeaderCell.xib */; };
 		843FF52B24740231001F21B1 /* FlightDomesticMultiLegResultVC+Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3FE24740230001F21B1 /* FlightDomesticMultiLegResultVC+Properties.swift */; };
-		843FF52C24740232001F21B1 /* FlightDomesticMultiLegResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF3FF24740230001F21B1 /* FlightDomesticMultiLegResultVC.swift */; };
 		843FF52D24740232001F21B1 /* FlightDomesticMultiLegResultVC+TableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF40024740230001F21B1 /* FlightDomesticMultiLegResultVC+TableViewFooter.swift */; };
 		843FF52E24740232001F21B1 /* JourneyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF40124740230001F21B1 /* JourneyHeaderView.swift */; };
 		843FF52F24740232001F21B1 /* NoResultScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843FF40224740230001F21B1 /* NoResultScreenView.swift */; };
@@ -2051,6 +2069,30 @@
 		8411E8D5222ED76300C93C0B /* HotelFilterResultFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotelFilterResultFooterView.swift; sourceTree = "<group>"; };
 		8417772B223F6DF600DAC087 /* hotelsSearch.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hotelsSearch.csv; sourceTree = "<group>"; };
 		841A75EF226F320F00D5C47A /* CircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
+		841AA4FE2474374700B66720 /* UIScreenExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScreenExtension.swift; sourceTree = "<group>"; };
+		841AA5012474378500B66720 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		841AA5022474378500B66720 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
+		841AA506247439B000B66720 /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
+		841AA508247439B000B66720 /* NetworkLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
+		841AA509247439B000B66720 /* Webservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
+		841AA50D247448FC00B66720 /* Data+PrettyPrint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+PrettyPrint.swift"; sourceTree = "<group>"; };
+		841AA50F2474496500B66720 /* MARKRangeSlider+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MARKRangeSlider+Extension.swift"; sourceTree = "<group>"; };
+		841AA51124744A8900B66720 /* ImageWithoutRender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageWithoutRender.swift; sourceTree = "<group>"; };
+		841AA51424744CA100B66720 /* HomeDummyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDummyViewController.swift; sourceTree = "<group>"; };
+		841AA51524744CA100B66720 /* HomeDummyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeDummyViewController.xib; sourceTree = "<group>"; };
+		841AA51924744E0900B66720 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		841AA51B24744E0900B66720 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
+		841AA51C24744E0900B66720 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
+		841AA51D24744E0900B66720 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		841AA52224744F0500B66720 /* HMSegmentedControl.release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = HMSegmentedControl.release.xcconfig; sourceTree = "<group>"; };
+		841AA52324744F0500B66720 /* HMSegmentedControl.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = HMSegmentedControl.modulemap; sourceTree = "<group>"; };
+		841AA52424744F0600B66720 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		841AA52524744F0600B66720 /* HMSegmentedControl-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "HMSegmentedControl-Info.plist"; sourceTree = "<group>"; };
+		841AA52624744F0600B66720 /* HMSegmentedControl.debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = HMSegmentedControl.debug.xcconfig; sourceTree = "<group>"; };
+		841AA52724744F0600B66720 /* HMSegmentedControl-prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HMSegmentedControl-prefix.pch"; sourceTree = "<group>"; };
+		841AA52824744F0600B66720 /* HMSegmentedControl-umbrella.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HMSegmentedControl-umbrella.h"; sourceTree = "<group>"; };
+		841AA52924744F0600B66720 /* HMSegmentedControl-dummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HMSegmentedControl-dummy.m"; sourceTree = "<group>"; };
+		841AA52A24744F0700B66720 /* HMSegmentedControl.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = HMSegmentedControl.xcconfig; sourceTree = "<group>"; };
 		841C8DAE225742BA009B9A54 /* YouAreAllDoneModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouAreAllDoneModel.swift; sourceTree = "<group>"; };
 		841DD1D52202DC680055FEBB /* RoomGuestSelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomGuestSelectionVC.swift; sourceTree = "<group>"; };
 		841DD1D62202DC680055FEBB /* RoomGuestSelectionVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomGuestSelectionVM.swift; sourceTree = "<group>"; };
@@ -2364,7 +2406,6 @@
 		843FF3E924740230001F21B1 /* InternationalReturnTemplateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternationalReturnTemplateTableViewCell.swift; sourceTree = "<group>"; };
 		843FF3EA24740230001F21B1 /* IntMCAndReturnVC+ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IntMCAndReturnVC+ScrollView.swift"; sourceTree = "<group>"; };
 		843FF3EB24740230001F21B1 /* IntMCAndReturnVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntMCAndReturnVC.xib; sourceTree = "<group>"; };
-		843FF3EC24740230001F21B1 /* FlightInternationalMultiLegResultVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightInternationalMultiLegResultVC.swift; sourceTree = "<group>"; };
 		843FF3ED24740230001F21B1 /* IntMCAndReturnVC+FooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IntMCAndReturnVC+FooterView.swift"; sourceTree = "<group>"; };
 		843FF3EE24740230001F21B1 /* IntMCAndReturnVC+TableViewDelegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IntMCAndReturnVC+TableViewDelegates.swift"; sourceTree = "<group>"; };
 		843FF3EF24740230001F21B1 /* IntMCAndReturnVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntMCAndReturnVM.swift; sourceTree = "<group>"; };
@@ -2381,7 +2422,6 @@
 		843FF3FC24740230001F21B1 /* DomesticMultiLegCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DomesticMultiLegCell.xib; sourceTree = "<group>"; };
 		843FF3FD24740230001F21B1 /* FlightSectorHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlightSectorHeaderCell.xib; sourceTree = "<group>"; };
 		843FF3FE24740230001F21B1 /* FlightDomesticMultiLegResultVC+Properties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FlightDomesticMultiLegResultVC+Properties.swift"; sourceTree = "<group>"; };
-		843FF3FF24740230001F21B1 /* FlightDomesticMultiLegResultVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightDomesticMultiLegResultVC.swift; sourceTree = "<group>"; };
 		843FF40024740230001F21B1 /* FlightDomesticMultiLegResultVC+TableViewFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FlightDomesticMultiLegResultVC+TableViewFooter.swift"; sourceTree = "<group>"; };
 		843FF40124740230001F21B1 /* JourneyHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyHeaderView.swift; sourceTree = "<group>"; };
 		843FF40224740230001F21B1 /* NoResultScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoResultScreenView.swift; sourceTree = "<group>"; };
@@ -3292,6 +3332,7 @@
 		0CBADF0D2473C18800086EA7 /* FlightThirdParties */ = {
 			isa = PBXGroup;
 			children = (
+				841AA51824744E0900B66720 /* HMSegmentedControl */,
 				0CBADF632473DC6E00086EA7 /* AFNetworking */,
 				0CBADF5E2473DC4700086EA7 /* MARKRangeSlider */,
 			);
@@ -4771,6 +4812,77 @@
 			path = HotelDetailsModel;
 			sourceTree = "<group>";
 		};
+		841AA5002474378500B66720 /* WebViewControlller */ = {
+			isa = PBXGroup;
+			children = (
+				841AA5012474378500B66720 /* WebViewController.swift */,
+				841AA5022474378500B66720 /* WebViewController.xib */,
+			);
+			path = WebViewControlller;
+			sourceTree = "<group>";
+		};
+		841AA505247439B000B66720 /* JSON Parser */ = {
+			isa = PBXGroup;
+			children = (
+				841AA506247439B000B66720 /* JSONParser.swift */,
+			);
+			path = "JSON Parser";
+			sourceTree = "<group>";
+		};
+		841AA507247439B000B66720 /* Webservice Layer */ = {
+			isa = PBXGroup;
+			children = (
+				841AA508247439B000B66720 /* NetworkLayer.swift */,
+				841AA509247439B000B66720 /* Webservice.swift */,
+			);
+			path = "Webservice Layer";
+			sourceTree = "<group>";
+		};
+		841AA51324744CA100B66720 /* HomeDummy */ = {
+			isa = PBXGroup;
+			children = (
+				841AA51424744CA100B66720 /* HomeDummyViewController.swift */,
+				841AA51524744CA100B66720 /* HomeDummyViewController.xib */,
+			);
+			path = HomeDummy;
+			sourceTree = "<group>";
+		};
+		841AA51824744E0900B66720 /* HMSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				841AA51924744E0900B66720 /* LICENSE.md */,
+				841AA51A24744E0900B66720 /* HMSegmentedControl */,
+				841AA51D24744E0900B66720 /* README.md */,
+			);
+			path = HMSegmentedControl;
+			sourceTree = "<group>";
+		};
+		841AA51A24744E0900B66720 /* HMSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				841AA52124744EF400B66720 /* Support Files */,
+				841AA51B24744E0900B66720 /* HMSegmentedControl.h */,
+				841AA51C24744E0900B66720 /* HMSegmentedControl.m */,
+			);
+			path = HMSegmentedControl;
+			sourceTree = "<group>";
+		};
+		841AA52124744EF400B66720 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				841AA52924744F0600B66720 /* HMSegmentedControl-dummy.m */,
+				841AA52524744F0600B66720 /* HMSegmentedControl-Info.plist */,
+				841AA52724744F0600B66720 /* HMSegmentedControl-prefix.pch */,
+				841AA52824744F0600B66720 /* HMSegmentedControl-umbrella.h */,
+				841AA52624744F0600B66720 /* HMSegmentedControl.debug.xcconfig */,
+				841AA52324744F0500B66720 /* HMSegmentedControl.modulemap */,
+				841AA52224744F0500B66720 /* HMSegmentedControl.release.xcconfig */,
+				841AA52A24744F0700B66720 /* HMSegmentedControl.xcconfig */,
+				841AA52424744F0600B66720 /* Info.plist */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
 		841DD1CF2202DC680055FEBB /* HotelsVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -5251,6 +5363,10 @@
 		843FF2E62474022F001F21B1 /* Flight */ = {
 			isa = PBXGroup;
 			children = (
+				841AA51324744CA100B66720 /* HomeDummy */,
+				841AA505247439B000B66720 /* JSON Parser */,
+				841AA507247439B000B66720 /* Webservice Layer */,
+				841AA5002474378500B66720 /* WebViewControlller */,
 				843FF58C247409E1001F21B1 /* PreviousImplementation  Other modules */,
 				843FF5872474093C001F21B1 /* CustomVIews */,
 				843FF2E72474022F001F21B1 /* FlightForm */,
@@ -5959,7 +6075,6 @@
 				843FF3E124740230001F21B1 /* TableViewCells */,
 				843FF3EA24740230001F21B1 /* IntMCAndReturnVC+ScrollView.swift */,
 				843FF3EB24740230001F21B1 /* IntMCAndReturnVC.xib */,
-				843FF3EC24740230001F21B1 /* FlightInternationalMultiLegResultVC.swift */,
 				843FF3ED24740230001F21B1 /* IntMCAndReturnVC+FooterView.swift */,
 				843FF3EE24740230001F21B1 /* IntMCAndReturnVC+TableViewDelegates.swift */,
 				843FF3EF24740230001F21B1 /* IntMCAndReturnVM.swift */,
@@ -5992,7 +6107,6 @@
 				843FF3F524740230001F21B1 /* FlightDomesticMultiLegResultVC+UI.swift */,
 				843FF3F624740230001F21B1 /* TableView and CollectionView Cell */,
 				843FF3FE24740230001F21B1 /* FlightDomesticMultiLegResultVC+Properties.swift */,
-				843FF3FF24740230001F21B1 /* FlightDomesticMultiLegResultVC.swift */,
 				843FF40024740230001F21B1 /* FlightDomesticMultiLegResultVC+TableViewFooter.swift */,
 				843FF40124740230001F21B1 /* JourneyHeaderView.swift */,
 				843FF40224740230001F21B1 /* NoResultScreenView.swift */,
@@ -8133,6 +8247,10 @@
 		84F9839121B51A070018DFED /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				841AA51124744A8900B66720 /* ImageWithoutRender.swift */,
+				841AA50F2474496500B66720 /* MARKRangeSlider+Extension.swift */,
+				841AA50D247448FC00B66720 /* Data+PrettyPrint.swift */,
+				841AA4FE2474374700B66720 /* UIScreenExtension.swift */,
 				84F9839221B51A070018DFED /* NSErrorExtension.swift */,
 				84F9839321B51A070018DFED /* UIColorExtension.swift */,
 				84F9839521B51A070018DFED /* NSObjectExtension.swift */,
@@ -8390,8 +8508,10 @@
 				843FF4EB24740231001F21B1 /* FlightAmenitiesTableViewCell.xib in Resources */,
 				843FF4AD24740231001F21B1 /* FlightDurationFilterViewController.xib in Resources */,
 				843FF4D524740231001F21B1 /* GSTINListCell.xib in Resources */,
+				841AA52024744E0A00B66720 /* README.md in Resources */,
 				8445B53022A5371700DDBC7F /* CustomerContactCellTableViewCell.xib in Resources */,
 				843FF56B24740232001F21B1 /* AmenitiesDetailsVC.xib in Resources */,
+				841AA52B24744F0700B66720 /* HMSegmentedControl.release.xcconfig in Resources */,
 				843FF49024740230001F21B1 /* FlightFilterAmenitiesViewController.xib in Resources */,
 				0CBDEA4B2429E413009D7849 /* ReceiverChatCell.xib in Resources */,
 				18E79718224A06B100A7AC8B /* TotalPayableNowCell.xib in Resources */,
@@ -8448,6 +8568,7 @@
 				842A56AC22897C70004FD51F /* OfflineDepositeTextImageCell.xib in Resources */,
 				18F794D0241F9A250025BD9B /* BookingHotelsDetailsTravellerTableCell.xib in Resources */,
 				183E3F5F21D9E8AA0032DEBA /* HotelPreferences.storyboard in Resources */,
+				841AA51724744CA200B66720 /* HomeDummyViewController.xib in Resources */,
 				8455A6772232784B00CEE2B3 /* TripAdvisorTravelerRatingTableViewCell.xib in Resources */,
 				840DDE92220D7C0800F8BA92 /* HotelDetailsImageCollectionCell.xib in Resources */,
 				0CBDEA4F2429EF9B009D7849 /* SuggestionsCell.xib in Resources */,
@@ -8482,6 +8603,7 @@
 				84323D3A222FE42300DA7581 /* AmenitiesDescriptionTableViewCell.xib in Resources */,
 				18D34EC42424F0F0007D32D8 /* TotalPayableNowWithIconCell.xib in Resources */,
 				1820F0ED228D46CD0019B8BB /* BookingRequestAddOnTableViewCell.xib in Resources */,
+				841AA52D24744F0700B66720 /* HMSegmentedControl-Info.plist in Resources */,
 				8491D1F1222D3FC2001D0313 /* SourceSansPro-BlackItalic.ttf in Resources */,
 				18FA223121EC7C7C0024B91E /* AssignGroupTableViewCell.xib in Resources */,
 				843FF53B24740232001F21B1 /* GroupedFlightCell.xib in Resources */,
@@ -8655,6 +8777,7 @@
 				188290612238D51A0000C118 /* GuestDetailTableViewCell.xib in Resources */,
 				843FF48424740230001F21B1 /* FlightBulkBooking.storyboard in Resources */,
 				8446C8FE22A7CDA30077556B /* HotelCancellationRoomInfoTableViewCell.xib in Resources */,
+				841AA51E24744E0A00B66720 /* LICENSE.md in Resources */,
 				18B4356B2202DCA6000C5E31 /* SortTableViewCell.xib in Resources */,
 				18020ADB2280546F00DE5FE0 /* SingleFlightResultTableViewCell.xib in Resources */,
 				843FF4F324740231001F21B1 /* FlightPreferencesTableViewCell.xib in Resources */,
@@ -8681,6 +8804,7 @@
 				84AB8FC922129B4A002C0A66 /* ATGalleryCell.xib in Resources */,
 				84D5F23322A65D4900824A9F /* TravellersDetailsTableViewCell.xib in Resources */,
 				843FF58424740232001F21B1 /* FareInfoTableViewCell.xib in Resources */,
+				841AA5042474378600B66720 /* WebViewController.xib in Resources */,
 				843FF57F24740232001F21B1 /* CombineFareInfoTableViewCell.xib in Resources */,
 				843FF650247409E3001F21B1 /* GuestsCollectionViewCell.xib in Resources */,
 				18038D14226DC37500A4D1DD /* AerinSuggestionCollectionViewCell.xib in Resources */,
@@ -8727,6 +8851,7 @@
 				1800FC6621EF1FA20006D6D1 /* AddNotesTableViewCell.xib in Resources */,
 				84EAABEB21DA09EC006B757F /* SideMenuLogoView.xib in Resources */,
 				182D4859228AECCF004796A2 /* BookingHDWebPhoneTableViewCell.xib in Resources */,
+				841AA52C24744F0700B66720 /* Info.plist in Resources */,
 				0C6666AF22D472F1009DFACD /* TripChangeTableViewCell.xib in Resources */,
 				843FF56F24740232001F21B1 /* FlightInfoVC.storyboard in Resources */,
 				18E797002248E53B00A7AC8B /* FinalAmountTableViewCell.xib in Resources */,
@@ -8738,6 +8863,7 @@
 				18999D9321E48DCE00E66072 /* CategorisedByGroupsTableViewCell.xib in Resources */,
 				182D486D228BE3DB004796A2 /* CancellationPolicyTableViewCell.xib in Resources */,
 				0C272E2A2422601300133B50 /* SenderChatCell.xib in Resources */,
+				841AA52E24744F0700B66720 /* HMSegmentedControl.debug.xcconfig in Resources */,
 				8431405A22291554006C672A /* HotelResultSectionHeader.xib in Resources */,
 				8445B52222A5111700DDBC7F /* BookingTopNavBarWithSubtitle.xib in Resources */,
 				1870BEC222C4DBE20030174C /* BookingAddCommonInputTableViewCell.xib in Resources */,
@@ -8746,6 +8872,7 @@
 				840494F92253203900983F5E /* HCRoomTableViewCell.xib in Resources */,
 				182EB219228580B5001BFB20 /* EmptyDividerViewCellTableViewCell.xib in Resources */,
 				84DD248A226715530013F77E /* BookingTravellersDetailsTableViewCell.xib in Resources */,
+				841AA53024744F0700B66720 /* HMSegmentedControl.xcconfig in Resources */,
 				187684A522844C2C009637D6 /* BookingInfoEmptyFooterView.xib in Resources */,
 				843FF56524740232001F21B1 /* ArrivalPerformaceVC.xib in Resources */,
 				843FF50024740231001F21B1 /* IntHeaderCollectionCell.xib in Resources */,
@@ -9003,6 +9130,7 @@
 				1879C4A92293CD6600897CED /* BookingDirectionTableViewCell.swift in Sources */,
 				84DD248E22671A4A0013F77E /* BookingDocumentsTableViewCell.swift in Sources */,
 				843FF4B624740231001F21B1 /* AirportDisplayModel.swift in Sources */,
+				841AA50C247439B000B66720 /* Webservice.swift in Sources */,
 				1851A75C21C3E051008DF03F /* AppUserDefaults.swift in Sources */,
 				1870AD1B220C769400FB32C8 /* TravelDetailModel.swift in Sources */,
 				843FF48024740230001F21B1 /* AirportSelectionVM.swift in Sources */,
@@ -9018,6 +9146,7 @@
 				84D5F22822A644F600824A9F /* HotelBookingDetailsVC+TableCells.swift in Sources */,
 				188A4DC1242DF23800F871ED /* PhotoGalleryCell.swift in Sources */,
 				843FF4B124740231001F21B1 /* IntReturnAndMCSortVC.swift in Sources */,
+				841AA51224744A8900B66720 /* ImageWithoutRender.swift in Sources */,
 				849DA81823E2B6DB00C2E9D8 /* ATCategoryNavBar.swift in Sources */,
 				0C0506CF2435CEDD00BC4703 /* ATAlertController.swift in Sources */,
 				84F983BC21B51A070018DFED /* AppDelegate.swift in Sources */,
@@ -9053,6 +9182,7 @@
 				18A96B9621B661F900EA9B3A /* FacebookController.swift in Sources */,
 				1876849F2284493A009637D6 /* BookingInfoHeaderView.swift in Sources */,
 				843FF4E124740231001F21B1 /* FlightAmenitiesTableViewCell.m in Sources */,
+				841AA4FF2474374700B66720 /* UIScreenExtension.swift in Sources */,
 				181F226C22AE2E6B0086EB4C /* BookingProductDetailVM.swift in Sources */,
 				843FF661247409E3001F21B1 /* FrequentFlier.m in Sources */,
 				0CAD5FE32338B32D0086F58D /* UILabel+Extension.swift in Sources */,
@@ -9073,7 +9203,6 @@
 				84791ED722819FE700472E54 /* AccountLadgerDetailsVM.swift in Sources */,
 				0C0506CB2435BA0300BC4703 /* WebViewVC.swift in Sources */,
 				84F983D721B51A070018DFED /* UITableViewExtension.swift in Sources */,
-				843FF52C24740232001F21B1 /* FlightDomesticMultiLegResultVC.swift in Sources */,
 				18C31F0D2227FFB60052162C /* EmailComposerHeaderView.swift in Sources */,
 				84AB8FC822129B49002C0A66 /* ATGalleryCell.swift in Sources */,
 				8402009322C1EEB7002E5977 /* BookingAddOnRequestVM.swift in Sources */,
@@ -9148,12 +9277,14 @@
 				0C24D4E4242C752A00CBFF92 /* CountryVC.swift in Sources */,
 				843FF4F424740231001F21B1 /* FlightBaggageTableViewCell.m in Sources */,
 				84F983D621B51A070018DFED /* UIViewControllerExtension.swift in Sources */,
+				841AA51F24744E0A00B66720 /* HMSegmentedControl.m in Sources */,
 				84E9FEFC22A008DB0059F911 /* AccountLedgerEventCell.swift in Sources */,
 				843FF49324740230001F21B1 /* Leg.swift in Sources */,
 				843FF53D24740232001F21B1 /* SingleJourneyResultTableViewCell.swift in Sources */,
 				0C162ACD24233AC5001C2B10 /* ChatVC.swift in Sources */,
 				843FF4BF24740231001F21B1 /* FreeMealAndSeatVM.swift in Sources */,
 				842EDE7A2238E7D600E99409 /* HotelDetailsReviewsVC.swift in Sources */,
+				841AA50A247439B000B66720 /* JSONParser.swift in Sources */,
 				843FF56624740232001F21B1 /* ArrivalPerformaceVC.swift in Sources */,
 				843FF56D24740232001F21B1 /* FlightDetailsTableViewCell.swift in Sources */,
 				182EB20F22855F27001BFB20 /* BaggageInfoTableViewCell.swift in Sources */,
@@ -9182,6 +9313,7 @@
 				84827652223A6DBD007B6A27 /* GuestDetailsVM.swift in Sources */,
 				1879C49B2292BD2600897CED /* DownloadInvoiceTableViewCell.swift in Sources */,
 				84085CE321F59C0E00F1E844 /* SuccessPopupVC.swift in Sources */,
+				841AA5102474496600B66720 /* MARKRangeSlider+Extension.swift in Sources */,
 				189EF58822B7B7C600D5E055 /* AdditionalInformationModel.swift in Sources */,
 				8463A5652456C7B200C70D8C /* GMUHeatmapTileLayer.m in Sources */,
 				8445B51C22A50F3000DDBC7F /* RequestReschedulingVM.swift in Sources */,
@@ -9310,6 +9442,7 @@
 				18EF5E88221D2E1F00EFFA6E /* HotelSearchRequestModel.swift in Sources */,
 				183B71AE2289968400A75B7F /* BookingTravellerDetailTableViewCell.swift in Sources */,
 				84D54F8023E427AA0002B504 /* HotelFilterVC + Parchment.swift in Sources */,
+				841AA50E247448FC00B66720 /* Data+PrettyPrint.swift in Sources */,
 				84085CEF21F59C0E00F1E844 /* ThankYouRegistrationVC.swift in Sources */,
 				180692B82295203C00177487 /* BookingFrequentFlyerHeaderView.swift in Sources */,
 				84409E5E2266F969005A5487 /* CustomDotMarker.swift in Sources */,
@@ -9370,6 +9503,7 @@
 				843FF48A24740230001F21B1 /* RecentSearchCellCollectionViewCell.swift in Sources */,
 				84B6DEA922805D770042D902 /* AccountChargeInfoVC+Delegate.swift in Sources */,
 				1807A37F2297F83A00B78D47 /* MyBookingVC+Delegatemethods.swift in Sources */,
+				841AA51624744CA200B66720 /* HomeDummyViewController.swift in Sources */,
 				843FF47E24740230001F21B1 /* AirportSelectionViewController.m in Sources */,
 				18930A2621D34D16005442C8 /* APICaller+Search.swift in Sources */,
 				84534ECA22490F91009FF536 /* HCWhatNextTableViewCell.swift in Sources */,
@@ -9489,7 +9623,6 @@
 				843FF48B24740230001F21B1 /* FlightFormViewController.m in Sources */,
 				843FF54524740232001F21B1 /* smartIconHeaderView.swift in Sources */,
 				843FF4FF24740231001F21B1 /* IntJourneyHeaderView.swift in Sources */,
-				843FF51B24740231001F21B1 /* FlightInternationalMultiLegResultVC.swift in Sources */,
 				182EB218228580B5001BFB20 /* EmptyDividerViewCellTableViewCell.swift in Sources */,
 				843FF52024740231001F21B1 /* FlightDomesticMultiLegResultVC+Scrolling.swift in Sources */,
 				842BA833223B93DE00EED7B0 /* HCSelectGuestsVC.swift in Sources */,
@@ -9557,6 +9690,7 @@
 				183E3F6821D9F1D70032DEBA /* HotelCardCollectionViewCell.swift in Sources */,
 				841DD1F02202DCFD0055FEBB /* HotelsResultVM.swift in Sources */,
 				182D4858228AECCF004796A2 /* BookingHDWebPhoneTableViewCell.swift in Sources */,
+				841AA5032474378600B66720 /* WebViewController.swift in Sources */,
 				843FF666247409E3001F21B1 /* FlightResultJDict.m in Sources */,
 				18D4C420220B13F2005E1E37 /* HotelFilterVM.swift in Sources */,
 				84085CF021F59C0E00F1E844 /* ThankYouRegistrationVM.swift in Sources */,
@@ -9634,6 +9768,7 @@
 				84F983E921B51A070018DFED /* EndPoints.swift in Sources */,
 				180632A12251D66E008B1F32 /* PaymentModal.swift in Sources */,
 				843FF51324740231001F21B1 /* InternationalReturnJourneyCell.swift in Sources */,
+				841AA50B247439B000B66720 /* NetworkLayer.swift in Sources */,
 				84F983C421B51A070018DFED /* PKTextView.swift in Sources */,
 				18038D19226DCF8B00A4D1DD /* AerinTextSpeechDetailVC.swift in Sources */,
 				18C31F082227CBAA0052162C /* HotelMailComposerCardViewTableViewCell.swift in Sources */,
@@ -9840,6 +9975,7 @@
 				843FF57C24740232001F21B1 /* PerSlabFareInfoTableViewCell.swift in Sources */,
 				182D486C228BE3DB004796A2 /* CancellationPolicyTableViewCell.swift in Sources */,
 				180162ED2295706C007E5D43 /* BookingAddOnHeaderView.swift in Sources */,
+				841AA52F24744F0700B66720 /* HMSegmentedControl-dummy.m in Sources */,
 				843FF58B2474093C001F21B1 /* AertripSwitch.swift in Sources */,
 				84534EA92248BE61009FF536 /* HCCheckInOutTableViewCell.swift in Sources */,
 				843FF48D24740230001F21B1 /* AirlineSearchModel.m in Sources */,

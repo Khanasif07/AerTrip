@@ -76,7 +76,7 @@ class MealPreferenceCell: UITableViewCell {
         let index = (indexPath.row - passenger.mealPreference.count - 1)
         self.airlineNameLabel.text = self.passenger.frequentFlyer[index].airlineName
         self.programTextField.text = self.passenger.frequentFlyer[index].program
-        self.airlineImage.resourceFor(urlPath: self.passenger.frequentFlyer[index].airlineLogo)
+        self.airlineImage.resourceFor(urlPath: self.passenger.frequentFlyer[index].logoUrl)
         self.cellTitleLabel.text = (index == 0) ? "Frequent Flyer" : ""
         self.titleTopConstraint.constant = (index == 0) ? 8.0 : 0.0
         self.titleBottomConstraint.constant = (index == 0) ? 6.0 : 0.0

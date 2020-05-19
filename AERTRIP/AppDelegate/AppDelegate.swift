@@ -24,6 +24,10 @@ import UIKit
     let transitionCoordinator = TransitionCoordinator()
     static var shared = UIApplication.shared.delegate as! AppDelegate
     
+    var upgradeDataMutableArray = [AnyHashable]()
+    var flightPerformanceMutableArray = [AnyHashable]()
+    var flightBaggageMutableArray = [AnyHashable]()
+    
     private var reachability: Reachability?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -61,6 +65,18 @@ import UIKit
         else {
             print("Reachable")
         }
+    }
+    
+    private func setupFlightsVC() {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        upgradeDataMutableArray = [AnyHashable]()
+        flightPerformanceMutableArray = [AnyHashable]()
+        flightBaggageMutableArray = [AnyHashable]()
+
+        let homeDummyViewController = HomeDummyViewController()
+        let navigationViewController = UINavigationController(rootViewController: homeDummyViewController)
+        window?.rootViewController = navigationViewController
+        window?.makeKeyAndVisible()
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

@@ -97,7 +97,7 @@ class IntMCAndReturnFlightFiltersBaseVC: UIViewController{
         if #available(iOS 11.0, *) {
             baseView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         } else {
-            baseView.roundCorners([.bottomLeft, .bottomRight], radius: 10)
+            baseView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10)
         }
     }
     

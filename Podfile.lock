@@ -108,7 +108,6 @@ PODS:
   - GTMSessionFetcher/Core (1.4.0)
   - GTMSessionFetcher/Full (1.4.0):
     - GTMSessionFetcher/Core (= 1.4.0)
-  - HMSegmentedControl (1.5.6)
   - IQKeyboardManager (6.5.5)
   - Kingfisher (5.13.4):
     - Kingfisher/Core (= 5.13.4)
@@ -150,7 +149,6 @@ DEPENDENCIES:
   - GoogleMaps
   - GooglePlaces
   - GoogleSignIn
-  - HMSegmentedControl
   - IQKeyboardManager
   - Kingfisher
   - MiniLayout
@@ -160,7 +158,7 @@ DEPENDENCIES:
   - PKLoader
   - razorpay-pod
   - Shimmer
-  - SnapKit
+  - SnapKit (~> 5.0.0)
   - SwiftyJSON
   - TransitionButton
 
@@ -193,7 +191,6 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
-    - HMSegmentedControl
     - IQKeyboardManager
     - Kingfisher
     - MiniLayout
@@ -237,7 +234,6 @@ SPEC CHECKSUMS:
   GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
-  HMSegmentedControl: 34c1f54d822d8308e7b24f5d901ec674dfa31352
   IQKeyboardManager: 3a8b9e603f8b0eeaf5f096a1f2b2cfcf121992ef
   Kingfisher: d2279a7abece3c7f25a80cd2b7f363ca5cf3f44c
   MiniLayout: f819ad87432712e6b2596081a62e633a4961bfc6
@@ -253,6 +249,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
 
-PODFILE CHECKSUM: 1176dabeec0197a84adbb4157124debe1668090e
+PODFILE CHECKSUM: f7069b54201412f680845998a94f179a4650b25f
 
 COCOAPODS: 1.8.4

@@ -45,8 +45,8 @@ target 'AERTRIP' do
   
   
   # FLIGHTS PODS
-  pod "SnapKit"
-  pod "HMSegmentedControl"
+  pod 'SnapKit', '~> 5.0.0'
+#  pod 'HMSegmentedControl' , '1.5.5'
   
   
 end

@@ -26,6 +26,9 @@ enum AppStoryboard : String {
     case Bookings
     case AertripCalendar
     case Aerin
+    case PassengersSelection
+    case InternationalReturnAndMulticityDetails
+    case FlightDetailsBaseVC
 }
 
 extension AppStoryboard {

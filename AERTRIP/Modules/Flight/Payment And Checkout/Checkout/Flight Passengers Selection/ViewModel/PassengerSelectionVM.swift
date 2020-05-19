@@ -102,7 +102,7 @@ class PassengerSelectionVM  {
         for al in setFlightAl{
             var flyer = FrequentFlyer()
             flyer.airlineName = self.intAirlineDetailsResult[al]?.name ?? ""
-            flyer.airlineLogo = "\(logoUrl)\(al.uppercased()).png"
+            flyer.logoUrl = "\(logoUrl)\(al.uppercased()).png"
             frequentFlyer.append(flyer)
         }
         return frequentFlyer

@@ -906,3 +906,45 @@ extension String {
         return self.components(separatedBy: CharacterSet.alphanumerics.inverted).joined().lowercased()
     }
 }
+
+// FLIGHTS
+
+extension String {
+    func contains(find: String) -> Bool{
+        return self.range(of: find) != nil
+    }
+    func containsIgnoringCase(find: String) -> Bool{
+        return self.range(of: find, options: .caseInsensitive) != nil
+    }
+}
+
+extension String {
+    
+    func dateUsing(format : String ,isRoundedUP : Bool , interval : Double)  -> Date? {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        
+        guard let date = dateFormatter.date(from: self) else {
+            return nil
+        }
+        
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: date)
+        
+        let startTime = date.timeIntervalSince(startOfDay)
+        
+        let timeInterval : TimeInterval
+        
+        if isRoundedUP {
+            timeInterval = interval * ceil(startTime / interval)
+        }
+        else {
+            timeInterval = interval * floor(startTime / interval)
+        }
+        
+        let formatedDate = startOfDay.addingTimeInterval(timeInterval)
+
+        return formatedDate
+    }
+}
