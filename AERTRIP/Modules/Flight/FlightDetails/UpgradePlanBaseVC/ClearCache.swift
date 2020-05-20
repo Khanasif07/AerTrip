@@ -37,7 +37,7 @@ class ClearCache: NSObject
                         let next3MinutesTime = calendarFormat.date(byAdding: .minute, value: 3, to: formatedStoredTime)
                         
                         if formatedCurrTime > next3MinutesTime!{
-                            self.appdelegate.upgradeDataMutableArray.remove(at: i)
+                            self.appdelegate.upgradeDataMutableArray.removeObject(at: i)
                         }
                     }
                 }

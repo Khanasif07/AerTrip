@@ -20,4 +20,5 @@
 #import "BookFlightObject.h"
 #import "MARKRangeSlider.h"
 #import "HMSegmentedControl.h"
+#import "ShadowButton.h"
 #endif /* Bridging_Header_h */

@@ -23,7 +23,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *emptyTitleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *emptyButtonIconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *emptyButtonLabel;
-@property (weak, nonatomic) IBOutlet ShadowButton *emptyViewButton;
+//@property (weak, nonatomic) IBOutlet ShadowButton *emptyViewButton;
+// Rishabh - class not found
+@property (weak, nonatomic) IBOutlet UIButton *emptyViewButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *emptyButtonImageViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *emptyButtonImageViewTrailingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *emptyButtonImageViewWidth;

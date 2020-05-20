@@ -140,6 +140,113 @@ static NSMutableArray *toasts;
     [AertripToastView toastInView:parentView withText:text buttonTitle:nil delegate:nil];
 }
 
++ (void)toastInView:(nonnull UIView *)parentView withText:(nonnull NSString *)text parentRect:(CGRect)parentRect
+{
+    [AertripToastView toastInView:parentView withText:text buttonTitle:nil delegate:nil parentRect:parentRect];
+}
+
++ (void)toastInView:(nonnull UIView *)parentView withText:(nonnull NSString *)text buttonTitle:(nullable NSString *)buttonTitle delegate:(nullable id <AertripToastViewDelegate>)aDelegate parentRect:(CGRect)parentRect;
+{
+
+    // If toastView with same error message exists , instead of creating new message , increase time to dismiss for current message.
+    for ( AertripToastView * toastview in toasts) {
+        
+        NSString * toastMessage = toastview.textLabel.text;
+        
+        if ([toastMessage compare:text] == NSOrderedSame) {
+            [NSObject cancelPreviousPerformRequestsWithTarget:toastview selector:@selector(fadeToastOut) object:nil];
+            [toastview performSelector:@selector(fadeToastOut) withObject:nil afterDelay:kDuration];
+            return;
+        }
+    }
+    
+    
+    // Add new instance to messages queue
+    AertripToastView *view = [[AertripToastView alloc] initWithText:text buttonTitle:buttonTitle];
+
+    CGRect parentViewRect = parentView.frame;
+     
+    if (CGRectIsEmpty(parentRect) == FALSE ) {
+        parentViewRect = parentRect;
+    }
+    
+    
+    CGFloat lHeight = view.textLabel.frame.size.height;
+    CGFloat pWidth = parentViewRect.size.width ;
+     CGFloat pHeight = parentViewRect.size.height;
+    
+    // Change toastview frame
+    float x = 16;
+    float y = pHeight ;
+    float height = lHeight + 32;
+
+    view.frame = CGRectMake(x, y, pWidth - 32, height);
+    view.alpha = 0.0f;
+    view.backgroundBlurEffectView.frame = CGRectMake(0, 0, pWidth - 16, height);
+    
+    
+    if (aDelegate != nil) {
+        view.delegate = aDelegate;
+    }
+    
+    
+    if (view.button != nil){
+        
+        CGRect buttonFrame = view.button.frame;
+        CGFloat buttonWidth = view.button.titleLabel.intrinsicContentSize.width;
+        buttonFrame.origin.x = view.frame.size.width - buttonWidth - 16 ;
+        buttonFrame.size.height = height;
+        buttonFrame.size.width = buttonWidth + 16 ;
+        view.button.frame = buttonFrame;
+        
+    }
+    
+    
+       CGRect labelFrame = view.textLabel.frame;
+       labelFrame.origin.x = 16;
+       labelFrame.origin.y = 16;
+       labelFrame.size.width = pWidth -  64 - (view.button.frame.size.width);
+       view.textLabel.frame = labelFrame;
+
+    if (toasts == nil) {
+        toasts = [[NSMutableArray alloc] initWithCapacity:1];
+        [toasts addObject:view];
+        [AertripToastView ShowToastInView:parentView parentRect:parentViewRect];
+    }
+    else {
+        [toasts addObject:view];
+        [AertripToastView ShowToastInView:parentView parentRect:parentViewRect];
+    }
+    
+    view.userInteractionEnabled = YES;
+    
+    
+}
+
++ (void)ShowToastInView:(UIView *)parentView  parentRect:(CGRect)parentRect {
+    if ([toasts count] > 0) {
+    AertripToastView *view = [toasts objectAtIndex:0];
+    
+    [parentView addSubview:view];
+    [UIView animateWithDuration:.5  delay:0 options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+
+    CGRect rect = view.frame;
+    rect.origin.y = parentRect.size.height - rect.size.height - 16;
+    if (parentView.safeAreaInsets.bottom > 0) {
+        rect.origin.y =  rect.origin.y - 16;
+    }
+    view.frame = rect;
+    view.alpha = 1.0;
+                     } completion:^(BOOL finished){}];
+    
+    // Start timer for fade out
+    [view performSelector:@selector(fadeToastOut) withObject:nil afterDelay:kDuration];
+  }
+}
+
+
+
 + (void)toastInView:(nonnull UIView *)parentView withText:(nonnull NSString *)text buttonTitle:(nullable NSString *)buttonTitle delegate:(nullable id <AertripToastViewDelegate>)aDelegate;
 {
     

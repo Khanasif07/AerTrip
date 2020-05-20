@@ -117,7 +117,7 @@ class HCCouponCodeVC: BaseVC {
     //Mark:- Functions
     //================
     private func registerNibs() {
-        self.couponTableView.registerCell(nibName: CouponCodeTableViewCell.reusableIdentifier)
+        self.couponTableView.registerCell(nibName: CheckoutCouponCodeTableViewCell.reusableIdentifier)
     }
     
     private func emptyStateSetUp() {
@@ -223,7 +223,7 @@ extension HCCouponCodeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard  let cell = tableView.dequeueReusableCell(withIdentifier: CouponCodeTableViewCell.reusableIdentifier, for: indexPath) as? CouponCodeTableViewCell else { return UITableViewCell() }
+        guard  let cell = tableView.dequeueReusableCell(withIdentifier: CheckoutCouponCodeTableViewCell.reusableIdentifier, for: indexPath) as? CheckoutCouponCodeTableViewCell else { return UITableViewCell() }
         cell.delegate = self
         if let selectedIndexPath = self.selectedIndexPath  {
             cell.checkMarkImageView.image = (selectedIndexPath == indexPath) ? #imageLiteral(resourceName: "tick") : #imageLiteral(resourceName: "untick")

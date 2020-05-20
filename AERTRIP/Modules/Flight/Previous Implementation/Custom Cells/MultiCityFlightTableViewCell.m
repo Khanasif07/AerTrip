@@ -8,7 +8,7 @@
 
 #import "MultiCityFlightTableViewCell.h"
 #import "AirportSearch.h"
-#import "Aertrip-Swift.h"
+#import "AERTRIP-Swift.h"
 
 @interface MultiCityFlightTableViewCell ()
 

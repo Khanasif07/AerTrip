@@ -9,7 +9,8 @@
 #import "ProfileViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import "AddTravellerViewController.h"
+// FILE NOT FOUND : WHILE CODE MERGE
+//#import "AddTravellerViewController.h"
 
 
 @interface ProfileViewController ()
@@ -67,7 +68,7 @@
     [[Network sharedNetwork] callGETApi:USERS_META_API parameters:nil loadFromCache:YES expires:YES success:^(NSDictionary *dataDictionary) {
         [self handleDictionary:dataDictionary];
     } failure:^(NSString *error, BOOL popup) {
-        [ALToastView toastInView:self.view withText:error];
+        [AertripToastView toastInView:self.view withText:error];
         [self removeActivityIndicator];
     }];
 }
@@ -94,11 +95,12 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)editAction:(id)sender {
-    AddTravellerViewController *controller = (AddTravellerViewController *)[self getControllerForModule:ADD_TRAVELLER_CONTROLLER];
-    controller.userDetails = self.userDetails;
-    controller.isSelfTraveller = YES;
-    controller.isAddTraveller = NO;
-    [self.navigationController pushViewController:controller animated:YES];
+    // FILE NOT FOUND : WHILE CODE MERGE
+//    AddTravellerViewController *controller = (AddTravellerViewController *)[self getControllerForModule:ADD_TRAVELLER_CONTROLLER];
+//    controller.userDetails = self.userDetails;
+//    controller.isSelfTraveller = YES;
+//    controller.isAddTraveller = NO;
+//    [self.navigationController pushViewController:controller animated:YES];
 }
 - (IBAction)travellerListAction:(id)sender {
     [self pushModule:TRAVELLER_LIST_CONTROLLER animated:YES];
@@ -173,7 +175,7 @@
     [[Network sharedNetwork] callGETApi:USERS_LOGOUT_API parameters:nil loadFromCache:YES expires:NO success:^(NSDictionary *dataDictionary) {
         [self logOutAction];
     } failure:^(NSString *error, BOOL popup) {
-        [ALToastView toastInView:self.view withText:error];
+        [AertripToastView toastInView:self.view withText:error];
         [self removeActivityIndicator];
     }];
 }

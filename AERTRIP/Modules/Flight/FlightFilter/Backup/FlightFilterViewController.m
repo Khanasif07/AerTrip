@@ -222,9 +222,9 @@
     self.topSegmentControl.verticalDividerEnabled = NO;
     self.topSegmentControl.selectionIndicatorColor = [self getAppColor];
     
-    self.topSegmentControl.titleTextAttributes = @{NSForegroundColorAttributeName : FIVE_ONE_COLOR, NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:16]};
+    self.topSegmentControl.titleTextAttributes = @{NSForegroundColorAttributeName : UIColor.FIVE_ONE_COLOR, NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Regular" size:16]};
     
-    self.topSegmentControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : FIVE_ONE_COLOR, NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Semibold" size:16]};
+    self.topSegmentControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : UIColor.FIVE_ONE_COLOR, NSFontAttributeName:[UIFont fontWithName:@"SourceSansPro-Semibold" size:16]};
     
     self.topSegmentControl.borderType = HMSegmentedControlBorderTypeNone;
     self.topSegmentControl.selectedSegmentIndex = 0;
@@ -723,7 +723,7 @@
     [self setupImagesToSlider:self.departureRangeSlider];
     self.departureRangeSlider.minimumDistance = 1;
     [self setDepartureTimeLabel];
-    [self giveBorderToView:self.departureImagesView withColor:TWO_THREE_ZERO_COLOR withBorderWidth:1.0 withRadius:10.0];
+    [self giveBorderToView:self.departureImagesView withColor: UIColor.TWO_THREE_ZERO_COLOR withBorderWidth:1.0 withRadius:10.0];
 
     
     [self.arrivalRangeSlider addTarget:self

@@ -16,7 +16,7 @@ extension UIView {
             return self.translatesAutoresizingMaskIntoConstraints
         }
         set {
-            self.translatesAutoresizingMaskIntoConstraints = newV@objc alue
+            self.translatesAutoresizingMaskIntoConstraints = newValue
             for view in self.subviews {
                 view.autoResizingActive = autoResizingActive
             }
@@ -580,7 +580,14 @@ extension UIView {
         animation2.repeatCount = Float.infinity
         gradientLayer.add(animation2, forKey: "smartLoader2")
         
-        
+    }
+    
+    @objc func nudgeAnimation() {
+        self.transform = CGAffineTransform(translationX: -20, y: 0);
+            UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.15, initialSpringVelocity: 7.0, options: [], animations: {
+
+            self.transform = CGAffineTransform.identity
+        })
     }
 }
 

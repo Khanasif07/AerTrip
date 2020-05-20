@@ -398,6 +398,7 @@ extension IntMCAndReturnDetailsVC : ShowMessageDelegate{
         let height = 50 + bottomInset
         frame.size.height = frame.size.height - height
         AertripToastView.toast(in: self.view , withText: msg , parentRect: frame)
+//        AertripToastView.toast(in: self.view, withText: msg)
     }
     
 }

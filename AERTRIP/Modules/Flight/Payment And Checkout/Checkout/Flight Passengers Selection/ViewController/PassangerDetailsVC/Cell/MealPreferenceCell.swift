@@ -23,7 +23,7 @@ class MealPreferenceCell: UITableViewCell {
     @IBOutlet weak var titleBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var cellLargeTitleHeight: NSLayoutConstraint!
     var passenger = Passenger()
-    var indexPath = IndexPath()
+    var cellIndexPath = IndexPath()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -53,7 +53,7 @@ class MealPreferenceCell: UITableViewCell {
     
     func configureForMealPreference(with passenger: Passenger, at indexPath: IndexPath){
         self.numberView.isHidden = true
-        self.indexPath = indexPath
+        self.cellIndexPath = indexPath
         self.passenger = passenger
         let index = indexPath.row - 1
         self.programTextField.setUpAttributedPlaceholder(placeholderString: "Select", with: "", foregroundColor: AppColors.themeBlack,isChnagePlacehoder:true)
@@ -70,7 +70,7 @@ class MealPreferenceCell: UITableViewCell {
     
     func configureForFlyer(with passenger: Passenger, at indexPath: IndexPath){
         self.numberView.isHidden = false
-        self.indexPath = indexPath
+        self.cellIndexPath = indexPath
         self.passenger = passenger
         self.programTextField.setUpAttributedPlaceholder(placeholderString: "Program", with: "", foregroundColor: AppColors.themeBlack, isChnagePlacehoder:true)
         let index = (indexPath.row - passenger.mealPreference.count - 1)

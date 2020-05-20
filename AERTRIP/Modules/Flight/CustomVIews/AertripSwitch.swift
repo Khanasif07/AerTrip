@@ -20,11 +20,11 @@ class AertripSwitch: UIControl {
             self.setupUI()
         }
     }
-    public var cornerRadius: CGFloat = 0.5 {
-        didSet {
-            self.layoutSubviews()
-        }
-    }
+//    public var cornerRadius: CGFloat = 0.5 {
+//        didSet {
+//            self.layoutSubviews()
+//        }
+//    }
     public var thumbTintColor = UIColor.white {
         didSet {
             self.thumbView.backgroundColor = self.thumbTintColor

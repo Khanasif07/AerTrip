@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Aertrip-Swift.h"
+#import "AERTRIP-Swift.h"
 #import "GuestDetail.h"
 @protocol GuestDetailsCellHandler
 

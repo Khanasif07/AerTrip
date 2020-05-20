@@ -9,7 +9,6 @@
 #import "BaseViewController.h"
 #import "LocationManagerInstance.h"
 #import "Singleton.h"
-#import "AppDelegate.h"
 
 @interface BaseViewController ()
 @property (nonatomic) BOOL statusBarStatus;

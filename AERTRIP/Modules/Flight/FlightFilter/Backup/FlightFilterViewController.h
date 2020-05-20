@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 #import "MARKRangeSlider.h"
-#import <HMSegmentedControl/HMSegmentedControl.h>
+//#import <HMSegmentedControl/HMSegmentedControl.h>
 @protocol FlightFilterHandler
 - (void)applyFilter:(BOOL)isClearAll;
 

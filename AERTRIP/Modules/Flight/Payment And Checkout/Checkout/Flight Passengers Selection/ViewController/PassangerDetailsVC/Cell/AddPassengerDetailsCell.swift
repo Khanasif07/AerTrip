@@ -46,7 +46,7 @@ class AddPassengerDetailsCell: UITableViewCell {
     var passenger = Passenger()
     var countryList = [String]()
     weak var delegate: UpdatePassengerDetailsDelegate?
-    var indexPath = IndexPath()
+    var cellIndexPath = IndexPath()
 //    var guestDetail: ATContact? {
 //        didSet {
 //            configureCell()
@@ -95,14 +95,14 @@ class AddPassengerDetailsCell: UITableViewCell {
     
     @IBAction func tapOptionalDetailsBtn(_ sender: UIButton) {
         
-        self.delegate?.tapOptionalDetailsBtn(at: self.indexPath)
+        self.delegate?.tapOptionalDetailsBtn(at: self.cellIndexPath)
         
     }
 
     
     
     func configureCell(with indexPath: IndexPath) {
-        self.indexPath = indexPath
+        self.cellIndexPath = indexPath
         self.optionalDetailsView.isHidden = self.passenger.isMoreOptionTapped
         if self.passenger.isMoreOptionTapped{
             self.passportExpiryTextField.lineViewBottomSpace = 0
