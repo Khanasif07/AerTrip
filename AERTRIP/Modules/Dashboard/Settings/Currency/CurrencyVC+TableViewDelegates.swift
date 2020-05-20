@@ -30,7 +30,7 @@ extension CurrencyVC : UITableViewDelegate, UITableViewDataSource {
                }
                 
         cell.populateData(country: currencyVm.getCurrency(at: indexPath.row), isSelected: !self.currencyVm.isSelectedCurrency(index: indexPath.row))
-        cell.sepratorView.isHidden = indexPath.row != 4
+        cell.sepratorView.isHidden = self.currencyVm.isSeperatorHidden(index: indexPath.row)
         return cell
       }
     

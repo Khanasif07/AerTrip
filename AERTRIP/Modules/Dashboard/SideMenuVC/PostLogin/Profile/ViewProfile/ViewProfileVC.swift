@@ -268,22 +268,22 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
         }
         cell.selectionStyle = .gray
         if indexPath.row != 0 {
-            cell.topViewHeightConst.constant = 18
+            cell.topViewHeightConst.constant = 0
         } else {
-            cell.topViewHeightConst.constant = 36
+            cell.topViewHeightConst.constant = 19
         }
         switch self.sections[indexPath.section] {
         case "details":
-            cell.bottomViewHeightConst.constant =  indexPath.row == self.details.count - 1 ? 36 : 18
+            cell.bottomViewHeightConst.constant =  indexPath.row == self.details.count - 1 ? 18 : 0
             cell.separatorView.isHidden = self.details[indexPath.row] != LocalizedString.LinkedAccounts.localized
             cell.menuOptionLabel.isHidden = false
             cell.configureCell(self.details[indexPath.row])
             
             return cell
         case "logOut":
-            cell.bottomViewHeightConst.constant =  indexPath.row == self.logOut.count - 1 ? 36 : 18
+            cell.bottomViewHeightConst.constant =  0
             cell.separatorView.isHidden = true
-            cell.configureCell(self.logOut[indexPath.row].rawValue)
+            cell.configureCell(self.logOut[indexPath.row].localized)
             return cell
         default:
             return UITableViewCell()
@@ -291,6 +291,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         switch self.sections[indexPath.section] {
         case "details":
             self.statusBarStyle = .default

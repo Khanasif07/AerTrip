@@ -28,7 +28,7 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
         case 0,1:
             return 35
         default:
-            return 0
+            return CGFloat.leastNormalMagnitude
         }
     }
     
@@ -37,7 +37,7 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
             case 1:
                 return 54
             default:
-                return CGFloat(Double.leastNormalMagnitude)
+                return CGFloat.leastNormalMagnitude
         }
     }
     

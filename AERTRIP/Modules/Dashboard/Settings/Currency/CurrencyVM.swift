@@ -24,6 +24,7 @@ class CurrencyVM {
     weak var delegate : CurrencyVcDelegate?
     private var filteredCountries: [PKCountryModel] = [PKCountryModel]()
     var searchText : String = ""
+    var seperatorIndex = 0
     
     var currencyCount : Int {
         return getCurrentDaraSource().count
@@ -73,6 +74,10 @@ class CurrencyVM {
     
     func isSelectedCurrency(index : Int) -> Bool {
         return getCurrentDaraSource()[index].currencyCode == selectedCountry.currencyCode
+    }
+    
+    func isSeperatorHidden(index : Int) -> Bool {
+        return self.seperatorIndex != index
     }
     
     func clearFilteredData(){
@@ -133,6 +138,7 @@ class CurrencyVM {
                topCountries = self.arangeTopCountries(countries: topCountries)
                 
                 self.countries = topCountries + restCountries
+                self.seperatorIndex = topCountries.count - 1
                 self.preSelectIndia()
                 self.delegate?.getCurrenciesSuccessFull()
             }else{

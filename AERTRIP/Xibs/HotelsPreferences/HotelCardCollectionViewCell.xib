@@ -111,11 +111,11 @@
                                                 </constraints>
                                             </imageView>
                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="63m-9s-T1e" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="25" y="2" width="68" height="18"/>
+                                                <rect key="frame" x="25" y="2.5" width="68" height="17"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="68" id="7LS-iF-EZe"/>
-                                                    <constraint firstAttribute="height" constant="18" id="OdC-EL-9Z1"/>
+                                                    <constraint firstAttribute="height" constant="17" id="OdC-EL-9Z1"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilledShadow"/>

@@ -51,6 +51,7 @@ class SettingsVC: BaseVC {
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: LocalizedString.Settings.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false,isDivider : true)
         configureTableView()
+        self.settingsTableView.backgroundColor = AppColors.themeGray04
     }
     
     private func configureTableView(){

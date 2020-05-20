@@ -315,7 +315,7 @@ extension AppFlowManager {
     
     func moveToTravellerListVC() {
         let ob = TravellerListVC.instantiate(fromAppStoryboard: .TravellerList)
-        self.mainNavigationController.pushViewController(ob, animated: false)
+        self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
     func moveToPreferencesVC(_ delegate: PreferencesVCDelegate) {
@@ -1091,7 +1091,7 @@ extension AppFlowManager {
     func moveToWebViewVC(type : WebViewVM.WebViewType){
            let ob = WebViewVC.instantiate(fromAppStoryboard: .Settings)
         ob.webViewVm.webViewType = type
-           self.mainNavigationController.pushViewController(ob, animated: true)
+           self.mainNavigationController.present(ob, animated: true, completion: nil)
        }
        
     
@@ -1111,10 +1111,6 @@ extension AppFlowManager {
         let obj = CurrencyVC.instantiate(fromAppStoryboard: .Settings)
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
-    
-//    func moveToCurrencyVC() {
-//        self.showURLOnATWebView(<#T##url: URL##URL#>, screenTitle: <#T##String#>)
-//    }
     
     
 }
