@@ -248,8 +248,8 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             }
             
         }
-        fareRulesVC.view.frame = self.parent!.view.bounds
-        fareRulesVC.modalPresentationStyle = .overCurrentContext
+//        fareRulesVC.view.frame = self.parent!.view.bounds
+////        fareRulesVC.modalPresentationStyle = .overCurrentContext
         self.present(fareRulesVC, animated: true, completion: nil)
     }
     
@@ -262,23 +262,27 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
         let str1 = "IMPORTANT".capitalized
         let str2 = "\n•    Above mentioned charges are per passenger per sector, applicable only on refundable fares.\n•    Total Cancellation Charges displayed above include Cancellation Fees, RAF & GST.\n•    Total Rescheduling Charges = Rescheduling Fees as above + Fare Difference + Differences in Taxes (if any).\n•    In case of no-show or if the ticket is not cancelled or amended within the stipulated time, no refund is applicable.\n•    Airlines do not accept cancellation/rescheduling requests 1-75 hours before departure the flight, depending on the airline, fare basis and booking fare policy. You must raise a request at least 2 hours before the airline request time.\n•    In case of restricted fares, no amendments and/or cancellation may be allowed.\n•    In case of combo fares or round-trip special fares or tickets booked under special discounted fares, cancellation of a partial journey may not be allowed. In certain cases, cancellation or amendment of future sectors may be allowed only if the previous sectors are flown."
-        let str3 = "\nDISCLAIMER".capitalized
+        let str3 = "\n\nDISCLAIMER".capitalized
         let str4 = "\n•    Above mentioned charges are indicative, subject to currency fluctuations and can change without prior notice. They need to be re-confirmed before making any amendments or cancellation. Aertrip does not guarantee or warrant this information."
-        let font:UIFont? = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(16))
-        let fontSuper:UIFont? = UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
+        let font = AppFonts.SemiBold.withSize(16)//UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(16))
+        let fontSuper = AppFonts.Regular.withSize(14)//UIFont(name: "SourceSansPro-Regular", size:CGFloat(14))
         
-        let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font!])
-        let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper!])
+        let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font])
+        let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper])
         
-        let attString2:NSMutableAttributedString = NSMutableAttributedString(string: str3, attributes: [.font:font!])
-        let attString3:NSMutableAttributedString = NSMutableAttributedString(string: str4, attributes: [.font:fontSuper!])
+        let attString2:NSMutableAttributedString = NSMutableAttributedString(string: str3, attributes: [.font:font])
+        let attString3:NSMutableAttributedString = NSMutableAttributedString(string: str4, attributes: [.font:fontSuper])
         
         attString.append(attString1)
         attString.append(attString2)
         attString.append(attString3)
         
         attString.addAttributes([NSAttributedString.Key.paragraphStyle: style,NSAttributedString.Key.foregroundColor:UIColor.black], range: NSRange(location: 0, length: attString.string.count))
-        
+        let stl = NSMutableParagraphStyle()
+        stl.alignment = .left
+        stl.headIndent = 15
+        stl.paragraphSpacingBefore = 3
+        attString.addAttributes([.paragraphStyle: stl], range: NSString(string:(str1 + str2 + str3 + str4)).range(of: str3))
         return attString
     }
 }
@@ -347,16 +351,13 @@ extension IntFareInfoVC{
                 }
             }
         }
-        
-            var location = ""
-            
-                location = displayTitle
-                fareInfoCell.titleLabel.text = location
-            
-        
+        if displayTitle.suffix(2) == ", "{
+            displayTitle.removeLast(2)
+        }
+        let location = displayTitle
+        fareInfoCell.titleLabel.text = location
         fareInfoCell.bottomSeparatorLabel.isHidden = true
         fareInfoCell.bottomSeparatorLabelLeading.constant = 16
-        
         if indexPath.section != 0{
             fareInfoCell.topSeperatorLabel.isHidden = false
             fareInfoCell.topSeperatorLabelHeight.constant = 0.5
@@ -499,6 +500,9 @@ extension IntFareInfoVC{
                     displayTitle += cc.capitalized + bc
                 }
             }
+        }
+        if displayTitle.suffix(2) == ", "{
+            displayTitle.removeLast(2)
         }
         if legs.count > 0{
             var location = ""

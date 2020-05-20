@@ -41,9 +41,6 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="goI-Ui-vra" customClass="PKFloatLabelTextField" customModule="Aertrip" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="162.5" height="60"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="60" id="BZP-is-4lv"/>
-                                                        </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                                         <userDefinedRuntimeAttributes>
@@ -53,9 +50,6 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aC0-ry-3Xg" customClass="PKFloatLabelTextField" customModule="Aertrip" customModuleProvider="target">
                                                         <rect key="frame" x="178.5" y="0.0" width="162.5" height="60"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="60" id="OMT-nC-CRx"/>
-                                                        </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                                         <userDefinedRuntimeAttributes>
@@ -161,9 +155,6 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Date Of Birth" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h6i-j5-UG1" customClass="PKFloatLabelTextField" customModule="Aertrip" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="201.5" height="60"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="60" id="Osx-JB-ObW"/>
-                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                                 <userDefinedRuntimeAttributes>
@@ -176,9 +167,6 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Nationality" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HXg-eY-TV2" customClass="PKFloatLabelTextField" customModule="Aertrip" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="201.5" height="60"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="60" id="m8t-4p-lzJ"/>
-                                                        </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                                         <userDefinedRuntimeAttributes>
@@ -200,6 +188,9 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="beN-CB-zlb"/>
+                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="fIx-QV-ee1">
                                         <rect key="frame" x="0.0" y="120" width="419" height="60"/>
@@ -231,7 +222,7 @@
                                         <rect key="frame" x="0.0" y="180" width="419" height="44"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9O-Oe-7fx">
-                                                <rect key="frame" x="0.0" y="13" width="406" height="18"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="109" height="44"/>
                                                 <state key="normal" title="Optional Details">
                                                     <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
@@ -243,10 +234,9 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="J9O-Oe-7fx" firstAttribute="leading" secondItem="ZMq-VL-u9s" secondAttribute="leading" id="0lA-vG-7tm"/>
-                                            <constraint firstAttribute="bottom" secondItem="J9O-Oe-7fx" secondAttribute="bottom" constant="13" id="6Tw-Vi-CL5"/>
-                                            <constraint firstAttribute="trailing" secondItem="J9O-Oe-7fx" secondAttribute="trailing" constant="13" id="8yN-Db-rHg"/>
+                                            <constraint firstAttribute="bottom" secondItem="J9O-Oe-7fx" secondAttribute="bottom" id="6Tw-Vi-CL5"/>
                                             <constraint firstAttribute="height" constant="44" id="9bE-Gs-02w"/>
-                                            <constraint firstItem="J9O-Oe-7fx" firstAttribute="top" secondItem="ZMq-VL-u9s" secondAttribute="top" constant="13" id="y6r-IN-SFU"/>
+                                            <constraint firstItem="J9O-Oe-7fx" firstAttribute="top" secondItem="ZMq-VL-u9s" secondAttribute="top" id="y6r-IN-SFU"/>
                                         </constraints>
                                     </view>
                                 </subviews>

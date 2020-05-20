@@ -16,3 +16,6 @@
 //@property (weak, nonatomic) IBOutlet UIButton *googleConnectedButton;
 //@property (weak, nonatomic) IBOutlet UIButton *linkedinConnectedButton;
 //@end
+
+
+// Rishabh - class not found

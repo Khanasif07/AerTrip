@@ -11,6 +11,7 @@ import Foundation
 
 class PassengerDetailsVM {
     var passengerList = [Passenger]()
+    var journeyType:JourneyType = .domestic
     var indexPath = IndexPath()
     var currentIndex = 0{
         didSet{

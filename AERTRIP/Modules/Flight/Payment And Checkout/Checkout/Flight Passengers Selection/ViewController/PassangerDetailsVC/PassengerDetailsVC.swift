@@ -157,7 +157,7 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
         
         guard let cell = self.passengerTable.dequeueReusableCell(withIdentifier: "AddPassengerDetailsCell") as? AddPassengerDetailsCell else { return UITableViewCell() }
         cell.passenger = self.viewModel.passengerList[indexPath.section]
-        cell.configureCell(with: indexPath)
+        cell.configureCell(with: indexPath, journeyType: self.viewModel.journeyType)
         cell.delegate = self
         return cell
     }

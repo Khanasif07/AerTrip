@@ -87,7 +87,7 @@ class IntFareBreakupVC: UIViewController {
     var isForSelectionAndCheckout:Bool = false
     var heightForBookingTitleView:CGFloat{
         if self.isForSelectionAndCheckout{
-            if (journey?.first?.led.count ?? 0) > 2{
+            if self.bookFlightObject.flightSearchType == MULTI_CITY{
                 return 60.0
             }else{
                 return 44.0
@@ -203,7 +203,7 @@ class IntFareBreakupVC: UIViewController {
             self.detailsButton.setTitleColor(AppColors.themeGreen, for: .normal)
             self.bookingTitleLabel.attributedText = self.bookFlightObject.titleString
             self.bookingDateLabel.text = self.creaateDateTitle()
-            if (journey?.first?.led.count ?? 0) > 2{
+            if self.bookFlightObject.flightSearchType == MULTI_CITY{
                 self.BookingTitleStackTrailing.constant = 30
                 self.bookingTitleAndDateStack.axis = .vertical
                 self.bookingTitleStackTopContraint.constant = 6
@@ -221,7 +221,7 @@ class IntFareBreakupVC: UIViewController {
     
     func creaateDateTitle()-> String{
         guard let date = self.bookFlightObject.subTitleString.components(separatedBy: " •").first else{return ""}
-        if (journey?.first?.led.count ?? 0) > 2{
+        if self.bookFlightObject.flightSearchType == MULTI_CITY{
             return date
         }else{
             return ",\(date)"

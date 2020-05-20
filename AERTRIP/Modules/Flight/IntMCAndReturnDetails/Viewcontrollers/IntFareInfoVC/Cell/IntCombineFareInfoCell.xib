@@ -18,15 +18,15 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="IntCombineFareInfoCell" rowHeight="275" id="Epx-Oi-p0P" customClass="IntCombineFareInfoCell" customModule="Aertrip" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="374" height="275"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="Epx-Oi-p0P" id="3Yt-im-iLZ">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Epx-Oi-p0P" id="3Yt-im-iLZ">
                 <rect key="frame" x="0.0" y="0.0" width="374" height="275"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l0S-a9-bkh">
-                        <rect key="frame" x="0.0" y="0.0" width="374" height="265"/>
+                        <rect key="frame" x="0.0" y="0.0" width="374" height="275"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Information Available" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vge-Sd-sjM">
-                                <rect key="frame" x="16" y="122" width="342" height="21.5"/>
+                                <rect key="frame" x="16" y="127" width="342" height="21.5"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -41,10 +41,10 @@
                         </constraints>
                     </view>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pWg-0f-4em">
-                        <rect key="frame" x="0.0" y="0.0" width="374" height="265"/>
+                        <rect key="frame" x="0.0" y="0.0" width="374" height="275"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="265" id="JjJ-zq-bQA"/>
+                            <constraint firstAttribute="height" priority="988" constant="265" id="JjJ-zq-bQA"/>
                         </constraints>
                         <connections>
                             <outlet property="dataSource" destination="Epx-Oi-p0P" id="l51-Jk-tR2"/>

@@ -126,12 +126,12 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 
                             if flight.fr != prevFlight.to{
                                 self.journey?.legsWithDetail[j].flightsWithDetails[k].isDepartureAirportChange = true
-                                self.journey?.legsWithDetail[j].flightsWithDetails[k].isArrivalAirportChange = true
+                                self.journey?.legsWithDetail[j].flightsWithDetails[k-1].isArrivalAirportChange = true
 
                                 isChangeOfAirport = true
                             }else{
                                 self.journey?.legsWithDetail[j].flightsWithDetails[k].isDepartureAirportChange = false
-                                self.journey?.legsWithDetail[j].flightsWithDetails[k].isArrivalAirportChange = false
+                                self.journey?.legsWithDetail[j].flightsWithDetails[k-1].isArrivalAirportChange = false
                             }
 
                             if isChangeOfAirport{
@@ -589,7 +589,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         let attachmentString = NSAttributedString(attachment: imageAttachment)
                         completeText.append(attachmentString)
                     }
-                    let textAfterIcon = NSMutableAttributedString(string: displayText)
+                    let textAfterIcon = NSMutableAttributedString(string: displayText, attributes: [.font: AppFonts.Regular.withSize(14)])
                     
                     if flight.llo == 1 || flight.slo == 1{
                         if flight.isArrivalAirportChange == true{

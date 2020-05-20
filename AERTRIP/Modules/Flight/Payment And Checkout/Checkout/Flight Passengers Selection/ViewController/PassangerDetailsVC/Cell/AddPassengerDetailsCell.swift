@@ -101,16 +101,13 @@ class AddPassengerDetailsCell: UITableViewCell {
 
     
     
-    func configureCell(with indexPath: IndexPath) {
+    func configureCell(with indexPath: IndexPath, journeyType: JourneyType) {
         self.cellIndexPath = indexPath
         self.optionalDetailsView.isHidden = self.passenger.isMoreOptionTapped
-        if self.passenger.isMoreOptionTapped{
-            self.passportExpiryTextField.lineViewBottomSpace = 0
-            self.passportNumberTextField.lineViewBottomSpace = 0
-        }else{
-            self.passportExpiryTextField.lineViewBottomSpace = -3
-            self.passportNumberTextField.lineViewBottomSpace = -3
-        }
+        self.dobTextField.text = passenger.dobString
+        self.nationalityTextField.text = passenger.nationality
+        self.passportNumberTextField.text = passenger.passportNumber
+        self.guestTitleLabel.text = passenger.title
         self.firstNameTextField.text = passenger.fName
 //        if let fName = self.guestDetail?.firstName, !fName.isEmpty {
 //            self.firstNameTextField.text = fName
@@ -126,10 +123,18 @@ class AddPassengerDetailsCell: UITableViewCell {
         }else{
             configureSalutationSwicth(type: .none)
         }
-        self.dobTextField.text = passenger.dobString
-        self.nationalityTextField.text = passenger.nationality
-        self.passportNumberTextField.text = passenger.passportNumber
-        self.guestTitleLabel.text = passenger.title
+        
+        if journeyType == .domestic{
+            self.setupforDomestic()
+        }else{
+            if self.passenger.isMoreOptionTapped{
+                self.passportExpiryTextField.lineViewBottomSpace = 0
+                self.passportNumberTextField.lineViewBottomSpace = 0
+            }else{
+                self.passportExpiryTextField.lineViewBottomSpace = -3
+                self.passportNumberTextField.lineViewBottomSpace = -3
+            }
+        }
         
 //        if let lName = self.guestDetail?.lastName, !lName.isEmpty {
 //            self.lastNameTextField.text = lName
@@ -160,6 +165,37 @@ class AddPassengerDetailsCell: UITableViewCell {
 //            self.guestTitleLabel.AttributedFontColorForText(text: ageText, textColor: AppColors.themeGray40)
 //        }
         
+    }
+    
+    private func setupforDomestic(){
+        self.passportStack.isHidden = true
+        switch self.passenger.passengerType{
+        case .adult, .child:
+            self.dobAndNationalityStack.isHidden = true
+            if self.passenger.isMoreOptionTapped{
+                self.firstNameTextField.lineViewBottomSpace = 0
+                self.lastNameTextField.lineViewBottomSpace = 0
+            }else{
+                self.firstNameTextField.lineViewBottomSpace = -3
+                self.lastNameTextField.lineViewBottomSpace = -3
+            }
+//        case .child:
+//            self.dobAndNationalityStack.isHidden = false
+//            self.nataionalityView.isHidden = true
+//            if self.passenger.isMoreOptionTapped{
+//                self.dobTextField.lineViewBottomSpace = 0
+//            }else{
+//                self.dobTextField.lineViewBottomSpace = -3
+//            }
+        case .infant:
+            self.dobAndNationalityStack.isHidden = false
+            self.nataionalityView.isHidden = true
+            if self.passenger.isMoreOptionTapped{
+                self.dobTextField.lineViewBottomSpace = 0
+            }else{
+                self.dobTextField.lineViewBottomSpace = -3
+            }
+        }
     }
     
     func setUpUnicodeSwitch() {
@@ -235,7 +271,17 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
         switch textField {
         case self.dobTextField:
             let selected = (textField.text ?? "").toDate(dateFormat: "dd MMM YYYY")
-            PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd MMM YYYY", mode: .date, minimumDate: nil, maximumDate: Date(), selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { (dateStr) in
+            let minimumDate:Date?
+            switch  self.passenger.passengerType {
+            case .adult,.child:
+                minimumDate = nil
+//            case .child:
+//                //minimumDate = Date().add(years: -12)
+            case .infant:
+                minimumDate = Date().add(years: -2)
+                
+            }
+            PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd MMM YYYY", mode: .date, minimumDate: minimumDate, maximumDate: Date(), selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { (dateStr) in
                 textField.text = dateStr
 //                self.viewModel.userEnteredDetails.depositDate = dateStr.toDate(dateFormat: "dd-MM-YYYY")
             }
