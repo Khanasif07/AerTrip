@@ -96,6 +96,7 @@ enum UIFilters : Int,  CaseIterable {
     case hideMultiAirlineItinarery
     case originDestinationSame
     case originDestinationSelectedForReturnJourney
+    case allAirlinesSelected
 }
 
 extension UIFilters {

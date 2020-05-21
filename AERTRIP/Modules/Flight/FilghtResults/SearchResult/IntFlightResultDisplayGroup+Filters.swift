@@ -10,11 +10,18 @@ import UIKit
 
 extension IntFlightResultDisplayGroup  {
     
-    func allAirlinesSelected() {
+    func allAirlinesSelected(_ status: Bool) {
         userSelectedFilters[0].al = []
         userSelectedFilters[0].multiAl = 0
-        appliedFilters.remove(.Airlines)
-        UIFilters.remove(.hideMultiAirlineItinarery)
+        if status {
+            appliedFilters.insert(.Airlines)
+            UIFilters.insert(.allAirlinesSelected)
+        } else {
+            UIFilters.remove(.allAirlinesSelected)
+            if !UIFilters.contains(.hideMultiAirlineItinarery) {
+                appliedFilters.remove(.Airlines)
+            }
+        }
         applyFilters(index: 0)
     }
     
@@ -25,6 +32,9 @@ extension IntFlightResultDisplayGroup  {
         }else {
             userSelectedFilters[0].multiAl = 1
             UIFilters.remove(.hideMultiAirlineItinarery)
+            if !UIFilters.contains(.allAirlinesSelected) {
+                appliedFilters.remove(.Airlines)
+            }
         }
         applyFilters(index: 0)
     }
@@ -49,19 +59,22 @@ extension IntFlightResultDisplayGroup  {
     
     
     func applyMultiItinaryAirlineFilter(index : Int,  _ inputArray : [IntMultiCityAndReturnWSResponse.Results.J]) -> [IntMultiCityAndReturnWSResponse.Results.J] {
-        
+                
         let hideMultiAirlineItinerary =  userSelectedFilters[index].multiAl == 1 ? false : true
         
         if hideMultiAirlineItinerary {
-            
+                        
             let outputArray = inputArray.filter{
                 
-                if (Set($0.legsWithDetail[0].al).count < 2) && (Set($0.legsWithDetail[1].al).count < 2) {
-                    return true
+                var isMultiAirline = false
+                if let _ = $0.legsWithDetail.first(where: {
+                    Array(Set($0.al)).count > 1
+                }) {
+                    isMultiAirline = true
                 }
-                return false
+                
+                return !isMultiAirline
             }
-            
             return outputArray
         }
         
@@ -983,6 +996,8 @@ extension IntFlightResultDisplayGroup  {
             case .originDestinationSelectedForReturnJourney:
                 inputForFilter =  applyAirportsFilterForReturnJourneys(inputArray: inputForFilter)
                 //                print("originDestinationSelectedForReturnJourney")
+            case .allAirlinesSelected:
+                continue
             }
         }
         

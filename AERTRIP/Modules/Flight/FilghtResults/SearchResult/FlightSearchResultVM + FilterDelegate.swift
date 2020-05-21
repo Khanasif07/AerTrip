@@ -11,10 +11,10 @@ import UIKit
 //MARK:- Airline Filter
 extension FlightSearchResultVM : AirlineFilterDelegate {
    
-    func allAirlinesSelected() {
+    func allAirlinesSelected(_ status: Bool) {
         
         if isIntMCOrReturnJourney {
-            intFlightLegs[0].allAirlinesSelected()
+            intFlightLegs[0].allAirlinesSelected(status)
             return
         }
         
