@@ -268,7 +268,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
             
             let currentFilter = allStopsFilters[(i - 1)]
             let isCurrentIndexActive = (i == (currentActiveIndex + 1 )) ? true : false
-            let isFilterApplied = currentFilter.userSelectedStops.count > 0 ? true : false
+            let isFilterApplied = (currentFilter.userSelectedStops.count > 0 && currentFilter.userSelectedStops.count != currentFilter.availableStops.count) ? true : false
             
             if isCurrentIndexActive {
                 stopButton.backgroundColor = UIColor.AertripColor
@@ -483,17 +483,17 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
         }
         
         if currentStopFilter.userSelectedStops.count > 1 {
-            leastStopsButton.isSelected = false
+//            leastStopsButton.isSelected = false
         }
         
         if currentStopFilter.userSelectedStops.count == 1 {
             for filter in allStopsFilters {
                 
                 if filter.userSelectedStops.count == 1 && filter.userSelectedStops.contains(filter.leastStop){
-                    leastStopsButton.isSelected = true
+//                    leastStopsButton.isSelected = true
                     continue
                 }else {
-                    leastStopsButton.isSelected = false
+//                    leastStopsButton.isSelected = false
                     break
                 }
             }
