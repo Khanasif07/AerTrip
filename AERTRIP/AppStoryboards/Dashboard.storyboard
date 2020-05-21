@@ -45,9 +45,9 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" image="AertripHomeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="5KX-bs-S52">
-                                                        <rect key="frame" x="16" y="7.5" width="29" height="29"/>
+                                                        <rect key="frame" x="16" y="8" width="28" height="28"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="29" id="JwK-ib-k3z"/>
+                                                            <constraint firstAttribute="width" constant="28" id="JwK-ib-k3z"/>
                                                             <constraint firstAttribute="width" secondItem="5KX-bs-S52" secondAttribute="height" multiplier="1:1" id="qny-fS-ayQ"/>
                                                         </constraints>
                                                     </imageView>
@@ -63,7 +63,7 @@
                                                         </connections>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="homeAertripLogo" translatesAutoresizingMaskIntoConstraints="NO" id="dc0-cl-wv6">
-                                                        <rect key="frame" x="55" y="14.5" width="112" height="15"/>
+                                                        <rect key="frame" x="54" y="14.5" width="112" height="15"/>
                                                     </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1903,7 +1903,7 @@ on Christmas”</string>
     </scenes>
     <resources>
         <image name="Aerin Test66x66" width="66" height="66"/>
-        <image name="AertripHomeIcon" width="27" height="30"/>
+        <image name="AertripHomeIcon" width="25" height="28"/>
         <image name="BlurCross" width="21" height="21"/>
         <image name="FlightTest 66x66" width="66" height="66"/>
         <image name="HotelTest 66x66" width="66" height="66"/>
@@ -1923,7 +1923,7 @@ on Christmas”</string>
         <image name="logoTitleWhite" width="161" height="20"/>
         <image name="outgoing-message-bubble" width="68" height="34"/>
         <image name="send" width="29" height="29"/>
-        <image name="splashBackground" width="202" height="359.5"/>
+        <image name="splashBackground" width="375" height="667"/>
         <image name="trips" width="43" height="32"/>
         <image name="twitterIcon" width="24" height="24"/>
         <image name="userPlaceholder" width="16.5" height="20.5"/>

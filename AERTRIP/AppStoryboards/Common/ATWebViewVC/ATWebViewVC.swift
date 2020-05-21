@@ -45,8 +45,9 @@ class ATWebViewVC: BaseVC {
         topNavView.delegate = self
         topNavView.backView.backgroundColor = .clear
         topNavView.backgroundColor = .clear
-        blurViewContainer.addShadow(withColor: UIColor.black.withAlphaComponent(0.2))
-        blurViewContainer.backgroundColor = UIColor.white.withAlphaComponent(0.85)
+        self.view.backgroundColor = .clear
+        //blurViewContainer.addShadow(withColor: UIColor.black.withAlphaComponent(0.2))
+        //blurViewContainer.backgroundColor = UIColor.white.withAlphaComponent(0.40)
         //create webView
         if let _ = self.urlToLoad {
             self.loadUrl()

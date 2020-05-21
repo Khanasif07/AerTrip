@@ -27,7 +27,6 @@ class NotificationVC: BaseVC {
     override func setupTexts() {
         self.titleLabel.text = LocalizedString.NoNotificationYet.localized
         self.subTiteLabel.text = LocalizedString.NotificationInfo.localized
-        
     }
     
     override func setupFonts() {
