@@ -71,7 +71,6 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
               
         if viewModel.resultTableState == .showExpensiveFlights { arrayForDisplay = viewModel.results.allJourneys }
       
-        
         if arrayForDisplay.isEmpty { return 0 }
        
         let legsHeight = (arrayForDisplay[indexPath.row].journeyArray.first?.legsWithDetail.count ?? 0) * 66
