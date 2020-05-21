@@ -17,7 +17,7 @@ protocol BookingFareInfoDetailVMDelegate: class {
 class BookingFareInfoDetailVM {
     
     //used in case of multi legs
-    var legDetails: Leg?
+    var legDetails: BookingLeg?
     var bookingFee: BookingFeeDetail?
     //used in case of multi legs
     

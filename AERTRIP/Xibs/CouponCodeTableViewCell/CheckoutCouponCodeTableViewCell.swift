@@ -13,7 +13,7 @@ protocol PassSelectedCoupon: class {
     func offerTermsInfo(indexPath: IndexPath, bulletedText: NSAttributedString, couponCode: NSAttributedString, discountText: NSAttributedString)
 }
 
-class CouponCodeTableViewCell: UITableViewCell {
+class CheckoutCouponCodeTableViewCell: UITableViewCell {
 
     var discountText: [String] = [LocalizedString.InstantCashBackAppliedText.localized,LocalizedString.WalletCashBackAppliedText.localized]
     weak var delegate: PassSelectedCoupon?

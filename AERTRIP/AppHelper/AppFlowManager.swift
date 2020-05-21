@@ -742,7 +742,7 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    func moveToRequestReschedulingVC(onNavController: UINavigationController?, legs: [Leg], isOnlyReturn:Bool = false) {
+    func moveToRequestReschedulingVC(onNavController: UINavigationController?, legs: [BookingLeg], isOnlyReturn:Bool = false) {
         let obj = RequestReschedulingVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.legsWithSelection = legs
         obj.viewModel.isOnlyReturn = isOnlyReturn
@@ -758,7 +758,7 @@ extension AppFlowManager {
         self.mainNavigationController.present(nav, animated: true, completion: nil)
     }
     
-    func presentBookingFareInfoDetailVC(usingFor: BookingFareInfoDetailVC.UsingFor, forBookingId: String, legDetails: Leg?, bookingFee: BookingFeeDetail?) {
+    func presentBookingFareInfoDetailVC(usingFor: BookingFareInfoDetailVC.UsingFor, forBookingId: String, legDetails: BookingLeg?, bookingFee: BookingFeeDetail?) {
         let obj = BookingFareInfoDetailVC.instantiate(fromAppStoryboard: .Bookings)
         obj.currentlyUsingAs = usingFor
         obj.viewModel.bookingId = forBookingId
@@ -1019,7 +1019,7 @@ extension AppFlowManager {
     
     // Present BookingReschedulingVC
     
-    func presentBookingReschedulingVC(usingFor data: BookingReschedulingVCUsingFor = .rescheduling, legs: [Leg]) {
+    func presentBookingReschedulingVC(usingFor data: BookingReschedulingVCUsingFor = .rescheduling, legs: [BookingLeg]) {
         let obj = BookingReschedulingVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.usingFor = data
         obj.viewModel.legsData = legs
@@ -1031,7 +1031,7 @@ extension AppFlowManager {
     
     // Present RequestCancellation
     
-    func presentRequestCancellationVC(usingFor data: BookingReschedulingVCUsingFor = .cancellation, legs: [Leg]) {
+    func presentRequestCancellationVC(usingFor data: BookingReschedulingVCUsingFor = .cancellation, legs: [BookingLeg]) {
         let obj = BookingReschedulingVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.usingFor = data
         obj.viewModel.legsData = legs
@@ -1043,7 +1043,7 @@ extension AppFlowManager {
     
     // Move to Booking Review Cancellation
     
-    func moveToReviewCancellationVC(onNavController: UINavigationController?, usingAs: BookingReviewCancellationVM.UsingFor, legs: [Leg]?, selectedRooms: [RoomDetailModel]?) {
+    func moveToReviewCancellationVC(onNavController: UINavigationController?, usingAs: BookingReviewCancellationVM.UsingFor, legs: [BookingLeg]?, selectedRooms: [RoomDetailModel]?) {
         let obj = BookingReviewCancellationVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.legsWithSelection = legs ?? []
         obj.viewModel.currentUsingAs = usingAs

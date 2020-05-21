@@ -47,7 +47,7 @@ class BookingDetailVM {
         }
     }
     
-    var legDetails: [Leg] {
+    var legDetails: [BookingLeg] {
         return self.bookingDetail?.bookingDetail?.leg ?? []
     }
     var bookingId: String {

@@ -16,7 +16,7 @@ protocol RequestReschedulingVMDelegate: class {
 
 class RequestReschedulingVM {
     
-    var legsWithSelection: [Leg] = []
+    var legsWithSelection: [BookingLeg] = []
     var isOnlyReturn = false
     var minimumDate:Date{
         if isOnlyReturn{

@@ -38,7 +38,7 @@ class DashboardVC: BaseVC {
     @IBOutlet weak var tripsLabel: UILabel!
     @IBOutlet weak var profileButton: ATNotificationButton!
     @IBOutlet weak var splashView: UIView!
-    @IBOutlet weak var backgroundGradientView: GradientView!
+    @IBOutlet weak var backgroundGradientView: AppGradientView!
     
     var overlayView = UIView()
     private var previousOffset = CGPoint.zero

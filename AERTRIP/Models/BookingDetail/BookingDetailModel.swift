@@ -492,7 +492,7 @@ struct BookingDetail {
     var travelledCities: [String] = []
     var disconnected: Bool = false
     var routes: [[String]] = [[]]
-    var leg: [Leg] = []
+    var leg: [BookingLeg] = []
     
     var journeyCompleted: Int = 0
     var travellers: [Traveller] = []
@@ -724,7 +724,7 @@ struct BookingDetail {
         
         // leg parsing
         if let obj = json["leg"] as? [JSONDictionary] {
-            self.leg = Leg.getModels(json: obj, eventStartDate: self.eventStartDate, bookingId: bookingId)
+            self.leg = BookingLeg.getModels(json: obj, eventStartDate: self.eventStartDate, bookingId: bookingId)
         }
         
         if let obj = json["journey_completed"] {
@@ -805,7 +805,7 @@ struct BookingDetail {
 
 // MARK: - Leg ,Flight and pax Details
 
-struct Leg {
+struct BookingLeg {
     var legId: String = ""
     var origin: String = ""
     var destination: String = ""
@@ -921,8 +921,8 @@ struct Leg {
         return self.flight.count - 1 + self.haltCount
     }
     
-    static func getModels(json: [JSONDictionary], eventStartDate: Date?, bookingId: String) -> [Leg] {
-        return json.map { Leg(json: $0, eventStartDate: eventStartDate, bookingId: bookingId) }
+    static func getModels(json: [JSONDictionary], eventStartDate: Date?, bookingId: String) -> [BookingLeg] {
+        return json.map { BookingLeg(json: $0, eventStartDate: eventStartDate, bookingId: bookingId) }
     }
 }
 

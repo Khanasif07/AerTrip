@@ -21,8 +21,8 @@ class BookingCallVM {
 //    var airportData: [(airPortTitle: String, title: String, number: String)] = [("VIE", "Athens, GR", "119-164-1011"), ("GOI", "Venice, IT", "503-799-2816"), ("VCE", "Monclova, MX", "401-203-4573"), ("TSF", "Fort Worth Alliance Air…", "541-144-9238")]
     
     var aertripData: [Aertrip] = []
-    var airlineData: [Airline] = []
-    var airportData: [Airport] = []
+    var airlineData: [BookingAirline] = []
+    var airportData: [BookingAirport] = []
     var hotelData: [Hotel] = []
     var contactInfo: ContactInfo?
     var usingFor: BookingCallVCUsingFor = .flight
