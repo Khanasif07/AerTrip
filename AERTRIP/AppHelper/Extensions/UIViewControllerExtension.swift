@@ -21,7 +21,7 @@ extension UIViewController{
         
         self.addChild(childViewController)
         let frame = self.view.bounds
-
+        
         childViewController.view.frame = frame
         self.view.addSubview(childViewController.view)
         
@@ -58,7 +58,7 @@ extension UIViewController{
             self.navigationController?.navigationBar.titleTextAttributes =   ttleTextAttributes
         }
     }
-
+    
     ///function to push the target from navigation Stack
     func pushToController(_ viewController:UIViewController, animated:Bool = true){
         
@@ -433,7 +433,7 @@ extension UIViewController {
     func fetchContacts(complition: @escaping ((_ contacts: [CNContact]) -> Void), canceled: (() -> Void)? = nil) {
         
         func retrieveContactsWithStore(_ store: CNContactStore) {
-
+            
             let contactStore = CNContactStore()
             let keysToFetch = [
                 CNContactFormatter.descriptorForRequiredKeys(for: .fullName),
@@ -470,7 +470,7 @@ extension UIViewController {
         let store = CNContactStore()
         
         if CNContactStore.authorizationStatus(for: .contacts) == .notDetermined {
-
+            
             store.requestAccess(for: .contacts) { (authorized, error) in
                 if authorized {
                     retrieveContactsWithStore(store)
@@ -483,7 +483,7 @@ extension UIViewController {
                 }
             }
         } else if self.isContactsAuthorized(canceled: {
-             canceled?()
+            canceled?()
         }) {
             retrieveContactsWithStore(store)
         }
@@ -491,7 +491,7 @@ extension UIViewController {
 }
 
 extension UIViewController {
-
+    
     func presentAsPushAnimation(_ viewControllerToPresent: UIViewController) {
         let transition = CATransition()
         transition.duration = 0.5
@@ -505,9 +505,8 @@ extension UIViewController {
                 viewControllerToPresent.view.layer.add(transition, forKey: kCATransition)
             }
         }
-        
     }
-
+    
     func dismissAsPopAnimation() {
         let transition = CATransition()
         transition.duration = 0.5
@@ -515,7 +514,21 @@ extension UIViewController {
         transition.subtype = CATransitionSubtype.fromLeft
         transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
         self.view.window!.layer.add(transition, forKey: kCATransition)
-
+        
         dismiss(animated: false)
+    }
+    
+    func openUrl(_ urlString: String) {
+        if let url = URL(string: urlString)
+        {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+            else {
+                if UIApplication.shared.canOpenURL(url as URL) {
+                    UIApplication.shared.openURL(url as URL)
+                }
+            }
+        }
     }
 }

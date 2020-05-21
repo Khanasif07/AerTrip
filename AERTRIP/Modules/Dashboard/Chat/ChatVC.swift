@@ -50,6 +50,7 @@ class ChatVC : BaseVC {
         IQKeyboardManager.shared().isEnableAutoToolbar = false
         IQKeyboardManager.shared().shouldResignOnTouchOutside = true
         addKeyboard()
+        self.statusBarStyle = .default
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -140,6 +141,7 @@ extension ChatVC {
         self.configureCollectionView()
         self.chatVm.getRecentHotels()
         self.chatVm.getRecentFlights()
+        self.resetFrames()
     }
     
     //MARK:- Set view attributes
@@ -188,7 +190,7 @@ extension ChatVC {
         suggestionsCollectionView.delegate = self
         suggestionsCollectionView.register(UINib(nibName: "SuggestionsCell", bundle: nil), forCellWithReuseIdentifier: "SuggestionsCell")
         suggestionsCollectionView.contentInset = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
-//        suggestionsCollectionView.isHidden = true
+        //        suggestionsCollectionView.isHidden = true
     }
     
     //MARK:- Set navigation view
@@ -238,7 +240,7 @@ extension ChatVC {
     private func animateMorningLabel(){
         delay(seconds: 0.3) {
             UIView.animate(withDuration: 1) {
-//                self.morningBackView.alpha = 1
+                //                self.morningBackView.alpha = 1
                 self.morningLabel.alpha = 1
             }
         }
@@ -253,14 +255,14 @@ extension ChatVC {
     
     func animateWhereToGoLabel(){
         self.morningLabel.isHidden = true
-                
+        
         UIView.animate(withDuration: 1, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             self.whereToGoLabel.alpha = 1
         }, completion: nil)
-
+        
         UIView.animate(withDuration: 1, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
-              self.whereToGoLabel.transform = CGAffineTransform(translationX: 0, y: (-(self.morningLabel.frame.height + 2)))
-          }, completion: nil)
+            self.whereToGoLabel.transform = CGAffineTransform(translationX: 0, y: (-(self.morningLabel.frame.height + 2)))
+        }, completion: nil)
     }
     
     private func hideWelcomeView(){
@@ -282,56 +284,57 @@ extension ChatVC {
         }
     }
     
- private func animateCell(text : String = ""){
-            let rectOfLastCell = self.chatTableView.rectForRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0))
-            let rectWrtView = self.chatTableView.convert(rectOfLastCell, to: self.view)
-            self.showAnimationViewWith(text: text)
-            self.animationView.frame = CGRect(x: 0, y: self.textViewBackView.frame.origin.y - 6, width: self.view.frame.width, height: self.animationLabel.frame.height + 28)
-            let horizintalScale = self.animationBubbleImageView.frame.origin.x - 4
-            self.animationLabel.transform = CGAffineTransform(translationX: -horizintalScale, y: 0)
-            self.animationBubbleImageView.transform = CGAffineTransform(translationX: -horizintalScale, y: 0)
-            self.sendButton.isEnabled = false
-            self.messageTextView.text = ""
-            let animationOptions: UIView.AnimationOptions = .curveEaseOut
-            let keyframeAnimationOptions: UIView.KeyframeAnimationOptions = UIView.KeyframeAnimationOptions(rawValue: animationOptions.rawValue)
-
-    UIView.animateKeyframes(withDuration: 1.2, delay: 0.0, options: keyframeAnimationOptions, animations: {
-
-                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1) {
-                    self.animationBubbleImageView.transform = CGAffineTransform.identity
-                    self.animationLabel.transform = CGAffineTransform.identity
-                }
-
-                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.28) {
-                    self.animationView.frame.origin.y = rectWrtView.origin.y
-                }
-
-            }) { (success) in
-                self.hideShowSenderCellContent(ishidden: false)
-                self.hideAnimationView()
-                self.chatVm.messages[self.chatVm.messages.count - 1].isHidden = false
-//                delay(seconds: 0.2) {
-//                    self.sendButton.isEnabled = true
-//                }
-                self.scheduleTypingCell()
+    private func animateCell(text : String = ""){
+        let rectOfLastCell = self.chatTableView.rectForRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0))
+        let rectWrtView = self.chatTableView.convert(rectOfLastCell, to: self.view)
+        self.showAnimationViewWith(text: text)
+        self.animationView.frame = CGRect(x: 0, y: self.textViewBackView.frame.origin.y - 6, width: self.view.frame.width, height: self.animationLabel.frame.height + 28)
+        let horizintalScale = self.animationBubbleImageView.frame.origin.x - 4
+        self.animationLabel.transform = CGAffineTransform(translationX: -horizintalScale, y: 0)
+        self.animationBubbleImageView.transform = CGAffineTransform(translationX: -horizintalScale, y: 0)
+        self.sendButton.isEnabled = false
+        self.messageTextView.text = ""
+        self.resetFrames()
+        let animationOptions: UIView.AnimationOptions = .curveEaseOut
+        let keyframeAnimationOptions: UIView.KeyframeAnimationOptions = UIView.KeyframeAnimationOptions(rawValue: animationOptions.rawValue)
+        
+        UIView.animateKeyframes(withDuration: 1.2, delay: 0.0, options: keyframeAnimationOptions, animations: {
+            
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1) {
+                self.animationBubbleImageView.transform = CGAffineTransform.identity
+                self.animationLabel.transform = CGAffineTransform.identity
             }
-        }
-        
-        private func showAnimationViewWith(text : String){
-            self.animationLabel.textAlignment = text.count <= 10 ? .center : .left
-            self.animationView.isHidden = false
-            self.animationLabel.text = text
-            UIView.animate(withDuration: 0.25) {
-                self.animationBubbleImageView.alpha = 1
+            
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.28) {
+                self.animationView.frame.origin.y = rectWrtView.origin.y
             }
+            
+        }) { (success) in
+            self.hideShowSenderCellContent(ishidden: false)
+            self.hideAnimationView()
+            self.chatVm.messages[self.chatVm.messages.count - 1].isHidden = false
+            //                delay(seconds: 0.2) {
+            //                    self.sendButton.isEnabled = true
+            //                }
+            self.scheduleTypingCell()
         }
-        
-        private func hideAnimationView(){
-            self.animationView.isHidden = true
-            self.animationLabel.text = ""
-            self.animationBubbleImageView.alpha = 0
+    }
+    
+    private func showAnimationViewWith(text : String){
+        self.animationLabel.textAlignment = text.count <= 10 ? .center : .left
+        self.animationView.isHidden = false
+        self.animationLabel.text = text
+        UIView.animate(withDuration: 0.25) {
+            self.animationBubbleImageView.alpha = 1
         }
-        
+    }
+    
+    private func hideAnimationView(){
+        self.animationView.isHidden = true
+        self.animationLabel.text = ""
+        self.animationBubbleImageView.alpha = 0
+    }
+    
     private func hideShowSenderCellContent(ishidden : Bool){
         guard let cell = self.chatTableView.cellForRow(at: IndexPath(row: self.chatVm.messages.count - 1, section: 0)) as? SenderChatCell else {
             return }
@@ -349,7 +352,7 @@ extension ChatVC {
     }
     
     @objc func handleTypingCellTimer(){
-//        if self.chatVm.typingCellTimerCounter == 0{ self.insertTypingCell() }
+        //        if self.chatVm.typingCellTimerCounter == 0{ self.insertTypingCell() }
         self.chatVm.typingCellTimerCounter += 1
         if self.chatVm.typingCellTimerCounter == 1{self.chatVm.sendMessageToChatBot(message: self.chatVm.msgToBeSent) }
         if self.chatVm.typingCellTimerCounter == 10{
@@ -426,14 +429,14 @@ extension ChatVC {
         if (range.location == 0 && text == " ") {return false}
         
         if self.sendButtonWidth.constant == 0{
-          //  showHideSendButton(text : text, shouldCheckCount : false)
+            //  showHideSendButton(text : text, shouldCheckCount : false)
         }
         return true
     }
     
     func textViewDidChange(_ textView: UITextView) {
         arrangeTextViewHeight()
-//        showHideSendButton(text: textView.text ?? "")
+        //        showHideSendButton(text: textView.text ?? "")
     }
     
     func showHideSendButton(text : String = "", shouldCheckCount : Bool = true){
@@ -465,14 +468,15 @@ extension ChatVC {
             self.chatBackViewHeight.constant = 44
             self.view.layoutIfNeeded()
         }
+        self.sendButton.isHidden = messageTextView.text.isEmpty
     }
 }
 
 extension ChatVC : ChatBotDelegatesDelegate {
-   
+    
     func willstarttChatBotSession() {
-//        self.scheduleTypingCell()
-
+        //        self.scheduleTypingCell()
+        
     }
     
     func chatBotSessionCreatedSuccessfully() {
@@ -485,7 +489,7 @@ extension ChatVC : ChatBotDelegatesDelegate {
     }
     
     func willCommunicateWithChatBot() {
-   
+        
     }
     
     func chatBotCommunicatedSuccessfully() {
@@ -515,7 +519,7 @@ extension ChatVC : ChatBotDelegatesDelegate {
     }
     
     func failedToGetRecentSearchApi(){
-
+        
     }
     
     func willGetRecentSearchFlights(){
@@ -529,5 +533,5 @@ extension ChatVC : ChatBotDelegatesDelegate {
     func failedToGetRecentSearchedFlightsApi(){
         
     }
- 
+    
 }

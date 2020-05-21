@@ -315,7 +315,7 @@ extension AppFlowManager {
     
     func moveToTravellerListVC() {
         let ob = TravellerListVC.instantiate(fromAppStoryboard: .TravellerList)
-        self.mainNavigationController.pushViewController(ob, animated: false)
+        self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
     func moveToPreferencesVC(_ delegate: PreferencesVCDelegate) {
@@ -1091,7 +1091,7 @@ extension AppFlowManager {
     func moveToWebViewVC(type : WebViewVM.WebViewType){
            let ob = WebViewVC.instantiate(fromAppStoryboard: .Settings)
         ob.webViewVm.webViewType = type
-           self.mainNavigationController.pushViewController(ob, animated: true)
+           self.mainNavigationController.present(ob, animated: true, completion: nil)
        }
        
     
@@ -1112,11 +1112,12 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-//    func moveToCurrencyVC() {
-//        self.showURLOnATWebView(<#T##url: URL##URL#>, screenTitle: <#T##String#>)
-//    }
-    
-    
+    func moveToChangePasswordVC(type: ChangePasswordVM.ChangePasswordType, delegate: ChangePasswordVCDelegate) {
+        let ob = ChangePasswordVC.instantiate(fromAppStoryboard: .Profile)
+        ob.viewModel.isPasswordType = type
+        ob.delegate = delegate
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
 }
 
 // MARK: - Select Trip Flow Methods

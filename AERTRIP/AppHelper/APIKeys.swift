@@ -425,6 +425,8 @@ enum APIKeys: String {
     case search = "search"
     case request
     case password_reset = "password-reset"
+    case new_password = "new_password"
+
     
     //MARK:- ChatBot
     

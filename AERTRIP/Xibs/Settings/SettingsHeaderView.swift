@@ -10,8 +10,8 @@ import UIKit
 
 class SettingsHeaderView: UITableViewHeaderFooterView {
 
-    @IBOutlet weak var topSepratorView: UIView!
-    @IBOutlet weak var bottomSepratorView: UIView!
+    @IBOutlet weak var topSepratorView: ATDividerView!
+    @IBOutlet weak var bottomSepratorView: ATDividerView!
     @IBOutlet weak var titleLabel: UILabel!
 
     override func awakeFromNib() {
@@ -20,8 +20,6 @@ class SettingsHeaderView: UITableViewHeaderFooterView {
         self.titleLabel.textColor = AppColors.themeGray60
         titleLabel.numberOfLines = 0
         titleLabel.font = AppFonts.Regular.withSize(14)
-        self.topSepratorView.backgroundColor = AppColors.themeGray20
-        self.bottomSepratorView.backgroundColor = AppColors.themeGray20
     }
 
 }

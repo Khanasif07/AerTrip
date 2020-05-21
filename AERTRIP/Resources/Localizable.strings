@@ -85,7 +85,7 @@
 // MARK:- SecureYourAccountVC
 //MARK:-
 "Secure_your_account"  = "Secure your \n account";
-"Set_password" = "Set password";
+"Set_password" = "Set Password";
 "Password_Conditions" = "Password Conditions:";
 "one" = "1";
 "a"   = "a";
@@ -102,6 +102,8 @@
 "Please_enter_new_Password" = "Please enter new Password";
 "New_Password" = "New Password";
 "Program" = "Program";
+"Please_enter_Current_Password" = "Please enter current Password";
+"Please_enter_Valid_Password" = "Please enter a valid Password";
 
 // MARK:- CreateProfileVC
 //MARK:-
@@ -177,7 +179,7 @@
 "Female" = "Female";
 //"GSTIN" = "GSTIN";
 "ChangePassword" = "Change Password";
-
+"Current_Password" = "Current Password";
 
 //MARK:- Hotel Search
 //MARK:-

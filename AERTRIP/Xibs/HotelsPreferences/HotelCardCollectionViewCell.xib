@@ -105,17 +105,17 @@
                                         <rect key="frame" x="99" y="0.0" width="94" height="22"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripAdviser" translatesAutoresizingMaskIntoConstraints="NO" id="vgj-dQ-ok5">
-                                                <rect key="frame" x="0.0" y="-9" width="21" height="12"/>
+                                                <rect key="frame" x="0.0" y="-8" width="21" height="12"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="21" id="vQl-jt-LUV"/>
                                                 </constraints>
                                             </imageView>
                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="63m-9s-T1e" customClass="FloatRatingView" customModule="AERTRIP" customModuleProvider="target">
-                                                <rect key="frame" x="25" y="2" width="68" height="18"/>
+                                                <rect key="frame" x="25" y="2.5" width="68" height="17"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="68" id="7LS-iF-EZe"/>
-                                                    <constraint firstAttribute="height" constant="18" id="OdC-EL-9Z1"/>
+                                                    <constraint firstAttribute="height" constant="17" id="OdC-EL-9Z1"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="combinedShapeUnfilledShadow"/>
@@ -134,7 +134,7 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="63m-9s-T1e" firstAttribute="leading" secondItem="vgj-dQ-ok5" secondAttribute="trailing" constant="4" id="1A8-RQ-kAE"/>
-                                            <constraint firstItem="vgj-dQ-ok5" firstAttribute="top" secondItem="56b-Nz-3aX" secondAttribute="top" constant="-9" id="DuX-7g-VFk"/>
+                                            <constraint firstItem="vgj-dQ-ok5" firstAttribute="top" secondItem="56b-Nz-3aX" secondAttribute="top" constant="-8" id="DuX-7g-VFk"/>
                                             <constraint firstItem="63m-9s-T1e" firstAttribute="centerY" secondItem="56b-Nz-3aX" secondAttribute="centerY" id="aHY-h6-YKh"/>
                                             <constraint firstAttribute="trailing" secondItem="63m-9s-T1e" secondAttribute="trailing" priority="900" id="n0B-Xt-02F"/>
                                             <constraint firstItem="vgj-dQ-ok5" firstAttribute="leading" secondItem="56b-Nz-3aX" secondAttribute="leading" id="nfY-7a-2Zy"/>

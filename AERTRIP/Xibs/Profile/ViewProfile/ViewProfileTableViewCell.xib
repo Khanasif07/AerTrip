@@ -23,19 +23,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="pWh-6O-LNB">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="97"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="108"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dOg-AT-YTi">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="36"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="ida-cm-vm3"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FlB-Fa-Qz6">
-                                <rect key="frame" x="0.0" y="36" width="300" height="25"/>
+                                <rect key="frame" x="0.0" y="36" width="300" height="36"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B9r-60-imh">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="25"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="36"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -45,12 +46,13 @@
                                     <constraint firstItem="B9r-60-imh" firstAttribute="top" secondItem="FlB-Fa-Qz6" secondAttribute="top" id="LCH-hv-FKa"/>
                                     <constraint firstItem="B9r-60-imh" firstAttribute="leading" secondItem="FlB-Fa-Qz6" secondAttribute="leading" id="S3M-PR-a3n"/>
                                     <constraint firstAttribute="trailing" secondItem="B9r-60-imh" secondAttribute="trailing" id="mJe-tI-ZTJ"/>
-                                    <constraint firstAttribute="height" constant="25" id="o58-ax-MRD"/>
+                                    <constraint firstAttribute="height" constant="61" id="o58-ax-MRD"/>
                                     <constraint firstAttribute="bottom" secondItem="B9r-60-imh" secondAttribute="bottom" id="tHT-Gg-GaG"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D86-tZ-TaQ">
-                                <rect key="frame" x="0.0" y="61" width="300" height="36"/>
+                                <rect key="frame" x="0.0" y="72" width="300" height="36"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="Tlz-lm-Nqx"/>
                                 </constraints>
@@ -58,7 +60,7 @@
                         </subviews>
                     </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Qz-Pn-CCn" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="16" y="96.5" width="268" height="0.5"/>
+                        <rect key="frame" x="16" y="107.5" width="268" height="0.5"/>
                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="dIl-EX-lwe"/>
