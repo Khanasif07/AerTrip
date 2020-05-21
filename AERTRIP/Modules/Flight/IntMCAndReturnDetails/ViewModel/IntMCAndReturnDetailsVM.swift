@@ -94,7 +94,29 @@ class IntMCAndReturnDetailsVM{
                 }
             }
 //            self.delegate?.updateSeleted()
-            dataRemovingDuplicate = dataRemovingDuplicate.sorted{($0.legsWithDetail.first?.dt ?? "") < ($1.legsWithDetail.first?.dt ?? "")}
+//            dataRemovingDuplicate = dataRemovingDuplicate.sorted{($0.legsWithDetail.first?.dt ?? "") < ($1.legsWithDetail.first?.dt ?? "")}
+            
+           ///Sort According to diparture time if Depature time is same the check next flight depature time as so on.
+            dataRemovingDuplicate = dataRemovingDuplicate.sorted{ (j1, j2) in
+                if (j1.legsWithDetail.first?.dt ?? "") != (j2.legsWithDetail.first?.dt ?? ""){
+                    return (j1.legsWithDetail.first?.dt ?? "") < (j2.legsWithDetail.first?.dt ?? "")
+                }else{
+                    guard let flights1 = j1.legsWithDetail.first?.flightsWithDetails,
+                        let flights2 = j2.legsWithDetail.first?.flightsWithDetails else {return true}
+                    for i in 0..<flights1.count{
+                        if flights2.count > i{
+                            guard let date1 = self.convertIntoDate(date: flights1[i].dd, time: flights1[i].dt),
+                                let date2 = self.convertIntoDate(date: flights2[i].dd, time: flights2[i].dt) else {return false}
+                            if date1 != date2{
+                                return date1 < date2
+                            }
+                        }else {
+                            return true
+                        }
+                    }
+                }
+                return true
+            }
             self.results.insert(dataRemovingDuplicate, at: i)
         }
     }
