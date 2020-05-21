@@ -34,7 +34,8 @@ import UIKit
         // Override point for customization after application launch.
 //        FirebaseApp.configure()
         GoogleLoginController.shared.configure()
-        AppFlowManager.default.setupInitialFlow()
+        setupFlightsVC()
+//        AppFlowManager.default.setupInitialFlow()
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         Fabric.with([Crashlytics.self])
         GMSServices.provideAPIKey(AppConstants.kGoogleAPIKey)
@@ -69,7 +70,6 @@ import UIKit
     
     private func setupFlightsVC() {
         window = UIWindow(frame: UIScreen.main.bounds)
-
         let homeDummyViewController = HomeDummyViewController()
         let navigationViewController = UINavigationController(rootViewController: homeDummyViewController)
         window?.rootViewController = navigationViewController

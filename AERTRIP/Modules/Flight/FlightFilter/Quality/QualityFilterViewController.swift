@@ -38,8 +38,8 @@ class QualityFilterViewController: UIViewController ,UITableViewDataSource , UIT
     fileprivate func setupTableView () {
         qualityFilterTableView.allowsMultipleSelection = true
         qualityFilterTableView.separatorStyle = .none
-        qualityFilterTableView.isScrollEnabled = false
-        qualityFilterTableView.bounces = false
+//        qualityFilterTableView.isScrollEnabled = false
+//        qualityFilterTableView.bounces = false
         qualityFilterTableView.register(UINib(nibName: "QaulityFilterTableCell", bundle: nil), forCellReuseIdentifier: "QaulityFilterTableCell")
     }
 
