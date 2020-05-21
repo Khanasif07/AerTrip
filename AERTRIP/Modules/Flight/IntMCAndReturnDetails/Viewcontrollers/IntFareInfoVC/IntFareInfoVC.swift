@@ -79,7 +79,12 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             self.updatedFareInfo = IntFlightFareInfoResponse(JSON())
             updatedFareInfo?.updatedFareInfo = [fareInfo]
             self.showAccordingTolegs = (self.updatedFareInfo?.updatedFareInfo.first?.cp.details.spcFee["ADT"]?.feeDetail.values.count == self.journey.first?.legsWithDetail.count)
-            self.fareInfoTableView.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.2) {
+             self.fareInfoTableView.reloadData()
+            }
+            DispatchQueue.main.async {
+                self.fareInfoTableView.reloadData()
+            }
         }else{
             self.getFareInfoAPICall(sid: self.sid, fk: journey.fk)
         }
@@ -146,7 +151,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 500
+        return 100
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
@@ -193,6 +198,12 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                         self.updatedFareInfo = IntFlightFareInfoResponse(json)
                         self.showAccordingTolegs = (self.updatedFareInfo?.updatedFareInfo.first?.cp.details.spcFee["ADT"]?.feeDetail.values.count == self.journey.first?.legsWithDetail.count)
                         self.fareInfoTableView.reloadData()
+                        DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+                         self.fareInfoTableView.reloadData()
+                        }
+                        DispatchQueue.main.async {
+                            self.fareInfoTableView.reloadData()
+                        }
                         let rfd = (currentParsedResponse.data.values.first?.rfd ?? 0)
                         let rsc = currentParsedResponse.data.values.first?.rsc ?? 0
                         self.refundDelegate?.updateRefundStatus(for: self.journey.first!.fk, rfd: rfd, rsc:rsc)
