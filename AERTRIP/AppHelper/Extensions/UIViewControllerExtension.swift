@@ -494,19 +494,23 @@ extension UIViewController {
 
     func presentAsPushAnimation(_ viewControllerToPresent: UIViewController) {
         let transition = CATransition()
-        transition.duration = 0.25
+        transition.duration = 0.5
         transition.type = CATransitionType.push
         transition.subtype = CATransitionSubtype.fromRight
         transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-
-        self.view.window!.layer.add(transition, forKey: kCATransition)
-
-        present(viewControllerToPresent, animated: false)
+        viewControllerToPresent.view.isHidden = true
+        DispatchQueue.main.async {
+            self.present(viewControllerToPresent, animated: false){
+                viewControllerToPresent.view.isHidden = false
+                viewControllerToPresent.view.layer.add(transition, forKey: kCATransition)
+            }
+        }
+        
     }
 
     func dismissAsPopAnimation() {
         let transition = CATransition()
-        transition.duration = 0.25
+        transition.duration = 0.5
         transition.type = CATransitionType.push
         transition.subtype = CATransitionSubtype.fromLeft
         transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)

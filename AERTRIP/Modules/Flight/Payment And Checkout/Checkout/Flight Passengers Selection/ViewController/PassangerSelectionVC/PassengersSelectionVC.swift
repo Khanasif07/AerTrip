@@ -51,6 +51,7 @@ class PassengersSelectionVC: UIViewController {
     
     
     private func setupFont(){
+        self.navigationController?.navigationBar.tintColor = AppColors.themeGreen
         self.titleLabel.font = AppFonts.SemiBold.withSize(18)
         self.titleLabel.text = "Passengers"
         addButtomView()
