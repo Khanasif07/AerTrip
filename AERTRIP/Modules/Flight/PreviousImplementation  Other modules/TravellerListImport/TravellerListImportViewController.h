@@ -37,7 +37,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *importButton;
 @property (weak, nonatomic) IBOutlet HMSegmentedControl *topSegmentControl;
 @property (weak, nonatomic) IBOutlet UISearchBar *travellerSearchBar;
-
 @property (weak, nonatomic) IBOutlet UILabel *titleTextLabel;
 
 

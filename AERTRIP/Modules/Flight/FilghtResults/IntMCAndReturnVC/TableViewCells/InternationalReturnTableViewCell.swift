@@ -188,6 +188,9 @@ class InternationalReturnTableViewCell: UITableViewCell
           self.indexLabel.text = "\(indexPath.section).....\(indexPath.row)"
         self.indexLabel.isHidden = true
         
+//        print("coa...\(currentJourney.coa)")
+//        print("cot...\(currentJourney.cot)")
+
       }
     
 }
