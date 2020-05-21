@@ -204,7 +204,6 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
             self.destinationTopViewSpacing.constant = 0
         }
         else {
-            self.destinationTopViewSpacing.constant = 16
             self.originTableViewHeight.constant = self.originsTableView.contentSize.height
         }
        
@@ -214,7 +213,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
              self.destinationTableViewHeight.constant = 0
         }
         else {
-
+            self.destinationTopViewSpacing.constant = 16
             self.destinationTableViewHeight.constant = self.destinationsTableView.contentSize.height
         }
 
@@ -260,6 +259,9 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         if currentAirportFilter.originAirportsCount == 1 && currentAirportFilter.destinationAirportsCount == 1 {
             layOverSeparatorTop.constant = 0
             layoverSeparatorView.alpha = 0
+        } else if destinationTableViewHeight.constant == 0 {
+            layOverSeparatorTop.constant = 0
+            layoverSeparatorView.alpha = 1
         } else {
             layOverSeparatorTop.constant = 16
             layoverSeparatorView.alpha = 1
