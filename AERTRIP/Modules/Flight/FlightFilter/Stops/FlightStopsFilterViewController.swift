@@ -268,7 +268,8 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
             
             let currentFilter = allStopsFilters[(i - 1)]
             let isCurrentIndexActive = (i == (currentActiveIndex + 1 )) ? true : false
-            let isFilterApplied = (currentFilter.userSelectedStops.count > 0 && currentFilter.userSelectedStops.count != currentFilter.availableStops.count) ? true : false
+            
+            let isFilterApplied = currentFilter.userSelectedStops.count > 0
             
             if isCurrentIndexActive {
                 stopButton.backgroundColor = UIColor.AertripColor

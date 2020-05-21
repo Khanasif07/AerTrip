@@ -173,13 +173,19 @@ extension IntFlightResultDisplayGroup  {
         let stopsStringsArray = stops.map{ String($0) }
         userSelectedFilters[index].stp = stopsStringsArray
         
-        if let _ = userSelectedFilters.enumerated().first(where: { (legIndex, obj) -> Bool in
-            return obj.stp.count != inputFilter[legIndex].stp.count && !obj.stp.isEmpty
-        }){
+        if let _ = userSelectedFilters.first(where: { !$0.stp.isEmpty }) {
             appliedFilters.insert(.stops)
-        }else{
+        } else {
             appliedFilters.remove(.stops)
         }
+        
+//        if let _ = userSelectedFilters.enumerated().first(where: { (legIndex, obj) -> Bool in
+//            return obj.stp.count != inputFilter[legIndex].stp.count && !obj.stp.isEmpty
+//        }){
+//            appliedFilters.insert(.stops)
+//        }else{
+//            appliedFilters.remove(.stops)
+//        }
         
         applyFilters(index: index)
     }
