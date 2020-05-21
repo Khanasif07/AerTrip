@@ -124,27 +124,42 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     
     fileprivate func setupDeparatureRangeButtons() {
         
-        if departureStartTimeInterval > TimeInterval.sixAM {
+        earlyMorningButton.isEnabled = true
+        noonButton.isEnabled = true
+        noonButton.isEnabled = true
+        eveningButton.isEnabled = true
+        lateEveningButton.isEnabled = true
+        
+        let startDateTime = Calendar.current.startOfDay(for: currentTimerFilter.departureMinTime)
+        let minTimeInterval = currentTimerFilter.departureMinTime.timeIntervalSince(startDateTime)
+        let maxTimeInterval = currentTimerFilter.departureTimeMax.timeIntervalSince(startDateTime)
+
+        let startTime = TimeInterval(3600 * floor(minTimeInterval / 3600))
+
+        let endTime = 3600 * TimeInterval(ceil(maxTimeInterval  / 3600 ))
+        
+        
+        if startTime > TimeInterval.sixAM {
             earlyMorningButton.isEnabled = false
         }
         
-        if departureStartTimeInterval > TimeInterval.twelvePM {
+        if startTime > TimeInterval.twelvePM {
             noonButton.isEnabled = false
         }
         
-        if departureStartTimeInterval > TimeInterval.sixPM {
+        if startTime > TimeInterval.sixPM {
             eveningButton.isEnabled = false
         }
         
-        if departureEndTimeInterval < TimeInterval.sixPM {
+        if endTime < TimeInterval.sixPM {
             lateEveningButton.isEnabled = false
         }
         
-        if departureEndTimeInterval < TimeInterval.twelvePM {
+        if endTime < TimeInterval.twelvePM {
             eveningButton.isEnabled = false
         }
         
-        if departureEndTimeInterval < TimeInterval.sixAM {
+        if endTime < TimeInterval.sixAM {
             noonButton.isEnabled = false
         }
 
@@ -574,6 +589,7 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
         setmultiLegSubviews()
         setDepartureLabel()
         setArrivalSliderValues(userSelected: true)
+        setupDeparatureRangeButtons()
     }
     
     
