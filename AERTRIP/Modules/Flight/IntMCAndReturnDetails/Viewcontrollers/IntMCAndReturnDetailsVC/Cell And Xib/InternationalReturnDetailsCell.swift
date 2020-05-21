@@ -35,18 +35,18 @@ class InternationalReturnDetailsCell: UITableViewCell {
             let selectedStateBGColor = AppColors.iceGreen
             
             let backgroundColor = isSelected ? selectedStateBGColor : .white
-            if ( duration.isHidden == false) {
+            if !duration.isHidden{
                 self.backgroundColor = backgroundColor
                 stopsBackgroundView.backgroundColor = backgroundColor
             }
             guard let leg = currentJourney?.legsWithDetail.first else{return}
             if leg.isDisabled{
                 self.backgroundColor = disableColor
-                if ( duration.isHidden == false) {
+                if !duration.isHidden{
                     stopsBackgroundView.backgroundColor = disableColor
                 }
             }else{
-                if ( duration.isHidden == false) {
+                if !duration.isHidden{
                     stopsBackgroundView.backgroundColor = backgroundColor
                 }
                  self.backgroundColor = backgroundColor
@@ -62,18 +62,18 @@ class InternationalReturnDetailsCell: UITableViewCell {
         let selectedStateBGColor = AppColors.iceGreen
         
         let backgroundColor = selected ? selectedStateBGColor : .white
-        if ( duration.isHidden == false) {
+        if !duration.isHidden{
             self.backgroundColor = backgroundColor
             stopsBackgroundView.backgroundColor = backgroundColor
         }
         guard let leg = currentJourney?.legsWithDetail.first else{return}
         if leg.isDisabled{
             self.backgroundColor = disableColor
-            if ( duration.isHidden == false) {
+            if !duration.isHidden {
                 stopsBackgroundView.backgroundColor = disableColor
             }
         }else{
-            if ( duration.isHidden == false) {
+            if !duration.isHidden {
                 stopsBackgroundView.backgroundColor = backgroundColor
             }
              self.backgroundColor = backgroundColor
@@ -89,43 +89,6 @@ class InternationalReturnDetailsCell: UITableViewCell {
     }
     
     //MARK:- Methods
-    
-    func setPinnedFlight() {
-        
-        guard let isPinned = currentJourney?.isPinned else { return }
-        
-        if isPinned {
-            if pinnedTriangleLayer == nil {
-                
-                let pinnedRoundedLayer = CAShapeLayer()
-                
-                pinnedRoundedLayer.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-                pinnedRoundedLayer.fillColor = UIColor.AertripColor.cgColor
-                
-                let path = CGMutablePath()
-                path.move(to: CGPoint(x: 0, y: 0))
-                path.addLine(to: CGPoint(x: 20, y: 0))
-                path.addLine(to: CGPoint(x: 0, y: 20))
-                path.addLine(to: CGPoint(x: 0, y: 0))
-                pinnedRoundedLayer.path = path
-                
-                self.pinnedTriangleLayer = pinnedRoundedLayer
-            }
-            
-            if let triangleLayer = pinnedTriangleLayer {
-                self.layer.addSublayer(triangleLayer)
-            }
-            
-            self.layer.borderColor = UIColor.AertripColor.cgColor
-            self.layer.borderWidth = 0.5
-            
-            
-        }
-        else {
-            pinnedTriangleLayer?.removeFromSuperlayer()
-            self.layer.borderWidth = 0
-        }
-    }
     
     func addStopsRoundedView(count : Int ) {
         
