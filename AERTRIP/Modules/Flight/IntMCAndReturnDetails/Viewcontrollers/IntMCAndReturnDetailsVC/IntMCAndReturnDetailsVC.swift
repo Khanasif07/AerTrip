@@ -205,6 +205,9 @@ extension IntMCAndReturnDetailsVC{
         
         baseScrollView.addSubview(tableView)
         baseScrollView.addSubview(borderView)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.updateUIForTableviewAt(index)
+        }
         DispatchQueue.main.async {
             self.updateUIForTableviewAt(index)
         }

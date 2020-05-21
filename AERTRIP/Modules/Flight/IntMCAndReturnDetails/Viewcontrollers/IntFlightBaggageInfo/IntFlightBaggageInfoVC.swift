@@ -878,7 +878,8 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
     //MARK:- API Call
     func callAPIforBaggageInfo(sid:String, fk:String, journeyObj:IntJourney){
         let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {    (data) in
+        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
+            guard let self = self else {return}
             
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -906,7 +907,9 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                 }
                 
             }
-        }, failureHandler : { (error ) in
+        }, failureHandler : {[weak self] (error ) in
+            guard let self = self else {return}
+            self.callAPIforBaggageInfo(sid:sid, fk:fk, journeyObj:journeyObj)
             print(error)
         })
     }
