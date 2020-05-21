@@ -138,16 +138,16 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                                 self.journey?.legsWithDetail[j].flightsWithDetails[k].isDepartureTerminalChange = false
                                 self.journey?.legsWithDetail[j].flightsWithDetails[k - 1].isArrivalTerminalChange = false
                             }else{
-                                if flight.dtm != prevFlight.atm
-                                {
+                                if flight.dtm != prevFlight.atm{
                                     self.journey?.legsWithDetail[j].flightsWithDetails[k].isDepartureTerminalChange = true
                                     self.journey?.legsWithDetail[j].flightsWithDetails[k-1].isArrivalTerminalChange = true
-
                                 }else{
                                     self.journey?.legsWithDetail[j].flightsWithDetails[k].isDepartureTerminalChange = false
                                     self.journey?.legsWithDetail[j].flightsWithDetails[k-1].isArrivalTerminalChange = false
                                 }
                             }
+                            
+                            
                         }else{
                             self.journey?.legsWithDetail[j].flightsWithDetails[k].isDepartureTerminalChange = false
                             self.journey?.legsWithDetail[j].flightsWithDetails[k].isArrivalTerminalChange = false
