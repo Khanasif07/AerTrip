@@ -409,7 +409,7 @@ struct IntMultiCityAndReturnWSResponse {
                 
                 var logoArray = [ String]()
                 
-                if coa > 0 { logoArray.append("redchangeAirport") }
+                if coa == 1 { logoArray.append("redchangeAirport") }
                             
                 if let changeOfflightClass = fcc {
                     
@@ -452,7 +452,7 @@ struct IntMultiCityAndReturnWSResponse {
 //                if legsWithDetail.first?.fcp != 1 && rfdPlcy.rfd.first?.value == 0 { logoArray.append("noRefund")}
                 
                 
-                if cot > 0 { logoArray.append("changeOfTerminal") }
+                if cot == 1 { logoArray.append("changeOfTerminal") }
 //                if coa > 0 { logoArray.append("changeOfAirport") }
                 if ovngt > 0 { logoArray.append("overnight")}
                 if llow > 0 { logoArray.append("longLayover") }
