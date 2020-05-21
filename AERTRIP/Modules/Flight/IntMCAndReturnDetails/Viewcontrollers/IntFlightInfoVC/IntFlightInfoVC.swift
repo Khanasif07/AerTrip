@@ -742,8 +742,8 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     func callAPIforFlightsOnTimePerformace(origin: String, destination: String, airline: String, flight_number: String, index:[Int],FFK:String)
     {
         let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .flightPerformanceResult(origin: origin, destination: destination, airline: airline, flight_number: flight_number), completionHandler: {    (data) in
-            
+        webservice.executeAPI(apiServive: .flightPerformanceResult(origin: origin, destination: destination, airline: airline, flight_number: flight_number), completionHandler: {[weak self](data) in
+            guard let self = self else {return}
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             
@@ -777,15 +777,17 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     }
                 }
             }
-        } , failureHandler : { (error ) in
+        } , failureHandler : {[weak self](error ) in
+            guard let self = self else {return}
+            self.callAPIforFlightsOnTimePerformace(origin: origin, destination: destination, airline: airline, flight_number: flight_number, index:index, FFK:FFK)
             print(error)
         })
     }
     
     func callAPIforBaggageInfo(sid:String, fk:String){
         let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {    (data) in
-            
+        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
+            guard let self = self else {return}
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             do{
@@ -817,7 +819,9 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                 }
             }catch{
             }
-        } , failureHandler : { (error ) in
+        } , failureHandler : {[weak self](error ) in
+            guard let self = self else {return}
+            self.callAPIforBaggageInfo(sid:sid, fk:fk)
             print(error)
         })
     }

@@ -182,10 +182,9 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     //MARK:- API Call
     func getFareInfoAPICall(sid: String, fk: String){
         let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .fareInfoResult(sid: sid, fk: fk), completionHandler: {    (data) in
-            
+        webservice.executeAPI(apiServive: .fareInfoResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
+            guard let self = self else {return}
             guard let json = try? JSON(data: data) else {return}
-            
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             DispatchQueue.main.async {
@@ -200,15 +199,17 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
                     }
                 }
             }
-        } , failureHandler : { (error ) in
+        } , failureHandler : {[weak self](error ) in
+            guard let self = self else {return}
+            self.getFareInfoAPICall(sid: sid, fk: fk)
             print(error)
         })
     }
     
     func getFareRulesAPICall(sid: String, fk: String){
         let webservice = WebAPIService()
-        webservice.executeAPI(apiServive: .fareRulesResult(sid: sid, fk: fk), completionHandler: {    (data) in
-            
+        webservice.executeAPI(apiServive: .fareRulesResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
+            guard let self = self else {return}
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             
@@ -231,7 +232,9 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             }catch{
                 
             }
-        } , failureHandler : { (error ) in
+        } , failureHandler : {[weak self] (error ) in
+            guard let self = self else {return}
+            self.getFareRulesAPICall(sid: sid, fk: fk)
             print(error)
         })
     }
