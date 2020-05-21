@@ -22,6 +22,8 @@ class ATWebViewVC: BaseVC {
         }
     }
     
+    @IBOutlet weak var navViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var blurViewContainer: BlurView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     
@@ -38,10 +40,13 @@ class ATWebViewVC: BaseVC {
     //MARK:- ViewLifeCycle
     //MARK:-
     override func initialSetup() {
-        topNavView.configureNavBar(title: navTitle, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false, isDivider: true)
-        topNavView.configureLeftButton(normalImage: #imageLiteral(resourceName: "searchBarClearButton"), selectedImage: #imageLiteral(resourceName: "searchBarClearButton"))
+        topNavView.configureNavBar(title: navTitle, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true, backgroundType: .clear)
+        topNavView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "black_cross"), selectedImage: #imageLiteral(resourceName: "black_cross"))
         topNavView.delegate = self
-        
+        topNavView.backView.backgroundColor = .clear
+        topNavView.backgroundColor = .clear
+        blurViewContainer.addShadow(withColor: UIColor.black.withAlphaComponent(0.2))
+        blurViewContainer.backgroundColor = UIColor.white.withAlphaComponent(0.85)
         //create webView
         if let _ = self.urlToLoad {
             self.loadUrl()
@@ -49,6 +54,10 @@ class ATWebViewVC: BaseVC {
             self.loadhtml()
         }
         webView.navigationDelegate = self
+        
+        if #available(iOS 13.0, *) {
+            navViewHeightConstraint.constant = 56
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -83,6 +92,9 @@ class ATWebViewVC: BaseVC {
 
 extension ATWebViewVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+    }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
 }

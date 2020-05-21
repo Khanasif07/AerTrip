@@ -14,7 +14,7 @@ class CurrencyCell: UITableViewCell {
     @IBOutlet weak var currencyNameLabel: UILabel!
     @IBOutlet weak var currencyCodeLabel: UILabel!
     @IBOutlet weak var currencySymbolLabel: UILabel!
-    @IBOutlet weak var sepratorView: UIView!
+    @IBOutlet weak var sepratorView: ATDividerView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

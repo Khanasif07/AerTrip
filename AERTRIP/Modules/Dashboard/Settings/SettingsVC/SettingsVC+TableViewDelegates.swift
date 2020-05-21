@@ -85,13 +85,20 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
             AppFlowManager.default.moveToNotificationSettingsVC()
 
         case .aboutUs:
-            AppFlowManager.default.moveToWebViewVC(type: WebViewVM.WebViewType.aboutUs)
+            if let pageUrl = URL(string: APIEndPoint.about.rawValue) {
+                AppFlowManager.default.showURLOnATWebView(pageUrl, screenTitle:  self.settingsVm.getSettingsType(key: indexPath.section, index: indexPath.row).rawValue)
+            }
             
         case .privacyPolicy:
-            AppFlowManager.default.moveToWebViewVC(type: WebViewVM.WebViewType.privacypolicy)
+            if let pageUrl = URL(string: APIEndPoint.privacy.rawValue) {
+                AppFlowManager.default.showURLOnATWebView(pageUrl, screenTitle:  self.settingsVm.getSettingsType(key: indexPath.section, index: indexPath.row).rawValue)
+            }
             
         case .legal:
-            AppFlowManager.default.moveToWebViewVC(type: WebViewVM.WebViewType.legal)
+            if let pageUrl = URL(string: APIEndPoint.legal.rawValue) {
+                AppFlowManager.default.showURLOnATWebView(pageUrl, screenTitle:  self.settingsVm.getSettingsType(key: indexPath.section, index: indexPath.row).rawValue)
+            }
+            
             
         default:
                 break

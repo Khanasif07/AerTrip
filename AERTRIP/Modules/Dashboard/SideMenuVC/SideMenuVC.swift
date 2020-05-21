@@ -177,16 +177,16 @@ class SideMenuVC: BaseVC {
     
     // MARK: -
     
-    @IBAction func fbLoginButtonAction(_ sender: UIButton) {
-        //       self.socialViewModel.fbLogin(vc: self, completionBlock: nil)
+    @IBAction func facebookBtnAction(_ sender: UIButton) {
+        AppSocialNetwork.Facebook.openPage()
     }
     
-    @IBAction func googleLoginButtonAction(_ sender: UIButton) {
-        //        self.socialViewModel.googleLogin()
+    @IBAction func instagramBtnAction(_ sender: UIButton) {
+        AppSocialNetwork.Instagram.openPage()
     }
     
-    @IBAction func linkedLoginButtonAction(_ sender: UIButton) {
-        //        self.socialViewModel.linkedLogin()
+    @IBAction func twitterBtnAction(_ sender: UIButton) {
+        AppSocialNetwork.Twitter.openPage()
     }
 }
 
@@ -402,6 +402,11 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             case 3:
                 //offers
                 if let url = URL(string: APIEndPoint.offers.rawValue) {
+                    AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1])
+                }
+            case 4:
+                //contact us
+                if let url = URL(string: APIEndPoint.contact.rawValue) {
                     AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1])
                 }
             case 5:

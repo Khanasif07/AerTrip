@@ -1112,7 +1112,12 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-    
+    func moveToChangePasswordVC(type: ChangePasswordVM.ChangePasswordType, delegate: ChangePasswordVCDelegate) {
+        let ob = ChangePasswordVC.instantiate(fromAppStoryboard: .Profile)
+        ob.viewModel.isPasswordType = type
+        ob.delegate = delegate
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
 }
 
 // MARK: - Select Trip Flow Methods

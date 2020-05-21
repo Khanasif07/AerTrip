@@ -63,7 +63,7 @@
                                                         </connections>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="homeAertripLogo" translatesAutoresizingMaskIntoConstraints="NO" id="dc0-cl-wv6">
-                                                        <rect key="frame" x="55" y="15" width="112" height="14"/>
+                                                        <rect key="frame" x="55" y="14.5" width="112" height="15"/>
                                                     </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -874,21 +874,21 @@ on Christmas”</string>
                                     <rect key="frame" x="0.0" y="0.0" width="68.5" height="24"/>
                                     <state key="normal" image="fbIcon"/>
                                     <connections>
-                                        <action selector="linkedLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="TDz-uR-0R0"/>
+                                        <action selector="facebookBtnAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="m8P-ST-kFI"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C3X-Wc-eN0">
                                     <rect key="frame" x="103.5" y="0.0" width="68" height="24"/>
-                                    <state key="normal" image="googleIcon"/>
+                                    <state key="normal" image="instagram"/>
                                     <connections>
-                                        <action selector="googleLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="Hkv-dh-xZh"/>
+                                        <action selector="instagramBtnAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="67P-MG-DQw"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vU4-Hb-QUb">
                                     <rect key="frame" x="206.5" y="0.0" width="68.5" height="24"/>
                                     <state key="normal" image="twitterIcon"/>
                                     <connections>
-                                        <action selector="fbLoginButtonAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="ImB-qA-BLZ"/>
+                                        <action selector="twitterBtnAction:" destination="9ZO-TE-AFD" eventType="touchUpInside" id="FQE-w4-SG5"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -1915,9 +1915,9 @@ on Christmas”</string>
         <image name="fbIcon" width="24" height="24"/>
         <image name="flights" width="44.5" height="44"/>
         <image name="gettyimages" width="612" height="408"/>
-        <image name="googleIcon" width="24" height="24"/>
-        <image name="homeAertripLogo" width="112" height="14"/>
+        <image name="homeAertripLogo" width="112" height="15"/>
         <image name="hotels" width="43" height="30"/>
+        <image name="instagram" width="24" height="24"/>
         <image name="logoIconRightWhite" width="54" height="48"/>
         <image name="logoIconVertical" width="48" height="54"/>
         <image name="logoTitleWhite" width="161" height="20"/>

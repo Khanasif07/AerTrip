@@ -318,6 +318,15 @@ class UserInfo {
         }
     }
     
+    var hasPassword: Bool {
+        get{
+            return (userData?["has_password"] as? Bool ?? true)
+        }
+        set{
+            updateInfo(withData: ["has_password":newValue])
+        }
+    }
+    
     var salutation:String {
         get{
             return (userData?["salutation"] as? String ?? "").removeNull
