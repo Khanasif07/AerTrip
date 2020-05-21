@@ -89,8 +89,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     //MARK:- Get Flight Info
     
-    func getFlightsInfo()
-    {
+    func getFlightsInfo(){
         if let legs = self.journey?.legsWithDetail{
             for j in 0..<legs.count{
 
@@ -146,7 +145,11 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                                     self.journey?.legsWithDetail[j].flightsWithDetails[k-1].isArrivalTerminalChange = false
                                 }
                             }
-                            
+                            if flight.dd != prevFlight.ad{
+                                self.journey?.legsWithDetail[j].flightsWithDetails[k].isDepartureDateChange = true
+                            }else{
+                                self.journey?.legsWithDetail[j].flightsWithDetails[k].isDepartureDateChange = false
+                            }
                             
                         }else{
                             self.journey?.legsWithDetail[j].flightsWithDetails[k].isDepartureTerminalChange = false
@@ -154,6 +157,12 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
 
                             self.journey?.legsWithDetail[j].flightsWithDetails[k].isDepartureAirportChange = false
                             self.journey?.legsWithDetail[j].flightsWithDetails[k].isArrivalAirportChange = false
+                        }
+                        
+                        if flight.dd != flight.ad{
+                            self.journey?.legsWithDetail[j].flightsWithDetails[k].isArrivalDateChange = true
+                        }else{
+                            self.journey?.legsWithDetail[j].flightsWithDetails[k].isArrivalDateChange = false
                         }
                     }
                 
@@ -163,8 +172,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     //MARK:- TableView Methods
     
-    func numberOfSections(in tableView: UITableView) -> Int
-    {
+    func numberOfSections(in tableView: UITableView) -> Int{
         if let journey =  self.journey{
             if isChangeOfAirport == true{
                 return journey.legsWithDetail.count+1
@@ -176,8 +184,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         if let journey =  self.journey{
             if isChangeOfAirport == true{
                 if section == journey.legsWithDetail.count{
@@ -407,8 +414,22 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                     }else{
                         cell.equipmentsLabel.text = flight.eq
                     }
-                    cell.arrivalDateLabel.text = self.dateConverter(dateStr: flight.ad)
-                    cell.departureDateLabel.text = self.dateConverter(dateStr: flight.dd)
+                    if (flight.isArrivalDateChange ?? false){
+                        let str = self.dateConverter(dateStr: flight.ad)
+                        cell.arrivalDateLabel.attributedText = self.addAttributsForRange(str, coloredString: str, color: AppColors.lightYellow)
+                    }else{
+                        cell.arrivalDateLabel.attributedText = nil
+                        cell.arrivalDateLabel.text = self.dateConverter(dateStr: flight.ad)
+                    }
+                    
+                    if (flight.isDepartureDateChange ?? false){
+                        let str = self.dateConverter(dateStr: flight.dd)
+                        
+                        cell.departureDateLabel.attributedText = self.addAttributsForRange(str, coloredString: str, color: AppColors.lightYellow)
+                    }else{
+                        cell.departureDateLabel.attributedText = nil
+                        cell.departureDateLabel.text = self.dateConverter(dateStr: flight.dd)
+                    }
                     
                     cell.arrivalTerminalLabel.text = flight.atm
                     cell.departureTerminalLabel.text = flight.dtm
@@ -739,8 +760,8 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     //MARK:- API Call
-    func callAPIforFlightsOnTimePerformace(origin: String, destination: String, airline: String, flight_number: String, index:[Int],FFK:String)
-    {
+    func callAPIforFlightsOnTimePerformace(origin: String, destination: String, airline: String, flight_number: String, index:[Int],FFK:String, count:Int = 3){
+        guard count > 0 else {return}
         let webservice = WebAPIService()
         webservice.executeAPI(apiServive: .flightPerformanceResult(origin: origin, destination: destination, airline: airline, flight_number: flight_number), completionHandler: {[weak self](data) in
             guard let self = self else {return}
@@ -779,12 +800,13 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             }
         } , failureHandler : {[weak self](error ) in
             guard let self = self else {return}
-            self.callAPIforFlightsOnTimePerformace(origin: origin, destination: destination, airline: airline, flight_number: flight_number, index:index, FFK:FFK)
+            self.callAPIforFlightsOnTimePerformace(origin: origin, destination: destination, airline: airline, flight_number: flight_number, index:index, FFK:FFK,count:count - 1)
             print(error)
         })
     }
     
-    func callAPIforBaggageInfo(sid:String, fk:String){
+    func callAPIforBaggageInfo(sid:String, fk:String, count:Int = 3){
+        guard count > 0 else {return}
         let webservice = WebAPIService()
         webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
             guard let self = self else {return}
@@ -821,7 +843,7 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
             }
         } , failureHandler : {[weak self](error ) in
             guard let self = self else {return}
-            self.callAPIforBaggageInfo(sid:sid, fk:fk)
+            self.callAPIforBaggageInfo(sid:sid, fk:fk, count: count-1)
             print(error)
         })
     }

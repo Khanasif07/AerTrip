@@ -185,7 +185,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
     }
     
     //MARK:- API Call
-    func getFareInfoAPICall(sid: String, fk: String){
+    func getFareInfoAPICall(sid: String, fk: String, count:Int = 3){
         let webservice = WebAPIService()
         webservice.executeAPI(apiServive: .fareInfoResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
             guard let self = self else {return}
@@ -212,12 +212,12 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             }
         } , failureHandler : {[weak self](error ) in
             guard let self = self else {return}
-            self.getFareInfoAPICall(sid: sid, fk: fk)
+            self.getFareInfoAPICall(sid: sid, fk: fk, count:count-1)
             print(error)
         })
     }
     
-    func getFareRulesAPICall(sid: String, fk: String){
+    func getFareRulesAPICall(sid: String, fk: String, count:Int = 3){
         let webservice = WebAPIService()
         webservice.executeAPI(apiServive: .fareRulesResult(sid: sid, fk: fk), completionHandler: {[weak self](data) in
             guard let self = self else {return}
@@ -245,7 +245,7 @@ class IntFareInfoVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
             }
         } , failureHandler : {[weak self] (error ) in
             guard let self = self else {return}
-            self.getFareRulesAPICall(sid: sid, fk: fk)
+            self.getFareRulesAPICall(sid: sid, fk: fk,count:count-1)
             print(error)
         })
     }
