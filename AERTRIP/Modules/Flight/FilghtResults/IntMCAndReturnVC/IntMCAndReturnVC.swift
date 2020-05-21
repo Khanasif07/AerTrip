@@ -323,7 +323,6 @@ extension IntMCAndReturnVC {
                         self.noResultScreen?.view.removeFromSuperview()
                         self.noResultScreen?.removeFromParent()
                         self.noResultScreen = nil
-                        
                     }
                 }
             })
