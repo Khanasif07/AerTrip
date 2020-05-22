@@ -517,7 +517,12 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
                 delegate?.stopsSelectionChangedAt(0, stops: currentLegStopsSelection)
                 delegate?.stopsSelectionChangedAt(1, stops: currentLegStopsSelection)
             }else {
-                delegate?.stopsSelectionChangedAt(currentActiveIndex, stops: currentLegStopsSelection)
+//                delegate?.stopsSelectionChangedAt(currentActiveIndex, stops: currentLegStopsSelection)
+                
+                allStopsFilters.enumerated().forEach { (index, filter) in
+                    delegate?.stopsSelectionChangedAt(index, stops: filter.userSelectedStops)
+                }
+                
             }
        // }
         allStopsFilters[currentActiveIndex] = currentStopFilter
