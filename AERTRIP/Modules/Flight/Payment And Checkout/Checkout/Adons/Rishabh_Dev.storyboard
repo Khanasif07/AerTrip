@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Seat MapVC-->
+        <scene sceneID="W7v-Eg-Ufr">
+            <objects>
+                <viewController storyboardIdentifier="SeatMapVC" id="TzF-oP-kaQ" customClass="SeatMapVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ar2-Qm-4XY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ENW-SZ-iqs" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="ntI-3S-90t"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j2s-t7-nMK" customClass="HMSegmentedControl">
+                                <rect key="frame" x="0.0" y="88" width="414" height="44"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="gKi-cf-Mcr"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="ENW-SZ-iqs" firstAttribute="leading" secondItem="Apj-dH-tZr" secondAttribute="leading" id="GWX-bV-SeZ"/>
+                            <constraint firstItem="j2s-t7-nMK" firstAttribute="trailing" secondItem="ENW-SZ-iqs" secondAttribute="trailing" id="Qur-Hh-FjN"/>
+                            <constraint firstItem="ENW-SZ-iqs" firstAttribute="top" secondItem="Apj-dH-tZr" secondAttribute="top" id="hyI-xn-e8e"/>
+                            <constraint firstItem="j2s-t7-nMK" firstAttribute="top" secondItem="ENW-SZ-iqs" secondAttribute="bottom" id="iIx-8I-xc4"/>
+                            <constraint firstItem="j2s-t7-nMK" firstAttribute="leading" secondItem="ENW-SZ-iqs" secondAttribute="leading" id="iR0-aa-cNP"/>
+                            <constraint firstItem="Apj-dH-tZr" firstAttribute="trailing" secondItem="ENW-SZ-iqs" secondAttribute="trailing" id="t4c-fz-B3G"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Apj-dH-tZr"/>
+                    </view>
+                    <connections>
+                        <outlet property="legSegmentView" destination="j2s-t7-nMK" id="WU8-rf-4KG"/>
+                        <outlet property="topNavBarView" destination="ENW-SZ-iqs" id="hd6-PI-D4p"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="32m-gA-KNr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="110" y="48"/>
+        </scene>
+    </scenes>
+</document>

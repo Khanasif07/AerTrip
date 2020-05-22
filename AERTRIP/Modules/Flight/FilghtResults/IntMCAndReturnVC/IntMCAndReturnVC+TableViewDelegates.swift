@@ -196,6 +196,12 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let seatMapVC = SeatMapVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
+        seatMapVC.modalPresentationStyle = .overFullScreen
+        present(seatMapVC, animated: true, completion: nil)
+        return
+        
         if let journeyCell = tableView.cellForRow(at: indexPath) as? InternationalReturnTableViewCell {
             let curJourney = journeyCell.currentJourney
             let vc = FlightDetailsBaseVC.instantiate(fromAppStoryboard: .FlightDetailsBaseVC)
