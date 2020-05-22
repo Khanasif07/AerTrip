@@ -34,9 +34,17 @@ class AppFlowManager: NSObject {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.dataChanged(_:)), name: .dataChanged, object: nil)
     }
-    
+    ///Change because flight is not added in main navigation currently.
+//    var safeAreaInsets: UIEdgeInsets {
+//        return AppFlowManager.default.mainNavigationController.view.safeAreaInsets
+//    }
     var safeAreaInsets: UIEdgeInsets {
-        return AppFlowManager.default.mainNavigationController.view.safeAreaInsets
+        if self.mainNavigationController != nil{
+            return AppFlowManager.default.mainNavigationController.view.safeAreaInsets
+        }else{
+            return currentNavigation?.view.safeAreaInsets ?? UIEdgeInsets()
+        }
+        
     }
     
     var mainNavigationController: SwipeNavigationController! {

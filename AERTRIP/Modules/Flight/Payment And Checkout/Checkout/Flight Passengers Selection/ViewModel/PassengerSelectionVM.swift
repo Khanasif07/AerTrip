@@ -32,7 +32,9 @@ class PassengerSelectionVM  {
     var intJourney: [IntJourney]!
     var intFlights : [IntFlightDetail]?
     var isSwitchOn = false
-    var isLogin = true
+    var isLogin:Bool{
+        return (UserInfo.loggedInUser != nil)
+    }
     var selectedGST = GSTINModel()
     var passengerList = [Passenger]()
     
