@@ -199,7 +199,7 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let seatMapVC = SeatMapVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
+        let seatMapVC = SeatMapContainerVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
         seatMapVC.modalPresentationStyle = .overFullScreen
         present(seatMapVC, animated: true, completion: nil)
         return
