@@ -993,7 +993,6 @@ extension AppFlowManager {
     }
     
     // Move To Booking Invoice VC
-    
     func moveToBookingInvoiceVC(forVoucher: Voucher) {
         let obj = BookingInvoiceVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.voucher = forVoucher
@@ -1001,7 +1000,6 @@ extension AppFlowManager {
     }
     
     // Move To Booking Direction VC
-    
     func moveToBookingDirectionVC(directions: [Direction]) {
         let obj = BookingDirectionVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.directionData = directions
@@ -1009,7 +1007,6 @@ extension AppFlowManager {
     }
     
     // Present BookingRequestAddOnsAndFFC
-    
     func presentBookingReuqestAddOnVC(bookingdata: BookingDetailModel?,delegate:BookingRequestAddOnsFFVCDelegate) {
         let obj = BookingRequestAddOnsFFVC.instantiate(fromAppStoryboard: .Bookings)
         obj.delegate = delegate

@@ -611,22 +611,22 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     }
     
     func bookButtonTapped(journeyCombo: [CombinationJourney]?){
-//        let vc = PassengersSelectionVC.instantiate(fromAppStoryboard: .PassengersSelection)
-//        let nav = UINavigationController(rootViewController: vc)
-//        nav.modalPresentationStyle = .fullScreen
-//        nav.modalPresentationCapturesStatusBarAppearance = true
-//        vc.viewModel.taxesResult = taxesResult
-//        vc.viewModel.intJourney = self.intJourney
-//        vc.viewModel.intFlights = intFlights
-//        vc.viewModel.selectedJourneyFK = self.selectedJourneyFK
-//        vc.viewModel.sid = sid
-//        vc.viewModel.intAirportDetailsResult = self.intAirportDetailsResult
-//        vc.viewModel.intAirlineDetailsResult = self.intAirlineDetailsResult
-//        vc.viewModel.bookingObject = self.bookFlightObject
-//        vc.viewModel.journeyType = .international
-//        vc.viewModel.journeyTitle = self.journeyTitle
-//        vc.viewModel.journeyDate = self.journeyDate
-//        self.presentAsPushAnimation(nav)
+        let vc = PassengersSelectionVC.instantiate(fromAppStoryboard: .PassengersSelection)
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        nav.modalPresentationCapturesStatusBarAppearance = true
+        vc.viewModel.taxesResult = taxesResult
+        vc.viewModel.intJourney = self.intJourney
+        vc.viewModel.intFlights = intFlights
+        vc.viewModel.selectedJourneyFK = self.selectedJourneyFK
+        vc.viewModel.sid = sid
+        vc.viewModel.intAirportDetailsResult = self.intAirportDetailsResult
+        vc.viewModel.intAirlineDetailsResult = self.intAirlineDetailsResult
+        vc.viewModel.bookingObject = self.bookFlightObject
+        vc.viewModel.journeyType = .international
+        vc.viewModel.journeyTitle = self.journeyTitle
+        vc.viewModel.journeyDate = self.journeyDate
+        self.presentAsPushAnimation(nav)
     }
 }
 

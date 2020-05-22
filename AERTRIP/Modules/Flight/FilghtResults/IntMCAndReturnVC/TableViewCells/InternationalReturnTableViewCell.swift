@@ -170,10 +170,11 @@ class InternationalReturnTableViewCell: UITableViewCell
     }
     
     func populateData(journey : IntMultiCityAndReturnDisplay, indexPath : IndexPath){
+        
           currentJourney = journey.first
-        if currentJourney.isPinned {
-            setPinnedFlight()
-          }
+            if currentJourney.isPinned {
+                setPinnedFlight()
+           }
           self.price.text = currentJourney.priceAsString
           multiFlightsTableView.reloadData()
           self.multiFlighrsTableViewHeight.constant = CGFloat(66 * currentJourney.legsWithDetail.count)
@@ -185,12 +186,9 @@ class InternationalReturnTableViewCell: UITableViewCell
           self.priceWidth.constant =  self.price.intrinsicContentSize.width
           smartIconsArray = currentJourney.smartIconArray
           baggageSuperScript = currentJourney.baggageSuperScript
-          self.indexLabel.text = "\(indexPath.section).....\(indexPath.row)"
+//          self.indexLabel.text = "\(indexPath.section).....\(indexPath.row)"
         self.indexLabel.isHidden = true
         
-//        print("coa...\(currentJourney.coa)")
-//        print("cot...\(currentJourney.cot)")
-
       }
     
 }

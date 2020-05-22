@@ -102,8 +102,10 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
         guard let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "InternationalReturnTableViewCell") as? InternationalReturnTableViewCell else {
             return UITableViewCell() }
         if #available(iOS 13, *) {
-            let interaction = UIContextMenuInteraction(delegate: self)
-            cell.baseView.addInteraction(interaction)
+            if cell.baseView.interactions.isEmpty{
+                let interaction = UIContextMenuInteraction(delegate: self)
+                cell.baseView.addInteraction(interaction)
+            }
         }
         cell.multiFlightsTableView.isUserInteractionEnabled = false
         cell.numberOfInnerCells = self.numberOfLegs
