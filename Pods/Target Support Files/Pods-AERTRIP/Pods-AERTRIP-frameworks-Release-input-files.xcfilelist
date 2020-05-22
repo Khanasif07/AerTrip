@@ -1,5 +1,4 @@
 ${PODS_ROOT}/Target Support Files/Pods-AERTRIP/Pods-AERTRIP-frameworks.sh
-${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework
 ${BUILT_PRODUCTS_DIR}/ActiveLabel/ActiveLabel.framework
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
 ${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework
@@ -11,10 +10,8 @@ ${BUILT_PRODUCTS_DIR}/FlexiblePageControl/FlexiblePageControl.framework
 ${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework
 ${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework
 ${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework
-${BUILT_PRODUCTS_DIR}/IOSLinkedInAPIFix/IOSLinkedInAPIFix.framework
 ${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework
 ${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework
-${BUILT_PRODUCTS_DIR}/LinkedinSwift/LinkedinSwift.framework
 ${BUILT_PRODUCTS_DIR}/MXParallaxHeader/MXParallaxHeader.framework
 ${BUILT_PRODUCTS_DIR}/MiniLayout/MiniLayout.framework
 ${BUILT_PRODUCTS_DIR}/PKLoader/PKLoader.framework

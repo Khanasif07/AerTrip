@@ -190,7 +190,7 @@ class BulkBookingVC: BaseVC {
         }
         
         self.view.alpha = 1.0
-        self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
+        self.view.backgroundColor = .clear//AppColors.themeBlack.withAlphaComponent(0.001)
         self.bottomViewHeightConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
         self.mainContainerView.roundTopCorners(cornerRadius: 10.0)
         
@@ -273,7 +273,9 @@ class BulkBookingVC: BaseVC {
         
         func setValue() {
             self.mainCintainerBottomConstraint.constant = 0.0
+            if #available(iOS 13.0, *) {} else {
             self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+            }
             self.view.layoutIfNeeded()
         }
         
