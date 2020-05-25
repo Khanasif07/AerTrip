@@ -18,10 +18,10 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ot9-tU-OuR">
-                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                        <rect key="frame" x="5" y="5" width="40" height="40"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfG-vx-44s">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -37,11 +37,12 @@
                     </view>
                 </subviews>
             </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="ot9-tU-OuR" secondAttribute="trailing" id="6RH-Td-plC"/>
-                <constraint firstAttribute="bottom" secondItem="ot9-tU-OuR" secondAttribute="bottom" id="H7s-Ij-ksm"/>
-                <constraint firstItem="ot9-tU-OuR" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="QxV-dx-YEb"/>
-                <constraint firstItem="ot9-tU-OuR" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="sam-fK-KcB"/>
+                <constraint firstAttribute="trailing" secondItem="ot9-tU-OuR" secondAttribute="trailing" constant="5" id="6RH-Td-plC"/>
+                <constraint firstAttribute="bottom" secondItem="ot9-tU-OuR" secondAttribute="bottom" constant="5" id="H7s-Ij-ksm"/>
+                <constraint firstItem="ot9-tU-OuR" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="QxV-dx-YEb"/>
+                <constraint firstItem="ot9-tU-OuR" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="sam-fK-KcB"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>

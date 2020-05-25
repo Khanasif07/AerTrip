@@ -1209,6 +1209,8 @@
 		84791EE22281BB8000472E54 /* AccountLadgerDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84791EE02281BB7F00472E54 /* AccountLadgerDetailHeader.swift */; };
 		84791EE32281BB8000472E54 /* AccountLadgerDetailHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84791EE12281BB7F00472E54 /* AccountLadgerDetailHeader.xib */; };
 		84795B37241B7254004CCA36 /* UISegmentedControlExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84795B36241B7254004CCA36 /* UISegmentedControlExtension.swift */; };
+		847C2233247B9AE6004F32D6 /* SeatCollCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847C2232247B9AE6004F32D6 /* SeatCollCellVM.swift */; };
+		847C2235247BA72C004F32D6 /* SeatMapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847C2234247BA72C004F32D6 /* SeatMapVM.swift */; };
 		847F7EB82279DB75009BE02F /* PKTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847F7EB72279DB75009BE02F /* PKTextField.swift */; };
 		847FBB9822B25B42001FC68D /* BookingFeeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847FBB9722B25B42001FC68D /* BookingFeeDetail.swift */; };
 		84806833220990C600CBF362 /* BulkRoomSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84806832220990C600CBF362 /* BulkRoomSelectionVC.swift */; };
@@ -2848,6 +2850,8 @@
 		84791EE02281BB7F00472E54 /* AccountLadgerDetailHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountLadgerDetailHeader.swift; sourceTree = "<group>"; };
 		84791EE12281BB7F00472E54 /* AccountLadgerDetailHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountLadgerDetailHeader.xib; sourceTree = "<group>"; };
 		84795B36241B7254004CCA36 /* UISegmentedControlExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControlExtension.swift; sourceTree = "<group>"; };
+		847C2232247B9AE6004F32D6 /* SeatCollCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatCollCellVM.swift; sourceTree = "<group>"; };
+		847C2234247BA72C004F32D6 /* SeatMapVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatMapVM.swift; sourceTree = "<group>"; };
 		847F7EB72279DB75009BE02F /* PKTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKTextField.swift; sourceTree = "<group>"; };
 		847FBB9722B25B42001FC68D /* BookingFeeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingFeeDetail.swift; sourceTree = "<group>"; };
 		84806832220990C600CBF362 /* BulkRoomSelectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkRoomSelectionVC.swift; sourceTree = "<group>"; };
@@ -7317,6 +7321,7 @@
 			children = (
 				848080582477FBF4004F2D31 /* SeatMapVC.swift */,
 				8480805F2477FE69004F2D31 /* SeatMapVC+CollectionView.swift */,
+				847C2234247BA72C004F32D6 /* SeatMapVM.swift */,
 			);
 			path = SeatMapVC;
 			sourceTree = "<group>";
@@ -7326,6 +7331,7 @@
 			children = (
 				848080622478007B004F2D31 /* SeatCollCell.swift */,
 				848080632478007B004F2D31 /* SeatCollCell.xib */,
+				847C2232247B9AE6004F32D6 /* SeatCollCellVM.swift */,
 			);
 			path = SeatCollCell;
 			sourceTree = "<group>";
@@ -9009,6 +9015,7 @@
 				843FF66D247409E3001F21B1 /* KeyValueData.m in Sources */,
 				84323D412230563800DA7581 /* HotelDetailsSearchTagTableCell.swift in Sources */,
 				8477163E22844AC0000E1BB6 /* PeriodicStatementListVM.swift in Sources */,
+				847C2233247B9AE6004F32D6 /* SeatCollCellVM.swift in Sources */,
 				843FF4F524740231001F21B1 /* IntMCAndReturnDetailsVM.swift in Sources */,
 				8463A5782456D4BB00C70D8C /* HotelShimmerView.swift in Sources */,
 				18FD916C229678FE00D005E9 /* BookingReschedulingHeaderView.swift in Sources */,
@@ -9480,6 +9487,7 @@
 				843FF66A247409E3001F21B1 /* FlightResultsDict.m in Sources */,
 				843FF697247409E4001F21B1 /* SCRatingView.m in Sources */,
 				843FF53224740232001F21B1 /* PinedFlightOptionView.swift in Sources */,
+				847C2235247BA72C004F32D6 /* SeatMapVM.swift in Sources */,
 				843FF55B24740232001F21B1 /* UpgradePlanBaseVC.swift in Sources */,
 				843FF55624740232001F21B1 /* FlightSearchResultVM.swift in Sources */,
 				0CBADF7C2473DC6F00086EA7 /* AFURLResponseSerialization.m in Sources */,

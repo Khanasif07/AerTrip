@@ -12,6 +12,12 @@ class SeatCollCell: UICollectionViewCell {
 
     // MARK: Variables
     
+    private var viewModel = SeatCollCellVM()
+    var seatLayout: SeatCollCellVM.PlaneSeatsLayout = .four {
+        didSet {
+            viewModel.seatLayout = seatLayout
+        }
+    }
     
     // MARK: IBOutlets
     
@@ -27,25 +33,37 @@ class SeatCollCell: UICollectionViewCell {
     // MARK: Functions
     
     private func initialSetup() {
+        seatNumberLbl.textColor = AppColors.themeGray40
         seatView.roundedCorners(cornerRadius: 5)
         seatView.layer.borderColor = AppColors.themeGray20.cgColor
     }
     
     func setupCellFor(_ indexPath: IndexPath) {
-        if indexPath.section == 0 && indexPath.row == 0 {
+        seatView.isHidden = false
+        switch (indexPath.section, indexPath.item) {
+        case (0, 0):
             seatNumberLbl.isHidden = true
             seatView.layer.borderWidth = 0
-        } else if indexPath.section == 0 {
+        case (0, let item):
+            seatNumberLbl.font = AppFonts.Regular.withSize(18)
             seatNumberLbl.isHidden = false
             seatView.layer.borderWidth = 0
-            seatNumberLbl.text = "\(indexPath.row - 1)"
-        } else if indexPath.row == 0 {
+            seatNumberLbl.text = "\(item - 1)"
+        case (let sec, 0):
+            seatNumberLbl.font = AppFonts.Regular.withSize(18)
             seatNumberLbl.isHidden = false
             seatView.layer.borderWidth = 0
-            seatNumberLbl.text = "\(indexPath.section - 1)"
-        } else {
-            seatNumberLbl.isHidden = true
-            seatView.layer.borderWidth = 0.5
+            seatNumberLbl.text = viewModel.getUnicodeScalarStringFor(viewModel.seatLayout.getSeatSectionArr()[sec - 1])
+        case (let sec, _):
+            let curSectionType = viewModel.seatLayout.getSeatSectionArr()[sec - 1]
+            switch curSectionType {
+            case .blank:
+                seatView.isHidden = true
+            case .number(_):
+                seatNumberLbl.font = AppFonts.Regular.withSize(14)
+                seatNumberLbl.isHidden = true
+                seatView.layer.borderWidth = 0.5
+            }
         }
     }
 }
