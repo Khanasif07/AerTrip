@@ -39,7 +39,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqO-lJ-uV1">
-                                            <rect key="frame" x="2" y="0.0" width="371" height="96"/>
+                                            <rect key="frame" x="2" y="0.0" width="371" height="89"/>
                                             <string key="text">Book Now &amp;
 get upto 20% off </string>
                                             <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="38"/>
@@ -47,7 +47,7 @@ get upto 20% off </string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="compared to onboard prices" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQi-Xb-5yA">
-                                            <rect key="frame" x="2" y="96" width="371" height="23"/>
+                                            <rect key="frame" x="2" y="89" width="371" height="21"/>
                                             <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -94,7 +94,78 @@ get upto 20% off </string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jQ2-aw-STt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1812" y="218.1409295352324"/>
+            <point key="canvasLocation" x="-860" y="-400"/>
+        </scene>
+        <!--Meals ContainerVC-->
+        <scene sceneID="98W-eZ-3hS">
+            <objects>
+                <viewController storyboardIdentifier="MealsContainerVC" id="QKF-04-bse" customClass="MealsContainerVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qth-Uy-jue">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cPt-Li-nGC" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="2yc-YW-2o7"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MsC-te-KqM">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="vn5-ki-PPF" firstAttribute="trailing" secondItem="MsC-te-KqM" secondAttribute="trailing" id="0jU-hL-z8S"/>
+                            <constraint firstItem="MsC-te-KqM" firstAttribute="top" secondItem="cPt-Li-nGC" secondAttribute="bottom" id="4Lv-do-dlr"/>
+                            <constraint firstItem="cPt-Li-nGC" firstAttribute="leading" secondItem="vn5-ki-PPF" secondAttribute="leading" id="CT6-5L-cg4"/>
+                            <constraint firstItem="vn5-ki-PPF" firstAttribute="trailing" secondItem="cPt-Li-nGC" secondAttribute="trailing" id="Csx-2a-Fcm"/>
+                            <constraint firstItem="MsC-te-KqM" firstAttribute="leading" secondItem="vn5-ki-PPF" secondAttribute="leading" id="afV-xg-eUg"/>
+                            <constraint firstItem="vn5-ki-PPF" firstAttribute="bottom" secondItem="MsC-te-KqM" secondAttribute="bottom" id="oa8-F7-Wlt"/>
+                            <constraint firstItem="cPt-Li-nGC" firstAttribute="top" secondItem="vn5-ki-PPF" secondAttribute="top" id="qF8-gs-aTz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="vn5-ki-PPF"/>
+                    </view>
+                    <connections>
+                        <outlet property="mealsContainerView" destination="MsC-te-KqM" id="QqN-vB-pLD"/>
+                        <outlet property="topNavBarView" destination="cPt-Li-nGC" id="7Hc-0x-h6h"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="drT-zf-z5s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-860" y="372"/>
+        </scene>
+        <!--Select MealsdVC-->
+        <scene sceneID="Lca-6V-cac">
+            <objects>
+                <viewController storyboardIdentifier="SelectMealsdVC" id="i8Q-Ce-Pu3" customClass="SelectMealsdVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AK5-DN-qjw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ik1-L7-daa">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Ik1-L7-daa" firstAttribute="trailing" secondItem="6sb-7p-Xbg" secondAttribute="trailing" id="NF4-Da-Tbp"/>
+                            <constraint firstAttribute="bottom" secondItem="Ik1-L7-daa" secondAttribute="bottom" id="Pmw-ed-ody"/>
+                            <constraint firstItem="Ik1-L7-daa" firstAttribute="top" secondItem="6sb-7p-Xbg" secondAttribute="top" id="Xka-Oe-1FK"/>
+                            <constraint firstItem="Ik1-L7-daa" firstAttribute="leading" secondItem="6sb-7p-Xbg" secondAttribute="leading" id="YTy-MS-1ob"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6sb-7p-Xbg"/>
+                    </view>
+                    <connections>
+                        <outlet property="mealsTableView" destination="Ik1-L7-daa" id="PBI-lY-wRI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k8K-bw-JaK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-18" y="374"/>
         </scene>
     </scenes>
 </document>

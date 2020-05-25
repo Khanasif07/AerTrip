@@ -90,6 +90,9 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        let vc = MealsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
 }

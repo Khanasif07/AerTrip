@@ -17,6 +17,11 @@
 		0C09BFDD242B9A2D00B801BE /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C09BFDB242B9A2D00B801BE /* SettingsCell.xib */; };
 		0C0AB1AB247B9134005E5E99 /* AdonsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1AA247B9134005E5E99 /* AdonsVM.swift */; };
 		0C0AB1AD247BBFEA005E5E99 /* GoInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1AC247BBFEA005E5E99 /* GoInsetLabel.swift */; };
+		0C0AB1F2247BE03F005E5E99 /* MealsContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1F1247BE03F005E5E99 /* MealsContainerVC.swift */; };
+		0C0AB1F4247BEC6D005E5E99 /* MealsContainerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1F3247BEC6D005E5E99 /* MealsContainerVM.swift */; };
+		0C0AB1F6247BEC7E005E5E99 /* SelectMealsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1F5247BEC7E005E5E99 /* SelectMealsVM.swift */; };
+		0C0AB1F9247BECC5005E5E99 /* SelectMealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1F7247BECC5005E5E99 /* SelectMealCell.swift */; };
+		0C0AB1FA247BECC5005E5E99 /* SelectMealCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C0AB1F8247BECC5005E5E99 /* SelectMealCell.xib */; };
 		0C0B231524210CD700E1764D /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C0B231424210CD700E1764D /* Chat.storyboard */; };
 		0C162AC8242337E9001C2B10 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162AC7242337E9001C2B10 /* MessageModel.swift */; };
 		0C162ACC24233AC5001C2B10 /* ChatVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */; };
@@ -1512,6 +1517,11 @@
 		0C09BFDB242B9A2D00B801BE /* SettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
 		0C0AB1AA247B9134005E5E99 /* AdonsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdonsVM.swift; sourceTree = "<group>"; };
 		0C0AB1AC247BBFEA005E5E99 /* GoInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoInsetLabel.swift; sourceTree = "<group>"; };
+		0C0AB1F1247BE03F005E5E99 /* MealsContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsContainerVC.swift; sourceTree = "<group>"; };
+		0C0AB1F3247BEC6D005E5E99 /* MealsContainerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsContainerVM.swift; sourceTree = "<group>"; };
+		0C0AB1F5247BEC7E005E5E99 /* SelectMealsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMealsVM.swift; sourceTree = "<group>"; };
+		0C0AB1F7247BECC5005E5E99 /* SelectMealCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMealCell.swift; sourceTree = "<group>"; };
+		0C0AB1F8247BECC5005E5E99 /* SelectMealCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectMealCell.xib; sourceTree = "<group>"; };
 		0C0B231424210CD700E1764D /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		0C162AC7242337E9001C2B10 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatVC+TableView.swift"; sourceTree = "<group>"; };
@@ -3199,6 +3209,8 @@
 			isa = PBXGroup;
 			children = (
 				0C0AB1AA247B9134005E5E99 /* AdonsVM.swift */,
+				0C0AB1F3247BEC6D005E5E99 /* MealsContainerVM.swift */,
+				0C0AB1F5247BEC7E005E5E99 /* SelectMealsVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3411,6 +3423,8 @@
 			children = (
 				0CC1B4E42478104E00AE6F12 /* AdonsCell.swift */,
 				0CC1B4E52478104E00AE6F12 /* AdonsCell.xib */,
+				0C0AB1F7247BECC5005E5E99 /* SelectMealCell.swift */,
+				0C0AB1F8247BECC5005E5E99 /* SelectMealCell.xib */,
 			);
 			path = TableViewAndCollectionViewCells;
 			sourceTree = "<group>";
@@ -5765,6 +5779,7 @@
 			isa = PBXGroup;
 			children = (
 				843FF3642474022F001F21B1 /* SelectMealsdVC.swift */,
+				0C0AB1F1247BE03F005E5E99 /* MealsContainerVC.swift */,
 			);
 			path = SelectMealsVC;
 			sourceTree = "<group>";
@@ -8871,6 +8886,7 @@
 				843FF49D24740231001F21B1 /* FlightFilterTimesViewController.xib in Resources */,
 				84DD249422671EDB0013F77E /* BookingDocumentsCollectionViewCell.xib in Resources */,
 				8495132822BA74B800938CB0 /* SourceSansPro-Regular.svg in Resources */,
+				0C0AB1FA247BECC5005E5E99 /* SelectMealCell.xib in Resources */,
 				843FF56E24740232001F21B1 /* FlightDetailsTableViewCell.xib in Resources */,
 				18E7970C2248F98900A7AC8B /* DiscountCell.xib in Resources */,
 				0C09BFDD242B9A2D00B801BE /* SettingsCell.xib in Resources */,
@@ -9401,6 +9417,7 @@
 				8463A5622456C7B200C70D8C /* ATClusterItem.swift in Sources */,
 				842E048F2215855E00C482DC /* RecentHotelSearchCollectionViewCell.swift in Sources */,
 				18E7970B2248F98900A7AC8B /* DiscountCell.swift in Sources */,
+				0C0AB1F9247BECC5005E5E99 /* SelectMealCell.swift in Sources */,
 				0C0AB1AD247BBFEA005E5E99 /* GoInsetLabel.swift in Sources */,
 				84085D0B21F59C0E00F1E844 /* AssignGroupVC.swift in Sources */,
 				842EDE94223931FD00E99409 /* HCCouponModel.swift in Sources */,
@@ -9679,6 +9696,7 @@
 				843FF4FF24740231001F21B1 /* IntJourneyHeaderView.swift in Sources */,
 				182EB218228580B5001BFB20 /* EmptyDividerViewCellTableViewCell.swift in Sources */,
 				843FF52024740231001F21B1 /* FlightDomesticMultiLegResultVC+Scrolling.swift in Sources */,
+				0C0AB1F2247BE03F005E5E99 /* MealsContainerVC.swift in Sources */,
 				842BA833223B93DE00EED7B0 /* HCSelectGuestsVC.swift in Sources */,
 				18E797132249EB6B00A7AC8B /* CurrenyCollectionViewCell.swift in Sources */,
 				18FAA502220DB907001454DE /* SectionHeader.swift in Sources */,
@@ -9721,6 +9739,7 @@
 				849D37932289397200763AD8 /* AccountOnlineDepositVC.swift in Sources */,
 				843FF665247409E3001F21B1 /* FlightResultAlMaster.m in Sources */,
 				84BBEEA0221422C100844034 /* HotelDetailsBedsTableViewCell.swift in Sources */,
+				0C0AB1F4247BEC6D005E5E99 /* MealsContainerVM.swift in Sources */,
 				841E75C92282E6BA003CE1CF /* AccountOutstandingLadgerVC.swift in Sources */,
 				1806CC6F22D35F22009B8937 /* BookingReviewCancellationVM.swift in Sources */,
 				18B4596721D4DD380001C21D /* AddressTextEditTableViewCell.swift in Sources */,
@@ -9834,6 +9853,7 @@
 				8410421D21DE33B7002B4C1F /* ATSearchBar.swift in Sources */,
 				1807F003223F9E160092E127 /* HotelResultVC+animations.swift in Sources */,
 				84504D542212E436002C1374 /* TripAdvisorTableViewCell.swift in Sources */,
+				0C0AB1F6247BEC7E005E5E99 /* SelectMealsVM.swift in Sources */,
 				8402009622C1EF64002E5977 /* BookingCaseHistory.swift in Sources */,
 				843FF67C247409E3001F21B1 /* FrequentFlyerViewController.m in Sources */,
 				842EDE98223A34A300E99409 /* HCSpecialRequestsVM.swift in Sources */,
