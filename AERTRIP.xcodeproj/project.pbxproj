@@ -15,6 +15,8 @@
 		0C09BFD6242B746500B801BE /* ChatVC+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09BFD5242B746500B801BE /* ChatVC+Animations.swift */; };
 		0C09BFDC242B9A2D00B801BE /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09BFDA242B9A2D00B801BE /* SettingsCell.swift */; };
 		0C09BFDD242B9A2D00B801BE /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C09BFDB242B9A2D00B801BE /* SettingsCell.xib */; };
+		0C0AB1AB247B9134005E5E99 /* AdonsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1AA247B9134005E5E99 /* AdonsVM.swift */; };
+		0C0AB1AD247BBFEA005E5E99 /* GoInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1AC247BBFEA005E5E99 /* GoInsetLabel.swift */; };
 		0C0B231524210CD700E1764D /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C0B231424210CD700E1764D /* Chat.storyboard */; };
 		0C162AC8242337E9001C2B10 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162AC7242337E9001C2B10 /* MessageModel.swift */; };
 		0C162ACC24233AC5001C2B10 /* ChatVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */; };
@@ -71,6 +73,9 @@
 		0CBDEA4B2429E413009D7849 /* ReceiverChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CBDEA492429E413009D7849 /* ReceiverChatCell.xib */; };
 		0CBDEA4E2429EF9B009D7849 /* SuggestionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CBDEA4C2429EF9B009D7849 /* SuggestionsCell.swift */; };
 		0CBDEA4F2429EF9B009D7849 /* SuggestionsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CBDEA4D2429EF9B009D7849 /* SuggestionsCell.xib */; };
+		0CC1B4DE2477FD9900AE6F12 /* AddOnVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC1B4DD2477FD9900AE6F12 /* AddOnVC.swift */; };
+		0CC1B4E62478104F00AE6F12 /* AdonsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC1B4E42478104E00AE6F12 /* AdonsCell.swift */; };
+		0CC1B4E72478104F00AE6F12 /* AdonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CC1B4E52478104E00AE6F12 /* AdonsCell.xib */; };
 		0CC23989231639EF00ADEE92 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC23988231639EF00ADEE92 /* TestViewController.swift */; };
 		0CC8546D2350956500544F10 /* UISearchBar+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC8546C2350956500544F10 /* UISearchBar+extension.swift */; };
 		0CD644B7234B0AEE00D71709 /* ATUnicodeSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD644B6234B0AED00D71709 /* ATUnicodeSwitch.swift */; };
@@ -1496,6 +1501,8 @@
 		0C09BFD5242B746500B801BE /* ChatVC+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatVC+Animations.swift"; sourceTree = "<group>"; };
 		0C09BFDA242B9A2D00B801BE /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		0C09BFDB242B9A2D00B801BE /* SettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
+		0C0AB1AA247B9134005E5E99 /* AdonsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdonsVM.swift; sourceTree = "<group>"; };
+		0C0AB1AC247BBFEA005E5E99 /* GoInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoInsetLabel.swift; sourceTree = "<group>"; };
 		0C0B231424210CD700E1764D /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		0C162AC7242337E9001C2B10 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatVC+TableView.swift"; sourceTree = "<group>"; };
@@ -1562,6 +1569,9 @@
 		0CBDEA492429E413009D7849 /* ReceiverChatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReceiverChatCell.xib; sourceTree = "<group>"; };
 		0CBDEA4C2429EF9B009D7849 /* SuggestionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsCell.swift; sourceTree = "<group>"; };
 		0CBDEA4D2429EF9B009D7849 /* SuggestionsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionsCell.xib; sourceTree = "<group>"; };
+		0CC1B4DD2477FD9900AE6F12 /* AddOnVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOnVC.swift; sourceTree = "<group>"; };
+		0CC1B4E42478104E00AE6F12 /* AdonsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdonsCell.swift; sourceTree = "<group>"; };
+		0CC1B4E52478104E00AE6F12 /* AdonsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdonsCell.xib; sourceTree = "<group>"; };
 		0CC23988231639EF00ADEE92 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		0CC8546C2350956500544F10 /* UISearchBar+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+extension.swift"; sourceTree = "<group>"; };
 		0CD644B6234B0AED00D71709 /* ATUnicodeSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATUnicodeSwitch.swift; sourceTree = "<group>"; };
@@ -3167,6 +3177,14 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		0C0AB1A9247B9101005E5E99 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0C0AB1AA247B9134005E5E99 /* AdonsVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		0C162AC6242337D1001C2B10 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -3359,6 +3377,23 @@
 				0CBDEA462429CDE9009D7849 /* AMDots.swift */,
 			);
 			path = ChatDots;
+			sourceTree = "<group>";
+		};
+		0CC1B4DC2477F7C900AE6F12 /* AddOnVC */ = {
+			isa = PBXGroup;
+			children = (
+				0CC1B4DD2477FD9900AE6F12 /* AddOnVC.swift */,
+			);
+			path = AddOnVC;
+			sourceTree = "<group>";
+		};
+		0CC1B4E32478104E00AE6F12 /* TableViewAndCollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				0CC1B4E42478104E00AE6F12 /* AdonsCell.swift */,
+				0CC1B4E52478104E00AE6F12 /* AdonsCell.xib */,
+			);
+			path = TableViewAndCollectionViewCells;
 			sourceTree = "<group>";
 		};
 		0CD644B5234B0AC200D71709 /* ATUnicodeSwitch */ = {
@@ -5696,6 +5731,9 @@
 		843FF3622474022F001F21B1 /* Adons */ = {
 			isa = PBXGroup;
 			children = (
+				0C0AB1A9247B9101005E5E99 /* ViewModel */,
+				0CC1B4E32478104E00AE6F12 /* TableViewAndCollectionViewCells */,
+				0CC1B4DC2477F7C900AE6F12 /* AddOnVC */,
 				843FF3632474022F001F21B1 /* SelectMealsVC */,
 				843FF3652474022F001F21B1 /* Adons.storyboard */,
 			);
@@ -6414,6 +6452,7 @@
 				841AA5312475121200B66720 /* ShadowButton */,
 				843FF5882474093C001F21B1 /* AertripRangeSlider.swift */,
 				843FF5892474093C001F21B1 /* AertripSwitch.swift */,
+				0C0AB1AC247BBFEA005E5E99 /* GoInsetLabel.swift */,
 			);
 			path = CustomVIews;
 			sourceTree = "<group>";
@@ -8419,6 +8458,7 @@
 				84534EA62248B83E009FF536 /* HCPhoneTableViewCell.xib in Resources */,
 				843FF53524740232001F21B1 /* LongPressViewController.xib in Resources */,
 				846FB58E22250AFA007F70F9 /* PKBottomSheet.xib in Resources */,
+				0CC1B4E72478104F00AE6F12 /* AdonsCell.xib in Resources */,
 				187684AD228456F4009637D6 /* BookingInfoCommonCell.xib in Resources */,
 				843FF57224740232001F21B1 /* BaggageDetailsPerFlightTableViewCell.xib in Resources */,
 				843FF56824740232001F21B1 /* FlightAmenitiesCollectionViewCell.xib in Resources */,
@@ -9211,6 +9251,7 @@
 				8438B446245AB43500F7320B /* FlightInfoVC+ HelperMethods.swift in Sources */,
 				843FF50524740231001F21B1 /* IntFareInfoCell.swift in Sources */,
 				843FF50F24740231001F21B1 /* IntMCAndReturnVC+Options.swift in Sources */,
+				0CC1B4DE2477FD9900AE6F12 /* AddOnVC.swift in Sources */,
 				1835E50123EAC1CD00F6EEA1 /* PresentCardAnimator.swift in Sources */,
 				18E09F9F22EB089E0065CEB2 /* PKCategoryButton.swift in Sources */,
 				18FD917622968CF300D005E9 /* BookingSchedulingPassengerDetailTableViewCell.swift in Sources */,
@@ -9226,6 +9267,7 @@
 				843FF4C124740231001F21B1 /* PassengerSelectionVM.swift in Sources */,
 				0C24D4FC242CEEDD00CBFF92 /* NotificationSettingsVM.swift in Sources */,
 				843FF57124740232001F21B1 /* BaggageDetailsPerFlightTableViewCell.swift in Sources */,
+				0CC1B4E62478104F00AE6F12 /* AdonsCell.swift in Sources */,
 				0C24D4E4242C752A00CBFF92 /* CountryVC.swift in Sources */,
 				843FF4F424740231001F21B1 /* FlightBaggageTableViewCell.m in Sources */,
 				84F983D621B51A070018DFED /* UIViewControllerExtension.swift in Sources */,
@@ -9302,6 +9344,7 @@
 				8463A5622456C7B200C70D8C /* ATClusterItem.swift in Sources */,
 				842E048F2215855E00C482DC /* RecentHotelSearchCollectionViewCell.swift in Sources */,
 				18E7970B2248F98900A7AC8B /* DiscountCell.swift in Sources */,
+				0C0AB1AD247BBFEA005E5E99 /* GoInsetLabel.swift in Sources */,
 				84085D0B21F59C0E00F1E844 /* AssignGroupVC.swift in Sources */,
 				842EDE94223931FD00E99409 /* HCCouponModel.swift in Sources */,
 				843FF4D324740231001F21B1 /* PassengersSelectionVC.swift in Sources */,
@@ -9948,6 +9991,7 @@
 				0C32DC06232F70FC008033B5 /* QuickPayVC.swift in Sources */,
 				1886379021D0AE5600D64443 /* APICaller+EditProfile.swift in Sources */,
 				842EDE9022392C9C00E99409 /* HCCouponCodeVM.swift in Sources */,
+				0C0AB1AB247B9134005E5E99 /* AdonsVM.swift in Sources */,
 				843FF54124740232001F21B1 /* SmartIconCell.swift in Sources */,
 				180A3D8621C11AE7001A1E6A /* AppToast.swift in Sources */,
 				180F9BD9222CF35F00518D3B /* HotelSearchTableViewCell.swift in Sources */,

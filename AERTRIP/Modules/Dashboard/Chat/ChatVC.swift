@@ -166,7 +166,7 @@ extension ChatVC {
     private func setMorningLabelText(){
         if let info = UserInfo.loggedInUser, !info.firstName.isEmpty {
             let morningStr = "Good \(Date().morningOrEvening), \(info.firstName)"
-            self.morningLabel.attributedText = morningStr.attributeStringWithColors(stringToColor: info.firstName, strClr: UIColor.black, substrClr: AppColors.themeGreen, strFont: AppFonts.Regular.withSize(28), strClrFont: AppFonts.SemiBold.withSize(28))
+            self.morningLabel.attributedText = morningStr.attributeStringWithColors(subString: info.firstName, strClr: UIColor.black, substrClr: AppColors.themeGreen, strFont: AppFonts.Regular.withSize(28), subStrFont: AppFonts.SemiBold.withSize(28))
         }else{
             self.morningLabel.text = "Good \(Date().morningOrEvening)"
         }

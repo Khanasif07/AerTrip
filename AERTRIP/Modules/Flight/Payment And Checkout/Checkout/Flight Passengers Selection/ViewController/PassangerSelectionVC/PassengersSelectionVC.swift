@@ -88,9 +88,11 @@ class PassengersSelectionVC: UIViewController {
     }
     
     @IBAction func tapAddButton(_ sender: UIButton) {
+//        AppFlowManager.default.moveToAddOnVC()
+        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
-
 }
 
 extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, JourneyDetailsTapDelegate{

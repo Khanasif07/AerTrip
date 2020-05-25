@@ -1271,3 +1271,14 @@ extension AppFlowManager {
         onNavigationController?.view.layer.add(transition, forKey: nil)
     }
 }
+
+
+//FlightsCheckout and payment
+extension AppFlowManager {
+    
+    func moveToAddOnVC(){
+        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
+        self.mainNavigationController.pushViewController(vc, animated: true)
+    }
+    
+}
