@@ -16,8 +16,8 @@ extension HotelResultVC {
     }
     
     func showSearchAnimation() {
-//        self.filterButton.isHidden = true
-//        self.mapButton.isHidden = true
+        //        self.filterButton.isHidden = true
+        //        self.mapButton.isHidden = true
         self.searchBar.becomeFirstResponder()
         self.searchBarContainerView.alpha = 0.0
         self.searchBarContainerView.isHidden = false
@@ -29,18 +29,18 @@ extension HotelResultVC {
             self?.searchButton.alpha = 0
             self?.titleLabel.alpha = 0
             self?.descriptionLabel.alpha = 0
-        }, completion: { [weak self] (done)  in
-            if done {
-                self?.titleLabel.isHidden = true
-                self?.descriptionLabel.isHidden = true
-            }
+            }, completion: { [weak self] (done)  in
+                if done {
+                    self?.titleLabel.isHidden = true
+                    self?.descriptionLabel.isHidden = true
+                }
         })
         
     }
     
     func hideSearchAnimation() {
-//        self.filterButton.isHidden = false
-//        self.mapButton.isHidden = false
+        //        self.filterButton.isHidden = false
+        //        self.mapButton.isHidden = false
         
         
         self.titleLabel.isHidden = false
@@ -52,12 +52,12 @@ extension HotelResultVC {
             self?.titleLabel.alpha = 1
             self?.descriptionLabel.alpha = 1
             self?.searchBarContainerView.alpha = 0.0
-        }, completion: { [weak self] (done)  in
-            if done {
-                self?.searchBarContainerView.isHidden = true
-            }
+            }, completion: { [weak self] (done)  in
+                if done {
+                    self?.searchBarContainerView.isHidden = true
+                }
         })
-
+        
         
     }
     
@@ -66,30 +66,30 @@ extension HotelResultVC {
     
     func animateFloatingButtonOnListView(isAnimated: Bool = true) {
         if isAnimated {
-//        UIView.animate(withDuration: TimeInterval(self.defaultDuration),
-//                       delay: 0,
-//                       usingSpringWithDamping: self.defaultDamping,
-//                       initialSpringVelocity: self.defaultVelocity,
-//                       options: .allowUserInteraction,
-//                       animations: { [weak self] in
-//                        self?.unPinAllFavouriteButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-//                        self?.emailButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-//                        self?.shareButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-//                        self?.emailButton.transform = CGAffineTransform(translationX: 58, y: 0)
-//                        self?.shareButton.transform = CGAffineTransform(translationX: 112, y: 0)
-//                        self?.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 166, y: 0)
-//                       },
-//                       completion: { _ in
-//                           printDebug("Animation finished")
-//        })
-            UIView.animate(withDuration: TimeInterval(0.1), delay: 0, options: .curveEaseOut, animations: { [weak self] in
-             self?.unPinAllFavouriteButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-             self?.emailButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-             self?.shareButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-             self?.emailButton.transform = CGAffineTransform(translationX: 58, y: 0)
-             self?.shareButton.transform = CGAffineTransform(translationX: 112, y: 0)
-             self?.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 166, y: 0)
-            }, completion: nil)
+            //        UIView.animate(withDuration: TimeInterval(self.defaultDuration),
+            //                       delay: 0,
+            //                       usingSpringWithDamping: self.defaultDamping,
+            //                       initialSpringVelocity: self.defaultVelocity,
+            //                       options: .allowUserInteraction,
+            //                       animations: { [weak self] in
+            //                        self?.unPinAllFavouriteButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            //                        self?.emailButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            //                        self?.shareButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            //                        self?.emailButton.transform = CGAffineTransform(translationX: 58, y: 0)
+            //                        self?.shareButton.transform = CGAffineTransform(translationX: 112, y: 0)
+            //                        self?.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 166, y: 0)
+            //                       },
+            //                       completion: { _ in
+            //                           printDebug("Animation finished")
+            //        })
+            UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: .curveEaseOut, animations: { [weak self] in
+                self?.unPinAllFavouriteButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                self?.emailButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                self?.shareButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                self?.emailButton.transform = CGAffineTransform(translationX: 58, y: 0)
+                self?.shareButton.transform = CGAffineTransform(translationX: 112, y: 0)
+                self?.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 166, y: 0)
+                }, completion: nil)
             
         } else {
             self.unPinAllFavouriteButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
@@ -101,23 +101,28 @@ extension HotelResultVC {
         }
     }
     
-    // Animate Button on map View
-    
-//    private func animateFloatingButtonOnMapView() {
-//        UIView.animate(withDuration: TimeInterval(self.defaultDuration),
-//                       delay: 0,
-//                       usingSpringWithDamping: self.defaultDamping,
-//                       initialSpringVelocity: self.defaultVelocity,
-//                       options: .allowUserInteraction,
-//                       animations: { [weak self] in
-//                        self?.floatingButtonOnMapView.transform = CGAffineTransform(translationX: 55, y: 0)
-//                       },
-//                       completion: { _ in
-//                           printDebug("Animation finished")
-//        })
-//    }
+    func hideFavsButtons(isAnimated: Bool = false) {
+        if isAnimated {
+            UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: .curveEaseOut, animations: { [weak self] in
+                self?.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 0, y: 0)
+                self?.emailButton.transform = CGAffineTransform(translationX: 0, y: 0)
+                self?.shareButton.transform = CGAffineTransform(translationX: 0, y: 0)
+                }, completion: { [weak self] (success) in
+                    self?.unPinAllFavouriteButton.isHidden = true
+                    self?.emailButton.isHidden = true
+                    self?.shareButton.isHidden = true
+            })
+        } else {
+            self.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 0, y: 0)
+            self.emailButton.transform = CGAffineTransform(translationX: 0, y: 0)
+            self.shareButton.transform = CGAffineTransform(translationX: 0, y: 0)
+            self.unPinAllFavouriteButton.isHidden = true
+            self.emailButton.isHidden = true
+            self.shareButton.isHidden = true
+        }
+    }
     
     func animateButton() {
-            self.animateFloatingButtonOnListView()
+        self.animateFloatingButtonOnListView()
     }
 }

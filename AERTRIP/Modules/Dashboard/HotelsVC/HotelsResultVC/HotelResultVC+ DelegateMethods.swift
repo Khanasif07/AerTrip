@@ -77,7 +77,7 @@ extension HotelResultVC: ATSwitcherChangeValueDelegate {
             //self.viewModel.getPinnedTemplate(hotels: self.favouriteHotels)
         }
         else {
-            self.hideFavsButtons()
+            self.hideFavsButtons(isAnimated: true)
         }
         
         tableViewVertical.setContentOffset(CGPoint(x: 0, y: -112), animated: false)

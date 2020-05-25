@@ -61,7 +61,7 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
     ///Search Bar SetUp
     private func searchBarSetUp() {
         //UI
-        self.searchBar.micButton.frame = CGRect(x: UIScreen.main.bounds.width - 36.0 - 15.0 , y: 0.0, width: 36.0, height: 36.0)
+       // self.searchBar.micButton.frame = CGRect(x: UIScreen.main.bounds.width - 36.0 - 15.0 , y: 0.0, width: 36.0, height: 36.0)
         self.searchBar.layer.cornerRadius = 10.0
         self.searchBar.layer.masksToBounds = true
         self.searchBar.backgroundColor = AppColors.themeGray10

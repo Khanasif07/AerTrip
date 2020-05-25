@@ -407,7 +407,7 @@ extension AppFlowManager {
     }
     
     func showBulkRoomSelectionVC(rooms: Int, adults: Int, children: Int, delegate: BulkRoomSelectionVCDelegate) {
-        if let mVC = self.mainHomeVC {
+        if let mVC = UIApplication.topViewController() {
             let ob = BulkRoomSelectionVC.instantiate(fromAppStoryboard: .HotelsSearch)
             ob.delegate = delegate
             ob.viewModel.roomCount = rooms

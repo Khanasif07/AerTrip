@@ -567,6 +567,7 @@ enum LocalizedString: String {
     case ConfirmationEmail
     case UnfavouriteAll
     case UnfavouriteAllMessage
+    case Unfavourite
 
     // Mail Composer View
     case ContactUsAertrip

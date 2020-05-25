@@ -459,29 +459,13 @@ class HotelsMapVC: StatusBarAnimatableViewController {
                 printDebug("Share")
                 self?.openSharingSheet()
             } else if index == 2 {
-                removeAllFavouritesHotelsPopUp()
+                self?.isRemovingAllFav = true
+                self?.removeAllFavouritesHotels()
                 printDebug("Remove All photo")
             }
         }
         
-        func removeAllFavouritesHotelsPopUp() {
-            let title = LocalizedString.UnfavouriteAll.localized.capitalized + "?"
-            let message = LocalizedString.UnfavouriteAllMessage.localized
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            
-            let  cancelAction = UIAlertAction(title: LocalizedString.Cancel.localized, style: .default, handler: nil)
-            cancelAction.setValue(AppColors.themeDarkGreen, forKey: "titleTextColor")
-            
-            let  unFavouriteAction = UIAlertAction(title: LocalizedString.UnfavouriteAll.localized, style: .destructive) { [weak self] (action) in
-                self?.isRemovingAllFav = true
-                self?.removeAllFavouritesHotels()
-            }
-            unFavouriteAction.setValue(AppColors.themeRed, forKey: "titleTextColor")
-            
-            alert.addAction(cancelAction)
-            alert.addAction(unFavouriteAction)
-            present(alert, animated: true, completion: nil)
-        }
+        
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIButton) {

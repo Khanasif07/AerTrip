@@ -479,6 +479,7 @@
 "callingNotAvailable" = "Your device doesn't supports calling function!";
 "UnfavouriteAll" = "Unfavourite all";
 "UnfavouriteAllMessage" = "This action will unfavourite all the favorite hotels and cannot be undone.";
+"Unfavourite" = "Unfavourite";
 
 "ContactUsAertrip" = "Have a question? Contact us : support@aertrip.com";
 //"CopyrightAertrip" = "2012 Aertrip. All Rights Reserved.";

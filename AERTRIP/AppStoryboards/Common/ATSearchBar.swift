@@ -23,7 +23,7 @@ class ATSearchBar: UISearchBar {
         case unavailable
     }
     
-    private(set) var micButton: UIButton!
+    //private(set) var micButton: UIButton!
     
     var isMicEnabled: Bool = true {
         didSet {
@@ -63,16 +63,16 @@ class ATSearchBar: UISearchBar {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let xRatio = (self.width - (edgeInset.left + edgeInset.right)) / self.width
-        let yRatio = (self.width - (edgeInset.top + edgeInset.bottom)) / self.width
-        self.transform = CGAffineTransform(scaleX: xRatio, y: yRatio)
+      //  let xRatio = (self.width - (edgeInset.left + edgeInset.right)) / self.width
+       // let yRatio = (self.width - (edgeInset.top + edgeInset.bottom)) / self.width
+        //self.transform = CGAffineTransform(scaleX: xRatio, y: yRatio)
         
-        var micX = (self.width - self.height) + 15.0
-        
-        if self.showsCancelButton {
-            micX -= 58.0
-        }
-        self.micButton?.frame = CGRect(x: micX, y: 1.0, width: self.height, height: self.height)
+//        var micX = (self.width - (self.height + 6.0))
+//
+//        if self.showsCancelButton {
+//            micX -= 58.0
+//        }
+//        self.micButton?.frame = CGRect(x: micX, y: 1.0, width: self.height, height: self.height)
     }
     
     private func initialSetup() {
@@ -86,16 +86,20 @@ class ATSearchBar: UISearchBar {
         
         self.tintColor = AppColors.themeGreen
         
-        self.micButton = UIButton(frame: CGRect(x: (self.width - self.height) + 15.0, y: 1.0, width: self.height, height: self.height))
-        self.micButton.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .normal)
-       self.micButton.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .selected)
-        
-        self.micButton.addTarget(self, action: #selector(micButtonAction(_:)), for: .touchUpInside)
+//        self.micButton = UIButton(frame: CGRect(x: (self.width - self.height) + 15.0, y: 1.0, width: self.height, height: self.height))
+//        self.micButton.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .normal)
+//       self.micButton.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .selected)
+//        self.micButton.setTitle(nil, for: .normal)
+//        self.micButton.addTarget(self, action: #selector(micButtonAction(_:)), for: .touchUpInside)
 
-        self.hideMiceButton(isHidden: !self.isMicEnabled)
-        self.addSubview(self.micButton)
+        self.hideMiceButton(isHidden: self.isMicEnabled)
+        //self.addSubview(self.micButton)
         
         //self.setImage(#imageLiteral(resourceName: "icClear"), for: .clear, state: .normal)
+        //self.showsBookmarkButton = !self.isMicEnabled
+        self.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .bookmark, state: .normal)
+        self.setPositionAdjustment(UIOffset(horizontal: +9, vertical: 0), for: .bookmark)
+
         
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: UITextField.textDidChangeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(textDidEndEditing), name: UITextField.textDidEndEditingNotification, object: nil)
@@ -105,9 +109,9 @@ class ATSearchBar: UISearchBar {
     
     
     func hideMiceButton(isHidden: Bool) {
-        self.micButton.isHidden = isHidden
-        self.bringSubviewToFront(self.micButton)
-        
+//        self.micButton.isHidden = isHidden
+//        self.bringSubviewToFront(self.micButton)
+        self.showsBookmarkButton = isHidden
 //        if (self.micButton != nil) {
 //        switch SFSpeechRecognizer.authorizationStatus() {
 //        case .notDetermined:

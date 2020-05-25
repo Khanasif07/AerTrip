@@ -308,6 +308,9 @@ class HotelFilterVC: BaseVC {
 //        if UserInfo.hotelFilter == nil {
 //            HotelFilterVM.shared.lastSelectedIndex = 0
 //        }
+//        if let indexPath = self.parchmentView?.collectionView.centerCellIndexPath {
+//            HotelFilterVM.shared.lastSelectedIndex = indexPath.item
+//        }
         HotelFilterVM.shared.saveDataToUserDefaults()
         delegate?.doneButtonTapped()
     }

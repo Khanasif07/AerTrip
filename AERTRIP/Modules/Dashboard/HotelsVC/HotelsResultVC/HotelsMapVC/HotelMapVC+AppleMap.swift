@@ -17,6 +17,7 @@ extension HotelsMapVC : MKMapViewDelegate{
         let annotationView = ResistantAnnotationView(annotation: annatation, reuseIdentifier: "route")
         annotationView.image = returnImageForMarker(annotation: annatation)
         annotationView.canShowCallout = true
+        annotationView.isUserInteractionEnabled = true
         return annotationView
         
     }
@@ -239,6 +240,8 @@ extension HotelsMapVC : MKMapViewDelegate{
         if let annotationView = self.appleMap.view(for: anno)  as?  ResistantAnnotationView{
                 annotationView.resistantLayer.resistantZPosition = 1000
         }
+        
+        appleMap.deselectAnnotation(anno, animated: false)
     }
     
     
