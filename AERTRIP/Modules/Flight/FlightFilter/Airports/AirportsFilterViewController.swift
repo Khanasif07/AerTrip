@@ -175,10 +175,6 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
                 return newCity
             }
             currentAirportFilter.destinationCities.sort(by: { $0.name < $1.name })
-            
-//            if searchType == RETURN_JOURNEY {
-//                currentAirportFilter.layoverCities = airportFilterArray.flatMap { $0.layoverCities }
-//            }
         }
         
 //        if let allAirportsSelected = allOriginDestSelectedAtIndex[currentActiveIndex] {
@@ -213,7 +209,7 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
              self.destinationTableViewHeight.constant = 0
         }
         else {
-            self.destinationTopViewSpacing.constant = 16
+            self.destinationTopViewSpacing.constant = originTableViewHeight.constant == 0 ? 0 : 16
             self.destinationTableViewHeight.constant = self.destinationsTableView.contentSize.height
         }
 
@@ -230,12 +226,6 @@ class AirportsFilterViewController: UIViewController , FilterViewController {
         if isIntReturnOrMCJourney {
             if searchType == RETURN_JOURNEY {
                 checkForDepartReturnSame()
-            } else {
-                if currentAirportFilter.originAirportsCount > 1 || currentAirportFilter.destinationAirportsCount > 1 {
-                    originDestinationView.isHidden = false
-                } else {
-                    originDestinationView.isHidden = true
-                }
             }
         }
         

@@ -411,7 +411,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     @IBAction func leastStopsButtonTapped(_ sender: UIButton) {
         
         if sender.isSelected {
-            sender.isSelected = false
+            return
         }
         else {
             sender.isSelected = true
@@ -422,7 +422,7 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
     @objc func tapOnLeastStopsView( sender: UITapGestureRecognizer) {
         
         if leastStopsButton.isSelected {
-            leastStopsButton.isSelected = false
+            return
         } else {
             selectLeastStopsForAllLegs()
             leastStopsButton.isSelected = true
@@ -483,18 +483,17 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
             }
         }
         
-        if currentStopFilter.userSelectedStops.count > 1 {
-//            leastStopsButton.isSelected = false
-        }
-        
-        if currentStopFilter.userSelectedStops.count == 1 {
+        if currentStopFilter.userSelectedStops.count > 1 || currentStopFilter.userSelectedStops.isEmpty {
+            leastStopsButton.isSelected = false
+            
+        }else if currentStopFilter.userSelectedStops.count == 1 {
             for filter in allStopsFilters {
                 
                 if filter.userSelectedStops.count == 1 && filter.userSelectedStops.contains(filter.leastStop){
-//                    leastStopsButton.isSelected = true
+                    leastStopsButton.isSelected = true
                     continue
                 }else {
-//                    leastStopsButton.isSelected = false
+                    leastStopsButton.isSelected = false
                     break
                 }
             }
@@ -517,9 +516,12 @@ class FlightStopsFilterViewController: UIViewController, FilterViewController  {
                 delegate?.stopsSelectionChangedAt(0, stops: currentLegStopsSelection)
                 delegate?.stopsSelectionChangedAt(1, stops: currentLegStopsSelection)
             }else {
-                delegate?.stopsSelectionChangedAt(currentActiveIndex, stops: currentLegStopsSelection)
+//                delegate?.stopsSelectionChangedAt(currentActiveIndex, stops: currentLegStopsSelection)
+                
+                allStopsFilters.enumerated().forEach { (index, filter) in
+                    delegate?.stopsSelectionChangedAt(index, stops: filter.userSelectedStops)
+                }
             }
-       // }
         allStopsFilters[currentActiveIndex] = currentStopFilter
         setmultiLegSubviews()
         

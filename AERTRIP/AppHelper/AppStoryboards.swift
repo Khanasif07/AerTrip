@@ -30,6 +30,7 @@ enum AppStoryboard : String {
     case InternationalReturnAndMulticityDetails
     case FlightDetailsBaseVC
     case Adons
+    case Rishabh_Dev
 }
 
 extension AppStoryboard {
