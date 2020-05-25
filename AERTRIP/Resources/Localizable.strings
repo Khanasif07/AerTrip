@@ -961,9 +961,14 @@
 "Hotel" = "Hotel";
 
 
-
 //payment and checkout
 "Meals" = "Meals";
 "Seat" = "Seat";
 "Baggage" = "Baggage";
 "Others" = "Others";
+
+
+// Seat Map
+"seatMap" = "Seat Map";
+"mainDeck" = "Main Deck";
+"upperDeck" = "Upper Deck";
