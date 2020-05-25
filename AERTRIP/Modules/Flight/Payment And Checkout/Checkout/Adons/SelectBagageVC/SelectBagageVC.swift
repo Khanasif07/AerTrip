@@ -1,15 +1,14 @@
 //
-//  SelectMealsdVC.swift
-//  Aertrip
+//  SelectBagageVC.swift
+//  AERTRIP
 //
-//  Created by Appinventiv on 18/05/20.
-//  Copyright © 2020 Aertrip. All rights reserved.
+//  Created by Appinventiv on 25/05/20.
+//  Copyright © 2020 Pramod Kumar. All rights reserved.
 //
 
 import UIKit
 
-
-class SelectMealsdVC: UIViewController {
+class SelectBagageVC: UIViewController {
     
     @IBOutlet weak var mealsTableView: UITableView!
     
@@ -38,7 +37,7 @@ class SelectMealsdVC: UIViewController {
     
 }
 
-extension SelectMealsdVC {
+extension SelectBagageVC {
     
  
         private func configureTableView(){
@@ -54,7 +53,7 @@ extension SelectMealsdVC {
 }
 
 
-extension SelectMealsdVC : UITableViewDelegate, UITableViewDataSource {
+extension SelectBagageVC : UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -82,4 +81,3 @@ extension SelectMealsdVC : UITableViewDelegate, UITableViewDataSource {
         
     }
 }
-

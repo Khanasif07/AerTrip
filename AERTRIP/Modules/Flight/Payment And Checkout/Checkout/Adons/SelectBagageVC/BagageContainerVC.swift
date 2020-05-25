@@ -1,5 +1,5 @@
 //
-//  MealsContainerVC.swift
+//  BagageContainerVC.swift
 //  AERTRIP
 //
 //  Created by Appinventiv on 25/05/20.
@@ -9,65 +9,65 @@
 import UIKit
 import Parchment
 
-class MealsContainerVC: BaseVC {
-    
+
+class BagageContainerVC: BaseVC {
+
     // MARK: Properties
-    fileprivate var parchmentView : PagingViewController?
-    private let allTabsStr: [String] = ["BOM → LON", "LON → NYC", "NYC → DEL"]
-    
-    var allChildVCs = [UIViewController]()
-    var currentIndex = 0
-    
-    // MARK: IBOutlets
-    @IBOutlet weak var topNavBarView: TopNavigationView!
-    @IBOutlet weak var mealsContainerView: UIView!
-    
-    // MARK: View Life Cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.initialSetup()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.configureNavigation()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        self.parchmentView?.view.frame = self.mealsContainerView.bounds
-        self.parchmentView?.loadViewIfNeeded()
-    }
-    
-    override func setupFonts() {
-        super.setupFonts()
-        
-    }
-    
-    override func setupTexts() {
-        super.setupTexts()
-        
-    }
-    
-    override func setupColors() {
-        super.setupColors()
-        
-    }
-    
-    override func initialSetup() {
-        super.initialSetup()
-        setupNavBar()
-        setUpViewPager()
-    }
-    
+       fileprivate var parchmentView : PagingViewController?
+       private let allTabsStr: [String] = ["BOM → LON", "LON → NYC", "NYC → DEL"]
+       
+       var allChildVCs = [UIViewController]()
+       var currentIndex = 0
+       
+       // MARK: IBOutlets
+       @IBOutlet weak var topNavBarView: TopNavigationView!
+       @IBOutlet weak var mealsContainerView: UIView!
+       
+       // MARK: View Life Cycle
+       override func viewDidLoad() {
+           super.viewDidLoad()
+           self.initialSetup()
+       }
+       
+       override func viewWillAppear(_ animated: Bool) {
+           super.viewWillAppear(animated)
+           self.configureNavigation()
+       }
+       
+       override func viewDidLayoutSubviews() {
+           super.viewDidLayoutSubviews()
+           self.parchmentView?.view.frame = self.mealsContainerView.bounds
+           self.parchmentView?.loadViewIfNeeded()
+       }
+       
+       override func setupFonts() {
+           super.setupFonts()
+           
+       }
+       
+       override func setupTexts() {
+           super.setupTexts()
+           
+       }
+       
+       override func setupColors() {
+           super.setupColors()
+           
+       }
+       
+       override func initialSetup() {
+           super.initialSetup()
+           setupNavBar()
+           setUpViewPager()
+       }
+
 }
 
-
-extension MealsContainerVC {
+extension BagageContainerVC {
     
     private func configureNavigation(){
         self.topNavBarView.delegate = self
-        self.topNavBarView.configureNavBar(title: LocalizedString.Meals.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : false)
+        self.topNavBarView.configureNavBar(title: LocalizedString.Baggage.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : false)
         
         self.topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen)
         
@@ -79,7 +79,7 @@ extension MealsContainerVC {
     private func setUpViewPager() {
         self.allChildVCs.removeAll()
         for _ in 0..<allTabsStr.count {
-            let vc = SelectMealsdVC.instantiate(fromAppStoryboard: .Adons)
+            let vc = SelectBagageVC.instantiate(fromAppStoryboard: .Adons)
             self.allChildVCs.append(vc)
         }
         self.view.layoutIfNeeded()
@@ -124,7 +124,7 @@ extension MealsContainerVC {
 }
 
 
-extension MealsContainerVC: TopNavigationViewDelegate {
+extension BagageContainerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         
     }
@@ -135,7 +135,7 @@ extension MealsContainerVC: TopNavigationViewDelegate {
     
 }
 
-extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
+extension BagageContainerVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         
         if let pagingIndexItem = pagingItem as? MenuItem{

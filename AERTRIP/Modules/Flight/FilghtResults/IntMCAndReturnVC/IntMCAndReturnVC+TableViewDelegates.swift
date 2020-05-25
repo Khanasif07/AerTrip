@@ -198,29 +198,37 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        
+        let vc = BagageContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+//        let vc = MealsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+//
+//        self.navigationController?.pushViewController(vc, animated: true)
+        
 //        let seatMapVC = SeatMapContainerVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
 //        seatMapVC.modalPresentationStyle = .overFullScreen
 //        present(seatMapVC, animated: true, completion: nil)
 //        return
         
-        if let journeyCell = tableView.cellForRow(at: indexPath) as? InternationalReturnTableViewCell {
-            let curJourney = journeyCell.currentJourney
-            let vc = FlightDetailsBaseVC.instantiate(fromAppStoryboard: .FlightDetailsBaseVC)
-            vc.delegate = self
-            vc.isInternational = true
-            vc.bookFlightObject = self.bookFlightObject
-            vc.taxesResult = self.taxesResult
-            vc.refundDelegate = self
-            vc.sid = self.sid
-            vc.intJourney = [curJourney]
-            vc.intAirportDetailsResult = self.airportDetailsResult
-            vc.intAirlineDetailsResult = self.airlineDetailsResult
-            vc.selectedJourneyFK = [curJourney.fk]
-            vc.journeyTitle = self.titleString
-            vc.journeyDate = self.subtitleString
-            self.present(vc, animated: true, completion: nil)
-        }
+//        if let journeyCell = tableView.cellForRow(at: indexPath) as? InternationalReturnTableViewCell {
+//            let curJourney = journeyCell.currentJourney
+//            let vc = FlightDetailsBaseVC.instantiate(fromAppStoryboard: .FlightDetailsBaseVC)
+//            vc.delegate = self
+//            vc.isInternational = true
+//            vc.bookFlightObject = self.bookFlightObject
+//            vc.taxesResult = self.taxesResult
+//            vc.refundDelegate = self
+//            vc.sid = self.sid
+//            vc.intJourney = [curJourney]
+//            vc.intAirportDetailsResult = self.airportDetailsResult
+//            vc.intAirlineDetailsResult = self.airlineDetailsResult
+//            vc.selectedJourneyFK = [curJourney.fk]
+//            vc.journeyTitle = self.titleString
+//            vc.journeyDate = self.subtitleString
+//            self.present(vc, animated: true, completion: nil)
+//        }
     }
 }
 

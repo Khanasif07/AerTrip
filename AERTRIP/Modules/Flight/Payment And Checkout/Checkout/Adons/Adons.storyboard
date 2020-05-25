@@ -167,5 +167,76 @@ get upto 20% off </string>
             </objects>
             <point key="canvasLocation" x="-18" y="374"/>
         </scene>
+        <!--Bagage ContainerVC-->
+        <scene sceneID="VT4-nZ-hn9">
+            <objects>
+                <viewController storyboardIdentifier="BagageContainerVC" id="0FH-y2-Rd7" customClass="BagageContainerVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QBp-5M-H9w">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gJW-Ng-LPl" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="cWc-LF-vbP"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xgj-ke-c0v">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="UQG-dr-eC1" firstAttribute="bottom" secondItem="xgj-ke-c0v" secondAttribute="bottom" id="Bkm-YI-Ldg"/>
+                            <constraint firstItem="gJW-Ng-LPl" firstAttribute="leading" secondItem="UQG-dr-eC1" secondAttribute="leading" id="D1A-OL-oe5"/>
+                            <constraint firstItem="UQG-dr-eC1" firstAttribute="trailing" secondItem="gJW-Ng-LPl" secondAttribute="trailing" id="Do7-Lu-ldZ"/>
+                            <constraint firstItem="gJW-Ng-LPl" firstAttribute="top" secondItem="UQG-dr-eC1" secondAttribute="top" id="TDN-rI-iZq"/>
+                            <constraint firstItem="xgj-ke-c0v" firstAttribute="top" secondItem="gJW-Ng-LPl" secondAttribute="bottom" id="gjE-Eg-76v"/>
+                            <constraint firstItem="UQG-dr-eC1" firstAttribute="trailing" secondItem="xgj-ke-c0v" secondAttribute="trailing" id="vLV-KF-JPg"/>
+                            <constraint firstItem="xgj-ke-c0v" firstAttribute="leading" secondItem="UQG-dr-eC1" secondAttribute="leading" id="zmQ-Bl-0kT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="UQG-dr-eC1"/>
+                    </view>
+                    <connections>
+                        <outlet property="mealsContainerView" destination="xgj-ke-c0v" id="4W5-8c-sn1"/>
+                        <outlet property="topNavBarView" destination="gJW-Ng-LPl" id="deZ-dW-RPM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dcv-gt-6tZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-860" y="1111"/>
+        </scene>
+        <!--Select BagageVC-->
+        <scene sceneID="O3x-i6-Do9">
+            <objects>
+                <viewController storyboardIdentifier="SelectBagageVC" id="4rT-oR-DOa" customClass="SelectBagageVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pU5-Nz-2sB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yXU-ui-NKd">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="yXU-ui-NKd" firstAttribute="leading" secondItem="69b-aS-LoE" secondAttribute="leading" id="Lfd-pl-M2G"/>
+                            <constraint firstItem="yXU-ui-NKd" firstAttribute="top" secondItem="69b-aS-LoE" secondAttribute="top" id="VUl-mu-HT3"/>
+                            <constraint firstItem="yXU-ui-NKd" firstAttribute="trailing" secondItem="69b-aS-LoE" secondAttribute="trailing" id="i3T-bo-lYn"/>
+                            <constraint firstAttribute="bottom" secondItem="yXU-ui-NKd" secondAttribute="bottom" id="ulN-1H-ybu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="69b-aS-LoE"/>
+                    </view>
+                    <connections>
+                        <outlet property="mealsTableView" destination="yXU-ui-NKd" id="F6q-nd-N3n"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vxo-xm-sET" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="22" y="1110"/>
+        </scene>
     </scenes>
 </document>

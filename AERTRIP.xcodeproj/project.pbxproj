@@ -22,6 +22,10 @@
 		0C0AB1F6247BEC7E005E5E99 /* SelectMealsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1F5247BEC7E005E5E99 /* SelectMealsVM.swift */; };
 		0C0AB1F9247BECC5005E5E99 /* SelectMealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1F7247BECC5005E5E99 /* SelectMealCell.swift */; };
 		0C0AB1FA247BECC5005E5E99 /* SelectMealCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C0AB1F8247BECC5005E5E99 /* SelectMealCell.xib */; };
+		0C0AB1FD247C3CD5005E5E99 /* BagageContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1FC247C3CD5005E5E99 /* BagageContainerVC.swift */; };
+		0C0AB1FF247C3D6D005E5E99 /* SelectBagageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1FE247C3D6D005E5E99 /* SelectBagageVC.swift */; };
+		0C0AB202247C439F005E5E99 /* SelectBagageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB200247C439F005E5E99 /* SelectBagageCell.swift */; };
+		0C0AB203247C439F005E5E99 /* SelectBagageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C0AB201247C439F005E5E99 /* SelectBagageCell.xib */; };
 		0C0B231524210CD700E1764D /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C0B231424210CD700E1764D /* Chat.storyboard */; };
 		0C162AC8242337E9001C2B10 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162AC7242337E9001C2B10 /* MessageModel.swift */; };
 		0C162ACC24233AC5001C2B10 /* ChatVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */; };
@@ -1522,6 +1526,10 @@
 		0C0AB1F5247BEC7E005E5E99 /* SelectMealsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMealsVM.swift; sourceTree = "<group>"; };
 		0C0AB1F7247BECC5005E5E99 /* SelectMealCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMealCell.swift; sourceTree = "<group>"; };
 		0C0AB1F8247BECC5005E5E99 /* SelectMealCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectMealCell.xib; sourceTree = "<group>"; };
+		0C0AB1FC247C3CD5005E5E99 /* BagageContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagageContainerVC.swift; sourceTree = "<group>"; };
+		0C0AB1FE247C3D6D005E5E99 /* SelectBagageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBagageVC.swift; sourceTree = "<group>"; };
+		0C0AB200247C439F005E5E99 /* SelectBagageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBagageCell.swift; sourceTree = "<group>"; };
+		0C0AB201247C439F005E5E99 /* SelectBagageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectBagageCell.xib; sourceTree = "<group>"; };
 		0C0B231424210CD700E1764D /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		0C162AC7242337E9001C2B10 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatVC+TableView.swift"; sourceTree = "<group>"; };
@@ -3215,6 +3223,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		0C0AB1FB247C3C71005E5E99 /* SelectBagageVC */ = {
+			isa = PBXGroup;
+			children = (
+				0C0AB1FC247C3CD5005E5E99 /* BagageContainerVC.swift */,
+				0C0AB1FE247C3D6D005E5E99 /* SelectBagageVC.swift */,
+			);
+			path = SelectBagageVC;
+			sourceTree = "<group>";
+		};
 		0C162AC6242337D1001C2B10 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -3425,6 +3442,8 @@
 				0CC1B4E52478104E00AE6F12 /* AdonsCell.xib */,
 				0C0AB1F7247BECC5005E5E99 /* SelectMealCell.swift */,
 				0C0AB1F8247BECC5005E5E99 /* SelectMealCell.xib */,
+				0C0AB200247C439F005E5E99 /* SelectBagageCell.swift */,
+				0C0AB201247C439F005E5E99 /* SelectBagageCell.xib */,
 			);
 			path = TableViewAndCollectionViewCells;
 			sourceTree = "<group>";
@@ -5764,6 +5783,7 @@
 		843FF3622474022F001F21B1 /* Adons */ = {
 			isa = PBXGroup;
 			children = (
+				0C0AB1FB247C3C71005E5E99 /* SelectBagageVC */,
 				847C2236247BCBED004F32D6 /* SeatMapContainerVC */,
 				0C0AB1A9247B9101005E5E99 /* ViewModel */,
 				0CC1B4E32478104E00AE6F12 /* TableViewAndCollectionViewCells */,
@@ -8737,6 +8757,7 @@
 				843FF69D247409E4001F21B1 /* TravellerListImport.storyboard in Resources */,
 				84EEA5D523E19E0C008B95CD /* EditProfileFooterTableView.xib in Resources */,
 				843FF4CC24740231001F21B1 /* FlightEmailFieldCell.xib in Resources */,
+				0C0AB203247C439F005E5E99 /* SelectBagageCell.xib in Resources */,
 				843FF53024740232001F21B1 /* JourneyHeaderView.xib in Resources */,
 				0CBDEA442429CD3F009D7849 /* TypingStatusChatCell.xib in Resources */,
 				1F4636D021F5ABF0000D56B0 /* CheckInOutView.xib in Resources */,
@@ -9054,6 +9075,7 @@
 				84D2FB8621BE351E00011000 /* PKCountryPickerSettings.swift in Sources */,
 				84B1405E22A166C900EAA5D2 /* FlightBookingRequestsTableViewCell.swift in Sources */,
 				842EDE842238E7D600E99409 /* HotelDetailsAmenitiesVM.swift in Sources */,
+				0C0AB1FD247C3CD5005E5E99 /* BagageContainerVC.swift in Sources */,
 				843FF4A124740231001F21B1 /* RadioButtonTableViewCell.swift in Sources */,
 				8463A5642456C7B200C70D8C /* GMUGradient.m in Sources */,
 				84B6DEA522805D5D0042D902 /* AccountChargeInfoVC.swift in Sources */,
@@ -9428,6 +9450,7 @@
 				1835E50C23EAC1F100F6EEA1 /* StatusBarAnimatable.swift in Sources */,
 				84085D1521F59C0E00F1E844 /* SideMenuVM.swift in Sources */,
 				8463A5702456C7B200C70D8C /* GMUGeoJSONParser.m in Sources */,
+				0C0AB202247C439F005E5E99 /* SelectBagageCell.swift in Sources */,
 				843FF4B824740231001F21B1 /* AirportSelectionCell.swift in Sources */,
 				84B6DEA0228018DC0042D902 /* SpecialAccountDetailsVM.swift in Sources */,
 				84EAABED21DA0A96006B757F /* SideMenuLogoView.swift in Sources */,
@@ -10037,6 +10060,7 @@
 				18D4C41D220ACD06005E1E37 /* RoomTableViewCell.swift in Sources */,
 				843FF4BE24740231001F21B1 /* PassengerDetailsVM.swift in Sources */,
 				8477163F22844AC0000E1BB6 /* PeriodicStatementVM.swift in Sources */,
+				0C0AB1FF247C3D6D005E5E99 /* SelectBagageVC.swift in Sources */,
 				1835E50223EAC1CD00F6EEA1 /* CardTransition.swift in Sources */,
 				84E4BC7F22A1441000B72306 /* WeatherInfoTableViewCell.swift in Sources */,
 				8480683522099CC800CBF362 /* BulkRoomSelectionVM.swift in Sources */,

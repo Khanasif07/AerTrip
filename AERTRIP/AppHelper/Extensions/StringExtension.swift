@@ -670,6 +670,15 @@ extension String {
          
          return boundingBox.height
      }
+    
+    func widthOfText(_ height: CGFloat, font: UIFont) -> CGFloat {
+        
+        let constraintRect = CGSize(width: CGFloat.greatestFiniteMagnitude, height: height)
+        
+        let boundingBox = self.boundingRect(with: constraintRect, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+        
+        return boundingBox.width
+    }
 }
 
 extension String {
