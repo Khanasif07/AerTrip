@@ -25,17 +25,26 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
+        guard GuestDetailsVM.shared.guests.count != 0 else {return 0}
         if indexPath.section == 0{
             if indexPath.row == 0{
-                let isEmptyText = true//after selection cusromer manage space for last name
-                let height = isEmptyText ? 119 : 136
-                if (self.viewModel.totalPassengerCount)%4 == 0{
-                    let count = ((self.viewModel.totalPassengerCount)/4 == 0) ? 1 : (self.viewModel.totalPassengerCount)/4
-                    return CGFloat(height * count)
-                }else{
-                    return CGFloat(height * ((self.viewModel.totalPassengerCount)/4 + 1))
+                var firstRowHeight:CGFloat = 0
+                var secondRowHeight:CGFloat = 0
+                var thirdRowHeight:CGFloat = 0
+                for i in 0..<GuestDetailsVM.shared.guests[indexPath.section].count {
+                    switch i{
+                    case 0,1,2,3:
+                        firstRowHeight = (firstRowHeight == 136 || (!(GuestDetailsVM.shared.guests[indexPath.section][i].firstName.isEmpty) && !(GuestDetailsVM.shared.guests[indexPath.section][i].lastName.isEmpty))) ? 136 : 119
+                    case 4,5,6,7:
+                        secondRowHeight = (secondRowHeight == 136 || (!(GuestDetailsVM.shared.guests[indexPath.section][i].firstName.isEmpty) && !(GuestDetailsVM.shared.guests[indexPath.section][i].lastName.isEmpty))) ? 136 : 119
+                    case 8,9,10,11:
+                        thirdRowHeight = (thirdRowHeight == 136 || (!(GuestDetailsVM.shared.guests[indexPath.section][i].firstName.isEmpty) && !(GuestDetailsVM.shared.guests[indexPath.section][i].lastName.isEmpty))) ? 136 : 119
+                    default: break;
+                    }
+                    
                 }
+                
+                return (firstRowHeight + secondRowHeight + thirdRowHeight)
             }else{
                 return 35
             }
@@ -82,6 +91,7 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "cell") as? PassengerGridCell else {return UITableViewCell()}
             cell.totalPassenger = self.viewModel.totalPassengerCount
             cell.configData(forIndexPath: indexPath, passengers: self.viewModel.passengerList)
+            cell.journeyType = self.viewModel.journeyType
             cell.delegate = self
             return cell
         case 1:
@@ -139,7 +149,8 @@ extension PassengersSelectionVC: PassengerGridSelectionDelegate{
     
     func didSelected(at indexPath: IndexPath){
         let vc = PassengerDetailsVC.instantiate(fromAppStoryboard: .PassengersSelection)
-        vc.viewModel.passengerList = self.viewModel.passengerList
+        vc.viewModel.journeyType = self.viewModel.journeyType
+        vc.delegate = self
         vc.viewModel.currentIndex = indexPath.row
         self.navigationController?.pushViewController(vc, animated: true)
     }

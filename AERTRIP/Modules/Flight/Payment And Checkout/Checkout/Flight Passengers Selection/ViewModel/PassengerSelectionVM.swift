@@ -23,8 +23,8 @@ class PassengerSelectionVM  {
     var journeyDate:String?
     //Varialbles for domestic and oneway
     var journey:[Journey]?
-    var airportDetailsResult = [String : IntAirportDetailsWS]()
-    var airlineDetailsResult = [String : IntAirlineMasterWS]()
+    var airportDetailsResult = [String : AirportDetailsWS]()
+    var airlineDetailsResult = [String : AirlineMasterWS]()
     
     //Varialbles for international return and multicity
     var intAirportDetailsResult : [String : IntAirportDetailsWS]!
@@ -46,35 +46,77 @@ class PassengerSelectionVM  {
         }
     }
     
+
     
-    func getPasseger(){
-        passengerList = []
+    func setupGuestArray() {
+        GuestDetailsVM.shared.guests.removeAll()
+        var temp: [ATContact] = []
+        self.journeyType = (self.bookingObject?.isDomestic ?? true) ? .domestic : .international
         guard let bookingObj = self.bookingObject else {return}
         for i in 0..<bookingObj.flightAdultCount{
-            var passenger = Passenger()
-            passenger.passengerType = PassengerType.adult
-            passenger.frequentFlyer = self.getFrequentFlyer()
-            passenger.mealPreference = self.getMealfreference()
-            passenger.title = "\(PassengerType.adult.rawValue) \(i+1)".capitalized
-            passengerList.append(passenger)
+            var guest = ATContact()
+            guest.passengerType = PassengersType.Adult
+            guest.frequentFlyer = self.getFrequentFlyer()
+            guest.mealPreference = self.getMealfreference()
+            guest.numberInRoom = (i + 1)
+            guest.id = "\(i + 1)"
+            guest.age = 0
+            temp.append(guest)
         }
         for i in 0..<bookingObj.flightChildrenCount{
-            var passenger = Passenger()
-            passenger.passengerType = PassengerType.child
-            passenger.frequentFlyer = self.getFrequentFlyer()
-            passenger.mealPreference = self.getMealfreference()
-            passenger.title = "\(PassengerType.child.rawValue) \(i+1)".capitalized
-            passengerList.append(passenger)
+            var guest = ATContact()
+            let idx = bookingObj.flightChildrenCount + i + 1
+            guest.passengerType = PassengersType.child
+            guest.frequentFlyer = self.getFrequentFlyer()
+            guest.mealPreference = self.getMealfreference()
+            guest.numberInRoom = (i + 1)
+            guest.id = "\(idx)"
+            guest.age = 0
+            temp.append(guest)
         }
         for i in 0..<bookingObj.flightInfantCount{
-            var passenger = Passenger()
-            passenger.passengerType = PassengerType.infant
-            passenger.frequentFlyer = self.getFrequentFlyer()
-            passenger.mealPreference = self.getMealfreference()
-            passenger.title = "\(PassengerType.infant.rawValue) \(i+1)".capitalized
-            passengerList.append(passenger)
+            var guest = ATContact()
+            let idx = bookingObj.flightAdultCount + bookingObj.flightChildrenCount + i + 1
+            guest.passengerType = PassengersType.infant
+            guest.frequentFlyer = self.getFrequentFlyer()
+            guest.mealPreference = self.getMealfreference()
+            guest.numberInRoom = (i + 1)
+            guest.id = "\(idx)"
+            guest.age = 0
+            temp.append(guest)
         }
+        GuestDetailsVM.shared.guests.append(temp)
+        GuestDetailsVM.shared.canShowSalutationError = false
     }
+    
+//    func getPasseger(){
+//        passengerList = []
+//        guard let bookingObj = self.bookingObject else {return}
+//        for i in 0..<bookingObj.flightAdultCount{
+//            var passenger = Passenger()
+//            passenger.passengerType = PassengerType.adult
+//            passenger.frequentFlyer = self.getFrequentFlyer()
+//            passenger.mealPreference = self.getMealfreference()
+//            passenger.title = "\(PassengerType.adult.rawValue) \(i+1)".capitalized
+//            passengerList.append(passenger)
+//        }
+//        for i in 0..<bookingObj.flightChildrenCount{
+//            var passenger = Passenger()
+//            passenger.passengerType = PassengerType.child
+//            passenger.frequentFlyer = self.getFrequentFlyer()
+//            passenger.mealPreference = self.getMealfreference()
+//            passenger.title = "\(PassengerType.child.rawValue) \(i+1)".capitalized
+//            passengerList.append(passenger)
+//        }
+//        for i in 0..<bookingObj.flightInfantCount{
+//            var passenger = Passenger()
+//            passenger.passengerType = PassengerType.infant
+//            passenger.frequentFlyer = self.getFrequentFlyer()
+//            passenger.mealPreference = self.getMealfreference()
+//            passenger.title = "\(PassengerType.infant.rawValue) \(i+1)".capitalized
+//            passengerList.append(passenger)
+//        }
+//    }
     
     private func getMealfreference()-> [MealPreference]{
         guard let intJourney = intJourney.first else {

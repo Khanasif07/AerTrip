@@ -25,7 +25,7 @@ class PassengersSelectionVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerCell()
-        self.viewModel.getPasseger()
+        self.viewModel.setupGuestArray()
         self.setupFont()
         self.navigationController?.navigationBar.isHidden = true
         self.passengerTableview.separatorStyle = .none
@@ -168,7 +168,7 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
 extension PassengersSelectionVC: HCSelectGuestsVCDelegate{
     
     func didAddedContacts(){
-        
+        self.passengerTableview.reloadData()
     }
     
 }

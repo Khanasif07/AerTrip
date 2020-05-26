@@ -22,7 +22,7 @@ class MealPreferenceCell: UITableViewCell {
     @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var cellLargeTitleHeight: NSLayoutConstraint!
-    var passenger = Passenger()
+    var passenger = ATContact()
     var cellIndexPath = IndexPath()
     
     override func awakeFromNib() {
@@ -51,7 +51,7 @@ class MealPreferenceCell: UITableViewCell {
     }
     
     
-    func configureForMealPreference(with passenger: Passenger, at indexPath: IndexPath){
+    func configureForMealPreference(with passenger: ATContact, at indexPath: IndexPath){
         self.numberView.isHidden = true
         self.cellIndexPath = indexPath
         self.passenger = passenger
@@ -68,7 +68,7 @@ class MealPreferenceCell: UITableViewCell {
         self.bottomSeparatorView.isHidden = false
     }
     
-    func configureForFlyer(with passenger: Passenger, at indexPath: IndexPath){
+    func configureForFlyer(with passenger: ATContact, at indexPath: IndexPath){
         self.numberView.isHidden = false
         self.cellIndexPath = indexPath
         self.passenger = passenger
