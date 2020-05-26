@@ -13,6 +13,8 @@ class SeatMapContainerVC: UIViewController {
 
     // MARK: Properties
     
+    private let viewModel = SeatMapContainerVM()
+    
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
     
@@ -49,6 +51,7 @@ class SeatMapContainerVC: UIViewController {
     private func initialSetup() {
         setupNavBar()
         setUpViewPager()
+        viewModel.fetchSeatMapData()
     }
     
     private func setupNavBar() {
