@@ -83,30 +83,7 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-           let labelWidth = tableView.frame.width - (16 + 104 + 19 + 46)
-       
-//          let headingHeight = self.adonsVm.addOnsData[indexPath.row].heading.heightOfText(labelWidth, font: AppFonts.SemiBold.withSize(18))
-        
-        let headingHeight = self.adonsVm.addOnsData[indexPath.row].heading.getTextHeight(width: labelWidth,font: AppFonts.SemiBold.withSize(18),  numberOfLines: 1)
-        
-//        let descHeight = self.adonsVm.addOnsData[indexPath.row].desc.heightOfText(labelWidth, font: AppFonts.Regular.withSize(14))
-        
-        let descHeight = self.adonsVm.addOnsData[indexPath.row].desc.getTextHeight(width: labelWidth,font: AppFonts.Regular.withSize(14),  numberOfLines: 2)
-
-        let complementHeight = self.adonsVm.addOnsData[indexPath.row].complement.getTextHeight(width: labelWidth,font: AppFonts.Regular.withSize(12),  numberOfLines: 1) + 4
-   
-        let complementHeightToBeAddedOrNot : CGFloat = self.adonsVm.addOnsData[indexPath.row].shouldShowComp ? complementHeight : 0
-
-        let midSpacing : CGFloat = 7
-        
-        let topAndBottomSpacing : CGFloat = 19 + 19
-        
-        let totalHeight = headingHeight + descHeight + complementHeightToBeAddedOrNot + midSpacing + topAndBottomSpacing
-        
-        let finalheight = totalHeight <= 104 ? 104 : totalHeight
-        
-        return finalheight
+        return self.adonsVm.getCellHeight(index: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
