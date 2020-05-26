@@ -23,20 +23,15 @@ class AdonsCell: UITableViewCell {
         headingLabel.font = AppFonts.SemiBold.withSize(18)
         descriptionLabel.font = AppFonts.Regular.withSize(14)
         complementLabel.font = AppFonts.Regular.withSize(12)
-        
         headingLabel.textColor = UIColor.black
         descriptionLabel.textColor = AppColors.themeGray60
+        
+        headingLabel.lineBreakMode = .byTruncatingMiddle
         complementLabel.textColor = AppColors.themeGreen
+        complementBackView.setBorder(borderWidth: 1, borderColor: AppColors.themeGreen)
+        complementBackView.roundedCorners(cornerRadius: 3)
 
-//        complementLabel.setBorder(borderWidth: 1, borderColor: AppColors.themeGreen)
-//        complementLabel.roundedCorners(cornerRadius: 3)
         
-    complementBackView.setBorder(borderWidth: 1, borderColor: AppColors.themeGreen)
-    complementBackView.roundedCorners(cornerRadius: 3)
-
-//        complementBackView.isHidden = true
-        
-//        complementLabel
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -45,29 +40,30 @@ class AdonsCell: UITableViewCell {
     }
     
     
-    func populateData(type : AdonsVM.AdonsType){
+    func populateData(type : AdonsVM.AdonsType, data : (heading : String,desc : String,complement : String, shouldShowComp : Bool)){
         
+        self.headingLabel.text = data.heading
+        self.descriptionLabel.text = data.desc
+        self.complementLabel.text = data.shouldShowComp ? data.complement : ""
+        self.complementBackView.isHidden = !data.shouldShowComp
+
         switch type {
         case .meals:
-            self.headingLabel.text = LocalizedString.Meals.localized
             self.addOnImageView.image = #imageLiteral(resourceName: "meals")
-
+            
         case .baggage:
-            self.headingLabel.text = LocalizedString.Baggage.localized
-            
-            let heading = "\(LocalizedString.Baggage.localized) 25, 15, 10, 5… kgs jhgghjg jhkhkjhkhkhkjhkjhkhkh  kjhjkh"
             self.addOnImageView.image = #imageLiteral(resourceName: "baggage")
-        self.headingLabel.attributedText = heading.attributeStringWithColors(subString: LocalizedString.Baggage.localized, strClr: AppColors.themeGreen, substrClr: UIColor.black, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
-            
+            let heading = "\(LocalizedString.Baggage.localized) 25, 15, 10, 5, 16, 34, 20 kg"
+       
+            self.headingLabel.attributedText = heading.attributeStringWithColors(subString: LocalizedString.Baggage.localized, strClr: AppColors.themeGreen, substrClr: UIColor.black, strFont: AppFonts.SemiBold.withSize(16), subStrFont: AppFonts.SemiBold.withSize(18))
+
         case .seat:
-            self.headingLabel.text = LocalizedString.Seat.localized
             self.addOnImageView.image = #imageLiteral(resourceName: "seats")
-
+ 
         case .otheres:
-            self.headingLabel.text = LocalizedString.Others.localized
             self.addOnImageView.image = #imageLiteral(resourceName: "others")
-
         }
+
     }
     
 }

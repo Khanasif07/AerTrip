@@ -49,7 +49,7 @@ class SelectMealCell: UITableViewCell {
     func populateData(index : Int){
         if index == 3{
                             
-                self.mealTitleLabel.text = "Hindu (Non- Vegetarian) Meal Specific"
+                self.mealTitleLabel.text = "Hindu (Non- Vegetarian) Meal Specific Hindu (Non- Vegetarian) Meal Specific"
                 
                 self.mealForLabel.text = "For Julin and Clifford"
 
@@ -106,6 +106,12 @@ class SelectMealCell: UITableViewCell {
             autoSelectionBackView.isHidden = true
 
             }
+        
+        self.priceLabel.setNeedsLayout()
+        self.priceLabel.layoutIfNeeded()
+        
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
     }
     
 }

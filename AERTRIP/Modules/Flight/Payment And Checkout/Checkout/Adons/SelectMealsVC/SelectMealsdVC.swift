@@ -45,10 +45,11 @@ extension SelectMealsdVC {
             self.mealsTableView.register(UINib(nibName: "SelectMealCell", bundle: nil), forCellReuseIdentifier: "SelectMealCell")
             self.mealsTableView.separatorStyle = .none
             self.mealsTableView.estimatedRowHeight = 200
-
             self.mealsTableView.rowHeight = UITableView.automaticDimension
             self.mealsTableView.dataSource = self
             self.mealsTableView.delegate = self
+            self.mealsTableView.reloadData()
+            
         }
     
 }

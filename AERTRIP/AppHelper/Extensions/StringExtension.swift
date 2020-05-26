@@ -679,6 +679,17 @@ extension String {
         
         return boundingBox.width
     }
+    
+    func getTextHeight(width:CGFloat, font:UIFont,  numberOfLines : Int = 0) -> CGFloat{
+            let label = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+            label.numberOfLines = numberOfLines
+           // label.lineBreakMode = NSLineBreakMode.byWordWrapping
+            label.font = font
+            label.text = self
+            label.sizeToFit()
+            return label.frame.height
+        }
+    
 }
 
 extension String {

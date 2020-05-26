@@ -41,7 +41,9 @@ extension SelectBagageVC {
     
  
         private func configureTableView(){
-            self.mealsTableView.register(UINib(nibName: "SelectMealCell", bundle: nil), forCellReuseIdentifier: "SelectMealCell")
+            self.mealsTableView.register(UINib(nibName: "SelectBagageCell", bundle: nil), forCellReuseIdentifier: "SelectBagageCell")
+            self.mealsTableView.register(UINib(nibName: "BagageSectionHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "BagageSectionHeaderView")
+
             self.mealsTableView.separatorStyle = .none
             self.mealsTableView.estimatedRowHeight = 200
 
@@ -56,23 +58,41 @@ extension SelectBagageVC {
 extension SelectBagageVC : UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return 10
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+         return 28
+    }
         
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+                    
+          guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "BagageSectionHeaderView") as? BagageSectionHeaderView else {
+              fatalError("BagageSectionHeaderView not found")
+          }
+        headerView.headingLabel.font = AppFonts.Regular.withSize(14)
+        headerView.headingLabel.text = section == 0 ? LocalizedString.DomesticCheckIn.localized : LocalizedString.InternationalCheckIn.localized
+        headerView.contentView.backgroundColor = AppColors.greyO4
+        headerView.headingLabel.textColor = AppColors.themeGray60
+        
+        return headerView
+      }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SelectMealCell", for: indexPath) as? SelectMealCell else { fatalError("SelectMealCell not found") }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SelectBagageCell", for: indexPath) as? SelectBagageCell else { fatalError("SelectBagageCell not found") }
              
               // cell.populateData(type: AdonsVM.AdonsType(rawValue: indexPath.row) ?? AdonsVM.AdonsType.meals)
                
             cell.populateData(index: indexPath.row)
+        
         
                return cell
         }

@@ -47,7 +47,10 @@ extension AddOnVC {
     
     func configureNavigation(){
         self.topNavView.delegate = self
-        self.topNavView.configureNavBar(title: LocalizedString.Settings.localized, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false,isDivider : false)
+        self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : false)
+        
+        self.topNavView.configureFirstRightButton(normalTitle: LocalizedString.Skip.localized, normalColor: AppColors.themeGreen, font: AppFonts.Bold.withSize(18))
+
     }
     
     private func configureTableView(){
@@ -64,6 +67,10 @@ extension AddOnVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         AppFlowManager.default.popViewController(animated: true)
     }
+    
+    func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+
+    }
 }
 
 extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
@@ -73,17 +80,40 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.adonsVm.adOnsTitles.count
+        return self.adonsVm.addOnsData.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        
+           let labelWidth = tableView.frame.width - (16 + 104 + 19 + 46)
+       
+//          let headingHeight = self.adonsVm.addOnsData[indexPath.row].heading.heightOfText(labelWidth, font: AppFonts.SemiBold.withSize(18))
+        
+        let headingHeight = self.adonsVm.addOnsData[indexPath.row].heading.getTextHeight(width: labelWidth,font: AppFonts.SemiBold.withSize(18),  numberOfLines: 1)
+        
+//        let descHeight = self.adonsVm.addOnsData[indexPath.row].desc.heightOfText(labelWidth, font: AppFonts.Regular.withSize(14))
+        
+        let descHeight = self.adonsVm.addOnsData[indexPath.row].desc.getTextHeight(width: labelWidth,font: AppFonts.Regular.withSize(14),  numberOfLines: 2)
+
+        let complementHeight = self.adonsVm.addOnsData[indexPath.row].complement.getTextHeight(width: labelWidth,font: AppFonts.Regular.withSize(12),  numberOfLines: 1) + 4
+   
+        let complementHeightToBeAddedOrNot : CGFloat = self.adonsVm.addOnsData[indexPath.row].shouldShowComp ? complementHeight : 0
+
+        let midSpacing : CGFloat = 7
+        
+        let topAndBottomSpacing : CGFloat = 19 + 19
+        
+        let totalHeight = headingHeight + descHeight + complementHeightToBeAddedOrNot + midSpacing + topAndBottomSpacing
+        
+        let finalheight = totalHeight <= 104 ? 104 : totalHeight
+        
+        return finalheight
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "AdonsCell", for: indexPath) as? AdonsCell else { fatalError("AdonsCell not found") }
-      
-        cell.populateData(type: AdonsVM.AdonsType(rawValue: indexPath.row) ?? AdonsVM.AdonsType.meals)
+              
+        cell.populateData(type: AdonsVM.AdonsType(rawValue: indexPath.row) ?? AdonsVM.AdonsType.meals, data: self.adonsVm.addOnsData[indexPath.row])
         
         return cell
       }
