@@ -690,6 +690,18 @@ extension String {
             return label.frame.height
         }
     
+    func getTextWidth(height:CGFloat, font:UIFont,  numberOfLines : Int = 0) -> CGFloat{
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: CGFloat.greatestFiniteMagnitude, height: height))
+        label.numberOfLines = numberOfLines
+       // label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = font
+        label.text = self
+        label.sizeToFit()
+        return label.frame.width
+    }
+    
+    
+    
 }
 
 extension String {

@@ -48,16 +48,17 @@ class SelectMealCell: UITableViewCell {
     
     func populateData(index : Int){
         if index == 3{
-                            
+            
+            let price = "₹1,33554"
+            self.priceLabel.text = price
+            self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
+            
                 self.mealTitleLabel.text = "Hindu (Non- Vegetarian) Meal Specific Hindu (Non- Vegetarian) Meal Specific"
                 
                 self.mealForLabel.text = "For Julin and Clifford"
 
                 self.mealAutoSelectedForLabel.text = "Auto Selected for DEL → HYD"
                 
-                let price = "₹1,33554"
-                self.priceLabel.text = price
-                //cell.priceLabelWidth.constant = price.widthOfText(cell.priceLabel.frame.height, font: AppFonts.Regular.withSize(18))
                 self.quantityLabel.text = "X5"
                 self.priceLabel.isHidden = false
                  self.quantityLabel.isHidden = false
@@ -68,15 +69,16 @@ class SelectMealCell: UITableViewCell {
             
             }else if index == 4 {
                 
+            let price = "₹12"
+            self.priceLabel.text = price
+            self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
+            
                 self.mealTitleLabel.text = "Gluten Free Non-Veg Meal"
                 
                 self.mealForLabel.text = "For Julin and Clifford For Julin and Clifford"
 
                 self.mealAutoSelectedForLabel.text = ""
-                
-                let price = "₹12"
-                self.priceLabel.text = price
-                //cell.priceLabelWidth.constant = price.widthOfText(cell.priceLabel.frame.height, font: AppFonts.Regular.withSize(18))
+     
                 self.quantityLabel.text = "X5"
                 self.priceLabel.isHidden = false
                 self.quantityLabel.isHidden = false
@@ -88,30 +90,31 @@ class SelectMealCell: UITableViewCell {
           
         } else {
                 
-                self.mealTitleLabel.text = "Gluten Free Non-Veg Meal Free Non-Veg Meal"
+            let price = ""
+            self.priceLabel.text = price
+            self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
+            
+                self.mealTitleLabel.text = "Gluten Free Non-Veg Meal Free Non-Veg Meal Free Non-Veg Meal"
                 
                 self.mealForLabel.text = ""
 
                 self.mealAutoSelectedForLabel.text = ""
                 
-                let price = "₹12"
-                self.priceLabel.text = price
-                //cell.priceLabelWidth.constant = price.widthOfText(cell.priceLabel.frame.height, font: AppFonts.Regular.withSize(18))
-                self.quantityLabel.text = "X5"
+                self.quantityLabel.text = ""
                 self.priceLabel.isHidden = true
                 self.quantityLabel.isHidden = true
            
             self.mealForLabelTop.constant = 0
-                       self.mealAutoSelectedTop.constant = 0
+            self.mealAutoSelectedTop.constant = 0
             autoSelectionBackView.isHidden = true
 
             }
         
-        self.priceLabel.setNeedsLayout()
-        self.priceLabel.layoutIfNeeded()
-        
-        self.setNeedsLayout()
-        self.layoutIfNeeded()
+//        self.priceLabel.setNeedsLayout()
+//        self.priceLabel.layoutIfNeeded()
+//
+//        self.setNeedsLayout()
+//        self.layoutIfNeeded()
     }
     
 }
