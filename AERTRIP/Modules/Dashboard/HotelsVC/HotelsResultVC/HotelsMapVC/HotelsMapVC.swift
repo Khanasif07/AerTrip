@@ -181,7 +181,7 @@ class HotelsMapVC: StatusBarAnimatableViewController {
     // MARK: -
     
     override func initialSetup() {
-        self.mapContainerViewBottomConstraint.constant = (!UIDevice.isIPhoneX) ? 203.0 : 237.0
+        self.mapContainerViewBottomConstraint.constant = (!UIDevice.isIPhoneX) ? 173.0 : 207.0
         self.view.layoutIfNeeded()
         self.filterButton.isEnabled = false
         self.view.backgroundColor = AppColors.themeWhite

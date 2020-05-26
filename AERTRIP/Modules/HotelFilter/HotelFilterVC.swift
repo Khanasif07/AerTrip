@@ -82,7 +82,7 @@ class HotelFilterVC: BaseVC {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.statusBarColor = AppColors.themeWhite
+        self.statusBarColor = AppColors.clear
     }
     
     // MARK: - Overrider methods

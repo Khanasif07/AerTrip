@@ -16,17 +16,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CustomMarker" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="66" height="47"/>
+            <rect key="frame" x="0.0" y="0.0" width="90" height="47"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y9O-wj-yxX">
-                    <rect key="frame" x="0.0" y="0.0" width="66" height="47"/>
+                    <rect key="frame" x="0.0" y="0.0" width="90" height="47"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pWE-ga-fhZ">
-                            <rect key="frame" x="0.0" y="0.0" width="66" height="27"/>
+                            <rect key="frame" x="20" y="0.0" width="50" height="26"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fqe-kI-xbz">
-                                    <rect key="frame" x="0.0" y="5" width="66" height="17"/>
+                                    <rect key="frame" x="6" y="5" width="38" height="16"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="16"/>
                                     <nil key="textColor"/>
@@ -36,21 +36,21 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="Fqe-kI-xbz" secondAttribute="bottom" constant="5" id="09g-KW-nl9"/>
-                                <constraint firstItem="Fqe-kI-xbz" firstAttribute="leading" secondItem="pWE-ga-fhZ" secondAttribute="leading" id="Gkv-kU-70y"/>
+                                <constraint firstItem="Fqe-kI-xbz" firstAttribute="leading" secondItem="pWE-ga-fhZ" secondAttribute="leading" constant="6" id="Gkv-kU-70y"/>
                                 <constraint firstItem="Fqe-kI-xbz" firstAttribute="top" secondItem="pWE-ga-fhZ" secondAttribute="top" constant="5" id="HdX-uS-sGB"/>
-                                <constraint firstAttribute="trailing" secondItem="Fqe-kI-xbz" secondAttribute="trailing" id="mH1-dv-rCt"/>
-                                <constraint firstAttribute="height" constant="27" id="sVr-VW-VGS"/>
+                                <constraint firstAttribute="trailing" secondItem="Fqe-kI-xbz" secondAttribute="trailing" constant="6" id="mH1-dv-rCt"/>
+                                <constraint firstAttribute="height" constant="26" id="sVr-VW-VGS"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VqL-7u-ZGq">
-                            <rect key="frame" x="32.5" y="27" width="1" height="10"/>
+                            <rect key="frame" x="44.5" y="26" width="1" height="11"/>
                             <color key="backgroundColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="1" id="IHc-4b-o7i"/>
                             </constraints>
                         </view>
                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clusterSmallTag" translatesAutoresizingMaskIntoConstraints="NO" id="BaY-fR-KX4">
-                            <rect key="frame" x="25.5" y="32" width="15" height="15"/>
+                            <rect key="frame" x="37.5" y="32" width="15" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="15" id="55c-cA-g6V"/>
                                 <constraint firstAttribute="width" constant="15" id="ngm-SK-vBc"/>
@@ -60,9 +60,10 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="VqL-7u-ZGq" secondAttribute="bottom" constant="10" id="7dL-Br-Ni4"/>
-                        <constraint firstItem="pWE-ga-fhZ" firstAttribute="leading" secondItem="Y9O-wj-yxX" secondAttribute="leading" id="F5f-el-h61"/>
+                        <constraint firstItem="pWE-ga-fhZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Y9O-wj-yxX" secondAttribute="leading" id="F5f-el-h61"/>
                         <constraint firstAttribute="bottom" secondItem="BaY-fR-KX4" secondAttribute="bottom" id="I4j-LV-teB"/>
-                        <constraint firstAttribute="trailing" secondItem="pWE-ga-fhZ" secondAttribute="trailing" id="IfN-hc-6FT"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pWE-ga-fhZ" secondAttribute="trailing" id="IfN-hc-6FT"/>
+                        <constraint firstItem="pWE-ga-fhZ" firstAttribute="centerX" secondItem="Y9O-wj-yxX" secondAttribute="centerX" id="JRY-T6-NRF"/>
                         <constraint firstItem="BaY-fR-KX4" firstAttribute="centerX" secondItem="VqL-7u-ZGq" secondAttribute="centerX" id="cNS-Pn-XuX"/>
                         <constraint firstItem="pWE-ga-fhZ" firstAttribute="top" secondItem="Y9O-wj-yxX" secondAttribute="top" id="dYG-mW-hIj"/>
                         <constraint firstItem="VqL-7u-ZGq" firstAttribute="centerX" secondItem="pWE-ga-fhZ" secondAttribute="centerX" id="geo-Jr-dyB"/>
@@ -85,7 +86,7 @@
                 <outlet property="priceLabel" destination="Fqe-kI-xbz" id="KnP-v9-hhd"/>
                 <outlet property="priceView" destination="pWE-ga-fhZ" id="HDm-TI-erd"/>
             </connections>
-            <point key="canvasLocation" x="-356.80000000000001" y="8.5457271364317844"/>
+            <point key="canvasLocation" x="-337.60000000000002" y="8.5457271364317844"/>
         </view>
     </objects>
     <resources>

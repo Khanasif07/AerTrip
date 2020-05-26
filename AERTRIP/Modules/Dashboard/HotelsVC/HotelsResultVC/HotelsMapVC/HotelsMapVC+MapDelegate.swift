@@ -85,7 +85,7 @@ extension HotelsMapVC: GMSMapViewDelegate {
                 guard let sSelf = self else {return}
                 sSelf.collectionViewBottomConstraint.constant = 0.0
                 sSelf.floatingViewBottomConstraint.constant = 183.0
-                sSelf.mapContainerViewBottomConstraint.constant = (!UIDevice.isIPhoneX) ? 203.0 : 237.0
+                sSelf.mapContainerViewBottomConstraint.constant = (!UIDevice.isIPhoneX) ? 173.0 : 207.0
                 sSelf.headerContainerViewTopConstraint.constant = 0.0
                 sSelf.mapContainerTopConstraint.constant = (!UIDevice.isIPhoneX) ? 70.0 : 94.0
                 sSelf.mapContainerView.layoutSubviews()

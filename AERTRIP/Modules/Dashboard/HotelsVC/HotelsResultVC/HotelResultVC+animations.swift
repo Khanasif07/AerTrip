@@ -82,13 +82,19 @@ extension HotelResultVC {
             //                       completion: { _ in
             //                           printDebug("Animation finished")
             //        })
-            UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: .curveEaseOut, animations: { [weak self] in
+            self.unPinAllFavouriteButton.alpha = 0.0
+            self.emailButton.alpha = 0.0
+            self.shareButton.alpha = 0.0
+            UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: [.curveEaseOut, ], animations: { [weak self] in
+                self?.unPinAllFavouriteButton.alpha = 1.0
+                self?.emailButton.alpha = 1.0
+                self?.shareButton.alpha = 1.0
                 self?.unPinAllFavouriteButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                 self?.emailButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                 self?.shareButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                self?.emailButton.transform = CGAffineTransform(translationX: 58, y: 0)
-                self?.shareButton.transform = CGAffineTransform(translationX: 112, y: 0)
-                self?.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 166, y: 0)
+                self?.emailButton.transform = CGAffineTransform(translationX: 26, y: 0)
+                self?.shareButton.transform = CGAffineTransform(translationX: 80, y: 0)
+                self?.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 134, y: 0)
                 }, completion: nil)
             
         } else {
@@ -104,6 +110,9 @@ extension HotelResultVC {
     func hideFavsButtons(isAnimated: Bool = false) {
         if isAnimated {
             UIView.animate(withDuration: TimeInterval(0.4), delay: 0, options: .curveEaseOut, animations: { [weak self] in
+                self?.unPinAllFavouriteButton.alpha = 0.0
+                self?.emailButton.alpha = 0.0
+                self?.shareButton.alpha = 0.0
                 self?.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 0, y: 0)
                 self?.emailButton.transform = CGAffineTransform(translationX: 0, y: 0)
                 self?.shareButton.transform = CGAffineTransform(translationX: 0, y: 0)
@@ -111,6 +120,9 @@ extension HotelResultVC {
                     self?.unPinAllFavouriteButton.isHidden = true
                     self?.emailButton.isHidden = true
                     self?.shareButton.isHidden = true
+                    self?.unPinAllFavouriteButton.alpha = 1.0
+                    self?.emailButton.alpha = 1.0
+                    self?.shareButton.alpha = 1.0
             })
         } else {
             self.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 0, y: 0)

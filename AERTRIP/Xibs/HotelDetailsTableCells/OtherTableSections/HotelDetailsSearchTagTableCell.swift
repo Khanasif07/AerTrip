@@ -37,7 +37,7 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
             self.tagCollectionView.delegate = self
             self.tagCollectionView.dataSource = self
             self.tagCollectionView.backgroundColor = AppColors.screensBackground.color
-            self.tagCollectionView.contentInset = UIEdgeInsets(top: 16.0, left: 8.0, bottom: 16.0, right: 16.0)
+            self.tagCollectionView.contentInset = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 4.0, right: 16.0)
         }
     }
     

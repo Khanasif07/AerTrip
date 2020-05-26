@@ -97,6 +97,8 @@ class ATSearchBar: UISearchBar {
         
         //self.setImage(#imageLiteral(resourceName: "icClear"), for: .clear, state: .normal)
         //self.showsBookmarkButton = !self.isMicEnabled
+        self.setImage(#imageLiteral(resourceName: "searchBarIcon"), for: .search, state: .normal)
+
         self.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .bookmark, state: .normal)
         self.setPositionAdjustment(UIOffset(horizontal: +9, vertical: 0), for: .bookmark)
 
