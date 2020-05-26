@@ -12,5 +12,5 @@ class SeatMapVM {
     
     var flightData = SeatMapModel.SeatMapFlight()
     var seatLayout: SeatCollCellVM.PlaneSeatsLayout = .ten
-    var hasUpperDeck = true
+    var hasUpperDeck = false
 }

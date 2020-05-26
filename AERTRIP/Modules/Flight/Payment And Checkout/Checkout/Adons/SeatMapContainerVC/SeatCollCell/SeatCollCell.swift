@@ -66,4 +66,33 @@ class SeatCollCell: UICollectionViewCell {
             }
         }
     }
+    
+    func setupCellFor(_ indexPath: IndexPath,_ rowStr: String,_ columnStr: String,_ seatData: SeatMapModel.SeatMapRow) {
+        seatView.isHidden = false
+        switch (indexPath.section, indexPath.item) {
+        case (0, 0):
+            seatNumberLbl.isHidden = true
+            seatView.layer.borderWidth = 0
+        case (0, _):
+            seatNumberLbl.font = AppFonts.Regular.withSize(18)
+            seatNumberLbl.isHidden = false
+            seatView.layer.borderWidth = 0
+            seatNumberLbl.text = rowStr
+        case (_, 0):
+            seatNumberLbl.font = AppFonts.Regular.withSize(18)
+            seatNumberLbl.isHidden = false
+            seatView.layer.borderWidth = 0
+            let columnText = columnStr == "aisle" ? "" : columnStr
+            seatNumberLbl.text = columnText
+        case (_, _):
+            if columnStr.contains("aisle") {
+                seatView.isHidden = true
+            } else {
+                seatNumberLbl.font = AppFonts.Regular.withSize(14)
+                seatNumberLbl.isHidden = true
+                seatView.layer.borderWidth = 0.5
+            }
+            
+        }
+    }
 }

@@ -49,7 +49,6 @@ class SeatMapContainerVC: UIViewController {
     
     private func initialSetup() {
         setupNavBar()
-//        setUpViewPager()
         viewModel.delegate = self
         viewModel.fetchSeatMapData()
     }

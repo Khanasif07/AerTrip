@@ -70,13 +70,13 @@ struct SeatMapModel {
         let rows: [Int: [String: SeatMapRow]]
         
         var rowsArr: [String] {
-            self.rows.keys.map { $0.toString }
+            let rowsStrArr = self.rows.keys.map { $0 }.sorted()
+            return rowsStrArr.map { $0.toString }
         }
         
         init(_ json: JSON) {
             columns = json["columns"].arrayValue.map { $0.stringValue }
             rows = Dictionary(uniqueKeysWithValues: json["rows"].map { (($0.0.toInt ?? 0), Dictionary(uniqueKeysWithValues: $0.1.map { ($0.0, SeatMapRow($0.1)) }))})
-            
         }
     }
     
@@ -84,25 +84,15 @@ struct SeatMapModel {
         let columnData: ColumnData
         let aisleValue: Bool
         
+        init() {
+            self.init(JSON())
+        }
+        
         init(_ json: JSON) {
             columnData = ColumnData(json)
             aisleValue = json.boolValue
         }
     }
-    
-//    struct aisleDict {
-//        let key: String
-//        let value: Bool
-//    }
-//
-//    struct ColumnDict {
-//        let key: String
-//        let value: ColumnData
-//
-//        init(_ json: JSON) {
-//
-//        }
-//    }
     
     struct ColumnData {
         let ssrCode: String
