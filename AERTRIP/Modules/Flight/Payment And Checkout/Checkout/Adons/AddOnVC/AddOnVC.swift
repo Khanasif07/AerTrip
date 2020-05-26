@@ -35,7 +35,6 @@ class AddOnVC : BaseVC {
         super.setupTexts()
         
     }
-
 }
 
 //MARK:- Methods
