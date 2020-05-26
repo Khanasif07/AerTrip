@@ -1176,6 +1176,7 @@
 		846FB58D22250AFA007F70F9 /* PKBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846FB58B22250AFA007F70F9 /* PKBottomSheet.swift */; };
 		846FB58E22250AFA007F70F9 /* PKBottomSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846FB58C22250AFA007F70F9 /* PKBottomSheet.xib */; };
 		8472F102247C25D200A1CCD3 /* SeatMapContainerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472F101247C25D200A1CCD3 /* SeatMapContainerVM.swift */; };
+		8472F104247CDF0B00A1CCD3 /* SeatMapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472F103247CDF0B00A1CCD3 /* SeatMapModel.swift */; };
 		8472F20123E3FE6C00993B08 /* HotelsMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472F20023E3FE6C00993B08 /* HotelsMapVC.swift */; };
 		8472F20423E4064C00993B08 /* HotelsMapVC+CollectionViewDataSourceDelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472F20223E4064C00993B08 /* HotelsMapVC+CollectionViewDataSourceDelegateMethods.swift */; };
 		8472F20523E4064C00993B08 /* HotelsMapVC+MapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472F20323E4064C00993B08 /* HotelsMapVC+MapDelegate.swift */; };
@@ -2823,6 +2824,7 @@
 		846FB58B22250AFA007F70F9 /* PKBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKBottomSheet.swift; sourceTree = "<group>"; };
 		846FB58C22250AFA007F70F9 /* PKBottomSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PKBottomSheet.xib; sourceTree = "<group>"; };
 		8472F101247C25D200A1CCD3 /* SeatMapContainerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatMapContainerVM.swift; sourceTree = "<group>"; };
+		8472F103247CDF0B00A1CCD3 /* SeatMapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatMapModel.swift; sourceTree = "<group>"; };
 		8472F20023E3FE6C00993B08 /* HotelsMapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsMapVC.swift; sourceTree = "<group>"; };
 		8472F20223E4064C00993B08 /* HotelsMapVC+CollectionViewDataSourceDelegateMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HotelsMapVC+CollectionViewDataSourceDelegateMethods.swift"; sourceTree = "<group>"; };
 		8472F20323E4064C00993B08 /* HotelsMapVC+MapDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HotelsMapVC+MapDelegate.swift"; sourceTree = "<group>"; };
@@ -7348,6 +7350,7 @@
 				847C223B247BCBED004F32D6 /* SeatCollCell */,
 				847C223F247BCBED004F32D6 /* SeatMapContainerVC.swift */,
 				8472F101247C25D200A1CCD3 /* SeatMapContainerVM.swift */,
+				8472F103247CDF0B00A1CCD3 /* SeatMapModel.swift */,
 			);
 			path = SeatMapContainerVC;
 			sourceTree = "<group>";
@@ -9699,6 +9702,7 @@
 				18999D9A21E4A8B600E66072 /* GroupTableViewCell.swift in Sources */,
 				183B71A22289588400A75B7F /* EconomySaverTableViewCell.swift in Sources */,
 				18020B0D2282E1F200DE5FE0 /* AerinChatTableViewCell.swift in Sources */,
+				8472F104247CDF0B00A1CCD3 /* SeatMapModel.swift in Sources */,
 				843FF664247409E3001F21B1 /* Airline.m in Sources */,
 				849D37942289397200763AD8 /* AccountOnlineDepositVM.swift in Sources */,
 				8477164022844AC0000E1BB6 /* PeriodicStatementListVC.swift in Sources */,

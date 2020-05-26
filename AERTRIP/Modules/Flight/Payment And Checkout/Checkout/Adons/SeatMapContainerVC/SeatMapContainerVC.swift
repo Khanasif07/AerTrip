@@ -18,12 +18,11 @@ class SeatMapContainerVC: UIViewController {
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
     
-    private let allTabsStr: [String] = [LocalizedString.Contacts.localized, LocalizedString.Facebook.localized, LocalizedString.Google.localized]
+    private var allTabsStr = [NSAttributedString]()
     
-    
-    var allChildVCs = [UIViewController]()
-    
-    var currentIndex = 0
+    private var allChildVCs = [SeatMapVC]()
+    private var currentIndex = 0
+    private var allFlightsData = [SeatMapModel.SeatMapFlight]()
     
     // MARK: IBOutlets
     
@@ -50,7 +49,8 @@ class SeatMapContainerVC: UIViewController {
     
     private func initialSetup() {
         setupNavBar()
-        setUpViewPager()
+//        setUpViewPager()
+        viewModel.delegate = self
         viewModel.fetchSeatMapData()
     }
     
@@ -66,8 +66,10 @@ class SeatMapContainerVC: UIViewController {
     
     private func setUpViewPager() {
         self.allChildVCs.removeAll()
-        for idx in 0..<allTabsStr.count {
+
+        for index in 0..<allTabsStr.count {
             let vc = SeatMapVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
+            vc.viewModel.flightData = allFlightsData[index]
             self.allChildVCs.append(vc)
         }
         self.view.layoutIfNeeded()
@@ -108,6 +110,28 @@ class SeatMapContainerVC: UIViewController {
         self.parchmentView?.menuBackgroundColor = UIColor.clear
         self.parchmentView?.collectionView.backgroundColor = UIColor.clear
     }
+    
+    private func createAttHeaderTitle(_ origin: String,_ destination: String) -> NSAttributedString {
+        let fullString = NSMutableAttributedString(string: origin + " " )
+        let desinationAtrributedString = NSAttributedString(string: " " + destination)
+        let imageString = getStringFromImage(name : "oneway")
+        fullString.append(imageString)
+        fullString.append(desinationAtrributedString)
+        return fullString
+    }
+    
+    private func getStringFromImage(name : String) -> NSAttributedString {
+        
+        let imageAttachment = NSTextAttachment()
+        let sourceSansPro18 = UIFont(name: "SourceSansPro-Semibold", size: 18.0)!
+        let iconImage = UIImage(named: name )!
+        imageAttachment.image = iconImage
+        
+        let yCordinate  = roundf(Float(sourceSansPro18.capHeight - iconImage.size.height) / 2.0)
+        imageAttachment.bounds = CGRect(x: CGFloat(0.0), y: CGFloat(yCordinate) , width: iconImage.size.width, height: iconImage.size.height )
+        let imageString = NSAttributedString(attachment: imageAttachment)
+        return imageString
+    }
 }
 
 extension SeatMapContainerVC: TopNavigationViewDelegate {
@@ -122,13 +146,12 @@ extension SeatMapContainerVC: TopNavigationViewDelegate {
 }
 
 extension SeatMapContainerVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
+    
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         
         if let pagingIndexItem = pagingItem as? MenuItem{
-            let text = pagingIndexItem.title
-            
-            let font = isSelected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
-            return text.widthOfString(usingFont: font)
+            let text = pagingIndexItem.attributedTitle
+            return (text?.size().width ?? 0) + 20
         }
         
         return 100.0
@@ -144,7 +167,7 @@ extension SeatMapContainerVC: PagingViewControllerDataSource , PagingViewControl
     }
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
-        return MenuItem(title: self.allTabsStr[index], index: index, isSelected:false)
+        return MenuItem(title: "", index: index, isSelected:true, attributedTitle: allTabsStr[index])
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
@@ -152,5 +175,23 @@ extension SeatMapContainerVC: PagingViewControllerDataSource , PagingViewControl
         if let pagingIndexItem = pagingItem as? MenuItem {
             currentIndex = pagingIndexItem.index
         }
+    }
+}
+
+extension SeatMapContainerVC: SeatMapContainerDelegate {
+    func didFetchSeatMapData() {
+        var totalFlightsData = [SeatMapModel.SeatMapFlight]()
+        viewModel.seatMapModel.data.leg.forEach {
+            let flightsArr = $0.value.flights.map { $0.value }
+            totalFlightsData.append(contentsOf: flightsArr)
+            
+            let flightsStr = $0.value.flights.map {
+                createAttHeaderTitle($0.value.fr, $0.value.to)
+                //            allTabsStr.append(contentsOf: flightsStr)
+            }
+            allTabsStr.append(contentsOf: flightsStr)
+        }
+        allFlightsData = totalFlightsData
+        setUpViewPager()
     }
 }

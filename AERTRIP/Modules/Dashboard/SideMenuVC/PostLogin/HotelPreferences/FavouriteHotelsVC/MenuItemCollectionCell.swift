@@ -21,9 +21,11 @@ struct MenuItem : PagingItem ,Hashable, Comparable {
     
     var title: String
     var index: Int
+    var attributedTitle: NSAttributedString?
     var isSelected: Bool = true
     
-    init(title: String,index: Int,isSelected: Bool = true){
+    init(title: String,index: Int,isSelected: Bool = true, attributedTitle: NSAttributedString? = nil){
+        self.attributedTitle = attributedTitle
         self.title = title
         self.index = index
         self.isSelected = isSelected
@@ -47,7 +49,11 @@ class MenuItemCollectionCell: PagingCell {
     
     open override func setPagingItem(_ pagingItem: PagingItem, selected: Bool, options: PagingOptions) {
          if let item = pagingItem as? MenuItem {
-            self.title.text = item.title
+            if let attTitle = item.attributedTitle {
+                self.title.attributedText = attTitle
+            } else {
+                self.title.text = item.title
+            }
             self.dotView.isHidden = item.isSelected
             self.title.font = selected ? AppFonts.SemiBold.withSize(16.0) : AppFonts.Regular.withSize(16.0)
         }
