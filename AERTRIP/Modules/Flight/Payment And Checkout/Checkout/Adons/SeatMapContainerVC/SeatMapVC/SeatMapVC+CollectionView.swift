@@ -45,4 +45,9 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: 40, height: 40)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let curCell = collectionView.cellForItem(at: indexPath) as? SeatCollCell, !curCell.seatView.isHidden else { return }
+        
+    }
 }
