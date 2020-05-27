@@ -382,6 +382,7 @@ extension IntMCAndReturnVC {
 
             if let currentParsedResponse = parse(data: receivedData, into: getPinnedURLResponse.self, with:decoder) {
                 let data = currentParsedResponse.data
+                 
                 if let view = data["view"] {
                   onCompletion(view)
                 }

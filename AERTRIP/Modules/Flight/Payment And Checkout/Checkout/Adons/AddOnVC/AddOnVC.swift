@@ -9,10 +9,10 @@
 import UIKit
 
 class AddOnVC : BaseVC {
-
+    
     @IBOutlet weak var topNavView: TopNavigationView!
     @IBOutlet weak var adonsTableView: UITableView!
-
+    
     let adonsVm = AdonsVM()
     
     
@@ -25,12 +25,12 @@ class AddOnVC : BaseVC {
         super.viewWillAppear(animated)
         configureNavigation()
     }
-
+    
     override func setupColors() {
         super.setupColors()
         
     }
-
+    
     override func setupTexts() {
         super.setupTexts()
         
@@ -39,7 +39,7 @@ class AddOnVC : BaseVC {
 
 //MARK:- Methods
 extension AddOnVC {
-
+    
     private func initialSetups() {
         configureTableView()
     }
@@ -49,13 +49,13 @@ extension AddOnVC {
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : false)
         
         self.topNavView.configureFirstRightButton(normalTitle: LocalizedString.Skip.localized, normalColor: AppColors.themeGreen, font: AppFonts.Bold.withSize(18))
-
+        
     }
     
     private func configureTableView(){
         self.adonsTableView.register(UINib(nibName: "AdonsCell", bundle: nil), forCellReuseIdentifier: "AdonsCell")
         self.adonsTableView.separatorStyle = .none
-//        self.adonsTableView.estimatedRowHeight = 104
+        //        self.adonsTableView.estimatedRowHeight = 104
         self.adonsTableView.rowHeight = UITableView.automaticDimension
         self.adonsTableView.dataSource = self
         self.adonsTableView.delegate = self
@@ -68,12 +68,12 @@ extension AddOnVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-
+        
     }
 }
 
 extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
-  
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -88,17 +88,39 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "AdonsCell", for: indexPath) as? AdonsCell else { fatalError("AdonsCell not found") }
-              
+        
         cell.populateData(type: AdonsVM.AdonsType(rawValue: indexPath.row) ?? AdonsVM.AdonsType.meals, data: self.adonsVm.addOnsData[indexPath.row])
         
         return cell
-      }
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let vc = MealsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-        self.navigationController?.pushViewController(vc, animated: true)
+        let type = AdonsVM.AdonsType(rawValue: indexPath.row) ?? AdonsVM.AdonsType.meals
         
+        switch type {
+            
+        case .meals:
+            let vc = MealsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+            vc.modalPresentationStyle = .overFullScreen
+            present(vc, animated: true, completion: nil)
+            
+        case .baggage:
+            let vc = BagageContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+            vc.modalPresentationStyle = .overFullScreen
+            present(vc, animated: true, completion: nil)
+            
+        case .seat:
+            let vc = SeatMapContainerVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
+            vc.modalPresentationStyle = .overFullScreen
+            present(vc, animated: true, completion: nil)
+            
+        case .otheres:
+            let vc = SelectOtherAdonsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+            vc.modalPresentationStyle = .overFullScreen
+            present(vc, animated: true, completion: nil)
+            
+        }
     }
     
 }

@@ -130,7 +130,7 @@ extension BagageContainerVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
 }

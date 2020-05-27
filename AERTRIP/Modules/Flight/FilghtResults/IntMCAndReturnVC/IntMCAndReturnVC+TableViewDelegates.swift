@@ -199,16 +199,18 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        
-//        let vc = AddOnVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+//        let vc = SelectOtherAdonsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
 //        self.navigationController?.pushViewController(vc, animated: true)
+        
+        let vc = AddOnVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+        self.navigationController?.pushViewController(vc, animated: true)
         
 //        let vc = BagageContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
 //
 //        self.navigationController?.pushViewController(vc, animated: true)
         
-        let vc = MealsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = MealsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+//        self.navigationController?.pushViewController(vc, animated: true)
         
 //        let seatMapVC = SeatMapContainerVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
 //        seatMapVC.modalPresentationStyle = .overFullScreen

@@ -11,6 +11,8 @@
 		0C00EDDD247D23E800DDFD10 /* BagageSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C00EDDC247D23E800DDFD10 /* BagageSectionHeaderView.xib */; };
 		0C00EDE4247D6C4C00DDFD10 /* SelectMealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C00EDE2247D6C4B00DDFD10 /* SelectMealCell.swift */; };
 		0C00EDE5247D6C4C00DDFD10 /* SelectMealCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C00EDE3247D6C4B00DDFD10 /* SelectMealCell.xib */; };
+		0C04CBFD247E3E4B00F11562 /* SelectOtherAdonsContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C04CBFC247E3E4B00F11562 /* SelectOtherAdonsContainerVC.swift */; };
+		0C04CBFF247E3EB600F11562 /* SelectOtherAdonsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C04CBFE247E3EB600F11562 /* SelectOtherAdonsVC.swift */; };
 		0C0506CB2435BA0300BC4703 /* WebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0506CA2435BA0300BC4703 /* WebViewVC.swift */; };
 		0C0506CD2435BC4A00BC4703 /* WebViewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0506CC2435BC4A00BC4703 /* WebViewVM.swift */; };
 		0C0506CF2435CEDD00BC4703 /* ATAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0506CE2435CEDC00BC4703 /* ATAlertController.swift */; };
@@ -68,6 +70,7 @@
 		0C7532C12431FC6600B8F213 /* NotificationSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C7532BF2431FC6600B8F213 /* NotificationSettingsCell.swift */; };
 		0C7532C22431FC6600B8F213 /* NotificationSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C7532C02431FC6600B8F213 /* NotificationSettingsCell.xib */; };
 		0C93A8E82330ABB6000795DE /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C93A8E72330ABB6000795DE /* NotificationVC.swift */; };
+		0C9CD03A247E4F49002D1073 /* SelectOtherAdonsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9CD039247E4F49002D1073 /* SelectOtherAdonsVM.swift */; };
 		0CAC8C8222E1E0620039D612 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F983A221B51A070018DFED /* UIImageExtension.swift */; };
 		0CAD5FE32338B32D0086F58D /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD5FE22338B32C0086F58D /* UILabel+Extension.swift */; };
 		0CBADF622473DC4700086EA7 /* MARKRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBADF602473DC4700086EA7 /* MARKRangeSlider.m */; };
@@ -1517,6 +1520,8 @@
 		0C00EDDC247D23E800DDFD10 /* BagageSectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BagageSectionHeaderView.xib; sourceTree = "<group>"; };
 		0C00EDE2247D6C4B00DDFD10 /* SelectMealCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectMealCell.swift; sourceTree = "<group>"; };
 		0C00EDE3247D6C4B00DDFD10 /* SelectMealCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectMealCell.xib; sourceTree = "<group>"; };
+		0C04CBFC247E3E4B00F11562 /* SelectOtherAdonsContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOtherAdonsContainerVC.swift; sourceTree = "<group>"; };
+		0C04CBFE247E3EB600F11562 /* SelectOtherAdonsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOtherAdonsVC.swift; sourceTree = "<group>"; };
 		0C0506CA2435BA0300BC4703 /* WebViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewVC.swift; sourceTree = "<group>"; };
 		0C0506CC2435BC4A00BC4703 /* WebViewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewVM.swift; sourceTree = "<group>"; };
 		0C0506CE2435CEDC00BC4703 /* ATAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATAlertController.swift; sourceTree = "<group>"; };
@@ -1575,6 +1580,7 @@
 		0C7532BF2431FC6600B8F213 /* NotificationSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsCell.swift; sourceTree = "<group>"; };
 		0C7532C02431FC6600B8F213 /* NotificationSettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationSettingsCell.xib; sourceTree = "<group>"; };
 		0C93A8E72330ABB6000795DE /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
+		0C9CD039247E4F49002D1073 /* SelectOtherAdonsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOtherAdonsVM.swift; sourceTree = "<group>"; };
 		0CAD5FE22338B32C0086F58D /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		0CBADF5F2473DC4700086EA7 /* MARKRangeSlider 2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MARKRangeSlider 2.h"; sourceTree = "<group>"; };
 		0CBADF602473DC4700086EA7 /* MARKRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MARKRangeSlider.m; sourceTree = "<group>"; };
@@ -3191,6 +3197,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C04CBFB247E3E2D00F11562 /* SelectOtherAdonsVC */ = {
+			isa = PBXGroup;
+			children = (
+				0C04CBFC247E3E4B00F11562 /* SelectOtherAdonsContainerVC.swift */,
+				0C04CBFE247E3EB600F11562 /* SelectOtherAdonsVC.swift */,
+			);
+			name = SelectOtherAdonsVC;
+			path = Adons/SelectOtherAdonsVC;
+			sourceTree = "<group>";
+		};
 		0C0506C92435B85700BC4703 /* WebViewVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -3223,6 +3239,7 @@
 				0C0AB1AA247B9134005E5E99 /* AdonsVM.swift */,
 				0C0AB1F3247BEC6D005E5E99 /* MealsContainerVM.swift */,
 				0C0AB1F5247BEC7E005E5E99 /* SelectMealsVM.swift */,
+				0C9CD039247E4F49002D1073 /* SelectOtherAdonsVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -5780,6 +5797,7 @@
 		843FF3612474022F001F21B1 /* Checkout */ = {
 			isa = PBXGroup;
 			children = (
+				0C04CBFB247E3E2D00F11562 /* SelectOtherAdonsVC */,
 				843FF3622474022F001F21B1 /* Adons */,
 				843FF3662474022F001F21B1 /* Flight Passengers Selection */,
 			);
@@ -9146,6 +9164,7 @@
 				180FA06921DCC83F003901FF /* AddAddressTableViewCell.swift in Sources */,
 				84085CF121F59C0E00F1E844 /* SocialLoginVM.swift in Sources */,
 				843FF689247409E3001F21B1 /* BaseViewController.m in Sources */,
+				0C04CBFF247E3EB600F11562 /* SelectOtherAdonsVC.swift in Sources */,
 				183B719C228948C400A75B7F /* FareRuleTableViewCell.swift in Sources */,
 				18F4955921B7B8B80003AC16 /* UIButtonExtension.swift in Sources */,
 				848D327C225B551B009DB1CE /* ATWebViewVC.swift in Sources */,
@@ -9183,6 +9202,7 @@
 				84C47735220D98BE00B75FA0 /* ATCardView.swift in Sources */,
 				1896D5922209538B003FC2B6 /* MultiSlider+Drag.swift in Sources */,
 				8445B51A22A50F2700DDBC7F /* RequestReschedulingVC.swift in Sources */,
+				0C04CBFD247E3E4B00F11562 /* SelectOtherAdonsContainerVC.swift in Sources */,
 				0CC8546D2350956500544F10 /* UISearchBar+extension.swift in Sources */,
 				84956FBD21B65DA600BF1183 /* AppExtension.swift in Sources */,
 				84323D3D222FE5A300DA7581 /* AmenitiesNameTableViewCell.swift in Sources */,
@@ -9783,6 +9803,7 @@
 				8463A5692456C7B200C70D8C /* GMUPlacemark.m in Sources */,
 				18A90192229FB29D004EAEC3 /* BlurLoader.swift in Sources */,
 				84085D2721F5AD2B00F1E844 /* ATDividerView.swift in Sources */,
+				0C9CD03A247E4F49002D1073 /* SelectOtherAdonsVM.swift in Sources */,
 				84DD24732265BB300013F77E /* SpaceTableViewCell.swift in Sources */,
 				843FF68C247409E3001F21B1 /* MapIconView.m in Sources */,
 				84F983DD21B51A070018DFED /* UICollectionViewExtension.swift in Sources */,

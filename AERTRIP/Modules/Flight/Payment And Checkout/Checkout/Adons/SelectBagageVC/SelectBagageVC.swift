@@ -10,7 +10,7 @@ import UIKit
 
 class SelectBagageVC: UIViewController {
     
-    @IBOutlet weak var mealsTableView: UITableView!
+    @IBOutlet weak var bagageTableView: UITableView!
     
     
     override func viewDidLoad() {
@@ -41,15 +41,15 @@ extension SelectBagageVC {
     
  
         private func configureTableView(){
-            self.mealsTableView.register(UINib(nibName: "SelectBagageCell", bundle: nil), forCellReuseIdentifier: "SelectBagageCell")
-            self.mealsTableView.register(UINib(nibName: "BagageSectionHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "BagageSectionHeaderView")
+            self.bagageTableView.register(UINib(nibName: "SelectBagageCell", bundle: nil), forCellReuseIdentifier: "SelectBagageCell")
+            self.bagageTableView.register(UINib(nibName: "BagageSectionHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "BagageSectionHeaderView")
 
-            self.mealsTableView.separatorStyle = .none
-            self.mealsTableView.estimatedRowHeight = 200
+            self.bagageTableView.separatorStyle = .none
+            self.bagageTableView.estimatedRowHeight = 200
 
-            self.mealsTableView.rowHeight = UITableView.automaticDimension
-            self.mealsTableView.dataSource = self
-            self.mealsTableView.delegate = self
+            self.bagageTableView.rowHeight = UITableView.automaticDimension
+            self.bagageTableView.dataSource = self
+            self.bagageTableView.delegate = self
         }
     
 }

@@ -34,7 +34,7 @@ class SelectMealCell: UITableViewCell {
         quantityLabel.textColor = AppColors.themeGreen
         mealForLabel.textColor = AppColors.themeGray40
         mealAutoSelectedForLabel.textColor = AppColors.themeGray60
-        
+        priceLabel.textColor = AppColors.themeGray40
         autoSelectionBackView.roundedCorners(cornerRadius: 3)
 
     }
