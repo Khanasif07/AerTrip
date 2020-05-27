@@ -44,7 +44,6 @@ class AddPassengerDetailsCell: UITableViewCell {
     var canShowSalutationError = false
     
 //    var passenger = ATContact()
-    var countryList = [String]()
     weak var delegate: UpdatePassengerDetailsDelegate?
     weak var txtFldEditDelegate:GuestDetailTableViewCellDelegate?
     var cellIndexPath = IndexPath()
@@ -341,8 +340,12 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
             }
             textField.tintColor = AppColors.clear
         case self.nationalityTextField:
+            var countries = [String]()
+            if let country = GuestDetailsVM.shared.countries{
+                countries = Array(country.values).sorted()
+            }
             PKMultiPicker.noOfComponent = 1
-            PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.countryList, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+            PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: countries, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
                 GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].nationality = firstSelect
                 textField.text = firstSelect
             }

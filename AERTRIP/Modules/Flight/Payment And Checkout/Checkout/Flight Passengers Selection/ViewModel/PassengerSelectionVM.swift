@@ -21,6 +21,8 @@ class PassengerSelectionVM  {
     var selectedJourneyFK = [String]()
     var journeyTitle:NSAttributedString?
     var journeyDate:String?
+    var id = "5ece2f4ab3561a3331770f51"//id to get addons data
+    var addonsMaster = AddonsMaster()
     //Varialbles for domestic and oneway
     var journey:[Journey]?
     var airportDetailsResult = [String : AirportDetailsWS]()
@@ -51,6 +53,9 @@ class PassengerSelectionVM  {
     func setupGuestArray() {
         GuestDetailsVM.shared.guests.removeAll()
         var temp: [ATContact] = []
+        self.webserviceForGetCountryList()
+//        self.fetchAddonsData()
+        fetchAddonsData()
         self.journeyType = (self.bookingObject?.isDomestic ?? true) ? .domestic : .international
         guard let bookingObj = self.bookingObject else {return}
         for i in 0..<bookingObj.flightAdultCount{
@@ -89,6 +94,16 @@ class PassengerSelectionVM  {
         GuestDetailsVM.shared.canShowSalutationError = false
     }
     
+    func webserviceForGetCountryList() {
+        APICaller.shared.callGetCountriesListApi { success, countries, errorCode in
+            if success {
+                GuestDetailsVM.shared.countries = countries
+            } else {
+                debugPrint(errorCode)
+            }
+        }
+    }
+    
 //    func getPasseger(){
 //        passengerList = []
 //        guard let bookingObj = self.bookingObject else {return}
@@ -118,6 +133,48 @@ class PassengerSelectionVM  {
 //        }
 //    }
     
+    func fetchConfirmationData(){
+        
+        let param = [APIKeys.it_id.rawValue:self.id]
+        APICaller.shared.getAddonsMaster(params: param) { (sucsess, errorCode, addonsMaster) in
+            if sucsess{
+                self.addonsMaster = addonsMaster
+            }else{
+                debugPrint(errorCode)
+            }
+        }
+        
+    }
+    
+    func fetchAddonsData(){
+        var param:JSONDictionary = ["sid": sid]
+        
+        if journeyType == .international{
+            if flightSearchType == SINGLE_JOURNEY{
+                param["old_farepr[]"] = self.journey?.first?.farepr ?? 0
+                param["fk[]"] = self.journey?.first?.fk ?? ""
+            }else{
+                param["old_farepr[]"] = self.intJourney?.first?.farepr ?? 0
+                param["fk[]"] = self.intJourney?.first?.fk ?? ""
+                param["combo"] = true
+            }
+        }else{
+            guard let journey = journey else{return}
+            for i in 0..<journey.count{
+                param["old_farepr[\(i)]"] = journey[i].farepr
+                param["fk[\(i)]"] = journey[i].fk
+            }
+        }
+        
+        APICaller.shared.getConfirmation(params: param) { (sucsess, errorCode, addonsMaster) in
+            if sucsess{
+               
+            }else{
+                debugPrint(errorCode)
+            }
+        }
+    }
+
     private func getMealfreference()-> [MealPreference]{
         guard let intJourney = intJourney.first else {
             return []

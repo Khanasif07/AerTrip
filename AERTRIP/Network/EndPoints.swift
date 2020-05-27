@@ -131,6 +131,10 @@ enum APIEndPoint: String {
     case privacy = "https://beta.aertrip.com/privacy"
     case about = "https://beta.aertrip.com/about"
     case legal = "https://beta.aertrip.com/legal"
+    
+    //Flights
+    case fareConfirmation = "flights/confirmation"
+    case addonsMaster = "flights/addons-master"
 }
 
 // MARK: - endpoint extension for url -
