@@ -16,7 +16,8 @@ class ReviewTableViewCell: UITableViewCell {
     @IBOutlet weak var progressBarView: PKProgressView!
     @IBOutlet weak var numbOfReviews: UILabel!
     @IBOutlet weak var progressViewBottomConstraints: NSLayoutConstraint!
-
+    @IBOutlet weak var progressViewTopConstraint: NSLayoutConstraint!
+    
     //Mark:- LifeCycle
     //================
     override func awakeFromNib() {

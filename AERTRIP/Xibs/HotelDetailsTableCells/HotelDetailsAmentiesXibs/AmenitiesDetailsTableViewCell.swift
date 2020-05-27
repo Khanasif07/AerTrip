@@ -60,8 +60,15 @@ extension AmenitiesDetailsTableViewCell: UICollectionViewDelegate, UICollectionV
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AmenitiesDetailsCollectionCell", for: indexPath) as? AmenitiesDetailsCollectionCell else {
             return UICollectionViewCell()
         }
+        
+        var index = 0
+        if indexPath.item % 2 == 0 {
+            index = 5 - (5 - indexPath.item / 2)
+        } else {
+            index = 5 + (0 + indexPath.item / 2)
+        }
         if let safeAmenitiesData = self.amenitiesDetails?.main {
-            cell.configureCell(amenitiesMainData: safeAmenitiesData[indexPath.item])
+            cell.configureCell(amenitiesMainData: safeAmenitiesData[index])
         }
         return cell
     }

@@ -148,6 +148,11 @@ extension PhotoGalleryVC: SwiftPhotoGalleryDelegate {
         UIApplication.shared.statusBarStyle = .default
         dismiss(animated: true, completion: nil)
     }
+    
+    func galleryDidScrollToIndex(index: Int) {
+        self.index = index
+        self.galleryCollection.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredVertically, animated: false)
+    }
 }
 
 

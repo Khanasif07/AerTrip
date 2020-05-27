@@ -16,6 +16,7 @@ protocol SwiftPhotoGalleryDataSource: NSObjectProtocol {
 
 protocol SwiftPhotoGalleryDelegate: NSObjectProtocol {
     func galleryDidTapToClose(gallery:SwiftPhotoGallery)
+    func galleryDidScrollToIndex(index: Int)
 }
 
 
@@ -467,7 +468,7 @@ extension SwiftPhotoGallery: UICollectionViewDelegate {
 
         // If the scroll animation ended, update the page control to reflect the current page we are on
         updatePageControl()
-
+        self.delegate?.galleryDidScrollToIndex(index: self.currentPage)
         UIView.animate(withDuration: 1.0, delay: 2.0, options: UIView.AnimationOptions.curveEaseInOut, animations: { () -> Void in
             self.pageControl.alpha = 0.0
         }, completion: nil)

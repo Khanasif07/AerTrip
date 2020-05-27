@@ -54,7 +54,7 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
     private func configureUI() {
         //Color
         self.containerView.backgroundColor = AppColors.screensBackground.color
-        self.searchBarSetUp()
+        //self.searchBarSetUp()
         self.registerXibs()
     }
     
@@ -200,7 +200,7 @@ extension HotelDetailsSearchTagTableCell: UICollectionViewDelegate, UICollection
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if let parentVC = self.parentViewController as? HotelDetailsVC {
             var cancelButtonWidth: CGFloat = parentVC.viewModel.permanentTagsForFilteration.contains(self.availableTagsForFilterartion[indexPath.item]) ? 20.0 : 20.0
-            if indexPath.item >= 2 { cancelButtonWidth = 46.0}
+            if indexPath.item >= 2 { cancelButtonWidth = 36.0}
             let size = availableTagsForFilterartion[indexPath.item].sizeCount(withFont: AppFonts.SemiBold.withSize(16.0), bundingSize: CGSize(width: 10000.0, height: 28.0))
             return CGSize(width: size.width + cancelButtonWidth, height: 28.0)
         }

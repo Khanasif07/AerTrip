@@ -54,7 +54,7 @@ class HotelDetailsAmenitiesVC: BaseVC {
     
     override func setupColors() {
         self.amenitiesLabel.textColor = AppColors.themeBlack
-        self.stickyTitleLabel.alpha = 0.0
+        //self.stickyTitleLabel.alpha = 0.0
         self.stickyTitleLabel.textColor = AppColors.themeBlack
     }
     
@@ -80,6 +80,13 @@ class HotelDetailsAmenitiesVC: BaseVC {
         self.dividerView.isHidden = true
         self.registerNibs()
         self.viewModel.getAmenitiesSections()
+        
+        headerContainerView.backgroundColor = .clear
+        mainContainerView.backgroundColor = .clear
+        self.view.backgroundColor = .clear
+        
+        self.amenitiesLabel.alpha = 0.0
+        self.stickyTitleLabel.alpha = 1.0
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -283,7 +290,7 @@ extension HotelDetailsAmenitiesVC {
         }
         self.mainContainerBottomConst.constant = 0.0
         self.mainContainerHeightConst.constant = finalValue
-        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
         self.view.layoutIfNeeded()
         
     }

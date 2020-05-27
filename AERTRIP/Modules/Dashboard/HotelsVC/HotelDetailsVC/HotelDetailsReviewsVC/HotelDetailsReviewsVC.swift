@@ -129,7 +129,7 @@ class HotelDetailsReviewsVC: BaseVC {
     private func getHeightForHeaderInSection(section: Int) -> CGFloat {
         switch section {
         case 1,2:
-            return 49
+            return 35.5
         default:
             return CGFloat.leastNonzeroMagnitude
         }
@@ -218,8 +218,8 @@ extension HotelDetailsReviewsVC: UITableViewDelegate , UITableViewDataSource {
             default:
                 return
             }
-            //AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
-            UIApplication.openSafariViewController(forUrlPath: urlString, delegate: nil, completion: nil)
+            AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+            //UIApplication.openSafariViewController(forUrlPath: urlString, delegate: nil, completion: nil)
         }
     }
     
@@ -247,9 +247,15 @@ extension HotelDetailsReviewsVC {
         if let currentReview = tripAdviserDetails.reviewRatingCount[self.getReverseNumber(row: indexPath.row)] as? String {
             cell.configCell(title: self.ratingNames[indexPath.row] ,totalNumbReviews: tripAdviserDetails.numReviews, currentReviews: currentReview)
             if indexPath.row == ratingNames.count - 1 {
-                cell.progressViewBottomConstraints.constant = 10.5
+                cell.progressViewBottomConstraints.constant = 17
             } else {
-                cell.progressViewBottomConstraints.constant = 6.5
+                cell.progressViewBottomConstraints.constant = 7
+            }
+            
+            if indexPath.row == 0 {
+                cell.progressViewTopConstraint.constant = 14
+            } else {
+                cell.progressViewTopConstraint.constant = 7
             }
         }
         return cell
@@ -260,11 +266,16 @@ extension HotelDetailsReviewsVC {
         if let ratingSummary = tripAdviserDetails.ratingSummary {
             cell.configCell(ratingSummary: ratingSummary[indexPath.row])
             if indexPath.row == ratingSummary.count - 1 {
-                cell.dividerViewTopConstraints.constant = 26.5
+                cell.dividerViewTopConstraints.constant = 16.5
                 cell.dividerView.isHidden = false
             } else {
                 cell.dividerViewTopConstraints.constant = 6.5
                 cell.dividerView.isHidden = true
+            }
+            if indexPath.row == 0 {
+                cell.ratingViewTopConstraint.constant = 16
+            } else {
+                cell.ratingViewTopConstraint.constant = 6.5
             }
         }
         return cell

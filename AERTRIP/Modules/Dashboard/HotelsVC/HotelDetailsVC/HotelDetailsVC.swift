@@ -207,6 +207,10 @@ class HotelDetailsVC: BaseVC {
             self.view.addGestureRecognizer(swipeGesture)
             self.view.backgroundColor = AppColors.clear
         }
+        self.completion = { [weak self] in
+            self?.hotelTableView.reloadData()
+            self?.viewModel.getHotelInfoApi()
+        }
     }
     
     override func bindViewModel() {
@@ -402,6 +406,7 @@ class HotelDetailsVC: BaseVC {
         // setting to make Close button pixel perfect
         self.headerView.firstRightButtonTrailingConstraint.constant = -3
         self.hotelTableView.roundTopCorners(cornerRadius: 10.0)
+        self.headerView.navTitleLabel.numberOfLines = 1
         //------------------------ Golu Change --------------------
         if self.isAddingChild{
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.panGestureRecognizerHandler))
