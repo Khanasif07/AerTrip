@@ -41,8 +41,8 @@ class SeatCollCellVM {
     
     private var charStr = Int(("A" as UnicodeScalar).value)
     var totalSections = 0
-    var seatLayout: PlaneSeatsLayout = .four
     var currentDeck: DeckType = .main
+    var seatData = SeatMapModel.SeatMapRow()
 
     func getUnicodeScalarStringFor(_ sec: PlaneSeatsLayout.SeatSectionType) -> String {
         switch sec {
