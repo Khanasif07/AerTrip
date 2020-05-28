@@ -22,7 +22,7 @@ class GuestDetailsVM: NSObject {
     var selectedIndexPath: IndexPath = IndexPath()
     var salutation = [String]()
     var canShowSalutationError = false
-    
+    var countries:[String:String]?
     // GuestModalArray for travellers
     var guests: [[ATContact]] = [[]]
     var travellerList: [TravellerModel] = [] {
@@ -104,6 +104,27 @@ class GuestDetailsVM: NSObject {
         }
         if let obj = object {
             return (obj.firstName, obj.lastName, obj.fullName, obj.dob, obj.salutation)
+        }
+        
+        return nil
+    }
+    
+    func contactForIndexPath(indexPath: IndexPath) -> ATContact? {
+        var object: ATContact?
+        
+        switch indexPath.section {
+        case 0: //section 0 for travellers
+             object = self.travellerContacts[indexPath.row]
+        case 1: //section 1 for phone contacts
+             object =  self.phoneContacts[indexPath.row]
+        case 2: //section 2 for facebook contact
+             object =  self.facebookContacts[indexPath.row]
+        case 3: //section 3 for google contacts
+             object =  self.googleContacts[indexPath.row]
+        default: break
+        }
+        if let obj = object {
+            return obj
         }
         
         return nil

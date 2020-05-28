@@ -626,7 +626,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         vc.viewModel.journeyType = .international
         vc.viewModel.journeyTitle = self.journeyTitle
         vc.viewModel.journeyDate = self.journeyDate
-        self.presentAsPushAnimation(nav)
+        self.present(nav, animated: true, completion: nil)//presentAsPushAnimation(nav)
     }
 }
 

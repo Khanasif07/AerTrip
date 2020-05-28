@@ -450,6 +450,7 @@ enum ATOthers: Int, CaseIterable {
 enum PassengersType: String {
     case Adult = "ADT"
     case child = "CHD"
+    case infant = "INF"
 }
 
 enum UserCreditType: String {

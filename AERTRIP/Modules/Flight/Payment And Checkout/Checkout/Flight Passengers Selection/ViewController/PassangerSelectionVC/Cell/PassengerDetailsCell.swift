@@ -20,12 +20,13 @@ class PassengerDetailsCell: UICollectionViewCell {
     
     
     private(set) var isForAdult: Bool = false
+    var journeyType:JourneyType = .domestic
     
-//    var contact: ATContact? {
-//        didSet {
-//            self.configData()
-//        }
-//    }
+    var contact: ATContact? {
+        didSet {
+            self.configData()
+        }
+    }
     
     // Mark:- LifeCycles
     // Mark:-
@@ -71,63 +72,90 @@ class PassengerDetailsCell: UICollectionViewCell {
     private func configData() {
         
         func setupForAdd() {
-//            infoImageView.image = #imageLiteral(resourceName: "add_icon")
-//            var finalText = ""
-//            if let type = self.contact?.passengerType {
-//                iconImageView.image = (type == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
-//
-//                finalText = "\((type == .Adult) ? LocalizedString.Adult.localized : LocalizedString.Child.localized) \(self.contact?.numberInRoom ?? 0)"
-//            }
-//            var ageText = ""
-//            if let year = self.contact?.age, year > 0 {
-//                //ageLabel.text = "(\(year)y)"
-//                finalText += " (\(year)y)"
-//                ageText = "(\(year)y)"
-//            }
-//            ageLabel.isHidden = false
-//            lastNameAgeContainer.isHidden = false
-//            firstNameLabel.attributedText = self.atributedtedString(text: finalText, ageText: ageText)
+            infoImageView.image = #imageLiteral(resourceName: "add_icon")
+            var finalText = ""
+            if let type = self.contact?.passengerType {
+                switch type{
+                case .Adult:
+                    iconImageView.image = #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+                    finalText = "\(LocalizedString.Adult.localized) \(self.contact?.numberInRoom ?? 0)"
+                case .child:
+                    iconImageView.image = #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
+                    finalText = "\(LocalizedString.Child.localized) \(self.contact?.numberInRoom ?? 0)"
+                case .infant:
+                    iconImageView.image = #imageLiteral(resourceName: "ic_deselected_hotel_guest_infant")
+                    finalText = "\(LocalizedString.Infant.localized) \(self.contact?.numberInRoom ?? 0)"
+                }
+            }
+            var ageText = ""
+            if let year = self.contact?.age, year > 0 {
+                //ageLabel.text = "(\(year)y)"
+                finalText += " (\(year)y)"
+                ageText = "(\(year)y)"
+            }
+            ageLabel.isHidden = false
+            lastNameAgeContainer.isHidden = false
+            firstNameLabel.attributedText = self.atributedtedString(text: finalText, ageText: ageText)
         }
-        
+        self.iconImageView.clipsToBounds = true
         self.iconImageView.layer.cornerRadius = self.iconImageView.frame.height / 2.0
-//        if let fName = self.contact?.firstName, let lName = self.contact?.lastName, let saltn = self.contact?.salutation {
-//            infoImageView.image = #imageLiteral(resourceName: "ic_info_incomplete")
-//            infoImageView.isHidden = true
-//
-//            let placeHolder = self.contact?.flImage ?? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
-//            self.iconImageView.image = placeHolder
-//
-//            if (fName.isEmpty && lName.isEmpty) {
-//                infoImageView.isHidden = false
-//                setupForAdd()
-//            }
-//            else {
-//                infoImageView.isHidden = !((fName.isEmpty || fName.count < 3) || (lName.isEmpty || lName.count < 3) || saltn.isEmpty)
-//                firstNameLabel.text = fName
-//                lastNameLabel.text = lName
-//                if !lName.isEmpty {
-//                    lastNameLabel.isHidden = false
-//                    lastNameAgeContainer.isHidden = false
-//                }
-//
-//                if let img = self.contact?.profilePicture, !img.isEmpty {
-//                    self.iconImageView.setImageWithUrl(img, placeholder: placeHolder, showIndicator: false)
-//                }
-//                else {
-//                    self.iconImageView.image = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, font: AppFonts.Light.withSize(36.0),textColor: AppColors.themeGray60, offSet: CGPoint(x: 0, y: 12), backGroundColor: AppColors.imageBackGroundColor)
-//                }
-//
-//                if let year = self.contact?.age, year > 0 {
-//                    ageLabel.text = "(\(year)y)"
-//                    ageLabel.isHidden = false
-//                    lastNameAgeContainer.isHidden = false
-//                }
-//            }
-//
-//        }
-//        else {
-//            setupForAdd()
-//        }
+        if let fName = self.contact?.firstName, let lName = self.contact?.lastName, let saltn = self.contact?.salutation {
+            infoImageView.image = #imageLiteral(resourceName: "ic_info_incomplete")
+            infoImageView.isHidden = true
+
+            let placeHolder = self.contact?.flImage ?? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+            self.iconImageView.image = placeHolder
+
+            if (fName.isEmpty && lName.isEmpty) {
+                infoImageView.isHidden = false
+                setupForAdd()
+            }
+            else {
+                infoImageView.isHidden = !((fName.isEmpty || fName.count < 3) || (lName.isEmpty || lName.count < 3) || saltn.isEmpty)
+                firstNameLabel.text = fName
+                lastNameLabel.text = lName
+                if !lName.isEmpty {
+                    lastNameLabel.isHidden = false
+                    lastNameAgeContainer.isHidden = false
+                }
+
+                if let img = self.contact?.profilePicture, !img.isEmpty {
+                    self.iconImageView.setImageWithUrl(img, placeholder: placeHolder, showIndicator: false)
+                }
+                else {
+                    self.iconImageView.image = AppGlobals.shared.getImageFor(firstName: self.contact?.firstName, lastName: self.contact?.lastName, font: AppFonts.Light.withSize(36.0),textColor: AppColors.themeGray60, offSet: CGPoint(x: 0, y: 12), backGroundColor: AppColors.imageBackGroundColor)
+                }
+
+                if let year = self.contact?.age, year > 0 {
+                    ageLabel.text = "(\(year)y)"
+                    ageLabel.isHidden = false
+                    lastNameAgeContainer.isHidden = false
+                }
+            }
+            if self.journeyType == .domestic{
+                self.checkForDomestic()
+            }else{
+                self.checkForInternational()
+            }
+        }
+        else {
+            setupForAdd()
+        }
+    }
+    
+    private func checkForDomestic(){
+        guard let guest = self.contact else {return}
+        switch guest.passengerType{
+        case .Adult, .child:
+            break;
+        case .infant:
+            infoImageView.isHidden = !(guest.displayDob.isEmpty)
+        }
+    }
+    
+    private func checkForInternational(){
+        guard let guest = self.contact else {return}
+        infoImageView.isHidden = !(guest.displayDob.isEmpty || guest.nationality.isEmpty || guest.passportNumber.isEmpty || guest.displayPsprtExpDate.isEmpty)
     }
     
     // Mark:- IBActions

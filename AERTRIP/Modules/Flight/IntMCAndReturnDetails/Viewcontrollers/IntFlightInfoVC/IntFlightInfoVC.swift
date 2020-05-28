@@ -721,16 +721,14 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     
     //MARK:- Set Image
-    func setImageFromPath(urlPath : String  , to imageView : UIImageView)
-    {
-        guard  let urlobj = URL(string: urlPath) else { return }
-        
-        let urlRequest = URLRequest(url: urlobj)
-        if let responseObj = URLCache.shared.cachedResponse(for: urlRequest) {
-            
-            let image = UIImage(data: responseObj.data)
-            imageView.image = image
-        }
+    func setImageFromPath(urlPath : String  , to imageView : UIImageView){
+        imageView.setImageWithUrl(urlPath, placeholder: UIImage(), showIndicator: false)//resourceFor(urlPath: urlPath)
+//        guard  let urlobj = URL(string: urlPath) else { return }
+//        let urlRequest = URLRequest(url: urlobj)
+//        if let responseObj = URLCache.shared.cachedResponse(for: urlRequest) {
+//            let image = UIImage(data: responseObj.data)
+//            imageView.image = image
+//        }
     }
     
     func getSelectedAmenities(amenitiesData: [String : String], index: Int)

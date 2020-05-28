@@ -15,20 +15,19 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var showPassportView: UIView!
-//    @IBOutlet weak var passportTextView: UITextView!
+    @IBOutlet weak var travellersTableView: ATTableView!
     @IBOutlet weak var passengerTable: UITableView!
     
+    weak var delegate : HCSelectGuestsVCDelegate?
     var viewModel = PassengerDetailsVM()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerCells()
         self.setupTextView()
-        self.passengerTable.separatorStyle = .none
-        self.passengerTable.delegate = self
-        self.passengerTable.dataSource = self
-        DispatchQueue.main.async {
-            self.passengerTable.scrollToRow(at: self.viewModel.indexPath, at: .middle, animated: true)
-        }
+        self.doInitialSetup()
+        GuestDetailsVM.shared.delegate = self
+        titleLabel.text = "Passenger Details"
+        titleLabel.font = AppFonts.SemiBold.withSize(18)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,13 +46,33 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
         self.passengerTable.register(UINib(nibName: "AddPassengerDetailsCell", bundle: nil), forCellReuseIdentifier: "AddPassengerDetailsCell")
         self.passengerTable.register(UINib(nibName: "MealPreferenceCell", bundle: nil), forCellReuseIdentifier: "MealPreferenceCell")
         self.passengerTable.register(UINib(nibName: "FlightEmptyCell", bundle: nil), forCellReuseIdentifier: "FlightEmptyCell")
+        self.travellersTableView.registerCell(nibName: TravellerListTableViewCell.reusableIdentifier)
+        self.travellersTableView.register(UINib(nibName: AppConstants.ktableViewHeaderViewIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: AppConstants.ktableViewHeaderViewIdentifier)
     }
     
+    private func doInitialSetup() {
+        self.travellersTableView.separatorStyle = .none
+        self.travellersTableView.dataSource = self
+        self.travellersTableView.delegate = self
+        self.travellersTableView.isHidden = true
+        GuestDetailsVM.shared.resetData()
+        self.travellersTableView.keyboardDismissMode = .none
+        self.passengerTable.separatorStyle = .none
+        self.passengerTable.delegate = self
+        self.passengerTable.dataSource = self
+        self.passengerTable.backgroundColor = AppColors.themeGray04
+        DispatchQueue.main.async {
+            self.passengerTable.scrollToRow(at: self.viewModel.indexPath, at: .middle, animated: true)
+        }
+        addFooterViewToTravellerTableView()
+    }
     
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//        setupTextView()
-//    }
+    private func addFooterViewToTravellerTableView() {
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: UIDevice.screenWidth, height: 400))
+        customView.backgroundColor = AppColors.themeWhite
+        
+        travellersTableView.tableFooterView = customView
+    }
     
     private func setupTextView(){
         let passportTextView = UITextView()
@@ -76,11 +95,23 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     }
     
     
+    private func editedGuest(_ travellerIndexPath: IndexPath) {
+        if let indexPath = self.viewModel.editinIndexPath, let object = GuestDetailsVM.shared.contactForIndexPath(indexPath: travellerIndexPath) {
+            GuestDetailsVM.shared.guests[0][indexPath.section] = object
+            self.passengerTable.reloadData()
+        }
+    }
+    
     @IBAction func tapBackBtn(_ sender: UIButton) {
+        GuestDetailsVM.shared.canShowSalutationError = true
+        self.delegate?.didAddedContacts()
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func tapDoneBtn(_ sender: UIButton) {
+        GuestDetailsVM.shared.canShowSalutationError = true
+        self.delegate?.didAddedContacts()
+        self.navigationController?.popViewController(animated: true)
     }
     
     
@@ -88,12 +119,17 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
         if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
             print("Notification: Keyboard will show")
             self.passengerTable.setBottomInset(to: keyboardHeight + 10)
+            self.viewModel.keyboardHeight = keyboardHeight
         }
     }
 
     @objc func keyboardWillHide(notification: Notification) {
         print("Notification: Keyboard will hide")
         self.passengerTable.setBottomInset(to: 0.0)
+        self.passengerTable.isScrollEnabled = true
+        GuestDetailsVM.shared.resetData()
+        self.travellersTableView.reloadData()
+        self.travellersTableView.isHidden = GuestDetailsVM.shared.isDataEmpty
     }
     
     
@@ -109,56 +145,107 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
 extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.passengerList.count
+        if tableView == self.passengerTable{
+            return self.viewModel.passengerList.count
+        }else{
+            return 4
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if self.viewModel.passengerList[section].isMoreOptionTapped{
-            return (self.viewModel.passengerList[section].frequentFlyer.count + self.viewModel.passengerList[section].mealPreference.count) + 2
-        }else{
-            return 2
-        }
-        
-    }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if self.viewModel.passengerList[indexPath.section].isMoreOptionTapped{
-            if indexPath.row == ((self.viewModel.passengerList[indexPath.section].frequentFlyer.count + self.viewModel.passengerList[indexPath.section].mealPreference.count) + 1){
-                return 35
+        if tableView == self.passengerTable{
+            if self.viewModel.passengerList[section].isMoreOptionTapped{
+                return (self.viewModel.passengerList[section].frequentFlyer.count + self.viewModel.passengerList[section].mealPreference.count) + 2
             }else{
-                return UITableView.automaticDimension
+                return 2
             }
         }else{
-            return (indexPath.row == 1) ? 35 : UITableView.automaticDimension
+            return GuestDetailsVM.shared.numberOfRowsInSection(section: section)
         }
-        
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableView == self.passengerTable{
+            if self.viewModel.passengerList[indexPath.section].isMoreOptionTapped{
+                if indexPath.row == ((self.viewModel.passengerList[indexPath.section].frequentFlyer.count + self.viewModel.passengerList[indexPath.section].mealPreference.count) + 1){
+                    return 35
+                }else{
+                    return UITableView.automaticDimension
+                }
+            }else{
+                return (indexPath.row == 1) ? 35 : UITableView.automaticDimension
+            }
+        }else{
+            return 43.0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if tableView === self.passengerTable {
+            return CGFloat.leastNormalMagnitude
+        } else {
+            return GuestDetailsVM.shared.numberOfRowsInSection(section: section) > 0 ? 28.0 : CGFloat.leastNormalMagnitude
+        }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if tableView === self.passengerTable {
+            return nil
+        } else {
+            guard let headerView = travellersTableView.dequeueReusableHeaderFooterView(withIdentifier: AppConstants.ktableViewHeaderViewIdentifier) as? ViewProfileDetailTableViewSectionView else {
+                fatalError("ViewProfileDetailTableViewSectionView not found")
+            }
+            headerView.headerLabel.text = GuestDetailsVM.shared.titleForSection(section: section).uppercased()
+            headerView.backgroundColor = AppColors.themeGray04
+            headerView.containerView.backgroundColor = AppColors.themeGray04
+            headerView.topDividerHeightConstraint.constant = 0.5
+            headerView.bottomSeparatorView.isHidden = false
+            headerView.clipsToBounds = true
+            return headerView
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0{
-            return getCellDetailsCell(with: indexPath)
-        }else {
-            if self.viewModel.passengerList[indexPath.section].isMoreOptionTapped{
-                if indexPath.row == ((self.viewModel.passengerList[indexPath.section].frequentFlyer.count + self.viewModel.passengerList[indexPath.section].mealPreference.count) + 1){
-                    return getEmptyCell()
-                }else if indexPath.row <=  self.viewModel.passengerList[indexPath.section].mealPreference.count{
-                    return getCellForMealPreference(with: indexPath)
+        if tableView == self.passengerTable{
+            if indexPath.row == 0{
+                return getCellDetailsCell(with: indexPath)
+            }else {
+                if self.viewModel.passengerList[indexPath.section].isMoreOptionTapped{
+                    if indexPath.row == ((self.viewModel.passengerList[indexPath.section].frequentFlyer.count + self.viewModel.passengerList[indexPath.section].mealPreference.count) + 1){
+                        return getEmptyCell()
+                    }else if indexPath.row <=  self.viewModel.passengerList[indexPath.section].mealPreference.count{
+                        return getCellForMealPreference(with: indexPath)
+                    }else{
+                        return getCellForFrequentFlyer(with: indexPath)
+                    }
                 }else{
-                     return getCellForFrequentFlyer(with: indexPath)
+                    return getEmptyCell()
                 }
-            }else{
-               return getEmptyCell()
             }
+            
+        }else{
+            guard let cell = travellersTableView.dequeueReusableCell(withIdentifier: TravellerListTableViewCell.reusableIdentifier, for: indexPath) as? TravellerListTableViewCell else {
+                printDebug("cell not found")
+                return UITableViewCell()
+            }
+            cell.separatorView.isHidden = indexPath.row == 0
+            cell.searchedText = self.viewModel.searchText
+            cell.travellerModelData = GuestDetailsVM.shared.objectForIndexPath(indexPath: indexPath)
+            return cell
+            
         }
     }
     
     
     func getCellDetailsCell(with indexPath: IndexPath)-> UITableViewCell{
-        
         guard let cell = self.passengerTable.dequeueReusableCell(withIdentifier: "AddPassengerDetailsCell") as? AddPassengerDetailsCell else { return UITableViewCell() }
-        cell.passenger = self.viewModel.passengerList[indexPath.section]
-        cell.configureCell(with: indexPath, journeyType: self.viewModel.journeyType)
+        cell.cellIndexPath = indexPath
+        cell.journeyType = self.viewModel.journeyType
+        cell.canShowSalutationError = GuestDetailsVM.shared.canShowSalutationError
         cell.delegate = self
+        cell.txtFldEditDelegate = self
+        cell.guestDetail = self.viewModel.passengerList[indexPath.section]
         return cell
     }
     
@@ -168,6 +255,24 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
         cell.configureForMealPreference(with: self.viewModel.passengerList[indexPath.section], at: indexPath)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView === self.travellersTableView {
+            self.passengerTable.isScrollEnabled = true
+            self.travellersTableView.isHidden = true
+            let object = GuestDetailsVM.shared.contactForIndexPath(indexPath: indexPath)
+            if let cellindexPath = self.viewModel.editinIndexPath, let obj = object {
+                if let cell = self.passengerTable.cellForRow(at: cellindexPath) as? AddPassengerDetailsCell {
+                    cell.firstNameTextField.text = obj.firstName
+                    cell.lastNameTextField.text = obj.lastName
+                }
+            }
+            self.editedGuest(indexPath)
+            GuestDetailsVM.shared.resetData()
+            GuestDetailsVM.shared.search(forText: "")
+        }
+    }
+
     
     func getCellForFrequentFlyer(with indexPath: IndexPath)-> UITableViewCell{
         
@@ -187,11 +292,90 @@ extension PassengerDetailsVC: UITableViewDelegate, UITableViewDataSource{
 extension PassengerDetailsVC : UpdatePassengerDetailsDelegate{
     
     func tapOptionalDetailsBtn(at indexPath:IndexPath){
-        self.viewModel.passengerList[indexPath.section].isMoreOptionTapped = true
+        GuestDetailsVM.shared.guests[0][indexPath.section].isMoreOptionTapped = true
         self.passengerTable.beginUpdates()
         self.passengerTable.reloadSections([indexPath.section], with: .automatic)
         self.passengerTable.endUpdates()
         
     }
     
+}
+extension PassengerDetailsVC: GuestDetailTableViewCellDelegate {
+    
+    func textFieldWhileEditing(_ textField: UITextField) {
+        self.viewModel.editinIndexPath = self.passengerTable.indexPath(forItem: textField)
+        self.viewModel.searchText = textField.text ?? ""
+        GuestDetailsVM.shared.search(forText: self.viewModel.searchText)
+        if self.viewModel.searchText.isEmpty {
+            GuestDetailsVM.shared.resetData()
+        }
+        self.travellersTableView.isHidden = GuestDetailsVM.shared.isDataEmpty
+        self.travellersTableView.reloadData()
+        if let cell = self.passengerTable.cell(forItem: textField) as? AddPassengerDetailsCell {
+            switch textField {
+            case cell.firstNameTextField:
+                if let indexPath = self.viewModel.editinIndexPath {
+                    if textField.text?.count ?? 0 < AppConstants.kFirstLastNameTextLimit {
+                        GuestDetailsVM.shared.guests[0][indexPath.section].firstName = textField.text?.removeSpaceAsSentence ?? ""
+                    } else {
+                        AppToast.default.showToastMessage(message: "First Name should be less than 30 characters", spaceFromBottom : self.viewModel.keyboardHeight)
+                        return
+                    }
+                }
+                
+            case cell.lastNameTextField:
+                if let indexPath = self.viewModel.editinIndexPath {
+                    if textField.text?.count ?? 0 < AppConstants.kFirstLastNameTextLimit {
+                        GuestDetailsVM.shared.guests[0][indexPath.section].lastName = textField.text?.removeSpaceAsSentence ?? ""
+                    } else {
+                        AppToast.default.showToastMessage(message: "Last Name should be less than 30 characters", spaceFromBottom: self.viewModel.keyboardHeight)
+                        return
+                    }
+                    
+                }
+                
+            default:
+                break
+            }
+        }
+    }
+    func textField(_ textField: UITextField){
+        
+        self.travellersTableView.isHidden = GuestDetailsVM.shared.isDataEmpty
+        self.travellersTableView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+        self.viewModel.editinIndexPath = self.passengerTable.indexPath(forItem: textField)
+        if let _ = self.passengerTable.cell(forItem: textField) as? AddPassengerDetailsCell {
+            //  get item position
+            let itemPosition: CGPoint = textField.convert(CGPoint.zero, to: passengerTable)
+            var  yValue = 80
+            if let index = self.viewModel.editinIndexPath {
+                yValue = index.section ==  GuestDetailsVM.shared.guests[0].count - 1 ? 81 : 83
+            }
+            self.passengerTable.setContentOffset(CGPoint(x: self.passengerTable.origin.x, y: itemPosition.y - CGFloat(yValue)), animated: true)
+            
+            self.passengerTable.isScrollEnabled = GuestDetailsVM.shared.isDataEmpty
+            travellersTableView.reloadData()
+            printDebug("item position is \(itemPosition)")
+        } else {
+            travellersTableView.isHidden = true
+        }
+        
+    }
+    
+}
+
+extension PassengerDetailsVC: GuestDetailsVMDelegate {
+    func searchDidComplete() {
+        self.travellersTableView.isHidden = GuestDetailsVM.shared.isDataEmpty
+        self.travellersTableView.reloadData()
+    }
+    
+    func getFail(errors: ErrorCodes) {
+        printDebug(errors)
+    }
+    
+    
+    func getSalutationResponse(salutations: [String]) {
+        //
+    }
 }

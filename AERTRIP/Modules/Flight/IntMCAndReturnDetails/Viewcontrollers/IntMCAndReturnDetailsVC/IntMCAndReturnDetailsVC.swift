@@ -55,6 +55,9 @@ class IntMCAndReturnDetailsVC: UIViewController {
         self.setupScrollView()
         self.showHintAnimation()
         self.viewModel.delegate = self
+        if let interactivePopGestureRecognizer = navigationController?.interactivePopGestureRecognizer {
+            self.baseScrollView.panGestureRecognizer.require(toFail: interactivePopGestureRecognizer)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

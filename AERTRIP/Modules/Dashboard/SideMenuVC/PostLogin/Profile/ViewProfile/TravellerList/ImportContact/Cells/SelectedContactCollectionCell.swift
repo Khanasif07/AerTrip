@@ -95,7 +95,15 @@ class SelectedContactCollectionCell: UICollectionViewCell {
             }
             else if let lName = self.contact?.lastName, lName.isEmpty, let type = self.contact?.passengerType, let number = self.contact?.numberInRoom, number >= 0 {
                 self.crossButton.isHidden = true
-                self.nameLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)"
+                switch type{
+                case .Adult:
+                    self.nameLabel.text = "\(LocalizedString.Adult.localized) \(number)"
+                case .child:
+                    self.nameLabel.text = "\(LocalizedString.Child.localized) \(number)"
+                case .infant:
+                   self.nameLabel.text = "\(LocalizedString.Infant.localized) \(number)"
+                }
+//                self.nameLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)"
                 
 //                if let year = self.contact?.age, year > 0 {
 //                    ageLabel.text = "(\(year)y)"
@@ -120,11 +128,27 @@ class SelectedContactCollectionCell: UICollectionViewCell {
             var placeHolder: UIImage = #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
             if let ptype = self.contact?.passengerType {
                 if isSelectedForGuest {
-                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_selected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
+                    switch ptype{
+                    case .Adult:
+                        placeHolder = #imageLiteral(resourceName: "ic_selected_hotel_guest_adult")
+                    case .child:
+                        placeHolder = #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
+                    case .infant:
+                        placeHolder = #imageLiteral(resourceName: "ic_selected_hotel_guest_infant")
+                    }
+//                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_selected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
                     self.nameLabel.textColor = AppColors.themeBlack
                 }
                 else {
-                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
+                    switch ptype{
+                    case .Adult:
+                        placeHolder = #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+                    case .child:
+                        placeHolder = #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
+                    case .infant:
+                        placeHolder = #imageLiteral(resourceName: "ic_deselected_hotel_guest_infant")
+                    }
+//                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
                     self.nameLabel.textColor = AppColors.themeGray40
                 }
             }
@@ -259,7 +283,16 @@ class SelectedContactImportCollectionCell: UICollectionViewCell {
             }
             else if let type = self.contact?.passengerType, let number = self.contact?.numberInRoom, number >= 0 {
                 self.crossButton.isHidden = true
-                self.nameLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)"
+//                self.nameLabel.text = (type == PassengersType.Adult) ? "\(LocalizedString.Adult.localized) \(number)" : "\(LocalizedString.Child.localized) \(number)"
+                switch type{
+                case .Adult:
+                    self.nameLabel.text = "\(LocalizedString.Adult.localized) \(number)"
+                case .child:
+                    self.nameLabel.text = "\(LocalizedString.Child.localized) \(number)"
+                case .infant:
+                   self.nameLabel.text = "\(LocalizedString.Infant.localized) \(number)"
+                }
+
                 
             }
             
@@ -267,11 +300,27 @@ class SelectedContactImportCollectionCell: UICollectionViewCell {
             var placeHolder: UIImage = #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
             if let ptype = self.contact?.passengerType {
                 if isSelectedForGuest {
-                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_selected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
+                    switch ptype{
+                    case .Adult:
+                        placeHolder = #imageLiteral(resourceName: "ic_selected_hotel_guest_adult")
+                    case .child:
+                        placeHolder = #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
+                    case .infant:
+                        placeHolder = #imageLiteral(resourceName: "ic_selected_hotel_guest_infant")
+                    }
+//                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_selected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_selected_hotel_guest_child")
                     self.nameLabel.textColor = AppColors.themeBlack
                 }
                 else {
-                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
+                    switch ptype{
+                    case .Adult:
+                        placeHolder = #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult")
+                    case .child:
+                        placeHolder = #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
+                    case .infant:
+                        placeHolder = #imageLiteral(resourceName: "ic_deselected_hotel_guest_infant")
+                    }
+//                    placeHolder = (ptype == .Adult) ? #imageLiteral(resourceName: "ic_deselected_hotel_guest_adult") : #imageLiteral(resourceName: "ic_deselected_hotel_guest_child")
                     self.nameLabel.textColor = AppColors.themeGray40
                 }
             }

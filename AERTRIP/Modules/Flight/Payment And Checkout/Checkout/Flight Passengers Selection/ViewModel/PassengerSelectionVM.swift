@@ -21,10 +21,12 @@ class PassengerSelectionVM  {
     var selectedJourneyFK = [String]()
     var journeyTitle:NSAttributedString?
     var journeyDate:String?
+    var id = "5ece2f4ab3561a3331770f51"//id to get addons data
+    var addonsMaster = AddonsMaster()
     //Varialbles for domestic and oneway
     var journey:[Journey]?
-    var airportDetailsResult = [String : IntAirportDetailsWS]()
-    var airlineDetailsResult = [String : IntAirlineMasterWS]()
+    var airportDetailsResult = [String : AirportDetailsWS]()
+    var airlineDetailsResult = [String : AirlineMasterWS]()
     
     //Varialbles for international return and multicity
     var intAirportDetailsResult : [String : IntAirportDetailsWS]!
@@ -32,10 +34,14 @@ class PassengerSelectionVM  {
     var intJourney: [IntJourney]!
     var intFlights : [IntFlightDetail]?
     var isSwitchOn = false
-    var isLogin = true
+    var isLogin:Bool{
+        return (UserInfo.loggedInUser != nil)
+    }
     var selectedGST = GSTINModel()
     var passengerList = [Passenger]()
-    
+    var email = ""
+    var mobile = ""
+    var isdCode = ""
     var totalPassengerCount:Int{
         if let bookingObj = self.bookingObject{
             return bookingObj.flightAdultCount + bookingObj.flightChildrenCount + bookingObj.flightInfantCount
@@ -44,36 +50,112 @@ class PassengerSelectionVM  {
         }
     }
     
-    
-    func getPasseger(){
-        passengerList = []
+    func setupGuestArray() {
+        GuestDetailsVM.shared.guests.removeAll()
+        var temp: [ATContact] = []
+        self.webserviceForGetCountryList()
+        self.setupLoginData()
+//        self.fetchAddonsData()
+        fetchAddonsData()
+        self.journeyType = (self.bookingObject?.isDomestic ?? true) ? .domestic : .international
         guard let bookingObj = self.bookingObject else {return}
         for i in 0..<bookingObj.flightAdultCount{
-            var passenger = Passenger()
-            passenger.passengerType = PassengerType.adult
-            passenger.frequentFlyer = self.getFrequentFlyer()
-            passenger.mealPreference = self.getMealfreference()
-            passenger.title = "\(PassengerType.adult.rawValue) \(i+1)".capitalized
-            passengerList.append(passenger)
+            var guest = ATContact()
+            guest.passengerType = PassengersType.Adult
+            guest.frequentFlyer = self.getFrequentFlyer()
+            guest.mealPreference = self.getMealfreference()
+            guest.numberInRoom = (i + 1)
+            guest.id = "\(i + 1)"
+            guest.age = 0
+            temp.append(guest)
         }
         for i in 0..<bookingObj.flightChildrenCount{
-            var passenger = Passenger()
-            passenger.passengerType = PassengerType.child
-            passenger.frequentFlyer = self.getFrequentFlyer()
-            passenger.mealPreference = self.getMealfreference()
-            passenger.title = "\(PassengerType.child.rawValue) \(i+1)".capitalized
-            passengerList.append(passenger)
+            var guest = ATContact()
+            let idx = bookingObj.flightChildrenCount + i + 1
+            guest.passengerType = PassengersType.child
+            guest.frequentFlyer = self.getFrequentFlyer()
+            guest.mealPreference = self.getMealfreference()
+            guest.numberInRoom = (i + 1)
+            guest.id = "\(idx)"
+            guest.age = 0
+            temp.append(guest)
         }
         for i in 0..<bookingObj.flightInfantCount{
-            var passenger = Passenger()
-            passenger.passengerType = PassengerType.infant
-            passenger.frequentFlyer = self.getFrequentFlyer()
-            passenger.mealPreference = self.getMealfreference()
-            passenger.title = "\(PassengerType.infant.rawValue) \(i+1)".capitalized
-            passengerList.append(passenger)
+            var guest = ATContact()
+            let idx = bookingObj.flightAdultCount + bookingObj.flightChildrenCount + i + 1
+            guest.passengerType = PassengersType.infant
+            guest.frequentFlyer = self.getFrequentFlyer()
+            guest.mealPreference = self.getMealfreference()
+            guest.numberInRoom = (i + 1)
+            guest.id = "\(idx)"
+            guest.age = 0
+            temp.append(guest)
+        }
+        GuestDetailsVM.shared.guests.append(temp)
+        GuestDetailsVM.shared.canShowSalutationError = false
+    }
+    
+    func setupLoginData(){
+        if let userInfo = UserInfo.loggedInUser{
+            self.email = userInfo.email
+            self.mobile = userInfo.mobile
+            self.isdCode = userInfo.isd
+        }
+        
+    }
+    
+    func webserviceForGetCountryList() {
+        APICaller.shared.callGetCountriesListApi { success, countries, errorCode in
+            if success {
+                GuestDetailsVM.shared.countries = countries
+            } else {
+                debugPrint(errorCode)
+            }
         }
     }
     
+    func fetchConfirmationData(){
+        
+        let param = [APIKeys.it_id.rawValue:self.id]
+        APICaller.shared.getAddonsMaster(params: param) { (sucsess, errorCode, addonsMaster) in
+            if sucsess{
+                self.addonsMaster = addonsMaster
+            }else{
+                debugPrint(errorCode)
+            }
+        }
+        
+    }
+    
+    func fetchAddonsData(){
+        var param:JSONDictionary = ["sid": sid]
+        
+        if journeyType == .international{
+            if flightSearchType == SINGLE_JOURNEY{
+                param["old_farepr[]"] = self.journey?.first?.farepr ?? 0
+                param["fk[]"] = self.journey?.first?.fk ?? ""
+            }else{
+                param["old_farepr[]"] = self.intJourney?.first?.farepr ?? 0
+                param["fk[]"] = self.intJourney?.first?.fk ?? ""
+                param["combo"] = true
+            }
+        }else{
+            guard let journey = journey else{return}
+            for i in 0..<journey.count{
+                param["old_farepr[\(i)]"] = journey[i].farepr
+                param["fk[\(i)]"] = journey[i].fk
+            }
+        }
+        
+        APICaller.shared.getConfirmation(params: param) { (sucsess, errorCode, addonsMaster) in
+            if sucsess{
+               
+            }else{
+                debugPrint(errorCode)
+            }
+        }
+    }
+
     private func getMealfreference()-> [MealPreference]{
         guard let intJourney = intJourney.first else {
             return []

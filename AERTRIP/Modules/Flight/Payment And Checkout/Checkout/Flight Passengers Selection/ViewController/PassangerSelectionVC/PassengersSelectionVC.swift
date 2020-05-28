@@ -25,7 +25,7 @@ class PassengersSelectionVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerCell()
-        self.viewModel.getPasseger()
+        self.viewModel.setupGuestArray()
         self.setupFont()
         self.navigationController?.navigationBar.isHidden = true
         self.passengerTableview.separatorStyle = .none
@@ -53,6 +53,7 @@ class PassengersSelectionVC: UIViewController {
     private func setupFont(){
         self.navigationController?.navigationBar.tintColor = AppColors.themeGreen
         self.titleLabel.font = AppFonts.SemiBold.withSize(18)
+        self.passengerTableview.backgroundColor = AppColors.themeGray04
         self.titleLabel.text = "Passengers"
         addButtomView()
         self.addButton.isHidden = !(self.viewModel.isLogin)
@@ -158,6 +159,14 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
             self.detailsBaseVC?.view.layoutSubviews()
             self.detailsBaseVC?.view.setNeedsLayout()
 //        })
+    }
+    
+}
+
+extension PassengersSelectionVC: HCSelectGuestsVCDelegate{
+    
+    func didAddedContacts(){
+        self.passengerTableview.reloadData()
     }
     
 }

@@ -31,6 +31,7 @@ class FlightEmailFieldCell: UITableViewCell {
     
     // MARK: - Variables
     weak var delegate : FlightEmailTextFieldCellDelegate?
+    var idxPath = IndexPath()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -59,17 +60,27 @@ class FlightEmailFieldCell: UITableViewCell {
         self.editableTextField.font = AppFonts.Regular.withSize(18.0)
     }
 
+    
+    func configureCell(with email:String, isLoggedIn:Bool){
+        self.editableTextField.text = email
+        self.editableTextField.isUserInteractionEnabled = !isLoggedIn
+        if !isLoggedIn{
+            self.editableTextField.textColor =  AppColors.textFieldTextColor51
+        }else{
+            self.editableTextField.textColor =  AppColors.themeGray40
+        }
+    }
+    
 }
 
 
 extension FlightEmailFieldCell: UITextFieldDelegate {
     @objc func textFieldDidChanged(_ textField: UITextField) {
 //        printDebug("text field text \(textField.text ?? " ")")
-        
-//        let finalTxt = (textField.text ?? "").removeAllWhitespaces
-//        if let idxPath = indexPath, !finalTxt.isEmpty {
-//            delegate?.textEditableTableViewCellTextFieldText(idxPath, finalTxt)
-//        }
+        let finalTxt = (textField.text ?? "").removeAllWhitespaces
+        if let idxPath = indexPath, !finalTxt.isEmpty {
+            delegate?.textEditableTableViewCellTextFieldText(idxPath, finalTxt)
+        }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -77,7 +88,8 @@ extension FlightEmailFieldCell: UITextFieldDelegate {
         //for verify the data
         let finalTxt = textField.text?.replacingOccurrences(of: " ", with: "")
         textField.text = finalTxt
-//        self.editableTextField.isError = finalTxt.checkInvalidity(.Email)
+        delegate?.textEditableTableViewCellTextFieldText(idxPath, finalTxt!)
+        self.editableTextField.isError = finalTxt?.checkInvalidity(.Email) ?? false
     }
 }
 
