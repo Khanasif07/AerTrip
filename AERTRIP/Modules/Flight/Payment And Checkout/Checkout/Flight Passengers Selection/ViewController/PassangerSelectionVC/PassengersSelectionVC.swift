@@ -90,17 +90,20 @@ class PassengersSelectionVC: UIViewController {
     
     @IBAction func tapAddButton(_ sender: UIButton) {
 //        AppFlowManager.default.moveToAddOnVC()
-        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
+//        self.navigationController?.pushViewController(vc, animated: true)
+        
+        AppFlowManager.default.presentHCSelectGuestsVC(delegate: self)
+        
     }
     
 }
 
 extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, JourneyDetailsTapDelegate{
     
-    
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
-        
+        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func infoButtonTapped(isViewExpanded: Bool) {
