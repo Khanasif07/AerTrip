@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AdonsCell" rowHeight="144" id="KGk-i7-Jjw" customClass="AdonsCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="451" height="179"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="451" height="179"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="meals" translatesAutoresizingMaskIntoConstraints="NO" id="8M0-Yg-BXV">
+                        <rect key="frame" x="16" y="37.5" width="104" height="104"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="104" id="gsh-TI-cUQ"/>
+                            <constraint firstAttribute="width" secondItem="8M0-Yg-BXV" secondAttribute="height" multiplier="1:1" id="yO0-dB-ZNw"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pxd-YA-7r5">
+                        <rect key="frame" x="405" y="78.5" width="46" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="46" id="4Hl-da-wKt"/>
+                        </constraints>
+                        <state key="normal" image="hotelCheckoutForwardArrow"/>
+                    </button>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="cva-fw-rnA">
+                        <rect key="frame" x="139" y="10" width="266" height="159"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Meals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Apz-jt-OCO">
+                                <rect key="frame" x="0.0" y="0.0" width="45.5" height="29"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Reserve a seat of your choice. Reserve a seat of your choice." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5h-6E-EB0">
+                                <rect key="frame" x="0.0" y="29" width="234.5" height="111"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BSi-pM-qoh">
+                                <rect key="frame" x="0.0" y="140" width="240" height="19"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Complementary meal added" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibD-n4-7mo">
+                                        <rect key="frame" x="5" y="0.0" width="230" height="19"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="ibD-n4-7mo" firstAttribute="leading" secondItem="BSi-pM-qoh" secondAttribute="leading" constant="5" id="1cW-uX-Fib"/>
+                                    <constraint firstItem="ibD-n4-7mo" firstAttribute="top" secondItem="BSi-pM-qoh" secondAttribute="top" id="9lK-bM-sf5"/>
+                                    <constraint firstAttribute="height" constant="19" id="HKK-re-mN4"/>
+                                    <constraint firstAttribute="bottom" secondItem="ibD-n4-7mo" secondAttribute="bottom" id="Mdx-15-K6m"/>
+                                    <constraint firstAttribute="trailing" secondItem="ibD-n4-7mo" secondAttribute="trailing" constant="5" id="uio-13-CMi"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="cva-fw-rnA" firstAttribute="leading" secondItem="8M0-Yg-BXV" secondAttribute="trailing" constant="19" id="5OG-5V-yt9"/>
+                    <constraint firstAttribute="trailing" secondItem="pxd-YA-7r5" secondAttribute="trailing" id="7cY-qD-yae"/>
+                    <constraint firstItem="cva-fw-rnA" firstAttribute="centerY" secondItem="8M0-Yg-BXV" secondAttribute="centerY" id="FIB-GK-zxM"/>
+                    <constraint firstItem="pxd-YA-7r5" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.122905" id="MG0-y7-jUZ"/>
+                    <constraint firstItem="pxd-YA-7r5" firstAttribute="leading" secondItem="cva-fw-rnA" secondAttribute="trailing" id="QLy-bb-0tk"/>
+                    <constraint firstItem="cva-fw-rnA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="TwK-eC-jZn"/>
+                    <constraint firstAttribute="bottom" secondItem="cva-fw-rnA" secondAttribute="bottom" constant="10" id="U4a-hA-cwq"/>
+                    <constraint firstItem="8M0-Yg-BXV" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="os1-qe-exX"/>
+                    <constraint firstItem="pxd-YA-7r5" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="sfp-ZG-aZ4"/>
+                    <constraint firstItem="8M0-Yg-BXV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="zoz-sk-KT5"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addOnImageView" destination="8M0-Yg-BXV" id="VKG-ik-yj5"/>
+                <outlet property="arrowButton" destination="pxd-YA-7r5" id="lsR-HY-WkP"/>
+                <outlet property="complementBackView" destination="BSi-pM-qoh" id="dl9-Ej-LZr"/>
+                <outlet property="complementLabel" destination="ibD-n4-7mo" id="ozY-8y-2sZ"/>
+                <outlet property="descriptionLabel" destination="d5h-6E-EB0" id="kLw-c0-Xgq"/>
+                <outlet property="headingLabel" destination="Apz-jt-OCO" id="V3a-k0-ed5"/>
+            </connections>
+            <point key="canvasLocation" x="232.60869565217394" y="147.65625"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="hotelCheckoutForwardArrow" width="8" height="14"/>
+        <image name="meals" width="104" height="104"/>
+    </resources>
+</document>

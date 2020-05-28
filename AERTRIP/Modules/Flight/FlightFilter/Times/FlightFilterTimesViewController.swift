@@ -87,14 +87,10 @@ class FlightFilterTimesViewController : UIViewController , FilterViewController 
     }
     
     fileprivate func setDepartureLabel(){
-        
         let numberOfStops = multiLegTimerFilter.count
         if numberOfStops > 3 {
-            
             setDepartureLabelAttributedString()
-            
-        }
-        else {
+        } else {
             departureTimeLabel.text = "Departure Time"
         }
     }

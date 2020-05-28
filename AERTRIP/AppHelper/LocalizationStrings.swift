@@ -1040,4 +1040,18 @@ enum LocalizedString: String {
     case CommingSoon = "CommingSoon"
     case Flight = "Flight"
   
+    
+    //Payment and checkout
+    
+    case Meals = "Meals"
+    case Seat = "Seat"
+//    case Baggage = "Baggage"
+//    case Others = "Others"
+
+    
+    // Seat Map
+    case seatMap = "seatMap"
+    case mainDeck = "mainDeck"
+    case upperDeck = "upperDeck"
 }
+
