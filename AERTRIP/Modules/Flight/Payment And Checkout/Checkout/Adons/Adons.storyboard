@@ -40,7 +40,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqO-lJ-uV1">
-                                            <rect key="frame" x="2" y="0.0" width="371" height="89"/>
+                                            <rect key="frame" x="2" y="0.0" width="371" height="96"/>
                                             <string key="text">Book Now &amp;
 get upto 20% off </string>
                                             <fontDescription key="fontDescription" name="SourceSansPro-Bold" family="Source Sans Pro" pointSize="38"/>
@@ -48,7 +48,7 @@ get upto 20% off </string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="compared to onboard prices" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQi-Xb-5yA">
-                                            <rect key="frame" x="2" y="89" width="371" height="21"/>
+                                            <rect key="frame" x="2" y="96" width="371" height="23"/>
                                             <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="18"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -208,10 +208,10 @@ get upto 20% off </string>
             </objects>
             <point key="canvasLocation" x="-18" y="374"/>
         </scene>
-        <!--View Controller-->
+        <!--Select PassengerVC-->
         <scene sceneID="zps-3N-VRj">
             <objects>
-                <viewController id="kq5-sh-YrP" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SelectPassengerVC" id="kq5-sh-YrP" customClass="SelectPassengerVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NG4-ki-6uG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -226,6 +226,9 @@ get upto 20% off </string>
                                             <constraint firstAttribute="height" constant="57" id="j0e-h1-tTA"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="doneButtonTapped:" destination="kq5-sh-YrP" eventType="touchUpInside" id="om0-f6-tyK"/>
+                                        </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IQD-C4-Qs3">
                                         <rect key="frame" x="10" y="371.5" width="355" height="220.5"/>
@@ -310,6 +313,14 @@ get upto 20% off </string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="65z-Eg-u5X"/>
                     </view>
+                    <connections>
+                        <outlet property="doneButton" destination="gfu-FW-2eL" id="iWf-dm-2dm"/>
+                        <outlet property="legsLabel" destination="Xe8-j4-3gS" id="fi5-1B-kB8"/>
+                        <outlet property="passengerCollectionView" destination="0h1-XC-4s6" id="kqj-Ku-YcV"/>
+                        <outlet property="selectPassengersLabel" destination="ugi-KM-8a9" id="pZC-qc-hwu"/>
+                        <outlet property="titleLabel" destination="gk3-bm-AMb" id="7tc-P2-FuW"/>
+                        <outlet property="transparentBackView" destination="VkO-GU-MSo" id="axT-zJ-uTf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EcF-zC-sZN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

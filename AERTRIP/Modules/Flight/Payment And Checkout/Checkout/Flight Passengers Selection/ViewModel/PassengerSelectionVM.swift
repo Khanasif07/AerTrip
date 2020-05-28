@@ -21,7 +21,7 @@ class PassengerSelectionVM  {
     var selectedJourneyFK = [String]()
     var journeyTitle:NSAttributedString?
     var journeyDate:String?
-    var id = "5ece2f4ab3561a3331770f51"//id to get addons data
+    var id = "5ecf8020b3561a3ae532c7ef"//id to get addons data
     var addonsMaster = AddonsMaster()
     //Varialbles for domestic and oneway
     var journey:[Journey]?
@@ -128,6 +128,11 @@ class PassengerSelectionVM  {
     }
     
     func fetchAddonsData(){
+        
+        fetchConfirmationData()
+        
+        return
+        
         var param:JSONDictionary = ["sid": sid]
         
         if journeyType == .international{

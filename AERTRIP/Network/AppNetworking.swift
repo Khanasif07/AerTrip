@@ -271,7 +271,7 @@ enum AppNetworking {
                           headers: header)
         
         request.responseString { (data) in
-            printDebug(data)
+            //printDebug(data)
         }
         
         self.addCookies(forUrl: request.request?.url)
@@ -293,10 +293,10 @@ enum AppNetworking {
                                 
                             case .success(let value):
                                 if value.isEmpty, let resData = response.data, let string = String(data: resData, encoding: String.Encoding.utf8) {
-                                    printDebug("response: \(string)\nresponse url: \(URLString)")
+                                   // printDebug("response: \(string)\nresponse url: \(URLString)")
                                 }
                                 else {
-                                    printDebug("response: \(value)\nresponse url: \(URLString)")
+                                    //printDebug("response: \(value)\nresponse url: \(URLString)")
                                 }
                                 success(JSON(value))
                                 
