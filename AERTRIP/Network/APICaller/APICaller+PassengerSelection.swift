@@ -45,7 +45,7 @@ extension APICaller{
     
     func getConfirmation(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ data: AddonsMaster)->Void ) {
         
-        AppNetworking.GET(endPoint: .fareConfirmation, success: { [weak self] (json) in
+        AppNetworking.GET(endPoint: .fareConfirmation, parameters: params, success: { [weak self] (json) in
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
