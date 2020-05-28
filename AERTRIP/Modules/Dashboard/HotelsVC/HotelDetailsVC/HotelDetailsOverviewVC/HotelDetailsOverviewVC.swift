@@ -82,7 +82,7 @@ class HotelDetailsOverviewVC: BaseVC {
         self.overViewTextViewOutlet.attributedText = self.viewModel.overViewInfo.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.rawValue, fontColor: AppColors.themeBlack)
         
         headerContainerView.backgroundColor = .clear
-        mainContainerView.backgroundColor = .clear
+        mainContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.view.backgroundColor = .clear
         //Heading
         //        self.overViewTextViewOutlet.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline).withSize(16.0)

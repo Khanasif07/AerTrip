@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,6 +20,14 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BRm-VW-OrK">
                         <rect key="frame" x="16" y="0.0" width="288" height="395"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4sa-XZ-NXI">
+                                <rect key="frame" x="0.0" y="228" width="288" height="167"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kqi-Pq-dge">
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="229"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hotelCardPlaceHolder" translatesAutoresizingMaskIntoConstraints="NO" id="sho-Ja-Zl8">
                                 <rect key="frame" x="0.0" y="0.0" width="288" height="228"/>
                                 <constraints>
@@ -138,11 +146,19 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="PCv-vO-xhG" firstAttribute="top" secondItem="sho-Ja-Zl8" secondAttribute="bottom" constant="9" id="1e9-ep-CVt"/>
+                            <constraint firstItem="4sa-XZ-NXI" firstAttribute="top" secondItem="sho-Ja-Zl8" secondAttribute="bottom" id="2d9-eL-3fA"/>
                             <constraint firstItem="sho-Ja-Zl8" firstAttribute="leading" secondItem="BRm-VW-OrK" secondAttribute="leading" id="3RE-5P-Pil"/>
+                            <constraint firstAttribute="trailing" secondItem="4sa-XZ-NXI" secondAttribute="trailing" id="9zc-ep-yfE"/>
+                            <constraint firstItem="sho-Ja-Zl8" firstAttribute="bottom" secondItem="Kqi-Pq-dge" secondAttribute="bottom" constant="-1" id="NwX-CK-qpS"/>
                             <constraint firstItem="sho-Ja-Zl8" firstAttribute="top" secondItem="BRm-VW-OrK" secondAttribute="top" id="OK5-Op-x3a"/>
+                            <constraint firstItem="sho-Ja-Zl8" firstAttribute="trailing" secondItem="Kqi-Pq-dge" secondAttribute="trailing" id="S7A-VS-RnT"/>
+                            <constraint firstAttribute="bottom" secondItem="4sa-XZ-NXI" secondAttribute="bottom" id="TcC-pW-hl9"/>
+                            <constraint firstItem="sho-Ja-Zl8" firstAttribute="leading" secondItem="Kqi-Pq-dge" secondAttribute="leading" id="Trl-2X-vVO"/>
+                            <constraint firstItem="4sa-XZ-NXI" firstAttribute="leading" secondItem="BRm-VW-OrK" secondAttribute="leading" id="Yvi-kE-lOt"/>
                             <constraint firstAttribute="trailing" secondItem="PCv-vO-xhG" secondAttribute="trailing" constant="16" id="h4d-DT-zpN"/>
                             <constraint firstAttribute="trailing" secondItem="sho-Ja-Zl8" secondAttribute="trailing" id="oAh-04-Jvd"/>
                             <constraint firstAttribute="bottom" secondItem="PCv-vO-xhG" secondAttribute="bottom" constant="16" id="oNw-o2-GJv"/>
+                            <constraint firstItem="sho-Ja-Zl8" firstAttribute="top" secondItem="Kqi-Pq-dge" secondAttribute="top" id="vbK-H4-7yq"/>
                             <constraint firstItem="PCv-vO-xhG" firstAttribute="leading" secondItem="BRm-VW-OrK" secondAttribute="leading" constant="16" id="yWO-3C-RNj"/>
                         </constraints>
                     </view>
@@ -157,6 +173,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="addressLabel" destination="7Mk-mm-kdb" id="ely-yM-B4q"/>
+                <outlet property="backgroundBorderView" destination="4sa-XZ-NXI" id="Bf1-TY-zgD"/>
                 <outlet property="cellBackgroundView" destination="BRm-VW-OrK" id="Ng6-6a-8Zk"/>
                 <outlet property="hotelCardImageView" destination="sho-Ja-Zl8" id="gh1-oo-xhI"/>
                 <outlet property="hotelNameLabel" destination="62p-l1-YzI" id="FXx-jJ-mQO"/>
@@ -171,10 +188,10 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="combinedShapeFill" width="14" height="14"/>
+        <image name="combinedShapeFill" width="15" height="14"/>
         <image name="combinedShapeUnfilled" width="14" height="14"/>
         <image name="hotelCardPlaceHolder" width="359" height="193"/>
-        <image name="starRatingFilled" width="30" height="30"/>
+        <image name="starRatingFilled" width="31" height="30"/>
         <image name="starRatingUnfill" width="30" height="30"/>
         <image name="tripAdviserBig" width="32" height="18"/>
     </resources>

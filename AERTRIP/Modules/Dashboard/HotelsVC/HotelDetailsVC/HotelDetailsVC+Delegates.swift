@@ -364,7 +364,7 @@ extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
 extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
     
     func bookMarkButtonAction(sender: HotelDetailsBedsTableViewCell) {
-        AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { [weak self](isGuest) in
+        AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking, presentViewController: true) { [weak self](isGuest) in
             guard let sSelf = self else {return}
             if sSelf.isAddingChild{
                 if let vc = sSelf.parent {
@@ -373,7 +373,7 @@ extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
             }else {
                 AppFlowManager.default.popToViewController(sSelf, animated: true)
             }
-            AppFlowManager.default.selectTrip(nil, tripType: .bookingAddToTrip) { (trip, details)  in
+            AppFlowManager.default.selectTrip(nil, tripType: .hotel) { (trip, details)  in
                 delay(seconds: 0.3, completion: { [weak self] in
                     guard let sSelf = self else {return}
                     

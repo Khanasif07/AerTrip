@@ -22,6 +22,7 @@ enum SortUsing: Equatable {
 
 protocol HotelFilterVMDelegate: class {
     func updateFiltersTabs()
+    func updateHotelsCount()
 }
 
 

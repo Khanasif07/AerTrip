@@ -55,6 +55,7 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
         //Color
         self.containerView.backgroundColor = AppColors.screensBackground.color
         //self.searchBarSetUp()
+        searchBar.placeholder = LocalizedString.hotelFilterSearchBar.localized
         self.registerXibs()
     }
     

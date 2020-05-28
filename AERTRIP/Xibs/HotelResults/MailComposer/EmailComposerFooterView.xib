@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -42,36 +42,27 @@
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="fJb-Cm-eXE">
                             <rect key="frame" x="141.5" y="142" width="92" height="20"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5I3-VL-dFD">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebookMail" translatesAutoresizingMaskIntoConstraints="NO" id="8Fd-3f-62O">
                                     <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="20" id="Vdp-Yn-AuE"/>
-                                        <constraint firstAttribute="height" constant="20" id="sOA-LD-Ixb"/>
+                                        <constraint firstAttribute="width" constant="20" id="gnQ-oE-erQ"/>
+                                        <constraint firstAttribute="height" constant="20" id="r2F-5u-Vlw"/>
                                     </constraints>
-                                    <color key="tintColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                    <state key="normal" image="facebookMail"/>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kav-Qm-Mzv">
+                                </imageView>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="googleMail" translatesAutoresizingMaskIntoConstraints="NO" id="7t1-Lb-tzE">
                                     <rect key="frame" x="36" y="0.0" width="20" height="20"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="20" id="9pd-qG-jrV"/>
-                                        <constraint firstAttribute="width" constant="20" id="j02-wT-QzQ"/>
+                                        <constraint firstAttribute="height" constant="20" id="QqA-Zh-NgO"/>
+                                        <constraint firstAttribute="width" constant="20" id="od2-xE-7oG"/>
                                     </constraints>
-                                    <color key="tintColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                    <state key="normal" image="googleMail"/>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mri-tp-2dc">
+                                </imageView>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitterMail" translatesAutoresizingMaskIntoConstraints="NO" id="X8l-tN-ErF">
                                     <rect key="frame" x="72" y="0.0" width="20" height="20"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="20" id="DqL-sj-w5c"/>
-                                        <constraint firstAttribute="height" constant="20" id="sII-lZ-m8O"/>
+                                        <constraint firstAttribute="height" constant="20" id="Nqb-Zv-JEl"/>
+                                        <constraint firstAttribute="width" constant="20" id="fyJ-vJ-4PY"/>
                                     </constraints>
-                                    <color key="tintColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                    <state key="normal" image="twitterMail"/>
-                                </button>
+                                </imageView>
                             </subviews>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="0f4-Qv-mK7"/>

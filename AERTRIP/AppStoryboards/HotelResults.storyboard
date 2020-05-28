@@ -636,7 +636,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xP4-6L-qeG">
-                                                <rect key="frame" x="367" y="14" width="44" height="44"/>
+                                                <rect key="frame" x="367" y="7" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="xP4-6L-qeG" secondAttribute="height" multiplier="1:1" id="dGo-jO-YUP"/>
                                                     <constraint firstAttribute="height" constant="44" id="rh4-Hf-y9H"/>
@@ -653,9 +653,9 @@
                                         <constraints>
                                             <constraint firstItem="P6d-ac-rCT" firstAttribute="centerY" secondItem="BCJ-yj-6gr" secondAttribute="centerY" id="2NX-aH-byt"/>
                                             <constraint firstAttribute="height" constant="58" id="99i-bV-dQe"/>
-                                            <constraint firstAttribute="bottom" secondItem="xP4-6L-qeG" secondAttribute="bottom" id="Bg6-ed-nC1"/>
                                             <constraint firstItem="dC5-9F-Jem" firstAttribute="leading" secondItem="BCJ-yj-6gr" secondAttribute="leading" constant="16" id="Cgf-zs-cDK"/>
                                             <constraint firstItem="P6d-ac-rCT" firstAttribute="leading" secondItem="BCJ-yj-6gr" secondAttribute="leading" constant="50" id="Sdk-bW-Q39"/>
+                                            <constraint firstItem="xP4-6L-qeG" firstAttribute="centerY" secondItem="BCJ-yj-6gr" secondAttribute="centerY" id="ZEa-VT-VM7"/>
                                             <constraint firstItem="Z94-aH-clr" firstAttribute="leading" secondItem="BCJ-yj-6gr" secondAttribute="leading" id="ZUU-VH-9Wj"/>
                                             <constraint firstAttribute="bottom" secondItem="Z94-aH-clr" secondAttribute="bottom" id="cxp-Il-FuQ"/>
                                             <constraint firstAttribute="trailing" secondItem="Z94-aH-clr" secondAttribute="trailing" id="ih5-r8-Nnh"/>

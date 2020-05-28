@@ -133,7 +133,7 @@ extension HotelDetailsVC {
                 cell.showHideSetUp(cornerRaduis: 0.0, bookmarkBtnHidden: true, dividerViewHidden: false)
             }
         }
-        if (indexPath.section - 2) == 0 {
+        if (indexPath.section - 2) == 0 && indexPath.row == 0 {
             cell.shadowViewTopConstraint.constant = 12
         } else {
             cell.shadowViewTopConstraint.constant = cell.shadowViewTopConstraint.constant == 0.0 ? 0.0 : 8.0

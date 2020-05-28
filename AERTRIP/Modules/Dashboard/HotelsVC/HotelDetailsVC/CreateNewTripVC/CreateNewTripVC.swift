@@ -63,11 +63,11 @@ class CreateNewTripVC: BaseVC {
     }
     
     override func initialSetup() {
-        
+        if #available(iOS 13.0, *) {} else {
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         swipeGesture.delegate = self
         self.popUpContainerView.addGestureRecognizer(swipeGesture)
-        
+        }
         topNavView.delegate = self
         topNavView.configureNavBar(title: LocalizedString.CreateNewTrip.localized, isLeftButton: false, isFirstRightButton: true, isSecondRightButton: false, isDivider: true)
         
@@ -96,12 +96,13 @@ class CreateNewTripVC: BaseVC {
         createButton.setTitle(LocalizedString.Create.localized, for: .normal)
         
         editButton.setTitle(LocalizedString.Edit.localized, for: .normal)
-        titleTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.NameYourTrip.localized)
+        titleTextField.setUpAttributedPlaceholder(placeholderString: LocalizedString.NameYourTrip.localized, with: "")
     }
     
     override func setupColors() {
-        
-        view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
+        if #available(iOS 13.0, *) {} else {
+            view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.5)
+        }
         createButton.isSocial = false
         createButton.setTitleColor(AppColors.themeWhite, for: .normal)
         

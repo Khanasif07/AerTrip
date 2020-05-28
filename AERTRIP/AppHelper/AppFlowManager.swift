@@ -656,9 +656,11 @@ extension AppFlowManager {
     
     func presentCreateNewTripVC(delegate: CreateNewTripVCDelegate, onViewController: UIViewController? = nil) {
         let obj = CreateNewTripVC.instantiate(fromAppStoryboard: .HotelResults)
+        if #available(iOS 13.0, *) {} else {
         obj.modalPresentationStyle = .overFullScreen
         obj.modalPresentationCapturesStatusBarAppearance =  true
-        obj.statusBarColor = AppColors.themeWhite
+            obj.statusBarColor = AppColors.themeWhite
+        }
         obj.delegate = delegate
         if let oVC = onViewController {
             oVC.present(obj, animated: true)
@@ -1130,9 +1132,11 @@ extension AppFlowManager {
             obj.viewModel.allTrips = trips
             obj.viewModel.tripDetails = tripDetails
             obj.viewModel.usingFor = tripType
+            if #available(iOS 13.0, *) {} else {
             obj.modalPresentationStyle = .overFullScreen
             obj.modalPresentationCapturesStatusBarAppearance = true
             obj.statusBarColor = AppColors.themeWhite
+            }
             self.currentNavigation?.present(obj, animated: true)
         }
         

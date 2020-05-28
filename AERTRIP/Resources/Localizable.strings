@@ -433,7 +433,7 @@
 "CheckTripAdvisor" = "Check TripAdvisor Traveler Rating";
 //"Breakfast" = "Breakfast";
 //"Refundable" = "Refundable";
-"hotelFilterSearchBar" = "i.e. Sea view, deluxe, suite…";
+"hotelFilterSearchBar" = "Search Sea view, deluxe, suite…";
 "Undo" = "Undo";
 "Deleted" = "Deleted";
 "InformationUnavailable" = "Information unavailable";
@@ -570,7 +570,7 @@
 // Mail Composer VC
 "CheckoutMyFavouriteHotels" = "Checkout my favorite hotels on Aertrip!";
 "EnterEmail" = "Enter email";
-"FavoriteHotelsInfoSentMessage" = "Favorite hotels info has been sent.";
+"FavoriteHotelsInfoSentMessage" = "Email Sent";
 
 //Booking Incomplete Screen
 "BookingIncomplete" = "Booking Incomplete";

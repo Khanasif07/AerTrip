@@ -101,7 +101,8 @@ class ATSearchBar: UISearchBar {
 
         self.setImage(#imageLiteral(resourceName: "ic_search_mic"), for: .bookmark, state: .normal)
         self.setPositionAdjustment(UIOffset(horizontal: +9, vertical: 0), for: .bookmark)
-        
+        self.setPositionAdjustment(UIOffset(horizontal: +3, vertical: 0), for: .search)
+
         self.searchTextPositionAdjustment = UIOffset(horizontal: 2, vertical: 0)
         
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: UITextField.textDidChangeNotification, object: nil)

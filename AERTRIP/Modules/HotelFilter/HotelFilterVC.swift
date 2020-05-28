@@ -88,10 +88,9 @@ class HotelFilterVC: BaseVC {
     // MARK: - Overrider methods
     
     override func setupTexts() {
-        let navigationTitleText = HotelFilterVM.shared.totalHotelCount > 0 ? " \(HotelFilterVM.shared.filterHotelCount) of \(HotelFilterVM.shared.totalHotelCount) Results" : ""
         self.clearAllButton.setTitle(LocalizedString.ClearAll.localized, for: .normal)
         self.doneButton.setTitle(LocalizedString.Done.localized, for: .normal)
-        self.navigationTitleLabel.text = navigationTitleText
+        self.setNavigationTitle()
     }
     
     override func setupFonts() {
@@ -132,7 +131,13 @@ class HotelFilterVC: BaseVC {
 
     }
     
+    private func setNavigationTitle() {
+        let navigationTitleText = HotelFilterVM.shared.totalHotelCount > 0 ? " \(HotelFilterVM.shared.filterHotelCount) of \(HotelFilterVM.shared.totalHotelCount) Results" : ""
+        self.navigationTitleLabel.text = navigationTitleText
+    }
+    
     private func  setFilterButton() {
+        self.isFilterApplied = false
         filtersTabs.forEach { (Item) in
             if Item.isSelected == false {
                 self.isFilterApplied = true
@@ -356,6 +361,10 @@ class HotelFilterVC: BaseVC {
 }
 
 extension HotelFilterVC: HotelFilterVMDelegate {
+    func updateHotelsCount() {
+        self.setNavigationTitle()
+    }
+    
     func updateFiltersTabs() {
         printDebug("updateFiltersTabs")
         NSObject.cancelPreviousPerformRequests(withTarget: self)

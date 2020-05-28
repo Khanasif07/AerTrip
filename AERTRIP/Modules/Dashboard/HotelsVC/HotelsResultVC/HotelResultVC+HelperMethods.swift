@@ -174,6 +174,7 @@ extension HotelResultVC {
     
     func getHotelsCount() {
         HotelFilterVM.shared.filterHotelCount = self.viewModel.fetchedResultsController.fetchedObjects?.count ?? 0
+        HotelFilterVM.shared.delegate?.updateHotelsCount()
     }
     
     func setupTableHeader() {

@@ -82,7 +82,7 @@ class HotelDetailsAmenitiesVC: BaseVC {
         self.viewModel.getAmenitiesSections()
         
         headerContainerView.backgroundColor = .clear
-        mainContainerView.backgroundColor = .clear
+        mainContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
         self.view.backgroundColor = .clear
         
         self.amenitiesLabel.alpha = 0.0

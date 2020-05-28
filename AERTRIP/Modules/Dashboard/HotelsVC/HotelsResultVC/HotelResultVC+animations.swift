@@ -138,3 +138,5 @@ extension HotelResultVC {
         self.animateFloatingButtonOnListView()
     }
 }
+
+
