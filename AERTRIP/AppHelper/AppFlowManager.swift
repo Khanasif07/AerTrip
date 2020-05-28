@@ -189,6 +189,37 @@ class AppFlowManager: NSObject {
             
         }
     }
+    
+    // check and manage the further processing if user logged-in or not
+    func proccessIfUserLoggedInForFlight(verifyingFor: LoginFlowUsingFor, presentViewController: Bool = false, vc: UIViewController, completion: ((_ isGuest: Bool) -> Void)?) {
+        self.loginVerificationComplition = completion
+        if let _ = UserInfo.loggedInUserId {
+            // user is logged in
+            completion?(false)
+        }
+        else {
+            // user note logged in
+            // open login flow
+            
+            let socialVC = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
+            socialVC.currentlyUsingFrom = verifyingFor
+            
+            delay(seconds: 0.1) { [weak socialVC] in
+                socialVC?.animateContentOnLoad()
+            }
+            
+            if presentViewController {
+                let newNavigation = self.getNavigationController(forPresentVC: socialVC)
+                newNavigation.modalPresentationStyle = .overFullScreen
+                vc.presentAsPushAnimation(newNavigation)
+            } else {
+                self.currentNavigation?.pushViewController(socialVC, animated: true)
+            }
+            AppGlobals.shared.stopLoading()
+            
+        }
+    }
+    
 }
 
 // MARK: - Public Navigation func

@@ -9,8 +9,14 @@
 import Foundation
 
 struct FlightItineraryData{
+    var itinerary:FlightItinerary
+    var changeResults:[String:ChangeResult]
     
-//    var itinerary:FlightItineraryData
+        init(_ json:JSON = JSON()){
+            itinerary = FlightItinerary(json["itinerary"])
+            changeResults = Dictionary(uniqueKeysWithValues: json["change_results"].map{ ($0.0, ChangeResult($0.1)) })
+        }
+    
     
 }
 
@@ -31,7 +37,11 @@ struct FlightItinerary {
     var isRefundable : Bool
     var walletBalance : Int
     var userPoints : Int
-//    var traveller_details:
+//    var traveller_details://Need To be parse.
+    var travellerDetails:TravellerDetails
+    var travellerMaster:[TravellerModel]
+    var paymentModes:PaymentMode
+
     
     init(_ json:JSON = JSON()){
         id = json["id"].stringValue
@@ -50,10 +60,10 @@ struct FlightItinerary {
         isRefundable = json["is_refundable"].boolValue
         walletBalance = json["wallet_balance"].intValue
         userPoints = json["user_points"].intValue
-        
+        travellerDetails = TravellerDetails(json["traveller_details"])
+        travellerMaster = json["traveller_master"]["aertrip"].arrayValue.map{TravellerModel(json: $0)}
+        paymentModes = PaymentMode(json: json["payment_modes"])
     }
-    
-    
 }
 
 
@@ -68,6 +78,10 @@ struct FlightSearchParam{
     var returnDate : String
     var tripType : String
     var sessionId : String
+    //For Multicity
+    var originArr : [String]
+    var dipartArr : [String]
+    var destinationArr : [String]
     
     
     init(_ json:JSON = JSON()){
@@ -81,7 +95,52 @@ struct FlightSearchParam{
         returnDate = json["return"].stringValue
         tripType = json["trip_type"].stringValue
         sessionId = json["session_id"].stringValue
-        
+        originArr = json["origin"].arrayObject as? [String] ?? []
+        dipartArr = json["depart"].arrayObject as? [String] ?? []
+        destinationArr = json["destination"].arrayObject as? [String] ?? []
     }
     
+}
+
+struct TravellerDetails{
+    var mobile: String
+    var isd: String
+    var gstDetails:FlightGST
+    init(_ json:JSON = JSON()){
+        mobile = json["mobile"].stringValue
+        isd = json["isd"].stringValue
+        gstDetails = FlightGST(json["gst_details"])
+    }
+}
+
+struct FlightGST{
+    
+    var gstNumber:String
+    var gstCompanyName:String
+    var gstAddressLine1:String
+    var gstAddressLine2:String
+    var gstCity:String
+    var gstStateName:String
+    var gstPostalCode:String
+    var gst:String
+    
+    init(_ json:JSON = JSON()){
+        gstNumber = json["gst_number"].stringValue
+        gstCompanyName = json["gst_company_name"].stringValue
+        gstAddressLine1 = json["gst_address_line1"].stringValue
+        gstAddressLine2 = json["gst_address_line2"].stringValue
+        gstCity = json["gst_city"].stringValue
+        gstStateName = json["gst_state_name"].stringValue
+        gstPostalCode = json["gst_postal_code"].stringValue
+        gst = json["gst_postal_code"].stringValue
+    }
+}
+
+struct ChangeResult{
+    var farepr: Int
+    var fare:IntTaxes
+    init(_ json:JSON = JSON()){
+        farepr = json["farepr"].intValue
+        fare = IntTaxes(json["fare"])
+    }
 }
