@@ -21,7 +21,7 @@ class PassengerSelectionVM  {
     var selectedJourneyFK = [String]()
     var journeyTitle:NSAttributedString?
     var journeyDate:String?
-    var id = "5ecf8020b3561a3ae532c7ef"//id to get addons data
+    var id = "5ece2f4ab3561a3331770f51"//id to get addons data
     var addonsMaster = AddonsMaster()
     //Varialbles for domestic and oneway
     var journey:[Journey]?
@@ -55,8 +55,7 @@ class PassengerSelectionVM  {
         var temp: [ATContact] = []
         self.webserviceForGetCountryList()
         self.setupLoginData()
-//        self.fetchAddonsData()
-        fetchAddonsData()
+        self.fetchConfirmationData()
         self.journeyType = (self.bookingObject?.isDomestic ?? true) ? .domestic : .international
         guard let bookingObj = self.bookingObject else {return}
         for i in 0..<bookingObj.flightAdultCount{
@@ -114,7 +113,7 @@ class PassengerSelectionVM  {
         }
     }
     
-    func fetchConfirmationData(){
+    func fetchAddonsData(){
         
         let param = [APIKeys.it_id.rawValue:self.id]
         APICaller.shared.getAddonsMaster(params: param) { (sucsess, errorCode, addonsMaster) in
@@ -127,12 +126,7 @@ class PassengerSelectionVM  {
         
     }
     
-    func fetchAddonsData(){
-        
-        fetchConfirmationData()
-        
-        return
-        
+    func fetchConfirmationData(){
         var param:JSONDictionary = ["sid": sid]
         
         if journeyType == .international{

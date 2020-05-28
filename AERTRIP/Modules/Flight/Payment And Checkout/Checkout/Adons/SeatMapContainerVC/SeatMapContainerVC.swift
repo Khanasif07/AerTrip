@@ -43,8 +43,6 @@ class SeatMapContainerVC: UIViewController {
     
     // MARK: IBActions
     
-    
-    
     // MARK: Functions
     
     private func initialSetup() {
