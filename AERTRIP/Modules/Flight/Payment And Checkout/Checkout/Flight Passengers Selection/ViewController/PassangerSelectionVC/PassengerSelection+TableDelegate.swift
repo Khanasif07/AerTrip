@@ -113,9 +113,13 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
         case 1:
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "FlightContactCell") as? FlightContactCell else {return UITableViewCell()}
             cell.vc = self
+            cell.mobile = self.viewModel.mobile
+            cell.isdCode = self.viewModel.isdCode
+            cell.delegate = self
             return cell
         case 2:
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "FlightEmailFieldCell") as? FlightEmailFieldCell else {return UITableViewCell()}
+            cell.configureCell(with: self.viewModel.email, isLoggedIn:self.viewModel.isLogin)
             return cell
         case 3:
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "CommunicarionCell") as? CommunicationTextCell else {return UITableViewCell()}
@@ -153,6 +157,21 @@ extension PassengersSelectionVC: PassengerGridSelectionDelegate{
         vc.delegate = self
         vc.viewModel.currentIndex = indexPath.row
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
+extension PassengersSelectionVC: FlightContactCellDelegate, FlightEmailTextFieldCellDelegate{
+    
+    func textFieldText(_ textField:UITextField){
+        self.viewModel.mobile = textField.text ?? ""
+    }
+    
+    func setIsdCode(_ countryDate:PKCountryModel,_ sender: UIButton){
+        self.viewModel.isdCode = countryDate.ISOCode
+    }
+    
+    func textEditableTableViewCellTextFieldText(_ indexPath: IndexPath, _ text: String){
+        self.viewModel.email = text
     }
     
 }

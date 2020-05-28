@@ -39,7 +39,9 @@ class PassengerSelectionVM  {
     }
     var selectedGST = GSTINModel()
     var passengerList = [Passenger]()
-    
+    var email = ""
+    var mobile = ""
+    var isdCode = ""
     var totalPassengerCount:Int{
         if let bookingObj = self.bookingObject{
             return bookingObj.flightAdultCount + bookingObj.flightChildrenCount + bookingObj.flightInfantCount
@@ -48,12 +50,11 @@ class PassengerSelectionVM  {
         }
     }
     
-
-    
     func setupGuestArray() {
         GuestDetailsVM.shared.guests.removeAll()
         var temp: [ATContact] = []
         self.webserviceForGetCountryList()
+        self.setupLoginData()
 //        self.fetchAddonsData()
         fetchAddonsData()
         self.journeyType = (self.bookingObject?.isDomestic ?? true) ? .domestic : .international
@@ -94,6 +95,15 @@ class PassengerSelectionVM  {
         GuestDetailsVM.shared.canShowSalutationError = false
     }
     
+    func setupLoginData(){
+        if let userInfo = UserInfo.loggedInUser{
+            self.email = userInfo.email
+            self.mobile = userInfo.mobile
+            self.isdCode = userInfo.isd
+        }
+        
+    }
+    
     func webserviceForGetCountryList() {
         APICaller.shared.callGetCountriesListApi { success, countries, errorCode in
             if success {
@@ -103,35 +113,6 @@ class PassengerSelectionVM  {
             }
         }
     }
-    
-//    func getPasseger(){
-//        passengerList = []
-//        guard let bookingObj = self.bookingObject else {return}
-//        for i in 0..<bookingObj.flightAdultCount{
-//            var passenger = Passenger()
-//            passenger.passengerType = PassengerType.adult
-//            passenger.frequentFlyer = self.getFrequentFlyer()
-//            passenger.mealPreference = self.getMealfreference()
-//            passenger.title = "\(PassengerType.adult.rawValue) \(i+1)".capitalized
-//            passengerList.append(passenger)
-//        }
-//        for i in 0..<bookingObj.flightChildrenCount{
-//            var passenger = Passenger()
-//            passenger.passengerType = PassengerType.child
-//            passenger.frequentFlyer = self.getFrequentFlyer()
-//            passenger.mealPreference = self.getMealfreference()
-//            passenger.title = "\(PassengerType.child.rawValue) \(i+1)".capitalized
-//            passengerList.append(passenger)
-//        }
-//        for i in 0..<bookingObj.flightInfantCount{
-//            var passenger = Passenger()
-//            passenger.passengerType = PassengerType.infant
-//            passenger.frequentFlyer = self.getFrequentFlyer()
-//            passenger.mealPreference = self.getMealfreference()
-//            passenger.title = "\(PassengerType.infant.rawValue) \(i+1)".capitalized
-//            passengerList.append(passenger)
-//        }
-//    }
     
     func fetchConfirmationData(){
         
