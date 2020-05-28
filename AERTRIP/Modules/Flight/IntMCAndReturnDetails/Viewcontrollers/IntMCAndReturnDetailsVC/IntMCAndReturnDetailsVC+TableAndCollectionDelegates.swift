@@ -235,25 +235,26 @@ extension  IntMCAndReturnDetailsVC : UITableViewDataSource , UITableViewDelegate
         /*if*/ let journey = arrayForDisplay[indexPath.row] //{
             cell.showDetailsFrom(journey:  journey)
         if let logoArray = journey.legsWithDetail.first?.airlineLogoArray {
-                
-                switch logoArray.count {
-                case 1 :
-                    cell.iconTwo.isHidden = true
-                    cell.iconThree.isHidden = true
-                    setImageto(tableView: tableView, imageView: cell.iconOne, url:logoArray[0] , index:  indexPath.row)
-                case 2 :
-                    cell.iconThree.isHidden = true
-                    setImageto(tableView: tableView, imageView: cell.iconOne, url:logoArray[0] , index:  indexPath.row)
-                    setImageto(tableView: tableView, imageView: cell.iconTwo, url:logoArray[1] , index:  indexPath.row)
-                    
-                case 3 :
-                    setImageto(tableView: tableView, imageView: cell.iconOne, url:logoArray[0] , index:  indexPath.row)
-                    setImageto(tableView: tableView, imageView: cell.iconTwo, url:logoArray[1] , index:  indexPath.row)
-                    setImageto(tableView: tableView, imageView: cell.iconThree, url:logoArray[2] , index:  indexPath.row)
-                default:
-                    break
-                }
+            switch logoArray.count {
+            case 1 :
+                cell.iconTwo.isHidden = true
+                cell.iconThree.isHidden = true
+                cell.iconOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+            case 2 :
+                cell.iconTwo.isHidden = false
+                cell.iconThree.isHidden = true
+                cell.iconOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+                cell.iconTwo.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
+            case 3 :
+                cell.iconTwo.isHidden = false
+                cell.iconThree.isHidden = false
+                cell.iconOne.setImageWithUrl(logoArray[0], placeholder: UIImage(), showIndicator: false)
+                cell.iconTwo.setImageWithUrl(logoArray[1], placeholder: UIImage(), showIndicator: false)
+                cell.iconThree.setImageWithUrl(logoArray[2], placeholder: UIImage(), showIndicator: false)
+            default:
+                break
             }
+        }
     }
     
     func setImageto(tableView: UITableView,  imageView : UIImageView , url : String , index : Int ) {
