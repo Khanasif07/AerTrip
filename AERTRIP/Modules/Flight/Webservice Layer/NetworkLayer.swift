@@ -74,7 +74,6 @@ class WebAPIService
         let session = URLSession.shared
         let task = session.downloadTask(with: urlRequest){ url , response, error in
             
-            
             guard error == nil else {
                 failureHandler( error!)
                 return
