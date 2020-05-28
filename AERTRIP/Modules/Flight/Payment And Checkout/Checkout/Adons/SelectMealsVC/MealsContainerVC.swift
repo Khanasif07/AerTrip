@@ -51,6 +51,7 @@ class MealsContainerVC: BaseVC {
     
     override func setupTexts() {
         super.setupTexts()
+        self.MealTotalLabel.text = LocalizedString.MealTotal.localized
     }
     
     override func setupColors() {
@@ -66,11 +67,10 @@ class MealsContainerVC: BaseVC {
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
         let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+        vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: true, completion: nil)
     }
-    
 }
-
 
 extension MealsContainerVC {
     
