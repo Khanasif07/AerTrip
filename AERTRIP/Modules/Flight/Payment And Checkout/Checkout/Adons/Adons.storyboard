@@ -124,6 +124,9 @@ get upto 20% off </string>
                                         <state key="normal" title="Add">
                                             <color key="titleColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="addButtonTapped:" destination="QKF-04-bse" eventType="touchUpInside" id="3hK-Tj-cxa"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹ 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gwm-kP-ylh">
                                         <rect key="frame" x="16" y="25.5" width="25.5" height="20.5"/>
@@ -317,6 +320,7 @@ get upto 20% off </string>
                         <outlet property="doneButton" destination="gfu-FW-2eL" id="iWf-dm-2dm"/>
                         <outlet property="legsLabel" destination="Xe8-j4-3gS" id="fi5-1B-kB8"/>
                         <outlet property="passengerCollectionView" destination="0h1-XC-4s6" id="kqj-Ku-YcV"/>
+                        <outlet property="popUpBackView" destination="IQD-C4-Qs3" id="qgA-pV-o43"/>
                         <outlet property="selectPassengersLabel" destination="ugi-KM-8a9" id="pZC-qc-hwu"/>
                         <outlet property="titleLabel" destination="gk3-bm-AMb" id="7tc-P2-FuW"/>
                         <outlet property="transparentBackView" destination="VkO-GU-MSo" id="axT-zJ-uTf"/>

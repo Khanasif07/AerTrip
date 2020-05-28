@@ -308,7 +308,7 @@ class AddPassengerDetailsCell: UITableViewCell {
         }
         if sender.selectedIndex == 0 || sender.selectedIndex == 1 {
             if let indexPath = (self.superview as? UITableView)?.indexPath(for: self) {
-                GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = salutation
+                GuestDetailsVM.shared.guests[0][indexPath.section].salutation = salutation
             }
         }
     }

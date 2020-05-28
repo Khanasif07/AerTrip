@@ -64,6 +64,11 @@ class MealsContainerVC: BaseVC {
         setUpViewPager()
     }
     
+    @IBAction func addButtonTapped(_ sender: UIButton) {
+        let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+        present(vc, animated: true, completion: nil)
+    }
+    
 }
 
 
