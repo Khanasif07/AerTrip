@@ -22,7 +22,10 @@ class BagageContainerVC: BaseVC {
        // MARK: IBOutlets
        @IBOutlet weak var topNavBarView: TopNavigationView!
        @IBOutlet weak var mealsContainerView: UIView!
-       
+       @IBOutlet weak var addButton: UIButton!
+       @IBOutlet weak var MealTotalLabel: UILabel!
+       @IBOutlet weak var totalLabel: UILabel!
+    
        // MARK: View Life Cycle
        override func viewDidLoad() {
            super.viewDidLoad()
@@ -42,7 +45,9 @@ class BagageContainerVC: BaseVC {
        
        override func setupFonts() {
            super.setupFonts()
-           
+           self.addButton.titleLabel?.font = AppFonts.SemiBold.withSize(20)
+           self.MealTotalLabel.font = AppFonts.Regular.withSize(12)
+           self.totalLabel.font = AppFonts.SemiBold.withSize(18)
        }
        
        override func setupTexts() {
@@ -61,6 +66,13 @@ class BagageContainerVC: BaseVC {
            setUpViewPager()
        }
 
+        @IBAction func addButtonTapped(_ sender: UIButton) {
+            let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+            vc.modalPresentationStyle = .overFullScreen
+            present(vc, animated: true, completion: nil)
+    }
+    
+    
 }
 
 extension BagageContainerVC {

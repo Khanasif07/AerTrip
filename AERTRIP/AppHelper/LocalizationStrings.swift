@@ -1056,7 +1056,8 @@ enum LocalizedString: String {
     
     case DomesticCheckIn = "DomesticCheckIn"
     case InternationalCheckIn = "InternationalCheckIn"
-
+    
+    case MealTotal = "MealTotal"
     
 }
 

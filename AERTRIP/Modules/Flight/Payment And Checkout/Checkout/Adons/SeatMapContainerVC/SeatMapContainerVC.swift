@@ -43,8 +43,6 @@ class SeatMapContainerVC: UIViewController {
     
     // MARK: IBActions
     
-    
-    
     // MARK: Functions
     
     private func initialSetup() {
@@ -178,7 +176,21 @@ extension SeatMapContainerVC: PagingViewControllerDataSource , PagingViewControl
 }
 
 extension SeatMapContainerVC: SeatMapContainerDelegate {
+    
+    func willFetchSeatMapData() {
+        
+        delay(seconds: 0.2) {
+            AppGlobals.shared.startLoading()
+
+        }
+    }
+    
+    func failedToFetchSeatMapData() {
+        AppGlobals.shared.stopLoading()
+    }
+    
     func didFetchSeatMapData() {
+        AppGlobals.shared.stopLoading()
         var totalFlightsData = [SeatMapModel.SeatMapFlight]()
         viewModel.seatMapModel.data.leg.forEach {
             let flightsArr = $0.value.flights.map { $0.value }

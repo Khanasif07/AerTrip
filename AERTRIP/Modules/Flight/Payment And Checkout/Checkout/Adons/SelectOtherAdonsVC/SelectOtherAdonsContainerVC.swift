@@ -11,56 +11,67 @@ import Parchment
 
 
 class SelectOtherAdonsContainerVC: BaseVC {
-
+    
     // MARK: Properties
-       fileprivate var parchmentView : PagingViewController?
-       private let allTabsStr: [String] = ["BOM → LON", "LON → NYC", "NYC → DEL"]
-       
-       var allChildVCs = [UIViewController]()
-       var currentIndex = 0
-       
-       // MARK: IBOutlets
-       @IBOutlet weak var topNavBarView: TopNavigationView!
-       @IBOutlet weak var mealsContainerView: UIView!
-       
-       // MARK: View Life Cycle
-       override func viewDidLoad() {
-           super.viewDidLoad()
-           self.initialSetup()
-       }
-       
-       override func viewWillAppear(_ animated: Bool) {
-           super.viewWillAppear(animated)
-           self.configureNavigation()
-       }
-       
-       override func viewDidLayoutSubviews() {
-           super.viewDidLayoutSubviews()
-           self.parchmentView?.view.frame = self.mealsContainerView.bounds
-           self.parchmentView?.loadViewIfNeeded()
-       }
-       
-       override func setupFonts() {
-           super.setupFonts()
-           
-       }
-       
-       override func setupTexts() {
-           super.setupTexts()
-           
-       }
-       
-       override func setupColors() {
-           super.setupColors()
-           
-       }
-       
-       override func initialSetup() {
-           super.initialSetup()
-           setupNavBar()
-           setUpViewPager()
-       }
-
+    fileprivate var parchmentView : PagingViewController?
+    private let allTabsStr: [String] = ["BOM → LON", "LON → NYC", "NYC → DEL"]
+    
+    var allChildVCs = [UIViewController]()
+    var currentIndex = 0
+    
+    // MARK: IBOutlets
+    @IBOutlet weak var topNavBarView: TopNavigationView!
+    @IBOutlet weak var mealsContainerView: UIView!
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var MealTotalLabel: UILabel!
+    @IBOutlet weak var totalLabel: UILabel!
+    
+    // MARK: View Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.initialSetup()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.configureNavigation()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.parchmentView?.view.frame = self.mealsContainerView.bounds
+        self.parchmentView?.loadViewIfNeeded()
+    }
+    
+    override func setupFonts() {
+        super.setupFonts()
+        self.addButton.titleLabel?.font = AppFonts.SemiBold.withSize(20)
+        self.MealTotalLabel.font = AppFonts.Regular.withSize(12)
+        self.totalLabel.font = AppFonts.SemiBold.withSize(18)
+    }
+    
+    override func setupTexts() {
+        super.setupTexts()
+        
+    }
+    
+    override func setupColors() {
+        super.setupColors()
+        
+    }
+    
+    override func initialSetup() {
+        super.initialSetup()
+        setupNavBar()
+        setUpViewPager()
+    }
+    
+    @IBAction func addButtonTapped(_ sender: UIButton) {
+        let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+        vc.modalPresentationStyle = .overFullScreen
+        present(vc, animated: true, completion: nil)
+    }
+    
 }
 
 extension SelectOtherAdonsContainerVC {
