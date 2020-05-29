@@ -71,7 +71,6 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
               
         if viewModel.resultTableState == .showExpensiveFlights { arrayForDisplay = viewModel.results.allJourneys }
       
-        
         if arrayForDisplay.isEmpty { return 0 }
        
         let legsHeight = (arrayForDisplay[indexPath.row].journeyArray.first?.legsWithDetail.count ?? 0) * 66
@@ -103,8 +102,10 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
         guard let cell =  resultsTableView.dequeueReusableCell(withIdentifier: "InternationalReturnTableViewCell") as? InternationalReturnTableViewCell else {
             return UITableViewCell() }
         if #available(iOS 13, *) {
-            let interaction = UIContextMenuInteraction(delegate: self)
-            cell.baseView.addInteraction(interaction)
+            if cell.baseView.interactions.isEmpty{
+                let interaction = UIContextMenuInteraction(delegate: self)
+                cell.baseView.addInteraction(interaction)
+            }
         }
         cell.multiFlightsTableView.isUserInteractionEnabled = false
         cell.numberOfInnerCells = self.numberOfLegs
@@ -197,6 +198,25 @@ extension IntMCAndReturnVC : UITableViewDataSource , UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+//        let vc = SelectOtherAdonsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+//        self.navigationController?.pushViewController(vc, animated: true)
+        
+//        let vc = AddOnVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+//        self.navigationController?.pushViewController(vc, animated: true)
+        
+//        let vc = BagageContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+//
+//        self.navigationController?.pushViewController(vc, animated: true)
+        
+//        let vc = MealsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+//        self.navigationController?.pushViewController(vc, animated: true)
+        
+//        let seatMapVC = SeatMapContainerVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
+//        seatMapVC.modalPresentationStyle = .overFullScreen
+//        present(seatMapVC, animated: true, completion: nil)
+//        return
+        
         if let journeyCell = tableView.cellForRow(at: indexPath) as? InternationalReturnTableViewCell {
             let curJourney = journeyCell.currentJourney
             let vc = FlightDetailsBaseVC.instantiate(fromAppStoryboard: .FlightDetailsBaseVC)

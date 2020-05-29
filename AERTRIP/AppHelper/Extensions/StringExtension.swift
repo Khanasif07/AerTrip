@@ -670,6 +670,38 @@ extension String {
          
          return boundingBox.height
      }
+    
+    func widthOfText(_ height: CGFloat, font: UIFont) -> CGFloat {
+        
+        let constraintRect = CGSize(width: CGFloat.greatestFiniteMagnitude, height: height)
+        
+        let boundingBox = self.boundingRect(with: constraintRect, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+        
+        return boundingBox.width
+    }
+    
+    func getTextHeight(width:CGFloat, font:UIFont,  numberOfLines : Int = 0) -> CGFloat{
+            let label = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+            label.numberOfLines = numberOfLines
+           // label.lineBreakMode = NSLineBreakMode.byWordWrapping
+            label.font = font
+            label.text = self
+            label.sizeToFit()
+            return label.frame.height
+        }
+    
+    func getTextWidth(height:CGFloat, font:UIFont,  numberOfLines : Int = 0) -> CGFloat{
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: CGFloat.greatestFiniteMagnitude, height: height))
+        label.numberOfLines = numberOfLines
+       // label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = font
+        label.text = self
+        label.sizeToFit()
+        return label.frame.width
+    }
+    
+    
+    
 }
 
 extension String {
@@ -806,11 +838,11 @@ extension String {
         return stylizedPrice
     }
     
-    func attributeStringWithColors(stringToColor : String,
+    func attributeStringWithColors(subString : String,
                                    strClr: UIColor,
                                    substrClr: UIColor,
                                    strFont: UIFont = AppFonts.Regular.withSize(12),
-                                   strClrFont: UIFont = AppFonts.SemiBold.withSize(12)) -> NSAttributedString{
+                                   subStrFont: UIFont = AppFonts.SemiBold.withSize(12)) -> NSAttributedString{
 
         let attributedString = NSMutableAttributedString(string:self)
 
@@ -819,10 +851,10 @@ extension String {
         attributedString.addAttributes([NSAttributedString.Key.foregroundColor : strClr, NSAttributedString.Key.font: strFont], range: range1)
 
         //if main_string.contains("(should be 18 years or above from curent date)"){
-        let range2 = (self as NSString).range(of: stringToColor)
+        let range2 = (self as NSString).range(of: subString)
 
 
-        attributedString.addAttributes([NSAttributedString.Key.font: strClrFont ,NSAttributedString.Key.foregroundColor : substrClr], range: range2)
+        attributedString.addAttributes([NSAttributedString.Key.font: subStrFont ,NSAttributedString.Key.foregroundColor : substrClr], range: range2)
 
         return attributedString
     }

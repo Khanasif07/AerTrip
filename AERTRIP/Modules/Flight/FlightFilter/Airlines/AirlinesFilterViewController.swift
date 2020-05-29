@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol AirlineFilterDelegate : FilterDelegate {
-    func allAirlinesSelected()
+    func allAirlinesSelected(_ status: Bool)
     func hideMultiAirlineItineraryUpdated(_ filter: AirlineLegFilter )
     func airlineFilterUpdated(_ filter : AirlineLegFilter)
 }
@@ -141,7 +141,6 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
     //MARK:- Action methods
     @objc fileprivate func tappedOnMulticityButton( sender : UIButton) {
         
-        
         let tag = sender.tag
         
         if tag == currentSelectedMultiCityIndex {
@@ -185,16 +184,10 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
     
     @objc func airlineRadioButtonTapped(sender : UIButton) {
         
-        if sender.isSelected {
-            sender.isSelected = false
-        }else {
-            sender.isSelected = true
-        }
-        
+        sender.isSelected = !sender.isSelected
         
         if sender.tag == 1 {
             currentSelectedAirlineFilter.allAirlinesSelected = sender.isSelected
-            currentSelectedAirlineFilter.hideMultipleAirline  = sender.isSelected
             currentSelectedAirlineFilter.airlinesArray = currentSelectedAirlineFilter.airlinesArray.map {
                 var airline = $0
                 airline.isSelected = sender.isSelected
@@ -204,11 +197,11 @@ class AirlinesFilterViewController: UIViewController , FilterViewController {
             airlinesTableView.reloadData()
             
             if showingForReturnJourney {
-                self.delegate?.allAirlinesSelected()
-                self.delegate?.allAirlinesSelected()
+                self.delegate?.allAirlinesSelected(sender.isSelected)
+                self.delegate?.allAirlinesSelected(sender.isSelected)
             }
             else {
-                self.delegate?.allAirlinesSelected()
+                self.delegate?.allAirlinesSelected(sender.isSelected)
             }
             return
         }

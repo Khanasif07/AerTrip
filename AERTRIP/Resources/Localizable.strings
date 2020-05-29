@@ -963,3 +963,20 @@
 "CommingSoon" = "Comming Soon";
 "Flight" = "Flight";
 "Hotel" = "Hotel";
+
+
+//payment and checkout
+"Meals" = "Meals";
+"Seat" = "Seat";
+"Baggage" = "Baggage";
+"Others" = "Others";
+"Skip" = "Skip";
+
+// Seat Map
+"seatMap" = "Seat Map";
+"mainDeck" = "Main Deck";
+"upperDeck" = "Upper Deck";
+
+"DomesticCheckIn" = "Domestic Check-in";
+"InternationalCheckIn" = "International CheckIn";
+"MealTotal" = "Meal Total";

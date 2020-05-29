@@ -29,6 +29,8 @@ enum AppStoryboard : String {
     case PassengersSelection
     case InternationalReturnAndMulticityDetails
     case FlightDetailsBaseVC
+    case Adons
+    case Rishabh_Dev
 }
 
 extension AppStoryboard {

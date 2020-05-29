@@ -249,7 +249,6 @@ extension IntMCAndReturnVC {
         if #available(iOS 13.0, *) {
             guard let postData = generatePostDataForEmail(for: viewModel.results.pinnedFlights) else { return }
             executeWebServiceForEmail(with: postData as Data, onCompletion:{ (view)  in
-                
                 DispatchQueue.main.async {
                     self.showEmailViewController(body : view)
                 }
@@ -323,7 +322,6 @@ extension IntMCAndReturnVC {
                         self.noResultScreen?.view.removeFromSuperview()
                         self.noResultScreen?.removeFromParent()
                         self.noResultScreen = nil
-                        
                     }
                 }
             })

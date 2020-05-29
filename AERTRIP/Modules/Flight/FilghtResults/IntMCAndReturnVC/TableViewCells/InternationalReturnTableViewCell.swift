@@ -165,34 +165,26 @@ class InternationalReturnTableViewCell: UITableViewCell
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
         return newImage!
     }
     
     func populateData(journey : IntMultiCityAndReturnDisplay, indexPath : IndexPath){
           currentJourney = journey.first
-        if currentJourney.isPinned {
-            setPinnedFlight()
-          }
+            if currentJourney.isPinned {
+                setPinnedFlight()
+           }
           self.price.text = currentJourney.priceAsString
           multiFlightsTableView.reloadData()
           self.multiFlighrsTableViewHeight.constant = CGFloat(66 * currentJourney.legsWithDetail.count)
           smartIconCollectionView.reloadData()
           self.optionsViewHeight.constant = journey.count > 1 ? 45 : 0
-//        self.optionsViewHeight.constant = 45
           self.samePriceOptionsLabel.text = "\(journey.count) options at same price"
           price.textColor = journey.isCheapest ? .AERTRIP_ORAGE_COLOR : UIColor.black
           self.priceWidth.constant =  self.price.intrinsicContentSize.width
           smartIconsArray = currentJourney.smartIconArray
           baggageSuperScript = currentJourney.baggageSuperScript
-          self.indexLabel.text = "\(indexPath.section).....\(indexPath.row)"
         self.indexLabel.isHidden = true
-        
-//        print("coa...\(currentJourney.coa)")
-//        print("cot...\(currentJourney.cot)")
-
       }
-    
 }
 
 //MARK:- Tableview DataSource , Delegate Methods

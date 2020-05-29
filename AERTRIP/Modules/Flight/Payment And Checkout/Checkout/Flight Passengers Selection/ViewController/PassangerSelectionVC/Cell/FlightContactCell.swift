@@ -31,6 +31,8 @@ class FlightContactCell: UITableViewCell {
     private var preSelectedCountry: PKCountryModel?
     weak var delegate: FlightContactCellDelegate?
     var vc: UIViewController?
+    var isdCode = ""
+    var mobile = ""
     
     //MARK:- Life Cycle
     //MARK:-
@@ -76,6 +78,20 @@ class FlightContactCell: UITableViewCell {
         
         contactNumberTextField.delegate = self
     }
+    
+    
+    func setupData(){
+        let isd = (self.isdCode != "") ? self.isdCode : "+91"
+        if let current = PKCountryPicker.default.getCountryData(forISDCode: isd) {
+            preSelectedCountry = current
+            flagImageView.image = current.flagImage
+            countryCodeLabel.text = current.countryCode
+        }
+         self.contactNumberTextField.text = self.mobile
+        
+    }
+    
+    
 
     //MARK:- Public
     @IBAction func selectCountruButtonAction(_ sender: UIButton) {

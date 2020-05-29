@@ -611,6 +611,26 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     }
     
     func bookButtonTapped(journeyCombo: [CombinationJourney]?){
+        
+        AppFlowManager.default.proccessIfUserLoggedInForFlight(verifyingFor: .loginVerificationForCheckout,presentViewController: true, vc: self) { [weak self](isGuest) in
+            guard let self = self else {return}
+            let vc = PassengersSelectionVC.instantiate(fromAppStoryboard: .PassengersSelection)
+            vc.viewModel.taxesResult = self.taxesResult
+            vc.viewModel.intJourney = self.intJourney
+            vc.viewModel.intFlights = self.intFlights
+            vc.viewModel.selectedJourneyFK = self.selectedJourneyFK
+            vc.viewModel.sid = self.sid
+            vc.viewModel.intAirportDetailsResult = self.intAirportDetailsResult
+            vc.viewModel.intAirlineDetailsResult = self.intAirlineDetailsResult
+            vc.viewModel.bookingObject = self.bookFlightObject
+            vc.viewModel.journeyType = .international
+            vc.viewModel.journeyTitle = self.journeyTitle
+            vc.viewModel.journeyDate = self.journeyDate
+            self.pushToPassenserSelectionVC(vc)
+            AppFlowManager.default.removeLoginConfirmationScreenFromStack()
+            AppGlobals.shared.stopLoading()
+        }
+        
 //        let vc = PassengersSelectionVC.instantiate(fromAppStoryboard: .PassengersSelection)
 //        let nav = UINavigationController(rootViewController: vc)
 //        nav.modalPresentationStyle = .fullScreen
@@ -626,7 +646,21 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
 //        vc.viewModel.journeyType = .international
 //        vc.viewModel.journeyTitle = self.journeyTitle
 //        vc.viewModel.journeyDate = self.journeyDate
-//        self.presentAsPushAnimation(nav)
+//        self.present(nav, animated: true, completion: nil)//presentAsPushAnimation(nav)
+    }
+
+
+    func pushToPassenserSelectionVC(_ vc: PassengersSelectionVC){
+        
+        if let nav = AppFlowManager.default.currentNavigation{
+            nav.pushViewController(vc, animated: true)
+        }else{
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .fullScreen
+            nav.modalPresentationCapturesStatusBarAppearance = true
+            self.present(nav, animated: true, completion: nil)
+        }
+        
     }
 }
 

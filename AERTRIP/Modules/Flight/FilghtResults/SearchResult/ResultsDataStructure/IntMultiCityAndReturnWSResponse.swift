@@ -964,6 +964,8 @@ struct IntMultiCityAndReturnWSResponse {
             
             var isArrivalTerminalChange:Bool?
             var isDepartureTerminalChange:Bool?
+            var isArrivalDateChange:Bool?
+            var isDepartureDateChange:Bool?
             var isArrivalAirportChange:Bool?
             var isDepartureAirportChange:Bool?
             var ontimePerformance:Int?

@@ -618,6 +618,8 @@ extension FlightResultDisplayGroup  {
                 continue
             case .originDestinationSelectedForReturnJourney:
                 print("originDestinationSelectedForReturnJourney")
+            case .allAirlinesSelected:
+                continue
             }
         }
         

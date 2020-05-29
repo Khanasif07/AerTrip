@@ -34,9 +34,17 @@ class AppFlowManager: NSObject {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.dataChanged(_:)), name: .dataChanged, object: nil)
     }
-    
+    ///Change because flight is not added in main navigation currently.
+//    var safeAreaInsets: UIEdgeInsets {
+//        return AppFlowManager.default.mainNavigationController.view.safeAreaInsets
+//    }
     var safeAreaInsets: UIEdgeInsets {
-        return AppFlowManager.default.mainNavigationController.view.safeAreaInsets
+        if self.mainNavigationController != nil{
+            return AppFlowManager.default.mainNavigationController.view.safeAreaInsets
+        }else{
+            return currentNavigation?.view.safeAreaInsets ?? UIEdgeInsets()
+        }
+        
     }
     
     var mainNavigationController: SwipeNavigationController! {
@@ -181,6 +189,37 @@ class AppFlowManager: NSObject {
             
         }
     }
+    
+    // check and manage the further processing if user logged-in or not
+    func proccessIfUserLoggedInForFlight(verifyingFor: LoginFlowUsingFor, presentViewController: Bool = false, vc: UIViewController, completion: ((_ isGuest: Bool) -> Void)?) {
+        self.loginVerificationComplition = completion
+        if let _ = UserInfo.loggedInUserId {
+            // user is logged in
+            completion?(false)
+        }
+        else {
+            // user note logged in
+            // open login flow
+            
+            let socialVC = SocialLoginVC.instantiate(fromAppStoryboard: .PreLogin)
+            socialVC.currentlyUsingFrom = verifyingFor
+            
+            delay(seconds: 0.1) { [weak socialVC] in
+                socialVC?.animateContentOnLoad()
+            }
+            
+            if presentViewController {
+                let newNavigation = self.getNavigationController(forPresentVC: socialVC)
+                newNavigation.modalPresentationStyle = .overFullScreen
+                vc.presentAsPushAnimation(newNavigation)
+            } else {
+                self.currentNavigation?.pushViewController(socialVC, animated: true)
+            }
+            AppGlobals.shared.stopLoading()
+            
+        }
+    }
+    
 }
 
 // MARK: - Public Navigation func
@@ -995,7 +1034,6 @@ extension AppFlowManager {
     }
     
     // Move To Booking Invoice VC
-    
     func moveToBookingInvoiceVC(forVoucher: Voucher) {
         let obj = BookingInvoiceVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.voucher = forVoucher
@@ -1003,7 +1041,6 @@ extension AppFlowManager {
     }
     
     // Move To Booking Direction VC
-    
     func moveToBookingDirectionVC(directions: [Direction]) {
         let obj = BookingDirectionVC.instantiate(fromAppStoryboard: .Bookings)
         obj.viewModel.directionData = directions
@@ -1011,7 +1048,6 @@ extension AppFlowManager {
     }
     
     // Present BookingRequestAddOnsAndFFC
-    
     func presentBookingReuqestAddOnVC(bookingdata: BookingDetailModel?,delegate:BookingRequestAddOnsFFVCDelegate) {
         let obj = BookingRequestAddOnsFFVC.instantiate(fromAppStoryboard: .Bookings)
         obj.delegate = delegate
@@ -1278,4 +1314,15 @@ extension AppFlowManager {
         transition.type = CATransitionType.push
         onNavigationController?.view.layer.add(transition, forKey: nil)
     }
+}
+
+
+//FlightsCheckout and payment
+extension AppFlowManager {
+    
+    func moveToAddOnVC(){
+        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
+        self.mainNavigationController.pushViewController(vc, animated: true)
+    }
+    
 }

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AdonsCell" rowHeight="144" id="KGk-i7-Jjw" customClass="AdonsCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="451" height="179"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="451" height="179"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="meals" translatesAutoresizingMaskIntoConstraints="NO" id="8M0-Yg-BXV">
+                        <rect key="frame" x="16" y="37.5" width="104" height="104"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="104" id="gsh-TI-cUQ"/>
+                            <constraint firstAttribute="width" secondItem="8M0-Yg-BXV" secondAttribute="height" multiplier="1:1" id="yO0-dB-ZNw"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pxd-YA-7r5">
+                        <rect key="frame" x="405" y="78.5" width="46" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="46" id="4Hl-da-wKt"/>
+                        </constraints>
+                        <state key="normal" image="hotelCheckoutForwardArrow"/>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MtD-vb-T2B">
+                        <rect key="frame" x="139" y="55.5" width="266" height="68.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Meals hjgj" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Apz-jt-OCO">
+                                <rect key="frame" x="0.0" y="0.0" width="266" height="20.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Reserve a seat of your" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5h-6E-EB0">
+                                <rect key="frame" x="0.0" y="21.5" width="266" height="20.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BSi-pM-qoh">
+                                <rect key="frame" x="0.0" y="46" width="226" height="24.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Complementary meal added" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibD-n4-7mo">
+                                <rect key="frame" x="5" y="48" width="216" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="d5h-6E-EB0" firstAttribute="top" secondItem="Apz-jt-OCO" secondAttribute="bottom" constant="1" id="15c-Li-Jwd"/>
+                            <constraint firstItem="BSi-pM-qoh" firstAttribute="trailing" secondItem="ibD-n4-7mo" secondAttribute="trailing" constant="5" id="4vu-FD-csf"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ibD-n4-7mo" secondAttribute="trailing" id="5T1-k9-nCe"/>
+                            <constraint firstItem="ibD-n4-7mo" firstAttribute="leading" secondItem="MtD-vb-T2B" secondAttribute="leading" constant="5" id="Fl2-2G-XSL"/>
+                            <constraint firstItem="Apz-jt-OCO" firstAttribute="top" secondItem="MtD-vb-T2B" secondAttribute="top" id="GQa-rU-M5e"/>
+                            <constraint firstItem="d5h-6E-EB0" firstAttribute="leading" secondItem="MtD-vb-T2B" secondAttribute="leading" id="IZ9-Ir-U9B"/>
+                            <constraint firstItem="BSi-pM-qoh" firstAttribute="top" secondItem="ibD-n4-7mo" secondAttribute="top" constant="-2" id="M2o-4G-wvg"/>
+                            <constraint firstItem="BSi-pM-qoh" firstAttribute="bottom" secondItem="ibD-n4-7mo" secondAttribute="bottom" constant="2" id="NVy-2n-pue"/>
+                            <constraint firstAttribute="trailing" secondItem="Apz-jt-OCO" secondAttribute="trailing" id="P6q-dR-fMs"/>
+                            <constraint firstItem="Apz-jt-OCO" firstAttribute="leading" secondItem="MtD-vb-T2B" secondAttribute="leading" id="RgY-2Z-oRC"/>
+                            <constraint firstItem="BSi-pM-qoh" firstAttribute="leading" secondItem="ibD-n4-7mo" secondAttribute="leading" constant="-5" id="SKv-02-xsK"/>
+                            <constraint firstAttribute="bottom" secondItem="ibD-n4-7mo" secondAttribute="bottom" id="SL4-c0-rme"/>
+                            <constraint firstAttribute="trailing" secondItem="d5h-6E-EB0" secondAttribute="trailing" id="e6p-ac-c44"/>
+                            <constraint firstItem="ibD-n4-7mo" firstAttribute="top" secondItem="d5h-6E-EB0" secondAttribute="bottom" constant="6" id="kVX-oa-5vy"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="pxd-YA-7r5" secondAttribute="trailing" id="7cY-qD-yae"/>
+                    <constraint firstItem="pxd-YA-7r5" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.122905" id="MG0-y7-jUZ"/>
+                    <constraint firstItem="pxd-YA-7r5" firstAttribute="leading" secondItem="MtD-vb-T2B" secondAttribute="trailing" id="idH-Jy-wGa"/>
+                    <constraint firstItem="8M0-Yg-BXV" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="os1-qe-exX"/>
+                    <constraint firstItem="MtD-vb-T2B" firstAttribute="centerY" secondItem="8M0-Yg-BXV" secondAttribute="centerY" id="sVX-Fj-Npn"/>
+                    <constraint firstItem="pxd-YA-7r5" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="sfp-ZG-aZ4"/>
+                    <constraint firstItem="MtD-vb-T2B" firstAttribute="leading" secondItem="8M0-Yg-BXV" secondAttribute="trailing" constant="19" id="vZ5-Cr-SdI"/>
+                    <constraint firstItem="8M0-Yg-BXV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="zoz-sk-KT5"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addOnImageView" destination="8M0-Yg-BXV" id="VKG-ik-yj5"/>
+                <outlet property="arrowButton" destination="pxd-YA-7r5" id="lsR-HY-WkP"/>
+                <outlet property="complementBackView" destination="BSi-pM-qoh" id="dl9-Ej-LZr"/>
+                <outlet property="complementLabel" destination="ibD-n4-7mo" id="ozY-8y-2sZ"/>
+                <outlet property="descriptionLabel" destination="d5h-6E-EB0" id="kLw-c0-Xgq"/>
+                <outlet property="headingLabel" destination="Apz-jt-OCO" id="V3a-k0-ed5"/>
+            </connections>
+            <point key="canvasLocation" x="232.60869565217394" y="147.65625"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="hotelCheckoutForwardArrow" width="8" height="14"/>
+        <image name="meals" width="104" height="104"/>
+    </resources>
+</document>

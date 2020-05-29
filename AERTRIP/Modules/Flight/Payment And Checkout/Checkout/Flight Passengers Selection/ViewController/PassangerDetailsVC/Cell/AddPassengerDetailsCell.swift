@@ -43,15 +43,16 @@ class AddPassengerDetailsCell: UITableViewCell {
 //    weak var delegate: GuestDetailTableViewCellDelegate?
     var canShowSalutationError = false
     
-    var passenger = Passenger()
-    var countryList = [String]()
+//    var passenger = ATContact()
     weak var delegate: UpdatePassengerDetailsDelegate?
+    weak var txtFldEditDelegate:GuestDetailTableViewCellDelegate?
     var cellIndexPath = IndexPath()
-//    var guestDetail: ATContact? {
-//        didSet {
-//            configureCell()
-//        }
-//    }
+    var journeyType: JourneyType = .domestic
+    var guestDetail: ATContact? {
+        didSet {
+            configureCell()
+        }
+    }
     
     enum SalutationTypes {
         case male, female, none
@@ -101,33 +102,20 @@ class AddPassengerDetailsCell: UITableViewCell {
 
     
     
-    func configureCell(with indexPath: IndexPath, journeyType: JourneyType) {
-        self.cellIndexPath = indexPath
-        self.optionalDetailsView.isHidden = self.passenger.isMoreOptionTapped
-        self.dobTextField.text = passenger.dobString
-        self.nationalityTextField.text = passenger.nationality
-        self.passportNumberTextField.text = passenger.passportNumber
-        self.guestTitleLabel.text = passenger.title
-        self.firstNameTextField.text = passenger.fName
-//        if let fName = self.guestDetail?.firstName, !fName.isEmpty {
-//            self.firstNameTextField.text = fName
-//        }
-        
-        self.lastNameTextField.text = passenger.lName
-        if let gender = passenger.gender{
-            if gender == .male{
-                configureSalutationSwicth(type: .male)
-            }else{
-                configureSalutationSwicth(type: .female)
-            }
-        }else{
-            configureSalutationSwicth(type: .none)
+    private  func configureCell() {
+        self.optionalDetailsView.isHidden = (self.guestDetail?.isMoreOptionTapped ?? true)
+        self.dobTextField.text = self.guestDetail?.displayDob
+        self.nationalityTextField.text = self.guestDetail?.nationality
+        self.passportNumberTextField.text = self.guestDetail?.passportNumber
+        self.passportExpiryTextField.text = self.guestDetail?.displayPsprtExpDate
+        self.firstNameTextField.text = ""
+        if let fName = self.guestDetail?.firstName, !fName.isEmpty {
+            self.firstNameTextField.text = fName
         }
-        
         if journeyType == .domestic{
             self.setupforDomestic()
         }else{
-            if self.passenger.isMoreOptionTapped{
+            if (self.guestDetail?.isMoreOptionTapped ?? true){
                 self.passportExpiryTextField.lineViewBottomSpace = 0
                 self.passportNumberTextField.lineViewBottomSpace = 0
             }else{
@@ -135,44 +123,49 @@ class AddPassengerDetailsCell: UITableViewCell {
                 self.passportNumberTextField.lineViewBottomSpace = -3
             }
         }
+        self.lastNameTextField.text = ""
+        if let lName = self.guestDetail?.lastName, !lName.isEmpty {
+            self.lastNameTextField.text = lName
+        }
         
-//        if let lName = self.guestDetail?.lastName, !lName.isEmpty {
-//            self.lastNameTextField.text = lName
-//        }
-        
-//        if let salutaion = self.guestDetail?.salutation, !salutaion.isEmpty {
-//            if AppConstants.kFemaleSalutaion.contains(salutaion) {
-//                configureSalutationSwicth(type: .female)
-//            } else if AppConstants.kMaleSalutaion.contains(salutaion){
-//                configureSalutationSwicth(type: .male)
-//            } else {
-//                configureSalutationSwicth(type: .none)
-//            }
-//        }else {
-//            configureSalutationSwicth(type: .none)
-//        }
-//        if canShowSalutationError, let salutaion = self.guestDetail?.salutation,salutaion.isEmpty {
-//            self.containerView.layer.borderColor = AppColors.themeRed.cgColor
-//            self.containerView.layer.borderWidth = 1.0
-//        }
-//
-//        if let type = self.guestDetail?.passengerType, let number = self.guestDetail?.numberInRoom, number >= 0 {
-//            let ageText = "(\(self.guestDetail?.age ?? 0)y)"
-//            let adultText = "\(LocalizedString.Adult.localized) \(number)"
-//            let childText = "\(LocalizedString.Child.localized) \(number) \(ageText)"
-//
-//            self.guestTitleLabel.text = (type == PassengersType.Adult) ? adultText : childText
-//            self.guestTitleLabel.AttributedFontColorForText(text: ageText, textColor: AppColors.themeGray40)
-//        }
-        
+        if let salutaion = self.guestDetail?.salutation, !salutaion.isEmpty {
+            if AppConstants.kFemaleSalutaion.contains(salutaion) {
+                configureSalutationSwicth(type: .female)
+            } else if AppConstants.kMaleSalutaion.contains(salutaion){
+                configureSalutationSwicth(type: .male)
+            } else {
+                configureSalutationSwicth(type: .none)
+            }
+        }else {
+            configureSalutationSwicth(type: .none)
+        }
+        if canShowSalutationError, let salutaion = self.guestDetail?.salutation,salutaion.isEmpty {
+            self.containerView.layer.borderColor = AppColors.themeRed.cgColor
+            self.containerView.layer.borderWidth = 1.0
+        }
+        self.guestTitleLabel.text = ""
+        if let type = self.guestDetail?.passengerType, let number = self.guestDetail?.numberInRoom, number >= 0 {
+            let ageText = "(\(self.guestDetail?.age ?? 0)y)"
+            switch type{
+            case .Adult:
+                self.guestTitleLabel.text = "\(LocalizedString.Adult.localized) \(number)"
+            case .child:
+                self.guestTitleLabel.text = "\(LocalizedString.Child.localized) \(number) \(ageText)"
+            case .infant:
+                self.guestTitleLabel.text = "\(LocalizedString.Infant.localized) \(number) \(ageText)"
+            }
+            self.guestTitleLabel.AttributedFontColorForText(text: ageText, textColor: AppColors.themeGray40)
+        }
+        showErrorForFirstLastName()
     }
     
     private func setupforDomestic(){
         self.passportStack.isHidden = true
-        switch self.passenger.passengerType{
-        case .adult, .child:
+        guard let passenger = self.guestDetail else {return}
+        switch passenger.passengerType{
+        case .Adult, .child:
             self.dobAndNationalityStack.isHidden = true
-            if self.passenger.isMoreOptionTapped{
+            if passenger.isMoreOptionTapped{
                 self.firstNameTextField.lineViewBottomSpace = 0
                 self.lastNameTextField.lineViewBottomSpace = 0
             }else{
@@ -190,13 +183,69 @@ class AddPassengerDetailsCell: UITableViewCell {
         case .infant:
             self.dobAndNationalityStack.isHidden = false
             self.nataionalityView.isHidden = true
-            if self.passenger.isMoreOptionTapped{
+            if passenger.isMoreOptionTapped{
                 self.dobTextField.lineViewBottomSpace = 0
             }else{
                 self.dobTextField.lineViewBottomSpace = -3
             }
         }
     }
+    
+    
+    func showErrorForFirstLastName() {
+        guard  self.canShowSalutationError else {return}
+        let isValidFirstName = !((self.firstNameTextField.text ?? "").count < 3)
+        self.firstNameTextField.isError = !isValidFirstName
+        let firstName = self.firstNameTextField.placeholder ?? ""
+        self.firstNameTextField.attributedPlaceholder = NSAttributedString(string: firstName, attributes: [NSAttributedString.Key.foregroundColor: isValidFirstName ? AppColors.themeGray40 :  AppColors.themeRed])
+        
+        let isValidLastName = !((self.lastNameTextField.text ?? "").count < 3)
+        self.lastNameTextField.isError = !isValidLastName
+        let lastName = self.lastNameTextField.placeholder ?? ""
+        self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastName, attributes: [NSAttributedString.Key.foregroundColor: isValidLastName ? AppColors.themeGray40 :  AppColors.themeRed])
+        
+        if self.journeyType == .domestic{
+            self.domesticValidations()
+        }else{
+            self.internationalValidations()
+        }
+        
+    }
+    
+    func domesticValidations(){
+        guard let type = self.guestDetail?.passengerType else {return}
+        switch type {
+        case .Adult,.child:
+            break;
+        case .infant:
+            let isValidDob = !((self.dobTextField.text ?? "").isEmpty)
+            self.dobTextField.isError = !isValidDob
+            let dob = self.dobTextField.placeholder ?? ""
+            self.dobTextField.attributedPlaceholder = NSAttributedString(string: dob, attributes: [NSAttributedString.Key.foregroundColor: isValidDob ? AppColors.themeGray40 :  AppColors.themeRed])
+        }
+    }
+    
+    func internationalValidations(){
+//        guard let type = self.guestDetail?.passengerType  else {return}
+        let txtFlds = [dobTextField, nationalityTextField, passportNumberTextField, passportExpiryTextField]
+            ///Uncomment if infant dont required passport details and nationality.
+//        switch type {
+//        case .Adult, .child:
+//            txtFlds = [dobTextField, nationalityTextField, passportNumberTextField, passportExpiryTextField]
+//        case .infant:
+//            txtFlds = [dobTextField]
+//        }
+        txtFlds.forEach { txt in
+            guard let txt = txt else {return}
+            let isValid = !((txt.text ?? "").isEmpty)
+            txt.isError = !isValid
+            let placeholder = txt.placeholder ?? ""
+            txt.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: isValid ? AppColors.themeGray40 :  AppColors.themeRed])
+        }
+        
+    }
+    
+    
     
     func setUpUnicodeSwitch() {
         unicodeSwitch.titleLeft = "🙍🏻‍♂️"
@@ -248,19 +297,19 @@ class AddPassengerDetailsCell: UITableViewCell {
     //MARK:- IBAction
     //MARK:-
     @IBAction func changeSelectedIndex(_ sender: ATUnicodeSwitch) {
-//        var salutation = ""
+        var salutation = ""
         if sender.selectedIndex == 1 {
             configureSalutationSwicth(type: .female)
-//            salutation = AppGlobals.shared.getSalutationAsPerGenderAndAge(gender: AppConstants.kmRS, dob: self.guestDetail?.dob ?? "", dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+            salutation = AppGlobals.shared.getSalutationAsPerGenderAndAge(gender: AppConstants.kmRS, dob: self.guestDetail?.dob ?? "", dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
             
         } else if sender.selectedIndex == 0{
             configureSalutationSwicth(type: .male)
-//            salutation = AppGlobals.shared.getSalutationAsPerGenderAndAge(gender: AppConstants.kmR, dob: self.guestDetail?.dob ?? "", dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
+            salutation = AppGlobals.shared.getSalutationAsPerGenderAndAge(gender: AppConstants.kmR, dob: self.guestDetail?.dob ?? "", dateFormatter: Date.DateFormat.yyyy_MM_dd.rawValue)
         }
         if sender.selectedIndex == 0 || sender.selectedIndex == 1 {
-//        if let indexPath = (self.superview as? UITableView)?.indexPath(for: self) {
-//            GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = salutation
-//        }
+            if let indexPath = (self.superview as? UITableView)?.indexPath(for: self) {
+                GuestDetailsVM.shared.guests[0][indexPath.section].salutation = salutation
+            }
         }
     }
 }
@@ -271,24 +320,33 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
         switch textField {
         case self.dobTextField:
             let selected = (textField.text ?? "").toDate(dateFormat: "dd MMM YYYY")
-            let minimumDate:Date?
-            switch  self.passenger.passengerType {
-            case .adult,.child:
-                minimumDate = nil
-//            case .child:
-//                //minimumDate = Date().add(years: -12)
-            case .infant:
-                minimumDate = Date().add(years: -2)
-                
+            var minimumDate:Date? = Date()
+            if let passenger = self.guestDetail{
+                switch passenger.passengerType {
+                case .Adult,.child:
+                    minimumDate = nil
+//                case .child:
+//                    minimumDate = Date().add(years: -12)
+                case .infant:
+                    minimumDate = Date().add(years: -2)
+                    
+                }
             }
             PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd MMM YYYY", mode: .date, minimumDate: minimumDate, maximumDate: Date(), selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { (dateStr) in
                 textField.text = dateStr
-//                self.viewModel.userEnteredDetails.depositDate = dateStr.toDate(dateFormat: "dd-MM-YYYY")
+                if let date = dateStr.toDate(dateFormat: "dd MMM yyyy"){
+                    GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].dob = date.toString(dateFormat: "yyyy-MM-dd")
+                }
             }
             textField.tintColor = AppColors.clear
         case self.nationalityTextField:
+            var countries = [String]()
+            if let country = GuestDetailsVM.shared.countries{
+                countries = Array(country.values).sorted()
+            }
             PKMultiPicker.noOfComponent = 1
-            PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: self.countryList, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+            PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: countries, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].nationality = firstSelect
                 textField.text = firstSelect
             }
             textField.tintColor = AppColors.clear
@@ -296,7 +354,9 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
             let selected = (textField.text ?? "").toDate(dateFormat: "dd MMM YYYY")
             PKDatePicker.openDatePickerIn(textField, outPutFormate: "dd MMM YYYY", mode: .date, minimumDate: Date(), maximumDate: nil, selectedDate: selected, appearance: .light, toolBarTint: AppColors.themeGreen) { (dateStr) in
                 textField.text = dateStr
-//                self.viewModel.userEnteredDetails.depositDate = dateStr.toDate(dateFormat: "dd-MM-YYYY")
+                if let date = dateStr.toDate(dateFormat: "dd MMM yyyy"){
+                    GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].passportExpiryDate = date.toString(dateFormat: "yyyy-MM-dd")
+                }
             }
             textField.tintColor = AppColors.clear
         default:
@@ -308,10 +368,10 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {
         case self.firstNameTextField:
-//            self.delegate?.textField(self.firstNameTextField)
+            self.txtFldEditDelegate?.textField(self.firstNameTextField)
             break
         case self.lastNameTextField:
-//            self.delegate?.textField(self.lastNameTextField)
+            self.txtFldEditDelegate?.textField(self.lastNameTextField)
             break
         default:
             break
@@ -320,6 +380,26 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
     
     @objc func textFieldDidChanged(_ textField: UITextField) {
         
+        let txtStr = textField.text ?? ""
+        if  txtStr.count > AppConstants.kFirstLastNameTextLimit {
+            let text = txtStr.removeSpaceAsSentence
+            textField.text = text.substring(to: 30)
+            return
+        } else {
+            
+            textField.text = txtStr.removeSpaceAsSentence
+        }
+        switch textField {
+        case self.firstNameTextField:
+            self.txtFldEditDelegate?.textFieldWhileEditing(firstNameTextField)
+        case self.lastNameTextField:
+            self.txtFldEditDelegate?.textFieldWhileEditing(lastNameTextField)
+        case self.passportNumberTextField:
+            GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].passportNumber = (textField.text ?? "").removeAllWhitespaces
+        default:
+            break
+        }
+        showErrorForFirstLastName()
     }
     
     
