@@ -37,7 +37,7 @@ struct FlightItinerary {
     var isRefundable : Bool
     var walletBalance : Int
     var userPoints : Int
-//    var traveller_details://Need To be parse.
+    var details:IntJourney
     var travellerDetails:TravellerDetails
     var travellerMaster:[TravellerModel]
     var paymentModes:PaymentMode
@@ -60,6 +60,7 @@ struct FlightItinerary {
         isRefundable = json["is_refundable"].boolValue
         walletBalance = json["wallet_balance"].intValue
         userPoints = json["user_points"].intValue
+        details = IntJourney(jsonData: json["details"])
         travellerDetails = TravellerDetails(json["traveller_details"])
         travellerMaster = json["traveller_master"]["aertrip"].arrayValue.map{TravellerModel(json: $0)}
         paymentModes = PaymentMode(json: json["payment_modes"])
