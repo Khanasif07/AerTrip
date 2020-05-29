@@ -42,9 +42,12 @@ class HotelDetailsReviewsVC: BaseVC {
         }
     }
     @IBOutlet weak var reviewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var progressView: UIProgressView!
     
     
     private let maxHeaderHeight: CGFloat = 58.0
+    private var time: Float = 0.0
+    private var timer: Timer?
     
     //Mark:- LifeCycle
     //================
@@ -58,7 +61,7 @@ class HotelDetailsReviewsVC: BaseVC {
     }
     override func setupColors() {
         self.reviewsLabel.textColor = AppColors.themeBlack
-        self.stickyTitleLabel.alpha = 0.0
+        //self.stickyTitleLabel.alpha = 0.0
         self.stickyTitleLabel.textColor = AppColors.themeBlack
     }
     
@@ -85,6 +88,12 @@ class HotelDetailsReviewsVC: BaseVC {
         delay(seconds: 0.2) {
             self.viewModel.getTripAdvisorDetails()
         }
+        headerContainerView.backgroundColor = .clear
+        mainContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        self.view.backgroundColor = .clear
+        self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
+        self.reviewsLabel.alpha = 0.0
+        self.stickyTitleLabel.alpha = 1.0
     }
     
     override func bindViewModel() {
@@ -132,6 +141,41 @@ class HotelDetailsReviewsVC: BaseVC {
             return 35.5
         default:
             return CGFloat.leastNonzeroMagnitude
+        }
+    }
+    
+    func startProgress() {
+        // Invalid timer if it is valid
+        if self.timer?.isValid == true {
+            self.timer?.invalidate()
+        }
+        
+        self.time = 0.0
+        self.progressView.setProgress(0.0, animated: false)
+        
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
+    
+    @objc func setProgress() {
+        self.time += 1.0
+        self.progressView?.setProgress(self.time / 10, animated: true)
+        
+        if self.time == 8 {
+            self.timer?.invalidate()
+            return
+        }
+        if self.time == 2 {
+            self.timer!.invalidate()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+            }
+        }
+        
+        if self.time >= 10 {
+            self.timer!.invalidate()
+            delay(seconds: 0.5) {
+                self.progressView?.isHidden = true
+            }
         }
     }
     
@@ -308,20 +352,24 @@ extension HotelDetailsReviewsVC {
 
 extension HotelDetailsReviewsVC: HotelTripAdvisorDetailsDelegate {
     func willFetchHotelTripAdvisor() {
-        AppGlobals.shared.startLoading()
+        //AppGlobals.shared.startLoading()
+        startProgress()
     }
     
     func getHotelTripAdvisorDetailsSuccess() {
         self.viewModel.getTypeOfCellInSections()
-        
+        self.time += 1
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
         printDebug("Reviews")
         self.reviewsTblView.reloadData()
-        AppGlobals.shared.stopLoading()
+       // AppGlobals.shared.stopLoading()
     }
     
     func getHotelTripAdvisorFail() {
+        self.time += 1
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
         printDebug("Api parsing failed")
-        AppGlobals.shared.stopLoading()
+       // AppGlobals.shared.stopLoading()
     }
 }
 
@@ -419,7 +467,7 @@ extension HotelDetailsReviewsVC {
         }
         self.mainContainerBottomConst.constant = 0.0
         self.mainContainerHeightConst.constant = finalValue
-        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
         self.view.layoutIfNeeded()
         
     }

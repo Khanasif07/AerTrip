@@ -196,7 +196,7 @@ class GuestDetailsVC: BaseVC {
     }
     
     private func editedGuest(_ travellerIndexPath: IndexPath) {
-        if let indexPath = self.indexPath, let object = self.viewModel.objectForIndexPath(indexPath: indexPath) {
+        if let indexPath = self.indexPath, let object = self.viewModel.objectForIndexPath(indexPath: travellerIndexPath) {
             printDebug(" before updating guest : \(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
             GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = object.salutation
             GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = object.firstName
@@ -370,10 +370,12 @@ extension GuestDetailsVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        if self.viewModel.checkForDoneValidation() {
         printDebug("Done Button tapped")
         AppFlowManager.default.popViewController(animated: true)
         self.vcDelegate?.doneButtonTapped()
         GuestDetailsVM.shared.canShowSalutationError = true
+        }
     }
 }
 

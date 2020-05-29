@@ -150,8 +150,10 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
         }
         if self.filterApplied.isIncludeUnrated {
             self.filterApplied.ratingCount.append(0)
+            self.filterApplied.tripAdvisorRatingCount.append(0)
         } else {
             self.filterApplied.ratingCount.remove(object: 0)
+            self.filterApplied.tripAdvisorRatingCount.remove(object: 0)
         }
         
         if let amentitiesPredicate = amentitiesPredicate() {
@@ -213,17 +215,17 @@ extension HotelsResultVM: NSFetchedResultsControllerDelegate {
         var tripAdvisorPredicate: NSPredicate?
         var tripAdvisorPredicates = [AnyHashable]()
         
-        if self.filterApplied.tripAdvisorRatingCount.isEmpty {
-            tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '0'"))
-        }
-        else {
+//        if self.filterApplied.tripAdvisorRatingCount.isEmpty {
+//            tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '0'"))
+//        }
+//        else {
             for rating in self.filterApplied.tripAdvisorRatingCount {
                 tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '\(rating)'"))
             }
-            if !self.filterApplied.tripAdvisorRatingCount.contains(0) {
-                tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '0'"))
-            }
-        }
+//            if !self.filterApplied.tripAdvisorRatingCount.contains(0) {
+//                tripAdvisorPredicates.append(NSPredicate(format: "filterTripAdvisorRating CONTAINS[c] '0'"))
+//            }
+//        }
         
         if tripAdvisorPredicates.count > 0 {
             if let tripAdvisorPredicates = tripAdvisorPredicates as? [NSPredicate] {

@@ -149,7 +149,7 @@ class GuestDetailTableViewCell: UITableViewCell {
         
         let isValidLastName = !((self.lastNameTextField.text ?? "").count < 3)
         self.lastNameTextField.isError = !isValidLastName
-        let lastName = self.firstNameTextField.placeholder ?? ""
+        let lastName = self.lastNameTextField.placeholder ?? ""
         self.lastNameTextField.attributedPlaceholder = NSAttributedString(string: lastName, attributes: [NSAttributedString.Key.foregroundColor: isValidLastName ? AppColors.themeGray40 :  AppColors.themeRed])
     }
     

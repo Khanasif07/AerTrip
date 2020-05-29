@@ -68,7 +68,21 @@ class GuestDetailsVM: NSObject {
         return false
     }
     
+    
+    
     private override init() {}
+    
+    func checkForDoneValidation() -> Bool {
+        for guest in GuestDetailsVM.shared.guests.flatMap({return $0}) {
+            if !guest.firstName.isEmpty || !guest.lastName.isEmpty {
+                if guest.firstName.count < 3 || guest.lastName.count < 3 {
+                   AppToast.default.showToastMessage(message: LocalizedString.FirstLastNameCharacterLimitMessage.localized)
+                    return false
+                }
+            }
+        }
+        return true
+    }
     
     func fetchTravellersContact() {
         HCSelectGuestsVM.shared._travellerContacts = self.travellerList.map { (travlr) -> ATContact in

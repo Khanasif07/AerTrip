@@ -27,13 +27,16 @@ extension UILabel {
         self.attributedText = attribute
     }
     
-    func AttributedFontForText(text : String, textFont : UIFont) {
+    func AttributedFontForText(text : String, textFont : UIFont, caseSentiveSearch: Bool = false) {
         
         //  self.textColor = UIColor.black
         guard let labelString = self.text else { return }
         
         let main_string = labelString as NSString
-        let range = main_string.range(of: text)
+        var range = main_string.range(of: text)
+        if caseSentiveSearch {
+            range = (main_string.lowercased as NSString).range(of: text.lowercased())
+        }
         
         var  attribute = NSMutableAttributedString.init(string: main_string as String)
         if let labelAttributedString = self.attributedText {

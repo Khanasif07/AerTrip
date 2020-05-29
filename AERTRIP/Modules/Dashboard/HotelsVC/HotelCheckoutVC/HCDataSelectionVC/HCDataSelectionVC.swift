@@ -96,7 +96,7 @@ class HCDataSelectionVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         delay(seconds: 0.2) {
-            self.statusBarColor = AppColors.themeWhite
+            self.statusBarColor = AppColors.clear
             self.statusBarStyle = .default
         }
         
@@ -375,7 +375,7 @@ class HCDataSelectionVC: BaseVC {
             }, completion: { [weak self] _ in
                 self?.isHotelDetailsCheckOutViewOpen = true
                 self?.hotelCheckOutDetailsContainerVIew?.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
-                self?.statusBarColor = AppColors.themeGray140
+                //self?.statusBarColor = AppColors.themeGray140
                 
             })
         }
@@ -815,7 +815,7 @@ extension HCDataSelectionVC: HotelCheckOutDetailsVIewDelegate {
     
     func crossButtonTapped() {
         self.hotelCheckOutDetailsContainerVIew.backgroundColor = AppColors.clear
-        self.statusBarColor =  AppColors.themeWhite
+        //self.statusBarColor =  AppColors.themeWhite
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.hotelDetailsContainerViewHeightConstraint.constant = 0.0
             self.view.layoutIfNeeded()

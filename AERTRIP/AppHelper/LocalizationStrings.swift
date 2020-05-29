@@ -608,6 +608,7 @@ enum LocalizedString: String {
     case Confirm
     case PanCard
     case EnterPanCardMessage
+    case FirstLastNameCharacterLimitMessage
 
     
     // Hotel Checkout Coupons VC

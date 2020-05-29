@@ -80,7 +80,8 @@ class TravellerListTableViewCell: UITableViewCell {
         if !age.isEmpty {
             self.userNameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
         }
-        self.userNameLabel.AttributedFontForText(text: searchedText, textFont: AppFonts.SemiBold.withSize(18.0))
+        self.userNameLabel.AttributedFontForText(text: searchedText, textFont: AppFonts.SemiBold.withSize(18.0), caseSentiveSearch: true)
+        
     }
     
     private func getAttributedBoldText(text: String, boldText: String) -> NSMutableAttributedString {

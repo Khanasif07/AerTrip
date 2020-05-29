@@ -85,7 +85,7 @@ class EmailComposerHeaderView: UIView {
         self.seeRatesButton.isUserInteractionEnabled = false
         
         self.toEmailTextView.delegate = self
-        
+        self.toEmailTextView.keyboardType = .emailAddress
         self.toEmailTextView.textContainerInset = UIEdgeInsets.zero
 //        self.toEmailTextView.textContainer.lineFragmentPadding = 0
         

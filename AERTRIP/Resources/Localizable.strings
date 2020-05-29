@@ -527,7 +527,8 @@
 "TotalPayableNow" = "Total payable now";
 "Confirm" = "Confirm";
 "PanCard" = "PAN Number";
-"EnterPanCardMessage" = "Please enter valid PAN Number.";
+"EnterPanCardMessage" = "Please enter a valid PAN Number";
+"FirstLastNameCharacterLimitMessage" = "First & Last name must have at least 3 characters";
 
 //Hotel Checkout Coupons VC
 "Coupons" = "Coupons";

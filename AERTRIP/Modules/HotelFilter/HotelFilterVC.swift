@@ -268,10 +268,11 @@ class HotelFilterVC: BaseVC {
                 
                 
                 let diff = HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount)
+                let taDiff = HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount)
                 if 1...5 ~= diff.count {
                     filtersTabs[idx].isSelected =  false
                 }
-                else if !HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty {
+                else if 1...5 ~= taDiff.count {
                     filtersTabs[idx].isSelected =  false
                 }
                 else if HotelFilterVM.shared.isIncludeUnrated != HotelFilterVM.shared.defaultIsIncludeUnrated {

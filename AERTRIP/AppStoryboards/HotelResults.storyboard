@@ -19,6 +19,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QyA-es-FaK">
                                 <rect key="frame" x="0.0" y="78" width="414" height="818"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t20-aT-aZU" customClass="BlurView" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="58"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BbH-Ve-X4Q">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="58"/>
                                         <subviews>
@@ -73,17 +77,33 @@
                                         <rect key="frame" x="0.0" y="58" width="414" height="760"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ccm-p2-8eD">
+                                        <rect key="frame" x="0.0" y="58" width="414" height="2"/>
+                                        <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="2" id="Uyb-eC-Vuo"/>
+                                        </constraints>
+                                        <color key="progressTintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </progressView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="gsL-Zb-bA9" secondAttribute="bottom" id="3Pd-F5-Eq4"/>
                                     <constraint firstItem="gsL-Zb-bA9" firstAttribute="top" secondItem="BbH-Ve-X4Q" secondAttribute="bottom" id="B3T-GI-QMy"/>
+                                    <constraint firstItem="ccm-p2-8eD" firstAttribute="top" secondItem="t20-aT-aZU" secondAttribute="bottom" id="BsW-4S-oyA"/>
+                                    <constraint firstAttribute="trailing" secondItem="ccm-p2-8eD" secondAttribute="trailing" id="EzW-pN-iL6"/>
                                     <constraint firstAttribute="trailing" secondItem="gsL-Zb-bA9" secondAttribute="trailing" id="Fza-Xl-mY0"/>
+                                    <constraint firstAttribute="trailing" secondItem="t20-aT-aZU" secondAttribute="trailing" id="G4W-is-xEA"/>
                                     <constraint firstItem="BbH-Ve-X4Q" firstAttribute="leading" secondItem="QyA-es-FaK" secondAttribute="leading" id="Xxd-rt-Btl"/>
+                                    <constraint firstItem="t20-aT-aZU" firstAttribute="top" secondItem="QyA-es-FaK" secondAttribute="top" id="cDE-ZE-cYl"/>
+                                    <constraint firstItem="ccm-p2-8eD" firstAttribute="leading" secondItem="QyA-es-FaK" secondAttribute="leading" id="dJe-tE-mWK"/>
                                     <constraint firstAttribute="trailing" secondItem="BbH-Ve-X4Q" secondAttribute="trailing" id="dmW-B1-w5d"/>
                                     <constraint firstItem="gsL-Zb-bA9" firstAttribute="leading" secondItem="QyA-es-FaK" secondAttribute="leading" id="jBP-3Z-sfw"/>
+                                    <constraint firstItem="t20-aT-aZU" firstAttribute="bottom" secondItem="BbH-Ve-X4Q" secondAttribute="bottom" id="k6D-Oi-2yF"/>
                                     <constraint firstAttribute="height" constant="818" id="m0p-20-BKn"/>
                                     <constraint firstItem="BbH-Ve-X4Q" firstAttribute="top" secondItem="QyA-es-FaK" secondAttribute="top" id="rgf-PF-DaN"/>
+                                    <constraint firstItem="t20-aT-aZU" firstAttribute="leading" secondItem="QyA-es-FaK" secondAttribute="leading" id="vyb-yG-106"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -103,6 +123,7 @@
                         <outlet property="mainContainerBottomConst" destination="rlt-4j-WDC" id="ImZ-5q-UJ5"/>
                         <outlet property="mainContainerHeightConst" destination="m0p-20-BKn" id="IZs-di-QDX"/>
                         <outlet property="mainContainerView" destination="QyA-es-FaK" id="0Pk-Nm-RVM"/>
+                        <outlet property="progressView" destination="ccm-p2-8eD" id="V9B-Is-4Xp"/>
                         <outlet property="reviewTopConstraint" destination="afV-DX-bqD" id="6gi-ck-zBJ"/>
                         <outlet property="reviewsLabel" destination="VcK-r3-9tc" id="XNs-iM-UtR"/>
                         <outlet property="reviewsTblView" destination="gsL-Zb-bA9" id="Yob-2n-Tc0"/>

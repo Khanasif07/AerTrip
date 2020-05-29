@@ -10,11 +10,8 @@ import UIKit
 
 class RangeVC: BaseVC {
     // MARK: - IB Outlets
+    @IBOutlet weak var tableView: ATTableView!
     
-    @IBOutlet weak var searchResultRangeLabel: UILabel!
-    @IBOutlet weak var rangeView: UIView!
-    @IBOutlet weak var rangeLabel: UILabel!
-    @IBOutlet weak var stepSlider: StepSlider!
     
     // MARK: - View Life cycle
     
@@ -22,7 +19,6 @@ class RangeVC: BaseVC {
         super.viewDidLoad()
         self.doInitialSetup()
         //self.setFilterValues()
-        self.addCurrentLocationView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,46 +28,66 @@ class RangeVC: BaseVC {
     // MARK: - Override methods
     
     private func doInitialSetup() {
-        self.rangeView.layer.cornerRadius = 15.5
-      
+        registerXib()
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
     }
     
-    override func setupTexts() {
-        self.searchResultRangeLabel.text = LocalizedString.SearchResultsRange.localized
-    }
-    
-    override func setupFonts() {
-        self.searchResultRangeLabel.font = AppFonts.Regular.withSize(16.0)
-        self.rangeLabel.font = AppFonts.Regular.withSize(18.0)
-    }
-    
-    override func setupColors() {
-        self.rangeView.backgroundColor = AppColors.themeGray10
-        self.rangeLabel.textColor = AppColors.textFieldTextColor51
-    }
-    
-    private func addCurrentLocationView() {
-        let iconView = CityMarkerView(frame: CGRect(x: -4.0, y: (stepSlider.height - 30.0) / 2.0, width: 30.0, height: 30.0), shouldAddRippel: false)
-        iconView.isUserInteractionEnabled = false
-        stepSlider.addSubview(iconView)
-        
-        delay(seconds: 0.3) { [weak self] in
-            guard let sSelf = self else {return}
-            sSelf.stepSlider.bringSubviewToFront(iconView)
-        }
+    func registerXib() {
+        tableView.registerCell(nibName: RangeTableViewCell.reusableIdentifier)
     }
     
     func setFilterValues() {
-        let filter = UserInfo.hotelFilter
-        let range = filter?.distanceRange ?? HotelFilterVM.shared.distanceRange
-        self.stepSlider?.index = UInt(range.toInt)
-        self.rangeLabel?.text = range.toInt >= 20 ? "Beyond \(range.toInt)km" : "Within " + "\((range.toInt))" + "km"
+        //        let filter = UserInfo.hotelFilter
+        //        let range = filter?.distanceRange ?? HotelFilterVM.shared.distanceRange
+        //        self.stepSlider?.index = UInt(range.toInt)
+        //        self.rangeLabel?.text = range.toInt >= 20 ? "Beyond \(range.toInt)km" : "Within " + "\((range.toInt))" + "km"
+        tableView?.reloadData()
     }
     
     @IBAction func sliderValueChanged(_ sender: Any) {
-        let value = (sender as AnyObject).index ?? 0
-        self.rangeLabel.text = value >= 20 ? "Beyond \(value)km" : "Within " + "\(value)" + "km"
-        HotelFilterVM.shared.distanceRange =  Double((sender as AnyObject).index ?? 0)
+        //        let value = (sender as AnyObject).index ?? 0
+        // self.rangeLabel.text = value >= 20 ? "Beyond \(value)km" : "Within " + "\(value)" + "km"
+        var value = Double((sender as AnyObject).index ?? 0)
+        if value < 1 {
+            value = 1
+        }
+        HotelFilterVM.shared.distanceRange =  value
         HotelFilterVM.shared.delegate?.updateFiltersTabs()
+        if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? RangeTableViewCell {
+            cell.stepSlider?.index = UInt(value.toInt)
+            cell.updateSliderValueOnLabel(range: value)
+        } else {
+            tableView?.reloadData()
+        }
     }
 }
+
+// MARK: - UITableViewCellDataSource and UITableViewCellDelegateMethods
+
+extension RangeVC: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 180
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RangeTableViewCell.reusableIdentifier, for: indexPath) as? RangeTableViewCell else {
+            return UITableViewCell()
+        }
+        cell.stepSlider?.removeTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+        cell.stepSlider?.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+        let filter = UserInfo.hotelFilter
+        let range = filter?.distanceRange ?? HotelFilterVM.shared.distanceRange
+        cell.stepSlider?.index = UInt(range.toInt)
+        cell.updateSliderValueOnLabel(range: range)
+        return cell
+    }
+    
+}
+
+
+
