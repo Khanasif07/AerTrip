@@ -15,7 +15,6 @@ class AddOnVC : BaseVC {
     
     let adonsVm = AdonsVM()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetups()
@@ -102,6 +101,7 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
             
         case .meals:
             let vc = MealsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+            vc.mealsContainerVM.itinerary = self.adonsVm.itineraryData.itinerary
             vc.modalPresentationStyle = .overFullScreen
             present(vc, animated: true, completion: nil)
             

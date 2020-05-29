@@ -45,6 +45,57 @@ class SelectMealCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func populateData(data : Addons, index : Int){
+        let price = "₹ \(data.salePrice)"
+        self.priceLabel.text = price
+        self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
+        self.mealTitleLabel.text = data.serviceName
+        
+        
+        if index == 3 {
+            self.mealForLabel.text = "For Julin and Clifford"
+
+                   self.mealAutoSelectedForLabel.text = "Auto Selected for DEL → HYD"
+                   
+                   self.quantityLabel.text = "X5"
+                   self.priceLabel.isHidden = false
+                    self.quantityLabel.isHidden = false
+
+               self.mealForLabelTop.constant = 2
+               self.mealAutoSelectedTop.constant = 11
+               autoSelectionBackView.isHidden = false
+            }else if index == 4 {
+            self.mealForLabel.text = "For Julin and Clifford For Julin and Clifford"
+
+                           self.mealAutoSelectedForLabel.text = ""
+                
+                           self.quantityLabel.text = "X5"
+                           self.priceLabel.isHidden = false
+                           self.quantityLabel.isHidden = false
+                           
+                       self.mealForLabelTop.constant = 2
+                       self.mealAutoSelectedTop.constant = 0
+                       autoSelectionBackView.isHidden = true
+        }else {
+            
+            self.mealForLabel.text = ""
+
+                          self.mealAutoSelectedForLabel.text = ""
+                          
+                          self.quantityLabel.text = ""
+                          self.priceLabel.isHidden = true
+                          self.quantityLabel.isHidden = true
+                     
+                      self.mealForLabelTop.constant = 0
+                      self.mealAutoSelectedTop.constant = 0
+                      autoSelectionBackView.isHidden = true
+
+            
+        }
+        
+    }
+    
+    
     
     func populateData(index : Int){
         if index == 3{

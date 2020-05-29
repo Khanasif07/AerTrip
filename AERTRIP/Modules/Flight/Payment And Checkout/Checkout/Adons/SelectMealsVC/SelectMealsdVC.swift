@@ -13,10 +13,13 @@ class SelectMealsdVC: UIViewController {
     
     @IBOutlet weak var mealsTableView: UITableView!
     
+    let selectMealsVM = SelectMealsVM()
+    weak var delegate : SelectMealDelegate?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initialSetup()
+        self.initialSetup()
     }
     
      func setupFonts() {
@@ -32,15 +35,14 @@ class SelectMealsdVC: UIViewController {
     }
       
     func initialSetup() {
-          configureTableView()
-         
+        self.selectMealsVM.extractUsefullData()
+        self.configureTableView()
       }
     
 }
 
 extension SelectMealsdVC {
     
- 
         private func configureTableView(){
             self.mealsTableView.register(UINib(nibName: "SelectMealCell", bundle: nil), forCellReuseIdentifier: "SelectMealCell")
             self.mealsTableView.separatorStyle = .none
@@ -62,7 +64,7 @@ extension SelectMealsdVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return self.selectMealsVM.currentAdonsData.meal.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -74,13 +76,19 @@ extension SelectMealsdVC : UITableViewDelegate, UITableViewDataSource {
              
               // cell.populateData(type: AdonsVM.AdonsType(rawValue: indexPath.row) ?? AdonsVM.AdonsType.meals)
                
-            cell.populateData(index: indexPath.row)
+//            cell.populateData(index: indexPath.row)
+        
+        cell.populateData(data: self.selectMealsVM.currentAdonsData.meal[indexPath.row], index: indexPath.row)
         
                return cell
         }
-                
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+        self.delegate?.mealUpdated(vcIndex: self.selectMealsVM.vcIndex)
+    
     }
+    
 }
 
