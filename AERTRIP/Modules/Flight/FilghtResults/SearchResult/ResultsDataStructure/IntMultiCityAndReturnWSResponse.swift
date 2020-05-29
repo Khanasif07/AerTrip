@@ -1368,9 +1368,13 @@ extension IntMultiCityAndReturnWSResponse.Results.Ldet{
 
 
 struct AddonsData {
-    var values : [String:Addons]
+    var baggage : [Addons]
+    var meal : [Addons]
+    var special : [Addons]
     init(_ json:JSON = JSON()) {
-        values = Dictionary(uniqueKeysWithValues: json.map { ($0.0, Addons($0.1)) })
+        baggage = json["baggage"].arrayValue.map{Addons($0)}
+        meal = json["meal"].arrayValue.map{Addons($0)}
+        special = json["special"].arrayValue.map{Addons($0)}
     }
 }
 
