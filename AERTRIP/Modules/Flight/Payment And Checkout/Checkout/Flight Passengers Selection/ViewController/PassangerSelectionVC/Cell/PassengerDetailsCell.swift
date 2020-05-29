@@ -149,13 +149,18 @@ class PassengerDetailsCell: UICollectionViewCell {
         case .Adult, .child:
             break;
         case .infant:
-            infoImageView.isHidden = !(guest.displayDob.isEmpty)
+            if guest.displayDob.isEmpty{
+                infoImageView.isHidden = false
+            }
         }
     }
     
     private func checkForInternational(){
         guard let guest = self.contact else {return}
-        infoImageView.isHidden = !(guest.displayDob.isEmpty || guest.nationality.isEmpty || guest.passportNumber.isEmpty || guest.displayPsprtExpDate.isEmpty)
+        if infoImageView.isHidden{
+            infoImageView.isHidden = !(guest.displayDob.isEmpty || guest.nationality.isEmpty || guest.passportNumber.isEmpty || guest.displayPsprtExpDate.isEmpty)
+        }
+        
     }
     
     // Mark:- IBActions
