@@ -97,7 +97,9 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     
     private func editedGuest(_ travellerIndexPath: IndexPath) {
         if let indexPath = self.viewModel.editinIndexPath, let object = GuestDetailsVM.shared.contactForIndexPath(indexPath: travellerIndexPath) {
+            let numberInRoom = GuestDetailsVM.shared.guests[0][indexPath.section].numberInRoom
             GuestDetailsVM.shared.guests[0][indexPath.section] = object
+            GuestDetailsVM.shared.guests[0][indexPath.section].numberInRoom = numberInRoom
             self.passengerTable.reloadData()
         }
     }

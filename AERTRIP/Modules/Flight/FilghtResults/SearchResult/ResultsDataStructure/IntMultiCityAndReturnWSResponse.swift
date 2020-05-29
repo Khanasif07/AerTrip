@@ -201,7 +201,13 @@ struct IntMultiCityAndReturnWSResponse {
             var hasCorporateFare  : Bool?
             var airlinesSubString : String?
             var airlineLogoArray : [String]?
-            
+            //Added for details from confimation Api
+            var cityap: [String: [String]]?
+            var apdet: [String: Apdet]?
+            var taxes: [String: String]?
+            var aldet: [String: String]?
+            var addons: [String: AddonsData]?
+            //-------------------------------------
             var startTime : String {
                 return dt
             }
@@ -1261,3 +1267,186 @@ struct IntMultiCityAndReturnWSResponse {
 }
 
 
+extension IntJourney{
+    init(jsonData:JSON) {
+        vendor = jsonData["vendor"].stringValue
+        id = jsonData["id"].stringValue
+        fk = jsonData["fk"].stringValue
+        ofk = jsonData["ofk"].stringValue
+        pk = jsonData["pk"].stringValue
+        dt = jsonData["dt"].stringValue
+        at = jsonData["at"].stringValue
+        slot = jsonData["slot"].stringValue
+        llowt = jsonData["llowt"].stringValue
+        redt = jsonData["redt"].stringValue
+        copt = jsonData["copt"].stringValue
+        seats = jsonData["seats"].stringValue
+        farebasis = jsonData["farebasis"].stringValue
+        coat = jsonData["coat"].stringValue
+        cott = jsonData["cott"].stringValue
+        cc = jsonData["cc"].stringValue
+        ovngtt = jsonData["ovngtt"].stringValue
+        dd = jsonData["dd"].stringValue
+        ad = jsonData["ad"].stringValue
+        qid = jsonData["qid"].string
+        fcc = jsonData["fcc"].string
+        pricingSolutionKey = jsonData["pricingsolution_key"].stringValue
+        stp = jsonData["stp"].stringValue
+        
+        farepr = jsonData["farepr"].intValue
+        slo = jsonData["slo"].intValue
+        llow = jsonData["llow"].intValue
+        red = jsonData["red"].intValue
+        cot = jsonData["cot"].intValue
+        cop = jsonData["cop"].intValue
+        coa = jsonData["coa"].intValue
+        fsr = jsonData["fsr"].intValue
+        isLcc = jsonData["is_lcc"].intValue
+        dspNoShow = jsonData["dsp_noshow"].intValue
+        eqt = jsonData["eqt"].intValue
+        lg = jsonData["lg"].intValue
+        ovngt = jsonData["ovngt"].intValue
+        ovgtf = jsonData["ovgtf"].intValue
+        ovgtlo = jsonData["ovgtlo"].intValue
+        
+        humaneScore = jsonData["humane_score"].intValue
+        fareTypeName = Dictionary(uniqueKeysWithValues: jsonData["fareTypeName"].map { ($0.0, $0.1.stringValue) })
+        otherFares = jsonData["otherfares"].boolValue
+        iic = jsonData["iic"].boolValue
+        displaySeat = jsonData["display_seat"].boolValue
+        sict = jsonData["sict"].boolValue
+        fare = Fare(jsonData["fare"])
+        tt = jsonData["tt"].arrayValue.map { $0.intValue }
+        al = jsonData["al"].arrayValue.map { $0.stringValue }
+        ap = jsonData["ap"].arrayValue.map { $0.stringValue }
+        loap = jsonData["loap"].arrayValue.map { $0.stringValue }
+        lott = jsonData["lott"].arrayValue.map { $0.intValue }
+        leg = jsonData["leg"].arrayValue.map{$0["lfk"].stringValue}
+        hmnePrms = jsonData["hmne_prms"].arrayValue.map { $0.arrayValue.map { HmnePrms($0) } }
+        rfdPlcy = RfdPlcy(jsonData["rfd_plcy"])
+        led = Dictionary(uniqueKeysWithValues: jsonData["led"].map { ($0.0, Led($0.1)) })
+        humaneArr = Humane(jsonData["humane_arr"])
+        humanePrice = HumanePrice(jsonData["humane_price"])
+        combineJourney = Set(self.leg)
+        combineFk.insert(self.fk)
+        legsWithDetail = jsonData["leg"].arrayValue.map{IntMultiCityAndReturnWSResponse.Results.Ldet(jsonData: $0)}
+        cityap = Dictionary(uniqueKeysWithValues: jsonData["cityap"].map { ($0.0, $0.1.arrayValue.map { $0.stringValue }) })
+        apdet = Dictionary(uniqueKeysWithValues: jsonData["apdet"].map { ($0.0, IntMultiCityAndReturnWSResponse.Results.Apdet($0.1)) })
+        taxes = Dictionary(uniqueKeysWithValues: jsonData["taxes"].map { ($0.0, $0.1.stringValue) })
+        aldet = Dictionary(uniqueKeysWithValues: jsonData["aldet"].map { ($0.0, $0.1.stringValue) })
+        addons = Dictionary(uniqueKeysWithValues: jsonData["addons"].map { ($0.0, AddonsData($0.1)) })
+        
+    }
+    
+}
+
+
+extension IntMultiCityAndReturnWSResponse.Results.Ldet{
+    
+    init(jsonData:JSON) {
+        fcp = jsonData["fcp"].intValue
+        allAp = jsonData["all_ap"].arrayValue.map { $0.stringValue }
+        ap = jsonData["ap"].arrayValue.map { $0.stringValue }
+        loap = jsonData["loap"].arrayValue.map { $0.stringValue }
+        lott = jsonData["lott"].arrayValue.map { $0.intValue }
+        lfk = jsonData["lfk"].stringValue
+        lid = jsonData["lid"].stringValue
+        tt = jsonData["tt"].intValue
+        stp = jsonData["stp"].stringValue
+        flights = jsonData["flights"].arrayValue.map{$0["ffk"].stringValue}
+        dd = jsonData["dd"].stringValue
+        dt = jsonData["dt"].stringValue
+        ad = jsonData["ad"].stringValue
+        at = jsonData["at"].stringValue
+        al = jsonData["al"].arrayValue.map { $0.stringValue }
+        ttl = jsonData["ttl"].arrayValue.map { $0.stringValue }
+        flightsWithDetails = jsonData["flights"].arrayValue.map{IntFlightDetail($0)}
+    }
+    
+    
+}
+
+
+struct AddonsData {
+    var values : [String:Addons]
+    init(_ json:JSON = JSON()) {
+        values = Dictionary(uniqueKeysWithValues: json.map { ($0.0, Addons($0.1)) })
+    }
+}
+
+struct Addons{
+    
+    var fk : String
+    var ssrCode : String
+    var addonType : String
+    var serviceCost : Int
+    var serviceName : String
+    var feeCode : String
+    var feeType : String
+    var chargeDetails : Int
+    var isReadonly : Int
+    var paxType : String
+    var id : String
+    var fareStructureId : String
+    var fareCodeId : String
+    var fareCode : String
+    var fareFrontendName : String
+    var aliases : String
+    var fareGroupId : String
+    var groupName : String
+    var groupSlug : String
+    var groupType : String
+    var inRetail : String
+    var addToForRetail : String
+    var sortOrder : String
+    var managementValuesFrom : String
+    var calculationRule : String
+    var apply : String
+    var percent : String?
+    var amount : String?
+    var calculateOn : String
+    var entityType : String
+    var salesAccountMasterId : String
+    var purchaseAccountMasterId : String
+    var purchasePrice : Int
+    var salePrice : Int
+    
+    
+    init(_ json:JSON = JSON()) {
+        fk = json["fk"].stringValue
+         ssrCode = json["ssr_code"].stringValue
+         addonType = json["addon_type"].stringValue
+         serviceCost = json["service_cost"].intValue
+         serviceName = json["service_name"].stringValue
+         feeCode = json["fee_code"].stringValue
+         feeType = json["fee_type"].stringValue
+         chargeDetails = json["charge_details"].intValue
+         isReadonly = json["is_readonly"].intValue
+         paxType = json["pax_type"].stringValue
+         id = json["id"].stringValue
+         fareStructureId = json["fare_structure_id"].stringValue
+         fareCodeId = json["fare_code_id"].stringValue
+         fareCode = json["fare_code"].stringValue
+         fareFrontendName = json["fare_frontend_name"].stringValue
+         aliases = json["aliases"].stringValue
+         fareGroupId = json["fare_group_id"].stringValue
+         groupName = json["group_name"].stringValue
+         groupSlug = json["group_slug"].stringValue
+         groupType = json["group_type"].stringValue
+         inRetail = json["in_retail"].stringValue
+         addToForRetail = json["add_to_for_retail"].stringValue
+         sortOrder = json["sort_order"].stringValue
+         managementValuesFrom = json["management_values_from"].stringValue
+         calculationRule = json["calculation_rule"].stringValue
+         apply = json["apply"].stringValue
+         percent = json["percent"].string
+         amount = json["amount"].string
+         calculateOn = json["calculate_on"].stringValue
+         entityType  = json["entity_type"].stringValue
+         salesAccountMasterId  = json["sales_account_master_id"].stringValue
+         purchaseAccountMasterId  = json["purchase_account_master_id"].stringValue
+         purchasePrice  = json["purchase_price"].intValue
+         salePrice = json["sale_price"].intValue
+    }
+    
+}
