@@ -28,7 +28,7 @@ class PassengerSelectionVM  {
     var selectedJourneyFK = [String]()
     var journeyTitle:NSAttributedString?
     var journeyDate:String?
-    var id = "5ece2f4ab3561a3331770f51"//id to get addons data
+    var id = ""//id to get addons data
     var addonsMaster = AddonsMaster()
     //Varialbles for domestic and oneway
     var journey:[Journey]?

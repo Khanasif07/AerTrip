@@ -42,7 +42,7 @@ class SelectPassengerVC : BaseVC {
     
     override func setupTexts() {
         super.setupTexts()
-        self.doneButton.setTitle(LocalizedString.Done.localized, for: UIControl.State.normal)
+        self.doneButton.setTitle(LocalizedString.Cancel.localized, for: UIControl.State.normal)
     }
     
     @IBAction func doneButtonTapped(_ sender: UIButton) {
@@ -61,6 +61,8 @@ extension SelectPassengerVC {
     
     func configureCollectionView(){
         self.passengerCollectionView.register(UINib(nibName: "selectPassengerCell", bundle: nil), forCellWithReuseIdentifier: "selectPassengerCell")
+        self.passengerCollectionView.isScrollEnabled = true
+        self.passengerCollectionView.bounces = true
         self.passengerCollectionView.delegate = self
         self.passengerCollectionView.dataSource = self
         self.passengerCollectionView.reloadData()
@@ -75,17 +77,22 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return GuestDetailsVM.shared.guests.first?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "selectPassengerCell", for: indexPath) as? selectPassengerCell else { fatalError("selectPassengerCell not found") }
-//        cell.contentView.backgroundColor = UIColor.red
-        
-        cell.selectionImageView.isHidden = !self.selectPassengersVM.selectedIndex.contains(indexPath.item)
+        if let firstGuestArray = GuestDetailsVM.shared.guests.first{
+            cell.populateData(data: firstGuestArray[indexPath.item])
+            cell.selectionImageView.isHidden = !self.selectPassengersVM.selectedIndex.contains(indexPath.item)
+        }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -97,7 +104,7 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return 16
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
