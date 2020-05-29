@@ -9,7 +9,9 @@
 import Foundation
 
 protocol SeatMapContainerDelegate: AnyObject {
+    func willFetchSeatMapData()
     func didFetchSeatMapData()
+    func failedToFetchSeatMapData()
 }
 
 class SeatMapContainerVM {
@@ -19,10 +21,14 @@ class SeatMapContainerVM {
     
     func fetchSeatMapData() {
         
+        self.delegate?.willFetchSeatMapData()
+        
         APICaller.shared.callSeatMapAPI(params: [:]) { [weak self] (seatModel, error) in
             if let model = seatModel {
                 self?.seatMapModel = model
                 self?.delegate?.didFetchSeatMapData()
+            }else {
+                self?.delegate?.failedToFetchSeatMapData()
             }
         }
     }

@@ -25,7 +25,8 @@ extension APICaller {
                 completionBlock(seatMapModel, [])
                 
             }, failure: { (error) in
-                
+                completionBlock(nil, [])
+
             })
             
         }) { (error) in
