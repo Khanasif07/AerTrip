@@ -8,6 +8,13 @@
 
 import Foundation
 
+protocol PassengerSelectionVMDelegate:NSObjectProtocol {
+    func startFechingConfirmationData()
+    func startFechingAddnsMasterData()
+    func getResponseFromConfirmation(_ success:Bool, error:Error?)
+    func getResponseFromAddnsMaster(_ success:Bool, error:Error?)
+}
+
 var logoUrl = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/"
 
 class PassengerSelectionVM  {
@@ -42,6 +49,8 @@ class PassengerSelectionVM  {
     var email = ""
     var mobile = ""
     var isdCode = ""
+    var itineraryData = FlightItineraryData()
+    var delegate:PassengerSelectionVMDelegate?
     var totalPassengerCount:Int{
         if let bookingObj = self.bookingObject{
             return bookingObj.flightAdultCount + bookingObj.flightChildrenCount + bookingObj.flightInfantCount
@@ -53,8 +62,6 @@ class PassengerSelectionVM  {
     func setupGuestArray() {
         GuestDetailsVM.shared.guests.removeAll()
         var temp: [ATContact] = []
-        self.webserviceForGetCountryList()
-        self.setupLoginData()
         self.fetchConfirmationData()
         self.journeyType = (self.bookingObject?.isDomestic ?? true) ? .domestic : .international
         guard let bookingObj = self.bookingObject else {return}
@@ -116,8 +123,11 @@ class PassengerSelectionVM  {
     func fetchAddonsData(){
         
         let param = [APIKeys.it_id.rawValue:self.id]
-        APICaller.shared.getAddonsMaster(params: param) { (sucsess, errorCode, addonsMaster) in
-            if sucsess{
+        self.delegate?.startFechingAddnsMasterData()
+        APICaller.shared.getAddonsMaster(params: param) {[weak self] (success, errorCode, addonsMaster) in
+            guard let self = self else {return}
+            self.delegate?.getResponseFromAddnsMaster(success, error: nil)
+            if success{
                 self.addonsMaster = addonsMaster
             }else{
                 debugPrint(errorCode)
@@ -145,10 +155,18 @@ class PassengerSelectionVM  {
                 param["fk[\(i)]"] = journey[i].fk
             }
         }
-        
-        APICaller.shared.getConfirmation(params: param) { (sucsess, errorCode, addonsMaster) in
-            if sucsess{
-               
+        self.delegate?.startFechingConfirmationData()
+        APICaller.shared.getConfirmation(params: param) {[weak self](success, errorCode, itineraryData) in
+            guard let self = self else{return}
+            self.delegate?.getResponseFromConfirmation(success, error: nil)
+            if success{
+                if let itinerary = itineraryData{
+                    self.itineraryData = itinerary
+                    self.id = self.itineraryData.itinerary.id
+                    self.sid = self.itineraryData.itinerary.sid
+                    GuestDetailsVM.shared.travellerList = self.itineraryData.itinerary.travellerMaster
+                    self.fetchAddonsData()
+                }
             }else{
                 debugPrint(errorCode)
             }

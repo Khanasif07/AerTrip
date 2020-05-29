@@ -25,7 +25,9 @@ class PassengersSelectionVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.registerCell()
+        self.viewModel.delegate = self
         self.viewModel.setupGuestArray()
+        self.apiCall()
         self.setupFont()
         self.navigationController?.navigationBar.isHidden = true
         self.passengerTableview.separatorStyle = .none
@@ -38,6 +40,11 @@ class PassengersSelectionVC: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
     }
     
+    
+    func apiCall(){
+        self.viewModel.webserviceForGetCountryList()
+        self.viewModel.setupLoginData()
+    }
     
     
     private func registerCell(){
@@ -170,6 +177,26 @@ extension PassengersSelectionVC: HCSelectGuestsVCDelegate{
     
     func didAddedContacts(){
         self.passengerTableview.reloadData()
+    }
+    
+}
+
+//Delegate For Api
+extension PassengersSelectionVC:PassengerSelectionVMDelegate{
+    
+    func startFechingConfirmationData(){
+        delay(seconds: 0.2){
+            AppGlobals.shared.startLoading()
+        }
+    }
+    func startFechingAddnsMasterData(){
+        AppGlobals.shared.startLoading()
+    }
+    func getResponseFromConfirmation(_ success:Bool, error:Error?){
+        AppGlobals.shared.stopLoading()
+    }
+    func getResponseFromAddnsMaster(_ success:Bool, error:Error?){
+        AppGlobals.shared.stopLoading()
     }
     
 }
