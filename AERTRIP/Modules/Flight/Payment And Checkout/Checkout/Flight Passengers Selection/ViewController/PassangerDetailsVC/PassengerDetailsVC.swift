@@ -87,8 +87,8 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
         passportTextView.isScrollEnabled = false
         passportTextView.delegate = self
         passportTextView.sizeToFit()
-        passportTextView.frame.size.width = UIScreen.width - 32
-        passportTextView.frame.origin = CGPoint(x: 16.0, y: 0)
+        passportTextView.frame.size.width = UIScreen.width - 22
+        passportTextView.frame.origin = CGPoint(x: 11.0, y: 0)
         passportTextView.sizeToFit()
         self.showPassportView.addSubview(passportTextView)
         
@@ -152,8 +152,9 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        let vc  = PassportExampleVC.instantiate(fromAppStoryboard: .PassengersSelection)
-        self.present(vc, animated: true, completion: nil)
+        PassportExampleVC.showMe()
+//        let vc  = PassportExampleVC.instantiate(fromAppStoryboard: .PassengersSelection)
+//        self.present(vc, animated: true, completion: nil)
         return false
     }
     

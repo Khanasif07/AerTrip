@@ -21,14 +21,36 @@ class PassportExampleVC: UIViewController {
     }
     
     func setupFont(){
-        
         self.exampleLabel.text = "Example"
         self.exampleLabel.font = AppFonts.SemiBold.withSize(18)
         self.exampleLabel.textColor = AppColors.themeBlack
-        
     }
+    
+    static func showMe(){
+        if let topVC = UIApplication.topViewController() {
+            let obj = PassportExampleVC.instantiate(fromAppStoryboard: .PassengersSelection)
+            obj.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+            var frame = topVC.view.frame
+            frame.origin.y = frame.height
+            obj.view.frame = frame
+            topVC.addChild(obj)
+            topVC.view.addSubview(obj.view)
+            obj.didMove(toParent: topVC)
+            UIView.animate(withDuration: 0.3) {
+                obj.view.frame.origin.y = 0
+            }
+//            topVC.add(childViewController: obj)
+        }
+    }
+    
     @IBAction func tappedCrossButton(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.frame.origin.y = UIScreen.height
+        }) { _ in
+           self.removeFromParentVC
+        }
+        
     }
     
 }
