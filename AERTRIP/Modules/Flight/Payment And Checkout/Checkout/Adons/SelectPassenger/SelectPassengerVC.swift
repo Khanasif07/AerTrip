@@ -42,10 +42,11 @@ class SelectPassengerVC : BaseVC {
     
     override func setupTexts() {
         super.setupTexts()
-        self.doneButton.setTitle(LocalizedString.Cancel.localized, for: UIControl.State.normal)
+     self.doneButton.setTitle(self.selectPassengersVM.selectedContacts.isEmpty ? LocalizedString.Cancel.localized : LocalizedString.Done.localized, for: UIControl.State.normal)
     }
     
     @IBAction func doneButtonTapped(_ sender: UIButton) {
+        self.selectPassengersVM.contactsComplition(self.selectPassengersVM.selectedContacts)
         dismiss(animated: true, completion: nil)
     }
     
@@ -85,7 +86,7 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "selectPassengerCell", for: indexPath) as? selectPassengerCell else { fatalError("selectPassengerCell not found") }
         if let firstGuestArray = GuestDetailsVM.shared.guests.first{
             cell.populateData(data: firstGuestArray[indexPath.item])
-            cell.selectionImageView.isHidden = !self.selectPassengersVM.selectedIndex.contains(indexPath.item)
+            cell.selectionImageView.isHidden = !self.selectPassengersVM.selectedContacts.contains(firstGuestArray[indexPath.item])
         }
         
         return cell
@@ -109,10 +110,14 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if self.selectPassengersVM.selectedIndex.contains(indexPath.item) {
-            self.selectPassengersVM.selectedIndex.remove(object: indexPath.item)
+        guard let allContacts = GuestDetailsVM.shared.guests.first else { return }
+        
+        if let index = self.selectPassengersVM.selectedContacts.firstIndex(where: { (cont) -> Bool in
+            cont.id == allContacts[indexPath.item].id
+        }){
+            self.selectPassengersVM.selectedContacts.remove(at: index)
         }else{
-            self.selectPassengersVM.selectedIndex.append(indexPath.item)
+        self.selectPassengersVM.selectedContacts.append(allContacts[indexPath.item])
         }
         
         collectionView.reloadItems(at: [IndexPath(item: indexPath.item, section: 0)])

@@ -88,6 +88,7 @@ extension SelectMealsdVC : UITableViewDelegate, UITableViewDataSource {
     
         self.delegate?.mealUpdated(vcIndex: self.selectMealsVM.vcIndex)
     
+        self.delegate?.addPassengerToMeal(vcIndex: self.selectMealsVM.vcIndex, currentFlightKey: self.selectMealsVM.currentFlightKey, mealIndex: indexPath.row, meal : self.selectMealsVM.currentAdonsData.meal[indexPath.row])
     }
     
 }

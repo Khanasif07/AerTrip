@@ -12,4 +12,8 @@ class SelectPassengersVM {
 
     var selectedIndex : [Int] = []
     
+    var contactsComplition : (([ATContact]) -> Void) = {_ in ([])}
+    
+    var selectedContacts : [ATContact] = []
+    
 }

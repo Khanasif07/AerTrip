@@ -11,6 +11,8 @@ import Parchment
 
 protocol SelectMealDelegate : class {
     func mealUpdated(vcIndex : Int)
+    func addContactButtonTapped()
+    func addPassengerToMeal(vcIndex : Int, currentFlightKey : String, mealIndex: Int, meal : Addons)
 }
 
 class MealsContainerVC: BaseVC {
@@ -19,7 +21,7 @@ class MealsContainerVC: BaseVC {
     fileprivate var parchmentView : PagingViewController?
 //    private let allTabsStr: [String] = ["BOM → LON", "LON → NYC", "NYC → DEL"]
     
-    var allChildVCs = [UIViewController]()
+    var allChildVCs = [SelectMealsdVC]()
     var currentIndex = 0
     let mealsContainerVM = MealsContainerVM()
     
@@ -72,9 +74,7 @@ class MealsContainerVC: BaseVC {
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
-        let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-        vc.modalPresentationStyle = .overFullScreen
-        present(vc, animated: true, completion: nil)
+
     }
 }
 
@@ -178,7 +178,13 @@ extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControlle
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
         
-        return MenuItem(title: self.mealsContainerVM.allFlightKeys[index], index: index, isSelected:false)
+        let flightAtINdex = self.mealsContainerVM.allFlights.filter { $0.ffk ==  self.mealsContainerVM.allFlightKeys[index] }
+        
+        guard let firstFlight = flightAtINdex.first else {
+            return MenuItem(title: "", index: index, isSelected:false)
+        }
+        
+        return MenuItem(title: "\(firstFlight.fr) → \(firstFlight.to)", index: index, isSelected:false)
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
@@ -193,10 +199,27 @@ extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControlle
 
 extension MealsContainerVC : SelectMealDelegate {
     
+    func addPassengerToMeal(vcIndex: Int, currentFlightKey: String, mealIndex: Int, meal : Addons) {
+        let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+        vc.modalPresentationStyle = .overFullScreen
+                
+        vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
+        guard let weakSelf = self else { return }
+    weakSelf.allChildVCs[vcIndex].selectMealsVM.updateContactInMeal(currentFlightKey: currentFlightKey, mealIndex: mealIndex, meal: meal)
+            
+        }
+        
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func addContactButtonTapped() {
+        
+    }
+    
     func mealUpdated(vcIndex : Int) {
         
         print(vcIndex)
         
     }
-    
+
 }

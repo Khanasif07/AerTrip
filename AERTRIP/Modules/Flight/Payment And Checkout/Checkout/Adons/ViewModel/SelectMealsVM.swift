@@ -8,6 +8,11 @@
 
 import Foundation
 
+protocol SelectMealVmDelegate : class {
+
+    func contactAddedToMeal()
+    
+}
 
 class SelectMealsVM {
     
@@ -17,11 +22,13 @@ class SelectMealsVM {
 
     var currentFlightKey : String = ""
     var currentAdonsData = AddonsData()
+
+    weak var delegate : SelectMealVmDelegate?
     
     var flightKeys : [String] {
         return  Array(adons.keys)
     }
-    
+        
     func extractUsefullData() {
         guard let adon = itinerary.details.addons else{
               return
@@ -29,6 +36,15 @@ class SelectMealsVM {
         adons = adon
         currentFlightKey = flightKeys[vcIndex]
         currentAdonsData = adons[flightKeys[vcIndex]] ?? AddonsData()
+    }
+    
+    func updateContactInMeal(currentFlightKey: String, mealIndex: Int, contacts : [ATContact]){
+        
+        self.currentAdonsData.meal[mealIndex].selectedFor = contacts
+        
+        
+        self.delegate?.contactAddedToMeal()
+        
     }
     
 }
