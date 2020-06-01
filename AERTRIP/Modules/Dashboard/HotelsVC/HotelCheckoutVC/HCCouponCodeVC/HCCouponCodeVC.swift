@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManager
 
 protocol HCCouponCodeVCDelegate: class {
     func appliedCouponData(_ appliedCouponData: HCCouponAppliedModel)
@@ -23,7 +24,7 @@ class HCCouponCodeVC: BaseVC {
     //================
     @IBOutlet weak var couponTableView: UITableView! {
         didSet {
-            self.couponTableView.contentInset = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 0.0)
+            self.couponTableView.contentInset = UIEdgeInsets(top: 0, left: 0.0, bottom: 10.0, right: 0.0)
             self.couponTableView.delegate = self
             self.couponTableView.dataSource = self
             self.couponTableView.estimatedRowHeight = UITableView.automaticDimension
@@ -65,6 +66,15 @@ class HCCouponCodeVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        IQKeyboardManager.shared().isEnableAutoToolbar = true
+    }
     
     override func initialSetup() {
         self.statusBarStyle = .default
@@ -101,7 +111,7 @@ class HCCouponCodeVC: BaseVC {
         self.applyButton.setTitleColor(AppColors.themeGray20, for: .normal)
         self.cancelButton.setTitleColor(AppColors.themeGreen, for: .normal)
         self.couponTextField.isHiddenBottomLine = true
-        self.couponTextField.setupTextField(placehoder: LocalizedString.EnterCouponCode.localized, keyboardType: .emailAddress, returnType: .next, isSecureText: false)
+        self.couponTextField.setupTextField(placehoder: LocalizedString.EnterCouponCode.localized, keyboardType: .emailAddress, returnType: .done, isSecureText: false)
 
         self.noCouponsReqLabel.textColor = AppColors.themeBlack
         self.bestPriceLabel.textColor = AppColors.themeGray60

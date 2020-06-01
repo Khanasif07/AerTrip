@@ -1312,6 +1312,9 @@
 		84A03EE3247FA2F900CD3743 /* PriceSliderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A03EE1247FA2F900CD3743 /* PriceSliderCell.xib */; };
 		84A03EE6247FA86F00CD3743 /* RangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A03EE4247FA86F00CD3743 /* RangeTableViewCell.swift */; };
 		84A03EE7247FA86F00CD3743 /* RangeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84A03EE5247FA86F00CD3743 /* RangeTableViewCell.xib */; };
+		84A9447B24812A140024B828 /* HotelCheckoutDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9447A24812A130024B828 /* HotelCheckoutDetailVC.swift */; };
+		84A9447D24812B170024B828 /* HotelCheckoutDetailVC+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9447C24812B170024B828 /* HotelCheckoutDetailVC+UITableViewDelegate.swift */; };
+		84A9447F24812BB30024B828 /* HotelCheckoutDetailVC+TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9447E24812BB30024B828 /* HotelCheckoutDetailVC+TableCell.swift */; };
 		84AB8FC52212934A002C0A66 /* ATGalleryScrollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AB8FC42212934A002C0A66 /* ATGalleryScrollCell.xib */; };
 		84AB8FC822129B49002C0A66 /* ATGalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB8FC622129B49002C0A66 /* ATGalleryCell.swift */; };
 		84AB8FC922129B4A002C0A66 /* ATGalleryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AB8FC722129B49002C0A66 /* ATGalleryCell.xib */; };
@@ -2991,6 +2994,9 @@
 		84A03EE1247FA2F900CD3743 /* PriceSliderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PriceSliderCell.xib; sourceTree = "<group>"; };
 		84A03EE4247FA86F00CD3743 /* RangeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeTableViewCell.swift; sourceTree = "<group>"; };
 		84A03EE5247FA86F00CD3743 /* RangeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RangeTableViewCell.xib; sourceTree = "<group>"; };
+		84A9447A24812A130024B828 /* HotelCheckoutDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelCheckoutDetailVC.swift; sourceTree = "<group>"; };
+		84A9447C24812B170024B828 /* HotelCheckoutDetailVC+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HotelCheckoutDetailVC+UITableViewDelegate.swift"; sourceTree = "<group>"; };
+		84A9447E24812BB30024B828 /* HotelCheckoutDetailVC+TableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HotelCheckoutDetailVC+TableCell.swift"; sourceTree = "<group>"; };
 		84AB8FC42212934A002C0A66 /* ATGalleryScrollCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ATGalleryScrollCell.xib; sourceTree = "<group>"; };
 		84AB8FC622129B49002C0A66 /* ATGalleryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATGalleryCell.swift; sourceTree = "<group>"; };
 		84AB8FC722129B49002C0A66 /* ATGalleryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ATGalleryCell.xib; sourceTree = "<group>"; };
@@ -5167,6 +5173,7 @@
 		84271E812237A08200C1A70D /* HotelCheckoutVC */ = {
 			isa = PBXGroup;
 			children = (
+				84A94479248129FA0024B828 /* HotelCheckoutDetailVC */,
 				8482764E223A6DA5007B6A27 /* GuestDetailsVC */,
 				84100A9222392D7C006A05EC /* FareUpdatedPopUpVC */,
 				84534E9822489E4E009FF536 /* HCDataSelectionVC */,
@@ -7651,6 +7658,16 @@
 			path = Price;
 			sourceTree = "<group>";
 		};
+		84A94479248129FA0024B828 /* HotelCheckoutDetailVC */ = {
+			isa = PBXGroup;
+			children = (
+				84A9447A24812A130024B828 /* HotelCheckoutDetailVC.swift */,
+				84A9447C24812B170024B828 /* HotelCheckoutDetailVC+UITableViewDelegate.swift */,
+				84A9447E24812BB30024B828 /* HotelCheckoutDetailVC+TableCell.swift */,
+			);
+			path = HotelCheckoutDetailVC;
+			sourceTree = "<group>";
+		};
 		84AD5F20222D51C60095EA5D /* SearchFavouriteHotelsVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -9630,6 +9647,7 @@
 				1820F0F4228E2EBC0019B8BB /* AbortRequestVC.swift in Sources */,
 				84F983CE21B51A070018DFED /* LocalizationStrings.swift in Sources */,
 				1870AD20220C769400FB32C8 /* LinkedAccount.swift in Sources */,
+				84A9447F24812BB30024B828 /* HotelCheckoutDetailVC+TableCell.swift in Sources */,
 				8438B43B245AB1A300F7320B /* BookingFlightDetailVC.swift in Sources */,
 				8402009422C1EEB7002E5977 /* BookingAddOnRequestVC.swift in Sources */,
 				1870AD22220C769400FB32C8 /* TravellerModel.swift in Sources */,
@@ -10209,6 +10227,7 @@
 				843FF58B2474093C001F21B1 /* AertripSwitch.swift in Sources */,
 				84534EA92248BE61009FF536 /* HCCheckInOutTableViewCell.swift in Sources */,
 				843FF48D24740230001F21B1 /* AirlineSearchModel.m in Sources */,
+				84A9447D24812B170024B828 /* HotelCheckoutDetailVC+UITableViewDelegate.swift in Sources */,
 				188A4DB5242DE9F800F871ED /* SwiftPhotoGalleryCell.swift in Sources */,
 				188E930E221A957A008FE50A /* CustomMarker.swift in Sources */,
 				0C24D4F3242CAF8900CBFF92 /* CurrencyVC+TableViewDelegates.swift in Sources */,
@@ -10243,6 +10262,7 @@
 				84085CFE21F59C0E00F1E844 /* FavouriteHotelsListVM.swift in Sources */,
 				843FF48F24740230001F21B1 /* FlightAddPassengerViewController.m in Sources */,
 				842EDE8C2238E95F00E99409 /* CheckoutCouponCodeTableViewCell.swift in Sources */,
+				84A9447B24812A140024B828 /* HotelCheckoutDetailVC.swift in Sources */,
 				84DD24582265A5F10013F77E /* DateTableHeaderView.swift in Sources */,
 				843FF4EC24740231001F21B1 /* FlightFareRulesTableViewCell.m in Sources */,
 				843FF65C247409E3001F21B1 /* GeneralUserPreferences.m in Sources */,
@@ -10388,7 +10408,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 67;
+				CURRENT_PROJECT_VERSION = 68;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;
@@ -10596,7 +10616,7 @@
 				CODE_SIGN_ENTITLEMENTS = AERTRIP/AERTRIP.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 67;
+				CURRENT_PROJECT_VERSION = 68;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Z3688DX2N9;
 				ENABLE_BITCODE = YES;

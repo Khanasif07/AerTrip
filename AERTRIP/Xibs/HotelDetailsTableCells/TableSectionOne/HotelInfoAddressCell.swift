@@ -41,6 +41,10 @@ class HotelInfoAddressCell: UITableViewCell {
         self.initialSetUp()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.moreBtnOutlet.isUserInteractionEnabled = true
+    }
     // Mark:- Methods
     //==============
     private func initialSetUp() {
@@ -138,6 +142,7 @@ class HotelInfoAddressCell: UITableViewCell {
             self.addressInfoTextView.attributedText = AppGlobals.shared.getTextWithImageWithLink(startText:  hotelData.info, startTextColor: AppColors.themeBlack, middleText: " ", image: #imageLiteral(resourceName: "send_icon"), endText: "", endTextColor: AppColors.themeGreen, middleTextColor: AppColors.themeGreen, font: AppFonts.Regular.withSize(18.0))
              self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) ? false : true
             self.attributeLabelSetUp(overview: hotelData.info)
+            self.moreBtnOutlet.isUserInteractionEnabled = false
         }
     }
     

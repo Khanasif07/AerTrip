@@ -1156,6 +1156,24 @@ extension AppFlowManager {
         ob.delegate = delegate
         self.mainNavigationController.pushViewController(ob, animated: true)
     }
+    
+    func moveToHotelCheckoutDetailVC(viewModel: HCDataSelectionVM, delegate: HotelCheckOutDetailsVIewDelegate) {
+        let ob = HotelCheckoutDetailVC.instantiate(fromAppStoryboard: .HotelCheckout)
+        ob.sectionData.removeAll()
+        ob.roomRates.removeAll()
+        ob.viewModel = viewModel.itineraryData?.hotelDetails ?? HotelDetails()
+        ob.hotelInfo = viewModel.hotelInfo ?? HotelSearched()
+        ob.placeModel = viewModel.placeModel ?? PlaceModel()
+        ob.sectionData = viewModel.sectionData
+        ob.roomRates = viewModel.roomRates
+        ob.requestParameters = viewModel.hotelSearchRequest?.requestParameters
+        ob.updateData()
+        ob.delegate = delegate
+        
+        let nav = UINavigationController(rootViewController: ob)
+        nav.isNavigationBarHidden = true
+        self.currentNavigation?.present(nav, animated: true, completion: nil)
+    }
 }
 
 // MARK: - Select Trip Flow Methods

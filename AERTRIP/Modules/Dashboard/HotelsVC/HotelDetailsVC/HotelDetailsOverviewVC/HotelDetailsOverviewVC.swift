@@ -71,19 +71,21 @@ class HotelDetailsOverviewVC: BaseVC {
     }
     
     override func initialSetup() {
+        headerContainerView.backgroundColor = .clear
+               mainContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+               self.view.backgroundColor = .clear
         
         if #available(iOS 13.0, *) {} else {
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         mainContainerView.isUserInteractionEnabled = true
         swipeGesture.delegate = self
             self.view.addGestureRecognizer(swipeGesture)
+            self.view.backgroundColor = .white
         }
-        self.dividerView.isHidden = true
+        //self.dividerView.isHidden = true
         self.overViewTextViewOutlet.attributedText = self.viewModel.overViewInfo.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.rawValue, fontColor: AppColors.themeBlack)
         
-        headerContainerView.backgroundColor = .clear
-        mainContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
-        self.view.backgroundColor = .clear
+       
         //Heading
         //        self.overViewTextViewOutlet.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline).withSize(16.0)
         //        // subheadline
