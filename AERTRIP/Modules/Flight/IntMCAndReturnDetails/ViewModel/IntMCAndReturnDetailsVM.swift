@@ -9,14 +9,19 @@
 import Foundation
 ///typealias reference used for IntMultiCityAndReturnWSResponse.Results.J
 typealias IntJourney = IntMultiCityAndReturnWSResponse.Results.J
+
 ///typealias reference used for [IntMultiCityAndReturnWSResponse.Results.J]
 typealias IntResultArray = [IntJourney]
+
 ///typealias reference used for IntMultiCityAndReturnWSResponse.Results.J.Fare
 typealias IntTaxes = IntMultiCityAndReturnWSResponse.Results.J.Fare
+
 ///typealias reference used for IntMultiCityAndReturnWSResponse.Results.Apdet
 typealias IntAirportDetailsWS = IntMultiCityAndReturnWSResponse.Results.Apdet
+
 ///typealias reference used for IntMultiCityAndReturnWSResponse.Results.ALMaster
 typealias IntAirlineMasterWS = IntMultiCityAndReturnWSResponse.Results.ALMaster
+
 ///typealias reference used for IntMultiCityAndReturnWSResponse.Results.Fdet
 typealias IntFlightDetail = IntMultiCityAndReturnWSResponse.Results.Fdet
 

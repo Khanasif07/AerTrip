@@ -103,7 +103,11 @@ class AddPassengerDetailsCell: UITableViewCell {
     
     
     private  func configureCell() {
-        self.optionalDetailsView.isHidden = (self.guestDetail?.isMoreOptionTapped ?? true)
+        if ((self.guestDetail?.mealPreference.count ?? 0) + (self.guestDetail?.frequentFlyer.count ?? 0) == 0){
+            self.optionalDetailsView.isHidden = true
+        }else{
+            self.optionalDetailsView.isHidden = (self.guestDetail?.isMoreOptionTapped ?? true)
+        }
         self.dobTextField.text = self.guestDetail?.displayDob
         self.nationalityTextField.text = self.guestDetail?.nationality
         self.passportNumberTextField.text = self.guestDetail?.passportNumber

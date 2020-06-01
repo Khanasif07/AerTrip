@@ -98,9 +98,25 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     private func editedGuest(_ travellerIndexPath: IndexPath) {
         if let indexPath = self.viewModel.editinIndexPath, let object = GuestDetailsVM.shared.contactForIndexPath(indexPath: travellerIndexPath) {
             let numberInRoom = GuestDetailsVM.shared.guests[0][indexPath.section].numberInRoom
+            let type = GuestDetailsVM.shared.guests[0][indexPath.section].passengerType
+            let meal = GuestDetailsVM.shared.guests[0][indexPath.section].mealPreference
+            let ff = GuestDetailsVM.shared.guests[0][indexPath.section].frequentFlyer
             GuestDetailsVM.shared.guests[0][indexPath.section] = object
+            GuestDetailsVM.shared.guests[0][indexPath.section].passengerType = type
             GuestDetailsVM.shared.guests[0][indexPath.section].numberInRoom = numberInRoom
+            GuestDetailsVM.shared.guests[0][indexPath.section].mealPreference = meal
+            GuestDetailsVM.shared.guests[0][indexPath.section].frequentFlyer = ff
+            self.setFFForSelected(object.ffp, contact: GuestDetailsVM.shared.guests[0][indexPath.section])
             self.passengerTable.reloadData()
+        }
+    }
+    
+    private func setFFForSelected(_ passengerFF: [FFP]?, contact:ATContact){
+        var newContact = contact
+        for i in 0..<newContact.frequentFlyer.count{
+            if let ff = passengerFF?.first(where:{$0.airlineCode == newContact.frequentFlyer[i].airlineCode}){
+                newContact.frequentFlyer[i].number = ff.ffNumber
+            }
         }
     }
     

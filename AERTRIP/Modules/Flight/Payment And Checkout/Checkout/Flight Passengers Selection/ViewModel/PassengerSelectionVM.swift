@@ -32,9 +32,6 @@ class PassengerSelectionVM  {
     var addonsMaster = AddonsMaster()
     //Varialbles for domestic and oneway
     var journey:[Journey]?
-    var airportDetailsResult = [String : AirportDetailsWS]()
-    var airlineDetailsResult = [String : AirlineMasterWS]()
-    
     //Varialbles for international return and multicity
     var intAirportDetailsResult : [String : IntAirportDetailsWS]!
     var intAirlineDetailsResult : [String : IntAirlineMasterWS]!
@@ -62,14 +59,12 @@ class PassengerSelectionVM  {
     func setupGuestArray() {
         GuestDetailsVM.shared.guests.removeAll()
         var temp: [ATContact] = []
-        self.fetchConfirmationData()
-        self.journeyType = (self.bookingObject?.isDomestic ?? true) ? .domestic : .international
         guard let bookingObj = self.bookingObject else {return}
         for i in 0..<bookingObj.flightAdultCount{
             var guest = ATContact()
             guest.passengerType = PassengersType.Adult
             guest.frequentFlyer = self.getFrequentFlyer()
-            guest.mealPreference = self.getMealfreference()
+            guest.mealPreference = self.getMealPreference()
             guest.numberInRoom = (i + 1)
             guest.id = "\(i + 1)"
             guest.age = 0
@@ -80,7 +75,7 @@ class PassengerSelectionVM  {
             let idx = bookingObj.flightChildrenCount + i + 1
             guest.passengerType = PassengersType.child
             guest.frequentFlyer = self.getFrequentFlyer()
-            guest.mealPreference = self.getMealfreference()
+            guest.mealPreference = self.getMealPreference()
             guest.numberInRoom = (i + 1)
             guest.id = "\(idx)"
             guest.age = 0
@@ -91,7 +86,7 @@ class PassengerSelectionVM  {
             let idx = bookingObj.flightAdultCount + bookingObj.flightChildrenCount + i + 1
             guest.passengerType = PassengersType.infant
             guest.frequentFlyer = self.getFrequentFlyer()
-            guest.mealPreference = self.getMealfreference()
+            guest.mealPreference = self.getMealPreference()
             guest.numberInRoom = (i + 1)
             guest.id = "\(idx)"
             guest.age = 0
@@ -102,6 +97,7 @@ class PassengerSelectionVM  {
     }
     
     func setupLoginData(){
+        self.journeyType = (self.bookingObject?.isDomestic ?? true) ? .domestic : .international
         if let userInfo = UserInfo.loggedInUser{
             self.email = userInfo.email
             self.mobile = userInfo.mobile
@@ -129,6 +125,7 @@ class PassengerSelectionVM  {
             self.delegate?.getResponseFromAddnsMaster(success, error: nil)
             if success{
                 self.addonsMaster = addonsMaster
+                self.setupGuestArray()
             }else{
                 debugPrint(errorCode)
             }
@@ -158,51 +155,55 @@ class PassengerSelectionVM  {
         self.delegate?.startFechingConfirmationData()
         APICaller.shared.getConfirmation(params: param) {[weak self](success, errorCode, itineraryData) in
             guard let self = self else{return}
-            self.delegate?.getResponseFromConfirmation(success, error: nil)
             if success{
                 if let itinerary = itineraryData{
                     self.itineraryData = itinerary
                     self.id = self.itineraryData.itinerary.id
                     self.sid = self.itineraryData.itinerary.sid
                     GuestDetailsVM.shared.travellerList = self.itineraryData.itinerary.travellerMaster
-                    self.fetchAddonsData()
+                    if let artpt = self.itineraryData.itinerary.details.apdet{
+                        self.intAirportDetailsResult = artpt
+                    }
                 }
             }else{
                 debugPrint(errorCode)
             }
+            self.delegate?.getResponseFromConfirmation(success, error: nil)
+            if success{
+                self.fetchAddonsData()
+            }
         }
     }
 
-    private func getMealfreference()-> [MealPreference]{
-        guard let intJourney = intJourney.first else {
-            return []
-        }
-        let totalFlight = intJourney.legsWithDetail.flatMap{$0.flightsWithDetails}
-       
+    private func getMealPreference()-> [MealPreference]{
+        let legs = self.itineraryData.itinerary.details.legsWithDetail
         var mealPreference = [MealPreference]()
-        for flight in totalFlight{
-            var meal = MealPreference()
-            meal.journeyTitle = "\(flight.fr) - \(flight.to)"
-            meal.airlineLogo = "\(logoUrl)\(flight.al.uppercased()).png"
-            mealPreference.append(meal)
+        for leg in legs{
+            if let addonsdata = self.addonsMaster.legs["\(leg.lfk)"],!(addonsdata.preference.meal.isEmpty){
+                var meal = MealPreference()
+                meal.journeyTitle = "\(leg.originIATACode) - \(leg.destinationIATACode)"
+                let al = leg.flightsWithDetails.first?.al ?? ""
+                meal.airlineLogo = "\(logoUrl)\(al.uppercased()).png"
+                meal.preference = addonsdata.preference.meal
+                mealPreference.append(meal)
+            }
         }
         return mealPreference
     }
     
     
     private func getFrequentFlyer()-> [FrequentFlyer]{
-        guard let intJourney = intJourney.first else {
-            return []
-        }
-        let totalFlight = intJourney.legsWithDetail.flatMap{$0.flightsWithDetails}.map{$0.al}
-        let setFlightAl = Array(Set(totalFlight))
-       
+        let totalFlight = Array(self.addonsMaster.legs.values).flatMap{$0.flight}
         var frequentFlyer = [FrequentFlyer]()
-        for al in setFlightAl{
-            var flyer = FrequentFlyer()
-            flyer.airlineName = self.intAirlineDetailsResult[al]?.name ?? ""
-            flyer.logoUrl = "\(logoUrl)\(al.uppercased()).png"
-            frequentFlyer.append(flyer)
+        if let aldet = self.itineraryData.itinerary.details.aldet{
+            for (key, value) in aldet{
+                if let flight = totalFlight.first(where: {$0.frequenFlyer[key] != nil}), flight.isfrequentFlyer{
+                    var flyer = FrequentFlyer()
+                    flyer.airlineName = value
+                    flyer.logoUrl = "\(logoUrl)\(key.uppercased()).png"
+                    frequentFlyer.append(flyer)
+                }
+            }
         }
         return frequentFlyer
     }

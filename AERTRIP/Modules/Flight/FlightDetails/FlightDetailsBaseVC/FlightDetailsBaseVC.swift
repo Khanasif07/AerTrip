@@ -42,7 +42,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     var taxesResult : [String : String]!
     
     weak var delegate : flightDetailsPinFlightDelegate?
-    
+    var airlineData:[String:String]?
     var flights : [FlightDetail]?
     var sid = ""
     var bookFlightObject = BookFlightObject()
@@ -77,10 +77,10 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         
         self.navigationController?.navigationBar.isHidden = true
 
-        if !isInternational{
-            self.setFlightDetailsForDomestic()
-        }else{
+        if isInternational || !(needToAddFareBreakup){
             self.setFlightDetailsForInternational()
+        }else{
+           self.setFlightDetailsForDomestic()
         }
         setupInitialViews()
         setupSegmentView()
@@ -100,7 +100,7 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
         setupScrollView()
         initialDisplayView()
         if needToAddFareBreakup{
-            if !self.isInternational{
+            if !(self.isInternational){
                 setupFarebreakupView()
             }else{
                 setFareBreakupForInt()
@@ -125,14 +125,14 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
     }
     
     func initialDisplayView(){
-        if !isInternational{
-            addFlightInfoVC()
-            addBaggageVC()
-            addFareInfoVC()
-        }else{
+        if isInternational || !(needToAddFareBreakup){
             addIntFlightInfoVC()
             addIntBaggageVC()
             addIntFareInfo()
+        }else{
+            addFlightInfoVC()
+            addBaggageVC()
+            addFareInfoVC()
         }
         
     }
@@ -420,8 +420,6 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
                 self.intJourney[0] = newJourney
                 self.delegate?.reloadRowFromFlightDetails(fk: journey.fk, isPinned: !journey.isPinned)
             }
-            
-            
         }
     }
     
@@ -623,30 +621,13 @@ class FlightDetailsBaseVC: UIViewController, UIScrollViewDelegate, flightDetails
             vc.viewModel.intAirportDetailsResult = self.intAirportDetailsResult
             vc.viewModel.intAirlineDetailsResult = self.intAirlineDetailsResult
             vc.viewModel.bookingObject = self.bookFlightObject
-            vc.viewModel.journeyType = .international
             vc.viewModel.journeyTitle = self.journeyTitle
             vc.viewModel.journeyDate = self.journeyDate
+            vc.viewModel.journey = self.journey
             self.pushToPassenserSelectionVC(vc)
             AppFlowManager.default.removeLoginConfirmationScreenFromStack()
             AppGlobals.shared.stopLoading()
         }
-        
-//        let vc = PassengersSelectionVC.instantiate(fromAppStoryboard: .PassengersSelection)
-//        let nav = UINavigationController(rootViewController: vc)
-//        nav.modalPresentationStyle = .fullScreen
-//        nav.modalPresentationCapturesStatusBarAppearance = true
-//        vc.viewModel.taxesResult = taxesResult
-//        vc.viewModel.intJourney = self.intJourney
-//        vc.viewModel.intFlights = intFlights
-//        vc.viewModel.selectedJourneyFK = self.selectedJourneyFK
-//        vc.viewModel.sid = sid
-//        vc.viewModel.intAirportDetailsResult = self.intAirportDetailsResult
-//        vc.viewModel.intAirlineDetailsResult = self.intAirlineDetailsResult
-//        vc.viewModel.bookingObject = self.bookFlightObject
-//        vc.viewModel.journeyType = .international
-//        vc.viewModel.journeyTitle = self.journeyTitle
-//        vc.viewModel.journeyDate = self.journeyDate
-//        self.present(nav, animated: true, completion: nil)//presentAsPushAnimation(nav)
     }
 
 
@@ -727,6 +708,7 @@ extension FlightDetailsBaseVC{
         vc.sid = sid
         vc.titleString = titleString
         vc.journey = intJourney?.first
+        vc.airlineData = self.airlineData
         if isFSRVisible == true{
             vc.fewSeatsLeftViewHeight = 40
         }else{

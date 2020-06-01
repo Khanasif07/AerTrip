@@ -73,7 +73,7 @@ class FareUpdatedPopUpVC: BaseVC {
     
     private func getIncreaseTitleAttrText(forAmount amount: Double, fontColor: UIColor) -> NSMutableAttributedString {
         
-        let currency = "$"
+        let currency = "₹"
         let finalText = "\(LocalizedString.FareIncreasedBy.localized)\n\(currency)\(amount)"
         
         let attString: NSMutableAttributedString = NSMutableAttributedString(string: finalText, attributes: [NSAttributedString.Key.foregroundColor: fontColor, NSAttributedString.Key.font: AppFonts.SemiBold.withSize(18.0)])
@@ -87,7 +87,7 @@ class FareUpdatedPopUpVC: BaseVC {
         setupIncreasePopUp()
         titleLabel.attributedText = getIncreaseTitleAttrText(forAmount: increasedAmount, fontColor: AppColors.themeRed)
         
-        let currency = "$"
+        let currency = "₹"
         descriptionLabel.text = "\(LocalizedString.TotalUpdatedPrice.localized) \(currency)\(totalUpdatedAmount)"
     }
     
@@ -100,7 +100,7 @@ class FareUpdatedPopUpVC: BaseVC {
     
     private func updateDecreasePopUp(decreasedAmount: Double) {
         setupDecreasePopUp()
-        let currency = "$"
+        let currency = "₹"
         let attrText = AppGlobals.shared.getTextWithImage(startText: "", image: #imageLiteral(resourceName: "ic_fare_dipped"), endText: "   \(LocalizedString.FareDippedBy.localized) \(currency) \(decreasedAmount)", font: AppFonts.Regular.withSize(16.0))
         
         attrText.addAttributes([NSAttributedString.Key.foregroundColor: AppColors.themeGreen], range: (attrText.string as NSString).range(of: attrText.string))

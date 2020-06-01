@@ -26,7 +26,7 @@ class PassengersSelectionVC: UIViewController {
         super.viewDidLoad()
         self.registerCell()
         self.viewModel.delegate = self
-        self.viewModel.setupGuestArray()
+//        self.viewModel.setupGuestArray()
         self.apiCall()
         self.setupFont()
         self.navigationController?.navigationBar.isHidden = true
@@ -42,8 +42,11 @@ class PassengersSelectionVC: UIViewController {
     
     
     func apiCall(){
+        GuestDetailsVM.shared.guests.removeAll()
+        self.viewModel.setupGuestArray()
         self.viewModel.webserviceForGetCountryList()
         self.viewModel.setupLoginData()
+        self.viewModel.fetchConfirmationData()
     }
     
     
@@ -62,7 +65,7 @@ class PassengersSelectionVC: UIViewController {
         self.titleLabel.font = AppFonts.SemiBold.withSize(18)
         self.passengerTableview.backgroundColor = AppColors.themeGray04
         self.titleLabel.text = "Passengers"
-        addButtomView()
+//        addButtomView()
         self.addButton.isHidden = !(self.viewModel.isLogin)
     }
     
@@ -70,12 +73,11 @@ class PassengersSelectionVC: UIViewController {
         let vc = IntFareBreakupVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
         vc.isFewSeatsLeftViewVisible = true
         vc.taxesResult = self.viewModel.taxesResult
-        vc.journey = self.viewModel.intJourney
-        vc.intFlights = self.viewModel.intFlights
+        vc.journey = [self.viewModel.itineraryData.itinerary.details]
         vc.delegate = self
         vc.detailsDelegate = self
         vc.sid = self.viewModel.sid
-        if self.viewModel.intJourney.first?.fsr == 1{
+        if self.viewModel.itineraryData.itinerary.details.fsr == 1{
             vc.fewSeatsLeftViewHeightFromFlightDetails = 40
         }else{
             vc.fewSeatsLeftViewHeightFromFlightDetails = 0
@@ -141,11 +143,12 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
         vc.bookFlightObject = self.viewModel.bookingObject ?? BookFlightObject()
         vc.taxesResult = self.viewModel.taxesResult
         vc.sid = self.viewModel.sid
-        vc.intJourney = self.viewModel.intJourney
+        vc.intJourney = [self.viewModel.itineraryData.itinerary.details]
         vc.intAirportDetailsResult = self.viewModel.intAirportDetailsResult
-        vc.intAirlineDetailsResult = self.viewModel.intAirlineDetailsResult
-        vc.selectedJourneyFK = self.viewModel.selectedJourneyFK
+        vc.selectedJourneyFK = [self.viewModel.itineraryData.itinerary.details.fk]
+        vc.airlineData = self.viewModel.itineraryData.itinerary.details.aldet
         vc.needToAddFareBreakup = false
+        vc.journey = self.viewModel.journey ?? []
         vc.view.autoresizingMask = []
         self.view.addSubview(vc.view)
         self.addChild(vc)
@@ -163,14 +166,40 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
     }
     
     func updateHeight(to height: CGFloat) {
-        
-//        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut], animations: {
             self.detailsBaseVC?.view.frame.size.height = UIScreen.height - height
             self.detailsBaseVC?.view.layoutSubviews()
             self.detailsBaseVC?.view.setNeedsLayout()
-//        })
     }
     
+}
+
+
+extension PassengersSelectionVC{
+    func showFareUpdatePopup(){
+        let diff = self.viewModel.itineraryData.itinerary.priceChange
+        let amount = self.viewModel.itineraryData.itinerary.details.farepr
+        guard diff != 0 else{return}
+        
+        if diff > 0 {
+            // increased
+            FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: Double(diff), totalUpdatedAmount: Double(amount), continueButtonAction: { [weak self] in
+                guard let _ = self else { return }
+                
+                }, goBackButtonAction: { [weak self] in
+                    guard let _ = self else { return }
+                    
+            })
+        }
+        else {
+            // dipped
+            FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: Double(-diff), increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
+            delay(seconds: 2.0) { [weak self] in
+                guard let _ = self else { return }
+               
+            }
+        }
+        
+    }
 }
 
 extension PassengersSelectionVC: HCSelectGuestsVCDelegate{
@@ -194,9 +223,14 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
     }
     func getResponseFromConfirmation(_ success:Bool, error:Error?){
         AppGlobals.shared.stopLoading()
+        if success{
+            self.addButtomView()
+        }
     }
     func getResponseFromAddnsMaster(_ success:Bool, error:Error?){
         AppGlobals.shared.stopLoading()
+        self.showFareUpdatePopup()
+        self.passengerTableview.reloadData()
     }
     
 }
