@@ -21,6 +21,8 @@ class AdonsVM  {
     
     let addOnsData : [(heading : String,desc : String,complement : String, shouldShowComp : Bool)] = [( LocalizedString.Meals.localized, "Choose a meal from the menu.","Complementary meal added Complementary meal added",true), ( LocalizedString.Baggage.localized, "Choose the extra baggage service and take everything you need Choose the extra baggage service and take everything you need Choose the extra baggage service and take everything you need.","Complementary meal added",false),( LocalizedString.Seat.localized, "Reserve a seat of your choice.","Free Seats Available",true),( LocalizedString.Others.localized, "Pre-book more services for a  convenient journey","Complementary meal added",false)]
     
+    var itineraryData = FlightItineraryData()
+
     
     func getCellHeight(index : Int) -> CGFloat {
         

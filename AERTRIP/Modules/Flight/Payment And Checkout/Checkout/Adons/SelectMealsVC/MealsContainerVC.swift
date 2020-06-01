@@ -9,14 +9,19 @@
 import UIKit
 import Parchment
 
+protocol SelectMealDelegate : class {
+    func mealUpdated(vcIndex : Int)
+}
+
 class MealsContainerVC: BaseVC {
     
     // MARK: Properties
     fileprivate var parchmentView : PagingViewController?
-    private let allTabsStr: [String] = ["BOM → LON", "LON → NYC", "NYC → DEL"]
+//    private let allTabsStr: [String] = ["BOM → LON", "LON → NYC", "NYC → DEL"]
     
     var allChildVCs = [UIViewController]()
     var currentIndex = 0
+    let mealsContainerVM = MealsContainerVM()
     
     // MARK: IBOutlets
     @IBOutlet weak var topNavBarView: TopNavigationView!
@@ -62,6 +67,7 @@ class MealsContainerVC: BaseVC {
     override func initialSetup() {
         super.initialSetup()
         setupNavBar()
+        self.mealsContainerVM.extractUsefullData()
         setUpViewPager()
     }
     
@@ -83,12 +89,16 @@ extension MealsContainerVC {
         self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Bold.withSize(18))
     }
     
-
-    
     private func setUpViewPager() {
         self.allChildVCs.removeAll()
-        for _ in 0..<allTabsStr.count {
+        for index in 0..<self.mealsContainerVM.allFlightKeys.count {
             let vc = SelectMealsdVC.instantiate(fromAppStoryboard: .Adons)
+            vc.selectMealsVM.vcIndex = index
+//            let fk = self.mealsContainerVM.flightKeys[index]
+//            vc.selectMealsVM.flightKey = fk
+//            vc.selectMealsVM.adonsData = self.mealsContainerVM.adons[fk] ?? AddonsData()
+            vc.delegate = self
+            vc.selectMealsVM.itinerary = self.mealsContainerVM.itinerary
             self.allChildVCs.append(vc)
         }
         self.view.layoutIfNeeded()
@@ -159,7 +169,7 @@ extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControlle
     
     
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
-        self.allTabsStr.count
+        return self.mealsContainerVM.allFlightKeys.count
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
@@ -168,7 +178,7 @@ extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControlle
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
         
-        return MenuItem(title: self.allTabsStr[index], index: index, isSelected:false)
+        return MenuItem(title: self.mealsContainerVM.allFlightKeys[index], index: index, isSelected:false)
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
@@ -176,7 +186,17 @@ extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControlle
         if let pagingIndexItem = pagingItem as? MenuItem {
             currentIndex = pagingIndexItem.index
         }
+        
     }
 }
 
 
+extension MealsContainerVC : SelectMealDelegate {
+    
+    func mealUpdated(vcIndex : Int) {
+        
+        print(vcIndex)
+        
+    }
+    
+}

@@ -112,6 +112,7 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
     
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
         let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
+        vc.adonsVm.itineraryData = self.viewModel.itineraryData
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

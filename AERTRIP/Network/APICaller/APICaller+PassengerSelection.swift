@@ -42,7 +42,6 @@ extension APICaller{
         }
     }
     
-    
     func getConfirmation(params: JSONDictionary, loader: Bool = true, completionBlock: @escaping(_ success: Bool, _ errorCodes: ErrorCodes, _ data: FlightItineraryData?)->Void ) {
         
         AppNetworking.GET(endPoint: .fareConfirmation, parameters: params, success: { [weak self] (json) in
@@ -50,6 +49,7 @@ extension APICaller{
             
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
                 if sucess {
+//                print("confirmation....\(jsonData)")
                     completionBlock(true, [], FlightItineraryData(json[APIKeys.data.rawValue]))
                 }
                 else {
