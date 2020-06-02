@@ -106,18 +106,41 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
             GuestDetailsVM.shared.guests[0][indexPath.section].numberInRoom = numberInRoom
             GuestDetailsVM.shared.guests[0][indexPath.section].mealPreference = meal
             GuestDetailsVM.shared.guests[0][indexPath.section].frequentFlyer = ff
-            self.setFFForSelected(object.ffp, contact: GuestDetailsVM.shared.guests[0][indexPath.section])
+            self.setFFForSelected(object.ffp, index: indexPath.section)
+            self.updateDob(at : indexPath.section)
             self.passengerTable.reloadData()
         }
     }
     
-    private func setFFForSelected(_ passengerFF: [FFP]?, contact:ATContact){
-        var newContact = contact
-        for i in 0..<newContact.frequentFlyer.count{
-            if let ff = passengerFF?.first(where:{$0.airlineCode == newContact.frequentFlyer[i].airlineCode}){
-                newContact.frequentFlyer[i].number = ff.ffNumber
+    private func setFFForSelected(_ passengerFF: [FFP]?, index:Int){
+        guard let ffp = passengerFF, ffp.count != 0 else {return}
+        for i in 0..<GuestDetailsVM.shared.guests[0][index].frequentFlyer.count{
+            if let ff = ffp.first(where:{$0.airlineCode == GuestDetailsVM.shared.guests[0][index].frequentFlyer[i].airlineCode}){
+                GuestDetailsVM.shared.guests[0][index].frequentFlyer[i].number = ff.ffNumber
             }
         }
+    }
+    
+    //update dob if it not valid.
+    private func updateDob(at index:Int){
+        switch GuestDetailsVM.shared.guests[0][index].passengerType{
+        case .Adult:break
+        case .child:
+            if !calculateAge(with : GuestDetailsVM.shared.guests[0][index], year: 12){
+                GuestDetailsVM.shared.guests[0][index].dob = ""
+            }
+        case .infant:
+            if !calculateAge(with : GuestDetailsVM.shared.guests[0][index], year: 2){
+                GuestDetailsVM.shared.guests[0][index].dob = ""
+            }
+        }
+    }
+    
+    private func calculateAge(with contact: ATContact, year:Int)-> Bool{
+        let dob = contact.displayDob
+        guard let date = dob.toDate(dateFormat: "dd MMM yyyy") else {return false}
+        let component = Calendar.current.dateComponents([.year], from: date, to: Date())
+        return (component.year ?? 0) < year
     }
     
     @IBAction func tapBackBtn(_ sender: UIButton) {

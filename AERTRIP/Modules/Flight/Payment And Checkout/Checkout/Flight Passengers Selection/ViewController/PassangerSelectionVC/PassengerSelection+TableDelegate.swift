@@ -130,15 +130,15 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
             cell.delegate = self
             cell.gstModel = self.viewModel.selectedGST
             cell.gstSwitch.isOn = viewModel.isSwitchOn
-            if self.viewModel.isLogin{
-                if viewModel.isSwitchOn{
-                    cell.setupForSelectGST()
-                }
-            }else{
+//            if self.viewModel.isLogin{
+//                if viewModel.isSwitchOn{
+//                    cell.setupForSelectGST()
+//                }
+//            }else{
                 if viewModel.isSwitchOn{
                     cell.setupForNewGST()
                 }
-            }
+//            }
             return cell
         case 5:
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "FlightEmptyCell") as? FlightEmptyCell else {return UITableViewCell()}

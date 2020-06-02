@@ -82,6 +82,7 @@ class MealPreferenceCell: UITableViewCell {
         self.airlineNameLabel.text = self.passenger.frequentFlyer[index].airlineName
         self.programTextField.text = self.passenger.frequentFlyer[index].program
         self.airlineImage.setImageWithUrl(self.passenger.frequentFlyer[index].logoUrl, placeholder: UIImage(), showIndicator: false)
+        self.numberTextField.text = self.passenger.frequentFlyer[index].number
         self.cellTitleLabel.text = (index == 0) ? "Frequent Flyer" : ""
         self.titleTopConstraint.constant = (index == 0) ? 8.0 : 0.0
         self.titleBottomConstraint.constant = (index == 0) ? 6.0 : 0.0

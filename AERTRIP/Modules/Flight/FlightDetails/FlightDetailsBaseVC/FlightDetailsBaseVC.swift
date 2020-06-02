@@ -736,7 +736,7 @@ extension FlightDetailsBaseVC{
         }else{
             vc.fewSeatsLeftViewHeight = 0
         }
-        
+        vc.isForDomestic = (self.bookFlightObject.isDomestic)
         vc.airportDetailsResult = intAirportDetailsResult
         vc.view.frame = CGRect(x: UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width, height :self.displayScrollView.frame.height-CGFloat(bottomInset))
         vc.view.autoresizingMask = []
@@ -770,6 +770,4 @@ extension FlightDetailsBaseVC{
         self.addChild(vc)
         vc.didMove(toParent: self)
     }
-    
-    
 }

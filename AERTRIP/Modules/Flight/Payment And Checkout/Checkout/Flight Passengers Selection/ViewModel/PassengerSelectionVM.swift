@@ -11,8 +11,12 @@ import Foundation
 protocol PassengerSelectionVMDelegate:NSObjectProtocol {
     func startFechingConfirmationData()
     func startFechingAddnsMasterData()
+    func startFechingGSTValidationData()
+    func startFechingLoginData()
     func getResponseFromConfirmation(_ success:Bool, error:Error?)
     func getResponseFromAddnsMaster(_ success:Bool, error:Error?)
+    func getResponseFromGSTValidation(_ success:Bool, error:Error?)
+    func getResponseFromLogin(_ success:Bool, error:Error?)
 }
 
 var logoUrl = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/"
@@ -137,7 +141,7 @@ class PassengerSelectionVM  {
         var param:JSONDictionary = ["sid": sid]
         
         if journeyType == .international{
-            if flightSearchType == SINGLE_JOURNEY{
+            if self.intJourney == nil{
                 param["old_farepr[]"] = self.journey?.first?.farepr ?? 0
                 param["fk[]"] = self.journey?.first?.fk ?? ""
             }else{
@@ -164,6 +168,7 @@ class PassengerSelectionVM  {
                     if let artpt = self.itineraryData.itinerary.details.apdet{
                         self.intAirportDetailsResult = artpt
                     }
+                    self.setupGST()
                 }
             }else{
                 debugPrint(errorCode)
@@ -174,7 +179,27 @@ class PassengerSelectionVM  {
             }
         }
     }
+    
+    func validateGST(){
+        self.delegate?.startFechingGSTValidationData()
+        let param = ["number":self.selectedGST.GSTInNo]
+        APICaller.shared.validateGSTIN(params: param) { (success, error, data) in
+            self.delegate?.getResponseFromGSTValidation(success, error: nil)
+        }
+    }
 
+    func login(){
+        let params:JSONDictionary = [APIKeys.loginid.rawValue : self.email.removeLeadingTrailingWhitespaces, APIKeys.password.rawValue : "" , APIKeys.isGuestUser.rawValue : "true"]
+        APICaller.shared.loginForPaymentAPI(params: params) { [weak self] (success, logInId, isGuestUser, errors) in
+            guard let self = self else { return }
+            if success {
+                self.validateGST()
+            }else{
+                AppToast.default.showToastMessage(message: "Something went wrong")
+            }
+        }
+    }
+    
     private func getMealPreference()-> [MealPreference]{
         let legs = self.itineraryData.itinerary.details.legsWithDetail
         var mealPreference = [MealPreference]()
@@ -200,12 +225,57 @@ class PassengerSelectionVM  {
                 if let flight = totalFlight.first(where: {$0.frequenFlyer[key] != nil}), flight.isfrequentFlyer{
                     var flyer = FrequentFlyer()
                     flyer.airlineName = value
+                    flyer.airlineCode = key.uppercased()
                     flyer.logoUrl = "\(logoUrl)\(key.uppercased()).png"
                     frequentFlyer.append(flyer)
                 }
             }
         }
         return frequentFlyer
+    }
+    
+    private func setupGST(){
+        if let gst = self.itineraryData.itinerary.travellerDetails.gstDetails, isLogin{
+            self.isSwitchOn = true
+            self.selectedGST.billingName = gst.gstCompanyName
+            self.selectedGST.companyName = gst.gstCompanyName
+            self.selectedGST.GSTInNo = gst.gstNumber
+        }
+    }
+    
+    
+    func validateGuestData()->(success:Bool, msg:String){
+        for contact in GuestDetailsVM.shared.guests[0]{
+            if contact.firstName.isEmpty || contact.firstName.count < 3 || contact.lastName.isEmpty || contact.lastName.count < 3 || contact.salutation.isEmpty{
+                return (false, "Please fill all the passenger details")
+            }else if self.journeyType == .domestic{
+                if contact.passengerType == .infant{
+                    return (!(contact.dob.isEmpty), "Please fill all the passenger details")
+                }
+            }else{
+                if contact.dob.isEmpty || contact.nationality.isEmpty || contact.passportNumber.isEmpty || contact.passportExpiryDate.isEmpty{
+                    return (false, "Please fill all the passenger details")
+                }
+            }
+        }
+        
+        if self.isdCode.isEmpty{
+            return (false, "Please enter ISD code")
+        }else if self.mobile.checkValidity(.MobileNumber){
+            return (false, "Please enter valid mobile number")
+        }else if self.email.checkValidity(.Email){
+            return (false, "Not a valid email address")
+        }else if self.isSwitchOn{
+            if self.selectedGST.companyName.isEmpty{
+                return (false, "Please enter GSTIN company name")
+            }else if self.selectedGST.billingName.isEmpty{
+                return (false, "Please enter GSTIN billing name")
+            }else if self.selectedGST.GSTInNo.checkValidity(.gst){
+                return (false, "Not a valid GSTIN Number")
+            }
+        }
+        
+        return (true, "")
     }
     
 }

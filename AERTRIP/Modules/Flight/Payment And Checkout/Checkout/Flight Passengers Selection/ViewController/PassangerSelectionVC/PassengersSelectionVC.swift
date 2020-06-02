@@ -111,9 +111,17 @@ class PassengersSelectionVC: UIViewController {
 extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, JourneyDetailsTapDelegate{
     
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
-        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
-        vc.adonsVm.itineraryData = self.viewModel.itineraryData
-        self.navigationController?.pushViewController(vc, animated: true)
+        let validation = self.viewModel.validateGuestData()
+        if validation.success{
+            if self.viewModel.isLogin{
+                self.viewModel.validateGST()
+            }else{
+                self.viewModel.login()
+            }
+           
+        }else{
+            AppToast.default.showToastMessage(message: validation.msg)
+        }
     }
     
     func infoButtonTapped(isViewExpanded: Bool) {
@@ -135,6 +143,18 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
             self?.passengerTableview.reloadRows(at: [IndexPath(row: 4, section: 1)], with: .automatic)
         }
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func editTextFields(_ textFiledType: GSTCellTextFields, text:String){
+        switch textFiledType{
+        case .companyName:
+            self.viewModel.selectedGST.companyName = text
+        case .billingName:
+            self.viewModel.selectedGST.billingName = text
+        case .gstNumber:
+            self.viewModel.selectedGST.GSTInNo = text
+        }
+        
     }
     
     func tappedDetailsButton(){
@@ -219,19 +239,45 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
             AppGlobals.shared.startLoading()
         }
     }
+    
     func startFechingAddnsMasterData(){
         AppGlobals.shared.startLoading()
     }
+    
+    func startFechingGSTValidationData(){
+        AppGlobals.shared.startLoading()
+    }
+    
+    func startFechingLoginData(){
+        AppGlobals.shared.startLoading()
+    }
+    
     func getResponseFromConfirmation(_ success:Bool, error:Error?){
         AppGlobals.shared.stopLoading()
         if success{
             self.addButtomView()
         }
     }
+    
     func getResponseFromAddnsMaster(_ success:Bool, error:Error?){
         AppGlobals.shared.stopLoading()
         self.showFareUpdatePopup()
         self.passengerTableview.reloadData()
     }
     
+    func getResponseFromGSTValidation(_ success:Bool, error:Error?){
+        AppGlobals.shared.stopLoading()
+        if success{
+            let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
+            vc.adonsVm.itineraryData = self.viewModel.itineraryData
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else{
+            AppToast.default.showToastMessage(message: "Error while validating GST number")
+        }
+        
+    }
+    
+    func getResponseFromLogin(_ success:Bool, error:Error?){
+        AppGlobals.shared.stopLoading()
+    }
 }

@@ -106,11 +106,13 @@ struct FlightSearchParam{
 struct TravellerDetails{
     var mobile: String
     var isd: String
-    var gstDetails:FlightGST
+    var gstDetails:FlightGST?
     init(_ json:JSON = JSON()){
         mobile = json["mobile"].stringValue
         isd = json["isd"].stringValue
-        gstDetails = FlightGST(json["gst_details"])
+        if json["gst_details"].dictionary != nil{
+            gstDetails = FlightGST(json["gst_details"])
+        }
     }
 }
 

@@ -797,6 +797,7 @@ enum ValidityExpression: String {
     case Url = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,25}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
     case Price = "^([0-9]{0,0}((.)[0-9]{0,0}))$"
     case PanCard = "[A-Z]{3}P[A-Z]{1}[0-9]{4}[A-Z]{1}"
+    case gst = "^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$"
 
 }
 

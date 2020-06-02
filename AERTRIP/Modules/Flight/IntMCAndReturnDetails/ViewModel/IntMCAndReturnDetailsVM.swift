@@ -25,6 +25,10 @@ typealias IntAirlineMasterWS = IntMultiCityAndReturnWSResponse.Results.ALMaster
 ///typealias reference used for IntMultiCityAndReturnWSResponse.Results.Fdet
 typealias IntFlightDetail = IntMultiCityAndReturnWSResponse.Results.Fdet
 
+/////typealias reference used for IntMultiCityAndReturnWSResponse.Results.Ldet
+
+typealias IntLeg = IntMultiCityAndReturnWSResponse.Results.Ldet
+
 let msgForLessThen2Hr = "Selected flights have less than 2 hrs of gap."
 let msgForOverlapTime = "Flight timings are not compatible. Select a different flight."
 
