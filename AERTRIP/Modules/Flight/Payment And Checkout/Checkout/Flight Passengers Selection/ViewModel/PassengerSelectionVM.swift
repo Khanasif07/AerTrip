@@ -49,7 +49,7 @@ class PassengerSelectionVM  {
     var passengerList = [Passenger]()
     var email = ""
     var mobile = ""
-    var isdCode = ""
+    var isdCode = "+91"
     var itineraryData = FlightItineraryData()
     var delegate:PassengerSelectionVMDelegate?
     
@@ -118,7 +118,7 @@ class PassengerSelectionVM  {
         if let userInfo = UserInfo.loggedInUser{
             self.email = userInfo.email
             self.mobile = userInfo.mobile
-            self.isdCode = userInfo.isd
+            self.isdCode = (userInfo.isd.isEmpty) ? "+91" : userInfo.isd
         }
         
     }
