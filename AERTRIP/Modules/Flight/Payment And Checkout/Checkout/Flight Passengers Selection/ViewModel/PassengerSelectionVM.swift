@@ -141,7 +141,12 @@ class PassengerSelectionVM  {
                 self.login()
             }
         }else{
-            self.delegate?.getResponseFromGSTValidation(true, error: nil)
+            if self.isLogin{
+                self.delegate?.getResponseFromGSTValidation(true, error: nil)
+            }else{
+                self.login()
+            }
+            
         }
     }
     
