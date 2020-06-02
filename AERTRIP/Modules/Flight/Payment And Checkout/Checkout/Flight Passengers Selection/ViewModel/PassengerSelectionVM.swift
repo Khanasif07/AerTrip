@@ -261,16 +261,16 @@ class PassengerSelectionVM  {
         
         if self.isdCode.isEmpty{
             return (false, "Please enter ISD code")
-        }else if self.mobile.checkValidity(.MobileNumber){
+        }else if !(self.mobile.checkValidity(.MobileNumber)){
             return (false, "Please enter valid mobile number")
-        }else if self.email.checkValidity(.Email){
+        }else if !(self.email.checkValidity(.Email)){
             return (false, "Not a valid email address")
         }else if self.isSwitchOn{
-            if self.selectedGST.companyName.isEmpty{
+            if (self.selectedGST.companyName.isEmpty){
                 return (false, "Please enter GSTIN company name")
-            }else if self.selectedGST.billingName.isEmpty{
+            }else if (self.selectedGST.billingName.isEmpty){
                 return (false, "Please enter GSTIN billing name")
-            }else if self.selectedGST.GSTInNo.checkValidity(.gst){
+            }else if !(self.selectedGST.GSTInNo.checkValidity(.gst)){
                 return (false, "Not a valid GSTIN Number")
             }
         }
