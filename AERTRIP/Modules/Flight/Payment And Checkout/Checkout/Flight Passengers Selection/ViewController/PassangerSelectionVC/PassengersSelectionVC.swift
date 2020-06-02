@@ -113,12 +113,7 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
         let validation = self.viewModel.validateGuestData()
         if validation.success{
-            if self.viewModel.isLogin{
-                self.viewModel.validateGST()
-            }else{
-                self.viewModel.login()
-            }
-           
+            self.viewModel.checkValidationForNextScreen()
         }else{
             AppToast.default.showToastMessage(message: validation.msg)
         }
@@ -194,32 +189,76 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
     
 }
 
-
 extension PassengersSelectionVC{
     func showFareUpdatePopup(){
         let diff = self.viewModel.itineraryData.itinerary.priceChange
         let amount = self.viewModel.itineraryData.itinerary.details.farepr
-        guard diff != 0 else{return}
+        guard diff != 0 else{
+            if let freeType = self.viewModel.freeServiceType{
+                FreeMealAndSeatVC.showMe(type: freeType)
+            }
+            return
+        }
         
         if diff > 0 {
             // increased
             FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: Double(diff), totalUpdatedAmount: Double(amount), continueButtonAction: { [weak self] in
-                guard let _ = self else { return }
-                
+                guard let self = self else { return }
+                if let freeType = self.viewModel.freeServiceType{
+                    FreeMealAndSeatVC.showMe(type: freeType)
+                }
                 }, goBackButtonAction: { [weak self] in
-                    guard let _ = self else { return }
-                    
+                    guard let self = self else { return }
+                    self.getListingController()
             })
         }
         else {
             // dipped
             FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: Double(-diff), increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
-            delay(seconds: 2.0) { [weak self] in
-                guard let _ = self else { return }
-               
+            delay(seconds: 5.0) { [weak self] in
+                guard let self = self else { return }
+                if let freeType = self.viewModel.freeServiceType{
+                    FreeMealAndSeatVC.showMe(type: freeType)
+                }
             }
         }
-        
+    }
+    
+    func getListingController(){
+      if let nav = self.navigationController?.presentingViewController?.presentingViewController as? UINavigationController{
+          nav.dismiss(animated: true) {
+              delay(seconds: 0.0) {
+                if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
+                    nav.popToViewController(vc, animated: true)
+                    vc.searchApiResult()
+                }
+              }
+          }
+      }
+
+//        if self.viewModel.journeyType == .international{
+//            if self.viewModel.intJourney == nil{
+//                self.navigationController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//            }else{
+//                if let nav = self.navigationController?.presentingViewController?.presentingViewController as? UINavigationController{
+//                    nav.dismiss(animated: true) {
+//                        delay(seconds: 0.0) {
+//                            if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}){
+//                                nav.popToViewController(vc, animated: true)
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }else{
+//            guard let journey = self.viewModel.journey else{return}
+//            if journey.count == 1{
+//                self.navigationController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//            }else{
+//                self.navigationController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//            }
+//
+//        }
     }
 }
 

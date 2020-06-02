@@ -52,6 +52,19 @@ class PassengerSelectionVM  {
     var isdCode = ""
     var itineraryData = FlightItineraryData()
     var delegate:PassengerSelectionVMDelegate?
+    
+    var freeServiceType:FreeServiveType?{
+        if self.itineraryData.itinerary.freeMeal && self.itineraryData.itinerary.freeMealSeat{
+            return .both
+        }else if self.itineraryData.itinerary.freeMeal{
+            return .meal
+        }else if self.itineraryData.itinerary.freeMealSeat{
+            return .seat
+        }else{
+            return nil
+        }
+    }
+    
     var totalPassengerCount:Int{
         if let bookingObj = self.bookingObject{
             return bookingObj.flightAdultCount + bookingObj.flightChildrenCount + bookingObj.flightInfantCount
@@ -120,6 +133,18 @@ class PassengerSelectionVM  {
         }
     }
     
+    func checkValidationForNextScreen(){
+        if self.isSwitchOn{
+            if self.isLogin{
+                self.validateGST()
+            }else{
+                self.login()
+            }
+        }else{
+            self.delegate?.getResponseFromGSTValidation(true, error: nil)
+        }
+    }
+    
     func fetchAddonsData(){
         
         let param = [APIKeys.it_id.rawValue:self.id]
@@ -180,7 +205,7 @@ class PassengerSelectionVM  {
         }
     }
     
-    func validateGST(){
+    private func validateGST(){
         self.delegate?.startFechingGSTValidationData()
         let param = ["number":self.selectedGST.GSTInNo]
         APICaller.shared.validateGSTIN(params: param) { (success, error, data) in
@@ -188,12 +213,16 @@ class PassengerSelectionVM  {
         }
     }
 
-    func login(){
+    private func login(){
         let params:JSONDictionary = [APIKeys.loginid.rawValue : self.email.removeLeadingTrailingWhitespaces, APIKeys.password.rawValue : "" , APIKeys.isGuestUser.rawValue : "true"]
         APICaller.shared.loginForPaymentAPI(params: params) { [weak self] (success, logInId, isGuestUser, errors) in
             guard let self = self else { return }
             if success {
-                self.validateGST()
+                if self.isLogin{
+                    self.validateGST()
+                }else{
+                    self.delegate?.getResponseFromGSTValidation(success, error: nil)
+                }
             }else{
                 AppToast.default.showToastMessage(message: "Something went wrong")
             }
@@ -258,7 +287,6 @@ class PassengerSelectionVM  {
                 }
             }
         }
-        
         if self.isdCode.isEmpty{
             return (false, "Please enter ISD code")
         }else if !(self.mobile.checkValidity(.MobileNumber)){
@@ -274,7 +302,6 @@ class PassengerSelectionVM  {
                 return (false, "Not a valid GSTIN Number")
             }
         }
-        
         return (true, "")
     }
     

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PhoneNumberKit
 
 extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
     
@@ -116,6 +117,7 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
             cell.mobile = self.viewModel.mobile
             cell.isdCode = self.viewModel.isdCode
             cell.delegate = self
+            cell.setupData()
             return cell
         case 2:
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "FlightEmailFieldCell") as? FlightEmailFieldCell else {return UITableViewCell()}
@@ -162,8 +164,8 @@ extension PassengersSelectionVC: PassengerGridSelectionDelegate{
 }
 extension PassengersSelectionVC: FlightContactCellDelegate, FlightEmailTextFieldCellDelegate{
     
-    func textFieldText(_ textField:UITextField){
-        self.viewModel.mobile = textField.text ?? ""
+    func textFieldText(_ textField: PhoneNumberTextField){
+        self.viewModel.mobile = textField.nationalNumber
     }
     
     func setIsdCode(_ countryDate:PKCountryModel,_ sender: UIButton){

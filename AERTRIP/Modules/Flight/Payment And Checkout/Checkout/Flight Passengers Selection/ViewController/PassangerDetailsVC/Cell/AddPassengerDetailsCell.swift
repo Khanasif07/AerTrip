@@ -332,7 +332,7 @@ extension AddPassengerDetailsCell: UITextFieldDelegate {
 //                case .child:
 //                    minimumDate = Date().add(years: -12, days: -1)
                 case .infant:
-                    minimumDate = Date().add(years: -2, days: -1)
+                    minimumDate = Date().add(years: -2, days: 1)
                     
                 }
             }

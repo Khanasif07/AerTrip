@@ -1059,3 +1059,10 @@ extension FlightResultBaseViewController  : FlightResultViewModelDelegate , NoRe
         }
     }
 }
+
+extension FlightResultBaseViewController{
+    
+    func searchApiResult(){
+        
+    }
+}

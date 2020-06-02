@@ -10,7 +10,7 @@ import UIKit
 import PhoneNumberKit
 
 protocol FlightContactCellDelegate: class {
-    func textFieldText(_ textField:UITextField)
+    func textFieldText(_ textField:PhoneNumberTextField)
     func setIsdCode(_ countryDate:PKCountryModel,_ sender: UIButton)
 }
 
@@ -112,7 +112,7 @@ class FlightContactCell: UITableViewCell {
 }
 
 extension FlightContactCell : UITextFieldDelegate {
-    @objc func textFieldDidChanged(_ textField: UITextField) {
+    @objc func textFieldDidChanged(_ textField: PhoneNumberTextField) {
         delegate?.textFieldText(textField)
     }
     

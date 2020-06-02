@@ -26,8 +26,8 @@ struct FlightItinerary {
     var isInternational : Bool
     var combo : Bool
     var displaySeatmapLink : Bool
-    var freeMealSeat : Bool
-    var freeMeal : Bool
+    var freeMealSeat = true//: Bool
+    var freeMeal = true//: Bool
     var iic : Bool
     var gstRequired : Bool
     var searchParams:FlightSearchParam
