@@ -39,6 +39,7 @@
 		0C162ACC24233AC5001C2B10 /* ChatVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACA24233AC4001C2B10 /* ChatVC+TableView.swift */; };
 		0C162ACD24233AC5001C2B10 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACB24233AC5001C2B10 /* ChatVC.swift */; };
 		0C162ACF24233B24001C2B10 /* ChatVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C162ACE24233B24001C2B10 /* ChatVM.swift */; };
+		0C1B945C248789F600CA6B49 /* AddonsDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1B945B248789F600CA6B49 /* AddonsDataStore.swift */; };
 		0C22F44C2440559C00FD357F /* ThingsCanBeAskedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C22F44B2440559C00FD357F /* ThingsCanBeAskedVC.swift */; };
 		0C24D4D7242C747000CBFF92 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C24D4D5242C747000CBFF92 /* CountryCell.swift */; };
 		0C24D4D8242C747000CBFF92 /* CountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C24D4D6242C747000CBFF92 /* CountryCell.xib */; };
@@ -1559,6 +1560,7 @@
 		0C162ACB24233AC5001C2B10 /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		0C162ACE24233B24001C2B10 /* ChatVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVM.swift; sourceTree = "<group>"; };
 		0C181FBE22FABDAD0088E64A /* Bolts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Bolts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C1B945B248789F600CA6B49 /* AddonsDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddonsDataStore.swift; sourceTree = "<group>"; };
 		0C22F44B2440559C00FD357F /* ThingsCanBeAskedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingsCanBeAskedVC.swift; sourceTree = "<group>"; };
 		0C24D4D5242C747000CBFF92 /* CountryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
 		0C24D4D6242C747000CBFF92 /* CountryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryCell.xib; sourceTree = "<group>"; };
@@ -5847,6 +5849,7 @@
 				843FF3632474022F001F21B1 /* SelectMealsVC */,
 				843FF3652474022F001F21B1 /* Adons.storyboard */,
 				847C2249247BCF4F004F32D6 /* Rishabh_Dev.storyboard */,
+				0C1B945B248789F600CA6B49 /* AddonsDataStore.swift */,
 			);
 			path = Adons;
 			sourceTree = "<group>";
@@ -9244,6 +9247,7 @@
 				1896D5922209538B003FC2B6 /* MultiSlider+Drag.swift in Sources */,
 				8445B51A22A50F2700DDBC7F /* RequestReschedulingVC.swift in Sources */,
 				0C04CBFD247E3E4B00F11562 /* SelectOtherAdonsContainerVC.swift in Sources */,
+				0C1B945C248789F600CA6B49 /* AddonsDataStore.swift in Sources */,
 				0CC8546D2350956500544F10 /* UISearchBar+extension.swift in Sources */,
 				84956FBD21B65DA600BF1183 /* AppExtension.swift in Sources */,
 				84323D3D222FE5A300DA7581 /* AmenitiesNameTableViewCell.swift in Sources */,

@@ -1416,6 +1416,8 @@ struct Addons{
     var salePrice : Int
     var selectedFor : [ATContact] = []
     var autoSelectedFor : [String] = []
+    var bagageSelectedFor : [ATContact] = []
+    
     
     init(_ json:JSON = JSON()) {
         fk = json["fk"].stringValue
