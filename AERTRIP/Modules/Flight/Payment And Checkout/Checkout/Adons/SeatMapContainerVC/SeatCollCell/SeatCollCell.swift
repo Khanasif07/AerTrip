@@ -79,6 +79,12 @@ class SeatCollCell: UICollectionViewCell {
             seatNumberLbl.isHidden = true
         } else {
             seatNumberLbl.isHidden = false
+            if let passenger = viewModel.seatData.columnData.passenger {
+                seatNumberLbl.text = passenger.firstName.firstCharacter.uppercased() + passenger.lastName.firstCharacter.uppercased()
+                seatView.backgroundColor = AppColors.themeGreen
+                seatNumberLbl.textColor = AppColors.themeWhite
+                return
+            }
             let seatAmount = viewModel.seatData.columnData.amount
             let fareDiff: Float = Float(viewModel.flightFares.maxAmount - viewModel.flightFares.minAmount)
             let fareClass: Float = Float(seatAmount - viewModel.flightFares.minAmount)
@@ -98,6 +104,7 @@ class SeatCollCell: UICollectionViewCell {
     func setupCellFor(_ indexPath: IndexPath,_ rowStr: String,_ columnStr: String) {
         seatView.isHidden = false
         seatView.backgroundColor = AppColors.themeWhite
+        seatNumberLbl.textColor = AppColors.themeGray40
         switch (indexPath.section, indexPath.item) {
         case (0, 0):
             seatNumberLbl.isHidden = true

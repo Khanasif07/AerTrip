@@ -17,5 +17,5 @@ class SelectPassengersVM {
 
     var selectedIndex : [Int] = []
     var setupFor: SetupFor = .others
-    
+    var seatModel = SeatMapModel.SeatMapRow()
 }

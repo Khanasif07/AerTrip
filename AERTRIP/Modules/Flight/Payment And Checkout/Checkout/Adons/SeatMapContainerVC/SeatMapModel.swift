@@ -46,7 +46,7 @@ struct SeatMapModel {
         let cc: String
         let al: String
         let ft: Int
-        let md: Md
+        var md: Md
         
         init() {
             self.init(JSON())
@@ -67,7 +67,7 @@ struct SeatMapModel {
     
     struct Md {
         let columns: [String]
-        let rows: [Int: [String: SeatMapRow]]
+        var rows: [Int: [String: SeatMapRow]]
         
         var rowsArr: [String] {
             let rowsStrArr = self.rows.keys.map { $0 }.sorted()
@@ -81,7 +81,7 @@ struct SeatMapModel {
     }
     
     struct SeatMapRow {
-        let columnData: ColumnData
+        var columnData: ColumnData
         let aisleValue: Bool
         let isWindowSeat: Bool
         
@@ -105,6 +105,8 @@ struct SeatMapModel {
         let characteristic: [String]
         let rank: Int
         let postBooking: Bool
+        
+        var passenger: ATContact?
         
         func getCharactericstic() -> String {
             var characteristicString = ""
