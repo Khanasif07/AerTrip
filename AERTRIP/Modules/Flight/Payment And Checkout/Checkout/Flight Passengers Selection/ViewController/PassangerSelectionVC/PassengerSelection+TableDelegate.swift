@@ -122,6 +122,7 @@ extension PassengersSelectionVC: UITableViewDelegate, UITableViewDataSource {
         case 2:
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "FlightEmailFieldCell") as? FlightEmailFieldCell else {return UITableViewCell()}
             cell.configureCell(with: self.viewModel.email, isLoggedIn:self.viewModel.isLogin)
+            cell.delegate = self
             return cell
         case 3:
             guard let cell = self.passengerTableview.dequeueReusableCell(withIdentifier: "CommunicarionCell") as? CommunicationTextCell else {return UITableViewCell()}

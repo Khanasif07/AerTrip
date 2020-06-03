@@ -62,6 +62,8 @@ class FlightEmailFieldCell: UITableViewCell {
 
     
     func configureCell(with email:String, isLoggedIn:Bool){
+        self.editableTextField.autocorrectionType = .no
+        self.editableTextField.autocapitalizationType = .none
         self.editableTextField.text = email
         self.editableTextField.isUserInteractionEnabled = !isLoggedIn
         if !isLoggedIn{
