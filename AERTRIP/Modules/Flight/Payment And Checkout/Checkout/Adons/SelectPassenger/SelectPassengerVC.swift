@@ -14,6 +14,7 @@ class SelectPassengerVC : BaseVC {
     @IBOutlet weak var passengerCollectionView: UICollectionView!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var selectPassengersLabel: UILabel!
+    @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var legsLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var popUpBackView: UIView!
@@ -57,6 +58,7 @@ extension SelectPassengerVC {
         self.doneButton.roundedCorners(cornerRadius: 13)
         self.popUpBackView.roundedCorners(cornerRadius: 13)
         configureCollectionView()
+        setupForView()
     }
     
     func configureCollectionView(){
@@ -66,6 +68,13 @@ extension SelectPassengerVC {
         self.passengerCollectionView.delegate = self
         self.passengerCollectionView.dataSource = self
         self.passengerCollectionView.reloadData()
+    }
+    
+    func setupForView() {
+        if selectPassengersVM.setupFor == .seatSelection {
+            selectPassengersLabel.isHidden = true
+            emptyView.isHidden = true
+        }
     }
     
 }
@@ -118,6 +127,8 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
         collectionView.reloadItems(at: [IndexPath(item: indexPath.item, section: 0)])
         self.doneButton.setTitle(self.selectPassengersVM.selectedIndex.isEmpty ? LocalizedString.Cancel.localized : LocalizedString.Done.localized, for: UIControl.State.normal)
     }
+    
+    
     
 }
 

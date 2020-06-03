@@ -49,6 +49,14 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let curCell = collectionView.cellForItem(at: indexPath) as? SeatCollCell, !curCell.seatView.isHidden else { return }
-        
+        openPassengerSelectionVC()
     }
+    
+    private func openPassengerSelectionVC() {
+        let passengerVC = SelectPassengerVC.instantiate(fromAppStoryboard: .Adons)
+        passengerVC.selectPassengersVM.setupFor = .seatSelection
+        passengerVC.modalPresentationStyle = .overFullScreen
+        present(passengerVC, animated: true, completion: nil)
+    }
+    
 }

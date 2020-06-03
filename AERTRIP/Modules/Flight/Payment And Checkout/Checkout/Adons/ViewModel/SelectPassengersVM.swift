@@ -9,7 +9,13 @@
 import UIKit
 
 class SelectPassengersVM {
+    
+    enum SetupFor {
+        case seatSelection
+        case others
+    }
 
     var selectedIndex : [Int] = []
+    var setupFor: SetupFor = .others
     
 }

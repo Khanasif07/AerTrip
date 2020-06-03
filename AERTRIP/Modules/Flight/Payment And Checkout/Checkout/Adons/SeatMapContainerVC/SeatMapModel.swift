@@ -106,6 +106,17 @@ struct SeatMapModel {
         let rank: Int
         let postBooking: Bool
         
+        func getCharactericstic() -> String {
+            var characteristicString = ""
+            characteristic.forEach { (str) in
+                characteristicString.append(str+", ")
+            }
+            if characteristicString.suffix(2) == ", " {
+                characteristicString.removeLast(2)
+            }
+            return characteristicString
+        }
+        
         init(_ json: JSON) {
             ssrCode = json["ssr_code"].stringValue
             type = json["type"].stringValue
