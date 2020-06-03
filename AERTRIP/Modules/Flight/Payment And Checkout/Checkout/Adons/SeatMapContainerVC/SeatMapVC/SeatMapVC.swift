@@ -34,6 +34,10 @@ class SeatMapVC: UIViewController {
         initialSetup()
     }
     
+    func setFlightData(_ model: SeatMapModel.SeatMapFlight) {
+        viewModel.flightData = model
+    }
+    
     // MARK: IBActions
     
     @IBAction func mainDeckBtnAction(_ sender: UIButton) {

@@ -111,12 +111,17 @@ class PassengersSelectionVC: UIViewController {
 extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, JourneyDetailsTapDelegate{
     
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
-        let validation = self.viewModel.validateGuestData()
-        if validation.success{
-            self.viewModel.checkValidationForNextScreen()
-        }else{
-            AppToast.default.showToastMessage(message: validation.msg)
-        }
+        
+        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
+        vc.adonsVm.itineraryData = self.viewModel.itineraryData
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+//        let validation = self.viewModel.validateGuestData()
+//        if validation.success{
+//            self.viewModel.checkValidationForNextScreen()
+//        }else{
+//            AppToast.default.showToastMessage(message: validation.msg)
+//        }
     }
     
     func infoButtonTapped(isViewExpanded: Bool) {

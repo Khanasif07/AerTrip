@@ -38,7 +38,8 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
                 seatData = curSeatData
             }
         }
-        seatCell.setupCellFor(indexPath, rowStr, columnStr, seatData)
+        seatCell.setupViewModel(seatData, viewModel.flightFares)
+        seatCell.setupCellFor(indexPath, rowStr, columnStr)
         return seatCell
     }
 
