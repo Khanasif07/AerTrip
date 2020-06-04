@@ -122,7 +122,7 @@ extension HCEmailItinerariesVC: HCEmailItinerariesTableViewCellDelegate {
                 cell.emailTextField.textColor = AppColors.textFieldTextColor51
             } else {
                 cell.sendButton.setTitleColor(AppColors.themeGray20, for: .normal)
-                cell.emailTextField.textColor = AppColors.themeRed
+                cell.emailTextField.textColor = AppColors.textFieldTextColor51
             }
         }
         printDebug(emailId)
@@ -144,6 +144,11 @@ extension HCEmailItinerariesVC: HCEmailItinerariesVMDelegate {
             self.viewModel.emailInfo[currentEmailIndex].emailStatus = .sent
         }
         self.tableView.reloadData()
+        let result = self.viewModel.emailInfo.filter({ $0.emailStatus == .sent })
+        if self.viewModel.emailInfo.count == result.count {
+            self.headerView.firstRightButton.isEnabled = false
+            self.headerView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+        }
     }
     
     func emailSendingFail(isMultipleEmailSending : Bool ,currentEmailIndex: Int) {

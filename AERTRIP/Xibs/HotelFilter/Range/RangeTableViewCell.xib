@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SourceSansPro-Regular.ttf">
+            <string>SourceSansPro-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="RangeTableViewCell" rowHeight="149" id="yaN-iZ-Wi0" customClass="RangeTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="149"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yaN-iZ-Wi0" id="cEW-AQ-v8H">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="149"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BRk-Lm-Ht5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="149"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search Results Range" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kdq-R3-IkJ">
+                        <rect key="frame" x="16" y="12" width="142.5" height="20.5"/>
+                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uHa-at-buw">
+                        <rect key="frame" x="279" y="45" width="119" height="31"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beyond 20km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7OG-zf-g1e">
+                                <rect key="frame" x="8" y="0.0" width="103" height="31"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="31" id="3QN-w8-dMu"/>
+                            <constraint firstItem="7OG-zf-g1e" firstAttribute="top" secondItem="uHa-at-buw" secondAttribute="top" id="8gb-jf-9Ts"/>
+                            <constraint firstAttribute="trailing" secondItem="7OG-zf-g1e" secondAttribute="trailing" constant="8" id="Zm5-2M-KmY"/>
+                            <constraint firstItem="7OG-zf-g1e" firstAttribute="leading" secondItem="uHa-at-buw" secondAttribute="leading" constant="8" id="hUl-X2-Gtm"/>
+                            <constraint firstAttribute="bottom" secondItem="7OG-zf-g1e" secondAttribute="bottom" id="vC6-KQ-QDj"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mXc-vm-Kvw" customClass="StepSlider">
+                        <rect key="frame" x="18" y="80" width="378" height="80"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="80" id="2Cc-S2-M9d"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="maxCount">
+                                <integer key="value" value="21"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="trackHeight">
+                                <real key="value" value="3"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="trackCircleRadius">
+                                <real key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="sliderCircleRadius">
+                                <real key="value" value="11"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="dotsInteractionEnabled" value="YES"/>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="enableHapticFeedback" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="index">
+                                <integer key="value" value="21"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="trackColor">
+                                <color key="value" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="labelOffset">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="sliderCircleColor">
+                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="image" keyPath="sliderCircleImage" value="thumbImage"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="BRk-Lm-Ht5" firstAttribute="top" secondItem="cEW-AQ-v8H" secondAttribute="top" id="7ls-do-9xs"/>
+                    <constraint firstAttribute="trailing" secondItem="BRk-Lm-Ht5" secondAttribute="trailing" id="FJI-RP-TEM"/>
+                    <constraint firstAttribute="bottom" secondItem="BRk-Lm-Ht5" secondAttribute="bottom" id="Kzc-Ub-9MM"/>
+                    <constraint firstAttribute="trailing" secondItem="mXc-vm-Kvw" secondAttribute="trailing" constant="18" id="LHb-51-fPt"/>
+                    <constraint firstItem="BRk-Lm-Ht5" firstAttribute="leading" secondItem="cEW-AQ-v8H" secondAttribute="leading" id="PeP-xi-Hyo"/>
+                    <constraint firstItem="Kdq-R3-IkJ" firstAttribute="top" secondItem="cEW-AQ-v8H" secondAttribute="top" constant="12" id="VBF-nG-m5B"/>
+                    <constraint firstAttribute="trailing" secondItem="uHa-at-buw" secondAttribute="trailing" constant="16" id="Yq2-ii-Nse"/>
+                    <constraint firstItem="mXc-vm-Kvw" firstAttribute="leading" secondItem="cEW-AQ-v8H" secondAttribute="leading" constant="18" id="fpT-V6-LZs"/>
+                    <constraint firstItem="uHa-at-buw" firstAttribute="top" secondItem="cEW-AQ-v8H" secondAttribute="top" constant="45" id="jSU-69-tLf"/>
+                    <constraint firstItem="mXc-vm-Kvw" firstAttribute="top" secondItem="7OG-zf-g1e" secondAttribute="bottom" constant="4" id="mQf-Uq-Rhu"/>
+                    <constraint firstItem="Kdq-R3-IkJ" firstAttribute="leading" secondItem="cEW-AQ-v8H" secondAttribute="leading" constant="16" id="y2f-zP-Vdd"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="rangeLabel" destination="7OG-zf-g1e" id="k0z-Yo-QP2"/>
+                <outlet property="rangeView" destination="uHa-at-buw" id="GQs-rD-0DX"/>
+                <outlet property="searchResultRangeLabel" destination="Kdq-R3-IkJ" id="lwM-rh-9oM"/>
+                <outlet property="stepSlider" destination="mXc-vm-Kvw" id="6Uh-AH-ynK"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="116"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="thumbImage" width="31" height="32"/>
+    </resources>
+</document>

@@ -28,6 +28,7 @@ class HotelDetailsOverviewVC: BaseVC {
         didSet {
             self.overViewTextViewOutlet.contentInset = UIEdgeInsets(top: 10.0, left: 4.0, bottom: 20.0, right: 4.0)
             self.overViewTextViewOutlet.delegate = self
+            self.overViewTextViewOutlet.backgroundColor = AppColors.themeWhite
         }
     }
     @IBOutlet weak var titleLabel: UILabel!
@@ -50,7 +51,7 @@ class HotelDetailsOverviewVC: BaseVC {
     }
     override func setupColors() {
         self.titleLabel.textColor = AppColors.themeBlack
-        self.stickyTitleLabel.alpha = 0.0
+        //self.stickyTitleLabel.alpha = 0.0
         self.stickyTitleLabel.textColor = AppColors.themeBlack
     }
     
@@ -70,21 +71,30 @@ class HotelDetailsOverviewVC: BaseVC {
     }
     
     override func initialSetup() {
+        headerContainerView.backgroundColor = .clear
+               mainContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+               self.view.backgroundColor = .clear
         
         if #available(iOS 13.0, *) {} else {
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         mainContainerView.isUserInteractionEnabled = true
         swipeGesture.delegate = self
             self.view.addGestureRecognizer(swipeGesture)
+            self.view.backgroundColor = .white
         }
-        self.dividerView.isHidden = true
+        //self.dividerView.isHidden = true
         self.overViewTextViewOutlet.attributedText = self.viewModel.overViewInfo.htmlToAttributedString(withFontSize: 18.0, fontFamily: AppFonts.Regular.rawValue, fontColor: AppColors.themeBlack)
+        
+       
         //Heading
         //        self.overViewTextViewOutlet.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline).withSize(16.0)
         //        // subheadline
         //        self.overViewTextViewOutlet.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.subheadline).withSize(16.0)
         //        // body
         //        self.overViewTextViewOutlet.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body).withSize(16.0)
+        
+        self.titleLabel.alpha = 0.0
+        self.stickyTitleLabel.alpha = 1.0
     }
     
     //Mark:- Functions
@@ -110,7 +120,7 @@ extension HotelDetailsOverviewVC {
         }
         self.mainContainerBottomConst.constant = 0.0
         self.mainContainerViewHeightConst.constant = finalValue
-        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
         self.view.layoutIfNeeded()
         
     }
@@ -136,7 +146,7 @@ extension HotelDetailsOverviewVC {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        manageHeaderView(scrollView)
+        //manageHeaderView(scrollView)
         // printDebug("scrollViewDidScroll")
     }
     

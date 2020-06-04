@@ -25,7 +25,11 @@ class HCCheckInOutTableViewCell: UITableViewCell {
     @IBOutlet weak var moonImageView: UIImageView!
     @IBOutlet weak var totalNightsLabel: UILabel!
     @IBOutlet weak var dividerView: ATDividerView!
-    
+    @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var containerViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var checkinLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var checkinDayLabelBottomConstriant: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================
@@ -76,5 +80,24 @@ class HCCheckInOutTableViewCell: UITableViewCell {
         }
         self.checkInDayLabel.text = Date.getDateFromString(stringDate: checkInDate, currentFormat: "yyyy-MM-dd", requiredFormat: "EEEE")
         self.checkOutDayLabel.text = Date.getDateFromString(stringDate: checkOutDate, currentFormat: "yyyy-MM-dd", requiredFormat: "EEEE")
+    }
+    
+    internal func setupForAllDoneVC() {
+        self.containerViewLeadingConstraint.constant = 16
+        self.containerViewTrailingConstraint.constant = 16
+        self.checkinLabelTopConstraint.constant = 6
+        self.checkinDayLabelBottomConstriant.constant = 16
+        self.layoutIfNeeded()
+        self.topDividerView.isHidden = true
+        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+        self.checkInLabel.font = AppFonts.Regular.withSize(14.0)
+        self.checkOutLabel.font = AppFonts.Regular.withSize(14.0)
+        self.checkInDateLabel.font = AppFonts.Regular.withSize(22.0)
+        self.checkOutDateLabel.font = AppFonts.Regular.withSize(22.0)
+        self.checkInDayLabel.font = AppFonts.Regular.withSize(14.0)
+        self.checkOutDayLabel.font = AppFonts.Regular.withSize(14.0)
+        self.totalNightsLabel.font = AppFonts.SemiBold.withSize(14.0)
+        self.checkInDayLabel.textColor = AppColors.themeGray40
+        self.checkOutDayLabel.textColor = AppColors.themeGray40
     }
 }

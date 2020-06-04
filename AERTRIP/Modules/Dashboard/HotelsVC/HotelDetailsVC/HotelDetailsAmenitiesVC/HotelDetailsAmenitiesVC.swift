@@ -54,7 +54,7 @@ class HotelDetailsAmenitiesVC: BaseVC {
     
     override func setupColors() {
         self.amenitiesLabel.textColor = AppColors.themeBlack
-        self.stickyTitleLabel.alpha = 0.0
+        //self.stickyTitleLabel.alpha = 0.0
         self.stickyTitleLabel.textColor = AppColors.themeBlack
     }
     
@@ -69,17 +69,24 @@ class HotelDetailsAmenitiesVC: BaseVC {
     }
     
     override func initialSetup() {
+        headerContainerView.backgroundColor = .clear
+               mainContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+               self.view.backgroundColor = .clear
         
         if #available(iOS 13.0, *) {} else {
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         mainContainerView.isUserInteractionEnabled = true
         swipeGesture.delegate = self
         self.view.addGestureRecognizer(swipeGesture)
+            self.view.backgroundColor = .white
         }
         
-        self.dividerView.isHidden = true
+        //self.dividerView.isHidden = true
         self.registerNibs()
         self.viewModel.getAmenitiesSections()
+                
+        self.amenitiesLabel.alpha = 0.0
+        self.stickyTitleLabel.alpha = 1.0
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -283,7 +290,7 @@ extension HotelDetailsAmenitiesVC {
         }
         self.mainContainerBottomConst.constant = 0.0
         self.mainContainerHeightConst.constant = finalValue
-        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
         self.view.layoutIfNeeded()
         
     }

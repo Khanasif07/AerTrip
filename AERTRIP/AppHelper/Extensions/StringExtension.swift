@@ -811,7 +811,8 @@ extension String {
         guard var changeRange = self.range(of: ".")?.asNSRange(inString: self) else {
             return stylizedPrice
         }
-        
+        let result = self.components(separatedBy: ".").last?.components(separatedBy: " ").first?.count
+        print("result: \(result)")
         changeRange.length = self.count - changeRange.location
         
         guard let font = UIFont(name: font.fontName, size: (font.pointSize * 0.75)) else {

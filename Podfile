@@ -16,7 +16,7 @@ target 'AERTRIP' do
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
   pod 'GoogleSignIn'
-  pod 'LinkedinSwift'
+#  pod 'LinkedinSwift'
   pod 'Firebase/Core'
   pod 'Firebase/DynamicLinks'
   pod 'MXParallaxHeader'

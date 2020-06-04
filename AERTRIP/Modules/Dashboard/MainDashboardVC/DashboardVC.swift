@@ -178,16 +178,10 @@ class DashboardVC: BaseVC {
     }
     
     @IBAction func flightsAction(_ sender: UIButton) {
-        
-        let homeDummyViewController = HomeDummyViewController()
-       let newNav = UINavigationController(rootViewController: homeDummyViewController)
-        newNav.modalPresentationStyle = .overFullScreen
-       present(newNav, animated: true, completion: nil)
-        
-//        if selectedOption == .flight || isAnimatingButtons {return}
-//        toBeSelect = .flight
-//        isSelectingFromTabs = true
-//        innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.flight.rawValue), y: innerScrollView.contentOffset.y), animated: true)
+        if selectedOption == .flight || isAnimatingButtons {return}
+        toBeSelect = .flight
+        isSelectingFromTabs = true
+        innerScrollView.setContentOffset(CGPoint(x: innerScrollView.bounds.size.width * CGFloat(SelectedOption.flight.rawValue), y: innerScrollView.contentOffset.y), animated: true)
     }
     
     @IBAction func hotelsAction(_ sender: UIButton) {

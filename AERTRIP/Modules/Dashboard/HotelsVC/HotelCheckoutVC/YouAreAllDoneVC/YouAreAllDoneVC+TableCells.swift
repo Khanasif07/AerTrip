@@ -16,6 +16,7 @@ extension YouAreAllDoneVC {
     internal func getAllDoneCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: YouAreAllDoneTableViewCell.reusableIdentifier, for: indexPath) as? YouAreAllDoneTableViewCell else { return nil }
         cell.configCell(forBookingId: self.viewModel.bookingIds.first ?? "", forCid: self.viewModel.cId.first ?? LocalizedString.na.localized)
+        cell.delegate = self
         return cell
     }
     
@@ -45,8 +46,10 @@ extension YouAreAllDoneVC {
     }
     
     internal func getAddressCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: HotelInfoAddressCell.reusableIdentifier, for: indexPath) as? HotelInfoAddressCell else { return nil }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HCHotelAddreesCell.reusableIdentifier, for: indexPath) as? HCHotelAddreesCell else { return nil }
         cell.hcConfigureAddressCell(address: self.viewModel.hotelReceiptData?.address ?? "")
+        cell.setupForAllDoneVC()
+        cell.moreBtnOutlet.isHidden = true
         cell.deviderView.isHidden = true
         return cell
     }
@@ -67,14 +70,19 @@ extension YouAreAllDoneVC {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCCheckInOutTableViewCell.reusableIdentifier, for: indexPath) as? HCCheckInOutTableViewCell else { return nil }
         cell.topDividerView.isHidden = self.viewModel.sectionData[indexPath.section].contains(.webSiteCell) ? true : false
         cell.configCell(checkInDate: self.viewModel.hotelReceiptData?.checkin ?? "", checkOutDate: self.viewModel.hotelReceiptData?.checkout ?? "", totalNights: self.viewModel.hotelReceiptData?.num_nights ?? 0)
+        cell.setupForAllDoneVC()
         return cell
     }
     
     /* Guest Sections Cells */
     internal func getBedDetailsCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCBedDetailsTableViewCell.reusableIdentifier, for: indexPath) as? HCBedDetailsTableViewCell else { return nil }
-        let index: String = (self.viewModel.hotelReceiptData?.rooms.count ?? 0 > 1) ? "\(indexPath.section - 1)" : ""
-        cell.configCell(roomData: self.viewModel.hotelReceiptData?.rooms[indexPath.row] ?? Room(), index: index)
+        let index: String = (self.viewModel.hotelReceiptData?.rooms.count ?? 0 > 0) ? "\(indexPath.section - 1)" : ""
+        if let passenger = self.viewModel.hotelReceiptData?.travellers[indexPath.section - 2] {
+        cell.configCell(roomData: self.viewModel.hotelReceiptData?.rooms[indexPath.row] ?? Room(), index: index, passengers: passenger)
+        }
+        let isLast = (self.viewModel.hotelReceiptData?.travellers.count ?? 0) ==  (indexPath.section - 1)
+        cell.setupForLastCell(isLastCell: isLast)
         return cell
     }
     

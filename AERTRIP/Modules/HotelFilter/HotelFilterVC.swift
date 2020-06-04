@@ -82,16 +82,15 @@ class HotelFilterVC: BaseVC {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.statusBarColor = AppColors.themeWhite
+        self.statusBarColor = AppColors.clear
     }
     
     // MARK: - Overrider methods
     
     override func setupTexts() {
-        let navigationTitleText = HotelFilterVM.shared.totalHotelCount > 0 ? " \(HotelFilterVM.shared.filterHotelCount) of \(HotelFilterVM.shared.totalHotelCount) Results" : ""
         self.clearAllButton.setTitle(LocalizedString.ClearAll.localized, for: .normal)
         self.doneButton.setTitle(LocalizedString.Done.localized, for: .normal)
-        self.navigationTitleLabel.text = navigationTitleText
+        self.setNavigationTitle()
     }
     
     override func setupFonts() {
@@ -132,7 +131,13 @@ class HotelFilterVC: BaseVC {
 
     }
     
+    private func setNavigationTitle() {
+        let navigationTitleText = HotelFilterVM.shared.totalHotelCount > 0 ? " \(HotelFilterVM.shared.filterHotelCount) of \(HotelFilterVM.shared.totalHotelCount) Results" : ""
+        self.navigationTitleLabel.text = navigationTitleText
+    }
+    
     private func  setFilterButton() {
+        self.isFilterApplied = false
         filtersTabs.forEach { (Item) in
             if Item.isSelected == false {
                 self.isFilterApplied = true
@@ -263,10 +268,11 @@ class HotelFilterVC: BaseVC {
                 
                 
                 let diff = HotelFilterVM.shared.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount)
+                let taDiff = HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount)
                 if 1...5 ~= diff.count {
                     filtersTabs[idx].isSelected =  false
                 }
-                else if !HotelFilterVM.shared.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty {
+                else if 1...5 ~= taDiff.count {
                     filtersTabs[idx].isSelected =  false
                 }
                 else if HotelFilterVM.shared.isIncludeUnrated != HotelFilterVM.shared.defaultIsIncludeUnrated {
@@ -307,6 +313,9 @@ class HotelFilterVC: BaseVC {
     private func saveAndApplyFilter() {
 //        if UserInfo.hotelFilter == nil {
 //            HotelFilterVM.shared.lastSelectedIndex = 0
+//        }
+//        if let indexPath = self.parchmentView?.collectionView.centerCellIndexPath {
+//            HotelFilterVM.shared.lastSelectedIndex = indexPath.item
 //        }
         HotelFilterVM.shared.saveDataToUserDefaults()
         delegate?.doneButtonTapped()
@@ -353,6 +362,10 @@ class HotelFilterVC: BaseVC {
 }
 
 extension HotelFilterVC: HotelFilterVMDelegate {
+    func updateHotelsCount() {
+        self.setNavigationTitle()
+    }
+    
     func updateFiltersTabs() {
         printDebug("updateFiltersTabs")
         NSObject.cancelPreviousPerformRequests(withTarget: self)

@@ -72,7 +72,7 @@ class SearchHotelTagVC: BaseVC {
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         swipeGesture.delegate = self
         self.view.addGestureRecognizer(swipeGesture)
-        
+        searchBar.placeholder = LocalizedString.hotelFilterSearchBar.localized
     }
     
     override func bindViewModel() {

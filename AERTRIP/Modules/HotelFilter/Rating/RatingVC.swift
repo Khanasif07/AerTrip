@@ -43,11 +43,15 @@ class RatingVC: BaseVC {
     override func setupColors() {
         self.starRatingTitleLabel.textColor = AppColors.themeGray40
         self.starLabel.textColor = AppColors.themeGray40
+        self.tripAdvisorTitleLabel.textColor = AppColors.themeGray40
+        self.tripAdvisorStarLabel.textColor = AppColors.themeGray40
     }
     
     override func setupFonts() {
         self.starRatingTitleLabel.font = AppFonts.Regular.withSize(16.0)
         self.starLabel.font = AppFonts.Regular.withSize(14.0)
+        self.tripAdvisorTitleLabel.font = AppFonts.Regular.withSize(16.0)
+        self.tripAdvisorStarLabel.font = AppFonts.Regular.withSize(14.0)
     }
     
     func setFilterValues() {
@@ -69,7 +73,8 @@ class RatingVC: BaseVC {
         //setting stars
         
         HotelFilterVM.shared.ratingCount.removeAll()
-        
+        HotelFilterVM.shared.tripAdvisorRatingCount.removeAll()
+
         //reset all the buttons first
         for btn in self.starButtonsOutlet ?? [] {
             //btn.adjustsImageWhenHighlighted = false
@@ -79,12 +84,21 @@ class RatingVC: BaseVC {
             btn.setImage(nil, for: .highlighted)
         }
         
+        for btn in self.tripAdvisorRatingButtons ?? [] {
+            //btn.adjustsImageWhenHighlighted = false
+            btn.isSelected = false
+            btn.setImage(#imageLiteral(resourceName: "selectedAdvisorRating"), for: .normal)
+            btn.setImage(nil, for: .selected)
+            btn.setImage(nil, for: .highlighted)
+        }
+        
         for star in self.filterApplied.ratingCount {
             self.updateStarButtonState(forStar: star)
         }
         
         for rating in HotelFilterVM.shared.tripAdvisorRatingCount {
-            self.tripAdvisorRatingButtons?[rating - 1].isSelected = true
+            self.updateTAStarButtonState(forStar: rating)
+            //self.tripAdvisorRatingButtons?[rating - 1].isSelected = true
         }
         
         self.starLabel?.text = self.getStarString(fromArr: HotelFilterVM.shared.ratingCount, maxCount: 5)
@@ -102,13 +116,16 @@ class RatingVC: BaseVC {
     }
     
     @IBAction func tripAdvisorRatingButtonsAction(_ sender: UIButton) {
-        delay(seconds: 0.1) { [weak self] in
-            self?.updateTripAdvisorRatingButtonState(forStar: sender.tag)
-            self?.tripAdvisorStarLabel.text = self?.getTARatingString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
-            sender.setImage(#imageLiteral(resourceName: "deselectedAdvisorRating"), for: .normal)
-            sender.setImage(#imageLiteral(resourceName: "selectedAdvisorRating"), for: .selected)
+//        delay(seconds: 0.1) { [weak self] in
+            if HotelFilterVM.shared.tripAdvisorRatingCount.count == 5 {
+                HotelFilterVM.shared.ratingCount.removeAll()
+            }
+            self.updateTAStarButtonState(forStar: sender.tag)
+            self.tripAdvisorStarLabel.text = self.getTARatingString(fromArr: HotelFilterVM.shared.tripAdvisorRatingCount, maxCount: 5)
+//            sender.setImage(#imageLiteral(resourceName: "deselectedAdvisorRating"), for: .normal)
+//            sender.setImage(#imageLiteral(resourceName: "selectedAdvisorRating"), for: .selected)
             HotelFilterVM.shared.delegate?.updateFiltersTabs()
-        }
+//        }
         print("size: \(sender.size)")
         
     }
@@ -133,10 +150,10 @@ class RatingVC: BaseVC {
         
         if HotelFilterVM.shared.ratingCount.isEmpty || HotelFilterVM.shared.ratingCount.count == 5 {
             HotelFilterVM.shared.ratingCount.removeAll()
-           // HotelFilterVM.shared.ratingCount = HotelFilterVM.shared.defaultRatingCount
+            // HotelFilterVM.shared.ratingCount = HotelFilterVM.shared.defaultRatingCount
             for starBtn in self.starButtonsOutlet ?? [] {
                 starBtn.isSelected = false
-               // starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
+                // starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
                 starBtn.setImage(#imageLiteral(resourceName: "starRatingFilled"), for: .normal)
             }
         }
@@ -161,7 +178,46 @@ class RatingVC: BaseVC {
         }
     }
     
-    
+    private func updateTAStarButtonState(forStar: Int, isSettingFirstTime: Bool = false) {
+        guard 1...5 ~= forStar else {return}
+        
+        //updating the selection array
+        if let idx = HotelFilterVM.shared.tripAdvisorRatingCount.firstIndex(of: forStar) {
+            HotelFilterVM.shared.tripAdvisorRatingCount.remove(at: idx)
+        }
+        else {
+            HotelFilterVM.shared.tripAdvisorRatingCount.append(forStar)
+        }
+        
+        if HotelFilterVM.shared.tripAdvisorRatingCount.isEmpty || HotelFilterVM.shared.tripAdvisorRatingCount.count == 5 {
+            HotelFilterVM.shared.tripAdvisorRatingCount.removeAll()
+            // HotelFilterVM.shared.ratingCount = HotelFilterVM.shared.defaultRatingCount
+            for starBtn in self.tripAdvisorRatingButtons ?? [] {
+                starBtn.isSelected = false
+                // starBtn.setImage(#imageLiteral(resourceName: "UnselectedStar"), for: .normal)
+                starBtn.setImage(#imageLiteral(resourceName: "selectedAdvisorRating"), for: .normal)
+            }
+        }
+        else {
+            
+            for starBtn in self.tripAdvisorRatingButtons ?? [] {
+                
+                if starBtn.tag == forStar {
+                    starBtn.isSelected = isSettingFirstTime ? true : !starBtn.isSelected
+                    let img = starBtn.isSelected ? #imageLiteral(resourceName: "selectedAdvisorRating") : #imageLiteral(resourceName: "deselectedAdvisorRating")
+                    starBtn.setImage(img, for: starBtn.isSelected ? .selected : .normal)
+                }
+                else if HotelFilterVM.shared.tripAdvisorRatingCount.contains(starBtn.tag) {
+                    starBtn.isSelected = true
+                    starBtn.setImage(#imageLiteral(resourceName: "selectedAdvisorRating"), for: .selected)
+                }
+                else {
+                    starBtn.isSelected = false
+                    starBtn.setImage(#imageLiteral(resourceName: "deselectedAdvisorRating"), for: .normal)
+                }
+            }
+        }
+    }
     
     
     ///Get Star Rating
@@ -171,14 +227,14 @@ class RatingVC: BaseVC {
         var end: Int?
         var prev: Int?
         
-        if arr.isEmpty {
-            final = "0 \(LocalizedString.Ratings.localized)"
-            return final
-        }
-        else if arr.count == maxCount {
+        if arr.isEmpty  || arr.count == maxCount {
             final = "All \(LocalizedString.Ratings.localized)"
             return final
         }
+//        else if arr.count == maxCount {
+//            final = "All \(LocalizedString.Ratings.localized)"
+//            return final
+//        }
         else if arr.count == 1 {
             final = "\(arr[0]) \((arr[0] == 1) ? "\(LocalizedString.Rating.localized)" : "\(LocalizedString.Ratings.localized)")"
             return final

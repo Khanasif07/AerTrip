@@ -55,6 +55,7 @@ class RoomGuestSelectionVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetups()
+        self.view.layoutIfNeeded()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -118,6 +119,7 @@ class RoomGuestSelectionVC: BaseVC {
     //MARK:- Methods
     //MARK:- Private
     private func initialSetups() {
+        
         //AddGesture:-
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         mainContainerView.isUserInteractionEnabled = true
@@ -448,6 +450,11 @@ extension RoomGuestSelectionVC {
     @objc func handleSwipes(_ sender: UIPanGestureRecognizer) {
         printDebug("sender.state.rawValue: \(sender.state.rawValue)")
         func reset() {
+            if viewTranslation.y > self.mainContainerView.height/2 {
+                closeBottomSheet()
+                return
+            }
+            
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 self.mainContainerView.transform = .identity
             })
@@ -465,20 +472,25 @@ extension RoomGuestSelectionVC {
             reset()
             return
         }
-        printDebug("direction: \(direction)")
+        let velocity = sender.velocity(in: mainContainerView).y
+        
         switch sender.state {
         case .changed:
+            printDebug("changed")
             viewTranslation = sender.translation(in: self.mainContainerView)
             moveView()
         case .ended:
-            if viewTranslation.y < self.mainContainerView.height/2 {
+            printDebug("ended")
+            if viewTranslation.y < self.mainContainerView.height/2 || velocity < 1000 {
                 reset()
             } else {
                 closeBottomSheet()
             }
         case .cancelled:
+            printDebug("cancelled")
             reset()
         case .failed:
+            printDebug("failed")
             reset()
         default:
             break

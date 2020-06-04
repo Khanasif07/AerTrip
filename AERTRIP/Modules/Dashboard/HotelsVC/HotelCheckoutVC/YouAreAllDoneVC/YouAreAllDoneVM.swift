@@ -12,6 +12,9 @@ protocol YouAreAllDoneVMDelegate: class {
     func willGetBookingReceipt()
     func getBookingReceiptSuccess()
     func getBookingReceiptFail()
+    func willGetBookingDetail()
+    func getBookingDetailSucces()
+    func getBookingDetailFaiure(error: ErrorCodes)
 }
 
 class YouAreAllDoneVM: NSObject {
@@ -33,6 +36,7 @@ class YouAreAllDoneVM: NSObject {
     var whatNext: [String] = []
     var whatNextValues: [String] = []
     var itId: String = "", bookingIds: [String] = [], cId: [String] = []
+    var bookingDetail: BookingDetailModel?
     
     //Mark:- Functions
     //================
@@ -47,6 +51,7 @@ class YouAreAllDoneVM: NSObject {
         if !room.name.isEmpty{
             guestData.append(.roomBedsDetailsCell)
         }
+        /*
 //        guestData.append(.roomBedsTypeCell)
         if let inclusion =  room.inclusions[APIKeys.Inclusions.rawValue] as? [String], !inclusion.isEmpty {
             guestData.append(.inclusionCell)
@@ -60,6 +65,7 @@ class YouAreAllDoneVM: NSObject {
             guestData.append(.notesCell)
         }
         guestData.append(.guestsCell)
+ */
         return guestData
     }
     
@@ -119,6 +125,22 @@ class YouAreAllDoneVM: NSObject {
             }
         }
     }
+    
+    func getBookingDetail(shouldCallWillDelegate: Bool = true) {
+        let params: JSONDictionary = ["booking_id": bookingIds.first ?? ""]
+            
+            delegate?.willGetBookingDetail()
+            APICaller.shared.getBookingDetail(params: params) { [weak self] success, errors, bookingDetail in
+                guard let sSelf = self else { return }
+                if success {
+                    sSelf.bookingDetail = bookingDetail
+                    sSelf.delegate?.getBookingDetailSucces()
+                } else {
+                    sSelf.delegate?.getBookingDetailFaiure(error: errors)
+                    printDebug(errors)
+                }
+            }
+        }
 }
 
 

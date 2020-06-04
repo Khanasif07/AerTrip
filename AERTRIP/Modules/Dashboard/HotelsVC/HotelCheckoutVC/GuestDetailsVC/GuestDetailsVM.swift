@@ -68,7 +68,21 @@ class GuestDetailsVM: NSObject {
         return false
     }
     
+    
+    
     private override init() {}
+    
+    func checkForDoneValidation() -> Bool {
+        for guest in GuestDetailsVM.shared.guests.flatMap({return $0}) {
+            if !guest.firstName.isEmpty || !guest.lastName.isEmpty {
+                if guest.firstName.count < 3 || guest.lastName.count < 3 {
+                   AppToast.default.showToastMessage(message: LocalizedString.FirstLastNameCharacterLimitMessage.localized)
+                    return false
+                }
+            }
+        }
+        return true
+    }
     
     func fetchTravellersContact() {
         HCSelectGuestsVM.shared._travellerContacts = self.travellerList.map { (travlr) -> ATContact in
@@ -138,6 +152,28 @@ class GuestDetailsVM: NSObject {
         case 3: return HCGuestListVC.UsingFor.google.title //section 3 for google contacts
         default: return ""
         }
+    }
+    
+    func isLastIndexOfTable(indexPath: IndexPath) -> Bool {
+        switch indexPath.section {
+        case 0: //section 0 for travellers
+            if (numberOfRowsInSection(section: 1) == 0 && numberOfRowsInSection(section: 2) == 0 && numberOfRowsInSection(section: 3) == 0) {
+               return (indexPath.row == self.numberOfRowsInSection(section: indexPath.section) - 1)
+            }
+        case 1: //section 1 for phone contacts
+             if (numberOfRowsInSection(section: 2) == 0 && numberOfRowsInSection(section: 3) == 0) {
+                return (indexPath.row == self.numberOfRowsInSection(section: indexPath.section) - 1)
+             }
+        case 2: //section 2 for facebook contact
+             if (numberOfRowsInSection(section: 3) == 0) {
+                return (indexPath.row == self.numberOfRowsInSection(section: indexPath.section) - 1)
+             }
+        case 3: //section 3 for google contacts
+             return (indexPath.row == self.numberOfRowsInSection(section: indexPath.section) - 1)
+        default: break
+        }
+        
+        return false
     }
     
     func resetData() {

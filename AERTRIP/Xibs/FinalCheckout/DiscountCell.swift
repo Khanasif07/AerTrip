@@ -27,6 +27,11 @@ class DiscountCell: UITableViewCell {
         self.setUpColor()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        amountLabel.attributedText = nil
+    }
+    
     private func setUpText() {
         self.titleLabel.text = LocalizedString.CouponDiscount.localized
         self.amountLabel.text = 500.0.amountInDelimeterWithSymbol

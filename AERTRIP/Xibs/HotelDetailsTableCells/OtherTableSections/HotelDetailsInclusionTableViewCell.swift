@@ -134,4 +134,5 @@ class HotelDetailsInclusionTableViewCell: UITableViewCell {
         }
         self.inclusionTypeLabel.text = otherInclusionText.joined(separator: ", ")
     }
+    
 }

@@ -34,6 +34,7 @@ extension WebViewVC {
     
     private func setUpNavigation(){
         self.topNavView.configureNavBar(title:  self.webViewVm.webViewType.rawValue, isLeftButton: true, isFirstRightButton: false, isSecondRightButton: false)
+        self.topNavView.configureLeftButton(normalImage: #imageLiteral(resourceName: "searchBarClearButton"), selectedImage: #imageLiteral(resourceName: "searchBarClearButton"))
     }
     
     func loadWebView(){
@@ -45,6 +46,6 @@ extension WebViewVC {
 
 extension WebViewVC : TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        AppFlowManager.default.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
 }

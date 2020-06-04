@@ -37,7 +37,7 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
             self.tagCollectionView.delegate = self
             self.tagCollectionView.dataSource = self
             self.tagCollectionView.backgroundColor = AppColors.screensBackground.color
-            self.tagCollectionView.contentInset = UIEdgeInsets(top: 16.0, left: 8.0, bottom: 16.0, right: 16.0)
+            self.tagCollectionView.contentInset = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 4.0, right: 16.0)
         }
     }
     
@@ -54,14 +54,15 @@ class HotelDetailsSearchTagTableCell: UITableViewCell {
     private func configureUI() {
         //Color
         self.containerView.backgroundColor = AppColors.screensBackground.color
-        self.searchBarSetUp()
+        //self.searchBarSetUp()
+        searchBar.placeholder = LocalizedString.hotelFilterSearchBar.localized
         self.registerXibs()
     }
     
     ///Search Bar SetUp
     private func searchBarSetUp() {
         //UI
-        self.searchBar.micButton.frame = CGRect(x: UIScreen.main.bounds.width - 36.0 - 15.0 , y: 0.0, width: 36.0, height: 36.0)
+       // self.searchBar.micButton.frame = CGRect(x: UIScreen.main.bounds.width - 36.0 - 15.0 , y: 0.0, width: 36.0, height: 36.0)
         self.searchBar.layer.cornerRadius = 10.0
         self.searchBar.layer.masksToBounds = true
         self.searchBar.backgroundColor = AppColors.themeGray10
@@ -200,7 +201,7 @@ extension HotelDetailsSearchTagTableCell: UICollectionViewDelegate, UICollection
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if let parentVC = self.parentViewController as? HotelDetailsVC {
             var cancelButtonWidth: CGFloat = parentVC.viewModel.permanentTagsForFilteration.contains(self.availableTagsForFilterartion[indexPath.item]) ? 20.0 : 20.0
-            if indexPath.item >= 2 { cancelButtonWidth = 46.0}
+            if indexPath.item >= 2 { cancelButtonWidth = 36.0}
             let size = availableTagsForFilterartion[indexPath.item].sizeCount(withFont: AppFonts.SemiBold.withSize(16.0), bundingSize: CGSize(width: 10000.0, height: 28.0))
             return CGSize(width: size.width + cancelButtonWidth, height: 28.0)
         }

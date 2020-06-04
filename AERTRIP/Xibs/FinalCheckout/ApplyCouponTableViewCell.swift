@@ -33,11 +33,19 @@ class ApplyCouponTableViewCell: UITableViewCell {
         self.setUpColors()
         self.setUpText()
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.couponLabel.attributedText = nil
+        self.appliedCouponLabel.attributedText = nil
+    }
 
     // MARK: - Helper methods
     
     private func setupFonts() {
         couponLabel.font = AppFonts.Regular.withSize(18.0)
+        appliedCouponLabel.font = AppFonts.Regular.withSize(18.0)
+
     }
     
     private func setUpColors() {

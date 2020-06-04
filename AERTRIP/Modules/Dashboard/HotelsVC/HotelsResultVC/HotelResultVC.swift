@@ -249,7 +249,7 @@ class HotelResultVC: BaseVC {
         
         searchBar.setTextField(color: UIColor(displayP3Red: 153/255, green: 153/255, blue: 153/255, alpha: 0.12))
         self.setUpLongPressOnFilterButton()
-        
+        //addCustomBackgroundBlurView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -261,7 +261,7 @@ class HotelResultVC: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)        
-        addCustomBackgroundBlurView()
+       // addCustomBackgroundBlurView()
         self.statusBarColor = AppColors.clear
         self.statusBarStyle = .default
     }
@@ -269,8 +269,8 @@ class HotelResultVC: BaseVC {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.statusBarColor = AppColors.clear
-        self.headerBlurView.removeFromSuperview()
-        self.statusBarBlurView.removeFromSuperview()
+//        self.headerBlurView.removeFromSuperview()
+//        self.statusBarBlurView.removeFromSuperview()
 
     }
     
@@ -328,7 +328,7 @@ class HotelResultVC: BaseVC {
         headerBlurView.effect = UIBlurEffect(style: .prominent)
         headerBlurView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         
-        backContainerView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
+        backContainerView.backgroundColor = .clear//UIColor.white.withAlphaComponent(0.85)
         backContainerView.addSubview(headerBlurView)
         
         
@@ -342,7 +342,7 @@ class HotelResultVC: BaseVC {
         statusBarBlurView = UIVisualEffectView(frame:  CGRect(x: 0 , y: 0, width:self.view.frame.size.width , height: statusBarHeight))
         statusBarBlurView.effect = UIBlurEffect(style: .prominent)
         self.navigationController?.view.addSubview(statusBarBlurView)
-        statusBarBlurView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
+        statusBarBlurView.backgroundColor = .clear//UIColor.white.withAlphaComponent(0.85)
         
     }
     // MARK: - Methods
@@ -503,7 +503,7 @@ class HotelResultVC: BaseVC {
         let  cancelAction = UIAlertAction(title: LocalizedString.Cancel.localized, style: .default, handler: nil)
         cancelAction.setValue(AppColors.themeDarkGreen, forKey: "titleTextColor")
         
-        let  unFavouriteAction = UIAlertAction(title: LocalizedString.UnfavouriteAll.localized, style: .destructive) { [weak self] (action) in
+        let  unFavouriteAction = UIAlertAction(title: LocalizedString.Unfavourite.localized, style: .destructive) { [weak self] (action) in
             self?.removeAllFavouritesHotels()
         }
         unFavouriteAction.setValue(AppColors.themeRed, forKey: "titleTextColor")

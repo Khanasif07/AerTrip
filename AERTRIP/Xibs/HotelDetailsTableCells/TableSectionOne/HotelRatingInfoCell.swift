@@ -66,11 +66,11 @@ class HotelRatingInfoCell: UITableViewCell {
         self.distanceLabel.text = ""
         if let durationValue = duration {
             if durationValue/60 <= 10 {
-                modeImage = "• 🚶🏻 "
+                modeImage = " • 🚶🏻 "
                 let time = (Double(durationValue)/60.0).roundTo(places: 1).removeZeroAfterDecimal
                 self.distanceLabel.text = "\(distanceText) \(modeImage) \(time) mins"
             } else {
-                modeImage = "• 🚘 "
+                modeImage = " • 🚘 "
                 let time = (Double(durationValue)/60.0).roundTo(places: 1).removeZeroAfterDecimal
                 self.distanceLabel.text = "\(distanceText) \(modeImage) \(time) mins"
             }

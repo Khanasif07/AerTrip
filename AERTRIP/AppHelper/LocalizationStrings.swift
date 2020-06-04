@@ -128,6 +128,9 @@ enum LocalizedString: String {
     case Please_enter_new_Password
     case New_Password
     case Program
+    case Current_Password
+    case Please_enter_Current_Password
+    case Please_enter_Valid_Password
 
     
     // MARK: - CreateProfileVC
@@ -564,6 +567,7 @@ enum LocalizedString: String {
     case ConfirmationEmail
     case UnfavouriteAll
     case UnfavouriteAllMessage
+    case Unfavourite
 
     // Mail Composer View
     case ContactUsAertrip
@@ -604,6 +608,7 @@ enum LocalizedString: String {
     case Confirm
     case PanCard
     case EnterPanCardMessage
+    case FirstLastNameCharacterLimitMessage
 
     
     // Hotel Checkout Coupons VC
@@ -685,6 +690,9 @@ enum LocalizedString: String {
     case ConvenienceFee
     case InvalidCouponCodeText
     case PleaseEnterCouponCode
+    case BookingConfirmed
+    case BookingIsInProcess
+
     
     case EnterIsdMessage
     case GuestDetailsMessage

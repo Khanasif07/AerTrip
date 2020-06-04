@@ -82,6 +82,7 @@ class MailComposerVC: BaseVC {
     // MARK: - Helper methods
     
     private func doInitialSetup() {
+        self.tableView.contentInsetAdjustmentBehavior = .always
         self.navBarSetUp()
         self.tableViewSetup()
         self.registerXib()
@@ -254,17 +255,25 @@ extension MailComposerVC: EmailComposeerHeaderViewDelegate {
         
         var msgHeight = headerView.messageSubjectTextView.text.sizeCount(withFont: textView.font!, bundingSize:         CGSize(width: (UIDevice.screenWidth - 22.0), height: 10000.0)).height
         
+        var labelHeight = headerView.messageSubjectTextView.text.sizeCount(withFont: AppFonts.Italic.withSize(18.0), bundingSize:         CGSize(width: (UIDevice.screenWidth - 32), height: 10000.0)).height
+        if labelHeight < 25 {
+            labelHeight = 25
+        }
         emailHeight = max(minHeight, emailHeight)
         emailHeight = min(maxHeight, emailHeight)
         
         msgHeight = max(minHeight, msgHeight)
         msgHeight = min(maxHeight, msgHeight)
         
-        self.tableView.tableHeaderView?.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: (650.0 + emailHeight + msgHeight))
+        print("headerView.checkOutMessageLabel.frame")
+        print(headerView.checkOutMessageLabel.frame)
+        //let value = headerView.checkOutMessageLabel.numberOfLines * 23
+        self.tableView.tableHeaderView?.frame = CGRect(x: 0.0, y: 0.0, width: UIDevice.screenWidth, height: (607.0 + emailHeight + msgHeight + labelHeight))
         
         UIView.animate(withDuration: 0.3, animations: {
             headerView.emailHeightConatraint.constant = emailHeight
             headerView.subjectHeightConstraint.constant = msgHeight
+            headerView.checkOutMessageLabelHeightConstraint.constant = labelHeight
             self.view.layoutIfNeeded()
         }, completion: { (isDone) in
             headerView.toEmailTextView.isScrollEnabled = emailHeight >= maxHeight

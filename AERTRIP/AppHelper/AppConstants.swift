@@ -108,6 +108,9 @@ enum AppConstants {
     static let kmRS = "Mrs"
     static let kMaleSalutaion = ["Mr","Mast"]
     static let kFemaleSalutaion = ["Ms","Miss","Mrs"]
+    
+    static let kAppStoreLink = "https://itunes.apple.com/app/id\(1369238862)?action=write-review"
+
 }
 
 

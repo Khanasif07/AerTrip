@@ -255,7 +255,9 @@ class SelectDestinationVC: BaseVC {
         func setValue() {
             self.mainCintainerBottomConstraint.constant = 0.0
             self.mainContainerViewHeightConstraint.constant = finalValue
+            if #available(iOS 13.0, *) {} else {
             self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+            }
             self.view.layoutIfNeeded()
         }
         

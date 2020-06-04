@@ -268,22 +268,29 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
         }
         cell.selectionStyle = .gray
         if indexPath.row != 0 {
-            cell.topViewHeightConst.constant = 18
+            cell.topViewHeightConst.constant = 0
         } else {
-            cell.topViewHeightConst.constant = 36
+            cell.topViewHeightConst.constant = 19
         }
         switch self.sections[indexPath.section] {
         case "details":
-            cell.bottomViewHeightConst.constant =  indexPath.row == self.details.count - 1 ? 36 : 18
+            cell.bottomViewHeightConst.constant =  indexPath.row == self.details.count - 1 ? 18 : 0
             cell.separatorView.isHidden = self.details[indexPath.row] != LocalizedString.LinkedAccounts.localized
             cell.menuOptionLabel.isHidden = false
             cell.configureCell(self.details[indexPath.row])
             
             return cell
         case "logOut":
-            cell.bottomViewHeightConst.constant =  indexPath.row == self.logOut.count - 1 ? 36 : 18
+            cell.bottomViewHeightConst.constant =  0
             cell.separatorView.isHidden = true
-            cell.configureCell(self.logOut[indexPath.row].rawValue)
+            
+            if self.logOut[indexPath.row].localized == LocalizedString.ChangePassword.localized {
+                let title = (UserInfo.loggedInUser?.hasPassword == true) ? LocalizedString.ChangePassword.localized : LocalizedString.Set_password.localized
+                cell.configureCell(title)
+            } else {
+                cell.configureCell(self.logOut[indexPath.row].localized)
+            }
+            
             return cell
         default:
             return UITableViewCell()
@@ -291,6 +298,7 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         switch self.sections[indexPath.section] {
         case "details":
             self.statusBarStyle = .default
@@ -326,9 +334,13 @@ extension ViewProfileVC: UITableViewDataSource, UITableViewDelegate {
             //            }
         //
         case "logOut":
-            switch self.logOut[indexPath.row].rawValue {
+            switch self.logOut[indexPath.row] {
+             case LocalizedString.ChangePassword
+                :
+                AppFlowManager.default.moveToChangePasswordVC(type: (UserInfo.loggedInUser?.hasPassword == true) ? .changePassword : .setPassword, delegate: self)
+                
             // show logout option
-            case LocalizedString.LogOut.localized:
+            case LocalizedString.LogOut:
                 let buttons = AppGlobals.shared.getPKAlertButtons(forTitles: [LocalizedString.LogOut.localized], colors: [AppColors.themeRed])
                 _ = PKAlertController.default.presentActionSheet(nil, message: LocalizedString.DoYouWantToLogout.localized, sourceView: self.view, alertButtons: buttons, cancelButton: AppGlobals.shared.pKAlertCancelButton) { _, index in
                     
@@ -530,4 +542,11 @@ extension ViewProfileVC: ViewProfileDetailVMDelegate {
     }
 }
 
+extension ViewProfileVC: ChangePasswordVCDelegate {
+    
+    func passowordChangedSuccessFully() {
+        self.tableView.reloadData()
+    }
+    
+}
 

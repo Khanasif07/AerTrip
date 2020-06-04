@@ -43,6 +43,8 @@ class EmailComposerHeaderView: UIView {
     @IBOutlet weak var checkInTitleLable: UILabel!
     @IBOutlet weak var checkOutTitleLable: UILabel!
     
+    @IBOutlet weak var checkOutMessageLabelHeightConstraint: NSLayoutConstraint!
+    
     // MARK: - Properties
     
     weak var delegate: EmailComposeerHeaderViewDelegate?
@@ -83,7 +85,7 @@ class EmailComposerHeaderView: UIView {
         self.seeRatesButton.isUserInteractionEnabled = false
         
         self.toEmailTextView.delegate = self
-        
+        self.toEmailTextView.keyboardType = .emailAddress
         self.toEmailTextView.textContainerInset = UIEdgeInsets.zero
 //        self.toEmailTextView.textContainer.lineFragmentPadding = 0
         
@@ -135,9 +137,9 @@ class EmailComposerHeaderView: UIView {
         self.hotelResultLabel.textColor = AppColors.themeGray60
         self.messageSubjectTextView.textColor = AppColors.textFieldTextColor51
         // toEmail Text View Color
-        self.toEmailTextView.activeTagBackgroundColor = AppColors.themeGreen
+        self.toEmailTextView.activeTagBackgroundColor = AppColors.clear
         self.toEmailTextView.inactiveTagFontColor = AppColors.themeGreen
-        self.toEmailTextView.activeTagFontColor = AppColors.themeWhite
+        self.toEmailTextView.activeTagFontColor = AppColors.themeGreen
         self.toEmailTextView.tagSeparatorColor = AppColors.themeGreen
         if #available(iOS 13, *) {
         }else{
@@ -175,6 +177,7 @@ extension EmailComposerHeaderView: UITextViewDelegate {
         if textView == self.toEmailTextView {
             self.delegate?.textViewText(emailTextView: textView)
         } else if textView == self.messageSubjectTextView {
+            self.checkOutMessageLabel.text = textView.text
             self.delegate?.textViewText(messageTextView: textView)
         }
         self.delegate?.updateHeightOfHeader(self, textView)

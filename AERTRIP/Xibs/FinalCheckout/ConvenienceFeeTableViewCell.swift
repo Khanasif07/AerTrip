@@ -18,6 +18,11 @@ class ConvenienceFeeTableViewCell: UITableViewCell {
         self.setUpColor()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        convenienceFeeLabel.attributedText = nil
+    }
+    
     private func setUpFont() {
         self.convenienceFeeLabel.font = AppFonts.Regular.withSize(14.0)
     }

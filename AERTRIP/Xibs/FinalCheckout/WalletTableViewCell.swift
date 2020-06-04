@@ -34,7 +34,11 @@ class WalletTableViewCell: UITableViewCell {
         self.setUpColors()
         self.setUpText()
     }
-
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        amountLabel.attributedText = nil
+    }
    
     // Mark: - Helper methods
     
@@ -62,9 +66,7 @@ class WalletTableViewCell: UITableViewCell {
     
     @IBAction func infoButtonTaped(_ sender: Any) {
         guard let url = URL(string: AppConstants.walletAmountUrl) else { return }
-        let safariVC = SFSafariViewController(url: url)
-        AppFlowManager.default.mainNavigationController.present(safariVC, animated: true, completion: nil)
-        safariVC.delegate = self
+        AppFlowManager.default.showURLOnATWebView(url, screenTitle: LocalizedString.AertripWallet.localized)
     }
     
     

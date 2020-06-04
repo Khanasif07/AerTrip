@@ -121,7 +121,6 @@ class FavouriteHotelsVC: BaseVC {
            self.parchmentView?.indicatorColor = AppColors.themeGreen
            self.parchmentView?.selectedTextColor = AppColors.themeBlack
            self.dataContainerView.addSubview(self.parchmentView!.view)
-
         
            self.parchmentView?.dataSource = self
            self.parchmentView?.delegate = self

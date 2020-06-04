@@ -96,7 +96,7 @@ class LoginVC: BaseVC {
     //MARK:-
     @IBAction func regularButtonAction(_ sender: UIButton) {
         self.emailTextField.text = "rajan.singh@appinventiv.com"
-        self.passwordTextField.text = "Rajan@12345"
+        self.passwordTextField.text = "Rajan@123456"
         self.viewModel.email = self.emailTextField.text ?? ""
         self.viewModel.password = self.passwordTextField.text ?? ""
         self.loginButtonAction(self.loginButton)
@@ -120,7 +120,7 @@ class LoginVC: BaseVC {
     
     @IBAction func bilwiseButtonAction(_ sender: UIButton) {
         self.emailTextField.text = "rahulTest@yopmail.com"
-        self.passwordTextField.text = "Aertrip@123"
+        self.passwordTextField.text = "Aertrip@12345"
         self.viewModel.email = self.emailTextField.text ?? ""
         self.viewModel.password = self.passwordTextField.text ?? ""
         self.loginButtonAction(self.loginButton)

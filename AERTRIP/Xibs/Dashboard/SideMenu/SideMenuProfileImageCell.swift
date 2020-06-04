@@ -56,6 +56,8 @@ extension SideMenuProfileImageCell {
         profileNameLabel.font = AppFonts.Regular.withSize(20.0)
         profileNameLabel.text = "\(userInfo?.firstName ?? LocalizedString.na.localized ) \(userInfo?.lastName ?? LocalizedString.na.localized )"
         
+        viewProfileButton.setTitleColor(AppColors.themeGreen, for: .normal)
+        
         if let imagePath = userInfo?.profileImage, !imagePath.isEmpty {
             profileImageView.setImageWithUrl(imagePath, placeholder: userInfo?.profileImagePlaceholder() ?? UIImage(), showIndicator: false)
         }
