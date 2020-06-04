@@ -17,6 +17,7 @@ class TravellerListTableViewCell: UITableViewCell {
     @IBOutlet weak var selectTravellerButton: UIButton!
     @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var containerStackView: UIStackView!
+    @IBOutlet weak var bottomSeperatorView: ATDividerView!
     
     
 //    @IBOutlet weak var edgeToEdgeBottomSeparatorView: ATDividerView!
@@ -25,11 +26,13 @@ class TravellerListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        bottomSeperatorView.isHidden = true
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         searchedText = ""
+        bottomSeperatorView.isHidden = true
     }
     
 //    var travellerData: TravellerData? {

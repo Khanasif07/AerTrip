@@ -593,9 +593,10 @@
 "ThisWillCancelThisBookingAndAmountRefundToPayment" = "This will cancel this booking and the amount will be refunded to your";
 
 "Change" = "Change";
-"YourBookingIDIs" = "Your booking ID is";
+"YourBookingIDIs" = "Congratulations, your booking is successful.
+Your booking ID is";
 "YourCaseIDIs" = "Your case ID is";
-"AndAllDetailsWillBeSentToYourEmail" = "and all details will be sent to your email.";
+"AndAllDetailsWillBeSentToYourEmail" = "and all details have been sent to your email.";
 "YouAreAllDoneLabel" = "You’re all done!";
 "AddToAppleWallet" = "Add to Apple Wallet";
 "BookingDetails" = "BOOKING DETAILS";
@@ -617,6 +618,8 @@
 "convenienceFee2" = "is applicable on this transaction.";
 "InvalidCouponCodeText" = "Sorry, this coupon code is invalid";
 "PleaseEnterCouponCode" = "Please enter a coupon code";
+"BookingConfirmed" = "Booking Confirmed";
+"BookingIsInProcess" = "Booking is in\nprocess…";
 
 "EnterIsdMessage" = "Please enter Isd";
 "GuestDetailsMessage" = "Please fill all guest details";

@@ -20,6 +20,11 @@ class WallletAmountCellTableViewCell: UITableViewCell {
         self.setUpColor()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.walletAmountLabel.attributedText = nil
+    }
+    
     private func setUpText() {
         self.aertripWalletTitleLabel.text = LocalizedString.AertripWallet.localized
     }

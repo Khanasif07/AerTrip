@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
 class YouAreAllDoneVC: BaseVC {
     
@@ -14,10 +15,10 @@ class YouAreAllDoneVC: BaseVC {
     //================
     let viewModel = YouAreAllDoneVM()
     var allIndexPath = [IndexPath]()
-    var tableFooterView: YouAreAllDoneFooterView?
+    //var tableFooterView: YouAreAllDoneFooterView?
     
     private var viewButton: ATButton?
-
+    
     //Mark:- IBOutlets
     //================
     @IBOutlet weak var allDoneTableView: ATTableView! {
@@ -27,8 +28,11 @@ class YouAreAllDoneVC: BaseVC {
             self.allDoneTableView.dataSource = self
             self.allDoneTableView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
             self.allDoneTableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
+            self.allDoneTableView.backgroundColor = AppColors.screensBackground.color
         }
     }
+    @IBOutlet weak var gradientView: UIView!
+    @IBOutlet weak var returnToHomeButton: UIButton!
     
     //Mark:- LifeCycle
     //================
@@ -54,11 +58,24 @@ class YouAreAllDoneVC: BaseVC {
         self.viewButton?.isLoading = false
     }
     
-    override func initialSetup() {
+    override func viewDidLayoutSubviews() {
+        self.gradientView.addGredient(isVertical: false)
+    }
     
+    override func initialSetup() {
+        
         self.registerNibs()
         self.tableFooterViewSetUp()
         self.viewModel.getBookingReceipt()
+        
+        
+        
+        //Text
+        self.returnToHomeButton.setTitle(LocalizedString.ReturnHome.localized, for: .normal)
+        //Font
+        self.returnToHomeButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
+        //Color
+        self.returnToHomeButton.setTitleColor(AppColors.themeWhite, for: .normal)
     }
     
     override func bindViewModel() {
@@ -72,7 +89,7 @@ class YouAreAllDoneVC: BaseVC {
         self.allDoneTableView.registerCell(nibName: EventAdddedTripTableViewCell.reusableIdentifier)
         self.allDoneTableView.register(UINib(nibName: "HCBookingDetailsTableViewHeaderFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: "HCBookingDetailsTableViewHeaderFooterView")
         self.allDoneTableView.registerCell(nibName: HCHotelRatingTableViewCell.reusableIdentifier)
-        self.allDoneTableView.registerCell(nibName: HotelInfoAddressCell.reusableIdentifier)
+        self.allDoneTableView.registerCell(nibName: HCHotelAddreesCell.reusableIdentifier)
         self.allDoneTableView.registerCell(nibName: HCPhoneTableViewCell.reusableIdentifier)
         self.allDoneTableView.registerCell(nibName: HotelDetailsInclusionTableViewCell.reusableIdentifier)
         self.allDoneTableView.registerCell(nibName: HCCheckInOutTableViewCell.reusableIdentifier)
@@ -86,16 +103,16 @@ class YouAreAllDoneVC: BaseVC {
     }
     
     private func heightForHeaderInSection(section: Int) -> CGFloat {
-        return section == 1 ? 63.0 : CGFloat.leastNonzeroMagnitude
+        return section == 1 ? 44.0 : CGFloat.leastNonzeroMagnitude
     }
     
     ///Table FooterView SetUp
     private func tableFooterViewSetUp() {
-        self.allDoneTableView.tableFooterView?.size = CGSize(width: self.allDoneTableView.frame.width, height: 50.0)
-        self.tableFooterView = YouAreAllDoneFooterView(frame: CGRect(x: 0.0, y: self.allDoneTableView.frame.height - 50.0, width: self.allDoneTableView.frame.width, height: 50.0))
-        if let tableFooterView = self.tableFooterView {
-            self.allDoneTableView.tableFooterView = tableFooterView
-        }
+//        self.allDoneTableView.tableFooterView?.size = CGSize(width: self.allDoneTableView.frame.width, height: 50.0)
+//        self.tableFooterView = YouAreAllDoneFooterView(frame: CGRect(x: 0.0, y: self.allDoneTableView.frame.height - 50.0, width: self.allDoneTableView.frame.width, height: 50.0))
+//        if let tableFooterView = self.tableFooterView {
+//            self.allDoneTableView.tableFooterView = tableFooterView
+//        }
     }
     
     //Mark:- IBActions
@@ -105,9 +122,25 @@ class YouAreAllDoneVC: BaseVC {
         
         if let bId = self.viewModel.bookingIds.first {
             sender.isLoading = true
-            AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/dashboard/booking-action?type=pdf&booking_id=\(bId)", screenTitle: LocalizedString.ConfirmationVoucher.localized)
+            AppGlobals.shared.viewPdf(urlPath: "https://beta.aertrip.com/api/v1/dashboard/booking-action?type=pdf&booking_id=\(bId)", screenTitle: LocalizedString.ConfirmationVoucher.localized, showLoader: false)
         }
     }
+    
+    @IBAction func returnHomeBtnAction(_ sender: Any) {
+            GuestDetailsVM.shared.guests.removeAll()
+        AppFlowManager.default.mainNavigationController.dismiss(animated: false, completion: nil)
+        AppFlowManager.default.mainNavigationController.popToRootController(animated: false)
+        AppFlowManager.default.currentNavigation?.dismiss(animated: true, completion: {
+            
+//            AppFlowManager.default.currentNavigation?.dismiss(animated: true, completion: {
+//                AppFlowManager.default.mainNavigationController.popToRootController(animated: false)
+//            })
+        })
+        //AppFlowManager.default.mainNavigationController.popToRootController(animated: false)
+        
+    }
+    
+
 }
 
 //Mark:- UITableView Delegate DataSource
@@ -124,6 +157,7 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 1 {
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HCBookingDetailsTableViewHeaderFooterView") as? HCBookingDetailsTableViewHeaderFooterView else { return nil }
+            headerView.delegate = self
             return headerView
         } else {
             return UIView()
@@ -134,9 +168,9 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
         let currentSectionData = self.viewModel.sectionData[indexPath.section]
         switch currentSectionData[indexPath.row] {
         case .allDoneCell:
-                if let cell = self.getAllDoneCell(tableView, indexPath: indexPath) {
-                    return cell
-                }
+            if let cell = self.getAllDoneCell(tableView, indexPath: indexPath) {
+                return cell
+            }
         case .eventSharedCell:
             if let cell = self.getEventSharedCell(tableView, indexPath: indexPath) {
                 return cell
@@ -216,14 +250,14 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 1, indexPath.row == 1 , self.viewModel.sectionData[1].contains(.addressCell) {
-            if let hotelData = self.viewModel.hotelReceiptData {
-                let text = hotelData.address + "Maps    "
-                let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
-                return size.height + 46.5
-                    + 21.0  + 2.0//y of textview 46.5 + bottom space 21.0
-            }
-        }
+//        if indexPath.section == 1, indexPath.row == 1 , self.viewModel.sectionData[1].contains(.addressCell) {
+//            if let hotelData = self.viewModel.hotelReceiptData {
+//                let text = hotelData.address + "Maps    "
+//                let size = text.sizeCount(withFont: AppFonts.Regular.withSize(18.0), bundingSize: CGSize(width: UIDevice.screenWidth - 32.0, height: 10000.0))
+//                return size.height + 46.5
+//                    + 21.0  + 2.0//y of textview 46.5 + bottom space 21.0
+//            }
+//        }
         return UITableView.automaticDimension
     }
     
@@ -236,8 +270,11 @@ extension YouAreAllDoneVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (tableView.cellForRow(at: indexPath) as? HotelInfoAddressCell) != nil {
+        if (tableView.cellForRow(at: indexPath) as? HCHotelAddreesCell) != nil {
             AppGlobals.shared.redirectToMap(sourceView: view, originLat: self.viewModel.originLat, originLong: self.viewModel.originLong, destLat: self.viewModel.hotelReceiptData?.lat ?? "", destLong: self.viewModel.hotelReceiptData?.long ?? "")
+        }
+        else if (tableView.cellForRow(at: indexPath) as? HCHotelRatingTableViewCell) != nil {
+            self.viewModel.getBookingDetail()
         }
     }
 }
@@ -266,7 +303,29 @@ extension YouAreAllDoneVC: YouAreAllDoneVMDelegate {
     }
     
     func getBookingReceiptFail() {
-
+        
+    }
+    
+    func willGetBookingDetail() {
+        AppGlobals.shared.startLoading()
+    }
+    
+    func getBookingDetailSucces() {
+        AppGlobals.shared.stopLoading()
+        AppFlowManager.default.moveToBookingHotelDetailVC(bookingDetail: self.viewModel.bookingDetail,hotelTitle: getUpdatedTitle())
+        
+    }
+    
+    func getBookingDetailFaiure(error: ErrorCodes) {
+        AppGlobals.shared.stopLoading()
+        AppToast.default.showToastMessage(message: LocalizedString.SomethingWentWrong.localized)
+    }
+    func getUpdatedTitle() -> String {
+        var updatedTitle = self.viewModel.bookingDetail?.bookingDetail?.hotelName ?? ""
+        if updatedTitle.count > 24 {
+            updatedTitle = updatedTitle.substring(from: 0, to: 8) + "..." +  updatedTitle.substring(from: updatedTitle.count - 8, to: updatedTitle.count)
+        }
+        return updatedTitle
     }
 }
 
@@ -284,6 +343,11 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
     
     func shareOnFaceBook() {
         printDebug("Share On FaceBook")
+//        FacebookController.shared.shareMessageOnFacebook(withViewController: self, "", success: { [weak self] (data) in
+//            AppToast.sha
+//        }) { (error) in
+//
+//        }
     }
     
     func shareOnTwitter() {
@@ -294,4 +358,37 @@ extension YouAreAllDoneVC: HCWhatNextTableViewCellDelegate {
         printDebug("Share On LinkdIn")
     }
 }
+//Mark:- HCWhatNextTableViewCell Delegate
+//=========================================
+extension YouAreAllDoneVC: YouAreAllDoneTableViewCellDelegate {
+    func addToAppleWalletTapped() {
+        
+    }
+    
+    func addToCallendarTapped() {
+        if let start = self.viewModel.hotelReceiptData?.eventStartDate, let end = self.viewModel.hotelReceiptData?.eventEndDate {
+            let bId = self.viewModel.bookingIds.first ?? ""
+            
+            let title = "Hotel: \(self.viewModel.hotelReceiptData?.hname ?? ""), \(self.viewModel.hotelReceiptData?.city ?? "")"
+            let location = self.viewModel.hotelReceiptData?.address ?? ""
+            let bookingId = "Booking Id: \(bId)"
+            let confirmationCode = "Confirmation Code: \(bId)"
+            // confirmation code pending to append
+            let notes = bookingId //+ "\n \(confirmationCode)"
+            
+            AppGlobals.shared.addEventToCalender(title: title, startDate: start, endDate: end, location: location,  notes: notes, uniqueId: bId)
+        }
+    }
+    
+    
+}
+//Mark:- HCBookingDetailsTableViewHeaderFooterView Delegate
+//=========================================================
+extension YouAreAllDoneVC: HCBookingDetailsTableViewHeaderFooterViewDelegate {
+    func emailIternaryButtonTapped() {
+        AppFlowManager.default.presentHCEmailItinerariesVC(forBookingId: self.viewModel.bookingIds.first ?? "", travellers: self.viewModel.hotelReceiptData?.travellers.flatMap({ $0 }) ?? [])
+    }
+    
+}
+
 

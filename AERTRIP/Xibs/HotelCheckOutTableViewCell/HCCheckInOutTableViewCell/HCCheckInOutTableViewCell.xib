@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,15 +18,19 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HCCheckInOutTableViewCell" id="KGk-i7-Jjw" customClass="HCCheckInOutTableViewCell" customModule="AERTRIP" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="117"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HCCheckInOutTableViewCell" rowHeight="149" id="KGk-i7-Jjw" customClass="HCCheckInOutTableViewCell" customModule="AERTRIP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="116.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbd-ER-PWM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mMC-Nn-1Jl">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="116.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
                         <subviews>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="89K-aQ-0ee" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="16" y="0.0" width="343" height="0.5"/>
@@ -56,7 +58,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="30 Dec" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S5P-6u-P4Z">
-                                <rect key="frame" x="16" y="46.5" width="112.5" height="29.5"/>
+                                <rect key="frame" x="16" y="46.5" width="112.5" height="33"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -68,7 +70,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qKb-8I-GRK">
-                                <rect key="frame" x="16" y="76" width="85" height="19.5"/>
+                                <rect key="frame" x="16" y="79.5" width="85" height="19.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="85" id="QYI-xx-uNz"/>
                                 </constraints>
@@ -86,7 +88,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TWv-GF-fJM">
-                                <rect key="frame" x="148.5" y="51.5" width="78" height="20"/>
+                                <rect key="frame" x="148.5" y="53" width="78" height="20"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="moon" translatesAutoresizingMaskIntoConstraints="NO" id="dth-BB-qPO">
                                         <rect key="frame" x="0.0" y="2" width="16" height="16"/>
@@ -114,7 +116,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tYW-oZ-5bv" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="16" y="116" width="343" height="0.5"/>
+                                <rect key="frame" x="16" y="148.5" width="343" height="0.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="vTm-Al-pZM"/>
@@ -130,11 +132,11 @@
                             <constraint firstItem="KVw-u4-jeg" firstAttribute="trailing" secondItem="e9d-xE-EMy" secondAttribute="trailing" id="Bcr-zK-56F"/>
                             <constraint firstItem="XZp-hX-TRE" firstAttribute="top" secondItem="mMC-Nn-1Jl" secondAttribute="top" constant="26" id="Ez7-JT-Yua"/>
                             <constraint firstItem="KVw-u4-jeg" firstAttribute="top" secondItem="e9d-xE-EMy" secondAttribute="bottom" id="KSv-WK-Vym"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="qKb-8I-GRK" secondAttribute="bottom" constant="20.5" id="M1s-5c-ijh"/>
                             <constraint firstAttribute="trailing" secondItem="tYW-oZ-5bv" secondAttribute="trailing" constant="16" id="Pqj-gd-1sw"/>
                             <constraint firstItem="qKb-8I-GRK" firstAttribute="top" secondItem="S5P-6u-P4Z" secondAttribute="bottom" id="QN7-s2-Eqf"/>
                             <constraint firstItem="TWv-GF-fJM" firstAttribute="leading" secondItem="S5P-6u-P4Z" secondAttribute="trailing" constant="20" id="Sf4-ON-qqr"/>
                             <constraint firstItem="S5P-6u-P4Z" firstAttribute="top" secondItem="XZp-hX-TRE" secondAttribute="bottom" id="VbQ-bP-fsU"/>
-                            <constraint firstItem="tYW-oZ-5bv" firstAttribute="top" secondItem="qKb-8I-GRK" secondAttribute="bottom" constant="20.5" id="a2G-f4-RUU"/>
                             <constraint firstItem="89K-aQ-0ee" firstAttribute="top" secondItem="mMC-Nn-1Jl" secondAttribute="top" id="aTC-qZ-Iuy"/>
                             <constraint firstItem="XZp-hX-TRE" firstAttribute="leading" secondItem="mMC-Nn-1Jl" secondAttribute="leading" constant="16" id="byi-A6-aB0"/>
                             <constraint firstItem="qKb-8I-GRK" firstAttribute="leading" secondItem="S5P-6u-P4Z" secondAttribute="leading" id="dvh-jX-j31"/>
@@ -152,7 +154,11 @@
                 <constraints>
                     <constraint firstItem="mMC-Nn-1Jl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="5qu-im-kgy"/>
                     <constraint firstItem="mMC-Nn-1Jl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9T7-Ha-OOw"/>
+                    <constraint firstItem="gbd-ER-PWM" firstAttribute="bottom" secondItem="mMC-Nn-1Jl" secondAttribute="bottom" id="Awh-w6-kGl"/>
                     <constraint firstAttribute="bottom" secondItem="mMC-Nn-1Jl" secondAttribute="bottom" id="Dg1-4M-fFe"/>
+                    <constraint firstItem="gbd-ER-PWM" firstAttribute="top" secondItem="mMC-Nn-1Jl" secondAttribute="top" id="TaY-eg-eNg"/>
+                    <constraint firstItem="gbd-ER-PWM" firstAttribute="trailing" secondItem="mMC-Nn-1Jl" secondAttribute="trailing" id="l3v-vr-5r6"/>
+                    <constraint firstItem="gbd-ER-PWM" firstAttribute="leading" secondItem="mMC-Nn-1Jl" secondAttribute="leading" id="vp9-jp-lHW"/>
                     <constraint firstAttribute="trailing" secondItem="mMC-Nn-1Jl" secondAttribute="trailing" id="yuC-sg-6Tv"/>
                 </constraints>
             </tableViewCellContentView>
@@ -164,12 +170,17 @@
                 <outlet property="checkOutDateLabel" destination="e9d-xE-EMy" id="EXm-1T-gLV"/>
                 <outlet property="checkOutDayLabel" destination="KVw-u4-jeg" id="38E-7k-riS"/>
                 <outlet property="checkOutLabel" destination="0Ds-63-h00" id="vjD-GW-dNl"/>
+                <outlet property="checkinDayLabelBottomConstriant" destination="M1s-5c-ijh" id="jNN-lA-43W"/>
+                <outlet property="checkinLabelTopConstraint" destination="Ez7-JT-Yua" id="kN8-ee-3qt"/>
+                <outlet property="containerViewLeadingConstraint" destination="9T7-Ha-OOw" id="IWB-Ot-i3n"/>
+                <outlet property="containerViewTrailingConstraint" destination="yuC-sg-6Tv" id="Pb8-69-VPK"/>
                 <outlet property="dividerView" destination="tYW-oZ-5bv" id="GPQ-uu-r5U"/>
                 <outlet property="moonImageView" destination="dth-BB-qPO" id="aU7-AV-lv1"/>
+                <outlet property="shadowView" destination="gbd-ER-PWM" id="1c1-WB-b48"/>
                 <outlet property="topDividerView" destination="89K-aQ-0ee" id="vUm-M3-lv8"/>
                 <outlet property="totalNightsLabel" destination="njh-fF-zxC" id="w1Y-wF-ICY"/>
             </connections>
-            <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
+            <point key="canvasLocation" x="52.898550724637687" y="58.59375"/>
         </tableViewCell>
     </objects>
     <resources>

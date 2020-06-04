@@ -54,11 +54,7 @@ class HCCouponCodeVC: BaseVC {
     @IBOutlet weak var coupanCodeLabel: UILabel!
     @IBOutlet weak var discountLabel: UILabel!
     @IBOutlet weak var couponInfoTextView: UITextView!
-    @IBOutlet weak var dividerView: UIView! {
-        didSet {
-            self.dividerView.backgroundColor = AppColors.divider.color
-        }
-    }
+    @IBOutlet weak var dividerView: ATDividerView! 
     @IBOutlet weak var applyCouponButton: UIButton!
     
     //Mark:- LifeCycle
@@ -94,7 +90,7 @@ class HCCouponCodeVC: BaseVC {
         self.couponTextField.font = AppFonts.Regular.withSize(18.0)
         self.noCouponsReqLabel.font = AppFonts.Regular.withSize(22.0)
         self.bestPriceLabel.font = AppFonts.Regular.withSize(18.0)
-        self.applyCouponButton.titleLabel?.font = AppFonts.SemiBold.withSize(18.0)
+        self.applyCouponButton.titleLabel?.font = AppFonts.SemiBold.withSize(20.0)
     }
     
     override func setupTexts() {
@@ -161,9 +157,11 @@ class HCCouponCodeVC: BaseVC {
         self.offerTermsView.isHidden = false
         self.view.bringSubviewToFront(self.backGroundView)
         self.view.bringSubviewToFront(self.offerTermsView)
+        self.view.layoutIfNeeded()
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
-            self.offerTermsViewHeightConstraints.constant = 209.0 + AppFlowManager.default.safeAreaInsets.bottom
-            self.view.layoutIfNeeded()
+            //self.offerTermsViewHeightConstraints.constant = 209.0 + AppFlowManager.default.safeAreaInsets.bottom
+            //self.view.layoutIfNeeded()
+            self.offerTermsView.transform = .identity
         }, completion: { [weak self] (isDone) in
             self?.couponTableView.isUserInteractionEnabled = false
         })
@@ -172,7 +170,8 @@ class HCCouponCodeVC: BaseVC {
     ///Hide View
     private func hideOfferTermsView(animated: Bool) {
         UIView.animate(withDuration: animated ? AppConstants.kAnimationDuration : 0.0, animations: {
-            self.offerTermsViewHeightConstraints.constant = 0.0
+            //self.offerTermsViewHeightConstraints.constant = 0.0
+            self.offerTermsView.transform = CGAffineTransform(translationX: 0, y: self.offerTermsView.height + AppFlowManager.default.safeAreaInsets.bottom)
             self.view.layoutIfNeeded()
         }, completion: { [weak self] (isDone) in
             guard let sSelf = self else { return }
@@ -191,9 +190,8 @@ class HCCouponCodeVC: BaseVC {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func applyButtonAction(_ sender: UIButton) {
+    @IBAction func applyButtonAction(_ sender: UIButton) { self.view.endEditing(true)
         if (self.couponTextField.text == "") {
-            self.view.endEditing(true)
             AppToast.default.showToastMessage(message: LocalizedString.PleaseEnterCouponCode.localized)
         }
         if !self.viewModel.couponCode.isEmpty {
@@ -291,11 +289,16 @@ extension HCCouponCodeVC {
                 } else {
                     self.selectedIndexPath = nil
                     //self.couponValidationTextSetUp(isCouponValid: false)
-                    self.viewModel.couponCode = ""
+                    self.viewModel.couponCode = finalText
                     self.couponTableView.reloadData()
                 }
             }
         }
+        return true
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        self.couponTextField.titleTextColour = AppColors.themeGray40
         return true
     }
 }
@@ -319,6 +322,7 @@ extension HCCouponCodeVC: PassSelectedCoupon {
             //self.couponValidationTextSetUp(isCouponValid: true)
             self.couponTextField.text = ""
             self.viewModel.couponCode = ""
+            self.couponTextField.titleTextColour = AppColors.themeGray40
         } else {
             self.selectedIndexPath = indexPath
             self.applyButton.setTitleColor(AppColors.themeGreen, for: .normal)
@@ -359,6 +363,7 @@ extension HCCouponCodeVC: HCCouponCodeVMDelegate {
     }
     
     func applyCouponCodeFailed() {
+        self.couponTextField.titleTextColour = AppColors.themeRed
         printDebug("Coupon Not Applied")
     }
 }

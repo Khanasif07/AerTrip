@@ -33,6 +33,9 @@ class HotelInfoAddressCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var containerLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containerTrailingConstraint: NSLayoutConstraint!
+    
     var isMoreButtonTapped: Bool = false
     // Mark:- LifeCycle
     //================
@@ -79,6 +82,8 @@ class HotelInfoAddressCell: UITableViewCell {
         self.addressInfoTextView.isUserInteractionEnabled = true
         self.addGestureRecognizer(longPressGesture)
         self.addressInfoTextView.addGestureRecognizer(tapGesture)
+        
+
     }
     
     /// AttributeLabelSetup
@@ -165,6 +170,13 @@ class HotelInfoAddressCell: UITableViewCell {
         self.addressInfoTextView.attributedText = attrText
         self.moreBtnContainerView.isHidden = (self.addressInfoTextView.numberOfLines >= 3) && !self.isMoreButtonTapped ? false : true
         self.deviderView.isHidden = isHiddenDivider
+    }
+    
+    internal func setupForAllDoneVC() {
+        self.containerLeadingConstraint.constant = 16
+        self.containerTrailingConstraint.constant = 16
+        self.layoutIfNeeded()
+        self.containerView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
     }
     
     // Mark:- IBActions

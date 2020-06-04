@@ -426,6 +426,8 @@ enum APIKeys: String {
     case request
     case password_reset = "password-reset"
     case new_password = "new_password"
+    case event_start_date = "event_start_date"
+    case event_end_date = "event_end_date"
 
     
     //MARK:- ChatBot

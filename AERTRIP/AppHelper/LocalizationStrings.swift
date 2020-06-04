@@ -690,6 +690,9 @@ enum LocalizedString: String {
     case ConvenienceFee
     case InvalidCouponCodeText
     case PleaseEnterCouponCode
+    case BookingConfirmed
+    case BookingIsInProcess
+
     
     case EnterIsdMessage
     case GuestDetailsMessage

@@ -36,6 +36,13 @@ class HotelFareSectionHeader: UITableViewHeaderFooterView {
         self.addGesture()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        grossPriceLabel.attributedText = nil
+        discountPriceLabel.attributedText = nil
+
+    }
+    
     private func setUpText() {
         self.grossFareTitleLabel.text = LocalizedString.GrossFare.localized
         self.discountsTitleLabel.text = LocalizedString.Discounts.localized

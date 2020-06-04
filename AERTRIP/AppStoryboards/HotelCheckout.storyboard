@@ -1022,12 +1022,17 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="573"/>
                                 <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                             </tableView>
-                            <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N6Y-VX-9gh">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qEv-o7-jdo">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N6Y-VX-9gh">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="4PN-S3-J8Y"/>
                                 </constraints>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="payButtonAction:" destination="tl2-By-LWD" eventType="touchUpInside" id="8i4-mL-nFM"/>
                                 </connections>
@@ -1050,10 +1055,14 @@
                         <constraints>
                             <constraint firstItem="MQ0-cb-AYF" firstAttribute="top" secondItem="1Gs-hF-RSc" secondAttribute="top" id="1zS-8i-g44"/>
                             <constraint firstItem="5g5-WG-kiV" firstAttribute="trailing" secondItem="N6Y-VX-9gh" secondAttribute="trailing" id="36K-fZ-2s1"/>
-                            <constraint firstItem="1Gs-hF-RSc" firstAttribute="bottom" secondItem="cLs-dS-5hC" secondAttribute="bottom" constant="50" id="6hu-XS-3pp"/>
+                            <constraint firstItem="N6Y-VX-9gh" firstAttribute="leading" secondItem="qEv-o7-jdo" secondAttribute="leading" id="84h-3p-h45"/>
                             <constraint firstItem="1Gs-hF-RSc" firstAttribute="trailing" secondItem="cLs-dS-5hC" secondAttribute="trailing" id="9R2-Xo-pJJ"/>
                             <constraint firstItem="1Gs-hF-RSc" firstAttribute="trailing" secondItem="N6Y-VX-9gh" secondAttribute="trailing" id="AYn-hr-IYA"/>
                             <constraint firstItem="cLs-dS-5hC" firstAttribute="leading" secondItem="1Gs-hF-RSc" secondAttribute="leading" id="BxE-vm-KWt"/>
+                            <constraint firstItem="N6Y-VX-9gh" firstAttribute="trailing" secondItem="qEv-o7-jdo" secondAttribute="trailing" id="E1Q-RV-xw6"/>
+                            <constraint firstItem="N6Y-VX-9gh" firstAttribute="top" secondItem="cLs-dS-5hC" secondAttribute="bottom" id="Izx-6b-XFR"/>
+                            <constraint firstAttribute="bottom" secondItem="qEv-o7-jdo" secondAttribute="bottom" id="MEM-QO-sf2"/>
+                            <constraint firstItem="N6Y-VX-9gh" firstAttribute="top" secondItem="qEv-o7-jdo" secondAttribute="top" id="V4b-mu-JZK"/>
                             <constraint firstItem="1Gs-hF-RSc" firstAttribute="bottom" secondItem="N6Y-VX-9gh" secondAttribute="bottom" id="Vyo-RF-SZ0"/>
                             <constraint firstItem="MQ0-cb-AYF" firstAttribute="leading" secondItem="1Gs-hF-RSc" secondAttribute="leading" id="YQH-Uz-U1Z"/>
                             <constraint firstItem="N6Y-VX-9gh" firstAttribute="leading" secondItem="1Gs-hF-RSc" secondAttribute="leading" id="eHf-9J-k17"/>
@@ -1067,6 +1076,7 @@
                     </view>
                     <connections>
                         <outlet property="checkOutTableView" destination="cLs-dS-5hC" id="eSh-Nc-ftp"/>
+                        <outlet property="gradientView" destination="qEv-o7-jdo" id="nBj-hg-VBO"/>
                         <outlet property="indicatorView" destination="cq2-QW-qs3" id="M2t-az-PDw"/>
                         <outlet property="loaderContainer" destination="5g5-WG-kiV" id="i8M-Z5-i5o"/>
                         <outlet property="payButton" destination="N6Y-VX-9gh" id="6f8-yC-RLg"/>
@@ -1439,16 +1449,16 @@ Incomplete</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yeO-pL-fuX">
-                                                <rect key="frame" x="16" y="57" width="343" height="101"/>
+                                                <rect key="frame" x="16" y="57" width="343" height="101.5"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y9i-B2-tEL">
-                                                <rect key="frame" x="0.0" y="158" width="375" height="1"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y9i-B2-tEL" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="158.5" width="375" height="0.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="zIo-Qb-Sv9"/>
+                                                    <constraint firstAttribute="height" constant="0.5" id="zIo-Qb-Sv9"/>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z66-1x-NXM">
@@ -1711,21 +1721,58 @@ Incomplete</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Rmr-Sb-jvc" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0gJ-kv-0J6">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnz-Xw-WEh">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RJB-J1-47P">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="SourceSansPro-SemiBold" family="Source Sans Pro" pointSize="20"/>
+                                        <state key="normal" title="Return Home">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="returnHomeBtnAction:" destination="nNH-jO-svN" eventType="touchUpInside" id="U05-Jy-Xng"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="RJB-J1-47P" firstAttribute="leading" secondItem="bnz-Xw-WEh" secondAttribute="leading" id="MUG-jD-6KL"/>
+                                    <constraint firstItem="RJB-J1-47P" firstAttribute="top" secondItem="bnz-Xw-WEh" secondAttribute="top" id="MWh-OD-k1d"/>
+                                    <constraint firstAttribute="bottom" secondItem="RJB-J1-47P" secondAttribute="bottom" id="eca-Hg-f83"/>
+                                    <constraint firstAttribute="trailing" secondItem="RJB-J1-47P" secondAttribute="trailing" id="igL-xS-Gfm"/>
+                                    <constraint firstAttribute="height" constant="50" id="qt2-ez-h5O"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Rmr-Sb-jvc" secondAttribute="bottom" id="2TW-kO-Faj"/>
+                            <constraint firstAttribute="bottom" secondItem="0gJ-kv-0J6" secondAttribute="bottom" id="0mL-0t-Y1Z"/>
+                            <constraint firstItem="bnz-Xw-WEh" firstAttribute="top" secondItem="0gJ-kv-0J6" secondAttribute="top" id="2DJ-h8-DYB"/>
+                            <constraint firstItem="fXs-l0-Xay" firstAttribute="bottom" secondItem="bnz-Xw-WEh" secondAttribute="bottom" id="OUu-VC-vOe"/>
+                            <constraint firstItem="bnz-Xw-WEh" firstAttribute="trailing" secondItem="0gJ-kv-0J6" secondAttribute="trailing" id="Qc6-VE-0NV"/>
                             <constraint firstItem="fXs-l0-Xay" firstAttribute="trailing" secondItem="Rmr-Sb-jvc" secondAttribute="trailing" id="YM1-sB-5DJ"/>
                             <constraint firstItem="Rmr-Sb-jvc" firstAttribute="top" secondItem="fXs-l0-Xay" secondAttribute="top" id="kS5-Vo-nj9"/>
+                            <constraint firstItem="bnz-Xw-WEh" firstAttribute="leading" secondItem="fXs-l0-Xay" secondAttribute="leading" id="lzt-sm-h4M"/>
+                            <constraint firstItem="bnz-Xw-WEh" firstAttribute="trailing" secondItem="fXs-l0-Xay" secondAttribute="trailing" id="m1f-pB-iIr"/>
                             <constraint firstItem="Rmr-Sb-jvc" firstAttribute="leading" secondItem="fXs-l0-Xay" secondAttribute="leading" id="u7W-42-EyQ"/>
+                            <constraint firstItem="bnz-Xw-WEh" firstAttribute="leading" secondItem="0gJ-kv-0J6" secondAttribute="leading" id="wDU-Ii-cyX"/>
+                            <constraint firstItem="bnz-Xw-WEh" firstAttribute="top" secondItem="Rmr-Sb-jvc" secondAttribute="bottom" id="yKi-0D-ohi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fXs-l0-Xay"/>
                     </view>
                     <connections>
                         <outlet property="allDoneTableView" destination="Rmr-Sb-jvc" id="yOn-t5-TlV"/>
+                        <outlet property="gradientView" destination="0gJ-kv-0J6" id="pih-Sd-jUZ"/>
+                        <outlet property="returnToHomeButton" destination="RJB-J1-47P" id="6Jk-Yk-uh8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p1I-Jk-fpB" userLabel="First Responder" sceneMemberID="firstResponder"/>

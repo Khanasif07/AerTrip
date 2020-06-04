@@ -196,7 +196,7 @@ class SelectedContactCollectionCell: UICollectionViewCell {
                 self.profileImageView.setImageWithUrl(img, placeholder: placeholder, showIndicator: false)
             }
             self.crossButton.isHidden = false
-            self.profileImageView.layer.borderColor = AppColors.themeGray40.cgColor
+            self.profileImageView.layer.borderColor = AppColors.themeGray60.cgColor
             self.profileImageView.layer.borderWidth = 1.0
         }
     }

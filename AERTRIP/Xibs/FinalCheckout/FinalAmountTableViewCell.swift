@@ -13,13 +13,19 @@ class FinalAmountTableViewCell: UITableViewCell {
     
     @IBOutlet weak var payableWalletMessageLabel: UILabel!
     @IBOutlet weak var netEffectiveFareLabel: UILabel!
-    
+    @IBOutlet weak var dividerView: ATDividerView!
     override func awakeFromNib() {
         super.awakeFromNib()
         
         self.setUpText()
         self.setUpFont()
         self.setUpColor()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        payableWalletMessageLabel.attributedText = nil
+        netEffectiveFareLabel.attributedText = nil
     }
     
     // MARK: - Helper Methods

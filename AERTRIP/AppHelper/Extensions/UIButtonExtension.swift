@@ -85,5 +85,23 @@ extension UIButton {
         self.titleEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount*factor, bottom: 0, right: -insetAmount*factor)
         self.contentEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: insetAmount)
     }
+    
+    
+    func AttributedFontColorForText(text : String, textColor : UIColor, state: UIControl.State) {
+        
+        //self.textColor = UIColor.black
+        guard let labelString = self.title(for: state) else { return }
+        
+        let main_string = labelString as NSString
+        let range = main_string.range(of: text)
+        
+        var  attribute = NSMutableAttributedString.init(string: main_string as String)
+        if let labelAttributedString = self.attributedTitle(for: state) {
+            attribute = NSMutableAttributedString.init(attributedString: labelAttributedString)
+        }
+        attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: textColor , range: range)
+        // attribute.addAttribute(NSBaselineOffsetAttributeName, value: 0, range: range)
+        self.setAttributedTitle(attribute, for: state)
+    }
 }
 

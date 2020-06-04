@@ -8,6 +8,12 @@
 
 import UIKit
 
+class EmailItinerariesTextField: UITextField {
+    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        return false
+    }
+}
+
 protocol HCEmailItinerariesTableViewCellDelegate: class {
     func sendToEmailId(indexPath: IndexPath, emailId: String)
     func updateEmailId(indexPath: IndexPath, emailId: String)
@@ -24,13 +30,14 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
     //================
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var emailTextField: UITextField! {
+    @IBOutlet weak var emailTextField: EmailItinerariesTextField! {
         didSet {
             self.emailTextField.delegate = self
             self.emailTextField.rightViewMode = .whileEditing
             self.emailTextField.keyboardType = .emailAddress
             self.emailTextField.autocorrectionType = .no
             self.emailTextField.adjustsFontSizeToFitWidth = true
+            self.emailTextField.delegate = self
 
         }
     }
@@ -90,6 +97,7 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
         let placeholderImage = AppGlobals.shared.getImageFor(firstName: firstName, lastName: lastName , font: AppFonts.Regular.withSize(36.0), textColor: AppColors.themeGray60 , backGroundColor: AppColors.imageBackGroundColor)
         self.profileImageView.setImageWithUrl(profileImage, placeholder: placeholderImage, showIndicator: true)
         self.emailTextField.text = emailInfo.emailId
+        self.emailTextField.isUserInteractionEnabled = true
         switch emailInfo.emailStatus {
         case .toBeSend:
             self.activityIndicator.isHidden = true
@@ -119,6 +127,7 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
             self.sendButton.setImage(self.sendBtnImage, for: .normal)
             self.sendButton.imageView?.tintColor = AppColors.themeGreen
             self.sendButton.isUserInteractionEnabled = false
+            self.emailTextField.isUserInteractionEnabled = false
             self.emailTextField.textColor = AppColors.themeGray40
         }
     }
@@ -140,15 +149,23 @@ class HCEmailItinerariesTableViewCell: UITableViewCell {
 }
 
 extension HCEmailItinerariesTableViewCell: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        self.emailTextField.textColor = AppColors.textFieldTextColor51
+        return true
+    }
     
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        if let safeDelegate = self.delegate, let emailId =  textField.text {
-//            let finalText = emailId.trimmingCharacters(in: .whitespacesAndNewlines)
-//            if !finalText.isEmpty {
-//                safeDelegate.sendEmailText(emailId: finalText)
-//            }
-//        }
-//    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let emailId =  textField.text {
+            let finalText = emailId.trimmingCharacters(in: .whitespacesAndNewlines)
+            if finalText.isEmail {
+                self.sendButton.setTitleColor(AppColors.themeGreen, for: .normal)
+                self.emailTextField.textColor = AppColors.textFieldTextColor51
+            } else {
+                self.sendButton.setTitleColor(AppColors.themeGray20, for: .normal)
+                self.emailTextField.textColor = AppColors.themeRed
+            }
+        }
+    }
     
 //    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 //        guard let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) else { return false }

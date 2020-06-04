@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -66,8 +66,17 @@
                             <constraint firstAttribute="height" constant="0.5" id="oZU-8u-xrW"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oC6-Jj-nMY" customClass="ATDividerView" customModule="AERTRIP" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="43.5" width="320" height="0.5"/>
+                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="Wo6-Wx-esV"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="oC6-Jj-nMY" secondAttribute="bottom" id="AAf-pc-Sqk"/>
+                    <constraint firstItem="oC6-Jj-nMY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Cav-lh-hKp"/>
                     <constraint firstItem="aoA-rc-X5j" firstAttribute="leading" secondItem="sE5-Hs-Glv" secondAttribute="leading" id="Dvw-UA-Ccf"/>
                     <constraint firstAttribute="trailing" secondItem="sgg-ds-Ycr" secondAttribute="trailing" id="Ye1-Ty-56Y"/>
                     <constraint firstAttribute="trailing" secondItem="aoA-rc-X5j" secondAttribute="trailing" id="i61-f5-uMf"/>
@@ -75,10 +84,12 @@
                     <constraint firstItem="sgg-ds-Ycr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="m2b-53-qgt"/>
                     <constraint firstItem="aoA-rc-X5j" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="nKg-0v-p0K"/>
                     <constraint firstAttribute="bottom" secondItem="sgg-ds-Ycr" secondAttribute="bottom" id="okk-LR-uQy"/>
+                    <constraint firstAttribute="trailing" secondItem="oC6-Jj-nMY" secondAttribute="trailing" id="x3w-wx-660"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="bottomSeperatorView" destination="oC6-Jj-nMY" id="E2x-xM-agm"/>
                 <outlet property="containerStackView" destination="Vyb-oR-ryc" id="mJb-qc-Fy4"/>
                 <outlet property="leadingConstraint" destination="Ktp-fV-eng" id="wnn-BP-yPb"/>
                 <outlet property="profileImageView" destination="TEE-Gv-sA4" id="T4V-2W-JJy"/>

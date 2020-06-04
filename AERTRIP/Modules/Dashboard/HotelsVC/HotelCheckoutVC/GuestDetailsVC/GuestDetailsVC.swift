@@ -231,7 +231,7 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView === self.guestDetailTableView {
-            guard let cell = guestDetailTableView.dequeueReusableCell(withIdentifier: GuestDetailTableViewCell.reusableIdentifier, for: indexPath) as? GuestDetailTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: GuestDetailTableViewCell.reusableIdentifier, for: indexPath) as? GuestDetailTableViewCell else {
                 printDebug("cell not found")
                 return UITableViewCell()
             }
@@ -254,11 +254,12 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
             printDebug("cell frame: \(cell.frame)")
             return cell
         } else {
-            guard let cell = travellersTableView.dequeueReusableCell(withIdentifier: TravellerListTableViewCell.reusableIdentifier, for: indexPath) as? TravellerListTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TravellerListTableViewCell.reusableIdentifier, for: indexPath) as? TravellerListTableViewCell else {
                 printDebug("cell not found")
                 return UITableViewCell()
             }
             cell.separatorView.isHidden = indexPath.row == 0
+            cell.bottomSeperatorView.isHidden = !self.viewModel.isLastIndexOfTable(indexPath: indexPath)
             cell.searchedText = self.searchText
 //            if indexPath.row < self.travellers.count {
             cell.travellerModelData = self.viewModel.objectForIndexPath(indexPath: indexPath)
@@ -366,10 +367,12 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
 
 extension GuestDetailsVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         AppFlowManager.default.popViewController(animated: true)
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
+        self.view.endEditing(true)
         if self.viewModel.checkForDoneValidation() {
         printDebug("Done Button tapped")
         AppFlowManager.default.popViewController(animated: true)

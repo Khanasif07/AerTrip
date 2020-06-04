@@ -601,7 +601,7 @@ extension AppGlobals {
         }
     }
     
-    func viewPdf(urlPath: String, screenTitle: String) {
+    func viewPdf(urlPath: String, screenTitle: String, showLoader: Bool = true) {
         //open pdf for booking id
         
         guard AppNetworking.isConnectedToNetwork else {
@@ -613,13 +613,16 @@ extension AppGlobals {
             printDebug("Please pass valid url")
             return
         }
-        
+        if showLoader {
         AppGlobals.shared.startLoading()
+        }
         self.downloadPdf(fileURL: url, screenTitle: screenTitle) { localPdf in
             if let url = localPdf {
                 
                 DispatchQueue.mainSync {
+                    if showLoader {
                     AppGlobals.shared.stopLoading()
+                    }
                     AppFlowManager.default.openDocument(atURL: url, screenTitle: screenTitle)
                 }
             }

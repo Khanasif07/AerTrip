@@ -36,7 +36,11 @@ class SelectTripVM {
     var tripInfo: TripInfo?
     var usingFor: TripUsingFor = .hotel
     
-    var allTrips: [TripModel] = []
+    var allTrips: [TripModel] = [] {
+        didSet {
+            self.setSelectedTripIndexPath()
+        }
+    }
     var eventId: String = ""
     var newTripId: String = ""
     
@@ -47,6 +51,14 @@ class SelectTripVM {
     // MARK: - Private
     
     // MARK: - Public
+    
+    func setSelectedTripIndexPath() {
+        for (index, trip) in allTrips.enumerated() {
+            if trip.isDefault {
+               selectedIndexPath = IndexPath(row: index, section: 0)
+            }
+        }
+    }
     
     func fetchAllTrips() {
         delegate?.willFetchAllTrips()
