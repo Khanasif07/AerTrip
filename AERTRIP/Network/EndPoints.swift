@@ -136,6 +136,9 @@ enum APIEndPoint: String {
     case fareConfirmation = "flights/confirmation"
     case addonsMaster = "flights/addons-master"
     case gstValidation = "flights/validate-gst-number"
+    
+    //FlightAddOns
+    case seatMap = "flights/seat-map-list"
 }
 
 // MARK: - endpoint extension for url -

@@ -38,7 +38,8 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
                 seatData = curSeatData
             }
         }
-        seatCell.setupCellFor(indexPath, rowStr, columnStr, seatData)
+        seatCell.setupViewModel(seatData, viewModel.flightFares)
+        seatCell.setupCellFor(indexPath, rowStr, columnStr)
         return seatCell
     }
 
@@ -47,7 +48,40 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let curCell = collectionView.cellForItem(at: indexPath) as? SeatCollCell, !curCell.seatView.isHidden else { return }
+        guard let curCell = collectionView.cellForItem(at: indexPath) as? SeatCollCell, curCell.viewModel.seatData.columnData.availability == .available else { return }
+        openPassengerSelectionVC(curCell.viewModel.seatData)
+    }
+    
+    private func openPassengerSelectionVC(_ seatData: SeatMapModel.SeatMapRow) {
+        let passengerVC = SelectPassengerVC.instantiate(fromAppStoryboard: .Adons)
+        passengerVC.selectPassengersVM.seatModel = seatData
+        passengerVC.selectPassengersVM.setupFor = .seatSelection
+        passengerVC.modalPresentationStyle = .overFullScreen
+        passengerVC.selectedPassengerForSeat = { [weak self] passenger in
+            self?.savePassengerForSeat(seatData, passenger)
+        }
+        present(passengerVC, animated: true, completion: nil)
+    }
+    
+    private func savePassengerForSeat(_ seatData: SeatMapModel.SeatMapRow,_ passenger: ATContact?) {
         
+        viewModel.flightData.md.rows.forEach { (rowKey, row) in
+            var newRow = row
+            newRow.forEach { (columnKey, column) in
+                var newColumn = column
+                if newColumn.columnData.ssrCode == seatData.columnData.ssrCode {
+                    newColumn.columnData.passenger = passenger
+                } else {
+                    if newColumn.columnData.passenger?.id == passenger?.id {
+                        newColumn.columnData.passenger = nil
+                    }
+                }
+                
+                newRow.updateValue(newColumn, forKey: columnKey)
+            }
+            
+            viewModel.flightData.md.rows.updateValue(newRow, forKey: rowKey)
+        }
+        seatMapCollView.reloadData()
     }
 }

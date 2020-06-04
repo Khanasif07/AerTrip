@@ -47,5 +47,9 @@ class AdonsVM  {
         return finalheight
     }
     
+    func getSeatMapContainerVM() -> SeatMapContainerVM {
+        let viewModel = SeatMapContainerVM(itineraryData.itinerary.sid, itineraryData.itinerary.id, itineraryData.itinerary.details.fk)
+        return viewModel
+    }
     
 }

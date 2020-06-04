@@ -112,6 +112,7 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
             
         case .seat:
             let vc = SeatMapContainerVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
+            vc.setViewModel(adonsVm.getSeatMapContainerVM())
             vc.modalPresentationStyle = .overFullScreen
             present(vc, animated: true, completion: nil)
             
