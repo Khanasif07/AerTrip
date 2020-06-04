@@ -66,8 +66,6 @@ class FinalCheckoutVM: NSObject {
                     sSelf.delegate?.removeCouponCodeSuccessful(appliedCouponDetails)
                 }
             } else {
-                printDebug(errors)
-                //AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
                 sSelf.delegate?.removeCouponCodeFailed()
             }
         }

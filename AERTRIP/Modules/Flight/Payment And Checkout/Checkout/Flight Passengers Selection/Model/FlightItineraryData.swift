@@ -86,7 +86,7 @@ struct FlightSearchParam{
     
     
     init(_ json:JSON = JSON()){
-        adult = json["sid"].stringValue
+        adult = json["adult"].stringValue
         cabinclass = json["cabinclass"].stringValue
         child = json["child"].stringValue
         depart = json["depart"].stringValue

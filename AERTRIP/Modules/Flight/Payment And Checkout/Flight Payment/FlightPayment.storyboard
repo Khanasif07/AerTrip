@@ -8,50 +8,175 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Flight PaymentVC-->
         <scene sceneID="ZD7-QW-PvD">
             <objects>
-                <viewController id="jxA-Hv-gIa" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FlightPaymentVC" id="jxA-Hv-gIa" customClass="FlightPaymentVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BvX-6g-GvZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zqh-Fh-vVP">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="uLu-bL-ctg">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HgL-qj-3ce">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="U56-4r-DzO">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                            <vibrancyEffect>
+                                                <blurEffect style="regular"/>
+                                            </vibrancyEffect>
+                                        </visualEffectView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="HgL-qj-3ce" secondAttribute="bottom" id="K8W-b8-GXs"/>
+                                        <constraint firstItem="HgL-qj-3ce" firstAttribute="leading" secondItem="uLu-bL-ctg" secondAttribute="leading" id="V0K-XD-AqO"/>
+                                        <constraint firstItem="HgL-qj-3ce" firstAttribute="top" secondItem="uLu-bL-ctg" secondAttribute="top" id="bnl-W7-yQD"/>
+                                        <constraint firstAttribute="trailing" secondItem="HgL-qj-3ce" secondAttribute="trailing" id="f1Z-ui-7AH"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="prominent"/>
+                            </visualEffectView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HcM-qZ-Yts" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="DCt-ny-aJs"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jdd-VS-Snt">
-                                <rect key="frame" x="0.0" y="44" width="414" height="758"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="724"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZfM-qh-wAp">
-                                <rect key="frame" x="0.0" y="802" width="414" height="94"/>
+                                <rect key="frame" x="0.0" y="812" width="414" height="84"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Csd-vK-VrU">
-                                <rect key="frame" x="0.0" y="802" width="414" height="60"/>
+                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="6op-jq-Nhr"/>
+                                    <constraint firstAttribute="height" constant="50" id="6op-jq-Nhr"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="payButtonTapped:" destination="jxA-Hv-gIa" eventType="touchUpInside" id="YEW-uk-s5j"/>
+                                </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wpE-ai-jDZ">
+                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <subviews>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="mUx-TD-wcd">
+                                        <rect key="frame" x="197" y="15" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="mUx-TD-wcd" firstAttribute="centerY" secondItem="wpE-ai-jDZ" secondAttribute="centerY" id="GVI-XP-PYn"/>
+                                    <constraint firstItem="mUx-TD-wcd" firstAttribute="centerX" secondItem="wpE-ai-jDZ" secondAttribute="centerX" id="pUt-l1-VYH"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="ZfM-qh-wAp" secondAttribute="bottom" id="0Nm-hO-p2h"/>
+                            <constraint firstItem="wpE-ai-jDZ" firstAttribute="leading" secondItem="Csd-vK-VrU" secondAttribute="leading" id="3de-BM-PH0"/>
+                            <constraint firstItem="Zqh-Fh-vVP" firstAttribute="top" secondItem="BvX-6g-GvZ" secondAttribute="top" id="3nn-lp-mm0"/>
                             <constraint firstItem="ZfM-qh-wAp" firstAttribute="leading" secondItem="c30-T4-i8U" secondAttribute="leading" id="3rB-wt-ZOS"/>
                             <constraint firstItem="Csd-vK-VrU" firstAttribute="leading" secondItem="c30-T4-i8U" secondAttribute="leading" id="7rI-4n-3xM"/>
                             <constraint firstItem="Jdd-VS-Snt" firstAttribute="trailing" secondItem="c30-T4-i8U" secondAttribute="trailing" id="A9Z-6h-ot4"/>
                             <constraint firstItem="Jdd-VS-Snt" firstAttribute="leading" secondItem="c30-T4-i8U" secondAttribute="leading" id="B8K-d4-HW2"/>
+                            <constraint firstItem="HcM-qZ-Yts" firstAttribute="top" secondItem="c30-T4-i8U" secondAttribute="top" id="FHg-kX-5sV"/>
                             <constraint firstItem="Csd-vK-VrU" firstAttribute="top" secondItem="Jdd-VS-Snt" secondAttribute="bottom" id="Onv-Zq-Tho"/>
                             <constraint firstItem="Csd-vK-VrU" firstAttribute="bottom" secondItem="c30-T4-i8U" secondAttribute="bottom" id="YVN-ss-nGG"/>
+                            <constraint firstItem="Jdd-VS-Snt" firstAttribute="top" secondItem="HcM-qZ-Yts" secondAttribute="bottom" id="YWM-g3-pYg"/>
                             <constraint firstItem="ZfM-qh-wAp" firstAttribute="top" secondItem="Jdd-VS-Snt" secondAttribute="bottom" id="cxh-Hh-KRN"/>
                             <constraint firstItem="ZfM-qh-wAp" firstAttribute="trailing" secondItem="c30-T4-i8U" secondAttribute="trailing" id="d3B-QJ-08D"/>
+                            <constraint firstItem="Zqh-Fh-vVP" firstAttribute="bottom" secondItem="HcM-qZ-Yts" secondAttribute="bottom" id="hyH-vg-u9w"/>
+                            <constraint firstItem="HcM-qZ-Yts" firstAttribute="leading" secondItem="c30-T4-i8U" secondAttribute="leading" id="iu4-hx-a1A"/>
+                            <constraint firstItem="Zqh-Fh-vVP" firstAttribute="trailing" secondItem="HcM-qZ-Yts" secondAttribute="trailing" id="klj-Qf-WhW"/>
+                            <constraint firstItem="Zqh-Fh-vVP" firstAttribute="leading" secondItem="HcM-qZ-Yts" secondAttribute="leading" id="m2U-rf-eBs"/>
                             <constraint firstItem="c30-T4-i8U" firstAttribute="trailing" secondItem="Csd-vK-VrU" secondAttribute="trailing" id="o2a-w9-IpE"/>
-                            <constraint firstItem="Jdd-VS-Snt" firstAttribute="top" secondItem="c30-T4-i8U" secondAttribute="top" id="oEV-po-jaL"/>
+                            <constraint firstItem="wpE-ai-jDZ" firstAttribute="trailing" secondItem="Csd-vK-VrU" secondAttribute="trailing" id="pLi-vP-XWf"/>
+                            <constraint firstItem="c30-T4-i8U" firstAttribute="trailing" secondItem="HcM-qZ-Yts" secondAttribute="trailing" id="rRL-hb-zzc"/>
+                            <constraint firstItem="wpE-ai-jDZ" firstAttribute="bottom" secondItem="Csd-vK-VrU" secondAttribute="bottom" id="sK5-V5-Lwe"/>
+                            <constraint firstItem="wpE-ai-jDZ" firstAttribute="top" secondItem="Csd-vK-VrU" secondAttribute="top" id="zPw-dd-0Nb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="c30-T4-i8U"/>
                     </view>
+                    <connections>
+                        <outlet property="activityLoader" destination="mUx-TD-wcd" id="LO7-mY-lh7"/>
+                        <outlet property="checkOutTableView" destination="Jdd-VS-Snt" id="IG7-5F-9T9"/>
+                        <outlet property="gradientView" destination="ZfM-qh-wAp" id="M3l-hX-4fc"/>
+                        <outlet property="loaderView" destination="wpE-ai-jDZ" id="a6R-RQ-RmL"/>
+                        <outlet property="payButton" destination="Csd-vK-VrU" id="ouK-IF-d9X"/>
+                        <outlet property="topNavView" destination="HcM-qZ-Yts" id="yPH-ae-kVz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bRB-oQ-zHv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-204.34782608695653" y="109.82142857142857"/>
+            <point key="canvasLocation" x="-865" y="88"/>
+        </scene>
+        <!--Flight Payment Booking StatusVC-->
+        <scene sceneID="8BE-V8-yIA">
+            <objects>
+                <viewController storyboardIdentifier="FlightPaymentBookingStatusVC" id="g2B-xA-ZJB" customClass="FlightPaymentBookingStatusVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ge7-SO-b9i">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SJn-CW-zfX">
+                                <rect key="frame" x="0.0" y="44" width="414" height="768"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="g2B-xA-ZJB" id="iiv-ht-kcL"/>
+                                    <outlet property="delegate" destination="g2B-xA-ZJB" id="GYd-Zn-cGw"/>
+                                </connections>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fXr-hy-gYK">
+                                <rect key="frame" x="0.0" y="812" width="414" height="84"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ELy-X1-1gr">
+                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="JgB-QA-nU6"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="returnHomeButtonTapped:" destination="g2B-xA-ZJB" eventType="touchUpInside" id="v97-Fz-m9H"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="ELy-X1-1gr" firstAttribute="leading" secondItem="71J-Xp-QZ0" secondAttribute="leading" id="8WV-Hi-LuA"/>
+                            <constraint firstItem="fXr-hy-gYK" firstAttribute="leading" secondItem="ELy-X1-1gr" secondAttribute="leading" id="9LF-ml-8zg"/>
+                            <constraint firstItem="ELy-X1-1gr" firstAttribute="trailing" secondItem="71J-Xp-QZ0" secondAttribute="trailing" id="CcO-Eu-XeE"/>
+                            <constraint firstItem="fXr-hy-gYK" firstAttribute="top" secondItem="ELy-X1-1gr" secondAttribute="top" id="Nmd-IQ-ADD"/>
+                            <constraint firstItem="fXr-hy-gYK" firstAttribute="top" secondItem="SJn-CW-zfX" secondAttribute="bottom" id="Yp1-80-SOI"/>
+                            <constraint firstItem="71J-Xp-QZ0" firstAttribute="bottom" secondItem="ELy-X1-1gr" secondAttribute="bottom" id="cDT-lp-rUv"/>
+                            <constraint firstItem="SJn-CW-zfX" firstAttribute="top" secondItem="71J-Xp-QZ0" secondAttribute="top" id="jdZ-ok-83d"/>
+                            <constraint firstItem="SJn-CW-zfX" firstAttribute="leading" secondItem="71J-Xp-QZ0" secondAttribute="leading" id="lQF-hp-a4C"/>
+                            <constraint firstAttribute="bottom" secondItem="fXr-hy-gYK" secondAttribute="bottom" id="pTj-bJ-1mO"/>
+                            <constraint firstItem="fXr-hy-gYK" firstAttribute="trailing" secondItem="ELy-X1-1gr" secondAttribute="trailing" id="vSv-yc-3US"/>
+                            <constraint firstItem="71J-Xp-QZ0" firstAttribute="trailing" secondItem="SJn-CW-zfX" secondAttribute="trailing" id="wj7-OQ-b2X"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="71J-Xp-QZ0"/>
+                    </view>
+                    <connections>
+                        <outlet property="gradientView" destination="fXr-hy-gYK" id="t2h-MG-qLK"/>
+                        <outlet property="returnHomeButton" destination="ELy-X1-1gr" id="wr3-Q0-aOu"/>
+                        <outlet property="statusTableView" destination="SJn-CW-zfX" id="kpK-g8-btN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GLd-ru-Qxh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="40" y="105"/>
         </scene>
     </scenes>
 </document>

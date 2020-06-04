@@ -71,6 +71,11 @@ class FlightCarriersTableViewCell: UITableViewCell {
         let firstFlightNumber = flightNumbers.first ?? ""
         self.flightCode.text = (firstCarrierCode + firstFlightNumber)
         self.remainingCodesLabel.isHidden = false
+        self.setupImageWith(carrierCode: carrierCode, carriers: carriers)
+        
+    }
+    
+    func setupImageWith(carrierCode:[String], carriers:[String]){
         
         // logic for carrier image and name label :
         /*
@@ -115,6 +120,22 @@ class FlightCarriersTableViewCell: UITableViewCell {
             self.moreFlightCarriersLabel.text = "+ \(carriers.count - 3)"
             self.totalCarriersOrFlNameLabel.text = "\(carriers.count) \(LocalizedString.Carriers.localized)"
         }
+        
+    }
+    
+    
+    func configureCellWith(_ leg: IntLeg, airLineDetail:[String:String]){
+        let firstCarrierCode = leg.al.first ?? ""
+        let firstFlightNumber = leg.flightsWithDetails.first?.fn ?? ""
+        self.flightCode.text = (firstCarrierCode + firstFlightNumber)
+        self.remainingCodesLabel.isHidden = false
+        let codes = leg.flightsWithDetails.map{$0.al}
+        var carriers = [String]()
+        for code in codes{
+            carriers.append(airLineDetail[code] ?? "")
+        }
+        self.setupImageWith(carrierCode: codes, carriers: carriers)
+        
     }
     
     // MARK: - IBActions
