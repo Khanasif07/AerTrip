@@ -45,9 +45,6 @@
                                         <constraint firstAttribute="height" constant="20" id="R1e-FU-gOA"/>
                                     </constraints>
                                     <state key="normal" image="downArrowCheckOut"/>
-                                    <connections>
-                                        <action selector="arrowButtonTapped:" destination="-1" eventType="touchUpInside" id="Hut-WV-HOA"/>
-                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6y9-eP-ASc">
                                     <rect key="frame" x="317" y="3" width="42" height="21"/>
@@ -99,7 +96,7 @@
                 <outlet property="discountViewHeightConstraint" destination="x0U-o7-vfv" id="ZGy-Ws-ERq"/>
                 <outlet property="discountsTitleLabel" destination="K6q-3f-aq6" id="CFW-YO-RZA"/>
                 <outlet property="grossFareTitleLabel" destination="fx7-L8-x4N" id="nlh-yx-Ki3"/>
-                <outlet property="grossFareTitleTopConstraint" destination="xhD-zt-nfn" id="iNI-zX-Jzk"/>
+                <outlet property="grossFareTitleTopConstraint" destination="xhD-zt-nfn" id="nEI-KA-wVp"/>
                 <outlet property="grossPriceLabel" destination="DZX-b8-BiC" id="DlG-ZJ-fcP"/>
                 <outlet property="topBackgroundView" destination="S5L-Wq-Vl1" id="Cmm-vx-ya7"/>
             </connections>
