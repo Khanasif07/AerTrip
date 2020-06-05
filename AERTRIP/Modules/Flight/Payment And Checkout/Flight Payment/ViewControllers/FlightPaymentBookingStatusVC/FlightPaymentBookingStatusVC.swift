@@ -11,7 +11,16 @@ import UIKit
 class FlightPaymentBookingStatusVC: BaseVC {
 
     
-    @IBOutlet weak var statusTableView: UITableView!
+    @IBOutlet weak var statusTableView: ATTableView!{
+        didSet{
+            self.statusTableView.contentInset = UIEdgeInsets.zero
+            self.statusTableView.delegate = self
+            self.statusTableView.dataSource = self
+            self.statusTableView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
+            self.statusTableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
+            self.statusTableView.backgroundColor = AppColors.screensBackground.color
+        }
+    }
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var returnHomeButton: UIButton!
     
@@ -23,6 +32,7 @@ class FlightPaymentBookingStatusVC: BaseVC {
     }
     override func initialSetup() {
         super.initialSetup()
+        self.viewModel.getSectionData()
         self.registerCell()
         self.statusTableView.separatorStyle = .none
         self.setupPayButton()
@@ -35,10 +45,17 @@ class FlightPaymentBookingStatusVC: BaseVC {
     }
     
     private func registerCell(){
+        
+        self.statusTableView.registerCell(nibName: YouAreAllDoneTableViewCell.reusableIdentifier)
+        self.statusTableView.registerCell(nibName: EventAdddedTripTableViewCell.reusableIdentifier)
+        self.statusTableView.register(UINib(nibName: "HCBookingDetailsTableViewHeaderFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: "HCBookingDetailsTableViewHeaderFooterView")
         self.statusTableView.registerCell(nibName: FlightCarriersTableViewCell.reusableIdentifier)
         self.statusTableView.registerCell(nibName: FlightBoardingAndDestinationTableViewCell.reusableIdentifier)
         self.statusTableView.registerCell(nibName: BookingPaymentDetailsTableViewCell.reusableIdentifier)
         self.statusTableView.registerCell(nibName: TravellersPnrStatusTableViewCell.reusableIdentifier)
+        self.statusTableView.registerCell(nibName: HCTotalChargeTableViewCell.reusableIdentifier)
+        self.statusTableView.registerCell(nibName: HCConfirmationVoucherTableViewCell.reusableIdentifier)
+        self.statusTableView.registerCell(nibName: HCWhatNextTableViewCell.reusableIdentifier)
     }
 
   private func setupPayButton() {
@@ -57,14 +74,40 @@ class FlightPaymentBookingStatusVC: BaseVC {
 extension FlightPaymentBookingStatusVC: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.itinerary.details.legsWithDetail.count
+        return self.viewModel.sectionData.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return self.viewModel.sectionData[section].count
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return self.getCellsForTtavellerSection(indexPath)
+        let sectionData = self.viewModel.sectionData[indexPath.section]
+        switch sectionData[indexPath.row]{
+        case .allDoneCell:
+            return self.getAllDoneCell(indexPath)
+        case .eventSharedCell:
+            return self.getEventSharedCell(indexPath)
+        case .carriersCell:
+            return self.getCarriarTableCell(indexPath)
+        case .legInfoCell:
+            return self.getLegInfoCell(indexPath)
+        case .BookingPaymentCell:
+            return getTravellerStatusHeader(indexPath)
+        case .pnrStatusCell:
+            return getTravellerCell(indexPath)
+        case .totalChargeCell:
+            return self.getTotalChargeCell(indexPath)
+        case .confirmationHeaderCell:
+            return self.getConfirmationVoucherHealderCell(indexPath)
+        case .confirmationVoucherCell:
+            return self.getConfirmationVoucherCell(indexPath)
+        case .whatNextCell:
+            return self.getWhatNextCell(indexPath)
+        }
+        
     }
     
 }
