@@ -60,7 +60,8 @@ class HotelInfoAddressCell: UITableViewCell {
     /// COnfigure UI
     private func configureUI() {
         // SetUps
-        self.moreBtnContainerView.addGradientWithColor(color: AppColors.themeWhite)
+        self.moreBtnContainerView.addGredient(isVertical: false, colors: [.white, UIColor.white.withAlphaComponent(0)])
+        self.gradientView.addGredient(isVertical: false, colors: [.white, UIColor.white.withAlphaComponent(0)])
         self.moreBtnContainerView.isHidden = true
         
         // Color

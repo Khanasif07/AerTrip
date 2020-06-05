@@ -24,7 +24,7 @@ class ATEmailSelectorTextView: IQTextView {
     
     private var allTags: [String] {
         var arr = textRemovingWhitespacesAndNewlines.components(separatedBy: _tagSeparator).reduce(into: [""]) { (unique, element) in
-            if !element.isEmpty, !unique.contains(element) {
+            if !element.isEmpty, !unique.contains(element), element.checkValidity(.Email) {
                 unique.append(element)
             }
         }
@@ -176,7 +176,7 @@ class ATEmailSelectorTextView: IQTextView {
         let attString: NSMutableAttributedString = NSMutableAttributedString(string: tagsString, attributes: [NSAttributedString.Key.foregroundColor : tagSeparatorColor, NSAttributedString.Key.font: tagSeparatorFont])
         
         for tag in allTags {
-            attString.addAttributes([NSAttributedString.Key.font: inactiveTagFont, NSAttributedString.Key.foregroundColor : inactiveTagFontColor, NSAttributedString.Key.backgroundColor: inactiveTagBackgroundColor], range: (text as NSString).range(of: tag))
+            attString.addAttributes([NSAttributedString.Key.font: inactiveTagFont, NSAttributedString.Key.foregroundColor : activeTagFontColor, NSAttributedString.Key.backgroundColor: activeTagBackgroundColor], range: (text as NSString).range(of: tag))
         }
         attributedText = attString
         isLastTagSelected = false

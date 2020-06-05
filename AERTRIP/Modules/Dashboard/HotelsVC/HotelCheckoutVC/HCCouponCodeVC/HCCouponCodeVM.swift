@@ -13,7 +13,7 @@ protocol HCCouponCodeVMDelegate: class {
     func getCouponsDataFailed()
     
     func applyCouponCodeSuccessful()
-    func applyCouponCodeFailed()
+    func applyCouponCodeFailed(errors: ErrorCodes)
 }
 
 class HCCouponCodeVM {
@@ -50,7 +50,7 @@ class HCCouponCodeVM {
             } else {
                 printDebug(errors)
                 //AppGlobals.shared.showErrorOnToastView(withErrors: errors, fromModule: .hotelsSearch)
-                sSelf.delegate?.applyCouponCodeFailed()
+                sSelf.delegate?.applyCouponCodeFailed(errors: errors)
             }
         }
     }

@@ -197,11 +197,21 @@ class GuestDetailsVC: BaseVC {
     
     private func editedGuest(_ travellerIndexPath: IndexPath) {
         if let indexPath = self.indexPath, let object = self.viewModel.objectForIndexPath(indexPath: travellerIndexPath) {
+            var shouldAddContact = true
+            let allContact = GuestDetailsVM.shared.guests.flatMap({ $0})
+            for guest in allContact {
+                if guest.firstName.lowercased() == object.firstName.lowercased() && guest.lastName.lowercased() == object.lastName.lowercased() {
+                    shouldAddContact = false
+                    break
+                }
+            }
+            
             printDebug(" before updating guest : \(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
+            if shouldAddContact {
             GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].salutation = object.salutation
             GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].firstName = object.firstName
             GuestDetailsVM.shared.guests[indexPath.section][indexPath.row].lastName = object.lastName
-            
+            }
             printDebug("after updating guest : \(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
             
             printDebug("=====guest \(indexPath.section) \(indexPath.row)\(GuestDetailsVM.shared.guests[indexPath.section][indexPath.row])")
@@ -347,14 +357,14 @@ extension GuestDetailsVC: UITableViewDataSource, UITableViewDelegate {
         if tableView === self.travellersTableView {
             self.guestDetailTableView.isScrollEnabled = true
             self.travellersTableView.isHidden = true
-            let object = self.viewModel.objectForIndexPath(indexPath: indexPath)
-            if let cellindexPath = self.indexPath, let obj = object {
-                if let cell = self.guestDetailTableView.cellForRow(at: cellindexPath) as? GuestDetailTableViewCell {
-                    //cell.salutationTextField.text = self.travellers[indexPath.row].salutation
-                    cell.firstNameTextField.text = obj.firstName
-                    cell.lastNameTextField.text = obj.lastName
-                }
-            }
+//            let object = self.viewModel.objectForIndexPath(indexPath: indexPath)
+//            if let cellindexPath = self.indexPath, let obj = object {
+//                if let cell = self.guestDetailTableView.cellForRow(at: cellindexPath) as? GuestDetailTableViewCell {
+//                    //cell.salutationTextField.text = self.travellers[indexPath.row].salutation
+//                    cell.firstNameTextField.text = obj.firstName
+//                    cell.lastNameTextField.text = obj.lastName
+//                }
+//            }
             self.editedGuest(indexPath)
             self.viewModel.resetData()
             self.viewModel.search(forText: "")
