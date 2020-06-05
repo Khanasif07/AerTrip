@@ -113,13 +113,13 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
 
 
-        let vc = FlightPaymentVC.instantiate(fromAppStoryboard: .FlightPayment)
-        vc.viewModel.itinerary = self.viewModel.itineraryData.itinerary
-        vc.viewModel.taxesResult = self.viewModel.taxesResult
+//        let vc = FlightPaymentVC.instantiate(fromAppStoryboard: .FlightPayment)
+//        vc.viewModel.itinerary = self.viewModel.itineraryData.itinerary
+//        vc.viewModel.taxesResult = self.viewModel.taxesResult
 //
 //
-//        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
-//        vc.adonsVm.itineraryData = self.viewModel.itineraryData
+        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
+        vc.adonsVm.itineraryData = self.viewModel.itineraryData
 //
         self.navigationController?.pushViewController(vc, animated: true)
         
