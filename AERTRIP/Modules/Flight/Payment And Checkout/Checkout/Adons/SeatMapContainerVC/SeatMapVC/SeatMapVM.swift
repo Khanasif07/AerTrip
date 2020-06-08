@@ -17,6 +17,7 @@ class SeatMapVM {
             getFares()
         }
     }
+        
     var seatLayout: SeatCollCellVM.PlaneSeatsLayout = .ten
     var hasUpperDeck = false
     var flightFares: amount = (0, 0)
