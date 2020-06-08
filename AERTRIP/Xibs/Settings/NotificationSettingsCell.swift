@@ -10,7 +10,7 @@ import UIKit
 
 class NotificationSettingsCell : UITableViewCell {
 
-    @IBOutlet weak var sepratorView: UIView!
+    @IBOutlet weak var sepratorView: ATDividerView!
     @IBOutlet weak var settingTitleLabel: UILabel!
     @IBOutlet weak var settingDescriptionLabel: UILabel!
     @IBOutlet weak var `switch`: UISwitch!
@@ -21,7 +21,7 @@ class NotificationSettingsCell : UITableViewCell {
         settingTitleLabel.font = AppFonts.Regular.withSize(18)
         settingDescriptionLabel.font = AppFonts.Regular.withSize(14)
 //        settingDescriptionLabel.textColor = AppColors.themeGray20
-        self.sepratorView.backgroundColor = AppColors.themeGray20
+//        self.sepratorView.backgroundColor = AppColors.themeGray20
         settingDescriptionLabel.textColor = AppColors.themeGray40
     }
 

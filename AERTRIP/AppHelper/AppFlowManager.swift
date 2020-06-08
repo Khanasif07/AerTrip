@@ -354,7 +354,7 @@ extension AppFlowManager {
     
     func moveToTravellerListVC() {
         let ob = TravellerListVC.instantiate(fromAppStoryboard: .TravellerList)
-        self.mainNavigationController.pushViewController(ob, animated: false)
+        self.mainNavigationController.pushViewController(ob, animated: true)
     }
     
     func moveToPreferencesVC(_ delegate: PreferencesVCDelegate) {
@@ -446,7 +446,7 @@ extension AppFlowManager {
     }
     
     func showBulkRoomSelectionVC(rooms: Int, adults: Int, children: Int, delegate: BulkRoomSelectionVCDelegate) {
-        if let mVC = self.mainHomeVC {
+        if let mVC = UIApplication.topViewController() {
             let ob = BulkRoomSelectionVC.instantiate(fromAppStoryboard: .HotelsSearch)
             ob.delegate = delegate
             ob.viewModel.roomCount = rooms
@@ -695,9 +695,11 @@ extension AppFlowManager {
     
     func presentCreateNewTripVC(delegate: CreateNewTripVCDelegate, onViewController: UIViewController? = nil) {
         let obj = CreateNewTripVC.instantiate(fromAppStoryboard: .HotelResults)
+        if #available(iOS 13.0, *) {} else {
         obj.modalPresentationStyle = .overFullScreen
         obj.modalPresentationCapturesStatusBarAppearance =  true
-        obj.statusBarColor = AppColors.themeWhite
+            obj.statusBarColor = AppColors.themeWhite
+        }
         obj.delegate = delegate
         if let oVC = onViewController {
             oVC.present(obj, animated: true)
@@ -1127,7 +1129,7 @@ extension AppFlowManager {
     func moveToWebViewVC(type : WebViewVM.WebViewType){
            let ob = WebViewVC.instantiate(fromAppStoryboard: .Settings)
         ob.webViewVm.webViewType = type
-           self.mainNavigationController.pushViewController(ob, animated: true)
+           self.mainNavigationController.present(ob, animated: true, completion: nil)
        }
        
     
@@ -1148,11 +1150,30 @@ extension AppFlowManager {
         self.mainNavigationController.pushViewController(obj, animated: true)
     }
     
-//    func moveToCurrencyVC() {
-//        self.showURLOnATWebView(<#T##url: URL##URL#>, screenTitle: <#T##String#>)
-//    }
+    func moveToChangePasswordVC(type: ChangePasswordVM.ChangePasswordType, delegate: ChangePasswordVCDelegate) {
+        let ob = ChangePasswordVC.instantiate(fromAppStoryboard: .Profile)
+        ob.viewModel.isPasswordType = type
+        ob.delegate = delegate
+        self.mainNavigationController.pushViewController(ob, animated: true)
+    }
     
-    
+    func moveToHotelCheckoutDetailVC(viewModel: HCDataSelectionVM, delegate: HotelCheckOutDetailsVIewDelegate) {
+        let ob = HotelCheckoutDetailVC.instantiate(fromAppStoryboard: .HotelCheckout)
+        ob.sectionData.removeAll()
+        ob.roomRates.removeAll()
+        ob.viewModel = viewModel.itineraryData?.hotelDetails ?? HotelDetails()
+        ob.hotelInfo = viewModel.hotelInfo ?? HotelSearched()
+        ob.placeModel = viewModel.placeModel ?? PlaceModel()
+        ob.sectionData = viewModel.sectionData
+        ob.roomRates = viewModel.roomRates
+        ob.requestParameters = viewModel.hotelSearchRequest?.requestParameters
+        ob.updateData()
+        ob.delegate = delegate
+        
+        let nav = UINavigationController(rootViewController: ob)
+        nav.isNavigationBarHidden = true
+        self.currentNavigation?.present(nav, animated: true, completion: nil)
+    }
 }
 
 // MARK: - Select Trip Flow Methods
@@ -1165,9 +1186,11 @@ extension AppFlowManager {
             obj.viewModel.allTrips = trips
             obj.viewModel.tripDetails = tripDetails
             obj.viewModel.usingFor = tripType
+            if #available(iOS 13.0, *) {} else {
             obj.modalPresentationStyle = .overFullScreen
             obj.modalPresentationCapturesStatusBarAppearance = true
             obj.statusBarColor = AppColors.themeWhite
+            }
             self.currentNavigation?.present(obj, animated: true)
         }
         

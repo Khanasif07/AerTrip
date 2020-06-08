@@ -161,6 +161,8 @@ class HCSelectGuestsVC: BaseVC {
         
         self.selectedContactsSetHidden(isHidden: false, animated: false)
         self.selectedContactsCollectionView.reloadData()
+        
+        selectNextGuest()
     }
     
     
@@ -248,7 +250,7 @@ class HCSelectGuestsVC: BaseVC {
         for (section, roomGuest) in GuestDetailsVM.shared.guests.enumerated() {
             for (item, guest) in roomGuest.enumerated() {
                 // guest.firstName.isEmpty change for issue http://gitlab.appinvent.in/aertrip/iOS/issues/1302
-                if guest.id.isEmpty {
+                if guest.fullName.isEmpty {
                     idxPath = IndexPath(item: item, section: section)
                     break
                 }

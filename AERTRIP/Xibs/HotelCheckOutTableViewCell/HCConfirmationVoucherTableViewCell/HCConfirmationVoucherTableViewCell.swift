@@ -17,6 +17,8 @@ class HCConfirmationVoucherTableViewCell: UITableViewCell {
     //================
     @IBOutlet weak var confirmationVoucherLabel: UILabel!
     @IBOutlet weak var viewButton: ATButton!
+    @IBOutlet weak var titleLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var titleLabelBottomContraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================

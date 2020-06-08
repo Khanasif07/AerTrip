@@ -14,10 +14,18 @@ class WallletAmountCellTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        self.callForReuse()
+    }
+    
+    func callForReuse(){
         self.setUpText()
         self.setUpFont()
         self.setUpColor()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.walletAmountLabel.attributedText = nil
     }
     
     private func setUpText() {

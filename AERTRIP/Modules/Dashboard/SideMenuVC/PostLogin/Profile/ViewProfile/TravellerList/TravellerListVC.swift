@@ -97,6 +97,11 @@ class TravellerListVC: BaseVC {
         
         statusBarStyle = .default
         setUpTravellerHeader()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         if shouldHitAPI {
             viewModel.callSearchTravellerListAPI(isShowLoader: true)
         }
@@ -194,8 +199,8 @@ class TravellerListVC: BaseVC {
     // MARK: - IB Action
     
     func backButtonTapped() {
-        //navigationController?.popViewController(animated: true)
-        AppFlowManager.default.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
+        //AppFlowManager.default.popViewController(animated: true)
     }
     
     func addTravellerTapped() {
@@ -582,17 +587,18 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell() // oldCell!
+        //cell.selectionStyle = .default
         let section = tableDataArray[indexPath.section]
         let data = section[indexPath.row]
         //let data = fetchedResultsController.object(at: indexPath)
         configureCell(cell: cell, travellerData: data)
         cell.tintColor = AppColors.themeGreen
-        cell.selectionStyle = .gray
-        let backView = UIView(frame: cell.contentView.bounds)
-        backView.tag = 1
-        backView.backgroundColor = AppColors.themeWhite
-        cell.selectedBackgroundView = backView
         
+//        let backView = UIView(frame: cell.contentView.bounds)
+//        backView.tag = 1
+//        backView.backgroundColor = .clear//AppColors.themeWhite
+        //cell.selectedBackgroundView = backView
+       // cell.backgroundColor = .clear
         return cell
     }
     
@@ -634,24 +640,24 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         }
         if isSelectMode {
             if let trav = travellerData, self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {
-                cell.setSelected(true, animated: false)
+               // cell.setSelected(true, animated: false)
                 
             } else {
-                cell.setSelected(false, animated: false)
+                //cell.setSelected(false, animated: false)
             }
         }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if isSelectMode {
-            //        let trav = fetchedResultsController.object(at: indexPath)
-            let section = tableDataArray[indexPath.section]
-            let trav = section[indexPath.row]
-            if self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {
-                cell.setSelected(true, animated: false)
-                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-            }
-        }
+//        if isSelectMode {
+//            //        let trav = fetchedResultsController.object(at: indexPath)
+//            let section = tableDataArray[indexPath.section]
+//            let trav = section[indexPath.row]
+//            if self.selectedTravller.contains(where: { ($0.id ?? "") == (trav.id ?? "") }) {
+//                cell.setSelected(true, animated: false)
+//                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+//            }
+//        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -712,9 +718,6 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
         let section = tableDataArray[indexPath.section]
         let current = section[indexPath.row]
         if isSelectMode {
-            if let cell = self.tableView.cellForRow(at: indexPath) {
-                cell.selectedBackgroundView?.backgroundColor = AppColors.themeWhite
-            }
             tableView.separatorStyle = .singleLine
             //            let current = fetchedResultsController.object(at: indexPath)
             if !selectedTravller.contains(where: { ($0.id ?? "") == (current.id ?? "") }) {
@@ -729,9 +732,6 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
             }
             updateNavView()
         } else {
-            if let cell = self.tableView.cellForRow(at: indexPath) {
-                cell.selectedBackgroundView?.backgroundColor = AppColors.themeGray10
-            }
             //tableView.reloadSection(section: indexPath.section, with: .none)
             AppFlowManager.default.moveToViewProfileDetailVC(current.travellerDetailModel, usingFor: .travellerList)
             tableView.deselectRow(at: indexPath, animated: true)
@@ -744,9 +744,6 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         
         if isSelectMode {
-            if let cell = self.tableView.cellForRow(at: indexPath) {
-                cell.selectedBackgroundView?.backgroundColor = AppColors.themeWhite
-            }
             //            let current = fetchedResultsController.object(at: indexPath)
             let section = tableDataArray[indexPath.section]
             let current = section[indexPath.row]
@@ -756,10 +753,6 @@ extension TravellerListVC: UITableViewDelegate, UITableViewDataSource {
             }
             
             updateNavView()
-        } else {
-            if let cell = self.tableView.cellForRow(at: indexPath) {
-                cell.selectedBackgroundView?.backgroundColor = AppColors.themeWhite
-            }
         }
     }
     

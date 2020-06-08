@@ -104,6 +104,22 @@ class FlightBoardingAndDestinationTableViewCell: UITableViewCell {
         self.economyLabel.text = economyClass
     }
     
+    
+    func configureCellWith(leg:IntLeg, airport:[String:IntAirportDetailsWS]){
+        self.boardingLabel.text = airport[leg.originIATACode]?.c
+        self.destinationLabel.text = airport[leg.destinationIATACode]?.c
+        self.boardingCodeLabel.text = leg.originIATACode
+        self.destinationCodeLabel.text = leg.destinationIATACode
+        self.timeLabel.text = leg.durationTitle
+        self.boardingTimeLabel.text = leg.dt
+        self.destinationTimeLabel.text = leg.at
+        self.boardingDateLabel.text = leg.dd.toDate(dateFormat: "yyyy-MM-dd")?.toString(dateFormat: "E, d MMM yyyy")
+        self.destinationDateLabel.text = leg.ad.toDate(dateFormat: "yyyy-MM-dd")?.toString(dateFormat: "E, d MMM yyyy")
+        self.economyLabel.text = leg.flightsWithDetails.first?.cc
+        self.noOfStops = leg.stp.toInt ?? 0
+        self.noOfStoppageCollectionView.reloadData()
+    }
+    
     // MARK: - IBActions
     
     // MARK: ===========

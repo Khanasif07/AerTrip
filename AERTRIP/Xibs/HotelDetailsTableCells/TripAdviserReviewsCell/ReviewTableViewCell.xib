@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="very good" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33u-tS-cH4">
-                        <rect key="frame" x="16" y="6" width="81" height="21.5"/>
+                        <rect key="frame" x="16" y="6" width="81" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="81" id="n5K-rd-Yc1"/>
                         </constraints>
@@ -27,7 +27,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MN7-hV-eqM" customClass="PKProgressView" customModule="AERTRIP" customModuleProvider="target">
-                        <rect key="frame" x="110" y="6.5" width="200" height="20"/>
+                        <rect key="frame" x="110" y="7" width="200" height="20"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="aeR-XX-spL"/>
@@ -35,9 +35,9 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28732" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13U-pN-sHR">
-                        <rect key="frame" x="323" y="6" width="36" height="21.5"/>
+                        <rect key="frame" x="323" y="6" width="40" height="22"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="36" id="mf5-S6-17N"/>
+                            <constraint firstAttribute="width" constant="40" id="mf5-S6-17N"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <nil key="textColor"/>
@@ -45,9 +45,9 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="MN7-hV-eqM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6.5" id="6tB-uU-Ydw"/>
+                    <constraint firstItem="MN7-hV-eqM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="6tB-uU-Ydw"/>
                     <constraint firstAttribute="trailing" secondItem="13U-pN-sHR" secondAttribute="trailing" constant="16" id="QE9-Cg-123"/>
-                    <constraint firstAttribute="bottom" secondItem="MN7-hV-eqM" secondAttribute="bottom" constant="6.5" id="gej-jZ-JtC"/>
+                    <constraint firstAttribute="bottom" secondItem="MN7-hV-eqM" secondAttribute="bottom" constant="7" id="gej-jZ-JtC"/>
                     <constraint firstItem="13U-pN-sHR" firstAttribute="leading" secondItem="MN7-hV-eqM" secondAttribute="trailing" constant="13" id="h8e-Zs-TVk"/>
                     <constraint firstItem="33u-tS-cH4" firstAttribute="centerY" secondItem="MN7-hV-eqM" secondAttribute="centerY" id="j02-RS-n6B"/>
                     <constraint firstItem="13U-pN-sHR" firstAttribute="centerY" secondItem="MN7-hV-eqM" secondAttribute="centerY" id="nMc-ih-2Pd"/>
@@ -60,6 +60,7 @@
                 <outlet property="numbOfReviews" destination="13U-pN-sHR" id="cBY-rO-RfK"/>
                 <outlet property="progressBarView" destination="MN7-hV-eqM" id="Jee-a6-U7P"/>
                 <outlet property="progressViewBottomConstraints" destination="gej-jZ-JtC" id="1f3-ng-nfb"/>
+                <outlet property="progressViewTopConstraint" destination="6tB-uU-Ydw" id="HLB-In-aC8"/>
                 <outlet property="reviewTitle" destination="33u-tS-cH4" id="jZo-yH-cgr"/>
             </connections>
             <point key="canvasLocation" x="136.80000000000001" y="153.82308845577214"/>

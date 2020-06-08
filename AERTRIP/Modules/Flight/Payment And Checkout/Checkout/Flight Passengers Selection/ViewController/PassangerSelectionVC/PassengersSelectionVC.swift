@@ -26,7 +26,7 @@ class PassengersSelectionVC: UIViewController {
         super.viewDidLoad()
         self.registerCell()
         self.viewModel.delegate = self
-        self.viewModel.setupGuestArray()
+//        self.viewModel.setupGuestArray()
         self.apiCall()
         self.setupFont()
         self.navigationController?.navigationBar.isHidden = true
@@ -42,8 +42,11 @@ class PassengersSelectionVC: UIViewController {
     
     
     func apiCall(){
+        GuestDetailsVM.shared.guests.removeAll()
+        self.viewModel.setupGuestArray()
         self.viewModel.webserviceForGetCountryList()
         self.viewModel.setupLoginData()
+        self.viewModel.fetchConfirmationData()
     }
     
     
@@ -62,7 +65,7 @@ class PassengersSelectionVC: UIViewController {
         self.titleLabel.font = AppFonts.SemiBold.withSize(18)
         self.passengerTableview.backgroundColor = AppColors.themeGray04
         self.titleLabel.text = "Passengers"
-        addButtomView()
+//        addButtomView()
         self.addButton.isHidden = !(self.viewModel.isLogin)
     }
     
@@ -70,12 +73,11 @@ class PassengersSelectionVC: UIViewController {
         let vc = IntFareBreakupVC.instantiate(fromAppStoryboard: .InternationalReturnAndMulticityDetails)
         vc.isFewSeatsLeftViewVisible = true
         vc.taxesResult = self.viewModel.taxesResult
-        vc.journey = self.viewModel.intJourney
-        vc.intFlights = self.viewModel.intFlights
+        vc.journey = [self.viewModel.itineraryData.itinerary.details]
         vc.delegate = self
         vc.detailsDelegate = self
         vc.sid = self.viewModel.sid
-        if self.viewModel.intJourney.first?.fsr == 1{
+        if self.viewModel.itineraryData.itinerary.details.fsr == 1{
             vc.fewSeatsLeftViewHeightFromFlightDetails = 40
         }else{
             vc.fewSeatsLeftViewHeightFromFlightDetails = 0
@@ -109,9 +111,23 @@ class PassengersSelectionVC: UIViewController {
 extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, JourneyDetailsTapDelegate{
     
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
+
+
+//        let vc = FlightPaymentVC.instantiate(fromAppStoryboard: .FlightPayment)
+//        vc.viewModel.itinerary = self.viewModel.itineraryData.itinerary
+//        vc.viewModel.taxesResult = self.viewModel.taxesResult
+//
+        
         let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
-        vc.adonsVm.itineraryData = self.viewModel.itineraryData
+        AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary)
         self.navigationController?.pushViewController(vc, animated: true)
+        
+//        let validation = self.viewModel.validateGuestData()
+//        if validation.success{
+//            self.viewModel.checkValidationForNextScreen()
+//        }else{
+//            AppToast.default.showToastMessage(message: validation.msg)
+//        }
     }
     
     func infoButtonTapped(isViewExpanded: Bool) {
@@ -135,6 +151,18 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    func editTextFields(_ textFiledType: GSTCellTextFields, text:String){
+        switch textFiledType{
+        case .companyName:
+            self.viewModel.selectedGST.companyName = text
+        case .billingName:
+            self.viewModel.selectedGST.billingName = text
+        case .gstNumber:
+            self.viewModel.selectedGST.GSTInNo = text
+        }
+        
+    }
+    
     func tappedDetailsButton(){
         guard self.detailsBaseVC == nil else { return }
         let vc = FlightDetailsBaseVC.instantiate(fromAppStoryboard: .FlightDetailsBaseVC)
@@ -142,11 +170,12 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
         vc.bookFlightObject = self.viewModel.bookingObject ?? BookFlightObject()
         vc.taxesResult = self.viewModel.taxesResult
         vc.sid = self.viewModel.sid
-        vc.intJourney = self.viewModel.intJourney
+        vc.intJourney = [self.viewModel.itineraryData.itinerary.details]
         vc.intAirportDetailsResult = self.viewModel.intAirportDetailsResult
-        vc.intAirlineDetailsResult = self.viewModel.intAirlineDetailsResult
-        vc.selectedJourneyFK = self.viewModel.selectedJourneyFK
+        vc.selectedJourneyFK = [self.viewModel.itineraryData.itinerary.details.fk]
+        vc.airlineData = self.viewModel.itineraryData.itinerary.details.aldet
         vc.needToAddFareBreakup = false
+        vc.journey = self.viewModel.journey ?? []
         vc.view.autoresizingMask = []
         self.view.addSubview(vc.view)
         self.addChild(vc)
@@ -164,14 +193,84 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
     }
     
     func updateHeight(to height: CGFloat) {
-        
-//        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut], animations: {
             self.detailsBaseVC?.view.frame.size.height = UIScreen.height - height
             self.detailsBaseVC?.view.layoutSubviews()
             self.detailsBaseVC?.view.setNeedsLayout()
-//        })
     }
     
+}
+
+extension PassengersSelectionVC{
+    func showFareUpdatePopup(){
+        let diff = self.viewModel.itineraryData.itinerary.priceChange
+        let amount = self.viewModel.itineraryData.itinerary.details.farepr
+        guard diff != 0 else{
+            if let freeType = self.viewModel.freeServiceType{
+                FreeMealAndSeatVC.showMe(type: freeType)
+            }
+            return
+        }
+        
+        if diff > 0 {
+            // increased
+            FareUpdatedPopUpVC.showPopUp(isForIncreased: true, decreasedAmount: 0.0, increasedAmount: Double(diff), totalUpdatedAmount: Double(amount), continueButtonAction: { [weak self] in
+                guard let self = self else { return }
+                if let freeType = self.viewModel.freeServiceType{
+                    FreeMealAndSeatVC.showMe(type: freeType)
+                }
+                }, goBackButtonAction: { [weak self] in
+                    guard let self = self else { return }
+                    self.getListingController()
+            })
+        }
+        else {
+            // dipped
+            FareUpdatedPopUpVC.showPopUp(isForIncreased: false, decreasedAmount: Double(-diff), increasedAmount: 0, totalUpdatedAmount: 0, continueButtonAction: nil, goBackButtonAction: nil)
+            delay(seconds: 5.0) { [weak self] in
+                guard let self = self else { return }
+                if let freeType = self.viewModel.freeServiceType{
+                    FreeMealAndSeatVC.showMe(type: freeType)
+                }
+            }
+        }
+    }
+    
+    func getListingController(){
+      if let nav = self.navigationController?.presentingViewController?.presentingViewController as? UINavigationController{
+          nav.dismiss(animated: true) {
+              delay(seconds: 0.0) {
+                if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
+                    nav.popToViewController(vc, animated: true)
+                    vc.searchApiResult()
+                }
+              }
+          }
+      }
+
+//        if self.viewModel.journeyType == .international{
+//            if self.viewModel.intJourney == nil{
+//                self.navigationController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//            }else{
+//                if let nav = self.navigationController?.presentingViewController?.presentingViewController as? UINavigationController{
+//                    nav.dismiss(animated: true) {
+//                        delay(seconds: 0.0) {
+//                            if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}){
+//                                nav.popToViewController(vc, animated: true)
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }else{
+//            guard let journey = self.viewModel.journey else{return}
+//            if journey.count == 1{
+//                self.navigationController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//            }else{
+//                self.navigationController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//            }
+//
+//        }
+    }
 }
 
 extension PassengersSelectionVC: HCSelectGuestsVCDelegate{
@@ -190,14 +289,44 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
             AppGlobals.shared.startLoading()
         }
     }
+    
     func startFechingAddnsMasterData(){
         AppGlobals.shared.startLoading()
     }
-    func getResponseFromConfirmation(_ success:Bool, error:Error?){
-        AppGlobals.shared.stopLoading()
-    }
-    func getResponseFromAddnsMaster(_ success:Bool, error:Error?){
-        AppGlobals.shared.stopLoading()
+    
+    func startFechingGSTValidationData(){
+        AppGlobals.shared.startLoading()
     }
     
+    func startFechingLoginData(){
+        AppGlobals.shared.startLoading()
+    }
+    
+    func getResponseFromConfirmation(_ success:Bool, error:Error?){
+        AppGlobals.shared.stopLoading()
+        if success{
+            self.addButtomView()
+        }
+    }
+    
+    func getResponseFromAddnsMaster(_ success:Bool, error:Error?){
+        AppGlobals.shared.stopLoading()
+        self.showFareUpdatePopup()
+        self.passengerTableview.reloadData()
+    }
+    
+    func getResponseFromGSTValidation(_ success:Bool, error:Error?){
+        AppGlobals.shared.stopLoading()
+        if success{
+            let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
+            AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else{
+            AppToast.default.showToastMessage(message: "Error while validating GST number")
+        }
+    }
+    
+    func getResponseFromLogin(_ success:Bool, error:Error?){
+        AppGlobals.shared.stopLoading()
+    }
 }

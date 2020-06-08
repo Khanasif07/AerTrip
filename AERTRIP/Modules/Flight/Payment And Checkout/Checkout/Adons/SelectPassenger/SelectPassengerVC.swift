@@ -14,11 +14,14 @@ class SelectPassengerVC : BaseVC {
     @IBOutlet weak var passengerCollectionView: UICollectionView!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var selectPassengersLabel: UILabel!
+    @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var legsLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var popUpBackView: UIView!
     
     let selectPassengersVM = SelectPassengersVM()
+    
+    var selectedPassengerForSeat: ((ATContact?) -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,15 +61,23 @@ extension SelectPassengerVC {
         self.doneButton.roundedCorners(cornerRadius: 13)
         self.popUpBackView.roundedCorners(cornerRadius: 13)
         configureCollectionView()
+        setupForView()
     }
     
     func configureCollectionView(){
-        self.passengerCollectionView.register(UINib(nibName: "selectPassengerCell", bundle: nil), forCellWithReuseIdentifier: "selectPassengerCell")
+        self.passengerCollectionView.register(UINib(nibName: "SelectPassengerCell", bundle: nil), forCellWithReuseIdentifier: "SelectPassengerCell")
         self.passengerCollectionView.isScrollEnabled = true
         self.passengerCollectionView.bounces = true
         self.passengerCollectionView.delegate = self
         self.passengerCollectionView.dataSource = self
         self.passengerCollectionView.reloadData()
+    }
+    
+    func setupForView() {
+        if selectPassengersVM.setupFor == .seatSelection {
+            selectPassengersLabel.isHidden = true
+            emptyView.isHidden = true
+        }
     }
     
 }
@@ -82,11 +93,14 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "selectPassengerCell", for: indexPath) as? selectPassengerCell else { fatalError("selectPassengerCell not found") }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectPassengerCell", for: indexPath) as? SelectPassengerCell else { fatalError("SelectPassengerCell not found") }
         if let firstGuestArray = GuestDetailsVM.shared.guests.first{
             cell.populateData(data: firstGuestArray[indexPath.item])
-            cell.selectionImageView.isHidden = !self.selectPassengersVM.selectedContacts.contains(firstGuestArray[indexPath.item])
+
+            cell.selectionImageView.isHidden = !self.selectPassengersVM.selectedIndex.contains(indexPath.item)
+            if selectPassengersVM.setupFor == .seatSelection {
+                cell.setupCellFor(firstGuestArray[indexPath.item], selectPassengersVM.seatModel)
+            }
         }
         
         return cell
@@ -109,19 +123,35 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if selectPassengersVM.setupFor == .seatSelection {
+            didSelectForSeatSelection(indexPath, collectionView)
+        } else {
         
-        guard let allContacts = GuestDetailsVM.shared.guests.first else { return }
-        
-        if let index = self.selectPassengersVM.selectedContacts.firstIndex(where: { (cont) -> Bool in
-            cont.id == allContacts[indexPath.item].id
-        }){
-            self.selectPassengersVM.selectedContacts.remove(at: index)
-        }else{
-        self.selectPassengersVM.selectedContacts.append(allContacts[indexPath.item])
+            if self.selectPassengersVM.selectedIndex.contains(indexPath.item) {
+                self.selectPassengersVM.selectedIndex.remove(object: indexPath.item)
+            }else{
+                self.selectPassengersVM.selectedIndex.append(indexPath.item)
+            }
+            
+            collectionView.reloadItems(at: [IndexPath(item: indexPath.item, section: 0)])
+            
         }
-        
-        collectionView.reloadItems(at: [IndexPath(item: indexPath.item, section: 0)])
         self.doneButton.setTitle(self.selectPassengersVM.selectedIndex.isEmpty ? LocalizedString.Cancel.localized : LocalizedString.Done.localized, for: UIControl.State.normal)
+    }
+    
+    private func didSelectForSeatSelection(_ indexPath: IndexPath,_ collectionView: UICollectionView) {
+        if self.selectPassengersVM.selectedIndex.contains(indexPath.item) {
+            self.selectPassengersVM.selectedIndex.removeAll()
+        } else {
+            self.selectPassengersVM.selectedIndex.removeAll()
+            self.selectPassengersVM.selectedIndex.append(indexPath.item)
+        }
+        if selectPassengersVM.selectedIndex.isEmpty {
+            selectedPassengerForSeat?(nil)
+        } else if let selectedPassenger = GuestDetailsVM.shared.guests.first?[indexPath.item] {
+            selectedPassengerForSeat?(selectedPassenger)
+        }
+        collectionView.reloadData()
     }
     
 }

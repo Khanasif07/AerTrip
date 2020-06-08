@@ -67,14 +67,14 @@ class SideMenuVC: BaseVC {
     }
     
     
-   
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if UserInfo.loggedInUserId == nil {
             //add the logo view only if user is not logged in
             if let view = self.logoContainerView {
-//                self.updateLogoView(view: view)
+                //                self.updateLogoView(view: view)
             }
             else {
                 self.logoContainerView = self.getAppLogoView()
@@ -95,7 +95,7 @@ class SideMenuVC: BaseVC {
         
     }
     
-
+    
     
     override func initialSetup() {
         self.view.backgroundColor = AppColors.screensBackground.color
@@ -125,7 +125,7 @@ class SideMenuVC: BaseVC {
     func getProfileView() -> SlideMenuProfileImageHeaderView {
         //add the profile view only if user is logged in
         let view = SlideMenuProfileImageHeaderView.instanceFromNib(isFamily: false)
-      //  view.profileImageViewBottomConstraint.constant = 10
+        //  view.profileImageViewBottomConstraint.constant = 10
         view.currentlyUsingAs = .sideMenu
         view.backgroundColor = AppColors.clear
         self.updateProfileView(view: view)
@@ -164,7 +164,7 @@ class SideMenuVC: BaseVC {
         view.gradientView.alpha = 0.0
         view.dividerView.alpha = 0.0
         view.translatesAutoresizingMaskIntoConstraints = true
-//        view.profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
+        //        view.profileImageView.layer.borderColor = AppColors.themeGray20.cgColor
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -177,16 +177,16 @@ class SideMenuVC: BaseVC {
     
     // MARK: -
     
-    @IBAction func fbLoginButtonAction(_ sender: UIButton) {
-        //       self.socialViewModel.fbLogin(vc: self, completionBlock: nil)
+    @IBAction func facebookBtnAction(_ sender: UIButton) {
+        AppSocialNetwork.Facebook.openPage()
     }
     
-    @IBAction func googleLoginButtonAction(_ sender: UIButton) {
-        //        self.socialViewModel.googleLogin()
+    @IBAction func instagramBtnAction(_ sender: UIButton) {
+        AppSocialNetwork.Instagram.openPage()
     }
     
-    @IBAction func linkedLoginButtonAction(_ sender: UIButton) {
-        //        self.socialViewModel.linkedLogin()
+    @IBAction func twitterBtnAction(_ sender: UIButton) {
+        AppSocialNetwork.Twitter.openPage()
     }
 }
 
@@ -297,33 +297,33 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             cell.selectionStyle = .gray
             if let _ = UserInfo.loggedInUserId {
                 let title = self.viewModel.cellForLoginUser[indexPath.row - 2]
-//                switch indexPath.row{
-//                case 2:
-//                    cell.displayTextLabelTopConstraint.constant = 18.0
-//                case 3:
-//                    cell.displayTextLabelTopConstraint.constant = 13.0
-//                case 4:
-//                    cell.displayTextLabelTopConstraint.constant = 11.0
-//                case 6:
-//                    cell.displayTextLabelTopConstraint.constant = -6.0
-//                default:
-//                    cell.displayTextLabelTopConstraint.constant = 0.0
-//                }
+                //                switch indexPath.row{
+                //                case 2:
+                //                    cell.displayTextLabelTopConstraint.constant = 18.0
+                //                case 3:
+                //                    cell.displayTextLabelTopConstraint.constant = 13.0
+                //                case 4:
+                //                    cell.displayTextLabelTopConstraint.constant = 11.0
+                //                case 6:
+                //                    cell.displayTextLabelTopConstraint.constant = -6.0
+                //                default:
+                //                    cell.displayTextLabelTopConstraint.constant = 0.0
+                //                }
                 cell.populateData(text: title)
                 cell.sepratorView.isHidden = !title.isEmpty
                 
             } else {
                 
-//                switch indexPath.row{
-//                case 2:
-//                    cell.displayTextLabelTopConstraint.constant = 2.0
-//                case 4:
-//                    cell.displayTextLabelTopConstraint.constant = -2.0
-//                case 5:
-//                    cell.displayTextLabelTopConstraint.constant = -4.0
-//                default:
-//                    cell.displayTextLabelTopConstraint.constant = 0.0
-//                }
+                //                switch indexPath.row{
+                //                case 2:
+                //                    cell.displayTextLabelTopConstraint.constant = 2.0
+                //                case 4:
+                //                    cell.displayTextLabelTopConstraint.constant = -2.0
+                //                case 5:
+                //                    cell.displayTextLabelTopConstraint.constant = -4.0
+                //                default:
+                //                    cell.displayTextLabelTopConstraint.constant = 0.0
+                //                }
                 
                 cell.populateData(text: self.viewModel.displayCellsForGuest[indexPath.row - 1])
             }
@@ -332,13 +332,13 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 75.0 //+ AppFlowManager.default.safeAreaInsets.bottom
-//    }
-//
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        return self.socialOptionView
-//    }
+    //    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    //        return 75.0 //+ AppFlowManager.default.safeAreaInsets.bottom
+    //    }
+    //
+    //    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    //        return self.socialOptionView
+    //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let _ = UserInfo.loggedInUserId {
@@ -355,13 +355,29 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
             case 2:
                 //my booking
                 AppFlowManager.default.moveToMyBookingsVC()
-                //my Notifications
+                
+            case 3:
+                // Offers
+                if let url = URL(string: APIEndPoint.offers.rawValue) {
+                    AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.cellForLoginUser[indexPath.row - 2])
+                }
             case 4:
+                //my Notifications
                 AppFlowManager.default.moveToNotificationVC()
                 
             case 6:
                 //settings
                 AppFlowManager.default.moveToSettingsVC()
+                
+            case 7:
+                //Support
+                if let url = URL(string: APIEndPoint.contact.rawValue) {
+                    AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.cellForLoginUser[indexPath.row - 2])
+                }
+                
+            case 8:
+                //RateUs
+                self.openUrl(AppConstants.kAppStoreLink)
                 
             default:
                 AppToast.default.showToastMessage(message: "This feature is coming soon")
@@ -373,8 +389,26 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 
             case 0:
                 break
-//            case 1:
-                
+            case 1:
+                //why Aertrip
+                if let url = URL(string: APIEndPoint.whyAertrip.rawValue) {
+                    AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1])
+                }
+            case 2:
+                //Smart Sort
+                if let url = URL(string: APIEndPoint.smartSort.rawValue) {
+                    AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1])
+                }
+            case 3:
+                //offers
+                if let url = URL(string: APIEndPoint.offers.rawValue) {
+                    AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1])
+                }
+            case 4:
+                //contact us
+                if let url = URL(string: APIEndPoint.contact.rawValue) {
+                    AppFlowManager.default.showURLOnATWebView(url, screenTitle:  self.viewModel.displayCellsForGuest[indexPath.row - 1])
+                }
             case 5:
                 //settings
                 AppFlowManager.default.moveToSettingsVC()
@@ -402,11 +436,11 @@ extension SideMenuVC: UITableViewDataSource, UITableViewDelegate {
                 
             default:
                 if let _ = UserInfo.loggedInUserId {
-                   return 61.0
+                    return 61.0
                 } else {
-                   return 62.0
+                    return 62.0
                 }
-//                return (UserInfo.loggedInUserId == nil) ? ( indexPath.row == 6) ? 61.0 : 64.0 : 61.0
+                //                return (UserInfo.loggedInUserId == nil) ? ( indexPath.row == 6) ? 61.0 : 64.0 : 61.0
             }
         }
     }

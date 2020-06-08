@@ -40,6 +40,9 @@ struct HotelReceiptModel {
     var payment_details: PaymentDetails?
     var trip_details: TripDetails?
     
+    var eventStartDate: Date?
+    var eventEndDate: Date?
+    
     //Mark:- Initialization
     //=====================
     init() {
@@ -173,6 +176,17 @@ struct HotelReceiptModel {
         }
         if let obj = json[APIKeys.trip_details.rawValue] as? JSONDictionary {
             self.trip_details = TripDetails(json: obj)
+        }
+        
+        
+        if  let date = json[APIKeys.checkin.rawValue], let time = json[APIKeys.checkin_time.rawValue]{
+            // "2019-02-01"
+            self.eventStartDate = "\(date) \(time)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
+        }
+        
+        if  let date = json[APIKeys.checkout.rawValue], let time = json[APIKeys.checkout_time.rawValue]{
+            // "2019-02-01"
+            self.eventEndDate = "\(date) \(time)".toDate(dateFormat: "yyyy-MM-dd HH:mm:ss")
         }
     }
 

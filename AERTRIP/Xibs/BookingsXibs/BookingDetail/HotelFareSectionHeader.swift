@@ -21,6 +21,7 @@ class HotelFareSectionHeader: UITableViewHeaderFooterView {
     
     @IBOutlet weak var arrowButton: UIButton!
     @IBOutlet weak var discountViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var grossFareTitleTopConstraint: NSLayoutConstraint!
     
     
     
@@ -34,6 +35,13 @@ class HotelFareSectionHeader: UITableViewHeaderFooterView {
         self.setUpFont()
         self.setUpTextColor()
         self.addGesture()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        grossPriceLabel.attributedText = nil
+        discountPriceLabel.attributedText = nil
+
     }
     
     private func setUpText() {

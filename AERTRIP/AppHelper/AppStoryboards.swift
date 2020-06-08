@@ -31,6 +31,7 @@ enum AppStoryboard : String {
     case FlightDetailsBaseVC
     case Adons
     case Rishabh_Dev
+    case FlightPayment
 }
 
 extension AppStoryboard {

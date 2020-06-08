@@ -42,6 +42,8 @@ struct Passenger {
 struct  MealPreference {
     var journeyTitle = ""
     var mealPreference = ""
+    var preferenceCode = ""
     var airlineLogo = ""
+    var preference:[String:String] = [:]
 }
 

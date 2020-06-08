@@ -133,6 +133,12 @@ extension HotelDetailsVC {
                 cell.showHideSetUp(cornerRaduis: 0.0, bookmarkBtnHidden: true, dividerViewHidden: false)
             }
         }
+        if (indexPath.section - 2) == 0 && indexPath.row == 0 {
+            cell.shadowViewTopConstraint.constant = 12
+        } else {
+            cell.shadowViewTopConstraint.constant = cell.shadowViewTopConstraint.constant == 0.0 ? 0.0 : 8.0
+        }
+        
         cell.clipsToBounds = true
         return cell
     }
@@ -228,7 +234,7 @@ extension HotelDetailsVC {
         guard let cell = self.hotelTableView.dequeueReusableCell(withIdentifier: "HotelDetailsCheckOutTableViewCell", for: indexPath) as? HotelDetailsCheckOutTableViewCell  else { return nil }
         cell.shadowViewBottomConstraints.constant = (indexPath.section  == self.viewModel.hotelDetailsTableSectionData.count - 1 ) ? 16.0 : 8.0
         cell.hotelFeesLabel.text = ratesData.price.amountInDelimeterWithSymbol
-        cell.clipsToBounds = true
+        //cell.clipsToBounds = true
         return cell
     }
     

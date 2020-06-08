@@ -69,7 +69,7 @@ class MealsContainerVC: BaseVC {
     override func initialSetup() {
         super.initialSetup()
         setupNavBar()
-        self.mealsContainerVM.extractUsefullData()
+//        self.mealsContainerVM.extractUsefullData()
         setUpViewPager()
     }
     
@@ -91,14 +91,11 @@ extension MealsContainerVC {
     
     private func setUpViewPager() {
         self.allChildVCs.removeAll()
-        for index in 0..<self.mealsContainerVM.allFlightKeys.count {
+        for index in 0..<AddonsDataStore.shared.allFlightKeys.count {
             let vc = SelectMealsdVC.instantiate(fromAppStoryboard: .Adons)
-            vc.selectMealsVM.vcIndex = index
-//            let fk = self.mealsContainerVM.flightKeys[index]
-//            vc.selectMealsVM.flightKey = fk
-//            vc.selectMealsVM.adonsData = self.mealsContainerVM.adons[fk] ?? AddonsData()
+            vc.initializeVm(selectMealsVM: SelectMealsVM(vcIndex: index, currentFlightKey: AddonsDataStore.shared.allFlightKeys[index]))
             vc.delegate = self
-            vc.selectMealsVM.itinerary = self.mealsContainerVM.itinerary
+//            vc.selectMealsVM.itinerary = AddonsDataStore.shared.itinerary
             self.allChildVCs.append(vc)
         }
         self.view.layoutIfNeeded()
@@ -169,7 +166,7 @@ extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControlle
     
     
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
-        return self.mealsContainerVM.allFlightKeys.count
+        return AddonsDataStore.shared.allFlights.count
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
@@ -178,12 +175,10 @@ extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControlle
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
         
-        let flightAtINdex = self.mealsContainerVM.allFlights.filter { $0.ffk ==  self.mealsContainerVM.allFlightKeys[index] }
-        
+        let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.allFlightKeys[index] }
         guard let firstFlight = flightAtINdex.first else {
             return MenuItem(title: "", index: index, isSelected:false)
         }
-        
         return MenuItem(title: "\(firstFlight.fr) → \(firstFlight.to)", index: index, isSelected:false)
     }
     
@@ -205,7 +200,7 @@ extension MealsContainerVC : SelectMealDelegate {
                 
         vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
         guard let weakSelf = self else { return }
-    weakSelf.allChildVCs[vcIndex].selectMealsVM.updateContactInMeal(currentFlightKey: currentFlightKey, mealIndex: mealIndex, meal: meal)
+               //weakSelf.allChildVCs[vcIndex].selectMealsVM.updateContactInMeal(currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: meal)
             
         }
         

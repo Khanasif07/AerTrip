@@ -26,8 +26,8 @@ struct FlightItinerary {
     var isInternational : Bool
     var combo : Bool
     var displaySeatmapLink : Bool
-    var freeMealSeat : Bool
-    var freeMeal : Bool
+    var freeMealSeat = true//: Bool
+    var freeMeal = true//: Bool
     var iic : Bool
     var gstRequired : Bool
     var searchParams:FlightSearchParam
@@ -86,7 +86,7 @@ struct FlightSearchParam{
     
     
     init(_ json:JSON = JSON()){
-        adult = json["sid"].stringValue
+        adult = json["adult"].stringValue
         cabinclass = json["cabinclass"].stringValue
         child = json["child"].stringValue
         depart = json["depart"].stringValue
@@ -106,11 +106,13 @@ struct FlightSearchParam{
 struct TravellerDetails{
     var mobile: String
     var isd: String
-    var gstDetails:FlightGST
+    var gstDetails:FlightGST?
     init(_ json:JSON = JSON()){
         mobile = json["mobile"].stringValue
         isd = json["isd"].stringValue
-        gstDetails = FlightGST(json["gst_details"])
+        if json["gst_details"].dictionary != nil{
+            gstDetails = FlightGST(json["gst_details"])
+        }
     }
 }
 

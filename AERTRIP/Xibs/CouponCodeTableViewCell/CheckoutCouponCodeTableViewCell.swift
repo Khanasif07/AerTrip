@@ -33,17 +33,18 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
         }
     }
     @IBOutlet weak var offerTermsButton: UIButton!
-    @IBOutlet weak var dividerView: UIView! {
-        didSet {
-            self.dividerView.backgroundColor = AppColors.themeGray10
-        }
-    }
+    @IBOutlet weak var dividerView: ATDividerView! 
     
     //Mark:- LifeCycle
     //================
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configUI()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.couponInfoTextView.attributedText = nil
     }
     
     //Mark:- Functions
@@ -59,6 +60,9 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
         self.couponInfoTextView.textColor = AppColors.textFieldTextColor51
         //Images
         self.checkMarkImageView.image = #imageLiteral(resourceName: "untick")
+        
+        self.discountLabel.font = AppFonts.Regular.withSize(18.0)
+        
     }
     
     ///AttributeLabelSetup
@@ -79,9 +83,10 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
         let fullAttributedString = NSMutableAttributedString()
         let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore:  0.0,isForNotes: true)
         for (index,text) in discountDetails.enumerated() {
+            /*
             let bulletedString = NSMutableAttributedString()
             let bulletedAttributedString: NSMutableAttributedString = NSMutableAttributedString(string: "●  ", attributes: attributesDictionary)
-            let asStylizedPrice = (index == 0) ? instantCashBack.toString.asStylizedPrice(using: AppFonts.Regular.withSize(14.0)) : walletCashBack.toString.asStylizedPrice(using: AppFonts.Regular.withSize(14.0))
+            let asStylizedPrice = (index == 0) ? instantCashBack.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(14.0)) : walletCashBack.amountInDelimeterWithSymbol.asStylizedPrice(using: AppFonts.Regular.withSize(14.0))
             let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "\(text)\n", attributes: attributesDictionary)
             bulletedAttributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, bulletedAttributedString.length))
             asStylizedPrice.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, asStylizedPrice.length))
@@ -90,6 +95,14 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
             bulletedString.append(asStylizedPrice)
             bulletedString.append(attributedString)
             fullAttributedString.append(bulletedString)
+ */
+            let asStylizedPrice = (index == 0) ? instantCashBack.amountInDelimeterWithSymbol : walletCashBack.amountInDelimeterWithSymbol
+
+            let formattedString: String = "•  \(asStylizedPrice) \(text)\n"
+                           let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
+                           let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: 4.0,isForNotes: true,lineSpacing :2.0)
+                           attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
+                           fullAttributedString.append(attributedString)
         }
         self.couponInfoTextView.textColor = AppColors.textFieldTextColor51
         return fullAttributedString
@@ -98,7 +111,7 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
     private func discountTextSetUp(price: String, endText: String) {
         let attributedString = NSMutableAttributedString()
         let orangeAttribut = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.themeOrange] as [NSAttributedString.Key : Any]
-        let startTextAttributedString = NSAttributedString(string: "\(LocalizedString.Save.localized) \(LocalizedString.rupeesText.localized) ", attributes: orangeAttribut)
+        let startTextAttributedString = NSAttributedString(string: "\(LocalizedString.Save.localized) ", attributes: orangeAttribut)
         let asStylizedPrice = price.asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
         let endTextAttributedString = NSAttributedString(string: endText , attributes: orangeAttribut)
         attributedString.append(startTextAttributedString)
@@ -109,8 +122,14 @@ class CheckoutCouponCodeTableViewCell: UITableViewCell {
     
     internal func configCell(currentCoupon: HCCouponModel) {
         self.attributeLabelSetUp(couponCode: currentCoupon.couponTitle)
-        self.discountTextSetUp(price: currentCoupon.discountBreakUp?.totalCashBack.toString ?? "" , endText: "")
-        self.couponInfoTextView.attributedText = self.bulletedCouponsDetails(discountDetails: discountText, instantCashBack: currentCoupon.discountBreakUp?.CPD ?? 0.0, walletCashBack: currentCoupon.discountBreakUp?.CACB ?? 0)
+        //self.discountTextSetUp(price: currentCoupon.discountBreakUp?.totalCashBack.amountInDelimeterWithSymbol ?? "" , endText: "")
+        self.discountLabel.text = "\(LocalizedString.Save.localized) \(currentCoupon.discountBreakUp?.totalCashBack.amountInDelimeterWithSymbol ?? "")"
+        self.couponInfoTextView.attributedText = self.bulletedCouponsDetails(discountDetails: discountText, instantCashBack: currentCoupon.discountBreakUp?.CPD ?? 0.0, walletCashBack: (currentCoupon.discountBreakUp?.CACB ?? 0))
+        self.couponInfoTextView.asStylizedPrice(text: Double(currentCoupon.discountBreakUp?.CPD ?? 0.0).amountInDelimeterWithSymbol, using: AppFonts.Regular.withSize(18.0))
+        self.couponInfoTextView.asStylizedPrice(text: Double(currentCoupon.discountBreakUp?.CACB ?? 0).amountInDelimeterWithSymbol, using: AppFonts.Regular.withSize(18.0))
+
+
+       // self.couponInfoTextView.AttributedParagraphSpacing(paragraphSpacing: 10)
     }
     
     //Mark:- IBActions

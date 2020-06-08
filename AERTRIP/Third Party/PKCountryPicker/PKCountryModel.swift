@@ -112,7 +112,7 @@ public struct PKCountryModel {
         currencyId = json[APIKeys.id.rawValue].stringValue
         currencyCode = json[APIKeys.currency_code.rawValue].stringValue
         currencyName = json[APIKeys.name.rawValue].stringValue
-        self.currencySymbol = self.getCurrencySymbol(from: json[APIKeys.currency_code.rawValue].stringValue) ?? ""
+        self.currencySymbol = self.getSymbolForCurrencyCode(code: json[APIKeys.currency_code.rawValue].stringValue)
     }
     
     static func getModels(jsonArr: [[String:Any]]) -> [PKCountryModel] {
@@ -127,14 +127,41 @@ public struct PKCountryModel {
         return all
     }
     
-    func getCurrencySymbol(from currencyCode: String) -> String? {
+    func getSymbolForCurrencyCode(code: String) -> String {
+        var candidates: [String] = []
+        let locales: [String] = NSLocale.availableLocaleIdentifiers
+        for localeID in locales {
+            guard let symbol = findMatchingSymbol(localeID: localeID, currencyCode: code) else {
+                continue
+            }
+            if symbol.count == 1 {
+                return symbol
+            }
+            candidates.append(symbol)
+        }
+        let sorted = sortAscByLength(list: candidates)
+        if sorted.count < 1 {
+            return ""
+        }
+        return sorted[0]
+    }
 
-         let locale = NSLocale(localeIdentifier: currencyCode)
-         if locale.displayName(forKey: .currencySymbol, value: currencyCode) == currencyCode {
-             let newlocale = NSLocale(localeIdentifier: currencyCode.dropLast() + "_en")
-             return newlocale.displayName(forKey: .currencySymbol, value: currencyCode)
-         }
-         return locale.displayName(forKey: .currencySymbol, value: currencyCode)
-     }
+    func findMatchingSymbol(localeID: String, currencyCode: String) -> String? {
+        let locale = Locale(identifier: localeID as String)
+        guard let code = locale.currencyCode else {
+            return nil
+        }
+        if code != currencyCode {
+            return nil
+        }
+        guard let symbol = locale.currencySymbol else {
+            return nil
+        }
+        return symbol
+    }
+
+    func sortAscByLength(list: [String]) -> [String] {
+        return list.sorted(by: { $0.count < $1.count })
+    }
 }
 

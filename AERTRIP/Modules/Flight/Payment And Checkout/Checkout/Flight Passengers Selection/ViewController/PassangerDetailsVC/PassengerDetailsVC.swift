@@ -87,8 +87,8 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
         passportTextView.isScrollEnabled = false
         passportTextView.delegate = self
         passportTextView.sizeToFit()
-        passportTextView.frame.size.width = UIScreen.width - 32
-        passportTextView.frame.origin = CGPoint(x: 16.0, y: 0)
+        passportTextView.frame.size.width = UIScreen.width - 22
+        passportTextView.frame.origin = CGPoint(x: 11.0, y: 0)
         passportTextView.sizeToFit()
         self.showPassportView.addSubview(passportTextView)
         
@@ -98,10 +98,49 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     private func editedGuest(_ travellerIndexPath: IndexPath) {
         if let indexPath = self.viewModel.editinIndexPath, let object = GuestDetailsVM.shared.contactForIndexPath(indexPath: travellerIndexPath) {
             let numberInRoom = GuestDetailsVM.shared.guests[0][indexPath.section].numberInRoom
+            let type = GuestDetailsVM.shared.guests[0][indexPath.section].passengerType
+            let meal = GuestDetailsVM.shared.guests[0][indexPath.section].mealPreference
+            let ff = GuestDetailsVM.shared.guests[0][indexPath.section].frequentFlyer
             GuestDetailsVM.shared.guests[0][indexPath.section] = object
+            GuestDetailsVM.shared.guests[0][indexPath.section].passengerType = type
             GuestDetailsVM.shared.guests[0][indexPath.section].numberInRoom = numberInRoom
+            GuestDetailsVM.shared.guests[0][indexPath.section].mealPreference = meal
+            GuestDetailsVM.shared.guests[0][indexPath.section].frequentFlyer = ff
+            self.setFFForSelected(object.ffp, index: indexPath.section)
+            self.updateDob(at : indexPath.section)
             self.passengerTable.reloadData()
         }
+    }
+    
+    private func setFFForSelected(_ passengerFF: [FFP]?, index:Int){
+        guard let ffp = passengerFF, ffp.count != 0 else {return}
+        for i in 0..<GuestDetailsVM.shared.guests[0][index].frequentFlyer.count{
+            if let ff = ffp.first(where:{$0.airlineCode == GuestDetailsVM.shared.guests[0][index].frequentFlyer[i].airlineCode}){
+                GuestDetailsVM.shared.guests[0][index].frequentFlyer[i].number = ff.ffNumber
+            }
+        }
+    }
+    
+    //update dob if it not valid.
+    private func updateDob(at index:Int){
+        switch GuestDetailsVM.shared.guests[0][index].passengerType{
+        case .Adult:break
+        case .child:
+            if !calculateAge(with : GuestDetailsVM.shared.guests[0][index], year: 12){
+                GuestDetailsVM.shared.guests[0][index].dob = ""
+            }
+        case .infant:
+            if !calculateAge(with : GuestDetailsVM.shared.guests[0][index], year: 2){
+                GuestDetailsVM.shared.guests[0][index].dob = ""
+            }
+        }
+    }
+    
+    private func calculateAge(with contact: ATContact, year:Int)-> Bool{
+        let dob = contact.displayDob
+        guard let date = dob.toDate(dateFormat: "dd MMM yyyy") else {return false}
+        let component = Calendar.current.dateComponents([.year], from: date, to: Date())
+        return (component.year ?? 0) < year
     }
     
     @IBAction func tapBackBtn(_ sender: UIButton) {
@@ -136,8 +175,9 @@ class PassengerDetailsVC: UIViewController, UITextViewDelegate {
     
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        let vc  = PassportExampleVC.instantiate(fromAppStoryboard: .PassengersSelection)
-        self.present(vc, animated: true, completion: nil)
+        PassportExampleVC.showMe()
+//        let vc  = PassportExampleVC.instantiate(fromAppStoryboard: .PassengersSelection)
+//        self.present(vc, animated: true, completion: nil)
         return false
     }
     

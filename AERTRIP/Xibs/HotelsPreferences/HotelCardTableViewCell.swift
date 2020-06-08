@@ -230,6 +230,7 @@ extension HotelCardTableViewCell: UICollectionViewDataSource, UICollectionViewDe
             return UICollectionViewCell()
         }
         cell.backgroundColor = UIColor.clear
+        cell.imageView.backgroundColor = UIColor.clear
         cell.imageHeightConstraint.constant = collectionView.height
         cell.indicator.isHidden = true
         if let images = hotelListData?.thumbnail, images.count > indexPath.item {

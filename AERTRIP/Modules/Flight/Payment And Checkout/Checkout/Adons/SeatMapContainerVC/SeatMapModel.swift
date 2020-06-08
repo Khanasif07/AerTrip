@@ -46,7 +46,7 @@ struct SeatMapModel {
         let cc: String
         let al: String
         let ft: Int
-        let md: Md
+        var md: Md
         
         init() {
             self.init(JSON())
@@ -67,7 +67,7 @@ struct SeatMapModel {
     
     struct Md {
         let columns: [String]
-        let rows: [Int: [String: SeatMapRow]]
+        var rows: [Int: [String: SeatMapRow]]
         
         var rowsArr: [String] {
             let rowsStrArr = self.rows.keys.map { $0 }.sorted()
@@ -81,8 +81,9 @@ struct SeatMapModel {
     }
     
     struct SeatMapRow {
-        let columnData: ColumnData
+        var columnData: ColumnData
         let aisleValue: Bool
+        let isWindowSeat: Bool
         
         init() {
             self.init(JSON())
@@ -91,6 +92,7 @@ struct SeatMapModel {
         init(_ json: JSON) {
             columnData = ColumnData(json)
             aisleValue = json.boolValue
+            isWindowSeat = columnData.characteristic.contains("Window")
         }
     }
     
@@ -99,21 +101,41 @@ struct SeatMapModel {
         let type: String
         let amount: Int
         let currency: String
-        let availability: String
+        let availability: SeatAvailability
         let characteristic: [String]
         let rank: Int
         let postBooking: Bool
+        
+        var passenger: ATContact?
+        
+        func getCharactericstic() -> String {
+            var characteristicString = ""
+            characteristic.forEach { (str) in
+                characteristicString.append(str+", ")
+            }
+            if characteristicString.suffix(2) == ", " {
+                characteristicString.removeLast(2)
+            }
+            return characteristicString
+        }
         
         init(_ json: JSON) {
             ssrCode = json["ssr_code"].stringValue
             type = json["type"].stringValue
             amount = json["amount"].intValue
             currency = json["currency"].stringValue
-            availability = json["availability"].stringValue
+            availability = SeatAvailability(rawValue: json["availability"].stringValue) ?? .none
             characteristic = json["characteristic"].arrayValue.map { $0.stringValue }
             rank = json["rank"].intValue
             postBooking = json["postbooking"].boolValue
         }
+    }
+    
+    enum SeatAvailability: String {
+        case available = "available"
+        case blocked = "blocked"
+        case occupied = "occupied"
+        case none
     }
 
 }

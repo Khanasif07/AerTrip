@@ -53,7 +53,7 @@ class CustomMarker: UIView {
     func doInitialSetup() {
         isFavourite = false
         
-        self.priceView.addShadow(cornerRadius: 8.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.5), offset: CGSize(width: 0.0, height: 3.0), opacity: 0.5, shadowRadius: 3.0)
+        self.priceView.addShadow(cornerRadius: 8.0, maskedCorners: [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize(width: 0.0, height: 3.0), opacity: 1, shadowRadius: 3.0)
     }
     
     func updateMakerImage(){
@@ -72,6 +72,11 @@ class CustomMarker: UIView {
 //        let str = NSAttributedString(string: hotel?.hotelName?.substring(to: 4) ?? "")
         self.priceLabel.attributedText = (price.amountInDelimeterWithSymbol).addPriceSymbolToLeft(using: AppFonts.SemiBold.withSize(16.0))
         updateMakerImage()
+        
+        self.priceLabel.sizeToFit()
+        self.priceView.layoutSubviews()
+        self.layoutIfNeeded()
+
     }
     
     private func updateFav() {

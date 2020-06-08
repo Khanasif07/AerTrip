@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="o1S-BR-1QM">
-                                <rect key="frame" x="0.0" y="88" width="414" height="708"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="713"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="147" id="yIw-Bh-Dmn" customClass="PassengerGridCell" customModule="AERTRIP" customModuleProvider="target">
@@ -52,7 +52,7 @@
                                                                         </constraints>
                                                                     </imageView>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenFilledAdd" translatesAutoresizingMaskIntoConstraints="NO" id="5VM-Gx-rFG">
-                                                                        <rect key="frame" x="35" y="23" width="44" height="44"/>
+                                                                        <rect key="frame" x="57" y="45" width="22" height="22"/>
                                                                     </imageView>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="sJv-wa-hAB">
                                                                         <rect key="frame" x="3" y="73" width="85" height="82"/>
@@ -220,7 +220,7 @@
                         <constraints>
                             <constraint firstItem="DzE-15-L9R" firstAttribute="trailing" secondItem="NgK-m2-Bz1" secondAttribute="trailing" id="9pC-Iz-0D5"/>
                             <constraint firstItem="o1S-BR-1QM" firstAttribute="top" secondItem="NgK-m2-Bz1" secondAttribute="bottom" id="AJf-NG-DP6"/>
-                            <constraint firstAttribute="bottom" secondItem="o1S-BR-1QM" secondAttribute="bottom" constant="100" id="JMH-V7-OJa"/>
+                            <constraint firstAttribute="bottom" secondItem="o1S-BR-1QM" secondAttribute="bottom" constant="95" id="JMH-V7-OJa"/>
                             <constraint firstItem="NgK-m2-Bz1" firstAttribute="leading" secondItem="DzE-15-L9R" secondAttribute="leading" id="PoW-wm-qNq"/>
                             <constraint firstItem="NgK-m2-Bz1" firstAttribute="top" secondItem="DzE-15-L9R" secondAttribute="top" id="UJc-Bd-0U9"/>
                             <constraint firstItem="oO9-k6-JDv" firstAttribute="leading" secondItem="DzE-15-L9R" secondAttribute="leading" id="Who-io-BpC"/>
@@ -425,7 +425,7 @@
                                         </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="passportExample" translatesAutoresizingMaskIntoConstraints="NO" id="exf-Be-RiZ">
-                                        <rect key="frame" x="-284" y="48" width="682" height="334"/>
+                                        <rect key="frame" x="57" y="48" width="341" height="334"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -481,7 +481,7 @@
                                         <rect key="frame" x="30" y="30" width="322" height="237.00000000000006"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" ambiguous="YES" text="You’ve just earned a Free Meal and Free Seat allocation for this booking." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kl2-bI-HcP">
-                                        <rect key="frame" x="16" y="288" width="350" height="40"/>
+                                        <rect key="frame" x="16" y="288" width="350" height="45"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -498,7 +498,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="391" id="7hr-Jc-aNo"/>
                                     <constraint firstItem="b68-mq-ISw" firstAttribute="centerX" secondItem="Ccz-hC-95H" secondAttribute="centerX" id="9i9-iz-oPs"/>
-                                    <constraint firstItem="b68-mq-ISw" firstAttribute="top" secondItem="Kl2-bI-HcP" secondAttribute="bottom" constant="20" id="BNc-WK-yqd"/>
+                                    <constraint firstItem="b68-mq-ISw" firstAttribute="top" secondItem="Kl2-bI-HcP" secondAttribute="bottom" constant="15" id="BNc-WK-yqd"/>
                                     <constraint firstItem="Kl2-bI-HcP" firstAttribute="top" secondItem="LTN-9t-7Xb" secondAttribute="bottom" constant="21" id="McC-nm-2nb"/>
                                     <constraint firstAttribute="trailing" secondItem="Kl2-bI-HcP" secondAttribute="trailing" constant="16" id="OhP-iz-DsE"/>
                                     <constraint firstItem="LTN-9t-7Xb" firstAttribute="top" secondItem="Ccz-hC-95H" secondAttribute="top" constant="30" id="cXo-G4-Wn1"/>

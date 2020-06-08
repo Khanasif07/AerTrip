@@ -190,7 +190,7 @@ class BulkBookingVC: BaseVC {
         }
         
         self.view.alpha = 1.0
-        self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.001)
+        self.view.backgroundColor = .clear//AppColors.themeBlack.withAlphaComponent(0.001)
         self.bottomViewHeightConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
         self.mainContainerView.roundTopCorners(cornerRadius: 10.0)
         
@@ -238,7 +238,11 @@ class BulkBookingVC: BaseVC {
         self.viewModel.adultsCount = 10
         self.viewModel.childrenCounts = 0
         
-        self.setWhere(cityName: oldData.cityName, stateName: oldData.stateName)
+        if oldData.destType.lowercased() == "hotel" {
+            self.setWhere(cityName: oldData.destName, stateName: oldData.stateName)
+        } else {
+            self.setWhere(cityName: oldData.cityName, stateName: oldData.stateName)
+        }
         
         self.checkInOutView?.setDates(fromData: oldData)
         
@@ -273,7 +277,9 @@ class BulkBookingVC: BaseVC {
         
         func setValue() {
             self.mainCintainerBottomConstraint.constant = 0.0
+            if #available(iOS 13.0, *) {} else {
             self.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+            }
             self.view.layoutIfNeeded()
         }
         
@@ -534,7 +540,10 @@ extension BulkBookingVC: SelectDestinationVCDelegate {
     func didSelectedDestination(hotel: SearchedDestination) {
         printDebug("selected: \(hotel)")
         var city = ""
-        if !hotel.city.isEmpty {
+        if hotel.dest_type.lowercased() == "hotel" {
+            self.cityNameLabel.text = hotel.dest_name
+            city = hotel.dest_name
+        }else if !hotel.city.isEmpty {
             city = hotel.city
         } else {
             let newValue = hotel.value.components(separatedBy: ",")

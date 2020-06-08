@@ -51,7 +51,7 @@ class SelectMealCell: UITableViewCell {
         self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
         self.mealTitleLabel.text = data.serviceName
         
-        if data.selectedFor.isEmpty {
+        if data.mealsSelectedFor.isEmpty {
             self.mealForLabel.text = ""
             self.mealForLabelTop.constant = 0
             self.quantityLabel.isHidden = true

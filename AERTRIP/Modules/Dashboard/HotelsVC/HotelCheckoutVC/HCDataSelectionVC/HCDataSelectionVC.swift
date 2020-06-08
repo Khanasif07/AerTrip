@@ -96,7 +96,7 @@ class HCDataSelectionVC: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         delay(seconds: 0.2) {
-            self.statusBarColor = AppColors.themeWhite
+            self.statusBarColor = AppColors.clear
             self.statusBarStyle = .default
         }
         
@@ -362,23 +362,26 @@ class HCDataSelectionVC: BaseVC {
     
     @IBAction func detailsButtonAction(_ sender: UIButton) {
         if viewModel.itineraryData != nil {
-            hotelDetailsContainerView.isHidden = true
-            hotelCheckOutDetailsContainerVIew.isHidden = false
-            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
-                if self.fareDetailContainerView.isHidden {
-                    self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (UIDevice.isIPhoneX   ?  self.hotelDetailsParentContainerView.height /*+  AppFlowManager.default.safeAreaInsets.top - 5 */:  self.hotelDetailsParentContainerView.height + 3)
-                }
-                else {
-                    self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + self.fareDetailContainerView.height/* + AppFlowManager.default.safeAreaInsets.top */)
-                }
-                self.view.layoutIfNeeded()
-            }, completion: { [weak self] _ in
-                self?.isHotelDetailsCheckOutViewOpen = true
-                self?.hotelCheckOutDetailsContainerVIew?.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
-                self?.statusBarColor = AppColors.themeGray140
-                
-            })
+//            hotelDetailsContainerView.isHidden = true
+//            hotelCheckOutDetailsContainerVIew.isHidden = false
+//            UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
+//                if self.fareDetailContainerView.isHidden {
+//                    self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (UIDevice.isIPhoneX   ?  self.hotelDetailsParentContainerView.height /*+  AppFlowManager.default.safeAreaInsets.top - 5 */:  self.hotelDetailsParentContainerView.height + 3)
+//                }
+//                else {
+//                    self.hotelDetailsContainerViewHeightConstraint.constant = self.view.height - (self.hotelDetailsParentContainerView.height + self.fareDetailContainerView.height/* + AppFlowManager.default.safeAreaInsets.top */)
+//                }
+//                self.view.layoutIfNeeded()
+//            }, completion: { [weak self] _ in
+//                self?.isHotelDetailsCheckOutViewOpen = true
+//                self?.hotelCheckOutDetailsContainerVIew?.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.4)
+//                //self?.statusBarColor = AppColors.themeGray140
+//
+//            })
+            AppFlowManager.default.moveToHotelCheckoutDetailVC(viewModel: self.viewModel, delegate: self)
         }
+        
+    
     }
 }
 
@@ -815,7 +818,7 @@ extension HCDataSelectionVC: HotelCheckOutDetailsVIewDelegate {
     
     func crossButtonTapped() {
         self.hotelCheckOutDetailsContainerVIew.backgroundColor = AppColors.clear
-        self.statusBarColor =  AppColors.themeWhite
+        //self.statusBarColor =  AppColors.themeWhite
         UIView.animate(withDuration: AppConstants.kAnimationDuration, animations: {
             self.hotelDetailsContainerViewHeightConstraint.constant = 0.0
             self.view.layoutIfNeeded()

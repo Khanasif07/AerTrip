@@ -22,6 +22,7 @@ enum SortUsing: Equatable {
 
 protocol HotelFilterVMDelegate: class {
     func updateFiltersTabs()
+    func updateHotelsCount()
 }
 
 
@@ -29,7 +30,7 @@ class HotelFilterVM {
     static let shared = HotelFilterVM()
     
     var defaultRatingCount: [Int] = [0,1,2,3,4,5]
-    var defaultTripAdvisorRatingCount: [Int] = [1,2,3,4,5]
+    var defaultTripAdvisorRatingCount: [Int] = [0,1,2,3,4,5]
     var defaultIsIncludeUnrated: Bool = true
     var defaultDistanceRange: Double = 20
     var defaultLeftRangePrice: Double = 0.0
@@ -99,7 +100,13 @@ class HotelFilterVM {
         else {
             filter.ratingCount = defaultRatingCount
         }
-        filter.tripAdvisorRatingCount = tripAdvisorRatingCount
+        if 1...4 ~= tripAdvisorRatingCount.count {
+            filter.tripAdvisorRatingCount = tripAdvisorRatingCount
+        }
+        else {
+            filter.tripAdvisorRatingCount = defaultTripAdvisorRatingCount
+        }
+        //filter.tripAdvisorRatingCount = tripAdvisorRatingCount
         filter.isIncludeUnrated = isIncludeUnrated
         filter.distanceRange = distanceRange
         filter.minimumPrice = minimumPrice
@@ -165,10 +172,12 @@ class HotelFilterVM {
             
             
             let diff = appliedFilter.ratingCount.difference(from: HotelFilterVM.shared.defaultRatingCount)
+            let taDiff = appliedFilter.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount)
+
             if 1...4 ~= diff.count {
                 return true
             }
-            else if !appliedFilter.tripAdvisorRatingCount.difference(from: HotelFilterVM.shared.defaultTripAdvisorRatingCount).isEmpty {
+            else if 1...4 ~= taDiff.count {
                 return true
             }
             else if appliedFilter.isIncludeUnrated != HotelFilterVM.shared.defaultIsIncludeUnrated {

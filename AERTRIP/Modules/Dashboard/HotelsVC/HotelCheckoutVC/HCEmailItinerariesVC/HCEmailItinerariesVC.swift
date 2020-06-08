@@ -32,7 +32,11 @@ class HCEmailItinerariesVC: BaseVC {
     //================
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.viewModel.emailIdSetUp()
+        if !self.viewModel.isForDummy{
+            self.viewModel.emailIdSetUp()
+        }else{
+            self.viewModel.fillData()
+        }
 //        self.viewModel.fillData()
     }
     
@@ -74,15 +78,26 @@ class HCEmailItinerariesVC: BaseVC {
 extension HCEmailItinerariesVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if !self.viewModel.isForDummy{
+            return self.viewModel.travellers.count
+        }else{
+            return self.viewModel.guestModal.count
+        }
 //        return self.viewModel.guestModal.count
-        return self.viewModel.travellers.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HCEmailItinerariesTableViewCell.reusableIdentifier, for: indexPath) as? HCEmailItinerariesTableViewCell else { return UITableViewCell() }
         cell.delegate = self
-        let currentTraveler = self.viewModel.travellers[indexPath.row]
-        cell.configureCell(emailInfo: self.viewModel.emailInfo[indexPath.row], name: "\(currentTraveler.first_name) \(currentTraveler.middle_name) \(currentTraveler.last_name)" , firstName: currentTraveler.first_name , lastName: currentTraveler.last_name , profileImage: currentTraveler.profile_image)
+        if !self.viewModel.isForDummy{
+            let currentTraveler = self.viewModel.travellers[indexPath.row]
+            cell.configureCell(emailInfo: self.viewModel.emailInfo[indexPath.row], name: "\(currentTraveler.first_name) \(currentTraveler.middle_name) \(currentTraveler.last_name)" , firstName: currentTraveler.first_name , lastName: currentTraveler.last_name , profileImage: currentTraveler.profile_image)
+        }else{
+            let currentTraveler = self.viewModel.guestModal[indexPath.row]
+            cell.configureCell(emailInfo: self.viewModel.emailInfo[indexPath.row], name: currentTraveler.fullName , firstName: currentTraveler.firstName , lastName: currentTraveler.lastName, profileImage: currentTraveler.profilePicture)
+        }
+        
         cell.clipsToBounds = true
         return cell
     }
@@ -122,7 +137,7 @@ extension HCEmailItinerariesVC: HCEmailItinerariesTableViewCellDelegate {
                 cell.emailTextField.textColor = AppColors.textFieldTextColor51
             } else {
                 cell.sendButton.setTitleColor(AppColors.themeGray20, for: .normal)
-                cell.emailTextField.textColor = AppColors.themeRed
+                cell.emailTextField.textColor = AppColors.textFieldTextColor51
             }
         }
         printDebug(emailId)
@@ -144,6 +159,11 @@ extension HCEmailItinerariesVC: HCEmailItinerariesVMDelegate {
             self.viewModel.emailInfo[currentEmailIndex].emailStatus = .sent
         }
         self.tableView.reloadData()
+        let result = self.viewModel.emailInfo.filter({ $0.emailStatus == .sent })
+        if self.viewModel.emailInfo.count == result.count {
+            self.headerView.firstRightButton.isEnabled = false
+            self.headerView.firstRightButton.setTitleColor(AppColors.themeGray40, for: .normal)
+        }
     }
     
     func emailSendingFail(isMultipleEmailSending : Bool ,currentEmailIndex: Int) {

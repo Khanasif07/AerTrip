@@ -20,6 +20,7 @@ class FreeMealAndSeatVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.continueButton.addTarget(self, action: #selector(tapContinueBtn), for: .touchUpInside)
         self.setupFont()
     }
     
@@ -29,6 +30,29 @@ class FreeMealAndSeatVC: UIViewController {
         self.continueButton.titleLabel?.font = AppFonts.SemiBold.withSize(20)
         self.titleLabel.attributedText = self.viewModel.title
     }
+    
+    static func showMe(type: FreeServiveType){
+        if let topVC = UIApplication.topViewController() {
+            let obj = FreeMealAndSeatVC.instantiate(fromAppStoryboard: .PassengersSelection)
+            obj.view.backgroundColor = AppColors.themeBlack.withAlphaComponent(0.3)
+            var frame = topVC.view.frame
+            frame.origin.y = frame.height
+            obj.view.frame = frame
+            topVC.addChild(obj)
+            topVC.view.addSubview(obj.view)
+            obj.didMove(toParent: topVC)
+            UIView.animate(withDuration: 0.3) {
+                obj.view.frame.origin.y = 0
+            }
+        }
+    }
 
+    @objc func tapContinueBtn(_ sender: UIButton){
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.frame.origin.y = UIScreen.height
+        }) { _ in
+           self.removeFromParentVC
+        }
+    }
 
 }

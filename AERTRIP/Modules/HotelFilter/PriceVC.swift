@@ -15,26 +15,18 @@ enum Price {
 
 class PriceVC: BaseVC {
     // MARK: - IBOutlets
-    
-    @IBOutlet weak var titleLabel: UILabel!
-    
-    @IBOutlet weak var minimumPriceView: UIView!
-    @IBOutlet weak var minimumPriceLabel: UILabel!
-    
-    @IBOutlet weak var maximumPriceView: UIView!
-    @IBOutlet weak var maximumPriceLabel: UILabel!
     @IBOutlet weak var tableView: ATTableView!
     
     // MARK: - Variables
     
-    let horizontalMultiSlider = MultiSlider()
     var filterApplied: UserInfo.HotelFilter = UserInfo.HotelFilter()
     private let titles: [String] = [LocalizedString.PerNight.localized, LocalizedString.Total.localized]
     private let priceTitles: [Price] = [.PerNight,.Total]
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addSlider()
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
         registerXib()
     }
     
@@ -47,32 +39,10 @@ class PriceVC: BaseVC {
     
     // MARK: - Helper methods
     
-    private func addSlider() {
-        horizontalMultiSlider.addTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged)
-        horizontalMultiSlider.orientation = .horizontal
-        
-        horizontalMultiSlider.isSettingValue = true
-        horizontalMultiSlider.thumbCount = 2
-        horizontalMultiSlider.snapStepSize = 1
-        horizontalMultiSlider.tintColor = AppColors.themeGreen // color of the track
-        horizontalMultiSlider.outerTrackColor = AppColors.themeGray10
-        horizontalMultiSlider.trackWidth = 3
-        horizontalMultiSlider.showsThumbImageShadow = true
-        horizontalMultiSlider.hasRoundTrackEnds = true
-        horizontalMultiSlider.frame = CGRect(x: minimumPriceView.frame.origin.x + 16, y: minimumPriceView.frame.origin.y + minimumPriceView.height + 14, width: UIScreen.main.bounds.width - 66, height: 28.0)
-        view.addSubview(horizontalMultiSlider)
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
-    }
+    
     
     func setFilterValues() {
         getSavedFilter()
-        minimumPriceView?.layer.cornerRadius = 15.0
-        maximumPriceView?.layer.cornerRadius = 15.0
-        horizontalMultiSlider.minimumValue = CGFloat(HotelFilterVM.shared.minimumPrice)
-        horizontalMultiSlider.maximumValue = CGFloat(HotelFilterVM.shared.maximumPrice)
-        horizontalMultiSlider.value = [UserInfo.hotelFilter != nil ? CGFloat(filterApplied.leftRangePrice) : CGFloat(HotelFilterVM.shared.minimumPrice), UserInfo.hotelFilter != nil ? CGFloat(filterApplied.rightRangePrice) : CGFloat(HotelFilterVM.shared.maximumPrice)]
-        self.setPriceOnLabels()
         self.tableView?.reloadData()
     }
     
@@ -88,25 +58,8 @@ class PriceVC: BaseVC {
     }
     
     func registerXib() {
+        tableView.registerCell(nibName: PriceSliderCell.reusableIdentifier)
         tableView.registerCell(nibName: SortTableViewCell.reusableIdentifier)
-    }
-    
-    override func setupColors() {
-        titleLabel.textColor = AppColors.themeGray40
-        minimumPriceLabel.textColor = AppColors.textFieldTextColor51
-        maximumPriceLabel.textColor = AppColors.textFieldTextColor51
-        minimumPriceView.backgroundColor = AppColors.themeGray10
-        maximumPriceView.backgroundColor = AppColors.themeGray10
-    }
-    
-    override func setupFonts() {
-        titleLabel.font = AppFonts.Regular.withSize(16.0)
-        minimumPriceLabel.font = AppFonts.Regular.withSize(14.0)
-        maximumPriceLabel.font = AppFonts.Regular.withSize(14.0)
-    }
-    
-    override func setupTexts() {
-        titleLabel.text = LocalizedString.PricePerNight.localized
     }
     
     @objc func sliderChanged(_ slider: MultiSlider) {
@@ -114,52 +67,60 @@ class PriceVC: BaseVC {
         // "\u{20B9} " +
         HotelFilterVM.shared.leftRangePrice = Double(slider.value.first ?? 0.0).roundTo(places: 2)
         HotelFilterVM.shared.rightRangePrice = Double(slider.value.last ?? 0.0).roundTo(places: 2)
-        setPriceOnLabels()
         HotelFilterVM.shared.delegate?.updateFiltersTabs()
+        
+        if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? PriceSliderCell {
+            cell.setPriceOnLabels()
+        } else {
+            tableView?.reloadData()
+        }
     }
     
-    func setPriceOnLabels() {
-        minimumPriceLabel?.attributedText = (AppConstants.kRuppeeSymbol + String(format: "%.0f", horizontalMultiSlider.value.first ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
-        maximumPriceLabel?.attributedText = (AppConstants.kRuppeeSymbol + String(format: "%.0f", horizontalMultiSlider.value.last ?? "")).asStylizedPrice(using: AppFonts.Regular.withSize(18.0))
-    }
+    
 }
 
 // MARK: - UITableViewCellDataSource and UITableViewCellDelegateMethods
 
 extension PriceVC: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return titles.count
+        return section == 0 ? 1 : titles.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44.0
+        return indexPath.section == 0 ? 178 : 44.0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SortTableViewCell.reusableIdentifier, for: indexPath) as? SortTableViewCell else {
-            return UITableViewCell()
-        }
-        //        cell.tintColor = AppColors.themeGreen
-        if priceTitles[indexPath.row] ==  HotelFilterVM.shared.priceType {
-            cell.accessoryView = setCheckBox()
-            cell.leftTitleLabel.textColor = AppColors.themeGreen
-        } else {
-            cell.accessoryView = nil
-            cell.leftTitleLabel.textColor = AppColors.themeBlack
-            
-        }
-        //        if indexPath.row == 0,  HotelFilterVM.shared.priceType == .PerNight {
-        //            cell.accessoryType = .checkmark
-        //            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
-        //
-        //        } else if indexPath.row == 1, HotelFilterVM.shared.priceType == .Total {
-        //            cell.accessoryType = .checkmark
-        //            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.bottom)
-        //            cell.leftTitleLabel.textColor =  AppColors.themeGreen
-        //        }
         
-        cell.configureCell(leftTitle: titles[indexPath.row], rightTitle: "")
-        return cell
+        if indexPath.section == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PriceSliderCell.reusableIdentifier, for: indexPath) as? PriceSliderCell else {
+                return UITableViewCell()
+            }
+            cell.horizontalMultiSlider.removeTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged)
+            cell.horizontalMultiSlider.addTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged)
+            cell.horizontalMultiSlider.value = [UserInfo.hotelFilter != nil ? CGFloat(filterApplied.leftRangePrice) : CGFloat(HotelFilterVM.shared.minimumPrice), UserInfo.hotelFilter != nil ? CGFloat(filterApplied.rightRangePrice) : CGFloat(HotelFilterVM.shared.maximumPrice)]
+            cell.setPriceOnLabels()
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SortTableViewCell.reusableIdentifier, for: indexPath) as? SortTableViewCell else {
+                return UITableViewCell()
+            }
+            //        cell.tintColor = AppColors.themeGreen
+            if priceTitles[indexPath.row] ==  HotelFilterVM.shared.priceType {
+                cell.accessoryView = setCheckBox()
+                cell.leftTitleLabel.textColor = AppColors.themeGreen
+            } else {
+                cell.accessoryView = nil
+                cell.leftTitleLabel.textColor = AppColors.themeBlack
+                
+            }
+            
+            cell.configureCell(leftTitle: titles[indexPath.row], rightTitle: "")
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -194,3 +155,7 @@ extension PriceVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
 }
+
+
+
+

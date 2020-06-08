@@ -74,10 +74,10 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
                 if let cell = self.getCancellationCell(indexPath: indexPath, ratesData: self.viewModel.ratesData[indexPath.section - 2]) {
                     return cell
                 }
-//            case .paymentPolicyCell:
-//                if let cell = self.getPaymentInfoCell(indexPath: indexPath, ratesData: self.viewModel.ratesData[indexPath.section - 2]) {
-//                    return cell
-//                }
+                //            case .paymentPolicyCell:
+                //                if let cell = self.getPaymentInfoCell(indexPath: indexPath, ratesData: self.viewModel.ratesData[indexPath.section - 2]) {
+                //                    return cell
+            //                }
             case .notesCell:
                 if let cell = self.getNotesCell(indexPath: indexPath, ratesData: self.viewModel.ratesData[indexPath.section - 2]) {
                     return cell
@@ -122,19 +122,19 @@ extension HotelDetailsVC: UITableViewDelegate , UITableViewDataSource {
         else if let _ = tableView.cellForRow(at: indexPath) as? HotelDetailsCheckOutTableViewCell {
             AppGlobals.shared.startLoading(loaderBgColor: .clear)
             delay(seconds: 0.1) {
-               var presentSelectionVC = false
+                var presentSelectionVC = false
                 if let _ = UserInfo.loggedInUserId {
                     presentSelectionVC = true
                 }
                 AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForCheckout,presentViewController: true) { [weak self](isGuest) in
-                guard let sSelf = self else {return}
-                //                if let vc = sSelf.parent {
-                //                    AppFlowManager.default.popToViewController(vc, animated: true)
-                //                }
+                    guard let sSelf = self else {return}
+                    //                if let vc = sSelf.parent {
+                    //                    AppFlowManager.default.popToViewController(vc, animated: true)
+                    //                }
                     AppFlowManager.default.moveToHCDataSelectionVC(sid: sSelf.viewModel.hotelSearchRequest?.sid ?? "", hid: sSelf.viewModel.hotelInfo?.hid ?? "", qid: sSelf.viewModel.ratesData[indexPath.section-2].qid, placeModel: sSelf.viewModel.placeModel ?? PlaceModel(), hotelSearchRequest: sSelf.viewModel.hotelSearchRequest ?? HotelSearchRequestModel(), hotelInfo: sSelf.viewModel.hotelInfo ?? HotelSearched(), locid: sSelf.viewModel.hotelInfo?.locid ?? "",presentViewController: presentSelectionVC)
-                AppFlowManager.default.removeLoginConfirmationScreenFromStack()
-                AppGlobals.shared.stopLoading()
-            }
+                    AppFlowManager.default.removeLoginConfirmationScreenFromStack()
+                    AppGlobals.shared.stopLoading()
+                }
             }
         }
     }
@@ -174,8 +174,8 @@ extension HotelDetailsVC: HotelDetailDelegate {
     
     func saveHotelWithTripSuccess(trip: TripModel, isAllreadyAdded: Bool) {
         
-//        let tripName = trip.isDefault ? LocalizedString.Default.localized.lowercased() : "\(trip.name)"
-//        let message = "Hotel has been\(isAllreadyAdded ? " \(LocalizedString.Already.localized.lowercased())" : "") added to \(tripName) trip"
+        //        let tripName = trip.isDefault ? LocalizedString.Default.localized.lowercased() : "\(trip.name)"
+        //        let message = "Hotel has been\(isAllreadyAdded ? " \(LocalizedString.Already.localized.lowercased())" : "") added to \(tripName) trip"
         let message = LocalizedString.HotelHasAlreadyBeenSavedToTrip.localized
         AppToast.default.showToastMessage(message: message, onViewController: self)
     }
@@ -245,11 +245,11 @@ extension HotelDetailsVC: HotelDetailDelegate {
 //==========================
 extension HotelDetailsVC {
     func manageHeaderView() {
-        guard hotelTableView.isDragging else {return}
+        //guard hotelTableView.isDragging else {return}
         let yOffset = self.hotelTableView.contentOffset.y
         printDebug("yOffset \(yOffset)")
         printDebug("headerView.height \(headerView.height)")
-
+        
         if (hotelImageHeight - headerView.height) < yOffset {
             //show
             self.headerView.navTitleLabel.text = self.viewModel.hotelInfo?.hotelName
@@ -295,7 +295,7 @@ extension HotelDetailsVC {
         _ = scrollView.contentOffset.y
         if (scrollView.isTracking && scrollView.contentOffset.y < 0) {
             //close
-             //--------------------------- Golu Change ---------------------
+            //--------------------------- Golu Change ---------------------
             if self.isAddingChild{
                 self.hideOnScroll()
             }else{
@@ -303,7 +303,7 @@ extension HotelDetailsVC {
                 hotelTableView.contentOffset = .zero
                 scrollView.showsVerticalScrollIndicator = !draggingDownToDismiss
             }
-             //--------------------------- End ---------------------
+            //--------------------------- End ---------------------
         }
     }
     
@@ -333,26 +333,28 @@ extension HotelDetailsVC {
 extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
     func hotelImageTapAction(at index: Int) {
         // open gallery with show image at index
-//        if let topVC = UIApplication.topViewController() {
-            
-            let gVC = PhotoGalleryVC.instantiate(fromAppStoryboard: .Dashboard)
-            gVC.parentVC = self
-            gVC.imageNames = self.viewModel.hotelData?.photos ?? []
-            gVC.startShowingFrom = index
-            self.present(gVC, animated: true, completion: nil)
-            
-//            PhotoGalleryVC.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, imageArray: self.viewModel.hotelData?.photos ?? [])
-//            ATGalleryViewController.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, datasource: self, delegate: self)
-            canDismissViewController = false
-//        }
+        //        if let topVC = UIApplication.topViewController() {
+        
+        let gVC = PhotoGalleryVC.instantiate(fromAppStoryboard: .Dashboard)
+        gVC.parentVC = self
+        if let images = self.viewModel.hotelData?.photos {
+            gVC.imageNames = Array(images.dropFirst())
+            gVC.startShowingFrom = index > 0 ? index - 1 : index
+        }
+        self.present(gVC, animated: true, completion: nil)
+        
+        //            PhotoGalleryVC.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, imageArray: self.viewModel.hotelData?.photos ?? [])
+        //            ATGalleryViewController.show(onViewController: topVC, sourceView: self.imageView, startShowingFrom: index, datasource: self, delegate: self)
+        canDismissViewController = false
+        //        }
     }
     
     func willShowImage(at index: Int, image: UIImage?) {
-         //--------------------------- Golu Change ---------------------
+        //--------------------------- Golu Change ---------------------
         if self.isAddingChild{
             self.imageView.image = image
         }
-         //--------------------------- End ---------------------
+        //--------------------------- End ---------------------
     }
 }
 
@@ -362,7 +364,7 @@ extension HotelDetailsVC: HotelDetailsImgSlideCellDelegate {
 extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
     
     func bookMarkButtonAction(sender: HotelDetailsBedsTableViewCell) {
-        AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking) { [weak self](isGuest) in
+        AppFlowManager.default.proccessIfUserLoggedIn(verifyingFor: .loginVerificationForBulkbooking, presentViewController: true) { [weak self](isGuest) in
             guard let sSelf = self else {return}
             if sSelf.isAddingChild{
                 if let vc = sSelf.parent {
@@ -371,7 +373,7 @@ extension HotelDetailsVC: HotelDetailsBedsTableViewCellDelegate {
             }else {
                 AppFlowManager.default.popToViewController(sSelf, animated: true)
             }
-            AppFlowManager.default.selectTrip(nil, tripType: .bookingAddToTrip) { (trip, details)  in
+            AppFlowManager.default.selectTrip(nil, tripType: .hotel) { (trip, details)  in
                 delay(seconds: 0.3, completion: { [weak self] in
                     guard let sSelf = self else {return}
                     

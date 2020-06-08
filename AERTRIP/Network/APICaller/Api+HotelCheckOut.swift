@@ -233,6 +233,7 @@ extension APICaller {
         AppNetworking.GET(endPoint:APIEndPoint.bookingReceipt, parameters: params, loader: loader, success: { [weak self] (json) in
             guard let sSelf = self else {return}
             sSelf.handleResponse(json, success: { (sucess, jsonData) in
+                printDebug(jsonData)
                 if sucess , let data = jsonData[APIKeys.data.rawValue].dictionaryObject , let receiptData = data[APIKeys.receipt.rawValue] as? JSONDictionary {
                     let receiptModel = HotelReceiptModel(json: receiptData)
                     completionBlock(true, [] , receiptModel)

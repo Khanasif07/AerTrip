@@ -94,7 +94,7 @@ class HCGuestListVC: BaseVC {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.containerBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
+        //self.containerBottomConstraint.constant = AppFlowManager.default.safeAreaInsets.bottom
         
         if !self.viewModel.searchText.isEmpty {
             self.noResultemptyView.messageLabel.text = "\(LocalizedString.noResults.localized + " " + LocalizedString.For.localized) '\(self.viewModel.searchText)'"

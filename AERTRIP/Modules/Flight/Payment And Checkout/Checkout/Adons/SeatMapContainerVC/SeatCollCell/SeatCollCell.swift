@@ -12,7 +12,7 @@ class SeatCollCell: UICollectionViewCell {
 
     // MARK: Variables
     
-    private var viewModel = SeatCollCellVM()
+     var viewModel = SeatCollCellVM()
 
     // MARK: IBOutlets
     
@@ -62,9 +62,50 @@ class SeatCollCell: UICollectionViewCell {
 //        }
 //    }
     
-    func setupCellFor(_ indexPath: IndexPath,_ rowStr: String,_ columnStr: String,_ seatData: SeatMapModel.SeatMapRow) {
-        viewModel.seatData = seatData
+    func setupViewModel(_ seatData: SeatMapModel.SeatMapRow,_ flightFares: (Int, Int)) {
+        viewModel = SeatCollCellVM(seatData, flightFares)
+    }
+    
+    private func setupSeatPriceLbl() {
+        if viewModel.seatData.columnData.availability != .available || viewModel.seatData.columnData.postBooking {
+            seatView.backgroundColor = AppColors.themeGray20
+            seatNumberLbl.text?.removeAll()
+            seatNumberLbl.isHidden = true
+            return
+        }
+        seatView.backgroundColor = AppColors.themeWhite
+        if let passenger = viewModel.seatData.columnData.passenger {
+            seatNumberLbl.isHidden = false
+            seatNumberLbl.text = passenger.firstName.firstCharacter.uppercased() + passenger.lastName.firstCharacter.uppercased()
+            seatView.backgroundColor = AppColors.themeGreen
+            seatNumberLbl.textColor = AppColors.themeWhite
+            return
+        }
+        if viewModel.seatData.columnData.amount < viewModel.flightFares.minAmount {
+            seatNumberLbl.text?.removeAll()
+            seatNumberLbl.isHidden = true
+        } else {
+            seatNumberLbl.isHidden = false
+            let seatAmount = viewModel.seatData.columnData.amount
+            let fareDiff: Float = Float(viewModel.flightFares.maxAmount - viewModel.flightFares.minAmount)
+            let fareClass: Float = Float(seatAmount - viewModel.flightFares.minAmount)
+            let farePercent = (fareClass/fareDiff) * 100
+            switch farePercent {
+            case 0..<33.33:
+                seatNumberLbl.text = "₹"
+            case 33.34..<66.66:
+                seatNumberLbl.text = "₹₹"
+            case 66.67...100:
+                seatNumberLbl.text = "₹₹₹"
+            default: break
+            }
+        }
+    }
+    
+    func setupCellFor(_ indexPath: IndexPath,_ rowStr: String,_ columnStr: String) {
         seatView.isHidden = false
+        seatView.backgroundColor = AppColors.themeWhite
+        seatNumberLbl.textColor = AppColors.themeGray40
         switch (indexPath.section, indexPath.item) {
         case (0, 0):
             seatNumberLbl.isHidden = true
@@ -85,10 +126,10 @@ class SeatCollCell: UICollectionViewCell {
                 seatView.isHidden = true
             } else {
                 seatNumberLbl.font = AppFonts.Regular.withSize(14)
-                seatNumberLbl.isHidden = true
+                setupSeatPriceLbl()
                 seatView.layer.borderWidth = 0.5
             }
-            
         }
     }
+    
 }

@@ -174,6 +174,7 @@ extension HotelResultVC {
     
     func getHotelsCount() {
         HotelFilterVM.shared.filterHotelCount = self.viewModel.fetchedResultsController.fetchedObjects?.count ?? 0
+        HotelFilterVM.shared.delegate?.updateHotelsCount()
     }
     
     func setupTableHeader() {
@@ -233,15 +234,7 @@ extension HotelResultVC {
         self.reloadHotelList()
     }
     
-    func hideFavsButtons() {
-        self.unPinAllFavouriteButton.transform = CGAffineTransform(translationX: 0, y: 0)
-        self.emailButton.transform = CGAffineTransform(translationX: 0, y: 0)
-        self.shareButton.transform = CGAffineTransform(translationX: 0, y: 0)
-        self.unPinAllFavouriteButton.isHidden = true
-        self.emailButton.isHidden = true
-        self.shareButton.isHidden = true
-        
-    }
+    
     
     
     func manageSwitchContainer(isHidden: Bool, shouldOff: Bool = true) {

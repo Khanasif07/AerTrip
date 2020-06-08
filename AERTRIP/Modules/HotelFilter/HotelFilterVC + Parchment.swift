@@ -42,7 +42,8 @@ extension HotelFilterVC : PagingViewControllerDelegate, PagingViewControllerSize
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
         
-        let pagingIndexItem = pagingItem as! MenuItem
-        HotelFilterVM.shared.lastSelectedIndex = pagingIndexItem.index
+        if let pagingIndexItem = pagingItem as? MenuItem {
+            HotelFilterVM.shared.lastSelectedIndex = pagingIndexItem.index
+        }
     }
 }

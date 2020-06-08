@@ -17,6 +17,7 @@ class TravellerListTableViewCell: UITableViewCell {
     @IBOutlet weak var selectTravellerButton: UIButton!
     @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var containerStackView: UIStackView!
+    @IBOutlet weak var bottomSeperatorView: ATDividerView!
     
     
 //    @IBOutlet weak var edgeToEdgeBottomSeparatorView: ATDividerView!
@@ -25,11 +26,13 @@ class TravellerListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        bottomSeperatorView.isHidden = true
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         searchedText = ""
+        bottomSeperatorView.isHidden = true
     }
     
 //    var travellerData: TravellerData? {
@@ -80,7 +83,8 @@ class TravellerListTableViewCell: UITableViewCell {
         if !age.isEmpty {
             self.userNameLabel.AttributedFontColorForText(text: age, textColor: AppColors.themeGray40)
         }
-        self.userNameLabel.AttributedFontForText(text: searchedText, textFont: AppFonts.SemiBold.withSize(18.0))
+        self.userNameLabel.AttributedFontForText(text: searchedText, textFont: AppFonts.SemiBold.withSize(18.0), caseSentiveSearch: true)
+        
     }
     
     private func getAttributedBoldText(text: String, boldText: String) -> NSMutableAttributedString {

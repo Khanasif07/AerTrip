@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,21 +21,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="105.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Snn-ca-tDu">
-                                <rect key="frame" x="8" y="16" width="304" height="36"/>
+                                <rect key="frame" x="10" y="16" width="300" height="36"/>
                                 <subviews>
-                                    <searchBar contentMode="redraw" placeholder="i.e. Sea view, deluxe, suite…" translatesAutoresizingMaskIntoConstraints="NO" id="agr-Lp-2El" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="304" height="36"/>
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="i.e. Sea view, deluxe, suite…" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agr-Lp-2El" customClass="ATSearchBar" customModule="AERTRIP" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="36"/>
+                                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="raa-UD-puN">
-                                        <rect key="frame" x="0.0" y="0.0" width="304" height="36"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="36"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <action selector="searchBarBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="EGe-zq-Afl"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="raa-UD-puN" firstAttribute="top" secondItem="Snn-ca-tDu" secondAttribute="top" id="1Zc-1f-WSs"/>
                                     <constraint firstItem="raa-UD-puN" firstAttribute="leading" secondItem="Snn-ca-tDu" secondAttribute="leading" id="31z-lz-RA2"/>
@@ -49,10 +49,10 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="n7F-JS-gRz">
-                                <rect key="frame" x="0.0" y="52" width="320" height="53.5"/>
+                                <rect key="frame" x="0.0" y="52" width="320" height="48"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="53.5" id="vFg-Hk-rCk"/>
+                                    <constraint firstAttribute="height" constant="48" id="vFg-Hk-rCk"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="8" id="uRc-Eg-ghY">
                                     <size key="itemSize" width="50" height="50"/>
@@ -65,10 +65,10 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="n7F-JS-gRz" firstAttribute="leading" secondItem="BxV-6e-jjY" secondAttribute="leading" id="3im-LK-Pkb"/>
-                            <constraint firstAttribute="trailing" secondItem="Snn-ca-tDu" secondAttribute="trailing" constant="8" id="8Ds-E3-GIW"/>
+                            <constraint firstAttribute="trailing" secondItem="Snn-ca-tDu" secondAttribute="trailing" constant="10" id="8Ds-E3-GIW"/>
                             <constraint firstItem="Snn-ca-tDu" firstAttribute="top" secondItem="BxV-6e-jjY" secondAttribute="top" constant="16" id="CyX-NJ-1df"/>
                             <constraint firstAttribute="bottom" secondItem="n7F-JS-gRz" secondAttribute="bottom" id="KAZ-BR-NkT"/>
-                            <constraint firstItem="Snn-ca-tDu" firstAttribute="leading" secondItem="BxV-6e-jjY" secondAttribute="leading" constant="8" id="M4g-xo-mCb"/>
+                            <constraint firstItem="Snn-ca-tDu" firstAttribute="leading" secondItem="BxV-6e-jjY" secondAttribute="leading" constant="10" id="M4g-xo-mCb"/>
                             <constraint firstItem="n7F-JS-gRz" firstAttribute="top" secondItem="Snn-ca-tDu" secondAttribute="bottom" id="YMv-cA-Oid"/>
                             <constraint firstAttribute="trailing" secondItem="n7F-JS-gRz" secondAttribute="trailing" id="xqj-pp-90o"/>
                         </constraints>

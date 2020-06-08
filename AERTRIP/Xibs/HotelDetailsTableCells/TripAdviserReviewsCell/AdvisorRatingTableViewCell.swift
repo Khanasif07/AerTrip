@@ -16,6 +16,7 @@ class AdvisorRatingTableViewCell: UITableViewCell {
     @IBOutlet weak var dividerViewTopConstraints: NSLayoutConstraint!
     @IBOutlet weak var tripAdvisorRatingView: FloatRatingView!
     @IBOutlet weak var dividerView: ATDividerView!
+    @IBOutlet weak var ratingViewTopConstraint: NSLayoutConstraint!
     
     //Mark:- LifeCycle
     //================

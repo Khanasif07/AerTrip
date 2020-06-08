@@ -37,7 +37,7 @@ public class TravellerData: NSManagedObject {
         if let firstname = dataDict[APIKeys.firstName.rawValue] as? String, let lastname = dataDict[APIKeys.lastName.rawValue] as? String {
             let firstName = "\(firstname)".removeNull.removeLeadingTrailingWhitespaces
             let lastName = "\(lastname)".removeNull.removeLeadingTrailingWhitespaces
-
+            
             userData!.firstName = "\(firstName.capitalizedFirst())"
             // keys for sorting purpose
             userData!.firstNameSorting = firstName.alphanumeric.lowercased()
@@ -54,53 +54,55 @@ public class TravellerData: NSManagedObject {
                 userData!.lastNameSorting = firstName.alphanumeric.lowercased()
             }
             
-        let firstNameFirstChar = firstName.alphanumeric.firstCharacter.uppercased()
-        let lastNameFirstChar = lastName.alphanumeric.firstCharacter.uppercased()
-
-        let alphaArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-        
-            printDebug("firstName: \(firstName)")
-            printDebug("lastName: \(lastName)")
-            printDebug("firstNameSorting: \(userData!.firstNameSorting)")
-            printDebug("lastNameSorting: \(userData!.lastNameSorting)")
+            let firstNameFirstChar = firstName.alphanumeric.firstCharacter.uppercased()
+            let lastNameFirstChar = lastName.alphanumeric.firstCharacter.uppercased()
             
-        if (firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && (lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
-            userData!.firstNameFirstChar = "#".lowercased()
-            userData!.lastNameFirstChar = "#".lowercased()
-        } else if !(firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && !(lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
-            if alphaArr.contains(firstNameFirstChar) {
-                userData!.firstNameFirstChar = firstNameFirstChar.lowercased()
-            }
-            else {
-                userData!.firstNameFirstChar = "#".lowercased()
-            }
-            if alphaArr.contains(lastNameFirstChar) {
-                userData!.lastNameFirstChar = lastNameFirstChar.lowercased()
-            }
-            else {
-                userData!.lastNameFirstChar = "#".lowercased()
-            }
-        }else if !(firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && (lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
-            if alphaArr.contains(firstNameFirstChar) {
-                userData!.firstNameFirstChar = firstNameFirstChar.lowercased()
-                userData!.lastNameFirstChar = firstNameFirstChar.lowercased()
-            }
-            else {
+            let alphaArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+            /*
+             printDebug("firstName: \(firstName)")
+             printDebug("lastName: \(lastName)")
+             printDebug("firstNameSorting: \(userData!.firstNameSorting)")
+             printDebug("lastNameSorting: \(userData!.lastNameSorting)")
+             */
+            if (firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && (lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
                 userData!.firstNameFirstChar = "#".lowercased()
                 userData!.lastNameFirstChar = "#".lowercased()
+            } else if !(firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && !(lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
+                if alphaArr.contains(firstNameFirstChar) {
+                    userData!.firstNameFirstChar = firstNameFirstChar.lowercased()
+                }
+                else {
+                    userData!.firstNameFirstChar = "#".lowercased()
+                }
+                if alphaArr.contains(lastNameFirstChar) {
+                    userData!.lastNameFirstChar = lastNameFirstChar.lowercased()
+                }
+                else {
+                    userData!.lastNameFirstChar = "#".lowercased()
+                }
+            }else if !(firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && (lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
+                if alphaArr.contains(firstNameFirstChar) {
+                    userData!.firstNameFirstChar = firstNameFirstChar.lowercased()
+                    userData!.lastNameFirstChar = firstNameFirstChar.lowercased()
+                }
+                else {
+                    userData!.firstNameFirstChar = "#".lowercased()
+                    userData!.lastNameFirstChar = "#".lowercased()
+                }
+            }else if (firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && !(lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
+                if alphaArr.contains(lastNameFirstChar) {
+                    userData!.firstNameFirstChar = lastNameFirstChar.lowercased()
+                    userData!.lastNameFirstChar = lastNameFirstChar.lowercased()
+                }
+                else {
+                    userData!.firstNameFirstChar = "#".lowercased()
+                    userData!.lastNameFirstChar = "#".lowercased()
+                }
             }
-        }else if (firstNameFirstChar.isEmpty || firstNameFirstChar == " ") && !(lastNameFirstChar.isEmpty || lastNameFirstChar == " ") {
-            if alphaArr.contains(lastNameFirstChar) {
-                userData!.firstNameFirstChar = lastNameFirstChar.lowercased()
-                userData!.lastNameFirstChar = lastNameFirstChar.lowercased()
-            }
-            else {
-                userData!.firstNameFirstChar = "#".lowercased()
-                userData!.lastNameFirstChar = "#".lowercased()
-            }
-        }
-            printDebug("firstNameFirstChar: \(userData!.firstNameFirstChar)")
-            printDebug("lastNameFirstChar: \(userData!.lastNameFirstChar)")
+            /*
+             printDebug("firstNameFirstChar: \(userData!.firstNameFirstChar)")
+             printDebug("lastNameFirstChar: \(userData!.lastNameFirstChar)")
+             */
         } else {
             printDebug("First Name not found")
         }

@@ -42,9 +42,12 @@ class HotelDetailsReviewsVC: BaseVC {
         }
     }
     @IBOutlet weak var reviewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var progressView: UIProgressView!
     
     
     private let maxHeaderHeight: CGFloat = 58.0
+    private var time: Float = 0.0
+    private var timer: Timer?
     
     //Mark:- LifeCycle
     //================
@@ -58,7 +61,7 @@ class HotelDetailsReviewsVC: BaseVC {
     }
     override func setupColors() {
         self.reviewsLabel.textColor = AppColors.themeBlack
-        self.stickyTitleLabel.alpha = 0.0
+        //self.stickyTitleLabel.alpha = 0.0
         self.stickyTitleLabel.textColor = AppColors.themeBlack
     }
     
@@ -73,18 +76,26 @@ class HotelDetailsReviewsVC: BaseVC {
     }
     
     override func initialSetup() {
+        headerContainerView.backgroundColor = .clear
+        mainContainerView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
+        self.view.backgroundColor = .clear
         if #available(iOS 13.0, *) {} else {
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
         mainContainerView.isUserInteractionEnabled = true
         swipeGesture.delegate = self
         self.view.addGestureRecognizer(swipeGesture)
+            self.view.backgroundColor = .white
         }
         
-        self.dividerView.isHidden = true
+        //self.dividerView.isHidden = true
         self.registerNibs()
         delay(seconds: 0.2) {
             self.viewModel.getTripAdvisorDetails()
         }
+        
+        self.progressView.transform = self.progressView.transform.scaledBy(x: 1, y: 1)
+        self.reviewsLabel.alpha = 0.0
+        self.stickyTitleLabel.alpha = 1.0
     }
     
     override func bindViewModel() {
@@ -129,9 +140,44 @@ class HotelDetailsReviewsVC: BaseVC {
     private func getHeightForHeaderInSection(section: Int) -> CGFloat {
         switch section {
         case 1,2:
-            return 49
+            return 35.5
         default:
             return CGFloat.leastNonzeroMagnitude
+        }
+    }
+    
+    func startProgress() {
+        // Invalid timer if it is valid
+        if self.timer?.isValid == true {
+            self.timer?.invalidate()
+        }
+        
+        self.time = 0.0
+        self.progressView.setProgress(0.0, animated: false)
+        
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+    }
+    
+    @objc func setProgress() {
+        self.time += 1.0
+        self.progressView?.setProgress(self.time / 10, animated: true)
+        
+        if self.time == 8 {
+            self.timer?.invalidate()
+            return
+        }
+        if self.time == 2 {
+            self.timer!.invalidate()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
+            }
+        }
+        
+        if self.time >= 10 {
+            self.timer!.invalidate()
+            delay(seconds: 0.5) {
+                self.progressView?.isHidden = true
+            }
         }
     }
     
@@ -218,8 +264,8 @@ extension HotelDetailsReviewsVC: UITableViewDelegate , UITableViewDataSource {
             default:
                 return
             }
-            //AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
-            UIApplication.openSafariViewController(forUrlPath: urlString, delegate: nil, completion: nil)
+            AppFlowManager.default.showURLOnATWebView(URL(string: urlString)!, screenTitle: screenTitle)
+            //UIApplication.openSafariViewController(forUrlPath: urlString, delegate: nil, completion: nil)
         }
     }
     
@@ -247,9 +293,15 @@ extension HotelDetailsReviewsVC {
         if let currentReview = tripAdviserDetails.reviewRatingCount[self.getReverseNumber(row: indexPath.row)] as? String {
             cell.configCell(title: self.ratingNames[indexPath.row] ,totalNumbReviews: tripAdviserDetails.numReviews, currentReviews: currentReview)
             if indexPath.row == ratingNames.count - 1 {
-                cell.progressViewBottomConstraints.constant = 10.5
+                cell.progressViewBottomConstraints.constant = 17
             } else {
-                cell.progressViewBottomConstraints.constant = 6.5
+                cell.progressViewBottomConstraints.constant = 7
+            }
+            
+            if indexPath.row == 0 {
+                cell.progressViewTopConstraint.constant = 14
+            } else {
+                cell.progressViewTopConstraint.constant = 7
             }
         }
         return cell
@@ -260,11 +312,16 @@ extension HotelDetailsReviewsVC {
         if let ratingSummary = tripAdviserDetails.ratingSummary {
             cell.configCell(ratingSummary: ratingSummary[indexPath.row])
             if indexPath.row == ratingSummary.count - 1 {
-                cell.dividerViewTopConstraints.constant = 26.5
+                cell.dividerViewTopConstraints.constant = 16.5
                 cell.dividerView.isHidden = false
             } else {
                 cell.dividerViewTopConstraints.constant = 6.5
                 cell.dividerView.isHidden = true
+            }
+            if indexPath.row == 0 {
+                cell.ratingViewTopConstraint.constant = 16
+            } else {
+                cell.ratingViewTopConstraint.constant = 6.5
             }
         }
         return cell
@@ -297,20 +354,24 @@ extension HotelDetailsReviewsVC {
 
 extension HotelDetailsReviewsVC: HotelTripAdvisorDetailsDelegate {
     func willFetchHotelTripAdvisor() {
-        AppGlobals.shared.startLoading()
+        //AppGlobals.shared.startLoading()
+        startProgress()
     }
     
     func getHotelTripAdvisorDetailsSuccess() {
         self.viewModel.getTypeOfCellInSections()
-        
+        self.time += 1
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
         printDebug("Reviews")
         self.reviewsTblView.reloadData()
-        AppGlobals.shared.stopLoading()
+       // AppGlobals.shared.stopLoading()
     }
     
     func getHotelTripAdvisorFail() {
+        self.time += 1
+        self.timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(self.setProgress), userInfo: nil, repeats: true)
         printDebug("Api parsing failed")
-        AppGlobals.shared.stopLoading()
+       // AppGlobals.shared.stopLoading()
     }
 }
 
@@ -408,7 +469,7 @@ extension HotelDetailsReviewsVC {
         }
         self.mainContainerBottomConst.constant = 0.0
         self.mainContainerHeightConst.constant = finalValue
-        self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
+        //self.view.backgroundColor = AppColors.themeWhite.withAlphaComponent(1.0)
         self.view.layoutIfNeeded()
         
     }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -144,27 +144,30 @@
                                 <constraint firstAttribute="height" constant="0.5" id="k7h-Ty-hTn"/>
                             </constraints>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" text="Checkout my favorite hotels on Aertrip!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IBF-re-cKD">
-                            <rect key="frame" x="32" y="419.5" width="311" height="39"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" text="Checkout my favorite hotels on Aertrip!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IBF-re-cKD">
+                            <rect key="frame" x="16" y="419.5" width="343" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="aSk-dB-7tx"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CL1-bf-r78">
-                            <rect key="frame" x="0.0" y="484.5" width="375" height="0.5"/>
+                            <rect key="frame" x="0.0" y="470.5" width="375" height="0.5"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="0.5" id="Ivt-zN-M6H"/>
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="752" text="Hotel results for…" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90Q-sL-sHD">
-                            <rect key="frame" x="16" y="511" width="343" height="20.5"/>
+                            <rect key="frame" x="16" y="497" width="343" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j5U-IC-iww">
-                            <rect key="frame" x="16" y="557.5" width="343" height="95"/>
+                            <rect key="frame" x="16" y="543.5" width="343" height="95"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TW8-fS-wON">
                                     <rect key="frame" x="0.0" y="0.0" width="108.5" height="95"/>
@@ -317,7 +320,7 @@
                         <constraint firstItem="ocP-IW-CF3" firstAttribute="leading" secondItem="PEr-vS-ghZ" secondAttribute="leading" id="EtV-gV-8tD"/>
                         <constraint firstItem="PAu-eZ-YrA" firstAttribute="leading" secondItem="ube-H2-2Px" secondAttribute="leading" constant="-3" id="Grx-VF-GhC"/>
                         <constraint firstAttribute="trailing" secondItem="Tvp-gj-PIc" secondAttribute="trailing" id="HLo-re-B4G"/>
-                        <constraint firstAttribute="trailing" secondItem="IBF-re-cKD" secondAttribute="trailing" constant="32" id="HTX-Mn-R62"/>
+                        <constraint firstAttribute="trailing" secondItem="IBF-re-cKD" secondAttribute="trailing" constant="16" id="HTX-Mn-R62"/>
                         <constraint firstItem="CL1-bf-r78" firstAttribute="top" secondItem="IBF-re-cKD" secondAttribute="bottom" constant="26" id="Hyv-a6-2YL"/>
                         <constraint firstItem="ceQ-iC-loU" firstAttribute="top" secondItem="dWR-0m-g9N" secondAttribute="bottom" constant="2" id="Ie9-Ji-LaO"/>
                         <constraint firstAttribute="trailing" secondItem="j5U-IC-iww" secondAttribute="trailing" constant="16" id="Jz5-d2-rzl"/>
@@ -330,9 +333,9 @@
                         <constraint firstItem="5fx-v2-Dvx" firstAttribute="leading" secondItem="ceQ-iC-loU" secondAttribute="trailing" constant="8" id="SJu-Y8-kVs"/>
                         <constraint firstAttribute="trailing" secondItem="CL1-bf-r78" secondAttribute="trailing" id="Sc5-2M-VMi"/>
                         <constraint firstAttribute="trailing" secondItem="5fx-v2-Dvx" secondAttribute="trailing" constant="16" id="WHM-FT-PxX"/>
-                        <constraint firstItem="IBF-re-cKD" firstAttribute="leading" secondItem="PEr-vS-ghZ" secondAttribute="leading" constant="32" id="WlU-Di-qdr"/>
+                        <constraint firstItem="IBF-re-cKD" firstAttribute="leading" secondItem="PEr-vS-ghZ" secondAttribute="leading" constant="16" id="WlU-Di-qdr"/>
                         <constraint firstItem="dWR-0m-g9N" firstAttribute="leading" secondItem="PEr-vS-ghZ" secondAttribute="leading" constant="16" id="c8F-uQ-lU7"/>
-                        <constraint firstAttribute="bottom" secondItem="j5U-IC-iww" secondAttribute="bottom" constant="24.5" id="cN8-hQ-uHV"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="j5U-IC-iww" secondAttribute="bottom" constant="24.5" id="cN8-hQ-uHV"/>
                         <constraint firstAttribute="trailing" secondItem="oRo-04-jGV" secondAttribute="trailing" id="eIW-eN-PwQ"/>
                         <constraint firstItem="dWR-0m-g9N" firstAttribute="top" secondItem="PEr-vS-ghZ" secondAttribute="top" constant="8" id="eX1-aG-SJn"/>
                         <constraint firstItem="ceQ-iC-loU" firstAttribute="leading" secondItem="PEr-vS-ghZ" secondAttribute="leading" constant="13" id="fmy-d6-ZRa"/>
@@ -371,6 +374,7 @@
                 <outlet property="checkOutDateLabel" destination="zLb-Rh-lmO" id="KfL-xU-48D"/>
                 <outlet property="checkOutDayLabel" destination="iJW-E2-Isc" id="G7y-4V-Fub"/>
                 <outlet property="checkOutMessageLabel" destination="IBF-re-cKD" id="U0a-BU-h3Z"/>
+                <outlet property="checkOutMessageLabelHeightConstraint" destination="aSk-dB-7tx" id="rcf-pe-hNV"/>
                 <outlet property="checkOutTitleLable" destination="5lj-uF-N7H" id="nff-QS-Cb5"/>
                 <outlet property="emailHeightConatraint" destination="0vA-yN-6Bv" id="4aw-2n-J2p"/>
                 <outlet property="firstDotedView" destination="ocP-IW-CF3" id="itV-hx-oI6"/>

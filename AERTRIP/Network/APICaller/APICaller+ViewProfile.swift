@@ -20,7 +20,7 @@ extension APICaller {
             guard let sSelf = self else {return}
             
             sSelf.handleResponse(data, success: { (sucess, jsonData) in
-                
+                printDebug(jsonData)
                 let data = TravelDetailModel(json: jsonData[APIKeys.data.rawValue])
                 completionBlock(true, data, [])
                 

@@ -132,6 +132,7 @@ class PassengerDetailsCell: UICollectionViewCell {
                     lastNameAgeContainer.isHidden = false
                 }
             }
+            self.ageValidation()
             if self.journeyType == .domestic{
                 self.checkForDomestic()
             }else{
@@ -161,6 +162,37 @@ class PassengerDetailsCell: UICollectionViewCell {
             infoImageView.isHidden = !(guest.displayDob.isEmpty || guest.nationality.isEmpty || guest.passportNumber.isEmpty || guest.displayPsprtExpDate.isEmpty)
         }
         
+    }
+    
+    private func ageValidation(){
+        if self.journeyType == .domestic{
+            if let type = self.contact?.passengerType, type == .infant{
+                if !self.calculateAge(with: 2){
+                    self.infoImageView.isHidden = false
+                }
+            }
+        }else{
+            if let type = self.contact?.passengerType{
+                switch type{
+                case .Adult:break
+                case .child:
+                    if !self.calculateAge(with: 12){
+                        self.infoImageView.isHidden = false
+                    }
+                case .infant:
+                    if !self.calculateAge(with: 2){
+                        self.infoImageView.isHidden = false
+                    }
+                }
+            }
+        }
+    }
+    
+    private func calculateAge(with year:Int)-> Bool{
+        guard let dob = self.contact?.displayDob,
+            let date = dob.toDate(dateFormat: "dd MMM yyyy") else {return false}
+        let component = Calendar.current.dateComponents([.year], from: date, to: Date())
+        return (component.year ?? 0) < year
     }
     
     // Mark:- IBActions

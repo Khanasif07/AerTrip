@@ -9,6 +9,11 @@
 import UIKit
 
 class SelectPassengersVM {
+    
+    enum SetupFor {
+        case seatSelection
+        case others
+    }
 
     var selectedIndex : [Int] = []
     
@@ -16,4 +21,6 @@ class SelectPassengersVM {
     
     var selectedContacts : [ATContact] = []
     
+    var setupFor: SetupFor = .others
+    var seatModel = SeatMapModel.SeatMapRow()
 }

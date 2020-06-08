@@ -13,7 +13,7 @@ class SeatMapContainerVC: UIViewController {
 
     // MARK: Properties
     
-    private let viewModel = SeatMapContainerVM()
+    private var viewModel = SeatMapContainerVM()
     
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
@@ -51,6 +51,10 @@ class SeatMapContainerVC: UIViewController {
         viewModel.fetchSeatMapData()
     }
     
+    func setViewModel(_ vm: SeatMapContainerVM) {
+        self.viewModel = vm
+    }
+    
     private func setupNavBar() {
         topNavBarView.configureNavBar(title: LocalizedString.seatMap.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false, isDivider: false, backgroundType: .clear)
         
@@ -66,7 +70,7 @@ class SeatMapContainerVC: UIViewController {
 
         for index in 0..<allTabsStr.count {
             let vc = SeatMapVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
-            vc.viewModel.flightData = allFlightsData[index]
+            vc.setFlightData(allFlightsData[index])
             self.allChildVCs.append(vc)
         }
         self.view.layoutIfNeeded()
@@ -198,7 +202,6 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
             
             let flightsStr = $0.value.flights.map {
                 createAttHeaderTitle($0.value.fr, $0.value.to)
-                //            allTabsStr.append(contentsOf: flightsStr)
             }
             allTabsStr.append(contentsOf: flightsStr)
         }

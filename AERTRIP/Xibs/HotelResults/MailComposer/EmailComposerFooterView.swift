@@ -14,6 +14,7 @@ class EmailComposerFooterView: UIView {
     @IBOutlet weak var socialIconStackView: UIStackView!
     @IBOutlet weak var licenseLabel: UILabel!
     
+    
     class func instanceFromNib() -> EmailComposerFooterView {
         return UINib(nibName: "EmailComposerFooterView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! EmailComposerFooterView
     }
@@ -55,7 +56,7 @@ class EmailComposerFooterView: UIView {
     private func setUpFont() {
         self.seeRatesButton.titleLabel?.font = AppFonts.Regular.withSize(16.0)
         self.contactUsLabel.font = AppFonts.Regular.withSize(14.0)
-//        self.licenseLabel.font = AppFonts.Regular.withSize(14.0)
+        //        self.licenseLabel.font = AppFonts.Regular.withSize(14.0)
     }
     
     private func getAttributeBoldTextForHotelName(text: String, boldText: String) -> NSMutableAttributedString {

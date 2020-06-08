@@ -17,6 +17,7 @@ extension HotelsMapVC : MKMapViewDelegate{
         let annotationView = ResistantAnnotationView(annotation: annatation, reuseIdentifier: "route")
         annotationView.image = returnImageForMarker(annotation: annatation)
         annotationView.canShowCallout = true
+        annotationView.isUserInteractionEnabled = true
         return annotationView
         
     }
@@ -61,20 +62,30 @@ extension HotelsMapVC : MKMapViewDelegate{
         if self.appleMap.subviews.count > 2{// && !isMapInFullView
             let mapLogoView: UIView = self.appleMap.subviews[1]
             let legalLabel: UIView = self.appleMap.subviews[2]
+            let mapLogoY = self.appleMap.height - mapLogoView.height - 7
+            let legalLabelY = self.appleMap.height - legalLabel.height - 11
+
             UIView.animateKeyframes(withDuration: 0.6, delay: 0.0, options: .calculationModeLinear, animations: {
                 UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3) {
                     legalLabel.frame.origin.x = UIScreen.main.bounds.width/2 + 26
+                    legalLabel.frame.origin.y = self.isMapInFullView ? legalLabelY + 30 : legalLabelY - 30
+                    
                 }
                 UIView.addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 0.3) {
                     mapLogoView.frame.origin.x = UIScreen.main.bounds.width/2 - 50
+                    mapLogoView.frame.origin.y = self.isMapInFullView ? mapLogoY + 30 : mapLogoY - 30
+
                 }
             })
             
         }else if self.appleMap.subviews.count > 1{// IOS12 and lower devices.// && !isMapInFullView
             let legalLabel: UIView = self.appleMap.subviews[1]
+            let legalLabelY = self.appleMap.height - legalLabel.height - 7
             UIView.animateKeyframes(withDuration: 0.3, delay: 0.0, options: .calculationModeLinear, animations: {
                 UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.3) {
                     legalLabel.frame.origin.x = UIScreen.main.bounds.width/2 - 14
+                    legalLabel.frame.origin.y = self.isMapInFullView ? legalLabelY + 30 : legalLabelY - 30
+
                 }
                 
             })
@@ -239,6 +250,8 @@ extension HotelsMapVC : MKMapViewDelegate{
         if let annotationView = self.appleMap.view(for: anno)  as?  ResistantAnnotationView{
                 annotationView.resistantLayer.resistantZPosition = 1000
         }
+        
+        appleMap.deselectAnnotation(anno, animated: false)
     }
     
     

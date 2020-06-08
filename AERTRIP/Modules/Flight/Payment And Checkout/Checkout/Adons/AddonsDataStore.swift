@@ -10,7 +10,8 @@ import Foundation
 
 class AddonsDataStore {
     
-     let shared = AddonsDataStore()
+     static let shared = AddonsDataStore()
+    
      var itinerary = FlightItinerary()
      var adons : [String : AddonsData] = [:]
      var allFlightKeys : [String] {
@@ -24,16 +25,18 @@ class AddonsDataStore {
     }
     
     init(itinerary : FlightItinerary){
+        
+    }
+    
+    func initialiseItinerary(itinerary : FlightItinerary){
         self.itinerary = itinerary
         self.extractUsefullData()
     }
     
      func extractUsefullData() {
          guard let adon = itinerary.details.addons else{
-             return
-         }
+             return }
          adons = adon
-         
          allFlights = itinerary.details.legsWithDetail.flatMap {
                return $0.flightsWithDetails
            }

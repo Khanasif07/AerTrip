@@ -5,67 +5,70 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            uuid = "516E1FCC-4149-420A-B968-10ABD5C3691B"
+            uuid = "FC7AD816-4ABE-4CE4-93CC-A750280CD985"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/AppHelper/AppFlowManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
-            landmarkName = "proccessIfUserLoggedIn(verifyingFor:presentViewController:completion:)"
-            landmarkType = "7">
+            scope = "1"
+            stopOnStyle = "0">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
+                  <ActionContent
+                     consoleCommand = "po $arg1">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D9490883-109D-4E2D-B222-746F5B05B3AC"
+            uuid = "5E77F7C7-9EBB-435B-913C-99461BE33C40"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Flight/Payment And Checkout/Checkout/Flight Passengers Selection/ViewController/PassangerSelectionVC/Cell/PassengerDetailsCell.swift"
+            filePath = "AERTRIP/Modules/Flight/IntMCAndReturnDetails/Viewcontrollers/IntFareInfoVC/IntFareInfoVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "configData()"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
+            landmarkName = "getFareInfoAPICall(sid:fk:count:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D9F9278E-F36C-4A22-8E3D-319A100888CA"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Flight/Payment And Checkout/Checkout/Flight Passengers Selection/ViewController/PassangerDetailsVC/Cell/AddPassengerDetailsCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
-            landmarkName = "configureCell()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D2C37A67-E96D-4033-8B94-A79C7DD62911"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AERTRIP/Modules/Flight/Payment And Checkout/Checkout/Flight Passengers Selection/ViewController/PassangerDetailsVC/Cell/AddPassengerDetailsCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
-            landmarkName = "configureCell()"
-            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5E77F7C7-9EBB-435B-913C-99461BE33C40 - 834743d033f0884"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Foundation.Data) -&gt; () in AERTRIP.IntFareInfoVC.getFareInfoAPICall(sid: Swift.String, fk: Swift.String, count: Swift.Int) -&gt; ()"
+                  moduleName = "Aertrip"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/Aertrip/AERTRIP/Modules/Flight/IntMCAndReturnDetails/Viewcontrollers/IntFareInfoVC/IntFareInfoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "195"
+                  endingLineNumber = "195"
+                  offsetFromSymbolStart = "1259">
+               </Location>
+               <Location
+                  uuid = "5E77F7C7-9EBB-435B-913C-99461BE33C40 - fdaf1e85c7919111"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (Foundation.Data) -&gt; () in AERTRIP.IntFareInfoVC.getFareInfoAPICall(sid: Swift.String, fk: Swift.String, count: Swift.Int) -&gt; ()"
+                  moduleName = "Aertrip"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/Aertrip/AERTRIP/Modules/Flight/IntMCAndReturnDetails/Viewcontrollers/IntFareInfoVC/IntFareInfoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "196"
+                  endingLineNumber = "196"
+                  offsetFromSymbolStart = "344">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

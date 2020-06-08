@@ -46,9 +46,7 @@ extension AddOnVC {
     func configureNavigation(){
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : false)
-        
         self.topNavView.configureFirstRightButton(normalTitle: LocalizedString.Skip.localized, normalColor: AppColors.themeGreen, font: AppFonts.Bold.withSize(18))
-        
     }
     
     private func configureTableView(){
@@ -101,7 +99,7 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
             
         case .meals:
             let vc = MealsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-            vc.mealsContainerVM.itinerary = self.adonsVm.itineraryData.itinerary
+//            vc.mealsContainerVM.itinerary = AddonsDataStore.shared.itinerary
             vc.modalPresentationStyle = .overFullScreen
             present(vc, animated: true, completion: nil)
             
@@ -112,6 +110,7 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
             
         case .seat:
             let vc = SeatMapContainerVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
+            vc.setViewModel(adonsVm.getSeatMapContainerVM())
             vc.modalPresentationStyle = .overFullScreen
             present(vc, animated: true, completion: nil)
             

@@ -19,7 +19,7 @@ class IntCombineFareInfoCell: UITableViewCell {
     var intAertripReschedulingFees = [String:IntTaxes.SubFares.Details.Fee]()
     
     
-    var rafFees = [String:Int]()
+    var rafFees = [String:Any]()
     var journey: [IntJourney]!
     var legsCount  = 0
     var flightAdultCount = 0
@@ -114,12 +114,16 @@ extension IntCombineFareInfoCell:UITableViewDataSource, UITableViewDelegate
         formatter.numberStyle = .currency
         formatter.maximumFractionDigits = 2
         formatter.locale = Locale(identifier: "en_IN")
-        var result = formatter.string(from: NSNumber(value: price))
-        
-        if result!.contains(find: ".00"){
-            result = result?.replacingOccurrences(of: ".00", with: "", options: .caseInsensitive, range: Range(NSRange(location:result!.count-3,length:3), in: result!) )
+        if var result = formatter.string(from: NSNumber(value: price)){
+            if result.contains(find: ".00"){
+                result = result.replacingOccurrences(of: ".00", with: "", options: .caseInsensitive, range: Range(NSRange(location:result.count-3,length:3), in: result) )
+            }
+            return result
+        }else{
+            return "\(price)"
         }
-        return result!
+        
+        
     }
 }
 
@@ -155,7 +159,7 @@ extension IntCombineFareInfoCell{
     
     
     func getCellWithoutApi(_ indexPath:IndexPath)->UITableViewCell{
-        let slabCell = combineFareTableView.dequeueReusableCell(withIdentifier: "PerSlabFareInfoCell") as! PerSlabFareInfoTableViewCell
+        guard let slabCell = combineFareTableView.dequeueReusableCell(withIdentifier: "PerSlabFareInfoCell") as? PerSlabFareInfoTableViewCell else {return UITableViewCell()}
         
         if indexPath.section == 0 && indexPath.row == 0{
             slabCell.topSeperatorLabelTop.constant = 0
@@ -240,10 +244,14 @@ extension IntCombineFareInfoCell{
                             slabCell.statusLabel.text = "Free Cancellation"
                         }else{
                             slabCell.statusLabel.textColor = .black
-                            let adtRafVal = rafFees["ADT"]
-                            let displayValue = getPrice(price: Double(airlineValue + adtRafVal!))
-                            
-                            
+                            var adtRafVal =  0
+                            if let fee = rafFees["ADT"] as? Int{
+                                adtRafVal = fee
+                            }else{
+                                adtRafVal = (rafFees["ADT"] as? [String:Int])?.values.first ?? 0
+                            }
+                            let displayValue = getPrice(price: Double(airlineValue + adtRafVal))
+
                             slabCell.statusLabel.text = displayValue + " + ₹ " + String(aertripValue)
                         }
                     }else{
@@ -258,8 +266,13 @@ extension IntCombineFareInfoCell{
                             slabCell.perAdultAmountLabel.text = "Free Cancellation"
                         }else{
                             slabCell.perAdultAmountLabel.textColor = .black
-                            let adtRafVal = rafFees["ADT"]
-                            let displayValue = getPrice(price: Double(airlineValue + adtRafVal!))
+                            var adtRafVal =  0
+                            if let fee = rafFees["ADT"] as? Int{
+                                adtRafVal = fee
+                            }else{
+                                adtRafVal = (rafFees["ADT"] as? [String:Int])?.values.first ?? 0
+                            }
+                            let displayValue = getPrice(price: Double(airlineValue + adtRafVal))
                             
                             slabCell.perAdultAmountLabel.text = displayValue + " + ₹ " + String(aertripValue)
                         }
@@ -275,8 +288,8 @@ extension IntCombineFareInfoCell{
                 
                 var aertripValue = 0
                 
-                if indexPath.row < chdAertripCancellationSlab!.count{
-                    aertripValue = chdAertripCancellationSlab![indexPath.row].value
+                if indexPath.row < (chdAertripCancellationSlab?.count ?? 0){
+                    aertripValue = chdAertripCancellationSlab?[indexPath.row].value ?? 0
                 }
                 
                 if indexPath.row < chdAirlineCancellationSlab.count{
@@ -293,8 +306,13 @@ extension IntCombineFareInfoCell{
                         slabCell.perChildAmountLabel.text = "Free Cancellation"
                     }else{
                         slabCell.perChildAmountLabel.textColor = .black
-                        let chdRafVal = rafFees["CHD"]
-                        let displayValue = getPrice(price: Double(value + (chdRafVal ?? 0)))
+                        var chdRafVal =  0
+                        if let fee = rafFees["CHD"] as? Int{
+                            chdRafVal = fee
+                        }else{
+                            chdRafVal = (rafFees["CHD"] as? [String:Int])?.values.first ?? 0
+                        }
+                        let displayValue = getPrice(price: Double(value + chdRafVal))
                         
                         slabCell.perChildAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
                     }
@@ -309,8 +327,8 @@ extension IntCombineFareInfoCell{
                 
                 var aertripValue = 0
                 
-                if indexPath.row < infAertripCancellationSlab!.count{
-                    aertripValue = infAertripCancellationSlab![indexPath.row].value
+                if indexPath.row < (infAertripCancellationSlab?.count ?? 0){
+                    aertripValue = infAertripCancellationSlab?[indexPath.row].value ?? 0
                 }
                 
                 if indexPath.row < infAirlineCancellationSlab.count{
@@ -327,8 +345,13 @@ extension IntCombineFareInfoCell{
                         slabCell.perInfantAmountLabel.text = "Free Cancellation"
                     }else{
                         slabCell.perInfantAmountLabel.textColor = .black
-                        let chdRafVal = rafFees["INF"]
-                        let displayValue = getPrice(price: Double(value + (chdRafVal ?? 0)))
+                        var iNFRafVal =  0
+                        if let fee = rafFees["INF"] as? Int{
+                            iNFRafVal = fee
+                        }else{
+                            iNFRafVal = (rafFees["INF"] as? [String:Int])?.values.first ?? 0
+                        }
+                        let displayValue = getPrice(price: Double(value + iNFRafVal))
                         slabCell.perInfantAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
                     }
                 }else{
@@ -342,8 +365,8 @@ extension IntCombineFareInfoCell{
                 
                 var aertripValue = 0
                 
-                if indexPath.row < adtAertripReschedulingSlab!.count{
-                    aertripValue = adtAertripReschedulingSlab![indexPath.row].value
+                if indexPath.row < (adtAertripReschedulingSlab?.count ?? 0){
+                    aertripValue = adtAertripReschedulingSlab?[indexPath.row].value ?? 0
                 }
                 
                 if indexPath.row < adtAirlineReschedulingSlab.count{
@@ -429,8 +452,8 @@ extension IntCombineFareInfoCell{
                 
                 var aertripValue = 0
                 
-                if indexPath.row < chdAertripReschedulingSlab!.count{
-                    aertripValue = chdAertripReschedulingSlab![indexPath.row].value
+                if indexPath.row < (chdAertripReschedulingSlab?.count ?? 0){
+                    aertripValue = chdAertripReschedulingSlab?[indexPath.row].value ?? 0
                 }
                 
                 if indexPath.row < chdAirlineReschedulingSlab.count{
@@ -463,8 +486,8 @@ extension IntCombineFareInfoCell{
                 
                 var aertripValue = 0
                 
-                if indexPath.row < infAertripReschedulingSlab!.count{
-                    aertripValue = infAertripReschedulingSlab![indexPath.row].value
+                if indexPath.row < (infAertripReschedulingSlab?.count ?? 0){
+                    aertripValue = infAertripReschedulingSlab?[indexPath.row].value ?? 0
                     
                 }
                 if indexPath.row < infAirlineReschedulingSlab.count{

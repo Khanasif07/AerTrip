@@ -268,6 +268,7 @@ class MainHomeVC: BaseVC {
         toAddImgView.layer.borderWidth = 2.5
         toAddImgView.layer.borderColor = AppColors.themeGray20.cgColor
         toAddImgView.image = self.profileView?.profileImageView.image
+        toAddImgView.contentMode = .scaleAspectFill
         view.addSubview(toAddImgView)
         view.bringSubviewToFront(toAddImgView)
         profileImgViewOriginalFrame = toAddImgView.frame
@@ -305,6 +306,7 @@ class MainHomeVC: BaseVC {
         toAddImgView.layer.borderWidth = 2.5
         toAddImgView.layer.borderColor = AppColors.themeGray20.cgColor
         toAddImgView.image = viewProfileVC?.profileImageHeaderView?.profileImageView.image
+        toAddImgView.contentMode = .scaleAspectFill
         view.addSubview(toAddImgView)
         view.bringSubviewToFront(toAddImgView)
         let animator = UIViewPropertyAnimator(duration: AppConstants.kAnimationDuration, curve: .linear) {
