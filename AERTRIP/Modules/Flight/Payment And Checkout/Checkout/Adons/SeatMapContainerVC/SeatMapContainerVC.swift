@@ -137,7 +137,10 @@ class SeatMapContainerVC: UIViewController {
 
 extension SeatMapContainerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
-        
+        allChildVCs.enumerated().forEach { (index, seatMapVC) in
+            seatMapVC.setFlightData(allFlightsData[index])
+            seatMapVC.seatMapCollView.reloadData()
+        }
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
