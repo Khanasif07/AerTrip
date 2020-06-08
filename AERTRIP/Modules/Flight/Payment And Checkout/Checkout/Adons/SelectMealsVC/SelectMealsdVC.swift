@@ -55,8 +55,12 @@ extension SelectMealsdVC {
             self.mealsTableView.dataSource = self
             self.mealsTableView.delegate = self
             self.mealsTableView.reloadData()
-            
         }
+    
+    func reloadData(index : Int = 0){
+        
+        self.mealsTableView.reloadRow(at: IndexPath(row: index, section: 0), with: UITableView.RowAnimation.none)
+    }
     
 }
 
@@ -90,10 +94,8 @@ extension SelectMealsdVC : UITableViewDelegate, UITableViewDataSource {
         
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
-       // self.delegate?.mealUpdated(vcIndex: self.selectMealsVM.vcIndex)
-    
-       // self.delegate?.addPassengerToMeal(vcIndex: self.selectMealsVM.vcIndex, currentFlightKey: self.selectMealsVM.currentFlightKey, mealIndex: indexPath.row, meal : self.selectMealsVM.currentAdonsData.meal[indexPath.row])
+        
+        self.delegate?.addPassengerToMeal(vcIndex: self.selectMealsVM.vcIndex, currentFlightKey: self.selectMealsVM.currentFlightKey, mealIndex: indexPath.row)
     }
     
 }

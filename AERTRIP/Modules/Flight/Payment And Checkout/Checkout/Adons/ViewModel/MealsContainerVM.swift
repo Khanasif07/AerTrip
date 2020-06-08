@@ -10,6 +10,10 @@ import Foundation
 
 class MealsContainerVM {
     
+    var currentIndex = 0
+    var allChildVCs = [SelectMealsdVC]()
+
+    
 //    var itinerary = FlightItinerary()
 //    var adons : [String : AddonsData] = [:]
 //
