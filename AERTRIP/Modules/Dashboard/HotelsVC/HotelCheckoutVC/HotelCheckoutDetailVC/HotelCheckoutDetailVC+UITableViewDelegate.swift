@@ -105,7 +105,7 @@ extension HotelCheckoutDetailVC: UITableViewDelegate, UITableViewDataSource {
         if let hotelData = self.viewModel {
             let sectionData = self.sectionData[indexPath.section]
             if sectionData[indexPath.row] == .paymentPolicyCell {
-                return 0.0
+                return CGFloat.leastNormalMagnitude
             } else {
                 if indexPath.section == 0, indexPath.row == 2 {
                     let text = hotelData.address + "Maps   "
@@ -141,7 +141,7 @@ extension HotelCheckoutDetailVC: TopNavigationViewDelegate {
     }
     
     func topNavBarFirstRightButtonAction(_ sender: UIButton) {
-        delegate?.crossButtonTapped()
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

@@ -144,6 +144,14 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         if tableView === hotelSearchTableView {
             return 110.0
         } else {
+            if indexPath.row == 0 {
+                return 217.0
+            } else if  let sections = self.viewModel.fetchedResultsController.sections {
+                let sectionInfo = sections[indexPath.section]
+                if indexPath.row ==  (sectionInfo.numberOfObjects - 1) {
+                    return 217.0
+                }
+            }
             return 209.0
         }
     }
@@ -152,6 +160,14 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         if tableView === hotelSearchTableView {
             return indexPath.row == 0 ? 115.0 : 110.0
         } else {
+            if indexPath.row == 0 {
+                return 217.0
+            } else if  let sections = self.viewModel.fetchedResultsController.sections {
+                let sectionInfo = sections[indexPath.section]
+                if indexPath.row ==  (sectionInfo.numberOfObjects - 1) {
+                    return 217.0
+                }
+            }
             return 209.0
         }
     }
@@ -182,10 +198,11 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
             cell.contentView.backgroundColor = AppColors.themeWhite
             if  let sections = self.viewModel.fetchedResultsController.sections {
                 let sectionInfo = sections[indexPath.section]
-                cell.isLastCellInSection =  indexPath.item ==  (sectionInfo.numberOfObjects - 1)
+                cell.isLastCellInSection =  indexPath.row ==  (sectionInfo.numberOfObjects - 1)
             } else {
                 cell.isLastCellInSection = false
             }
+            cell.isFirstCellInSection = indexPath.row == 0
             return cell
         }
     }
@@ -220,7 +237,7 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
 //        if HotelFilterVM.shared.sortUsing == .DistanceNearestFirst(ascending: false){
 //            return (section == 0) ? 30 : 53
 //        }else{
-            return (section == 0) ? 0 : 53
+            return (section == 0) ? 0 : 21
 //        }
     }
     

@@ -23,7 +23,7 @@ class HotelInfoAddressCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var deviderView: UIView!
+    @IBOutlet weak var deviderView: ATDividerView!
     @IBOutlet weak var moreBtnOutlet: UIButton!
     @IBOutlet weak var moreBtnContainerView: UIView!
     @IBOutlet weak var gradientView: UIView!

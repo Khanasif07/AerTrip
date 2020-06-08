@@ -56,6 +56,11 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
             updateBottomConstraint()
         }
     }
+    var isFirstCellInSection: Bool = false {
+        didSet {
+            updateTopConstraint()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -76,7 +81,7 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
         self.saveButton.addTarget(self, action: #selector(self.saveButtonTapped(_:)), for: UIControl.Event.touchUpOutside)
         self.setupPageControl()
         
-        self.bgView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 5.0)
+        self.bgView.addShadow(cornerRadius: 10, maskedCorners: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
         self.collectionView.cornerRadius = 10.0
         self.gradientView.cornerRadius = 10.0
         self.collectionView.registerCell(nibName: ATGalleryCell.reusableIdentifier)
@@ -195,9 +200,16 @@ class HotelCardTableViewCell: AppStoreAnimationTableViewCell {
     }
     
     private func updateBottomConstraint() {
-        let valueToSet: CGFloat = isLastCellInSection ? 0 : 16
+        let valueToSet: CGFloat = isLastCellInSection ? 16 : 8
         if valueToSet != self.containerBottomConstraint.constant {
             self.containerBottomConstraint.constant = valueToSet
+            self.contentView.layoutIfNeeded()
+        }
+    }
+    private func updateTopConstraint() {
+        let valueToSet: CGFloat = isFirstCellInSection ? 16 : 8
+        if valueToSet != self.containerTopConstraint.constant {
+            self.containerTopConstraint.constant = valueToSet
             self.contentView.layoutIfNeeded()
         }
     }

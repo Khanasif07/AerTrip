@@ -51,9 +51,9 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     ///Configure UI
     private func configUI() {
         self.allDetailsLabel.isHidden = true
-        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 8.0)
+        self.shadowView.addShadow(cornerRadius: 0, maskedCorners: [], color: AppColors.themeBlack.withAlphaComponent(0.15), offset: CGSize.zero, opacity: 1, shadowRadius: 4.0)
         //UIColor
-        self.backgroundColor = AppColors.screensBackground.color
+        self.backgroundColor = .clear//AppColors.screensBackground.color
         ///Font
         self.descriptionLabel.font = AppFonts.Regular.withSize(16.0)
         self.infoBtnOutlet.titleLabel?.font = AppFonts.Regular.withSize(14.0)
@@ -61,9 +61,9 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         ///TextColor
         self.descriptionLabel.textColor = AppColors.themeBlack
         self.infoBtnOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
-       // self.moreBtnOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
+        // self.moreBtnOutlet.setTitleColor(AppColors.themeGreen, for: .normal)
         //Text
-       // self.moreBtnOutlet.setTitle(LocalizedString.More.localized, for: .normal)
+        // self.moreBtnOutlet.setTitle(LocalizedString.More.localized, for: .normal)
     }
     
     
@@ -90,9 +90,9 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
             attributedString.append(blackAttributedString)
         } else if !toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
             /// Asif Change
-//            let greenAttributedString = NSAttributedString(string: "Cancellation fee of \(LocalizedString.rupeesText.localized) ", attributes: orangeAtrribute)
-//            let blackAttributedString = NSAttributedString(string: "\(penalty) will be charged if you cancel from \(startingDate) to \(endingDate)\n" + endingDate, attributes: blackAttribute)
-//            attributedString.append(greenAttributedString)
+            //            let greenAttributedString = NSAttributedString(string: "Cancellation fee of \(LocalizedString.rupeesText.localized) ", attributes: orangeAtrribute)
+            //            let blackAttributedString = NSAttributedString(string: "\(penalty) will be charged if you cancel from \(startingDate) to \(endingDate)\n" + endingDate, attributes: blackAttribute)
+            //            attributedString.append(greenAttributedString)
             let blackAttributedString = NSAttributedString(string: "Part Refundable", attributes: blackAttribute)
             attributedString.append(blackAttributedString)
         } else if toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
@@ -108,7 +108,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         if isHotelDetailsScreen {
             self.shadowViewLeadingConstraint.constant = 16.0
             self.shadowViewTrailingConstraint.constant = 16.0
-         } else {
+        } else {
             self.shadowView.addShadow(cornerRadius: 0.0, maskedCorners: [], color: AppColors.clear, offset: CGSize(width: 0.0, height: 0.0), opacity: 0.0, shadowRadius: 0.0)
             self.shadowViewLeadingConstraint.constant = 0.0
             self.shadowViewTrailingConstraint.constant = 0.0
@@ -127,12 +127,12 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
                     //\u{2022}
                     let formattedString: String = "\(string)\n"
                     let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: formattedString, attributes: attributesDictionary)
-                    let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: -5.0, isForNotes: false)
+                    let paragraphStyle = AppGlobals.shared.createParagraphAttribute(paragraphSpacingBefore: -4.1, isForNotes: false)
                     attributedString.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSMakeRange(0, attributedString.length))
-                    attributedString.addAttributes([
-                        .font: AppFonts.c.withSize(10.0),
-                        .foregroundColor: AppColors.themeGray20
-                    ], range: ("\(string)\n" as NSString).range(of: LocalizedString.rupeesText.localized))
+                    //                    attributedString.addAttributes([
+                    //                        .font: AppFonts.c.withSize(10.0),
+                    //                        .foregroundColor: AppColors.themeGray20
+                    //                    ], range: ("\(string)\n" as NSString).range(of: LocalizedString.rupeesText.localized))
                     fullAttributedString.append(attributedString)
                 }
                 return fullAttributedString
@@ -163,10 +163,10 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
                 penaltyString = "Full Refund: If you cancel by \(endingDate)\n"
                 return penaltyString
             } else if !toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
-                penaltyString = "Cancellation fee of \(LocalizedString.rupeesText.localized) \(penalty) will be charged if you cancel from \(startingDate) to \(endingDate)\n"
+                penaltyString = "Cancellation fee of \(Double(penalty).amountInDelimeterWithSymbol) will be charged if you cancel from \(startingDate) to \(endingDate)\n"
                 return penaltyString
             } else if toDate.isEmpty && !fromDate.isEmpty && penalty != 0 {
-                penaltyString = "Cancellation fee of \(LocalizedString.rupeesText.localized) \(penalty) will be charged if you cancel on \(startingDate) or later\n"
+                penaltyString = "Cancellation fee of \(Double(penalty).amountInDelimeterWithSymbol) will be charged if you cancel on \(startingDate) or later\n"
                 return penaltyString
             }
         } else {
@@ -174,7 +174,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
                 penaltyString = "Non Refundable from  \(startingDate)\n"
                 return penaltyString
             } else if penalty == Int(roomPrice) && !fromDate.isEmpty {
-                penaltyString = "Cancellation fee of \(LocalizedString.rupeesText.localized) \(penalty) will be charged if you cancel on \(startingDate) or later\n"
+                penaltyString = "Cancellation fee of \(roomPrice.amountInDelimeterWithSymbol) will be charged if you cancel on \(startingDate) or later\n"
                 return penaltyString
             }
         }
@@ -210,7 +210,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     ///Configure Cancellation Cell
     internal func configureCancellationCell(ratesData: Rates , isHotelDetailsScreen: Bool) {
         self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
-//        self.moreInfoContainerView.isHidden = true
+        //        self.moreInfoContainerView.isHidden = true
         self.infoBtnOutlet.isHidden = false
         if let cancellationInfo = ratesData.cancellation_penalty, cancellationInfo.is_refundable {
             self.descriptionLabel.text = ""
@@ -235,8 +235,8 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     ///Configure Payment Cell
     internal func configurePaymentCell(ratesData: Rates, isHotelDetailsScreen: Bool) {
         self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
-//        self.moreInfoContainerView.isHidden = true
-
+        //        self.moreInfoContainerView.isHidden = true
+        
         if !ratesData.payment_info.isEmpty && ratesData.payment_info != "payment_now" {
             self.infoBtnOutlet.isHidden = true
             let paymentAttributes = [NSAttributedString.Key.font: AppFonts.Regular.withSize(14.0), NSAttributedString.Key.foregroundColor: AppColors.themeGray60]
@@ -319,7 +319,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     ///Configure Payment Cell
     internal func configureHCPaymentCell(isHotelDetailsScreen: Bool) {
         self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
-//        self.moreInfoContainerView.isHidden = true
+        //        self.moreInfoContainerView.isHidden = true
         self.infoBtnOutlet.isHidden = true
         self.allDetailsLabel.isHidden = true
         self.descriptionLabel.font = AppFonts.Regular.withSize(16.0)
@@ -331,8 +331,8 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
     ///Full Penalty Details
     internal func fullHCPenaltyDetails(isRefundable: Bool, isHotelDetailsScreen: Bool) {
         self.constraintSetUp(isHotelDetailsScreen: isHotelDetailsScreen)
-//        self.moreInfoContainerView.isHidden = true
-//        self.moreBtnOutlet.isHidden = true
+        //        self.moreInfoContainerView.isHidden = true
+        //        self.moreBtnOutlet.isHidden = true
         let attributedString = NSMutableAttributedString()
         let blackAttribute = [NSAttributedString.Key.font: AppFonts.Regular.withSize(18.0), NSAttributedString.Key.foregroundColor: AppColors.textFieldTextColor51] as [NSAttributedString.Key : Any]
         var blackAttributedString: NSAttributedString
@@ -344,7 +344,7 @@ class HotelDetailsCancelPolicyTableCell: UITableViewCell {
         attributedString.append(blackAttributedString)
         self.descriptionLabel.attributedText = attributedString
     }
-
+    
     ///Full Penalty Details
     internal func HCPenaltyDetailsExplanation(canclNotes: String) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString()

@@ -18,11 +18,11 @@
                     <rect key="frame" x="0.0" y="0.0" width="62" height="62"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mvk-UO-Jsc">
-                            <rect key="frame" x="23.5" y="23.5" width="15" height="15"/>
+                            <rect key="frame" x="22.5" y="22.5" width="17" height="17"/>
                             <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="15" id="DcO-9z-ybb"/>
-                                <constraint firstAttribute="height" constant="15" id="edl-gh-cFw"/>
+                                <constraint firstAttribute="width" constant="17" id="DcO-9z-ybb"/>
+                                <constraint firstAttribute="height" constant="17" id="edl-gh-cFw"/>
                             </constraints>
                         </view>
                     </subviews>

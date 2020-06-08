@@ -557,7 +557,6 @@ extension AppFlowManager {
         ob.tagButtons = tagButtons
         ob.modalPresentationStyle = .overFullScreen
         ob.modalPresentationCapturesStatusBarAppearance = true
-        ob.statusBarColor = AppColors.themeWhite
         UIApplication.topViewController()?.present(ob, animated: true, completion: nil)
     }
     
