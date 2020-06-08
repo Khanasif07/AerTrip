@@ -78,6 +78,13 @@ extension SelectPassengerVC {
             selectPassengersLabel.isHidden = true
             emptyView.isHidden = true
             selectPassengersVM.initalPassengerForSeat = selectPassengersVM.seatModel.columnData.passenger
+            if let passengers = GuestDetailsVM.shared.guests.first {
+                passengers.enumerated().forEach { (index, passenger) in
+                    if selectPassengersVM.seatModel.columnData.passenger?.id == passenger.id {
+                        selectPassengersVM.selectedIndex.append(index)
+                    }
+                }
+            }
         }
     }
 }
@@ -99,9 +106,6 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
 
             cell.selectionImageView.isHidden = !self.selectPassengersVM.selectedIndex.contains(indexPath.item)
             if selectPassengersVM.setupFor == .seatSelection {
-                if selectPassengersVM.seatModel.columnData.passenger?.id == firstGuestArray[indexPath.item].id {
-                    selectPassengersVM.selectedIndex.append(indexPath.item)
-                }
                 cell.setupCellFor(firstGuestArray[indexPath.item], selectPassengersVM.seatModel)
             }
         }

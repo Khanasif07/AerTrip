@@ -45,7 +45,7 @@ class StickyGridCollectionViewLayout: UICollectionViewFlowLayout {
 
 	override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
 		var layoutAttributes = [UICollectionViewLayoutAttributes]()
-
+        
 		for rowAttrs in allAttributes {
 			for itemAttrs in rowAttrs where rect.intersects(itemAttrs.frame) {
 				layoutAttributes.append(itemAttrs)
