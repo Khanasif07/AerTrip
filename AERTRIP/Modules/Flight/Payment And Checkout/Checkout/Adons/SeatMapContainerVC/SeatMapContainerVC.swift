@@ -190,7 +190,7 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
         
         delay(seconds: 0.2) {
             AppGlobals.shared.startLoading()
-
+            
         }
     }
     
