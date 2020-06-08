@@ -91,7 +91,6 @@ extension MealsContainerVC {
             let vc = SelectMealsdVC.instantiate(fromAppStoryboard: .Adons)
             vc.initializeVm(selectMealsVM: SelectMealsVM(vcIndex: index, currentFlightKey: AddonsDataStore.shared.allFlightKeys[index]))
             vc.delegate = self
-//            vc.selectMealsVM.itinerary = AddonsDataStore.shared.itinerary
             self.mealsContainerVM.allChildVCs.append(vc)
         }
         self.view.layoutIfNeeded()

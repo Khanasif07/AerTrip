@@ -9,36 +9,16 @@
 import Foundation
 
 protocol SelectMealVmDelegate : class {
-
     func contactAddedToMeal()
-    
 }
 
 class SelectMealsVM {
     
     var vcIndex : Int = 0
     var currentFlightKey : String = ""
-
-//    var itinerary = FlightItinerary()
-//    var adons : [String : AddonsData] = [:]
-//
-//    var currentAdonsData = AddonsData()
-//
     weak var delegate : SelectMealVmDelegate?
-//
-//    var flightKeys : [String] {
-//        return  Array(adons.keys)
-//    }
-//
-//    func extractUsefullData() {
-//        guard let adon = itinerary.details.addons else{
-//              return
-//            }
-//        adons = adon
-//        currentFlightKey = flightKeys[vcIndex]
-//        currentAdonsData = adons[flightKeys[vcIndex]] ?? AddonsData()
-//    }
     
+
     init(){
         
     }

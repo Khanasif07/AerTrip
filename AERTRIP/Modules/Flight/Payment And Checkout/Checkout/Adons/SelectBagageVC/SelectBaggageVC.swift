@@ -8,10 +8,17 @@
 
 import UIKit
 
+protocol SelectBaggageDelegate : class {
+    func addContactButtonTapped()
+    func addPassengerToMeal(vcIndex : Int, currentFlightKey : String, baggageIndex: Int)
+}
+
 class SelectBaggageVC: UIViewController {
     
     @IBOutlet weak var bagageTableView: UITableView!
     
+    private var selectBaggageVM : SelectBaggageVM!
+    weak var delegate : SelectBaggageDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +41,14 @@ class SelectBaggageVC: UIViewController {
           configureTableView()
          
       }
+    
+    func initializeVm(selectBaggageVM : SelectBaggageVM){
+           self.selectBaggageVM = selectBaggageVM
+       }
+    
+    func reloadData(index : Int = 0){
+          self.bagageTableView.reloadRow(at: IndexPath(row: index, section: 0), with: UITableView.RowAnimation.none)
+    }
     
 }
 
@@ -82,7 +97,6 @@ extension SelectBaggageVC : UITableViewDelegate, UITableViewDataSource {
         headerView.headingLabel.text = section == 0 ? LocalizedString.DomesticCheckIn.localized : LocalizedString.InternationalCheckIn.localized
         headerView.contentView.backgroundColor = AppColors.greyO4
         headerView.headingLabel.textColor = AppColors.themeGray60
-        
         return headerView
       }
     

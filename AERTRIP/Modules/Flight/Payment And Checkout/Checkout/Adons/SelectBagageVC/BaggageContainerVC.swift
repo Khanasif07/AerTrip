@@ -18,7 +18,8 @@ class BaggageContainerVC : BaseVC {
        
        var allChildVCs = [SelectBaggageVC]()
        var currentIndex = 0
-       
+       let baggageContainerVM = BaggageContainerVM()
+    
        // MARK: IBOutlets
        @IBOutlet weak var topNavBarView: TopNavigationView!
        @IBOutlet weak var mealsContainerView: UIView!
@@ -88,8 +89,10 @@ extension BaggageContainerVC {
     
     private func setUpViewPager() {
         self.allChildVCs.removeAll()
-        for _ in 0..<allTabsStr.count {
+        for index in 0..<allTabsStr.count {
             let vc = SelectBaggageVC.instantiate(fromAppStoryboard: .Adons)
+            vc.initializeVm(selectBaggageVM: SelectBaggageVM(vcIndex: index, currentFlightKey: AddonsDataStore.shared.allFlightKeys[index]))
+            vc.delegate = self
             self.allChildVCs.append(vc)
         }
         self.view.layoutIfNeeded()
@@ -180,4 +183,22 @@ extension BaggageContainerVC: PagingViewControllerDataSource , PagingViewControl
     }
 }
 
+extension BaggageContainerVC : SelectBaggageDelegate {
+    
+    func addContactButtonTapped(){
+        
+    }
+    
+    func addPassengerToMeal(vcIndex : Int, currentFlightKey : String, baggageIndex: Int){
+        let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+        vc.modalPresentationStyle = .overFullScreen
+        vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
+            guard let weakSelf = self else { return }
+            AddonsDataStore.shared.setContactsForBaggage(vcIndex: vcIndex, currentFlightKey: currentFlightKey, baggageIndex: baggageIndex, contacts: contacts)
+            weakSelf.baggageContainerVM.allChildVCs[vcIndex].reloadData(index: baggageIndex)
+        }
+        present(vc, animated: true, completion: nil)
+    }
+    
+}
 
