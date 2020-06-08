@@ -57,8 +57,22 @@ class SelectMealCell: UITableViewCell {
             self.quantityLabel.isHidden = true
         }else{
             self.mealForLabelTop.constant = 2
-            self.mealForLabel.text = "For Julin and Clifford For Julin and Clifford"
-            self.quantityLabel.text = "X5"
+//            self.mealForLabel.text = "For Julin and Clifford For Julin and Clifford"
+            
+            let allNamesArray = data.mealsSelectedFor.map { (contact) -> String in
+                return contact.firstName
+            }
+            let conaSaperatedNames = allNamesArray.joined(separator: ", ")
+            self.mealForLabel.text = "For \(conaSaperatedNames)"
+            
+//            if let lastIndex = conaSaperatedNames.lastIndex(where: { (char) -> Bool in
+//                return char == ","
+//            }){
+//                //conaSaperatedNames[lastIndex.encodedOffset] = ""
+//            }
+            
+            
+            self.quantityLabel.text = "X\(data.mealsSelectedFor.count)"
             self.quantityLabel.isHidden = false
         }
         

@@ -54,11 +54,11 @@ class SelectMealsVM {
         return keyData.meal
     }
     
-    func updateContactInMeal(currentFlightKey: String, mealIndex: Int, contacts : [ATContact]){
-    AddonsDataStore.shared.adons[currentFlightKey]?.meal[mealIndex].mealsSelectedFor = contacts
-        self.delegate?.contactAddedToMeal()
-        
-    }
+//    func updateContactInMeal(currentFlightKey: String, mealIndex: Int, contacts : [ATContact]){
+//    AddonsDataStore.shared.adons[currentFlightKey]?.meal[mealIndex].mealsSelectedFor = contacts
+//        self.delegate?.contactAddedToMeal()
+//
+//    }
     
     
     
