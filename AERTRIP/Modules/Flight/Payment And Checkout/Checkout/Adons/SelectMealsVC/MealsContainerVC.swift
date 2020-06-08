@@ -20,8 +20,7 @@ class MealsContainerVC: BaseVC {
     fileprivate var parchmentView : PagingViewController?
 //    private let allTabsStr: [String] = ["BOM → LON", "LON → NYC", "NYC → DEL"]
     
-    var allChildVCs = [SelectMealsdVC]()
-    var currentIndex = 0
+    
     let mealsContainerVM = MealsContainerVM()
     
     // MARK: IBOutlets
@@ -87,13 +86,13 @@ extension MealsContainerVC {
     }
     
     private func setUpViewPager() {
-        self.allChildVCs.removeAll()
+        self.mealsContainerVM.allChildVCs.removeAll()
         for index in 0..<AddonsDataStore.shared.allFlightKeys.count {
             let vc = SelectMealsdVC.instantiate(fromAppStoryboard: .Adons)
             vc.initializeVm(selectMealsVM: SelectMealsVM(vcIndex: index, currentFlightKey: AddonsDataStore.shared.allFlightKeys[index]))
             vc.delegate = self
 //            vc.selectMealsVM.itinerary = AddonsDataStore.shared.itinerary
-            self.allChildVCs.append(vc)
+            self.mealsContainerVM.allChildVCs.append(vc)
         }
         self.view.layoutIfNeeded()
         if let _ = self.parchmentView{
@@ -165,7 +164,7 @@ extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControlle
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
-        return self.allChildVCs[index]
+        return self.mealsContainerVM.allChildVCs[index]
     }
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
@@ -178,14 +177,12 @@ extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControlle
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
-        
         if let pagingIndexItem = pagingItem as? MenuItem {
-            currentIndex = pagingIndexItem.index
+            self.mealsContainerVM.currentIndex = pagingIndexItem.index
         }
-        
     }
+    
 }
-
 
 extension MealsContainerVC : SelectMealDelegate {
     
@@ -195,17 +192,13 @@ extension MealsContainerVC : SelectMealDelegate {
         vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
             guard let weakSelf = self else { return }
             AddonsDataStore.shared.setContactsForMeal(vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: contacts)
-            weakSelf.allChildVCs[vcIndex].reloadData(index: mealIndex)
+            weakSelf.mealsContainerVM.allChildVCs[vcIndex].reloadData(index: mealIndex)
         }
         
         present(vc, animated: true, completion: nil)
     }
     
-    
     func addContactButtonTapped() {
         
     }
-    
- 
-    
 }

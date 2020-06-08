@@ -94,15 +94,21 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectPassengerCell", for: indexPath) as? SelectPassengerCell else { fatalError("SelectPassengerCell not found") }
+       
         if let firstGuestArray = GuestDetailsVM.shared.guests.first{
-            cell.populateData(data: firstGuestArray[indexPath.item])
-
-            cell.selectionImageView.isHidden = !self.selectPassengersVM.selectedIndex.contains(indexPath.item)
+            
             if selectPassengersVM.setupFor == .seatSelection {
-                if selectPassengersVM.seatModel.columnData.passenger?.id == firstGuestArray[indexPath.item].id {
-                    selectPassengersVM.selectedIndex.append(indexPath.item)
-                }
+                  
+                    if selectPassengersVM.seatModel.columnData.passenger?.id == firstGuestArray[indexPath.item].id {
+                        selectPassengersVM.selectedIndex.append(indexPath.item)
+                    }
+                
                 cell.setupCellFor(firstGuestArray[indexPath.item], selectPassengersVM.seatModel)
+                cell.selectionImageView.isHidden = !self.selectPassengersVM.selectedIndex.contains(indexPath.item)
+                
+            }else{
+                cell.populateData(data: firstGuestArray[indexPath.item])
+                cell.selectionImageView.isHidden = !self.selectPassengersVM.selectedContacts.contains(firstGuestArray[indexPath.item])
             }
         }
         
@@ -129,19 +135,10 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
         if selectPassengersVM.setupFor == .seatSelection {
             didSelectForSeatSelection(indexPath, collectionView)
         } else {
-        
-            if self.selectPassengersVM.selectedIndex.contains(indexPath.item) {
-                self.selectPassengersVM.selectedIndex.remove(object: indexPath.item)
-            }else{
-                self.selectPassengersVM.selectedIndex.append(indexPath.item)
-            }
-            
-            collectionView.reloadItems(at: [IndexPath(item: indexPath.item, section: 0)])
-            self.doneButton.setTitle(self.selectPassengersVM.selectedIndex.isEmpty ? LocalizedString.Cancel.localized : LocalizedString.Done.localized, for: UIControl.State.normal)
-            
+          didSelect(indexPath, collectionView)
         }
     }
-    
+
     private func didSelectForSeatSelection(_ indexPath: IndexPath,_ collectionView: UICollectionView) {
         if self.selectPassengersVM.selectedIndex.contains(indexPath.item) {
             self.selectPassengersVM.selectedIndex.removeAll()
@@ -155,12 +152,27 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
         } else if let selectedPassenger = GuestDetailsVM.shared.guests.first?[indexPath.item] {
             selectedPassengerForSeat?(selectedPassenger)
             selectPassengersVM.seatModel.columnData.passenger = selectedPassenger
-            
         }
         collectionView.reloadData()
         doneButton.setTitle(LocalizedString.Done.localized, for: .normal)
 //        let isPassengerModified = selectPassengersVM.seatModel.columnData.passenger?.id != selectPassengersVM.initalPassengerForSeat?.id
 //        doneButton.setTitle(isPassengerModified ? LocalizedString.Done.localized : LocalizedString.Cancel.localized, for: .normal)
+    }
+    
+    private func didSelect(_ indexPath: IndexPath,_ collectionView: UICollectionView) {
+        
+        guard let allContacts = GuestDetailsVM.shared.guests.first else { return }
+        
+        if let index = self.selectPassengersVM.selectedContacts.firstIndex(where: { (cont) -> Bool in
+            cont.id == allContacts[indexPath.item].id
+        }){
+            self.selectPassengersVM.selectedContacts.remove(at: index)
+        }else{
+        self.selectPassengersVM.selectedContacts.append(allContacts[indexPath.item])
+        }
+        
+        collectionView.reloadItems(at: [IndexPath(item: indexPath.item, section: 0)])
+        self.doneButton.setTitle(self.selectPassengersVM.selectedIndex.isEmpty ? LocalizedString.Cancel.localized : LocalizedString.Done.localized, for: UIControl.State.normal)
     }
     
 }

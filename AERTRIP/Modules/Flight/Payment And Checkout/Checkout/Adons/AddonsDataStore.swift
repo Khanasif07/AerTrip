@@ -37,6 +37,7 @@ class AddonsDataStore {
          guard let adon = itinerary.details.addons else{
              return }
          adons = adon
+        
          allFlights = itinerary.details.legsWithDetail.flatMap {
                return $0.flightsWithDetails
            }

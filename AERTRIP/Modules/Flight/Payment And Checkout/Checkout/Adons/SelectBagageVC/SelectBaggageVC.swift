@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SelectBagageVC: UIViewController {
+class SelectBaggageVC: UIViewController {
     
     @IBOutlet weak var bagageTableView: UITableView!
     
@@ -37,7 +37,7 @@ class SelectBagageVC: UIViewController {
     
 }
 
-extension SelectBagageVC {
+extension SelectBaggageVC {
     
  
         private func configureTableView(){
@@ -55,7 +55,7 @@ extension SelectBagageVC {
 }
 
 
-extension SelectBagageVC : UITableViewDelegate, UITableViewDataSource {
+extension SelectBaggageVC : UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
