@@ -11,7 +11,16 @@ import UIKit
 class FlightPaymentVC: BaseVC {
 
     @IBOutlet weak var topNavView: TopNavigationView!
-    @IBOutlet weak var checkOutTableView: UITableView!
+    @IBOutlet weak var checkOutTableView: ATTableView!{
+        didSet{
+            self.checkOutTableView.contentInset = UIEdgeInsets.zero
+            self.checkOutTableView.delegate = self
+            self.checkOutTableView.dataSource = self
+            self.checkOutTableView.estimatedSectionFooterHeight = CGFloat.leastNonzeroMagnitude
+            self.checkOutTableView.sectionFooterHeight = CGFloat.leastNonzeroMagnitude
+            self.checkOutTableView.backgroundColor = AppColors.screensBackground.color
+        }
+    }
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var payButton: UIButton!
     @IBOutlet weak var loaderView: UIView!
@@ -204,10 +213,9 @@ extension FlightPaymentVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section{
-        case 0: return 0
         case 1: return 53.0
         case 2: return self.isCouponApplied ? 27 : 0
-        default: return 0
+        default: return CGFloat.leastNonzeroMagnitude
         }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -272,6 +280,10 @@ extension FlightPaymentVC{
                     applyCouponCell.appliedCouponLabel.text = LocalizedString.Save.localized + " " + Double(saveAmount).amountInDelimeterWithSymbol
                     applyCouponCell.couponView.isHidden = false
                     applyCouponCell.couponLabel.text = LocalizedString.CouponApplied.localized + self.appliedCouponData.couponCode
+                }else{
+                    applyCouponCell.appliedCouponLabel.text = LocalizedString.Save.localized 
+                    applyCouponCell.couponView.isHidden = false
+                    applyCouponCell.couponLabel.text = LocalizedString.CouponApplied.localized
                 }
             } else {
                 applyCouponCell.couponView.isHidden = true

@@ -607,7 +607,7 @@ struct IntMultiCityAndReturnWSResponse {
                     struct Details {
                         var spcFee: [String: Fee]
                         var sucFee: [String: Fee]
-                        var raf: [String:Int]
+                        var raf: [String:Any]
                         var yq: Int
                         var yr: Int
                         var ot: Int
@@ -621,7 +621,7 @@ struct IntMultiCityAndReturnWSResponse {
                                 sucFee = Dictionary(uniqueKeysWithValues: json["SURFEE"].map { ($0.0, Fee($0.1)) })
                             }
                             
-                            raf = json["RAF"].object as? [String:Int] ?? [:]
+                            raf = json["RAF"].object as? [String:Any] ?? [:]
                             yq = json["YQ"].intValue
                             yr = json["YR"].intValue
                             ot = json["OT"].intValue

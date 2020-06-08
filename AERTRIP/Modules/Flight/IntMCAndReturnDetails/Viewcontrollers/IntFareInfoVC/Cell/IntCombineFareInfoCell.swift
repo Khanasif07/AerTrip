@@ -19,7 +19,7 @@ class IntCombineFareInfoCell: UITableViewCell {
     var intAertripReschedulingFees = [String:IntTaxes.SubFares.Details.Fee]()
     
     
-    var rafFees = [String:Int]()
+    var rafFees = [String:Any]()
     var journey: [IntJourney]!
     var legsCount  = 0
     var flightAdultCount = 0
@@ -244,7 +244,12 @@ extension IntCombineFareInfoCell{
                             slabCell.statusLabel.text = "Free Cancellation"
                         }else{
                             slabCell.statusLabel.textColor = .black
-                            let adtRafVal = rafFees["ADT"] ?? 0
+                            var adtRafVal =  0
+                            if let fee = rafFees["ADT"] as? Int{
+                                adtRafVal = fee
+                            }else{
+                                adtRafVal = (rafFees["ADT"] as? [String:Int])?.values.first ?? 0
+                            }
                             let displayValue = getPrice(price: Double(airlineValue + adtRafVal))
 
                             slabCell.statusLabel.text = displayValue + " + ₹ " + String(aertripValue)
@@ -261,7 +266,12 @@ extension IntCombineFareInfoCell{
                             slabCell.perAdultAmountLabel.text = "Free Cancellation"
                         }else{
                             slabCell.perAdultAmountLabel.textColor = .black
-                            let adtRafVal = rafFees["ADT"] ?? 0
+                            var adtRafVal =  0
+                            if let fee = rafFees["ADT"] as? Int{
+                                adtRafVal = fee
+                            }else{
+                                adtRafVal = (rafFees["ADT"] as? [String:Int])?.values.first ?? 0
+                            }
                             let displayValue = getPrice(price: Double(airlineValue + adtRafVal))
                             
                             slabCell.perAdultAmountLabel.text = displayValue + " + ₹ " + String(aertripValue)
@@ -296,8 +306,13 @@ extension IntCombineFareInfoCell{
                         slabCell.perChildAmountLabel.text = "Free Cancellation"
                     }else{
                         slabCell.perChildAmountLabel.textColor = .black
-                        let chdRafVal = rafFees["CHD"]
-                        let displayValue = getPrice(price: Double(value + (chdRafVal ?? 0)))
+                        var chdRafVal =  0
+                        if let fee = rafFees["CHD"] as? Int{
+                            chdRafVal = fee
+                        }else{
+                            chdRafVal = (rafFees["CHD"] as? [String:Int])?.values.first ?? 0
+                        }
+                        let displayValue = getPrice(price: Double(value + chdRafVal))
                         
                         slabCell.perChildAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
                     }
@@ -330,8 +345,13 @@ extension IntCombineFareInfoCell{
                         slabCell.perInfantAmountLabel.text = "Free Cancellation"
                     }else{
                         slabCell.perInfantAmountLabel.textColor = .black
-                        let chdRafVal = rafFees["INF"]
-                        let displayValue = getPrice(price: Double(value + (chdRafVal ?? 0)))
+                        var iNFRafVal =  0
+                        if let fee = rafFees["INF"] as? Int{
+                            iNFRafVal = fee
+                        }else{
+                            iNFRafVal = (rafFees["INF"] as? [String:Int])?.values.first ?? 0
+                        }
+                        let displayValue = getPrice(price: Double(value + iNFRafVal))
                         slabCell.perInfantAmountLabel.text = displayValue + " + ₹ " +  String(aertripValue)
                     }
                 }else{

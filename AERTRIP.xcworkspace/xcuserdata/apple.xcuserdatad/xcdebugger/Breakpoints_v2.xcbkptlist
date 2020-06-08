@@ -3,4 +3,73 @@
    uuid = "D10DD7DF-38C8-487B-8D3A-849042E7A005"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            uuid = "FC7AD816-4ABE-4CE4-93CC-A750280CD985"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            scope = "1"
+            stopOnStyle = "0">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
+                  <ActionContent
+                     consoleCommand = "po $arg1">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5E77F7C7-9EBB-435B-913C-99461BE33C40"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AERTRIP/Modules/Flight/IntMCAndReturnDetails/Viewcontrollers/IntFareInfoVC/IntFareInfoVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
+            landmarkName = "getFareInfoAPICall(sid:fk:count:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5E77F7C7-9EBB-435B-913C-99461BE33C40 - 834743d033f0884"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Foundation.Data) -&gt; () in AERTRIP.IntFareInfoVC.getFareInfoAPICall(sid: Swift.String, fk: Swift.String, count: Swift.Int) -&gt; ()"
+                  moduleName = "Aertrip"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/Aertrip/AERTRIP/Modules/Flight/IntMCAndReturnDetails/Viewcontrollers/IntFareInfoVC/IntFareInfoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "195"
+                  endingLineNumber = "195"
+                  offsetFromSymbolStart = "1259">
+               </Location>
+               <Location
+                  uuid = "5E77F7C7-9EBB-435B-913C-99461BE33C40 - fdaf1e85c7919111"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #1 (Foundation.Data) -&gt; () in AERTRIP.IntFareInfoVC.getFareInfoAPICall(sid: Swift.String, fk: Swift.String, count: Swift.Int) -&gt; ()"
+                  moduleName = "Aertrip"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/Aertrip/AERTRIP/Modules/Flight/IntMCAndReturnDetails/Viewcontrollers/IntFareInfoVC/IntFareInfoVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "196"
+                  endingLineNumber = "196"
+                  offsetFromSymbolStart = "344">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

@@ -49,6 +49,7 @@ class FlightPaymentBookingStatusVC: BaseVC {
         self.statusTableView.registerCell(nibName: YouAreAllDoneTableViewCell.reusableIdentifier)
         self.statusTableView.registerCell(nibName: EventAdddedTripTableViewCell.reusableIdentifier)
         self.statusTableView.register(UINib(nibName: "HCBookingDetailsTableViewHeaderFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: "HCBookingDetailsTableViewHeaderFooterView")
+        self.statusTableView.register(UINib(nibName: "SelectSeatButtonFooterVew", bundle: nil), forHeaderFooterViewReuseIdentifier: "SelectSeatButtonFooterVew")
         self.statusTableView.registerCell(nibName: FlightCarriersTableViewCell.reusableIdentifier)
         self.statusTableView.registerCell(nibName: FlightBoardingAndDestinationTableViewCell.reusableIdentifier)
         self.statusTableView.registerCell(nibName: BookingPaymentDetailsTableViewCell.reusableIdentifier)
@@ -80,6 +81,35 @@ extension FlightPaymentBookingStatusVC: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.sectionData[section].count
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return (section == 1) ? 59 : CGFloat.leastNonzeroMagnitude
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 1 {
+            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HCBookingDetailsTableViewHeaderFooterView") as? HCBookingDetailsTableViewHeaderFooterView else { return nil }
+            headerView.delegate = self
+            return headerView
+        } else {
+            return UIView()
+        }
+    }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return (section == (self.viewModel.sectionData.count - 2) && self.viewModel.isSeatSettingAvailable) ? UITableView.automaticDimension : CGFloat.leastNonzeroMagnitude
+    }
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if (section == (self.viewModel.sectionData.count - 2) && self.viewModel.isSeatSettingAvailable){
+            guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SelectSeatButtonFooterVew") as? SelectSeatButtonFooterVew else { return nil }
+            footerView.handeller = {
+                printDebug("Hello jdsk")
+            }
+            return footerView
+        } else {
+            return nil
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
@@ -108,6 +138,16 @@ extension FlightPaymentBookingStatusVC: UITableViewDelegate, UITableViewDataSour
             return self.getWhatNextCell(indexPath)
         }
         
+    }
+    
+}
+
+extension FlightPaymentBookingStatusVC : HCBookingDetailsTableViewHeaderFooterViewDelegate{
+    
+    func emailIternaryButtonTapped(){
+        let obj = HCEmailItinerariesVC.instantiate(fromAppStoryboard: .HotelCheckout)
+        obj.viewModel.isForDummy = true
+        self.present(obj, animated: true, completion: nil)
     }
     
 }

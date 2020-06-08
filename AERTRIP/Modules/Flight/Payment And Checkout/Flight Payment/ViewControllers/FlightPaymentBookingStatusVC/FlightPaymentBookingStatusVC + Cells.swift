@@ -75,6 +75,8 @@ extension FlightPaymentBookingStatusVC{
     
     func getConfirmationVoucherHealderCell(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: HCConfirmationVoucherTableViewCell.reusableIdentifier, for: indexPath) as? HCConfirmationVoucherTableViewCell else { return UITableViewCell() }
+        cell.titleLabelTopConstraint.constant = 16.0
+        cell.titleLabelBottomContraint.constant = 8.0
         cell.confirmationVoucherLabel.text = "View E-tickets"
         cell.viewButton.isHidden = true
         return cell
@@ -82,6 +84,8 @@ extension FlightPaymentBookingStatusVC{
     
      func getConfirmationVoucherCell(_ indexPath: IndexPath) -> UITableViewCell {
         guard let cell = self.statusTableView.dequeueReusableCell(withIdentifier: HCConfirmationVoucherTableViewCell.reusableIdentifier, for: indexPath) as? HCConfirmationVoucherTableViewCell else { return UITableViewCell() }
+        cell.titleLabelTopConstraint.constant = 8.0
+        cell.titleLabelBottomContraint.constant = 8.0
         cell.viewButton.isHidden = false
         cell.confirmationVoucherLabel.text = "BOM - DEL"
         cell.configCell()

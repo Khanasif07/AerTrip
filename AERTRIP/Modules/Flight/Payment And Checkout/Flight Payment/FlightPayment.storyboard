@@ -49,7 +49,7 @@
                                     <constraint firstAttribute="height" constant="44" id="DCt-ny-aJs"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jdd-VS-Snt">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Jdd-VS-Snt" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="414" height="724"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
@@ -129,7 +129,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SJn-CW-zfX" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="SJn-CW-zfX" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="768"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
@@ -173,6 +173,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GLd-ru-Qxh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="40" y="105"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="osC-VL-s8e">
+            <objects>
+                <viewController id="JXr-LH-LHN" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="w0X-6X-zQg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s6P-TS-EXO">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <viewLayoutGuide key="contentLayoutGuide" id="pB5-EP-S5P"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="MDz-Tb-0AK"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="s6P-TS-EXO" firstAttribute="width" secondItem="w0X-6X-zQg" secondAttribute="width" priority="997" id="9LP-aj-d5u"/>
+                            <constraint firstItem="s6P-TS-EXO" firstAttribute="bottom" secondItem="zWA-Xa-OqQ" secondAttribute="bottom" id="Eg2-LL-xkm"/>
+                            <constraint firstItem="s6P-TS-EXO" firstAttribute="top" secondItem="zWA-Xa-OqQ" secondAttribute="top" id="FWt-Jr-WyG"/>
+                            <constraint firstItem="s6P-TS-EXO" firstAttribute="leading" secondItem="zWA-Xa-OqQ" secondAttribute="leading" id="ZRf-pJ-gu1"/>
+                            <constraint firstItem="s6P-TS-EXO" firstAttribute="height" secondItem="zWA-Xa-OqQ" secondAttribute="height" priority="991" id="bug-fj-d8Z"/>
+                            <constraint firstItem="s6P-TS-EXO" firstAttribute="trailing" secondItem="zWA-Xa-OqQ" secondAttribute="trailing" id="jmd-AG-YFx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zWA-Xa-OqQ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="efa-8c-Xcu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="737.68115942028987" y="99.776785714285708"/>
         </scene>
     </scenes>
 </document>

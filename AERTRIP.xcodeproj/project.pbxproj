@@ -365,6 +365,8 @@
 		188BFBB72203379700B4C315 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188BFBB62203379700B4C315 /* StoreKit.framework */; };
 		188DABE92390D5C20075E488 /* HotelResultVC+TableViewDataSourceDelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807EFFC223F8A650092E127 /* HotelResultVC+TableViewDataSourceDelegateMethods.swift */; };
 		188DFC852318FC530060F9D1 /* PKTapAndCopyUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188DFC842318FC530060F9D1 /* PKTapAndCopyUITextView.swift */; };
+		188E0777248A7A4C002810FF /* SelectSeatButtonFooterVew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E0776248A7A4C002810FF /* SelectSeatButtonFooterVew.swift */; };
+		188E0779248A7A5C002810FF /* SelectSeatButtonFooterVew.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188E0778248A7A5B002810FF /* SelectSeatButtonFooterVew.xib */; };
 		188E930C221A8F9A008FE50A /* CustomMarker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 188E930B221A8F9A008FE50A /* CustomMarker.xib */; };
 		188E930E221A957A008FE50A /* CustomMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E930D221A957A008FE50A /* CustomMarker.swift */; };
 		18922E7B2204722200939F72 /* RangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18922E7A2204722200939F72 /* RangeVC.swift */; };
@@ -436,6 +438,7 @@
 		18D88BFC22C39EF30089755D /* BookingConfirmationMailVC+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D88BFB22C39EF30089755D /* BookingConfirmationMailVC+DelegateMethods.swift */; };
 		18DE97D322CB689C0006C5E0 /* FrequentFlyerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DE97D222CB689C0006C5E0 /* FrequentFlyerData.swift */; };
 		18E09F9F22EB089E0065CEB2 /* PKCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E09F9E22EB089E0065CEB2 /* PKCategoryButton.swift */; };
+		18E17B9F248DFFE300CC9876 /* FlightPaymentPendingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E17B9E248DFFE300CC9876 /* FlightPaymentPendingVC.swift */; };
 		18E39E952404F78800A0E023 /* HotelMapVC+AppleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E39E942404F78800A0E023 /* HotelMapVC+AppleMap.swift */; };
 		18E61218234384FE00816250 /* UIPickerViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E61217234384FE00816250 /* UIPickerViewExtension.swift */; };
 		18E796FF2248E53B00A7AC8B /* FinalAmountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E796FD2248E53B00A7AC8B /* FinalAmountTableViewCell.swift */; };
@@ -1913,6 +1916,8 @@
 		188BFBB42203378F00B4C315 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		188BFBB62203379700B4C315 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		188DFC842318FC530060F9D1 /* PKTapAndCopyUITextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKTapAndCopyUITextView.swift; sourceTree = "<group>"; };
+		188E0776248A7A4C002810FF /* SelectSeatButtonFooterVew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectSeatButtonFooterVew.swift; sourceTree = "<group>"; };
+		188E0778248A7A5B002810FF /* SelectSeatButtonFooterVew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectSeatButtonFooterVew.xib; sourceTree = "<group>"; };
 		188E930B221A8F9A008FE50A /* CustomMarker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomMarker.xib; sourceTree = "<group>"; };
 		188E930D221A957A008FE50A /* CustomMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarker.swift; sourceTree = "<group>"; };
 		18922E7A2204722200939F72 /* RangeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeVC.swift; sourceTree = "<group>"; };
@@ -1986,6 +1991,7 @@
 		18D88BFB22C39EF30089755D /* BookingConfirmationMailVC+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookingConfirmationMailVC+DelegateMethods.swift"; sourceTree = "<group>"; };
 		18DE97D222CB689C0006C5E0 /* FrequentFlyerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequentFlyerData.swift; sourceTree = "<group>"; };
 		18E09F9E22EB089E0065CEB2 /* PKCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKCategoryButton.swift; sourceTree = "<group>"; };
+		18E17B9E248DFFE300CC9876 /* FlightPaymentPendingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightPaymentPendingVC.swift; sourceTree = "<group>"; };
 		18E39E942404F78800A0E023 /* HotelMapVC+AppleMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HotelMapVC+AppleMap.swift"; sourceTree = "<group>"; };
 		18E61217234384FE00816250 /* UIPickerViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPickerViewExtension.swift; sourceTree = "<group>"; };
 		18E796FD2248E53B00A7AC8B /* FinalAmountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalAmountTableViewCell.swift; sourceTree = "<group>"; };
@@ -3824,6 +3830,7 @@
 		1827D480248690E600A0594F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				18E17B9D248DFF7B00CC9876 /* FlightPaymentPendingVC */,
 				186FD6E72488FFA000335353 /* FlightPaymentBookingStatusVC */,
 				18AC30922487CA11004CB0B8 /* FlightPaymentVC */,
 			);
@@ -4037,6 +4044,7 @@
 			children = (
 				186FD6E82488FFCD00335353 /* FlightPaymentBookingStatusVC.swift */,
 				186FD6EC24890AD000335353 /* FlightPaymentBookingStatusVC + Cells.swift */,
+				188E0775248A7A40002810FF /* Cell */,
 			);
 			path = FlightPaymentBookingStatusVC;
 			sourceTree = "<group>";
@@ -4262,6 +4270,15 @@
 			path = PKTapAndCopyUITextView;
 			sourceTree = "<group>";
 		};
+		188E0775248A7A40002810FF /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				188E0776248A7A4C002810FF /* SelectSeatButtonFooterVew.swift */,
+				188E0778248A7A5B002810FF /* SelectSeatButtonFooterVew.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		188E9309221A8CCA008FE50A /* HotelResults */ = {
 			isa = PBXGroup;
 			children = (
@@ -4441,6 +4458,14 @@
 				18D4C41C220ACD06005E1E37 /* RoomTableViewCell.xib */,
 			);
 			path = Room;
+			sourceTree = "<group>";
+		};
+		18E17B9D248DFF7B00CC9876 /* FlightPaymentPendingVC */ = {
+			isa = PBXGroup;
+			children = (
+				18E17B9E248DFFE300CC9876 /* FlightPaymentPendingVC.swift */,
+			);
+			path = FlightPaymentPendingVC;
 			sourceTree = "<group>";
 		};
 		18EF5E20221C07F500EFFA6E /* ATSwitcher */ = {
@@ -8932,6 +8957,7 @@
 				1820F0E5228D40D60019B8BB /* BookingRequestRouteTableViewCell.xib in Resources */,
 				84E4BC4D229E67CC00B72306 /* FlightCarriersTableViewCell.xib in Resources */,
 				18020AFA2281A6FB00DE5FE0 /* AerinInfoTableViewCell.xib in Resources */,
+				188E0779248A7A5C002810FF /* SelectSeatButtonFooterVew.xib in Resources */,
 				8445B52622A5299400DDBC7F /* SelectDateTableViewCell.xib in Resources */,
 				182EB22B2285B444001BFB20 /* AmentityTableViewCell.xib in Resources */,
 				843FF678247409E3001F21B1 /* Checkout.storyboard in Resources */,
@@ -9842,6 +9868,7 @@
 				843FF4FC24740231001F21B1 /* IntMCAndReturnDetailsVC+HelperMethods.swift in Sources */,
 				843FF48A24740230001F21B1 /* RecentSearchCellCollectionViewCell.swift in Sources */,
 				84B6DEA922805D770042D902 /* AccountChargeInfoVC+Delegate.swift in Sources */,
+				188E0777248A7A4C002810FF /* SelectSeatButtonFooterVew.swift in Sources */,
 				1807A37F2297F83A00B78D47 /* MyBookingVC+Delegatemethods.swift in Sources */,
 				841AA51624744CA200B66720 /* HomeDummyViewController.swift in Sources */,
 				843FF47E24740230001F21B1 /* AirportSelectionViewController.m in Sources */,
@@ -10288,6 +10315,7 @@
 				843FF667247409E3001F21B1 /* Airport.m in Sources */,
 				84534EA22248B306009FF536 /* YouAreAllDoneVM.swift in Sources */,
 				843FF695247409E4001F21B1 /* Parser.m in Sources */,
+				18E17B9F248DFFE300CC9876 /* FlightPaymentPendingVC.swift in Sources */,
 				84085CED21F59C0E00F1E844 /* ForgotPasswordVM.swift in Sources */,
 				8463A5712456C7B200C70D8C /* GQTPointQuadTree.m in Sources */,
 				18BF0AB7221293C500950A17 /* StepSlider.m in Sources */,

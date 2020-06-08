@@ -335,7 +335,7 @@ struct baggageStruct:Codable  , Equatable {
 
 
 struct cancellationDetailsStruct:Codable {
-    let RAF : [String:Int]
+    let RAF :  [String:[String:Int]]
     let SPCFEE : [String:[String:[cancellationSlabStruct]]]
     let SUCFEE : [String:[String:[sucfeeValueStruct]]]
     

@@ -17,7 +17,7 @@ class FlightPaymentBookingStatusVM{
     var bookingId = "475892436"
     var tripName = "Trip to london"
     var whatNextString = ["Book your hotel in Amsterdam and get great deals","Book your hotel in Amsterdam and get great deals","Book your hotel in Amsterdam and get great deals"]
-    var isSeatSettingAvailable = false
+    var isSeatSettingAvailable = true
     
     /* TableViewCellType Enum contains all tableview cell for YouAreAllDoneVC tableview */
     enum TableViewCellType {

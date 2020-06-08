@@ -23,6 +23,7 @@ class HCEmailItinerariesVM {
     weak var delegate: HCEmailItinerariesVMDelegate?
     var bookingId: String = ""
     var travellers: [TravellersList] = []
+    var isForDummy:Bool = false
     
     //Mark:- Functions
     //================
