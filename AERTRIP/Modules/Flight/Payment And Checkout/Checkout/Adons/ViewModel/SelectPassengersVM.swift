@@ -16,6 +16,11 @@ class SelectPassengersVM {
     }
 
     var selectedIndex : [Int] = []
+    
+    var contactsComplition : (([ATContact]) -> Void) = {_ in ([])}
+    
+    var selectedContacts : [ATContact] = []
+    
     var setupFor: SetupFor = .others
     var seatModel = SeatMapModel.SeatMapRow()
 }

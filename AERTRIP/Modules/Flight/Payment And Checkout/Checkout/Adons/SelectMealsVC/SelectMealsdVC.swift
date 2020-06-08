@@ -13,7 +13,7 @@ class SelectMealsdVC: UIViewController {
     
     @IBOutlet weak var mealsTableView: UITableView!
     
-    let selectMealsVM = SelectMealsVM()
+    private var selectMealsVM : SelectMealsVM!
     weak var delegate : SelectMealDelegate?
     
     
@@ -35,9 +35,13 @@ class SelectMealsdVC: UIViewController {
     }
       
     func initialSetup() {
-        self.selectMealsVM.extractUsefullData()
+//        self.selectMealsVM.extractUsefullData()
         self.configureTableView()
       }
+    
+    func initializeVm(selectMealsVM : SelectMealsVM){
+        self.selectMealsVM = selectMealsVM
+    }
     
 }
 
@@ -64,7 +68,8 @@ extension SelectMealsdVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.selectMealsVM.currentAdonsData.meal.count
+        
+        return self.selectMealsVM.getMealsDataForCurrentFlight().count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -78,7 +83,7 @@ extension SelectMealsdVC : UITableViewDelegate, UITableViewDataSource {
                
 //            cell.populateData(index: indexPath.row)
         
-        cell.populateData(data: self.selectMealsVM.currentAdonsData.meal[indexPath.row], index: indexPath.row)
+        cell.populateData(data: self.selectMealsVM.getMealsDataForCurrentFlight()[indexPath.row], index: indexPath.row)
         
                return cell
         }
@@ -86,8 +91,9 @@ extension SelectMealsdVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
-        self.delegate?.mealUpdated(vcIndex: self.selectMealsVM.vcIndex)
+       // self.delegate?.mealUpdated(vcIndex: self.selectMealsVM.vcIndex)
     
+       // self.delegate?.addPassengerToMeal(vcIndex: self.selectMealsVM.vcIndex, currentFlightKey: self.selectMealsVM.currentFlightKey, mealIndex: indexPath.row, meal : self.selectMealsVM.currentAdonsData.meal[indexPath.row])
     }
     
 }

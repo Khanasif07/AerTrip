@@ -45,10 +45,11 @@ class SelectPassengerVC : BaseVC {
     
     override func setupTexts() {
         super.setupTexts()
-        self.doneButton.setTitle(LocalizedString.Cancel.localized, for: UIControl.State.normal)
+     self.doneButton.setTitle(self.selectPassengersVM.selectedContacts.isEmpty ? LocalizedString.Cancel.localized : LocalizedString.Done.localized, for: UIControl.State.normal)
     }
     
     @IBAction func doneButtonTapped(_ sender: UIButton) {
+        self.selectPassengersVM.contactsComplition(self.selectPassengersVM.selectedContacts)
         dismiss(animated: true, completion: nil)
     }
     
@@ -95,6 +96,7 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectPassengerCell", for: indexPath) as? SelectPassengerCell else { fatalError("SelectPassengerCell not found") }
         if let firstGuestArray = GuestDetailsVM.shared.guests.first{
             cell.populateData(data: firstGuestArray[indexPath.item])
+
             cell.selectionImageView.isHidden = !self.selectPassengersVM.selectedIndex.contains(indexPath.item)
             if selectPassengersVM.setupFor == .seatSelection {
                 cell.setupCellFor(firstGuestArray[indexPath.item], selectPassengersVM.seatModel)

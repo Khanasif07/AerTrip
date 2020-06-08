@@ -1414,8 +1414,10 @@ struct Addons{
     var purchaseAccountMasterId : String
     var purchasePrice : Int
     var salePrice : Int
-    var selectedFor : [ATContact] = []
+    var mealsSelectedFor : [ATContact] = []
     var autoSelectedFor : [String] = []
+    var bagageSelectedFor : [ATContact] = []
+    
     
     init(_ json:JSON = JSON()) {
         fk = json["fk"].stringValue
