@@ -10,7 +10,7 @@ import UIKit
 
 protocol SelectBaggageDelegate : class {
     func addContactButtonTapped()
-    func addPassengerToMeal(vcIndex : Int, currentFlightKey : String, baggageIndex: Int)
+    func addPassengerToBaggage(vcIndex : Int, currentFlightKey : String, baggageIndex: Int)
 }
 
 class SelectBaggageVC: UIViewController {
@@ -54,14 +54,11 @@ class SelectBaggageVC: UIViewController {
 
 extension SelectBaggageVC {
     
- 
         private func configureTableView(){
             self.bagageTableView.register(UINib(nibName: "SelectBagageCell", bundle: nil), forCellReuseIdentifier: "SelectBagageCell")
             self.bagageTableView.register(UINib(nibName: "BagageSectionHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "BagageSectionHeaderView")
-
             self.bagageTableView.separatorStyle = .none
             self.bagageTableView.estimatedRowHeight = 200
-
             self.bagageTableView.rowHeight = UITableView.automaticDimension
             self.bagageTableView.dataSource = self
             self.bagageTableView.delegate = self
@@ -77,7 +74,7 @@ extension SelectBaggageVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.selectBaggageVM.getBaggageDataForCurrentFlight().count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -102,16 +99,11 @@ extension SelectBaggageVC : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SelectBagageCell", for: indexPath) as? SelectBagageCell else { fatalError("SelectBagageCell not found") }
-             
-              // cell.populateData(type: AdonsVM.AdonsType(rawValue: indexPath.row) ?? AdonsVM.AdonsType.meals)
-               
-            cell.populateData(index: indexPath.row)
-        
-        
+        cell.populateData(data: self.selectBaggageVM.getBaggageDataForCurrentFlight()[indexPath.row], index: indexPath.row)
                return cell
         }
                 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        self.delegate?.addPassengerToBaggage(vcIndex: self.selectBaggageVM.vcIndex, currentFlightKey: self.selectBaggageVM.currentFlightKey, baggageIndex: indexPath.row)
     }
 }

@@ -9,8 +9,13 @@
 import Foundation
 
 class BaggageContainerVM {
-    
+
     var currentIndex = 0
     var allChildVCs = [SelectBaggageVC]()
+    
+    init() {
+        
+    }
+    
     
 }

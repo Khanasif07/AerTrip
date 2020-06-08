@@ -40,6 +40,31 @@ class SelectBagageCell: UITableViewCell {
 
     }
 
+    
+     func populateData(data : Addons, index : Int){
+        
+        let price = "₹ \(data.salePrice)"
+        self.priceLabel.text = price
+        self.priceLabelWidth.constant = price.getTextWidth(height: 21, font: AppFonts.Regular.withSize(18))
+        self.bagageTitleLabel.text = data.serviceName
+        
+        if data.bagageSelectedFor.isEmpty {
+            self.selectedForLabel.text = ""
+          //  self.mealForLabelTop.constant = 0
+            self.quantityLabel.isHidden = true
+        }else{
+           // self.mealForLabelTop.constant = 2
+            let allNamesArray = data.mealsSelectedFor.map { (contact) -> String in
+                return contact.firstName
+            }
+            let conaSaperatedNames = allNamesArray.joined(separator: ", ")
+            self.selectedForLabel.text = "For \(conaSaperatedNames)"
+            self.quantityLabel.text = "X\(data.mealsSelectedFor.count)"
+            self.quantityLabel.isHidden = false
+        }
+        
+    }
+    
     func populateData(index : Int){
         
         if index == 3{

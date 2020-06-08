@@ -179,8 +179,7 @@ extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControlle
         if let pagingIndexItem = pagingItem as? MenuItem {
             self.mealsContainerVM.currentIndex = pagingIndexItem.index
         }
-    }
-    
+    }    
 }
 
 extension MealsContainerVC : SelectMealDelegate {
