@@ -18,19 +18,24 @@ class SelectMealsVM {
     private var currentFlightKey : String = ""
     private var mealsArray : [Addons] = []
     weak var delegate : SelectMealVmDelegate?
-
+    
+    
+    var addonsDetails = AddonsDetails()
+    
     init(){
         
     }
     
-    init(vcIndex : Int, currentFlightKey : String, mealsArray : [Addons]){
+    init(vcIndex : Int, currentFlightKey : String, mealsArray : [Addons], addonsDetails : AddonsDetails){
         self.vcIndex = vcIndex
         self.currentFlightKey = currentFlightKey
         self.mealsArray = mealsArray
+        self.addonsDetails = addonsDetails
     }
     
-    func getMeals() -> [Addons] {
-        return mealsArray
+    func getMeals() -> [AddonsDataCustom] {
+        return addonsDetails.addonsArray
+//        return mealsArray
     }
     
     func getVcIndex() -> Int {

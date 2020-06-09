@@ -166,7 +166,7 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
         }
         
         collectionView.reloadItems(at: [IndexPath(item: indexPath.item, section: 0)])
-        self.doneButton.setTitle(self.selectPassengersVM.selectedIndex.isEmpty ? LocalizedString.Cancel.localized : LocalizedString.Done.localized, for: UIControl.State.normal)
+        self.doneButton.setTitle(self.selectPassengersVM.selectedContacts.isEmpty ? LocalizedString.Cancel.localized : LocalizedString.Done.localized, for: UIControl.State.normal)
     }
     
 }

@@ -17,9 +17,15 @@ class AddonsDataStore {
      var allFlightKeys : [String] {
          return  Array(adons.keys)
      }
-     
      var allFlights : [IntFlightDetail] = []
-
+    
+    
+     var addonsMaster = AddonsMaster()
+     var addonsLeg = AddonsLeg()
+     var flightsWithData :[AddonsFlight] = []
+     var flightKeys : [String] = []
+    
+    
     init(){
         
     }
@@ -28,20 +34,33 @@ class AddonsDataStore {
         
     }
     
-    func initialiseItinerary(itinerary : FlightItinerary){
+    func initialiseItinerary(itinerary : FlightItinerary, addonsMaster : AddonsMaster){
         self.itinerary = itinerary
+        self.addonsMaster = addonsMaster
         self.extractUsefullData()
     }
     
      func extractUsefullData() {
-         guard let adon = itinerary.details.addons else{
-             return }
-         adons = adon
         
-         allFlights = itinerary.details.legsWithDetail.flatMap {
+        guard let adon = itinerary.details.addons else{
+             return }
+    
+        adons = adon
+        
+        allFlights = itinerary.details.legsWithDetail.flatMap {
                return $0.flightsWithDetails
-           }
+         }
+        
+        flightsWithData = addonsMaster.legs.flatMap {
+            return $0.value.flight
+        }
+        
+        flightKeys = flightsWithData.map { (flights) -> String in
+            return flights.flightId
+        }
+        
      }
+    
     
     func setContactsForMeal(vcIndex: Int, currentFlightKey: String, mealIndex: Int, contacts : [ATContact]){
         guard var keyData = adons[currentFlightKey] else { return }

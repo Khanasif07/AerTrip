@@ -57,10 +57,14 @@ extension SelectMealsdVC {
             self.mealsTableView.reloadData()
         }
     
-    func reloadData(index : Int = 0){
+    func reloadData(index : Int){
         self.mealsTableView.reloadRow(at: IndexPath(row: index, section: 0), with: UITableView.RowAnimation.none)
     }
-        
+    
+    func reloadData(){
+        self.mealsTableView.reloadData()
+    }
+    
     func updateContactInMeal(mealIndex: Int, contacts : [ATContact]){
         self.selectMealsVM.updateContactInMeal(mealIndex: mealIndex, contacts: contacts)
     }
@@ -91,14 +95,15 @@ extension SelectMealsdVC : UITableViewDelegate, UITableViewDataSource {
 //            cell.populateData(index: indexPath.row)
         
         cell.populateData(data: self.selectMealsVM.getMeals()[indexPath.row], index: indexPath.row)
-        
+                        
                return cell
         }
         
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        self.delegate?.addPassengerToMeal(vcIndex: self.selectMealsVM.getVcIndex(), currentFlightKey: self.selectMealsVM.getCurrentFlightKey(), mealIndex: indexPath.row)
+        self.delegate?.addPassengerToMeal(vcIndex: self.selectMealsVM.getVcIndex(), currentFlightKey: self.selectMealsVM.getCurrentFlightKey(), mealIndex: indexPath.row, selectedContacts: self.selectMealsVM.getMeals()[indexPath.row].mealsSelectedFor)
+    
     }
     
 }

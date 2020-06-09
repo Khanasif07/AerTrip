@@ -119,7 +119,7 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
 //
         
         let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
-        AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary)
+        AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary, addonsMaster: self.viewModel.addonsMaster)
         self.navigationController?.pushViewController(vc, animated: true)
         
 //        let validation = self.viewModel.validateGuestData()
@@ -319,7 +319,7 @@ extension PassengersSelectionVC:PassengerSelectionVMDelegate{
         AppGlobals.shared.stopLoading()
         if success{
             let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
-            AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary)
+            AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary, addonsMaster: self.viewModel.addonsMaster)
             self.navigationController?.pushViewController(vc, animated: true)
         }else{
             AppToast.default.showToastMessage(message: "Error while validating GST number")
