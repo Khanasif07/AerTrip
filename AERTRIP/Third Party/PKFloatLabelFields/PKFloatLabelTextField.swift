@@ -334,13 +334,13 @@ import UIKit
 	}
     
     fileprivate func createLineView() {
-        
+        lineView.removeFromSuperview()
         lineView.isUserInteractionEnabled = false
         
         updateLineView()
         setNeedsDisplay()
         
-        lineView.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        lineView.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
         addSubview(lineView)
     }
     
@@ -348,6 +348,8 @@ import UIKit
         lineView.isHidden = self.isHiddenBottomLine
         lineView.frame = lineViewRectForBounds(bounds, editing: editingOrSelected,isEditing: isEditing)
         lineView.backgroundColor = self.lineColor
+        
+        printDebug("lineView.frame: \(lineView.frame)")
     }
     
 

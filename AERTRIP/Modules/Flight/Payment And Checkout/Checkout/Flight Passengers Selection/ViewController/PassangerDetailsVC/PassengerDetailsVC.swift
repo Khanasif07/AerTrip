@@ -362,6 +362,9 @@ extension PassengerDetailsVC: GuestDetailTableViewCellDelegate {
         
     }
     
+    func textFieldEndEditing(_ textField: UITextField) {
+        
+    }
 }
 
 extension PassengerDetailsVC: GuestDetailsVMDelegate {

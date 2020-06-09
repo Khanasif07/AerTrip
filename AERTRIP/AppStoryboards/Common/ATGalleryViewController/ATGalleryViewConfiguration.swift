@@ -17,7 +17,7 @@ struct ATGalleryViewConfiguration {
     /* placeholderImage
      * - used in close button
      */
-    static var closeButtonImage: UIImage = #imageLiteral(resourceName: "ic_close_gallery")
+    static var closeButtonImage: UIImage = #imageLiteral(resourceName: "CancelButtonWhite")
     
     /* changeModeNormalImage
      * - used in change scrolldirection mode button button

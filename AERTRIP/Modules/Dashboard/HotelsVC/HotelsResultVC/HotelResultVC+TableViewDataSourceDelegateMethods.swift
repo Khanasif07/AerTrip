@@ -144,15 +144,17 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         if tableView === hotelSearchTableView {
             return 110.0
         } else {
+            var cellHeight: CGFloat = 209.0
             if indexPath.row == 0 {
-                return 217.0
-            } else if  let sections = self.viewModel.fetchedResultsController.sections {
+                 cellHeight += 8.0
+            }
+            if  let sections = self.viewModel.fetchedResultsController.sections {
                 let sectionInfo = sections[indexPath.section]
                 if indexPath.row ==  (sectionInfo.numberOfObjects - 1) {
-                    return 217.0
+                     cellHeight += 8.0
                 }
             }
-            return 209.0
+            return cellHeight
         }
     }
     
@@ -160,15 +162,17 @@ extension HotelResultVC: UITableViewDataSource, UITableViewDelegate {
         if tableView === hotelSearchTableView {
             return indexPath.row == 0 ? 115.0 : 110.0
         } else {
+            var cellHeight: CGFloat = 209.0
             if indexPath.row == 0 {
-                return 217.0
-            } else if  let sections = self.viewModel.fetchedResultsController.sections {
+                 cellHeight += 8.0
+            }
+            if  let sections = self.viewModel.fetchedResultsController.sections {
                 let sectionInfo = sections[indexPath.section]
                 if indexPath.row ==  (sectionInfo.numberOfObjects - 1) {
-                    return 217.0
+                     cellHeight += 8.0
                 }
             }
-            return 209.0
+            return cellHeight
         }
     }
     

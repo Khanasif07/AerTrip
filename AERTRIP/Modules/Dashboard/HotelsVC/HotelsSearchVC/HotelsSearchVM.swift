@@ -150,7 +150,12 @@ class HotelsSearchVM: NSObject{
     }
     
     func hotelsNearByMe() {
-        APICaller.shared.getHotelsNearByMe(params: [:]) { [weak self] (success, error, hotel) in
+        var params = JSONDictionary()
+        if let value = LocationManager.shared.lastUpdatedCoordinate {
+            params["latLong"] = "\(value.latitude),\(value.longitude)"
+        }
+        
+        APICaller.shared.getHotelsNearByMe(params: params) { [weak self] (success, error, hotel) in
             
             guard let sSelf = self else {return}
             

@@ -89,6 +89,8 @@ class HotelCheckoutDetailVC: BaseVC {
         let selectedFevImage: UIImage = self.hotelInfo?.fav == "1" ? #imageLiteral(resourceName: "saveHotelsSelected") : #imageLiteral(resourceName: "save_icon_green")
         self.headerView.configureLeftButton(normalImage: buttonImage, selectedImage: selectedFevImage, normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
         self.headerView.configureFirstRightButton(normalImage: #imageLiteral(resourceName: "CancelButtonWhite"), selectedImage: #imageLiteral(resourceName: "black_cross"), normalTitle: nil, selectedTitle: nil, normalColor: nil, selectedColor: nil)
+        self.headerView.firstRightButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 0, right: 0)
+        self.headerView.firstRightButtonTrailingConstraint.constant = -3
         self.hotelDetailsTableView.roundTopCorners(cornerRadius: 10.0)
         self.smallLineView.backgroundColor = AppColors.themeWhite.withAlphaComponent(0.85)
     }
