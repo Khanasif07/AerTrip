@@ -20,9 +20,7 @@ class SelectPassengerVC : BaseVC {
     @IBOutlet weak var popUpBackView: UIView!
     
     let selectPassengersVM = SelectPassengersVM()
-    
-    var selectedPassengerForSeat: ((ATContact?) -> ())?
-    
+        
     var updatedFlightData: ((SeatMapModel.SeatMapFlight) -> ())?
     
     override func viewDidLoad() {
@@ -146,11 +144,9 @@ extension SelectPassengerVC : UICollectionViewDelegate, UICollectionViewDataSour
         let passenger = allContacts[indexPath.item]
         
         if selectPassengersVM.selectedSeatData.columnData.passenger?.id == passenger.id {
-            selectedPassengerForSeat?(nil)
             selectPassengersVM.selectedSeatData.columnData.passenger = nil
             selectPassengersVM.resetFlightData(nil)
         } else {
-            selectedPassengerForSeat?(passenger)
             selectPassengersVM.selectedSeatData.columnData.passenger = passenger
             selectPassengersVM.resetFlightData(passenger)
             

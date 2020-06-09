@@ -61,40 +61,11 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
         passengerVC.selectPassengersVM.flightData = viewModel.flightData
         passengerVC.selectPassengersVM.setupFor = .seatSelection
         passengerVC.modalPresentationStyle = .overFullScreen
-//        passengerVC.selectedPassengerForSeat = { [weak self] passenger in
-//            self?.savePassengerForSeat(seatData, passenger)
-//        }
         passengerVC.updatedFlightData = { [weak self] flightData in
             guard let self = self else { return }
             self.viewModel.flightData = flightData
             self.seatMapCollView.reloadData()
         }
         present(passengerVC, animated: true, completion: nil)
-    }
-    
-    private func savePassengerForSeat(_ seatData: SeatMapModel.SeatMapRow,_ passenger: ATContact?) {
-
-        viewModel.flightData.md.rows.forEach { (rowKey, row) in
-            var newRow = row
-            newRow.forEach { (columnKey, column) in
-                var newColumn = column
-                if newColumn.columnData.ssrCode == seatData.columnData.ssrCode {
-                    newColumn.columnData.passenger = passenger
-                } else {
-                    if newColumn.columnData.passenger?.id == passenger?.id {
-                        newColumn.columnData.passenger = nil
-                        
-                    }
-                }
-                
-                newRow.updateValue(newColumn, forKey: columnKey)
-            }
-            
-            viewModel.flightData.md.rows.updateValue(newRow, forKey: rowKey)
-        }
-        
-        DispatchQueue.main.async {
-            self.seatMapCollView.reloadData()
-        }
     }
 }
