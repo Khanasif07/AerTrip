@@ -26,8 +26,8 @@ struct FlightItinerary {
     var isInternational : Bool
     var combo : Bool
     var displaySeatmapLink : Bool
-    var freeMealSeat : Bool
-    var freeMeal : Bool
+    var freeMealSeat = true//: Bool
+    var freeMeal = true//: Bool
     var iic : Bool
     var gstRequired : Bool
     var searchParams:FlightSearchParam
@@ -37,7 +37,7 @@ struct FlightItinerary {
     var isRefundable : Bool
     var walletBalance : Int
     var userPoints : Int
-//    var traveller_details://Need To be parse.
+    var details:IntJourney
     var travellerDetails:TravellerDetails
     var travellerMaster:[TravellerModel]
     var paymentModes:PaymentMode
@@ -60,6 +60,7 @@ struct FlightItinerary {
         isRefundable = json["is_refundable"].boolValue
         walletBalance = json["wallet_balance"].intValue
         userPoints = json["user_points"].intValue
+        details = IntJourney(jsonData: json["details"])
         travellerDetails = TravellerDetails(json["traveller_details"])
         travellerMaster = json["traveller_master"]["aertrip"].arrayValue.map{TravellerModel(json: $0)}
         paymentModes = PaymentMode(json: json["payment_modes"])
@@ -85,7 +86,7 @@ struct FlightSearchParam{
     
     
     init(_ json:JSON = JSON()){
-        adult = json["sid"].stringValue
+        adult = json["adult"].stringValue
         cabinclass = json["cabinclass"].stringValue
         child = json["child"].stringValue
         depart = json["depart"].stringValue
@@ -105,11 +106,13 @@ struct FlightSearchParam{
 struct TravellerDetails{
     var mobile: String
     var isd: String
-    var gstDetails:FlightGST
+    var gstDetails:FlightGST?
     init(_ json:JSON = JSON()){
         mobile = json["mobile"].stringValue
         isd = json["isd"].stringValue
-        gstDetails = FlightGST(json["gst_details"])
+        if json["gst_details"].dictionary != nil{
+            gstDetails = FlightGST(json["gst_details"])
+        }
     }
 }
 

@@ -8,9 +8,14 @@
 
 import UIKit
 
+enum GSTCellTextFields{
+    case companyName, billingName, gstNumber
+}
+
 protocol UseGSTINCellDelegate:NSObjectProtocol {
     func changeSwitchValue(isOn:Bool)
     func tapOnSelectGST()
+    func editTextFields(_ textFiledType: GSTCellTextFields, text: String)
 }
 
 class UseGSTINCell: UITableViewCell {
@@ -27,17 +32,20 @@ class UseGSTINCell: UITableViewCell {
     @IBOutlet weak var enterGSTView: UIView!
     @IBOutlet weak var companyNameTextField: PKFloatLabelTextField!
     @IBOutlet weak var companyNameSeparatorView: UIView!
+    @IBOutlet weak var billingNameTextField: PKFloatLabelTextField!
+    @IBOutlet weak var billingNameSeperatorView: UIView!
     @IBOutlet weak var gSTNumberTextField: PKFloatLabelTextField!
     
     var delegate:UseGSTINCellDelegate?
     var gstModel = GSTINModel(){
         didSet{
-            self.selectGSTTextField.text = self.gstModel.billingName
-            if !self.gstModel.companyName.isEmpty{
-                self.gSTDetailsLabel.text = "\(self.gstModel.companyName)\nGSTIN - \(self.gstModel.GSTInNo)"
-            }else{
-                self.gSTDetailsLabel.text = ""
-            }
+            self.configureCell()
+//            self.selectGSTTextField.text = self.gstModel.billingName
+//            if !self.gstModel.companyName.isEmpty{
+//                self.gSTDetailsLabel.text = "\(self.gstModel.companyName)\nGSTIN - \(self.gstModel.GSTInNo)"
+//            }else{
+//                self.gSTDetailsLabel.text = ""
+//            }
             
         }
     }
@@ -80,15 +88,17 @@ class UseGSTINCell: UITableViewCell {
         selectGSTTextField.setUpAttributedPlaceholder(placeholderString: "Billing Company",with: "")
         companyNameTextField.setUpAttributedPlaceholder(placeholderString: "Company Name",with: "")
         gSTNumberTextField.setUpAttributedPlaceholder(placeholderString: "GSTIN Registration Number",with: "")
+        self.billingNameTextField.setUpAttributedPlaceholder(placeholderString: "Billing Company",with: "")
         selectGSTTextField.lineColor = AppColors.clear
         selectGSTTextField.selectedLineColor = AppColors.clear
         selectGSTTextField.hintYPadding = -6
         selectGSTTextField.titleYPadding = 1.5
-        [selectGSTTextField, companyNameTextField, gSTNumberTextField].forEach{ txt in
+        [selectGSTTextField, companyNameTextField, gSTNumberTextField, billingNameTextField].forEach{ txt in
             txt?.titleActiveTextColour = AppColors.themeGreen
             txt?.textColor =  AppColors.textFieldTextColor51
             txt?.font = AppFonts.Regular.withSize(18.0)
             txt?.titleFont = AppFonts.Regular.withSize(14.0)
+            txt?.addTarget(self, action: #selector(changeTextFiledValue), for: .editingDidEnd)
         }
         self.useGSTTopConstraint.constant = 10
     }
@@ -103,4 +113,41 @@ class UseGSTINCell: UITableViewCell {
         self.enterGSTView.isHidden = true
     }
     
+    private func configureCell(){
+        self.companyNameTextField.text = self.gstModel.companyName
+        self.billingNameTextField.text = self.gstModel.billingName
+        self.gSTNumberTextField.text = self.gstModel.GSTInNo
+    }
+    
+}
+
+extension UseGSTINCell: UITextFieldDelegate{
+    
+    @objc func changeTextFiledValue(_ textField: UITextField){
+        if (textField.text?.removeAllWhitespaces.isEmpty ?? false){
+            textField.text = ""
+            return
+        }
+        switch textField {
+        case self.companyNameTextField:
+            self.delegate?.editTextFields(.companyName, text: textField.text!)
+        case self.billingNameTextField:
+            self.delegate?.editTextFields(.billingName, text: textField.text!)
+        case self.gSTNumberTextField:
+            self.delegate?.editTextFields(.gstNumber, text: textField.text!)
+        default:break
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case self.companyNameTextField:
+            self.delegate?.editTextFields(.companyName, text: textField.text!)
+        case self.billingNameTextField:
+            self.delegate?.editTextFields(.billingName, text: textField.text!)
+        case self.gSTNumberTextField:
+            self.delegate?.editTextFields(.gstNumber, text: textField.text!)
+        default:break
+        }
+    }
 }

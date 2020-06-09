@@ -39,14 +39,16 @@ struct AddonsFlight{
     var bags:AddonsDetails
     var special:AddonsDetails
     var ssrName:[String:addonsSsr]
-    var frequenFlyer:addonsFrequentFlyer
+    var frequenFlyer:[String:AddonsFFDetails]
+    var isfrequentFlyer:Bool
     init(_ json:JSON = JSON()){
         flightId = json["flight_id"].stringValue
         meal = AddonsDetails(json["meal"])
         bags = AddonsDetails(json["bags"])
         special = AddonsDetails(json["special"])
         ssrName = Dictionary(uniqueKeysWithValues: json["ssr_name"].map { ($0.0, addonsSsr($0.1)) })
-        frequenFlyer = addonsFrequentFlyer(json["frequent_flyer"])
+        frequenFlyer = Dictionary(uniqueKeysWithValues: json["frequent_flyer"].map { ($0.0, AddonsFFDetails($0.1)) })
+        isfrequentFlyer = json["is_frequent_flyer"].boolValue
     }
     
 }
@@ -76,17 +78,8 @@ struct AddonsPreference{
     var meal:[String:String]
     var seat:[String:String]
     init(_ json:JSON = JSON()){
-        meal = json["meal"].dictionaryObject as? [String:String] ?? [:]
-        seat = json["seat"].dictionaryObject as? [String:String] ?? [:]
-    }
-}
-
-struct addonsFrequentFlyer{
-    var airline:[String:AddonsFFDetails]
-    var isfrequentFlyer:Bool
-    init(_ json:JSON = JSON()){
-        airline = Dictionary(uniqueKeysWithValues: json.map{ ($0.0, AddonsFFDetails($0.1)) })
-        isfrequentFlyer = json["is_frequent_flyer"].boolValue
+        meal = Dictionary(uniqueKeysWithValues: json["meal"].map{ ($0.0, $0.1.stringValue)})
+        seat = Dictionary(uniqueKeysWithValues: json["seat"].map{ ($0.0, $0.1.stringValue)})
     }
 }
 

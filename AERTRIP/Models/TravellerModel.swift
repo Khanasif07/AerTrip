@@ -19,6 +19,7 @@ struct TravellerModel {
     var nationality = ""
     var passportNumber = ""
     var passportExpiryDate: String = ""
+    var ffp:[FFP]?
     
     init() {
         let json = JSON()
@@ -56,7 +57,7 @@ struct TravellerModel {
         contact.nationality = self.nationality
         contact.passportNumber = self.passportNumber
         contact.passportExpiryDate = self.passportExpiryDate
-        
+        contact.ffp = self.ffp
         return contact
     }
     
@@ -72,6 +73,7 @@ struct TravellerModel {
         nationality = json["passport_country"].stringValue.removeNull
         passportNumber = json["passport_number"].stringValue.removeNull
         passportExpiryDate = json["passport_expiry_date"].stringValue.removeNull
+        ffp = json["ffp"].arrayValue.map{FFP($0)}
     }
     
     static func models(jsonArr: [JSON]) -> [TravellerModel] {
@@ -108,5 +110,20 @@ struct TravellerModel {
         let travellers: [String: Any] = [:]
         
         return travellers
+    }
+}
+
+struct FFP{
+    
+    var ffNumber:String
+    var airlineCode:String
+    var passengerId:String
+    var ffpName:String?
+    init(_ json: JSON = JSON()){
+        
+        ffNumber = json["ff_number"].stringValue
+        airlineCode = json["airline_code"].stringValue
+        passengerId = json["passenger_id"].stringValue
+        ffpName = json["ffpName"].string
     }
 }

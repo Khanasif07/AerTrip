@@ -18,7 +18,8 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     var titleString : NSAttributedString!
     var airportDetailsResult : [String : IntAirportDetailsWS]!
-    var airlineDetailsResult : [String : IntAirlineMasterWS]!
+    var airlineDetailsResult : [String : IntAirlineMasterWS]?
+    var airlineData:[String:String]?
     var journey: IntJourney?
 
     
@@ -298,8 +299,14 @@ class IntFlightInfoVC: UIViewController, UITableViewDataSource, UITableViewDeleg
                         cell.amenitiesDisplayViewHeight.constant = 0
                     }
                     
-                    let flightName = airlineDetailsResult[flight.al]?.name
-                    cell.flightNameLabel.text = flightName
+                    if let flightName = airlineDetailsResult?[flight.al]?.name{
+                        cell.flightNameLabel.text = flightName
+                    }else if let flightName = self.airlineData?[flight.al]{
+                        cell.flightNameLabel.text = flightName
+                    }else{
+                        cell.flightNameLabel.text = ""
+                    }
+                    
                     
                     let logoURL = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/" + flight.al.uppercased() + ".png"
                     setImageFromPath(urlPath : logoURL , to: cell.airlineImageView)

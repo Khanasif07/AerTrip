@@ -14,7 +14,10 @@ class WallletAmountCellTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        self.callForReuse()
+    }
+    
+    func callForReuse(){
         self.setUpText()
         self.setUpFont()
         self.setUpColor()

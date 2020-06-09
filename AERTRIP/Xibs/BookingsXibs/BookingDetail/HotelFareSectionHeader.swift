@@ -21,6 +21,7 @@ class HotelFareSectionHeader: UITableViewHeaderFooterView {
     
     @IBOutlet weak var arrowButton: UIButton!
     @IBOutlet weak var discountViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var grossFareTitleTopConstraint: NSLayoutConstraint!
     
     
     

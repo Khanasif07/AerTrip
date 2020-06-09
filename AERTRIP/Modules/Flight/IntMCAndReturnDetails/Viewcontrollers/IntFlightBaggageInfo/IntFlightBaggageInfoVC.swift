@@ -18,23 +18,19 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
     var airportDetailsResult : [String : IntAirportDetailsWS]!
     var sid = ""
     var evaluatedBaggageResp = [[NSDictionary]]()
-    
-    var isCheckinBaggageHasPieces = false
-    var isCabinBaggageHasPieces = false
     var isAdultBaggageWithPiece = false
     var isChildBaggageWithPiece = false
     var isInfantBaggageWithPiece = false
-    
     var adultBaggage = ""
     var childBaggage = ""
     var infantBaggage = ""
-    
     var attStringArray = [String]()
     var combineString = ""
     var piecesArray = [String]()
     var weightArray = [String]()
     var fewSeatsLeftViewHeight = 0
     var dataResp = [NSDictionary]()
+    var isForDomestic:Bool = false
 
     //MARK:- Initialise Views
     override func viewDidLoad() {
@@ -75,9 +71,14 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
         
         if let journey = journey{
             if journey.legsWithDetail.count > 0{
-//                for i in 0..<journey.count{
+                if !self.isForDomestic{
                     callAPIforBaggageInfo(sid: sid, fk: journey.fk, journeyObj: journey)
-//                }
+                }else{
+                    for legs in journey.legsWithDetail{
+                        self.callAPIforBaggageInfoForDomestic(sid: sid, fk: legs.lfk, journeyObj: legs)
+                    }
+                }
+                
             }
         }
     }
@@ -829,15 +830,14 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
     
     //MARK:- Set Image
     func setImageFromPath(urlPath : String  , to imageView : UIImageView){
-        imageView.setImageWithUrl(urlPath, placeholder: UIImage(), showIndicator: false)//resourceFor(urlPath: urlPath)
-//        guard  let urlobj = URL(string: urlPath) else { return }
-//
-//        let urlRequest = URLRequest(url: urlobj)
-//        if let responseObj = URLCache.shared.cachedResponse(for: urlRequest)
-//        {
-//            let image = UIImage(data: responseObj.data)
-//            imageView.image = image
-//        }
+        guard  let urlobj = URL(string: urlPath) else { return }
+        let urlRequest = URLRequest(url: urlobj)
+        if let responseObj = URLCache.shared.cachedResponse(for: urlRequest){
+            let image = UIImage(data: responseObj.data)
+            imageView.image = image
+        }else{
+            imageView.setImageWithUrl(urlPath, placeholder: UIImage(), showIndicator: false)
+        }
     }
     
     //MARK:- Button Actions
@@ -869,9 +869,6 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
                 }
             }
         }
-//
-//        baggageDimensionVC.view.frame = self.parent!.view.bounds
-//        baggageDimensionVC.modalPresentationStyle = .overCurrentContext
         self.present(baggageDimensionVC, animated: true, completion: nil)
     }
     
@@ -977,56 +974,89 @@ class IntFlightBaggageInfoVC: UIViewController, UITableViewDelegate, UITableView
         }
         self.baggageTableView.reloadData()
     }
+}
+
+//Details on checkout page for domestic & oneway
+extension IntFlightBaggageInfoVC{
+    func callAPIforBaggageInfoForDomestic(sid:String, fk:String, journeyObj:IntLeg){
+        let webservice = WebAPIService()
+        webservice.executeAPI(apiServive: .baggageResult(sid: sid, fk: fk), completionHandler: {    (data) in
+            
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            
+            do{
+                let jsonResult:AnyObject?  = try JSONSerialization.jsonObject(with: data, options: []) as AnyObject
+                
+                DispatchQueue.main.async {
+                    if let result = jsonResult as? [String: AnyObject] {
+                        
+                        if let data = result["data"] as? NSDictionary {
+                            
+                            let keys = data.allKeys
+                            if keys.count > 0{
+                                for j in 0..<keys.count{
+                                    let str = keys[j] as! String
+                                    if let datas = data.value(forKey: str) as? NSDictionary
+                                    {
+                                        self.dataResp += [datas]
+                                        self.displayForDomestic(journeyObj: journeyObj, baggage: self.dataResp)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }catch{
+            }
+        } , failureHandler : { (error ) in
+            print(error)
+        })
+    }
     
-//    func getAttibutedText(weight:Int, pieces: Int)-> NSAttributedString{
-//        let str1 = "\(weight*pieces) kg"
-//        let str2 = " (\(pieces) pc X \(weight) kg)"
-//        let font = AppFonts.SemiBold.withSize(16)
-//        let fontSuper = AppFonts.Regular.withSize(14)
-//        let attString:NSMutableAttributedString = NSMutableAttributedString(string: str1, attributes: [.font:font])
-//        let attString1:NSMutableAttributedString = NSMutableAttributedString(string: str2, attributes: [.font:fontSuper])
-//        attString.append(attString1)
-//        return  attString
-//    }
-    
-//    func getStarAttibuted(str:String)-> NSAttributedString{
-//
-//        let font:UIFont? = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(16))
-//        let fontSuper:UIFont? = UIFont(name: "SourceSansPro-SemiBold", size:CGFloat(12))
-//        let attString:NSMutableAttributedString = NSMutableAttributedString(string: str, attributes: [.font:font!])
-//        attString.setAttributes([.font:fontSuper!,.baselineOffset:5], range: NSRange(location:str.count-1,length:1))
-//        return attString
-//    }
-    
-//    func combineString(with pieces: String){
-//        let str = "\(pieces) : Most airline typically allow 23 kgs per piece."
-//        if !attStringArray.contains(str){
-//            attStringArray.append(str)
-//            if combineString != ""{
-//                combineString.append("\n     ")
-//            }
-//            self.piecesArray.append("\(pieces) :")
-//            combineString.append(str)
-//        }
-//
-//    }
-    
-//    func combineStringwith(weight: String, pieces: String){
-//        let str = "\(weight) : Max \(pieces) pieces can be carried weighing total \(weight)"
-//        if !attStringArray.contains(str){
-//            attStringArray.append(str)
-//            if combineString != ""{
-//                combineString.append("\n     ")
-//            }
-//            self.weightArray.append("\(weight) :")
-//            combineString.append(str)
-//        }
-//    }
-    
-//    func setLabelText(lbl:UILabel, isRed:Bool){
-//        lbl.text = isRed ? "No Baggage" : "No Info"
-//        lbl.textColor = isRed ? .red :.black
-//        lbl.font = AppFonts.Regular.withSize(14)
-//    }
+    func displayForDomestic(journeyObj:IntLeg, baggage:[NSDictionary]){
+        var baggageStringArray = [String]()
+        var journeywiseBaggageData = [NSDictionary]()
+        
+        let allFlights = journeyObj.flightsWithDetails
+        if allFlights.count == baggage.count{
+            if allFlights.count>0{
+                for i in 0..<allFlights.count{
+                    
+                    let str = "\(allFlights[i].al)*\(allFlights[i].oc)-\(baggage[i])"
+                    baggageStringArray.append(str)
+                }
+            }
+        }
+        let baggageStringArraySet = Set(baggageStringArray)
+        if baggageStringArraySet.count == 1{
+            let loc = journeyObj.ap[0] + " → " + journeyObj.ap[1]
+            let data = ["flightIcon":journeyObj.al,
+                        "flightRoute":loc,
+                        "baggageData":baggage[0]] as [String : Any]
+            journeywiseBaggageData.append(data as NSDictionary)
+            evaluatedBaggageResp.append(journeywiseBaggageData)
+            journeywiseBaggageData.removeAll()
+            self.dataResp.removeAll()
+        }else{
+            let allFlights = journeyObj.flightsWithDetails
+            if allFlights.count == baggage.count{
+                if allFlights.count>0{
+                    for i in 0..<allFlights.count{
+                        
+                        let loc = allFlights[i].fr + " → " + allFlights[i].to
+                        let data = ["flightIcon":allFlights[i].al,
+                                    "flightRoute":loc,
+                                    "baggageData":baggage[i]] as [String : Any]
+                        journeywiseBaggageData.append(data as NSDictionary)
+                    }
+                    evaluatedBaggageResp.append(journeywiseBaggageData)
+                    journeywiseBaggageData.removeAll()
+                    self.dataResp.removeAll()
+                }
+            }
+        }
+        self.baggageTableView.reloadData()
+    }
     
 }

@@ -9,16 +9,25 @@
 import Foundation
 ///typealias reference used for IntMultiCityAndReturnWSResponse.Results.J
 typealias IntJourney = IntMultiCityAndReturnWSResponse.Results.J
+
 ///typealias reference used for [IntMultiCityAndReturnWSResponse.Results.J]
 typealias IntResultArray = [IntJourney]
+
 ///typealias reference used for IntMultiCityAndReturnWSResponse.Results.J.Fare
 typealias IntTaxes = IntMultiCityAndReturnWSResponse.Results.J.Fare
+
 ///typealias reference used for IntMultiCityAndReturnWSResponse.Results.Apdet
 typealias IntAirportDetailsWS = IntMultiCityAndReturnWSResponse.Results.Apdet
+
 ///typealias reference used for IntMultiCityAndReturnWSResponse.Results.ALMaster
 typealias IntAirlineMasterWS = IntMultiCityAndReturnWSResponse.Results.ALMaster
+
 ///typealias reference used for IntMultiCityAndReturnWSResponse.Results.Fdet
 typealias IntFlightDetail = IntMultiCityAndReturnWSResponse.Results.Fdet
+
+/////typealias reference used for IntMultiCityAndReturnWSResponse.Results.Ldet
+
+typealias IntLeg = IntMultiCityAndReturnWSResponse.Results.Ldet
 
 let msgForLessThen2Hr = "Selected flights have less than 2 hrs of gap."
 let msgForOverlapTime = "Flight timings are not compatible. Select a different flight."

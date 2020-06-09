@@ -15,7 +15,6 @@ class AddOnVC : BaseVC {
     
     let adonsVm = AdonsVM()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetups()
@@ -47,9 +46,7 @@ extension AddOnVC {
     func configureNavigation(){
         self.topNavView.delegate = self
         self.topNavView.configureNavBar(title: "", isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : false)
-        
         self.topNavView.configureFirstRightButton(normalTitle: LocalizedString.Skip.localized, normalColor: AppColors.themeGreen, font: AppFonts.Bold.withSize(18))
-        
     }
     
     private func configureTableView(){
@@ -101,17 +98,25 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
         switch type {
             
         case .meals:
+            
+            if AddonsDataStore.shared.adons.isEmpty {
+                AertripToastView.toast(in: self.view, withText: "adons not found")
+                return
+           }
+            
             let vc = MealsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+//            vc.mealsContainerVM.itinerary = AddonsDataStore.shared.itinerary
             vc.modalPresentationStyle = .overFullScreen
             present(vc, animated: true, completion: nil)
             
         case .baggage:
-            let vc = BagageContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+            let vc = BaggageContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
             vc.modalPresentationStyle = .overFullScreen
             present(vc, animated: true, completion: nil)
             
         case .seat:
             let vc = SeatMapContainerVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
+            vc.setViewModel(adonsVm.getSeatMapContainerVM())
             vc.modalPresentationStyle = .overFullScreen
             present(vc, animated: true, completion: nil)
             

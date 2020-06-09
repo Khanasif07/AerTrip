@@ -30,21 +30,12 @@ import UIKit
     
     private var reachability: Reachability?
     
-    // PROPERTY FOR APPLICATION LAUNCH TYPE
-    var isApplicationForFlight = false
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-        // CHECK FOR LAUNCH OF FLIGHT OR HOTEL MODULE
-        if isApplicationForFlight{
-            setupFlightsVC()
-        } else {
-            FirebaseApp.configure()
-            AppFlowManager.default.setupInitialFlow()
-        }
-        
+//        FirebaseApp.configure()
         GoogleLoginController.shared.configure()
+        setupFlightsVC()
+//        AppFlowManager.default.setupInitialFlow()
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         Fabric.with([Crashlytics.self])
         GMSServices.provideAPIKey(AppConstants.kGoogleAPIKey)

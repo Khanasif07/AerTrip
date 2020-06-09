@@ -8,6 +8,17 @@
 
 import Foundation
 
+protocol PassengerSelectionVMDelegate:NSObjectProtocol {
+    func startFechingConfirmationData()
+    func startFechingAddnsMasterData()
+    func startFechingGSTValidationData()
+    func startFechingLoginData()
+    func getResponseFromConfirmation(_ success:Bool, error:Error?)
+    func getResponseFromAddnsMaster(_ success:Bool, error:Error?)
+    func getResponseFromGSTValidation(_ success:Bool, error:Error?)
+    func getResponseFromLogin(_ success:Bool, error:Error?)
+}
+
 var logoUrl = "http://cdn.aertrip.com/resources/assets/scss/skin/img/airline-master/"
 
 class PassengerSelectionVM  {
@@ -21,13 +32,10 @@ class PassengerSelectionVM  {
     var selectedJourneyFK = [String]()
     var journeyTitle:NSAttributedString?
     var journeyDate:String?
-    var id = "5ece2f4ab3561a3331770f51"//id to get addons data
+    var id = ""
     var addonsMaster = AddonsMaster()
     //Varialbles for domestic and oneway
     var journey:[Journey]?
-    var airportDetailsResult = [String : AirportDetailsWS]()
-    var airlineDetailsResult = [String : AirlineMasterWS]()
-    
     //Varialbles for international return and multicity
     var intAirportDetailsResult : [String : IntAirportDetailsWS]!
     var intAirlineDetailsResult : [String : IntAirlineMasterWS]!
@@ -41,7 +49,22 @@ class PassengerSelectionVM  {
     var passengerList = [Passenger]()
     var email = ""
     var mobile = ""
-    var isdCode = ""
+    var isdCode = "+91"
+    var itineraryData = FlightItineraryData()
+    var delegate:PassengerSelectionVMDelegate?
+    
+    var freeServiceType:FreeServiveType?{
+        if self.itineraryData.itinerary.freeMeal && self.itineraryData.itinerary.freeMealSeat{
+            return .both
+        }else if self.itineraryData.itinerary.freeMeal{
+            return .meal
+        }else if self.itineraryData.itinerary.freeMealSeat{
+            return .seat
+        }else{
+            return nil
+        }
+    }
+    
     var totalPassengerCount:Int{
         if let bookingObj = self.bookingObject{
             return bookingObj.flightAdultCount + bookingObj.flightChildrenCount + bookingObj.flightInfantCount
@@ -53,16 +76,12 @@ class PassengerSelectionVM  {
     func setupGuestArray() {
         GuestDetailsVM.shared.guests.removeAll()
         var temp: [ATContact] = []
-        self.webserviceForGetCountryList()
-        self.setupLoginData()
-        self.fetchConfirmationData()
-        self.journeyType = (self.bookingObject?.isDomestic ?? true) ? .domestic : .international
         guard let bookingObj = self.bookingObject else {return}
         for i in 0..<bookingObj.flightAdultCount{
             var guest = ATContact()
             guest.passengerType = PassengersType.Adult
             guest.frequentFlyer = self.getFrequentFlyer()
-            guest.mealPreference = self.getMealfreference()
+            guest.mealPreference = self.getMealPreference()
             guest.numberInRoom = (i + 1)
             guest.id = "\(i + 1)"
             guest.age = 0
@@ -73,7 +92,7 @@ class PassengerSelectionVM  {
             let idx = bookingObj.flightChildrenCount + i + 1
             guest.passengerType = PassengersType.child
             guest.frequentFlyer = self.getFrequentFlyer()
-            guest.mealPreference = self.getMealfreference()
+            guest.mealPreference = self.getMealPreference()
             guest.numberInRoom = (i + 1)
             guest.id = "\(idx)"
             guest.age = 0
@@ -84,7 +103,7 @@ class PassengerSelectionVM  {
             let idx = bookingObj.flightAdultCount + bookingObj.flightChildrenCount + i + 1
             guest.passengerType = PassengersType.infant
             guest.frequentFlyer = self.getFrequentFlyer()
-            guest.mealPreference = self.getMealfreference()
+            guest.mealPreference = self.getMealPreference()
             guest.numberInRoom = (i + 1)
             guest.id = "\(idx)"
             guest.age = 0
@@ -95,10 +114,11 @@ class PassengerSelectionVM  {
     }
     
     func setupLoginData(){
+        self.journeyType = (self.bookingObject?.isDomestic ?? true) ? .domestic : .international
         if let userInfo = UserInfo.loggedInUser{
             self.email = userInfo.email
             self.mobile = userInfo.mobile
-            self.isdCode = userInfo.isd
+            self.isdCode = (userInfo.isd.isEmpty) ? "+91" : userInfo.isd
         }
         
     }
@@ -113,12 +133,33 @@ class PassengerSelectionVM  {
         }
     }
     
+    func checkValidationForNextScreen(){
+        if self.isSwitchOn{
+            if self.isLogin{
+                self.validateGST()
+            }else{
+                self.login()
+            }
+        }else{
+            if self.isLogin{
+                self.delegate?.getResponseFromGSTValidation(true, error: nil)
+            }else{
+                self.login()
+            }
+            
+        }
+    }
+    
     func fetchAddonsData(){
         
         let param = [APIKeys.it_id.rawValue:self.id]
-        APICaller.shared.getAddonsMaster(params: param) { (sucsess, errorCode, addonsMaster) in
-            if sucsess{
+        self.delegate?.startFechingAddnsMasterData()
+        APICaller.shared.getAddonsMaster(params: param) {[weak self] (success, errorCode, addonsMaster) in
+            guard let self = self else {return}
+            self.delegate?.getResponseFromAddnsMaster(success, error: nil)
+            if success{
                 self.addonsMaster = addonsMaster
+                self.setupGuestArray()
             }else{
                 debugPrint(errorCode)
             }
@@ -130,7 +171,7 @@ class PassengerSelectionVM  {
         var param:JSONDictionary = ["sid": sid]
         
         if journeyType == .international{
-            if flightSearchType == SINGLE_JOURNEY{
+            if self.intJourney == nil{
                 param["old_farepr[]"] = self.journey?.first?.farepr ?? 0
                 param["fk[]"] = self.journey?.first?.fk ?? ""
             }else{
@@ -145,48 +186,128 @@ class PassengerSelectionVM  {
                 param["fk[\(i)]"] = journey[i].fk
             }
         }
-        
-        APICaller.shared.getConfirmation(params: param) { (sucsess, errorCode, addonsMaster) in
-            if sucsess{
-               
+        self.delegate?.startFechingConfirmationData()
+        APICaller.shared.getConfirmation(params: param) {[weak self](success, errorCode, itineraryData) in
+            guard let self = self else{return}
+            if success{
+                if let itinerary = itineraryData{
+                    self.itineraryData = itinerary
+                    self.id = self.itineraryData.itinerary.id
+                    self.sid = self.itineraryData.itinerary.sid
+                    GuestDetailsVM.shared.travellerList = self.itineraryData.itinerary.travellerMaster
+                    if let artpt = self.itineraryData.itinerary.details.apdet{
+                        self.intAirportDetailsResult = artpt
+                    }
+                    self.setupGST()
+                }
             }else{
                 debugPrint(errorCode)
             }
+            self.delegate?.getResponseFromConfirmation(success, error: nil)
+            if success{
+                self.fetchAddonsData()
+            }
+        }
+    }
+    
+    private func validateGST(){
+        self.delegate?.startFechingGSTValidationData()
+        let param = ["number":self.selectedGST.GSTInNo]
+        APICaller.shared.validateGSTIN(params: param) { (success, error, data) in
+            self.delegate?.getResponseFromGSTValidation(success, error: nil)
         }
     }
 
-    private func getMealfreference()-> [MealPreference]{
-        guard let intJourney = intJourney.first else {
-            return []
+    private func login(){
+        let params:JSONDictionary = [APIKeys.loginid.rawValue : self.email.removeLeadingTrailingWhitespaces, APIKeys.password.rawValue : "" , APIKeys.isGuestUser.rawValue : "true"]
+        APICaller.shared.loginForPaymentAPI(params: params) { [weak self] (success, logInId, isGuestUser, errors) in
+            guard let self = self else { return }
+            if success {
+                if self.isLogin{
+                    self.validateGST()
+                }else{
+                    self.delegate?.getResponseFromGSTValidation(success, error: nil)
+                }
+            }else{
+                AppToast.default.showToastMessage(message: "Something went wrong")
+            }
         }
-        let totalFlight = intJourney.legsWithDetail.flatMap{$0.flightsWithDetails}
-       
+    }
+    
+    private func getMealPreference()-> [MealPreference]{
+        let legs = self.itineraryData.itinerary.details.legsWithDetail
         var mealPreference = [MealPreference]()
-        for flight in totalFlight{
-            var meal = MealPreference()
-            meal.journeyTitle = "\(flight.fr) - \(flight.to)"
-            meal.airlineLogo = "\(logoUrl)\(flight.al.uppercased()).png"
-            mealPreference.append(meal)
+        for leg in legs{
+            if let addonsdata = self.addonsMaster.legs["\(leg.lfk)"],!(addonsdata.preference.meal.isEmpty){
+                var meal = MealPreference()
+                meal.journeyTitle = "\(leg.originIATACode) - \(leg.destinationIATACode)"
+                let al = leg.flightsWithDetails.first?.al ?? ""
+                meal.airlineLogo = "\(logoUrl)\(al.uppercased()).png"
+                meal.preference = addonsdata.preference.meal
+                mealPreference.append(meal)
+            }
         }
         return mealPreference
     }
     
     
     private func getFrequentFlyer()-> [FrequentFlyer]{
-        guard let intJourney = intJourney.first else {
-            return []
-        }
-        let totalFlight = intJourney.legsWithDetail.flatMap{$0.flightsWithDetails}.map{$0.al}
-        let setFlightAl = Array(Set(totalFlight))
-       
+        let totalFlight = Array(self.addonsMaster.legs.values).flatMap{$0.flight}
         var frequentFlyer = [FrequentFlyer]()
-        for al in setFlightAl{
-            var flyer = FrequentFlyer()
-            flyer.airlineName = self.intAirlineDetailsResult[al]?.name ?? ""
-            flyer.logoUrl = "\(logoUrl)\(al.uppercased()).png"
-            frequentFlyer.append(flyer)
+        if let aldet = self.itineraryData.itinerary.details.aldet{
+            for (key, value) in aldet{
+                if let flight = totalFlight.first(where: {$0.frequenFlyer[key] != nil}), flight.isfrequentFlyer{
+                    var flyer = FrequentFlyer()
+                    flyer.airlineName = value
+                    flyer.airlineCode = key.uppercased()
+                    flyer.logoUrl = "\(logoUrl)\(key.uppercased()).png"
+                    frequentFlyer.append(flyer)
+                }
+            }
         }
         return frequentFlyer
+    }
+    
+    private func setupGST(){
+        if let gst = self.itineraryData.itinerary.travellerDetails.gstDetails, isLogin{
+            self.isSwitchOn = true
+            self.selectedGST.billingName = gst.gstCompanyName
+            self.selectedGST.companyName = gst.gstCompanyName
+            self.selectedGST.GSTInNo = gst.gstNumber
+        }
+    }
+    
+    
+    func validateGuestData()->(success:Bool, msg:String){
+        for contact in GuestDetailsVM.shared.guests[0]{
+            if contact.firstName.isEmpty || contact.firstName.count < 3 || contact.lastName.isEmpty || contact.lastName.count < 3 || contact.salutation.isEmpty{
+                return (false, "Please fill all the passenger details")
+            }else if self.journeyType == .domestic{
+                if contact.passengerType == .infant{
+                    return (!(contact.dob.isEmpty), "Please fill all the passenger details")
+                }
+            }else{
+                if contact.dob.isEmpty || contact.nationality.isEmpty || contact.passportNumber.isEmpty || contact.passportExpiryDate.isEmpty{
+                    return (false, "Please fill all the passenger details")
+                }
+            }
+        }
+        if self.isdCode.isEmpty{
+            return (false, "Please enter ISD code")
+        }else if !(self.mobile.checkValidity(.MobileNumber)){
+            return (false, "Please enter valid mobile number")
+        }else if !(self.email.checkValidity(.Email)){
+            return (false, "Not a valid email address")
+        }else if self.isSwitchOn{
+            if (self.selectedGST.companyName.isEmpty){
+                return (false, "Please enter GSTIN company name")
+            }else if (self.selectedGST.billingName.isEmpty){
+                return (false, "Please enter GSTIN billing name")
+            }else if !(self.selectedGST.GSTInNo.checkValidity(.gst)){
+                return (false, "Not a valid GSTIN Number")
+            }
+        }
+        return (true, "")
     }
     
 }

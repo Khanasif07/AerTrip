@@ -9,14 +9,19 @@
 import UIKit
 import Parchment
 
+protocol SelectMealDelegate : class {
+    func addContactButtonTapped()
+    func addPassengerToMeal(vcIndex : Int, currentFlightKey : String, mealIndex: Int)
+}
+
 class MealsContainerVC: BaseVC {
     
     // MARK: Properties
     fileprivate var parchmentView : PagingViewController?
-    private let allTabsStr: [String] = ["BOM → LON", "LON → NYC", "NYC → DEL"]
+//    private let allTabsStr: [String] = ["BOM → LON", "LON → NYC", "NYC → DEL"]
     
-    var allChildVCs = [UIViewController]()
-    var currentIndex = 0
+    
+    let mealsContainerVM = MealsContainerVM()
     
     // MARK: IBOutlets
     @IBOutlet weak var topNavBarView: TopNavigationView!
@@ -62,13 +67,12 @@ class MealsContainerVC: BaseVC {
     override func initialSetup() {
         super.initialSetup()
         setupNavBar()
+//        self.mealsContainerVM.extractUsefullData()
         setUpViewPager()
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
-        let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
-        vc.modalPresentationStyle = .overFullScreen
-        present(vc, animated: true, completion: nil)
+
     }
 }
 
@@ -77,19 +81,17 @@ extension MealsContainerVC {
     private func configureNavigation(){
         self.topNavBarView.delegate = self
         self.topNavBarView.configureNavBar(title: LocalizedString.Meals.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : false)
-        
         self.topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen)
-        
         self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Bold.withSize(18))
     }
     
-
-    
     private func setUpViewPager() {
-        self.allChildVCs.removeAll()
-        for _ in 0..<allTabsStr.count {
+        self.mealsContainerVM.allChildVCs.removeAll()
+        for index in 0..<AddonsDataStore.shared.allFlightKeys.count {
             let vc = SelectMealsdVC.instantiate(fromAppStoryboard: .Adons)
-            self.allChildVCs.append(vc)
+            vc.initializeVm(selectMealsVM: SelectMealsVM(vcIndex: index, currentFlightKey: AddonsDataStore.shared.allFlightKeys[index]))
+            vc.delegate = self
+            self.mealsContainerVM.allChildVCs.append(vc)
         }
         self.view.layoutIfNeeded()
         if let _ = self.parchmentView{
@@ -100,7 +102,6 @@ extension MealsContainerVC {
     }
     
     private func setupParchmentPageController(){
-        
         self.parchmentView = PagingViewController()
         self.parchmentView?.menuItemSpacing = (self.view.width - 251.5) / 2
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 33.0, bottom: 0.0, right: 38.0)
@@ -157,26 +158,45 @@ extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControlle
         return 100.0
     }
     
-    
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
-        self.allTabsStr.count
+        return AddonsDataStore.shared.allFlights.count
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
-        return self.allChildVCs[index]
+        return self.mealsContainerVM.allChildVCs[index]
     }
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
         
-        return MenuItem(title: self.allTabsStr[index], index: index, isSelected:false)
+        let flightAtINdex = AddonsDataStore.shared.allFlights.filter { $0.ffk == AddonsDataStore.shared.allFlightKeys[index] }
+        guard let firstFlight = flightAtINdex.first else {
+            return MenuItem(title: "", index: index, isSelected:false)
+        }
+        return MenuItem(title: "\(firstFlight.fr) → \(firstFlight.to)", index: index, isSelected:false)
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
-        
         if let pagingIndexItem = pagingItem as? MenuItem {
-            currentIndex = pagingIndexItem.index
+            self.mealsContainerVM.currentIndex = pagingIndexItem.index
         }
-    }
+    }    
 }
 
-
+extension MealsContainerVC : SelectMealDelegate {
+    
+    func addPassengerToMeal(vcIndex: Int, currentFlightKey: String, mealIndex: Int) {
+        let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+        vc.modalPresentationStyle = .overFullScreen
+        vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
+            guard let weakSelf = self else { return }
+            AddonsDataStore.shared.setContactsForMeal(vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: contacts)
+            weakSelf.mealsContainerVM.allChildVCs[vcIndex].reloadData(index: mealIndex)
+        }
+        
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func addContactButtonTapped() {
+        
+    }
+}

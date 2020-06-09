@@ -9,7 +9,19 @@
 import UIKit
 
 class SelectPassengersVM {
+    
+    enum SetupFor {
+        case seatSelection
+        case others
+    }
 
     var selectedIndex : [Int] = []
     
+    var contactsComplition : (([ATContact]) -> Void) = {_ in ([])}
+    
+    var selectedContacts : [ATContact] = []
+    
+    var setupFor: SetupFor = .others
+    var seatModel = SeatMapModel.SeatMapRow()
+    var initalPassengerForSeat: ATContact?
 }

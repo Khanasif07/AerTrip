@@ -24,7 +24,8 @@ class MealPreferenceCell: UITableViewCell {
     @IBOutlet weak var cellLargeTitleHeight: NSLayoutConstraint!
     var passenger = ATContact()
     var cellIndexPath = IndexPath()
-    
+    var index = 0
+    var type = "meal"
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
@@ -53,13 +54,15 @@ class MealPreferenceCell: UITableViewCell {
     
     func configureForMealPreference(with passenger: ATContact, at indexPath: IndexPath){
         self.numberView.isHidden = true
+        self.programView.isHidden = false
         self.cellIndexPath = indexPath
         self.passenger = passenger
-        let index = indexPath.row - 1
+        self.index = indexPath.row - 1
+        self.type = "meal"
         self.programTextField.setUpAttributedPlaceholder(placeholderString: "Select", with: "", foregroundColor: AppColors.themeBlack,isChnagePlacehoder:true)
         self.airlineNameLabel.text = self.passenger.mealPreference[index].journeyTitle
         self.programTextField.text = self.passenger.mealPreference[index].mealPreference
-        self.airlineImage.resourceFor(urlPath: self.passenger.mealPreference[index].airlineLogo)
+        self.airlineImage.setImageWithUrl(self.passenger.mealPreference[index].airlineLogo, placeholder: UIImage(), showIndicator: false)
         self.cellTitleLabel.text = (index == 0) ? "Meal Preference" : ""
         self.titleTopConstraint.constant = (index == 0) ? 16.0 : 0.0
         self.titleBottomConstraint.constant = (index == 0) ? 6.0 : 0.0
@@ -70,13 +73,16 @@ class MealPreferenceCell: UITableViewCell {
     
     func configureForFlyer(with passenger: ATContact, at indexPath: IndexPath){
         self.numberView.isHidden = false
+        self.programView.isHidden = true
         self.cellIndexPath = indexPath
         self.passenger = passenger
         self.programTextField.setUpAttributedPlaceholder(placeholderString: "Program", with: "", foregroundColor: AppColors.themeBlack, isChnagePlacehoder:true)
-        let index = (indexPath.row - passenger.mealPreference.count - 1)
+        self.index = (indexPath.row - passenger.mealPreference.count - 1)
+        self.type = "ff"
         self.airlineNameLabel.text = self.passenger.frequentFlyer[index].airlineName
         self.programTextField.text = self.passenger.frequentFlyer[index].program
-        self.airlineImage.resourceFor(urlPath: self.passenger.frequentFlyer[index].logoUrl)
+        self.airlineImage.setImageWithUrl(self.passenger.frequentFlyer[index].logoUrl, placeholder: UIImage(), showIndicator: false)
+        self.numberTextField.text = self.passenger.frequentFlyer[index].number
         self.cellTitleLabel.text = (index == 0) ? "Frequent Flyer" : ""
         self.titleTopConstraint.constant = (index == 0) ? 8.0 : 0.0
         self.titleBottomConstraint.constant = (index == 0) ? 6.0 : 0.0
@@ -93,9 +99,23 @@ extension MealPreferenceCell: UITextFieldDelegate{
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
        
         if textField == programTextField{
+            var listData = [String]()
+            if self.type == "meal"{
+                listData = Array(self.passenger.mealPreference[index].preference.values)
+            }else{
+                listData = []
+            }
+            
             PKMultiPicker.noOfComponent = 1
-            PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: [], secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
-                textField.text = firstSelect
+            PKMultiPicker.openMultiPickerIn(textField, firstComponentArray: listData, secondComponentArray: [], firstComponent: textField.text, secondComponent: nil, titles: nil, toolBarTint: AppColors.themeGreen) { (firstSelect, secondSelect) in
+                if self.type == "meal"{
+                    GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].mealPreference[self.index].mealPreference = firstSelect
+                    GuestDetailsVM.shared.guests[0][self.cellIndexPath.section].mealPreference[self.index].preferenceCode = self.passenger.mealPreference[self.index].preference.someKey(forValue: firstSelect) ?? ""
+                    textField.text = firstSelect
+                }else{
+                    
+                }
+                
             }
             textField.tintColor = AppColors.clear
         }

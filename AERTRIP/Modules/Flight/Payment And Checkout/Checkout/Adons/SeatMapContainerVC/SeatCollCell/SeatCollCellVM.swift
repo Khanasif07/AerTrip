@@ -10,6 +10,8 @@ import Foundation
 
 class SeatCollCellVM {
     
+    typealias amount = (minAmount: Int, maxAmount: Int)
+    
     enum DeckType {
         case main
         case upper
@@ -40,9 +42,20 @@ class SeatCollCellVM {
     }
     
     private var charStr = Int(("A" as UnicodeScalar).value)
-    var totalSections = 0
+//    var totalSections = 0
     var currentDeck: DeckType = .main
-    var seatData = SeatMapModel.SeatMapRow()
+    var seatData: SeatMapModel.SeatMapRow
+    var flightFares: amount
+    
+    init() {
+        seatData = SeatMapModel.SeatMapRow()
+        flightFares = (0, 0)
+    }
+    
+    init(_ seatData: SeatMapModel.SeatMapRow,_ flightFares: amount) {
+        self.seatData = seatData
+        self.flightFares = flightFares
+    }
 
     func getUnicodeScalarStringFor(_ sec: PlaneSeatsLayout.SeatSectionType) -> String {
         switch sec {
