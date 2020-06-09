@@ -21,6 +21,7 @@
 		0C0506CD2435BC4A00BC4703 /* WebViewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0506CC2435BC4A00BC4703 /* WebViewVM.swift */; };
 		0C0506CF2435CEDD00BC4703 /* ATAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0506CE2435CEDC00BC4703 /* ATAlertController.swift */; };
 		0C06BB20243B76DC0022281F /* APICaller+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C06BB1F243B76DC0022281F /* APICaller+Settings.swift */; };
+		0C07664F248E768400519276 /* BaggageContainerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C07664E248E768400519276 /* BaggageContainerVM.swift */; };
 		0C09BFD42429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09BFD32429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift */; };
 		0C09BFD6242B746500B801BE /* ChatVC+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09BFD5242B746500B801BE /* ChatVC+Animations.swift */; };
 		0C09BFDC242B9A2D00B801BE /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09BFDA242B9A2D00B801BE /* SettingsCell.swift */; };
@@ -30,8 +31,8 @@
 		0C0AB1F2247BE03F005E5E99 /* MealsContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1F1247BE03F005E5E99 /* MealsContainerVC.swift */; };
 		0C0AB1F4247BEC6D005E5E99 /* MealsContainerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1F3247BEC6D005E5E99 /* MealsContainerVM.swift */; };
 		0C0AB1F6247BEC7E005E5E99 /* SelectMealsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1F5247BEC7E005E5E99 /* SelectMealsVM.swift */; };
-		0C0AB1FD247C3CD5005E5E99 /* BagageContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1FC247C3CD5005E5E99 /* BagageContainerVC.swift */; };
-		0C0AB1FF247C3D6D005E5E99 /* SelectBagageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1FE247C3D6D005E5E99 /* SelectBagageVC.swift */; };
+		0C0AB1FD247C3CD5005E5E99 /* BaggageContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1FC247C3CD5005E5E99 /* BaggageContainerVC.swift */; };
+		0C0AB1FF247C3D6D005E5E99 /* SelectBaggageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB1FE247C3D6D005E5E99 /* SelectBaggageVC.swift */; };
 		0C0AB202247C439F005E5E99 /* SelectBagageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0AB200247C439F005E5E99 /* SelectBagageCell.swift */; };
 		0C0AB203247C439F005E5E99 /* SelectBagageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C0AB201247C439F005E5E99 /* SelectBagageCell.xib */; };
 		0C0B231524210CD700E1764D /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C0B231424210CD700E1764D /* Chat.storyboard */; };
@@ -1570,6 +1571,7 @@
 		0C0506CC2435BC4A00BC4703 /* WebViewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewVM.swift; sourceTree = "<group>"; };
 		0C0506CE2435CEDC00BC4703 /* ATAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATAlertController.swift; sourceTree = "<group>"; };
 		0C06BB1F243B76DC0022281F /* APICaller+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APICaller+Settings.swift"; sourceTree = "<group>"; };
+		0C07664E248E768400519276 /* BaggageContainerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaggageContainerVM.swift; sourceTree = "<group>"; };
 		0C09BFD32429F3BF00B801BE /* ChatVC+CollectionViewDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatVC+CollectionViewDelegates.swift"; sourceTree = "<group>"; };
 		0C09BFD5242B746500B801BE /* ChatVC+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatVC+Animations.swift"; sourceTree = "<group>"; };
 		0C09BFDA242B9A2D00B801BE /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
@@ -1579,8 +1581,8 @@
 		0C0AB1F1247BE03F005E5E99 /* MealsContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsContainerVC.swift; sourceTree = "<group>"; };
 		0C0AB1F3247BEC6D005E5E99 /* MealsContainerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsContainerVM.swift; sourceTree = "<group>"; };
 		0C0AB1F5247BEC7E005E5E99 /* SelectMealsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMealsVM.swift; sourceTree = "<group>"; };
-		0C0AB1FC247C3CD5005E5E99 /* BagageContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagageContainerVC.swift; sourceTree = "<group>"; };
-		0C0AB1FE247C3D6D005E5E99 /* SelectBagageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBagageVC.swift; sourceTree = "<group>"; };
+		0C0AB1FC247C3CD5005E5E99 /* BaggageContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaggageContainerVC.swift; sourceTree = "<group>"; };
+		0C0AB1FE247C3D6D005E5E99 /* SelectBaggageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBaggageVC.swift; sourceTree = "<group>"; };
 		0C0AB200247C439F005E5E99 /* SelectBagageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBagageCell.swift; sourceTree = "<group>"; };
 		0C0AB201247C439F005E5E99 /* SelectBagageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectBagageCell.xib; sourceTree = "<group>"; };
 		0C0B231424210CD700E1764D /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
@@ -3329,6 +3331,7 @@
 				0C0AB1F5247BEC7E005E5E99 /* SelectMealsVM.swift */,
 				0C9CD039247E4F49002D1073 /* SelectOtherAdonsVM.swift */,
 				0C0240482480686600B06AEC /* SelectPassengersVM.swift */,
+				0C07664E248E768400519276 /* BaggageContainerVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3336,8 +3339,8 @@
 		0C0AB1FB247C3C71005E5E99 /* SelectBagageVC */ = {
 			isa = PBXGroup;
 			children = (
-				0C0AB1FC247C3CD5005E5E99 /* BagageContainerVC.swift */,
-				0C0AB1FE247C3D6D005E5E99 /* SelectBagageVC.swift */,
+				0C0AB1FC247C3CD5005E5E99 /* BaggageContainerVC.swift */,
+				0C0AB1FE247C3D6D005E5E99 /* SelectBaggageVC.swift */,
 			);
 			path = SelectBagageVC;
 			sourceTree = "<group>";
@@ -9380,7 +9383,7 @@
 				84D2FB8621BE351E00011000 /* PKCountryPickerSettings.swift in Sources */,
 				84B1405E22A166C900EAA5D2 /* FlightBookingRequestsTableViewCell.swift in Sources */,
 				842EDE842238E7D600E99409 /* HotelDetailsAmenitiesVM.swift in Sources */,
-				0C0AB1FD247C3CD5005E5E99 /* BagageContainerVC.swift in Sources */,
+				0C0AB1FD247C3CD5005E5E99 /* BaggageContainerVC.swift in Sources */,
 				843FF4A124740231001F21B1 /* RadioButtonTableViewCell.swift in Sources */,
 				8463A5642456C7B200C70D8C /* GMUGradient.m in Sources */,
 				84B6DEA522805D5D0042D902 /* AccountChargeInfoVC.swift in Sources */,
@@ -9455,6 +9458,7 @@
 				188A4DB1242DE96D00F871ED /* PanDirectionGestureRecognizer.swift in Sources */,
 				843FF65A247409E3001F21B1 /* TravellerPreference.m in Sources */,
 				18A96B9721B661F900EA9B3A /* GoogleLoginController.swift in Sources */,
+				0C07664F248E768400519276 /* BaggageContainerVM.swift in Sources */,
 				0C24D4F1242CAF7300CBFF92 /* CurrencyVC.swift in Sources */,
 				843FF52824740231001F21B1 /* DomesticMultiLegTemplateCell.swift in Sources */,
 				84D54F7D23E3FC620002B504 /* MenuItemCollectionCell.swift in Sources */,
@@ -10399,7 +10403,7 @@
 				18D4C41D220ACD06005E1E37 /* RoomTableViewCell.swift in Sources */,
 				843FF4BE24740231001F21B1 /* PassengerDetailsVM.swift in Sources */,
 				8477163F22844AC0000E1BB6 /* PeriodicStatementVM.swift in Sources */,
-				0C0AB1FF247C3D6D005E5E99 /* SelectBagageVC.swift in Sources */,
+				0C0AB1FF247C3D6D005E5E99 /* SelectBaggageVC.swift in Sources */,
 				1835E50223EAC1CD00F6EEA1 /* CardTransition.swift in Sources */,
 				84E4BC7F22A1441000B72306 /* WeatherInfoTableViewCell.swift in Sources */,
 				8480683522099CC800CBF362 /* BulkRoomSelectionVM.swift in Sources */,

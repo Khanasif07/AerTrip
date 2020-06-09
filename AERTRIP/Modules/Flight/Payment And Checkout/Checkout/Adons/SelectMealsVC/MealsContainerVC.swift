@@ -10,9 +10,8 @@ import UIKit
 import Parchment
 
 protocol SelectMealDelegate : class {
-    func mealUpdated(vcIndex : Int)
     func addContactButtonTapped()
-    func addPassengerToMeal(vcIndex : Int, currentFlightKey : String, mealIndex: Int, meal : Addons)
+    func addPassengerToMeal(vcIndex : Int, currentFlightKey : String, mealIndex: Int)
 }
 
 class MealsContainerVC: BaseVC {
@@ -21,8 +20,7 @@ class MealsContainerVC: BaseVC {
     fileprivate var parchmentView : PagingViewController?
 //    private let allTabsStr: [String] = ["BOM → LON", "LON → NYC", "NYC → DEL"]
     
-    var allChildVCs = [SelectMealsdVC]()
-    var currentIndex = 0
+    
     let mealsContainerVM = MealsContainerVM()
     
     // MARK: IBOutlets
@@ -83,20 +81,18 @@ extension MealsContainerVC {
     private func configureNavigation(){
         self.topNavBarView.delegate = self
         self.topNavBarView.configureNavBar(title: LocalizedString.Meals.localized, isLeftButton: true, isFirstRightButton: true, isSecondRightButton: false,isDivider : false)
-        
         self.topNavBarView.configureLeftButton(normalTitle: LocalizedString.ClearAll.localized, normalColor: AppColors.themeGreen)
-        
         self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Bold.withSize(18))
     }
     
     private func setUpViewPager() {
-        self.allChildVCs.removeAll()
+        self.mealsContainerVM.allChildVCs.removeAll()
         for index in 0..<AddonsDataStore.shared.allFlightKeys.count {
             let vc = SelectMealsdVC.instantiate(fromAppStoryboard: .Adons)
             vc.initializeVm(selectMealsVM: SelectMealsVM(vcIndex: index, currentFlightKey: AddonsDataStore.shared.allFlightKeys[index]))
             vc.delegate = self
 //            vc.selectMealsVM.itinerary = AddonsDataStore.shared.itinerary
-            self.allChildVCs.append(vc)
+            self.mealsContainerVM.allChildVCs.append(vc)
         }
         self.view.layoutIfNeeded()
         if let _ = self.parchmentView{
@@ -107,7 +103,6 @@ extension MealsContainerVC {
     }
     
     private func setupParchmentPageController(){
-        
         self.parchmentView = PagingViewController()
         self.parchmentView?.menuItemSpacing = (self.view.width - 251.5) / 2
         self.parchmentView?.menuInsets = UIEdgeInsets(top: 0.0, left: 33.0, bottom: 0.0, right: 38.0)
@@ -164,13 +159,12 @@ extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControlle
         return 100.0
     }
     
-    
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
         return AddonsDataStore.shared.allFlights.count
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
-        return self.allChildVCs[index]
+        return self.mealsContainerVM.allChildVCs[index]
     }
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
@@ -183,25 +177,22 @@ extension MealsContainerVC: PagingViewControllerDataSource , PagingViewControlle
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
-        
         if let pagingIndexItem = pagingItem as? MenuItem {
-            currentIndex = pagingIndexItem.index
+            self.mealsContainerVM.currentIndex = pagingIndexItem.index
         }
-        
     }
+    
 }
-
 
 extension MealsContainerVC : SelectMealDelegate {
     
-    func addPassengerToMeal(vcIndex: Int, currentFlightKey: String, mealIndex: Int, meal : Addons) {
+    func addPassengerToMeal(vcIndex: Int, currentFlightKey: String, mealIndex: Int) {
         let vc = SelectPassengerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
         vc.modalPresentationStyle = .overFullScreen
-                
         vc.selectPassengersVM.contactsComplition = {[weak self] (contacts) in
-        guard let weakSelf = self else { return }
-               //weakSelf.allChildVCs[vcIndex].selectMealsVM.updateContactInMeal(currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: meal)
-            
+            guard let weakSelf = self else { return }
+            AddonsDataStore.shared.setContactsForMeal(vcIndex: vcIndex, currentFlightKey: currentFlightKey, mealIndex: mealIndex, contacts: contacts)
+            weakSelf.mealsContainerVM.allChildVCs[vcIndex].reloadData(index: mealIndex)
         }
         
         present(vc, animated: true, completion: nil)
@@ -210,11 +201,4 @@ extension MealsContainerVC : SelectMealDelegate {
     func addContactButtonTapped() {
         
     }
-    
-    func mealUpdated(vcIndex : Int) {
-        
-        print(vcIndex)
-        
-    }
-
 }

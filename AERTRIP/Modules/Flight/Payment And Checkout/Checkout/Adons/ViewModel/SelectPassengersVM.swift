@@ -23,4 +23,5 @@ class SelectPassengersVM {
     
     var setupFor: SetupFor = .others
     var seatModel = SeatMapModel.SeatMapRow()
+    var initalPassengerForSeat: ATContact?
 }

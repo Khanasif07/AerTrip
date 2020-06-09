@@ -37,10 +37,17 @@ class AddonsDataStore {
          guard let adon = itinerary.details.addons else{
              return }
          adons = adon
+        
          allFlights = itinerary.details.legsWithDetail.flatMap {
                return $0.flightsWithDetails
            }
      }
+    
+    func setContactsForMeal(vcIndex: Int, currentFlightKey: String, mealIndex: Int, contacts : [ATContact]){
+        guard var keyData = adons[currentFlightKey] else { return }
+        keyData.meal[mealIndex].mealsSelectedFor = contacts
+        adons[currentFlightKey]? = keyData
+    }
     
 }
 

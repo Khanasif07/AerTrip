@@ -98,13 +98,16 @@ extension AddOnVC : UITableViewDelegate, UITableViewDataSource {
         switch type {
             
         case .meals:
+//            if AddonsDataStore.shared.adons.isEmpty {
+//               showAlert(title: <#T##String#>, message: <#T##String#>, buttonTitle: <#T##String#>, onCompletion: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
+//            }
             let vc = MealsContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
 //            vc.mealsContainerVM.itinerary = AddonsDataStore.shared.itinerary
             vc.modalPresentationStyle = .overFullScreen
             present(vc, animated: true, completion: nil)
             
         case .baggage:
-            let vc = BagageContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
+            let vc = BaggageContainerVC.instantiate(fromAppStoryboard: AppStoryboard.Adons)
             vc.modalPresentationStyle = .overFullScreen
             present(vc, animated: true, completion: nil)
             

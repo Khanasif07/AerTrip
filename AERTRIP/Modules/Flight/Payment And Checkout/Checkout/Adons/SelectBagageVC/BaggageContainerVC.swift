@@ -10,13 +10,13 @@ import UIKit
 import Parchment
 
 
-class BagageContainerVC: BaseVC {
+class BaggageContainerVC : BaseVC {
 
     // MARK: Properties
        fileprivate var parchmentView : PagingViewController?
        private let allTabsStr: [String] = ["BOM → LON", "LON → NYC", "NYC → DEL"]
        
-       var allChildVCs = [UIViewController]()
+       var allChildVCs = [SelectBaggageVC]()
        var currentIndex = 0
        
        // MARK: IBOutlets
@@ -75,7 +75,7 @@ class BagageContainerVC: BaseVC {
     
 }
 
-extension BagageContainerVC {
+extension BaggageContainerVC {
     
     private func configureNavigation(){
         self.topNavBarView.delegate = self
@@ -86,12 +86,10 @@ extension BagageContainerVC {
         self.topNavBarView.configureFirstRightButton(normalTitle: LocalizedString.Cancel.localized, normalColor: AppColors.themeGreen, font: AppFonts.Bold.withSize(18))
     }
     
-
-    
     private func setUpViewPager() {
         self.allChildVCs.removeAll()
         for _ in 0..<allTabsStr.count {
-            let vc = SelectBagageVC.instantiate(fromAppStoryboard: .Adons)
+            let vc = SelectBaggageVC.instantiate(fromAppStoryboard: .Adons)
             self.allChildVCs.append(vc)
         }
         self.view.layoutIfNeeded()
@@ -136,7 +134,7 @@ extension BagageContainerVC {
 }
 
 
-extension BagageContainerVC: TopNavigationViewDelegate {
+extension BaggageContainerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         
     }
@@ -147,7 +145,7 @@ extension BagageContainerVC: TopNavigationViewDelegate {
     
 }
 
-extension BagageContainerVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
+extension BaggageContainerVC: PagingViewControllerDataSource , PagingViewControllerDelegate ,PagingViewControllerSizeDelegate{
     func pagingViewController(_: PagingViewController, widthForPagingItem pagingItem: PagingItem, isSelected: Bool) -> CGFloat {
         
         if let pagingIndexItem = pagingItem as? MenuItem{
