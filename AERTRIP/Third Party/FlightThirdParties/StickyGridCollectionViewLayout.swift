@@ -42,15 +42,14 @@ class StickyGridCollectionViewLayout: UICollectionViewFlowLayout {
 		let lastItemFrame = allAttributes.last?.last?.frame ?? .zero
 		contentSize = CGSize(width: lastItemFrame.maxX, height: lastItemFrame.maxY)
 	}
+    
+    // Added by Rishabh
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        return allAttributes[indexPath.section][indexPath.item]
+    }
 
 	override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
 		var layoutAttributes = [UICollectionViewLayoutAttributes]()
-        
-//        for rowAttrs in allAttributes {
-//            for itemAttrs in rowAttrs {
-//                layoutAttributes.append(itemAttrs)
-//            }
-//        }
         
 		for rowAttrs in allAttributes {
 			for itemAttrs in rowAttrs where rect.intersects(itemAttrs.frame) {
@@ -128,11 +127,11 @@ class StickyGridCollectionViewLayout: UICollectionViewFlowLayout {
 	// MARK: - Sizing
 
 	private var rowsCount: Int {
-		return collectionView!.numberOfSections
+		return collectionView?.numberOfSections ?? 0
 	}
 
 	private func columnsCount(in row: Int) -> Int {
-		return collectionView!.numberOfItems(inSection: row)
+		return collectionView?.numberOfItems(inSection: row) ?? 0
 	}
 
 	private func size(forRow row: Int, column: Int) -> CGSize {

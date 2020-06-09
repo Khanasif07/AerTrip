@@ -102,7 +102,7 @@
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="EV8-9f-w7V">
                                         <rect key="frame" x="0.0" y="48" width="414" height="770"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fpo-p1-lCq" customClass="StickyGridCollectionViewLayout" customModule="AERTRIP" customModuleProvider="target">
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vBz-YQ-rQ5" customClass="StickyGridCollectionViewLayout" customModule="AERTRIP" customModuleProvider="target">
                                             <size key="itemSize" width="50" height="50"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -135,7 +135,7 @@
                         <outlet property="deckSelectionView" destination="XRz-11-5fp" id="etQ-zd-gKJ"/>
                         <outlet property="mainDeckBtn" destination="fbK-hC-OK0" id="QTF-Xf-oJN"/>
                         <outlet property="seatMapCollView" destination="EV8-9f-w7V" id="1Vs-lv-NpP"/>
-                        <outlet property="seatMapCollViewFlowLayout" destination="fpo-p1-lCq" id="Rpo-R6-2b1"/>
+                        <outlet property="seatMapCollViewFlowLayout" destination="vBz-YQ-rQ5" id="Z5g-fb-9bd"/>
                         <outlet property="upperDeckBtn" destination="GPo-H4-YYi" id="2wM-Pq-Jd9"/>
                     </connections>
                 </viewController>

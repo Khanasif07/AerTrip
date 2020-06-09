@@ -23,6 +23,7 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     }
     
     private func dequeueSeatCell(_ collectionView: UICollectionView,_ indexPath: IndexPath) -> SeatCollCell {
+        
         guard let seatCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SeatCollCell", for: indexPath) as? SeatCollCell else { return SeatCollCell() }
         var rowStr = ""
         if viewModel.flightData.md.rowsArr.indices.contains(indexPath.item - 1) {
@@ -99,8 +100,12 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
             
             viewModel.flightData.md.rows.updateValue(newRow, forKey: rowKey)
         }
+        
         DispatchQueue.main.async {
-            self.seatMapCollView.reloadItems(at: indexPaths)
+            self.seatMapCollView.reloadData()
+//            self.seatMapCollView.reloadItems(at: indexPaths)
+
+
         }
         
     }
