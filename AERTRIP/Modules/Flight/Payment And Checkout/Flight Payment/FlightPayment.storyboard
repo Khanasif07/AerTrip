@@ -345,5 +345,136 @@
             </objects>
             <point key="canvasLocation" x="737.68115942028987" y="99.776785714285708"/>
         </scene>
+        <!--Post Booking Flight DetailsVC-->
+        <scene sceneID="G8K-zR-LZj">
+            <objects>
+                <viewController storyboardIdentifier="PostBookingFlightDetailsVC" automaticallyAdjustsScrollViewInsets="NO" id="01g-8z-cZ8" customClass="PostBookingFlightDetailsVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CWS-4g-shl">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Vh-3V-X1y" customClass="TopNavigationView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="HA0-W6-PPc"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Np-gf-KxM">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="0Np-gf-KxM" secondAttribute="bottom" id="4Nu-Jd-t7C"/>
+                            <constraint firstItem="0Np-gf-KxM" firstAttribute="top" secondItem="6Vh-3V-X1y" secondAttribute="bottom" id="9v9-QS-J7w"/>
+                            <constraint firstItem="6Vh-3V-X1y" firstAttribute="top" secondItem="r3W-oj-lwN" secondAttribute="top" id="B3H-gv-q8F"/>
+                            <constraint firstItem="r3W-oj-lwN" firstAttribute="trailing" secondItem="0Np-gf-KxM" secondAttribute="trailing" id="DiA-r6-PXz"/>
+                            <constraint firstItem="6Vh-3V-X1y" firstAttribute="trailing" secondItem="r3W-oj-lwN" secondAttribute="trailing" id="MaK-sE-CP5"/>
+                            <constraint firstItem="6Vh-3V-X1y" firstAttribute="leading" secondItem="r3W-oj-lwN" secondAttribute="leading" id="NTg-WG-6we"/>
+                            <constraint firstItem="0Np-gf-KxM" firstAttribute="leading" secondItem="r3W-oj-lwN" secondAttribute="leading" id="x1y-bA-2EV"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="r3W-oj-lwN"/>
+                    </view>
+                    <connections>
+                        <outlet property="containerView" destination="0Np-gf-KxM" id="4M7-Hl-r9d"/>
+                        <outlet property="topNavigationView" destination="6Vh-3V-X1y" id="8oJ-4S-la0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TVB-Vt-Qc9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1683" y="104"/>
+        </scene>
+        <!--Post Booking BaggageVC-->
+        <scene sceneID="Rcy-vg-FWh">
+            <objects>
+                <viewController storyboardIdentifier="PostBookingBaggageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mLb-Wd-a3I" customClass="PostBookingBaggageVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Z0l-pA-oFv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="JNM-yr-rnQ" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="JNM-yr-rnQ" firstAttribute="trailing" secondItem="PFV-AZ-gmc" secondAttribute="trailing" id="0P3-Um-DZY"/>
+                            <constraint firstItem="JNM-yr-rnQ" firstAttribute="leading" secondItem="PFV-AZ-gmc" secondAttribute="leading" id="V1t-IV-sMR"/>
+                            <constraint firstAttribute="bottom" secondItem="JNM-yr-rnQ" secondAttribute="bottom" id="y4S-Kh-PRX"/>
+                            <constraint firstItem="JNM-yr-rnQ" firstAttribute="top" secondItem="Z0l-pA-oFv" secondAttribute="top" id="zmg-bO-6ch"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="PFV-AZ-gmc"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="JNM-yr-rnQ" id="0C0-T1-bZj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="04b-Vz-RN5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3723" y="100"/>
+        </scene>
+        <!--Post Booking Flight InfoVC-->
+        <scene sceneID="EHE-kA-ray">
+            <objects>
+                <viewController storyboardIdentifier="PostBookingFlightInfoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HSK-xB-l8t" customClass="PostBookingFlightInfoVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="m64-gA-xCo">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="qAb-Nh-1Ci" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qAb-Nh-1Ci" firstAttribute="top" secondItem="m64-gA-xCo" secondAttribute="top" id="Nxt-8Y-ejH"/>
+                            <constraint firstAttribute="bottom" secondItem="qAb-Nh-1Ci" secondAttribute="bottom" id="hNA-t4-Ei6"/>
+                            <constraint firstItem="qAb-Nh-1Ci" firstAttribute="trailing" secondItem="9Tk-p6-waV" secondAttribute="trailing" id="jSL-kP-ecW"/>
+                            <constraint firstItem="qAb-Nh-1Ci" firstAttribute="leading" secondItem="9Tk-p6-waV" secondAttribute="leading" id="l4B-Ar-4uc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="9Tk-p6-waV"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="qAb-Nh-1Ci" id="RiS-pq-tcv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cgB-HY-tif" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2628" y="104"/>
+        </scene>
+        <!--Post Booking Fare InfoVC-->
+        <scene sceneID="76B-fx-ehX">
+            <objects>
+                <viewController storyboardIdentifier="PostBookingFareInfoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eDg-QF-EHB" customClass="PostBookingFareInfoVC" customModule="AERTRIP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FfQ-9e-eDt">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="V2u-0a-71q" customClass="ATTableView" customModule="AERTRIP" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="V2u-0a-71q" secondAttribute="bottom" id="0fl-pS-8Pe"/>
+                            <constraint firstItem="V2u-0a-71q" firstAttribute="top" secondItem="FfQ-9e-eDt" secondAttribute="top" id="GOu-XV-4cT"/>
+                            <constraint firstItem="V2u-0a-71q" firstAttribute="leading" secondItem="yHM-16-bdT" secondAttribute="leading" id="W23-J8-yAk"/>
+                            <constraint firstItem="V2u-0a-71q" firstAttribute="trailing" secondItem="yHM-16-bdT" secondAttribute="trailing" id="z50-VX-S85"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="yHM-16-bdT"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="V2u-0a-71q" id="Wyl-Os-t1X"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="thb-Le-ezN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4678" y="100"/>
+        </scene>
     </scenes>
 </document>

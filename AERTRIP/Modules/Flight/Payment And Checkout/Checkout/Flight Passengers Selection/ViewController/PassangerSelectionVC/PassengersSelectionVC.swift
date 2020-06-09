@@ -113,13 +113,13 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
     func bookButtonTapped(journeyCombo: [CombinationJourney]?) {
 
 
-//        let vc = FlightPaymentVC.instantiate(fromAppStoryboard: .FlightPayment)
-//        vc.viewModel.itinerary = self.viewModel.itineraryData.itinerary
-//        vc.viewModel.taxesResult = self.viewModel.taxesResult
-//
-        
-        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
-        AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary)
+        let vc = FlightPaymentVC.instantiate(fromAppStoryboard: .FlightPayment)
+        vc.viewModel.itinerary = self.viewModel.itineraryData.itinerary
+        vc.viewModel.taxesResult = self.viewModel.taxesResult
+
+
+//        let vc = AddOnVC.instantiate(fromAppStoryboard: .Adons)
+//        AddonsDataStore.shared.initialiseItinerary(itinerary: self.viewModel.itineraryData.itinerary)
         self.navigationController?.pushViewController(vc, animated: true)
         
 //        let validation = self.viewModel.validateGuestData()
@@ -182,10 +182,12 @@ extension PassengersSelectionVC: UseGSTINCellDelegate, FareBreakupVCDelegate, Jo
         vc.didMove(toParent: self)
         self.detailsBaseVC = vc
         if let newView = self.intFareBreakupVC?.view{
-            vc.view.frame = CGRect(x: 0, y: UIScreen.height, width: UIScreen.main.bounds.width, height: UIScreen.height - newView.frame.height)
+            let bottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0.0
+            let height = (newView.frame.height - bottomInset)
+            vc.view.frame = CGRect(x: 0, y: UIScreen.height, width: UIScreen.main.bounds.width, height: UIScreen.height - height)
             self.view.bringSubviewToFront(newView)
             UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseOut], animations: {
-                vc.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.height - newView.frame.height)
+                vc.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.height - height)
                 vc.view.layoutSubviews()
                 vc.view.setNeedsLayout()
             })
@@ -236,40 +238,16 @@ extension PassengersSelectionVC{
     }
     
     func getListingController(){
-      if let nav = self.navigationController?.presentingViewController?.presentingViewController as? UINavigationController{
-          nav.dismiss(animated: true) {
-              delay(seconds: 0.0) {
-                if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
-                    nav.popToViewController(vc, animated: true)
-                    vc.searchApiResult()
+        if let nav = self.navigationController?.presentingViewController?.presentingViewController as? UINavigationController{
+            nav.dismiss(animated: true) {
+                delay(seconds: 0.0) {
+                    if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}) as? FlightResultBaseViewController{
+                        nav.popToViewController(vc, animated: true)
+                        vc.searchApiResult()
+                    }
                 }
-              }
-          }
-      }
-
-//        if self.viewModel.journeyType == .international{
-//            if self.viewModel.intJourney == nil{
-//                self.navigationController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-//            }else{
-//                if let nav = self.navigationController?.presentingViewController?.presentingViewController as? UINavigationController{
-//                    nav.dismiss(animated: true) {
-//                        delay(seconds: 0.0) {
-//                            if let vc = nav.viewControllers.first(where: {$0.isKind(of: FlightResultBaseViewController.self)}){
-//                                nav.popToViewController(vc, animated: true)
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }else{
-//            guard let journey = self.viewModel.journey else{return}
-//            if journey.count == 1{
-//                self.navigationController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-//            }else{
-//                self.navigationController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-//            }
-//
-//        }
+            }
+        }
     }
 }
 

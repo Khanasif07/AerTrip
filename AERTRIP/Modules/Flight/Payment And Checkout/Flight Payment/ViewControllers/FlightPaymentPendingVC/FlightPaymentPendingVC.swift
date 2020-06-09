@@ -73,7 +73,7 @@ class FlightPaymentPendingVC: UIViewController {
         self.balanceAmountValueLabel.text = "₹ 2,000"
         self.payButton.setTitle("Pay", for: .normal)
         self.requestRefaundButton.setTitle("Request refund", for: .normal)
-        self.autoRefunddescriptionLabel.text = " If you don’t take any action now, your amount will be auto-refunded to your {Mode of Payment}."
+        self.autoRefunddescriptionLabel.text = "If you don’t take any action now, your amount will be auto-refunded to your {Mode of Payment}."
 
     }
     
