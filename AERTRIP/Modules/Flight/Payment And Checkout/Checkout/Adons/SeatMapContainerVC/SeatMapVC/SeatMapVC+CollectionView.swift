@@ -57,31 +57,23 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     
     private func openPassengerSelectionVC(_ indexPath: IndexPath,_ seatData: SeatMapModel.SeatMapRow) {
         let passengerVC = SelectPassengerVC.instantiate(fromAppStoryboard: .Adons)
-        passengerVC.selectPassengersVM.seatModel = seatData
+        passengerVC.selectPassengersVM.selectedSeatData = seatData
+        passengerVC.selectPassengersVM.flightData = viewModel.flightData
         passengerVC.selectPassengersVM.setupFor = .seatSelection
         passengerVC.modalPresentationStyle = .overFullScreen
-        passengerVC.selectedPassengerForSeat = { [weak self] passenger in
-            self?.savePassengerForSeat(indexPath, seatData, passenger)
+//        passengerVC.selectedPassengerForSeat = { [weak self] passenger in
+//            self?.savePassengerForSeat(seatData, passenger)
+//        }
+        passengerVC.updatedFlightData = { [weak self] flightData in
+            guard let self = self else { return }
+            self.viewModel.flightData = flightData
+            self.seatMapCollView.reloadData()
         }
         present(passengerVC, animated: true, completion: nil)
     }
     
-    private func savePassengerForSeat(_ indexPath: IndexPath,_ seatData: SeatMapModel.SeatMapRow,_ passenger: ATContact?) {
-        
-        var indexPaths = [IndexPath]()
-        
-        indexPaths.append(indexPath)
-        
-        seatMapCollView.visibleCells.forEach { (cell) in
-            if let seatCell = cell as? SeatCollCell, let seatPassenger = seatCell.viewModel.seatData.columnData.passenger {
-                if seatPassenger.id == passenger?.id {
-                    if let index = seatCell.indexPath {
-                        indexPaths.append(index)
-                    }
-                }
-            }
-        }
-        
+    private func savePassengerForSeat(_ seatData: SeatMapModel.SeatMapRow,_ passenger: ATContact?) {
+
         viewModel.flightData.md.rows.forEach { (rowKey, row) in
             var newRow = row
             newRow.forEach { (columnKey, column) in
@@ -103,10 +95,6 @@ extension SeatMapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
         
         DispatchQueue.main.async {
             self.seatMapCollView.reloadData()
-//            self.seatMapCollView.reloadItems(at: indexPaths)
-
-
         }
-        
     }
 }

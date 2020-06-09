@@ -21,6 +21,8 @@ class SelectPassengerCell: UICollectionViewCell {
         passengerImageView.roundedCorners(cornerRadius: selectionImageView.frame.height/2)
         selectionImageView.roundedCorners(cornerRadius: selectionImageView.frame.height/2)
         seatLabel.text = ""
+        seatLabel.font = AppFonts.Regular.withSize(14)
+        seatLabel.textColor = AppColors.themeGray40
         //self.setNeedsLayout()
         //self.layoutIfNeeded()
     }
@@ -41,14 +43,22 @@ class SelectPassengerCell: UICollectionViewCell {
         
     }
     
-    func setupCellFor(_ passengerData: ATContact,_ seatData: SeatMapModel.SeatMapRow) {
-        if passengerData.id == seatData.columnData.passenger?.id {
+    func setupCellFor(_ passengerData: ATContact,_ selectedSeatData: SeatMapModel.SeatMapRow,_ seatDataArr: [SeatMapModel.SeatMapRow]) {
+        populateData(data: passengerData)
+        if passengerData.id == selectedSeatData.columnData.passenger?.id {
             selectionImageView.isHidden = false
-            seatLabel.text = seatData.columnData.ssrCode + " . " + "\(seatData.columnData.amount)"
+            seatLabel.text = selectedSeatData.columnData.ssrCode.replacingOccurrences(of: "-", with: "") + "・" + "₹\(selectedSeatData.columnData.amount)"
         } else {
             selectionImageView.isHidden = true
-            seatLabel.text?.removeAll()
-            
+            if let seat = seatDataArr.first(where: { $0.columnData.passenger?.id == passengerData.id }) {
+                if seat.columnData.ssrCode != selectedSeatData.columnData.ssrCode {
+                    seatLabel.text = seat.columnData.ssrCode.replacingOccurrences(of: "-", with: "") + "・" + "₹\(seat.columnData.amount)"
+                } else {
+                    seatLabel.text?.removeAll()
+                }
+            } else {
+                seatLabel.text?.removeAll()
+            }
         }
     }
 
