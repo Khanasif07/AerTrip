@@ -13,21 +13,21 @@ class SeatMapContainerVC: UIViewController {
 
     // MARK: Properties
     
-    private var viewModel = SeatMapContainerVM()
+    internal var viewModel = SeatMapContainerVM()
+    internal var allChildVCs = [SeatMapVC]()
     
     // Parchment View
     fileprivate var parchmentView : PagingViewController?
-    
-    private var allTabsStr = [NSAttributedString]()
-    
-    private var allChildVCs = [SeatMapVC]()
-    private var currentIndex = 0
-    private var allFlightsData = [SeatMapModel.SeatMapFlight]()
     
     // MARK: IBOutlets
     
     @IBOutlet weak var topNavBarView: TopNavigationView!
     @IBOutlet weak var seatMapContainerView: UIView!
+    @IBOutlet weak var planeLayoutView: UIView!
+    @IBOutlet weak var planeLayoutScrollView: UIScrollView!
+    @IBOutlet weak var planeLayoutScrollContentView: UIView!
+    @IBOutlet weak var planeLayoutCollView: UICollectionView!
+    @IBOutlet weak var planeLayoutCollViewWidth: NSLayoutConstraint!
     
     // MARK: View Life Cycle
     override func viewDidLoad() {
@@ -49,10 +49,20 @@ class SeatMapContainerVC: UIViewController {
         setupNavBar()
         viewModel.delegate = self
         viewModel.fetchSeatMapData()
+        setupPlaneLayoutCollView()
     }
     
     func setViewModel(_ vm: SeatMapContainerVM) {
         self.viewModel = vm
+    }
+    
+    private func setupPlaneLayoutCollView() {
+        planeLayoutCollView.showsHorizontalScrollIndicator = false
+        planeLayoutCollView.register(UINib(nibName: "LayoutSeatCollCell", bundle: nil), forCellWithReuseIdentifier: "LayoutSeatCollCell")
+        planeLayoutScrollContentView.backgroundColor = AppColors.themeGray04
+        planeLayoutCollView.backgroundColor = AppColors.themeGray10
+        planeLayoutCollView.delegate = self
+        planeLayoutCollView.dataSource = self
     }
     
     private func setupNavBar() {
@@ -68,9 +78,9 @@ class SeatMapContainerVC: UIViewController {
     private func setUpViewPager() {
         self.allChildVCs.removeAll()
 
-        for index in 0..<allTabsStr.count {
+        for index in 0..<viewModel.allTabsStr.count {
             let vc = SeatMapVC.instantiate(fromAppStoryboard: .Rishabh_Dev)
-            vc.setFlightData(allFlightsData[index])
+            vc.setFlightData(viewModel.allFlightsData[index])
             self.allChildVCs.append(vc)
         }
         self.view.layoutIfNeeded()
@@ -133,12 +143,22 @@ class SeatMapContainerVC: UIViewController {
         let imageString = NSAttributedString(attachment: imageAttachment)
         return imageString
     }
+    
+    private func setCurrentPlaneLayout(_ index: Int) {
+        planeLayoutCollView.reloadData()
+        planeLayoutCollViewWidth.constant = planeLayoutCollView.contentSize.width + 5
+        UIView.animate(withDuration: 0.33, animations: {
+            self.planeLayoutScrollView.layoutIfNeeded()
+        }) { (_) in
+            self.planeLayoutCollView.reloadData()
+        }
+    }
 }
 
 extension SeatMapContainerVC: TopNavigationViewDelegate {
     func topNavBarLeftButtonAction(_ sender: UIButton) {
         allChildVCs.enumerated().forEach { (index, seatMapVC) in
-            seatMapVC.setFlightData(allFlightsData[index])
+            seatMapVC.setFlightData(viewModel.allFlightsData[index])
             if seatMapVC.viewModel.flightData.md.rows.count > 0 {
                 seatMapVC.seatMapCollView.reloadData()
             }
@@ -165,21 +185,22 @@ extension SeatMapContainerVC: PagingViewControllerDataSource , PagingViewControl
     
     
     func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
-        self.allTabsStr.count
+        viewModel.allTabsStr.count
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
-        return self.allChildVCs[index]
+        allChildVCs[index]
     }
     
     func pagingViewController(_: PagingViewController, pagingItemAt index: Int) -> PagingItem {
-        return MenuItem(title: "", index: index, isSelected:true, attributedTitle: allTabsStr[index])
+        return MenuItem(title: "", index: index, isSelected:true, attributedTitle: viewModel.allTabsStr[index])
     }
     
     func pagingViewController(_ pagingViewController: PagingViewController, didScrollToItem pagingItem: PagingItem, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool)  {
         
         if let pagingIndexItem = pagingItem as? MenuItem {
-            currentIndex = pagingIndexItem.index
+            viewModel.currentIndex = pagingIndexItem.index
+            setCurrentPlaneLayout(viewModel.currentIndex)
         }
     }
 }
@@ -208,9 +229,13 @@ extension SeatMapContainerVC: SeatMapContainerDelegate {
             let flightsStr = $0.value.flights.map {
                 createAttHeaderTitle($0.value.fr, $0.value.to)
             }
-            allTabsStr.append(contentsOf: flightsStr)
+            viewModel.allTabsStr.append(contentsOf: flightsStr)
         }
-        allFlightsData = totalFlightsData
+        viewModel.allFlightsData = totalFlightsData
         setUpViewPager()
+        planeLayoutCollView.reloadData()
+        DispatchQueue.delay(0.5) {
+            self.setCurrentPlaneLayout(0)
+        }
     }
 }

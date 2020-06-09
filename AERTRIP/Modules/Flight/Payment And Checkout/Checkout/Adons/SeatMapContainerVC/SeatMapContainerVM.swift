@@ -22,6 +22,10 @@ class SeatMapContainerVM {
     private let fk: String
     var seatMapModel = SeatMapModel()
     
+    var allTabsStr = [NSAttributedString]()
+    var currentIndex = 0
+    var allFlightsData = [SeatMapModel.SeatMapFlight]()
+    
     convenience init() {
         self.init("", "", "")
     }
